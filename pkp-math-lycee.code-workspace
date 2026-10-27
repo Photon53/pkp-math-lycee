@@ -1,0 +1,102 @@
+{
+  // Ouvrir ce fichier dans VS Code : Fichier > Ouvrir l'espace de travail à partir d'un fichier.
+  // Chaque dossier a ses propres tests (pytest pour moteur et api, Vitest pour web).
+  "folders": [
+    { "name": "projet", "path": "." },
+    { "name": "moteur", "path": "engine" },
+    { "name": "api", "path": "api" },
+    { "name": "web", "path": "web" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.pytest_cache": true,
+      "**/*.egg-info": true
+    },
+    "files.eol": "\n",
+    "editor.rulers": [120],
+    "[javascript][javascriptreact]": { "editor.tabSize": 2 },
+    "[python]": { "editor.tabSize": 4 },
+    "python.terminal.activateEnvironment": true
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.debugpy",
+      "charliermarsh.ruff",
+      "vitest.explorer",
+      "ms-azuretools.vscode-docker",
+      "editorconfig.editorconfig"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        // Port 8010 : 8000 est souvent déjà pris (autre projet Python).
+        "name": "API (FastAPI, rechargement auto)",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": ["app.main:app", "--reload", "--port", "8010"],
+        "cwd": "${workspaceFolder:api}",
+        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe",
+        "justMyCode": true
+      },
+      {
+        "name": "Front (Vite)",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev",
+        "cwd": "${workspaceFolder:web}",
+        "env": { "PKP_API_URL": "http://localhost:8010" }
+      },
+      {
+        "name": "Purge RGPD (simulation)",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "app.purge",
+        "args": ["--simulation"],
+        "cwd": "${workspaceFolder:api}",
+        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "▶ API + Front",
+        "configurations": ["API (FastAPI, rechargement auto)", "Front (Vite)"],
+        "stopAll": true
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Installer l'environnement de développement",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/installer-dev.ps1" },
+        "command": "bash scripts/installer-dev.sh",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Réinitialiser la base de démo",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/installer-dev.ps1 -BaseSeulement" },
+        "command": "bash scripts/installer-dev.sh --base-seulement",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Tests : tout le projet",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/tests.ps1" },
+        "command": "bash scripts/tests.sh",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "group": { "kind": "test", "isDefault": true },
+        "problemMatcher": []
+      }
+    ]
+  }
+}

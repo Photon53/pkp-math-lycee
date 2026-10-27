@@ -1,0 +1,78 @@
+# Déploiement complet : PostgreSQL + API + purge RGPD quotidienne + Caddy (HTTPS).
+# Usage, depuis deploy/ : cp .env.example .env  (puis remplir)  &&  docker compose up -d --build
+
+x-api-env: &api-env
+  PKP_ENVIRONNEMENT: production
+  PKP_DATABASE_URL: postgresql+psycopg://pkp:${PKP_DB_MOT_DE_PASSE:?définir PKP_DB_MOT_DE_PASSE dans .env}@db:5432/pkp
+  PKP_SECRET_KEY: ${PKP_SECRET_KEY:?définir PKP_SECRET_KEY dans .env}
+  PKP_CORS_ORIGINS: '["https://${PKP_DOMAINE}"]'
+  PKP_RETENTION_JOURS: ${PKP_RETENTION_JOURS:-365}
+
+# Les journaux contiennent des adresses IP (donnée personnelle) : taille bornée.
+x-journaux: &journaux
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: pkp
+      POSTGRES_USER: pkp
+      POSTGRES_PASSWORD: ${PKP_DB_MOT_DE_PASSE:?définir PKP_DB_MOT_DE_PASSE dans .env}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pkp -d pkp"]
+      interval: 5s
+      retries: 12
+    restart: unless-stopped
+    logging: *journaux
+
+  api:
+    image: pkp-api:latest
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    environment: *api-env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *journaux
+    # Aucun port publié : seul Caddy joint l'API, sur le réseau interne.
+
+  purge:
+    image: pkp-api:latest
+    environment: *api-env
+    command: ["sh", "-c", "while true; do python -m app.purge; sleep 86400; done"]
+    depends_on:
+      api:
+        condition: service_started
+    restart: unless-stopped
+    logging: *journaux
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    environment:
+      PKP_DOMAINE: ${PKP_DOMAINE:?définir PKP_DOMAINE dans .env}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+    restart: unless-stopped
+    logging: *journaux
+
+volumes:
+  db:
+  caddy_data:
+  caddy_config:
