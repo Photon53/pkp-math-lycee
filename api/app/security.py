@@ -8,13 +8,21 @@ import base64
 import hashlib
 import hmac
 import secrets
+import threading
 import time
 
 from app.config import settings
 
-# Coût scrypt. Les paramètres sont enregistrés dans chaque empreinte, on peut donc
-# les augmenter plus tard sans invalider les mots de passe existants.
-_N, _R, _P = 2**14, 8, 1
+# Coût scrypt : recommandation OWASP (Password Storage Cheat Sheet) N = 2^17, r = 8, p = 1,
+# soit 128 Mo de mémoire par hachage (audit A-06). Les paramètres sont enregistrés dans
+# chaque empreinte : une empreinte plus faible est re-hachée à la connexion (doit_rehacher).
+_N, _R, _P = 2**17, 8, 1
+# Python limite scrypt à 32 Mo par défaut : on autorise jusqu'à 2^18 (256 Mo). Une empreinte
+# demandant davantage est refusée plutôt que de laisser saturer la mémoire.
+_MEMOIRE_MAX = 300 * 1024 * 1024
+# Au plus 2 hachages simultanés (≈ 256 Mo) : sans cette borne, une rafale de connexions
+# parallèles (jusqu'à 40 dans le pool de threads d'uvicorn) réclamerait ≈ 5 Go.
+_CALCULS_SIMULTANES = threading.BoundedSemaphore(2)
 
 
 def _b64(donnees: bytes) -> str:
@@ -25,10 +33,14 @@ def _deb64(texte: str) -> bytes:
     return base64.urlsafe_b64decode(texte + "=" * (-len(texte) % 4))
 
 
+def _scrypt(mot_de_passe: str, sel: bytes, n: int, r: int, p: int) -> bytes:
+    with _CALCULS_SIMULTANES:
+        return hashlib.scrypt(mot_de_passe.encode(), salt=sel, n=n, r=r, p=p, maxmem=_MEMOIRE_MAX)
+
+
 def hacher_mot_de_passe(mot_de_passe: str) -> str:
     sel = secrets.token_bytes(16)
-    empreinte = hashlib.scrypt(mot_de_passe.encode(), salt=sel, n=_N, r=_R, p=_P)
-    return f"scrypt${_N}${_R}${_P}${_b64(sel)}${_b64(empreinte)}"
+    return f"scrypt${_N}${_R}${_P}${_b64(sel)}${_b64(_scrypt(mot_de_passe, sel, _N, _R, _P))}"
 
 
 def verifier_mot_de_passe(mot_de_passe: str, stocke: str) -> bool:
@@ -36,29 +48,44 @@ def verifier_mot_de_passe(mot_de_passe: str, stocke: str) -> bool:
         algo, n, r, p, sel, empreinte = stocke.split("$")
         if algo != "scrypt":
             return False
-        calcul = hashlib.scrypt(mot_de_passe.encode(), salt=_deb64(sel), n=int(n), r=int(r), p=int(p))
-    except ValueError:
+        calcul = _scrypt(mot_de_passe, _deb64(sel), int(n), int(r), int(p))
+    except (ValueError, MemoryError):
         return False
     return hmac.compare_digest(calcul, _deb64(empreinte))
 
 
-def creer_jeton(role: str, sujet_id: int, duree_h: int) -> str:
-    """Jeton `charge.signature` où charge = « role:id:expiration »."""
-    charge = f"{role}:{sujet_id}:{int(time.time()) + duree_h * 3600}".encode()
+def doit_rehacher(stocke: str) -> bool:
+    """Vrai si l'empreinte a été calculée avec des paramètres plus faibles que les actuels."""
+    try:
+        _, n, r, p, _, _ = stocke.split("$")
+        return (int(n), int(r), int(p)) < (_N, _R, _P)
+    except ValueError:
+        return True
+
+
+def version_mot_de_passe(empreinte_stockee: str) -> str:
+    """Empreinte courte du hachage du mot de passe, embarquée dans les jetons enseignant.
+    Changer le mot de passe change cette valeur et invalide tous les jetons émis avant (audit A-09)."""
+    return hashlib.sha256(empreinte_stockee.encode()).hexdigest()[:16]
+
+
+def creer_jeton(role: str, sujet_id: int, duree_h: int, version: str = "") -> str:
+    """Jeton `charge.signature` où charge = « role:id:expiration:version »."""
+    charge = f"{role}:{sujet_id}:{int(time.time()) + duree_h * 3600}:{version}".encode()
     return f"{_b64(charge)}.{_b64(_signer(charge))}"
 
 
-def lire_jeton(jeton: str, role_attendu: str) -> int | None:
-    """Renvoie l'id du sujet si le jeton est authentique, non expiré et du bon rôle."""
+def lire_jeton(jeton: str, role_attendu: str) -> tuple[int, str] | None:
+    """Renvoie (id du sujet, version) si le jeton est authentique, non expiré et du bon rôle."""
     try:
         charge_b64, signature_b64 = jeton.split(".")
         charge = _deb64(charge_b64)
         if not hmac.compare_digest(_signer(charge), _deb64(signature_b64)):
             return None
-        role, sujet_id, expiration = charge.decode().split(":")
+        role, sujet_id, expiration, version = charge.decode().split(":")
         if role != role_attendu or int(expiration) < time.time():
             return None
-        return int(sujet_id)
+        return int(sujet_id), version
     except (ValueError, UnicodeDecodeError):
         return None
 

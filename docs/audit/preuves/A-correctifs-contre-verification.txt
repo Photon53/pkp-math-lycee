@@ -1,0 +1,10 @@
+A-06 code : _N=2^17, _R=8, _P=1
+A-06 empreinte créée par le script de démo : N=2^17 r=8 p=1 -> RÉUSSI
+A-06 connexion réelle : 200 en 4050 ms
+A-06 empreinte héritée avant connexion : N=2^14
+A-06 après connexion réussie : statut 200, empreinte N=2^17 (re-hachage à la connexion)
+A-09 (e) jeton avant changement : 200
+A-09 (e) même jeton après changement de mot de passe : 401 -> RÉUSSI
+A-09 (e) nouvelle connexion avec le nouveau mot de passe : 200
+A-09 contrôles inchangés : élève /eleves/moi 200, jeton expiré 401
+A-04 versions livrées : dompurify 3.4.17, katex 0.18.11 ; npm audit --omit=dev : {'info': 0, 'low': 0, 'moderate': 0, 'high': 0, 'critical': 0, 'total': 0} -> RÉUSSI

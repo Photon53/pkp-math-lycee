@@ -11,6 +11,9 @@ Seul Caddy est exposé. Il obtient seul le certificat HTTPS (Let's Encrypt).
 ## Prérequis
 
 - Un serveur Linux (2 Go de RAM suffisent) hébergé dans l'UE, avec Docker et Docker Compose.
+  Chaque connexion enseignant calcule un hachage scrypt de 128 Mo (mesuré : environ 4 s sur un PC de développement
+  chargé) : c'est voulu (résistance aux attaques par force brute). Au plus 2 hachages tournent en même temps
+  (≈ 256 Mo), pour qu'une rafale de connexions ne sature pas la mémoire.
 - Un nom de domaine dont l'enregistrement DNS pointe vers ce serveur.
 - Ports 80 et 443 ouverts (le 80 sert à la validation du certificat).
 
@@ -49,6 +52,7 @@ conservation RGPD, et **tester une restauration** au moins une fois par an.
 
 ## Limites connues
 
+- **Changement de mot de passe** (`python -m app.admin mot-de-passe`) : déconnecte l'enseignant de tous ses appareils.
 - **Un seul processus API** : la limitation des tentatives de connexion est en mémoire. Pour
   plusieurs serveurs ou workers, il faudrait un stockage partagé (Redis). Un redémarrage remet
   les compteurs à zéro.

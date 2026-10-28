@@ -1,5 +1,6 @@
 """Dépendances FastAPI : qui fait la requête ?"""
 
+import hmac
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
@@ -8,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.db import models
 from app.db.session import get_session
-from app.security import lire_jeton
+from app.security import lire_jeton, version_mot_de_passe
 
 ELEVE, ENSEIGNANT = "eleve", "enseignant"
 
@@ -27,17 +28,18 @@ def _non_authentifie() -> HTTPException:
 
 
 def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Eleve:
-    sujet = identifiants and lire_jeton(identifiants.credentials, ELEVE)
-    eleve = sujet and session.get(models.Eleve, sujet)
+    lu = identifiants and lire_jeton(identifiants.credentials, ELEVE)
+    eleve = lu and session.get(models.Eleve, lu[0])
     if not eleve:  # jeton invalide, ou élève supprimé depuis (purge RGPD)
         raise _non_authentifie()
     return eleve
 
 
 def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
-    sujet = identifiants and lire_jeton(identifiants.credentials, ENSEIGNANT)
-    enseignant = sujet and session.get(models.Enseignant, sujet)
-    if not enseignant:
+    lu = identifiants and lire_jeton(identifiants.credentials, ENSEIGNANT)
+    enseignant = lu and session.get(models.Enseignant, lu[0])
+    # Jeton émis avant le dernier changement de mot de passe : refusé (audit A-09).
+    if not enseignant or not hmac.compare_digest(lu[1], version_mot_de_passe(enseignant.mot_de_passe_hash)):
         raise _non_authentifie()
     return enseignant
 

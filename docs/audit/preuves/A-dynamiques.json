@@ -1,0 +1,58 @@
+{
+  "A-06": [
+    "code : _N=16384 (2^14), _R=8, _P=1",
+    "empreinte en base : algo=scrypt N=16384 r=8 p=1 sel=16 octets",
+    "durée d'un hachage : 211 ms",
+    "critère N >= 2^17 (131072) : ÉCHOUÉ ; comparaison constante : True"
+  ],
+  "A-07": [
+    "(a) Yanis GET /seances/3/question (séance de Lina) -> 404",
+    "(a) Yanis POST /seances/3/reponses (séance de Lina) -> 404",
+    "(a) Yanis POST /seances/3/fin (séance de Lina) -> 404",
+    "(b) énumération séances 1..200 avec le jeton de Yanis (hors sa séance 4) : {404: 198, 409: 1}",
+    "(c) paramètres de chemin des routes non-enseignant : ['competence_id', 'seance_id']",
+    "(d) usurpation : connexion « Lina » sans secret -> 200, eleve.id=1 (Lina = 1) ; progression lisible -> 200, 5 réponses de Lina visibles"
+  ],
+  "A-08": [
+    "enseignant B GET /enseignants/classes/1/eleves (ressource de A) -> 404",
+    "enseignant B GET /enseignants/eleves/1/progression (ressource de A) -> 404",
+    "enseignant B GET /enseignants/eleves/1/export (ressource de A) -> 404",
+    "enseignant B DELETE /enseignants/eleves/1 (ressource de A) -> 404",
+    "enseignant B DELETE /enseignants/classes/1 (ressource de A) -> 404",
+    "enseignant B GET /enseignants/classes -> []",
+    "jeton ÉLÈVE sur 9 routes enseignant (hors DELETE) : codes [401]",
+    "jeton ENSEIGNANT sur 8 routes élève : codes [401]",
+    "jeton ÉLÈVE sur les DELETE enseignant : [401, 401]",
+    "enseignant B archive la question 1 (banque commune, décision D3) -> 200, archivee=True"
+  ],
+  "A-09": [
+    "(a) jeton élève expiré -> 401",
+    "(b) charge modifiée (id 2 -> 1) avec l'ancienne signature -> 401",
+    "(c) rôle « eleve » réécrit en « enseignant » -> 401 ; jeton élève authentique sur route enseignant -> 401",
+    "(d) jeton d'un élève supprimé (Hugo) -> 401",
+    "(e) jeton enseignant émis AVANT changement de mot de passe -> 200",
+    "(f) après changement de PKP_SECRET_KEY, ancien jeton élève -> 401",
+    "(g) durée de validité jeton élève : 12.00 h",
+    "(g) durée de validité jeton enseignant : 8.00 h"
+  ],
+  "A-10": [
+    "clé par défaut -> REFUSÉ : PKP_SECRET_KEY doit être définie (32 caractères minimum, aléatoire). [type=value_error, input_value={'environnement': 'produc...v-uniquement-a-changer'}, input_type=dict]",
+    "clé de 20 caractères -> REFUSÉ : PKP_SECRET_KEY doit être définie (32 caractères minimum, aléatoire). [type=value_error, input_value={'environnement': 'produc... 'kkkkkkkkkkkkkkkkkkkk'}, input_type=dict]",
+    "base SQLite -> REFUSÉ : PKP_DATABASE_URL doit pointer vers PostgreSQL en production. [type=value_error, input_value={'environnement': 'produc...kkkkkkkkkkkkkkkkkkkkkk'}, input_type=dict]",
+    "CORS * -> REFUSÉ : PKP_CORS_ORIGINS ne doit contenir que le domaine public du site. [type=value_error, input_value={'environnement': 'produc...kkkkkkkkkkkkkkkkkkkkkk'}, input_type=dict]",
+    "configuration valide (/docs, /redoc, /openapi.json) -> OK [404, 404, 404]"
+  ],
+  "A-11": [
+    "(a) 6e tentative (bon mot de passe) après 5 échecs -> 429, Retry-After=899",
+    "(b) code valide après 30 codes inconnus depuis la même IP -> 429",
+    "(c) 35 connexions d'élèves depuis la même IP : {200: 35}",
+    "(d) stockage des compteurs : defaultdict en mémoire du processus (remis à zéro à chaque redémarrage)"
+  ],
+  "A-13": [
+    "(a) export de Lina : 5 réponses exportées / 5 en base ; prénoms présents dans l'export : {'Lina'}",
+    "(b) après suppression de Lina : séances=0, réponses=0, élève=0",
+    "(c) après suppression de la classe 2NDE-A-DEMO : élèves restants=0, séances restantes=0",
+    "(d) purge simulée (rétention 365 j, Emma inactive depuis 500 j) : ['Emma'] ; élèves encore en base : 1",
+    "(d) purge réelle : ['Emma'] ; élèves restants : []"
+  ]
+}

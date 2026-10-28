@@ -1,0 +1,12 @@
+INFO:     Started server process [10728]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8014 (Press CTRL+C to quit)
+INFO:     127.0.0.1:51022 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52771 - "POST /eleves/connexion HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52773 - "POST /seances HTTP/1.1" 201 Created
+INFO:     127.0.0.1:52775 - "GET /seances/3/question HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52777 - "POST /seances/3/reponses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52779 - "POST /enseignants/connexion HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52781 - "GET /enseignants/eleves/1/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52783 - "POST /enseignants/connexion HTTP/1.1" 401 Unauthorized
