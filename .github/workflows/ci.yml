@@ -48,5 +48,8 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci --no-audit --no-fund
+      # Audit A-04 : aucune vulnérabilité high/critical dans ce qui est livré au navigateur.
+      - name: Vulnérabilités des dépendances livrées
+        run: npm audit --omit=dev --audit-level=high
       - run: npm test
       - run: npm run build

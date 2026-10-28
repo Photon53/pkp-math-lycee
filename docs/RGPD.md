@@ -43,8 +43,8 @@ Légende : ✅ assuré par le logiciel (et testé) · ☐ à faire par l'établi
 | | Point | Où |
 |---|-------|----|
 | ✅ | HTTPS obligatoire, certificat automatique, HSTS | `deploy/Caddyfile` |
-| ✅ | Mots de passe enseignant hachés (scrypt, sel aléatoire), 12 caractères minimum | `app/security.py`, `app/admin.py` |
-| ✅ | Jetons signés (HMAC-SHA256), durée limitée (12 h élève, 8 h enseignant) | `app/security.py` |
+| ✅ | Mots de passe enseignant hachés (scrypt N = 2¹⁷, r = 8, p = 1 selon OWASP, sel aléatoire), re-hachés à la connexion si plus faibles ; 12 caractères minimum | `app/security.py`, `app/admin.py` |
+| ✅ | Jetons signés (HMAC-SHA256), durée limitée (12 h élève, 8 h enseignant) ; jetons enseignant invalidés par un changement de mot de passe | `app/security.py`, `app/auth.py` |
 | ✅ | Démarrage refusé en production sans clé secrète forte, avec SQLite ou avec CORS ouvert | `app/config.py` |
 | ✅ | Limitation des tentatives : 5 échecs / 15 min par compte enseignant ; 30 codes classe faux / 15 min par IP | `app/limitation.py` |
 | ✅ | Cloisonnement : un enseignant ne voit que ses classes (404 sinon) | `routes/enseignants.py` |

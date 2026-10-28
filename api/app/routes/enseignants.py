@@ -31,7 +31,13 @@ from app.schemas import (
     QuestionCreation,
     QuestionEnseignant,
 )
-from app.security import creer_jeton, hacher_mot_de_passe, verifier_mot_de_passe
+from app.security import (
+    creer_jeton,
+    doit_rehacher,
+    hacher_mot_de_passe,
+    verifier_mot_de_passe,
+    version_mot_de_passe,
+)
 
 router = APIRouter(prefix="/enseignants", tags=["enseignant"])
 
@@ -61,8 +67,14 @@ def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) 
         limitation.echecs_enseignant.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Email ou mot de passe incorrect.")
     limitation.echecs_enseignant.effacer(compte)
+    if doit_rehacher(enseignant.mot_de_passe_hash):
+        # Empreinte calculée avec un coût plus faible que l'actuel (audit A-06) : on la
+        # renforce maintenant que le mot de passe est connu. Les anciens jetons deviennent invalides.
+        enseignant.mot_de_passe_hash = hacher_mot_de_passe(corps.mot_de_passe)
+        session.commit()
+    version = version_mot_de_passe(enseignant.mot_de_passe_hash)
     return JetonEnseignant(
-        jeton=creer_jeton(ENSEIGNANT, enseignant.id, settings.duree_jeton_enseignant_h), nom=enseignant.nom
+        jeton=creer_jeton(ENSEIGNANT, enseignant.id, settings.duree_jeton_enseignant_h, version), nom=enseignant.nom
     )
 
 
