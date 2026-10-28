@@ -42,5 +42,5 @@ try {
 } finally { Pop-Location }
 
 Write-Host "`nPrêt." -ForegroundColor Green
-Write-Host "Dans VS Code : ouvrir pkp-math-lycee.code-workspace, puis Exécuter et déboguer > « ▶ API + Front »."
+Write-Host "Dans VS Code : ouvrir pkp-math-lycee.code-workspace, puis Exécuter et déboguer > « ▶ Application complète (API + Front) »."
 Write-Host "Front : http://localhost:5173  ·  Enseignant : /enseignant (demo@pkp.test, mot de passe dans api\app\db\seed.py)"
