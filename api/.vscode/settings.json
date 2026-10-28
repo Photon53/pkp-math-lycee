@@ -3,5 +3,16 @@
   "python.defaultInterpreterPath": "${workspaceFolder}/../.venv/Scripts/python.exe",
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestArgs": ["tests", "-W", "ignore::DeprecationWarning"]
+  "python.testing.pytestArgs": [
+    "tests",
+    "-W",
+    "ignore::DeprecationWarning"
+  ],
+  "python-envs.pythonProjects": [
+    {
+      "path": ".",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ]
 }
