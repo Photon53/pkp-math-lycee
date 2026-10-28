@@ -67,6 +67,24 @@ class TestExpression:
         assert corriger(q(TypeQuestion.EXPRESSION, "exp(2x)"), "exp(x)^2")
         assert corriger(q(TypeQuestion.EXPRESSION, "2pi*x"), "2πx")
 
+    @pytest.mark.parametrize(
+        ("solution", "saisie"),
+        [("ln(5)", "ln5"), ("ln(5)", "ln 5"), ("2ln(2)", "2ln2"), ("ln(x) + 1", "ln x + 1"),
+         ("ln(x) + 1", "1 + lnx"), ("sqrt(2)/2", "sqrt(2)/2"), ("cos(x)", "cosx")],
+    )
+    def test_fonction_sans_parentheses(self, solution, saisie):
+        type_ = TypeQuestion.EXPRESSION if "x" in solution else TypeQuestion.NUMERIQUE
+        assert corriger(q(type_, solution), saisie)
+
+    @pytest.mark.parametrize(
+        ("solution", "saisie"),
+        # Ambigu : ln(2)·x ou ln(2x) ? ln(x)² ou ln(x²) ? ln(2)/3 ou ln(2/3) ? -> refusé, jamais deviné.
+        [("ln(2x)", "ln2x"), ("2ln(x)", "ln x^2"), ("ln(2/3)", "ln 2/3")],
+    )
+    def test_fonction_sans_parentheses_ambigue_refusee(self, solution, saisie):
+        type_ = TypeQuestion.EXPRESSION if "x" in solution else TypeQuestion.NUMERIQUE
+        assert not corriger(q(type_, solution), saisie)
+
     def test_saisie_trop_longue(self):
         assert not corriger(q(TypeQuestion.EXPRESSION, "x"), "x" + "+0" * 200)
 

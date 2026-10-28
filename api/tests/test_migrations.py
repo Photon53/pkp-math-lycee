@@ -7,10 +7,10 @@ from app.db.models import Base
 from app.db.session import creer_moteur
 from tests.conftest import config_alembic
 
-TABLES = {"enseignant", "classe", "eleve", "chapitre", "competence", "question", "seance", "reponse"}
+TABLES = {"enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse"}
 
 
-def test_upgrade_cree_les_8_tables(db_url):
+def test_upgrade_cree_les_9_tables(db_url):
     moteur = creer_moteur(db_url)
     assert set(inspect(moteur).get_table_names()) == TABLES | {"alembic_version"}
     moteur.dispose()

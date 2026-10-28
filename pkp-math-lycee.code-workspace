@@ -99,6 +99,20 @@
         "problemMatcher": []
       },
       {
+        "label": "Contenu : vérifier les fichiers YAML",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu verifier",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
+        "problemMatcher": []
+      },
+      {
+        "label": "Contenu : importer dans la base de démo",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu importer",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
+        "problemMatcher": []
+      },
+      {
         "label": "Tests : tout le projet",
         "type": "shell",
         "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/tests.ps1" },

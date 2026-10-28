@@ -22,16 +22,17 @@ def compter(session, modele) -> int:
 class TestDonneesDeDemo:
     def test_contenu(self, demo):
         assert compter(demo, models.Enseignant) == 1
-        assert compter(demo, models.Classe) == 2
-        assert compter(demo, models.Eleve) == 4
-        assert compter(demo, models.Chapitre) == 3
-        assert compter(demo, models.Competence) == 5
-        assert compter(demo, models.Question) == 15
+        assert compter(demo, models.Classe) == 3
+        assert compter(demo, models.Eleve) == 5
+        assert compter(demo, models.Chapitre) == 5
+        assert compter(demo, models.Competence) == 12
+        assert compter(demo, models.Question) == 55
+        assert compter(demo, models.Lecon) == 12
         assert compter(demo, models.Reponse) == 7
 
     def test_idempotent(self, demo):
         assert charger_demo(demo) is False
-        assert compter(demo, models.Question) == 15
+        assert compter(demo, models.Question) == 55
 
     def test_chaque_solution_est_acceptee_par_le_moteur(self, demo):
         """Garde-fou qualité : une solution illisible lèverait ExpressionInvalide."""
@@ -97,9 +98,9 @@ class TestPurgeRgpd:
     def test_supprimer_une_classe_supprime_ses_eleves(self, demo):
         demo.execute(models.Classe.__table__.delete().where(models.Classe.code == "2NDE-A-DEMO"))
         demo.commit()
-        assert compter(demo, models.Eleve) == 1
+        assert compter(demo, models.Eleve) == 2
         assert compter(demo, models.Reponse) == 0
-        assert compter(demo, models.Question) == 15
+        assert compter(demo, models.Question) == 55
 
 
 def test_historique_vers_moteur(demo):

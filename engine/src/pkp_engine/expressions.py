@@ -119,11 +119,16 @@ def _normaliser(texte: str) -> str:
             jetons.append(("fonction", identifiant))
         elif identifiant in CONSTANTES:
             jetons.append(("valeur", identifiant))
+        elif identifiant[:-1] in FONCTIONS:
+            # « lnx », « cosx » : une fonction collée à une seule lettre.
+            jetons += [("fonction", identifiant[:-1]), ("valeur", identifiant[-1])]
         else:
             # « xy » signifie x*y : les variables n'ont qu'une lettre.
             jetons.extend(("valeur", lettre) for lettre in identifiant)
     if texte[position:].strip():
         raise ExpressionInvalide(f"caractère inattendu : {texte[position:]!r}")
+
+    jetons = _arguments_sans_parentheses(jetons)
 
     # Multiplication implicite : 2x, 2(x+1), x(x+1), (x+1)(x-1), 2sqrt(3)…
     morceaux: list[str] = []
@@ -137,6 +142,26 @@ def _normaliser(texte: str) -> str:
         morceaux.append(valeur)
         precedent = (genre, valeur)
     return "".join(morceaux)
+
+
+def _arguments_sans_parentheses(jetons: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    """« ln5 », « 2ln2 », « ln x + 1 » : la fonction s'applique au seul nombre ou à la
+    seule lettre qui suit. Si la suite est ambiguë (« ln2x », « ln x^2 », « ln 2/3 »),
+    la saisie est refusée plutôt que devinée."""
+    resultat: list[tuple[str, str]] = []
+    i = 0
+    while i < len(jetons):
+        genre, valeur = jetons[i]
+        resultat.append(jetons[i])
+        if genre == "fonction" and i + 1 < len(jetons) and jetons[i + 1][0] in ("nombre", "valeur"):
+            suivant = jetons[i + 2] if i + 2 < len(jetons) else None
+            if suivant is not None and suivant not in (("op", "+"), ("op", "-"), ("op", ")")):
+                raise ExpressionInvalide(f"parenthèses nécessaires après {valeur} : écrire {valeur}(…)")
+            resultat += [("op", "("), jetons[i + 1], ("op", ")")]
+            i += 2
+            continue
+        i += 1
+    return resultat
 
 
 _NOEUDS_AUTORISES = (

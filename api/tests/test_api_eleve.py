@@ -69,7 +69,7 @@ class TestParcours:
     def test_question_publique_sans_solution(self, client):
         h = connecter_eleve(client)
         q = client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).json()
-        assert set(q) == {"id", "enonce", "type", "difficulte"}
+        assert set(q) == {"id", "competence_id", "enonce", "type", "difficulte"}
 
     def test_redemander_renvoie_la_meme_question(self, client):
         h = connecter_eleve(client)
@@ -148,8 +148,10 @@ class TestParcours:
         assert not vues & archivees
 
     def test_aucune_question_pour_le_niveau(self, client):
-        code = client.post("/enseignants/classes", headers=connecter_enseignant(client), json={"niveau": "Tle"}).json()["code"]
-        h = connecter_eleve(client, "Zoé", code)
+        h_prof = connecter_enseignant(client)
+        for question_id in (14, 15):  # les seules questions de 1re
+            client.post(f"/enseignants/questions/{question_id}/archiver", headers=h_prof)
+        h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
         assert client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).status_code == 204
 
     def test_progression(self, client):

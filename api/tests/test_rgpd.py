@@ -52,10 +52,10 @@ class TestSuppressionClasse:
         jeton_lina = connecter_eleve(client, "Lina")
         h = connecter_enseignant(client)
         assert client.delete("/enseignants/classes/1", headers=h).status_code == 204
-        assert [c["code"] for c in client.get("/enseignants/classes", headers=h).json()] == ["1RE-B-DEMO"]
-        assert compter(session, models.Eleve) == 1
+        assert [c["code"] for c in client.get("/enseignants/classes", headers=h).json()] == ["1RE-B-DEMO", "TLE-C-DEMO"]
+        assert compter(session, models.Eleve) == 2
         assert compter(session, models.Reponse) == 0
-        assert compter(session, models.Question) == 15  # la banque de questions reste
+        assert compter(session, models.Question) == 55  # la banque de questions reste
         assert client.get("/eleves/moi", headers=jeton_lina).status_code == 401
 
     def test_reserve_a_son_enseignant(self, client, autre_enseignant):
@@ -65,16 +65,16 @@ class TestSuppressionClasse:
 class TestPurge:
     def test_rien_a_purger_juste_apres_l_activite(self, client, session):
         assert purger(session, retention_jours=365) == []
-        assert compter(session, models.Eleve) == 4
+        assert compter(session, models.Eleve) == 5
 
     def test_tous_purges_apres_la_duree_de_conservation(self, client, session):
         dans_400_jours = datetime.now(UTC) + timedelta(days=400)
         purges = purger(session, retention_jours=365, maintenant=dans_400_jours)
-        assert sorted(e.prenom for e in purges) == ["Hugo", "Inès", "Lina", "Yanis"]
+        assert sorted(e.prenom for e in purges) == ["Emma", "Hugo", "Inès", "Lina", "Yanis"]
         assert compter(session, models.Eleve) == 0
         assert compter(session, models.Seance) == 0
         assert compter(session, models.Reponse) == 0
-        assert compter(session, models.Classe) == 2  # les classes restent à l'enseignant
+        assert compter(session, models.Classe) == 3  # les classes restent à l'enseignant
 
     def test_seule_la_derniere_activite_compte(self, client, session):
         # Lina : seule séance il y a 2 ans. Les autres : actifs récemment.
@@ -95,8 +95,8 @@ class TestPurge:
 
     def test_simulation_ne_supprime_rien(self, client, session):
         purges = purger(session, retention_jours=0, maintenant=datetime.now(UTC) + timedelta(days=1), simulation=True)
-        assert len(purges) == 4
-        assert compter(session, models.Eleve) == 4
+        assert len(purges) == 5
+        assert compter(session, models.Eleve) == 5
 
 
 class TestComptesEnseignant:

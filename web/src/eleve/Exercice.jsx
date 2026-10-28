@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
+import { Maths } from "../maths.jsx";
 import { ecrire, lire } from "../stockage.js";
 
 export const CLE_SEANCE = "pkp.seance";
@@ -8,8 +9,8 @@ export const CLE_BILAN = "pkp.bilan";
 const BILAN_VIDE = { reponses: 0, reussies: 0 };
 
 const AIDE = {
-  numerique: "Écris 1/2, 0,5 ou -3. Les fractions sont acceptées.",
-  expression: "Écris x^2 ou x², 2x pour 2×x, sqrt(…) pour une racine.",
+  numerique: "Écris 1/2, 0,5 ou -3, ou une valeur exacte comme ln(5), e^2, sqrt(2).",
+  expression: "Écris x^2 ou x², 2x pour 2×x, sqrt(…), ln(x), e^x. Parenthèses conseillées : ln(2x).",
   qcm: "Écris la lettre de la bonne réponse.",
 };
 
@@ -27,7 +28,7 @@ export function decouperQcm(enonce) {
  * Déroulé d'une séance : accueil → question → résultat → question… → bilan.
  * La séance en cours est mémorisée : recharger la page reprend la même question.
  */
-export default function Exercice({ jeton, onExpire }) {
+export default function Exercice({ jeton, onExpire, onVoirCours }) {
   const [seanceId, setSeanceId] = useState(() => lire(CLE_SEANCE));
   const [etape, setEtape] = useState(seanceId ? "chargement" : "accueil");
   const [question, setQuestion] = useState(null);
@@ -196,14 +197,16 @@ export default function Exercice({ jeton, onExpire }) {
           <span className="badge">{LIBELLES_TYPE[question.type]}</span>
           <Difficulte niveau={question.difficulte} />
         </div>
-        <p className="enonce">{intitule}</p>
+        <p className="enonce">
+          <Maths enLigne texte={intitule} />
+        </p>
 
         {options ? (
           <div className="options">
             {options.map((o) => (
               <button key={o.lettre} onClick={() => repondre(o.lettre)} disabled={envoi || repondue}>
                 <span className="lettre">{o.lettre}</span>
-                {o.texte}
+                <Maths enLigne texte={o.texte} />
               </button>
             ))}
           </div>
@@ -251,7 +254,12 @@ export default function Exercice({ jeton, onExpire }) {
             <button autoFocus onClick={() => chargerQuestion(seanceId)} disabled={envoi}>
               Question suivante
             </button>
-            <button className="secondaire" onClick={terminer} disabled={envoi}>
+            {onVoirCours && (
+              <button className="secondaire" onClick={() => onVoirCours(question.competence_id)}>
+                Revoir le cours
+              </button>
+            )}
+            <button className="lien" onClick={terminer} disabled={envoi}>
               Terminer la séance
             </button>
           </div>

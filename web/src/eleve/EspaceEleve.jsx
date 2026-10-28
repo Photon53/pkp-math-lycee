@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
 import { ecrire, lire } from "../stockage.js";
+import Cours from "./Cours.jsx";
 import Exercice, { CLE_BILAN, CLE_SEANCE } from "./Exercice.jsx";
 import Progression from "./Progression.jsx";
 
@@ -10,6 +11,12 @@ const CLE_COMPTE = "pkp.eleve";
 export default function EspaceEleve() {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
   const [onglet, setOnglet] = useState("exercice");
+  const [leconOuverte, setLeconOuverte] = useState(null);
+
+  function voirCours(competenceId) {
+    setLeconOuverte(competenceId);
+    setOnglet("cours");
+  }
 
   function connecter(nouveau) {
     ecrire(CLE_COMPTE, nouveau);
@@ -40,14 +47,15 @@ export default function EspaceEleve() {
         onChange={setOnglet}
         options={[
           ["exercice", "S'entraîner"],
+          ["cours", "Cours"],
           ["progression", "Ma progression"],
         ]}
       />
-      {onglet === "exercice" ? (
-        <Exercice jeton={compte.jeton} onExpire={deconnecter} />
-      ) : (
-        <Progression jeton={compte.jeton} onExpire={deconnecter} />
+      {onglet === "exercice" && <Exercice jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} />}
+      {onglet === "cours" && (
+        <Cours jeton={compte.jeton} onExpire={deconnecter} competenceId={leconOuverte} onChoisir={setLeconOuverte} />
       )}
+      {onglet === "progression" && <Progression jeton={compte.jeton} onExpire={deconnecter} />}
     </>
   );
 }

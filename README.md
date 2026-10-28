@@ -19,6 +19,7 @@ des 8 tables et le découpage en 6 phases.
 
 - Mise en production : [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) (Docker, PostgreSQL, HTTPS)
 - Protection des données : [docs/RGPD.md](docs/RGPD.md) (checklist à valider avec le DPO)
+- Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/*.yaml`)
 
 ## Développement avec VS Code
 
