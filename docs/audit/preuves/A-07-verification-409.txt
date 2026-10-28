@@ -1,0 +1,4 @@
+  from starlette.testclient import TestClient as TestClient  # noqa
+séances en base : {1: 'Lina (terminée)', 2: 'Yanis (terminée)'}
+Yanis GET /seances/1/question (séance de Lina (terminée)) -> 404
+Yanis GET /seances/2/question (séance de Yanis (terminée)) -> 409
