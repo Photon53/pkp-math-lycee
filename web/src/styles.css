@@ -153,3 +153,19 @@ label.case input { width: auto; }
 
 .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 560px) { .ligne { grid-template-columns: 1fr; } .enonce { font-size: 1.1rem; } }
+
+/* Cours, résumés et formules (KaTeX) */
+.maths table { margin: 12px 0; }
+.maths h2 { font-size: 1.1rem; margin: 20px 0 8px; }
+.maths li { margin: 4px 0; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.enonce .katex { font-size: 1.05em; }
+.resume {
+  background: var(--accent-doux); border-left: 4px solid var(--accent); border-radius: 8px;
+  padding: 4px 16px 8px; margin: 16px 0 24px;
+}
+.resume h3 { color: var(--accent); margin-top: 12px; }
+.liste-cours { list-style: none; padding: 0; margin: 0 0 8px; }
+.liste-cours li { padding: 2px 0; }
+.liste-cours button.lien { text-align: left; }
+.lecon > button.lien { padding-left: 0; }

@@ -103,6 +103,8 @@ class Chapitre(Base):
     __table_args__ = (UniqueConstraint("niveau", "ordre", name="uq_chapitre_niveau_ordre"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    # Identifiant stable venant des fichiers contenu/*.yaml (import idempotent).
+    code: Mapped[str] = mapped_column(String(40), unique=True)
     niveau: Mapped[Niveau] = mapped_column(_enum(Niveau, "niveau"))
     titre: Mapped[str] = mapped_column(String(200))
     ordre: Mapped[int] = mapped_column(Integer)
@@ -115,11 +117,27 @@ class Competence(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     chapitre_id: Mapped[int] = mapped_column(ForeignKey("chapitre.id", ondelete="RESTRICT"), index=True)
-    code: Mapped[str] = mapped_column(String(30), unique=True)
+    code: Mapped[str] = mapped_column(String(40), unique=True)
     libelle: Mapped[str] = mapped_column(String(200))
+    ordre: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
     chapitre: Mapped[Chapitre] = relationship(back_populates="competences")
     questions: Mapped[list["Question"]] = relationship(back_populates="competence")
+    lecon: Mapped["Lecon | None"] = relationship(back_populates="competence")
+
+
+class Lecon(Base):
+    """Cours et résumé d'une compétence, en Markdown avec formules LaTeX ($…$)."""
+
+    __tablename__ = "lecon"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    competence_id: Mapped[int] = mapped_column(ForeignKey("competence.id", ondelete="CASCADE"), unique=True)
+    cours: Mapped[str] = mapped_column(Text)
+    resume: Mapped[str] = mapped_column(Text)
+    maj_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, onupdate=_maintenant)
+
+    competence: Mapped[Competence] = relationship(back_populates="lecon")
 
 
 class Question(Base):
@@ -127,6 +145,9 @@ class Question(Base):
     __table_args__ = (CheckConstraint("difficulte BETWEEN 1 AND 5", name="difficulte_1_a_5"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    # Identifiant stable pour les questions importées depuis contenu/*.yaml ;
+    # vide pour les questions créées depuis l'interface enseignant.
+    code: Mapped[str | None] = mapped_column(String(60), unique=True)
     competence_id: Mapped[int] = mapped_column(ForeignKey("competence.id", ondelete="RESTRICT"), index=True)
     enonce: Mapped[str] = mapped_column(Text)
     type: Mapped[TypeQuestion] = mapped_column(_enum(TypeQuestion, "type_question"))

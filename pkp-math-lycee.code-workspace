@@ -34,22 +34,31 @@
     "configurations": [
       {
         // Port 8010 : 8000 est souvent déjà pris (autre projet Python).
-        "name": "API (FastAPI, rechargement auto)",
+        "name": "API seule (FastAPI)",
         "type": "debugpy",
         "request": "launch",
         "module": "uvicorn",
         "args": ["app.main:app", "--reload", "--port", "8010"],
         "cwd": "${workspaceFolder:api}",
         "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe",
+        // Sans terminal intégré : évite « Timed out waiting for launcher to connect »
+        // (chemin avec espaces, activation automatique du .venv). Journaux : Console de débogage.
+        "console": "internalConsole",
         "justMyCode": true
       },
       {
-        "name": "Front (Vite)",
-        "type": "node-terminal",
+        // Vite lancé directement par Node (sans npm ni terminal intégré).
+        // Journaux dans la Console de débogage ; le site : http://localhost:5173
+        "name": "Front seul (Vite)",
+        "type": "node",
         "request": "launch",
-        "command": "npm run dev",
+        "program": "${workspaceFolder:web}/node_modules/vite/bin/vite.js",
+        "args": ["--port", "5173", "--strictPort"],
         "cwd": "${workspaceFolder:web}",
-        "env": { "PKP_API_URL": "http://localhost:8010" }
+        "env": { "PKP_API_URL": "http://localhost:8010" },
+        "console": "internalConsole",
+        "outputCapture": "std",
+        "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
       },
       {
         "name": "Purge RGPD (simulation)",
@@ -58,13 +67,14 @@
         "module": "app.purge",
         "args": ["--simulation"],
         "cwd": "${workspaceFolder:api}",
-        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe"
+        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe",
+        "console": "internalConsole"
       }
     ],
     "compounds": [
       {
-        "name": "▶ API + Front",
-        "configurations": ["API (FastAPI, rechargement auto)", "Front (Vite)"],
+        "name": "▶ Application complète (API + Front)",
+        "configurations": ["API seule (FastAPI)", "Front seul (Vite)"],
         "stopAll": true
       }
     ]
@@ -86,6 +96,20 @@
         "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/installer-dev.ps1 -BaseSeulement" },
         "command": "bash scripts/installer-dev.sh --base-seulement",
         "options": { "cwd": "${workspaceFolder:projet}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Contenu : vérifier les fichiers YAML",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu verifier",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
+        "problemMatcher": []
+      },
+      {
+        "label": "Contenu : importer dans la base de démo",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu importer",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
         "problemMatcher": []
       },
       {

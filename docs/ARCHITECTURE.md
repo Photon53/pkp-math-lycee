@@ -5,7 +5,7 @@
 | Décision | Conséquence dans le code |
 |----------|--------------------------|
 | Moteur pur, sans dépendance web/DB | `engine/` n'importe ni FastAPI ni SQLAlchemy ; il reçoit et renvoie des dataclasses. |
-| 8 tables normalisées | Définies en phase 3 dans `api/app/db/models.py`. |
+| 8 tables normalisées (+ `lecon`) | `api/app/db/models.py`. La 9e table, `lecon`, porte les cours (migration 0004). |
 | Élève = prénom + code classe | Aucune donnée nominative complète, pas d'email, pas de mot de passe élève (RGPD mineurs). |
 | Une question n'est jamais supprimée | Colonne `archivee` (booléen) au lieu d'un `DELETE` ; l'historique des réponses reste lisible. |
 | Bonne réponse révélée après soumission | Le schéma `QuestionPublique` ne contient pas la solution ; seul `ResultatReponse` la renvoie. |
@@ -18,9 +18,10 @@
 | `enseignant`   | id, nom, email, mot_de_passe_hash                                           |
 | `classe`       | id, code (unique, ex. `2NDE-B-7K3`), niveau (2nde/1re/Tle), enseignant_id   |
 | `eleve`        | id, prenom, classe_id — unique (prenom, classe_id)                          |
-| `chapitre`     | id, niveau, titre, ordre                                                    |
-| `competence`   | id, chapitre_id, code, libelle                                              |
-| `question`     | id, competence_id, enonce, type, solution, difficulte, archivee, cree_le    |
+| `chapitre`     | id, code, niveau, titre, ordre                                              |
+| `competence`   | id, chapitre_id, code, libelle, ordre                                       |
+| `question`     | id, code, competence_id, enonce, type, solution, difficulte, archivee, cree_le |
+| `lecon`        | id, competence_id (unique), cours, resume (Markdown + LaTeX), maj_le        |
 | `seance`       | id, eleve_id, debut, fin                                                    |
 | `reponse`      | id, seance_id, question_id, reponse_donnee, correcte, duree_s, repondu_le   |
 

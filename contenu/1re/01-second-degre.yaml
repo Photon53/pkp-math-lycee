@@ -1,0 +1,41 @@
+chapitre:
+  code: 1RE-SECOND-DEGRE
+  niveau: 1re
+  ordre: 1
+  titre: Second degré
+
+competences:
+  - code: 1RE-DISC
+    libelle: Utiliser le discriminant
+    resume: |
+      Pour $ax^2 + bx + c$ avec $a \neq 0$, on calcule $\Delta = b^2 - 4ac$.
+      - $\Delta > 0$ : deux racines $x_{1,2} = \dfrac{-b \pm \sqrt{\Delta}}{2a}$
+      - $\Delta = 0$ : une racine double $x_0 = -\dfrac{b}{2a}$
+      - $\Delta < 0$ : aucune racine réelle
+    cours: |
+      ## Le discriminant
+      Le nombre $\Delta = b^2 - 4ac$ détermine le nombre de solutions réelles de $ax^2 + bx + c = 0$.
+
+      | Signe de $\Delta$ | Solutions | Factorisation |
+      |---|---|---|
+      | $\Delta > 0$ | $x_1 = \dfrac{-b - \sqrt{\Delta}}{2a}$ et $x_2 = \dfrac{-b + \sqrt{\Delta}}{2a}$ | $a(x - x_1)(x - x_2)$ |
+      | $\Delta = 0$ | $x_0 = -\dfrac{b}{2a}$ | $a(x - x_0)^2$ |
+      | $\Delta < 0$ | aucune | impossible dans $\mathbb{R}$ |
+
+      ## Exemple
+      Pour $2x^2 - 3x - 2 = 0$ : $\Delta = (-3)^2 - 4 \times 2 \times (-2) = 9 + 16 = 25$.
+      Donc $x_1 = \dfrac{3 - 5}{4} = -\dfrac{1}{2}$ et $x_2 = \dfrac{3 + 5}{4} = 2$.
+
+      ## Attention aux signes
+      Si $b$ est négatif, $b^2$ reste positif : écrire $(-3)^2$ avec les parenthèses.
+    questions:
+      - code: 1RE-DISC-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer le discriminant de x² − 4x + 3.
+        solution: 4
+      - code: 1RE-DISC-02
+        difficulte: 2
+        type: qcm
+        enonce: Combien de solutions réelles a x² + x + 1 = 0 ? A) 0  B) 1  C) 2
+        solution: A

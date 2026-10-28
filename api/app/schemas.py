@@ -63,9 +63,33 @@ class QuestionPublique(_Modele):
     """Ce que voit l'élève avant de répondre : jamais de champ `solution`."""
 
     id: int
+    competence_id: int
     enonce: str
     type: TypeQuestion
     difficulte: int
+
+
+class CompetenceCours(BaseModel):
+    id: int
+    code: str
+    libelle: str
+    a_une_lecon: bool
+
+
+class ChapitreCours(BaseModel):
+    id: int
+    code: str
+    titre: str
+    competences: list[CompetenceCours]
+
+
+class LeconInfo(BaseModel):
+    competence_id: int
+    code: str
+    libelle: str
+    chapitre: str
+    cours: str
+    resume: str
 
 
 class SoumissionReponse(BaseModel):

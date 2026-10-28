@@ -1,0 +1,91 @@
+chapitre:
+  code: 2NDE-NOMBRES
+  niveau: 2nde
+  ordre: 1
+  titre: Nombres et calculs
+
+competences:
+  - code: 2NDE-FRAC
+    libelle: Calculer avec des fractions
+    resume: |
+      - $\dfrac{a}{b} + \dfrac{c}{d} = \dfrac{ad + bc}{bd}$ : on réduit d'abord au même dénominateur.
+      - $\dfrac{a}{b} \times \dfrac{c}{d} = \dfrac{ac}{bd}$ : numérateur × numérateur, dénominateur × dénominateur.
+      - Diviser par $\dfrac{c}{d}$, c'est multiplier par son inverse $\dfrac{d}{c}$.
+      - On simplifie toujours le résultat final.
+    cours: |
+      ## Addition et soustraction
+      Pour additionner deux fractions, il faut qu'elles aient **le même dénominateur**.
+      On cherche un multiple commun aux deux dénominateurs (de préférence le plus petit).
+
+      $$\frac{1}{4} + \frac{5}{6} = \frac{3}{12} + \frac{10}{12} = \frac{13}{12}$$
+
+      ## Multiplication
+      On multiplie les numérateurs entre eux et les dénominateurs entre eux.
+      Simplifier **avant** de multiplier évite les grands nombres :
+
+      $$\frac{6}{35} \times \frac{14}{9} = \frac{6 \times 14}{35 \times 9} = \frac{2 \times 3 \times 2 \times 7}{5 \times 7 \times 3 \times 3} = \frac{4}{15}$$
+
+      ## Division
+      Diviser par une fraction non nulle revient à multiplier par son inverse :
+
+      $$\frac{3}{4} \div \frac{9}{8} = \frac{3}{4} \times \frac{8}{9} = \frac{24}{36} = \frac{2}{3}$$
+    questions:
+      - code: 2NDE-FRAC-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer 1/2 + 1/3.
+        solution: 5/6
+      - code: 2NDE-FRAC-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer 3/4 × 2/9.
+        solution: 1/6
+      - code: 2NDE-FRAC-03
+        difficulte: 3
+        type: numerique
+        enonce: Calculer (2/3) ÷ (4/9).
+        solution: 3/2
+
+  - code: 2NDE-PUIS
+    libelle: Calculer avec des puissances
+    resume: |
+      Pour $a \neq 0$ et $m, n$ entiers :
+      - $a^m \times a^n = a^{m+n}$ ;  $\dfrac{a^m}{a^n} = a^{m-n}$ ;  $(a^m)^n = a^{mn}$
+      - $a^0 = 1$ et $a^{-n} = \dfrac{1}{a^n}$
+      - $(-a)^n$ est positif si $n$ est pair, négatif si $n$ est impair.
+    cours: |
+      ## Définition
+      Pour un nombre $a$ et un entier $n \geq 1$, $a^n = \underbrace{a \times a \times \dots \times a}_{n \text{ facteurs}}$.
+      Pour $a \neq 0$, on pose $a^0 = 1$ et $a^{-n} = \dfrac{1}{a^n}$.
+
+      ## Règles de calcul
+      | Règle | Exemple |
+      |-------|---------|
+      | $a^m \times a^n = a^{m+n}$ | $2^3 \times 2^4 = 2^7$ |
+      | $\dfrac{a^m}{a^n} = a^{m-n}$ | $\dfrac{5^6}{5^2} = 5^4$ |
+      | $(a^m)^n = a^{mn}$ | $(3^2)^3 = 3^6$ |
+      | $(ab)^n = a^n b^n$ | $(2x)^3 = 8x^3$ |
+
+      ## Signe d'une puissance d'un nombre négatif
+      Un produit de facteurs négatifs est positif s'il y en a un nombre pair :
+      $(-2)^4 = 16$ mais $(-2)^5 = -32$.
+
+      ## Puissances de 10
+      $10^n$ s'écrit avec $n$ zéros, $10^{-n} = 0{,}\underbrace{0\dots0}_{n-1}1$.
+      Par exemple $10^{-3} = 0{,}001$.
+    questions:
+      - code: 2NDE-PUIS-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer 2⁵.
+        solution: 32
+      - code: 2NDE-PUIS-02
+        difficulte: 2
+        type: qcm
+        enonce: Quel est le signe de (−3)⁷ ? A) positif  B) négatif
+        solution: B
+      - code: 2NDE-PUIS-03
+        difficulte: 3
+        type: numerique
+        enonce: Donner la valeur décimale de 10³ × 10⁻⁵.
+        solution: 0.01

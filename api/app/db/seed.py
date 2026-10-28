@@ -1,6 +1,8 @@
 """Données de démonstration. Usage, depuis `api/` : `python -m app.db.seed`
 
-Idempotent : ne fait rien si l'enseignant de démo existe déjà.
+1. Importe le contenu pédagogique de `contenu/` (chapitres, cours, questions).
+2. Crée, si absents, un enseignant, des classes, des élèves et un historique de réponses.
+Idempotent : relancer ne duplique rien.
 
 Compte enseignant de démo (local uniquement) :
     email        : demo@pkp.test
@@ -10,65 +12,35 @@ Compte enseignant de démo (local uniquement) :
 import os
 from datetime import UTC, datetime, timedelta
 
-from pkp_engine import Niveau, TypeQuestion, corriger
+from pkp_engine import Niveau, corriger
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.security import hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
 
-QCM, NUM, EXPR = TypeQuestion.QCM, TypeQuestion.NUMERIQUE, TypeQuestion.EXPRESSION
-
-# (niveau, ordre, titre, [(code compétence, libellé, [(énoncé, type, solution, difficulté[, archivée])])])
-PROGRAMME = [
-    (Niveau.SECONDE, 1, "Nombres et calculs", [
-        ("2NDE-FRAC", "Calculer avec des fractions", [
-            ("Calculer 1/2 + 1/3.", NUM, "5/6", 1),
-            ("Calculer 3/4 × 2/9.", NUM, "1/6", 2),
-            ("Calculer (2/3) ÷ (4/9).", NUM, "3/2", 3),
-        ]),
-        ("2NDE-PUIS", "Calculer avec des puissances", [
-            ("Calculer 2⁵.", NUM, "32", 1),
-            ("Quel est le signe de (−3)⁷ ? A) positif  B) négatif", QCM, "B", 2),
-            ("Donner la valeur décimale de 10³ × 10⁻⁵.", NUM, "0.01", 3),
-        ]),
-    ]),
-    (Niveau.SECONDE, 2, "Calcul littéral", [
-        ("2NDE-DEV", "Développer une expression", [
-            ("Développer (x + 3)².", EXPR, "x^2 + 6x + 9", 2),
-            ("Développer (a + b)(a − b).", EXPR, "a^2 - b^2", 2),
-            ("Développer (2x − 1)(x + 4).", EXPR, "2x^2 + 7x - 4", 3),
-        ]),
-        ("2NDE-EQ1", "Résoudre une équation du premier degré", [
-            ("Résoudre 3x + 5 = 20. x = ?", NUM, "5", 1),
-            ("Résoudre 2x − 7 = 4x + 1. x = ?", NUM, "-4", 2),
-            ("Résoudre (x + 1)/3 = 2. x = ?", NUM, "5", 3),
-            ("Résoudre 2x = 6. x = ? (ancienne version)", NUM, "3", 1, True),
-        ]),
-    ]),
-    (Niveau.PREMIERE, 1, "Second degré", [
-        ("1RE-DISC", "Utiliser le discriminant", [
-            ("Calculer le discriminant de x² − 4x + 3.", NUM, "4", 1),
-            ("Combien de solutions réelles a x² + x + 1 = 0 ? A) 0  B) 1  C) 2", QCM, "A", 2),
-        ]),
-    ]),
+CLASSES = [
+    ("2NDE-A-DEMO", Niveau.SECONDE, ["Lina", "Yanis", "Inès"]),
+    ("1RE-B-DEMO", Niveau.PREMIERE, ["Hugo"]),
+    ("TLE-C-DEMO", Niveau.TERMINALE, ["Emma"]),
 ]
 
-CLASSES = [("2NDE-A-DEMO", Niveau.SECONDE, ["Lina", "Yanis", "Inès"]), ("1RE-B-DEMO", Niveau.PREMIERE, ["Hugo"])]
-
-# (prénom, [(code compétence, rang de la question, réponse saisie)])
+# (prénom, [(code question, réponse saisie)])
 SEANCES = [
-    ("Lina", [("2NDE-FRAC", 0, "5/6"), ("2NDE-FRAC", 1, "1/5"), ("2NDE-DEV", 0, "x²+6x+9"),
-              ("2NDE-DEV", 2, "2x²+7x+4"), ("2NDE-EQ1", 0, "5")]),
-    ("Yanis", [("2NDE-FRAC", 0, "2/5"), ("2NDE-FRAC", 0, "5/6")]),
+    ("Lina", [("2NDE-FRAC-01", "5/6"), ("2NDE-FRAC-02", "1/5"), ("2NDE-DEV-01", "x²+6x+9"),
+              ("2NDE-DEV-03", "2x²+7x+4"), ("2NDE-EQ1-01", "5")]),
+    ("Yanis", [("2NDE-FRAC-01", "2/5"), ("2NDE-FRAC-01", "5/6")]),
 ]
 
 
 def charger_demo(session: Session) -> bool:
-    """Insère les données de démo. Renvoie False si elles sont déjà présentes."""
+    """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà."""
+    contenu.importer(session, contenu.charger())
+
     if session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_DEMO)):
         return False
 
@@ -79,38 +51,20 @@ def charger_demo(session: Session) -> bool:
     )
     session.add(enseignant)
 
-    questions: dict[str, list[models.Question]] = {}
-    for niveau, ordre, titre, competences in PROGRAMME:
-        chapitre = models.Chapitre(niveau=niveau, ordre=ordre, titre=titre)
-        session.add(chapitre)
-        for code, libelle, items in competences:
-            competence = models.Competence(chapitre=chapitre, code=code, libelle=libelle)
-            questions[code] = [
-                models.Question(
-                    competence=competence,
-                    enonce=enonce,
-                    type=type_,
-                    solution=solution,
-                    difficulte=difficulte,
-                    archivee=bool(reste and reste[0]),
-                )
-                for enonce, type_, solution, difficulte, *reste in items
-            ]
-            session.add_all(questions[code])
-
     eleves: dict[str, models.Eleve] = {}
     for code, niveau, prenoms in CLASSES:
         classe = models.Classe(code=code, niveau=niveau, enseignant=enseignant)
         for prenom in prenoms:
             eleves[prenom] = models.Eleve(prenom=prenom, classe=classe)
         session.add(classe)
-    session.flush()  # attribue les id, nécessaires à la conversion vers le moteur
+    session.flush()
 
     instant = datetime.now(UTC) - timedelta(days=1)
     for prenom, saisies in SEANCES:
         seance = models.Seance(eleve=eleves[prenom], debut=instant)
-        for code, rang, saisie in saisies:
-            question = questions[code][rang]
+        session.add(seance)  # avant les requêtes : leur autoflush doit trouver la séance en session
+        for code_question, saisie in saisies:
+            question = session.scalar(select(models.Question).where(models.Question.code == code_question))
             instant += timedelta(minutes=1)
             seance.reponses.append(
                 models.Reponse(
@@ -122,7 +76,6 @@ def charger_demo(session: Session) -> bool:
                 )
             )
         seance.fin = instant
-        session.add(seance)
 
     session.commit()
     return True
@@ -132,7 +85,7 @@ def main() -> None:
     from app.db.session import SessionLocale
 
     with SessionLocale() as session:
-        print("Données de démo chargées." if charger_demo(session) else "Données de démo déjà présentes.")
+        print("Données de démo chargées." if charger_demo(session) else "Contenu à jour, démo déjà présente.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,255 @@
+chapitre:
+  code: TLE-SUITES
+  niveau: Tle
+  ordre: 5
+  titre: Suites
+
+competences:
+  - code: TLE-SUI-REC
+    libelle: Raisonner par récurrence
+    resume: |
+      Pour démontrer qu'une propriété $P(n)$ est vraie pour tout entier $n \geq n_0$ :
+      1. **Initialisation** : vérifier $P(n_0)$.
+      2. **Hérédité** : pour un entier $k \geq n_0$, supposer $P(k)$ vraie et démontrer $P(k+1)$.
+      3. **Conclusion** : $P(n)$ est vraie pour tout $n \geq n_0$.
+    cours: |
+      ## Le principe
+      On veut démontrer qu'une propriété $P(n)$ est vraie pour **tous** les entiers $n \geq n_0$,
+      alors qu'on ne peut pas les vérifier un par un. On raisonne en trois temps :
+
+      1. **Initialisation** : on vérifie que $P(n_0)$ est vraie.
+      2. **Hérédité** : on fixe un entier $k \geq n_0$ et on *suppose* que $P(k)$ est vraie
+         (c'est l'**hypothèse de récurrence**). On démontre alors que $P(k+1)$ est vraie.
+      3. **Conclusion** : la propriété est vraie au rang $n_0$ et se transmet d'un rang au suivant,
+         donc elle est vraie pour tout $n \geq n_0$.
+
+      Image utile : une file de dominos. Le premier tombe (initialisation) et chaque domino qui
+      tombe fait tomber le suivant (hérédité) : tous finissent par tomber.
+
+      ## Exemple
+      Soit $(u_n)$ définie par $u_0 = 1$ et $u_{n+1} = 2u_n + 1$.
+      Démontrons que $u_n = 2^{n+1} - 1$ pour tout $n \in \mathbb{N}$.
+
+      - *Initialisation* : $2^{0+1} - 1 = 1 = u_0$, donc $P(0)$ est vraie.
+      - *Hérédité* : supposons $u_k = 2^{k+1} - 1$ pour un entier $k \geq 0$. Alors
+        $$u_{k+1} = 2u_k + 1 = 2\left(2^{k+1} - 1\right) + 1 = 2^{k+2} - 2 + 1 = 2^{k+2} - 1,$$
+        ce qui est exactement $P(k+1)$.
+      - *Conclusion* : pour tout $n \in \mathbb{N}$, $u_n = 2^{n+1} - 1$.
+
+      ## Erreurs fréquentes
+      - Oublier l'initialisation : une propriété fausse peut être héréditaire
+        (par exemple « $n + 1 = n$ » se transmet de $k$ à $k+1$, mais n'est jamais vraie).
+      - Écrire « supposons $P(n)$ vraie pour tout $n$ » : c'est supposer ce qu'on veut démontrer.
+        On suppose $P(k)$ pour **un** entier $k$ fixé.
+    questions:
+      - code: TLE-SUI-REC-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Dans un raisonnement par récurrence, comment s''appelle l''étape où l''on vérifie la propriété au premier rang ? A) L''hérédité  B) L''initialisation  C) La conclusion'
+        solution: B
+      - code: TLE-SUI-REC-02
+        difficulte: 2
+        type: numerique
+        enonce: 'La suite $(u_n)$ est définie par $u_0 = 3$ et $u_{n+1} = 2u_n - 1$. Calculer $u_3$.'
+        solution: 17
+      - code: TLE-SUI-REC-03
+        difficulte: 3
+        type: qcm
+        enonce: 'On veut démontrer que $u_n = 2^{n+1} - 1$ pour tout $n$. Dans l''hérédité, on suppose $u_k = 2^{k+1} - 1$. Que doit-on démontrer ? A) $u_k = 2^{k} - 1$  B) $u_{k+1} = 2^{k+2} - 1$  C) $u_{k+1} = 2^{k+1} - 1$'
+        solution: B
+      - code: TLE-SUI-REC-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On pose $u_0 = 2$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$. On admet (démontrable par récurrence) que $u_n = \dfrac{2}{1 + 2n}$. Calculer $u_5$.'
+        solution: 2/11
+      - code: TLE-SUI-REC-05
+        difficulte: 5
+        type: expression
+        enonce: 'On note $S_n = 1 + 3 + 5 + \dots + (2n - 1)$ la somme des $n$ premiers entiers impairs. Calculer $S_1$, $S_2$, $S_3$, conjecturer une expression de $S_n$ en fonction de $n$, puis la démontrer par récurrence. $S_n = ?$'
+        solution: n^2
+
+  - code: TLE-SUI-LIM
+    libelle: Définir la limite d'une suite
+    resume: |
+      - $(u_n)$ **converge** vers $\ell$ si tout intervalle ouvert contenant $\ell$ contient tous les termes à partir d'un certain rang.
+      - $(u_n)$ **tend vers** $+\infty$ si tout intervalle $]A ; +\infty[$ contient tous les termes à partir d'un certain rang.
+      - Suites géométriques $(q^n)$ : $q > 1 \Rightarrow +\infty$ ; $-1 < q < 1 \Rightarrow 0$ ; $q = 1 \Rightarrow 1$ ; $q \leq -1 \Rightarrow$ pas de limite.
+      - Une suite croissante et majorée converge ; une suite croissante non majorée tend vers $+\infty$.
+    cours: |
+      ## Limite finie
+      La suite $(u_n)$ **converge** vers le réel $\ell$ si tout intervalle ouvert contenant $\ell$
+      contient tous les termes $u_n$ à partir d'un certain rang. On note $\lim\limits_{n \to +\infty} u_n = \ell$.
+
+      Exemple : $\dfrac{1}{n}$ devient aussi proche de $0$ qu'on le souhaite : $\lim\limits_{n \to +\infty} \dfrac{1}{n} = 0$.
+
+      ## Limite infinie
+      $(u_n)$ **tend vers** $+\infty$ si, pour tout réel $A$, tous les termes sont supérieurs à $A$
+      à partir d'un certain rang. Même idée pour $-\infty$.
+
+      Une suite qui ne converge pas est dite **divergente** : elle tend vers $\pm\infty$
+      ou n'a pas de limite, comme $\left((-1)^n\right)$ qui oscille entre $-1$ et $1$.
+
+      ## Suites de référence
+      | Suite | Limite |
+      |---|---|
+      | $\dfrac{1}{n}$, $\dfrac{1}{n^2}$, $\dfrac{1}{\sqrt{n}}$ | $0$ |
+      | $n$, $n^2$, $\sqrt{n}$ | $+\infty$ |
+      | $q^n$ avec $q > 1$ | $+\infty$ |
+      | $q^n$ avec $-1 < q < 1$ | $0$ |
+      | $q^n$ avec $q \leq -1$ | pas de limite |
+
+      ## Théorème de convergence monotone
+      - Une suite **croissante et majorée** converge (vers une limite inférieure ou égale au majorant).
+      - Une suite **décroissante et minorée** converge.
+      - Une suite croissante **non majorée** tend vers $+\infty$.
+
+      Attention : ce théorème donne l'existence de la limite, pas sa valeur.
+      Une suite croissante majorée par $5$ ne converge pas forcément vers $5$.
+    questions:
+      - code: TLE-SUI-LIM-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{1}{n}$.'
+        solution: 0
+      - code: TLE-SUI-LIM-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle est la limite de la suite $\left(0{,}9^n\right)$ ? A) $0$  B) $1$  C) $+\infty$  D) Elle n''a pas de limite'
+        solution: A
+      - code: TLE-SUI-LIM-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle est la limite de la suite $\left(1{,}5^n\right)$ ? A) $0$  B) $1{,}5$  C) $+\infty$  D) Elle n''a pas de limite'
+        solution: C
+      - code: TLE-SUI-LIM-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Que peut-on dire de la suite $\left((-2)^n\right)$ ? A) Elle converge vers $0$  B) Elle tend vers $+\infty$  C) Elle tend vers $-\infty$  D) Elle n''a pas de limite'
+        solution: D
+      - code: TLE-SUI-LIM-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Une suite $(u_n)$ est croissante et majorée par $5$. Que peut-on affirmer ? A) Elle converge vers $5$  B) Elle converge vers une limite inférieure ou égale à $5$  C) Elle tend vers $+\infty$  D) On ne peut rien dire'
+        solution: B
+
+  - code: TLE-SUI-OPE
+    libelle: Déterminer la limite d'une suite par opérations
+    resume: |
+      - Les limites se combinent par somme, produit et quotient, sauf dans quatre **formes indéterminées** :
+        $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
+      - Pour lever une indétermination avec un polynôme ou une fraction rationnelle :
+        **factoriser par le terme de plus haut degré**.
+      - Avec des racines carrées : multiplier par la **quantité conjuguée**.
+    cours: |
+      ## Opérations sur les limites
+      Si $(u_n)$ et $(v_n)$ ont des limites, celle de $u_n + v_n$, $u_n v_n$ ou $\dfrac{u_n}{v_n}$
+      s'obtient en général « en faisant le calcul avec les limites », avec les conventions :
+
+      | Calcul | Résultat |
+      |---|---|
+      | $\ell + (+\infty)$ | $+\infty$ |
+      | $(+\infty) + (+\infty)$ | $+\infty$ |
+      | $\ell \times (+\infty)$ avec $\ell > 0$ | $+\infty$ |
+      | $\ell \times (+\infty)$ avec $\ell < 0$ | $-\infty$ |
+      | $\dfrac{\ell}{\pm\infty}$ | $0$ |
+
+      ## Formes indéterminées
+      Dans les cas $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$ et $\dfrac{0}{0}$,
+      on ne peut pas conclure directement : il faut **transformer l'écriture**.
+
+      ## Lever une indétermination : le terme dominant
+      $$u_n = \frac{3n^2 - n}{n^2 + 1} = \frac{n^2\left(3 - \frac{1}{n}\right)}{n^2\left(1 + \frac{1}{n^2}\right)} = \frac{3 - \frac{1}{n}}{1 + \frac{1}{n^2}}$$
+      Le numérateur tend vers $3$ et le dénominateur vers $1$, donc $\lim\limits_{n \to +\infty} u_n = 3$.
+
+      Pour un polynôme, c'est le terme de plus haut degré qui l'emporte :
+      $n^2 - 5n^3 = n^3\left(\frac{1}{n} - 5\right)$ tend vers $-\infty$.
+
+      ## La quantité conjuguée
+      $$\sqrt{n+1} - \sqrt{n} = \frac{\left(\sqrt{n+1} - \sqrt{n}\right)\left(\sqrt{n+1} + \sqrt{n}\right)}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$$
+      Le dénominateur tend vers $+\infty$, donc la limite est $0$.
+    questions:
+      - code: TLE-SUI-OPE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Déterminer la limite de $u_n = n^2 + 3n$. A) $0$  B) $3$  C) $+\infty$  D) $-\infty$'
+        solution: C
+      - code: TLE-SUI-OPE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \left(2 + \dfrac{5}{n}\right)$.'
+        solution: 2
+      - code: TLE-SUI-OPE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{3n^2 - n}{n^2 + 1}$.'
+        solution: 3
+      - code: TLE-SUI-OPE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{2n + 1}{4n^2 - 3}$.'
+        solution: 0
+      - code: TLE-SUI-OPE-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Déterminer la limite de $u_n = n^2 - 5n^3 + 1$. A) $+\infty$  B) $-\infty$  C) $1$  D) Il n''y a pas de limite'
+        solution: B
+      - code: TLE-SUI-OPE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \left(\sqrt{n+1} - \sqrt{n}\right)$. Indication : multiplier par la quantité conjuguée.'
+        solution: 0
+
+  - code: TLE-SUI-COMP
+    libelle: Déterminer la limite d'une suite par comparaison
+    resume: |
+      - **Comparaison** : si $u_n \geq v_n$ à partir d'un certain rang et $\lim v_n = +\infty$, alors $\lim u_n = +\infty$.
+        (De même : $u_n \leq w_n$ et $\lim w_n = -\infty$ donnent $\lim u_n = -\infty$.)
+      - **Gendarmes** : si $v_n \leq u_n \leq w_n$ à partir d'un certain rang et $\lim v_n = \lim w_n = \ell$, alors $\lim u_n = \ell$.
+    cours: |
+      Quand une suite contient un terme qui « oscille » ($(-1)^n$, $\cos(n)$, $\sin(n)$),
+      les opérations ne suffisent pas : on l'**encadre** par des suites dont on connaît la limite.
+
+      ## Théorème de comparaison
+      Si, à partir d'un certain rang, $u_n \geq v_n$ et $\lim\limits_{n \to +\infty} v_n = +\infty$,
+      alors $\lim\limits_{n \to +\infty} u_n = +\infty$. La suite $(u_n)$ est « poussée » vers le haut.
+
+      Exemple : $-1 \leq \cos(n) \leq 1$ donc $n + \cos(n) \geq n - 1$, et $n - 1 \to +\infty$ :
+      $\lim\limits_{n \to +\infty} \left(n + \cos(n)\right) = +\infty$.
+
+      ## Théorème des gendarmes
+      Si, à partir d'un certain rang, $v_n \leq u_n \leq w_n$ et si $(v_n)$ et $(w_n)$ convergent
+      vers la **même** limite $\ell$, alors $(u_n)$ converge vers $\ell$.
+
+      Exemple : pour $n \geq 1$, $-\dfrac{1}{n} \leq \dfrac{(-1)^n}{n} \leq \dfrac{1}{n}$.
+      Les deux suites qui encadrent tendent vers $0$, donc $\lim\limits_{n \to +\infty} \dfrac{(-1)^n}{n} = 0$.
+
+      ## Rédaction
+      1. Écrire l'encadrement (ou la minoration) et préciser à partir de quel rang il est valable.
+      2. Donner les limites des suites qui encadrent.
+      3. Citer le théorème utilisé avant de conclure.
+    questions:
+      - code: TLE-SUI-COMP-01
+        difficulte: 2
+        type: qcm
+        enonce: 'Pour tout $n$, $u_n \geq n^2$. Que vaut la limite de $(u_n)$ ? A) $0$  B) $+\infty$  C) $-\infty$  D) On ne peut pas conclure'
+        solution: B
+      - code: TLE-SUI-COMP-02
+        difficulte: 3
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{(-1)^n}{n}$.'
+        solution: 0
+      - code: TLE-SUI-COMP-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Pour tout $n \geq 1$, $u_n \leq -\sqrt{n}$. Que peut-on en déduire ? A) La suite converge vers $0$  B) La suite tend vers $-\infty$  C) La suite tend vers $+\infty$  D) On ne peut pas conclure'
+        solution: B
+      - code: TLE-SUI-COMP-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{\cos(n)}{n^2}$.'
+        solution: 0
+      - code: TLE-SUI-COMP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Pour tout $n \geq 1$ : $\dfrac{3n - 1}{n} \leq u_n \leq \dfrac{3n + 2}{n}$. Déterminer la limite de la suite $(u_n)$.'
+        solution: 3

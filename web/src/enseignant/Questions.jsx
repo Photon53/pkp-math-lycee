@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
+import { Maths } from "../maths.jsx";
 import { useApi } from "./useApi.js";
 
 const ignorer = () => {};
@@ -166,7 +167,7 @@ export default function Questions({ jeton, onExpire }) {
                 {questions.map((q) => (
                   <tr key={q.id}>
                     <td>
-                      {q.enonce}
+                      <Maths enLigne texte={q.enonce} />
                       <div className="aide">
                         {LIBELLES_TYPE[q.type]} · {libelleCompetence(q.competence_id)}
                         {q.archivee && <span className="pastille archivee">Archivée</span>}

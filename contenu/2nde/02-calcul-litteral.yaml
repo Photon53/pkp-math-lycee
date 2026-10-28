@@ -1,0 +1,89 @@
+chapitre:
+  code: 2NDE-LITTERAL
+  niveau: 2nde
+  ordre: 2
+  titre: Calcul littéral
+
+competences:
+  - code: 2NDE-DEV
+    libelle: Développer une expression
+    resume: |
+      - Simple distributivité : $k(a + b) = ka + kb$
+      - Double distributivité : $(a + b)(c + d) = ac + ad + bc + bd$
+      - Identités remarquables :
+        $(a + b)^2 = a^2 + 2ab + b^2$ ;  $(a - b)^2 = a^2 - 2ab + b^2$ ;  $(a + b)(a - b) = a^2 - b^2$
+    cours: |
+      **Développer**, c'est transformer un produit en somme.
+
+      ## Distributivité
+      Chaque terme d'une parenthèse multiplie chaque terme de l'autre :
+
+      $$(2x - 1)(x + 3) = 2x \times x + 2x \times 3 - 1 \times x - 1 \times 3 = 2x^2 + 5x - 3$$
+
+      ## Identités remarquables
+      Elles évitent de refaire la double distributivité à chaque fois :
+
+      $$(x + 5)^2 = x^2 + 2 \times x \times 5 + 5^2 = x^2 + 10x + 25$$
+
+      Attention : $(a + b)^2 \neq a^2 + b^2$. Le **double produit** $2ab$ est l'erreur la plus fréquente.
+
+      ## Vérifier son résultat
+      Remplacer $x$ par une valeur simple (par exemple $x = 1$) dans l'expression de départ
+      et dans le résultat : on doit trouver la même valeur.
+    questions:
+      - code: 2NDE-DEV-01
+        difficulte: 2
+        type: expression
+        enonce: Développer (x + 3)².
+        solution: x^2 + 6x + 9
+      - code: 2NDE-DEV-02
+        difficulte: 2
+        type: expression
+        enonce: Développer (a + b)(a − b).
+        solution: a^2 - b^2
+      - code: 2NDE-DEV-03
+        difficulte: 3
+        type: expression
+        enonce: Développer (2x − 1)(x + 4).
+        solution: 2x^2 + 7x - 4
+
+  - code: 2NDE-EQ1
+    libelle: Résoudre une équation du premier degré
+    resume: |
+      - On peut ajouter ou soustraire le même nombre aux deux membres.
+      - On peut multiplier ou diviser les deux membres par le même nombre **non nul**.
+      - $ax + b = 0$ avec $a \neq 0$ a pour unique solution $x = -\dfrac{b}{a}$.
+    cours: |
+      ## Méthode
+      1. Regrouper les termes en $x$ d'un côté, les nombres de l'autre.
+      2. Réduire chaque membre.
+      3. Diviser par le coefficient de $x$.
+
+      ## Exemple
+      $$5x - 4 = 2x + 8 \iff 5x - 2x = 8 + 4 \iff 3x = 12 \iff x = 4$$
+
+      ## Vérification
+      On remplace $x$ par la solution trouvée : $5 \times 4 - 4 = 16$ et $2 \times 4 + 8 = 16$.
+      Les deux membres sont égaux, la solution est correcte.
+    questions:
+      - code: 2NDE-EQ1-01
+        difficulte: 1
+        type: numerique
+        enonce: Résoudre 3x + 5 = 20. x = ?
+        solution: 5
+      - code: 2NDE-EQ1-02
+        difficulte: 2
+        type: numerique
+        enonce: Résoudre 2x − 7 = 4x + 1. x = ?
+        solution: -4
+      - code: 2NDE-EQ1-03
+        difficulte: 3
+        type: numerique
+        enonce: Résoudre (x + 1)/3 = 2. x = ?
+        solution: 5
+      - code: 2NDE-EQ1-04
+        difficulte: 1
+        type: numerique
+        enonce: Résoudre 2x = 6. x = ? (ancienne version)
+        solution: 3
+        archivee: true

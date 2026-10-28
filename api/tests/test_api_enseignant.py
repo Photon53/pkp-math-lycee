@@ -33,7 +33,7 @@ class TestConnexion:
 class TestClasses:
     def test_mes_classes(self, client):
         classes = client.get("/enseignants/classes", headers=connecter_enseignant(client)).json()
-        assert [(c["code"], c["nb_eleves"]) for c in classes] == [("1RE-B-DEMO", 1), ("2NDE-A-DEMO", 3)]
+        assert [(c["code"], c["nb_eleves"]) for c in classes] == [("1RE-B-DEMO", 1), ("2NDE-A-DEMO", 3), ("TLE-C-DEMO", 1)]
 
     def test_creer_une_classe(self, client):
         h = connecter_enseignant(client)
@@ -41,7 +41,7 @@ class TestClasses:
         assert re.fullmatch(r"1RE-[2-9A-HJKMNP-Z]{5}", classe["code"])
         assert classe["nb_eleves"] == 0
         connecter_eleve(client, "Sam", classe["code"].lower())
-        assert len(client.get("/enseignants/classes", headers=h).json()) == 3
+        assert len(client.get("/enseignants/classes", headers=h).json()) == 4
 
     def test_tableau_de_bord(self, client):
         eleves = client.get("/enseignants/classes/1/eleves", headers=connecter_enseignant(client)).json()
@@ -81,13 +81,13 @@ class TestEffacementRgpd:
 class TestQuestions:
     def test_competences(self, client):
         competences = client.get("/enseignants/competences", headers=connecter_enseignant(client)).json()
-        assert len(competences) == 5
+        assert len(competences) == 12
 
     def test_liste_avec_solutions_sans_archivees(self, client):
         h = connecter_enseignant(client)
         actives = client.get("/enseignants/questions", headers=h).json()
         toutes = client.get("/enseignants/questions?archivees=true", headers=h).json()
-        assert (len(actives), len(toutes)) == (14, 15)
+        assert (len(actives), len(toutes)) == (54, 55)
         assert all("solution" in q for q in actives)
 
     def test_creer_une_question(self, client):

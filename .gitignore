@@ -8,3 +8,6 @@ __pycache__/
 node_modules/
 dist/
 deploy/.env
+
+# Photos et extraits de manuels : jamais versionnés (droit d auteur)
+sources/

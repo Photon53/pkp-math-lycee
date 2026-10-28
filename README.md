@@ -19,6 +19,7 @@ des 8 tables et le découpage en 6 phases.
 
 - Mise en production : [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) (Docker, PostgreSQL, HTTPS)
 - Protection des données : [docs/RGPD.md](docs/RGPD.md) (checklist à valider avec le DPO)
+- Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/*.yaml`)
 
 ## Développement avec VS Code
 
@@ -29,7 +30,7 @@ Prérequis : [Python 3.11+](https://www.python.org/downloads/), [Node.js 20+](ht
    - Mac/Linux : `bash scripts/installer-dev.sh`
 2. Dans VS Code : **Fichier > Ouvrir l'espace de travail à partir d'un fichier** → `pkp-math-lycee.code-workspace`.
    Accepter l'installation des extensions recommandées.
-3. **Exécuter et déboguer** (Ctrl+Maj+D) → **▶ API + Front** : API sur le port 8010 avec points d'arrêt,
+3. **Exécuter et déboguer** (Ctrl+Maj+D) → **▶ Application complète (API + Front)** : API sur le port 8010 avec points d'arrêt,
    front sur http://localhost:5173 (enseignant : `/enseignant`, compte décrit dans `api/app/db/seed.py`).
 4. Tests : panneau **Tests** (pytest pour `moteur` et `api`, Vitest pour `web`), ou
    **Terminal > Exécuter la tâche de test** pour tout lancer.

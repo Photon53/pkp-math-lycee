@@ -25,6 +25,6 @@ fi
 etape "Base de démo SQLite (api/pkp.db)"
 (cd api && rm -f pkp.db && "../$PYTHON" -m alembic upgrade head && "../$PYTHON" -m app.db.seed)
 
-printf '\nPrêt. Dans VS Code : ouvrir pkp-math-lycee.code-workspace, puis « ▶ API + Front ».\n'
+printf '\nPrêt. Dans VS Code : ouvrir pkp-math-lycee.code-workspace, puis « ▶ Application complète (API + Front) ».\n'
 printf 'Sous Mac/Linux, remplacer .venv/Scripts/python.exe par .venv/bin/python dans\n'
 printf 'pkp-math-lycee.code-workspace, engine/.vscode et api/.vscode.\n'
