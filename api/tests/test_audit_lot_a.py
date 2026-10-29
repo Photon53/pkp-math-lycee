@@ -3,12 +3,12 @@
 import base64
 
 import pytest
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from app import security
 from app.admin import changer_mot_de_passe, creer_enseignant
 from app.db import models
-from tests.conftest import connecter_enseignant, entete
+from tests.conftest import connecter_eleve, connecter_enseignant, corps_connexion, entete, inscrire_eleves
 
 # Valeurs réelles, capturées avant que la fixture `scrypt_rapide` n'abaisse le coût pour les tests.
 N_REEL, R_REEL, P_REEL = security._N, security._R, security._P
@@ -102,5 +102,77 @@ class TestA09RevocationDesJetons:
 
     @pytest.mark.parametrize("route", ["/eleves/moi", "/cours"])
     def test_jetons_eleves_inchanges(self, client, route):
-        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "2NDE-A-DEMO"})
+        r = client.post("/eleves/connexion", json=corps_connexion("Lina"))
         assert client.get(route, headers=entete(r.json()["jeton"])).status_code == 200
+
+
+class TestA07UsurpationEntreEleves:
+    """Décision D1 : chaque élève a un code personnel distribué par l'enseignant."""
+
+    def test_prenom_et_code_classe_ne_suffisent_plus(self, client):
+        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "2NDE-A-DEMO", "code_personnel": "PKP333"})
+        assert r.status_code == 401  # code de Yanis : refusé pour Lina
+
+    def test_compte_bloque_apres_5_codes_faux_sans_bloquer_les_camarades(self, client):
+        for i in range(5):
+            r = client.post("/eleves/connexion", json=corps_connexion("Lina", code_personnel=f"AAAAA{i + 2}"))
+            assert r.status_code == 401
+        assert client.post("/eleves/connexion", json=corps_connexion("Lina")).status_code == 429
+        connecter_eleve(client, "Yanis")  # même classe, même IP : non bloqué
+
+    def test_code_hache_en_base(self, client, session):  # `client` charge les données de démo
+        from app.db import models
+
+        lina = session.scalar(select(models.Eleve).where(models.Eleve.prenom == "Lina"))
+        assert lina.code_hash.startswith("scrypt$4096$") and "PKP222" not in lina.code_hash
+
+    def test_aucune_route_ne_redonne_un_code_existant(self, client):
+        h = connecter_enseignant(client)
+        for chemin in ("/enseignants/classes/1/eleves", "/enseignants/eleves/1/progression", "/enseignants/eleves/1/export"):
+            assert "PKP222" not in client.get(chemin, headers=h).text
+
+
+class TestGestionDesCodes:
+    def test_inscription_renvoie_les_codes_une_fois(self, client):
+        codes = inscrire_eleves(client, "2NDE-A-DEMO", ["Noé", "  léa ", "Noé"])
+        assert sorted(codes) == ["Léa", "Noé"]
+        assert all(len(c) == 6 and set(c) <= set(security.ALPHABET_CODE) for c in codes.values())
+        connecter_eleve(client, "Léa", code_personnel=codes["Léa"])
+
+    def test_prenom_deja_inscrit_signale(self, client):
+        h = connecter_enseignant(client)
+        r = client.post("/enseignants/classes/1/eleves", headers=h, json={"prenoms": ["Lina", "Zoé"]})
+        assert [e["prenom"] for e in r.json()["crees"]] == ["Zoé"]
+        assert r.json()["deja_presents"] == ["Lina"]
+
+    def test_nouveau_code_invalide_l_ancien_et_ses_sessions(self, client):
+        ancienne_session = connecter_eleve(client, "Lina")
+        h = connecter_enseignant(client)
+        nouveau = client.post("/enseignants/eleves/1/code", headers=h).json()["code"]
+        assert client.get("/eleves/moi", headers=ancienne_session).status_code == 401
+        assert client.post("/eleves/connexion", json=corps_connexion("Lina")).status_code == 401
+        connecter_eleve(client, "Lina", code_personnel=nouveau)
+
+    def test_codes_manquants_pour_les_eleves_d_avant(self, client, fabrique):
+        from app.db import models
+
+        with fabrique() as s:
+            s.execute(update(models.Eleve).where(models.Eleve.prenom.in_(["Inès", "Yanis"])).values(code_hash=None))
+            s.commit()
+        assert client.post("/eleves/connexion", json=corps_connexion("Inès")).status_code == 401
+        h = connecter_enseignant(client)
+        eleves = {e["prenom"]: e["a_un_code"] for e in client.get("/enseignants/classes/1/eleves", headers=h).json()}
+        assert eleves == {"Inès": False, "Lina": True, "Yanis": False}
+        codes = {c["prenom"]: c["code"] for c in client.post("/enseignants/classes/1/codes-manquants", headers=h).json()}
+        assert sorted(codes) == ["Inès", "Yanis"]
+        connecter_eleve(client, "Inès", code_personnel=codes["Inès"])
+        connecter_eleve(client, "Lina")  # les codes existants ne changent pas
+
+    def test_reserve_a_l_enseignant_de_la_classe(self, client, fabrique):
+        with fabrique() as s:
+            creer_enseignant(s, "autre@pkp.test", "Autre", "autre-mot-de-passe")
+        h_autre = connecter_enseignant(client, "autre@pkp.test", "autre-mot-de-passe")
+        assert client.post("/enseignants/eleves/1/code", headers=h_autre).status_code == 404
+        assert client.post("/enseignants/classes/1/codes-manquants", headers=h_autre).status_code == 404
+        assert client.post("/enseignants/classes/1/eleves", headers=h_autre, json={"prenoms": ["Intrus"]}).status_code == 404
+        assert client.post("/enseignants/eleves/1/code", headers=connecter_eleve(client)).status_code == 401

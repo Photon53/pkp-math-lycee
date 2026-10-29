@@ -45,6 +45,7 @@ def resume_eleve(session: Session, eleve: models.Eleve) -> EleveResume:
     return EleveResume(
         id=eleve.id,
         prenom=eleve.prenom,
+        a_un_code=eleve.code_hash is not None,
         nb_reponses=len(historique),
         taux_reussite=sum(r.correcte for r in historique) / len(historique) if historique else None,
         competences_maitrisees=sum(est_maitrisee(historique, c.id) for c in competences),

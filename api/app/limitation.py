@@ -57,8 +57,10 @@ _fenetre = settings.connexion_fenetre_min * 60
 par_ip = Limiteur(settings.connexion_max_par_ip, _fenetre)
 echecs_enseignant = Limiteur(settings.connexion_enseignant_max_echecs, _fenetre)
 codes_inconnus = Limiteur(settings.connexion_eleve_max_codes_inconnus, _fenetre)
+# 5 essais par compte et par 15 min : deviner un code parmi 887 millions est hors de portée.
+echecs_code_eleve = Limiteur(settings.connexion_eleve_max_echecs_code, _fenetre)
 
-TOUS = (par_ip, echecs_enseignant, codes_inconnus)
+TOUS = (par_ip, echecs_enseignant, codes_inconnus, echecs_code_eleve)
 
 
 def adresse_ip(request: Request) -> str:

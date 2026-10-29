@@ -1,0 +1,9 @@
+(d) prénom + code classe seuls (sans code personnel) -> 422
+(d) prénom de Lina + code personnel de Yanis -> 401 « Prénom, code classe ou code personnel incorrect. »
+(d) prénom inconnu -> 401 « Prénom, code classe ou code personnel incorrect. » (même message : n'indique pas quels élèves existent)
+(d) classe inconnue -> 401 « Prénom, code classe ou code personnel incorrect. »
+(d) 5 codes faux pour Lina : [401, 401, 401, 401, 429] ; puis le bon code -> 429 (compte bloqué 15 min)
+(d) Yanis, même classe, même IP, pendant le blocage de Lina -> 200
+stockage : 5 empreintes, toutes au format scrypt (True), aucun code en clair (True)
+régénération du code de Yanis : ancienne session -> 401, ancien code -> 401, nouveau code -> 200
+(a) Yanis sur la séance d'Inès -> 404

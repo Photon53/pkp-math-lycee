@@ -91,6 +91,9 @@ class Eleve(Base):
     classe_id: Mapped[int] = mapped_column(ForeignKey("classe.id", ondelete="CASCADE"), index=True)
     # Point de départ de la durée de conservation pour un élève sans séance.
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    # Empreinte du code personnel distribué par l'enseignant (audit A-07, décision D1).
+    # Vide tant que l'enseignant n'a pas généré de code : l'élève ne peut pas se connecter.
+    code_hash: Mapped[str | None] = mapped_column(String(255))
 
     classe: Mapped[Classe] = relationship(back_populates="eleves")
     seances: Mapped[list["Seance"]] = relationship(

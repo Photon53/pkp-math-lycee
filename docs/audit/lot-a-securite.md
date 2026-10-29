@@ -208,6 +208,32 @@ chaque enseignant après mise à jour re-hache son mot de passe (et invalide ses
 Suites de tests au moment de la correction : moteur 77, API 136 puis 137 (tests de sécurité, enseignant,
 production relancés après l'ajout de la borne : 45 réussis), front 23.
 
+## Correction de A-07 (d) — décision D1 (29/10/2026)
+
+**Décision D1** : option 1 retenue — chaque élève a un **code personnel** généré et distribué par l'enseignant.
+
+| Élément | Mise en œuvre |
+|---------|---------------|
+| Connexion | Prénom + code classe + code personnel ; un seul message d'échec, quel que soit l'élément faux |
+| Code | 6 caractères sans 0/O/1/I/L (31⁶ ≈ 887 millions) ; stocké **haché** (scrypt N = 2¹², quelques ms pour qu'une classe se connecte ensemble), affiché en clair une seule fois, à la génération |
+| Essais | 5 codes faux par compte et par 15 min, puis blocage du compte seul (les camarades derrière la même IP ne sont pas bloqués) |
+| Comptes | Créés par l'enseignant (liste de prénoms) ; plus de création automatique à la première connexion |
+| Régénération | « Nouveau code » : l'ancien code et les sessions ouvertes avec lui cessent de fonctionner |
+| Élèves existants | Sans code après la migration 0005 : ils ne peuvent pas se connecter tant que l'enseignant n'a pas cliqué « Générer les codes manquants » |
+
+Non-régression : `api/tests/test_audit_lot_a.py` (classes `TestA07UsurpationEntreEleves` et `TestGestionDesCodes`).
+Contre-vérification en conditions réelles : `preuves/A-07-contre-verification.txt` — **RÉUSSI** :
+
+- prénom + code classe sans code personnel → 422 ; avec le code d'un autre élève → 401 ;
+- prénom inconnu et classe inconnue → 401 avec le même message (l'existence des élèves n'est pas révélée) ;
+- après 5 échecs sur le compte de Lina (dont l'essai avec le code de Yanis), le bon code → 429 ; Yanis, même
+  classe et même IP → 200 ;
+- empreintes en base au format scrypt, aucun code en clair ;
+- code régénéré : ancienne session 401, ancien code 401, nouveau code 200 ;
+- (a) inchangé : séance d'un autre élève → 404.
+
+Suites de tests : API 150 (9 fichiers), front 26.
+
 ## Synthèse
 
 Les gravités ci-dessous sont **proposées** par l'exécutant selon la grille commune ; elles doivent être validées
@@ -215,7 +241,7 @@ par le référent sécurité (aucun reclassement à la baisse sans justification
 
 | Contrôle | Résultat | Gravité proposée | Responsable | Action corrective proposée | Non-régression |
 |----------|----------|------------------|-------------|----------------------------|----------------|
-| A-07 (d) | Échoué | **Critique** (sauf acceptation écrite, décision D1) | Produit + sécurité + DPO | Code personnel par élève (distribué par l'enseignant) ou acceptation formelle du risque | Test d'usurpation automatisé |
+| A-07 (d) | Échoué → **corrigé, contre-vérifié** (D1 : code personnel) | Critique | Produit + sécurité + DPO | Fait : code personnel par élève, haché, blocage par compte | `tests/test_audit_lot_a.py` |
 | A-04 | Échoué → **corrigé, contre-vérifié** | Élevée | Développement | Fait : `dompurify` 3.4.17, `katex` 0.18.11. Reste : montée de `vite`/`vitest` (outils de développement, versions majeures) | Étape CI `npm audit --omit=dev --audit-level=high` |
 | A-06 | Échoué → **corrigé, contre-vérifié** | Élevée | Développement | Fait : N = 2¹⁷, re-hachage à la connexion, 2 hachages simultanés au plus | `tests/test_audit_lot_a.py` |
 | A-09 (e) | Échoué → **corrigé, contre-vérifié** | Élevée | Développement | Fait : empreinte du mot de passe dans le jeton enseignant | `tests/test_audit_lot_a.py` |
@@ -225,7 +251,6 @@ par le référent sécurité (aucun reclassement à la baisse sans justification
 | A-14 | Non exécuté | — | Développement | Exécuter sur déploiement Docker | — |
 | A-01, A-03, A-05, A-08, A-10, A-11 | Réussis | — | — | A-08 : trancher D3 (archivage dans la banque commune) | Tests existants |
 
-**Conclusion du lot à ce stade** : les trois constats Élevés (A-04, A-06, A-09 e) sont corrigés et contre-vérifiés
-(validation par le référent sécurité à faire). La mise en service auprès d'élèves reste bloquée par le constat
-Critique A-07 (d), tant que la décision D1 n'est pas tranchée. Trois contrôles restent à
+**Conclusion du lot à ce stade** : le constat Critique (A-07 d) et les trois constats Élevés (A-04, A-06, A-09 e)
+sont corrigés et contre-vérifiés ; leur validation par le référent sécurité reste à faire avant la mise en service. Trois contrôles restent à
 compléter avec Docker (A-12, A-13 e, A-14) et un sous Linux (A-02).

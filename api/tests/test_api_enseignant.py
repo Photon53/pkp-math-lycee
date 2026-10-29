@@ -4,7 +4,7 @@ import pytest
 
 from app.db import models
 from app.security import hacher_mot_de_passe
-from tests.conftest import connecter_eleve, connecter_enseignant
+from tests.conftest import connecter_eleve, connecter_enseignant, corps_connexion, inscrire_eleves
 
 
 @pytest.fixture
@@ -40,7 +40,8 @@ class TestClasses:
         classe = client.post("/enseignants/classes", headers=h, json={"niveau": "1re"}).json()
         assert re.fullmatch(r"1RE-[2-9A-HJKMNP-Z]{5}", classe["code"])
         assert classe["nb_eleves"] == 0
-        connecter_eleve(client, "Sam", classe["code"].lower())
+        codes = inscrire_eleves(client, classe["code"], ["Sam"])
+        connecter_eleve(client, "Sam", classe["code"].lower(), codes["Sam"].lower())
         assert len(client.get("/enseignants/classes", headers=h).json()) == 4
 
     def test_tableau_de_bord(self, client):
@@ -48,7 +49,7 @@ class TestClasses:
         par_prenom = {e["prenom"]: e for e in eleves}
         assert list(par_prenom) == ["Inès", "Lina", "Yanis"]
         assert par_prenom["Lina"] == {
-            "id": 1, "prenom": "Lina", "nb_reponses": 5, "taux_reussite": 0.6,
+            "id": 1, "prenom": "Lina", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
             "competences_maitrisees": 0, "competences_total": 4,
         }
         assert par_prenom["Inès"]["taux_reussite"] is None
@@ -72,9 +73,11 @@ class TestEffacementRgpd:
         h = connecter_enseignant(client)
         assert client.delete("/enseignants/eleves/1", headers=h).status_code == 204
         assert [e["prenom"] for e in client.get("/enseignants/classes/1/eleves", headers=h).json()] == ["Inès", "Yanis"]
-        # Son jeton ne fonctionne plus, et une reconnexion repart de zéro.
+        # Son jeton et son code ne fonctionnent plus ; réinscrite, elle repart de zéro avec un nouveau code.
         assert client.get("/eleves/moi", headers=h_eleve).status_code == 401
-        nouveau = connecter_eleve(client, "Lina")
+        assert client.post("/eleves/connexion", json=corps_connexion("Lina")).status_code == 401
+        nouveau_code = inscrire_eleves(client, "2NDE-A-DEMO", ["Lina"])["Lina"]
+        nouveau = connecter_eleve(client, "Lina", code_personnel=nouveau_code)
         assert all(p["nb_reponses"] == 0 for p in client.get("/eleves/moi/progression", headers=nouveau).json())
 
 

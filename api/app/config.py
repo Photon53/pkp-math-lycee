@@ -22,7 +22,8 @@ class Settings(BaseSettings):
     # la même adresse (réseau du lycée).
     connexion_fenetre_min: int = 15
     connexion_enseignant_max_echecs: int = 5  # par compte enseignant
-    connexion_eleve_max_codes_inconnus: int = 30  # par IP
+    connexion_eleve_max_codes_inconnus: int = 30  # codes classe inconnus, par IP
+    connexion_eleve_max_echecs_code: int = 5  # codes personnels faux, par compte élève
     connexion_max_par_ip: int = 300  # toutes tentatives confondues
 
     # RGPD : un élève sans activité depuis ce délai est supprimé par la purge.

@@ -20,6 +20,8 @@ export default function Classes({ jeton, onExpire }) {
   const [detail, setDetail] = useState(null); // { eleveId, competences }
   const [niveau, setNiveau] = useState("2nde");
   const [message, setMessage] = useState(null);
+  const [prenomsSaisis, setPrenomsSaisis] = useState("");
+  const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
 
   const chargerClasses = useCallback(() => appeler("/enseignants/classes").then(setClasses, ignorer), [appeler]);
   const chargerEleves = useCallback(
@@ -36,7 +38,46 @@ export default function Classes({ jeton, onExpire }) {
     setEleves(null);
     setDetail(null);
     setMessage(null);
+    setCodesAffiches(null);
     chargerEleves(id);
+  }
+
+  async function inscrire(e) {
+    e.preventDefault();
+    const prenoms = prenomsSaisis.split(/\r?\n/).map((p) => p.trim()).filter(Boolean);
+    try {
+      const r = await appeler(`/enseignants/classes/${classeId}/eleves`, { methode: "POST", corps: { prenoms } });
+      setCodesAffiches(r.crees);
+      setPrenomsSaisis("");
+      setMessage(r.deja_presents.length ? `Déjà inscrit(s), ignoré(s) : ${r.deja_presents.join(", ")}.` : null);
+      await Promise.all([chargerEleves(classeId), chargerClasses()]);
+    } catch {
+      // erreur déjà affichée (prénom invalide, par exemple)
+    }
+  }
+
+  async function nouveauCode(eleve) {
+    const ok = window.confirm(
+      `Générer un nouveau code pour ${eleve.prenom} ?\n\nL'ancien code ne fonctionnera plus et sa session en cours sera fermée.`,
+    );
+    if (!ok) return;
+    try {
+      setCodesAffiches([await appeler(`/enseignants/eleves/${eleve.id}/code`, { methode: "POST" })]);
+      setMessage(null);
+      await chargerEleves(classeId);
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function codesManquants() {
+    try {
+      setCodesAffiches(await appeler(`/enseignants/classes/${classeId}/codes-manquants`, { methode: "POST" }));
+      setMessage(null);
+      await chargerEleves(classeId);
+    } catch {
+      // erreur déjà affichée
+    }
   }
 
   async function creer(e) {
@@ -159,11 +200,24 @@ export default function Classes({ jeton, onExpire }) {
           <h2>
             Classe <code>{classe.code}</code>
           </h2>
-          <p className="doux">Les élèves se connectent avec leur prénom et ce code. Leur compte est créé à la première connexion.</p>
+          <p className="doux">
+            Chaque élève se connecte avec son prénom, ce code classe et son <strong>code personnel</strong>.
+          </p>
+          {codesAffiches && (
+            <FicheCodes classe={classe.code} codes={codesAffiches} onFermer={() => setCodesAffiches(null)} />
+          )}
+          {eleves?.some((e) => !e.a_un_code) && (
+            <p className="erreur" role="status">
+              Des élèves n'ont pas encore de code personnel et ne peuvent pas se connecter.{" "}
+              <button className="lien" onClick={codesManquants}>
+                Générer les codes manquants
+              </button>
+            </p>
+          )}
           {eleves === null ? (
             <p className="doux">Chargement…</p>
           ) : eleves.length === 0 ? (
-            <p className="doux">Aucun élève connecté pour l'instant.</p>
+            <p className="doux">Aucun élève inscrit pour l'instant.</p>
           ) : (
             <div className="tableau-defilant">
               <table>
@@ -182,7 +236,10 @@ export default function Classes({ jeton, onExpire }) {
                   {eleves.map((e) => (
                     <Fragment key={e.id}>
                       <tr>
-                        <td>{e.prenom}</td>
+                        <td>
+                          {e.prenom}
+                          {!e.a_un_code && <span className="pastille archivee">sans code</span>}
+                        </td>
                         <td className="nombre">{e.nb_reponses}</td>
                         <td className="nombre">{pourcent(e.taux_reussite)}</td>
                         <td className="nombre">
@@ -191,6 +248,9 @@ export default function Classes({ jeton, onExpire }) {
                         <td className="nombre">
                           <button className="lien petit" aria-expanded={detail?.eleveId === e.id} onClick={() => basculerDetail(e.id)}>
                             {detail?.eleveId === e.id ? "Masquer" : "Détail"}
+                          </button>
+                          <button className="lien petit" onClick={() => nouveauCode(e)} aria-label={`Nouveau code pour ${e.prenom}`}>
+                            Nouveau code
                           </button>
                           <button className="lien petit" onClick={() => exporter(e)} aria-label={`Exporter les données de ${e.prenom}`}>
                             Exporter
@@ -213,6 +273,22 @@ export default function Classes({ jeton, onExpire }) {
               </table>
             </div>
           )}
+          <form onSubmit={inscrire}>
+            <label htmlFor="prenoms">Inscrire des élèves (un prénom par ligne)</label>
+            <textarea
+              id="prenoms"
+              rows={4}
+              value={prenomsSaisis}
+              onChange={(e) => setPrenomsSaisis(e.target.value)}
+              placeholder={"Lina\nYanis\nInès"}
+            />
+            <p className="aide">Prénom seulement, sans nom de famille. Un code personnel est généré pour chacun.</p>
+            <div className="actions">
+              <button type="submit" className="secondaire" disabled={!prenomsSaisis.trim()}>
+                Inscrire et générer les codes
+              </button>
+            </div>
+          </form>
           <div className="actions">
             <button className="danger" onClick={() => supprimerClasse(classe)}>
               Supprimer la classe (fin d'année)
@@ -221,5 +297,47 @@ export default function Classes({ jeton, onExpire }) {
         </section>
       )}
     </>
+  );
+}
+
+/** Codes en clair : affichés une seule fois (stockés hachés). Imprimables pour être distribués. */
+function FicheCodes({ classe, codes, onFermer }) {
+  return (
+    <div className="fiche-codes" role="region" aria-label="Codes personnels à distribuer">
+      <h3>Codes à distribuer — classe {classe}</h3>
+      <p className="aide">
+        Ces codes ne seront plus affichés : imprimez-les ou notez-les maintenant. Un code perdu se remplace par « Nouveau code ».
+      </p>
+      {codes.length === 0 ? (
+        <p className="doux">Aucun nouveau code.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Élève</th>
+              <th>Code personnel</th>
+            </tr>
+          </thead>
+          <tbody>
+            {codes.map((c) => (
+              <tr key={c.prenom}>
+                <td>{c.prenom}</td>
+                <td>
+                  <code className="code-personnel">{c.code}</code>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <div className="actions">
+        <button onClick={() => window.print()} disabled={codes.length === 0}>
+          Imprimer
+        </button>
+        <button className="secondaire" onClick={onFermer}>
+          J'ai noté les codes
+        </button>
+      </div>
+    </div>
   );
 }

@@ -6,11 +6,11 @@ suivante renvoie la même tant qu'elle n'a pas reçu de réponse : impossible de
 """
 
 from datetime import UTC, datetime
+from functools import cache
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
 from pkp_engine import calculer_maitrise, choisir_prochaine_question, corriger, est_maitrisee
 from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError
 
 from app import limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
@@ -28,7 +28,13 @@ from app.schemas import (
     SeanceInfo,
     SoumissionReponse,
 )
-from app.security import creer_jeton
+from app.security import (
+    creer_jeton,
+    generer_code_eleve,
+    hacher_code_eleve,
+    verifier_code_eleve,
+    version_mot_de_passe,
+)
 
 router = APIRouter(tags=["élève"])
 
@@ -46,29 +52,43 @@ def _info(eleve: models.Eleve) -> EleveInfo:
     return EleveInfo(id=eleve.id, prenom=eleve.prenom, code_classe=eleve.classe.code, niveau=eleve.classe.niveau)
 
 
+ECHEC_CONNEXION = "Prénom, code classe ou code personnel incorrect."
+
+
+@cache
+def _code_leurre() -> str:
+    return hacher_code_eleve(generer_code_eleve())
+
+
 @router.post("/eleves/connexion", response_model=JetonEleve)
 def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> JetonEleve:
-    """Première connexion avec un prénom : l'élève est créé dans la classe."""
+    """Prénom + code classe + code personnel (distribué par l'enseignant).
+
+    Les comptes sont créés par l'enseignant : il n'y a plus de création à la première
+    connexion (audit A-07 d). Un seul message d'échec, que l'erreur porte sur la classe,
+    le prénom ou le code : on ne révèle pas quels élèves existent.
+    """
     ip = limitation.adresse_ip(request)
-    limitation.verifier((limitation.par_ip, ip), (limitation.codes_inconnus, ip))
+    compte = f"eleve:{corps.code_classe}:{corps.prenom}"
+    limitation.verifier(
+        (limitation.par_ip, ip), (limitation.codes_inconnus, ip), (limitation.echecs_code_eleve, compte)
+    )
     limitation.par_ip.enregistrer(ip)
 
     classe = session.scalar(select(models.Classe).where(models.Classe.code == corps.code_classe))
     if classe is None:
-        # Freine la recherche de codes classe par essais successifs.
-        limitation.codes_inconnus.enregistrer(ip)
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Code classe inconnu.")
-    requete = select(models.Eleve).where(models.Eleve.classe_id == classe.id, models.Eleve.prenom == corps.prenom)
-    eleve = session.scalar(requete)
-    if eleve is None:
-        eleve = models.Eleve(prenom=corps.prenom, classe=classe)
-        session.add(eleve)
-        try:
-            session.commit()
-        except IntegrityError:  # deux premières connexions simultanées avec le même prénom
-            session.rollback()
-            eleve = session.scalar(requete)
-    return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h), eleve=_info(eleve))
+        limitation.codes_inconnus.enregistrer(ip)  # freine la recherche de codes classe
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_CONNEXION)
+    eleve = session.scalar(
+        select(models.Eleve).where(models.Eleve.classe_id == classe.id, models.Eleve.prenom == corps.prenom)
+    )
+    empreinte = eleve.code_hash if eleve and eleve.code_hash else _code_leurre()  # même durée dans tous les cas
+    if not verifier_code_eleve(corps.code_personnel, empreinte) or not (eleve and eleve.code_hash):
+        limitation.echecs_code_eleve.enregistrer(compte)
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_CONNEXION)
+    limitation.echecs_code_eleve.effacer(compte)
+    version = version_mot_de_passe(eleve.code_hash)
+    return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
 
 
 @router.get("/eleves/moi", response_model=EleveInfo)

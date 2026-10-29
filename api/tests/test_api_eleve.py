@@ -1,7 +1,7 @@
 import pytest
 
 from app.security import creer_jeton
-from tests.conftest import connecter_eleve, connecter_enseignant, entete
+from tests.conftest import connecter_eleve, connecter_enseignant, corps_connexion, entete
 
 
 def solutions(client) -> dict[int, str]:
@@ -17,28 +17,45 @@ def nouvelle_seance(client, h) -> int:
 
 class TestConnexion:
     def test_eleve_existant(self, client):
-        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "2NDE-A-DEMO"})
+        r = client.post("/eleves/connexion", json=corps_connexion("Lina"))
         assert r.status_code == 200
         assert r.json()["eleve"] == {"id": 1, "prenom": "Lina", "code_classe": "2NDE-A-DEMO", "niveau": "2nde"}
 
-    @pytest.mark.parametrize(("prenom", "code"), [("  lina ", "2nde-a-demo"), ("LINA", " 2NDE-A-DEMO ")])
-    def test_saisie_normalisee(self, client, prenom, code):
-        r = client.post("/eleves/connexion", json={"prenom": prenom, "code_classe": code})
+    @pytest.mark.parametrize(
+        ("prenom", "code", "code_personnel"),
+        [("  lina ", "2nde-a-demo", "pkp222"), ("LINA", " 2NDE-A-DEMO ", "PKP-222"), ("Lina", "2NDE-A-DEMO", " pkp 222 ")],
+    )
+    def test_saisie_normalisee(self, client, prenom, code, code_personnel):
+        r = client.post("/eleves/connexion", json=corps_connexion(prenom, code, code_personnel))
         assert r.json()["eleve"]["id"] == 1
 
-    def test_nouveau_prenom_cree_l_eleve_une_seule_fois(self, client):
-        premier = client.post("/eleves/connexion", json={"prenom": "jean-paul", "code_classe": "2NDE-A-DEMO"}).json()
-        second = client.post("/eleves/connexion", json={"prenom": "Jean-Paul", "code_classe": "2NDE-A-DEMO"}).json()
-        assert premier["eleve"]["prenom"] == "Jean-Paul"
-        assert premier["eleve"]["id"] == second["eleve"]["id"]
+    @pytest.mark.parametrize(
+        "corps",
+        [
+            corps_connexion("Lina", code_personnel="PKP333"),  # code d'un autre élève
+            corps_connexion("Lina", "NOPE"),  # classe inconnue
+            corps_connexion("Inconnu", code_personnel="PKP222"),  # élève inconnu
+        ],
+    )
+    def test_echec_avec_un_message_unique(self, client, corps):
+        r = client.post("/eleves/connexion", json=corps)
+        assert r.status_code == 401
+        assert r.json()["detail"] == "Prénom, code classe ou code personnel incorrect."
 
-    def test_code_inconnu(self, client):
-        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "NOPE"})
-        assert r.status_code == 404
+    def test_plus_de_creation_a_la_premiere_connexion(self, client, session):
+        from app.db import models
+
+        r = client.post("/eleves/connexion", json=corps_connexion("Nouveau", code_personnel="ABCDEF"))
+        assert r.status_code == 401
+        assert session.query(models.Eleve).filter_by(prenom="Nouveau").count() == 0
+
+    def test_code_personnel_obligatoire(self, client):
+        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "2NDE-A-DEMO"})
+        assert r.status_code == 422
 
     @pytest.mark.parametrize("prenom", ["", "   ", "R2D2", "<script>", "a" * 51])
     def test_prenom_invalide(self, client, prenom):
-        r = client.post("/eleves/connexion", json={"prenom": prenom, "code_classe": "2NDE-A-DEMO"})
+        r = client.post("/eleves/connexion", json=corps_connexion(prenom))
         assert r.status_code == 422
 
 

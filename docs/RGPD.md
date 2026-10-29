@@ -11,7 +11,7 @@ Légende : ✅ assuré par le logiciel (et testé) · ☐ à faire par l'établi
 
 | | Point | Où |
 |---|-------|----|
-| ✅ | Élève : prénom + classe uniquement (ni nom, ni email, ni date de naissance, ni mot de passe) | `models.Eleve`, `ConnexionEleve` |
+| ✅ | Élève : prénom + classe uniquement (ni nom, ni email, ni date de naissance) ; un code personnel de 6 caractères, généré par l'enseignant et stocké haché, protège son compte | `models.Eleve`, `ConnexionEleve` |
 | ✅ | Prénom limité aux lettres, espaces, tirets, apostrophes (50 car.) | `schemas.py` |
 | ✅ | Enseignant : nom, email, empreinte du mot de passe | `models.Enseignant` |
 | ✅ | Aucun traceur, aucune police ni script tiers (CSP `default-src 'self'`) | `deploy/Caddyfile` |

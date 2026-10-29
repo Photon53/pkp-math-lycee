@@ -5,7 +5,7 @@ import pytest
 from app import limitation
 from app.config import CLE_DEV, Settings
 from app.limitation import Limiteur
-from tests.conftest import connecter_enseignant
+from tests.conftest import connecter_enseignant, corps_connexion, inscrire_eleves
 
 PROD_VALIDE = {
     "environnement": "production",
@@ -115,15 +115,18 @@ class TestConnexionEnseignant:
 class TestConnexionEleve:
     def test_recherche_de_codes_classe_freinee(self, client):
         for i in range(30):
-            r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": f"FAUX-{i}"})
-            assert r.status_code == 404
-        r = client.post("/eleves/connexion", json={"prenom": "Lina", "code_classe": "2NDE-A-DEMO"})
+            r = client.post("/eleves/connexion", json=corps_connexion("Lina", f"FAUX-{i}"))
+            assert r.status_code == 401
+        r = client.post("/eleves/connexion", json=corps_connexion("Lina"))
         assert r.status_code == 429
 
     def test_une_classe_entiere_derriere_la_meme_ip(self, client):
         """Le réseau du lycée : 35 élèves, une seule IP, quelques fautes de frappe."""
-        for i in range(35):
-            if i % 5 == 0:
-                client.post("/eleves/connexion", json={"prenom": f"Eleve {chr(65 + i % 26)}", "code_classe": "2NDE-A-DEMQ"})
-            r = client.post("/eleves/connexion", json={"prenom": f"Eleve {chr(65 + i % 26)}{chr(65 + i // 26)}", "code_classe": "2NDE-A-DEMO"})
+        prenoms = [f"Eleve {chr(65 + i % 26)}{chr(97 + i // 26)}" for i in range(35)]
+        codes = inscrire_eleves(client, "2NDE-A-DEMO", prenoms)
+        for i, prenom in enumerate(prenoms):
+            if i % 5 == 0:  # faute de frappe sur le code classe, puis sur le code personnel
+                client.post("/eleves/connexion", json=corps_connexion(prenom, "2NDE-A-DEMQ", codes[prenom]))
+                client.post("/eleves/connexion", json=corps_connexion(prenom, "2NDE-A-DEMO", "ZZZZZZ"))
+            r = client.post("/eleves/connexion", json=corps_connexion(prenom, "2NDE-A-DEMO", codes[prenom]))
             assert r.status_code == 200, r.text

@@ -23,17 +23,22 @@ class _Modele(BaseModel):
 # --- Élève ----------------------------------------------------------------
 
 
+def valider_prenom(v: str) -> str:
+    v = normaliser_prenom(v)
+    if not v or len(v) > 50 or not _PRENOM.match(v):
+        raise ValueError("Le prénom ne doit contenir que des lettres, espaces, tirets ou apostrophes.")
+    return v
+
+
 class ConnexionEleve(BaseModel):
     prenom: Annotated[str, Field(min_length=1, max_length=50)]
     code_classe: Annotated[str, Field(min_length=1, max_length=20)]
+    code_personnel: Annotated[str, Field(min_length=1, max_length=20)]
 
     @field_validator("prenom")
     @classmethod
     def _prenom(cls, v: str) -> str:
-        v = normaliser_prenom(v)
-        if not v or not _PRENOM.match(v):
-            raise ValueError("Le prénom ne doit contenir que des lettres, espaces, tirets ou apostrophes.")
-        return v
+        return valider_prenom(v)
 
     @field_validator("code_classe")
     @classmethod
@@ -146,10 +151,38 @@ class ClasseResume(BaseModel):
 class EleveResume(BaseModel):
     id: int
     prenom: str
+    a_un_code: bool
     nb_reponses: int
     taux_reussite: float | None
     competences_maitrisees: int
     competences_total: int
+
+
+class CreationEleves(BaseModel):
+    """Prénoms à inscrire dans une classe (un par ligne côté interface)."""
+
+    prenoms: Annotated[list[str], Field(min_length=1, max_length=60)]
+
+    @field_validator("prenoms")
+    @classmethod
+    def _prenoms(cls, v: list[str]) -> list[str]:
+        propres = [valider_prenom(p) for p in v if p.strip()]
+        if not propres:
+            raise ValueError("Aucun prénom fourni.")
+        return list(dict.fromkeys(propres))  # sans doublons, ordre conservé
+
+
+class CodeEleve(BaseModel):
+    """Code personnel en clair : affiché une seule fois, à la génération."""
+
+    id: int
+    prenom: str
+    code: str
+
+
+class ResultatCreationEleves(BaseModel):
+    crees: list[CodeEleve]
+    deja_presents: list[str]
 
 
 class CompetenceInfo(BaseModel):

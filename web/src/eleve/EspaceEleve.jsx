@@ -63,6 +63,7 @@ export default function EspaceEleve() {
 export function ConnexionEleve({ onConnexion }) {
   const [prenom, setPrenom] = useState("");
   const [code, setCode] = useState("");
+  const [codePersonnel, setCodePersonnel] = useState("");
   const [erreur, setErreur] = useState(null);
   const [envoi, setEnvoi] = useState(false);
 
@@ -71,9 +72,17 @@ export function ConnexionEleve({ onConnexion }) {
     setErreur(null);
     setEnvoi(true);
     try {
-      onConnexion(await api("/eleves/connexion", { methode: "POST", corps: { prenom, code_classe: code } }));
+      onConnexion(
+        await api("/eleves/connexion", {
+          methode: "POST",
+          corps: { prenom, code_classe: code, code_personnel: codePersonnel },
+        }),
+      );
     } catch (err) {
-      setErreur(err.status === 404 ? "Ce code classe n'existe pas. Vérifie-le avec ton professeur." : err.message);
+      setErreur(
+        err.status === 401 ? "Prénom, code classe ou code personnel incorrect. Vérifie-les avec ton professeur." : err.message,
+      );
+      setCodePersonnel("");
     } finally {
       setEnvoi(false);
     }
@@ -82,7 +91,7 @@ export function ConnexionEleve({ onConnexion }) {
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
       <h1>Bienvenue</h1>
-      <p className="doux">Entre ton prénom et le code donné par ton professeur.</p>
+      <p className="doux">Entre ton prénom, le code de ta classe et ton code personnel, donnés par ton professeur.</p>
       <label htmlFor="prenom">Prénom</label>
       <input id="prenom" value={prenom} onChange={(e) => setPrenom(e.target.value)} autoComplete="given-name" maxLength={50} required />
       <label htmlFor="code">Code classe</label>
@@ -96,9 +105,22 @@ export function ConnexionEleve({ onConnexion }) {
         maxLength={20}
         required
       />
+      <label htmlFor="code-personnel">Code personnel</label>
+      <input
+        id="code-personnel"
+        type="password"
+        value={codePersonnel}
+        onChange={(e) => setCodePersonnel(e.target.value.toUpperCase())}
+        placeholder="6 caractères"
+        autoComplete="off"
+        spellCheck={false}
+        maxLength={20}
+        required
+      />
+      <p className="aide">Ne le donne à personne : il protège ton compte.</p>
       <Erreur message={erreur} />
       <div className="actions">
-        <button type="submit" disabled={envoi || !prenom.trim() || !code.trim()}>
+        <button type="submit" disabled={envoi || !prenom.trim() || !code.trim() || !codePersonnel.trim()}>
           {envoi ? "Connexion…" : "Commencer"}
         </button>
       </div>

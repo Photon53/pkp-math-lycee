@@ -6,7 +6,7 @@
 |----------|--------------------------|
 | Moteur pur, sans dépendance web/DB | `engine/` n'importe ni FastAPI ni SQLAlchemy ; il reçoit et renvoie des dataclasses. |
 | 8 tables normalisées (+ `lecon`) | `api/app/db/models.py`. La 9e table, `lecon`, porte les cours (migration 0004). |
-| Élève = prénom + code classe | Aucune donnée nominative complète, pas d'email, pas de mot de passe élève (RGPD mineurs). |
+| Élève = prénom + code classe + code personnel | Aucune donnée nominative complète, pas d'email. Le code personnel (généré par l'enseignant, stocké haché) empêche un camarade d'usurper le compte (audit A-07, décision D1). |
 | Une question n'est jamais supprimée | Colonne `archivee` (booléen) au lieu d'un `DELETE` ; l'historique des réponses reste lisible. |
 | Bonne réponse révélée après soumission | Le schéma `QuestionPublique` ne contient pas la solution ; seul `ResultatReponse` la renvoie. |
 | 6 phases, une session de travail chacune | Voir le découpage ci-dessous. |

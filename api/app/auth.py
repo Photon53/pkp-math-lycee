@@ -30,7 +30,13 @@ def _non_authentifie() -> HTTPException:
 def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Eleve:
     lu = identifiants and lire_jeton(identifiants.credentials, ELEVE)
     eleve = lu and session.get(models.Eleve, lu[0])
-    if not eleve:  # jeton invalide, ou élève supprimé depuis (purge RGPD)
+    # Refusé si : jeton invalide, élève supprimé (purge RGPD), ou code personnel
+    # régénéré par l'enseignant depuis l'émission du jeton.
+    if (
+        not eleve
+        or eleve.code_hash is None
+        or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
+    ):
         raise _non_authentifie()
     return eleve
 
