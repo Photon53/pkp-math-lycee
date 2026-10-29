@@ -1,6 +1,7 @@
 chapitre:
   code: TLE-SUITES
   niveau: Tle
+  parcours: specialite
   ordre: 5
   titre: Suites
 
@@ -67,6 +68,15 @@ competences:
         type: expression
         enonce: 'On note $S_n = 1 + 3 + 5 + \dots + (2n - 1)$ la somme des $n$ premiers entiers impairs. Calculer $S_1$, $S_2$, $S_3$, conjecturer une expression de $S_n$ en fonction de $n$, puis la démontrer par récurrence. $S_n = ?$'
         solution: n^2
+      - code: TLE-SUI-REC-06
+        difficulte: 5
+        type: qcm
+        enonce: 'On pose $f(x) = -0{,}1x^2 + 1{,}5x$, $v_0 = 7$ et $v_{n+1} = f(v_n)$. On veut démontrer par récurrence que $5 \leq v_{n+1} \leq v_n \leq 7$ pour tout $n$. Quel argument permet de passer, dans l''hérédité, de $5 \leq v_{k+1} \leq v_k \leq 7$ à $f(5) \leq v_{k+2} \leq v_{k+1} \leq f(7)$ ? A) $f$ est croissante sur $[5 ; 7]$  B) $f$ est décroissante sur $[5 ; 7]$  C) $f(7) = 7$'
+        solution: A
+        source: APMEP (annales du bac)
+        source_url: https://www.apmep.fr/Annales-du-Bac-Terminale-et-epreuves-anticipees-en-1re
+        licence_source: non clarifiée
+        adaptation: inspiree
 
   - code: TLE-SUI-LIM
     libelle: Définir la limite d'une suite
@@ -131,6 +141,15 @@ competences:
         type: qcm
         enonce: 'Une suite $(u_n)$ est croissante et majorée par $5$. Que peut-on affirmer ? A) Elle converge vers $5$  B) Elle converge vers une limite inférieure ou égale à $5$  C) Elle tend vers $+\infty$  D) On ne peut rien dire'
         solution: B
+      - code: TLE-SUI-LIM-06
+        difficulte: 3
+        type: expression
+        enonce: 'La suite $(u_n)$ est géométrique, de premier terme $u_0 = 8$ et de raison $q = 0{,}85$. Exprimer $u_n$ en fonction de $n$.'
+        solution: 8*0.85^n
+        source: APMEP (annales du bac)
+        source_url: https://www.apmep.fr/Annales-du-Bac-Terminale-et-epreuves-anticipees-en-1re
+        licence_source: non clarifiée
+        adaptation: inspiree
 
   - code: TLE-SUI-OPE
     libelle: Déterminer la limite d'une suite par opérations

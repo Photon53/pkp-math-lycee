@@ -1,0 +1,66 @@
+chapitre:
+  code: TLE-COMB
+  niveau: Tle
+  parcours: specialite
+  ordre: 1
+  titre: Combinatoire et dénombrement
+
+competences:
+  - code: TLE-COMB-DEN
+    libelle: Dénombrer avec les listes et les combinaisons
+    resume: |
+      - **$k$-uplets** (ordre compte, répétitions permises) d'un ensemble à $n$ éléments : $n^k$.
+      - **Combinaisons** (ordre ne compte pas, sans répétition) : $\dbinom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$.
+      - Tirage **simultané** dans une urne : on compte des combinaisons.
+      - Probabilité (équiprobabilité) : $P(A) = \dfrac{\text{nombre de cas favorables}}{\text{nombre de cas possibles}}$.
+    cours: |
+      ## Choisir le bon outil
+      | L'ordre compte ? | Répétitions ? | Outil | Exemple |
+      |---|---|---|---|
+      | oui | oui | $n^k$ | codes de 4 chiffres : $10^4$ |
+      | oui | non | $\dfrac{n!}{(n-k)!}$ (arrangements) | podium de 3 coureurs parmi 8 : $8 \times 7 \times 6$ |
+      | non | non | $\dbinom{n}{k}$ (combinaisons) | 2 délégués parmi 30 élèves : $\dbinom{30}{2}$ |
+
+      ## Le coefficient binomial
+      $$\binom{n}{k} = \frac{n!}{k!\,(n-k)!}, \qquad \text{par exemple } \binom{6}{2} = \frac{6 \times 5}{2 \times 1} = 15.$$
+      Propriétés utiles : $\dbinom{n}{0} = \dbinom{n}{n} = 1$ et $\dbinom{n}{k} = \dbinom{n}{n-k}$.
+
+      ## Tirage simultané dans une urne
+      Une urne contient 6 boules rouges et 4 vertes ; on en tire 2 simultanément.
+      - Cas possibles : $\dbinom{10}{2} = 45$.
+      - « Une rouge et une verte » : $\dbinom{6}{1}\dbinom{4}{1} = 24$ cas, donc une probabilité de $\dfrac{24}{45} = \dfrac{8}{15}$.
+
+      ## « Au moins un » : penser au contraire
+      $P(\text{au moins une verte}) = 1 - P(\text{aucune verte})$ : un seul calcul au lieu de plusieurs.
+    questions:
+      - code: TLE-COMB-DEN-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\dbinom{5}{2}$.'
+        solution: 10
+      - code: TLE-COMB-DEN-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Combien de codes de 4 chiffres (de 0000 à 9999) peut-on former ?'
+        solution: 10000
+      - code: TLE-COMB-DEN-03
+        difficulte: 2
+        type: numerique
+        enonce: 'De combien de façons peut-on choisir 3 délégués dans une classe de 25 élèves ?'
+        solution: 2300
+      - code: TLE-COMB-DEN-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une urne contient 8 boules indiscernables au toucher : 5 rouges et 3 vertes. On tire simultanément 3 boules. Quelle est la probabilité d''obtenir exactement 2 boules rouges et 1 boule verte ? (fraction irréductible ou valeur exacte)'
+        solution: 15/28
+        source: math.ma
+        licence_source: non clarifiée
+        adaptation: inspiree
+      - code: TLE-COMB-DEN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Avec la même urne (5 rouges, 3 vertes, tirage simultané de 3 boules), quelle est la probabilité d''obtenir au moins une boule verte ?'
+        solution: 23/28
+        source: math.ma
+        licence_source: non clarifiée
+        adaptation: inspiree

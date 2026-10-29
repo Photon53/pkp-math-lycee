@@ -18,6 +18,7 @@ import argparse
 import re
 import sys
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 from typing import Annotated
 
@@ -29,15 +30,40 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.referentiel import (
+    LICENCES_NON_CLAIRES,
+    PARCOURS_PAR_NIVEAU,
+    SOURCE_PKP,
+    Adaptation,
+    Parcours,
+    StatutValidation,
+)
 
 DOSSIER_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "contenu"
 ORDRE_NIVEAUX = {Niveau.SECONDE: 0, Niveau.PREMIERE: 1, Niveau.TERMINALE: 2}
+ORDRE_PARCOURS = {p: i for i, p in enumerate(Parcours)}
+# Rangement attendu : contenu/<dossier du niveau>/<parcours>/NN-chapitre.yaml
+DOSSIERS_NIVEAU = {Niveau.SECONDE: "2nde", Niveau.PREMIERE: "1re", Niveau.TERMINALE: "tle"}
 
 Code = Annotated[str, Field(pattern=r"^[A-Z0-9][A-Z0-9-]{1,59}$")]
 
 
 class _Strict(BaseModel):
     model_config = ConfigDict(extra="forbid")
+
+
+class ValidationYaml(_Strict):
+    """Validation pédagogique : qui a relu la question, et quand."""
+
+    statut: StatutValidation = StatutValidation.A_VALIDER
+    par: Annotated[str, Field(min_length=1, max_length=100)] | None = None
+    le: date | None = None
+
+    @model_validator(mode="after")
+    def _signee(self):
+        if self.statut is StatutValidation.VALIDEE and (self.par is None or self.le is None):
+            raise ValueError("une question « validee » indique qui l'a validée (`par`) et quand (`le`)")
+        return self
 
 
 class QuestionYaml(_Strict):
@@ -47,6 +73,29 @@ class QuestionYaml(_Strict):
     enonce: Annotated[str, Field(min_length=1, max_length=2000)]
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     archivee: bool = False
+    # Registre des sources (traçabilité et droits de réutilisation)
+    source: Annotated[str, Field(min_length=1, max_length=200)] = SOURCE_PKP
+    source_url: Annotated[str, Field(pattern=r"^https?://", max_length=500)] | None = None
+    licence_source: Annotated[str, Field(max_length=100)] | None = None
+    adaptation: Adaptation = Adaptation.ORIGINALE
+    validation: ValidationYaml = ValidationYaml()
+
+    @model_validator(mode="after")
+    def _registre_coherent(self):
+        externe = self.source != SOURCE_PKP
+        if self.adaptation is Adaptation.ORIGINALE and externe:
+            raise ValueError("adaptation « originale » mais source externe : utiliser « inspiree », « adaptee » ou « reproduite »")
+        if self.adaptation is not Adaptation.ORIGINALE and not externe:
+            raise ValueError(f"adaptation « {self.adaptation.value} » : indiquer la `source` d'origine")
+        if self.adaptation in (Adaptation.ADAPTEE, Adaptation.REPRODUITE):
+            if self.source_url is None:
+                raise ValueError(f"adaptation « {self.adaptation.value} » : indiquer `source_url`")
+            if (self.licence_source or "").strip().lower() in LICENCES_NON_CLAIRES:
+                raise ValueError(
+                    f"source sans licence claire (« {self.licence_source or 'non renseignée'} ») : "
+                    "elle ne peut servir que d'inspiration (adaptation « inspiree », énoncé entièrement réécrit)"
+                )
+        return self
 
     @field_validator("solution", mode="before")
     @classmethod
@@ -77,8 +126,19 @@ class CompetenceYaml(_Strict):
 class ChapitreYaml(_Strict):
     code: Code
     niveau: Niveau
+    parcours: Parcours
     ordre: Annotated[int, Field(ge=1, le=99)]
     titre: Annotated[str, Field(min_length=1, max_length=200)]
+
+    @model_validator(mode="after")
+    def _parcours_du_niveau(self):
+        permis = PARCOURS_PAR_NIVEAU[self.niveau]
+        if self.parcours not in permis:
+            raise ValueError(
+                f"parcours « {self.parcours.value} » impossible en {self.niveau.value} "
+                f"(permis : {', '.join(p.value for p in permis)})"
+            )
+        return self
 
 
 class FichierContenu(_Strict):
@@ -132,6 +192,10 @@ def charger(dossier: Path = DOSSIER_PAR_DEFAUT) -> list[tuple[Path, FichierConte
         except ValidationError as exc:
             erreurs.extend(f"{nom} : {'.'.join(map(str, e['loc']))} : {e['msg']}" for e in exc.errors())
             continue
+        ch = contenu.chapitre
+        attendu = f"{DOSSIERS_NIVEAU[ch.niveau]}/{ch.parcours.value}/"
+        if not nom.startswith(attendu) or nom.count("/") != 2:
+            erreurs.append(f"{nom} : à ranger dans contenu/{attendu} (niveau {ch.niveau.value}, parcours {ch.parcours.value})")
         for c in contenu.competences:
             for champ in ("cours", "resume"):
                 texte = getattr(c, champ)
@@ -149,7 +213,10 @@ def charger(dossier: Path = DOSSIER_PAR_DEFAUT) -> list[tuple[Path, FichierConte
     _verifier_unicite(fichiers, dossier, erreurs)
     if erreurs:
         raise ContenuInvalide(erreurs)
-    return sorted(fichiers, key=lambda f: (ORDRE_NIVEAUX[f[1].chapitre.niveau], f[1].chapitre.ordre))
+    return sorted(
+        fichiers,
+        key=lambda f: (ORDRE_NIVEAUX[f[1].chapitre.niveau], ORDRE_PARCOURS[f[1].chapitre.parcours], f[1].chapitre.ordre),
+    )
 
 
 def _verifier_unicite(fichiers, dossier: Path, erreurs: list[str]) -> None:
@@ -164,7 +231,7 @@ def _verifier_unicite(fichiers, dossier: Path, erreurs: list[str]) -> None:
     for chemin, contenu in fichiers:
         nom = chemin.relative_to(dossier).as_posix()
         noter("chapitre", contenu.chapitre.code, nom)
-        noter("ordre", f"{contenu.chapitre.niveau.value} n°{contenu.chapitre.ordre}", nom)
+        noter("ordre", f"{contenu.chapitre.niveau.value} {contenu.chapitre.parcours.value} n°{contenu.chapitre.ordre}", nom)
         for c in contenu.competences:
             noter("compétence", c.code, nom)
             for q in c.questions:
@@ -221,7 +288,11 @@ def importer(
         chapitre = session.scalar(select(models.Chapitre).where(models.Chapitre.code == ch.code))
         if chapitre is None:  # base antérieure à la migration 0004 : reconnu par sa position
             chapitre = session.scalar(
-                select(models.Chapitre).where(models.Chapitre.niveau == ch.niveau, models.Chapitre.ordre == ch.ordre)
+                select(models.Chapitre).where(
+                    models.Chapitre.niveau == ch.niveau,
+                    models.Chapitre.parcours == ch.parcours,
+                    models.Chapitre.ordre == ch.ordre,
+                )
             )
         chapitres.append(chapitre)
     for chapitre in chapitres:
@@ -233,13 +304,15 @@ def importer(
     for (_, contenu), chapitre in zip(fichiers, chapitres):
         ch = contenu.chapitre
         if chapitre is None:
-            chapitre = models.Chapitre(code=ch.code, niveau=ch.niveau, ordre=ch.ordre, titre=ch.titre)
+            chapitre = models.Chapitre(code=ch.code, niveau=ch.niveau, parcours=ch.parcours, ordre=ch.ordre, titre=ch.titre)
             session.add(chapitre)
             rapport.crees["chapitres"] += 1
         else:
-            avant = (chapitre.code, chapitre.niveau, chapitre.titre)
-            _appliquer(chapitre, {"code": ch.code, "niveau": ch.niveau, "titre": ch.titre, "ordre": ch.ordre})
-            rapport.modifies["chapitres"] += avant != (ch.code, ch.niveau, ch.titre)
+            avant = (chapitre.code, chapitre.niveau, chapitre.parcours, chapitre.titre)
+            _appliquer(
+                chapitre, {"code": ch.code, "niveau": ch.niveau, "parcours": ch.parcours, "titre": ch.titre, "ordre": ch.ordre}
+            )
+            rapport.modifies["chapitres"] += avant != (ch.code, ch.niveau, ch.parcours, ch.titre)
 
         for rang, c in enumerate(contenu.competences, start=1):
             competence = session.scalar(select(models.Competence).where(models.Competence.code == c.code))
@@ -305,6 +378,13 @@ def _importer_question(session: Session, competence: models.Competence, q: Quest
         "solution": q.solution,
         "difficulte": q.difficulte,
         "archivee": q.archivee,
+        "source": q.source,
+        "source_url": q.source_url,
+        "licence_source": q.licence_source,
+        "adaptation": q.adaptation,
+        "statut_validation": q.validation.statut,
+        "valide_par": q.validation.par,
+        "valide_le": q.validation.le,
     }
     if question is None:
         session.add(models.Question(**valeurs))
@@ -313,11 +393,79 @@ def _importer_question(session: Session, competence: models.Competence, q: Quest
         rapport.modifies["questions"] += 1
 
 
+# --- Inventaire et matrice de couverture ---------------------------------------
+
+DIFFICULTES = range(1, 6)
+INVENTAIRE_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "docs" / "CONTENU-INVENTAIRE.md"
+
+
+def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
+    """Matrice niveau → parcours → chapitre → compétence × difficulté, en Markdown.
+
+    Signale les trous : niveau de difficulté sans question, compétence sans cours,
+    questions à valider. Le registre des sources récapitule l'origine des questions.
+    """
+    from collections import Counter
+
+    from app.referentiel import LIBELLES_PARCOURS
+
+    actives = [(f, c, q) for _, f in fichiers for c in f.competences for q in c.questions if not q.archivee]
+    statuts = Counter(q.validation.statut.value for _, _, q in actives)
+    lignes = [
+        "# Inventaire de la banque de questions",
+        "",
+        "Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.",
+        "",
+        f"- Chapitres : **{len(fichiers)}** · compétences : **{sum(len(f.competences) for _, f in fichiers)}** · "
+        f"questions actives : **{len(actives)}**",
+        f"- Validation pédagogique : {statuts.get('validee', 0)} validée(s), {statuts.get('a-valider', 0)} à valider, "
+        f"{statuts.get('a-corriger', 0)} à corriger",
+        "",
+        "## Matrice de couverture",
+        "",
+        "Nombre de questions actives par difficulté (1 = application directe … 5 = niveau bac). "
+        "⚠ signale un trou : une difficulté sans question, ou une compétence sans cours.",
+        "",
+    ]
+    trous: list[str] = []
+    niveau_courant = None
+    for _, f in fichiers:
+        ch = f.chapitre
+        if (ch.niveau, ch.parcours) != niveau_courant:
+            if niveau_courant is not None:
+                lignes.append("")
+            niveau_courant = (ch.niveau, ch.parcours)
+            lignes += [f"### {ch.niveau.value} — {LIBELLES_PARCOURS[ch.parcours]}", "",
+                       "| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |",
+                       "|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|"]
+        for c in f.competences:
+            qs = [q for q in c.questions if not q.archivee]
+            par_difficulte = Counter(q.difficulte for q in qs)
+            cellules = [str(par_difficulte[d]) if par_difficulte[d] else "⚠ 0" for d in DIFFICULTES]
+            manquantes = [str(d) for d in DIFFICULTES if not par_difficulte[d]]
+            if manquantes:
+                trous.append(f"`{c.code}` ({c.libelle}) : aucune question de difficulté {', '.join(manquantes)}")
+            if c.cours is None:
+                trous.append(f"`{c.code}` ({c.libelle}) : pas de cours")
+            a_valider = sum(q.validation.statut is not StatutValidation.VALIDEE for q in qs)
+            lignes.append(
+                f"| {ch.ordre}. {ch.titre} | `{c.code}` {c.libelle} | {'✓' if c.cours else '⚠'} | "
+                + " | ".join(cellules) + f" | {len(qs)} | {a_valider} |"
+            )
+    lignes += ["", "## Trous à combler", ""] + ([f"- {t}" for t in trous] or ["Aucun."])
+
+    sources = Counter((q.source, q.licence_source or "—", q.adaptation.value) for _, _, q in actives)
+    lignes += ["", "## Registre des sources", "", "| Source | Licence de la source | Adaptation | Questions |", "|---|---|---|:-:|"]
+    lignes += [f"| {s} | {lic} | {a} | {n} |" for (s, lic, a), n in sorted(sources.items(), key=lambda x: (-x[1], x[0]))]
+    return "\n".join(lignes) + "\n"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Contenu pédagogique PKP Math Lycée")
-    parser.add_argument("commande", choices=["verifier", "importer"])
+    parser.add_argument("commande", choices=["verifier", "importer", "inventaire"])
     parser.add_argument("--dossier", type=Path, default=DOSSIER_PAR_DEFAUT)
     parser.add_argument("--simulation", action="store_true", help="importer : montre les changements sans les appliquer")
+    parser.add_argument("--sortie", type=Path, default=INVENTAIRE_PAR_DEFAUT, help="inventaire : fichier Markdown produit")
     args = parser.parse_args()
 
     try:
@@ -326,6 +474,9 @@ def main() -> None:
         sys.exit(str(exc))
     nb_questions = sum(len(c.questions) for _, f in fichiers for c in f.competences)
     print(f"Contenu valide : {len(fichiers)} chapitre(s), {nb_questions} question(s).")
+    if args.commande == "inventaire":
+        args.sortie.write_text(inventaire(fichiers), encoding="utf-8")
+        print(f"Inventaire écrit dans {args.sortie}")
     if args.commande == "importer":
         from app.db.session import SessionLocale
 

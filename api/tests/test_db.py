@@ -24,15 +24,15 @@ class TestDonneesDeDemo:
         assert compter(demo, models.Enseignant) == 1
         assert compter(demo, models.Classe) == 3
         assert compter(demo, models.Eleve) == 5
-        assert compter(demo, models.Chapitre) == 5
-        assert compter(demo, models.Competence) == 12
-        assert compter(demo, models.Question) == 55
-        assert compter(demo, models.Lecon) == 12
+        assert compter(demo, models.Chapitre) == 7
+        assert compter(demo, models.Competence) == 17
+        assert compter(demo, models.Question) == 80
+        assert compter(demo, models.Lecon) == 17
         assert compter(demo, models.Reponse) == 7
 
     def test_idempotent(self, demo):
         assert charger_demo(demo) is False
-        assert compter(demo, models.Question) == 55
+        assert compter(demo, models.Question) == 80
 
     def test_chaque_solution_est_acceptee_par_le_moteur(self, demo):
         """Garde-fou qualité : une solution illisible lèverait ExpressionInvalide."""
@@ -100,7 +100,7 @@ class TestPurgeRgpd:
         demo.commit()
         assert compter(demo, models.Eleve) == 2
         assert compter(demo, models.Reponse) == 0
-        assert compter(demo, models.Question) == 55
+        assert compter(demo, models.Question) == 80
 
 
 def test_historique_vers_moteur(demo):

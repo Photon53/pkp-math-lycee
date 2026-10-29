@@ -16,8 +16,9 @@ from app import limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
+from app.referentiel import StatutValidation
 from app.db.conversions import historique_eleve, question_vers_domaine
-from app.progression import progression_eleve
+from app.progression import programme_de, progression_eleve
 from app.schemas import (
     ConnexionEleve,
     EleveInfo,
@@ -49,10 +50,23 @@ def _utc(instant: datetime) -> datetime:
 
 
 def _info(eleve: models.Eleve) -> EleveInfo:
-    return EleveInfo(id=eleve.id, prenom=eleve.prenom, code_classe=eleve.classe.code, niveau=eleve.classe.niveau)
+    return EleveInfo(
+        id=eleve.id,
+        prenom=eleve.prenom,
+        code_classe=eleve.classe.code,
+        niveau=eleve.classe.niveau,
+        parcours=eleve.classe.parcours,
+    )
 
 
 ECHEC_CONNEXION = "Prénom, code classe ou code personnel incorrect."
+
+
+def _filtre_validation():
+    """En production, on peut ne servir que les questions validées par un enseignant."""
+    if settings.servir_questions_non_validees:
+        return ()
+    return (models.Question.statut_validation == StatutValidation.VALIDEE,)
 
 
 @cache
@@ -144,7 +158,7 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
             select(models.Question)
             .join(models.Competence)
             .join(models.Chapitre)
-            .where(models.Chapitre.niveau == eleve.classe.niveau, models.Question.archivee.is_(False))
+            .where(*programme_de(eleve.classe), models.Question.archivee.is_(False), *_filtre_validation())
         )
     }
     choix = choisir_prochaine_question(

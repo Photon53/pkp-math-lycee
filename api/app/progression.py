@@ -11,12 +11,17 @@ from app.db.conversions import historique_eleve
 from app.schemas import EleveResume, ProgressionCompetence
 
 
+def programme_de(classe: models.Classe):
+    """Conditions SQL : chapitres du niveau ET du parcours (spécialité) de la classe."""
+    return (models.Chapitre.niveau == classe.niveau, models.Chapitre.parcours == classe.parcours)
+
+
 def competences_du_niveau(session: Session, eleve: models.Eleve) -> list[models.Competence]:
     return list(
         session.scalars(
             select(models.Competence)
             .join(models.Chapitre)
-            .where(models.Chapitre.niveau == eleve.classe.niveau)
+            .where(*programme_de(eleve.classe))
             .order_by(models.Chapitre.ordre, models.Competence.code)
         )
     )

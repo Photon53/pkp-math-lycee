@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     connexion_eleve_max_echecs_code: int = 5  # codes personnels faux, par compte élève
     connexion_max_par_ip: int = 300  # toutes tentatives confondues
 
+    # Banque de questions : servir aussi les questions pas encore validées par un enseignant.
+    # À passer à False dès que la validation pédagogique de la banque est faite.
+    servir_questions_non_validees: bool = True
+
     # RGPD : un élève sans activité depuis ce délai est supprimé par la purge.
     retention_jours: int = 365
 

@@ -9,6 +9,14 @@ def solutions(client) -> dict[int, str]:
     return {q["id"]: q["solution"] for q in r.json()}
 
 
+def questions_du_niveau(client, niveau: str) -> list[dict]:
+    """Questions (archivées comprises) des compétences d'un niveau, vues par l'enseignant de démo."""
+    h = connecter_enseignant(client)
+    ids = {c["id"] for c in client.get("/enseignants/competences", headers=h).json() if c["niveau"] == niveau}
+    toutes = client.get("/enseignants/questions?archivees=true", headers=h).json()
+    return [q for q in toutes if q["competence_id"] in ids]
+
+
 def nouvelle_seance(client, h) -> int:
     r = client.post("/seances", headers=h)
     assert r.status_code == 201
@@ -19,7 +27,9 @@ class TestConnexion:
     def test_eleve_existant(self, client):
         r = client.post("/eleves/connexion", json=corps_connexion("Lina"))
         assert r.status_code == 200
-        assert r.json()["eleve"] == {"id": 1, "prenom": "Lina", "code_classe": "2NDE-A-DEMO", "niveau": "2nde"}
+        assert r.json()["eleve"] == {
+            "id": 1, "prenom": "Lina", "code_classe": "2NDE-A-DEMO", "niveau": "2nde", "parcours": "tronc-commun",
+        }
 
     @pytest.mark.parametrize(
         ("prenom", "code", "code_personnel"),
@@ -153,7 +163,9 @@ class TestParcours:
         assert client.get(f"/seances/{s}/question", headers=h).status_code == 409
 
     def test_questions_du_niveau_et_jamais_archivees(self, client):
-        archivees = {q["id"] for q in client.get("/enseignants/questions?archivees=true", headers=connecter_enseignant(client)).json() if q["archivee"]}
+        toutes = client.get("/enseignants/questions?archivees=true", headers=connecter_enseignant(client)).json()
+        archivees = {q["id"] for q in toutes if q["archivee"]}
+        de_premiere = {q["id"] for q in questions_du_niveau(client, "1re")}
         h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
         s = nouvelle_seance(client, h)
         vues = set()
@@ -161,19 +173,19 @@ class TestParcours:
             q = client.get(f"/seances/{s}/question", headers=h).json()
             vues.add(q["id"])
             client.post(f"/seances/{s}/reponses", headers=h, json={"question_id": q["id"], "reponse_donnee": "x"})
-        assert vues == {14, 15}  # les 2 questions de 1re
+        assert vues <= de_premiere  # uniquement des questions de 1re
         assert not vues & archivees
 
     def test_aucune_question_pour_le_niveau(self, client):
         h_prof = connecter_enseignant(client)
-        for question_id in (14, 15):  # les seules questions de 1re
-            client.post(f"/enseignants/questions/{question_id}/archiver", headers=h_prof)
+        for q in questions_du_niveau(client, "1re"):  # toutes les questions de 1re
+            client.post(f"/enseignants/questions/{q['id']}/archiver", headers=h_prof)
         h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
         assert client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).status_code == 204
 
     def test_progression(self, client):
         h = connecter_eleve(client)
         progression = {p["code"]: p for p in client.get("/eleves/moi/progression", headers=h).json()}
-        assert list(progression) == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-DEV", "2NDE-EQ1"]
+        assert list(progression) == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-DEV", "2NDE-EQ1"]
         assert progression["2NDE-FRAC"]["nb_reponses"] == 2
         assert progression["2NDE-PUIS"] == {**progression["2NDE-PUIS"], "nb_reponses": 0, "maitrise": 0.0, "maitrisee": False}

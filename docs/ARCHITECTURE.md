@@ -16,11 +16,11 @@
 | Table          | Colonnes principales                                                        |
 |----------------|-----------------------------------------------------------------------------|
 | `enseignant`   | id, nom, email, mot_de_passe_hash                                           |
-| `classe`       | id, code (unique, ex. `2NDE-B-7K3`), niveau (2nde/1re/Tle), enseignant_id   |
+| `classe`       | id, code (unique, ex. `2NDE-B-7K3`), niveau (2nde/1re/Tle), parcours (spécialité), enseignant_id |
 | `eleve`        | id, prenom, classe_id — unique (prenom, classe_id)                          |
-| `chapitre`     | id, code, niveau, titre, ordre                                              |
+| `chapitre`     | id, code, niveau, parcours, titre, ordre                                    |
 | `competence`   | id, chapitre_id, code, libelle, ordre                                       |
-| `question`     | id, code, competence_id, enonce, type, solution, difficulte, archivee, cree_le |
+| `question`     | id, code, competence_id, enonce, type, solution, difficulte, archivee, registre des sources (source, source_url, licence_source, adaptation), validation (statut, par, le), cree_le |
 | `lecon`        | id, competence_id (unique), cours, resume (Markdown + LaTeX), maj_le        |
 | `seance`       | id, eleve_id, debut, fin                                                    |
 | `reponse`      | id, seance_id, question_id, reponse_donnee, correcte, duree_s, repondu_le   |

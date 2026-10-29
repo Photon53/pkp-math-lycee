@@ -171,6 +171,14 @@ export default function Questions({ jeton, onExpire }) {
                       <div className="aide">
                         {LIBELLES_TYPE[q.type]} · {libelleCompetence(q.competence_id)}
                         {q.archivee && <span className="pastille archivee">Archivée</span>}
+                        {q.statut_validation !== "validee" && (
+                          <span className="pastille archivee">{q.statut_validation === "a-corriger" ? "À corriger" : "À valider"}</span>
+                        )}
+                        {q.adaptation !== "originale" && (
+                          <span className="pastille archivee" title={q.licence_source ?? ""}>
+                            {q.adaptation === "inspiree" ? "Inspirée de" : "Source :"} {q.source}
+                          </span>
+                        )}
                       </div>
                     </td>
                     <td>

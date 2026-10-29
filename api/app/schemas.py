@@ -6,7 +6,9 @@ from datetime import datetime
 from typing import Annotated
 
 from pkp_engine import Niveau, TypeQuestion
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from app.referentiel import PARCOURS_PAR_NIVEAU, Adaptation, Parcours, StatutValidation, parcours_par_defaut
 
 _PRENOM = re.compile(r"^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$")
 
@@ -51,6 +53,7 @@ class EleveInfo(BaseModel):
     prenom: str
     code_classe: str
     niveau: Niveau
+    parcours: Parcours
 
 
 class JetonEleve(BaseModel):
@@ -139,12 +142,22 @@ class JetonEnseignant(BaseModel):
 
 class ClasseCreation(BaseModel):
     niveau: Niveau
+    parcours: Parcours | None = None  # par défaut : tronc commun en 2nde, spécialité ensuite
+
+    @model_validator(mode="after")
+    def _parcours_du_niveau(self):
+        if self.parcours is None:
+            self.parcours = parcours_par_defaut(self.niveau)
+        elif self.parcours not in PARCOURS_PAR_NIVEAU[self.niveau]:
+            raise ValueError(f"Le parcours « {self.parcours.value} » n'existe pas en {self.niveau.value}.")
+        return self
 
 
 class ClasseResume(BaseModel):
     id: int
     code: str
     niveau: Niveau
+    parcours: Parcours
     nb_eleves: int
 
 
@@ -191,6 +204,7 @@ class CompetenceInfo(BaseModel):
     libelle: str
     chapitre: str
     niveau: Niveau
+    parcours: Parcours
 
 
 class QuestionCreation(BaseModel):
@@ -211,3 +225,8 @@ class QuestionEnseignant(_Modele):
     solution: str
     difficulte: int
     archivee: bool
+    source: str
+    source_url: str | None
+    licence_source: str | None
+    adaptation: Adaptation
+    statut_validation: StatutValidation
