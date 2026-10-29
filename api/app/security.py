@@ -38,9 +38,39 @@ def _scrypt(mot_de_passe: str, sel: bytes, n: int, r: int, p: int) -> bytes:
         return hashlib.scrypt(mot_de_passe.encode(), salt=sel, n=n, r=r, p=p, maxmem=_MEMOIRE_MAX)
 
 
-def hacher_mot_de_passe(mot_de_passe: str) -> str:
+def _hacher(secret: str, n: int) -> str:
     sel = secrets.token_bytes(16)
-    return f"scrypt${_N}${_R}${_P}${_b64(sel)}${_b64(_scrypt(mot_de_passe, sel, _N, _R, _P))}"
+    return f"scrypt${n}${_R}${_P}${_b64(sel)}${_b64(_scrypt(secret, sel, n, _R, _P))}"
+
+
+def hacher_mot_de_passe(mot_de_passe: str) -> str:
+    return _hacher(mot_de_passe, _N)
+
+
+# --- Code personnel des élèves (audit A-07, décision D1) ----------------------
+# 6 caractères sans 0/O ni 1/I/L (recopiés à la main) : 31^6 ≈ 887 millions de codes.
+# Coût de hachage modéré (4 Mo, quelques ms) : 35 élèves doivent pouvoir se connecter
+# ensemble ; la protection contre les essais vient du blocage par compte (limitation.py).
+ALPHABET_CODE = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
+LONGUEUR_CODE_ELEVE = 6
+_N_CODE = 2**12
+
+
+def generer_code_eleve() -> str:
+    return "".join(secrets.choice(ALPHABET_CODE) for _ in range(LONGUEUR_CODE_ELEVE))
+
+
+def normaliser_code(code: str) -> str:
+    """« k7m 4qp », « K7M-4QP » et « K7M4QP » désignent le même code."""
+    return "".join(c for c in code.upper() if c not in " -")
+
+
+def hacher_code_eleve(code: str) -> str:
+    return _hacher(normaliser_code(code), _N_CODE)
+
+
+def verifier_code_eleve(code: str, stocke: str) -> bool:
+    return verifier_mot_de_passe(normaliser_code(code), stocke)
 
 
 def verifier_mot_de_passe(mot_de_passe: str, stocke: str) -> bool:
@@ -64,8 +94,9 @@ def doit_rehacher(stocke: str) -> bool:
 
 
 def version_mot_de_passe(empreinte_stockee: str) -> str:
-    """Empreinte courte du hachage du mot de passe, embarquée dans les jetons enseignant.
-    Changer le mot de passe change cette valeur et invalide tous les jetons émis avant (audit A-09)."""
+    """Empreinte courte du hachage d'un secret (mot de passe enseignant, code personnel élève),
+    embarquée dans les jetons. Changer le secret change cette valeur et invalide tous les jetons
+    émis avant (audit A-09, et régénération d'un code élève)."""
     return hashlib.sha256(empreinte_stockee.encode()).hexdigest()[:16]
 
 

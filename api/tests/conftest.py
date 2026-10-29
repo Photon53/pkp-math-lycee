@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session, sessionmaker
 
 from app import limitation, security
-from app.db.seed import charger_demo
+from app.db.seed import CODES_DEMO, charger_demo
 from app.db.session import creer_moteur, get_session
 from app.main import app
 
@@ -78,10 +78,24 @@ def entete(jeton: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {jeton}"}
 
 
-def connecter_eleve(client, prenom: str = "Lina", code: str = "2NDE-A-DEMO") -> dict[str, str]:
-    r = client.post("/eleves/connexion", json={"prenom": prenom, "code_classe": code})
+def corps_connexion(prenom: str = "Lina", code: str = "2NDE-A-DEMO", code_personnel: str | None = None) -> dict:
+    """Corps de POST /eleves/connexion ; par défaut, le code personnel de démo de l'élève."""
+    return {"prenom": prenom, "code_classe": code, "code_personnel": code_personnel or CODES_DEMO.get(prenom, "XXXXXX")}
+
+
+def connecter_eleve(client, prenom: str = "Lina", code: str = "2NDE-A-DEMO", code_personnel: str | None = None) -> dict[str, str]:
+    r = client.post("/eleves/connexion", json=corps_connexion(prenom, code, code_personnel))
     assert r.status_code == 200, r.text
     return entete(r.json()["jeton"])
+
+
+def inscrire_eleves(client, classe_code: str, prenoms: list[str]) -> dict[str, str]:
+    """Inscrit des élèves comme le fait l'enseignant de démo ; renvoie {prénom: code personnel}."""
+    h = connecter_enseignant(client)
+    classe_id = next(c["id"] for c in client.get("/enseignants/classes", headers=h).json() if c["code"] == classe_code.upper())
+    r = client.post(f"/enseignants/classes/{classe_id}/eleves", headers=h, json={"prenoms": prenoms})
+    assert r.status_code == 201, r.text
+    return {e["prenom"]: e["code"] for e in r.json()["crees"]}
 
 
 def connecter_enseignant(client, email: str = "demo@pkp.test", mot_de_passe: str = "demo-pkp-2026") -> dict[str, str]:

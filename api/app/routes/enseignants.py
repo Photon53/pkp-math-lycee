@@ -23,17 +23,23 @@ from app.progression import progression_eleve, resume_eleve
 from app.schemas import (
     ClasseCreation,
     ClasseResume,
+    CodeEleve,
     CompetenceInfo,
     ConnexionEnseignant,
+    CreationEleves,
     EleveResume,
     JetonEnseignant,
     ProgressionCompetence,
     QuestionCreation,
     QuestionEnseignant,
+    ResultatCreationEleves,
 )
 from app.security import (
+    ALPHABET_CODE,
     creer_jeton,
     doit_rehacher,
+    generer_code_eleve,
+    hacher_code_eleve,
     hacher_mot_de_passe,
     verifier_mot_de_passe,
     version_mot_de_passe,
@@ -43,7 +49,6 @@ router = APIRouter(prefix="/enseignants", tags=["enseignant"])
 
 PREFIXES_CODE = {Niveau.SECONDE: "2NDE", Niveau.PREMIERE: "1RE", Niveau.TERMINALE: "TLE"}
 # Sans 0/O ni 1/I/L : le code est recopié à la main par des élèves.
-ALPHABET_CODE = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
 
 
 @cache
@@ -124,6 +129,49 @@ def _mon_eleve(session: SessionDB, eleve_id: int, enseignant: models.Enseignant)
 def eleves_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[EleveResume]:
     classe = _ma_classe(session, classe_id, enseignant)
     return [resume_eleve(session, e) for e in sorted(classe.eleves, key=lambda e: e.prenom)]
+
+
+# --- Codes personnels des élèves (audit A-07, décision D1) --------------------
+# Le code n'est stocké que haché : il est renvoyé en clair une seule fois, à sa génération,
+# pour que l'enseignant l'imprime ou le recopie. Perdu : on en génère un nouveau.
+
+
+def _attribuer_code(eleve: models.Eleve) -> CodeEleve:
+    code = generer_code_eleve()
+    eleve.code_hash = hacher_code_eleve(code)  # invalide aussi les jetons émis avec l'ancien code
+    return CodeEleve(id=eleve.id, prenom=eleve.prenom, code=code)
+
+
+@router.post("/classes/{classe_id}/eleves", response_model=ResultatCreationEleves, status_code=status.HTTP_201_CREATED)
+def inscrire_eleves(
+    classe_id: int, corps: CreationEleves, enseignant: EnseignantCourant, session: SessionDB
+) -> ResultatCreationEleves:
+    """Inscrit des élèves (un prénom chacun) et leur attribue un code personnel."""
+    classe = _ma_classe(session, classe_id, enseignant)
+    existants = {e.prenom for e in classe.eleves}
+    nouveaux = [models.Eleve(prenom=p, classe=classe) for p in corps.prenoms if p not in existants]
+    session.add_all(nouveaux)
+    session.flush()
+    crees = [_attribuer_code(e) for e in nouveaux]
+    session.commit()
+    return ResultatCreationEleves(crees=crees, deja_presents=[p for p in corps.prenoms if p in existants])
+
+
+@router.post("/classes/{classe_id}/codes-manquants", response_model=list[CodeEleve])
+def generer_codes_manquants(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[CodeEleve]:
+    """Pour les élèves inscrits avant les codes personnels : leur en attribuer un."""
+    classe = _ma_classe(session, classe_id, enseignant)
+    codes = [_attribuer_code(e) for e in sorted(classe.eleves, key=lambda e: e.prenom) if e.code_hash is None]
+    session.commit()
+    return codes
+
+
+@router.post("/eleves/{eleve_id}/code", response_model=CodeEleve)
+def nouveau_code(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> CodeEleve:
+    """Code oublié ou divulgué : en génère un nouveau ; l'ancien et ses sessions cessent de fonctionner."""
+    code = _attribuer_code(_mon_eleve(session, eleve_id, enseignant))
+    session.commit()
+    return code
 
 
 @router.get("/eleves/{eleve_id}/progression", response_model=list[ProgressionCompetence])

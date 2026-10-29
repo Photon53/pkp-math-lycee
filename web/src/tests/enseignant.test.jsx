@@ -7,8 +7,8 @@ import { fausseApi } from "./setup.js";
 
 const CLASSES = [{ id: 1, code: "2NDE-A-DEMO", niveau: "2nde", nb_eleves: 2 }];
 const ELEVES = [
-  { id: 1, prenom: "Lina", nb_reponses: 5, taux_reussite: 0.6, competences_maitrisees: 1, competences_total: 4 },
-  { id: 2, prenom: "Yanis", nb_reponses: 0, taux_reussite: null, competences_maitrisees: 0, competences_total: 4 },
+  { id: 1, prenom: "Lina", a_un_code: true, nb_reponses: 5, taux_reussite: 0.6, competences_maitrisees: 1, competences_total: 4 },
+  { id: 2, prenom: "Yanis", a_un_code: true, nb_reponses: 0, taux_reussite: null, competences_maitrisees: 0, competences_total: 4 },
 ];
 
 describe("classes et élèves", () => {
@@ -96,7 +96,62 @@ describe("classes et élèves", () => {
     await userEvent.selectOptions(await screen.findByLabelText("Niveau de la nouvelle classe"), "1re");
     await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));
     expect(await screen.findByRole("status")).toHaveTextContent("1RE-7KQ4M");
-    expect(await screen.findByText("Aucun élève connecté pour l'instant.")).toBeInTheDocument();
+    expect(await screen.findByText("Aucun élève inscrit pour l'instant.")).toBeInTheDocument();
+  });
+});
+
+describe("codes personnels des élèves", () => {
+  it("inscrit des élèves et affiche leurs codes une seule fois, imprimables", async () => {
+    let eleves = ELEVES;
+    const appels = fausseApi({
+      "GET /enseignants/classes": { json: CLASSES },
+      "GET /enseignants/classes/1/eleves": () => ({ json: eleves }),
+      "POST /enseignants/classes/1/eleves": (corps) => {
+        eleves = [...ELEVES, { ...ELEVES[1], id: 3, prenom: "Noé" }];
+        return { status: 201, json: { crees: [{ id: 3, prenom: "Noé", code: "K7M4QP" }], deja_presents: ["Lina"] } };
+      },
+    });
+    const imprimer = vi.spyOn(window, "print").mockImplementation(() => {});
+    render(<Classes jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(await screen.findByRole("button", { name: /2NDE-A-DEMO/ }));
+    await userEvent.type(await screen.findByLabelText(/Inscrire des élèves/), "Noé{Enter}  {Enter}Lina");
+    await userEvent.click(screen.getByRole("button", { name: "Inscrire et générer les codes" }));
+    expect(appels.find((a) => a.cle === "POST /enseignants/classes/1/eleves").corps).toEqual({ prenoms: ["Noé", "Lina"] });
+    const fiche = await screen.findByRole("region", { name: "Codes personnels à distribuer" });
+    expect(within(fiche).getByText("K7M4QP")).toBeInTheDocument();
+    expect(screen.getByText("Déjà inscrit(s), ignoré(s) : Lina.")).toBeInTheDocument();
+    await userEvent.click(within(fiche).getByRole("button", { name: "Imprimer" }));
+    expect(imprimer).toHaveBeenCalled();
+    await userEvent.click(within(fiche).getByRole("button", { name: "J'ai noté les codes" }));
+    expect(screen.queryByText("K7M4QP")).not.toBeInTheDocument();
+  });
+
+  it("nouveau code après confirmation, et codes manquants pour les élèves d'avant", async () => {
+    let eleves = [ELEVES[0], { ...ELEVES[1], a_un_code: false }];
+    const appels = fausseApi({
+      "GET /enseignants/classes": { json: CLASSES },
+      "GET /enseignants/classes/1/eleves": () => ({ json: eleves }),
+      "POST /enseignants/eleves/1/code": { json: { id: 1, prenom: "Lina", code: "NEW234" } },
+      "POST /enseignants/classes/1/codes-manquants": () => {
+        eleves = ELEVES;
+        return { json: [{ id: 2, prenom: "Yanis", code: "YAN234" }] };
+      },
+    });
+    const confirmer = vi.spyOn(window, "confirm").mockReturnValueOnce(false).mockReturnValueOnce(true);
+    render(<Classes jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(await screen.findByRole("button", { name: /2NDE-A-DEMO/ }));
+    expect(await screen.findByText("sans code")).toBeInTheDocument();
+
+    const bouton = screen.getByRole("button", { name: "Nouveau code pour Lina" });
+    await userEvent.click(bouton);
+    expect(appels.some((a) => a.cle === "POST /enseignants/eleves/1/code")).toBe(false);
+    await userEvent.click(bouton);
+    expect(confirmer.mock.calls[1][0]).toContain("L'ancien code ne fonctionnera plus");
+    expect(await screen.findByText("NEW234")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Générer les codes manquants" }));
+    expect(await screen.findByText("YAN234")).toBeInTheDocument();
+    expect(screen.queryByText("sans code")).not.toBeInTheDocument();
   });
 });
 

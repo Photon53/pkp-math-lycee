@@ -33,6 +33,8 @@ Prérequis : [Python 3.11+](https://www.python.org/downloads/), [Node.js 20+](ht
    Accepter l'installation des extensions recommandées.
 3. **Exécuter et déboguer** (Ctrl+Maj+D) → **▶ Application complète (API + Front)** : API sur le port 8010 avec points d'arrêt,
    front sur http://localhost:5173 (enseignant : `/enseignant`, compte décrit dans `api/app/db/seed.py`).
+   Élèves de démo : prénom + code classe + code personnel, par exemple **Lina / 2NDE-A-DEMO / PKP222**
+   (tous les codes de démo sont dans `CODES_DEMO`, `api/app/db/seed.py` ; usage local uniquement).
 4. Tests : panneau **Tests** (pytest pour `moteur` et `api`, Vitest pour `web`), ou
    **Terminal > Exécuter la tâche de test** pour tout lancer.
 

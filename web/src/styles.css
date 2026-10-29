@@ -169,3 +169,19 @@ label.case input { width: auto; }
 .liste-cours li { padding: 2px 0; }
 .liste-cours button.lien { text-align: left; }
 .lecon > button.lien { padding-left: 0; }
+
+/* Codes personnels des élèves : fiche à imprimer et à distribuer */
+.fiche-codes {
+  border: 2px dashed var(--accent); border-radius: var(--rayon);
+  padding: 12px 16px; margin: 16px 0; background: var(--accent-doux);
+}
+.code-personnel { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.15em; }
+textarea { resize: vertical; }
+
+@media print {
+  body * { visibility: hidden; }
+  .fiche-codes, .fiche-codes * { visibility: visible; }
+  .fiche-codes { position: absolute; inset: 0 auto auto 0; width: 100%; border: none; background: none; color: #000; }
+  .fiche-codes .actions, .fiche-codes .aide { display: none; }
+  .fiche-codes td { padding: 14px 8px; border-bottom: 1px dashed #999; }  /* lignes à découper */
+}

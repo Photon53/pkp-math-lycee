@@ -24,16 +24,28 @@ describe("decouperQcm", () => {
 });
 
 describe("connexion élève", () => {
-  it("affiche un message clair pour un code inconnu", async () => {
-    fausseApi({ "POST /eleves/connexion": { status: 404, json: { detail: "Code classe inconnu." } } });
+  it("affiche un message clair si un des trois éléments est faux, et efface le code personnel", async () => {
+    fausseApi({
+      "POST /eleves/connexion": { status: 401, json: { detail: "Prénom, code classe ou code personnel incorrect." } },
+    });
     render(<EspaceEleve />);
     await userEvent.type(screen.getByLabelText("Prénom"), "Lina");
     await userEvent.type(screen.getByLabelText("Code classe"), "nope");
+    await userEvent.type(screen.getByLabelText("Code personnel"), "faux12");
     await userEvent.click(screen.getByRole("button", { name: "Commencer" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Ce code classe n'existe pas");
+    expect(await screen.findByRole("alert")).toHaveTextContent("Prénom, code classe ou code personnel incorrect");
+    expect(screen.getByLabelText("Code personnel")).toHaveValue("");
   });
 
-  it("met le code en majuscules et ouvre l'espace élève", async () => {
+  it("exige le code personnel, masqué à la saisie", async () => {
+    render(<EspaceEleve />);
+    await userEvent.type(screen.getByLabelText("Prénom"), "Lina");
+    await userEvent.type(screen.getByLabelText("Code classe"), "2NDE-A-DEMO");
+    expect(screen.getByRole("button", { name: "Commencer" })).toBeDisabled();
+    expect(screen.getByLabelText("Code personnel")).toHaveAttribute("type", "password");
+  });
+
+  it("met les codes en majuscules et ouvre l'espace élève", async () => {
     const appels = fausseApi({
       "POST /eleves/connexion": {
         json: { jeton: "j", eleve: { id: 1, prenom: "Lina", code_classe: "2NDE-A-DEMO", niveau: "2nde" } },
@@ -42,8 +54,9 @@ describe("connexion élève", () => {
     render(<EspaceEleve />);
     await userEvent.type(screen.getByLabelText("Prénom"), "lina");
     await userEvent.type(screen.getByLabelText("Code classe"), "2nde-a-demo");
+    await userEvent.type(screen.getByLabelText("Code personnel"), "pkp222");
     await userEvent.click(screen.getByRole("button", { name: "Commencer" }));
-    expect(appels[0].corps).toEqual({ prenom: "lina", code_classe: "2NDE-A-DEMO" });
+    expect(appels[0].corps).toEqual({ prenom: "lina", code_classe: "2NDE-A-DEMO", code_personnel: "PKP222" });
     expect(await screen.findByText("Lina")).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "S'entraîner" })).toHaveAttribute("aria-selected", "true");
   });

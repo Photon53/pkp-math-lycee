@@ -10,7 +10,7 @@ et ses critères **avant** d'être exécuté, puis complété par le résultat o
 
 | Lot | Objet | Protocole | État |
 |-----|-------|-----------|------|
-| A | Sécurité et protection des données | [lot-a-securite.md](lot-a-securite.md) | **Exécuté** le 28/10/2026 : 3 Élevés corrigés et contre-vérifiés ; 1 Critique en attente de D1 ; 4 contrôles à compléter |
+| A | Sécurité et protection des données | [lot-a-securite.md](lot-a-securite.md) | **Exécuté** le 28/10/2026 : 1 Critique et 3 Élevés corrigés et contre-vérifiés (validation à faire) ; 4 contrôles à compléter |
 | B | Exactitude du moteur mathématique | — | Bloqué par la décision D2 (politique de correction) |
 | C | Banque de questions et couverture du programme | — | À rédiger |
 | E | Performance et robustesse | — | À rédiger (seuils à fixer avant mesure) |
@@ -22,7 +22,7 @@ et ses critères **avant** d'être exécuté, puis complété par le résultat o
 
 | # | Décision | Pourquoi elle bloque | Qui décide |
 |---|----------|----------------------|------------|
-| D1 | Authentification des élèves : prénom + code classe suffisent-ils ? | Avec ce modèle, un camarade qui connaît le code de la classe peut se connecter sous le prénom d'un autre élève et voir sa progression (voir contrôle A-07). Le critère « aucun accès non autorisé » ne peut pas être atteint sans changer ce modèle ou accepter formellement ce risque. | Responsable produit + référent sécurité + DPO |
+| D1 | **Tranchée le 29/10/2026 : code personnel par élève** (option 1). Question initiale : prénom + code classe suffisent-ils ? | Avec ce modèle, un camarade qui connaît le code de la classe peut se connecter sous le prénom d'un autre élève et voir sa progression (voir contrôle A-07). Le critère « aucun accès non autorisé » ne peut pas être atteint sans changer ce modèle ou accepter formellement ce risque. | Responsable produit + référent sécurité + DPO |
 | D2 | Politique de correction : forme exigée (développée, factorisée, simplifiée, libre) par question | Le moteur ne vérifie aujourd'hui que l'équivalence ; le Lot B ne peut pas définir « correct » sans cette règle. | Référent pédagogique |
 | D3 | Banque de questions commune : tout enseignant peut-il archiver n'importe quelle question ? | C'est le comportement actuel ; c'est un choix, pas un défaut, tant qu'il est assumé (contrôle A-08). | Responsable produit |
 | D4 | Seuils de performance (Lot E) | À fixer d'après l'usage attendu, avant toute mesure. | Responsable produit |

@@ -7,6 +7,9 @@ Idempotent : relancer ne duplique rien.
 Compte enseignant de démo (local uniquement) :
     email        : demo@pkp.test
     mot de passe : valeur de PKP_DEMO_MOT_DE_PASSE, sinon « demo-pkp-2026 »
+
+Codes personnels des élèves de démo (local uniquement) : voir CODES_DEMO ci-dessous,
+par exemple Lina / 2NDE-A-DEMO / PKP222.
 """
 
 import os
@@ -19,9 +22,12 @@ from sqlalchemy.orm import Session
 from app import contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
-from app.security import hacher_mot_de_passe
+from app.security import hacher_code_eleve, hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
+
+# Codes fixes pour pouvoir tester en local ; en vrai, l'enseignant les génère (aléatoires).
+CODES_DEMO = {"Lina": "PKP222", "Yanis": "PKP333", "Inès": "PKP444", "Hugo": "PKP555", "Emma": "PKP666"}
 
 CLASSES = [
     ("2NDE-A-DEMO", Niveau.SECONDE, ["Lina", "Yanis", "Inès"]),
@@ -55,7 +61,7 @@ def charger_demo(session: Session) -> bool:
     for code, niveau, prenoms in CLASSES:
         classe = models.Classe(code=code, niveau=niveau, enseignant=enseignant)
         for prenom in prenoms:
-            eleves[prenom] = models.Eleve(prenom=prenom, classe=classe)
+            eleves[prenom] = models.Eleve(prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]))
         session.add(classe)
     session.flush()
 
