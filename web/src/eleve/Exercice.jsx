@@ -94,9 +94,38 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
     ecrire(CLE_BILAN, bilan);
   }, [bilan]);
 
+  // Chapitres ouverts par le professeur ; par défaut, tous ceux qui ont des questions sont cochés.
+  const [chapitres, setChapitres] = useState(null);
+  const [coches, setCoches] = useState(new Set());
+
+  useEffect(() => {
+    if (etape !== "accueil" && etape !== "bilan") return;
+    let actif = true;
+    api("/eleves/moi/chapitres", { jeton }).then(
+      (liste) => {
+        if (!actif) return;
+        setChapitres(liste);
+        setCoches(new Set(liste.filter((c) => c.nb_questions > 0).map((c) => c.id)));
+      },
+      (err) => actif && (err.status === 401 ? onExpire() : setErreur(err.message)),
+    );
+    return () => {
+      actif = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [etape, jeton]);
+
+  function basculer(id) {
+    setCoches((avant) => {
+      const apres = new Set(avant);
+      apres.has(id) ? apres.delete(id) : apres.add(id);
+      return apres;
+    });
+  }
+
   async function demarrer() {
     try {
-      const seance = await appeler("/seances", { methode: "POST" });
+      const seance = await appeler("/seances", { methode: "POST", corps: { chapitre_ids: [...coches] } });
       changerSeance(seance.id);
       setBilan(BILAN_VIDE);
       await chargerQuestion(seance.id);
@@ -147,12 +176,38 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
         ) : (
           <>
             <h2>Prêt·e à t'entraîner ?</h2>
-            <p className="doux">Les questions s'adaptent à ton niveau : on travaille d'abord ce qui est le moins maîtrisé.</p>
+            <p className="doux">
+              Choisis un ou plusieurs chapitres. Les questions s'adaptent à ton niveau : on travaille d'abord ce qui est le
+              moins maîtrisé.
+            </p>
           </>
+        )}
+        {chapitres === null ? (
+          <p className="doux">Chargement des chapitres…</p>
+        ) : chapitres.length === 0 ? (
+          <p className="doux">Ton professeur n'a pas encore ouvert de chapitre.</p>
+        ) : (
+          <fieldset className="choix-chapitres">
+            <legend>Chapitres à travailler</legend>
+            {chapitres.map((c) => (
+              <label key={c.id} className="case">
+                <input
+                  type="checkbox"
+                  checked={coches.has(c.id)}
+                  onChange={() => basculer(c.id)}
+                  disabled={c.nb_questions === 0}
+                />
+                {c.titre}
+                <span className="doux">
+                  {c.nb_questions === 0 ? " (bientôt disponible)" : ` (${c.nb_questions} question${c.nb_questions > 1 ? "s" : ""})`}
+                </span>
+              </label>
+            ))}
+          </fieldset>
         )}
         <Erreur message={erreur} />
         <div className="actions">
-          <button onClick={demarrer} disabled={envoi}>
+          <button onClick={demarrer} disabled={envoi || coches.size === 0}>
             {etape === "bilan" ? "Nouvelle séance" : "Démarrer une séance"}
           </button>
         </div>

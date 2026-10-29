@@ -161,6 +161,10 @@ def _dollars_equilibres(texte: str) -> bool:
 
 def _verifier_question(q: QuestionYaml) -> str | None:
     if q.type is TypeQuestion.QCM:
+        # Même découpage que l'écran élève (decouperQcm) : « P(A) » y serait pris pour une option.
+        lettres = re.findall(r"\b([A-F])\)", q.enonce)
+        if lettres != [chr(ord("A") + i) for i in range(len(lettres))] or len(lettres) < 2:
+            return f"choix illisibles ({' '.join(l + ')' for l in lettres)}) : écrire « A) …  B) … », sans « X) » dans le texte"
         if not re.search(rf"(?<![A-Za-z]){re.escape(q.solution)}\)", q.enonce):
             return f"solution « {q.solution} » absente des choix de l'énoncé (attendu « {q.solution}) … »)"
         return None

@@ -1,0 +1,109 @@
+chapitre:
+  code: 2NDE-INEQ
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 3
+  titre: Intervalles, inégalités et inéquations
+
+competences:
+  - code: 2NDE-INT
+    libelle: Utiliser les intervalles et la valeur absolue
+    resume: |
+      - $[a ; b]$ : $a \le x \le b$ ; $]a ; b[$ : $a < x < b$ ; le crochet tourné vers l'extérieur exclut la borne.
+      - $[a ; +\infty[$ : $x \ge a$ ; l'infini est toujours exclu.
+      - $I \cap J$ : les réels dans $I$ **et** dans $J$ ; $I \cup J$ : dans $I$ **ou** dans $J$.
+      - $|x - a| \le r \iff a - r \le x \le a + r$ (distance de $x$ à $a$ au plus $r$).
+    cours: |
+      ## Intervalles
+      Un intervalle est l'ensemble des réels compris entre deux bornes.
+
+      | Inégalité | Intervalle |
+      |---|---|
+      | $a \le x \le b$ | $[a ; b]$ |
+      | $a < x \le b$ | $]a ; b]$ |
+      | $x > a$ | $]a ; +\infty[$ |
+      | $x \le b$ | $]-\infty ; b]$ |
+
+      ## Intersection et réunion
+      $[1 ; 6] \cap [4 ; 9] = [4 ; 6]$ et $[1 ; 6] \cup [4 ; 9] = [1 ; 9]$.
+      Une représentation sur une droite graduée évite les erreurs.
+
+      ## Valeur absolue
+      $|x - a|$ est la **distance** entre $x$ et $a$. Ainsi $|x - 3| \le 2$ signifie que $x$ est à distance au plus $2$ de $3$ :
+      $$|x - 3| \le 2 \iff 1 \le x \le 5 \iff x \in [1 ; 5]$$
+
+      ## Erreur fréquente
+      Écrire $[5 ; 2]$ : la plus petite borne s'écrit toujours à gauche.
+    questions:
+      - code: 2NDE-INT-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel intervalle correspond à $-2 \le x < 5$ ? A) $[-2 ; 5[$  B) $]-2 ; 5]$  C) $[-2 ; 5]$'
+        solution: A
+      - code: 2NDE-INT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Combien de nombres entiers appartiennent à l''intervalle $[-3 ; 4[$ ?'
+        solution: 7
+      - code: 2NDE-INT-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Que vaut $[1 ; 6] \cap [4 ; 9]$ ? A) $[1 ; 9]$  B) $[4 ; 6]$  C) l''ensemble vide'
+        solution: B
+      - code: 2NDE-INT-04
+        difficulte: 4
+        type: numerique
+        enonce: 'L''ensemble des réels $x$ tels que $|x - 3| \le 2$ est un intervalle $[a ; b]$. Donner $b$.'
+        solution: 5
+      - code: 2NDE-INT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Quel est l''ensemble des réels $x$ tels que $|2x + 1| < 3$ ? A) $]-2 ; 1[$  B) $]-1 ; 2[$  C) $]-2 ; 2[$'
+        solution: A
+
+  - code: 2NDE-INEQ1
+    libelle: Résoudre une inéquation du premier degré
+    resume: |
+      - On peut ajouter ou soustraire un même nombre aux deux membres.
+      - Multiplier ou diviser par un nombre **positif** conserve le sens de l'inégalité.
+      - Multiplier ou diviser par un nombre **négatif** **change** le sens.
+      - On donne l'ensemble des solutions sous forme d'intervalle.
+    cours: |
+      ## Méthode
+      On isole $x$ comme pour une équation, en surveillant le sens de l'inégalité.
+
+      ## Exemple
+      $$-2x + 3 \le 9 \iff -2x \le 6 \iff x \ge -3$$
+      On a divisé par $-2 < 0$ : le sens change. Solutions : $[-3 ; +\infty[$.
+
+      ## Avec des fractions
+      On multiplie d'abord par le dénominateur commun (positif) pour se ramener à des entiers.
+
+      ## Mise en équation
+      Comparer deux tarifs revient à résoudre une inéquation : le tarif A est moins cher que le tarif B lorsque $\text{prix}_A < \text{prix}_B$.
+    questions:
+      - code: 2NDE-INEQ1-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Les solutions de $x + 4 > 7$ sont les réels $x > a$. Donner $a$.'
+        solution: 3
+      - code: 2NDE-INEQ1-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Résoudre $-2x \le 6$. A) $x \le -3$  B) $x \ge -3$  C) $x \ge 3$'
+        solution: B
+      - code: 2NDE-INEQ1-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Quel est le plus grand nombre entier $x$ tel que $3x - 5 < 2x + 1$ ?'
+        solution: 5
+      - code: 2NDE-INEQ1-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Résoudre $\dfrac{x}{2} - 1 \ge \dfrac{2x + 1}{3}$. A) $]-\infty ; -8]$  B) $[-8 ; +\infty[$  C) $]-\infty ; 8]$'
+        solution: A
+      - code: 2NDE-INEQ1-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Location de voiture : tarif A à 20 € plus 0,50 € par km, tarif B à 0,90 € par km. Le tarif A est strictement moins cher dès que la distance dépasse $d$ km. Donner $d$.'
+        solution: 50

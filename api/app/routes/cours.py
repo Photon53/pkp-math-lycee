@@ -1,4 +1,4 @@
-"""Cours et résumés, consultables par les élèves (leur niveau uniquement)."""
+"""Cours et résumés, consultables par les élèves (chapitres ouverts de leur classe uniquement)."""
 
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
@@ -6,7 +6,7 @@ from sqlalchemy.orm import selectinload
 
 from app.auth import EleveCourant, SessionDB
 from app.db import models
-from app.progression import programme_de
+from app.progression import ids_ouverts
 from app.schemas import ChapitreCours, CompetenceCours, LeconInfo
 
 router = APIRouter(prefix="/cours", tags=["cours"])
@@ -16,7 +16,7 @@ router = APIRouter(prefix="/cours", tags=["cours"])
 def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
     chapitres = session.scalars(
         select(models.Chapitre)
-        .where(*programme_de(eleve.classe))
+        .where(models.Chapitre.id.in_(ids_ouverts(eleve.classe)))
         .options(selectinload(models.Chapitre.competences).selectinload(models.Competence.lecon))
         .order_by(models.Chapitre.ordre)
     )
@@ -37,10 +37,7 @@ def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
 @router.get("/{competence_id}", response_model=LeconInfo)
 def lecon(competence_id: int, eleve: EleveCourant, session: SessionDB) -> LeconInfo:
     competence = session.get(models.Competence, competence_id)
-    hors_programme = competence is not None and (
-        competence.chapitre.niveau != eleve.classe.niveau or competence.chapitre.parcours != eleve.classe.parcours
-    )
-    if competence is None or competence.lecon is None or hors_programme:
+    if competence is None or competence.lecon is None or competence.chapitre_id not in ids_ouverts(eleve.classe):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cours introuvable.")
     return LeconInfo(
         competence_id=competence.id,

@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-VECTEURS-ESPACE
+  niveau: Tle
+  parcours: specialite
+  ordre: 2
+  titre: Vecteurs, droites et plans de l'espace
+
+competences:
+  - code: TLE-ESP-COORD
+    libelle: Calculer avec des coordonnées dans l'espace
+    resume: |
+      - $\overrightarrow{AB}(x_B - x_A ; y_B - y_A ; z_B - z_A)$ et, en repère orthonormé, $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2 + (z_B - z_A)^2}$.
+      - $\vec u$ et $\vec v$ sont colinéaires s'il existe $k$ tel que $\vec v = k\vec u$ (coordonnées proportionnelles).
+      - $A$, $B$, $C$ alignés $\iff \overrightarrow{AB}$ et $\overrightarrow{AC}$ colinéaires.
+    cours: |
+      ## Coordonnées
+      On travaille comme dans le plan, avec une troisième coordonnée (la **cote**).
+      $A(1 ; 2 ; 3)$, $B(4 ; 0 ; 5)$ : $\overrightarrow{AB}(3 ; -2 ; 2)$.
+
+      ## Norme
+      $\vec u(1 ; -2 ; 2)$ : $\|\vec u\| = \sqrt{1 + 4 + 4} = 3$.
+
+      ## Colinéarité
+      $\vec u(2 ; -1 ; 3)$ et $\vec v(4 ; m ; 6)$ : on a $\vec v = 2\vec u$ si et seulement si $m = -2$.
+      Attention : dans l'espace, il n'y a pas de « déterminant » à deux vecteurs ; on cherche le coefficient $k$.
+    questions:
+      - code: TLE-ESP-COORD-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On donne $A(1 ; 2 ; 3)$ et $B(4 ; 0 ; 5)$. Quelle est la cote (troisième coordonnée) du vecteur $\overrightarrow{AB}$ ?'
+        solution: 2
+      - code: TLE-ESP-COORD-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer la norme du vecteur $\vec u(1 ; -2 ; 2)$ dans un repère orthonormé.'
+        solution: 3
+      - code: TLE-ESP-COORD-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(2 ; -1 ; 3)$ et $\vec v(4 ; m ; 6)$ sont-ils colinéaires ?'
+        solution: -2
+      - code: TLE-ESP-COORD-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Les points $A(1 ; 0 ; 2)$, $B(2 ; 1 ; 3)$ et $C(4 ; 3 ; 5)$ sont-ils alignés ? A) oui  B) non'
+        solution: A
+      - code: TLE-ESP-COORD-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un repère orthonormé d''origine $O$, soit $I$ le milieu de $[AB]$ avec $A(1 ; 2 ; -3)$ et $B(3 ; 0 ; 5)$. Calculer $OI$ (valeur exacte).'
+        solution: sqrt(6)
+
+  - code: TLE-ESP-COPLAN
+    libelle: Décomposer un vecteur et étudier la coplanarité
+    resume: |
+      - Trois vecteurs sont **coplanaires** si l'un s'écrit comme combinaison linéaire des deux autres.
+      - Un plan est défini par un point et deux vecteurs non colinéaires.
+      - Pour trouver $a$ et $b$ tels que $\vec w = a\vec u + b\vec v$, on résout un système de trois équations.
+    cours: |
+      ## Combinaison linéaire
+      $\vec u(1 ; 0 ; 1)$, $\vec v(0 ; 1 ; 1)$ : $2\vec u - \vec v = (2 ; -1 ; 1)$.
+
+      ## Décomposition
+      Chercher $\vec w(3 ; 2 ; 5) = a\vec u + b\vec v$ avec $\vec u(1 ; 0 ; 1)$ et $\vec v(1 ; 2 ; 3)$ :
+      $$\begin{cases} a + b = 3 \\ 2b = 2 \\ a + 3b = 5 \end{cases}$$
+      Les deux premières lignes donnent $b = 1$, $a = 2$ ; la troisième est vérifiée : $\vec w$, $\vec u$, $\vec v$ sont coplanaires.
+
+      ## Non-coplanarité
+      $\vec i$, $\vec j$ et $(1 ; 1 ; 1)$ : aucune combinaison de $\vec i$ et $\vec j$ n'a de cote non nulle, ils ne sont pas coplanaires.
+    questions:
+      - code: TLE-ESP-COPLAN-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Trois vecteurs sont coplanaires lorsque : A) l''un est combinaison linéaire des deux autres  B) ils sont deux à deux orthogonaux  C) ils ont la même norme'
+        solution: A
+      - code: TLE-ESP-COPLAN-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On donne $\vec u(1 ; 0 ; 1)$ et $\vec v(0 ; 1 ; 1)$. Quelle est la cote du vecteur $2\vec u - \vec v$ ?'
+        solution: 1
+      - code: TLE-ESP-COPLAN-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On donne $\vec u(1 ; 0 ; 1)$, $\vec v(1 ; 2 ; 3)$ et $\vec w(3 ; 2 ; 5)$. On a $\vec w = a\vec u + b\vec v$. Donner $a$.'
+        solution: 2
+      - code: TLE-ESP-COPLAN-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Les vecteurs $\vec u(1 ; 0 ; 0)$, $\vec v(0 ; 1 ; 0)$ et $\vec w(1 ; 1 ; 1)$ sont-ils coplanaires ? A) oui  B) non'
+        solution: B
+      - code: TLE-ESP-COPLAN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Pour quelle valeur de $k$ les vecteurs $\vec u(1 ; 1 ; 0)$, $\vec v(0 ; 1 ; 1)$ et $\vec w(1 ; k ; 1)$ sont-ils coplanaires ?'
+        solution: 2

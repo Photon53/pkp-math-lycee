@@ -1,0 +1,95 @@
+chapitre:
+  code: 2NDE-FONCTIONS
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 8
+  titre: Généralités sur les fonctions
+
+competences:
+  - code: 2NDE-IMG
+    libelle: Calculer une image et rechercher un antécédent
+    resume: |
+      - L'**image** de $a$ par $f$ est le nombre $f(a)$ : il est unique.
+      - Un **antécédent** de $b$ est un réel $x$ tel que $f(x) = b$ : il peut y en avoir zéro, un ou plusieurs.
+      - Chercher un antécédent, c'est résoudre une équation.
+    cours: |
+      ## Image
+      Pour $f(x) = x^2 - 2x$ : $f(-3) = (-3)^2 - 2 \times (-3) = 9 + 6 = 15$.
+      Attention aux parenthèses autour des nombres négatifs.
+
+      ## Antécédent
+      Les antécédents de $11$ par $f(x) = 2x + 5$ sont les solutions de $2x + 5 = 11$, soit $x = 3$.
+      Par $g(x) = x^2$, le nombre $9$ a deux antécédents : $-3$ et $3$.
+
+      ## Quotient
+      Pour $f(x) = \dfrac{x - 1}{x + 2}$, résoudre $f(x) = 2$ : $x - 1 = 2(x + 2)$, d'où $x = -5$ (et $-5 \neq -2$, valeur autorisée).
+    questions:
+      - code: 2NDE-IMG-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Soit $f(x) = 3x - 2$. Calculer $f(4)$.'
+        solution: 10
+      - code: 2NDE-IMG-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Soit $f(x) = x^2 - 2x$. Calculer $f(-3)$.'
+        solution: 15
+      - code: 2NDE-IMG-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Soit $f(x) = 2x + 5$. Quel est l''antécédent de 11 par $f$ ?'
+        solution: 3
+      - code: 2NDE-IMG-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quels sont les antécédents de 9 par la fonction carré ? A) 3 seulement  B) $-3$ et $3$  C) 81'
+        solution: B
+      - code: 2NDE-IMG-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Soit $f(x) = \dfrac{x - 1}{x + 2}$ pour $x \neq -2$. Quel est l''antécédent de 2 par $f$ ?'
+        solution: -5
+
+  - code: 2NDE-COURBE
+    libelle: Exploiter la courbe représentative d'une fonction
+    resume: |
+      - $M(x ; y)$ appartient à la courbe de $f$ $\iff y = f(x)$.
+      - Les abscisses des points d'intersection avec l'axe des abscisses sont les solutions de $f(x) = 0$.
+      - Les abscisses des points d'intersection des courbes de $f$ et $g$ sont les solutions de $f(x) = g(x)$.
+      - L'ensemble de définition exclut les valeurs interdites (dénominateur nul, racine d'un négatif).
+    cours: |
+      ## Appartenance d'un point
+      $A(2 ; 5)$ est sur la courbe de $f(x) = x^2 + 1$ car $f(2) = 5$.
+
+      ## Intersections
+      Courbes de $f(x) = x^2$ et $g(x) = x + 2$ : $x^2 = x + 2 \iff x^2 - x - 2 = 0 \iff (x - 2)(x + 1) = 0$.
+      Les points d'intersection ont pour abscisses $-1$ et $2$.
+
+      ## Ensemble de définition
+      $f(x) = \dfrac{1}{x - 3}$ n'existe pas pour $x = 3$ : $\mathcal{D}_f = \mathbb{R} \setminus \{3\}$.
+    questions:
+      - code: 2NDE-COURBE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Le point $A(2 ; 5)$ appartient-il à la courbe de $f(x) = x^2 + 1$ ? A) oui  B) non'
+        solution: A
+      - code: 2NDE-COURBE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Le point $B(k ; 7)$ appartient à la courbe de $f(x) = 2x + 1$. Donner $k$.'
+        solution: 3
+      - code: 2NDE-COURBE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Quelle est l''abscisse du point d''intersection de la courbe de $f(x) = 2x - 4$ avec l''axe des abscisses ?'
+        solution: 2
+      - code: 2NDE-COURBE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Les courbes de $f(x) = x^2$ et $g(x) = x + 2$ se coupent en deux points. Donner la plus grande de leurs abscisses.'
+        solution: 2
+      - code: 2NDE-COURBE-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Quel est l''ensemble de définition de $f(x) = \dfrac{1}{x - 3}$ ? A) $\mathbb{R}$  B) $\mathbb{R} \setminus \{3\}$  C) $]3 ; +\infty[$'
+        solution: B

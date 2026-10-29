@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-GRANDS-NOMBRES
+  niveau: Tle
+  parcours: specialite
+  ordre: 15
+  titre: Concentration et loi des grands nombres
+
+competences:
+  - code: TLE-BIENAYME
+    libelle: Appliquer l'inégalité de Bienaymé-Tchebychev
+    resume: |
+      - Pour tout $\delta > 0$ : $P\big(|X - E(X)| \ge \delta\big) \le \dfrac{V(X)}{\delta^2}$.
+      - Par passage au contraire : $P\big(|X - E(X)| < \delta\big) \ge 1 - \dfrac{V(X)}{\delta^2}$.
+      - Avec $\delta = k\sigma$ : $P\big(|X - E(X)| \ge k\sigma\big) \le \dfrac{1}{k^2}$.
+    cours: |
+      ## Majorer un écart
+      $V(X) = 4$ et $\delta = 4$ : $P(|X - E(X)| \ge 4) \le \dfrac{4}{16} = \dfrac{1}{4}$.
+
+      ## Minorer une probabilité d'intervalle
+      $E(X) = 50$ et $V(X) = 25$ : $40 < X < 60 \iff |X - 50| < 10$, donc $P(40 < X < 60) \ge 1 - \dfrac{25}{100} = \dfrac{3}{4}$.
+
+      ## En nombre d'écarts types
+      Pour garantir $P(|X - \mu| < k\sigma) \ge 0{,}96$, il suffit que $1 - \dfrac{1}{k^2} \ge 0{,}96$, soit $k^2 \ge 25$ : $k = 5$.
+
+      ## Remarque
+      Cette inégalité est valable pour toute loi, mais elle est souvent grossière : c'est une **garantie**, pas une valeur approchée.
+    questions:
+      - code: TLE-BIENAYME-01
+        difficulte: 1
+        type: qcm
+        enonce: 'L''inégalité de Bienaymé-Tchebychev majore $P\big(|X - E(X)| \ge \delta\big)$ par : A) $\dfrac{V(X)}{\delta^2}$  B) $\dfrac{\sigma(X)}{\delta^2}$  C) $V(X) \times \delta^2$'
+        solution: A
+      - code: TLE-BIENAYME-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On sait que $V(X) = 4$. Quel majorant de $P\big(|X - E(X)| \ge 4\big)$ donne l''inégalité de Bienaymé-Tchebychev ?'
+        solution: 1/4
+      - code: TLE-BIENAYME-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $E(X) = 50$ et $V(X) = 25$. Quel minorant de $P(40 < X < 60)$ donne l''inégalité de Bienaymé-Tchebychev ?'
+        solution: 3/4
+      - code: TLE-BIENAYME-04
+        difficulte: 4
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B(100 ; 0{,}5)$. Quel majorant de $P\big(|X - 50| \ge 10\big)$ donne l''inégalité de Bienaymé-Tchebychev ?'
+        solution: 1/4
+      - code: TLE-BIENAYME-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Quel est le plus petit entier $k$ pour lequel l''inégalité de Bienaymé-Tchebychev garantit $P\big(|X - \mu| < k\sigma\big) \ge 0{,}96$ ?'
+        solution: 5
+
+  - code: TLE-CONCENTRATION
+    libelle: Utiliser l'inégalité de concentration et la loi des grands nombres
+    resume: |
+      - Inégalité de concentration : $P\big(|M_n - \mu| \ge \delta\big) \le \dfrac{V}{n\delta^2}$, où $M_n$ est la moyenne d'un échantillon.
+      - **Loi des grands nombres** : $\lim\limits_{n \to +\infty} P\big(|M_n - \mu| \ge \delta\big) = 0$ ; la moyenne se rapproche de l'espérance.
+      - Pour une taille d'échantillon garantissant une précision, on résout $\dfrac{V}{n\delta^2} \le \alpha$.
+    cours: |
+      ## Application directe
+      $V = 1$, $n = 100$, $\delta = 0{,}5$ : $P(|M_n - \mu| \ge 0{,}5) \le \dfrac{1}{100 \times 0{,}25} = \dfrac{1}{25}$.
+
+      ## Taille d'échantillon
+      Variables de Bernoulli ($V = p(1 - p) \le 0{,}25$), précision $\delta = 0{,}1$, risque $\alpha = 0{,}05$ :
+      $$\frac{0{,}25}{n \times 0{,}01} \le 0{,}05 \iff \frac{25}{n} \le 0{,}05 \iff n \ge 500$$
+
+      ## Interprétation
+      La fréquence d'un événement dans un grand nombre d'expériences indépendantes se rapproche de sa probabilité : c'est ce qui justifie les simulations.
+    questions:
+      - code: TLE-CONCENTRATION-01
+        difficulte: 1
+        type: qcm
+        enonce: 'D''après la loi des grands nombres, la moyenne d''un échantillon de grande taille se rapproche : A) de l''espérance  B) de la variance  C) de 0'
+        solution: A
+      - code: TLE-CONCENTRATION-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Variables de variance 1, échantillon de taille 100, $\delta = 0{,}5$. Quel majorant de $P\big(|M_n - \mu| \ge \delta\big)$ donne l''inégalité de concentration ?'
+        solution: 1/25
+      - code: TLE-CONCENTRATION-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Variables de variance 0,25, échantillon de taille 1000, $\delta = 0{,}05$. Quel majorant de $P\big(|M_n - \mu| \ge \delta\big)$ donne l''inégalité de concentration ?'
+        solution: 1/10
+      - code: TLE-CONCENTRATION-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Variables de variance 0,25 et $\delta = 0{,}1$. Quelle taille minimale $n$ rend le majorant de l''inégalité de concentration inférieur ou égal à 0,05 ?'
+        solution: 500
+      - code: TLE-CONCENTRATION-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Variables de variance 0,25 et $\delta = 0{,}05$. Quelle taille minimale $n$ rend le majorant de l''inégalité de concentration inférieur ou égal à 0,01 ?'
+        solution: 10000

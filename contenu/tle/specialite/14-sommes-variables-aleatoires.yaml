@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-SOMMES-VA
+  niveau: Tle
+  parcours: specialite
+  ordre: 14
+  titre: Sommes de variables aléatoires
+
+competences:
+  - code: TLE-SOMME-LIN
+    libelle: Calculer espérance et variance d'une somme
+    resume: |
+      - Toujours : $E(X + Y) = E(X) + E(Y)$ et $E(aX + b) = aE(X) + b$.
+      - Si $X$ et $Y$ sont **indépendantes** : $V(X + Y) = V(X) + V(Y)$.
+      - $V(aX) = a^2V(X)$ : donc $V(X - Y) = V(X) + V(Y)$ (les variances s'**ajoutent**).
+    cours: |
+      ## Linéarité de l'espérance
+      $E(2X - 3Y + 1) = 2E(X) - 3E(Y) + 1$. Avec $E(X) = 4$ et $E(Y) = 1$ : $8 - 3 + 1 = 6$.
+
+      ## Variance d'une somme indépendante
+      $V(2X + 3Y) = 4V(X) + 9V(Y)$. Avec $V(X) = 1$ et $V(Y) = 2$ : $4 + 18 = 22$.
+
+      ## Somme de lancers
+      Un dé équilibré a pour espérance $3{,}5$ ; la somme de $10$ lancers a pour espérance $35$.
+
+      ## Erreur fréquente
+      Écrire $V(X - Y) = V(X) - V(Y)$ : une variance ne peut pas devenir négative !
+    questions:
+      - code: TLE-SOMME-LIN-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $E(X) = 3$ et $E(Y) = 5$. Calculer $E(X + Y)$.'
+        solution: 8
+      - code: TLE-SOMME-LIN-02
+        difficulte: 2
+        type: numerique
+        enonce: '$X$ et $Y$ sont indépendantes avec $V(X) = 2$ et $V(Y) = 3$. Calculer $V(X - Y)$.'
+        solution: 5
+      - code: TLE-SOMME-LIN-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $E(X) = 4$ et $E(Y) = 1$. Calculer $E(2X - 3Y + 1)$.'
+        solution: 6
+      - code: TLE-SOMME-LIN-04
+        difficulte: 4
+        type: numerique
+        enonce: '$X$ et $Y$ sont indépendantes avec $V(X) = 1$ et $V(Y) = 2$. Calculer $V(2X + 3Y)$.'
+        solution: 22
+      - code: TLE-SOMME-LIN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On lance 10 fois un dé équilibré à six faces et on additionne les résultats. Calculer l''espérance de cette somme.'
+        solution: 35
+
+  - code: TLE-ECHANTILLON
+    libelle: Étudier la somme et la moyenne d'un échantillon
+    resume: |
+      - Un échantillon de taille $n$ : $X_1, \dots, X_n$ indépendantes et de même loi (espérance $\mu$, variance $V$).
+      - Somme $S_n$ : $E(S_n) = n\mu$ et $V(S_n) = nV$.
+      - Moyenne $M_n = \dfrac{S_n}{n}$ : $E(M_n) = \mu$, $V(M_n) = \dfrac{V}{n}$, $\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$.
+    cours: |
+      ## Somme
+      $50$ variables indépendantes de variance $2$ : $V(S_{50}) = 100$, $\sigma(S_{50}) = 10$.
+
+      ## Moyenne
+      $V(X) = 4$ et $n = 100$ : $V(M_n) = 0{,}04$.
+      $\sigma = 6$ et $n = 36$ : $\sigma(M_n) = \dfrac{6}{6} = 1$.
+
+      ## Interprétation
+      La moyenne garde la même espérance mais fluctue moins : pour diviser l'écart type par $10$, il faut un échantillon $100$ fois plus grand.
+    questions:
+      - code: TLE-ECHANTILLON-01
+        difficulte: 1
+        type: numerique
+        enonce: '$M_n$ est la moyenne d''un échantillon de $n$ variables indépendantes d''espérance 5. Calculer $E(M_n)$.'
+        solution: 5
+      - code: TLE-ECHANTILLON-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un échantillon de taille 100 est formé de variables indépendantes de variance 4. Calculer la variance de la moyenne $M_{100}$.'
+        solution: 1/25
+      - code: TLE-ECHANTILLON-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un échantillon de taille 36 est formé de variables indépendantes d''écart type 6. Calculer l''écart type de la moyenne $M_{36}$.'
+        solution: 1
+      - code: TLE-ECHANTILLON-04
+        difficulte: 4
+        type: numerique
+        enonce: '$S = X_1 + \dots + X_{50}$ où les $X_i$ sont indépendantes de variance 2. Calculer $V(S)$.'
+        solution: 100
+      - code: TLE-ECHANTILLON-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Quelle taille $n$ d''échantillon rend l''écart type de la moyenne $M_n$ dix fois plus petit que celui d''une seule variable ?'
+        solution: 100

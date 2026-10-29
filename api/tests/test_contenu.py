@@ -63,6 +63,7 @@ class TestVerification:
         [
             ("solution: 2}", "solution: \"2 +\"}", "TEST-C-01 : solution « 2 + » illisible"),
             ("solution: B}", "solution: C}", "TEST-C-02 : solution « C » absente des choix"),
+            ("Choix ? A) un", "Si P(A) = 1 ? A) un", "TEST-C-02 : choix illisibles (A) A) B))"),
             ("code: TEST-C-02", "code: AUTRE-02", "le code doit commencer par « TEST-C- »"),
             ("code: TEST-C-02", "code: TEST-C-01", "question « TEST-C-01 » déjà défini"),
             ("difficulte: 2", "difficulte: 6", "difficulte : Input should be less than or equal to 5"),
@@ -176,8 +177,9 @@ class TestBaseExistante:
 class TestRoutesCours:
     def test_sommaire_du_niveau_de_l_eleve(self, client):
         sommaire = client.get("/cours", headers=connecter_eleve(client, "Emma", "TLE-C-DEMO")).json()
-        assert [ch["code"] for ch in sommaire] == ["TLE-COMB", "TLE-SUITES", "TLE-LN"]
-        assert [c["code"] for c in sommaire[1]["competences"]] == ["TLE-SUI-REC", "TLE-SUI-LIM", "TLE-SUI-OPE", "TLE-SUI-COMP"]
+        codes = [ch["code"] for ch in sommaire]
+        assert len(codes) == 15 and codes[0] == "TLE-COMB" and codes[4] == "TLE-SUITES" and codes[8] == "TLE-LN"
+        assert [c["code"] for c in sommaire[4]["competences"]] == ["TLE-SUI-REC", "TLE-SUI-LIM", "TLE-SUI-OPE", "TLE-SUI-COMP"]
         assert all(c["a_une_lecon"] for ch in sommaire for c in ch["competences"])
 
     def test_lecon(self, client):
@@ -276,8 +278,8 @@ class TestFiltreParParcours:
         codes = inscrire_eleves(client, classe["code"], ["Zoé"])
         h_eleve = connecter_eleve(client, "Zoé", classe["code"], codes["Zoé"])
         assert client.get("/cours", headers=h_eleve).json() == []  # aucun chapitre « expertes » pour l'instant
-        seance = client.post("/seances", headers=h_eleve).json()["id"]
-        assert client.get(f"/seances/{seance}/question", headers=h_eleve).status_code == 204
+        assert client.get("/eleves/moi/chapitres", headers=h_eleve).json() == []
+        assert client.post("/seances", headers=h_eleve).status_code == 409  # rien d'ouvert à travailler
         assert client.get("/eleves/moi", headers=h_eleve).json()["parcours"] == "expertes"
 
     def test_cours_d_un_autre_parcours_introuvable(self, client):

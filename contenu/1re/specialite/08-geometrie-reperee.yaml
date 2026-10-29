@@ -1,0 +1,96 @@
+chapitre:
+  code: 1RE-GEOMETRIE-REPEREE
+  niveau: 1re
+  parcours: specialite
+  ordre: 8
+  titre: Géométrie repérée
+
+competences:
+  - code: 1RE-NORMAL
+    libelle: Utiliser un vecteur normal à une droite
+    resume: |
+      - $\vec n(a ; b)$ est **normal** à la droite $d$ s'il est orthogonal à un vecteur directeur de $d$.
+      - La droite d'équation $ax + by + c = 0$ a pour vecteur normal $\vec n(a ; b)$.
+      - Projeté orthogonal $H$ de $A$ sur $d$ : $H \in d$ et $\overrightarrow{AH}$ colinéaire à $\vec n$.
+      - La parabole $y = ax^2 + bx + c$ a pour axe de symétrie la droite $x = -\dfrac{b}{2a}$.
+    cours: |
+      ## Équation à partir d'un vecteur normal
+      Droite passant par $A(1 ; 2)$ de vecteur normal $\vec n(3 ; 1)$ : $3x + y + c = 0$ et $3 + 2 + c = 0$, donc $c = -5$.
+
+      ## Droite perpendiculaire
+      Une perpendiculaire à $d : x + 2y = 0$ a pour vecteur **directeur** $(1 ; 2)$, donc pour vecteur normal $(2 ; -1)$ : $2x - y + c = 0$.
+
+      ## Projeté orthogonal
+      Projeté de $O$ sur $d : x + y - 2 = 0$ : $H = (t ; t)$ (colinéaire à $\vec n(1 ; 1)$) avec $2t - 2 = 0$, donc $H(1 ; 1)$.
+
+      ## Parabole
+      $y = 2x^2 - 8x + 3$ : axe de symétrie $x = \dfrac{8}{4} = 2$.
+    questions:
+      - code: 1RE-NORMAL-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel vecteur est normal à la droite d''équation $2x - 3y + 1 = 0$ ? A) $\vec n(2 ; -3)$  B) $\vec n(3 ; 2)$  C) $\vec n(-3 ; 2)$'
+        solution: A
+      - code: 1RE-NORMAL-02
+        difficulte: 2
+        type: numerique
+        enonce: 'La droite passant par $A(1 ; 2)$ de vecteur normal $\vec n(3 ; 1)$ a une équation $3x + y + c = 0$. Donner $c$.'
+        solution: -5
+      - code: 1RE-NORMAL-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle est une équation de la droite passant par $A(1 ; 1)$ et perpendiculaire à $d : x + 2y = 0$ ? A) $2x - y - 1 = 0$  B) $x + 2y - 3 = 0$  C) $2x + y - 3 = 0$'
+        solution: A
+      - code: 1RE-NORMAL-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Soit $H$ le projeté orthogonal de l''origine $O$ sur la droite $x + y - 2 = 0$. Donner l''abscisse de $H$.'
+        solution: 1
+      - code: 1RE-NORMAL-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La parabole d''équation $y = 2x^2 - 8x + 3$ a un axe de symétrie d''équation $x = k$. Donner $k$.'
+        solution: 2
+
+  - code: 1RE-CERCLE
+    libelle: Déterminer et utiliser l'équation d'un cercle
+    resume: |
+      - Cercle de centre $\Omega(a ; b)$ et de rayon $r$ : $(x - a)^2 + (y - b)^2 = r^2$.
+      - Pour reconnaître un cercle dans $x^2 + y^2 + \dots = 0$, on fait apparaître des carrés (forme canonique).
+      - $M$ est sur le cercle de diamètre $[AB]$ $\iff \overrightarrow{MA} \cdot \overrightarrow{MB} = 0$.
+    cours: |
+      ## Équation
+      $(x - 2)^2 + (y + 1)^2 = 9$ : centre $\Omega(2 ; -1)$, rayon $3$.
+
+      ## Forme développée
+      $$x^2 + y^2 - 4x + 6y - 3 = 0 \iff (x - 2)^2 - 4 + (y + 3)^2 - 9 - 3 = 0 \iff (x - 2)^2 + (y + 3)^2 = 16$$
+      Centre $(2 ; -3)$, rayon $4$.
+
+      ## Cercle de diamètre donné
+      $A(1 ; 2)$, $B(5 ; 6)$ : centre = milieu $(3 ; 4)$, $r^2 = \left(\dfrac{AB}{2}\right)^2 = \dfrac{32}{4} = 8$.
+    questions:
+      - code: 1RE-CERCLE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quel est le rayon du cercle d''équation $(x - 2)^2 + (y + 1)^2 = 9$ ?'
+        solution: 3
+      - code: 1RE-CERCLE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quel est le centre du cercle d''équation $(x - 2)^2 + (y + 1)^2 = 9$ ? A) $(2 ; -1)$  B) $(-2 ; 1)$  C) $(2 ; 1)$'
+        solution: A
+      - code: 1RE-CERCLE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Le point $M(1 ; 2)$ appartient-il au cercle de centre $O$ et de rayon $\sqrt 5$ ? A) oui  B) non'
+        solution: A
+      - code: 1RE-CERCLE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'L''équation $x^2 + y^2 - 4x + 6y - 3 = 0$ est celle d''un cercle. Donner son rayon.'
+        solution: 4
+      - code: 1RE-CERCLE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Le cercle de diamètre $[AB]$, avec $A(1 ; 2)$ et $B(5 ; 6)$, a pour équation $(x - 3)^2 + (y - 4)^2 = k$. Donner $k$.'
+        solution: 8

@@ -1,0 +1,101 @@
+chapitre:
+  code: 1RE-DERIVATION
+  niveau: 1re
+  parcours: specialite
+  ordre: 3
+  titre: Dérivation
+
+competences:
+  - code: 1RE-DER-NB
+    libelle: Utiliser le nombre dérivé et la tangente
+    resume: |
+      - Taux d'accroissement entre $a$ et $a + h$ : $\dfrac{f(a + h) - f(a)}{h}$.
+      - $f'(a)$ est la limite de ce taux quand $h$ tend vers $0$ : c'est la pente de la tangente en $a$.
+      - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
+      - Tangente horizontale $\iff f'(a) = 0$.
+    cours: |
+      ## Taux d'accroissement
+      Pour $f(x) = x^2$ et $a = 1$ : $\dfrac{(1 + h)^2 - 1}{h} = \dfrac{2h + h^2}{h} = 2 + h$.
+      Quand $h$ tend vers $0$, ce taux tend vers $2$ : $f'(1) = 2$.
+
+      ## Équation de la tangente
+      $$T_a : y = f'(a)(x - a) + f(a)$$
+      Pour $f(x) = x^2$ en $a = 1$ : $y = 2(x - 1) + 1 = 2x - 1$.
+
+      ## Lecture
+      Si la tangente en $2$ a pour équation $y = 3x - 1$, alors $f'(2) = 3$ (coefficient directeur) et $f(2) = 5$.
+    questions:
+      - code: 1RE-DER-NB-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Soit $f(x) = x^2$. Donner $f''(3)$.'
+        solution: 6
+      - code: 1RE-DER-NB-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Soit $f(x) = x^2$. Calculer le taux d''accroissement de $f$ entre 1 et $1 + h$ pour $h = 0{,}1$.'
+        solution: 21/10
+      - code: 1RE-DER-NB-03
+        difficulte: 3
+        type: numerique
+        enonce: 'La tangente à la courbe de $f$ au point d''abscisse 2 a pour équation $y = 3x - 1$. Donner $f''(2)$.'
+        solution: 3
+      - code: 1RE-DER-NB-04
+        difficulte: 4
+        type: expression
+        enonce: 'Donner l''équation réduite $y = \dots$ de la tangente à la courbe de $f(x) = x^2$ au point d''abscisse 1. Écrire seulement l''expression en $x$.'
+        solution: 2x - 1
+      - code: 1RE-DER-NB-05
+        difficulte: 5
+        type: numerique
+        enonce: 'En quelle abscisse la courbe de $f(x) = x^2 - 4x$ admet-elle une tangente horizontale ?'
+        solution: 2
+
+  - code: 1RE-DER-CALC
+    libelle: Calculer une fonction dérivée
+    resume: |
+      - $(x^n)' = nx^{n-1}$ ; $\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$ ; $(\sqrt x)' = \dfrac{1}{2\sqrt x}$.
+      - $(u + v)' = u' + v'$ ; $(ku)' = ku'$.
+      - $(uv)' = u'v + uv'$ ; $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$.
+      - $\big(g(ax + b)\big)' = a\,g'(ax + b)$.
+    cours: |
+      ## Polynômes
+      $(3x^2 - 5x + 2)' = 6x - 5$.
+
+      ## Produit
+      $f(x) = (2x + 1)(x - 3)$ : $u' = 2$, $v' = 1$, donc $f'(x) = 2(x - 3) + (2x + 1) = 4x - 5$.
+
+      ## Quotient
+      $f(x) = \dfrac{x + 1}{x - 2}$ : $f'(x) = \dfrac{1 \times (x - 2) - (x + 1) \times 1}{(x - 2)^2} = \dfrac{-3}{(x - 2)^2}$.
+
+      ## Composée affine
+      $f(x) = \sqrt{2x + 3}$ : $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
+
+      ## Erreur fréquente
+      $(uv)' \neq u'v'$ : la dérivée d'un produit n'est pas le produit des dérivées.
+    questions:
+      - code: 1RE-DER-CALC-01
+        difficulte: 1
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = 3x^2 - 5x + 2$.'
+        solution: 6x - 5
+      - code: 1RE-DER-CALC-02
+        difficulte: 2
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = x^3 + \dfrac{1}{x}$.'
+        solution: 3x^2 - 1/x^2
+      - code: 1RE-DER-CALC-03
+        difficulte: 3
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = (2x + 1)(x - 3)$.'
+        solution: 4x - 5
+      - code: 1RE-DER-CALC-04
+        difficulte: 4
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = \dfrac{x + 1}{x - 2}$.'
+        solution: -3/(x - 2)^2
+      - code: 1RE-DER-CALC-05
+        difficulte: 5
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = \sqrt{2x + 3}$ sur $\left]-\dfrac{3}{2} ; +\infty\right[$.'
+        solution: 1/sqrt(2x + 3)

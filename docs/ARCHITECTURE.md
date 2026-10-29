@@ -22,8 +22,10 @@
 | `competence`   | id, chapitre_id, code, libelle, ordre                                       |
 | `question`     | id, code, competence_id, enonce, type, solution, difficulte, archivee, registre des sources (source, source_url, licence_source, adaptation), validation (statut, par, le), cree_le |
 | `lecon`        | id, competence_id (unique), cours, resume (Markdown + LaTeX), maj_le        |
-| `seance`       | id, eleve_id, debut, fin                                                    |
+| `seance`       | id, eleve_id, debut, fin, question_courante_id                              |
 | `reponse`      | id, seance_id, question_id, reponse_donnee, correcte, duree_s, repondu_le   |
+| `classe_chapitre` | classe_id, chapitre_id — chapitres **proposés** par l'enseignant à la classe (migration 0007) |
+| `seance_chapitre` | seance_id, chapitre_id — chapitres **choisis** par l'élève pour sa séance (migration 0007) |
 
 La maîtrise par compétence est **calculée** par le moteur à partir de `reponse`
 (pas de table dérivée tant que les performances ne l'exigent pas).
@@ -81,8 +83,9 @@ pour un élève, 8 h pour un enseignant.
 | Route | Rôle |
 |-------|------|
 | `POST /eleves/connexion` | Prénom + code classe → jeton. Première connexion = création de l'élève. Prénom et code normalisés (`lina` = `Lina`). |
-| `GET /eleves/moi`, `GET /eleves/moi/progression` | Profil, maîtrise par compétence du niveau |
-| `POST /seances`, `POST /seances/{id}/fin` | Démarrer / terminer une séance |
+| `GET /eleves/moi`, `GET /eleves/moi/progression` | Profil, maîtrise par compétence des chapitres ouverts |
+| `GET /eleves/moi/chapitres` | Chapitres ouverts par l'enseignant, avec leur nombre de questions servables |
+| `POST /seances`, `POST /seances/{id}/fin` | Démarrer une séance sur les chapitres choisis (`{"chapitre_ids": [...]}` ; vide = tous les chapitres ouverts ; 409 si aucun n'est ouvert, 422 si un chapitre n'est pas proposé) / la terminer |
 | `GET /seances/{id}/question` | Question en cours, ou nouvelle question choisie par le moteur (204 si aucune). Jamais de solution. |
 | `POST /seances/{id}/reponses` | Réponse à la question en cours → correction, solution, nouvelle maîtrise |
 
@@ -95,6 +98,7 @@ et la durée est mesurée par le serveur, pas déclarée par le navigateur.
 |-------|------|
 | `POST /enseignants/connexion` | Email + mot de passe → jeton. Même message d'erreur et même durée que le compte existe ou non. |
 | `GET/POST /enseignants/classes` | Ses classes ; création avec code généré (`2NDE-7KQ4M`, sans 0/O/1/I/L) |
+| `GET/PUT /enseignants/classes/{id}/chapitres` | Programme de la classe (niveau + parcours) et chapitres ouverts ; `PUT {"chapitre_ids": [...]}` remplace la sélection (422 hors programme) |
 | `GET /enseignants/classes/{id}/eleves` | Tableau de bord : réponses, taux de réussite, compétences maîtrisées |
 | `GET /enseignants/eleves/{id}/progression` | Détail par compétence |
 | `DELETE /enseignants/eleves/{id}` | Effacement RGPD (séances et réponses en cascade, jeton invalidé) |
@@ -102,6 +106,12 @@ et la durée est mesurée par le serveur, pas déclarée par le navigateur.
 | `POST /enseignants/questions/{id}/archiver` | Retire la question des tirages, sans la supprimer |
 
 Cloisonnement : un enseignant ne voit que ses classes et leurs élèves ; sinon 404.
+
+### Chapitres proposés et choisis
+L'enseignant **ouvre** des chapitres du programme de sa classe ; l'élève **choisit**, parmi eux, ceux qu'il travaille
+dans une séance. Le cours, la progression et les tirages du moteur sont limités aux chapitres ouverts (et, en séance,
+aux chapitres choisis). Une classe créée reçoit tout son programme ouvert ; un chapitre ajouté plus tard à `contenu/`
+n'est **pas** ouvert automatiquement : l'enseignant le coche dans l'onglet Classes.
 
 ### Migrations SQLite
 `migrations/env.py` migre **sans** `PRAGMA foreign_keys=ON` : le mode batch de SQLite

@@ -1,0 +1,98 @@
+chapitre:
+  code: 2NDE-REFERENCE
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 9
+  titre: Fonctions de référence
+
+competences:
+  - code: 2NDE-CARRE
+    libelle: Utiliser la fonction carré
+    resume: |
+      - $x \mapsto x^2$ est décroissante sur $]-\infty ; 0]$ et croissante sur $[0 ; +\infty[$ ; minimum $0$ en $0$.
+      - $x^2 = a$ : deux solutions $\pm\sqrt{a}$ si $a > 0$, une seule ($0$) si $a = 0$, aucune si $a < 0$.
+      - $x^2 < a$ (avec $a > 0$) $\iff -\sqrt{a} < x < \sqrt{a}$.
+      - Sur $]0 ; 1[$, $x^2 < x$ ; sur $]1 ; +\infty[$, $x^2 > x$.
+    cours: |
+      ## Variations
+      La courbe est une parabole symétrique par rapport à l'axe des ordonnées (fonction **paire** : $(-x)^2 = x^2$).
+
+      ## Équations et inéquations
+      $x^2 = 16 \iff x = -4$ ou $x = 4$. $x^2 = -4$ n'a pas de solution réelle.
+      $x^2 < 9 \iff x \in ]-3 ; 3[$.
+
+      ## Encadrer un carré
+      Si $-3 \le x \le 2$, il faut couper en deux : sur $[-3 ; 0]$, $x^2 \in [0 ; 9]$ ; sur $[0 ; 2]$, $x^2 \in [0 ; 4]$.
+      Donc $x^2 \in [0 ; 9]$. Erreur fréquente : répondre $[4 ; 9]$ en élevant les bornes au carré.
+    questions:
+      - code: 2NDE-CARRE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quelles sont les solutions de $x^2 = 16$ ? A) 4  B) $-4$ et 4  C) 8'
+        solution: B
+      - code: 2NDE-CARRE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelles sont les solutions réelles de $x^2 = -4$ ? A) $-2$ et 2  B) aucune  C) $-2$'
+        solution: B
+      - code: 2NDE-CARRE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Si $-3 \le x \le 2$, à quel intervalle appartient $x^2$ ? A) $[4 ; 9]$  B) $[0 ; 9]$  C) $[0 ; 4]$'
+        solution: B
+      - code: 2NDE-CARRE-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Comparer $0{,}7^2$ et $0{,}7$. A) $0{,}7^2 < 0{,}7$  B) $0{,}7^2 > 0{,}7$  C) ils sont égaux'
+        solution: A
+      - code: 2NDE-CARRE-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Quel est l''ensemble des solutions de $x^2 < 9$ ? A) $]-3 ; 3[$  B) $]-\infty ; 3[$  C) $]-\infty ; -3[ \cup ]3 ; +\infty[$'
+        solution: A
+
+  - code: 2NDE-INV
+    libelle: Utiliser les fonctions inverse, racine carrée et cube
+    resume: |
+      - Inverse $x \mapsto \dfrac{1}{x}$ : définie sur $\mathbb{R}^*$, décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$.
+      - Racine carrée : définie et croissante sur $[0 ; +\infty[$ ; $\sqrt{x} = a \iff x = a^2$ (avec $a \ge 0$).
+      - Cube $x \mapsto x^3$ : croissante sur $\mathbb{R}$ ; $x^3 = a$ a une unique solution.
+      - Sur $]0 ; 1[$ : $x^2 < x < \sqrt{x}$.
+    cours: |
+      ## Fonction inverse
+      Elle est décroissante sur $]0 ; +\infty[$ : si $2 \le x \le 5$, alors $\dfrac{1}{5} \le \dfrac{1}{x} \le \dfrac{1}{2}$ (l'ordre s'inverse).
+
+      ## Racine carrée
+      $\sqrt{x} = 7 \iff x = 49$. Sur $]0 ; 1[$, par exemple $\sqrt{0{,}25} = 0{,}5 > 0{,}25$.
+
+      ## Fonction cube
+      Elle est impaire et croissante : $x^3 = -8 \iff x = -2$.
+
+      ## Erreur fréquente
+      Écrire « $\dfrac{1}{x}$ est décroissante sur $\mathbb{R}^*$ » : c'est faux, car $-1 < 1$ et $\dfrac{1}{-1} < \dfrac{1}{1}$.
+    questions:
+      - code: 2NDE-INV-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quelle est l''image de $0{,}25$ par la fonction inverse ?'
+        solution: 4
+      - code: 2NDE-INV-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Si $2 \le x \le 5$, alors $\dfrac{1}{x}$ appartient à : A) $[2 ; 5]$  B) $\left[\dfrac{1}{5} ; \dfrac{1}{2}\right]$  C) $\left[-\dfrac{1}{2} ; -\dfrac{1}{5}\right]$'
+        solution: B
+      - code: 2NDE-INV-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Résoudre $\sqrt{x} = 7$.'
+        solution: 49
+      - code: 2NDE-INV-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Pour $x \in ]0 ; 1[$, on a : A) $x < \sqrt{x}$  B) $x > \sqrt{x}$  C) $x = \sqrt{x}$'
+        solution: A
+      - code: 2NDE-INV-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Résoudre $x^3 = -8$.'
+        solution: -2

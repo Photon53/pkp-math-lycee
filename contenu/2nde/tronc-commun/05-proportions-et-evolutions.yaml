@@ -1,0 +1,99 @@
+chapitre:
+  code: 2NDE-EVOL
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 5
+  titre: Proportions et évolutions
+
+competences:
+  - code: 2NDE-PROP
+    libelle: Calculer et utiliser une proportion
+    resume: |
+      - Proportion d'une sous-population $A$ dans $E$ : $p = \dfrac{n_A}{n_E}$, nombre entre $0$ et $1$.
+      - $p\,\%$ de $N$ : $\dfrac{p}{100} \times N$.
+      - Proportion de proportion : si $A \subset B \subset E$, $p_{A/E} = p_{A/B} \times p_{B/E}$.
+    cours: |
+      ## Proportion
+      Dans une classe de $32$ élèves dont $12$ filles, la proportion de filles est $\dfrac{12}{32} = 0{,}375$, soit $37{,}5\,\%$.
+
+      ## Retrouver l'effectif total
+      Si $480$ personnes représentent $15\,\%$ d'une population : $N = \dfrac{480}{0{,}15} = 3200$.
+
+      ## Proportions emboîtées
+      $40\,\%$ des élèves sont internes et $25\,\%$ des internes sont en Seconde : la proportion d'internes de Seconde parmi tous les élèves est $0{,}25 \times 0{,}40 = 0{,}1$.
+
+      ## Réunion
+      $p_{A \cup B} = p_A + p_B - p_{A \cap B}$ : on retire ce qui est compté deux fois.
+    questions:
+      - code: 2NDE-PROP-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer 30 % de 250.'
+        solution: 75
+      - code: 2NDE-PROP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Une classe compte 32 élèves dont 12 filles. Donner la proportion de filles en écriture décimale.'
+        solution: 3/8
+      - code: 2NDE-PROP-03
+        difficulte: 3
+        type: numerique
+        enonce: '40 % des élèves d''un lycée sont internes et 25 % des internes sont en Seconde. Quelle proportion (en écriture décimale) des élèves du lycée sont des internes de Seconde ?'
+        solution: 1/10
+      - code: 2NDE-PROP-04
+        difficulte: 4
+        type: numerique
+        enonce: '480 habitants représentent 15 % de la population d''une ville. Combien la ville compte-t-elle d''habitants ?'
+        solution: 3200
+      - code: 2NDE-PROP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un club, 30 % des membres font du tennis, 50 % du football et 10 % les deux. Quel pourcentage des membres pratique au moins l''un des deux sports ? (Donner le nombre sans le symbole %.)'
+        solution: 70
+
+  - code: 2NDE-EVO
+    libelle: Calculer des évolutions et des taux
+    resume: |
+      - Une évolution de taux $t$ correspond au **coefficient multiplicateur** $CM = 1 + t$ (hausse de $15\,\%$ : $1{,}15$ ; baisse de $25\,\%$ : $0{,}75$).
+      - Évolutions successives : on **multiplie** les coefficients.
+      - Évolution réciproque : coefficient $\dfrac{1}{CM}$.
+    cours: |
+      ## Coefficient multiplicateur
+      $$V_{\text{arrivée}} = V_{\text{départ}} \times (1 + t)$$
+      Un prix de $80$ € baisse de $25\,\%$ : $80 \times 0{,}75 = 60$ €.
+
+      ## Évolutions successives
+      Une hausse de $20\,\%$ puis une baisse de $20\,\%$ : $1{,}2 \times 0{,}8 = 0{,}96$, soit une **baisse** globale de $4\,\%$.
+      Les taux ne s'additionnent pas !
+
+      ## Évolution réciproque
+      Après une hausse de $25\,\%$, pour revenir au prix initial : $\dfrac{1}{1{,}25} = 0{,}8$, soit une baisse de $20\,\%$.
+
+      ## Taux moyen
+      Deux hausses de même taux $t$ donnant $+21\,\%$ : $(1 + t)^2 = 1{,}21$, donc $1 + t = 1{,}1$ et $t = 10\,\%$.
+    questions:
+      - code: 2NDE-EVO-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quel est le coefficient multiplicateur associé à une hausse de 15 % ?'
+        solution: 1.15
+      - code: 2NDE-EVO-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un article coûte 80 €. Son prix baisse de 25 %. Quel est son nouveau prix en euros ?'
+        solution: 60
+      - code: 2NDE-EVO-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un prix augmente de 20 % puis baisse de 20 %. Quel est le taux d''évolution global en pourcentage ? (Nombre négatif pour une baisse, sans le symbole %.)'
+        solution: -4
+      - code: 2NDE-EVO-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un loyer a augmenté de 25 %. De quel taux doit-il évoluer pour revenir à sa valeur initiale ? (En pourcentage, nombre négatif pour une baisse.)'
+        solution: -20
+      - code: 2NDE-EVO-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Deux hausses successives de même taux $t\,\%$ donnent une hausse globale de 21 %. Donner $t$.'
+        solution: 10

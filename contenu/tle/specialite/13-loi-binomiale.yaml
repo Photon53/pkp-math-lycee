@@ -1,0 +1,94 @@
+chapitre:
+  code: TLE-BINOMIALE
+  niveau: Tle
+  parcours: specialite
+  ordre: 13
+  titre: Succession d'épreuves indépendantes, loi binomiale
+
+competences:
+  - code: TLE-BINOM-LOI
+    libelle: Calculer des probabilités avec la loi binomiale
+    resume: |
+      - Un **schéma de Bernoulli** répète $n$ fois, de façon indépendante, une épreuve à deux issues (succès de probabilité $p$).
+      - Le nombre de succès $X$ suit la loi binomiale $\mathcal B(n ; p)$ : $P(X = k) = \dbinom{n}{k} p^k (1 - p)^{n - k}$.
+      - $\dbinom{n}{k}$ compte les chemins de l'arbre réalisant $k$ succès.
+    cours: |
+      ## Coefficients binomiaux
+      $\dbinom{5}{2} = \dfrac{5 \times 4}{2} = 10$ ; $\dbinom{10}{5} = 252$.
+
+      ## Calculs
+      $X \sim \mathcal B(3 ; 0{,}5)$ : $P(X = 2) = \dbinom{3}{2} \times 0{,}5^2 \times 0{,}5 = \dfrac{3}{8}$.
+      $X \sim \mathcal B(4 ; \tfrac{1}{3})$ : $P(X = 0) = \left(\dfrac{2}{3}\right)^4 = \dfrac{16}{81}$.
+      $X \sim \mathcal B(5 ; 0{,}2)$ : $P(X = 1) = 5 \times 0{,}2 \times 0{,}8^4 = 0{,}4096$.
+
+      ## Justifier une loi binomiale
+      Il faut préciser : épreuves **identiques et indépendantes**, deux issues, $X$ compte les succès, valeurs de $n$ et $p$.
+    questions:
+      - code: TLE-BINOM-LOI-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\dbinom{5}{2}$.'
+        solution: 10
+      - code: TLE-BINOM-LOI-02
+        difficulte: 2
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B(3 ; 0{,}5)$. Calculer $P(X = 2)$.'
+        solution: 3/8
+      - code: TLE-BINOM-LOI-03
+        difficulte: 3
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B\left(4 ; \dfrac{1}{3}\right)$. Calculer $P(X = 0)$.'
+        solution: 16/81
+      - code: TLE-BINOM-LOI-04
+        difficulte: 4
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B(5 ; 0{,}2)$. Calculer $P(X = 1)$.'
+        solution: 256/625
+      - code: TLE-BINOM-LOI-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On lance 10 fois une pièce équilibrée. Quelle est la probabilité d''obtenir exactement 5 piles ? (Fraction irréductible.)'
+        solution: 63/256
+
+  - code: TLE-BINOM-ESP
+    libelle: Utiliser espérance et variance d'une loi binomiale
+    resume: |
+      - Si $X \sim \mathcal B(n ; p)$ : $E(X) = np$, $V(X) = np(1 - p)$, $\sigma(X) = \sqrt{np(1 - p)}$.
+      - « Au moins un succès » : $P(X \ge 1) = 1 - P(X = 0) = 1 - (1 - p)^n$.
+      - Pour trouver le plus petit $n$ tel que $1 - (1 - p)^n \ge s$, on utilise le logarithme.
+    cours: |
+      ## Espérance et variance
+      $X \sim \mathcal B(20 ; 0{,}3)$ : $E(X) = 6$ et $V(X) = 20 \times 0{,}3 \times 0{,}7 = 4{,}2$.
+
+      ## Au moins un succès
+      Trois lancers d'une pièce : $P(X \ge 1) = 1 - \left(\dfrac{1}{2}\right)^3 = \dfrac{7}{8}$.
+
+      ## Nombre minimal d'essais
+      $1 - 0{,}9^n \ge 0{,}5 \iff 0{,}9^n \le 0{,}5 \iff n \ge \dfrac{\ln 0{,}5}{\ln 0{,}9} \approx 6{,}58$.
+      On divise par $\ln 0{,}9 < 0$ : le sens change. Réponse : $n = 7$.
+    questions:
+      - code: TLE-BINOM-ESP-01
+        difficulte: 1
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B(20 ; 0{,}3)$. Calculer $E(X)$.'
+        solution: 6
+      - code: TLE-BINOM-ESP-02
+        difficulte: 2
+        type: numerique
+        enonce: '$X$ suit la loi binomiale $\mathcal B(20 ; 0{,}3)$. Calculer $V(X)$.'
+        solution: 21/5
+      - code: TLE-BINOM-ESP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On lance trois fois une pièce équilibrée. Quelle est la probabilité d''obtenir au moins un pile ?'
+        solution: 7/8
+      - code: TLE-BINOM-ESP-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une épreuve réussit avec la probabilité 0,1. Quel est le plus petit nombre $n$ de répétitions indépendantes pour que la probabilité d''au moins un succès dépasse 0,5 ?'
+        solution: 7
+      - code: TLE-BINOM-ESP-05
+        difficulte: 5
+        type: numerique
+        enonce: '$X$ suit une loi binomiale de paramètre $p = 0{,}2$ et d''espérance 4. Calculer $V(X)$.'
+        solution: 16/5

@@ -1,0 +1,98 @@
+chapitre:
+  code: 2NDE-PROBAS
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 12
+  titre: Probabilités et échantillonnage
+
+competences:
+  - code: 2NDE-PROBA
+    libelle: Calculer des probabilités
+    resume: |
+      - En situation d'équiprobabilité : $P(A) = \dfrac{\text{nombre d'issues favorables}}{\text{nombre total d'issues}}$.
+      - Événement contraire : $P(\bar A) = 1 - P(A)$.
+      - Réunion : $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+      - Pour deux épreuves, un tableau à double entrée ou un arbre liste toutes les issues.
+    cours: |
+      ## Équiprobabilité
+      Avec un dé équilibré, $P(\text{« 5 ou 6 »}) = \dfrac{2}{6} = \dfrac{1}{3}$.
+
+      ## Contraire
+      « Au moins une face » avec deux pièces : le contraire est « deux piles », de probabilité $\dfrac{1}{4}$, donc $P = 1 - \dfrac{1}{4} = \dfrac{3}{4}$.
+
+      ## Réunion
+      $P(A) = 0{,}5$, $P(B) = 0{,}4$, $P(A \cap B) = 0{,}2$ : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+
+      ## Deux dés
+      Le tableau $6 \times 6$ a $36$ cases équiprobables ; la somme $7$ apparaît $6$ fois : probabilité $\dfrac{1}{6}$.
+    questions:
+      - code: 2NDE-PROBA-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On lance un dé équilibré à six faces. Quelle est la probabilité d''obtenir 5 ou 6 ?'
+        solution: 1/3
+      - code: 2NDE-PROBA-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On sait que $P(A) = 0{,}3$. Calculer $P(\bar A)$.'
+        solution: 7/10
+      - code: 2NDE-PROBA-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $P(A) = 0{,}5$, $P(B) = 0{,}4$ et $P(A \cap B) = 0{,}2$. Calculer $P(A \cup B)$.'
+        solution: 7/10
+      - code: 2NDE-PROBA-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On lance deux pièces équilibrées. Quelle est la probabilité d''obtenir au moins une face ?'
+        solution: 3/4
+      - code: 2NDE-PROBA-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On lance deux dés équilibrés à six faces. Quelle est la probabilité que la somme des faces soit égale à 7 ?'
+        solution: 1/6
+
+  - code: 2NDE-ECH
+    libelle: Utiliser la fluctuation d'échantillonnage
+    resume: |
+      - La fréquence observée d'un caractère dans un échantillon varie d'un échantillon à l'autre : c'est la **fluctuation**.
+      - Pour un échantillon de taille $n$ et une proportion $p$, environ $95\,\%$ des fréquences observées sont dans $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$.
+      - Plus $n$ est grand, plus l'intervalle est étroit.
+    cours: |
+      ## Fréquence observée
+      $18$ succès sur $60$ essais : $f = \dfrac{18}{60} = 0{,}3$.
+
+      ## Intervalle de fluctuation
+      Pour $n = 400$ : $\dfrac{1}{\sqrt{400}} = 0{,}05$. Avec $p = 0{,}5$, l'intervalle est $[0{,}45 ; 0{,}55]$.
+
+      ## Influence de la taille
+      Si $n$ est multiplié par $4$, $\sqrt n$ est multiplié par $2$ : l'amplitude $\dfrac{2}{\sqrt n}$ est divisée par $2$.
+
+      ## Prise de décision
+      Si la fréquence observée sort de l'intervalle, on peut mettre en doute (au risque de $5\,\%$) la valeur annoncée de $p$.
+    questions:
+      - code: 2NDE-ECH-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On observe 18 succès sur 60 essais. Calculer la fréquence observée.'
+        solution: 3/10
+      - code: 2NDE-ECH-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Pour un échantillon de taille $n = 400$, calculer $\dfrac{1}{\sqrt n}$.'
+        solution: 1/20
+      - code: 2NDE-ECH-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Si la taille de l''échantillon est multipliée par 4, l''amplitude de l''intervalle $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$ est : A) divisée par 2  B) divisée par 4  C) inchangée'
+        solution: A
+      - code: 2NDE-ECH-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Quelle taille $n$ d''échantillon donne $\dfrac{1}{\sqrt n} = 0{,}02$ ?'
+        solution: 2500
+      - code: 2NDE-ECH-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Une pièce est censée être équilibrée ($p = 0{,}5$). Sur 100 lancers, on obtient 62 faces. La fréquence observée est-elle dans l''intervalle $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$ ? A) oui  B) non'
+        solution: B

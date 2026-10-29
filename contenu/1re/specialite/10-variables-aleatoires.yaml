@@ -1,0 +1,99 @@
+chapitre:
+  code: 1RE-VARIABLES-ALEATOIRES
+  niveau: 1re
+  parcours: specialite
+  ordre: 10
+  titre: Variables aléatoires réelles
+
+competences:
+  - code: 1RE-LOI
+    libelle: Déterminer une loi de probabilité et une espérance
+    resume: |
+      - La loi de $X$ donne chaque valeur $x_i$ et sa probabilité $p_i$, avec $\sum p_i = 1$.
+      - Espérance : $E(X) = \sum p_i x_i$ (moyenne à long terme).
+      - Linéarité : $E(aX + b) = aE(X) + b$.
+      - Un jeu est **équitable** lorsque l'espérance du gain algébrique est nulle.
+    cours: |
+      ## Loi et espérance
+      | $x_i$ | $0$ | $10$ | $20$ |
+      |---|---|---|---|
+      | $P(X = x_i)$ | $0{,}5$ | $0{,}3$ | $0{,}2$ |
+
+      $E(X) = 0 \times 0{,}5 + 10 \times 0{,}3 + 20 \times 0{,}2 = 7$.
+
+      ## Gain algébrique
+      On mise $2$ € et on lance un dé : on reçoit $10$ € si l'on obtient $6$. Le gain $G$ (gain reçu moins mise) vaut $8$ avec probabilité $\dfrac{1}{6}$ et $-2$ avec probabilité $\dfrac{5}{6}$.
+      $E(G) = \dfrac{8}{6} - \dfrac{10}{6} = -\dfrac{1}{3}$ : le jeu est défavorable au joueur.
+
+      ## Jeu équitable
+      Avec une mise $m$ : $E(G) = \dfrac{10}{6} - m = 0 \iff m = \dfrac{5}{3}$.
+    questions:
+      - code: 1RE-LOI-01
+        difficulte: 1
+        type: numerique
+        enonce: '$X$ prend les valeurs 1, 2 et 3 avec les probabilités 0,2 ; 0,5 et $p$. Donner $p$.'
+        solution: 3/10
+      - code: 1RE-LOI-02
+        difficulte: 2
+        type: numerique
+        enonce: '$X$ prend les valeurs 0, 10 et 20 avec les probabilités 0,5 ; 0,3 et 0,2. Calculer $E(X)$.'
+        solution: 7
+      - code: 1RE-LOI-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $E(X) = 4$. Calculer $E(2X + 3)$.'
+        solution: 11
+      - code: 1RE-LOI-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On mise 2 € puis on lance un dé équilibré ; on reçoit 10 € si on obtient 6, rien sinon. Calculer l''espérance du gain algébrique (gain reçu moins mise).'
+        solution: -1/3
+      - code: 1RE-LOI-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Même jeu (on reçoit 10 € si le dé donne 6). Quelle mise $m$ en euros rend le jeu équitable ?'
+        solution: 5/3
+
+  - code: 1RE-VARIANCE
+    libelle: Calculer une variance et un écart type
+    resume: |
+      - $V(X) = \sum p_i (x_i - E(X))^2 = E(X^2) - E(X)^2$.
+      - Écart type : $\sigma(X) = \sqrt{V(X)}$, il mesure la dispersion autour de l'espérance.
+      - $V(aX + b) = a^2 V(X)$ et $\sigma(aX + b) = |a|\,\sigma(X)$.
+    cours: |
+      ## Calcul
+      $X$ vaut $0$ ou $4$ avec probabilité $\dfrac{1}{2}$ chacun : $E(X) = 2$ et
+      $$V(X) = \frac{1}{2}(0 - 2)^2 + \frac{1}{2}(4 - 2)^2 = 4$$
+      donc $\sigma(X) = 2$.
+
+      ## Formule de König-Huygens
+      $X$ uniforme sur $\{1 ; 2 ; 3\}$ : $E(X) = 2$, $E(X^2) = \dfrac{1 + 4 + 9}{3} = \dfrac{14}{3}$, $V(X) = \dfrac{14}{3} - 4 = \dfrac{2}{3}$.
+
+      ## Transformation affine
+      Si $V(X) = 2$, alors $V(3X) = 9 \times 2 = 18$ : le facteur est **au carré**.
+    questions:
+      - code: 1RE-VARIANCE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $V(X) = 9$. Donner l''écart type $\sigma(X)$.'
+        solution: 3
+      - code: 1RE-VARIANCE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$X$ vaut $-1$ ou $1$, chacun avec la probabilité $\dfrac{1}{2}$. Calculer $V(X)$.'
+        solution: 1
+      - code: 1RE-VARIANCE-03
+        difficulte: 3
+        type: numerique
+        enonce: '$X$ vaut 0 ou 4, chacun avec la probabilité $\dfrac{1}{2}$. Calculer $V(X)$.'
+        solution: 4
+      - code: 1RE-VARIANCE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On sait que $V(X) = 2$. Calculer $V(3X)$.'
+        solution: 18
+      - code: 1RE-VARIANCE-05
+        difficulte: 5
+        type: numerique
+        enonce: '$X$ prend les valeurs 1, 2 et 3 avec la même probabilité. Calculer $V(X)$.'
+        solution: 2/3

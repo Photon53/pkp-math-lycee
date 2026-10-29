@@ -1,0 +1,99 @@
+chapitre:
+  code: 1RE-PROBA-COND
+  niveau: 1re
+  parcours: specialite
+  ordre: 9
+  titre: Probabilités conditionnelles et indépendance
+
+competences:
+  - code: 1RE-COND
+    libelle: Calculer une probabilité conditionnelle
+    resume: |
+      - Si $P(A) \neq 0$ : $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, donc $P(A \cap B) = P(A) \times P_A(B)$.
+      - Sur un arbre, on **multiplie** les probabilités le long d'un chemin.
+      - $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$.
+    cours: |
+      ## Définition
+      $P(A) = 0{,}4$ et $P(A \cap B) = 0{,}12$ : $P_A(B) = \dfrac{0{,}12}{0{,}4} = 0{,}3$.
+
+      ## Tableau croisé
+      Dans un lycée de $200$ élèves dont $120$ filles, $30$ filles sont gauchères.
+      La probabilité qu'une élève choisie parmi les filles soit gauchère est $\dfrac{30}{120} = \dfrac{1}{4}$ : on se restreint à la ligne « filles ».
+
+      ## Indépendance
+      Si $A$ et $B$ sont indépendants, $P(A \cap B) = P(A)P(B)$ et $P_A(B) = P(B)$.
+      Avec $P(A) = 0{,}5$, $P(B) = 0{,}4$ : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+
+      ## Erreur fréquente
+      Confondre $P_A(B)$ et $P_B(A)$ : ce ne sont pas les mêmes « univers de référence ».
+    questions:
+      - code: 1RE-COND-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $P(A) = 0{,}4$ et $P(A \cap B) = 0{,}12$. Calculer $P_A(B)$.'
+        solution: 3/10
+      - code: 1RE-COND-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On sait que $P(A) = 0{,}6$ et $P_A(B) = 0{,}5$. Calculer $P(A \cap B)$.'
+        solution: 3/10
+      - code: 1RE-COND-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un lycée compte 200 élèves dont 120 filles ; 30 filles sont gauchères. On choisit une fille au hasard. Quelle est la probabilité qu''elle soit gauchère ?'
+        solution: 1/4
+      - code: 1RE-COND-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Deux événements sont indépendants lorsque : A) la probabilité de leur intersection est le produit de leurs probabilités  B) la probabilité de leur réunion est la somme de leurs probabilités  C) ils ne peuvent pas se produire en même temps'
+        solution: A
+      - code: 1RE-COND-05
+        difficulte: 5
+        type: numerique
+        enonce: '$A$ et $B$ sont indépendants avec $P(A) = 0{,}5$ et $P(B) = 0{,}4$. Calculer $P(A \cup B)$.'
+        solution: 7/10
+
+  - code: 1RE-TOTALES
+    libelle: Utiliser un arbre et la formule des probabilités totales
+    resume: |
+      - Si $A$ et $\bar A$ partitionnent l'univers : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$.
+      - Pour « inverser » un conditionnement : $P_B(A) = \dfrac{P(A \cap B)}{P(B)}$.
+      - Tirages **sans remise** : les probabilités des branches changent d'un tirage à l'autre.
+    cours: |
+      ## Probabilités totales
+      $P(A) = 0{,}3$, $P_A(B) = 0{,}2$, $P_{\bar A}(B) = 0{,}5$ :
+      $$P(B) = 0{,}3 \times 0{,}2 + 0{,}7 \times 0{,}5 = 0{,}06 + 0{,}35 = 0{,}41$$
+
+      ## Test de dépistage
+      Une maladie touche $2\,\%$ d'une population. Le test est positif chez $95\,\%$ des malades et chez $10\,\%$ des personnes saines.
+      $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
+      $P_T(M) = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117} \approx 0{,}16$ : un test positif est loin d'être une certitude !
+
+      ## Sans remise
+      Urne de $3$ rouges et $2$ bleues, deux tirages sans remise : $P(RR) = \dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.
+    questions:
+      - code: 1RE-TOTALES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $P(A) = 0{,}3$, $P_A(B) = 0{,}2$ et $P_{\bar A}(B) = 0{,}5$. Calculer $P(B)$.'
+        solution: 41/100
+      - code: 1RE-TOTALES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Une urne contient 3 boules rouges et 2 bleues. On tire successivement deux boules sans remise. Quelle est la probabilité d''obtenir deux boules rouges ?'
+        solution: 3/10
+      - code: 1RE-TOTALES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Même urne (3 rouges, 2 bleues), deux tirages sans remise. Quelle est la probabilité que la deuxième boule soit rouge ?'
+        solution: 3/5
+      - code: 1RE-TOTALES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une maladie touche 2 % d''une population. Un test est positif chez 95 % des malades et chez 10 % des personnes saines. Calculer la probabilité qu''un test soit positif.'
+        solution: 117/1000
+      - code: 1RE-TOTALES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Avec les mêmes données (malades 2 %, positif chez 95 % des malades et 10 % des sains), quelle est la probabilité qu''une personne testée positive soit malade ? (Valeur exacte en fraction.)'
+        solution: 19/117

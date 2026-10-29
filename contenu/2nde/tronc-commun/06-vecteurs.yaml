@@ -1,0 +1,98 @@
+chapitre:
+  code: 2NDE-VECTEURS
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 6
+  titre: Vecteurs du plan
+
+competences:
+  - code: 2NDE-VEC-COORD
+    libelle: Calculer avec les coordonnées de vecteurs
+    resume: |
+      - $\overrightarrow{AB}\begin{pmatrix} x_B - x_A \\ y_B - y_A \end{pmatrix}$ et $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}$ (repère orthonormé).
+      - Somme et produit par un réel : on calcule coordonnée par coordonnée.
+      - Milieu de $[AB]$ : $\left(\dfrac{x_A + x_B}{2} ; \dfrac{y_A + y_B}{2}\right)$.
+      - $ABCD$ parallélogramme $\iff \overrightarrow{AB} = \overrightarrow{DC}$.
+    cours: |
+      ## Coordonnées d'un vecteur
+      Pour $A(1 ; 2)$ et $B(4 ; 6)$ : $\overrightarrow{AB}\begin{pmatrix} 3 \\ 4 \end{pmatrix}$ et $AB = \sqrt{3^2 + 4^2} = 5$.
+
+      ## Opérations
+      Si $\vec u\begin{pmatrix} 2 \\ -1 \end{pmatrix}$ et $\vec v\begin{pmatrix} -3 \\ 4 \end{pmatrix}$, alors $2\vec u + \vec v\begin{pmatrix} 1 \\ 2 \end{pmatrix}$.
+
+      ## Parallélogramme
+      $ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$.
+      On en déduit les coordonnées du quatrième sommet : $D = C - \overrightarrow{AB}$ coordonnée par coordonnée.
+
+      ## Erreur fréquente
+      Calculer $x_A - x_B$ au lieu de $x_B - x_A$ : on fait toujours « arrivée moins départ ».
+    questions:
+      - code: 2NDE-VEC-COORD-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On donne $A(1 ; 2)$ et $B(4 ; 6)$. Quelle est l''abscisse du vecteur $\overrightarrow{AB}$ ?'
+        solution: 3
+      - code: 2NDE-VEC-COORD-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans un repère orthonormé, $A(1 ; 2)$ et $B(4 ; 6)$. Calculer la distance $AB$.'
+        solution: 5
+      - code: 2NDE-VEC-COORD-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On donne $\vec u(2 ; -1)$ et $\vec v(-3 ; 4)$. Quelle est l''ordonnée du vecteur $2\vec u + \vec v$ ?'
+        solution: 2
+      - code: 2NDE-VEC-COORD-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On donne $A(1 ; 1)$, $B(4 ; 2)$ et $C(5 ; 5)$. Le point $D$ est tel que $ABCD$ est un parallélogramme. Quelle est l''ordonnée de $D$ ?'
+        solution: 4
+      - code: 2NDE-VEC-COORD-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un repère orthonormé d''origine $O$, $A(-2 ; 3)$ et $B(4 ; 7)$. Soit $I$ le milieu de $[AB]$. Calculer la distance $OI$ (valeur exacte).'
+        solution: sqrt(26)
+
+  - code: 2NDE-VEC-COL
+    libelle: Étudier la colinéarité de deux vecteurs
+    resume: |
+      - $\det(\vec u, \vec v) = xy' - x'y$ pour $\vec u(x ; y)$ et $\vec v(x' ; y')$.
+      - $\vec u$ et $\vec v$ colinéaires $\iff \det(\vec u, \vec v) = 0$.
+      - $A$, $B$, $C$ alignés $\iff \overrightarrow{AB}$ et $\overrightarrow{AC}$ colinéaires.
+      - $(AB) \parallel (CD) \iff \overrightarrow{AB}$ et $\overrightarrow{CD}$ colinéaires.
+    cours: |
+      ## Déterminant
+      $$\det(\vec u, \vec v) = \begin{vmatrix} x & x' \\ y & y' \end{vmatrix} = xy' - x'y$$
+      Pour $\vec u(2 ; -3)$ et $\vec v(-4 ; 6)$ : $2 \times 6 - (-4) \times (-3) = 12 - 12 = 0$ : colinéaires ($\vec v = -2\vec u$).
+
+      ## Alignement
+      $A(0 ; 1)$, $B(2 ; 5)$, $C(3 ; 7)$ : $\overrightarrow{AB}(2 ; 4)$ et $\overrightarrow{AC}(3 ; 6)$, déterminant $2 \times 6 - 3 \times 4 = 0$ : les points sont alignés.
+
+      ## Trouver un paramètre
+      $\vec u(m ; 2)$ et $\vec v(6 ; 4)$ colinéaires $\iff 4m - 12 = 0 \iff m = 3$.
+    questions:
+      - code: 2NDE-VEC-COL-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\det(\vec u, \vec v)$ pour $\vec u(2 ; 3)$ et $\vec v(4 ; 5)$.'
+        solution: -2
+      - code: 2NDE-VEC-COL-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Les vecteurs $\vec u(2 ; -3)$ et $\vec v(-4 ; 6)$ sont-ils colinéaires ? A) oui  B) non'
+        solution: A
+      - code: 2NDE-VEC-COL-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(m ; 2)$ et $\vec v(6 ; 4)$ sont-ils colinéaires ?'
+        solution: 3
+      - code: 2NDE-VEC-COL-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Les points $A(0 ; 1)$, $B(2 ; 5)$ et $C(3 ; 7)$ sont-ils alignés ? A) oui  B) non'
+        solution: A
+      - code: 2NDE-VEC-COL-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On donne $A(1 ; 2)$, $B(3 ; 6)$ et $C(0 ; k)$. Pour quelle valeur de $k$ les points $A$, $B$, $C$ sont-ils alignés ?'
+        solution: 0

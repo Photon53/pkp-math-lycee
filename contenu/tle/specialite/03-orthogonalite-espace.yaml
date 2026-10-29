@@ -1,0 +1,92 @@
+chapitre:
+  code: TLE-ORTHOGONALITE
+  niveau: Tle
+  parcours: specialite
+  ordre: 3
+  titre: Orthogonalité et distances dans l'espace
+
+competences:
+  - code: TLE-PS-ESP
+    libelle: Utiliser le produit scalaire dans l'espace
+    resume: |
+      - En repère orthonormé : $\vec u \cdot \vec v = xx' + yy' + zz'$.
+      - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$.
+      - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$.
+      - $\cos(\vec u, \vec v) = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\,\|\vec v\|}$.
+    cours: |
+      ## Calcul
+      $\vec u(1 ; 2 ; 3)$, $\vec v(4 ; -1 ; 0)$ : $\vec u \cdot \vec v = 4 - 2 + 0 = 2$.
+
+      ## Orthogonalité
+      $\vec u(1 ; m ; 2) \perp \vec v(3 ; 1 ; -1) \iff 3 + m - 2 = 0 \iff m = -1$.
+
+      ## Angle
+      $\vec u(1 ; 1 ; 0)$, $\vec v(0 ; 1 ; 1)$ : $\cos\theta = \dfrac{1}{\sqrt 2 \times \sqrt 2} = \dfrac{1}{2}$, donc $\theta = 60°$.
+    questions:
+      - code: TLE-PS-ESP-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\vec u \cdot \vec v$ pour $\vec u(1 ; 2 ; 3)$ et $\vec v(4 ; -1 ; 0)$.'
+        solution: 2
+      - code: TLE-PS-ESP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(1 ; m ; 2)$ et $\vec v(3 ; 1 ; -1)$ sont-ils orthogonaux ?'
+        solution: -1
+      - code: TLE-PS-ESP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans un repère orthonormé, calculer la distance $AB$ pour $A(1 ; 2 ; 2)$ et $B(3 ; 4 ; 3)$.'
+        solution: 3
+      - code: TLE-PS-ESP-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On sait que $\|\vec u\| = 2$, $\|\vec v\| = 1$ et $\vec u \cdot \vec v = -1$. Calculer $\|\vec u + \vec v\|^2$.'
+        solution: 3
+      - code: TLE-PS-ESP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Quelle est la mesure en degrés de l''angle entre $\vec u(1 ; 1 ; 0)$ et $\vec v(0 ; 1 ; 1)$ ?'
+        solution: 60
+
+  - code: TLE-PLAN-NORMAL
+    libelle: Utiliser un vecteur normal à un plan
+    resume: |
+      - $\vec n$ est normal au plan $\mathcal P$ s'il est orthogonal à deux vecteurs non colinéaires de $\mathcal P$.
+      - Le plan d'équation $ax + by + cz + d = 0$ a pour vecteur normal $\vec n(a ; b ; c)$.
+      - Projeté orthogonal $H$ de $A$ sur $\mathcal P$ : $H = A + t\vec n$ avec $H \in \mathcal P$ ; $AH$ est la distance de $A$ au plan.
+    cours: |
+      ## Équation cartésienne
+      Plan passant par $A(1 ; 0 ; 2)$ de vecteur normal $\vec n(1 ; 2 ; -1)$ : $x + 2y - z + d = 0$ et $1 + 0 - 2 + d = 0$, donc $d = 1$.
+
+      ## Projeté orthogonal
+      Projeté de $A(2 ; 2 ; 2)$ sur $x + y + z = 3$ : $H(2 + t ; 2 + t ; 2 + t)$ avec $6 + 3t = 3$, donc $t = -1$ et $H(1 ; 1 ; 1)$.
+
+      ## Distance
+      La distance de $O$ au plan $x + y + z - 3 = 0$ est $OH$ où $H(1 ; 1 ; 1)$ : $OH = \sqrt 3$.
+    questions:
+      - code: TLE-PLAN-NORMAL-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel vecteur est normal au plan d''équation $2x - y + 3z - 4 = 0$ ? A) $(2 ; -1 ; 3)$  B) $(2 ; -1 ; -4)$  C) $(-1 ; 3 ; -4)$'
+        solution: A
+      - code: TLE-PLAN-NORMAL-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Le plan passant par $A(1 ; 0 ; 2)$ de vecteur normal $\vec n(1 ; 2 ; -1)$ a pour équation $x + 2y - z + d = 0$. Donner $d$.'
+        solution: 1
+      - code: TLE-PLAN-NORMAL-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Le point $M(1 ; 1 ; 1)$ appartient-il au plan d''équation $x + y + z - 3 = 0$ ? A) oui  B) non'
+        solution: A
+      - code: TLE-PLAN-NORMAL-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Soit $H$ le projeté orthogonal de $A(2 ; 2 ; 2)$ sur le plan d''équation $x + y + z = 3$. Donner l''abscisse de $H$.'
+        solution: 1
+      - code: TLE-PLAN-NORMAL-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer la distance de l''origine $O$ au plan d''équation $x + y + z - 3 = 0$ (valeur exacte).'
+        solution: sqrt(3)

@@ -1,0 +1,97 @@
+chapitre:
+  code: 1RE-TRIGO
+  niveau: 1re
+  parcours: specialite
+  ordre: 6
+  titre: Trigonométrie
+
+competences:
+  - code: 1RE-RAD
+    libelle: Utiliser le radian et la mesure principale
+    resume: |
+      - $\pi$ radians $= 180°$ : multiplier par $\dfrac{\pi}{180}$ pour passer des degrés aux radians.
+      - Un réel et ce réel $+ 2k\pi$ repèrent le même point du cercle trigonométrique.
+      - La **mesure principale** est l'unique mesure dans $]-\pi ; \pi]$.
+    cours: |
+      ## Conversion
+      $60° = 60 \times \dfrac{\pi}{180} = \dfrac{\pi}{3}$ et $\dfrac{3\pi}{4} = \dfrac{3 \times 180°}{4} = 135°$.
+
+      ## Enroulement de la droite des réels
+      Sur le cercle trigonométrique (rayon $1$), un tour complet mesure $2\pi$.
+
+      ## Mesure principale
+      On ajoute ou retranche des multiples de $2\pi$ pour arriver dans $]-\pi ; \pi]$ :
+      - $\dfrac{7\pi}{3} - 2\pi = \dfrac{\pi}{3}$ ;
+      - $-\dfrac{5\pi}{4} + 2\pi = \dfrac{3\pi}{4}$ ;
+      - $\dfrac{17\pi}{6} - 2\pi = \dfrac{5\pi}{6}$.
+    questions:
+      - code: 1RE-RAD-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Convertir 60° en radians (valeur exacte, utiliser pi).'
+        solution: pi/3
+      - code: 1RE-RAD-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Convertir $\dfrac{3\pi}{4}$ radians en degrés.'
+        solution: 135
+      - code: 1RE-RAD-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Donner la mesure principale de $\dfrac{7\pi}{3}$ (utiliser pi).'
+        solution: pi/3
+      - code: 1RE-RAD-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Donner la mesure principale de $-\dfrac{5\pi}{4}$ (utiliser pi).'
+        solution: 3pi/4
+      - code: 1RE-RAD-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Donner la mesure principale de $\dfrac{17\pi}{6}$ (utiliser pi).'
+        solution: 5pi/6
+
+  - code: 1RE-COSSIN
+    libelle: Calculer avec cosinus et sinus
+    resume: |
+      - $\cos^2 x + \sin^2 x = 1$ et $-1 \le \cos x \le 1$, $-1 \le \sin x \le 1$.
+      - Valeurs remarquables : $\cos\dfrac{\pi}{3} = \dfrac{1}{2}$, $\sin\dfrac{\pi}{4} = \dfrac{\sqrt 2}{2}$, $\sin\dfrac{\pi}{6} = \dfrac{1}{2}$, $\cos\dfrac{\pi}{6} = \dfrac{\sqrt 3}{2}$.
+      - $\cos(-x) = \cos x$, $\sin(-x) = -\sin x$, $\cos(\pi - x) = -\cos x$, $\sin(\pi - x) = \sin x$.
+    cours: |
+      ## Valeurs remarquables
+      | $x$ | $0$ | $\dfrac{\pi}{6}$ | $\dfrac{\pi}{4}$ | $\dfrac{\pi}{3}$ | $\dfrac{\pi}{2}$ | $\pi$ |
+      |---|---|---|---|---|---|---|
+      | $\cos x$ | $1$ | $\dfrac{\sqrt 3}{2}$ | $\dfrac{\sqrt 2}{2}$ | $\dfrac{1}{2}$ | $0$ | $-1$ |
+      | $\sin x$ | $0$ | $\dfrac{1}{2}$ | $\dfrac{\sqrt 2}{2}$ | $\dfrac{\sqrt 3}{2}$ | $1$ | $0$ |
+
+      ## Angles associés
+      $\cos\dfrac{2\pi}{3} = \cos\left(\pi - \dfrac{\pi}{3}\right) = -\cos\dfrac{\pi}{3} = -\dfrac{1}{2}$.
+
+      ## Relation fondamentale
+      Si $\cos x = \dfrac{3}{5}$ avec $x \in \left[0 ; \dfrac{\pi}{2}\right]$, alors $\sin^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}$ et $\sin x \ge 0$, donc $\sin x = \dfrac{4}{5}$.
+    questions:
+      - code: 1RE-COSSIN-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Donner la valeur exacte de $\cos\dfrac{\pi}{3}$.'
+        solution: 1/2
+      - code: 1RE-COSSIN-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Donner la valeur exacte de $\sin\dfrac{\pi}{4}$.'
+        solution: sqrt(2)/2
+      - code: 1RE-COSSIN-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Donner la valeur exacte de $\cos\dfrac{2\pi}{3}$.'
+        solution: -1/2
+      - code: 1RE-COSSIN-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer $\sin\left(-\dfrac{\pi}{6}\right) + \cos(\pi)$.'
+        solution: -3/2
+      - code: 1RE-COSSIN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On sait que $\cos x = \dfrac{3}{5}$ et $x \in \left[0 ; \dfrac{\pi}{2}\right]$. Calculer $\sin x$.'
+        solution: 4/5

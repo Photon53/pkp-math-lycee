@@ -4,7 +4,16 @@ import pytest
 
 from app.db import models
 from app.security import hacher_mot_de_passe
-from tests.conftest import connecter_eleve, connecter_enseignant, corps_connexion, inscrire_eleves
+from tests.conftest import (
+    NB_COMPETENCES,
+    NB_QUESTIONS,
+    NB_QUESTIONS_ACTIVES,
+    competences_de,
+    connecter_eleve,
+    connecter_enseignant,
+    corps_connexion,
+    inscrire_eleves,
+)
 
 
 @pytest.fixture
@@ -50,7 +59,7 @@ class TestClasses:
         assert list(par_prenom) == ["Inès", "Lina", "Yanis"]
         assert par_prenom["Lina"] == {
             "id": 1, "prenom": "Lina", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
-            "competences_maitrisees": 0, "competences_total": 5,
+            "competences_maitrisees": 0, "competences_total": len(competences_de("2nde", "tronc-commun")),
         }
         assert par_prenom["Inès"]["taux_reussite"] is None
 
@@ -84,13 +93,13 @@ class TestEffacementRgpd:
 class TestQuestions:
     def test_competences(self, client):
         competences = client.get("/enseignants/competences", headers=connecter_enseignant(client)).json()
-        assert len(competences) == 17
+        assert len(competences) == NB_COMPETENCES
 
     def test_liste_avec_solutions_sans_archivees(self, client):
         h = connecter_enseignant(client)
         actives = client.get("/enseignants/questions", headers=h).json()
         toutes = client.get("/enseignants/questions?archivees=true", headers=h).json()
-        assert (len(actives), len(toutes)) == (79, 80)
+        assert (len(actives), len(toutes)) == (NB_QUESTIONS_ACTIVES, NB_QUESTIONS)
         assert all("solution" in q for q in actives)
 
     def test_creer_une_question(self, client):

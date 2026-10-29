@@ -1,0 +1,97 @@
+chapitre:
+  code: TLE-PRIMITIVES
+  niveau: Tle
+  parcours: specialite
+  ordre: 11
+  titre: Primitives et équations différentielles
+
+competences:
+  - code: TLE-PRIM
+    libelle: Déterminer une primitive
+    resume: |
+      - $F$ est une primitive de $f$ sur $I$ si $F' = f$ ; les autres primitives sont $F + C$.
+      - Une condition comme $F(0) = 0$ fixe la constante.
+      - Primitives usuelles : $x^n \to \dfrac{x^{n+1}}{n+1}$ ; $e^{ax} \to \dfrac{e^{ax}}{a}$ ; $\dfrac{1}{x^2} \to -\dfrac{1}{x}$ ; $\cos(ax) \to \dfrac{\sin(ax)}{a}$.
+      - Formes composées : $u'e^u \to e^u$ ; $u'u^n \to \dfrac{u^{n+1}}{n+1}$ ; $\dfrac{u'}{u} \to \ln|u|$.
+    cours: |
+      ## Polynômes
+      Une primitive de $3x^2 + 2x$ est $x^3 + x^2$ ; c'est celle qui s'annule en $0$.
+
+      ## Fixer la constante
+      Primitive de $e^{2x}$ s'annulant en $0$ : $F(x) = \dfrac{e^{2x}}{2} + C$ et $F(0) = \dfrac{1}{2} + C = 0$, donc $F(x) = \dfrac{e^{2x}}{2} - \dfrac{1}{2}$.
+
+      ## Reconnaître une forme composée
+      $2x\,e^{x^2} = u'e^u$ avec $u = x^2$ : primitive $e^{x^2} + C$.
+
+      ## Vérifier
+      Dériver la primitive trouvée doit redonner $f$ : c'est le contrôle le plus sûr.
+    questions:
+      - code: TLE-PRIM-01
+        difficulte: 1
+        type: expression
+        enonce: 'Donner la primitive de $f(x) = 3x^2 + 2x$ qui s''annule en 0.'
+        solution: x^3 + x^2
+      - code: TLE-PRIM-02
+        difficulte: 2
+        type: expression
+        enonce: 'Donner la primitive de $f(x) = e^{2x}$ qui s''annule en 0.'
+        solution: e^(2x)/2 - 1/2
+      - code: TLE-PRIM-03
+        difficulte: 3
+        type: expression
+        enonce: 'Donner la primitive sur $]0 ; +\infty[$ de $f(x) = \dfrac{1}{x^2}$ qui s''annule en 1.'
+        solution: 1 - 1/x
+      - code: TLE-PRIM-04
+        difficulte: 4
+        type: expression
+        enonce: 'Donner la primitive de $f(x) = 2x e^{x^2}$ qui s''annule en 0.'
+        solution: e^(x^2) - 1
+      - code: TLE-PRIM-05
+        difficulte: 5
+        type: expression
+        enonce: 'Donner la primitive de $f(x) = \cos(2x)$ qui s''annule en 0.'
+        solution: sin(2x)/2
+
+  - code: TLE-EQDIFF
+    libelle: Résoudre une équation différentielle y' = ay + b
+    resume: |
+      - Les solutions de $y' = ay$ sont les fonctions $x \mapsto Ce^{ax}$, $C \in \mathbb{R}$.
+      - Pour $y' = ay + b$ ($a \neq 0$) : solution constante $-\dfrac{b}{a}$, et solutions $x \mapsto Ce^{ax} - \dfrac{b}{a}$.
+      - Une condition initiale $y(0) = y_0$ fixe $C$ : la solution est alors unique.
+    cours: |
+      ## Équation homogène
+      $y' = 3y$ avec $y(0) = 2$ : $y = Ce^{3x}$ et $C = 2$, donc $y = 2e^{3x}$.
+
+      ## Avec second membre constant
+      $y' = -2y + 6$ : la solution constante vérifie $0 = -2y + 6$, soit $y = 3$.
+      Les solutions sont $y = Ce^{-2x} + 3$ ; avec $y(0) = 5$ : $C = 2$.
+
+      ## Loi de refroidissement
+      $\theta' = -0{,}1(\theta - 20)$ et $\theta(0) = 80$ : $\theta(t) = 20 + 60e^{-0{,}1t}$.
+      $\theta(t) = 50 \iff e^{-0{,}1t} = \dfrac{1}{2} \iff t = 10\ln 2 \approx 6{,}9$.
+    questions:
+      - code: TLE-EQDIFF-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Les solutions de l''équation $y'' = 2y$ sont les fonctions : A) $x \mapsto Ce^{2x}$  B) $x \mapsto Ce^{x/2}$  C) $x \mapsto 2e^x + C$'
+        solution: A
+      - code: TLE-EQDIFF-02
+        difficulte: 2
+        type: expression
+        enonce: 'Donner la solution de $y'' = 3y$ telle que $y(0) = 2$.'
+        solution: 2e^(3x)
+      - code: TLE-EQDIFF-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Quelle est la solution constante de l''équation $y'' = -2y + 6$ ?'
+        solution: 3
+      - code: TLE-EQDIFF-04
+        difficulte: 4
+        type: expression
+        enonce: 'Donner la solution de $y'' = -2y + 6$ telle que $y(0) = 5$.'
+        solution: 3 + 2e^(-2x)
+      - code: TLE-EQDIFF-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La température d''un café vérifie $\theta(t) = 20 + 60e^{-0{,}1t}$ ($t$ en minutes). Au bout de combien de minutes atteint-elle 50 °C ? (Valeur exacte avec ln.)'
+        solution: 10ln(2)

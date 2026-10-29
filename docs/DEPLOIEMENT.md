@@ -56,6 +56,9 @@ conservation RGPD, et **tester une restauration** au moins une fois par an.
 - **Codes personnels des élèves** : après la migration 0005, les élèves déjà inscrits n'ont pas de code et ne peuvent
   pas se connecter. Chaque enseignant ouvre sa classe, clique « Générer les codes manquants », imprime la fiche et
   la distribue. Les codes ne sont affichés qu'une fois : un code perdu se remplace par « Nouveau code ».
+- **Chapitres ouverts** : la migration 0007 ouvre, pour chaque classe existante, tous les chapitres de son programme
+  présents à ce moment-là. Les chapitres ajoutés ensuite à `contenu/` restent fermés tant que l'enseignant ne les
+  coche pas (onglet Classes → « Chapitres proposés »).
 - **Un seul processus API** : la limitation des tentatives de connexion est en mémoire. Pour
   plusieurs serveurs ou workers, il faudrait un stockage partagé (Redis). Un redémarrage remet
   les compteurs à zéro.

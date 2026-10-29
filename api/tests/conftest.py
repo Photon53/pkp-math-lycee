@@ -8,11 +8,30 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session, sessionmaker
 
 from app import limitation, security
+from app.contenu import charger
 from app.db.seed import CODES_DEMO, charger_demo
 from app.db.session import creer_moteur, get_session
 from app.main import app
 
 RACINE_API = Path(__file__).resolve().parents[1]
+
+# Taille de la banque versionnée dans contenu/ : les tests suivent le contenu sans compte codé en dur.
+_FICHIERS = [fichier for _, fichier in charger()]
+NB_CHAPITRES = len(_FICHIERS)
+COMPETENCES = [c for f in _FICHIERS for c in f.competences]
+NB_COMPETENCES = len(COMPETENCES)
+NB_LECONS = sum(c.cours is not None for c in COMPETENCES)
+NB_QUESTIONS = sum(len(c.questions) for c in COMPETENCES)
+NB_QUESTIONS_ACTIVES = sum(not q.archivee for c in COMPETENCES for q in c.questions)
+
+
+def competences_de(niveau: str, parcours: str) -> list[str]:
+    """Codes des compétences d'un niveau et d'un parcours, dans l'ordre du programme."""
+    fichiers = sorted(
+        (f for f in _FICHIERS if f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours),
+        key=lambda f: f.chapitre.ordre,
+    )
+    return [c.code for f in fichiers for c in f.competences]
 
 
 @pytest.fixture(autouse=True)

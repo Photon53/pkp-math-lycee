@@ -1,0 +1,99 @@
+chapitre:
+  code: 2NDE-ARITH
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 4
+  titre: Multiples, diviseurs et nombres premiers
+
+competences:
+  - code: 2NDE-MULT
+    libelle: Utiliser multiples, diviseurs et parité
+    resume: |
+      - $a$ est un **multiple** de $b$ s'il existe un entier $k$ tel que $a = kb$ ; on dit aussi que $b$ **divise** $a$.
+      - Un entier pair s'écrit $2k$, un entier impair $2k + 1$.
+      - La somme de deux multiples de $b$ est un multiple de $b$.
+    cours: |
+      ## Multiples et diviseurs
+      $63 = 7 \times 9$ : $63$ est un multiple de $7$, et $7$ est un diviseur de $63$.
+      Les diviseurs positifs de $12$ sont $1, 2, 3, 4, 6, 12$.
+
+      ## Parité
+      - $n$ pair : $n = 2k$, donc $n^2 = 4k^2 = 2(2k^2)$ est pair.
+      - $n$ impair : $n = 2k + 1$, donc $n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$ est impair.
+
+      ## Démontrer avec l'écriture littérale
+      Trois entiers consécutifs : $n + (n + 1) + (n + 2) = 3n + 3 = 3(n + 1)$, multiple de $3$.
+
+      ## Erreur fréquente
+      Vérifier sur quelques exemples ne démontre rien : il faut un calcul valable pour tout entier.
+    questions:
+      - code: 2NDE-MULT-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Lequel de ces nombres est un multiple de 7 ? A) 54  B) 63  C) 71'
+        solution: B
+      - code: 2NDE-MULT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Combien le nombre 12 a-t-il de diviseurs positifs ?'
+        solution: 6
+      - code: 2NDE-MULT-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Si $n$ est un entier impair, alors $n^2$ est : A) pair  B) impair  C) pair ou impair selon $n$'
+        solution: B
+      - code: 2NDE-MULT-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Quel est le plus petit entier strictement positif qui est à la fois multiple de 6 et de 8 ?'
+        solution: 24
+      - code: 2NDE-MULT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'La somme de trois entiers consécutifs est toujours un multiple de : A) 2  B) 3  C) 6'
+        solution: B
+
+  - code: 2NDE-PREM
+    libelle: Utiliser les nombres premiers et la décomposition
+    resume: |
+      - Un nombre **premier** a exactement deux diviseurs positifs : $1$ et lui-même ($1$ n'est pas premier).
+      - Tout entier $\ge 2$ se décompose en produit de facteurs premiers, de façon unique.
+      - La décomposition permet de simplifier une fraction et de reconnaître un carré.
+    cours: |
+      ## Nombres premiers
+      Les nombres premiers inférieurs à $30$ : $2, 3, 5, 7, 11, 13, 17, 19, 23, 29$.
+      Pour tester si $n$ est premier, on cherche un diviseur premier $p$ avec $p^2 \le n$.
+
+      ## Décomposition
+      On divise successivement par $2, 3, 5, 7\dots$ :
+      $$84 = 2 \times 42 = 2 \times 2 \times 21 = 2^2 \times 3 \times 7$$
+
+      ## Applications
+      - Fraction irréductible : $\dfrac{84}{126} = \dfrac{2^2 \times 3 \times 7}{2 \times 3^2 \times 7} = \dfrac{2}{3}$.
+      - Un entier est un carré parfait si tous les exposants de sa décomposition sont pairs.
+    questions:
+      - code: 2NDE-PREM-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Lequel de ces nombres est premier ? A) 21  B) 27  C) 29'
+        solution: C
+      - code: 2NDE-PREM-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Combien y a-t-il de nombres premiers strictement inférieurs à 20 ?'
+        solution: 8
+      - code: 2NDE-PREM-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle est la décomposition de 84 en facteurs premiers ? A) $2^2 \times 3 \times 7$  B) $2 \times 3 \times 14$  C) $2^3 \times 7$'
+        solution: A
+      - code: 2NDE-PREM-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Écrire $\dfrac{84}{126}$ sous forme de fraction irréductible.'
+        solution: 2/3
+      - code: 2NDE-PREM-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Quel est le plus petit entier $k > 0$ tel que $12k$ soit le carré d''un entier ?'
+        solution: 3

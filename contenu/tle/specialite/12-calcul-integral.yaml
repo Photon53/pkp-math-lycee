@@ -1,0 +1,92 @@
+chapitre:
+  code: TLE-INTEGRALES
+  niveau: Tle
+  parcours: specialite
+  ordre: 12
+  titre: Calcul intégral
+
+competences:
+  - code: TLE-INT-CALC
+    libelle: Calculer une intégrale à l'aide d'une primitive
+    resume: |
+      - Si $F$ est une primitive de $f$ continue sur $[a ; b]$ : $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a) = \big[F(x)\big]_a^b$.
+      - Linéarité : $\displaystyle\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g$.
+      - Relation de Chasles : $\displaystyle\int_a^b f + \int_b^c f = \int_a^c f$.
+    cours: |
+      ## Exemples
+      $$\int_0^2 (3x^2 + 1)\,dx = \big[x^3 + x\big]_0^2 = 10 \qquad \int_0^1 e^x\,dx = \big[e^x\big]_0^1 = e - 1$$
+      $$\int_1^e \frac{1}{x}\,dx = \big[\ln x\big]_1^e = 1 \qquad \int_0^\pi \sin x\,dx = \big[-\cos x\big]_0^\pi = 1 + 1 = 2$$
+
+      ## Erreur fréquente
+      Se tromper de signe en calculant $F(b) - F(a)$ : écrire les crochets, puis les deux valeurs entre parenthèses.
+    questions:
+      - code: TLE-INT-CALC-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\displaystyle\int_0^1 2x\,dx$.'
+        solution: 1
+      - code: TLE-INT-CALC-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer $\displaystyle\int_0^2 (3x^2 + 1)\,dx$.'
+        solution: 10
+      - code: TLE-INT-CALC-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer $\displaystyle\int_0^1 e^x\,dx$ (valeur exacte).'
+        solution: e - 1
+      - code: TLE-INT-CALC-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer $\displaystyle\int_1^e \frac{1}{x}\,dx$.'
+        solution: 1
+      - code: TLE-INT-CALC-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer $\displaystyle\int_0^\pi \sin x\,dx$.'
+        solution: 2
+
+  - code: TLE-INT-APP
+    libelle: Utiliser l'intégrale (aires, valeur moyenne, intégration par parties)
+    resume: |
+      - Si $f \ge 0$ sur $[a ; b]$, $\displaystyle\int_a^b f$ est l'aire (en u.a.) sous la courbe.
+      - Aire entre deux courbes avec $f \ge g$ : $\displaystyle\int_a^b (f - g)$.
+      - Valeur moyenne : $\mu = \dfrac{1}{b - a}\displaystyle\int_a^b f$.
+      - Intégration par parties : $\displaystyle\int_a^b u v' = \big[uv\big]_a^b - \int_a^b u' v$.
+    cours: |
+      ## Aire
+      Aire sous $y = x^2$ sur $[0 ; 3]$ : $\left[\dfrac{x^3}{3}\right]_0^3 = 9$ u.a. ; valeur moyenne $\dfrac{9}{3} = 3$.
+
+      ## Entre deux courbes
+      Sur $[0 ; 1]$, $x \ge x^2$ : aire $\displaystyle\int_0^1 (x - x^2)\,dx = \frac{1}{2} - \frac{1}{3} = \frac{1}{6}$.
+
+      ## Intégration par parties
+      $\displaystyle\int_0^1 x e^x\,dx$ avec $u = x$, $v' = e^x$ : $\big[xe^x\big]_0^1 - \int_0^1 e^x\,dx = e - (e - 1) = 1$.
+
+      Pour $\displaystyle\int_1^e x\ln x\,dx$, on dérive $\ln x$ et on intègre $x$ : $\left[\dfrac{x^2}{2}\ln x\right]_1^e - \displaystyle\int_1^e \frac{x}{2}\,dx = \dfrac{e^2}{2} - \dfrac{e^2 - 1}{4} = \dfrac{e^2 + 1}{4}$.
+    questions:
+      - code: TLE-INT-APP-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer l''aire, en unités d''aire, du domaine compris entre la courbe de $f(x) = x^2$, l''axe des abscisses et les droites $x = 0$ et $x = 3$.'
+        solution: 9
+      - code: TLE-INT-APP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer la valeur moyenne de $f(x) = x^2$ sur $[0 ; 3]$.'
+        solution: 3
+      - code: TLE-INT-APP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer l''aire du domaine compris entre les courbes de $y = x$ et $y = x^2$ sur $[0 ; 1]$.'
+        solution: 1/6
+      - code: TLE-INT-APP-04
+        difficulte: 4
+        type: numerique
+        enonce: 'À l''aide d''une intégration par parties, calculer $\displaystyle\int_0^1 x e^x\,dx$.'
+        solution: 1
+      - code: TLE-INT-APP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'À l''aide d''une intégration par parties, calculer $\displaystyle\int_1^e x\ln x\,dx$ (valeur exacte).'
+        solution: (e^2 + 1)/4

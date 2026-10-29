@@ -61,10 +61,47 @@ class JetonEleve(BaseModel):
     eleve: EleveInfo
 
 
+class ChapitreResume(_Modele):
+    id: int
+    titre: str
+
+
+class SeanceCreation(BaseModel):
+    """Chapitres choisis par l'élève ; vide = tous les chapitres ouverts de sa classe."""
+
+    chapitre_ids: Annotated[list[int], Field(max_length=60)] = []
+
+
 class SeanceInfo(_Modele):
     id: int
     debut: datetime
     fin: datetime | None
+    chapitres: list[ChapitreResume] = []
+
+
+class ChapitreOuvert(BaseModel):
+    """Chapitre proposé par l'enseignant, tel que l'élève le voit."""
+
+    id: int
+    code: str
+    titre: str
+    nb_questions: int
+
+
+class ChapitreProgramme(BaseModel):
+    """Chapitre du programme d'une classe, vu par l'enseignant."""
+
+    id: int
+    code: str
+    titre: str
+    ordre: int
+    propose: bool
+    nb_competences: int
+    nb_questions: int
+
+
+class ChoixChapitres(BaseModel):
+    chapitre_ids: Annotated[list[int], Field(max_length=60)]
 
 
 class QuestionPublique(_Modele):

@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-LIMITES-FONCTIONS
+  niveau: Tle
+  parcours: specialite
+  ordre: 6
+  titre: Limites de fonctions
+
+competences:
+  - code: TLE-LIMF-OP
+    libelle: Calculer une limite par opérations et lever une indétermination
+    resume: |
+      - Formes indéterminées : $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
+      - En $\pm\infty$, un polynôme ou un quotient de polynômes : on **factorise par le terme de plus haut degré**.
+      - Pour $\sqrt{\dots} - \dots$, on multiplie par l'**expression conjuguée**.
+      - $\lim\limits_{x \to 0^+} \dfrac{1}{x} = +\infty$ et $\lim\limits_{x \to 0^-} \dfrac{1}{x} = -\infty$.
+    cours: |
+      ## Quotient de polynômes
+      $$\frac{3x^2 + 1}{x^2 - 2} = \frac{x^2\left(3 + \frac{1}{x^2}\right)}{x^2\left(1 - \frac{2}{x^2}\right)} \xrightarrow[x \to +\infty]{} 3$$
+      De même $\dfrac{2x + 1}{x^2 + 1} \to 0$ (degré du numérateur plus petit).
+
+      ## Expression conjuguée
+      $$\sqrt{x^2 + x} - x = \frac{x}{\sqrt{x^2 + x} + x} = \frac{1}{\sqrt{1 + \frac{1}{x}} + 1} \xrightarrow[x \to +\infty]{} \frac{1}{2}$$
+
+      ## Erreur fréquente
+      Conclure « $\infty - \infty = 0$ » : c'est une forme indéterminée, il faut transformer l'écriture.
+    questions:
+      - code: TLE-LIMF-OP-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quelle est la limite de $x^2 + 3x$ en $+\infty$ ? A) $+\infty$  B) 0  C) $-\infty$'
+        solution: A
+      - code: TLE-LIMF-OP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer la limite en $+\infty$ de $\dfrac{3x^2 + 1}{x^2 - 2}$.'
+        solution: 3
+      - code: TLE-LIMF-OP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer la limite en $+\infty$ de $\dfrac{2x + 1}{x^2 + 1}$.'
+        solution: 0
+      - code: TLE-LIMF-OP-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle est la limite de $\dfrac{1}{x}$ quand $x$ tend vers 0 par valeurs positives ? A) $+\infty$  B) $-\infty$  C) 0'
+        solution: A
+      - code: TLE-LIMF-OP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer la limite en $+\infty$ de $\sqrt{x^2 + x} - x$.'
+        solution: 1/2
+
+  - code: TLE-LIMF-ASYMP
+    libelle: Interpréter des limites (asymptotes, croissances comparées)
+    resume: |
+      - $\lim\limits_{x \to \pm\infty} f(x) = \ell$ : asymptote **horizontale** $y = \ell$.
+      - $\lim\limits_{x \to a} f(x) = \pm\infty$ : asymptote **verticale** $x = a$.
+      - Croissances comparées : $\lim\limits_{x \to +\infty} \dfrac{e^x}{x^n} = +\infty$ et $\lim\limits_{x \to -\infty} x^n e^x = 0$.
+      - $\lim\limits_{x \to 0} \dfrac{e^x - 1}{x} = 1$ (nombre dérivé de $\exp$ en $0$).
+    cours: |
+      ## Asymptotes
+      $f(x) = \dfrac{2x + 1}{x - 3}$ : $\lim\limits_{x \to \pm\infty} f(x) = 2$ et $\lim\limits_{x \to 3^+} f(x) = +\infty$.
+      La courbe a une asymptote horizontale $y = 2$ et une asymptote verticale $x = 3$.
+
+      ## Croissances comparées
+      « L'exponentielle l'emporte sur les puissances » : $\dfrac{e^x}{x^2} \to +\infty$ et $x e^{-x} = \dfrac{x}{e^x} \to 0$ en $+\infty$.
+
+      ## Taux d'accroissement
+      $\dfrac{e^x - 1}{x} = \dfrac{e^x - e^0}{x - 0}$ tend vers $\exp'(0) = 1$.
+    questions:
+      - code: TLE-LIMF-ASYMP-01
+        difficulte: 1
+        type: qcm
+        enonce: 'La courbe de $f(x) = \dfrac{2x + 1}{x - 3}$ admet pour asymptotes : A) $y = 2$ et $x = 3$  B) $y = 3$ et $x = 2$  C) $y = 2$ seulement'
+        solution: A
+      - code: TLE-LIMF-ASYMP-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle est la limite de $\dfrac{e^x}{x^2}$ en $+\infty$ ? A) $+\infty$  B) 0  C) 1'
+        solution: A
+      - code: TLE-LIMF-ASYMP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer la limite en $+\infty$ de $x e^{-x}$.'
+        solution: 0
+      - code: TLE-LIMF-ASYMP-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle est la limite de $x e^x$ en $-\infty$ ? A) 0  B) $-\infty$  C) $+\infty$'
+        solution: A
+      - code: TLE-LIMF-ASYMP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer la limite en 0 de $\dfrac{e^x - 1}{x}$.'
+        solution: 1

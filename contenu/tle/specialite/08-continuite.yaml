@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-CONTINUITE
+  niveau: Tle
+  parcours: specialite
+  ordre: 8
+  titre: Continuité des fonctions
+
+competences:
+  - code: TLE-TVI
+    libelle: Appliquer le théorème des valeurs intermédiaires
+    resume: |
+      - **TVI** : si $f$ est continue sur $[a ; b]$, tout réel $k$ compris entre $f(a)$ et $f(b)$ a au moins un antécédent dans $[a ; b]$.
+      - **Corollaire** : si de plus $f$ est strictement monotone, cet antécédent est **unique**.
+      - Une fonction dérivable est continue ; la fonction partie entière ne l'est pas aux entiers.
+      - On encadre la solution par balayage ou par dichotomie.
+    cours: |
+      ## Unicité d'une solution
+      $f(x) = x^3 + x - 1$ : $f'(x) = 3x^2 + 1 > 0$, $f$ est continue et strictement croissante, de limites $-\infty$ et $+\infty$.
+      L'équation $f(x) = 0$ a donc une unique solution $\alpha$.
+
+      ## Encadrement
+      $f(0{,}6) = -0{,}184 < 0$ et $f(0{,}7) = 0{,}043 > 0$ : $\alpha \in ]0{,}6 ; 0{,}7[$.
+
+      ## Plusieurs solutions
+      $g(x) = x^3 - 3x + 1$ : maximum local $g(-1) = 3 > 0$, minimum local $g(1) = -1 < 0$.
+      On applique le corollaire sur chacun des trois intervalles de monotonie : $3$ solutions.
+    questions:
+      - code: TLE-TVI-01
+        difficulte: 1
+        type: qcm
+        enonce: '$f$ est continue sur $[a ; b]$ avec $f(a) < 0 < f(b)$. Alors : A) $f$ s''annule au moins une fois sur $[a ; b]$  B) $f$ ne s''annule pas  C) $f$ s''annule exactement une fois'
+        solution: A
+      - code: TLE-TVI-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Combien l''équation $x^3 + x - 1 = 0$ a-t-elle de solutions réelles ?'
+        solution: 1
+      - code: TLE-TVI-03
+        difficulte: 3
+        type: qcm
+        enonce: 'La solution $\alpha$ de $x^3 + x - 1 = 0$ appartient à : A) $]0 ; 0{,}5[$  B) $]0{,}6 ; 0{,}7[$  C) $]0{,}8 ; 0{,}9[$'
+        solution: B
+      - code: TLE-TVI-04
+        difficulte: 4
+        type: qcm
+        enonce: 'La fonction partie entière est-elle continue sur $[0 ; 2]$ ? A) oui  B) non'
+        solution: B
+      - code: TLE-TVI-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Combien l''équation $x^3 - 3x + 1 = 0$ a-t-elle de solutions réelles ?'
+        solution: 3
+
+  - code: TLE-POINT-FIXE
+    libelle: Déterminer la limite d'une suite récurrente
+    resume: |
+      - Si $u_{n+1} = f(u_n)$, si $(u_n)$ converge vers $\ell$ et si $f$ est **continue** en $\ell$, alors $f(\ell) = \ell$.
+      - On montre d'abord la convergence (suite monotone et bornée), puis on résout $f(\ell) = \ell$.
+      - Si l'équation a plusieurs solutions, on choisit grâce aux bornes de la suite.
+    cours: |
+      ## Suite arithmético-géométrique
+      $u_{n+1} = 0{,}5u_n + 3$ converge ; sa limite vérifie $\ell = 0{,}5\ell + 3$, d'où $\ell = 6$.
+
+      ## Avec une racine
+      $u_0 = 0$ et $u_{n+1} = \sqrt{u_n + 2}$ : la suite est croissante et majorée par $2$, donc converge vers $\ell \ge 0$ avec $\ell = \sqrt{\ell + 2}$.
+      $\ell^2 - \ell - 2 = 0$ donne $\ell = 2$ ou $\ell = -1$ ; on retient $\ell = 2$.
+
+      ## Méthode de Héron
+      $u_{n+1} = \dfrac{1}{2}\left(u_n + \dfrac{4}{u_n}\right)$ avec $u_0 = 1$ : $\ell = \dfrac{1}{2}\left(\ell + \dfrac{4}{\ell}\right) \iff \ell^2 = 4$, et $\ell > 0$ donc $\ell = 2$.
+    questions:
+      - code: TLE-POINT-FIXE-01
+        difficulte: 1
+        type: qcm
+        enonce: '$u_{n+1} = f(u_n)$, $(u_n)$ converge vers $\ell$ et $f$ est continue. Alors : A) $f(\ell) = \ell$  B) $f(\ell) = 0$  C) $\ell = 0$'
+        solution: A
+      - code: TLE-POINT-FIXE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'La suite définie par $u_{n+1} = 0{,}5u_n + 3$ converge. Quelle est sa limite ?'
+        solution: 6
+      - code: TLE-POINT-FIXE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'La suite définie par $u_0 = 0$ et $u_{n+1} = \sqrt{u_n + 2}$ converge vers un réel positif. Lequel ?'
+        solution: 2
+      - code: TLE-POINT-FIXE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'La suite définie par $u_0 = 1$ et $u_{n+1} = \dfrac{1}{2}\left(u_n + \dfrac{4}{u_n}\right)$ converge vers un réel strictement positif. Lequel ?'
+        solution: 2
+      - code: TLE-POINT-FIXE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La suite définie par $u_0 = 1$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$ converge. Quelle est sa limite ?'
+        solution: 0

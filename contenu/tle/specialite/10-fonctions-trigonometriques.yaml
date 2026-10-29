@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-TRIGONOMETRIE
+  niveau: Tle
+  parcours: specialite
+  ordre: 10
+  titre: Fonctions trigonométriques
+
+competences:
+  - code: TLE-TRIG-ETU
+    libelle: Dériver et étudier les fonctions sinus et cosinus
+    resume: |
+      - $\sin' = \cos$ et $\cos' = -\sin$ ; $\big(\cos(ax + b)\big)' = -a\sin(ax + b)$, $\big(\sin(ax + b)\big)' = a\cos(ax + b)$.
+      - $\cos$ est paire, $\sin$ est impaire ; toutes deux sont $2\pi$-périodiques.
+      - $x \mapsto \sin(ax)$ est périodique de période $\dfrac{2\pi}{|a|}$.
+      - $\lim\limits_{x \to 0} \dfrac{\sin x}{x} = 1$.
+    cours: |
+      ## Dérivées
+      $(\sin x + \cos x)' = \cos x - \sin x$ ; $\big(\cos(3x)\big)' = -3\sin(3x)$.
+
+      ## Parité et périodicité
+      $\cos(-x) = \cos x$ : courbe symétrique par rapport à l'axe des ordonnées.
+      $\sin\big(2(x + \pi)\big) = \sin(2x + 2\pi) = \sin(2x)$ : $x \mapsto \sin(2x)$ est $\pi$-périodique.
+      On étudie donc ces fonctions sur un intervalle de longueur une période (voire une demi-période grâce à la parité).
+
+      ## Limite remarquable
+      $\dfrac{\sin x}{x} = \dfrac{\sin x - \sin 0}{x - 0}$ tend vers $\sin'(0) = \cos 0 = 1$.
+    questions:
+      - code: TLE-TRIG-ETU-01
+        difficulte: 1
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = \sin x + \cos x$.'
+        solution: cos(x) - sin(x)
+      - code: TLE-TRIG-ETU-02
+        difficulte: 2
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = \cos(3x)$.'
+        solution: -3sin(3x)
+      - code: TLE-TRIG-ETU-03
+        difficulte: 3
+        type: qcm
+        enonce: 'La fonction cosinus est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: A
+      - code: TLE-TRIG-ETU-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Quelle est la plus petite période strictement positive de $f(x) = \sin(2x)$ ? (Utiliser pi.)'
+        solution: pi
+      - code: TLE-TRIG-ETU-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer la limite en 0 de $\dfrac{\sin x}{x}$.'
+        solution: 1
+
+  - code: TLE-TRIG-EQ
+    libelle: Résoudre des équations trigonométriques
+    resume: |
+      - $\cos x = \cos a \iff x = a + 2k\pi$ ou $x = -a + 2k\pi$ ($k \in \mathbb{Z}$).
+      - $\sin x = \sin a \iff x = a + 2k\pi$ ou $x = \pi - a + 2k\pi$.
+      - On lit les solutions sur le cercle trigonométrique, puis on ne garde que celles de l'intervalle demandé.
+    cours: |
+      ## Exemple avec le cosinus
+      $\cos x = \dfrac{1}{2} = \cos\dfrac{\pi}{3}$ : $x = \dfrac{\pi}{3} + 2k\pi$ ou $x = -\dfrac{\pi}{3} + 2k\pi$.
+      Dans $[0 ; 2\pi[$ : $\dfrac{\pi}{3}$ et $\dfrac{5\pi}{3}$.
+
+      ## Exemple avec le sinus
+      $\sin x = \dfrac{1}{2}$ dans $\left[0 ; \dfrac{\pi}{2}\right]$ : $x = \dfrac{\pi}{6}$.
+
+      ## Angle double
+      $\sin(2x) = 0 \iff 2x = k\pi \iff x = \dfrac{k\pi}{2}$ : dans $[0 ; 2\pi[$, on obtient $0$, $\dfrac{\pi}{2}$, $\pi$, $\dfrac{3\pi}{2}$.
+    questions:
+      - code: TLE-TRIG-EQ-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Résoudre $\cos x = 0$ dans $[0 ; \pi]$. (Utiliser pi.)'
+        solution: pi/2
+      - code: TLE-TRIG-EQ-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Résoudre $\sin x = \dfrac{1}{2}$ dans $\left[0 ; \dfrac{\pi}{2}\right]$. (Utiliser pi.)'
+        solution: pi/6
+      - code: TLE-TRIG-EQ-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Combien l''équation $\cos x = \dfrac{1}{2}$ a-t-elle de solutions dans $[0 ; 2\pi[$ ?'
+        solution: 2
+      - code: TLE-TRIG-EQ-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Donner la plus grande solution de $\cos x = \dfrac{1}{2}$ dans $[0 ; 2\pi[$. (Utiliser pi.)'
+        solution: 5pi/3
+      - code: TLE-TRIG-EQ-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Combien l''équation $\sin(2x) = 0$ a-t-elle de solutions dans $[0 ; 2\pi[$ ?'
+        solution: 4

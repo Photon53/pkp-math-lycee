@@ -12,6 +12,7 @@ from pkp_engine import Niveau, TypeQuestion
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Column,
     Date,
     DateTime,
     Enum,
@@ -20,6 +21,7 @@ from sqlalchemy import (
     Integer,
     MetaData,
     String,
+    Table,
     Text,
     UniqueConstraint,
     event,
@@ -60,6 +62,23 @@ def _enum(enum_cls: type, nom: str) -> Enum:
     )
 
 
+# Chapitres ouverts par l'enseignant pour une classe (il les ouvre au fil de l'année).
+chapitres_de_classe = Table(
+    "classe_chapitre",
+    Base.metadata,
+    Column("classe_id", ForeignKey("classe.id", ondelete="CASCADE"), primary_key=True),
+    Column("chapitre_id", ForeignKey("chapitre.id", ondelete="RESTRICT"), primary_key=True),
+)
+
+# Chapitres choisis par l'élève au démarrage d'une séance (parmi ceux ouverts).
+chapitres_de_seance = Table(
+    "seance_chapitre",
+    Base.metadata,
+    Column("seance_id", ForeignKey("seance.id", ondelete="CASCADE"), primary_key=True),
+    Column("chapitre_id", ForeignKey("chapitre.id", ondelete="RESTRICT"), primary_key=True),
+)
+
+
 class Enseignant(Base):
     __tablename__ = "enseignant"
 
@@ -82,6 +101,7 @@ class Classe(Base):
     enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="classes")
+    chapitres_proposes: Mapped[list["Chapitre"]] = relationship(secondary=chapitres_de_classe)
     eleves: Mapped[list["Eleve"]] = relationship(
         back_populates="classe", cascade="all, delete-orphan", passive_deletes=True
     )
@@ -197,6 +217,8 @@ class Seance(Base):
 
     eleve: Mapped[Eleve] = relationship(back_populates="seances")
     question_courante: Mapped["Question | None"] = relationship()
+    # Vide pour les séances antérieures à ce choix : tous les chapitres ouverts de la classe.
+    chapitres: Mapped[list["Chapitre"]] = relationship(secondary=chapitres_de_seance)
     reponses: Mapped[list["Reponse"]] = relationship(
         back_populates="seance", cascade="all, delete-orphan", passive_deletes=True
     )

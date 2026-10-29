@@ -11,13 +11,9 @@ compétence → difficulté (1 à 5)**. Le rangement des fichiers suit exactemen
 
 ```
 contenu/
-  2nde/tronc-commun/01-nombres-et-calculs.yaml
-  2nde/tronc-commun/02-calcul-litteral.yaml
-  1re/specialite/01-second-degre.yaml
-  1re/specialite/02-suites-numeriques.yaml
-  tle/specialite/01-combinatoire.yaml
-  tle/specialite/05-suites.yaml
-  tle/specialite/09-logarithme-neperien.yaml
+  2nde/tronc-commun/01-nombres-et-calculs.yaml … 12-probabilites-et-echantillonnage.yaml   (12 chapitres)
+  1re/specialite/01-second-degre.yaml … 10-variables-aleatoires.yaml                        (10 chapitres)
+  tle/specialite/01-combinatoire.yaml … 15-loi-des-grands-nombres.yaml                      (15 chapitres)
   tle/complementaires/…        (maths complémentaires, à venir)
   tle/expertes/…               (maths expertes, à venir)
 ```
@@ -30,6 +26,10 @@ contenu/
 
 Chaque **classe** a un parcours : ses élèves ne voient que les cours et questions de leur niveau
 **et** de leur parcours. Une classe de maths expertes ne reçoit pas les questions de spécialité.
+
+Dans ce programme, l'enseignant **ouvre** les chapitres qu'il veut proposer (onglet Classes) et l'élève
+**choisit** ceux qu'il travaille à chaque séance. Un nouveau fichier ajouté ici n'est pas ouvert
+automatiquement aux classes existantes.
 
 L'état de la banque (matrice de couverture, trous, validation, registre des sources) est dans
 [CONTENU-INVENTAIRE.md](CONTENU-INVENTAIRE.md), **généré** par la commande `inventaire`.
@@ -141,6 +141,9 @@ Pour un QCM, les choix sont dans l'énoncé, séparés par **deux espaces** :
 
 **Ce que le moteur ne sait pas encore corriger** (→ passer par un QCM) : limites infinies,
 intervalles, ensembles de solutions, coordonnées, valeurs arrondies, démonstrations.
+
+Dans un QCM, n'écrire **aucun** « A) », « B) »… ailleurs que devant les choix : `$P(A)$` serait lu
+comme une option. La vérification refuse ces énoncés (« choix illisibles »).
 
 ### Échelle de difficulté
 

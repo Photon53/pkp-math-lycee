@@ -7,10 +7,13 @@ from app.db.models import Base
 from app.db.session import creer_moteur
 from tests.conftest import config_alembic
 
-TABLES = {"enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse"}
+TABLES = {
+    "enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse",
+    "classe_chapitre", "seance_chapitre",
+}
 
 
-def test_upgrade_cree_les_9_tables(db_url):
+def test_upgrade_cree_toutes_les_tables(db_url):
     moteur = creer_moteur(db_url)
     assert set(inspect(moteur).get_table_names()) == TABLES | {"alembic_version"}
     moteur.dispose()
@@ -49,6 +52,8 @@ def test_migration_conserve_les_donnees(tmp_path):
         assert c.exec_driver_sql("select count(*) from reponse").scalar() == 1
         assert c.exec_driver_sql("select count(*) from seance").scalar() == 1
         assert c.exec_driver_sql("select cree_le from eleve").scalar() is not None
+        # 0007 : les classes existantes reçoivent tout le programme de leur niveau et parcours.
+        assert c.exec_driver_sql("select classe_id, chapitre_id from classe_chapitre").all() == [(1, 1)]
     moteur.dispose()
 
 

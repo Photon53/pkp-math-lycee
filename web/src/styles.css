@@ -185,3 +185,8 @@ textarea { resize: vertical; }
   .fiche-codes .actions, .fiche-codes .aide { display: none; }
   .fiche-codes td { padding: 14px 8px; border-bottom: 1px dashed #999; }  /* lignes à découper */
 }
+
+/* Choix des chapitres (élève) et chapitres proposés (enseignant) */
+fieldset.choix-chapitres { border: 1px solid var(--bordure); border-radius: 8px; padding: 8px 12px; margin: 12px 0; }
+fieldset.choix-chapitres legend { font-weight: 600; padding: 0 4px; }
+fieldset.choix-chapitres label.case { margin: 6px 0; }

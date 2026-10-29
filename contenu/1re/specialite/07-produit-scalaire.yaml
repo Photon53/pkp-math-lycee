@@ -1,0 +1,96 @@
+chapitre:
+  code: 1RE-PRODUIT-SCALAIRE
+  niveau: 1re
+  parcours: specialite
+  ordre: 7
+  titre: Produit scalaire
+
+competences:
+  - code: 1RE-PS-CALC
+    libelle: Calculer un produit scalaire
+    resume: |
+      - En repère orthonormé : $\vec u \cdot \vec v = xx' + yy'$.
+      - Avec les normes et l'angle : $\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v)$.
+      - Par projection : $\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH}$ où $H$ est le projeté orthogonal de $C$ sur $(AB)$.
+      - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$ et $\vec u \cdot \vec u = \|\vec u\|^2$.
+    cours: |
+      ## Avec les coordonnées
+      $\vec u(2 ; 3)$ et $\vec v(4 ; -1)$ : $\vec u \cdot \vec v = 2 \times 4 + 3 \times (-1) = 5$.
+
+      ## Avec l'angle
+      $\|\vec u\| = 3$, $\|\vec v\| = 4$, angle $\dfrac{\pi}{3}$ : $\vec u \cdot \vec v = 3 \times 4 \times \dfrac{1}{2} = 6$.
+
+      ## Par projection
+      Dans un carré $ABCD$ de côté $2$, le projeté de $C$ sur $(AB)$ est $B$ : $\overrightarrow{AB} \cdot \overrightarrow{AC} = AB^2 = 4$.
+
+      ## Identités
+      Si $\|\vec u\| = 2$, $\|\vec v\| = 3$ et $\vec u \cdot \vec v = 1$ : $\|\vec u + \vec v\|^2 = 4 + 2 + 9 = 15$.
+    questions:
+      - code: 1RE-PS-CALC-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\vec u \cdot \vec v$ pour $\vec u(2 ; 3)$ et $\vec v(4 ; -1)$ dans un repère orthonormé.'
+        solution: 5
+      - code: 1RE-PS-CALC-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On donne $\|\vec u\| = 3$, $\|\vec v\| = 4$ et un angle $(\vec u, \vec v)$ de mesure $\dfrac{\pi}{3}$. Calculer $\vec u \cdot \vec v$.'
+        solution: 6
+      - code: 1RE-PS-CALC-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer $\vec u \cdot \vec u$ pour $\vec u(3 ; 4)$ dans un repère orthonormé.'
+        solution: 25
+      - code: 1RE-PS-CALC-04
+        difficulte: 4
+        type: numerique
+        enonce: '$ABCD$ est un carré de côté 2. Calculer $\overrightarrow{AB} \cdot \overrightarrow{AC}$.'
+        solution: 4
+      - code: 1RE-PS-CALC-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On sait que $\|\vec u\| = 2$, $\|\vec v\| = 3$ et $\vec u \cdot \vec v = 1$. Calculer $\|\vec u + \vec v\|^2$.'
+        solution: 15
+
+  - code: 1RE-PS-APP
+    libelle: Utiliser le produit scalaire (orthogonalité, angles, longueurs)
+    resume: |
+      - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$.
+      - $\cos(\vec u, \vec v) = \dfrac{\vec u \cdot \vec v}{\|\vec u\| \times \|\vec v\|}$.
+      - Formule d'Al-Kashi : $BC^2 = AB^2 + AC^2 - 2\,AB \times AC \times \cos\widehat{A}$.
+    cours: |
+      ## Orthogonalité
+      $\vec u(2 ; -1)$ et $\vec v(1 ; 2)$ : $2 - 2 = 0$, ils sont orthogonaux.
+      $\vec u(m ; 3) \perp \vec v(2 ; -4) \iff 2m - 12 = 0 \iff m = 6$.
+
+      ## Al-Kashi
+      $AB = 3$, $AC = 5$, $\widehat{A} = 60°$ : $BC^2 = 9 + 25 - 2 \times 3 \times 5 \times \dfrac{1}{2} = 19$, donc $BC = \sqrt{19}$.
+
+      ## Retrouver un angle
+      Triangle de côtés $5$, $7$, $8$ : l'angle opposé au côté $7$ vérifie $\cos\alpha = \dfrac{25 + 64 - 49}{2 \times 5 \times 8} = \dfrac{1}{2}$, donc $\alpha = 60°$.
+    questions:
+      - code: 1RE-PS-APP-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Les vecteurs $\vec u(2 ; -1)$ et $\vec v(1 ; 2)$ sont-ils orthogonaux ? A) oui  B) non'
+        solution: A
+      - code: 1RE-PS-APP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(m ; 3)$ et $\vec v(2 ; -4)$ sont-ils orthogonaux ?'
+        solution: 6
+      - code: 1RE-PS-APP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans un triangle $ABC$, $AB = 3$, $AC = 5$ et $\widehat{BAC} = 60°$. Calculer $BC$ (valeur exacte).'
+        solution: sqrt(19)
+      - code: 1RE-PS-APP-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer le cosinus de l''angle entre $\vec u(1 ; 0)$ et $\vec v(1 ; 1)$ (valeur exacte).'
+        solution: sqrt(2)/2
+      - code: 1RE-PS-APP-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un triangle a pour côtés 5, 7 et 8. Quelle est la mesure en degrés de l''angle opposé au côté de longueur 7 ?'
+        solution: 60

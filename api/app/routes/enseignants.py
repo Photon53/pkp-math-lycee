@@ -19,8 +19,10 @@ from app.auth import ENSEIGNANT, EnseignantCourant, SessionDB
 from app.config import settings
 from app.db import models
 from app.db.conversions import question_vers_domaine
-from app.progression import progression_eleve, resume_eleve
+from app.progression import chapitres_du_programme, nb_questions_servables, progression_eleve, resume_eleve
 from app.schemas import (
+    ChapitreProgramme,
+    ChoixChapitres,
     ClasseCreation,
     ClasseResume,
     CodeEleve,
@@ -107,6 +109,8 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
             break
     classe = models.Classe(code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant)
     session.add(classe)
+    # Par défaut, tout le programme est ouvert ; l'enseignant ferme ce qu'il ne veut pas encore proposer.
+    classe.chapitres_proposes = chapitres_du_programme(session, classe)
     session.commit()
     return _resume_classe(session, classe)
 
@@ -129,6 +133,42 @@ def _mon_eleve(session: SessionDB, eleve_id: int, enseignant: models.Enseignant)
 def eleves_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[EleveResume]:
     classe = _ma_classe(session, classe_id, enseignant)
     return [resume_eleve(session, e) for e in sorted(classe.eleves, key=lambda e: e.prenom)]
+
+
+# --- Chapitres proposés à une classe ------------------------------------------
+
+
+def _programme_de_la_classe(session: SessionDB, classe: models.Classe) -> list[ChapitreProgramme]:
+    chapitres = chapitres_du_programme(session, classe)
+    ouverts = {c.id for c in classe.chapitres_proposes}
+    nb = nb_questions_servables(session, [c.id for c in chapitres])
+    return [
+        ChapitreProgramme(
+            id=c.id, code=c.code, titre=c.titre, ordre=c.ordre, propose=c.id in ouverts,
+            nb_competences=len(c.competences), nb_questions=nb.get(c.id, 0),
+        )
+        for c in chapitres
+    ]
+
+
+@router.get("/classes/{classe_id}/chapitres", response_model=list[ChapitreProgramme])
+def chapitres_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[ChapitreProgramme]:
+    """Programme de la classe (niveau + spécialité) : chapitres ouverts ou non aux élèves."""
+    return _programme_de_la_classe(session, _ma_classe(session, classe_id, enseignant))
+
+
+@router.put("/classes/{classe_id}/chapitres", response_model=list[ChapitreProgramme])
+def proposer_chapitres(
+    classe_id: int, corps: ChoixChapitres, enseignant: EnseignantCourant, session: SessionDB
+) -> list[ChapitreProgramme]:
+    """Remplace la liste des chapitres ouverts aux élèves de la classe."""
+    classe = _ma_classe(session, classe_id, enseignant)
+    programme = {c.id: c for c in chapitres_du_programme(session, classe)}
+    if any(i not in programme for i in corps.chapitre_ids):
+        raise HTTPException(422, "Chapitre hors du programme de cette classe (niveau et spécialité).")
+    classe.chapitres_proposes = [programme[i] for i in dict.fromkeys(corps.chapitre_ids)]
+    session.commit()
+    return _programme_de_la_classe(session, classe)
 
 
 # --- Codes personnels des élèves (audit A-07, décision D1) --------------------

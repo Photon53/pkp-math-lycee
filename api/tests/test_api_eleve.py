@@ -1,7 +1,7 @@
 import pytest
 
 from app.security import creer_jeton
-from tests.conftest import connecter_eleve, connecter_enseignant, corps_connexion, entete
+from tests.conftest import competences_de, connecter_eleve, connecter_enseignant, corps_connexion, entete
 
 
 def solutions(client) -> dict[int, str]:
@@ -186,6 +186,7 @@ class TestParcours:
     def test_progression(self, client):
         h = connecter_eleve(client)
         progression = {p["code"]: p for p in client.get("/eleves/moi/progression", headers=h).json()}
-        assert list(progression) == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-DEV", "2NDE-EQ1"]
+        assert list(progression) == competences_de("2nde", "tronc-commun")  # ordre du programme
+        assert list(progression)[:5] == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-DEV", "2NDE-EQ1"]
         assert progression["2NDE-FRAC"]["nb_reponses"] == 2
         assert progression["2NDE-PUIS"] == {**progression["2NDE-PUIS"], "nb_reponses": 0, "maitrise": 0.0, "maitrisee": False}

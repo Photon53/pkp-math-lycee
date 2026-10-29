@@ -7,6 +7,7 @@ from app.db import models
 from app.db.conversions import historique_eleve, question_vers_domaine
 from app.db.seed import EMAIL_DEMO, charger_demo
 from app.security import verifier_mot_de_passe
+from tests.conftest import NB_CHAPITRES, NB_COMPETENCES, NB_LECONS, NB_QUESTIONS
 
 
 @pytest.fixture
@@ -24,15 +25,15 @@ class TestDonneesDeDemo:
         assert compter(demo, models.Enseignant) == 1
         assert compter(demo, models.Classe) == 3
         assert compter(demo, models.Eleve) == 5
-        assert compter(demo, models.Chapitre) == 7
-        assert compter(demo, models.Competence) == 17
-        assert compter(demo, models.Question) == 80
-        assert compter(demo, models.Lecon) == 17
+        assert compter(demo, models.Chapitre) == NB_CHAPITRES
+        assert compter(demo, models.Competence) == NB_COMPETENCES
+        assert compter(demo, models.Question) == NB_QUESTIONS
+        assert compter(demo, models.Lecon) == NB_LECONS
         assert compter(demo, models.Reponse) == 7
 
     def test_idempotent(self, demo):
         assert charger_demo(demo) is False
-        assert compter(demo, models.Question) == 80
+        assert compter(demo, models.Question) == NB_QUESTIONS
 
     def test_chaque_solution_est_acceptee_par_le_moteur(self, demo):
         """Garde-fou qualité : une solution illisible lèverait ExpressionInvalide."""
@@ -100,7 +101,7 @@ class TestPurgeRgpd:
         demo.commit()
         assert compter(demo, models.Eleve) == 2
         assert compter(demo, models.Reponse) == 0
-        assert compter(demo, models.Question) == 80
+        assert compter(demo, models.Question) == NB_QUESTIONS
 
 
 def test_historique_vers_moteur(demo):

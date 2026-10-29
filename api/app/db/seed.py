@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session
 from app import contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
+from app.progression import chapitres_du_programme
 from app.referentiel import parcours_par_defaut
 from app.security import hacher_code_eleve, hacher_mot_de_passe
 
@@ -61,9 +62,11 @@ def charger_demo(session: Session) -> bool:
     eleves: dict[str, models.Eleve] = {}
     for code, niveau, prenoms in CLASSES:
         classe = models.Classe(code=code, niveau=niveau, parcours=parcours_par_defaut(niveau), enseignant=enseignant)
+        session.add(classe)
+        classe.chapitres_proposes = chapitres_du_programme(session, classe)
         for prenom in prenoms:
             eleves[prenom] = models.Eleve(prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]))
-        session.add(classe)
+            session.add(eleves[prenom])
     session.flush()
 
     instant = datetime.now(UTC) - timedelta(days=1)

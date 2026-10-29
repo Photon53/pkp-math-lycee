@@ -1,0 +1,97 @@
+chapitre:
+  code: 1RE-EXPONENTIELLE
+  niveau: 1re
+  parcours: specialite
+  ordre: 5
+  titre: Fonction exponentielle
+
+competences:
+  - code: 1RE-EXP-ALG
+    libelle: Utiliser les propriétés algébriques de l'exponentielle
+    resume: |
+      - $e^0 = 1$ et $e^x > 0$ pour tout réel $x$.
+      - $e^{a + b} = e^a e^b$ ; $e^{-a} = \dfrac{1}{e^a}$ ; $e^{a - b} = \dfrac{e^a}{e^b}$ ; $(e^a)^n = e^{na}$.
+      - $e^a = e^b \iff a = b$ et $e^a < e^b \iff a < b$.
+    cours: |
+      ## Définition
+      L'exponentielle est l'unique fonction $f$ dérivable sur $\mathbb{R}$ telle que $f' = f$ et $f(0) = 1$. On note $f(x) = e^x$.
+
+      ## Calculs
+      $$\frac{(e^2)^3}{e^4} = \frac{e^6}{e^4} = e^2$$
+
+      ## Équations
+      $e^{2x - 1} = e^3 \iff 2x - 1 = 3 \iff x = 2$.
+      $e^{x^2 - 3} = e^{2x} \iff x^2 - 2x - 3 = 0 \iff x = -1$ ou $x = 3$.
+
+      ## Erreur fréquente
+      $e^{a + b} \neq e^a + e^b$ : l'exponentielle transforme une somme en **produit**.
+    questions:
+      - code: 1RE-EXP-ALG-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Que vaut $e^0$ ?'
+        solution: 1
+      - code: 1RE-EXP-ALG-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Simplifier $e^3 \times e^{-1}$ (écrire la réponse sous la forme $e^n$).'
+        solution: e^2
+      - code: 1RE-EXP-ALG-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Simplifier $\dfrac{(e^2)^3}{e^4}$.'
+        solution: e^2
+      - code: 1RE-EXP-ALG-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Résoudre $e^{2x - 1} = e^3$.'
+        solution: 2
+      - code: 1RE-EXP-ALG-05
+        difficulte: 5
+        type: numerique
+        enonce: 'L''équation $e^{x^2 - 3} = e^{2x}$ a deux solutions. Donner la plus grande.'
+        solution: 3
+
+  - code: 1RE-EXP-ETU
+    libelle: Dériver et étudier des fonctions avec l'exponentielle
+    resume: |
+      - $(e^x)' = e^x$ ; $(e^{ax + b})' = a\,e^{ax + b}$.
+      - $x \mapsto e^x$ est strictement croissante et strictement positive sur $\mathbb{R}$.
+      - La suite $(e^{na})$ est géométrique de raison $e^a$.
+      - Pour étudier $u(x)e^x$, on factorise la dérivée par $e^x > 0$ : son signe est celui de l'autre facteur.
+    cours: |
+      ## Dérivées
+      $(e^{3x})' = 3e^{3x}$ ; $(xe^x)' = 1 \times e^x + x e^x = (x + 1)e^x$.
+
+      ## Étude d'une fonction
+      $f(x) = (x - 1)e^x$ : $f'(x) = e^x + (x - 1)e^x = xe^x$.
+      Comme $e^x > 0$, $f'(x)$ a le signe de $x$ : $f$ décroît sur $]-\infty ; 0]$, croît sur $[0 ; +\infty[$, minimum $f(0) = -1$.
+
+      ## Suites géométriques
+      $u_n = 3e^{-2n}$ : $\dfrac{u_{n+1}}{u_n} = e^{-2}$, suite géométrique de raison $e^{-2}$.
+    questions:
+      - code: 1RE-EXP-ETU-01
+        difficulte: 1
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = e^{3x}$.'
+        solution: 3e^(3x)
+      - code: 1RE-EXP-ETU-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Pour tout réel $x$, le nombre $e^x$ est : A) strictement positif  B) positif ou nul  C) de signe variable'
+        solution: A
+      - code: 1RE-EXP-ETU-03
+        difficulte: 3
+        type: expression
+        enonce: 'Calculer la dérivée de $f(x) = x e^x$.'
+        solution: (x + 1)e^x
+      - code: 1RE-EXP-ETU-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Quel est le minimum sur $\mathbb{R}$ de $f(x) = (x - 1)e^x$ ?'
+        solution: -1
+      - code: 1RE-EXP-ETU-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La suite définie par $u_n = 3e^{-2n}$ est géométrique. Donner sa raison.'
+        solution: e^(-2)

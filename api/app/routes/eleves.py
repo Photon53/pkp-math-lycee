@@ -16,16 +16,17 @@ from app import limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
-from app.referentiel import StatutValidation
 from app.db.conversions import historique_eleve, question_vers_domaine
-from app.progression import programme_de, progression_eleve
+from app.progression import filtre_validation, ids_ouverts, nb_questions_servables, progression_eleve
 from app.schemas import (
+    ChapitreOuvert,
     ConnexionEleve,
     EleveInfo,
     JetonEleve,
     ProgressionCompetence,
     QuestionPublique,
     ResultatReponse,
+    SeanceCreation,
     SeanceInfo,
     SoumissionReponse,
 )
@@ -60,13 +61,6 @@ def _info(eleve: models.Eleve) -> EleveInfo:
 
 
 ECHEC_CONNEXION = "Prénom, code classe ou code personnel incorrect."
-
-
-def _filtre_validation():
-    """En production, on peut ne servir que les questions validées par un enseignant."""
-    if settings.servir_questions_non_validees:
-        return ()
-    return (models.Question.statut_validation == StatutValidation.VALIDEE,)
 
 
 @cache
@@ -115,9 +109,24 @@ def ma_progression(eleve: EleveCourant, session: SessionDB) -> list[ProgressionC
     return progression_eleve(session, eleve)
 
 
+@router.get("/eleves/moi/chapitres", response_model=list[ChapitreOuvert])
+def mes_chapitres(eleve: EleveCourant, session: SessionDB) -> list[ChapitreOuvert]:
+    """Chapitres ouverts par l'enseignant, avec le nombre de questions disponibles."""
+    chapitres = sorted(eleve.classe.chapitres_proposes, key=lambda c: c.ordre)
+    nb = nb_questions_servables(session, [c.id for c in chapitres])
+    return [ChapitreOuvert(id=c.id, code=c.code, titre=c.titre, nb_questions=nb.get(c.id, 0)) for c in chapitres]
+
+
 @router.post("/seances", response_model=SeanceInfo, status_code=status.HTTP_201_CREATED)
-def demarrer_seance(eleve: EleveCourant, session: SessionDB) -> models.Seance:
-    seance = models.Seance(eleve=eleve, debut=_maintenant())
+def demarrer_seance(eleve: EleveCourant, session: SessionDB, corps: SeanceCreation | None = None) -> models.Seance:
+    """Démarre une séance sur les chapitres choisis (tous les chapitres ouverts si aucun choix)."""
+    ouverts = {c.id: c for c in eleve.classe.chapitres_proposes}
+    if not ouverts:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ton professeur n'a pas encore ouvert de chapitre.")
+    choisis = list(dict.fromkeys(corps.chapitre_ids)) if corps and corps.chapitre_ids else list(ouverts)
+    if any(i not in ouverts for i in choisis):
+        raise HTTPException(422, "Ce chapitre n'est pas proposé par ton professeur.")
+    seance = models.Seance(eleve=eleve, debut=_maintenant(), chapitres=[ouverts[i] for i in choisis])
     session.add(seance)
     session.commit()
     return seance
@@ -145,7 +154,7 @@ def terminer_seance(seance_id: int, eleve: EleveCourant, session: SessionDB) -> 
 @router.get(
     "/seances/{seance_id}/question",
     response_model=QuestionPublique,
-    responses={204: {"description": "Plus aucune question disponible pour ce niveau."}},
+    responses={204: {"description": "Aucune question disponible dans les chapitres de la séance."}},
 )
 def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
     seance = _seance_ouverte(session, seance_id, eleve)
@@ -158,7 +167,12 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
             select(models.Question)
             .join(models.Competence)
             .join(models.Chapitre)
-            .where(*programme_de(eleve.classe), models.Question.archivee.is_(False), *_filtre_validation())
+            .where(
+                # Chapitres choisis pour la séance ; séances antérieures : tous les chapitres ouverts.
+                models.Chapitre.id.in_([c.id for c in seance.chapitres] or ids_ouverts(eleve.classe)),
+                models.Question.archivee.is_(False),
+                *filtre_validation(),
+            )
         )
     }
     choix = choisir_prochaine_question(

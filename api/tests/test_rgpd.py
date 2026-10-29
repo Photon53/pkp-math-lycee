@@ -10,7 +10,7 @@ from app.admin import ErreurAdmin, changer_mot_de_passe, creer_enseignant
 from app.db import models
 from app.purge import purger
 from app.security import hacher_mot_de_passe
-from tests.conftest import connecter_eleve, connecter_enseignant
+from tests.conftest import NB_QUESTIONS, competences_de, connecter_eleve, connecter_enseignant
 
 
 def compter(session, modele) -> int:
@@ -36,7 +36,7 @@ class TestExport:
         reponses = [rep for s in donnees["seances"] for rep in s["reponses"]]
         assert len(reponses) == 5
         assert reponses[0] == {**reponses[0], "question": "Calculer 1/2 + 1/3.", "reponse_donnee": "5/6", "correcte": True}
-        assert len(donnees["progression"]) == 5
+        assert len(donnees["progression"]) == len(competences_de("2nde", "tronc-commun"))
 
     def test_accent_dans_le_nom_de_fichier(self, client):
         r = client.get("/enseignants/eleves/3/export", headers=connecter_enseignant(client))
@@ -55,7 +55,7 @@ class TestSuppressionClasse:
         assert [c["code"] for c in client.get("/enseignants/classes", headers=h).json()] == ["1RE-B-DEMO", "TLE-C-DEMO"]
         assert compter(session, models.Eleve) == 2
         assert compter(session, models.Reponse) == 0
-        assert compter(session, models.Question) == 80  # la banque de questions reste
+        assert compter(session, models.Question) == NB_QUESTIONS  # la banque de questions reste
         assert client.get("/eleves/moi", headers=jeton_lina).status_code == 401
 
     def test_reserve_a_son_enseignant(self, client, autre_enseignant):

@@ -332,7 +332,86 @@ export default function Classes({ jeton, onExpire }) {
           </div>
         </section>
       )}
+      {classe && <ChapitresProposes key={classe.id} classe={classe} appeler={appeler} />}
     </>
+  );
+}
+
+/** Programme de la classe : l'enseignant coche les chapitres ouverts à ses élèves. */
+function ChapitresProposes({ classe, appeler }) {
+  const [chapitres, setChapitres] = useState(null);
+  const [coches, setCoches] = useState(new Set());
+  const [message, setMessage] = useState(null);
+
+  const appliquer = useCallback((liste) => {
+    setChapitres(liste);
+    setCoches(new Set(liste.filter((c) => c.propose).map((c) => c.id)));
+  }, []);
+
+  useEffect(() => {
+    appeler(`/enseignants/classes/${classe.id}/chapitres`).then(appliquer, () => {});
+  }, [appeler, appliquer, classe.id]);
+
+  function basculer(id) {
+    setMessage(null);
+    setCoches((avant) => {
+      const apres = new Set(avant);
+      apres.has(id) ? apres.delete(id) : apres.add(id);
+      return apres;
+    });
+  }
+
+  async function enregistrer() {
+    try {
+      const liste = await appeler(`/enseignants/classes/${classe.id}/chapitres`, {
+        methode: "PUT",
+        corps: { chapitre_ids: [...coches] },
+      });
+      appliquer(liste);
+      setMessage(`${coches.size} chapitre(s) ouvert(s) aux élèves de ${classe.code}.`);
+    } catch {
+      // erreur affichée par le composant parent
+    }
+  }
+
+  const modifie = chapitres !== null && chapitres.some((c) => c.propose !== coches.has(c.id));
+
+  return (
+    <section className="carte">
+      <h2>Chapitres proposés aux élèves</h2>
+      <p className="doux">
+        Cochez les chapitres que vos élèves peuvent travailler. Ils choisissent ensuite, à chaque séance, un ou plusieurs
+        de ces chapitres.
+      </p>
+      {chapitres === null ? (
+        <p className="doux">Chargement…</p>
+      ) : chapitres.length === 0 ? (
+        <p className="doux">Aucun chapitre n'existe encore pour ce niveau et cette spécialité.</p>
+      ) : (
+        <fieldset className="choix-chapitres">
+          <legend>Programme de la classe</legend>
+          {chapitres.map((c) => (
+            <label key={c.id} className="case">
+              <input type="checkbox" checked={coches.has(c.id)} onChange={() => basculer(c.id)} />
+              {c.ordre}. {c.titre}
+              <span className="doux">
+                {c.nb_questions === 0 ? " — pas encore de questions" : ` — ${c.nb_questions} question(s)`}
+              </span>
+            </label>
+          ))}
+        </fieldset>
+      )}
+      <div className="actions">
+        <button onClick={enregistrer} disabled={!modifie}>
+          Enregistrer
+        </button>
+      </div>
+      {message && (
+        <p className="succes" role="status">
+          {message}
+        </p>
+      )}
+    </section>
   );
 }
 
