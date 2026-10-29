@@ -6,6 +6,7 @@ from sqlalchemy.orm import selectinload
 
 from app.auth import EleveCourant, SessionDB
 from app.db import models
+from app.progression import programme_de
 from app.schemas import ChapitreCours, CompetenceCours, LeconInfo
 
 router = APIRouter(prefix="/cours", tags=["cours"])
@@ -15,7 +16,7 @@ router = APIRouter(prefix="/cours", tags=["cours"])
 def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
     chapitres = session.scalars(
         select(models.Chapitre)
-        .where(models.Chapitre.niveau == eleve.classe.niveau)
+        .where(*programme_de(eleve.classe))
         .options(selectinload(models.Chapitre.competences).selectinload(models.Competence.lecon))
         .order_by(models.Chapitre.ordre)
     )
@@ -36,7 +37,10 @@ def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
 @router.get("/{competence_id}", response_model=LeconInfo)
 def lecon(competence_id: int, eleve: EleveCourant, session: SessionDB) -> LeconInfo:
     competence = session.get(models.Competence, competence_id)
-    if competence is None or competence.lecon is None or competence.chapitre.niveau != eleve.classe.niveau:
+    hors_programme = competence is not None and (
+        competence.chapitre.niveau != eleve.classe.niveau or competence.chapitre.parcours != eleve.classe.parcours
+    )
+    if competence is None or competence.lecon is None or hors_programme:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cours introuvable.")
     return LeconInfo(
         competence_id=competence.id,

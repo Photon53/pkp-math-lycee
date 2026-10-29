@@ -1,6 +1,7 @@
 chapitre:
   code: 2NDE-LITTERAL
   niveau: 2nde
+  parcours: tronc-commun
   ordre: 2
   titre: Calcul littéral
 
@@ -46,6 +47,15 @@ competences:
         type: expression
         enonce: Développer (2x − 1)(x + 4).
         solution: 2x^2 + 7x - 4
+      - code: 2NDE-DEV-04
+        difficulte: 4
+        type: expression
+        enonce: 'Développer $(x + 3)^3$. Indication : $(x + 3)^3 = (x + 3)^2 (x + 3)$.'
+        solution: x^3 + 9x^2 + 27x + 27
+        source: STACK
+        source_url: https://docs.stack-assessment.org/
+        licence_source: à vérifier
+        adaptation: inspiree
 
   - code: 2NDE-EQ1
     libelle: Résoudre une équation du premier degré

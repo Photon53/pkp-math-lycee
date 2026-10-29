@@ -50,7 +50,7 @@ class TestClasses:
         assert list(par_prenom) == ["Inès", "Lina", "Yanis"]
         assert par_prenom["Lina"] == {
             "id": 1, "prenom": "Lina", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
-            "competences_maitrisees": 0, "competences_total": 4,
+            "competences_maitrisees": 0, "competences_total": 5,
         }
         assert par_prenom["Inès"]["taux_reussite"] is None
 
@@ -84,13 +84,13 @@ class TestEffacementRgpd:
 class TestQuestions:
     def test_competences(self, client):
         competences = client.get("/enseignants/competences", headers=connecter_enseignant(client)).json()
-        assert len(competences) == 12
+        assert len(competences) == 17
 
     def test_liste_avec_solutions_sans_archivees(self, client):
         h = connecter_enseignant(client)
         actives = client.get("/enseignants/questions", headers=h).json()
         toutes = client.get("/enseignants/questions?archivees=true", headers=h).json()
-        assert (len(actives), len(toutes)) == (54, 55)
+        assert (len(actives), len(toutes)) == (79, 80)
         assert all("solution" in q for q in actives)
 
     def test_creer_une_question(self, client):

@@ -1,0 +1,156 @@
+chapitre:
+  code: 1RE-SUITES
+  niveau: 1re
+  parcours: specialite
+  ordre: 2
+  titre: Suites numériques
+
+competences:
+  - code: 1RE-SUI-TERME
+    libelle: Calculer les termes d'une suite
+    resume: |
+      - **Suite explicite** $u_n = f(n)$ : on remplace $n$ par sa valeur, par exemple $u_5 = f(5)$.
+      - **Suite récurrente** $u_{n+1} = f(u_n)$ : on calcule les termes **un par un** à partir de $u_0$.
+      - Bien distinguer le **rang** $n$ et le **terme** $u_n$.
+    cours: |
+      ## Deux façons de définir une suite
+      Une suite $(u_n)$ associe à chaque entier naturel $n$ un nombre $u_n$, appelé **terme de rang $n$**.
+
+      | Définition | Exemple | Calcul de $u_3$ |
+      |---|---|---|
+      | **Explicite** : $u_n$ en fonction de $n$ | $u_n = 4n - 1$ | $u_3 = 4 \times 3 - 1 = 11$ |
+      | **Par récurrence** : premier terme et lien entre deux termes consécutifs | $u_0 = 2$, $u_{n+1} = u_n + 5$ | $u_1 = 7$, $u_2 = 12$, $u_3 = 17$ |
+
+      ## Suite explicite
+      On calcule directement n'importe quel terme. Attention aux priorités : $u_n = 2n^2$ donne $u_3 = 2 \times 9 = 18$,
+      et non $(2 \times 3)^2$.
+
+      ## Suite définie par récurrence
+      Pour obtenir $u_4$, il faut d'abord $u_1$, $u_2$ et $u_3$ : on ne peut pas « sauter » d'étape.
+      Quand la relation contient aussi $n$, comme $u_{n+1} = 2u_n + n$, on remplace $n$ par le rang **du terme précédent** :
+      $u_1 = 2u_0 + 0$, $u_2 = 2u_1 + 1$, etc.
+    questions:
+      - code: 1RE-SUI-TERME-01
+        difficulte: 1
+        type: numerique
+        enonce: 'La suite $(u_n)$ est définie par $u_n = 3n - 4$. Calculer $u_5$.'
+        solution: 11
+      - code: 1RE-SUI-TERME-02
+        difficulte: 2
+        type: numerique
+        enonce: 'La suite $(u_n)$ est définie pour tout $n \in \mathbb{N}$ par $u_n = 3n^2 - 2n + 5$. Calculer $u_7$.'
+        solution: 138
+        source: MathALÉA
+        source_url: https://www.mathalea.fr/alea/
+        licence_source: CC BY-SA 4.0
+        adaptation: inspiree
+      - code: 1RE-SUI-TERME-03
+        difficulte: 3
+        type: numerique
+        enonce: 'La suite $(u_n)$ est définie par $u_0 = 1$ et, pour tout $n \in \mathbb{N}$, $u_{n+1} = 2u_n + 3n$. Calculer $u_4$.'
+        solution: 49
+        source: MathALÉA
+        source_url: https://www.mathalea.fr/alea/
+        licence_source: CC BY-SA 4.0
+        adaptation: inspiree
+      - code: 1RE-SUI-TERME-04
+        difficulte: 4
+        type: numerique
+        enonce: 'La suite $(u_n)$ est définie par $u_0 = 5$ et $u_{n+1} = \dfrac{u_n}{2} + 1$. Calculer $u_3$ (valeur exacte ou décimale).'
+        solution: 19/8
+
+  - code: 1RE-SUI-MOD
+    libelle: Modéliser une situation par une suite
+    resume: |
+      - On ajoute **la même quantité** à chaque étape : suite **arithmétique**, $u_n = u_0 + nr$.
+      - On multiplie **par le même nombre** à chaque étape : suite **géométrique**, $u_n = u_0 \times q^n$.
+      - Augmenter de $t\,\%$, c'est multiplier par $1 + \dfrac{t}{100}$.
+    cours: |
+      ## Repérer le type d'évolution
+      | Situation | Évolution | Modèle |
+      |---|---|---|
+      | Un forfait de 20 € puis 3 € par séance | $+3$ à chaque séance | arithmétique : $u_n = 20 + 3n$ |
+      | Une population qui augmente de 4 % par an | $\times 1{,}04$ chaque année | géométrique : $u_n = u_0 \times 1{,}04^n$ |
+      | Une valeur qui baisse de 10 % par an | $\times 0{,}9$ chaque année | géométrique : $u_n = u_0 \times 0{,}9^n$ |
+
+      ## Méthode
+      1. Calculer les premiers termes à la main : $u_0$, $u_1$, $u_2$.
+      2. Regarder si l'on **ajoute** toujours le même nombre ou si l'on **multiplie** toujours par le même nombre.
+      3. Écrire la formule, puis la **vérifier** sur les termes calculés.
+
+      ## Attention à $u_0$
+      Le premier terme correspond souvent à la situation de départ ($n = 0$ séance, année 0) : bien lire l'énoncé.
+    questions:
+      - code: 1RE-SUI-MOD-01
+        difficulte: 2
+        type: qcm
+        enonce: 'Une population augmente de 50 individus chaque année. Le nombre d''individus au bout de $n$ années est modélisé par une suite : A) arithmétique de raison 50  B) géométrique de raison 50  C) ni arithmétique ni géométrique'
+        solution: A
+      - code: 1RE-SUI-MOD-02
+        difficulte: 2
+        type: expression
+        enonce: 'Une médiathèque demande une adhésion annuelle de 12 €, puis 1,50 € par emprunt. On note $w_n$ le prix payé dans l''année pour $n$ emprunts. Exprimer $w_n$ en fonction de $n$.'
+        solution: 12 + 1.5n
+        source: MathALÉA
+        source_url: https://www.mathalea.fr/alea/
+        licence_source: CC BY-SA 4.0
+        adaptation: inspiree
+      - code: 1RE-SUI-MOD-03
+        difficulte: 3
+        type: expression
+        enonce: 'Un capital de 500 € est placé à intérêts composés au taux de 2 % par an. On note $C_n$ le capital au bout de $n$ années. Exprimer $C_n$ en fonction de $n$.'
+        solution: 500*1.02^n
+
+  - code: 1RE-SUI-VAR
+    libelle: Étudier le sens de variation d'une suite
+    resume: |
+      - $(u_n)$ est **croissante** si $u_{n+1} - u_n \geq 0$ pour tout $n$, **décroissante** si $u_{n+1} - u_n \leq 0$.
+      - Méthode : calculer $u_{n+1} - u_n$, le **simplifier**, puis étudier son **signe**.
+      - Si $u_n = f(n)$ avec $f$ monotone sur $[0 ; +\infty[$, la suite a le même sens de variation que $f$.
+    cours: |
+      ## Définition
+      - $(u_n)$ est **croissante** si, pour tout $n$, $u_{n+1} \geq u_n$.
+      - $(u_n)$ est **décroissante** si, pour tout $n$, $u_{n+1} \leq u_n$.
+
+      ## Méthode de la différence
+      On étudie le signe de $u_{n+1} - u_n$.
+
+      Exemple : $u_n = n^2 - 3n$.
+      $$u_{n+1} - u_n = (n+1)^2 - 3(n+1) - (n^2 - 3n) = 2n - 2$$
+      Pour $n \geq 1$, $2n - 2 \geq 0$ : la suite est croissante **à partir du rang 1**.
+
+      ## Avec une fonction
+      Si $u_n = f(n)$ et que $f$ est croissante sur $[0 ; +\infty[$, alors $(u_n)$ est croissante.
+      Attention, la réciproque est fausse : une suite peut être croissante sans que la fonction le soit sur tout $[0 ; +\infty[$.
+
+      ## Erreur fréquente
+      Comparer seulement $u_0$ et $u_1$ ne suffit pas : il faut un argument valable **pour tout $n$**.
+    questions:
+      - code: 1RE-SUI-VAR-01
+        difficulte: 2
+        type: qcm
+        enonce: 'La suite $(u_n)$ est définie par $u_n = 5 - 2n$. Elle est : A) croissante  B) décroissante  C) ni croissante ni décroissante'
+        solution: B
+      - code: 1RE-SUI-VAR-02
+        difficulte: 3
+        type: expression
+        enonce: 'La suite $(u_n)$ est définie par $u_n = n^2 + n$. Exprimer $u_{n+1} - u_n$ en fonction de $n$, sous forme simplifiée.'
+        solution: 2n + 2
+      - code: 1RE-SUI-VAR-03
+        difficulte: 4
+        type: qcm
+        enonce: 'La suite $(u_n)$ est définie pour tout $n \in \mathbb{N}$ par $u_n = \dfrac{3n - 1}{n + 2}$. En étudiant le signe de $u_{n+1} - u_n$, on montre qu''elle est : A) croissante  B) décroissante  C) ni croissante ni décroissante'
+        solution: A
+        source: MathALÉA
+        source_url: https://www.mathalea.fr/alea/
+        licence_source: CC BY-SA 4.0
+        adaptation: inspiree
+      - code: 1RE-SUI-VAR-04
+        difficulte: 5
+        type: expression
+        enonce: 'La suite $(u_n)$ est définie par $u_n = \dfrac{3n - 1}{n + 2}$. Exprimer $u_{n+1} - u_n$ en fonction de $n$ sous la forme d''un seul quotient.'
+        solution: 7/((n + 2)(n + 3))
+        source: MathALÉA
+        source_url: https://www.mathalea.fr/alea/
+        licence_source: CC BY-SA 4.0
+        adaptation: inspiree

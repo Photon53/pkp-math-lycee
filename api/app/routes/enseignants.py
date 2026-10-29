@@ -88,7 +88,7 @@ def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) 
 
 def _resume_classe(session: SessionDB, classe: models.Classe) -> ClasseResume:
     nb = session.scalar(select(func.count()).select_from(models.Eleve).where(models.Eleve.classe_id == classe.id))
-    return ClasseResume(id=classe.id, code=classe.code, niveau=classe.niveau, nb_eleves=nb)
+    return ClasseResume(id=classe.id, code=classe.code, niveau=classe.niveau, parcours=classe.parcours, nb_eleves=nb)
 
 
 @router.get("/classes", response_model=list[ClasseResume])
@@ -105,7 +105,7 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
         code = f"{PREFIXES_CODE[corps.niveau]}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
         if not session.scalar(select(models.Classe).where(models.Classe.code == code)):
             break
-    classe = models.Classe(code=code, niveau=corps.niveau, enseignant=enseignant)
+    classe = models.Classe(code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant)
     session.add(classe)
     session.commit()
     return _resume_classe(session, classe)
@@ -237,10 +237,19 @@ def supprimer_eleve(eleve_id: int, enseignant: EnseignantCourant, session: Sessi
 @router.get("/competences", response_model=list[CompetenceInfo])
 def competences(_: EnseignantCourant, session: SessionDB) -> list[CompetenceInfo]:
     lignes = session.scalars(
-        select(models.Competence).join(models.Chapitre).order_by(models.Chapitre.niveau, models.Chapitre.ordre, models.Competence.code)
+        select(models.Competence)
+        .join(models.Chapitre)
+        .order_by(models.Chapitre.niveau, models.Chapitre.parcours, models.Chapitre.ordre, models.Competence.ordre)
     )
     return [
-        CompetenceInfo(id=c.id, code=c.code, libelle=c.libelle, chapitre=c.chapitre.titre, niveau=c.chapitre.niveau)
+        CompetenceInfo(
+            id=c.id,
+            code=c.code,
+            libelle=c.libelle,
+            chapitre=c.chapitre.titre,
+            niveau=c.chapitre.niveau,
+            parcours=c.chapitre.parcours,
+        )
         for c in lignes
     ]
 

@@ -9,10 +9,10 @@ from sqlalchemy import func, select
 from app import contenu
 from app.contenu import ContenuInvalide, charger, importer
 from app.db import models
-from tests.conftest import connecter_eleve
+from tests.conftest import connecter_eleve, connecter_enseignant, inscrire_eleves
 
 MINIMAL = """
-chapitre: {code: TEST-CH, niveau: 2nde, ordre: 7, titre: Chapitre test}
+chapitre: {code: TEST-CH, niveau: 2nde, parcours: tronc-commun, ordre: 7, titre: Chapitre test}
 competences:
   - code: TEST-C
     libelle: Compétence test
@@ -24,7 +24,7 @@ competences:
 """
 
 
-def ecrire(dossier: Path, texte: str, nom: str = "2nde/07-test.yaml") -> Path:
+def ecrire(dossier: Path, texte: str, nom: str = "2nde/tronc-commun/07-test.yaml") -> Path:
     chemin = dossier / nom
     chemin.parent.mkdir(parents=True, exist_ok=True)
     chemin.write_text(dedent(texte), encoding="utf-8")
@@ -76,14 +76,14 @@ class TestVerification:
         assert avant in MINIMAL
         ecrire(tmp_path, MINIMAL.replace(avant, apres, 1))
         texte = erreurs(tmp_path)
-        assert "2nde/07-test.yaml" in texte
+        assert "2nde/tronc-commun/07-test.yaml" in texte
         assert message in texte
 
     def test_codes_en_double_entre_fichiers(self, tmp_path):
         ecrire(tmp_path, MINIMAL)
-        ecrire(tmp_path, MINIMAL.replace("ordre: 7", "ordre: 8"), "2nde/08-copie.yaml")
+        ecrire(tmp_path, MINIMAL.replace("ordre: 7", "ordre: 8"), "2nde/tronc-commun/08-copie.yaml")
         texte = erreurs(tmp_path)
-        assert "chapitre « TEST-CH » déjà défini dans 2nde/07-test.yaml" in texte
+        assert "chapitre « TEST-CH » déjà défini dans 2nde/tronc-commun/07-test.yaml" in texte
 
     def test_dossier_vide(self, tmp_path):
         assert "aucun fichier .yaml" in erreurs(tmp_path)
@@ -145,10 +145,10 @@ class TestImport:
     def test_echange_d_ordre_entre_chapitres(self, session, tmp_path):
         ecrire(tmp_path, MINIMAL)
         autre = MINIMAL.replace("TEST-C", "AUTRE-C").replace("TEST-CH", "AUTRE-CH").replace("ordre: 7", "ordre: 8")
-        ecrire(tmp_path, autre, "2nde/08-autre.yaml")
+        ecrire(tmp_path, autre, "2nde/tronc-commun/08-autre.yaml")
         importer(session, charger(tmp_path))
         ecrire(tmp_path, MINIMAL.replace("ordre: 7", "ordre: 8"))
-        ecrire(tmp_path, autre.replace("ordre: 8", "ordre: 7"), "2nde/08-autre.yaml")
+        ecrire(tmp_path, autre.replace("ordre: 8", "ordre: 7"), "2nde/tronc-commun/08-autre.yaml")
         importer(session, charger(tmp_path))  # ne heurte pas la contrainte unique (niveau, ordre)
         ordres = dict(session.execute(select(models.Chapitre.code, models.Chapitre.ordre)).all())
         assert ordres == {"TEST-CH": 8, "AUTRE-CH": 7}
@@ -158,7 +158,7 @@ class TestBaseExistante:
     def test_reprise_d_une_base_d_avant_les_codes(self, session):
         """Base de la phase 3 : chapitres en « 2nde-1 », questions sans code.
         L'import doit les reconnaître, pas les dupliquer, et ne pas toucher à l'historique."""
-        chapitre = models.Chapitre(code="2nde-1", niveau="2nde", ordre=1, titre="Ancien titre")
+        chapitre = models.Chapitre(code="2nde-1", niveau="2nde", parcours="tronc-commun", ordre=1, titre="Ancien titre")
         competence = models.Competence(code="2NDE-FRAC", libelle="Fractions", chapitre=chapitre)
         ancienne = models.Question(competence=competence, enonce="Calculer 1/2 + 1/3.", type="numerique", solution="5/6", difficulte=1)
         session.add(ancienne)
@@ -176,13 +176,14 @@ class TestBaseExistante:
 class TestRoutesCours:
     def test_sommaire_du_niveau_de_l_eleve(self, client):
         sommaire = client.get("/cours", headers=connecter_eleve(client, "Emma", "TLE-C-DEMO")).json()
-        assert [ch["code"] for ch in sommaire] == ["TLE-SUITES", "TLE-LN"]
-        assert [c["code"] for c in sommaire[0]["competences"]] == ["TLE-SUI-REC", "TLE-SUI-LIM", "TLE-SUI-OPE", "TLE-SUI-COMP"]
+        assert [ch["code"] for ch in sommaire] == ["TLE-COMB", "TLE-SUITES", "TLE-LN"]
+        assert [c["code"] for c in sommaire[1]["competences"]] == ["TLE-SUI-REC", "TLE-SUI-LIM", "TLE-SUI-OPE", "TLE-SUI-COMP"]
         assert all(c["a_une_lecon"] for ch in sommaire for c in ch["competences"])
 
     def test_lecon(self, client):
         h = connecter_eleve(client, "Emma", "TLE-C-DEMO")
-        competence_id = client.get("/cours", headers=h).json()[1]["competences"][0]["id"]
+        ln = next(ch for ch in client.get("/cours", headers=h).json() if ch["code"] == "TLE-LN")
+        competence_id = ln["competences"][0]["id"]
         lecon = client.get(f"/cours/{competence_id}", headers=h).json()
         assert lecon["code"] == "TLE-LN-DEF"
         assert lecon["chapitre"] == "Fonction logarithme népérien"
@@ -202,3 +203,106 @@ class TestRoutesCours:
         q = client.get(f"/seances/{seance}/question", headers=h).json()
         codes_tle = {c["id"] for ch in client.get("/cours", headers=h).json() for c in ch["competences"]}
         assert q["competence_id"] in codes_tle
+
+
+class TestParcoursEtRegistre:
+    @pytest.mark.parametrize(
+        ("avant", "apres", "message"),
+        [
+            ("niveau: 2nde, parcours: tronc-commun", "niveau: 2nde, parcours: expertes", "impossible en 2nde"),
+            ("niveau: 2nde, parcours: tronc-commun", "niveau: Tle, parcours: tronc-commun", "impossible en Tle"),
+        ],
+    )
+    def test_parcours_permis_par_niveau(self, tmp_path, avant, apres, message):
+        ecrire(tmp_path, MINIMAL.replace(avant, apres))
+        assert message in erreurs(tmp_path)
+
+    def test_fichier_range_selon_niveau_et_parcours(self, tmp_path):
+        ecrire(tmp_path, MINIMAL, "2nde/07-mal-range.yaml")
+        assert "à ranger dans contenu/2nde/tronc-commun/" in erreurs(tmp_path)
+
+    @pytest.mark.parametrize(
+        ("registre", "message"),
+        [
+            ("source: MathALÉA", "adaptation « originale » mais source externe"),
+            ("adaptation: inspiree", "indiquer la `source` d'origine"),
+            ("source: MathALÉA, adaptation: adaptee, licence_source: CC BY-SA 4.0", "indiquer `source_url`"),
+            ("source: math.ma, adaptation: reproduite, source_url: 'https://exemple.ma', licence_source: non clarifiée",
+             "source sans licence claire"),
+            ("validation: {statut: validee}", "indique qui l'a validée"),
+            ("source_url: 'ftp://exemple'", "source_url"),
+        ],
+    )
+    def test_registre_des_sources_controle(self, tmp_path, registre, message):
+        ecrire(tmp_path, MINIMAL.replace("solution: 2}", "solution: 2, " + registre + "}"))
+        assert message in erreurs(tmp_path)
+
+    def test_inspiration_d_une_source_sans_licence_autorisee(self, tmp_path):
+        ecrire(tmp_path, MINIMAL.replace("solution: 2}", "solution: 2, source: math.ma, licence_source: non clarifiée, adaptation: inspiree}"))
+        [(_, fichier)] = charger(tmp_path)
+        assert fichier.competences[0].questions[0].adaptation.value == "inspiree"
+
+    def test_registre_et_validation_importes(self, session, tmp_path):
+        ecrire(tmp_path, MINIMAL.replace(
+            "solution: 2}",
+            "solution: 2, source: MathALÉA, source_url: 'https://www.mathalea.fr/alea/', licence_source: CC BY-SA 4.0, "
+            "adaptation: adaptee, validation: {statut: validee, par: Mme Martin, le: 2026-10-29}}",
+        ))
+        importer(session, charger(tmp_path))
+        q = session.scalar(select(models.Question).where(models.Question.code == "TEST-C-01"))
+        assert (q.source, q.adaptation.value, q.licence_source) == ("MathALÉA", "adaptee", "CC BY-SA 4.0")
+        assert (q.statut_validation.value, q.valide_par, str(q.valide_le)) == ("validee", "Mme Martin", "2026-10-29")
+
+    def test_inventaire_matrice_trous_et_registre(self):
+        texte = contenu.inventaire(charger())
+        assert "### Tle — Spécialité" in texte
+        assert "| 2. Suites numériques | `1RE-SUI-TERME`" in texte
+        assert "## Trous à combler" in texte and "aucune question de difficulté" in texte
+        assert "| math.ma | non clarifiée | inspiree |" in texte
+
+    def test_inventaire_du_depot_a_jour(self):
+        """Garde-fou : docs/CONTENU-INVENTAIRE.md doit être régénéré après chaque modification du contenu."""
+        attendu = contenu.inventaire(charger())
+        assert contenu.INVENTAIRE_PAR_DEFAUT.read_text(encoding="utf-8") == attendu, (
+            "Inventaire périmé : lancer `python -m app.contenu inventaire` depuis api/"
+        )
+
+
+class TestFiltreParParcours:
+    def test_classe_de_maths_expertes_ne_voit_pas_la_specialite(self, client):
+        h = connecter_enseignant(client)
+        classe = client.post("/enseignants/classes", headers=h, json={"niveau": "Tle", "parcours": "expertes"}).json()
+        assert classe["parcours"] == "expertes"
+        codes = inscrire_eleves(client, classe["code"], ["Zoé"])
+        h_eleve = connecter_eleve(client, "Zoé", classe["code"], codes["Zoé"])
+        assert client.get("/cours", headers=h_eleve).json() == []  # aucun chapitre « expertes » pour l'instant
+        seance = client.post("/seances", headers=h_eleve).json()["id"]
+        assert client.get(f"/seances/{seance}/question", headers=h_eleve).status_code == 204
+        assert client.get("/eleves/moi", headers=h_eleve).json()["parcours"] == "expertes"
+
+    def test_cours_d_un_autre_parcours_introuvable(self, client):
+        h = connecter_enseignant(client)
+        classe = client.post("/enseignants/classes", headers=h, json={"niveau": "Tle", "parcours": "complementaires"}).json()
+        codes = inscrire_eleves(client, classe["code"], ["Zoé"])
+        h_eleve = connecter_eleve(client, "Zoé", classe["code"], codes["Zoé"])
+        h_emma = connecter_eleve(client, "Emma", "TLE-C-DEMO")
+        id_specialite = client.get("/cours", headers=h_emma).json()[0]["competences"][0]["id"]
+        assert client.get(f"/cours/{id_specialite}", headers=h_eleve).status_code == 404
+
+    @pytest.mark.parametrize(
+        ("corps", "code", "parcours"),
+        [({"niveau": "2nde"}, 201, "tronc-commun"), ({"niveau": "1re"}, 201, "specialite"),
+         ({"niveau": "2nde", "parcours": "expertes"}, 422, None), ({"niveau": "1re", "parcours": "complementaires"}, 422, None)],
+    )
+    def test_parcours_de_la_classe_controle(self, client, corps, code, parcours):
+        r = client.post("/enseignants/classes", headers=connecter_enseignant(client), json=corps)
+        assert r.status_code == code
+        if parcours:
+            assert r.json()["parcours"] == parcours
+
+    def test_classes_de_demo_et_registre_visible_par_l_enseignant(self, client):
+        h = connecter_enseignant(client)
+        assert {c["code"]: c["parcours"] for c in client.get("/enseignants/classes", headers=h).json()} == {
+            "1RE-B-DEMO": "specialite", "2NDE-A-DEMO": "tronc-commun", "TLE-C-DEMO": "specialite"}
+        q = next(q for q in client.get("/enseignants/questions", headers=h).json() if q["source"] == "math.ma")
+        assert (q["adaptation"], q["licence_source"], q["statut_validation"]) == ("inspiree", "non clarifiée", "a-valider")

@@ -1,6 +1,7 @@
 chapitre:
   code: 2NDE-NOMBRES
   niveau: 2nde
+  parcours: tronc-commun
   ordre: 1
   titre: Nombres et calculs
 
@@ -45,6 +46,15 @@ competences:
         type: numerique
         enonce: Calculer (2/3) ÷ (4/9).
         solution: 3/2
+      - code: 2NDE-FRAC-04
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle est la forme irréductible de $\dfrac{4}{9} \times \dfrac{3}{8}$ ? A) $\dfrac{12}{72}$  B) $\dfrac{1}{6}$  C) $\dfrac{2}{12}$'
+        solution: B
+        source: STACK
+        source_url: https://docs.stack-assessment.org/
+        licence_source: à vérifier
+        adaptation: inspiree
 
   - code: 2NDE-PUIS
     libelle: Calculer avec des puissances
@@ -89,3 +99,53 @@ competences:
         type: numerique
         enonce: Donner la valeur décimale de 10³ × 10⁻⁵.
         solution: 0.01
+
+  - code: 2NDE-RAC
+    libelle: Calculer avec des racines carrées
+    resume: |
+      - Pour $a \geq 0$ : $\sqrt{a}$ est le nombre positif dont le carré vaut $a$, et $(\sqrt{a})^2 = a$.
+      - Pour $a, b \geq 0$ : $\sqrt{ab} = \sqrt{a}\sqrt{b}$, mais en général $\sqrt{a + b} \neq \sqrt{a} + \sqrt{b}$.
+      - Simplifier : faire apparaître un carré parfait, $\sqrt{12} = \sqrt{4 \times 3} = 2\sqrt{3}$.
+      - Supprimer une racine au dénominateur : $\dfrac{1}{\sqrt{2}} = \dfrac{\sqrt{2}}{2}$.
+    cours: |
+      ## Définition
+      Pour un nombre $a \geq 0$, $\sqrt{a}$ est l'unique nombre **positif** dont le carré est $a$ :
+      $\sqrt{25} = 5$ (et non $-5$). Pour tout $a \geq 0$, $(\sqrt{a})^2 = a$.
+
+      ## Produits et quotients
+      Pour $a \geq 0$ et $b > 0$ : $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$ et $\sqrt{\dfrac{a}{b}} = \dfrac{\sqrt{a}}{\sqrt{b}}$.
+
+      **Piège** : pas de règle pour les sommes. $\sqrt{9 + 16} = \sqrt{25} = 5$, alors que $\sqrt{9} + \sqrt{16} = 7$.
+
+      ## Simplifier $\sqrt{a}$
+      On cherche le plus grand carré parfait qui divise $a$ :
+      $$\sqrt{50} = \sqrt{25 \times 2} = 5\sqrt{2}.$$
+
+      ## Racine au dénominateur
+      On multiplie numérateur et dénominateur par la racine :
+      $$\frac{3}{\sqrt{5}} = \frac{3\sqrt{5}}{\sqrt{5} \times \sqrt{5}} = \frac{3\sqrt{5}}{5}.$$
+    questions:
+      - code: 2NDE-RAC-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $\sqrt{49}$.'
+        solution: 7
+      - code: 2NDE-RAC-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer $\left(\sqrt{5}\right)^2$.'
+        solution: 5
+      - code: 2NDE-RAC-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Écrire $\sqrt{12}$ sous la forme $a\sqrt{b}$, avec $b$ entier le plus petit possible : A) $4\sqrt{3}$  B) $2\sqrt{3}$  C) $3\sqrt{2}$  D) $6\sqrt{2}$'
+        solution: B
+      - code: 2NDE-RAC-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Laquelle de ces écritures de $\dfrac{1}{\sqrt{2}}$ n''a pas de racine carrée au dénominateur ? A) $\dfrac{\sqrt{2}}{2}$  B) $\dfrac{1}{\sqrt{2}}$  C) $\dfrac{2}{2\sqrt{2}}$'
+        solution: A
+        source: STACK
+        source_url: https://docs.stack-assessment.org/
+        licence_source: à vérifier
+        adaptation: inspiree

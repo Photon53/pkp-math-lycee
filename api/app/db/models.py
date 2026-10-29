@@ -1,4 +1,4 @@
-"""Les 8 tables de PKP Math Lycée (voir docs/ARCHITECTURE.md).
+"""Les tables de PKP Math Lycée (voir docs/ARCHITECTURE.md).
 
 Règles portées par le schéma :
 - un élève = prénom + classe, unique dans sa classe, sans autre donnée personnelle ;
@@ -6,12 +6,13 @@ Règles portées par le schéma :
 - une question n'est jamais supprimée : on l'archive (voir `SuppressionInterdite`).
 """
 
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 from pkp_engine import Niveau, TypeQuestion
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Date,
     DateTime,
     Enum,
     Float,
@@ -26,6 +27,8 @@ from sqlalchemy import (
     func,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, relationship
+
+from app.referentiel import SOURCE_PKP, Adaptation, Parcours, StatutValidation
 
 # Noms de contraintes explicites : indispensable pour des migrations Alembic stables.
 CONVENTION = {
@@ -74,6 +77,8 @@ class Classe(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     code: Mapped[str] = mapped_column(String(20), unique=True)
     niveau: Mapped[Niveau] = mapped_column(_enum(Niveau, "niveau"))
+    # Spécialité suivie : seuls les chapitres de ce parcours sont proposés aux élèves.
+    parcours: Mapped[Parcours] = mapped_column(_enum(Parcours, "parcours"), server_default=Parcours.SPECIALITE.value)
     enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="classes")
@@ -103,12 +108,13 @@ class Eleve(Base):
 
 class Chapitre(Base):
     __tablename__ = "chapitre"
-    __table_args__ = (UniqueConstraint("niveau", "ordre", name="uq_chapitre_niveau_ordre"),)
+    __table_args__ = (UniqueConstraint("niveau", "parcours", "ordre", name="uq_chapitre_niveau_parcours_ordre"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # Identifiant stable venant des fichiers contenu/*.yaml (import idempotent).
     code: Mapped[str] = mapped_column(String(40), unique=True)
     niveau: Mapped[Niveau] = mapped_column(_enum(Niveau, "niveau"))
+    parcours: Mapped[Parcours] = mapped_column(_enum(Parcours, "parcours"), server_default=Parcours.SPECIALITE.value)
     titre: Mapped[str] = mapped_column(String(200))
     ordre: Mapped[int] = mapped_column(Integer)
 
@@ -157,6 +163,21 @@ class Question(Base):
     solution: Mapped[str] = mapped_column(String(200))
     difficulte: Mapped[int] = mapped_column(Integer)
     archivee: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Registre des sources : d'où vient la question et à quelles conditions on peut l'utiliser.
+    source: Mapped[str] = mapped_column(String(200), default=SOURCE_PKP, server_default=SOURCE_PKP)
+    source_url: Mapped[str | None] = mapped_column(String(500))
+    licence_source: Mapped[str | None] = mapped_column(String(100))
+    adaptation: Mapped[Adaptation] = mapped_column(
+        _enum(Adaptation, "adaptation"), default=Adaptation.ORIGINALE, server_default=Adaptation.ORIGINALE.value
+    )
+    # Validation pédagogique par un enseignant (statut, auteur, date).
+    statut_validation: Mapped[StatutValidation] = mapped_column(
+        _enum(StatutValidation, "statut_validation"),
+        default=StatutValidation.A_VALIDER,
+        server_default=StatutValidation.A_VALIDER.value,
+    )
+    valide_par: Mapped[str | None] = mapped_column(String(100))
+    valide_le: Mapped[date | None] = mapped_column(Date)
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
 
     competence: Mapped[Competence] = relationship(back_populates="questions")

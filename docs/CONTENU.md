@@ -4,24 +4,48 @@ Tout le contenu (chapitres, cours, résumés, questions) vit dans `contenu/`, un
 par chapitre. Il est **versionné**, **relu** (pull request sur GitHub) et **vérifié
 automatiquement** avant d'arriver en base.
 
+## Organisation de la banque
+
+La banque s'ordonne ainsi : **niveau (classe) → parcours (spécialité) → chapitre (cours) →
+compétence → difficulté (1 à 5)**. Le rangement des fichiers suit exactement cet ordre :
+
 ```
 contenu/
-  2nde/01-nombres-et-calculs.yaml
-  2nde/02-calcul-litteral.yaml
-  1re/01-second-degre.yaml
-  tle/05-suites.yaml
-  tle/09-logarithme-neperien.yaml
+  2nde/tronc-commun/01-nombres-et-calculs.yaml
+  2nde/tronc-commun/02-calcul-litteral.yaml
+  1re/specialite/01-second-degre.yaml
+  1re/specialite/02-suites-numeriques.yaml
+  tle/specialite/01-combinatoire.yaml
+  tle/specialite/05-suites.yaml
+  tle/specialite/09-logarithme-neperien.yaml
+  tle/complementaires/…        (maths complémentaires, à venir)
+  tle/expertes/…               (maths expertes, à venir)
 ```
+
+| Niveau | Parcours permis |
+|--------|-----------------|
+| `2nde` | `tronc-commun` |
+| `1re`  | `specialite` |
+| `Tle`  | `specialite`, `complementaires`, `expertes` |
+
+Chaque **classe** a un parcours : ses élèves ne voient que les cours et questions de leur niveau
+**et** de leur parcours. Une classe de maths expertes ne reçoit pas les questions de spécialité.
+
+L'état de la banque (matrice de couverture, trous, validation, registre des sources) est dans
+[CONTENU-INVENTAIRE.md](CONTENU-INVENTAIRE.md), **généré** par la commande `inventaire`.
 
 ## Cycle de travail
 
-1. Écrire ou modifier un fichier YAML.
+1. Écrire ou modifier un fichier YAML, rangé dans `contenu/<niveau>/<parcours>/`.
 2. Vérifier : tâche VS Code **Contenu : vérifier les fichiers YAML**
    (ou `python -m app.contenu verifier` depuis `api/`).
-3. Importer dans la base locale : tâche **Contenu : importer dans la base de démo**, puis
+3. Régénérer l'inventaire : `python -m app.contenu inventaire` (depuis `api/`). Un test échoue
+   si l'inventaire commité ne correspond plus au contenu.
+4. Importer dans la base locale : tâche **Contenu : importer dans la base de démo**, puis
    regarder le résultat dans l'onglet **Cours** et en séance d'exercices (classe `TLE-C-DEMO`, etc.).
-4. Commit, pull request : la CI GitHub revérifie tout le contenu et lance les tests.
-5. En production, l'import est automatique au démarrage de l'API.
+5. Commit, pull request : la CI GitHub revérifie tout le contenu et lance les tests.
+6. Relecture par un enseignant, puis passage des questions relues à `validation: {statut: validee, …}`.
+7. En production, l'import est automatique au démarrage de l'API.
 
 L'import est **idempotent** : le relancer ne change rien. Une question retirée d'un fichier est
 **archivée** (jamais supprimée : l'historique des élèves reste lisible). Les questions créées depuis
@@ -33,7 +57,8 @@ l'interface enseignant ne sont pas touchées.
 chapitre:
   code: TLE-LN                 # identifiant stable, MAJUSCULES-ET-TIRETS, ne jamais le changer
   niveau: Tle                  # 2nde | 1re | Tle
-  ordre: 9                     # position dans l'année (unique par niveau)
+  parcours: specialite         # tronc-commun | specialite | complementaires | expertes
+  ordre: 9                     # position dans l'année (unique par niveau et parcours)
   titre: Fonction logarithme népérien
 
 competences:
@@ -54,6 +79,46 @@ competences:
 
 `cours` et `resume` sont facultatifs mais vont ensemble. Une compétence sans cours apparaît
 « cours à venir » côté élève.
+
+### Registre des sources et validation pédagogique
+
+Chaque question peut porter, en plus des champs ci-dessus :
+
+```yaml
+      - code: 1RE-SUI-TERME-02
+        # … champs habituels …
+        source: MathALÉA                          # défaut : « PKP Math » (question originale)
+        source_url: https://www.mathalea.fr/alea/ # adresse exacte de la ressource d'origine
+        licence_source: CC BY-SA 4.0              # licence VÉRIFIÉE du contenu d'origine
+        adaptation: inspiree                      # originale | inspiree | adaptee | reproduite
+        validation:
+          statut: validee                         # a-valider (défaut) | validee | a-corriger
+          par: Mme Martin
+          le: 2026-11-04
+```
+
+| `adaptation` | Signification | Exigences vérifiées |
+|---|---|---|
+| `originale` | Rédigée pour PKP | `source` = « PKP Math » |
+| `inspiree` | Idée reprise, énoncé **et valeurs** entièrement réécrits | `source` renseignée |
+| `adaptee` | Texte d'origine modifié : sa licence s'applique au résultat | `source`, `source_url`, licence **claire** |
+| `reproduite` | Texte repris tel quel (licence libre ou autorisation écrite) | `source`, `source_url`, licence **claire** |
+
+Une source **sans licence claire** (`licence_source` absente, « non clarifiée », « à vérifier »…)
+ne peut servir que d'**inspiration** : la vérification refuse `adaptee` et `reproduite`.
+Une question `validee` doit indiquer **qui** l'a validée (`par`) et **quand** (`le`).
+
+Le réglage `PKP_SERVIR_QUESTIONS_NON_VALIDEES` (vrai par défaut) permet, une fois la banque relue,
+de ne plus servir aux élèves que les questions validées.
+
+### Sources externes : ce qu'on peut en faire
+
+| Source | Licence | Usage dans PKP |
+|---|---|---|
+| MathALÉA | Code AGPL-3.0, textes CC BY-SA 4.0 | Inspiration ; une adaptation de texte impose de publier le résultat sous CC BY-SA 4.0 avec attribution |
+| APMEP (annales) | Non clarifiée pour la réutilisation | Inspiration et analyse des attendus du bac seulement |
+| STACK | Logiciel GPL ; licence des questions à vérifier au cas par cas | Inspiration ; référence pour la correction des expressions |
+| math.ma | Aucune licence explicite ; programme marocain | Inspiration seulement, après vérification de la conformité au programme français |
 
 ### Écrire du LaTeX dans le YAML
 

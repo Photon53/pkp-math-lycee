@@ -3,6 +3,19 @@ import { Erreur } from "../composants.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
 import { useApi } from "./useApi.js";
 
+export const LIBELLES_PARCOURS = {
+  "tronc-commun": "Tronc commun",
+  specialite: "Spécialité",
+  complementaires: "Maths complémentaires",
+  expertes: "Maths expertes",
+};
+// Parcours permis par niveau (même règle que l'API, app/referentiel.py).
+const PARCOURS_PAR_NIVEAU = {
+  "2nde": ["tronc-commun"],
+  "1re": ["specialite"],
+  Tle: ["specialite", "complementaires", "expertes"],
+};
+
 const NIVEAUX = [
   ["2nde", "Seconde"],
   ["1re", "Première"],
@@ -19,6 +32,7 @@ export default function Classes({ jeton, onExpire }) {
   const [eleves, setEleves] = useState(null);
   const [detail, setDetail] = useState(null); // { eleveId, competences }
   const [niveau, setNiveau] = useState("2nde");
+  const [parcours, setParcours] = useState("tronc-commun");
   const [message, setMessage] = useState(null);
   const [prenomsSaisis, setPrenomsSaisis] = useState("");
   const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
@@ -83,7 +97,7 @@ export default function Classes({ jeton, onExpire }) {
   async function creer(e) {
     e.preventDefault();
     try {
-      const classe = await appeler("/enseignants/classes", { methode: "POST", corps: { niveau } });
+      const classe = await appeler("/enseignants/classes", { methode: "POST", corps: { niveau, parcours } });
       await chargerClasses();
       choisir(classe.id);
       setMessage(`Classe créée. Code à donner aux élèves : ${classe.code}`);
@@ -166,7 +180,7 @@ export default function Classes({ jeton, onExpire }) {
               >
                 <span className="code">{c.code}</span>
                 <span className="doux">
-                  {NIVEAUX.find(([v]) => v === c.niveau)?.[1]} · {c.nb_eleves} élève{c.nb_eleves > 1 ? "s" : ""}
+                  {NIVEAUX.find(([v]) => v === c.niveau)?.[1]} · {LIBELLES_PARCOURS[c.parcours]} · {c.nb_eleves} élève{c.nb_eleves > 1 ? "s" : ""}
                 </span>
               </button>
             ))}
@@ -176,13 +190,35 @@ export default function Classes({ jeton, onExpire }) {
           <label htmlFor="niveau" className="visuellement-cache">
             Niveau de la nouvelle classe
           </label>
-          <select id="niveau" value={niveau} onChange={(e) => setNiveau(e.target.value)} style={{ width: "auto" }}>
+          <select
+            id="niveau"
+            value={niveau}
+            onChange={(e) => {
+              setNiveau(e.target.value);
+              setParcours(PARCOURS_PAR_NIVEAU[e.target.value][0]);
+            }}
+            style={{ width: "auto" }}
+          >
             {NIVEAUX.map(([v, l]) => (
               <option key={v} value={v}>
                 {l}
               </option>
             ))}
           </select>
+          {PARCOURS_PAR_NIVEAU[niveau].length > 1 && (
+            <>
+              <label htmlFor="parcours" className="visuellement-cache">
+                Spécialité de la nouvelle classe
+              </label>
+              <select id="parcours" value={parcours} onChange={(e) => setParcours(e.target.value)} style={{ width: "auto" }}>
+                {PARCOURS_PAR_NIVEAU[niveau].map((p) => (
+                  <option key={p} value={p}>
+                    {LIBELLES_PARCOURS[p]}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
           <button type="submit" className="secondaire">
             Créer une classe
           </button>

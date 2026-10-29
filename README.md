@@ -19,7 +19,8 @@ des 8 tables et le découpage en 6 phases.
 
 - Mise en production : [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) (Docker, PostgreSQL, HTTPS)
 - Protection des données : [docs/RGPD.md](docs/RGPD.md) (checklist à valider avec le DPO)
-- Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/*.yaml`)
+- Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/<niveau>/<parcours>/*.yaml`)
+- État de la banque (matrice de couverture, trous, sources) : [docs/CONTENU-INVENTAIRE.md](docs/CONTENU-INVENTAIRE.md)
 - Audit (protocoles, grille de gravité, résultats) : [docs/audit/README.md](docs/audit/README.md)
 
 ## Développement avec VS Code

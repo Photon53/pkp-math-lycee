@@ -5,7 +5,7 @@ import Classes from "../enseignant/Classes.jsx";
 import Questions from "../enseignant/Questions.jsx";
 import { fausseApi } from "./setup.js";
 
-const CLASSES = [{ id: 1, code: "2NDE-A-DEMO", niveau: "2nde", nb_eleves: 2 }];
+const CLASSES = [{ id: 1, code: "2NDE-A-DEMO", niveau: "2nde", parcours: "tronc-commun", nb_eleves: 2 }];
 const ELEVES = [
   { id: 1, prenom: "Lina", a_un_code: true, nb_reponses: 5, taux_reussite: 0.6, competences_maitrisees: 1, competences_total: 4 },
   { id: 2, prenom: "Yanis", a_un_code: true, nb_reponses: 0, taux_reussite: null, competences_maitrisees: 0, competences_total: 4 },
@@ -97,6 +97,23 @@ describe("classes et élèves", () => {
     await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));
     expect(await screen.findByRole("status")).toHaveTextContent("1RE-7KQ4M");
     expect(await screen.findByText("Aucun élève inscrit pour l'instant.")).toBeInTheDocument();
+  });
+});
+
+describe("spécialité des classes", () => {
+  it("propose la spécialité en Terminale seulement, et l'envoie à la création", async () => {
+    const appels = fausseApi({
+      "GET /enseignants/classes": { json: CLASSES },
+      "POST /enseignants/classes": (corps) => ({ status: 201, json: { id: 9, code: "TLE-ABCDE", ...corps, nb_eleves: 0 } }),
+      "GET /enseignants/classes/9/eleves": { json: [] },
+    });
+    render(<Classes jeton="j" onExpire={vi.fn()} />);
+    expect(await screen.findByText(/Seconde · Tronc commun · 2 élèves/)).toBeInTheDocument();
+    expect(screen.queryByLabelText("Spécialité de la nouvelle classe")).not.toBeInTheDocument();
+    await userEvent.selectOptions(screen.getByLabelText("Niveau de la nouvelle classe"), "Tle");
+    await userEvent.selectOptions(screen.getByLabelText("Spécialité de la nouvelle classe"), "expertes");
+    await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));
+    expect(appels.find((a) => a.cle === "POST /enseignants/classes").corps).toEqual({ niveau: "Tle", parcours: "expertes" });
   });
 });
 

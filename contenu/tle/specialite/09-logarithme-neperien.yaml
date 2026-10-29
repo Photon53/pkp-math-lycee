@@ -1,6 +1,7 @@
 chapitre:
   code: TLE-LN
   niveau: Tle
+  parcours: specialite
   ordre: 9
   titre: Fonction logarithme népérien
 
@@ -192,3 +193,11 @@ competences:
         type: numerique
         enonce: 'Déterminer le plus petit entier $n$ tel que $0{,}8^n < 0{,}01$.'
         solution: 21
+      - code: TLE-LN-APP-07
+        difficulte: 4
+        type: numerique
+        enonce: 'Déterminer $\lim\limits_{x \to 0} \dfrac{\ln(1 + x^2)}{x}$. Indication : faire apparaître $\dfrac{\ln(1 + X)}{X}$ avec $X = x^2$.'
+        solution: 0
+        source: math.ma
+        licence_source: non clarifiée
+        adaptation: inspiree

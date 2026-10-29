@@ -12,7 +12,7 @@ et ses critères **avant** d'être exécuté, puis complété par le résultat o
 |-----|-------|-----------|------|
 | A | Sécurité et protection des données | [lot-a-securite.md](lot-a-securite.md) | **Exécuté** le 28/10/2026 : 1 Critique et 3 Élevés corrigés et contre-vérifiés (validation à faire) ; 4 contrôles à compléter |
 | B | Exactitude du moteur mathématique | — | Bloqué par la décision D2 (politique de correction) |
-| C | Banque de questions et couverture du programme | — | À rédiger |
+| C | Banque de questions et couverture du programme | [../CONTENU-INVENTAIRE.md](../CONTENU-INVENTAIRE.md) | Outillé : contrôles de cohérence et registre des sources dans `app/contenu.py`, matrice de couverture générée ; protocole et validation pédagogique à faire |
 | E | Performance et robustesse | — | À rédiger (seuils à fixer avant mesure) |
 | F | Accessibilité | — | À rédiger |
 | G | Sauvegarde et restauration | — | À rédiger |
