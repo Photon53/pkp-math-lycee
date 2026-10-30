@@ -16,5 +16,9 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: "./src/tests/setup.js",
+    // Les tests tournent aussi pendant la construction de l'image Docker, sur des VM à vCPU partagé
+    // (GCP e2-small, Oracle E2.1.Micro) bien plus lentes qu'un poste : 5 s par défaut ne suffisent pas.
+    testTimeout: 30_000,
+    hookTimeout: 30_000,
   },
 });

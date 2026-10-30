@@ -5,11 +5,11 @@
 #   bash mettre-a-jour-v2-gcp.sh --admin-email admin@pkp.fr --admin-nom "Équipe PKP"   # nouveau compte admin
 #   bash mettre-a-jour-v2-gcp.sh                                         # mise à jour seule
 #   bash mettre-a-jour-v2-gcp.sh --retour                                # revenir à la V1 (perd les données V2)
-# Options : --dossier <chemin> (défaut ~/pkp-math-lycee), --branche <nom> (défaut main).
+# Options : --dossier <chemin> (défaut : détecté automatiquement), --branche <nom> (défaut main).
 # Avant tout changement : sauvegarde de la base et de .env dans ~/sauvegardes. Relançable sans risque.
 set -euo pipefail
 
-DOSSIER="$HOME/pkp-math-lycee"
+DOSSIER=""   # vide : détecté (conteneurs en service, puis ~/pkp-math-lycee, puis recherche)
 BRANCHE="main"
 ADMIN_EMAIL=""
 ADMIN_NOM=""
@@ -42,11 +42,26 @@ case "$ID" in
   *) alerte "Script prévu pour Ubuntu ou Debian (trouvé : $PRETTY_NAME). Sur Oracle Linux : mettre-a-jour-v2-oracle.sh." ;;
 esac
 sudo -n true 2>/dev/null || sudo -v || echec "Un utilisateur avec sudo est requis."
-[[ -f "$DOSSIER/deploy/docker-compose.yml" ]] || echec "Installation introuvable dans $DOSSIER (option --dossier)."
-[[ -f "$DOSSIER/deploy/.env" ]] || echec "$DOSSIER/deploy/.env manque : ce n'est pas une installation en service."
 command -v docker >/dev/null || echec "Docker n'est pas installé : suivre le mode opératoire (§ 4) pour une première installation."
 # Selon l'installation V1, l'utilisateur est ou non dans le groupe docker.
 if docker info >/dev/null 2>&1; then DOCKER="docker"; else DOCKER="sudo docker"; fi
+
+# Dossier de l'installation : celui que Docker Compose a utilisé pour lancer la base,
+# sinon l'emplacement par défaut, sinon une recherche dans les dossiers habituels.
+installation() { [[ -f "$1/deploy/docker-compose.yml" && -f "$1/deploy/.env" ]]; }
+if [[ -z "$DOSSIER" ]]; then
+  compose=$($DOCKER ps --filter label=com.docker.compose.service=db     --format '{{.Label "com.docker.compose.project.working_dir"}}' 2>/dev/null | head -1 || true)
+  for candidat in "${compose%/}/.." "$HOME/pkp-math-lycee"; do
+    if [[ -n "$candidat" ]] && installation "$candidat"; then DOSSIER=$(cd "$candidat" && pwd); break; fi
+  done
+fi
+if [[ -z "$DOSSIER" ]]; then
+  trouve=$(sudo find /home /opt /srv /mnt /root -maxdepth 5 -path '*/deploy/docker-compose.yml' 2>/dev/null | head -1 || true)
+  [[ -n "$trouve" ]] && DOSSIER=$(dirname "$(dirname "$trouve")")
+fi
+[[ -n "$DOSSIER" ]] || echec "Installation introuvable : relancer avec --dossier <dossier contenant deploy/>."
+installation "$DOSSIER" || echec "$DOSSIER ne contient pas deploy/docker-compose.yml et deploy/.env (option --dossier)."
+git -C "$DOSSIER" rev-parse --git-dir >/dev/null 2>&1   || echec "$DOSSIER n'est pas un dépôt Git : la mise à jour se fait par git pull. Cloner le dépôt et y recopier deploy/.env."
 cd "$DOSSIER/deploy"
 dc() { $DOCKER compose "$@"; }
 dc ps --services --status running | grep -qx db || echec "Le service db ne tourne pas : démarrer la V1 (dc up -d) avant la mise à jour."
