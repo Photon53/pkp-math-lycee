@@ -112,12 +112,19 @@ fi
 
 # --- Mise à jour vers la V2 ---------------------------------------------------------------------
 ram_mo=$(awk '/MemTotal/ {print int($2 / 1024)}' /proc/meminfo)
-if (( ram_mo < 4000 )) && ! swapon --show | grep -q .; then
+# /proc/swaps plutôt que swapon : sous Debian, swapon (dans /usr/sbin) n'est pas dans le PATH d'un utilisateur.
+swap_actif() { (( $(awk 'NR > 1' /proc/swaps | wc -l) > 0 )); }
+if (( ram_mo < 4000 )) && ! swap_actif; then
   etape "Fichier d'échange de 2 Go (mémoire : ${ram_mo} Mo)"
-  sudo dd if=/dev/zero of=/swapfile bs=1M count=2048 status=none
-  sudo chmod 600 /swapfile && sudo mkswap /swapfile >/dev/null && sudo swapon /swapfile
+  if [[ ! -e /swapfile ]]; then
+    sudo dd if=/dev/zero of=/swapfile bs=1M count=2048 status=none
+    sudo chmod 600 /swapfile && sudo mkswap /swapfile >/dev/null
+  fi
+  # Un /swapfile déjà présent est réutilisé : le recréer échoue s'il est en service (« Text file busy »).
+  sudo swapon /swapfile 2>/dev/null || alerte "Fichier d'échange non activé : la compilation peut manquer de mémoire."
   grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab >/dev/null
 fi
+swap_actif && echo "Fichier d'échange : $(awk 'NR > 1 {print $1}' /proc/swaps | paste -sd ' ')"
 libre_go=$(df -BG --output=avail / | tail -1 | tr -dc '0-9')
 (( libre_go >= 3 )) || echec "Moins de 3 Go libres sur le disque : libérer de la place (sudo docker system prune) puis relancer."
 
