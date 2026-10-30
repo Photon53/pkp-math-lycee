@@ -10,6 +10,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.1.1",
     "dompurify": "3.4.17",
     "katex": "0.18.11",
     "marked": "14.1.4",

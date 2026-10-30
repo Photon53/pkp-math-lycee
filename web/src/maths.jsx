@@ -24,6 +24,19 @@ export function versHtml(texte, { enLigne = false } = {}) {
   return DOMPurify.sanitize(complet, { ADD_TAGS: ["semantics", "annotation"], ADD_ATTR: ["encoding"] });
 }
 
+/** Formules que KaTeX ne sait pas afficher : l'éditeur refuse d'enregistrer tant qu'il en reste (EA3.12). */
+export function formulesInvalides(texte) {
+  const erreurs = [];
+  for (const [, bloc, ligne] of texte.matchAll(FORMULE)) {
+    try {
+      katex.renderToString(bloc ?? ligne, { displayMode: bloc !== undefined, throwOnError: true });
+    } catch (err) {
+      erreurs.push(`$${bloc ?? ligne}$ : ${err.message.replace(/^KaTeX parse error: /, "")}`);
+    }
+  }
+  return erreurs;
+}
+
 export function Maths({ texte, enLigne = false, className }) {
   const Balise = enLigne ? "span" : "div";
   return <Balise className={className ?? "maths"} dangerouslySetInnerHTML={{ __html: versHtml(texte, { enLigne }) }} />;

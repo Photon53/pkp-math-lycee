@@ -16,23 +16,73 @@ function messageErreur(status, data) {
   return `Erreur ${status}`;
 }
 
+async function envoyer(chemin, { methode, entetes, corps }) {
+  try {
+    return await fetch(`/api${chemin}`, { method: methode, headers: entetes, body: corps });
+  } catch {
+    throw new ApiError(0, "Impossible de joindre le serveur. Vérifie ta connexion.");
+  }
+}
+
+async function erreurSiEchec(reponse) {
+  if (reponse.ok) return;
+  const data = await reponse.json().catch(() => null);
+  throw new ApiError(reponse.status, messageErreur(reponse.status, data));
+}
+
 export async function api(chemin, { methode = "GET", corps, jeton } = {}) {
   const entetes = {};
   if (corps !== undefined) entetes["Content-Type"] = "application/json";
   if (jeton) entetes.Authorization = `Bearer ${jeton}`;
 
-  let reponse;
-  try {
-    reponse = await fetch(`/api${chemin}`, {
-      method: methode,
-      headers: entetes,
-      body: corps === undefined ? undefined : JSON.stringify(corps),
-    });
-  } catch {
-    throw new ApiError(0, "Impossible de joindre le serveur. Vérifie ta connexion.");
-  }
+  const reponse = await envoyer(chemin, {
+    methode,
+    entetes,
+    corps: corps === undefined ? undefined : JSON.stringify(corps),
+  });
   if (reponse.status === 204) return null;
   const data = await reponse.json().catch(() => null);
   if (!reponse.ok) throw new ApiError(reponse.status, messageErreur(reponse.status, data));
   return data;
+}
+
+/** Envoie un fichier PDF brut (corps de la requête), comme l'attend l'API. */
+export async function envoyerPdf(chemin, fichier, jeton) {
+  const reponse = await envoyer(chemin, {
+    methode: "PUT",
+    entetes: { "Content-Type": "application/pdf", Authorization: `Bearer ${jeton}` },
+    corps: fichier,
+  });
+  await erreurSiEchec(reponse);
+  return reponse.json();
+}
+
+/**
+ * Ouvre un PDF protégé dans un nouvel onglet : le jeton ne peut pas voyager dans un simple lien,
+ * on télécharge donc le fichier avec l'en-tête Authorization puis on l'ouvre localement.
+ */
+export async function ouvrirPdf(ressourceId, jeton) {
+  const onglet = window.open("", "_blank");
+  try {
+    const reponse = await envoyer(`/ressources/${ressourceId}/fichier`, {
+      methode: "GET",
+      entetes: { Authorization: `Bearer ${jeton}` },
+    });
+    await erreurSiEchec(reponse);
+    const url = URL.createObjectURL(await reponse.blob());
+    if (onglet) onglet.location.href = url;
+    else window.location.href = url;
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  } catch (err) {
+    onglet?.close();
+    throw err;
+  }
+}
+
+/** Compte l'ouverture d'un lien externe (sans identifier l'élève), puis l'ouvre. */
+export function ouvrirLien(ressource, jeton) {
+  envoyer(`/ressources/${ressource.id}/ouverture`, {
+    methode: "POST",
+    entetes: { Authorization: `Bearer ${jeton}` },
+  }).catch(() => {});
 }

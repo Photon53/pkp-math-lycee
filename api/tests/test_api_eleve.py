@@ -1,7 +1,7 @@
 import pytest
 
 from app.security import creer_jeton
-from tests.conftest import competences_de, connecter_eleve, connecter_enseignant, corps_connexion, entete
+from tests.conftest import competences_de, connecter_admin, connecter_eleve, connecter_enseignant, corps_connexion, entete
 
 
 def solutions(client) -> dict[int, str]:
@@ -177,9 +177,9 @@ class TestParcours:
         assert not vues & archivees
 
     def test_aucune_question_pour_le_niveau(self, client):
-        h_prof = connecter_enseignant(client)
+        h_admin = connecter_admin(client)
         for q in questions_du_niveau(client, "1re"):  # toutes les questions de 1re
-            client.post(f"/enseignants/questions/{q['id']}/archiver", headers=h_prof)
+            client.post(f"/admin/questions/{q['id']}/archivage", headers=h_admin, json={"archivee": True})
         h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
         assert client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).status_code == 204
 

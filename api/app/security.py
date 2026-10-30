@@ -100,9 +100,9 @@ def version_mot_de_passe(empreinte_stockee: str) -> str:
     return hashlib.sha256(empreinte_stockee.encode()).hexdigest()[:16]
 
 
-def creer_jeton(role: str, sujet_id: int, duree_h: int, version: str = "") -> str:
+def creer_jeton(role: str, sujet_id: int, duree_h: float, version: str = "") -> str:
     """Jeton `charge.signature` où charge = « role:id:expiration:version »."""
-    charge = f"{role}:{sujet_id}:{int(time.time()) + duree_h * 3600}:{version}".encode()
+    charge = f"{role}:{sujet_id}:{int(time.time() + duree_h * 3600)}:{version}".encode()
     return f"{_b64(charge)}.{_b64(_signer(charge))}"
 
 
@@ -119,6 +119,44 @@ def lire_jeton(jeton: str, role_attendu: str) -> tuple[int, str] | None:
         return int(sujet_id), version
     except (ValueError, UnicodeDecodeError):
         return None
+
+
+# --- Second facteur des administrateurs (TOTP, RFC 6238) -----------------------
+# Compatible avec les applications d'authentification courantes : SHA-1, 6 chiffres, 30 s.
+_TOTP_PAS_S = 30
+_TOTP_CHIFFRES = 6
+
+
+def generer_secret_totp() -> str:
+    return base64.b32encode(secrets.token_bytes(20)).decode()
+
+
+def code_totp(secret: str, instant: float | None = None) -> str:
+    compteur = int((time.time() if instant is None else instant) // _TOTP_PAS_S)
+    cle = base64.b32decode(secret.upper() + "=" * (-len(secret) % 8))
+    mac = hmac.new(cle, compteur.to_bytes(8, "big"), hashlib.sha1).digest()
+    decalage = mac[-1] & 0x0F
+    valeur = int.from_bytes(mac[decalage : decalage + 4], "big") & 0x7FFFFFFF
+    return str(valeur % 10**_TOTP_CHIFFRES).zfill(_TOTP_CHIFFRES)
+
+
+def verifier_totp(secret: str, code: str, instant: float | None = None) -> bool:
+    """Accepte le pas courant et ses deux voisins (décalage d'horloge du téléphone)."""
+    maintenant = time.time() if instant is None else instant
+    code = code.replace(" ", "")
+    return any(
+        hmac.compare_digest(code_totp(secret, maintenant + d * _TOTP_PAS_S), code) for d in (-1, 0, 1)
+    )
+
+
+def uri_totp(secret: str, email: str) -> str:
+    """À transformer en QR code ou à saisir dans l'application d'authentification."""
+    return f"otpauth://totp/PKP%20Math%20Lyc%C3%A9e:{email}?secret={secret}&issuer=PKP%20Math%20Lyc%C3%A9e"
+
+
+def generer_mot_de_passe_provisoire() -> str:
+    # 16 caractères sans caractères ambigus : recopié à la main par le professeur.
+    return "".join(secrets.choice(ALPHABET_CODE + "abcdefghjkmnpqrstuvwxyz") for _ in range(16))
 
 
 def _signer(charge: bytes) -> bytes:

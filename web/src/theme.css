@@ -1,0 +1,82 @@
+/* Charte graphique PKP Math Lycée (cahier des charges V2, module 4).
+   Jetons uniquement : couleurs, typographie, espacements, rayons. Les composants sont dans styles.css. */
+
+:root {
+  /* Marque */
+  --primaire: #1f3a68;          /* bleu encre : en-têtes, navigation, titres */
+  --primaire-texte: #ffffff;
+  --action: #2f5bd3;            /* boutons, liens, focus */
+  --action-survol: #2549b0;
+  --action-texte: #ffffff;
+  --action-doux: #e8eefc;
+  --accent: #e07a1f;            /* mise en avant ponctuelle, jamais pour du texte courant */
+  --accent-doux: #fdf0e3;
+
+  /* Sens */
+  --ok: #2b8a3e;
+  --ok-doux: #e6f6ea;
+  --alerte: #b35c00;
+  --alerte-doux: #fff3e0;
+  --ko: #c92a2a;
+  --ko-doux: #fdecec;
+
+  /* Neutres */
+  --texte: #0f172a;
+  --texte-doux: #475569;
+  --fond: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --bordure: #e2e8f0;
+  --bordure-forte: #cbd5e1;
+
+  /* Formes */
+  --rayon: 12px;
+  --rayon-petit: 8px;
+  --ombre: 0 1px 2px rgb(15 23 42 / 5%), 0 4px 12px rgb(15 23 42 / 5%);
+  --ombre-haute: 0 10px 30px rgb(15 23 42 / 15%);
+
+  /* Typographie : Inter hébergée sur le serveur PKP (CSP font-src 'self'). */
+  --police: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --police-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --t-xs: 0.75rem;   /* 12 */
+  --t-s: 0.875rem;   /* 14 */
+  --t-m: 1rem;       /* 16 : corps */
+  --t-l: 1.25rem;    /* 20 */
+  --t-xl: 1.5rem;    /* 24 */
+  --t-xxl: 2rem;     /* 32 */
+
+  /* Mises en page */
+  --largeur-eleve: 880px;
+  --largeur-app: 1280px;
+  --largeur-nav: 248px;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primaire: #9db4e8;
+    --primaire-texte: #0f1220;
+    --action: #7b93ff;
+    --action-survol: #95a8ff;
+    --action-texte: #0f1220;
+    --action-doux: #232b48;
+    --accent: #f2a65a;
+    --accent-doux: #3a2a18;
+    --ok: #63c27a;
+    --ok-doux: #19301f;
+    --alerte: #f0b35a;
+    --alerte-doux: #3a2c14;
+    --ko: #ff8787;
+    --ko-doux: #3a1d1f;
+    --texte: #e8eaf2;
+    --texte-doux: #a2a8bd;
+    --fond: #12141c;
+    --surface: #1b1e29;
+    --surface-2: #232736;
+    --bordure: #2e3344;
+    --bordure-forte: #3d4358;
+    --ombre: none;
+    --ombre-haute: 0 10px 30px rgb(0 0 0 / 50%);
+  }
+}

@@ -102,29 +102,9 @@ class TestQuestions:
         assert (len(actives), len(toutes)) == (NB_QUESTIONS_ACTIVES, NB_QUESTIONS)
         assert all("solution" in q for q in actives)
 
-    def test_creer_une_question(self, client):
-        h = connecter_enseignant(client)
-        corps = {"competence_id": 3, "enonce": "Développer (x − 2)².", "type": "expression", "solution": "x² − 4x + 4", "difficulte": 2}
-        r = client.post("/enseignants/questions", headers=h, json=corps)
-        assert r.status_code == 201
-        assert r.json()["archivee"] is False
-
-    @pytest.mark.parametrize(
-        ("corps", "code"),
-        [
-            ({"type": "expression", "solution": "x +"}, 422),
-            ({"type": "numerique", "solution": "2x"}, 422),
-            ({"difficulte": 6}, 422),
-            ({"competence_id": 999}, 404),
-        ],
-    )
-    def test_question_refusee(self, client, corps, code):
-        base = {"competence_id": 3, "enonce": "?", "type": "numerique", "solution": "1", "difficulte": 2}
-        r = client.post("/enseignants/questions", headers=connecter_enseignant(client), json={**base, **corps})
-        assert r.status_code == code
-
-    def test_archiver(self, client):
-        h = connecter_enseignant(client)
-        assert client.post("/enseignants/questions/1/archiver", headers=h).json()["archivee"] is True
-        assert 1 not in {q["id"] for q in client.get("/enseignants/questions", headers=h).json()}
-        assert client.post("/enseignants/questions/999/archiver", headers=h).status_code == 404
+    @pytest.mark.parametrize("route", ["/enseignants/questions", "/enseignants/questions/1/archiver"])
+    def test_ecriture_de_la_banque_fermee_aux_enseignants(self, client, route):
+        """Faille E1.0 : la banque est commune, seul l'administrateur l'écrit (routes /admin)."""
+        corps = {"competence_id": 3, "enonce": "?", "type": "numerique", "solution": "1", "difficulte": 2}
+        # 405 : la route existe en lecture seule ; 404 : la route d'archivage n'existe plus côté enseignant.
+        assert client.post(route, headers=connecter_enseignant(client), json=corps).status_code in (404, 405)

@@ -8,7 +8,16 @@ from typing import Annotated
 from pkp_engine import Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from app.referentiel import PARCOURS_PAR_NIVEAU, Adaptation, Parcours, StatutValidation, parcours_par_defaut
+from app.referentiel import (
+    PARCOURS_PAR_NIVEAU,
+    Adaptation,
+    Parcours,
+    PublicRessource,
+    Role,
+    StatutValidation,
+    TypeRessource,
+    parcours_par_defaut,
+)
 
 _PRENOM = re.compile(r"^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$")
 
@@ -128,13 +137,78 @@ class ChapitreCours(BaseModel):
     competences: list[CompetenceCours]
 
 
+class RessourceVue(BaseModel):
+    """Ressource telle qu'affichée sous un cours (élève ou enseignant)."""
+
+    id: int
+    type: str
+    titre: str
+    description: str
+    url: str | None
+    domaine: str | None
+    taille_octets: int | None
+    portee: str
+
+
+class RessourceCreation(BaseModel):
+    """Lien (avec `url`) ou PDF (le fichier est envoyé ensuite, à part)."""
+
+    type: TypeRessource
+    titre: Annotated[str, Field(min_length=1, max_length=120)]
+    description: Annotated[str, Field(max_length=300)] = ""
+    url: Annotated[str | None, Field(max_length=500)] = None
+    source: Annotated[str | None, Field(max_length=200)] = None
+    licence: Annotated[str | None, Field(max_length=100)] = None
+    chapitre_id: int | None = None
+    competence_id: int | None = None
+    public: PublicRessource = PublicRessource.TOUS
+    # Portée « classe » : classes du professeur qui verront la ressource.
+    classe_ids: Annotated[list[int], Field(max_length=60)] = []
+    # PDF : le professeur déclare détenir les droits de diffusion à ses élèves (EA5.10).
+    droits_declares: bool = False
+    ordre: int = 0
+
+    @model_validator(mode="after")
+    def _coherence(self):
+        if (self.chapitre_id is None) == (self.competence_id is None):
+            raise ValueError("Rattacher la ressource à un chapitre ou à une compétence (un seul des deux).")
+        if self.type == TypeRessource.LIEN and not self.url:
+            raise ValueError("Un lien doit avoir une adresse.")
+        if self.type == TypeRessource.PDF:
+            self.url = None
+            if not (self.source and self.licence):
+                raise ValueError("Pour un PDF, indiquer la source et la licence.")
+        return self
+
+
+class RessourceDetail(RessourceVue):
+    """Vue de gestion : rattachement, public, état du lien, modération."""
+
+    source: str | None
+    licence: str | None
+    chapitre_id: int | None
+    competence_id: int | None
+    rattachement: str
+    public: str
+    auteur: str
+    classes: list[str]
+    masquee: bool
+    motif_masquage: str | None
+    echecs_lien: int
+    a_un_fichier: bool
+    consultations: int
+    cree_le: datetime
+
+
 class LeconInfo(BaseModel):
     competence_id: int
     code: str
     libelle: str
     chapitre: str
+    chapitre_id: int | None = None
     cours: str
     resume: str
+    ressources: list[RessourceVue] = []
 
 
 class SoumissionReponse(BaseModel):
@@ -175,6 +249,33 @@ class ConnexionEnseignant(BaseModel):
 class JetonEnseignant(BaseModel):
     jeton: str
     nom: str
+    role: Role = Role.ENSEIGNANT
+    # Vrai : l'interface demande un nouveau mot de passe avant tout le reste.
+    mdp_provisoire: bool = False
+
+
+class ChangementMotDePasse(BaseModel):
+    actuel: Annotated[str, Field(min_length=1, max_length=200)]
+    nouveau: Annotated[str, Field(min_length=12, max_length=200)]
+
+
+class CompetenceCoursEnseignant(BaseModel):
+    id: int
+    code: str
+    libelle: str
+    a_une_lecon: bool
+    nb_questions: int
+
+
+class ChapitreCoursEnseignant(BaseModel):
+    id: int
+    code: str
+    titre: str
+    niveau: Niveau
+    parcours: Parcours
+    # Codes des classes du professeur où ce chapitre est ouvert aux élèves.
+    ouvert_dans: list[str]
+    competences: list[CompetenceCoursEnseignant]
 
 
 class ClasseCreation(BaseModel):

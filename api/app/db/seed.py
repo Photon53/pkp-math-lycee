@@ -8,6 +8,10 @@ Compte enseignant de démo (local uniquement) :
     email        : demo@pkp.test
     mot de passe : valeur de PKP_DEMO_MOT_DE_PASSE, sinon « demo-pkp-2026 »
 
+Compte administrateur de démo (local uniquement, sans second facteur hors production) :
+    email        : admin@pkp.test
+    mot de passe : le même que l'enseignant de démo
+
 Codes personnels des élèves de démo (local uniquement) : voir CODES_DEMO ci-dessous,
 par exemple Lina / 2NDE-A-DEMO / PKP222.
 """
@@ -23,10 +27,11 @@ from app import contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
-from app.referentiel import parcours_par_defaut
+from app.referentiel import Role, parcours_par_defaut
 from app.security import hacher_code_eleve, hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
+EMAIL_ADMIN_DEMO = "admin@pkp.test"
 
 # Codes fixes pour pouvoir tester en local ; en vrai, l'enseignant les génère (aléatoires).
 CODES_DEMO = {"Lina": "PKP222", "Yanis": "PKP333", "Inès": "PKP444", "Hugo": "PKP555", "Emma": "PKP666"}
@@ -48,6 +53,17 @@ SEANCES = [
 def charger_demo(session: Session) -> bool:
     """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà."""
     contenu.importer(session, contenu.charger())
+    mot_de_passe = os.environ.get("PKP_DEMO_MOT_DE_PASSE", "demo-pkp-2026")
+
+    # Ajouté à part : une base de démo antérieure à la V2 reçoit aussi son administrateur.
+    if not session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ADMIN_DEMO)):
+        session.add(
+            models.Enseignant(
+                nom="Administrateur Démo", email=EMAIL_ADMIN_DEMO, role=Role.ADMIN,
+                mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
+            )
+        )
+        session.commit()
 
     if session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_DEMO)):
         return False
@@ -55,7 +71,7 @@ def charger_demo(session: Session) -> bool:
     enseignant = models.Enseignant(
         nom="Enseignant Démo",
         email=EMAIL_DEMO,
-        mot_de_passe_hash=hacher_mot_de_passe(os.environ.get("PKP_DEMO_MOT_DE_PASSE", "demo-pkp-2026")),
+        mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
     )
     session.add(enseignant)
 

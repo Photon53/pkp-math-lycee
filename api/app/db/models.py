@@ -16,6 +16,7 @@ from sqlalchemy import (
     Date,
     DateTime,
     Enum,
+    JSON,
     Float,
     ForeignKey,
     Integer,
@@ -27,10 +28,20 @@ from sqlalchemy import (
     event,
     false,
     func,
+    true,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, relationship
 
-from app.referentiel import SOURCE_PKP, Adaptation, Parcours, StatutValidation
+from app.referentiel import (
+    SOURCE_PKP,
+    Adaptation,
+    Parcours,
+    PorteeRessource,
+    PublicRessource,
+    Role,
+    StatutValidation,
+    TypeRessource,
+)
 
 # Noms de contraintes explicites : indispensable pour des migrations Alembic stables.
 CONVENTION = {
@@ -86,6 +97,15 @@ class Enseignant(Base):
     nom: Mapped[str] = mapped_column(String(100))
     email: Mapped[str] = mapped_column(String(254), unique=True)
     mot_de_passe_hash: Mapped[str] = mapped_column(String(255))
+    # Un administrateur est aussi enseignant : il change d'espace par le menu (cahier des charges V2, § 2).
+    role: Mapped[Role] = mapped_column(_enum(Role, "role"), default=Role.ENSEIGNANT, server_default=Role.ENSEIGNANT.value)
+    # Désactivé : ni lui ni ses élèves ne peuvent se connecter ; aucune donnée n'est supprimée.
+    actif: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
+    derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Mot de passe donné par un administrateur : à changer avant tout autre usage.
+    mdp_provisoire: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Secret TOTP (RFC 6238) du second facteur, obligatoire pour l'espace administrateur en production.
+    totp_secret: Mapped[str | None] = mapped_column(String(64))
 
     classes: Mapped[list["Classe"]] = relationship(back_populates="enseignant")
 
@@ -137,6 +157,8 @@ class Chapitre(Base):
     parcours: Mapped[Parcours] = mapped_column(_enum(Parcours, "parcours"), server_default=Parcours.SPECIALITE.value)
     titre: Mapped[str] = mapped_column(String(200))
     ordre: Mapped[int] = mapped_column(Integer)
+    # Masqué par un administrateur : plus proposé aux classes, l'historique reste lisible.
+    masque: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
 
     competences: Mapped[list["Competence"]] = relationship(back_populates="chapitre")
 
@@ -149,6 +171,7 @@ class Competence(Base):
     code: Mapped[str] = mapped_column(String(40), unique=True)
     libelle: Mapped[str] = mapped_column(String(200))
     ordre: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    masque: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
 
     chapitre: Mapped[Chapitre] = relationship(back_populates="competences")
     questions: Mapped[list["Question"]] = relationship(back_populates="competence")
@@ -165,8 +188,29 @@ class Lecon(Base):
     cours: Mapped[str] = mapped_column(Text)
     resume: Mapped[str] = mapped_column(Text)
     maj_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, onupdate=_maintenant)
+    # Modifiée depuis l'IHM d'administration : l'import YAML ne l'écrase plus (décision DA2).
+    modifiee_admin_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     competence: Mapped[Competence] = relationship(back_populates="lecon")
+    versions: Mapped[list["LeconVersion"]] = relationship(
+        back_populates="lecon", cascade="all, delete-orphan", passive_deletes=True, order_by="LeconVersion.id"
+    )
+
+
+class LeconVersion(Base):
+    """État d'une leçon avant chaque modification depuis l'IHM : comparer et restaurer."""
+
+    __tablename__ = "lecon_version"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    lecon_id: Mapped[int] = mapped_column(ForeignKey("lecon.id", ondelete="CASCADE"), index=True)
+    cours: Mapped[str] = mapped_column(Text)
+    resume: Mapped[str] = mapped_column(Text)
+    auteur_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+
+    lecon: Mapped[Lecon] = relationship(back_populates="versions")
+    auteur: Mapped["Enseignant | None"] = relationship()
 
 
 class Question(Base):
@@ -198,7 +242,10 @@ class Question(Base):
     )
     valide_par: Mapped[str | None] = mapped_column(String(100))
     valide_le: Mapped[date | None] = mapped_column(Date)
+    # Auteur de la question : le relecteur doit être une autre personne.
+    auteur: Mapped[str | None] = mapped_column(String(100))
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+    modifiee_admin_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     competence: Mapped[Competence] = relationship(back_populates="questions")
 
@@ -237,6 +284,92 @@ class Reponse(Base):
 
     seance: Mapped[Seance] = relationship(back_populates="reponses")
     question: Mapped[Question] = relationship()
+
+
+class JournalAdmin(Base):
+    """Toute écriture d'un administrateur : qui, quoi, sur quel objet, avant et après."""
+
+    __tablename__ = "journal_admin"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    admin_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"), index=True)
+    action: Mapped[str] = mapped_column(String(60))
+    objet: Mapped[str] = mapped_column(String(40))
+    objet_id: Mapped[int | None] = mapped_column(Integer)
+    avant: Mapped[dict | None] = mapped_column(JSON)
+    apres: Mapped[dict | None] = mapped_column(JSON)
+    le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+
+    admin: Mapped["Enseignant | None"] = relationship()
+
+
+# Classes auxquelles un professeur destine une ressource de portée « classe ».
+ressources_de_classe = Table(
+    "ressource_classe",
+    Base.metadata,
+    Column("ressource_id", ForeignKey("ressource.id", ondelete="CASCADE"), primary_key=True),
+    Column("classe_id", ForeignKey("classe.id", ondelete="CASCADE"), primary_key=True),
+)
+
+
+class Ressource(Base):
+    """Lien vers un site ou fichier PDF, rattaché à un chapitre ou à une compétence."""
+
+    __tablename__ = "ressource"
+    __table_args__ = (
+        CheckConstraint("(chapitre_id IS NULL) <> (competence_id IS NULL)", name="un_seul_rattachement"),
+        CheckConstraint("(type = 'lien') = (url IS NOT NULL)", name="url_si_lien"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    type: Mapped[TypeRessource] = mapped_column(_enum(TypeRessource, "type_ressource"))
+    titre: Mapped[str] = mapped_column(String(120))
+    description: Mapped[str] = mapped_column(String(300), default="", server_default="")
+    url: Mapped[str | None] = mapped_column(String(500))
+    domaine: Mapped[str | None] = mapped_column(String(253))
+    # PDF : nom aléatoire dans le dossier des fichiers, jamais le nom envoyé par l'utilisateur.
+    fichier: Mapped[str | None] = mapped_column(String(64), unique=True)
+    taille_octets: Mapped[int | None] = mapped_column(Integer)
+    source: Mapped[str | None] = mapped_column(String(200))
+    licence: Mapped[str | None] = mapped_column(String(100))
+    chapitre_id: Mapped[int | None] = mapped_column(ForeignKey("chapitre.id", ondelete="CASCADE"), index=True)
+    competence_id: Mapped[int | None] = mapped_column(ForeignKey("competence.id", ondelete="CASCADE"), index=True)
+    portee: Mapped[PorteeRessource] = mapped_column(_enum(PorteeRessource, "portee_ressource"))
+    public: Mapped[PublicRessource] = mapped_column(
+        _enum(PublicRessource, "public_ressource"), default=PublicRessource.TOUS, server_default=PublicRessource.TOUS.value
+    )
+    auteur_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="CASCADE"), index=True)
+    masquee: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    motif_masquage: Mapped[str | None] = mapped_column(String(300))
+    # Contrôle hebdomadaire des liens : nombre d'échecs consécutifs (masqué aux élèves à partir de 2).
+    echecs_lien: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    lien_verifie_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    ordre: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+
+    chapitre: Mapped["Chapitre | None"] = relationship()
+    competence: Mapped["Competence | None"] = relationship()
+    auteur: Mapped[Enseignant] = relationship()
+    classes: Mapped[list[Classe]] = relationship(secondary=ressources_de_classe)
+
+
+class RessourceConsultation(Base):
+    """Compteur d'ouvertures par jour, sans identifier qui a ouvert."""
+
+    __tablename__ = "ressource_consultation"
+
+    ressource_id: Mapped[int] = mapped_column(ForeignKey("ressource.id", ondelete="CASCADE"), primary_key=True)
+    jour: Mapped[date] = mapped_column(Date, primary_key=True)
+    nombre: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class DomaineInterdit(Base):
+    """Domaines refusés pour les liens (les élèves sont mineurs)."""
+
+    __tablename__ = "domaine_interdit"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    domaine: Mapped[str] = mapped_column(String(253), unique=True)
 
 
 class SuppressionInterdite(RuntimeError):

@@ -22,6 +22,7 @@ des 8 tables et le découpage en 6 phases.
 - Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/<niveau>/<parcours>/*.yaml`)
 - État de la banque (matrice de couverture, trous, sources) : [docs/CONTENU-INVENTAIRE.md](docs/CONTENU-INVENTAIRE.md)
 - Audit (protocoles, grille de gravité, résultats) : [docs/audit/README.md](docs/audit/README.md)
+- Version 2 commerciale (périmètre, exigences, recette, décisions) : [docs/CAHIER-DES-CHARGES-V2.md](docs/CAHIER-DES-CHARGES-V2.md)
 
 ## Développement avec VS Code
 
@@ -33,7 +34,7 @@ Prérequis : [Python 3.11+](https://www.python.org/downloads/), [Node.js 20+](ht
 2. Dans VS Code : **Fichier > Ouvrir l'espace de travail à partir d'un fichier** → `pkp-math-lycee.code-workspace`.
    Accepter l'installation des extensions recommandées.
 3. **Exécuter et déboguer** (Ctrl+Maj+D) → **▶ Application complète (API + Front)** : API sur le port 8010 avec points d'arrêt,
-   front sur http://localhost:5173 (enseignant : `/enseignant`, compte décrit dans `api/app/db/seed.py`).
+   front sur http://localhost:5173 (accueil `/`, élève `/eleve`, professeur `/enseignant`, administration `/admin` ; comptes de démo décrits dans `api/app/db/seed.py`).
    Élèves de démo : prénom + code classe + code personnel, par exemple **Lina / 2NDE-A-DEMO / PKP222**
    (tous les codes de démo sont dans `CODES_DEMO`, `api/app/db/seed.py` ; usage local uniquement).
 4. Tests : panneau **Tests** (pytest pour `moteur` et `api`, Vitest pour `web`), ou
@@ -53,7 +54,7 @@ alembic upgrade head        # crée pkp.db (SQLite) ; PKP_DATABASE_URL pour Post
 python -m app.db.seed       # données de démo, compte décrit dans app/db/seed.py
 uvicorn app.main:app --reload
 
-# Front (http://localhost:5173 ; espace enseignant : /enseignant)
+# Front (http://localhost:5173 ; élève : /eleve, professeur : /enseignant, administration : /admin)
 cd web && npm install && npm test && npm run dev
 # Si le port 8000 est déjà pris : lancer l'API avec --port 8010
 # et le front avec PKP_API_URL=http://localhost:8010

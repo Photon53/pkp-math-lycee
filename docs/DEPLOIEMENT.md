@@ -35,6 +35,23 @@ Vérifier : `https://<domaine>/api/health` répond `{"status":"ok"}`, puis se co
 Les migrations de base de données sont appliquées automatiquement à chaque démarrage de l'API.
 Les données de démo ne sont **jamais** chargées en production.
 
+## Oracle Cloud (Oracle Linux) : script d'installation
+
+`deploy/installer-oracle.sh` fait toute l'installation sur une VM Oracle Linux 9 ou 10 : fichier d'échange si
+la mémoire est faible, Docker, ouverture de firewalld (80, 443), clonage du dépôt, `.env` avec secrets générés,
+démarrage, attente du certificat HTTPS. Il est relançable pour mettre à jour : les secrets et la base sont conservés.
+
+1. Console Oracle : dans la « Security List » du sous-réseau de la VM, ajouter des règles entrantes
+   TCP 80 et TCP 443 depuis `0.0.0.0/0` (le port 22 y est déjà).
+2. Depuis le PC, copier le script sur la VM :
+   `scp -i ~/.ssh/oracle.key deploy/installer-oracle.sh opc@<IP>:`
+3. Sur la VM (`ssh -i ~/.ssh/oracle.key opc@<IP>`) :
+   `bash installer-oracle.sh --email prof@lycee.fr --nom "Mme Martin"`
+   (ajouter `--domaine maths.mon-lycee.fr` si un domaine pointe déjà vers la VM ; sinon une adresse
+   `<ip>.sslip.io`, provisoire, est utilisée).
+
+Docker y est lancé avec `sudo` ; après une reconnexion SSH, l'utilisateur `opc` peut s'en passer.
+
 ## Exploitation courante
 
 | Besoin | Commande (depuis `deploy/`) |
@@ -46,6 +63,9 @@ Les données de démo ne sont **jamais** chargées en production.
 | Mot de passe oublié | `docker compose exec api python -m app.admin mot-de-passe --email …` |
 | Sauvegarde | `docker compose exec -T db pg_dump -U pkp pkp \| gzip > pkp-$(date +%F).sql.gz` |
 | Restauration | `gunzip -c sauvegarde.sql.gz \| docker compose exec -T db psql -U pkp pkp` |
+| Sauvegarde des PDF (ressources) | `docker compose exec -T api tar -C /data -cz fichiers > fichiers-$(date +%F).tar.gz`, en même temps que la base : la table `ressource` désigne ces fichiers |
+| Premier administrateur | `docker compose exec api python -m app.admin creer --email … --nom "Équipe PKP" --admin`, puis `docker compose exec api python -m app.admin totp --email …` (second facteur obligatoire en production) |
+| Contrôle des liens | Automatique chaque semaine (service `purge`) ; à la demande : `docker compose exec api python -m app.ressources verifier-liens` |
 
 Sauvegardes : les chiffrer, les stocker hors du serveur, les conserver au plus la durée de
 conservation RGPD, et **tester une restauration** au moins une fois par an.

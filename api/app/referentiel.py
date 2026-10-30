@@ -51,5 +51,26 @@ class StatutValidation(str, Enum):
 
 SOURCE_PKP = "PKP Math"
 
+
+class Role(str, Enum):
+    ENSEIGNANT = "enseignant"
+    ADMIN = "admin"
+
+
+class TypeRessource(str, Enum):
+    LIEN = "lien"
+    PDF = "pdf"
+
+
+class PorteeRessource(str, Enum):
+    COMMUNE = "commune"  # ajoutée par un administrateur, pour tous
+    CLASSE = "classe"  # ajoutée par un professeur, pour les classes qu'il choisit
+
+
+class PublicRessource(str, Enum):
+    TOUS = "tous"
+    ELEVES = "eleves"
+    ENSEIGNANTS = "enseignants"
+
 # Une source sans licence claire ne peut servir que d'inspiration (jamais adaptée ni reproduite).
 LICENCES_NON_CLAIRES = {"", "aucune", "inconnue", "non clarifiée", "non clarifiee", "a verifier", "à vérifier"}

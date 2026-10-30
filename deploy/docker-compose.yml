@@ -7,6 +7,8 @@ x-api-env: &api-env
   PKP_SECRET_KEY: ${PKP_SECRET_KEY:?définir PKP_SECRET_KEY dans .env}
   PKP_CORS_ORIGINS: '["https://${PKP_DOMAINE}"]'
   PKP_RETENTION_JOURS: ${PKP_RETENTION_JOURS:-365}
+  # PDF des ressources : hors de la racine web, servis par l'API après contrôle des droits.
+  PKP_DOSSIER_FICHIERS: /data/fichiers
 
 # Les journaux contiennent des adresses IP (donnée personnelle) : taille bornée.
 x-journaux: &journaux
@@ -40,6 +42,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - fichiers:/data/fichiers
     restart: unless-stopped
     logging: *journaux
     # Aucun port publié : seul Caddy joint l'API, sur le réseau interne.
@@ -47,7 +51,8 @@ services:
   purge:
     image: pkp-api:latest
     environment: *api-env
-    command: ["sh", "-c", "while true; do python -m app.purge; sleep 86400; done"]
+    # Purge RGPD chaque jour ; contrôle des liens des ressources chaque semaine (le 7e jour).
+    command: ["sh", "-c", "n=0; while true; do python -m app.purge; [ $$((n % 7)) -eq 0 ] && python -m app.ressources verifier-liens; n=$$((n + 1)); sleep 86400; done"]
     depends_on:
       api:
         condition: service_started
@@ -74,5 +79,6 @@ services:
 
 volumes:
   db:
+  fichiers:
   caddy_data:
   caddy_config:

@@ -250,6 +250,8 @@ class Rapport:
     crees: dict[str, int] = field(default_factory=lambda: {"chapitres": 0, "compétences": 0, "leçons": 0, "questions": 0})
     modifies: dict[str, int] = field(default_factory=lambda: {"chapitres": 0, "compétences": 0, "leçons": 0, "questions": 0})
     questions_archivees: list[str] = field(default_factory=list)
+    # Modifiées dans l'IHM d'administration : laissées telles quelles (décision DA2), sauf --forcer.
+    protegees: list[str] = field(default_factory=list)
 
     @property
     def vide(self) -> bool:
@@ -281,6 +283,7 @@ def importer(
     *,
     archiver_absentes: bool = True,
     simulation: bool = False,
+    forcer: bool = False,
 ) -> Rapport:
     rapport = Rapport()
 
@@ -327,17 +330,17 @@ def importer(
             elif _appliquer(competence, {"libelle": c.libelle, "ordre": rang, "chapitre": chapitre}):
                 rapport.modifies["compétences"] += 1
             session.flush()
-            _importer_lecon(session, competence, c, rapport)
+            _importer_lecon(session, competence, c, rapport, forcer)
 
             for q in c.questions:
                 codes_importes.add(q.code)
-                _importer_question(session, competence, q, rapport)
+                _importer_question(session, competence, q, rapport, forcer)
 
     if archiver_absentes:
         for question in session.scalars(
             select(models.Question).where(models.Question.code.is_not(None), models.Question.archivee.is_(False))
         ):
-            if question.code not in codes_importes:
+            if question.code not in codes_importes and (forcer or question.modifiee_admin_le is None):
                 question.archivee = True
                 rapport.questions_archivees.append(question.code)
 
@@ -348,8 +351,13 @@ def importer(
     return rapport
 
 
-def _importer_lecon(session: Session, competence: models.Competence, c: CompetenceYaml, rapport: Rapport) -> None:
+def _importer_lecon(
+    session: Session, competence: models.Competence, c: CompetenceYaml, rapport: Rapport, forcer: bool = False
+) -> None:
     lecon = session.scalar(select(models.Lecon).where(models.Lecon.competence_id == competence.id))
+    if lecon is not None and lecon.modifiee_admin_le is not None and not forcer:
+        rapport.protegees.append(f"leçon {competence.code}")
+        return
     if c.cours is None:
         if lecon is not None:  # leçon retirée du fichier
             session.delete(lecon)
@@ -363,7 +371,9 @@ def _importer_lecon(session: Session, competence: models.Competence, c: Competen
         rapport.modifies["leçons"] += 1
 
 
-def _importer_question(session: Session, competence: models.Competence, q: QuestionYaml, rapport: Rapport) -> None:
+def _importer_question(
+    session: Session, competence: models.Competence, q: QuestionYaml, rapport: Rapport, forcer: bool = False
+) -> None:
     question = session.scalar(select(models.Question).where(models.Question.code == q.code))
     if question is None:
         # Question déjà présente sans code (base antérieure) : on l'adopte au lieu de la dupliquer.
@@ -374,6 +384,9 @@ def _importer_question(session: Session, competence: models.Competence, q: Quest
                 models.Question.enonce == q.enonce,
             )
         )
+    if question is not None and question.modifiee_admin_le is not None and not forcer:
+        rapport.protegees.append(q.code)
+        return
     valeurs = {
         "code": q.code,
         "competence": competence,
@@ -469,6 +482,9 @@ def main() -> None:
     parser.add_argument("commande", choices=["verifier", "importer", "inventaire"])
     parser.add_argument("--dossier", type=Path, default=DOSSIER_PAR_DEFAUT)
     parser.add_argument("--simulation", action="store_true", help="importer : montre les changements sans les appliquer")
+    parser.add_argument(
+        "--forcer", action="store_true", help="importer : écrase aussi les leçons et questions modifiées dans l'administration"
+    )
     parser.add_argument("--sortie", type=Path, default=INVENTAIRE_PAR_DEFAUT, help="inventaire : fichier Markdown produit")
     args = parser.parse_args()
 
@@ -485,7 +501,7 @@ def main() -> None:
         from app.db.session import SessionLocale
 
         with SessionLocale() as session:
-            rapport = importer(session, fichiers, simulation=args.simulation)
+            rapport = importer(session, fichiers, simulation=args.simulation, forcer=args.forcer)
         print(("[simulation] " if args.simulation else "") + str(rapport))
 
 

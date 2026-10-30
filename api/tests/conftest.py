@@ -7,7 +7,8 @@ from alembic.config import Config
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session, sessionmaker
 
-from app import limitation, security
+from app import limitation, security, statistiques
+from app.config import settings
 from app.contenu import charger
 from app.db.seed import CODES_DEMO, charger_demo
 from app.db.session import creer_moteur, get_session
@@ -38,6 +39,14 @@ def competences_de(niveau: str, parcours: str) -> list[str]:
 def scrypt_rapide(monkeypatch):
     """Coût scrypt minimal en test : les paramètres sont stockés dans l'empreinte."""
     monkeypatch.setattr(security, "_N", 2**8)
+
+
+@pytest.fixture(autouse=True)
+def reglages_v2(monkeypatch, tmp_path):
+    """Statistiques recalculées à chaque test, PDF dans un dossier jetable, liens non appelés sur le réseau."""
+    statistiques.vider_cache()
+    monkeypatch.setattr(settings, "dossier_fichiers", str(tmp_path / "fichiers"))
+    monkeypatch.setattr(settings, "verifier_liens", False)
 
 
 @pytest.fixture(autouse=True)
@@ -119,5 +128,11 @@ def inscrire_eleves(client, classe_code: str, prenoms: list[str]) -> dict[str, s
 
 def connecter_enseignant(client, email: str = "demo@pkp.test", mot_de_passe: str = "demo-pkp-2026") -> dict[str, str]:
     r = client.post("/enseignants/connexion", json={"email": email, "mot_de_passe": mot_de_passe})
+    assert r.status_code == 200, r.text
+    return entete(r.json()["jeton"])
+
+
+def connecter_admin(client, email: str = "admin@pkp.test", mot_de_passe: str = "demo-pkp-2026", code_totp=None) -> dict[str, str]:
+    r = client.post("/admin/connexion", json={"email": email, "mot_de_passe": mot_de_passe, "code_totp": code_totp})
     assert r.status_code == 200, r.text
     return entete(r.json()["jeton"])

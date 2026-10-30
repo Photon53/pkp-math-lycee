@@ -22,7 +22,7 @@ def compter(session, modele) -> int:
 
 class TestDonneesDeDemo:
     def test_contenu(self, demo):
-        assert compter(demo, models.Enseignant) == 1
+        assert compter(demo, models.Enseignant) == 2  # enseignant + administrateur de démo
         assert compter(demo, models.Classe) == 3
         assert compter(demo, models.Eleve) == 5
         assert compter(demo, models.Chapitre) == NB_CHAPITRES

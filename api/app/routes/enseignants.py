@@ -7,20 +7,25 @@ révéler l'existence des autres). La banque de questions est commune.
 import secrets
 from datetime import UTC, datetime
 from functools import cache
-from urllib.parse import quote
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
-from pkp_engine import ExpressionInvalide, Niveau, corriger
+from pkp_engine import Niveau
 from sqlalchemy import func, select
 
 from app import limitation
-from app.auth import ENSEIGNANT, EnseignantCourant, SessionDB
+from app.auth import ENSEIGNANT, EnseignantAuthentifie, EnseignantCourant, SessionDB
 from app.config import settings
 from app.db import models
-from app.db.conversions import question_vers_domaine
-from app.progression import chapitres_du_programme, nb_questions_servables, progression_eleve, resume_eleve
+from app.progression import (
+    chapitres_du_programme,
+    export_eleve,
+    nb_questions_servables,
+    progression_eleve,
+    resume_eleve,
+)
 from app.schemas import (
+    ChangementMotDePasse,
     ChapitreProgramme,
     ChoixChapitres,
     ClasseCreation,
@@ -32,7 +37,6 @@ from app.schemas import (
     EleveResume,
     JetonEnseignant,
     ProgressionCompetence,
-    QuestionCreation,
     QuestionEnseignant,
     ResultatCreationEleves,
 )
@@ -58,8 +62,8 @@ def _empreinte_leurre() -> str:
     return hacher_mot_de_passe(secrets.token_hex(16))
 
 
-@router.post("/connexion", response_model=JetonEnseignant)
-def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) -> JetonEnseignant:
+def verifier_identifiants(corps: ConnexionEnseignant, request: Request, session: SessionDB) -> models.Enseignant:
+    """Email + mot de passe, avec limitation des tentatives. Partagé avec la connexion administrateur."""
     ip = limitation.adresse_ip(request)
     compte = f"email:{corps.email}"
     # Le compte est bloqué même si le mot de passe est enfin le bon : sinon
@@ -74,15 +78,44 @@ def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) 
         limitation.echecs_enseignant.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Email ou mot de passe incorrect.")
     limitation.echecs_enseignant.effacer(compte)
+    if not enseignant.actif:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Ce compte est désactivé. Contactez l'équipe PKP.")
     if doit_rehacher(enseignant.mot_de_passe_hash):
         # Empreinte calculée avec un coût plus faible que l'actuel (audit A-06) : on la
         # renforce maintenant que le mot de passe est connu. Les anciens jetons deviennent invalides.
         enseignant.mot_de_passe_hash = hacher_mot_de_passe(corps.mot_de_passe)
-        session.commit()
+    enseignant.derniere_connexion = datetime.now(UTC)
+    session.commit()
+    return enseignant
+
+
+def _jeton(enseignant: models.Enseignant) -> JetonEnseignant:
     version = version_mot_de_passe(enseignant.mot_de_passe_hash)
     return JetonEnseignant(
-        jeton=creer_jeton(ENSEIGNANT, enseignant.id, settings.duree_jeton_enseignant_h, version), nom=enseignant.nom
+        jeton=creer_jeton(ENSEIGNANT, enseignant.id, settings.duree_jeton_enseignant_h, version),
+        nom=enseignant.nom,
+        role=enseignant.role,
+        mdp_provisoire=enseignant.mdp_provisoire,
     )
+
+
+@router.post("/connexion", response_model=JetonEnseignant)
+def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) -> JetonEnseignant:
+    return _jeton(verifier_identifiants(corps, request, session))
+
+
+@router.post("/mot-de-passe", response_model=JetonEnseignant)
+def changer_mot_de_passe(corps: ChangementMotDePasse, enseignant: EnseignantAuthentifie, session: SessionDB) -> JetonEnseignant:
+    """Change le mot de passe (obligatoire après un mot de passe provisoire). Renvoie un nouveau jeton :
+    l'ancien, comme toutes les autres sessions ouvertes, cesse de fonctionner."""
+    if not verifier_mot_de_passe(corps.actuel, enseignant.mot_de_passe_hash):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Mot de passe actuel incorrect.")
+    if corps.nouveau == corps.actuel:
+        raise HTTPException(422, "Le nouveau mot de passe doit être différent de l'actuel.")
+    enseignant.mot_de_passe_hash = hacher_mot_de_passe(corps.nouveau)
+    enseignant.mdp_provisoire = False
+    session.commit()
+    return _jeton(enseignant)
 
 
 # --- Classes et élèves ------------------------------------------------------
@@ -222,37 +255,7 @@ def progression(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB
 @router.get("/eleves/{eleve_id}/export")
 def exporter_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> JSONResponse:
     """Droit d'accès et de portabilité (RGPD) : toutes les données d'un élève, en JSON."""
-    eleve = _mon_eleve(session, eleve_id, enseignant)
-    donnees = {
-        "exporte_le": datetime.now(UTC).isoformat(),
-        "eleve": {
-            "prenom": eleve.prenom,
-            "classe": eleve.classe.code,
-            "niveau": eleve.classe.niveau.value,
-            "cree_le": eleve.cree_le.isoformat(),
-        },
-        "seances": [
-            {
-                "debut": s.debut.isoformat(),
-                "fin": s.fin.isoformat() if s.fin else None,
-                "reponses": [
-                    {
-                        "question": r.question.enonce,
-                        "reponse_donnee": r.reponse_donnee,
-                        "correcte": r.correcte,
-                        "duree_s": round(r.duree_s, 1),
-                        "repondu_le": r.repondu_le.isoformat(),
-                    }
-                    for r in sorted(s.reponses, key=lambda r: (r.repondu_le, r.id))
-                ],
-            }
-            for s in sorted(eleve.seances, key=lambda s: (s.debut, s.id))
-        ],
-        "progression": [p.model_dump() for p in progression_eleve(session, eleve)],
-    }
-    nom = f"pkp-{eleve.classe.code}-{eleve.prenom}.json".replace(" ", "_")
-    # filename* (RFC 5987) : les prénoms accentués restent lisibles.
-    return JSONResponse(donnees, headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quote(nom)}"})
+    return export_eleve(session, _mon_eleve(session, eleve_id, enseignant))
 
 
 @router.delete("/classes/{classe_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -304,31 +307,3 @@ def questions(
     if not archivees:
         requete = requete.where(models.Question.archivee.is_(False))
     return list(session.scalars(requete))
-
-
-@router.post("/questions", response_model=QuestionEnseignant, status_code=status.HTTP_201_CREATED)
-def creer_question(corps: QuestionCreation, _: EnseignantCourant, session: SessionDB) -> models.Question:
-    if session.get(models.Competence, corps.competence_id) is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Compétence introuvable.")
-    question = models.Question(**corps.model_dump())
-    # La solution doit être comprise par le moteur, sinon aucun élève ne pourrait réussir.
-    try:
-        lisible = corriger(question_vers_domaine(question), corps.solution)
-    except ExpressionInvalide:
-        lisible = False
-    if not lisible:
-        raise HTTPException(422, "Solution illisible par le moteur de correction.")
-    session.add(question)
-    session.commit()
-    return question
-
-
-@router.post("/questions/{question_id}/archiver", response_model=QuestionEnseignant)
-def archiver_question(question_id: int, _: EnseignantCourant, session: SessionDB) -> models.Question:
-    """Retire la question des tirages. Elle n'est jamais supprimée : l'historique reste lisible."""
-    question = session.get(models.Question, question_id)
-    if question is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Question introuvable.")
-    question.archivee = True
-    session.commit()
-    return question

@@ -95,6 +95,8 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
         limitation.echecs_code_eleve.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_CONNEXION)
     limitation.echecs_code_eleve.effacer(compte)
+    if not classe.enseignant.actif:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
     version = version_mot_de_passe(eleve.code_hash)
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
 
@@ -112,7 +114,7 @@ def ma_progression(eleve: EleveCourant, session: SessionDB) -> list[ProgressionC
 @router.get("/eleves/moi/chapitres", response_model=list[ChapitreOuvert])
 def mes_chapitres(eleve: EleveCourant, session: SessionDB) -> list[ChapitreOuvert]:
     """Chapitres ouverts par l'enseignant, avec le nombre de questions disponibles."""
-    chapitres = sorted(eleve.classe.chapitres_proposes, key=lambda c: c.ordre)
+    chapitres = sorted((c for c in eleve.classe.chapitres_proposes if not c.masque), key=lambda c: c.ordre)
     nb = nb_questions_servables(session, [c.id for c in chapitres])
     return [ChapitreOuvert(id=c.id, code=c.code, titre=c.titre, nb_questions=nb.get(c.id, 0)) for c in chapitres]
 
@@ -120,7 +122,7 @@ def mes_chapitres(eleve: EleveCourant, session: SessionDB) -> list[ChapitreOuver
 @router.post("/seances", response_model=SeanceInfo, status_code=status.HTTP_201_CREATED)
 def demarrer_seance(eleve: EleveCourant, session: SessionDB, corps: SeanceCreation | None = None) -> models.Seance:
     """Démarre une séance sur les chapitres choisis (tous les chapitres ouverts si aucun choix)."""
-    ouverts = {c.id: c for c in eleve.classe.chapitres_proposes}
+    ouverts = {c.id: c for c in eleve.classe.chapitres_proposes if not c.masque}
     if not ouverts:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ton professeur n'a pas encore ouvert de chapitre.")
     choisis = list(dict.fromkeys(corps.chapitre_ids)) if corps and corps.chapitre_ids else list(ouverts)

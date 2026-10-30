@@ -16,6 +16,17 @@ class Settings(BaseSettings):
     secret_key: str = CLE_DEV
     duree_jeton_eleve_h: int = 12
     duree_jeton_enseignant_h: int = 8
+    # Espace administrateur : session courte (cahier des charges V2, EA2.4).
+    duree_jeton_admin_min: int = 30
+    # Second facteur des administrateurs. Toujours exigé en production (voir `totp_requis`).
+    totp_admin_obligatoire: bool = False
+
+    # Ressources : fichiers PDF, hors de la racine web, servis par l'API après contrôle des droits.
+    dossier_fichiers: str = "./fichiers"
+    pdf_taille_max_mo: int = 10
+    pdf_max_par_enseignant: int = 50
+    # Vérifier qu'un lien répond au moment où il est enregistré (désactivé en test).
+    verifier_liens: bool = True
 
     # Limitation des tentatives de connexion, sur une fenêtre glissante.
     # Les plafonds par IP restent larges : une classe entière sort souvent par
@@ -36,6 +47,10 @@ class Settings(BaseSettings):
     @property
     def production(self) -> bool:
         return self.environnement == "production"
+
+    @property
+    def totp_requis(self) -> bool:
+        return self.production or self.totp_admin_obligatoire
 
     @model_validator(mode="after")
     def _verifier_production(self) -> "Settings":

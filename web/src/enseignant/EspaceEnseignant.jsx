@@ -1,15 +1,26 @@
 import { useState } from "react";
 import { api } from "../api.js";
-import { Erreur, Onglets } from "../composants.jsx";
+import { Erreur } from "../composants.jsx";
+import { naviguer } from "../navigation.js";
 import { ecrire, lire } from "../stockage.js";
+import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
+import Icone, { Logo } from "../ui/Icone.jsx";
 import Classes from "./Classes.jsx";
+import CoursEnseignant from "./CoursEnseignant.jsx";
 import Questions from "./Questions.jsx";
+import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
 
 const CLE_COMPTE = "pkp.enseignant";
 
-export default function EspaceEnseignant() {
+const PAGES = [
+  { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
+  { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
+  { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
+  { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
+];
+
+export default function EspaceEnseignant({ chemin = "/enseignant" }) {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
-  const [onglet, setOnglet] = useState("classes");
 
   function connecter(nouveau) {
     ecrire(CLE_COMPTE, nouveau);
@@ -21,33 +32,59 @@ export default function EspaceEnseignant() {
     setCompte(null);
   }
 
-  if (!compte) return <ConnexionEnseignant onConnexion={connecter} />;
+  if (!compte) return <PageSimple><ConnexionEnseignant onConnexion={connecter} /></PageSimple>;
+  if (compte.mdp_provisoire) {
+    return (
+      <PageSimple>
+        <NouveauMotDePasse compte={compte} onChange={connecter} onAnnuler={deconnecter} />
+      </PageSimple>
+    );
+  }
+
+  const page = PAGES.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
+    (a, b) => b.vers.length - a.vers.length,
+  )[0] ?? PAGES[0];
+  const props = { jeton: compte.jeton, onExpire: deconnecter };
 
   return (
-    <>
-      <div className="barre-session">
-        <h1>Espace enseignant</h1>
-        <p>
-          {compte.nom}{" "}
-          <button className="lien" onClick={deconnecter}>
-            Se déconnecter
+    <CadreApplication
+      espace="Espace professeur"
+      liens={PAGES}
+      cheminActif={chemin}
+      pied={
+        <>
+          <div className="compte">{compte.nom}</div>
+          {compte.role === "admin" && (
+            <a href="/admin">
+              <Icone nom="bouclier" /> Administration
+            </a>
+          )}
+          <button className="nav" onClick={deconnecter}>
+            <Icone nom="sortie" /> Se déconnecter
           </button>
-        </p>
-      </div>
-      <Onglets
-        valeur={onglet}
-        onChange={setOnglet}
-        options={[
-          ["classes", "Classes et élèves"],
-          ["questions", "Banque de questions"],
-        ]}
-      />
-      {onglet === "classes" ? (
-        <Classes jeton={compte.jeton} onExpire={deconnecter} />
-      ) : (
-        <Questions jeton={compte.jeton} onExpire={deconnecter} />
-      )}
-    </>
+        </>
+      }
+    >
+      <EntetePage titre={page.libelle} fil="Espace professeur" />
+      {page.vers === "/enseignant" && <Classes {...props} />}
+      {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
+      {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
+      {page.vers === "/enseignant/banque" && <Questions {...props} />}
+    </CadreApplication>
+  );
+}
+
+function PageSimple({ children }) {
+  return (
+    <div className="page">
+      <header className="entete">
+        <Logo />
+        <nav aria-label="Espaces">
+          <a href="/eleve">Espace élève</a>
+        </nav>
+      </header>
+      <main>{children}</main>
+    </div>
   );
 }
 
@@ -73,7 +110,7 @@ function ConnexionEnseignant({ onConnexion }) {
 
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
-      <h1>Connexion enseignant</h1>
+      <h1>Connexion professeur</h1>
       <label htmlFor="email">Email</label>
       <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required />
       <label htmlFor="mdp">Mot de passe</label>
@@ -89,6 +126,63 @@ function ConnexionEnseignant({ onConnexion }) {
       <div className="actions">
         <button type="submit" disabled={envoi}>
           {envoi ? "Connexion…" : "Se connecter"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+/** Mot de passe provisoire donné par un administrateur : à remplacer avant tout le reste (EA3.2). */
+function NouveauMotDePasse({ compte, onChange, onAnnuler }) {
+  const [actuel, setActuel] = useState("");
+  const [nouveau, setNouveau] = useState("");
+  const [confirmation, setConfirmation] = useState("");
+  const [erreur, setErreur] = useState(null);
+
+  async function soumettre(e) {
+    e.preventDefault();
+    if (nouveau !== confirmation) return setErreur("Les deux saisies diffèrent.");
+    setErreur(null);
+    try {
+      onChange(await api("/enseignants/mot-de-passe", { methode: "POST", jeton: compte.jeton, corps: { actuel, nouveau } }));
+      naviguer("/enseignant");
+    } catch (err) {
+      if (err.status === 401 && err.message.startsWith("Authentification")) onAnnuler();
+      else setErreur(err.message);
+    }
+  }
+
+  return (
+    <form className="carte carte-etroite" onSubmit={soumettre}>
+      <h1>Choisissez votre mot de passe</h1>
+      <p className="doux">Bienvenue {compte.nom}. Votre mot de passe actuel est provisoire : remplacez-le pour continuer.</p>
+      <label htmlFor="actuel">Mot de passe provisoire</label>
+      <input id="actuel" type="password" value={actuel} onChange={(e) => setActuel(e.target.value)} autoComplete="current-password" required />
+      <label htmlFor="nouveau">Nouveau mot de passe</label>
+      <input
+        id="nouveau"
+        type="password"
+        minLength={12}
+        value={nouveau}
+        onChange={(e) => setNouveau(e.target.value)}
+        autoComplete="new-password"
+        required
+      />
+      <p className="aide">12 caractères au moins.</p>
+      <label htmlFor="confirmation">Confirmation</label>
+      <input
+        id="confirmation"
+        type="password"
+        value={confirmation}
+        onChange={(e) => setConfirmation(e.target.value)}
+        autoComplete="new-password"
+        required
+      />
+      <Erreur message={erreur} />
+      <div className="actions">
+        <button type="submit">Enregistrer</button>
+        <button type="button" className="lien" onClick={onAnnuler}>
+          Se déconnecter
         </button>
       </div>
     </form>

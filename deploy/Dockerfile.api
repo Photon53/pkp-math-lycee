@@ -14,6 +14,9 @@ COPY contenu ./contenu
 RUN pip install ./engine "./api[postgres]" \
  && python -m app.contenu verifier --dossier ./contenu
 
+# Dossier des PDF : créé ici au nom de pkp, pour que le volume nommé hérite de ce propriétaire.
+RUN mkdir -p /data/fichiers && chown pkp:pkp /data/fichiers
+
 WORKDIR /app/api
 USER pkp
 EXPOSE 8000

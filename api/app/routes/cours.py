@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
+from app import ressources
 from app.auth import EleveCourant, SessionDB
 from app.db import models
 from app.progression import ids_ouverts
@@ -28,6 +29,7 @@ def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
             competences=[
                 CompetenceCours(id=c.id, code=c.code, libelle=c.libelle, a_une_lecon=c.lecon is not None)
                 for c in sorted(ch.competences, key=lambda c: (c.ordre, c.code))
+                if not c.masque
             ],
         )
         for ch in chapitres
@@ -37,13 +39,21 @@ def sommaire(eleve: EleveCourant, session: SessionDB) -> list[ChapitreCours]:
 @router.get("/{competence_id}", response_model=LeconInfo)
 def lecon(competence_id: int, eleve: EleveCourant, session: SessionDB) -> LeconInfo:
     competence = session.get(models.Competence, competence_id)
-    if competence is None or competence.lecon is None or competence.chapitre_id not in ids_ouverts(eleve.classe):
+    if (
+        competence is None
+        or competence.lecon is None
+        or competence.masque
+        or competence.chapitre_id not in ids_ouverts(eleve.classe)
+    ):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cours introuvable.")
     return LeconInfo(
         competence_id=competence.id,
         code=competence.code,
         libelle=competence.libelle,
         chapitre=competence.chapitre.titre,
+        chapitre_id=competence.chapitre_id,
         cours=competence.lecon.cours,
         resume=competence.lecon.resume,
+        ressources=ressources.pour_eleve(session, eleve, None, competence.id)
+        + ressources.pour_eleve(session, eleve, competence.chapitre_id, None),
     )

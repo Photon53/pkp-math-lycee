@@ -173,18 +173,17 @@ describe("codes personnels des élèves", () => {
 });
 
 describe("banque de questions", () => {
-  it("affiche le refus du moteur pour une solution illisible", async () => {
+  it("est en lecture seule pour le professeur", async () => {
     fausseApi({
       "GET /enseignants/competences": { json: [{ id: 3, code: "2NDE-DEV", libelle: "Développer", chapitre: "Calcul littéral", niveau: "2nde" }] },
-      "GET /enseignants/questions?archivees=false": { json: [] },
-      "POST /enseignants/questions": { status: 422, json: { detail: "Solution illisible par le moteur de correction." } },
+      "GET /enseignants/questions?archivees=false": {
+        json: [{ id: 1, competence_id: 3, enonce: "Développer $(x+1)^2$.", type: "expression", solution: "x^2+2x+1", difficulte: 2,
+                 archivee: false, statut_validation: "validee", adaptation: "originale", source: "PKP Math" }],
+      },
     });
     render(<Questions jeton="j" onExpire={vi.fn()} />);
-    await screen.findAllByRole("option", { name: /Développer/ });
-    await userEvent.type(screen.getByLabelText("Énoncé"), "Développer (x+1)².");
-    await userEvent.selectOptions(screen.getByLabelText("Type"), "expression");
-    await userEvent.type(screen.getByLabelText("Solution"), "x +");
-    await userEvent.click(screen.getByRole("button", { name: "Ajouter" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Solution illisible");
+    expect(await screen.findByText("x^2+2x+1")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Ajouter" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Archiver" })).not.toBeInTheDocument();
   });
 });
