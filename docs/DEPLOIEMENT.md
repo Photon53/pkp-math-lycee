@@ -52,6 +52,22 @@ démarrage, attente du certificat HTTPS. Il est relançable pour mettre à jour 
 
 Docker y est lancé avec `sudo` ; après une reconnexion SSH, l'utilisateur `opc` peut s'en passer.
 
+## Passer une installation V1 à la V2
+
+Deux scripts, un par hébergeur, à copier sur la VM puis à lancer dans une session SSH interactive :
+`deploy/mettre-a-jour-v2-oracle.sh` (Oracle Linux) et `deploy/mettre-a-jour-v2-gcp.sh` (Ubuntu ou Debian).
+Ils sauvegardent la base et `.env` dans `~/sauvegardes`, mettent à jour le code, reconstruisent, vérifient la
+migration 0008 et HTTPS, puis créent ou promeuvent l'administrateur et affichent son second facteur.
+
+```bash
+# Prérequis : la V2 est poussée sur GitHub (branche main).
+scp deploy/mettre-a-jour-v2-oracle.sh opc@<IP>:            # ou : gcloud compute scp deploy/mettre-a-jour-v2-gcp.sh <vm>:
+bash mettre-a-jour-v2-oracle.sh --admin-email moi@lycee.fr   # compte V1 existant → administrateur
+bash mettre-a-jour-v2-oracle.sh --retour                     # revenir à la V1 (supprime les données propres à la V2)
+```
+
+Classes, élèves et réponses sont conservés. L'espace élève passe de `/` à `/eleve` : prévenir les professeurs.
+
 ## Exploitation courante
 
 | Besoin | Commande (depuis `deploy/`) |

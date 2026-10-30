@@ -4,6 +4,7 @@ Usage, depuis `api/` (ou `docker compose exec api python -m app.admin …`) :
     python -m app.admin creer --email prof@lycee.fr --nom "Mme Martin"
     python -m app.admin creer --email admin@pkp.fr --nom "Équipe PKP" --admin
     python -m app.admin mot-de-passe --email prof@lycee.fr
+    python -m app.admin promouvoir --email prof@lycee.fr   # compte existant (V1) → administrateur
     python -m app.admin totp --email admin@pkp.fr      # second facteur de l'espace administrateur
 
 Aucun écran ne permet de se donner soi-même le rôle d'administrateur (cahier des charges V2, EA2.2) :
@@ -60,6 +61,17 @@ def changer_mot_de_passe(session: Session, email: str, mot_de_passe: str) -> Non
     session.commit()
 
 
+def promouvoir(session: Session, email: str) -> models.Enseignant:
+    """Donne le rôle d'administrateur à un compte existant (passage de la V1 à la V2)."""
+    enseignant = session.scalar(select(models.Enseignant).where(models.Enseignant.email == email.strip().lower()))
+    if enseignant is None:
+        raise ErreurAdmin(f"Aucun compte pour {email}.")
+    enseignant.role = Role.ADMIN
+    enseignant.actif = True
+    session.commit()
+    return enseignant
+
+
 def configurer_totp(session: Session, email: str) -> str:
     """Nouveau secret TOTP pour un administrateur ; renvoie l'URI à charger dans l'application."""
     enseignant = session.scalar(select(models.Enseignant).where(models.Enseignant.email == email.strip().lower()))
@@ -94,6 +106,8 @@ def main() -> None:
     mdp.add_argument("--email", required=True)
     totp = commandes.add_parser("totp", help="(re)configurer le second facteur d'un administrateur")
     totp.add_argument("--email", required=True)
+    promo = commandes.add_parser("promouvoir", help="donner le rôle d'administrateur à un compte existant")
+    promo.add_argument("--email", required=True)
     args = parser.parse_args()
 
     from app.db.session import SessionLocale
@@ -103,6 +117,8 @@ def main() -> None:
             if args.commande == "creer":
                 enseignant = creer_enseignant(session, args.email, args.nom, _demander_mot_de_passe(), args.admin)
                 print(f"Compte {'administrateur' if args.admin else 'enseignant'} créé pour {enseignant.email}.")
+            elif args.commande == "promouvoir":
+                print(f"{promouvoir(session, args.email).email} est maintenant administrateur.")
             elif args.commande == "totp":
                 uri = configurer_totp(session, args.email)
                 print("Ajoutez ce compte dans votre application d'authentification (Aegis, Google Authenticator…) :")

@@ -382,3 +382,22 @@ class TestStatistiques:
 
     def test_periode_inconnue(self, client):
         assert client.get("/admin/statistiques?periode=12", headers=connecter_admin(client)).status_code == 422
+
+
+class TestCommandeAdmin:
+    def test_promouvoir_un_compte_v1_puis_second_facteur(self, client, fabrique):
+        """Passage V1 → V2 : le compte professeur existant devient administrateur, mot de passe inchangé."""
+        from app import admin as cli
+
+        with fabrique() as s:
+            assert cli.promouvoir(s, "Demo@PKP.test").role == "admin"
+            uri = cli.configurer_totp(s, "demo@pkp.test")
+        assert uri.startswith("otpauth://totp/") and "secret=" in uri
+        r = client.post("/admin/connexion", json={"email": "demo@pkp.test", "mot_de_passe": "demo-pkp-2026"})
+        assert r.status_code == 401  # second facteur désormais demandé
+
+    def test_promouvoir_un_compte_inconnu(self, session):
+        from app import admin as cli
+
+        with pytest.raises(cli.ErreurAdmin):
+            cli.promouvoir(session, "personne@x.fr")
