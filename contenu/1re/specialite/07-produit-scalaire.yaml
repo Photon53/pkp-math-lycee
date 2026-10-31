@@ -187,3 +187,91 @@ competences:
           - $49 = 25 + 64 - 2 \times 5 \times 8 \cos\theta$, soit $80\cos\theta = 40$.
           - $\cos\theta = \dfrac{1}{2}$, donc $\theta = 60°$.
           resultat: 60
+
+  - code: 1RE-PS-MAMB
+    libelle: Utiliser le produit scalaire MA·MB
+    attendus: [1RE-SPE-2026-PS-04, 1RE-SPE-2026-PS-09]
+    objectifs:
+    - Transformer $\overrightarrow{MA} \cdot \overrightarrow{MB}$ à l'aide du milieu $I$ de $[AB]$.
+    - Reconnaître le cercle de diamètre $[AB]$ comme l'ensemble des points $M$ tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$.
+    prerequis:
+    - 1RE-PS-CALC
+    methodes:
+    - titre: Transformer $\overrightarrow{MA} \cdot \overrightarrow{MB}$
+      quand: Un problème fait intervenir deux points fixes $A$ et $B$ et un point variable $M$.
+      etapes:
+      - Introduire le milieu $I$ de $[AB]$ $:$ $\overrightarrow{MA} = \overrightarrow{MI} + \overrightarrow{IA}$, $\overrightarrow{MB} = \overrightarrow{MI} - \overrightarrow{IA}$.
+      - Développer $:$ $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - IA^2 = MI^2 - \dfrac{AB^2}{4}$.
+      exemple:
+        enonce: $AB = 6$ et $MI = 5$. Calculer $\overrightarrow{MA} \cdot \overrightarrow{MB}$.
+        resolution:
+        - $IA = 3$.
+        - $\overrightarrow{MA} \cdot \overrightarrow{MB} = 25 - 9 = 16$.
+        resultat: $16$
+    erreurs_frequentes:
+    - erreur: Oublier que $\overrightarrow{IB} = -\overrightarrow{IA}$.
+      explication: $I$ est le milieu de $[AB]$, donc les vecteurs $\overrightarrow{IA}$ et $\overrightarrow{IB}$ sont opposés.
+    resume: |
+      - Si $I$ est le milieu de $[AB]$ : $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - \dfrac{AB^2}{4}$.
+      - $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0 \iff MI = \dfrac{AB}{2}$ : c'est le cercle de diamètre $[AB]$.
+      - Un point $M$ distinct de $A$ et $B$ est sur ce cercle si et seulement si le triangle $AMB$ est rectangle en $M$.
+    cours: |
+      ## Transformation
+      $\overrightarrow{MA} \cdot \overrightarrow{MB} = (\overrightarrow{MI} + \overrightarrow{IA}) \cdot (\overrightarrow{MI} - \overrightarrow{IA}) = MI^2 - IA^2$.
+
+      ## Cercle de diamètre $[AB]$
+      $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0 \iff MI^2 = IA^2 \iff MI = IA$ : l'ensemble des points $M$ est le cercle de centre $I$ et de rayon $\dfrac{AB}{2}$.
+      On retrouve le résultat de collège : un triangle inscrit dans un cercle et dont un côté est un diamètre est rectangle.
+    questions:
+      - code: 1RE-PS-MAMB-01
+        difficulte: 1
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 6$ et $MI = 5$. Calculer $\overrightarrow{MA} \cdot \overrightarrow{MB}$.'
+        solution: 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $MI^2 - \dfrac{AB^2}{4} = 25 - 9 = 16$.
+          resultat: 16
+      - code: 1RE-PS-MAMB-02
+        difficulte: 2
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 10$. Pour quelle distance $MI$ a-t-on $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ ?'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $MI^2 - 25 = 0$, donc $MI = 5$.
+          resultat: 5
+      - code: 1RE-PS-MAMB-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel est l''ensemble des points $M$ du plan tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ ? A) La médiatrice de $[AB]$  B) Le cercle de diamètre $[AB]$  C) La droite $(AB)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $MI^2 = IA^2$ $:$ $M$ est à la distance $\dfrac{AB}{2}$ du milieu $I$.
+          resultat: B
+      - code: 1RE-PS-MAMB-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un repère orthonormé, $A(1 ; 2)$, $B(5 ; 2)$ et $M(3 ; y)$ avec $y > 2$. Pour quelle valeur de $y$ le triangle $AMB$ est-il rectangle en $M$ ?'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MA}(-2 ; 2 - y)$, $\overrightarrow{MB}(2 ; 2 - y)$.
+          - $\overrightarrow{MA} \cdot \overrightarrow{MB} = -4 + (2 - y)^2 = 0$, donc $(y - 2)^2 = 4$ et $y = 4$.
+          resultat: 4
+      - code: 1RE-PS-MAMB-05
+        difficulte: 5
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 4$. Quelle est la valeur minimale de $\overrightarrow{MA} \cdot \overrightarrow{MB}$ quand $M$ parcourt le plan ?'
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - 4$.
+          - Minimum quand $MI = 0$, c'est-à-dire $M = I$ $:$ valeur $-4$.
+          resultat: -4

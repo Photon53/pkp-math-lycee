@@ -1,0 +1,321 @@
+# Partie transversale « Algorithmique et programmation » du programme de seconde 2026 (langage Python).
+# Le moteur ne fait pas exécuter de code : les questions portent sur la lecture et la prévision de programmes.
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 2NDE-ALGO
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 14
+  titre: Algorithmique et programmation
+
+competences:
+  - code: 2NDE-PY-VAR
+    libelle: Utiliser variables, affectations et instructions conditionnelles
+    attendus: [2NDE-2026-ALGOVAR-01, 2NDE-2026-ALGOVAR-02, 2NDE-2026-ALGOVAR-03, 2NDE-2026-ALGOVAR-04, 2NDE-2026-ALGOVAR-06, 2NDE-2026-ALGOVAR-07, 2NDE-2026-ALGOVAR-08]
+    objectifs:
+    - Reconnaître le type d'une variable (entier, flottant, chaîne, booléen).
+    - Prévoir l'effet d'une suite d'affectations et d'une instruction conditionnelle.
+    methodes:
+    - titre: Suivre un programme pas à pas
+      quand: On doit prévoir la valeur des variables à la fin d'un programme.
+      etapes:
+      - Faire un tableau avec une colonne par variable.
+      - Exécuter les instructions dans l'ordre, une ligne du tableau par affectation.
+      - La valeur finale d'une variable est la dernière écrite dans sa colonne.
+      exemple:
+        enonce: 'Valeur de `a` après `a = 3`, `b = a + 2`, `a = a * b` ?'
+        resolution:
+        - '`a` vaut $3$, puis `b` vaut $5$.'
+        - '`a` prend la valeur $3 \times 5 = 15$.'
+        resultat: $15$
+    erreurs_frequentes:
+    - erreur: Lire `a = a + 1` comme une équation sans solution.
+      explication: C'est une affectation $:$ on calcule `a + 1` avec l'ancienne valeur, puis on range le résultat dans `a`.
+    - erreur: Confondre `=` (affectation) et `==` (test d'égalité).
+      explication: '`x == 3` vaut `True` ou `False` ; `x = 3` range $3$ dans `x`.'
+    resume: |
+      - Types : `int` (entier), `float` (flottant, ex. `2.5`), `str` (chaîne, ex. `"bonjour"`), `bool` (`True`, `False`).
+      - L'affectation `x = expression` calcule d'abord l'expression, puis range sa valeur dans `x` (en langage naturel : $x \leftarrow$ expression).
+      - Instruction conditionnelle : `if condition:` … `else:` … ; le bloc est délimité par l'indentation.
+    cours: |
+      ## Variables et types
+      ```python
+      n = 7          # int
+      prix = 12.5    # float
+      nom = "Lou"    # str
+      majeur = n >= 18   # bool : False
+      ```
+
+      ## Affectation
+      Les instructions s'exécutent dans l'ordre. Après `a = 3`, `b = a + 2`, `a = a * b`, on a `b` égal à $5$ et `a` égal à $15$.
+
+      ## Instruction conditionnelle
+      ```python
+      def tarif(age):
+          if age < 12:
+              return 5
+          else:
+              return 9
+      ```
+      `tarif(10)` renvoie $5$ ; `tarif(15)` renvoie $9$.
+    questions:
+      - code: 2NDE-PY-VAR-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel est le type de la variable `x` après l''instruction `x = 2.5` ? A) entier (int)  B) flottant (float)  C) chaîne de caractères (str)'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`2.5` est un nombre à virgule $:$ c''est un flottant.'
+          resultat: B
+      - code: 2NDE-PY-VAR-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On exécute `a = 3`, puis `b = a + 2`, puis `a = a * b`. Que vaut `a` à la fin ?'
+        solution: 15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`b` vaut $5$, puis `a` vaut $3 \times 5 = 15$.'
+          resultat: 15
+      - code: 2NDE-PY-VAR-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On exécute `x = 4`, puis `y = x`, puis `x = x + 3`. Que vaut `y` à la fin ?'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`y` reçoit la valeur de `x` au moment de l''affectation, soit $4$.'
+          - La modification ultérieure de `x` ne change pas `y`.
+          resultat: 4
+      - code: 2NDE-PY-VAR-04
+        difficulte: 4
+        type: numerique
+        enonce: 'La fonction `tarif(age)` renvoie `5` si `age < 12`, et `9` sinon. Que renvoie `tarif(12)` ?'
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`12 < 12` est faux $:$ on exécute le bloc `else`.'
+          resultat: 9
+      - code: 2NDE-PY-VAR-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On exécute `a = 5`, `b = 8`, puis `a = a + b`, `b = a - b`, `a = a - b`. Que vaut `a` à la fin ?'
+        solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`a` vaut $13$ ; puis `b` vaut $13 - 8 = 5$ ; puis `a` vaut $13 - 5 = 8$.'
+          - Le programme a échangé les valeurs de `a` et `b`.
+          resultat: 8
+
+  - code: 2NDE-PY-BOUCLE
+    libelle: Programmer une boucle bornée ou non bornée
+    attendus: [2NDE-2026-ALGOVAR-05, 2NDE-2026-ALGOVAR-09, 2NDE-2026-ALGOVAR-10]
+    objectifs:
+    - Utiliser une boucle `for` quand le nombre de répétitions est connu.
+    - Utiliser une boucle `while` pour répéter tant qu'une condition est vraie.
+    prerequis:
+    - 2NDE-PY-VAR
+    methodes:
+    - titre: Compter les tours d'une boucle
+      quand: On veut prévoir le résultat d'une boucle.
+      etapes:
+      - Pour `for i in range(n)`, `i` prend les valeurs $0, 1, \ldots, n - 1$ $:$ $n$ tours.
+      - Pour `while`, tester la condition avant chaque tour, et s'arrêter dès qu'elle est fausse.
+      exemple:
+        enonce: 'Valeur de `s` après `s = 0` puis `for i in range(4): s = s + i` ?'
+        resolution:
+        - '`i` prend les valeurs $0, 1, 2, 3$.'
+        - $s = 0 + 1 + 2 + 3 = 6$.
+        resultat: $6$
+    erreurs_frequentes:
+    - erreur: Croire que `range(5)` va de $1$ à $5$.
+      explication: '`range(5)` donne $0, 1, 2, 3, 4$ $:$ cinq valeurs, à partir de $0$.'
+    - erreur: Écrire une boucle `while` dont la condition reste toujours vraie.
+      explication: Le programme ne s'arrête jamais ; une variable de la condition doit évoluer à chaque tour.
+    resume: |
+      - Boucle bornée : `for i in range(n):` répète $n$ fois, avec `i` de $0$ à $n - 1$.
+      - Boucle non bornée : `while condition:` répète tant que la condition est vraie.
+      - Accumulateur : `s = 0` puis `s = s + …` à chaque tour.
+    cours: |
+      ## Boucle bornée
+      ```python
+      s = 0
+      for i in range(1, 11):
+          s = s + i
+      ```
+      `range(1, 11)` donne $1, 2, \ldots, 10$ : à la fin, `s` vaut $55$.
+
+      ## Boucle non bornée
+      Un capital de $1\,000$ € placé à $5\,\%$ par an : en combien d'années dépasse-t-il $1\,500$ € ?
+      ```python
+      c = 1000
+      n = 0
+      while c <= 1500:
+          c = c * 1.05
+          n = n + 1
+      ```
+      À la fin, `n` vaut $9$.
+    questions:
+      - code: 2NDE-PY-BOUCLE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Combien de fois le corps de la boucle `for i in range(7):` est-il exécuté ?'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`i` prend les valeurs $0$ à $6$ $:$ sept tours.'
+          resultat: 7
+      - code: 2NDE-PY-BOUCLE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On exécute `s = 0`, puis `for i in range(4): s = s + i`. Que vaut `s` à la fin ?'
+        solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0 + 1 + 2 + 3 = 6$.
+          resultat: 6
+      - code: 2NDE-PY-BOUCLE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On exécute `p = 1`, puis `for i in range(1, 5): p = p * i`. Que vaut `p` à la fin ?'
+        solution: 24
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`i` prend les valeurs $1, 2, 3, 4$.'
+          - $p = 1 \times 2 \times 3 \times 4 = 24$.
+          resultat: 24
+      - code: 2NDE-PY-BOUCLE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On exécute `n = 0`, `x = 100`, puis `while x > 10: x = x / 2` et `n = n + 1` (dans la boucle). Que vaut `n` à la fin ?'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`x` vaut successivement $50$, $25$, $12{,}5$, $6{,}25$.'
+          - Après le quatrième tour, $6{,}25 > 10$ est faux $:$ la boucle s'arrête avec `n` égal à $4$.
+          resultat: 4
+      - code: 2NDE-PY-BOUCLE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un capital de $1\,000$ € augmente de $5\,\%$ par an. Le programme `c = 1000`, `n = 0`, puis `while c <= 1500: c = c * 1.05` et `n = n + 1` renvoie `n`. Quelle valeur obtient-on ?'
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1\,000 \times 1{,}05^8 \approx 1\,477$ et $1\,000 \times 1{,}05^9 \approx 1\,551$.
+          - Le capital dépasse $1\,500$ € pour la première fois après $9$ ans.
+          resultat: 9
+
+  - code: 2NDE-PY-FONC
+    libelle: Écrire et utiliser des fonctions en Python
+    attendus: [2NDE-2026-ALGOFCT-01, 2NDE-2026-ALGOFCT-02, 2NDE-2026-ALGOFCT-03, 2NDE-2026-ALGOFCT-04, 2NDE-2026-ALGOFCT-05]
+    objectifs:
+    - Définir et appeler une fonction à un ou plusieurs arguments.
+    - Lire une fonction qui calcule une moyenne ou simule une expérience aléatoire.
+    prerequis:
+    - 2NDE-PY-BOUCLE
+    methodes:
+    - titre: Prévoir ce que renvoie une fonction
+      quand: On appelle une fonction avec des valeurs données.
+      etapes:
+      - Remplacer chaque paramètre par la valeur passée à l'appel.
+      - Exécuter le corps de la fonction jusqu'au `return`.
+      exemple:
+        enonce: 'Que renvoie `f(2, 5)` si `def f(a, b): return 3 * a - b` ?'
+        resolution:
+        - '`a` vaut $2$ et `b` vaut $5$.'
+        - $3 \times 2 - 5 = 1$.
+        resultat: $1$
+    erreurs_frequentes:
+    - erreur: Confondre `print` et `return`.
+      explication: '`print` affiche une valeur ; `return` la renvoie au programme, qui peut la réutiliser dans un calcul.'
+    resume: |
+      - `def nom(param1, param2):` définit une fonction ; `return valeur` renvoie le résultat.
+      - L'appel `nom(3, 4)` exécute la fonction avec ces valeurs.
+      - `random()` (module `random`) renvoie un flottant aléatoire de $[0 ; 1[$ : `random() < p` simule un succès de probabilité $p$.
+    cours: |
+      ## Définir une fonction
+      ```python
+      def aire_rectangle(longueur, largeur):
+          return longueur * largeur
+      ```
+      `aire_rectangle(3, 4)` renvoie $12$.
+
+      ## Simuler une expérience aléatoire
+      ```python
+      from random import random
+
+      def lancer(p):
+          if random() < p:
+              return 1
+          return 0
+
+      def frequence(n, p):
+          succes = 0
+          for i in range(n):
+              succes = succes + lancer(p)
+          return succes / n
+      ```
+      `frequence(1000, 0.3)` renvoie une fréquence proche de $0{,}3$ (loi des grands nombres).
+    questions:
+      - code: 2NDE-PY-FONC-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On définit `def f(x): return 2 * x + 1`. Que renvoie `f(4)` ?'
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2 \times 4 + 1 = 9$.
+          resultat: 9
+      - code: 2NDE-PY-FONC-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On définit `def f(a, b): return 3 * a - b`. Que renvoie `f(2, 5)` ?'
+        solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3 \times 2 - 5 = 1$.
+          resultat: 1
+      - code: 2NDE-PY-FONC-03
+        difficulte: 3
+        type: numerique
+        enonce: 'La fonction `moyenne(a, b, c)` renvoie `(a + b + c) / 3`. Que renvoie `moyenne(12, 15, 9)` ?'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{12 + 15 + 9}{3} = \dfrac{36}{3} = 12$.
+          resultat: 12
+      - code: 2NDE-PY-FONC-04
+        difficulte: 4
+        type: qcm
+        enonce: 'La fonction `lancer(p)` renvoie `1` si `random() < p`, et `0` sinon. Que simule `lancer(0.25)` ? A) Une expérience réussie avec la probabilité $0{,}25$  B) Une expérience réussie une fois sur quatre exactement  C) Un nombre aléatoire entre $0$ et $0{,}25$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`random()` est uniforme sur $[0 ; 1[$ $:$ `random() < 0.25` est vrai avec la probabilité $0{,}25$.'
+          - Le résultat est aléatoire $:$ « une fois sur quatre exactement » est faux.
+          resultat: A
+      - code: 2NDE-PY-FONC-05
+        difficulte: 5
+        type: qcm
+        enonce: 'La fonction `frequence(n, p)` additionne `n` appels à `lancer(p)` et renvoie la somme divisée par `n`. Que renvoie, le plus probablement, `frequence(10000, 0.3)` ? A) Exactement $0{,}3$  B) Un nombre proche de $0{,}3$  C) Un nombre proche de $3\,000$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La fonction renvoie une fréquence de succès sur $10\,000$ répétitions.
+          - D'après la loi des grands nombres, elle est proche de $0{,}3$, sans être exactement égale.
+          resultat: B

@@ -338,3 +338,100 @@ competences:
           etapes:
           - '$u_{n+1} - u_n = -3 < 0$ : la suite est décroissante.'
           resultat: B
+
+  - code: 1RE-SUI-SOMME
+    libelle: Calculer une somme de termes et conjecturer une limite
+    attendus: [1RE-SPE-2026-SUI-06, 1RE-SPE-2026-SUI-07, 1RE-SPE-2026-SUI-14, 1RE-SPE-2026-SUI-15]
+    objectifs:
+    - Calculer $1 + 2 + \cdots + n$ et $1 + q + \cdots + q^n$, et les démontrer.
+    - Conjecturer la limite éventuelle d'une suite à partir de ses termes ou de sa représentation graphique.
+    prerequis:
+    - 1RE-SUI-MOD
+    methodes:
+    - titre: Calculer une somme de termes consécutifs
+      quand: La somme porte sur une suite arithmétique ou géométrique.
+      etapes:
+      - Identifier la nature de la suite, son premier terme et le nombre de termes.
+      - Arithmétique $:$ $S = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}$.
+      - Géométrique de raison $q \neq 1$ $:$ $S = \text{premier terme} \times \dfrac{1 - q^{\text{nombre de termes}}}{1 - q}$.
+      exemple:
+        enonce: Calculer $3 + 6 + 12 + \cdots + 384$.
+        resolution:
+        - Suite géométrique de premier terme $3$ et de raison $2$ ; $384 = 3 \times 2^7$ $:$ $8$ termes.
+        - $S = 3 \times \dfrac{1 - 2^8}{1 - 2} = 3 \times 255 = 765$.
+        resultat: $765$
+    erreurs_frequentes:
+    - erreur: Se tromper sur le nombre de termes.
+      explication: De $u_0$ à $u_n$, il y a $n + 1$ termes ; de $u_1$ à $u_n$, il y en a $n$.
+    - erreur: Conclure à une limite à partir de quelques termes seulement.
+      explication: Les premiers termes suggèrent une conjecture ; la limite se démontre en terminale.
+    resume: |
+      - $1 + 2 + \cdots + n = \dfrac{n(n + 1)}{2}$.
+      - Pour $q \neq 1$ : $1 + q + q^2 + \cdots + q^n = \dfrac{1 - q^{n + 1}}{1 - q}$.
+      - Une suite peut tendre vers un réel, vers $+\infty$ ou $-\infty$, ou n'avoir pas de limite (ex. $(-1)^n$).
+      - On passe d'un registre à l'autre : phrase, formule, tableau de valeurs, nuage de points.
+    cours: |
+      ## Somme des premiers entiers
+      $S = 1 + 2 + \cdots + n$ ; en écrivant la somme à l'envers et en ajoutant terme à terme, $2S = n(n + 1)$, d'où $S = \dfrac{n(n + 1)}{2}$.
+
+      ## Somme géométrique
+      $S = 1 + q + \cdots + q^n$ ; alors $qS = q + q^2 + \cdots + q^{n + 1}$ et $S - qS = 1 - q^{n + 1}$, d'où, pour $q \neq 1$, $S = \dfrac{1 - q^{n + 1}}{1 - q}$.
+
+      ## Approche intuitive de la limite
+      - $u_n = \dfrac{1}{n}$ : les termes se rapprochent de $0$.
+      - $v_n = 2^n$ : les termes deviennent aussi grands qu'on veut ($+\infty$).
+      - $w_n = (-1)^n$ : les termes valent alternativement $1$ et $-1$ ; pas de limite.
+    questions:
+      - code: 1RE-SUI-SOMME-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer $1 + 2 + 3 + \cdots + 100$.'
+        solution: 5050
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{100 \times 101}{2} = 5\,050$.
+          resultat: 5050
+      - code: 1RE-SUI-SOMME-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer $1 + 2 + 2^2 + \cdots + 2^9$.'
+        solution: 1023
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1 - 2^{10}}{1 - 2} = 2^{10} - 1 = 1\,023$.
+          resultat: 1023
+      - code: 1RE-SUI-SOMME-03
+        difficulte: 3
+        type: qcm
+        enonce: 'On calcule les termes de $u_n = \dfrac{2n + 1}{n + 1}$ : $u_{10} \approx 1{,}909$, $u_{100} \approx 1{,}990$, $u_{1000} \approx 1{,}999$. Quelle conjecture peut-on faire ? A) $(u_n)$ semble tendre vers $2$  B) $(u_n)$ semble tendre vers $+\infty$  C) $(u_n)$ n''a pas de limite'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les termes se rapprochent de $2$ sans le dépasser.
+          - C'est une conjecture, qui sera démontrée en terminale.
+          resultat: A
+      - code: 1RE-SUI-SOMME-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer $3 + 6 + 12 + \cdots + 384$ (termes d''une suite géométrique).'
+        solution: 765
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Premier terme $3$, raison $2$, $384 = 3 \times 2^7$ $:$ $8$ termes.
+          - $S = 3 \times \dfrac{1 - 2^8}{1 - 2} = 765$.
+          resultat: 765
+      - code: 1RE-SUI-SOMME-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un coureur parcourt $5$ km la première semaine, puis $0{,}5$ km de plus chaque semaine. Quelle distance totale (en km) aura-t-il parcourue en $12$ semaines ?'
+        solution: 93
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Suite arithmétique $:$ $u_1 = 5$, raison $0{,}5$, $u_{12} = 5 + 11 \times 0{,}5 = 10{,}5$.
+          - $S = 12 \times \dfrac{5 + 10{,}5}{2} = 93$.
+          resultat: 93

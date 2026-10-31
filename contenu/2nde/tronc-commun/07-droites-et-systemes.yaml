@@ -202,3 +202,97 @@ competences:
           - $c = 6{,}5 - 4s$, donc $3(6{,}5 - 4s) + 2s = 9{,}5$, soit $19{,}5 - 10s = 9{,}5$ et $s = 1$.
           - $c = 6{,}5 - 4 = 2{,}5$ €.
           resultat: 5/2
+
+  - code: 2NDE-DROITE-CART
+    libelle: Utiliser un vecteur directeur et une équation cartésienne
+    attendus: [2NDE-2026-DROITE-01, 2NDE-2026-DROITE-06, 2NDE-2026-DROITE-07, 2NDE-2026-DROITE-10]
+    objectifs:
+    - Lire un vecteur directeur dans une équation cartésienne $ax + by + c = 0$.
+    - Déterminer une équation cartésienne avec un point et un vecteur directeur.
+    - Tracer une droite et établir un alignement.
+    prerequis:
+    - 2NDE-DROITE
+    - 2NDE-VEC-COL
+    methodes:
+    - titre: Équation cartésienne avec un point et un vecteur directeur
+      quand: On connaît $A(x_A ; y_A)$ et un vecteur directeur $\vec{u}(-b ; a)$.
+      etapes:
+      - Écrire que $M(x ; y)$ est sur la droite si et seulement si $\overrightarrow{AM}$ et $\vec{u}$ sont colinéaires.
+      - Traduire par le déterminant $:$ $(x - x_A) \times u_y - (y - y_A) \times u_x = 0$.
+      - Développer et réduire.
+      exemple:
+        enonce: Droite passant par $A(1 ; 2)$ de vecteur directeur $\vec{u}(3 ; 1)$.
+        resolution:
+        - $\overrightarrow{AM}(x - 1 ; y - 2)$.
+        - $(x - 1) \times 1 - (y - 2) \times 3 = 0$.
+        resultat: $x - 3y + 5 = 0$
+    erreurs_frequentes:
+    - erreur: Lire $(a ; b)$ comme vecteur directeur de $ax + by + c = 0$.
+      explication: Un vecteur directeur est $(-b ; a)$ ; le vecteur $(a ; b)$ est orthogonal à la droite.
+    resume: |
+      - Toute droite a une équation cartésienne $ax + by + c = 0$ avec $(a ; b) \neq (0 ; 0)$.
+      - Un vecteur directeur de cette droite est $\vec{u}(-b ; a)$.
+      - Si $b \neq 0$, on retrouve l'équation réduite $y = -\dfrac{a}{b}x - \dfrac{c}{b}$.
+      - $M \in d$ $\iff$ $\overrightarrow{AM}$ et $\vec{u}$ sont colinéaires $\iff \det(\overrightarrow{AM}, \vec{u}) = 0$.
+    cours: |
+      ## Vecteur directeur
+      Un vecteur directeur de la droite $(AB)$ est $\overrightarrow{AB}$ ; tout vecteur non nul colinéaire convient aussi.
+
+      ## Équation cartésienne
+      $M(x ; y)$ appartient à la droite passant par $A$ de vecteur directeur $\vec{u}$ si et seulement si $\det(\overrightarrow{AM}, \vec{u}) = 0$. En développant, on obtient une équation $ax + by + c = 0$ : c'est la forme générale d'une équation de droite.
+
+      ## Tracer
+      Pour $2x - y + 1 = 0$ : le point $(0 ; 1)$ est sur la droite, et $\vec{u}(1 ; 2)$ la dirige ; on trace à partir de $(0 ; 1)$ en allant de $1$ à droite et $2$ vers le haut.
+    questions:
+      - code: 2NDE-DROITE-CART-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel vecteur dirige la droite d''équation $2x - y + 1 = 0$ ? A) $\vec{u}(2 ; -1)$  B) $\vec{u}(1 ; 2)$  C) $\vec{u}(-1 ; 1)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $a = 2$, $b = -1$ $:$ un vecteur directeur est $(-b ; a) = (1 ; 2)$.
+          resultat: B
+      - code: 2NDE-DROITE-CART-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Le point $K(1 ; 3)$ appartient-il à la droite d''équation $2x - y + 1 = 0$ ? A) Oui  B) Non'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2 \times 1 - 3 + 1 = 0$ $:$ les coordonnées vérifient l'équation.
+          resultat: A
+      - code: 2NDE-DROITE-CART-03
+        difficulte: 3
+        type: expression
+        enonce: 'La droite $d$ a pour équation $3x + 2y - 6 = 0$. Donner son équation réduite sous la forme $y = \ldots$'
+        solution: -3x/2 + 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2y = -3x + 6$.
+          - $y = -\dfrac{3}{2}x + 3$.
+          resultat: -3x/2 + 3
+      - code: 2NDE-DROITE-CART-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle est une équation cartésienne de la droite passant par $M(1 ; 2)$ et de vecteur directeur $\vec{u}(3 ; 1)$ ? A) $x - 3y + 5 = 0$  B) $3x + y - 5 = 0$  C) $x + 3y - 7 = 0$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Pour $P(x ; y)$ $:$ $\det(\overrightarrow{MP}, \vec{u}) = (x - 1) \times 1 - (y - 2) \times 3 = 0$.
+          - $x - 3y + 5 = 0$ ; on vérifie que $M$ convient $:$ $1 - 6 + 5 = 0$.
+          resultat: A
+      - code: 2NDE-DROITE-CART-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La droite d''équation $ax + 2y - 8 = 0$ passe par le point $P(2 ; 1)$. Calculer $a$.'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2a + 2 - 8 = 0$, donc $a = 3$.
+          resultat: 3

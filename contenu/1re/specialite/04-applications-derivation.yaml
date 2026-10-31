@@ -191,3 +191,88 @@ competences:
           - Sur $]0 ; 6[$, $V'$ s'annule en $x = 2$, positive avant et négative après.
           - Le volume est maximal pour $x = 2$ cm (il vaut alors $128$ cm³).
           resultat: 2
+
+  - code: 1RE-PARITE
+    libelle: Reconnaître une fonction paire ou impaire
+    attendus: [1RE-SPE-2026-VAR-01]
+    objectifs:
+    - Démontrer algébriquement qu'une fonction est paire ou impaire.
+    - Interpréter la parité par une symétrie de la courbe.
+    methodes:
+    - titre: Étudier la parité d'une fonction
+      quand: La fonction est définie sur un ensemble symétrique par rapport à $0$.
+      etapes:
+      - Vérifier que l'ensemble de définition est symétrique par rapport à $0$.
+      - Calculer $f(-x)$ et le comparer à $f(x)$ et à $-f(x)$.
+      exemple:
+        enonce: Parité de $f(x) = x^3 - 4x$.
+        resolution:
+        - $f(-x) = -x^3 + 4x = -(x^3 - 4x) = -f(x)$.
+        resultat: $f$ est impaire.
+    erreurs_frequentes:
+    - erreur: Croire qu'une fonction qui n'est pas paire est impaire.
+      explication: $x \mapsto x^2 + x$ n'est ni paire ni impaire.
+    resume: |
+      - $f$ paire : $f(-x) = f(x)$ ; la courbe est symétrique par rapport à l'axe des ordonnées.
+      - $f$ impaire : $f(-x) = -f(x)$ ; la courbe est symétrique par rapport à l'origine.
+      - L'ensemble de définition doit être symétrique par rapport à $0$.
+    cours: |
+      ## Définitions
+      $x \mapsto x^2$, $x \mapsto |x|$, $\cos$ sont paires ; $x \mapsto x^3$, $x \mapsto \dfrac{1}{x}$, $\sin$ sont impaires.
+
+      ## Traduction géométrique
+      Paire : le point $(-x ; f(x))$ est le symétrique de $(x ; f(x))$ par rapport à l'axe des ordonnées. Impaire : $(-x ; -f(x))$ est le symétrique de $(x ; f(x))$ par rapport à l'origine.
+
+      ## Intérêt
+      Il suffit d'étudier une fonction paire ou impaire sur $[0 ; +\infty[$, puis de compléter par symétrie.
+    questions:
+      - code: 1RE-PARITE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'La fonction $f(x) = x^4 + 1$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-x) = (-x)^4 + 1 = x^4 + 1 = f(x)$.
+          resultat: A
+      - code: 1RE-PARITE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'La fonction $f(x) = x^3 - 4x$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-x) = -x^3 + 4x = -f(x)$.
+          resultat: B
+      - code: 1RE-PARITE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'La fonction $f(x) = x^2 + x$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-1) = 0$ et $f(1) = 2$ $:$ $f(-1) \neq f(1)$ et $f(-1) \neq -f(1)$.
+          resultat: C
+      - code: 1RE-PARITE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une fonction $f$ est impaire et $f(3) = -7$. Calculer $f(-3)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-3) = -f(3) = 7$.
+          resultat: 7
+      - code: 1RE-PARITE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une fonction $f$ définie sur $\mathbb{R}$ est impaire. Calculer $f(0)$.'
+        solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-0) = -f(0)$, soit $f(0) = -f(0)$, donc $2f(0) = 0$.
+          resultat: 0

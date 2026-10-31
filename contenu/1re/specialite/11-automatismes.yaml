@@ -1,0 +1,362 @@
+# Automatismes de la spécialité de première 2026 (partie transversale, évaluée sans calculatrice à l'épreuve anticipée).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 1RE-AUTOMATISMES
+  niveau: 1re
+  parcours: specialite
+  ordre: 11
+  titre: Automatismes
+
+competences:
+  - code: 1RE-AUTO-EVO
+    libelle: Calculer avec des taux d'évolution
+    attendus: [1RE-SPE-2026-AUTO-01, 1RE-SPE-2026-AUTO-02, 1RE-SPE-2026-AUTO-03, 1RE-SPE-2026-AUTO-04]
+    objectifs:
+    - Appliquer un taux d'évolution, calculer un taux, une évolution globale et une évolution réciproque.
+    methodes:
+    - titre: Utiliser le coefficient multiplicateur
+      quand: Un énoncé parle de hausse ou de baisse en pourcentage.
+      etapes:
+      - Traduire une évolution de $t\,\%$ par le coefficient $CM = 1 + \dfrac{t}{100}$.
+      - Évolutions successives $:$ multiplier les coefficients ; évolution réciproque $:$ prendre l'inverse.
+      - Revenir au taux $:$ $t = (CM - 1) \times 100$.
+      exemple:
+        enonce: Hausse de $25\,\%$. Quelle baisse ramène à la valeur initiale ?
+        resolution:
+        - $CM = 1{,}25$ ; réciproque $\dfrac{1}{1{,}25} = 0{,}8$.
+        resultat: une baisse de $20\,\%$
+    erreurs_frequentes:
+    - erreur: Ajouter les pourcentages d'évolutions successives.
+      explication: $+10\,\%$ puis $+10\,\%$ donne $1{,}1^2 = 1{,}21$, soit $+21\,\%$.
+    resume: |
+      - $CM = 1 + \dfrac{t}{100}$ ; valeur finale $= $ valeur initiale $\times\, CM$.
+      - Taux d'évolution : $\dfrac{V_2 - V_1}{V_1}$.
+      - Évolutions successives : produit des coefficients. Réciproque : $\dfrac{1}{CM}$.
+    cours: |
+      ## Appliquer un taux
+      $80$ € augmentés de $15\,\%$ : $80 \times 1{,}15 = 92$ €. Un prix de $63$ € après une baisse de $10\,\%$ valait $\dfrac{63}{0{,}9} = 70$ €.
+
+      ## Calculer un taux
+      De $50$ à $58$ : $\dfrac{58 - 50}{50} = 0{,}16$, soit $+16\,\%$.
+
+      ## Successives et réciproque
+      $+20\,\%$ puis $-20\,\%$ : $1{,}2 \times 0{,}8 = 0{,}96$, soit $-4\,\%$. Après une hausse de $25\,\%$, il faut une baisse de $20\,\%$ pour revenir à la valeur de départ.
+    questions:
+      - code: 1RE-AUTO-EVO-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Un article coûte $80$ €. Son prix augmente de $15\,\%$. Quel est son nouveau prix (en €) ?'
+        solution: 92
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $80 \times 1{,}15 = 92$.
+          resultat: 92
+      - code: 1RE-AUTO-EVO-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un effectif passe de $50$ à $58$. Quel est le taux d''évolution, en pourcentage ?'
+        solution: 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{58 - 50}{50} = 0{,}16$, soit $16\,\%$.
+          resultat: 16
+      - code: 1RE-AUTO-EVO-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Après une baisse de $10\,\%$, un prix vaut $63$ €. Quel était le prix initial (en €) ?'
+        solution: 70
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{63}{0{,}9} = 70$.
+          resultat: 70
+      - code: 1RE-AUTO-EVO-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un prix augmente de $20\,\%$ puis baisse de $20\,\%$. Quel est le taux d''évolution global, en pourcentage ?'
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1{,}2 \times 0{,}8 = 0{,}96$.
+          - $0{,}96 - 1 = -0{,}04$, soit $-4\,\%$.
+          resultat: -4
+      - code: 1RE-AUTO-EVO-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un prix augmente de $25\,\%$. Quel taux d''évolution (en pourcentage) le ramène à sa valeur initiale ?'
+        solution: -20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1}{1{,}25} = 0{,}8$.
+          - $0{,}8 - 1 = -0{,}2$, soit $-20\,\%$.
+          resultat: -20
+
+  - code: 1RE-AUTO-CALC
+    libelle: Automatismes de calcul algébrique et de signe
+    attendus: [1RE-SPE-2026-AUTO-05, 1RE-SPE-2026-AUTO-06, 1RE-SPE-2026-AUTO-07]
+    objectifs:
+    - Résoudre une équation produit nul.
+    - Donner le signe d'une expression du premier degré ou factorisée du second degré.
+    - Développer, factoriser, réduire une expression simple.
+    methodes:
+    - titre: Signe d'une expression factorisée
+      quand: L'expression est un produit de facteurs du premier degré.
+      etapes:
+      - Chercher la valeur qui annule chaque facteur.
+      - Écrire le signe de chaque facteur dans un tableau.
+      - Appliquer la règle des signes du produit.
+      exemple:
+        enonce: Signe de $(x - 1)(x + 3)$.
+        resolution:
+        - Racines $-3$ et $1$.
+        - Le produit est positif à l'extérieur des racines et négatif entre elles.
+        resultat: négatif sur $]-3 ; 1[$, positif ailleurs
+    erreurs_frequentes:
+    - erreur: Développer avant de résoudre une équation produit nul.
+      explication: La forme factorisée donne directement les solutions $:$ $A \times B = 0 \iff A = 0$ ou $B = 0$.
+    resume: |
+      - $A(x) \times B(x) = 0 \iff A(x) = 0$ ou $B(x) = 0$.
+      - $ax + b$ est du signe de $a$ à droite de $-\dfrac{b}{a}$.
+      - $a(x - x_1)(x - x_2)$ est du signe de $a$ à l'extérieur des racines.
+      - Identités : $(a \pm b)^2 = a^2 \pm 2ab + b^2$, $(a + b)(a - b) = a^2 - b^2$.
+    cours: |
+      ## Produit nul
+      $(2x - 6)(x + 5) = 0 \iff x = 3$ ou $x = -5$.
+
+      ## Signe
+      $-3x + 6$ est positif pour $x < 2$ et négatif pour $x > 2$.
+      $2(x - 1)(x + 3)$ est positif sur $]-\infty ; -3[$ et sur $]1 ; +\infty[$, négatif sur $]-3 ; 1[$.
+
+      ## Développer, factoriser
+      $(x - 4)^2 = x^2 - 8x + 16$ ; $9x^2 - 25 = (3x - 5)(3x + 5)$ ; $x^2 + 3x = x(x + 3)$.
+    questions:
+      - code: 1RE-AUTO-CALC-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quelles sont les solutions de $(2x - 6)(x + 5) = 0$ ? A) $3$ et $-5$  B) $-3$ et $5$  C) $6$ et $-5$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2x - 6 = 0 \iff x = 3$ ; $x + 5 = 0 \iff x = -5$.
+          resultat: A
+      - code: 1RE-AUTO-CALC-02
+        difficulte: 2
+        type: expression
+        enonce: 'Développer et réduire $(x - 4)^2$.'
+        solution: x^2 - 8x + 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(a - b)^2 = a^2 - 2ab + b^2$ avec $a = x$, $b = 4$.
+          resultat: x^2 - 8x + 16
+      - code: 1RE-AUTO-CALC-03
+        difficulte: 3
+        type: expression
+        enonce: 'Factoriser $9x^2 - 25$.'
+        solution: (3x - 5)(3x + 5)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $a^2 - b^2 = (a - b)(a + b)$ avec $a = 3x$ et $b = 5$.
+          resultat: (3x - 5)(3x + 5)
+      - code: 1RE-AUTO-CALC-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Sur quel ensemble l''expression $-3x + 6$ est-elle strictement positive ? A) $]-\infty ; 2[$  B) $]2 ; +\infty[$  C) $]-\infty ; -2[$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $-3x + 6 > 0 \iff -3x > -6 \iff x < 2$ (on divise par $-3$, on change de sens).
+          resultat: A
+      - code: 1RE-AUTO-CALC-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Sur quel ensemble l''expression $-2(x - 1)(x - 3)$ est-elle positive ou nulle ? A) $[1 ; 3]$  B) $]-\infty ; 1] \cup [3 ; +\infty[$  C) $[3 ; +\infty[$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Le coefficient $-2$ est négatif $:$ l'expression est du signe de $-2$ à l'extérieur des racines, positive entre elles.
+          resultat: A
+
+  - code: 1RE-AUTO-GRAPH
+    libelle: Lectures graphiques de fonctions et de droites
+    attendus: [1RE-SPE-2026-AUTO-08, 1RE-SPE-2026-AUTO-09, 1RE-SPE-2026-AUTO-10, 1RE-SPE-2026-AUTO-11, 1RE-SPE-2026-AUTO-12]
+    objectifs:
+    - Résoudre graphiquement $f(x) = k$ ou $f(x) < k$, lire un signe ou des variations.
+    - Tracer une droite, lire son équation réduite, calculer un coefficient directeur.
+    methodes:
+    - titre: Lire l'équation réduite d'une droite
+      quand: Une droite non verticale est tracée dans un repère.
+      etapes:
+      - Lire l'ordonnée à l'origine $p$ (intersection avec l'axe des ordonnées).
+      - Partir d'un point de la droite, avancer de $1$ en abscisse et lire la variation verticale $m$.
+      - Écrire $y = mx + p$.
+      exemple:
+        enonce: Une droite passe par $(0 ; 3)$ et $(2 ; -1)$.
+        resolution:
+        - $p = 3$ ; $m = \dfrac{-1 - 3}{2 - 0} = -2$.
+        resultat: $y = -2x + 3$
+    erreurs_frequentes:
+    - erreur: Calculer $\dfrac{x_B - x_A}{y_B - y_A}$ pour le coefficient directeur.
+      explication: $m = \dfrac{y_B - y_A}{x_B - x_A}$ $:$ variation des ordonnées sur variation des abscisses.
+    resume: |
+      - Solutions de $f(x) = k$ : abscisses des points de la courbe d'ordonnée $k$.
+      - Solutions de $f(x) < k$ : abscisses des points de la courbe situés sous la droite $y = k$.
+      - $f(x) > 0$ là où la courbe est au-dessus de l'axe des abscisses.
+      - $m = \dfrac{y_B - y_A}{x_B - x_A}$ ; la droite $y = mx + p$ coupe l'axe des ordonnées en $(0 ; p)$.
+    cours: |
+      ## Résoudre graphiquement
+      On trace la droite horizontale $y = k$ et on lit les abscisses des points d'intersection avec la courbe.
+
+      ## Signe et variations
+      Le signe se lit par rapport à l'axe des abscisses ; les variations, en suivant la courbe de gauche à droite.
+
+      ## Droites
+      Pour tracer $y = \dfrac{1}{2}x - 1$, on place $(0 ; -1)$ puis on avance de $2$ en abscisse et de $1$ en ordonnée.
+    questions:
+      - code: 1RE-AUTO-GRAPH-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quel est le coefficient directeur de la droite passant par $A(1 ; 2)$ et $B(3 ; 8)$ ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $m = \dfrac{8 - 2}{3 - 1} = 3$.
+          resultat: 3
+      - code: 1RE-AUTO-GRAPH-02
+        difficulte: 2
+        type: expression
+        enonce: 'Une droite passe par $(0 ; 3)$ et $(2 ; -1)$. Donner son équation réduite sous la forme $y = \ldots$'
+        solution: -2x + 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $p = 3$ et $m = \dfrac{-1 - 3}{2} = -2$.
+          resultat: -2x + 3
+      - code: 1RE-AUTO-GRAPH-03
+        difficulte: 3
+        type: qcm
+        enonce: 'La courbe d''une fonction $f$ coupe la droite d''équation $y = 2$ aux points d''abscisses $-1$ et $4$, et elle est au-dessous de cette droite entre ces deux points. Quel est l''ensemble des solutions de $f(x) < 2$ ? A) $]-1 ; 4[$  B) $]-\infty ; -1[ \cup ]4 ; +\infty[$  C) $\{-1 ; 4\}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(x) < 2$ là où la courbe est sous la droite $y = 2$, entre les abscisses $-1$ et $4$ (bornes exclues).
+          resultat: A
+      - code: 1RE-AUTO-GRAPH-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On trace la droite d''équation $y = \frac{1}{2}x - 1$. En quelle abscisse coupe-t-elle l''axe des abscisses ?'
+        solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1}{2}x - 1 = 0 \iff x = 2$.
+          resultat: 2
+      - code: 1RE-AUTO-GRAPH-05
+        difficulte: 5
+        type: qcm
+        enonce: 'La courbe d''une fonction $f$ est au-dessus de l''axe des abscisses sur $]-\infty ; -2[$, en dessous sur $]-2 ; 3[$ et au-dessus sur $]3 ; +\infty[$. Quelle expression peut être $f(x)$ ? A) $(x + 2)(x - 3)$  B) $-(x + 2)(x - 3)$  C) $(x - 2)(x + 3)$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les racines sont $-2$ et $3$ $:$ on écarte C.
+          - Positive à l'extérieur des racines $:$ le coefficient de $x^2$ est positif.
+          resultat: A
+
+  - code: 1RE-AUTO-STAT
+    libelle: Lire des représentations de données et calculer des indicateurs
+    attendus: [1RE-SPE-2026-AUTO-13, 1RE-SPE-2026-AUTO-14, 1RE-SPE-2026-AUTO-15]
+    objectifs:
+    - Lire un histogramme, un diagramme en barres, circulaire ou en boîte.
+    - Calculer et interpréter moyenne, médiane, quartiles.
+    methodes:
+    - titre: Lire un diagramme en boîte
+      quand: On compare des séries à l'aide de boîtes à moustaches.
+      etapes:
+      - Lire minimum, $Q_1$, médiane, $Q_3$ et maximum.
+      - Écart interquartile $Q_3 - Q_1$ $:$ environ la moitié des valeurs y est comprise.
+      exemple:
+        enonce: Boîte avec $\min = 4$, $Q_1 = 8$, $Me = 11$, $Q_3 = 14$, $\max = 20$.
+        resolution:
+        - Écart interquartile $:$ $14 - 8 = 6$.
+        - Au moins la moitié des valeurs sont inférieures ou égales à $11$.
+        resultat: $Q_3 - Q_1 = 6$
+    erreurs_frequentes:
+    - erreur: Confondre médiane et moyenne.
+      explication: La médiane partage la série en deux moitiés ; la moyenne est sensible aux valeurs extrêmes.
+    resume: |
+      - Moyenne pondérée : $\bar{x} = \dfrac{\sum n_i x_i}{N}$.
+      - Médiane : valeur centrale de la série ordonnée.
+      - $Q_1$ et $Q_3$ : au moins $25\,\%$ (resp. $75\,\%$) des valeurs sont inférieures ou égales.
+      - Repérer l'origine, les unités et les échelles avant toute lecture.
+    cours: |
+      ## Indicateurs
+      Série $3, 5, 6, 8, 13$ : moyenne $7$, médiane $6$.
+
+      ## Données regroupées
+      Notes $8$ (effectif $2$), $12$ (effectif $5$), $15$ (effectif $3$) : moyenne $\dfrac{16 + 60 + 45}{10} = 12{,}1$.
+
+      ## Du graphique aux données
+      Un diagramme en barres donne les effectifs ; on reconstitue la série pour calculer ses indicateurs.
+    questions:
+      - code: 1RE-AUTO-STAT-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer la moyenne de la série $3$ ; $5$ ; $6$ ; $8$ ; $13$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{35}{5} = 7$.
+          resultat: 7
+      - code: 1RE-AUTO-STAT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Quelle est la médiane de la série $3$ ; $5$ ; $6$ ; $8$ ; $13$ ?'
+        solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Cinq valeurs rangées $:$ la troisième est la médiane.
+          resultat: 6
+      - code: 1RE-AUTO-STAT-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans une classe, $2$ élèves ont $8$, $5$ ont $12$ et $3$ ont $15$. Calculer la moyenne de la classe.'
+        solution: 12.1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{2 \times 8 + 5 \times 12 + 3 \times 15}{10} = \dfrac{121}{10} = 12{,}1$.
+          resultat: 12.1
+      - code: 1RE-AUTO-STAT-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un diagramme en boîte indique $Q_1 = 8$, médiane $11$ et $Q_3 = 14$. Quel est l''écart interquartile ?'
+        solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $Q_3 - Q_1 = 14 - 8 = 6$.
+          resultat: 6
+      - code: 1RE-AUTO-STAT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Deux classes ont la même médiane, $11$. La classe 1 a un écart interquartile de $3$, la classe 2 de $8$. Que peut-on dire ? A) Les notes de la classe 1 sont plus homogènes  B) La classe 2 a une meilleure moyenne  C) Les deux séries ont la même dispersion'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Un écart interquartile plus petit traduit des valeurs centrales plus resserrées.
+          - On ne peut rien dire de la moyenne.
+          resultat: A

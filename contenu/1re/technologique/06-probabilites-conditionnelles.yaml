@@ -94,3 +94,91 @@ competences:
       etapes:
       - '$P(M) = 0{,}19$ mais $P_V(M) = 0{,}1$ : la vaccination change la probabilité d''être malade.'
       resultat: B
+
+- code: 1RE-TEC-BERN
+  libelle: Répéter des épreuves de Bernoulli indépendantes
+  attendus: [1RE-TEC-2026-SP-11, 1RE-TEC-2026-SP-12]
+  objectifs:
+  - Représenter par un arbre la répétition de $n \leqslant 4$ épreuves de Bernoulli identiques et indépendantes.
+  - Calculer la probabilité d'un nombre donné de succès.
+  prerequis:
+  - 1RE-TEC-PCOND
+  methodes:
+  - titre: Utiliser l'arbre d'une répétition d'épreuves
+    quand: La même épreuve à deux issues est répétée de façon indépendante.
+    etapes:
+    - Chaque branche porte $p$ (succès) ou $1 - p$ (échec).
+    - Probabilité d'un chemin $:$ produit des probabilités de ses branches.
+    - Additionner les probabilités des chemins qui réalisent l'évènement.
+    exemple:
+      enonce: Deux tirages indépendants, succès de probabilité $0{,}3$. Probabilité d'un seul succès ?
+      resolution:
+      - Chemins SE et ES, chacun de probabilité $0{,}3 \times 0{,}7 = 0{,}21$.
+      resultat: $0{,}42$
+  erreurs_frequentes:
+  - erreur: Ne compter qu'un chemin pour « un succès sur deux ».
+    explication: Le succès peut avoir lieu au premier ou au second tirage $:$ deux chemins.
+  resume: |
+    - Épreuve de Bernoulli : deux issues, succès ($p$) et échec ($1 - p$).
+    - Indépendance : on multiplie le long d'un chemin.
+    - « Au moins un succès » : $1 - (1 - p)^n$.
+  cours: |
+    ## Arbre pour $n = 2$
+    Avec $p = 0{,}3$ : deux succès $0{,}09$, un succès $2 \times 0{,}21 = 0{,}42$, aucun $0{,}49$. Total : $1$.
+
+    ## Au moins un succès
+    Pour trois épreuves avec $p = 0{,}2$ : $1 - 0{,}8^3 = 1 - 0{,}512 = 0{,}488$.
+  questions:
+    - code: 1RE-TEC-BERN-01
+      difficulte: 1
+      type: numerique
+      enonce: 'On répète deux fois une épreuve de Bernoulli de paramètre $0{,}3$, de façon indépendante. Quelle est la probabilité de deux succès ?'
+      solution: 0.09
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}3 \times 0{,}3 = 0{,}09$.
+        resultat: 0.09
+    - code: 1RE-TEC-BERN-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Même situation (deux épreuves de paramètre $0{,}3$). Quelle est la probabilité d''aucun succès ?'
+      solution: 0.49
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}7 \times 0{,}7 = 0{,}49$.
+        resultat: 0.49
+    - code: 1RE-TEC-BERN-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Même situation (deux épreuves de paramètre $0{,}3$). Quelle est la probabilité d''exactement un succès ?'
+      solution: 0.42
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Deux chemins (SE et ES), chacun de probabilité $0{,}21$.
+        - $2 \times 0{,}21 = 0{,}42$.
+        resultat: 0.42
+    - code: 1RE-TEC-BERN-04
+      difficulte: 4
+      type: numerique
+      enonce: 'Une machine produit une pièce défectueuse avec la probabilité $0{,}2$. On prélève trois pièces de façon indépendante. Quelle est la probabilité qu''au moins une soit défectueuse ?'
+      solution: 0.488
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Contraire $:$ aucune pièce défectueuse, de probabilité $0{,}8^3 = 0{,}512$.
+        - $1 - 0{,}512 = 0{,}488$.
+        resultat: 0.488
+    - code: 1RE-TEC-BERN-05
+      difficulte: 5
+      type: numerique
+      enonce: 'On lance quatre fois une pièce équilibrée. Quelle est la probabilité d''obtenir exactement trois piles ?'
+      solution: 1/4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Chemins à trois piles $:$ FPPP, PFPP, PPFP, PPPF, soit $4$ chemins.
+        - Chacun a la probabilité $\dfrac{1}{16}$ $:$ total $\dfrac{4}{16} = \dfrac{1}{4}$.
+        resultat: 1/4

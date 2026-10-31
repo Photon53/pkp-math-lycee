@@ -318,3 +318,97 @@ competences:
           erreurs_frequentes:
             - >-
               Répondre $0{,}95$ : c'est $P_M(T)$, la probabilité d'être positif sachant qu'on est malade, pas l'inverse.
+
+  - code: 1RE-BERNOULLI
+    libelle: Répéter des épreuves de Bernoulli indépendantes (n ⩽ 4)
+    attendus: [1RE-SPE-2026-PCOND-04, 1RE-SPE-2026-PCOND-08]
+    objectifs:
+    - Représenter par un arbre la répétition de $n \leqslant 4$ épreuves de Bernoulli identiques et indépendantes.
+    - Calculer la probabilité d'un nombre donné de succès en comptant les chemins.
+    prerequis:
+    - 1RE-TOTALES
+    methodes:
+    - titre: Probabilité de $k$ succès en $n$ épreuves
+      quand: On répète $n \leqslant 4$ fois la même épreuve à deux issues, de façon indépendante.
+      etapes:
+      - Construire l'arbre (ou l'imaginer) $:$ chaque chemin est une suite de $n$ succès ou échecs.
+      - Un chemin à $k$ succès a la probabilité $p^k(1 - p)^{n - k}$.
+      - Compter les chemins à $k$ succès et multiplier.
+      exemple:
+        enonce: Trois tirs indépendants réussis chacun avec la probabilité $0{,}6$. Probabilité de deux réussites exactement ?
+        resolution:
+        - Chemins $:$ SSE, SES, ESS, soit $3$ chemins.
+        - Chacun a la probabilité $0{,}6^2 \times 0{,}4 = 0{,}144$.
+        resultat: $3 \times 0{,}144 = 0{,}432$
+    erreurs_frequentes:
+    - erreur: Oublier de compter tous les ordres possibles des succès.
+      explication: « Deux succès sur trois » correspond à trois chemins (SSE, SES, ESS), pas à un seul.
+    resume: |
+      - Épreuve de Bernoulli : deux issues, succès (probabilité $p$) et échec ($1 - p$).
+      - Épreuves indépendantes : on multiplie les probabilités le long d'un chemin.
+      - Un chemin avec $k$ succès et $n - k$ échecs a la probabilité $p^k (1 - p)^{n - k}$.
+      - « Au moins un succès » : passer par le contraire, $1 - (1 - p)^n$.
+    cours: |
+      ## Arbre de la répétition
+      Pour $n = 3$, l'arbre a $2^3 = 8$ chemins. Avec $p = 0{,}6$ :
+      - $0$ succès : $1$ chemin, $0{,}4^3 = 0{,}064$ ;
+      - $1$ succès : $3$ chemins, $3 \times 0{,}6 \times 0{,}4^2 = 0{,}288$ ;
+      - $2$ succès : $3$ chemins, $3 \times 0{,}6^2 \times 0{,}4 = 0{,}432$ ;
+      - $3$ succès : $1$ chemin, $0{,}6^3 = 0{,}216$.
+
+      La somme vaut bien $1$.
+    questions:
+      - code: 1RE-BERNOULLI-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On lance trois fois une pièce équilibrée. Combien l''arbre de probabilités a-t-il de chemins ?'
+        solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Deux issues à chaque lancer $:$ $2^3 = 8$ chemins.
+          resultat: 8
+      - code: 1RE-BERNOULLI-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un tireur réussit chaque tir avec la probabilité $0{,}6$, de façon indépendante. Quelle est la probabilité qu''il réussisse ses trois tirs ?'
+        solution: 0.216
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0{,}6^3 = 0{,}216$.
+          resultat: 0.216
+      - code: 1RE-BERNOULLI-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Avec le même tireur, quelle est la probabilité qu''il réussisse exactement deux tirs sur trois ?'
+        solution: 0.432
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Trois chemins (SSE, SES, ESS), chacun de probabilité $0{,}6^2 \times 0{,}4 = 0{,}144$.
+          - $3 \times 0{,}144 = 0{,}432$.
+          resultat: 0.432
+      - code: 1RE-BERNOULLI-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un dé équilibré est lancé quatre fois. Quelle est la probabilité d''obtenir au moins un six ? (Réponse sous forme de fraction.)'
+        solution: 671/1296
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Contraire $:$ aucun six, de probabilité $\left(\dfrac{5}{6}\right)^4 = \dfrac{625}{1\,296}$.
+          - $1 - \dfrac{625}{1\,296} = \dfrac{671}{1\,296}$.
+          resultat: 671/1296
+      - code: 1RE-BERNOULLI-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On lance quatre fois une pièce équilibrée. Quelle est la probabilité d''obtenir exactement deux piles ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Chemins à deux piles $:$ PPFF, PFPF, PFFP, FPPF, FPFP, FFPP, soit $6$ chemins.
+          - Chacun a la probabilité $\left(\dfrac{1}{2}\right)^4 = \dfrac{1}{16}$.
+          - $\dfrac{6}{16} = \dfrac{3}{8}$.
+          resultat: 3/8

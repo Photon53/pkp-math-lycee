@@ -190,3 +190,91 @@ competences:
           - $E(X) = 2$ et $E(X^2) = \dfrac{1 + 4 + 9}{3} = \dfrac{14}{3}$.
           - $V(X) = \dfrac{14}{3} - 4 = \dfrac{2}{3}$.
           resultat: 2/3
+
+  - code: 1RE-VA-LIN
+    libelle: Utiliser la linéarité de l'espérance
+    attendus: [1RE-SPE-2026-VA-04]
+    objectifs:
+    - Calculer $E(aX + b)$ à partir de $E(X)$.
+    - Interpréter un changement d'unité ou une transformation affine d'un gain.
+    prerequis:
+    - 1RE-LOI
+    methodes:
+    - titre: Calculer l'espérance d'un gain transformé
+      quand: Le gain $Y$ s'obtient à partir de $X$ par $Y = aX + b$.
+      etapes:
+      - Calculer (ou lire) $E(X)$.
+      - Appliquer $E(aX + b) = aE(X) + b$, sans recalculer la loi de $Y$.
+      exemple:
+        enonce: $E(X) = 2{,}5$ et $Y = 4X - 3$. Calculer $E(Y)$.
+        resolution:
+        - $E(Y) = 4 \times 2{,}5 - 3$.
+        resultat: $7$
+    erreurs_frequentes:
+    - erreur: Écrire $E(aX + b) = aE(X)$.
+      explication: La constante $b$ s'ajoute $:$ $E(aX + b) = aE(X) + b$.
+    - erreur: Appliquer la même règle à la variance.
+      explication: $V(aX + b) = a^2 V(X)$ $:$ la constante $b$ disparaît et $a$ est élevé au carré.
+    resume: |
+      - $E(aX + b) = aE(X) + b$.
+      - $V(aX + b) = a^2 V(X)$ et $\sigma(aX + b) = |a|\,\sigma(X)$.
+      - Un jeu est équitable si l'espérance du gain est nulle.
+    cours: |
+      ## Linéarité
+      Si $X$ prend les valeurs $x_i$ avec les probabilités $p_i$, alors $aX + b$ prend les valeurs $ax_i + b$ avec les mêmes probabilités :
+      $E(aX + b) = \sum p_i (ax_i + b) = a\sum p_i x_i + b\sum p_i = aE(X) + b$.
+
+      ## Exemple
+      Le nombre de points $X$ d'un jeu a pour espérance $2{,}5$. Chaque point rapporte $4$ € et la partie coûte $3$ € : le gain est $Y = 4X - 3$, d'espérance $4 \times 2{,}5 - 3 = 7$ €.
+    questions:
+      - code: 1RE-VA-LIN-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $E(X) = 5$. Calculer $E(X + 2)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(X + 2) = 5 + 2 = 7$.
+          resultat: 7
+      - code: 1RE-VA-LIN-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On sait que $E(X) = 2{,}5$. Calculer $E(4X - 3)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $4 \times 2{,}5 - 3 = 7$.
+          resultat: 7
+      - code: 1RE-VA-LIN-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une température $X$ en degrés Celsius a pour espérance $20$. La température en degrés Fahrenheit est $F = 1{,}8X + 32$. Calculer $E(F)$.'
+        solution: 68
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1{,}8 \times 20 + 32 = 68$.
+          resultat: 68
+      - code: 1RE-VA-LIN-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On sait que $V(X) = 3$. Calculer $V(2X + 5)$.'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V(2X + 5) = 2^2 \times 3 = 12$ ; la constante $5$ ne change pas la dispersion.
+          resultat: 12
+      - code: 1RE-VA-LIN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'À un jeu, le nombre de points $X$ a pour espérance $1{,}5$. Chaque point rapporte $2$ € et la mise est de $m$ €. Pour quelle mise $m$ le jeu est-il équitable ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Gain $G = 2X - m$, d'espérance $2 \times 1{,}5 - m = 3 - m$.
+          - Jeu équitable $:$ $E(G) = 0$, soit $m = 3$.
+          resultat: 3

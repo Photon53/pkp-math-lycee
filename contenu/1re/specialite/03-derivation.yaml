@@ -99,7 +99,7 @@ competences:
 
   - code: 1RE-DER-CALC
     libelle: Calculer une fonction dérivée
-    attendus: [1RE-SPE-2026-DER-05, 1RE-SPE-2026-DER-06, 1RE-SPE-2026-DER-07, 1RE-SPE-2026-DER-08, 1RE-SPE-2026-DER-15, 1RE-SPE-2026-DER-18]
+    attendus: [1RE-SPE-2026-DER-05, 1RE-SPE-2026-DER-06, 1RE-SPE-2026-DER-07, 1RE-SPE-2026-DER-08, 1RE-SPE-2026-DER-15, 1RE-SPE-2026-DER-18, 1RE-SPE-2026-DER-19]
     objectifs:
     - Calculer la dérivée d'une somme, d'un produit, d'un quotient et de x ↦ g(ax + b).
     prerequis:
@@ -195,3 +195,96 @@ competences:
           etapes:
           - $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
           resultat: 1/sqrt(2x + 3)
+
+  - code: 1RE-DER-LOCAL
+    libelle: Utiliser l'approximation affine et étudier la dérivabilité en un point
+    attendus: [1RE-SPE-2026-DER-04, 1RE-SPE-2026-DER-09, 1RE-SPE-2026-DER-14, 1RE-SPE-2026-DER-17]
+    objectifs:
+    - Approcher $f(a + h)$ par $f(a) + f'(a)h$ pour $h$ proche de $0$.
+    - Montrer qu'une fonction n'est pas dérivable en un point (racine carrée, valeur absolue en $0$).
+    prerequis:
+    - 1RE-DER-NB
+    methodes:
+    - titre: Calculer une valeur approchée avec la tangente
+      quand: On veut une valeur approchée de $f(a + h)$ avec $h$ petit.
+      etapes:
+      - Calculer $f(a)$ et $f'(a)$.
+      - Écrire $f(a + h) \approx f(a) + f'(a)h$.
+      exemple:
+        enonce: Valeur approchée de $\sqrt{4{,}1}$.
+        resolution:
+        - $f(x) = \sqrt{x}$, $a = 4$, $h = 0{,}1$ ; $f(4) = 2$, $f'(4) = \dfrac{1}{2\sqrt{4}} = \dfrac{1}{4}$.
+        - $\sqrt{4{,}1} \approx 2 + \dfrac{1}{4} \times 0{,}1 = 2{,}025$.
+        resultat: $2{,}025$ (valeur exacte $\approx 2{,}0248$)
+    erreurs_frequentes:
+    - erreur: Croire qu'une fonction définie en $a$ est forcément dérivable en $a$.
+      explication: $x \mapsto \sqrt{x}$ est définie en $0$ mais son taux de variation $\dfrac{1}{\sqrt{h}}$ n'a pas de limite finie.
+    resume: |
+      - Approximation affine : $f(a + h) \approx f(a) + f'(a)h$ pour $h$ proche de $0$.
+      - La fonction affine $x \mapsto f(a) + f'(a)(x - a)$ a pour courbe la tangente en $a$.
+      - $\sqrt{\phantom{x}}$ n'est pas dérivable en $0$ : $\dfrac{\sqrt{h} - 0}{h} = \dfrac{1}{\sqrt{h}}$ devient infiniment grand.
+      - $|\cdot|$ n'est pas dérivable en $0$ : le taux vaut $1$ pour $h > 0$ et $-1$ pour $h < 0$.
+    cours: |
+      ## Approximation affine
+      Près de $a$, la courbe se confond avec sa tangente : $f(a + h) \approx f(a) + f'(a)h$.
+      Exemple : $(1 + h)^2 \approx 1 + 2h$, d'où $1{,}01^2 \approx 1{,}02$ (valeur exacte $1{,}0201$).
+
+      ## Racine carrée en $0$
+      Pour $h > 0$, $\dfrac{\sqrt{0 + h} - \sqrt{0}}{h} = \dfrac{1}{\sqrt{h}}$, qui devient aussi grand qu'on veut quand $h$ tend vers $0$ : pas de nombre dérivé en $0$ (tangente verticale).
+
+      ## Valeur absolue en $0$
+      $\dfrac{|h|}{h}$ vaut $1$ si $h > 0$ et $-1$ si $h < 0$ : pas de limite commune, la courbe a un « coin » en $0$.
+    questions:
+      - code: 1RE-DER-LOCAL-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $f(2) = 5$ et $f''(2) = 3$. Donner l''approximation affine de $f(2{,}1)$.'
+        solution: 5.3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(2 + 0{,}1) \approx 5 + 3 \times 0{,}1 = 5{,}3$.
+          resultat: 5.3
+      - code: 1RE-DER-LOCAL-02
+        difficulte: 2
+        type: numerique
+        enonce: 'À l''aide de l''approximation $(1 + h)^2 \approx 1 + 2h$, donner une valeur approchée de $1{,}01^2$.'
+        solution: 1.02
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $h = 0{,}01$ $:$ $1 + 2 \times 0{,}01 = 1{,}02$.
+          resultat: 1.02
+      - code: 1RE-DER-LOCAL-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Donner l''approximation affine de $\sqrt{4{,}1}$ obtenue avec la tangente à la courbe de $x \mapsto \sqrt{x}$ en $4$.'
+        solution: 2.025
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(4) = 2$ et $f'(4) = \dfrac{1}{2\sqrt{4}} = \dfrac{1}{4}$.
+          - $\sqrt{4{,}1} \approx 2 + \dfrac{0{,}1}{4} = 2{,}025$.
+          resultat: 2.025
+      - code: 1RE-DER-LOCAL-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Pour $h > 0$, le taux de variation de $x \mapsto \sqrt{x}$ entre $0$ et $h$ vaut $\dfrac{1}{\sqrt{h}}$. Que peut-on en conclure ? A) La fonction racine est dérivable en $0$, de nombre dérivé $0$  B) La fonction racine n''est pas dérivable en $0$  C) La fonction racine n''est pas définie en $0$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Quand $h$ tend vers $0$, $\dfrac{1}{\sqrt{h}}$ devient infiniment grand $:$ pas de limite finie.
+          - La fonction est définie en $0$ mais n'y est pas dérivable (tangente verticale).
+          resultat: B
+      - code: 1RE-DER-LOCAL-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Pourquoi la fonction valeur absolue n''est-elle pas dérivable en $0$ ? A) Parce que $|0| = 0$  B) Parce que le taux $\dfrac{|h|}{h}$ vaut $1$ pour $h > 0$ et $-1$ pour $h < 0$  C) Parce qu''elle n''est pas définie pour $x < 0$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - À droite, le taux tend vers $1$ ; à gauche, vers $-1$.
+          - Il n'y a pas de limite unique $:$ pas de nombre dérivé en $0$.
+          resultat: B

@@ -241,3 +241,99 @@ competences:
           - $12 + 0{,}05x = 20$, soit $0{,}05x = 8$.
           - $x = \dfrac{8}{0{,}05} = 160$ SMS.
           resultat: '160'
+
+  - code: 2NDE-EQQUOT
+    libelle: Résoudre une équation quotient
+    attendus: [2NDE-2026-ALG-08, 2NDE-2026-FREP-02]
+    objectifs:
+    - Déterminer les valeurs interdites d'une expression fractionnaire.
+    - Résoudre une équation du type $\dfrac{A(x)}{B(x)} = k$.
+    prerequis:
+    - 2NDE-EQ1
+    - 2NDE-SIGNE
+    methodes:
+    - titre: Résoudre $\dfrac{A(x)}{B(x)} = k$
+      quand: L'inconnue apparaît au dénominateur.
+      etapes:
+      - Chercher les valeurs interdites, qui annulent $B(x)$.
+      - Pour les autres valeurs, l'équation équivaut à $A(x) = k \times B(x)$.
+      - Résoudre, puis rejeter toute solution qui serait une valeur interdite.
+      exemple:
+        enonce: Résoudre $\dfrac{2x + 1}{x - 3} = 5$.
+        resolution:
+        - Valeur interdite $x = 3$.
+        - $2x + 1 = 5(x - 3)$, soit $2x + 1 = 5x - 15$, donc $x = \dfrac{16}{3}$.
+        - '$\dfrac{16}{3} \neq 3$ : la solution est acceptée.'
+        resultat: $\dfrac{16}{3}$
+    erreurs_frequentes:
+    - erreur: Oublier de vérifier que la solution trouvée n'est pas une valeur interdite.
+      explication: Pour $\dfrac{x - 2}{x - 2} = 1$, tout $x$ convient… sauf $x = 2$.
+    - erreur: Écrire que $\dfrac{A(x)}{B(x)} = 0$ quand $B(x) = 0$.
+      explication: Un quotient est nul quand son numérateur est nul et son dénominateur non nul.
+    resume: |
+      - Une expression $\dfrac{A(x)}{B(x)}$ n'est définie que si $B(x) \neq 0$ : ce sont les valeurs interdites.
+      - $\dfrac{A(x)}{B(x)} = 0 \iff A(x) = 0$ et $B(x) \neq 0$.
+      - $\dfrac{A(x)}{B(x)} = k \iff A(x) = k\,B(x)$ et $B(x) \neq 0$.
+    cours: |
+      ## Ensemble de définition
+      $f(x) = \dfrac{3}{x + 4}$ est définie pour $x \neq -4$ : $f$ est définie sur $]-\infty ; -4[ \cup ]-4 ; +\infty[$.
+
+      ## Quotient nul
+      $\dfrac{x - 5}{x + 1} = 0 \iff x - 5 = 0$ et $x \neq -1$ : la solution est $5$.
+
+      ## Quotient égal à $k$
+      $\dfrac{x}{x - 1} = 3 \iff x = 3(x - 1)$ et $x \neq 1 \iff x = \dfrac{3}{2}$.
+    questions:
+      - code: 2NDE-EQQUOT-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quelle est la valeur interdite de l''expression $\dfrac{2}{x - 7}$ ?'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Le dénominateur s'annule pour $x = 7$.
+          resultat: 7
+      - code: 2NDE-EQQUOT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Résoudre $\dfrac{x - 5}{x + 1} = 0$.'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Numérateur nul pour $x = 5$, et $5 \neq -1$.
+          resultat: 5
+      - code: 2NDE-EQQUOT-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Résoudre $\dfrac{x}{x - 1} = 3$.'
+        solution: 3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Pour $x \neq 1$ : $x = 3x - 3$, donc $x = \dfrac{3}{2}$.'
+          resultat: 3/2
+      - code: 2NDE-EQQUOT-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Résoudre $\dfrac{2x + 1}{x - 3} = 5$.'
+        solution: 16/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Valeur interdite $3$.
+          - $2x + 1 = 5x - 15$, soit $3x = 16$.
+          - $x = \dfrac{16}{3}$, différent de $3$.
+          resultat: 16/3
+      - code: 2NDE-EQQUOT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Quel est l''ensemble des solutions de $\dfrac{x^2 - 4}{x - 2} = 0$ ? A) $\{-2 ; 2\}$  B) $\{-2\}$  C) $\{2\}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $x^2 - 4 = 0$ pour $x = 2$ ou $x = -2$.
+          - '$2$ est une valeur interdite : il reste $-2$.'
+          resultat: B

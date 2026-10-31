@@ -196,3 +196,193 @@ competences:
           - $\det = 2(k - 2) - (-1) \times 4 = 2k - 4 + 4 = 2k$.
           - $2k = 0$ donne $k = 0$.
           resultat: 0
+
+  - code: 2NDE-VEC-GEO
+    libelle: Construire et additionner des vecteurs
+    attendus: [2NDE-2026-VEC-01, 2NDE-2026-VEC-02, 2NDE-2026-VEC-04, 2NDE-2026-VEC-08, 2NDE-2026-VEC-09]
+    objectifs:
+    - Reconnaître deux vecteurs égaux et utiliser des représentants.
+    - Additionner des vecteurs (relation de Chasles, règle du parallélogramme).
+    - Caractériser le milieu d'un segment par une égalité vectorielle.
+    methodes:
+    - titre: Simplifier une somme avec la relation de Chasles
+      quand: Une somme de vecteurs s'écrit avec des points.
+      etapes:
+      - Réordonner les vecteurs pour que l'extrémité de l'un soit l'origine du suivant.
+      - Appliquer $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$ de proche en proche.
+      exemple:
+        enonce: Simplifier $\overrightarrow{CD} + \overrightarrow{AC}$.
+        resolution:
+        - $\overrightarrow{AC} + \overrightarrow{CD}$.
+        - $= \overrightarrow{AD}$.
+        resultat: $\overrightarrow{AD}$
+    erreurs_frequentes:
+    - erreur: Écrire $\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{BC}$.
+      explication: La relation de Chasles exige que l'extrémité du premier vecteur soit l'origine du second.
+    - erreur: Confondre $\overrightarrow{AB}$ et $\overrightarrow{BA}$.
+      explication: $\overrightarrow{BA} = -\overrightarrow{AB}$ $:$ même direction, même longueur, sens contraire.
+    resume: |
+      - $\overrightarrow{AB} = \overrightarrow{CD}$ si et seulement si $ABDC$ est un parallélogramme (éventuellement aplati).
+      - Chasles : $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$.
+      - Parallélogramme : $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$ si $ABCD$ est un parallélogramme.
+      - $I$ milieu de $[AB]$ $\iff \overrightarrow{AI} = \overrightarrow{IB} \iff \overrightarrow{IA} + \overrightarrow{IB} = \vec{0}$.
+    cours: |
+      ## Égalité de vecteurs
+      Un vecteur est défini par une direction, un sens et une longueur. Deux flèches de même direction, même sens et même longueur sont deux **représentants** du même vecteur.
+      $\overrightarrow{AB} = \overrightarrow{CD}$ équivaut à : $ABDC$ est un parallélogramme.
+
+      ## Somme
+      - **Chasles** : $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$.
+      - **Parallélogramme** : avec des représentants de même origine, $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$ où $ABCD$ est un parallélogramme.
+
+      ## Milieu
+      $I$ est le milieu de $[AB]$ si et seulement si $\overrightarrow{AI} = \overrightarrow{IB}$, ou encore $\overrightarrow{AI} = \dfrac{1}{2}\overrightarrow{AB}$.
+
+      ## Décomposition
+      Si $\vec{u}$ et $\vec{v}$ ne sont pas colinéaires, tout vecteur $\vec{w}$ s'écrit de façon unique $\vec{w} = a\vec{u} + b\vec{v}$.
+    questions:
+      - code: 2NDE-VEC-GEO-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Simplifier $\overrightarrow{MN} + \overrightarrow{NP}$. A) $\overrightarrow{MP}$  B) $\overrightarrow{PM}$  C) $\overrightarrow{NM}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Relation de Chasles $:$ $\overrightarrow{MN} + \overrightarrow{NP} = \overrightarrow{MP}$.
+          resultat: A
+      - code: 2NDE-VEC-GEO-02
+        difficulte: 2
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{KL} = \overrightarrow{PQ}$. Quel quadrilatère est un parallélogramme ? A) $KLPQ$  B) $KLQP$  C) $KQLP$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{KL} = \overrightarrow{PQ}$ équivaut à $KLQP$ parallélogramme (on « tourne » $K \to L \to Q \to P$).
+          resultat: B
+      - code: 2NDE-VEC-GEO-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Simplifier $\overrightarrow{RS} + \overrightarrow{TR} + \overrightarrow{ST}$. A) $\overrightarrow{RT}$  B) $\vec{0}$  C) $2\overrightarrow{RS}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{TR} + \overrightarrow{RS} + \overrightarrow{ST} = \overrightarrow{TS} + \overrightarrow{ST} = \overrightarrow{TT} = \vec{0}$.
+          resultat: B
+      - code: 2NDE-VEC-GEO-04
+        difficulte: 4
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{IM} + \overrightarrow{IN} = \vec{0}$. Que peut-on dire du point $I$ ? A) $I$ est le milieu de $[MN]$  B) $M$ est le milieu de $[IN]$  C) $I$, $M$, $N$ forment un triangle rectangle'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{IM} = -\overrightarrow{IN} = \overrightarrow{NI}$ $:$ donc $\overrightarrow{NI} = \overrightarrow{IM}$.
+          - $I$ est le milieu de $[MN]$.
+          resultat: A
+      - code: 2NDE-VEC-GEO-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Dans un parallélogramme $PQRS$, on note $\vec{u} = \overrightarrow{PQ}$ et $\vec{v} = \overrightarrow{PS}$. Exprimer $\overrightarrow{QS}$. A) $\vec{u} + \vec{v}$  B) $\vec{v} - \vec{u}$  C) $\vec{u} - \vec{v}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{QS} = \overrightarrow{QP} + \overrightarrow{PS} = -\vec{u} + \vec{v}$.
+          resultat: B
+
+  - code: 2NDE-VEC-PB
+    libelle: Résoudre un problème de géométrie avec les vecteurs
+    attendus: [2NDE-2026-VEC-14, 2NDE-2026-VEC-15]
+    objectifs:
+    - Choisir entre une méthode vectorielle, repérée ou géométrique.
+    - Démontrer un alignement, un parallélisme ou un milieu.
+    prerequis:
+    - 2NDE-VEC-GEO
+    - 2NDE-VEC-COL
+    - 2NDE-VEC-COORD
+    methodes:
+    - titre: Démontrer un alignement avec des vecteurs
+      quand: On doit montrer que trois points $A$, $B$, $C$ sont alignés.
+      etapes:
+      - Exprimer $\overrightarrow{AB}$ et $\overrightarrow{AC}$ (par Chasles ou par coordonnées).
+      - Montrer qu'ils sont colinéaires (un multiple de l'autre, ou déterminant nul).
+      exemple:
+        enonce: $A(1 ; 2)$, $B(3 ; 5)$, $C(7 ; 11)$ sont-ils alignés ?
+        resolution:
+        - $\overrightarrow{AB}(2 ; 3)$ et $\overrightarrow{AC}(6 ; 9)$.
+        - $\overrightarrow{AC} = 3\overrightarrow{AB}$.
+        resultat: Oui, les points sont alignés.
+    erreurs_frequentes:
+    - erreur: Conclure à un alignement à partir d'une figure.
+      explication: Une figure illustre, elle ne démontre pas $:$ il faut un calcul.
+    resume: |
+      - Alignement de $A$, $B$, $C$ $\iff$ $\overrightarrow{AB}$ et $\overrightarrow{AC}$ colinéaires.
+      - Parallélisme de $(AB)$ et $(CD)$ $\iff$ $\overrightarrow{AB}$ et $\overrightarrow{CD}$ colinéaires.
+      - En repère, on calcule des coordonnées et un déterminant ; sans repère, on utilise Chasles.
+    cours: |
+      ## Choisir une méthode
+      - **Vectorielle** : décomposer les vecteurs à l'aide de Chasles, puis comparer.
+      - **Repérée** : choisir un repère adapté, calculer les coordonnées, utiliser le déterminant.
+      - **Géométrique** : utiliser les propriétés des figures (parallélogramme, milieux, Thalès).
+
+      ## Exemple
+      $ABCD$ est un parallélogramme, $I$ le milieu de $[AB]$ et $E$ tel que $\overrightarrow{DE} = 2\overrightarrow{DI}$. Dans le repère $(A ; \overrightarrow{AB}, \overrightarrow{AD})$ : $D(0 ; 1)$, $I(\tfrac{1}{2} ; 0)$, donc $E(1 ; -1)$. Comme $B(1 ; 0)$ et $C(1 ; 1)$, les points $B$, $C$, $E$ ont la même abscisse : ils sont alignés.
+    questions:
+      - code: 2NDE-VEC-PB-01
+        difficulte: 1
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{AC} = 4\overrightarrow{AB}$. Que peut-on conclure ? A) $A$, $B$, $C$ sont alignés  B) $ABC$ est un triangle rectangle  C) $B$ est le milieu de $[AC]$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires et ont l'origine $A$ en commun.
+          resultat: A
+      - code: 2NDE-VEC-PB-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Les points $A(1 ; 2)$, $B(3 ; 5)$ et $C(7 ; y)$ sont alignés. Calculer $y$.'
+        solution: 11
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{AB}(2 ; 3)$ et $\overrightarrow{AC}(6 ; y - 2)$.
+          - Colinéarité $:$ $2(y - 2) - 3 \times 6 = 0$, donc $y = 11$.
+          resultat: 11
+      - code: 2NDE-VEC-PB-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Dans le repère $(O ; \vec{\imath}, \vec{\jmath})$, $M(1 ; 1)$, $N(4 ; 2)$, $P(0 ; 3)$ et $Q(6 ; 5)$. Les droites $(MN)$ et $(PQ)$ sont-elles parallèles ? A) Oui  B) Non'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MN}(3 ; 1)$ et $\overrightarrow{PQ}(6 ; 2) = 2\overrightarrow{MN}$.
+          - Les vecteurs sont colinéaires $:$ les droites sont parallèles.
+          resultat: A
+      - code: 2NDE-VEC-PB-04
+        difficulte: 4
+        type: qcm
+        enonce: '$ABCD$ est un parallélogramme et $E$ est défini par $\overrightarrow{BE} = \overrightarrow{AB}$. Que peut-on dire du quadrilatère $BECD$ ? A) C''est un parallélogramme  B) C''est un trapèze non parallélogramme  C) On ne peut rien dire'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{BE} = \overrightarrow{AB} = \overrightarrow{DC}$.
+          - $\overrightarrow{BE} = \overrightarrow{DC}$ signifie que $BECD$ est un parallélogramme.
+          resultat: A
+      - code: 2NDE-VEC-PB-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans le repère $(A ; \overrightarrow{AB}, \overrightarrow{AD})$ d''un parallélogramme $ABCD$, $I$ est le milieu de $[AB]$ et $E$ vérifie $\overrightarrow{DE} = 2\overrightarrow{DI}$. Quelle est l''abscisse de $E$ ?'
+        solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $D(0 ; 1)$ et $I(\tfrac{1}{2} ; 0)$, donc $\overrightarrow{DI}(\tfrac{1}{2} ; -1)$.
+          - $E = D + 2\overrightarrow{DI}$ a pour coordonnées $(1 ; -1)$.
+          - Comme $B(1 ; 0)$ et $C(1 ; 1)$, les points $B$, $C$, $E$ sont alignés.
+          resultat: 1

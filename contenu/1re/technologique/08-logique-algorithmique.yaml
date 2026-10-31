@@ -1,0 +1,202 @@
+# Parties transversales « Vocabulaire ensembliste et logique » et « Algorithmique et programmation »
+# du programme de première technologique 2026 (sauf série STD2A pour l'algorithmique).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 1RE-TEC-LOGALGO
+  niveau: 1re
+  parcours: technologique
+  ordre: 8
+  titre: Logique, algorithmique et programmation
+
+competences:
+- code: 1RE-TEC-LOGIQUE
+  libelle: Raisonner avec les connecteurs, les conditions et les contre-exemples
+  attendus: [1RE-TEC-2026-TRANS-01, 1RE-TEC-2026-TRANS-02, 1RE-TEC-2026-TRANS-03, 1RE-TEC-2026-TRANS-04, 1RE-TEC-2026-TRANS-05]
+  objectifs:
+  - Utiliser correctement « et », « ou », et distinguer une identité d'une équation.
+  - Infirmer une proposition par un contre-exemple, distinguer une proposition de sa réciproque et de sa contraposée.
+  - Employer « condition nécessaire », « condition suffisante », « équivalence ».
+  methodes:
+  - titre: Reconnaître une condition nécessaire ou suffisante
+    quand: Une implication « si P, alors Q » est vraie.
+    etapes:
+    - P est une condition suffisante pour Q $:$ il suffit que P soit vraie pour que Q le soit.
+    - Q est une condition nécessaire pour P $:$ sans Q, P est impossible.
+    exemple:
+      enonce: « Si un nombre est multiple de $10$, alors il est pair. »
+      resolution:
+      - Être multiple de $10$ suffit pour être pair.
+      - Être pair est nécessaire pour être multiple de $10$, mais ne suffit pas ($4$ est pair).
+      resultat: condition suffisante / condition nécessaire
+  erreurs_frequentes:
+  - erreur: Confondre une identité et une équation.
+    explication: $(x + 1)^2 = x^2 + 2x + 1$ est vraie pour tout $x$ (identité) ; $x^2 = 4$ n'est vraie que pour certaines valeurs (équation).
+  resume: |
+    - « P et Q » est vraie si les deux le sont ; « P ou Q » si au moins l'une l'est.
+    - Un contre-exemple suffit pour montrer qu'une proposition « pour tout » est fausse.
+    - Réciproque de « si P, alors Q » : « si Q, alors P » ; contraposée : « si non Q, alors non P ».
+    - Si « P ⟹ Q » est vraie : P est suffisante pour Q, Q est nécessaire pour P.
+  cours: |
+    ## Statut d'une égalité
+    Dans $y = 3x + 2$, $x$ et $y$ sont des variables ; dans $3x + 2 = 11$, $x$ est l'inconnue ; dans $y = mx + p$, $m$ et $p$ sont des paramètres.
+
+    ## Implications
+    « Si un triangle est équilatéral, alors il est isocèle » est vraie ; sa réciproque est fausse ; sa contraposée « si un triangle n'est pas isocèle, il n'est pas équilatéral » est vraie.
+  questions:
+  - code: 1RE-TEC-LOGIQUE-01
+    difficulte: 1
+    type: qcm
+    enonce: 'L''égalité $(x + 1)^2 = x^2 + 2x + 1$ est : A) une identité, vraie pour tout $x$  B) une équation, vraie pour certaines valeurs de $x$  C) toujours fausse'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Le développement d'une identité remarquable est vrai pour tout réel $x$.
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-02
+    difficulte: 2
+    type: numerique
+    enonce: 'On affirme : « pour tout entier $n$, $2n + 1$ est un nombre premier ». Donner le plus petit entier $n \geqslant 1$ qui est un contre-exemple.'
+    solution: 4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Pour $n = 1, 2, 3$, on obtient $3$, $5$, $7$, qui sont premiers.
+      - Pour $n = 4$, $2 \times 4 + 1 = 9 = 3 \times 3$ n'est pas premier.
+      resultat: 4
+  - code: 1RE-TEC-LOGIQUE-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quelle est la réciproque de « si un triangle est équilatéral, alors il est isocèle » ? A) « si un triangle est isocèle, alors il est équilatéral »  B) « si un triangle n''est pas isocèle, il n''est pas équilatéral »  C) « un triangle est équilatéral et isocèle »'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - La réciproque échange l'hypothèse et la conclusion ; elle est fausse ici.
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Pour qu''un nombre entier soit multiple de $10$, être pair est : A) une condition nécessaire mais pas suffisante  B) une condition suffisante mais pas nécessaire  C) une condition nécessaire et suffisante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Tout multiple de $10$ est pair $:$ la condition est nécessaire.
+      - $4$ est pair sans être multiple de $10$ $:$ elle n'est pas suffisante.
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Un client a droit à une réduction s''il est étudiant ou s''il a moins de $18$ ans. Lequel n''y a pas droit ? A) Un étudiant de $22$ ans  B) Un lycéen de $16$ ans  C) Un salarié de $30$ ans'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - « ou » est vrai dès qu'une des conditions est remplie.
+      - Le salarié de $30$ ans ne remplit aucune des deux conditions.
+      resultat: C
+
+- code: 1RE-TEC-ALGO
+  libelle: Programmer avec compteurs, accumulateurs, fonctions et listes
+  attendus: [1RE-TEC-2026-TRANS-06, 1RE-TEC-2026-TRANS-07, 1RE-TEC-2026-TRANS-08, 1RE-TEC-2026-TRANS-09, 1RE-TEC-2026-TRANS-10, 1RE-TEC-2026-TRANS-11, 1RE-TEC-2026-TRANS-12, 1RE-TEC-2026-TRANS-13, 1RE-TEC-2026-TRANS-14, 1RE-TEC-2026-TRANS-15]
+  objectifs:
+  - Utiliser un compteur et un accumulateur dans une boucle.
+  - Structurer un programme en fonctions et identifier leurs entrées et sorties.
+  - Générer et parcourir une liste, sélectionner des données et construire un tableau croisé.
+  methodes:
+  - titre: Compteur ou accumulateur ?
+    quand: Une boucle doit produire un résultat global.
+    etapes:
+    - Compteur $:$ on ajoute $1$ chaque fois qu'une condition est remplie (`c = c + 1`).
+    - Accumulateur $:$ on ajoute (ou multiplie) une valeur à chaque tour (`s = s + x`).
+    - Initialiser avant la boucle $:$ $0$ pour une somme ou un compteur, $1$ pour un produit.
+    exemple:
+      enonce: 'Combien de valeurs de `[12, 5, 18, 9, 15]` dépassent $10$ ?'
+      resolution:
+      - '`c = 0`, puis `for x in L: if x > 10: c = c + 1`.'
+      - $12$, $18$ et $15$ dépassent $10$.
+      resultat: $3$
+  erreurs_frequentes:
+  - erreur: Initialiser un accumulateur de produit à $0$.
+    explication: Le produit resterait toujours nul $:$ on initialise un produit à $1$.
+  resume: |
+    - Compteur : `c = 0` puis `c = c + 1` sous condition.
+    - Accumulateur : `s = 0` puis `s = s + x` (somme) ; `p = 1` puis `p = p * x` (produit).
+    - Fonction : `def nom(entrées):` … `return sortie`.
+    - Listes : `L = [ ]`, `L.append(x)`, `L[i]` (indice à partir de $0$), `for x in L:`.
+  cours: |
+    ## Compteur et accumulateur
+    ```python
+    L = [12, 5, 18, 9, 15]
+    c = 0
+    s = 0
+    for x in L:
+        s = s + x
+        if x > 10:
+            c = c + 1
+    ```
+    À la fin, `s` vaut $59$ et `c` vaut $3$.
+
+    ## Fonctions
+    ```python
+    def moyenne(L):
+        return sum(L) / len(L)
+    ```
+    Entrée : une liste ; sortie : un nombre.
+
+    ## Sélection de données
+    À partir de deux listes `sexe` et `sport` (une case par individu), on compte les individus qui vérifient deux critères pour remplir un tableau croisé.
+  questions:
+  - code: 1RE-TEC-ALGO-01
+    difficulte: 1
+    type: numerique
+    enonce: 'On exécute `p = 1`, puis `for k in range(1, 5): p = p * 2`. Que vaut `p` à la fin ?'
+    solution: 16
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - La boucle fait $4$ tours $:$ $p = 2^4 = 16$.
+      resultat: 16
+  - code: 1RE-TEC-ALGO-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Avec `L = [12, 5, 18, 9, 15]`, on exécute `c = 0`, puis `for x in L: if x > 10: c = c + 1`. Que vaut `c` ?'
+    solution: 3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Les valeurs $12$, $18$, $15$ dépassent $10$.
+      resultat: 3
+  - code: 1RE-TEC-ALGO-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Avec `L = [12, 5, 18, 9, 15]`, que renvoie `sum(L) / len(L)` ?'
+    solution: 11.8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{12 + 5 + 18 + 9 + 15}{5} = \dfrac{59}{5} = 11{,}8$.
+      resultat: 11.8
+  - code: 1RE-TEC-ALGO-04
+    difficulte: 4
+    type: qcm
+    enonce: 'On définit `def tirage(p): return 1 if random() < p else 0`. Quelles sont l''entrée et la sortie de cette fonction ? A) Entrée $:$ la probabilité `p` ; sortie $:$ $1$ (succès) ou $0$ (échec)  B) Entrée $:$ un nombre aléatoire ; sortie $:$ la probabilité `p`  C) Aucune entrée ; sortie $:$ une liste'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Le paramètre `p` est l'entrée ; la fonction renvoie $1$ avec la probabilité `p`, $0$ sinon.
+      - Elle simule une épreuve de Bernoulli de paramètre `p`.
+      resultat: A
+  - code: 1RE-TEC-ALGO-05
+    difficulte: 5
+    type: numerique
+    enonce: 'On a deux listes de même longueur : `sexe = ["F", "G", "F", "F", "G", "G"]` et `sport = [1, 1, 0, 1, 0, 1]` (1 : pratique un sport). Combien d''individus sont des filles pratiquant un sport ?'
+    solution: 2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On parcourt les indices $0$ à $5$ et on compte ceux où `sexe[i] == "F"` et `sport[i] == 1`.
+      - Indices $0$ et $3$ $:$ $2$ individus.
+      resultat: 2

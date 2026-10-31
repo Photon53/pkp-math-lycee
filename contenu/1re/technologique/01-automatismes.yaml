@@ -181,3 +181,175 @@ competences:
       etapes:
       - 'Entre les racines, $x - 1 > 0$ et $x - 4 < 0$ : le produit est négatif.'
       resultat: A
+
+- code: 1RE-TEC-GRAPH
+  libelle: Lectures graphiques de fonctions et de droites
+  attendus: [1RE-TEC-2026-AUTO-08, 1RE-TEC-2026-AUTO-09, 1RE-TEC-2026-AUTO-10, 1RE-TEC-2026-AUTO-11, 1RE-TEC-2026-AUTO-12]
+  objectifs:
+  - Résoudre graphiquement une équation ou une inéquation, lire un signe ou des variations.
+  - Tracer une droite, lire son équation réduite, calculer un coefficient directeur.
+  methodes:
+  - titre: Calculer un coefficient directeur
+    quand: On connaît deux points $A$ et $B$ d'une droite non verticale.
+    etapes:
+    - Calculer la variation des ordonnées $y_B - y_A$ et celle des abscisses $x_B - x_A$.
+    - Diviser $:$ $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+    exemple:
+      enonce: $A(2 ; 1)$ et $B(6 ; 9)$.
+      resolution:
+      - $m = \dfrac{9 - 1}{6 - 2} = \dfrac{8}{4}$.
+      resultat: $m = 2$
+  erreurs_frequentes:
+  - erreur: Inverser numérateur et dénominateur.
+    explication: Le coefficient directeur est « vertical sur horizontal » $:$ $\dfrac{\Delta y}{\Delta x}$.
+  resume: |
+    - $f(x) = k$ : abscisses des points de la courbe à la hauteur $k$.
+    - $f(x) < k$ : abscisses des points de la courbe sous la droite $y = k$.
+    - Droite $y = mx + p$ : $p$ est l'ordonnée à l'origine, $m$ la pente.
+    - $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+  cours: |
+    ## Résolution graphique
+    On trace la droite horizontale $y = k$ et on lit les abscisses des points d'intersection avec la courbe.
+
+    ## Signe et variations
+    $f(x) > 0$ quand la courbe est au-dessus de l'axe des abscisses. La courbe qui monte de gauche à droite indique une fonction croissante.
+
+    ## Tracer une droite
+    $y = 2x - 1$ : on place $(0 ; -1)$, puis on avance de $1$ vers la droite et de $2$ vers le haut.
+  questions:
+    - code: 1RE-TEC-GRAPH-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Quelle est l''ordonnée à l''origine de la droite d''équation $y = 2x - 1$ ?'
+      solution: -1
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Pour $x = 0$, $y = -1$.
+        resultat: -1
+    - code: 1RE-TEC-GRAPH-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Calculer le coefficient directeur de la droite passant par $A(2 ; 1)$ et $B(6 ; 9)$.'
+      solution: 2
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $m = \dfrac{9 - 1}{6 - 2} = 2$.
+        resultat: 2
+    - code: 1RE-TEC-GRAPH-03
+      difficulte: 3
+      type: expression
+      enonce: 'Une droite coupe l''axe des ordonnées en $(0 ; 4)$ et passe par $(2 ; 1)$. Donner son équation réduite sous la forme $y = \ldots$'
+      solution: -3x/2 + 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $p = 4$ et $m = \dfrac{1 - 4}{2 - 0} = -\dfrac{3}{2}$.
+        resultat: -3x/2 + 4
+    - code: 1RE-TEC-GRAPH-04
+      difficulte: 4
+      type: qcm
+      enonce: 'La courbe d''une fonction $f$ coupe la droite $y = 3$ aux abscisses $1$ et $5$ ; elle est au-dessus de cette droite entre ces abscisses. Quelles sont les solutions de $f(x) > 3$ ? A) $]1 ; 5[$  B) $]-\infty ; 1[ \cup ]5 ; +\infty[$  C) $\{1 ; 5\}$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $f(x) > 3$ là où la courbe est au-dessus de la droite $y = 3$ $:$ entre $1$ et $5$, bornes exclues.
+        resultat: A
+    - code: 1RE-TEC-GRAPH-05
+      difficulte: 5
+      type: qcm
+      enonce: 'Une fonction est croissante sur $[0 ; 4]$ puis décroissante sur $[4 ; 9]$, avec $f(0) = -2$, $f(4) = 6$ et $f(9) = 1$. Sur quel intervalle $f$ peut-elle être négative ? A) Seulement sur une partie de $[0 ; 4]$  B) Seulement sur une partie de $[4 ; 9]$  C) Sur aucun intervalle'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Sur $[4 ; 9]$, $f$ décroît de $6$ à $1$ $:$ elle reste positive.
+        - Sur $[0 ; 4]$, elle part de $-2$ $:$ elle est négative au début de l'intervalle.
+        resultat: A
+
+- code: 1RE-TEC-STAT
+  libelle: Lire des représentations de données et calculer des indicateurs
+  attendus: [1RE-TEC-2026-AUTO-13, 1RE-TEC-2026-AUTO-14, 1RE-TEC-2026-AUTO-15]
+  objectifs:
+  - Lire diagrammes en barres, circulaires, histogrammes et diagrammes en boîte.
+  - Calculer et interpréter moyenne, médiane, quartiles.
+  methodes:
+  - titre: Calculer une moyenne à partir d'un diagramme en barres
+    quand: Le diagramme donne l'effectif de chaque valeur.
+    etapes:
+    - Relever chaque valeur et son effectif (hauteur de la barre).
+    - Calculer $\dfrac{\sum n_i x_i}{N}$.
+    exemple:
+      enonce: Valeurs $1$, $2$, $3$ d'effectifs $4$, $5$, $1$.
+      resolution:
+      - $\dfrac{4 + 10 + 3}{10}$.
+      resultat: $1{,}7$
+  erreurs_frequentes:
+  - erreur: Faire la moyenne des valeurs sans tenir compte des effectifs.
+    explication: Chaque valeur compte autant de fois que son effectif.
+  resume: |
+    - Moyenne : $\bar{x} = \dfrac{\sum n_i x_i}{N}$.
+    - Médiane : valeur centrale de la série ordonnée.
+    - Quartiles : $Q_1$ et $Q_3$ délimitent environ la moitié centrale des valeurs.
+    - Toujours lire les unités et les échelles d'un graphique.
+  cours: |
+    ## Du graphique aux données
+    Un diagramme en barres indique : $1$ enfant pour $4$ familles, $2$ enfants pour $5$ familles, $3$ enfants pour $1$ famille.
+    Nombre moyen d'enfants : $\dfrac{4 + 10 + 3}{10} = 1{,}7$ ; médiane : $2$.
+
+    ## Diagramme en boîte
+    Il résume minimum, $Q_1$, médiane, $Q_3$, maximum ; l'écart interquartile $Q_3 - Q_1$ mesure la dispersion.
+  questions:
+    - code: 1RE-TEC-STAT-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Calculer la moyenne de la série $10$ ; $12$ ; $14$ ; $16$.'
+      solution: 13
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{52}{4} = 13$.
+        resultat: 13
+    - code: 1RE-TEC-STAT-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Dans un diagramme circulaire de $200$ personnes, un secteur représente $30\,\%$. Combien de personnes représente-t-il ?'
+      solution: 60
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}3 \times 200 = 60$.
+        resultat: 60
+    - code: 1RE-TEC-STAT-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Un diagramme en barres indique : $4$ familles ont $1$ enfant, $5$ familles ont $2$ enfants et $1$ famille a $3$ enfants. Calculer le nombre moyen d''enfants par famille.'
+      solution: 1.7
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{4 \times 1 + 5 \times 2 + 1 \times 3}{10} = 1{,}7$.
+        resultat: 1.7
+    - code: 1RE-TEC-STAT-04
+      difficulte: 4
+      type: numerique
+      enonce: 'Avec les mêmes données ($4$ familles à $1$ enfant, $5$ à $2$ enfants, $1$ à $3$ enfants), quelle est la médiane du nombre d''enfants ?'
+      solution: 2
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Série ordonnée de $10$ valeurs $:$ la médiane est entre la 5e et la 6e valeur, qui valent toutes deux $2$.
+        resultat: 2
+    - code: 1RE-TEC-STAT-05
+      difficulte: 5
+      type: qcm
+      enonce: 'Les salaires d''une entreprise ont une moyenne de $3\,200$ € et une médiane de $2\,100$ €. Quelle interprétation est correcte ? A) Quelques salaires très élevés tirent la moyenne vers le haut  B) La moitié des salariés gagne plus de $3\,200$ €  C) La moyenne et la médiane sont forcément égales'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - La moitié des salariés gagne au plus $2\,100$ €.
+        - La moyenne, bien plus élevée, est sensible aux valeurs extrêmes $:$ quelques hauts salaires la font monter.
+        resultat: A

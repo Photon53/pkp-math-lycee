@@ -89,3 +89,88 @@ competences:
       - $\dfrac{1}{0{,}7} = \dfrac{10}{7}$, donc une hausse de $\dfrac{10}{7} - 1 = \dfrac{3}{7}$.
       - Soit $\dfrac{300}{7}\,\% \approx 42{,}9\,\%$.
       resultat: 300/7
+
+- code: TLE-TEC-AUTO-EVO
+  libelle: Automatismes sur les évolutions en pourcentage
+  attendus: [TLE-TEC-2026-AUTO-03, TLE-TEC-2026-AUTO-04, TLE-TEC-2026-AUTO-05, TLE-TEC-2026-AUTO-07, TLE-TEC-2026-AUTO-08]
+  objectifs:
+  - Passer d'une formulation additive à une formulation multiplicative.
+  - Appliquer et calculer un taux, une évolution globale, une évolution réciproque.
+  methodes:
+  - titre: Traduire une évolution en coefficient multiplicateur
+    quand: Un énoncé dit « augmenter de » ou « diminuer de » un pourcentage.
+    etapes:
+    - Augmenter de $t\,\%$ $:$ multiplier par $1 + \dfrac{t}{100}$ ; diminuer de $t\,\%$ $:$ multiplier par $1 - \dfrac{t}{100}$.
+    - Enchaîner $:$ multiplier les coefficients ; revenir en arrière $:$ diviser.
+    exemple:
+      enonce: Diminuer de $8\,\%$, puis augmenter de $5\,\%$.
+      resolution:
+      - $0{,}92 \times 1{,}05 = 0{,}966$.
+      resultat: baisse globale de $3{,}4\,\%$
+  erreurs_frequentes:
+  - erreur: Écrire qu'une baisse de $8\,\%$ revient à multiplier par $0{,}08$.
+    explication: Il reste $92\,\%$ de la valeur $:$ on multiplie par $0{,}92$.
+  resume: |
+    - « Augmenter de $5\,\%$ » = « multiplier par $1{,}05$ » ; « diminuer de $5\,\%$ » = « multiplier par $0{,}95$ ».
+    - Taux : $\dfrac{V_2 - V_1}{V_1}$ ; coefficient : $\dfrac{V_2}{V_1}$.
+    - Évolutions successives : produit des coefficients ; réciproque : inverse du coefficient.
+  cours: |
+    ## Formulation multiplicative
+    Un loyer de $650$ € augmenté de $2\,\%$ : $650 \times 1{,}02 = 663$ €.
+
+    ## Taux, global et réciproque
+    De $400$ à $340$ : $\dfrac{340 - 400}{400} = -0{,}15$, soit $-15\,\%$.
+    $-8\,\%$ puis $+5\,\%$ : coefficient global $0{,}966$, soit $-3{,}4\,\%$.
+    Après une baisse de $20\,\%$, il faut une hausse de $25\,\%$ pour revenir au départ ($\dfrac{1}{0{,}8} = 1{,}25$).
+  questions:
+    - code: TLE-TEC-AUTO-EVO-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Diminuer une quantité de $5\,\%$ revient à la multiplier par quel nombre ?'
+      solution: 0.95
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $1 - 0{,}05 = 0{,}95$.
+        resultat: 0.95
+    - code: TLE-TEC-AUTO-EVO-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Un loyer de $650$ € augmente de $2\,\%$. Quel est le nouveau loyer (en €) ?'
+      solution: 663
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $650 \times 1{,}02 = 663$.
+        resultat: 663
+    - code: TLE-TEC-AUTO-EVO-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Un effectif passe de $400$ à $340$. Quel est le taux d''évolution, en pourcentage ?'
+      solution: -15
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{340 - 400}{400} = -0{,}15$.
+        resultat: -15
+    - code: TLE-TEC-AUTO-EVO-04
+      difficulte: 4
+      type: numerique
+      enonce: 'Un prix baisse de $8\,\%$ puis augmente de $5\,\%$. Quel est le taux d''évolution global, en pourcentage ?'
+      solution: -3.4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}92 \times 1{,}05 = 0{,}966$.
+        - $0{,}966 - 1 = -0{,}034$, soit $-3{,}4\,\%$.
+        resultat: -3.4
+    - code: TLE-TEC-AUTO-EVO-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Après une baisse de $20\,\%$, de quel pourcentage faut-il augmenter un prix pour revenir à sa valeur initiale ?'
+      solution: 25
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{1}{0{,}8} = 1{,}25$, soit une hausse de $25\,\%$.
+        resultat: 25

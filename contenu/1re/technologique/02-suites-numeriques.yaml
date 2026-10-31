@@ -93,3 +93,98 @@ competences:
       - $u(n) = 1\,000 \times 1{,}5^n$.
       - $u(5) \approx 7\,594$ et $u(6) \approx 11\,391$.
       resultat: '6'
+
+- code: 1RE-TEC-SUI-GRAPH
+  libelle: Représenter une suite et automatiser ses calculs
+  attendus: [1RE-TEC-2026-ANA-06, 1RE-TEC-2026-ANA-07, 1RE-TEC-2026-ANA-10]
+  objectifs:
+  - Représenter les termes d'une suite par un nuage de points et conjecturer sa nature.
+  - Calculer des termes, une somme ou un seuil à l'aide d'un algorithme.
+  prerequis:
+  - 1RE-TEC-SUITES
+  methodes:
+  - titre: Reconnaître la nature d'une suite sur son nuage de points
+    quand: On dispose de la représentation graphique des premiers termes.
+    etapes:
+    - Points alignés $:$ croissance linéaire, suite arithmétique (écarts constants).
+    - Points sur une courbe qui s'accélère ou ralentit, avec des rapports constants $:$ suite géométrique.
+    - Confirmer en calculant les différences ou les quotients de termes consécutifs.
+    exemple:
+      enonce: Les termes $3$, $6$, $12$, $24$ sont représentés.
+      resolution:
+      - Les écarts ($3$, $6$, $12$) ne sont pas constants ; les quotients valent tous $2$.
+      resultat: suite géométrique de raison $2$
+  erreurs_frequentes:
+  - erreur: Relier les points du nuage par une courbe.
+    explication: Une suite n'est définie que pour des entiers $:$ sa représentation est un nuage de points isolés.
+  resume: |
+    - Représentation d'une suite : les points $(n ; u_n)$.
+    - Points alignés : suite arithmétique ; quotient constant entre termes consécutifs : suite géométrique.
+    - Seuil : une boucle `while` répète le calcul du terme suivant tant que le seuil n'est pas atteint.
+  cours: |
+    ## Nuage de points
+    $u_n = 2n + 1$ : les points $(0 ; 1)$, $(1 ; 3)$, $(2 ; 5)$… sont alignés.
+    $v_n = 3 \times 2^n$ : les points s'éloignent de plus en plus vite de l'axe des abscisses.
+
+    ## Algorithme de seuil
+    ```python
+    u = 1000
+    n = 0
+    while u < 2000:
+        u = u * 1.1
+        n = n + 1
+    ```
+    Ce programme renvoie le premier rang $n$ pour lequel $u_n \geqslant 2\,000$ ; ici $n = 8$.
+  questions:
+    - code: 1RE-TEC-SUI-GRAPH-01
+      difficulte: 1
+      type: qcm
+      enonce: 'Les points représentant une suite sont alignés. La suite est sans doute : A) arithmétique  B) géométrique  C) ni l''une ni l''autre'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Des points alignés traduisent un écart constant entre termes consécutifs.
+        resultat: A
+    - code: 1RE-TEC-SUI-GRAPH-02
+      difficulte: 2
+      type: qcm
+      enonce: 'Les premiers termes d''une suite sont $3$, $6$, $12$, $24$. Quelle est sa nature ? A) arithmétique de raison $3$  B) géométrique de raison $2$  C) géométrique de raison $3$'
+      solution: B
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{6}{3} = \dfrac{12}{6} = \dfrac{24}{12} = 2$.
+        resultat: B
+    - code: 1RE-TEC-SUI-GRAPH-03
+      difficulte: 3
+      type: numerique
+      enonce: 'La suite $(u_n)$ est définie par $u_0 = 5$ et $u_{n+1} = u_n + 4$. On représente ses termes : quelle est l''ordonnée du point d''abscisse $6$ ?'
+      solution: 29
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $u_6 = 5 + 6 \times 4 = 29$.
+        resultat: 29
+    - code: 1RE-TEC-SUI-GRAPH-04
+      difficulte: 4
+      type: numerique
+      enonce: 'On exécute `s = 0`, `u = 2`, puis `for k in range(4): s = s + u` et `u = u * 3` (dans la boucle). Que vaut `s` à la fin ?'
+      solution: 80
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - On ajoute successivement $2$, $6$, $18$, $54$.
+        - $s = 2 + 6 + 18 + 54 = 80$.
+        resultat: 80
+    - code: 1RE-TEC-SUI-GRAPH-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Une population de $1\,000$ bactéries augmente de $10\,\%$ par heure. Un algorithme cherche le premier nombre d''heures $n$ pour lequel elle atteint au moins $2\,000$. Quelle valeur renvoie-t-il ?'
+      solution: 8
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $1\,000 \times 1{,}1^7 \approx 1\,949$ et $1\,000 \times 1{,}1^8 \approx 2\,144$.
+        - Le seuil est atteint pour la première fois au rang $8$.
+        resultat: 8

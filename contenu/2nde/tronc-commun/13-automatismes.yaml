@@ -1,0 +1,732 @@
+# Automatismes du programme de seconde 2026 (partie transversale) : entraînement régulier, sans calculatrice.
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 2NDE-AUTOMATISMES
+  niveau: 2nde
+  parcours: tronc-commun
+  ordre: 13
+  titre: Automatismes
+
+competences:
+  - code: 2NDE-AUTO-ECRIT
+    libelle: Changer d'écriture, estimer un ordre de grandeur, contrôler un résultat
+    attendus: [2NDE-2026-AUTO-04, 2NDE-2026-AUTO-05, 2NDE-2026-AUTO-06]
+    objectifs:
+    - Passer d'une écriture décimale à une fraction ou à un pourcentage, et inversement.
+    - Estimer un ordre de grandeur pour contrôler la vraisemblance d'un résultat.
+    methodes:
+    - titre: Estimer un ordre de grandeur
+      quand: On veut contrôler un calcul ou choisir parmi des réponses proposées.
+      etapes:
+      - Remplacer chaque nombre par une valeur ronde proche.
+      - Effectuer le calcul simplifié de tête.
+      - Comparer avec le résultat obtenu.
+      exemple:
+        enonce: Ordre de grandeur de $398 \times 0{,}51$ ?
+        resolution:
+        - $398 \approx 400$ et $0{,}51 \approx 0{,}5$.
+        - $400 \times 0{,}5 = 200$.
+        resultat: environ $200$
+    erreurs_frequentes:
+    - erreur: Écrire $0{,}5\,\% = 0{,}5$.
+      explication: $0{,}5\,\% = \dfrac{0{,}5}{100} = 0{,}005$.
+    resume: |
+      - $\dfrac{3}{4} = 0{,}75 = 75\,\%$ ; $\dfrac{1}{5} = 0{,}2 = 20\,\%$ ; $\dfrac{1}{8} = 0{,}125 = 12{,}5\,\%$.
+      - $t\,\% = \dfrac{t}{100}$.
+      - Ordre de grandeur : on arrondit chaque nombre à une valeur simple avant de calculer.
+      - Un résultat invraisemblable (une probabilité de $1{,}3$, une taille de $17$ m) signale une erreur.
+    cours: |
+      ## Trois écritures d'un même nombre
+      | Fraction | Décimal | Pourcentage |
+      |:-:|:-:|:-:|
+      | $\dfrac{1}{2}$ | $0{,}5$ | $50\,\%$ |
+      | $\dfrac{1}{4}$ | $0{,}25$ | $25\,\%$ |
+      | $\dfrac{3}{20}$ | $0{,}15$ | $15\,\%$ |
+
+      ## Ordre de grandeur
+      $\dfrac{6\,012}{29{,}7} \approx \dfrac{6\,000}{30} = 200$.
+
+      ## Contrôler un résultat
+      Avant de conclure, on se demande si le résultat a le bon signe, la bonne unité et une taille raisonnable.
+    questions:
+      - code: 2NDE-AUTO-ECRIT-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Écrire $35\,\%$ sous forme décimale.'
+        solution: 0.35
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $35\,\% = \dfrac{35}{100} = 0{,}35$.
+          resultat: 0.35
+      - code: 2NDE-AUTO-ECRIT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Écrire $0{,}125$ sous forme d''une fraction irréductible.'
+        solution: 1/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0{,}125 = \dfrac{125}{1000} = \dfrac{1}{8}$.
+          resultat: 1/8
+      - code: 2NDE-AUTO-ECRIT-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel est l''ordre de grandeur de $398 \times 0{,}51$ ? A) $20$  B) $200$  C) $2\,000$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $400 \times 0{,}5 = 200$.
+          resultat: B
+      - code: 2NDE-AUTO-ECRIT-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Un élève trouve que $\dfrac{6\,012}{29{,}7}$ vaut environ $2\,024$. Que penser de ce résultat ? A) Il est vraisemblable  B) Il est environ dix fois trop grand  C) Il est environ dix fois trop petit'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\dfrac{6\,000}{30} = 200$ : le résultat attendu est proche de $200$.'
+          - $2\,024$ est environ dix fois trop grand.
+          resultat: B
+      - code: 2NDE-AUTO-ECRIT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Lequel de ces nombres est le plus grand ? A) $\dfrac{5}{8}$  B) $62\,\%$  C) $0{,}6$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{5}{8} = 0{,}625$, $62\,\% = 0{,}62$ et $0{,}6$.
+          - Le plus grand est $0{,}625$.
+          resultat: A
+
+  - code: 2NDE-AUTO-UNITES
+    libelle: Convertir des unités
+    attendus: [2NDE-2026-AUTO-07]
+    objectifs:
+    - Convertir longueurs, aires, volumes, contenances, durées, vitesses et masses.
+    methodes:
+    - titre: Convertir une vitesse
+      quand: On passe des km/h aux m/s ou inversement.
+      etapes:
+      - Convertir séparément la distance et la durée.
+      - Diviser la nouvelle distance par la nouvelle durée.
+      exemple:
+        enonce: Convertir $72$ km/h en m/s.
+        resolution:
+        - $72$ km $= 72\,000$ m et $1$ h $= 3\,600$ s.
+        - $\dfrac{72\,000}{3\,600} = 20$.
+        resultat: $20$ m/s
+    erreurs_frequentes:
+    - erreur: Convertir $1$ m² en $10$ dm².
+      explication: $1$ m² $= 10 \times 10 = 100$ dm² ; pour les volumes, $1$ m³ $= 1\,000$ dm³.
+    - erreur: Écrire $1{,}5$ h $= 1$ h $50$ min.
+      explication: $0{,}5$ h $= 30$ min, donc $1{,}5$ h $= 1$ h $30$ min.
+    resume: |
+      - Longueurs : facteur $10$ entre deux unités voisines ; aires : $100$ ; volumes : $1\,000$.
+      - $1$ L $= 1$ dm³ ; $1$ mL $= 1$ cm³.
+      - $1$ h $= 60$ min $= 3\,600$ s.
+      - Pour passer des km/h aux m/s, on divise par $3{,}6$.
+    cours: |
+      ## Aires et volumes
+      $3$ m² $= 30\,000$ cm² (facteur $100 \times 100$) ; $2$ m³ $= 2\,000$ dm³ $= 2\,000$ L.
+
+      ## Durées
+      $2{,}25$ h $= 2$ h $+ 0{,}25 \times 60$ min $= 2$ h $15$ min.
+
+      ## Vitesses
+      $90$ km/h $= \dfrac{90\,000 \text{ m}}{3\,600 \text{ s}} = 25$ m/s.
+    questions:
+      - code: 2NDE-AUTO-UNITES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Convertir $2{,}5$ km en mètres.'
+        solution: 2500
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1$ km $= 1\,000$ m, donc $2{,}5$ km $= 2\,500$ m.
+          resultat: 2500
+      - code: 2NDE-AUTO-UNITES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Convertir $3$ m² en cm².'
+        solution: 30000
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1$ m² $= 100 \times 100 = 10\,000$ cm².
+          resultat: 30000
+      - code: 2NDE-AUTO-UNITES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un aquarium a un volume de $0{,}12$ m³. Combien de litres contient-il ?'
+        solution: 120
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0{,}12$ m³ $= 120$ dm³ $= 120$ L.
+          resultat: 120
+      - code: 2NDE-AUTO-UNITES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Convertir $72$ km/h en m/s.'
+        solution: 20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{72\,000 \text{ m}}{3\,600 \text{ s}} = 20$ m/s.
+          resultat: 20
+      - code: 2NDE-AUTO-UNITES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un cycliste parcourt $45$ km en $1$ h $48$ min. Quelle est sa vitesse moyenne en km/h ?'
+        solution: 25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1$ h $48$ min $= 1 + \dfrac{48}{60} = 1{,}8$ h.
+          - $\dfrac{45}{1{,}8} = 25$ km/h.
+          resultat: 25
+
+  - code: 2NDE-AUTO-LITT
+    libelle: Calcul littéral élémentaire et formules
+    attendus: [2NDE-2026-AUTO-08, 2NDE-2026-AUTO-11, 2NDE-2026-AUTO-12, 2NDE-2026-ALG-10]
+    objectifs:
+    - Appliquer les règles de signe et de quotient dans un calcul littéral.
+    - Isoler une variable dans une formule et faire une application numérique.
+    prerequis:
+    - 2NDE-EQ1
+    methodes:
+    - titre: Isoler une variable dans une formule
+      quand: Une formule relie plusieurs grandeurs (physique, géométrie, économie).
+      etapes:
+      - Repérer les opérations appliquées à la variable cherchée.
+      - Les défaire une à une, en faisant la même opération dans les deux membres.
+      exemple:
+        enonce: Exprimer $t$ en fonction de $d$ et $v$ dans $d = vt$.
+        resolution:
+        - $t$ est multiplié par $v$ ; on divise par $v \neq 0$.
+        resultat: $t = \dfrac{d}{v}$
+    erreurs_frequentes:
+    - erreur: Écrire $-(a - b) = -a - b$.
+      explication: Le signe $-$ change tous les signes de la parenthèse $:$ $-(a - b) = -a + b = b - a$.
+    resume: |
+      - $-(a + b) = -a - b$ ; $-(a - b) = b - a$.
+      - $\dfrac{a}{1} = a$, $\dfrac{a}{a} = 1$ ($a \neq 0$), $\dfrac{a}{b} \div \dfrac{c}{d} = \dfrac{a}{b} \times \dfrac{d}{c}$.
+      - Pour isoler une variable, on défait les opérations dans l'ordre inverse.
+      - Application numérique : on remplace chaque lettre par sa valeur, avec les unités cohérentes.
+    cours: |
+      ## Règles de calcul
+      $-(3x - 5) = -3x + 5$ ; $\dfrac{2}{3} \div \dfrac{4}{5} = \dfrac{2}{3} \times \dfrac{5}{4} = \dfrac{10}{12} = \dfrac{5}{6}$.
+
+      ## Isoler une variable
+      - $U = RI$ donne $I = \dfrac{U}{R}$.
+      - $V = \pi r^2 h$ donne $h = \dfrac{V}{\pi r^2}$.
+      - $2x + 3y = 12$ donne $y = \dfrac{12 - 2x}{3}$.
+
+      ## Application numérique
+      Avec $U = 12$ V et $R = 4$ Ω : $I = \dfrac{12}{4} = 3$ A.
+    questions:
+      - code: 2NDE-AUTO-LITT-01
+        difficulte: 1
+        type: expression
+        enonce: 'Supprimer les parenthèses : $-(x - 7)$.'
+        solution: 7 - x
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $-(x - 7) = -x + 7$.
+          resultat: 7 - x
+      - code: 2NDE-AUTO-LITT-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer $\dfrac{2}{3} \div \dfrac{4}{5}$.'
+        solution: 5/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{2}{3} \times \dfrac{5}{4} = \dfrac{10}{12} = \dfrac{5}{6}$.
+          resultat: 5/6
+      - code: 2NDE-AUTO-LITT-03
+        difficulte: 3
+        type: numerique
+        enonce: 'D''après la loi d''Ohm $U = RI$, quelle est l''intensité $I$ (en A) si $U = 12$ V et $R = 4$ Ω ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $I = \dfrac{U}{R} = \dfrac{12}{4} = 3$.
+          resultat: 3
+      - code: 2NDE-AUTO-LITT-04
+        difficulte: 4
+        type: expression
+        enonce: 'On a $2x + 3y = 12$. Exprimer $y$ en fonction de $x$.'
+        solution: (12 - 2x)/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3y = 12 - 2x$.
+          - $y = \dfrac{12 - 2x}{3}$.
+          resultat: (12 - 2x)/3
+      - code: 2NDE-AUTO-LITT-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Le volume d''un cylindre est $V = \pi r^2 h$. Quelle expression donne la hauteur ? A) $h = V - \pi r^2$  B) $h = \dfrac{V}{\pi r^2}$  C) $h = \dfrac{\pi r^2}{V}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $h$ est multiplié par $\pi r^2$ ; on divise les deux membres par $\pi r^2$.
+          resultat: B
+
+  - code: 2NDE-AUTO-COMPAR
+    libelle: Comparer deux nombres ou deux quantités
+    attendus: [2NDE-2026-AUTO-01, 2NDE-2026-ALG-04, 2NDE-2026-ALG-12]
+    objectifs:
+    - Comparer deux nombres par le signe de leur différence ou par leur quotient.
+    - Interpréter une comparaison en termes de variation additive ou multiplicative.
+    prerequis:
+    - 2NDE-FRAC
+    methodes:
+    - titre: Comparer par la différence
+      quand: Les deux nombres sont des expressions proches.
+      etapes:
+      - Calculer $a - b$.
+      - Si $a - b > 0$, alors $a > b$ ; si $a - b < 0$, alors $a < b$.
+      exemple:
+        enonce: Comparer $\dfrac{5}{7}$ et $\dfrac{7}{10}$.
+        resolution:
+        - $\dfrac{5}{7} - \dfrac{7}{10} = \dfrac{50 - 49}{70} = \dfrac{1}{70} > 0$.
+        resultat: $\dfrac{5}{7} > \dfrac{7}{10}$
+    erreurs_frequentes:
+    - erreur: Comparer par quotient deux nombres de signes quelconques.
+      explication: Le critère $\dfrac{a}{b} > 1 \Rightarrow a > b$ n'est valable que pour $a, b > 0$.
+    resume: |
+      - $a > b \iff a - b > 0$.
+      - Pour $a, b > 0$ : $a > b \iff \dfrac{a}{b} > 1$.
+      - Comparaison additive : « $a$ dépasse $b$ de $a - b$ ».
+      - Comparaison multiplicative : « $a$ vaut $\dfrac{a}{b}$ fois $b$ » (ratio).
+    cours: |
+      ## Par la différence
+      $\dfrac{5}{7} - \dfrac{7}{10} = \dfrac{1}{70} > 0$, donc $\dfrac{5}{7} > \dfrac{7}{10}$.
+
+      ## Par le quotient (nombres positifs)
+      $\dfrac{2^{10}}{10^3} = \dfrac{1\,024}{1\,000} > 1$, donc $2^{10} > 10^3$.
+
+      ## Interpréter
+      Un salaire passe de $1\,800$ € à $2\,700$ € : il augmente de $900$ € (comparaison additive) et il est multiplié par $\dfrac{2\,700}{1\,800} = 1{,}5$ (comparaison multiplicative).
+    questions:
+      - code: 2NDE-AUTO-COMPAR-01
+        difficulte: 1
+        type: qcm
+        enonce: 'On sait que $a - b = -3$. Que peut-on dire ? A) $a > b$  B) $a < b$  C) On ne peut pas conclure'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La différence $a - b$ est négative, donc $a < b$.
+          resultat: B
+      - code: 2NDE-AUTO-COMPAR-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer $\dfrac{5}{7} - \dfrac{7}{10}$.'
+        solution: 1/70
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{50}{70} - \dfrac{49}{70} = \dfrac{1}{70}$.
+          resultat: 1/70
+      - code: 2NDE-AUTO-COMPAR-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un loyer passe de $600$ € à $750$ €. Par quel nombre a-t-il été multiplié ?'
+        solution: 5/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{750}{600} = 1{,}25$.
+          resultat: 5/4
+      - code: 2NDE-AUTO-COMPAR-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Comparer $2^{10}$ et $10^3$. A) $2^{10} > 10^3$  B) $2^{10} < 10^3$  C) $2^{10} = 10^3$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2^{10} = 1\,024$ et $10^3 = 1\,000$.
+          - $\dfrac{1\,024}{1\,000} > 1$, donc $2^{10} > 10^3$.
+          resultat: A
+      - code: 2NDE-AUTO-COMPAR-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Pour tout réel $x$, on compare $(x + 1)^2$ et $2x + 1$. A) $(x + 1)^2 \geqslant 2x + 1$ toujours  B) $(x + 1)^2 \leqslant 2x + 1$ toujours  C) Cela dépend de $x$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(x + 1)^2 - (2x + 1) = x^2 + 2x + 1 - 2x - 1 = x^2 \geqslant 0$.
+          - Donc $(x + 1)^2 \geqslant 2x + 1$ pour tout $x$.
+          resultat: A
+
+  - code: 2NDE-AUTO-MESURES
+    libelle: Calculer des périmètres, des aires et des volumes
+    attendus: [2NDE-2026-AUTO-21]
+    objectifs:
+    - Connaître les formules de périmètres, d'aires et de volumes usuels.
+    methodes:
+    - titre: Calculer un volume composé
+      quand: Le solide est formé de solides usuels.
+      etapes:
+      - Découper le solide en solides usuels.
+      - Calculer chaque volume, puis les ajouter (ou les soustraire).
+      exemple:
+        enonce: Un silo est un cylindre de rayon $2$ m et de hauteur $5$ m surmonté d'un cône de même rayon et de hauteur $3$ m. Volume ?
+        resolution:
+        - Cylindre $:$ $\pi \times 2^2 \times 5 = 20\pi$.
+        - Cône $:$ $\dfrac{1}{3} \pi \times 2^2 \times 3 = 4\pi$.
+        resultat: $24\pi \approx 75{,}4$ m³
+    erreurs_frequentes:
+    - erreur: Oublier le facteur $\dfrac{1}{3}$ pour une pyramide ou un cône.
+      explication: Pyramide et cône ont un volume égal au tiers du prisme ou du cylindre de même base et même hauteur.
+    resume: |
+      - Cercle : $P = 2\pi r$ ; disque : $\mathcal{A} = \pi r^2$ ; triangle : $\mathcal{A} = \dfrac{b \times h}{2}$.
+      - Pavé : $V = L \ell h$ ; prisme et cylindre : $V = \mathcal{B} \times h$.
+      - Pyramide et cône : $V = \dfrac{1}{3}\mathcal{B} \times h$ ; boule : $V = \dfrac{4}{3}\pi r^3$.
+    cours: |
+      ## Périmètres et aires
+      Un disque de rayon $3$ cm a pour périmètre $6\pi$ cm et pour aire $9\pi$ cm².
+
+      ## Volumes
+      | Solide | Volume |
+      |---|---|
+      | Pavé droit | $L \times \ell \times h$ |
+      | Prisme, cylindre | aire de la base $\times$ hauteur |
+      | Pyramide, cône | $\dfrac{1}{3} \times$ aire de la base $\times$ hauteur |
+      | Boule | $\dfrac{4}{3}\pi r^3$ |
+    questions:
+      - code: 2NDE-AUTO-MESURES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Calculer l''aire d''un triangle de base $8$ cm et de hauteur $5$ cm (en cm²).'
+        solution: 20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{8 \times 5}{2} = 20$.
+          resultat: 20
+      - code: 2NDE-AUTO-MESURES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Calculer l''aire exacte d''un disque de rayon $3$ cm (en cm², réponse avec $\pi$).'
+        solution: 9pi
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\pi \times 3^2 = 9\pi$.
+          resultat: 9pi
+      - code: 2NDE-AUTO-MESURES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Calculer le volume d''une pyramide de base carrée de côté $6$ cm et de hauteur $5$ cm (en cm³).'
+        solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Aire de la base $:$ $36$ cm².
+          - $V = \dfrac{1}{3} \times 36 \times 5 = 60$.
+          resultat: 60
+      - code: 2NDE-AUTO-MESURES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer le volume exact d''une boule de rayon $3$ cm (en cm³, réponse avec $\pi$).'
+        solution: 36pi
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{4}{3}\pi \times 27 = 36\pi$.
+          resultat: 36pi
+      - code: 2NDE-AUTO-MESURES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un silo est formé d''un cylindre de rayon $2$ m et de hauteur $5$ m, surmonté d''un cône de même rayon et de hauteur $3$ m. Donner son volume exact (en m³, réponse avec $\pi$).'
+        solution: 24pi
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Cylindre $:$ $\pi \times 4 \times 5 = 20\pi$.
+          - Cône $:$ $\dfrac{1}{3}\pi \times 4 \times 3 = 4\pi$.
+          - Total $:$ $24\pi$.
+          resultat: 24pi
+
+  - code: 2NDE-AUTO-TRIANGLE
+    libelle: Utiliser Pythagore, Thalès et la trigonométrie
+    attendus: [2NDE-2026-AUTO-22, 2NDE-2026-AUTO-23]
+    objectifs:
+    - Calculer une longueur avec le théorème de Pythagore ou de Thalès.
+    - Utiliser cosinus, sinus et tangente dans un triangle rectangle.
+    methodes:
+    - titre: Choisir la bonne formule de trigonométrie
+      quand: Dans un triangle rectangle, on connaît un angle aigu et une longueur.
+      etapes:
+      - Nommer, par rapport à l'angle, le côté adjacent, le côté opposé et l'hypoténuse.
+      - Choisir la formule (CAH-SOH-TOA) qui relie le côté connu et le côté cherché.
+      - Résoudre l'égalité obtenue.
+      exemple:
+        enonce: Triangle rectangle d'hypoténuse $10$, angle de $30°$. Côté opposé ?
+        resolution:
+        - $\sin 30° = \dfrac{\text{opposé}}{10}$.
+        - Opposé $= 10 \times 0{,}5 = 5$.
+        resultat: $5$
+    erreurs_frequentes:
+    - erreur: Appliquer le théorème de Pythagore dans un triangle qui n'est pas rectangle.
+      explication: L'égalité $a^2 + b^2 = c^2$ ne vaut que si l'angle opposé à $c$ est droit.
+    resume: |
+      - Pythagore : dans un triangle rectangle d'hypoténuse $c$, $a^2 + b^2 = c^2$.
+      - Thalès : si $(MN) \parallel (BC)$ avec $M \in [AB]$, $N \in [AC]$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - $\cos = \dfrac{\text{adjacent}}{\text{hypoténuse}}$, $\sin = \dfrac{\text{opposé}}{\text{hypoténuse}}$, $\tan = \dfrac{\text{opposé}}{\text{adjacent}}$.
+    cours: |
+      ## Pythagore
+      Côtés de l'angle droit $6$ et $8$ : hypoténuse $\sqrt{36 + 64} = 10$.
+
+      ## Thalès
+      $AM = 3$, $AB = 5$, $BC = 10$ et $(MN) \parallel (BC)$ : $MN = \dfrac{3}{5} \times 10 = 6$.
+
+      ## Trigonométrie
+      Valeurs à connaître : $\cos 60° = \sin 30° = \dfrac{1}{2}$ ; $\cos 30° = \sin 60° = \dfrac{\sqrt{3}}{2}$ ; $\tan 45° = 1$.
+    questions:
+      - code: 2NDE-AUTO-TRIANGLE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Un triangle rectangle a des côtés de l''angle droit de $6$ cm et $8$ cm. Longueur de l''hypoténuse ?'
+        solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sqrt{6^2 + 8^2} = \sqrt{100} = 10$.
+          resultat: 10
+      - code: 2NDE-AUTO-TRIANGLE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un triangle rectangle a une hypoténuse de $13$ cm et un côté de $5$ cm. Longueur du troisième côté ?'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sqrt{13^2 - 5^2} = \sqrt{144} = 12$.
+          resultat: 12
+      - code: 2NDE-AUTO-TRIANGLE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans un triangle $ABC$, $M \in [AB]$ et $N \in [AC]$ avec $(MN)$ parallèle à $(BC)$. On donne $AM = 3$, $AB = 5$ et $BC = 10$. Calculer $MN$.'
+        solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{MN}{BC} = \dfrac{AM}{AB} = \dfrac{3}{5}$.
+          - $MN = \dfrac{3}{5} \times 10 = 6$.
+          resultat: 6
+      - code: 2NDE-AUTO-TRIANGLE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un triangle rectangle, l''hypoténuse mesure $10$ cm et un angle aigu mesure $30°$. Quelle est la longueur du côté opposé à cet angle ?'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sin 30° = \dfrac{\text{opposé}}{10} = \dfrac{1}{2}$.
+          - Côté opposé $= 5$ cm.
+          resultat: 5
+      - code: 2NDE-AUTO-TRIANGLE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une échelle de $5$ m est appuyée contre un mur vertical ; son pied est à $3$ m du mur. On la recule de façon que son pied soit à $4$ m du mur. De combien de mètres le haut de l''échelle descend-il ?'
+        solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Avant $:$ hauteur $\sqrt{25 - 9} = 4$ m.
+          - Après $:$ hauteur $\sqrt{25 - 16} = 3$ m.
+          - Le haut descend de $1$ m.
+          resultat: 1
+
+  - code: 2NDE-AUTO-GRAPH
+    libelle: Lire et commenter des graphiques usuels
+    attendus: [2NDE-2026-AUTO-24, 2NDE-2026-STAT-07]
+    objectifs:
+    - Lire un diagramme en barres, un diagramme circulaire, une courbe, un histogramme.
+    - Repérer les échelles et les unités avant d'interpréter.
+    prerequis:
+    - 2NDE-MOY
+    methodes:
+    - titre: Lire un diagramme circulaire
+      quand: Une répartition est représentée par des secteurs angulaires.
+      etapes:
+      - Le disque entier ($360°$) représente $100\,\%$ de l'effectif.
+      - La part d'un secteur est $\dfrac{\text{angle}}{360}$.
+      - Multiplier cette part par l'effectif total pour obtenir l'effectif du secteur.
+      exemple:
+        enonce: Un secteur de $90°$ dans un diagramme représentant $240$ personnes ?
+        resolution:
+        - $\dfrac{90}{360} = \dfrac{1}{4}$.
+        - $\dfrac{1}{4} \times 240 = 60$.
+        resultat: $60$ personnes
+    erreurs_frequentes:
+    - erreur: Lire la hauteur d'un rectangle d'histogramme comme un effectif quand les classes n'ont pas la même amplitude.
+      explication: Dans un histogramme, c'est l'aire du rectangle qui est proportionnelle à l'effectif.
+    resume: |
+      - Diagramme en barres : la hauteur est proportionnelle à l'effectif.
+      - Diagramme circulaire : l'angle est proportionnel à l'effectif ($360°$ pour le total).
+      - Histogramme (série regroupée en classes) : l'aire est proportionnelle à l'effectif.
+      - Toujours repérer l'origine, les unités et les graduations avant de lire.
+    cours: |
+      ## Diagrammes en barres et circulaires
+      Un secteur de $72°$ représente $\dfrac{72}{360} = 20\,\%$ de l'effectif.
+
+      ## Histogramme
+      Pour une série regroupée en classes de même amplitude, la hauteur de chaque rectangle est proportionnelle à l'effectif de la classe. Pour des classes d'amplitudes différentes, c'est l'aire qui l'est.
+
+      ## Courbe et nuage de points
+      On lit en abscisse la variable (souvent le temps), en ordonnée la grandeur étudiée ; une graduation qui ne commence pas à $0$ peut exagérer les variations.
+    questions:
+      - code: 2NDE-AUTO-GRAPH-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Dans un diagramme circulaire, quel angle (en degrés) représente $25\,\%$ de l''effectif ?'
+        solution: 90
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0{,}25 \times 360 = 90$.
+          resultat: 90
+      - code: 2NDE-AUTO-GRAPH-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un diagramme circulaire représente $240$ personnes. Combien de personnes correspondent à un secteur de $90°$ ?'
+        solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{90}{360} \times 240 = 60$.
+          resultat: 60
+      - code: 2NDE-AUTO-GRAPH-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un secteur de $72°$ d''un diagramme circulaire représente quel pourcentage de l''effectif ?'
+        solution: 20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{72}{360} = 0{,}2 = 20\,\%$.
+          resultat: 20
+      - code: 2NDE-AUTO-GRAPH-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Un graphique montre un chiffre d''affaires passant de $980$ k€ à $1\,000$ k€, avec un axe des ordonnées gradué de $975$ à $1\,005$. Que peut-on dire ? A) Le chiffre d''affaires a presque doublé  B) La hausse est d''environ $2\,\%$ ; le graphique l''exagère  C) Le graphique ne permet aucune lecture'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1\,000 - 980}{980} \approx 0{,}02$, soit environ $2\,\%$.
+          - 'L''axe ne commence pas à $0$ : la hausse paraît bien plus forte qu''elle n''est.'
+          resultat: B
+      - code: 2NDE-AUTO-GRAPH-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un histogramme, les classes $[0 ; 10[$ et $[10 ; 30[$ sont représentées par des rectangles de même hauteur. La première classe a un effectif de $15$. Quel est l''effectif de la seconde ?'
+        solution: 30
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Dans un histogramme, l'aire est proportionnelle à l'effectif.
+          etapes:
+          - Même hauteur, mais une largeur deux fois plus grande ($20$ contre $10$).
+          - L'aire, donc l'effectif, est deux fois plus grande $:$ $30$.
+          resultat: 30
+
+  - code: 2NDE-AUTO-REPERE
+    libelle: Se repérer sur une droite graduée et dans un repère
+    attendus: [2NDE-2026-AUTO-19, 2NDE-2026-AUTO-20, 2NDE-2026-REELS-07, 2NDE-2026-AUTO-17]
+    objectifs:
+    - Lire et placer l'abscisse d'un point sur une droite graduée.
+    - Lire et placer les coordonnées d'un point dans un repère, et tester l'appartenance à une courbe.
+    methodes:
+    - titre: Tester si un point appartient à une courbe
+      quand: On connaît l'équation $y = f(x)$ de la courbe et les coordonnées du point.
+      etapes:
+      - Calculer $f(x_A)$.
+      - Comparer avec $y_A$ $:$ le point est sur la courbe si et seulement si $f(x_A) = y_A$.
+      exemple:
+        enonce: $A(2 ; 5)$ est-il sur la courbe d'équation $y = x^2 + 1$ ?
+        resolution:
+        - $2^2 + 1 = 5 = y_A$.
+        resultat: Oui, $A$ est sur la courbe.
+    erreurs_frequentes:
+    - erreur: Inverser abscisse et ordonnée.
+      explication: Dans $(x ; y)$, l'abscisse $x$ se lit sur l'axe horizontal, l'ordonnée $y$ sur l'axe vertical.
+    resume: |
+      - Sur une droite graduée, chaque réel est l'abscisse d'un unique point.
+      - Dans un repère, un point a des coordonnées $(x ; y)$ : abscisse puis ordonnée.
+      - $A(x_A ; y_A)$ est sur la courbe d'équation $y = f(x)$ si et seulement si $y_A = f(x_A)$.
+    cours: |
+      ## Droite graduée
+      Entre $0$ et $1$, une graduation en cinq parts a un pas de $0{,}2$ : le troisième trait après $0$ a pour abscisse $0{,}6$.
+
+      ## Repère du plan
+      Le point $B(-2 ; 3)$ est à $2$ unités à gauche de l'axe des ordonnées et $3$ unités au-dessus de l'axe des abscisses.
+
+      ## Appartenance à une courbe
+      $C(-1 ; 3)$ et la courbe $y = x^2 + 1$ : $(-1)^2 + 1 = 2 \neq 3$, donc $C$ n'est pas sur la courbe.
+    questions:
+      - code: 2NDE-AUTO-REPERE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Sur une droite graduée, l''unité est partagée en $5$ parts égales. Quelle est l''abscisse du troisième trait après $0$ ?'
+        solution: 0.6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Le pas vaut $\dfrac{1}{5} = 0{,}2$, donc $3 \times 0{,}2 = 0{,}6$.
+          resultat: 0.6
+      - code: 2NDE-AUTO-REPERE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Le point $P$ est à $2$ unités à gauche de l''axe des ordonnées et à $3$ unités au-dessus de l''axe des abscisses. Quelles sont ses coordonnées ? A) $(3 ; -2)$  B) $(-2 ; 3)$  C) $(2 ; -3)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - À gauche $:$ abscisse $-2$ ; au-dessus $:$ ordonnée $3$.
+          resultat: B
+      - code: 2NDE-AUTO-REPERE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Le point $K(2 ; 5)$ appartient-il à la courbe d''équation $y = x^2 + 1$ ? A) Oui  B) Non'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2^2 + 1 = 5$ $:$ l'ordonnée correspond.
+          resultat: A
+      - code: 2NDE-AUTO-REPERE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Le point $M(3 ; k)$ appartient à la courbe d''équation $y = 2x^2 - 5x$. Calculer $k$.'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $k = 2 \times 9 - 15 = 3$.
+          resultat: 3
+      - code: 2NDE-AUTO-REPERE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Le point $N(a ; 7)$ appartient à la droite d''équation $y = 3x - 2$. Calculer $a$.'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3a - 2 = 7$, donc $a = 3$.
+          resultat: 3

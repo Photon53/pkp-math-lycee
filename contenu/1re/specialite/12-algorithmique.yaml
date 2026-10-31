@@ -1,0 +1,113 @@
+# Partie transversale « Algorithmique et programmation » de la spécialité de première 2026 : notion de liste en Python.
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 1RE-ALGO
+  niveau: 1re
+  parcours: specialite
+  ordre: 12
+  titre: Algorithmique et listes
+
+competences:
+  - code: 1RE-LISTE
+    libelle: Générer, manipuler et parcourir une liste en Python
+    attendus: [1RE-SPE-2026-LISTE-01, 1RE-SPE-2026-LISTE-02, 1RE-SPE-2026-LISTE-03, 1RE-SPE-2026-LISTE-04]
+    objectifs:
+    - Créer une liste en extension, par ajouts successifs ou en compréhension.
+    - Accéder aux éléments par leur indice, ajouter ou supprimer un élément.
+    - Parcourir une liste avec une boucle pour calculer une somme, un maximum, un comptage.
+    methodes:
+    - titre: Lire une liste en compréhension
+      quand: Une liste est écrite sous la forme `[expression for i in range(…) if condition]`.
+      etapes:
+      - Énumérer les valeurs de `i` données par `range`.
+      - Garder celles qui vérifient la condition (s'il y en a une).
+      - Calculer l'expression pour chacune, dans l'ordre.
+      exemple:
+        enonce: 'Que contient `[i * i for i in range(5)]` ?'
+        resolution:
+        - '`i` prend les valeurs $0, 1, 2, 3, 4$.'
+        - On calcule les carrés.
+        resultat: '`[0, 1, 4, 9, 16]`'
+    erreurs_frequentes:
+    - erreur: Croire que le premier élément d'une liste a l'indice $1$.
+      explication: 'En Python, les indices commencent à $0$ $:$ `L[0]` est le premier élément, `L[len(L) - 1]` le dernier.'
+    resume: |
+      - En extension : `L = [3, 7, 2]` ; vide puis ajouts : `L = []` puis `L.append(5)`.
+      - En compréhension : `[2 * k for k in range(4)]` donne `[0, 2, 4, 6]`.
+      - `len(L)` : nombre d'éléments ; `L[i]` : élément d'indice `i` (à partir de $0$) ; `L.pop(i)` ou `del L[i]` : suppression.
+      - Parcours : `for x in L:` (par les éléments) ou `for i in range(len(L)):` (par les indices).
+    cours: |
+      ## Créer une liste
+      ```python
+      L = [3, 7, 2]                          # en extension
+      M = []
+      for k in range(5):
+          M.append(2 ** k)                   # [1, 2, 4, 8, 16]
+      N = [k for k in range(20) if k % 3 == 0]   # [0, 3, 6, 9, 12, 15, 18]
+      ```
+
+      ## Indices
+      Avec `L = [3, 7, 2]` : `L[0]` vaut $3$, `L[2]` vaut $2$, `len(L)` vaut $3$. Après `L.append(10)`, `L` vaut `[3, 7, 2, 10]`.
+
+      ## Parcourir
+      ```python
+      def somme(L):
+          s = 0
+          for x in L:
+              s = s + x
+          return s
+      ```
+      Les termes d'une suite se rangent naturellement dans une liste : `u = [5]` puis `u.append(2 * u[-1] + 1)` à chaque tour.
+    questions:
+      - code: 1RE-LISTE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On définit `L = [4, 9, 1, 7]`. Que vaut `L[1]` ?'
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les indices commencent à $0$ $:$ `L[0]` vaut $4$, `L[1]` vaut $9$.
+          resultat: 9
+      - code: 1RE-LISTE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On définit `L = [4, 9, 1, 7]`, puis on exécute `L.append(3)`. Que vaut `len(L)` ?'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`append` ajoute un élément à la fin $:$ la liste a maintenant $5$ éléments.'
+          resultat: 5
+      - code: 1RE-LISTE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Quelle est la somme des éléments de la liste `[i * i for i in range(5)]` ?'
+        solution: 30
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La liste est `[0, 1, 4, 9, 16]`.
+          - $0 + 1 + 4 + 9 + 16 = 30$.
+          resultat: 30
+      - code: 1RE-LISTE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Combien d''éléments contient la liste `[k for k in range(20) if k % 3 == 0]` ?'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Multiples de $3$ entre $0$ et $19$ $:$ $0, 3, 6, 9, 12, 15, 18$.
+          resultat: 7
+      - code: 1RE-LISTE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On exécute `u = [5]`, puis `for k in range(3): u.append(2 * u[-1] + 1)`. Que vaut le dernier élément de `u` ?'
+        solution: 47
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '`u[-1]` désigne le dernier élément ; on ajoute successivement $11$, $23$, $47$.'
+          - La liste finale est `[5, 11, 23, 47]`.
+          resultat: 47

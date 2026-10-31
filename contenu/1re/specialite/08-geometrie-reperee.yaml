@@ -190,3 +190,92 @@ competences:
           - 'Centre : milieu de $[AB]$, $(3 ; 4)$.'
           - $AB^2 = 16 + 16 = 32$, donc $r^2 = \dfrac{32}{4} = 8$.
           resultat: 8
+
+  - code: 1RE-PROJ
+    libelle: Déterminer un projeté orthogonal et étudier une configuration en repère
+    attendus: [1RE-SPE-2026-GEOREP-02, 1RE-SPE-2026-GEOREP-05, 1RE-SPE-2026-GEOREP-08]
+    objectifs:
+    - Calculer les coordonnées du projeté orthogonal d'un point sur une droite.
+    - Choisir un repère adapté pour démontrer une propriété géométrique.
+    prerequis:
+    - 1RE-NORMAL
+    methodes:
+    - titre: Coordonnées du projeté orthogonal de $A$ sur $d$
+      quand: On connaît une équation cartésienne $ax + by + c = 0$ de $d$.
+      etapes:
+      - Le vecteur $\vec{n}(a ; b)$ est normal à $d$ $:$ la perpendiculaire à $d$ passant par $A$ a pour vecteur directeur $\vec{n}$.
+      - Écrire $H = A + t\,\vec{n}$, soit $H(x_A + ta ; y_A + tb)$.
+      - Trouver $t$ en écrivant que $H$ est sur $d$, puis en déduire $H$.
+      exemple:
+        enonce: Projeté de $A(4 ; 1)$ sur $d \colon x + y - 1 = 0$.
+        resolution:
+        - $H(4 + t ; 1 + t)$.
+        - $4 + t + 1 + t - 1 = 0$, donc $t = -2$.
+        resultat: $H(2 ; -1)$
+    erreurs_frequentes:
+    - erreur: Prendre un point quelconque de $d$ comme projeté.
+      explication: Le projeté $H$ est le seul point de $d$ tel que $(AH)$ soit perpendiculaire à $d$.
+    resume: |
+      - Le projeté orthogonal $H$ de $A$ sur $d$ est le point de $d$ tel que $(AH) \perp d$.
+      - $AH$ est la distance de $A$ à la droite $d$ (la plus courte distance de $A$ à un point de $d$).
+      - Avec $d \colon ax + by + c = 0$, $H = A + t\,\vec{n}$ où $\vec{n}(a ; b)$.
+      - Un repère bien choisi (origine en un sommet, axes le long des côtés) simplifie les calculs.
+    cours: |
+      ## Projeté orthogonal
+      Pour $A(4 ; 1)$ et $d \colon x + y - 1 = 0$ : $H(2 ; -1)$ et $AH = \sqrt{2^2 + 2^2} = 2\sqrt{2}$.
+
+      ## Étudier une configuration
+      Pour démontrer que les diagonales d'un carré $OABC$ sont perpendiculaires, on prend $O$ comme origine et $\overrightarrow{OA}$, $\overrightarrow{OC}$ comme base : $A(1 ; 0)$, $B(1 ; 1)$, $C(0 ; 1)$. Alors $\overrightarrow{OB} \cdot \overrightarrow{AC} = 1 \times (-1) + 1 \times 1 = 0$.
+    questions:
+      - code: 1RE-PROJ-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Quelle est l''abscisse du projeté orthogonal du point $A(3 ; 5)$ sur l''axe des abscisses ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Le projeté est $(3 ; 0)$.
+          resultat: 3
+      - code: 1RE-PROJ-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Quelle est l''ordonnée du projeté orthogonal du point $A(2 ; 7)$ sur la droite d''équation $y = 3$ ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La droite est horizontale $:$ le projeté est $(2 ; 3)$.
+          resultat: 3
+      - code: 1RE-PROJ-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Soit $d$ la droite d''équation $x + y - 1 = 0$ et $A(4 ; 1)$. Le projeté orthogonal $H$ de $A$ sur $d$ s''écrit $H(4 + t ; 1 + t)$. Calculer $t$.'
+        solution: -2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $H \in d$ $:$ $4 + t + 1 + t - 1 = 0$, soit $2t + 4 = 0$.
+          resultat: -2
+      - code: 1RE-PROJ-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Avec $A(4 ; 1)$ et $d \colon x + y - 1 = 0$, le projeté orthogonal de $A$ sur $d$ est $H(2 ; -1)$. Calculer la distance $AH$ (forme exacte).'
+        solution: 2sqrt(2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{AH}(-2 ; -2)$.
+          - $AH = \sqrt{4 + 4} = 2\sqrt{2}$.
+          resultat: 2sqrt(2)
+      - code: 1RE-PROJ-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans le repère $(O ; \overrightarrow{OA}, \overrightarrow{OC})$ d''un carré $OABC$, calculer le produit scalaire $\overrightarrow{OB} \cdot \overrightarrow{AC}$.'
+        solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $B(1 ; 1)$, $A(1 ; 0)$, $C(0 ; 1)$ $:$ $\overrightarrow{OB}(1 ; 1)$ et $\overrightarrow{AC}(-1 ; 1)$.
+          - $1 \times (-1) + 1 \times 1 = 0$ $:$ les diagonales sont perpendiculaires.
+          resultat: 0

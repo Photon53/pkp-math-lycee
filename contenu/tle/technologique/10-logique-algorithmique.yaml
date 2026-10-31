@@ -1,0 +1,210 @@
+# Parties transversales « Vocabulaire ensembliste et logique » et « Algorithmique et programmation »,
+# et situations algorithmiques du programme de terminale technologique 2026 (sauf série STD2A).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: TLE-TEC-LOGALGO
+  niveau: Tle
+  parcours: technologique
+  ordre: 10
+  titre: Logique, algorithmique et programmation
+
+competences:
+- code: TLE-TEC-LOGIQUE
+  libelle: Raisonner avec les connecteurs, les conditions et les contre-exemples
+  attendus: [TLE-TEC-2026-TRANS-01, TLE-TEC-2026-TRANS-02, TLE-TEC-2026-TRANS-03, TLE-TEC-2026-TRANS-04, TLE-TEC-2026-TRANS-05]
+  objectifs:
+  - Utiliser correctement « et », « ou », et le statut des lettres d'une égalité.
+  - Infirmer par un contre-exemple, distinguer une proposition de sa réciproque.
+  - Employer « condition nécessaire », « condition suffisante », « équivalence ».
+  methodes:
+  - titre: Tester une proposition « pour tout »
+    quand: Une affirmation porte sur tous les nombres d'un ensemble.
+    etapes:
+    - Chercher un cas qui la met en défaut (valeurs particulières $:$ $0$, $1$, un négatif, un nombre entre $0$ et $1$).
+    - Un seul contre-exemple suffit pour conclure qu'elle est fausse ; sinon, il faut une démonstration.
+    exemple:
+      enonce: « Pour tout réel $x$, $x^2 \geqslant x$. »
+      resolution:
+      - Pour $x = 0{,}5$ $:$ $x^2 = 0{,}25 < 0{,}5$.
+      resultat: la proposition est fausse
+  erreurs_frequentes:
+  - erreur: Croire qu'une implication vraie a une réciproque vraie.
+    explication: « Si $x = 2$, alors $x^2 = 4$ » est vraie ; « si $x^2 = 4$, alors $x = 2$ » est fausse ($x = -2$).
+  resume: |
+    - « P et Q » : les deux sont vraies ; « P ou Q » : au moins l'une est vraie.
+    - Un contre-exemple suffit pour montrer qu'une proposition « pour tout » est fausse.
+    - Si « P ⟹ Q » est vraie : P est une condition suffisante pour Q, Q une condition nécessaire pour P.
+    - Équivalence : P ⟺ Q quand l'implication et sa réciproque sont vraies.
+  cours: |
+    ## Statut des lettres
+    Dans $u_n = 3 + 2n$, $n$ est une variable ; dans $1{,}05^n = 2$, $n$ est l'inconnue ; dans $y = ax + b$, $a$ et $b$ sont des paramètres.
+
+    ## Conditions
+    Pour qu'un quadrilatère soit un carré, il est nécessaire qu'il soit un rectangle, mais ce n'est pas suffisant.
+  questions:
+  - code: TLE-TEC-LOGIQUE-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Dans l''équation $1{,}05^n = 2$, quel est le statut de la lettre $n$ ? A) Une inconnue  B) Un paramètre  C) Une constante connue'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On cherche la valeur de $n$ qui vérifie l'égalité $:$ c'est l'inconnue.
+      resultat: A
+  - code: TLE-TEC-LOGIQUE-02
+    difficulte: 2
+    type: qcm
+    enonce: 'La proposition « pour tout réel $x$, $x^2 \geqslant x$ » est : A) vraie  B) fausse, $x = 0{,}5$ est un contre-exemple  C) fausse, $x = 2$ est un contre-exemple'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5^2 = 0{,}25 < 0{,}5$.
+      - Pour $x = 2$, $4 \geqslant 2$ $:$ ce n'est pas un contre-exemple.
+      resultat: B
+  - code: TLE-TEC-LOGIQUE-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quelle est la réciproque de « si $x = 2$, alors $x^2 = 4$ » ? A) « si $x^2 = 4$, alors $x = 2$ »  B) « si $x \neq 2$, alors $x^2 \neq 4$ »  C) « $x = 2$ et $x^2 = 4$ »'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - La réciproque échange hypothèse et conclusion ; ici elle est fausse ($x = -2$).
+      resultat: A
+  - code: TLE-TEC-LOGIQUE-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Pour qu''un quadrilatère soit un carré, être un rectangle est : A) une condition nécessaire mais pas suffisante  B) une condition suffisante mais pas nécessaire  C) une condition nécessaire et suffisante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Tout carré est un rectangle $:$ nécessaire.
+      - Un rectangle n'est pas toujours un carré $:$ pas suffisant.
+      resultat: A
+  - code: TLE-TEC-LOGIQUE-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Un concours est ouvert aux candidats ayant le baccalauréat et moins de $26$ ans. Qui peut s''inscrire ? A) Un bachelier de $24$ ans  B) Un non-bachelier de $20$ ans  C) Un bachelier de $27$ ans'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - « et » exige que les deux conditions soient remplies.
+      - Seul le bachelier de $24$ ans remplit les deux.
+      resultat: A
+
+- code: TLE-TEC-ALGO
+  libelle: Programmer des calculs de sommes, de seuils et de lois binomiales
+  attendus: [TLE-TEC-2026-TRANS-06, TLE-TEC-2026-TRANS-07, TLE-TEC-2026-TRANS-08, TLE-TEC-2026-TRANS-09, TLE-TEC-2026-TRANS-10, TLE-TEC-2026-TRANS-11, TLE-TEC-2026-TRANS-12, TLE-TEC-2026-TRANS-13, TLE-TEC-2026-TRANS-14, TLE-TEC-2026-TRANS-15, TLE-TEC-2026-ANA-08, TLE-TEC-2026-ANA-16, TLE-TEC-2026-SP-03, TLE-TEC-2026-SP-16, TLE-TEC-2026-SP-17]
+  objectifs:
+  - Utiliser compteurs, accumulateurs, fonctions et listes en Python.
+  - Calculer une somme $\sum$ par une boucle, une moyenne arithmétique ou géométrique, une espérance $\sum x_i p_i$.
+  - Générer un triangle de Pascal et calculer une somme de carrés d'écarts pour un ajustement.
+  methodes:
+  - titre: Traduire une somme $\sum$ en boucle
+    quand: On veut calculer $\sum_{k = 1}^{n} a_k$.
+    etapes:
+    - Initialiser l'accumulateur `s = 0`.
+    - Faire varier `k` de $1$ à $n$ avec `for k in range(1, n + 1):`.
+    - Ajouter $a_k$ à `s` à chaque tour, puis renvoyer `s`.
+    exemple:
+      enonce: Somme des $4$ premiers carrés.
+      resolution:
+      - '`s = 0`, puis `for k in range(1, 5): s = s + k ** 2`.'
+      - $1 + 4 + 9 + 16$.
+      resultat: $30$
+  erreurs_frequentes:
+  - erreur: Écrire `range(1, n)` pour aller jusqu'à $n$.
+    explication: '`range(1, n)` s''arrête à $n - 1$ $:$ il faut `range(1, n + 1)`.'
+  resume: |
+    - $\sum_{k = 1}^{n} a_k$ : accumulateur initialisé à $0$, boucle de $1$ à $n$.
+    - Moyenne arithmétique de $a$ et $b$ : $\dfrac{a + b}{2}$ ; géométrique : $\sqrt{ab}$.
+    - Espérance : $E(X) = \sum x_i p_i$ ; pour la loi binomiale $\mathcal{B}(n, p)$, $E(X) = np$.
+    - Triangle de Pascal : chaque coefficient est la somme des deux coefficients situés au-dessus.
+  cours: |
+    ## Sommes
+    ```python
+    def somme_carres(n):
+        s = 0
+        for k in range(1, n + 1):
+            s = s + k ** 2
+        return s
+    ```
+
+    ## Triangle de Pascal
+    ```python
+    ligne = [1]
+    for n in range(4):
+        ligne = [1] + [ligne[k] + ligne[k + 1] for k in range(len(ligne) - 1)] + [1]
+    ```
+    Après $4$ tours, `ligne` vaut `[1, 4, 6, 4, 1]` : ce sont les coefficients $\binom{4}{k}$.
+
+    ## Ajustement
+    Pour une droite $y = ax + b$, on calcule $\sum (y_i - (ax_i + b))^2$ pour plusieurs couples $(a, b)$ et on garde celui qui donne la plus petite valeur.
+  questions:
+  - code: TLE-TEC-ALGO-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Que renvoie `somme_carres(4)`, qui calcule $1^2 + 2^2 + \cdots + 4^2$ avec une boucle ?'
+    solution: 30
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + 4 + 9 + 16 = 30$.
+      resultat: 30
+  - code: TLE-TEC-ALGO-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Quelle est la moyenne géométrique des nombres $4$ et $9$ ?'
+    solution: 6
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{4 \times 9} = \sqrt{36} = 6$.
+      resultat: 6
+  - code: TLE-TEC-ALGO-03
+    difficulte: 3
+    type: numerique
+    enonce: 'On exécute `s = 0`, puis `for k in range(1, 5): s = s + 1 / k`. Quelle est la valeur exacte de `s` à la fin ? (Réponse sous forme de fraction.)'
+    solution: 25/12
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + \dfrac{1}{2} + \dfrac{1}{3} + \dfrac{1}{4} = \dfrac{12 + 6 + 4 + 3}{12} = \dfrac{25}{12}$.
+      resultat: 25/12
+  - code: TLE-TEC-ALGO-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Une variable aléatoire prend les valeurs `x = [0, 10, 50]` avec les probabilités `p = [0.7, 0.2, 0.1]`. Que renvoie `sum(x[i] * p[i] for i in range(3))` ?'
+    solution: 7
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0 \times 0{,}7 + 10 \times 0{,}2 + 50 \times 0{,}1 = 0 + 2 + 5 = 7$.
+      - C'est l'espérance de la variable aléatoire.
+      resultat: 7
+  - code: TLE-TEC-ALGO-05
+    difficulte: 4
+    type: numerique
+    enonce: 'La ligne $4$ du triangle de Pascal est `[1, 4, 6, 4, 1]`. Quel est le troisième élément de la ligne $5$ ?'
+    solution: 10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - La ligne $5$ est `[1, 5, 10, 10, 5, 1]` $:$ chaque coefficient est la somme des deux au-dessus.
+      - Troisième élément $:$ $4 + 6 = 10$.
+      resultat: 10
+  - code: TLE-TEC-ALGO-06
+    difficulte: 5
+    type: numerique
+    enonce: 'Pour les points $(1 ; 3)$, $(2 ; 5)$, $(3 ; 8)$ et la droite $y = 2x + 1$, calculer $\sum (y_i - (2x_i + 1))^2$.'
+    solution: 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Valeurs de la droite $:$ $3$, $5$, $7$.
+      - Écarts $:$ $0$, $0$, $1$ ; somme des carrés $:$ $0 + 0 + 1 = 1$.
+      resultat: 1

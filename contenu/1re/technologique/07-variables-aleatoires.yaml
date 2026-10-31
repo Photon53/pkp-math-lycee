@@ -92,3 +92,98 @@ competences:
       etapes:
       - $\dfrac{G}{8} - 2 = 0$, donc $G = 16$.
       resultat: '16'
+
+- code: 1RE-TEC-SIMUL
+  libelle: Simuler des échantillons d'une loi de Bernoulli
+  attendus: [1RE-TEC-2026-SP-18, 1RE-TEC-2026-SP-19, 1RE-TEC-2026-SP-20]
+  objectifs:
+  - Simuler une épreuve de Bernoulli et des échantillons de taille $n$ avec un générateur aléatoire.
+  - Observer la fluctuation de la fréquence des succès autour de $p$.
+  prerequis:
+  - 1RE-TEC-VA
+  methodes:
+  - titre: Simuler un échantillon de taille $n$
+    quand: On veut observer la fréquence des succès d'une loi de Bernoulli de paramètre $p$.
+    etapes:
+    - Une épreuve $:$ succès si `random() < p`.
+    - Répéter $n$ fois en comptant les succès (compteur).
+    - Fréquence $:$ nombre de succès divisé par $n$.
+    exemple:
+      enonce: 'Que mesure `f` après `s = 0`, `for i in range(100): if random() < 0.4: s = s + 1`, puis `f = s / 100` ?'
+      resolution:
+      - '`s` compte les succès sur $100$ épreuves de paramètre $0{,}4$.'
+      resultat: la fréquence observée des succès, proche de $0{,}4$
+  erreurs_frequentes:
+  - erreur: Attendre une fréquence exactement égale à $p$.
+    explication: La fréquence fluctue d'un échantillon à l'autre ; elle se rapproche de $p$ quand $n$ augmente.
+  resume: |
+    - `random()` renvoie un nombre aléatoire de $[0 ; 1[$ ; `random() < p` est vrai avec la probabilité $p$.
+    - La fréquence observée des succès varie d'un échantillon à l'autre : c'est la fluctuation d'échantillonnage.
+    - Plus la taille $n$ est grande, plus les fréquences sont en général proches de $p$.
+  cours: |
+    ## Simulation
+    ```python
+    from random import random
+
+    def frequence(n, p):
+        s = 0
+        for i in range(n):
+            if random() < p:
+                s = s + 1
+        return s / n
+    ```
+
+    ## Fluctuation
+    En simulant $N = 100$ échantillons de taille $n = 50$ avec $p = 0{,}4$, on représente les $100$ fréquences par un histogramme : elles se regroupent autour de $0{,}4$. Avec $n = 500$, l'histogramme est plus resserré.
+  questions:
+    - code: 1RE-TEC-SIMUL-01
+      difficulte: 1
+      type: qcm
+      enonce: 'Avec quelle probabilité la condition `random() < 0.3` est-elle vraie ? A) $0{,}3$  B) $0{,}7$  C) $0{,}5$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - '`random()` est uniforme sur $[0 ; 1[$ $:$ il est inférieur à $0{,}3$ avec la probabilité $0{,}3$.'
+        resultat: A
+    - code: 1RE-TEC-SIMUL-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Sur un échantillon de taille $50$, on a obtenu $18$ succès. Quelle est la fréquence observée des succès ?'
+      solution: 0.36
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{18}{50} = 0{,}36$.
+        resultat: 0.36
+    - code: 1RE-TEC-SIMUL-03
+      difficulte: 3
+      type: qcm
+      enonce: 'Le programme compte `s` succès sur $100$ épreuves avec `random() < 0.4`, puis calcule `f = s / 100`. Que représente `f` ? A) La probabilité exacte de succès  B) La fréquence observée des succès dans l''échantillon  C) Le nombre de succès'
+      solution: B
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - '`s` compte les succès, `f` les rapporte à la taille de l''échantillon.'
+        resultat: B
+    - code: 1RE-TEC-SIMUL-04
+      difficulte: 4
+      type: numerique
+      enonce: 'On simule un échantillon de taille $200$ d''une loi de Bernoulli de paramètre $0{,}25$. Combien de succès s''attend-on à observer, en moyenne ?'
+      solution: 50
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $200 \times 0{,}25 = 50$ ; le nombre observé fluctue autour de cette valeur.
+        resultat: 50
+    - code: 1RE-TEC-SIMUL-05
+      difficulte: 5
+      type: qcm
+      enonce: 'On simule $100$ échantillons de taille $20$, puis $100$ échantillons de taille $500$, avec $p = 0{,}4$. Que constate-t-on, en général ? A) Les fréquences des échantillons de taille $500$ sont plus resserrées autour de $0{,}4$  B) Les deux séries de fréquences ont la même dispersion  C) Les fréquences de taille $500$ valent toutes exactement $0{,}4$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - La fluctuation diminue quand la taille de l'échantillon augmente.
+        - Elle ne disparaît pas $:$ les fréquences ne valent pas toutes exactement $0{,}4$.
+        resultat: A
