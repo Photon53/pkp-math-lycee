@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **110** · compétences : **199** · questions actives : **1029**
-- Validation pédagogique : 0 validée(s), 1029 à valider, 0 à corriger
+- Chapitres : **110** · compétences : **202** · questions actives : **1048**
+- Validation pédagogique : 0 validée(s), 1048 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -36,8 +36,11 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 10. Fonctions affines, variations et signe | `2NDE-SIGNE` Étudier le signe d'un produit ou d'un quotient | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 11. Statistiques descriptives | `2NDE-MOY` Calculer une moyenne et une médiane | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 11. Statistiques descriptives | `2NDE-DISP` Mesurer la dispersion d'une série | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 11. Statistiques descriptives | `2NDE-CROISE` Exploiter un tableau croisé et des fréquences conditionnelles | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
 | 12. Probabilités et échantillonnage | `2NDE-PROBA` Calculer des probabilités | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 12. Probabilités et échantillonnage | `2NDE-ECH` Utiliser la fluctuation d'échantillonnage | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 12. Probabilités et échantillonnage | `2NDE-PCOND` Calculer une probabilité conditionnelle | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 12. Probabilités et échantillonnage | `2NDE-ARBRE` Construire et exploiter un arbre pondéré | ✓ | 1 | 1 | 2 | 2 | 1 | 7 | 7 |
 
 ### 2nde — Excellence et olympiades
 
@@ -296,7 +299,7 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 986 |
+| PKP Math | — | originale | 1005 |
 | math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |

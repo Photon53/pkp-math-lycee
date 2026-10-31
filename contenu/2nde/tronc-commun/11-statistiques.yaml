@@ -192,3 +192,152 @@ competences:
           - 'Toutes les valeurs augmentent de $3$ : la moyenne aussi.'
           - 'Les écarts à la moyenne ne changent pas : l''écart type non plus.'
           resultat: A
+
+  - code: 2NDE-CROISE
+    libelle: Exploiter un tableau croisé et des fréquences conditionnelles
+    attendus: [2NDE-2026-CROISE-01, 2NDE-2026-CROISE-02, 2NDE-2026-CROISE-03, 2NDE-2026-CROISE-04]
+    objectifs:
+    - Lire un tableau croisé d'effectifs et calculer une fréquence marginale.
+    - Calculer une fréquence conditionnelle en repérant la sous-population de référence.
+    - Compléter un tableau croisé à partir de pourcentages.
+    prerequis:
+    - 2NDE-PROP
+    methodes:
+    - titre: Calculer une fréquence conditionnelle
+      quand: L'énoncé dit « parmi les … », « chez les … » ou « sachant que … ».
+      etapes:
+      - Repérer la sous-population de référence (la ligne ou la colonne citée après « parmi »).
+      - Lire l'effectif de cette sous-population dans la marge du tableau.
+      - Lire l'effectif de la case qui croise les deux caractères.
+      - Diviser l'effectif de la case par l'effectif de la sous-population.
+      exemple:
+        enonce: 'Sur $200$ élèves, $90$ font du sport, dont $36$ filles. Fréquence des filles parmi les sportifs ?'
+        resolution:
+        - 'Sous-population de référence : les $90$ sportifs.'
+        - 'Case croisée : $36$ filles sportives.'
+        - $\dfrac{36}{90} = 0{,}4$.
+        resultat: $0{,}4$, soit $40\,\%$ des sportifs.
+    - titre: Compléter un tableau croisé
+      quand: L'énoncé donne un effectif total et des pourcentages.
+      etapes:
+      - Écrire le tableau vide avec ses totaux.
+      - Placer l'effectif total, puis calculer les effectifs donnés par des pourcentages.
+      - Compléter chaque ligne et chaque colonne par différence avec les totaux.
+      exemple:
+        enonce: '$500$ personnes, dont $60\,\%$ de femmes ; $30\,\%$ des femmes et $150$ personnes en tout portent des lunettes. Combien d''hommes en portent ?'
+        resolution:
+        - 'Femmes : $0{,}6 \times 500 = 300$.'
+        - 'Femmes à lunettes : $0{,}3 \times 300 = 90$.'
+        - 'Hommes à lunettes : $150 - 90 = 60$.'
+        resultat: $60$ hommes.
+    erreurs_frequentes:
+    - erreur: Diviser par l'effectif total au lieu de l'effectif de la sous-population.
+      explication: '« Parmi les filles » : on divise par le nombre de filles, pas par le nombre total d''élèves.'
+    - erreur: Confondre « la part des filles parmi les sportifs » et « la part des sportifs parmi les filles ».
+      explication: 'Ce sont deux fréquences différentes : la case est la même, mais le dénominateur change.'
+    resume: |
+      - Un **tableau croisé** répartit une population selon deux caractères ; les **marges** donnent les totaux de chaque ligne et de chaque colonne.
+      - **Fréquence marginale** : effectif d'une marge divisé par l'effectif total.
+      - **Fréquence conditionnelle** de $B$ parmi $A$ : $\dfrac{\text{effectif de } A \text{ et } B}{\text{effectif de } A}$.
+      - Le mot « parmi » désigne la sous-population qui sert de dénominateur.
+    cours: |
+      ## Tableau croisé d'effectifs
+      On interroge $200$ élèves sur leur pratique d'un sport en club.
+
+      | | Sport | Pas de sport | Total |
+      |---|:-:|:-:|:-:|
+      | Filles | $36$ | $64$ | $100$ |
+      | Garçons | $54$ | $46$ | $100$ |
+      | Total | $90$ | $110$ | $200$ |
+
+      La dernière ligne et la dernière colonne sont les **marges** du tableau.
+
+      ## Fréquence marginale
+      La fréquence des sportifs dans tout le lycée est $\dfrac{90}{200} = 0{,}45$, soit $45\,\%$.
+
+      ## Fréquence conditionnelle
+      - Fréquence des sportifs **parmi les filles** : $\dfrac{36}{100} = 0{,}36$.
+      - Fréquence des filles **parmi les sportifs** : $\dfrac{36}{90} = 0{,}4$.
+
+      Les deux calculs utilisent la même case ($36$) mais pas la même sous-population : il faut toujours se demander « parmi qui ? ».
+
+      ## Compléter un tableau
+      Les pourcentages d'un énoncé se transforment en effectifs ; les cases manquantes se trouvent ensuite par différence avec les totaux.
+    questions:
+      - code: 2NDE-CROISE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Sur $200$ élèves interrogés, $90$ pratiquent un sport en club. Quelle est la fréquence des élèves sportifs ? (Réponse décimale ou fraction.)'
+        solution: 9/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence marginale.
+          etapes:
+          - $\dfrac{90}{200} = 0{,}45$.
+          resultat: 9/20
+      - code: 2NDE-CROISE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Parmi $100$ filles interrogées, $36$ pratiquent un sport en club. Quelle est la fréquence des sportives parmi les filles ?'
+        solution: 9/25
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence conditionnelle, sous-population des filles.
+          etapes:
+          - 'Sous-population de référence : les $100$ filles.'
+          - $\dfrac{36}{100} = 0{,}36$.
+          resultat: 9/25
+      - code: 2NDE-CROISE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans un lycée, $90$ élèves pratiquent un sport en club, dont $36$ filles. Quelle est la fréquence des filles parmi les sportifs ?'
+        solution: 2/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence conditionnelle, sous-population des sportifs.
+          etapes:
+          - 'Sous-population de référence : les $90$ sportifs.'
+          - $\dfrac{36}{90} = 0{,}4$.
+          resultat: 2/5
+          erreurs_frequentes:
+          - 'Diviser par le nombre de filles : on calculerait la part des sportives parmi les filles.'
+      - code: 2NDE-CROISE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Sur $200$ élèves, $100$ sont des garçons, dont $54$ font du sport. Que représente $\dfrac{54}{100}$ ? A) La fréquence des garçons parmi les sportifs  B) La fréquence des sportifs parmi les garçons  C) La fréquence des garçons sportifs parmi tous les élèves'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Le dénominateur $100$ est le nombre de garçons : la sous-population de référence est celle des garçons.'
+          - 'Il s''agit donc de la fréquence des sportifs parmi les garçons.'
+          resultat: B
+      - code: 2NDE-CROISE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Sur $500$ personnes, $60\,\%$ sont des femmes. $30\,\%$ des femmes portent des lunettes, et $150$ personnes en tout en portent. Combien d''hommes portent des lunettes ?'
+        solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compléter un tableau croisé.
+          etapes:
+          - 'Femmes : $0{,}6 \times 500 = 300$.'
+          - 'Femmes à lunettes : $0{,}3 \times 300 = 90$.'
+          - 'Hommes à lunettes : $150 - 90 = 60$.'
+          resultat: 60
+      - code: 2NDE-CROISE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Une entreprise compte $400$ salariés, dont $25\,\%$ de cadres. $40\,\%$ des cadres et $30\,\%$ des autres salariés font du télétravail. Quelle est la fréquence des cadres parmi les salariés en télétravail ? (Réponse sous forme de fraction.)'
+        solution: 4/13
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compléter le tableau croisé, puis calculer une fréquence conditionnelle.
+          etapes:
+          - 'Cadres : $0{,}25 \times 400 = 100$ ; autres salariés : $300$.'
+          - 'Cadres en télétravail : $0{,}4 \times 100 = 40$ ; autres en télétravail : $0{,}3 \times 300 = 90$.'
+          - 'Salariés en télétravail : $40 + 90 = 130$.'
+          - 'Fréquence des cadres parmi eux : $\dfrac{40}{130} = \dfrac{4}{13} \approx 0{,}31$.'
+          resultat: 4/13
+          erreurs_frequentes:
+          - 'Répondre $40\,\%$ en lisant l''énoncé : c''est la part des télétravailleurs parmi les cadres, pas l''inverse.'

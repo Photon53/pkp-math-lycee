@@ -4,7 +4,7 @@ Fichier **généré** par `python -m app.contenu matrice` le 2026-10-31 : ne pas
 Source : Programme d'enseignement de mathématiques de la classe de seconde générale et technologique, BO n° 14 du 2 avril 2026 (`referentiels/sources/bo-2026-14-2nde-gt-515402.pdf`).
 
 - Attendus saisis : **181**, dont 167 obligatoires (les approfondissements ne le sont pas).
-- Obligatoires évalués ou validés : **52 %** · validés : 0 % · absents : 80.
+- Obligatoires évalués ou validés : **59 %** · validés : 0 % · absents : 69.
 - Légende : ✗ absent · ◐ partiel · ✎ enseigné, évaluation non automatisée · ● évalué · ✓ validé. « Évalué » = cours ou méthode, au moins 5 questions sur 3 difficultés.
 
 La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : un thème non saisi n'apparait pas.
@@ -82,10 +82,10 @@ La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : 
 
 | | Attendu | Type | Compétences PKP | Questions (validées) | Difficultés | Corrigées |
 |:-:|---|---|---|:-:|:-:|:-:|
-| ✗ | `2NDE-2026-CROISE-01` Tableau croisé d’effectifs. | contenu | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-CROISE-02` Fréquence conditionnelle, fréquence marginale. | contenu | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-CROISE-03` Calculer des fréquences conditionnelles et des fréquences marginales. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-CROISE-04` Compléter un tableau croisé par des raisonnements sur les effectifs ou en utilisant des fréquences conditionnelles. | capacite | — | 0 (0) | — | 0 |
+| ● | `2NDE-2026-CROISE-01` Tableau croisé d’effectifs. | contenu | `2NDE-CROISE` | 6 (0) | 12345 | 6 |
+| ● | `2NDE-2026-CROISE-02` Fréquence conditionnelle, fréquence marginale. | contenu | `2NDE-CROISE` | 6 (0) | 12345 | 6 |
+| ● | `2NDE-2026-CROISE-03` Calculer des fréquences conditionnelles et des fréquences marginales. | capacite | `2NDE-CROISE` | 6 (0) | 12345 | 6 |
+| ● | `2NDE-2026-CROISE-04` Compléter un tableau croisé par des raisonnements sur les effectifs ou en utilisant des fréquences conditionnelles. | capacite | `2NDE-CROISE` | 6 (0) | 12345 | 6 |
 
 ## Droites du plan (Géométrie)
 
@@ -158,14 +158,14 @@ La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : 
 | | Attendu | Type | Compétences PKP | Questions (validées) | Difficultés | Corrigées |
 |:-:|---|---|---|:-:|:-:|:-:|
 | ● | `2NDE-2026-PROBA-01` Version vulgarisée de la loi des grands nombres : « Lorsque n est grand, sauf exception, la fréquence observée est proche de la probabilité. » | contenu | `2NDE-ECH` | 5 (0) | 12345 | 5 |
-| ✗ | `2NDE-2026-PROBA-02` Probabilité conditionnelle d’un évènement B sachant un évènement A de probabilité non nulle. Notation PA(B). | contenu | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-PROBA-03` Arbres de probabilité, application au calcul de probabilités. | contenu | — | 0 (0) | — | 0 |
+| ● | `2NDE-2026-PROBA-02` Probabilité conditionnelle d’un évènement B sachant un évènement A de probabilité non nulle. Notation PA(B). | contenu | `2NDE-PCOND` | 6 (0) | 12345 | 6 |
+| ● | `2NDE-2026-PROBA-03` Arbres de probabilité, application au calcul de probabilités. | contenu | `2NDE-ARBRE` | 7 (0) | 12345 | 7 |
 | ● | `2NDE-2026-PROBA-04` Observer la loi des grands nombres à l’aide d’une simulation sur Python ou tableur. | capacite | `2NDE-ECH` | 5 (0) | 12345 | 5 |
-| ✗ | `2NDE-2026-PROBA-05` Construire un arbre pondéré ou un tableau en lien avec une situation donnée. Passer du registre de la langue naturelle au registre symbolique et inversement. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-PROBA-06` Calculer des probabilités conditionnelles lorsque les évènements sont présentés sous forme de tableau croisé d’effectifs (tirage au sort avec équiprobabilité d’un individu dans une population) ou d’un arbre de probabilité. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-PROBA-07` Interpréter les pondérations de chaque branche d’un arbre en termes de probabilités, et notamment de probabilités conditionnelles. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-PROBA-08` Faire le lien entre la définition des probabilités conditionnelles et la multiplication des probabilités des branches du chemin correspondant. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `2NDE-2026-PROBA-09` Distinguer en situation PA(B) et PB(A), par exemple dans des situations de type « faux positifs. | capacite | — | 0 (0) | — | 0 |
+| ● | `2NDE-2026-PROBA-05` Construire un arbre pondéré ou un tableau en lien avec une situation donnée. Passer du registre de la langue naturelle au registre symbolique et inversement. | capacite | `2NDE-ARBRE` | 7 (0) | 12345 | 7 |
+| ● | `2NDE-2026-PROBA-06` Calculer des probabilités conditionnelles lorsque les évènements sont présentés sous forme de tableau croisé d’effectifs (tirage au sort avec équiprobabilité d’un individu dans une population) ou d’un arbre de probabilité. | capacite | `2NDE-PCOND` | 6 (0) | 12345 | 6 |
+| ● | `2NDE-2026-PROBA-07` Interpréter les pondérations de chaque branche d’un arbre en termes de probabilités, et notamment de probabilités conditionnelles. | capacite | `2NDE-ARBRE` | 7 (0) | 12345 | 7 |
+| ● | `2NDE-2026-PROBA-08` Faire le lien entre la définition des probabilités conditionnelles et la multiplication des probabilités des branches du chemin correspondant. | capacite | `2NDE-ARBRE` | 7 (0) | 12345 | 7 |
+| ● | `2NDE-2026-PROBA-09` Distinguer en situation PA(B) et PB(A), par exemple dans des situations de type « faux positifs. | capacite | `2NDE-PCOND` | 6 (0) | 12345 | 6 |
 
 ## Représentation algébrique et graphique des fonctions (Fonctions)
 

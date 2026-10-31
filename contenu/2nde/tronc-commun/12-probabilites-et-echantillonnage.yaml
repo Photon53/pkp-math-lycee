@@ -191,3 +191,273 @@ competences:
           - '$\dfrac{1}{\sqrt{100}} = 0{,}1$ : intervalle $[0{,}4 ; 0{,}6]$.'
           - 'Fréquence observée : $0{,}62$, hors de l''intervalle.'
           resultat: B
+
+  - code: 2NDE-PCOND
+    libelle: Calculer une probabilité conditionnelle
+    attendus: [2NDE-2026-PROBA-02, 2NDE-2026-PROBA-06, 2NDE-2026-PROBA-09]
+    objectifs:
+    - Calculer $P_A(B)$ à partir d'un tableau croisé d'effectifs, en tirant un individu au hasard.
+    - Utiliser la définition $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+    - Distinguer $P_A(B)$ et $P_B(A)$, notamment pour les faux positifs d'un test.
+    prerequis:
+    - 2NDE-CROISE
+    - 2NDE-PROBA
+    methodes:
+    - titre: Calculer une probabilité conditionnelle avec un tableau croisé
+      quand: On tire au hasard un individu d'une population décrite par un tableau croisé.
+      etapes:
+      - Repérer l'évènement « sachant » (la condition) et lire son effectif dans la marge.
+      - Lire l'effectif de la case qui réalise les deux évènements.
+      - Diviser l'effectif de la case par l'effectif de la condition.
+      exemple:
+        enonce: 'Sur $1\,000$ personnes, $140$ ont un test positif, dont $95$ sont malades. On tire une personne au hasard. Calculer $P_T(M)$.'
+        resolution:
+        - 'Condition : « le test est positif », effectif $140$.'
+        - 'Case « malade et test positif » : $95$.'
+        - $P_T(M) = \dfrac{95}{140} = \dfrac{19}{28}$.
+        resultat: $\dfrac{19}{28} \approx 0{,}68$
+    erreurs_frequentes:
+    - erreur: Confondre $P_A(B)$ et $P_B(A)$.
+      explication: 'Dans $P_A(B)$, l''évènement en indice est la condition : c''est lui qui fournit le dénominateur.'
+    - erreur: Confondre $P_A(B)$ et $P(A \cap B)$.
+      explication: '$P(A \cap B)$ se calcule sur toute la population, $P_A(B)$ seulement parmi les individus qui réalisent $A$.'
+    resume: |
+      - Si $P(A) \neq 0$, la **probabilité de $B$ sachant $A$** est $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+      - Tirage au hasard dans un tableau croisé : $P_A(B) = \dfrac{\text{effectif de } A \cap B}{\text{effectif de } A}$.
+      - $P_A(B)$ et $P_B(A)$ sont en général **différentes** : la condition change le dénominateur.
+      - Test de dépistage : $P_M(T)$ (un malade est détecté) n'est pas $P_T(M)$ (un test positif signale un malade).
+    cours: |
+      ## Définition
+      Soit $A$ un évènement de probabilité non nulle. La probabilité de $B$ **sachant** $A$ est
+      $$P_A(B) = \dfrac{P(A \cap B)}{P(A)}.$$
+      C'est la probabilité de $B$ quand on sait que $A$ est réalisé : on se restreint aux issues de $A$.
+
+      ## Avec un tableau croisé
+      On teste $1\,000$ personnes pour une maladie. $M$ : « la personne est malade » ; $T$ : « le test est positif ».
+
+      | | $T$ | $\bar T$ | Total |
+      |---|:-:|:-:|:-:|
+      | $M$ | $95$ | $5$ | $100$ |
+      | $\bar M$ | $45$ | $855$ | $900$ |
+      | Total | $140$ | $860$ | $1\,000$ |
+
+      On tire une personne au hasard (équiprobabilité) :
+      - $P(M) = \dfrac{100}{1\,000} = 0{,}1$ ;
+      - $P(M \cap T) = \dfrac{95}{1\,000} = 0{,}095$ ;
+      - $P_M(T) = \dfrac{95}{100} = 0{,}95$ : $95\,\%$ des malades ont un test positif ;
+      - $P_T(M) = \dfrac{95}{140} \approx 0{,}68$ : seulement $68\,\%$ des tests positifs signalent un malade.
+
+      ## Faux positifs
+      Les $45$ personnes non malades au test positif sont des **faux positifs**. Parmi les tests positifs, leur part est $\dfrac{45}{140} \approx 0{,}32$. Un test très sensible peut donc donner beaucoup de faux positifs quand la maladie est rare : c'est pourquoi il ne faut jamais confondre $P_M(T)$ et $P_T(M)$.
+    questions:
+      - code: 2NDE-PCOND-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On teste $1\,000$ personnes ; $100$ sont malades. On tire une personne au hasard. Quelle est la probabilité qu''elle soit malade ?'
+        solution: 1/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Équiprobabilité : $P(M) = \dfrac{100}{1\,000} = 0{,}1$.'
+          resultat: 1/10
+      - code: 2NDE-PCOND-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Parmi $100$ personnes malades, $95$ ont un test positif. On note $M$ « être malade » et $T$ « avoir un test positif ». Calculer $P_M(T)$.'
+        solution: 19/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est $M$ : on se restreint aux $100$ malades.'
+          etapes:
+          - $P_M(T) = \dfrac{95}{100} = 0{,}95$.
+          resultat: 19/20
+      - code: 2NDE-PCOND-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $P(R) = 0{,}4$ et $P(R \cap S) = 0{,}1$. Calculer $P_R(S)$.'
+        solution: 1/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Définition de la probabilité conditionnelle.
+          etapes:
+          - $P_R(S) = \dfrac{P(R \cap S)}{P(R)} = \dfrac{0{,}1}{0{,}4} = 0{,}25$.
+          resultat: 1/4
+      - code: 2NDE-PCOND-04
+        difficulte: 3
+        type: qcm
+        enonce: 'On note $M$ « la personne est malade » et $T$ « son test est positif ». La probabilité qu''une personne malade ait un test positif se note : A) $P_T(M)$  B) $P_M(T)$  C) $P(M \cap T)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On sait que la personne est malade : la condition est $M$, placée en indice.'
+          - 'On cherche la probabilité que le test soit positif : $P_M(T)$.'
+          resultat: B
+      - code: 2NDE-PCOND-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Sur $1\,000$ personnes testées, $140$ ont un test positif ; parmi elles, $95$ sont malades. On tire au hasard une personne dont le test est positif. Quelle est la probabilité qu''elle soit malade ? (Réponse sous forme de fraction.)'
+        solution: 19/28
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est « test positif » : on se restreint aux $140$ tests positifs.'
+          etapes:
+          - $P_T(M) = \dfrac{95}{140} = \dfrac{19}{28} \approx 0{,}68$.
+          resultat: 19/28
+          erreurs_frequentes:
+          - 'Répondre $\dfrac{95}{100}$ : c''est $P_M(T)$, la probabilité qu''un malade soit détecté.'
+      - code: 2NDE-PCOND-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un test est appliqué à $1\,000$ personnes : $100$ sont malades, dont $95$ ont un test positif, et $45$ des $900$ personnes non malades ont aussi un test positif. Parmi les personnes dont le test est positif, quelle est la proportion de faux positifs (personnes non malades) ? (Réponse sous forme de fraction.)'
+        solution: 9/28
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compléter le tableau croisé, puis se restreindre aux tests positifs.
+          etapes:
+          - 'Tests positifs : $95 + 45 = 140$.'
+          - 'Faux positifs parmi eux : $45$.'
+          - $\dfrac{45}{140} = \dfrac{9}{28} \approx 0{,}32$.
+          resultat: 9/28
+          erreurs_frequentes:
+          - 'Diviser par $900$ : on obtiendrait la part des tests positifs parmi les non malades.'
+
+  - code: 2NDE-ARBRE
+    libelle: Construire et exploiter un arbre pondéré
+    attendus: [2NDE-2026-PROBA-03, 2NDE-2026-PROBA-05, 2NDE-2026-PROBA-07, 2NDE-2026-PROBA-08]
+    objectifs:
+    - Traduire un énoncé en arbre pondéré, et inversement.
+    - Interpréter chaque pondération comme une probabilité ou une probabilité conditionnelle.
+    - Calculer la probabilité d'un chemin en multipliant les probabilités de ses branches.
+    prerequis:
+    - 2NDE-PCOND
+    methodes:
+    - titre: Construire un arbre pondéré à partir d'un énoncé
+      quand: L'énoncé donne une répartition, puis des pourcentages « parmi » chaque groupe.
+      etapes:
+      - 'Premier niveau : l''évènement de départ et son contraire, avec leurs probabilités.'
+      - 'Second niveau : sur chaque branche, l''évènement étudié et son contraire, avec les probabilités conditionnelles.'
+      - Vérifier que les branches issues d'un même nœud ont une somme égale à $1$.
+      exemple:
+        enonce: '$60\,\%$ des pièces viennent de la machine $M$, les autres d''une seconde machine. $5\,\%$ des pièces de $M$ sont rebutées. Pondérations ?'
+        resolution:
+        - 'Premier niveau : $P(M) = 0{,}6$ et $P(\bar M) = 0{,}4$.'
+        - 'Second niveau depuis $M$ : $P_M(R) = 0{,}05$ et $P_M(\bar R) = 0{,}95$.'
+        resultat: 'Chaque nœud a des branches de somme $1$.'
+    - titre: Calculer la probabilité d'un chemin
+      quand: On cherche la probabilité que deux évènements soient réalisés à la fois.
+      etapes:
+      - Repérer le chemin de l'arbre qui mène aux deux évènements.
+      - Multiplier les probabilités des branches de ce chemin.
+      exemple:
+        enonce: 'Avec $P(M) = 0{,}6$ et $P_M(R) = 0{,}05$, calculer $P(M \cap R)$.'
+        resolution:
+        - 'Chemin $M$ puis $R$.'
+        - $P(M \cap R) = P(M) \times P_M(R) = 0{,}6 \times 0{,}05 = 0{,}03$.
+        resultat: $0{,}03$
+    erreurs_frequentes:
+    - erreur: Écrire sur la seconde branche $P(R)$ au lieu de $P_M(R)$.
+      explication: 'Une branche du second niveau part d''un évènement déjà réalisé : sa pondération est une probabilité conditionnelle.'
+    - erreur: Additionner les probabilités d'un chemin au lieu de les multiplier.
+      explication: 'Le long d''un chemin, on multiplie : $P(M \cap R) = P(M) \times P_M(R)$.'
+    resume: |
+      - Un **arbre pondéré** représente une situation en deux étapes ; chaque branche porte une probabilité.
+      - Premier niveau : $P(A)$ et $P(\bar A)$. Second niveau : des probabilités **conditionnelles** $P_A(B)$, $P_A(\bar B)$…
+      - Les branches issues d'un même nœud ont une somme égale à $1$.
+      - **Probabilité d'un chemin** : produit des probabilités de ses branches, $P(A \cap B) = P(A) \times P_A(B)$.
+    cours: |
+      ## Construire l'arbre
+      Une usine fabrique $60\,\%$ de ses pièces sur la machine $M$ et les autres sur une seconde machine. $5\,\%$ des pièces de $M$ et $10\,\%$ des autres pièces sont rebutées. On choisit une pièce au hasard ; $R$ : « la pièce est rebutée ».
+
+      - Premier niveau : $P(M) = 0{,}6$ et $P(\bar M) = 0{,}4$.
+      - Depuis $M$ : $P_M(R) = 0{,}05$ et $P_M(\bar R) = 0{,}95$.
+      - Depuis $\bar M$ : $P_{\bar M}(R) = 0{,}1$ et $P_{\bar M}(\bar R) = 0{,}9$.
+
+      ## Lire les pondérations
+      La pondération $0{,}05$ de la branche $M \to R$ signifie : **parmi les pièces de la machine $M$**, $5\,\%$ sont rebutées. Ce n'est ni $P(R)$, ni $P(M \cap R)$.
+
+      ## Probabilité d'un chemin
+      La définition $P_M(R) = \dfrac{P(M \cap R)}{P(M)}$ donne $P(M \cap R) = P(M) \times P_M(R)$ : on multiplie le long du chemin.
+      $$P(M \cap R) = 0{,}6 \times 0{,}05 = 0{,}03 \qquad P(\bar M \cap R) = 0{,}4 \times 0{,}1 = 0{,}04.$$
+    questions:
+      - code: 2NDE-ARBRE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Dans un arbre pondéré, la branche allant vers $M$ porte la probabilité $0{,}6$. Quelle probabilité porte la branche allant vers $\bar M$ ?'
+        solution: 2/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Les branches issues d''un même nœud ont une somme égale à $1$ : $1 - 0{,}6 = 0{,}4$.'
+          resultat: 2/5
+      - code: 2NDE-ARBRE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans un arbre pondéré, on lit $P_M(R) = 0{,}05$. Quelle probabilité porte la branche allant de $M$ vers $\bar R$ ?'
+        solution: 19/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $P_M(\bar R) = 1 - P_M(R) = 1 - 0{,}05 = 0{,}95$.
+          resultat: 19/20
+      - code: 2NDE-ARBRE-03
+        difficulte: 3
+        type: numerique
+        enonce: '$60\,\%$ des pièces d''une usine sont fabriquées par la machine $M$, et $5\,\%$ des pièces de cette machine sont rebutées. On choisit une pièce au hasard. Quelle est la probabilité qu''elle vienne de $M$ et soit rebutée ?'
+        solution: 3/100
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Probabilité d'un chemin.
+          etapes:
+          - $P(M \cap R) = P(M) \times P_M(R) = 0{,}6 \times 0{,}05 = 0{,}03$.
+          resultat: 3/100
+      - code: 2NDE-ARBRE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Dans l''arbre pondéré de l''usine, la branche allant de $M$ vers $R$ porte la probabilité $0{,}05$. Cette probabilité est : A) $P(R)$  B) $P(M \cap R)$  C) $P_M(R)$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Cette branche part du nœud $M$ : on sait déjà que la pièce vient de $M$.'
+          - 'Sa pondération est la probabilité conditionnelle $P_M(R)$.'
+          resultat: C
+      - code: 2NDE-ARBRE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans une usine, $40\,\%$ des pièces sont fabriquées par une seconde machine, et $10\,\%$ des pièces de cette machine sont rebutées. On choisit une pièce au hasard. Quelle est la probabilité qu''elle vienne de la seconde machine et soit rebutée ?'
+        solution: 1/25
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Probabilité d'un chemin.
+          etapes:
+          - 'Chemin $\bar M$ puis $R$ : $P(\bar M) = 0{,}4$ et $P_{\bar M}(R) = 0{,}1$.'
+          - $P(\bar M \cap R) = 0{,}4 \times 0{,}1 = 0{,}04$.
+          resultat: 1/25
+      - code: 2NDE-ARBRE-06
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un lycée, $30\,\%$ des élèves jouent d''un instrument, et $12\,\%$ des élèves jouent d''un instrument et chantent à la chorale. On choisit au hasard un élève qui joue d''un instrument. Quelle est la probabilité qu''il chante à la chorale ?'
+        solution: 2/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remonter du chemin à la pondération de la branche.
+          etapes:
+          - 'On note $I$ « jouer d''un instrument » et $K$ « chanter à la chorale » : $P(I) = 0{,}3$ et $P(I \cap K) = 0{,}12$.'
+          - $P_I(K) = \dfrac{P(I \cap K)}{P(I)} = \dfrac{0{,}12}{0{,}3} = 0{,}4$.
+          resultat: 2/5
+      - code: 2NDE-ARBRE-07
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un lycée, $30\,\%$ des élèves jouent d''un instrument. Parmi eux, $70\,\%$ chantent à la chorale ; parmi les autres élèves, $10\,\%$ chantent à la chorale. On choisit un élève au hasard. Quelle est la probabilité qu''il ne joue d''aucun instrument et chante à la chorale ?'
+        solution: 7/100
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Construire l'arbre, puis suivre le bon chemin.
+          etapes:
+          - 'Premier niveau : $P(I) = 0{,}3$ et $P(\bar I) = 0{,}7$.'
+          - 'Depuis $\bar I$ : $P_{\bar I}(K) = 0{,}1$.'
+          - $P(\bar I \cap K) = 0{,}7 \times 0{,}1 = 0{,}07$.
+          resultat: 7/100
+          erreurs_frequentes:
+          - 'Utiliser $0{,}7$ deux fois : le $70\,\%$ de l''énoncé concerne les instrumentistes, pas les autres élèves.'
