@@ -131,7 +131,7 @@ describe("méthode PKP", () => {
     ]);
     expect(screen.getByText(/Décomposer et demander une aide ciblée/)).toBeInTheDocument();
     expect(screen.getByText(/ne sont pas verrouillées/)).toBeInTheDocument();
-    expect(screen.getByText("Le savoir et la connaissance, c'est le temps + la concentration.")).toBeInTheDocument();
+    expect(screen.getByText("Trois ingrédients pour apprendre : du temps, de la concentration, de la persévérance.")).toBeInTheDocument();
   });
 
   it("propose dans la leçon l'étape suivante et lance un entrainement de niveaux 1 à 3", async () => {

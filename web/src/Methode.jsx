@@ -122,7 +122,7 @@ export default function Methode() {
           On ne réussit pas en mathématiques parce qu'on est né fort : on progresse en comprenant, en pratiquant et en
           persévérant. La méthode PKP est la même dans chaque chapitre, pour que tu saches toujours quoi faire ensuite.
         </p>
-        <p className="accroche citation">Le savoir et la connaissance, c'est le temps + la concentration.</p>
+        <p className="accroche citation">Trois ingrédients pour apprendre : du temps, de la concentration, de la persévérance.</p>
       </section>
 
       <section className="carte" aria-labelledby="titre-etapes">
