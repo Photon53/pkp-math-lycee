@@ -152,7 +152,7 @@ etape "Migration de la base (appliquée au démarrage de l'API)"
 attendre_api
 version=$(dc exec -T api alembic current 2>/dev/null | tail -1)
 echo "Schéma : $version"
-[[ "$version" == 0008* ]] || echec "La base n'est pas en 0008. Journaux : $DOCKER compose logs api"
+[[ "$version" == *"(head)"* ]] || echec "La base n'est pas à la dernière version ($version). Journaux : $DOCKER compose logs api"
 
 etape "HTTPS"
 if [[ -n "$DOMAINE" ]] && curl -fsS --max-time 10 --resolve "$DOMAINE:443:127.0.0.1" "https://$DOMAINE/api/health" >/dev/null; then

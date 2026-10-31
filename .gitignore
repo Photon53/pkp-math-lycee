@@ -11,3 +11,5 @@ deploy/.env
 
 # Photos et extraits de manuels : jamais versionnés (droit d auteur)
 sources/
+# Sauf les textes officiels du BO, dont les référentiels ont besoin (vérifiés par empreinte SHA-256)
+!referentiels/sources/

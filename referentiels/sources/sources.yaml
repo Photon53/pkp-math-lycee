@@ -1,0 +1,46 @@
+# Textes officiels conservés dans le dépôt : chaque référentiel s'appuie sur l'un d'eux.
+# Annexes des arrêtés du 26 février 2026, publiées au BO n° 14 du 2 avril 2026.
+# Le numéro en fin de nom de fichier est celui du document sur le site du ministère.
+# L'empreinte est vérifiée à chaque chargement : un PDF remplacé doit être déclaré ici.
+- code: bo-2026-14-2nde-gt
+  titre: Programme d'enseignement de mathématiques de la classe de seconde générale et technologique
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-2nde-gt-515402.pdf
+  sha256: 05c5403d45bfc3631fa13b5c334822de09bcd68d850d0611044045cddba270de
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-1re-enseignement-scientifique
+  titre: Programme de mathématiques intégré à l'enseignement scientifique en classe de première générale
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-1re-enseignement-scientifique-515405.pdf
+  sha256: 7e48c40413ca57a5dcf66230648ea69eaef55d40e620736f0c7eff7bbc82069f
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-1re-specialite
+  titre: Programme d'enseignement de spécialité de mathématiques de la classe de première de la voie générale
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-1re-specialite-515408.pdf
+  sha256: 5303df0fcf6335f06d00c969a61dcd82cc3fdfd105271ae5c2ef580ff49b6c08
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-1re-technologique
+  titre: Programme d'enseignement de mathématiques de la classe de première de la voie technologique
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-1re-technologique-515411.pdf
+  sha256: 9ba787513e326fc9e8fe803a6324cff91289a77d8a0f64835e3bd25cbb425dff
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-tle-specialite
+  titre: Programme de l'enseignement de spécialité de mathématiques de la classe terminale de la voie générale
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-tle-specialite-515414.pdf
+  sha256: 9c99a32bb3e5f14d8906783f86a9a0fd86a99543b032a20fe388841d024ed4a5
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-tle-complementaires
+  titre: Programme de l'enseignement optionnel de mathématiques complémentaires de la classe terminale de la voie générale
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-tle-complementaires-515417.pdf
+  sha256: 24d24d6cbf25bab57cbcf91daba46b6286b0b602ee3cda4c6606c8d2b8dfe1d4
+  obtenu_le: 2026-10-31
+- code: bo-2026-14-tle-technologique
+  titre: Programme d'enseignement de mathématiques de la classe terminale de la voie technologique
+  bulletin: BO n° 14 du 2 avril 2026
+  fichier: bo-2026-14-tle-technologique-515420.pdf
+  sha256: df8f8b860960adfed1c9dbbf069f99f091e96f5b901d10dfcb4cbdeacaab67aa
+  obtenu_le: 2026-10-31
