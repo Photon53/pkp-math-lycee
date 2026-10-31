@@ -126,10 +126,12 @@ describe("méthode PKP", () => {
   it("présente les cinq étapes et les dix gestes", async () => {
     const { default: Methode } = await import("../Methode.jsx");
     render(<Methode />);
-    expect(screen.getAllByRole("listitem").slice(0, 5).map((li) => li.querySelector("strong").textContent)).toEqual([
+    expect([...document.querySelectorAll(".etapes-methode strong")].map((el) => el.textContent)).toEqual([
       "Je comprends", "Je mémorise", "Je m'entraîne", "Je me dépasse", "Je vérifie",
     ]);
-    expect(screen.getByText("10. Persévérer intelligemment")).toBeInTheDocument();
+    expect(screen.getByText(/Décomposer et demander une aide ciblée/)).toBeInTheDocument();
+    expect(screen.getByText(/ne sont pas verrouillées/)).toBeInTheDocument();
+    expect(screen.getByText("Le savoir et la connaissance, c'est le temps + la concentration.")).toBeInTheDocument();
   });
 
   it("propose dans la leçon l'étape suivante et lance un entrainement de niveaux 1 à 3", async () => {
