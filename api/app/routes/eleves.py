@@ -217,6 +217,7 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
     return ResultatReponse(
         correcte=correcte,
         solution=question.solution,
+        correction=question.correction,
         maitrise=calculer_maitrise(historique, question.competence_id),
         maitrisee=est_maitrisee(historique, question.competence_id),
     )

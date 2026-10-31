@@ -59,12 +59,16 @@ export function EntetePage({ titre, sousTitre, fil, children }) {
 
 export function Modale({ titre, onFermer, large = false, children }) {
   const boite = useRef(null);
+  // Référence à jour de onFermer : la page derrière peut se redessiner (chargement d'une liste) sans que
+  // l'effet ne se relance, sinon le focus reviendrait sur le premier champ pendant la saisie.
+  const fermer = useRef(onFermer);
+  fermer.current = onFermer;
   useEffect(() => {
-    const echap = (e) => e.key === "Escape" && onFermer();
+    const echap = (e) => e.key === "Escape" && fermer.current();
     document.addEventListener("keydown", echap);
     boite.current?.querySelector("input, textarea, select, button")?.focus();
     return () => document.removeEventListener("keydown", echap);
-  }, [onFermer]);
+  }, []);
   return (
     <div className="voile" onMouseDown={(e) => e.target === e.currentTarget && onFermer()}>
       <div className={large ? "modale large" : "modale"} role="dialog" aria-modal="true" aria-label={titre} ref={boite}>

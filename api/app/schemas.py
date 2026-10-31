@@ -208,6 +208,9 @@ class LeconInfo(BaseModel):
     chapitre_id: int | None = None
     cours: str
     resume: str
+    objectifs: list[str] = []
+    methodes: list[dict] = []
+    erreurs_frequentes: list[dict] = []
     ressources: list[RessourceVue] = []
 
 
@@ -219,6 +222,8 @@ class SoumissionReponse(BaseModel):
 class ResultatReponse(BaseModel):
     correcte: bool
     solution: str
+    # Correction détaillée : envoyée seulement ici, donc après la réponse de l'élève (E0.3).
+    correction: dict | None = None
     maitrise: float = Field(description="Maîtrise de la compétence après cette réponse, entre 0 et 1.")
     maitrisee: bool
 
@@ -368,3 +373,4 @@ class QuestionEnseignant(_Modele):
     licence_source: str | None
     adaptation: Adaptation
     statut_validation: StatutValidation
+    correction: dict | None = None

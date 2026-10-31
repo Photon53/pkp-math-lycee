@@ -3,6 +3,7 @@ import { api, ouvrirLien, ouvrirPdf } from "../api.js";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
 import Icone from "../ui/Icone.jsx";
+import { ErreursFrequentes, Methodes, Objectifs } from "../ui/Pedagogie.jsx";
 
 /**
  * Sommaire des cours et lecture d'une leçon (résumé, cours, ressources).
@@ -132,11 +133,14 @@ function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour }) {
         <>
           <p className="doux">{lecon.chapitre}</p>
           <h2>{lecon.libelle}</h2>
+          <Objectifs objectifs={lecon.objectifs} />
           <section className="resume" aria-labelledby="titre-resume">
             <h3 id="titre-resume">L'essentiel</h3>
             <Maths texte={lecon.resume} />
           </section>
           <Maths texte={lecon.cours} />
+          <Methodes methodes={lecon.methodes} />
+          <ErreursFrequentes erreurs={lecon.erreurs_frequentes} />
           <Ressources ressources={lecon.ressources ?? []} jeton={jeton} />
           {enseignant && !projection && <ExercicesDeLaCompetence base={base} competenceId={lecon.competence_id} jeton={jeton} />}
         </>

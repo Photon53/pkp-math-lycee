@@ -134,3 +134,32 @@ describe("professeur", () => {
     expect(screen.getByRole("article")).not.toHaveClass("projection");
   });
 });
+
+describe("contenu pédagogique structuré", () => {
+  it("affiche la correction détaillée après la réponse, repliée par défaut", async () => {
+    const { Correction } = await import("../ui/Pedagogie.jsx");
+    render(<Correction correction={{ methode: "Produit nul.", etapes: ["$x - 2 = 0$ donne $x = 2$."], resultat: "2" }} />);
+    const resume = screen.getByText("Voir la correction détaillée");
+    expect(resume.closest("details")).not.toHaveAttribute("open");
+    await userEvent.click(resume);
+    expect(screen.getByText(/Produit nul/)).toBeVisible();
+  });
+
+  it("affiche méthodes, exemple résolu et erreurs fréquentes dans la leçon", async () => {
+    fausseApi({
+      "GET /cours/7": {
+        json: {
+          competence_id: 7, code: "1RE-DISC", libelle: "Discriminant", chapitre: "Second degré", cours: "Cours", resume: "Résumé",
+          objectifs: ["Calculer le discriminant."],
+          methodes: [{ titre: "Résoudre une équation", etapes: ["Calculer Δ."], exemple: { enonce: "Résoudre.", resolution: ["Δ = 8"], resultat: "deux racines" } }],
+          erreurs_frequentes: [{ erreur: "Oublier les parenthèses.", explication: "b² est positif." }],
+        },
+      },
+    });
+    render(<Cours jeton="j" onExpire={vi.fn()} competenceId={7} onChoisir={vi.fn()} sommaireFourni={[]} />);
+    expect(await screen.findByRole("heading", { name: "Objectifs" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Comment résoudre une équation" })).toBeInTheDocument();
+    expect(screen.getByText("Exemple résolu.")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Attention à…" })).toBeInTheDocument();
+  });
+});

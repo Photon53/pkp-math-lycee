@@ -445,11 +445,12 @@ def importer(
 
         for rang, c in enumerate(contenu.competences, start=1):
             competence = session.scalar(select(models.Competence).where(models.Competence.code == c.code))
+            valeurs = {"libelle": c.libelle, "ordre": rang, "chapitre": chapitre, **_pedagogie(c)}
             if competence is None:
-                competence = models.Competence(code=c.code, libelle=c.libelle, ordre=rang, chapitre=chapitre)
+                competence = models.Competence(code=c.code, **valeurs)
                 session.add(competence)
                 rapport.crees["compétences"] += 1
-            elif _appliquer(competence, {"libelle": c.libelle, "ordre": rang, "chapitre": chapitre}):
+            elif _appliquer(competence, valeurs):
                 rapport.modifies["compétences"] += 1
             session.flush()
             _importer_lecon(session, competence, c, rapport, forcer)
@@ -471,6 +472,17 @@ def importer(
     else:
         session.commit()
     return rapport
+
+
+def _pedagogie(c: CompetenceYaml) -> dict:
+    """Champs structurés d'une compétence, stockés en JSON (listes vides si non renseignés)."""
+    return {
+        "attendus": list(c.attendus),
+        "objectifs": list(c.objectifs),
+        "prerequis": list(c.prerequis),
+        "methodes": [m.model_dump(exclude_none=True) for m in c.methodes],
+        "erreurs_frequentes": [e.model_dump() for e in c.erreurs_frequentes],
+    }
 
 
 def _importer_lecon(
@@ -524,6 +536,9 @@ def _importer_question(
         "statut_validation": q.validation.statut,
         "valide_par": q.validation.par,
         "valide_le": q.validation.le,
+        "auteur": q.auteur,
+        "correction": q.correction.model_dump(exclude_none=True) if q.correction else None,
+        "competences_secondaires": list(q.competences_secondaires),
     }
     if question is None:
         session.add(models.Question(**valeurs))

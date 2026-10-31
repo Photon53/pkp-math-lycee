@@ -172,6 +172,12 @@ class Competence(Base):
     libelle: Mapped[str] = mapped_column(String(200))
     ordre: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     masque: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Contenu pédagogique structuré, importé de contenu/*.yaml (voir docs/CONTENU.md) ; vide = non renseigné.
+    attendus: Mapped[list | None] = mapped_column(JSON)  # codes des attendus officiels couverts
+    objectifs: Mapped[list | None] = mapped_column(JSON)
+    prerequis: Mapped[list | None] = mapped_column(JSON)  # codes d'autres compétences
+    methodes: Mapped[list | None] = mapped_column(JSON)  # [{titre, quand, etapes, exemple}]
+    erreurs_frequentes: Mapped[list | None] = mapped_column(JSON)  # [{erreur, explication}]
 
     chapitre: Mapped[Chapitre] = relationship(back_populates="competences")
     questions: Mapped[list["Question"]] = relationship(back_populates="competence")
@@ -244,6 +250,9 @@ class Question(Base):
     valide_le: Mapped[date | None] = mapped_column(Date)
     # Auteur de la question : le relecteur doit être une autre personne.
     auteur: Mapped[str | None] = mapped_column(String(100))
+    # Correction détaillée {methode, etapes, resultat, erreurs_frequentes}, montrée après la réponse (E0.3).
+    correction: Mapped[dict | None] = mapped_column(JSON)
+    competences_secondaires: Mapped[list | None] = mapped_column(JSON)
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
     modifiee_admin_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 

@@ -208,3 +208,33 @@ class TestMatrice:
         assert "| ◐ | `TEST-1RE-SD-01`" in texte and "Attendus saisis : **4**, dont 3 obligatoires" in texte
         rapport = matrice.ecarts(r, fichiers, "TEST-1RE")
         assert "TEST-1RE-SD-02" in rapport and "Approfondissements non traités (facultatifs) : TEST-1RE-SD-04" in rapport
+
+
+class TestPedagogieServie:
+    """Chapitre pilote : méthodes et erreurs fréquentes dans la leçon, correction après la réponse (E0.3)."""
+
+    def _second_degre(self, client, h):
+        chapitre = next(c for c in client.get("/eleves/moi/chapitres", headers=h).json() if c["code"] == "1RE-SECOND-DEGRE")
+        return chapitre["id"]
+
+    def test_lecon_avec_methodes_et_erreurs(self, client):
+        from tests.conftest import connecter_eleve
+
+        h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
+        sommaire = client.get("/cours", headers=h).json()
+        disc = next(c for ch in sommaire for c in ch["competences"] if c["code"] == "1RE-DISC")
+        lecon = client.get(f"/cours/{disc['id']}", headers=h).json()
+        assert lecon["objectifs"] and lecon["methodes"][0]["exemple"]["resolution"]
+        assert lecon["erreurs_frequentes"][0]["explication"]
+
+    def test_correction_seulement_apres_la_reponse(self, client):
+        from tests.conftest import connecter_eleve
+
+        h = connecter_eleve(client, "Hugo", "1RE-B-DEMO")
+        seance = client.post("/seances", headers=h, json={"chapitre_ids": [self._second_degre(client, h)]}).json()["id"]
+        question = client.get(f"/seances/{seance}/question", headers=h).json()
+        assert "correction" not in question and "solution" not in question
+        resultat = client.post(
+            f"/seances/{seance}/reponses", headers=h, json={"question_id": question["id"], "reponse_donnee": "0"}
+        ).json()
+        assert resultat["correction"]["etapes"]

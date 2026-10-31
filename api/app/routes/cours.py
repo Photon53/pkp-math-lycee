@@ -54,6 +54,9 @@ def lecon(competence_id: int, eleve: EleveCourant, session: SessionDB) -> LeconI
         chapitre_id=competence.chapitre_id,
         cours=competence.lecon.cours,
         resume=competence.lecon.resume,
+        objectifs=competence.objectifs or [],
+        methodes=competence.methodes or [],
+        erreurs_frequentes=competence.erreurs_frequentes or [],
         ressources=ressources.pour_eleve(session, eleve, None, competence.id)
         + ressources.pour_eleve(session, eleve, competence.chapitre_id, None),
     )

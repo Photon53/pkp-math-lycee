@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **37** · compétences : **77** · questions actives : **379**
-- Validation pédagogique : 0 validée(s), 379 à valider, 0 à corriger
+- Chapitres : **37** · compétences : **81** · questions actives : **420**
+- Validation pédagogique : 0 validée(s), 420 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -43,7 +43,11 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
 |---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| 1. Second degré | `1RE-DISC` Utiliser le discriminant | ✓ | 1 | 1 | ⚠ 0 | ⚠ 0 | ⚠ 0 | 2 | 2 |
+| 1. Second degré | `1RE-SD-FACTO-SIGNE` Exploiter la forme factorisée (racines, signe, somme et produit) | ✓ | 2 | 2 | 2 | 2 | 1 | 9 | 9 |
+| 1. Second degré | `1RE-SD-CANON` Déterminer et utiliser la forme canonique | ✓ | 2 | 2 | 2 | 2 | 1 | 9 | 9 |
+| 1. Second degré | `1RE-DISC` Résoudre une équation du second degré avec le discriminant | ✓ | 1 | 2 | 2 | 2 | 1 | 8 | 8 |
+| 1. Second degré | `1RE-SD-FACTO` Factoriser en diversifiant les stratégies | ✓ | 2 | 2 | 3 | 1 | 1 | 9 | 9 |
+| 1. Second degré | `1RE-SD-PROBLEME` Choisir une forme adaptée pour résoudre un problème | ✓ | 1 | 2 | 2 | 2 | 1 | 8 | 8 |
 | 2. Suites numériques | `1RE-SUI-TERME` Calculer les termes d'une suite | ✓ | 1 | 1 | 1 | 1 | ⚠ 0 | 4 | 4 |
 | 2. Suites numériques | `1RE-SUI-MOD` Modéliser une situation par une suite | ✓ | ⚠ 0 | 2 | 1 | ⚠ 0 | ⚠ 0 | 3 | 3 |
 | 2. Suites numériques | `1RE-SUI-VAR` Étudier le sens de variation d'une suite | ✓ | ⚠ 0 | 1 | 1 | 1 | 1 | 4 | 4 |
@@ -108,7 +112,6 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 - `2NDE-RAC` (Calculer avec des racines carrées) : aucune question de difficulté 4, 5
 - `2NDE-DEV` (Développer une expression) : aucune question de difficulté 1, 5
 - `2NDE-EQ1` (Résoudre une équation du premier degré) : aucune question de difficulté 4, 5
-- `1RE-DISC` (Utiliser le discriminant) : aucune question de difficulté 3, 4, 5
 - `1RE-SUI-TERME` (Calculer les termes d'une suite) : aucune question de difficulté 5
 - `1RE-SUI-MOD` (Modéliser une situation par une suite) : aucune question de difficulté 1, 4, 5
 - `1RE-SUI-VAR` (Étudier le sens de variation d'une suite) : aucune question de difficulté 1
@@ -121,7 +124,7 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 366 |
+| PKP Math | — | originale | 407 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |
 | math.ma | non clarifiée | inspiree | 3 |

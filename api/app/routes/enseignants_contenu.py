@@ -109,6 +109,9 @@ def lecon(competence_id: int, enseignant: EnseignantCourant, session: SessionDB)
         chapitre_id=competence.chapitre_id,
         cours=competence.lecon.cours,
         resume=competence.lecon.resume,
+        objectifs=competence.objectifs or [],
+        methodes=competence.methodes or [],
+        erreurs_frequentes=competence.erreurs_frequentes or [],
         ressources=ressources.pour_enseignant(session, enseignant, None, competence.id)
         + ressources.pour_enseignant(session, enseignant, competence.chapitre_id, None),
     )

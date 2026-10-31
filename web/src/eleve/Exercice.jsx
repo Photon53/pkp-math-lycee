@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
+import { Correction } from "../ui/Pedagogie.jsx";
 import { ecrire, lire } from "../stockage.js";
 
 export const CLE_SEANCE = "pkp.seance";
@@ -304,6 +305,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
               Réponse attendue : <code>{resultat.solution}</code>
             </p>
           )}
+          <Correction correction={resultat.correction} />
           <BarreMaitrise valeur={resultat.maitrise} maitrisee={resultat.maitrisee} libelle="Maîtrise de cette compétence" />
           <div className="actions">
             <button autoFocus onClick={() => chargerQuestion(seanceId)} disabled={envoi}>

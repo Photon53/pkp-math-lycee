@@ -1,3 +1,5 @@
+# Chapitre pilote du référentiel 1RE-SPE-2026 (référentiels/1re-specialite-2026/second-degre.yaml).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
 chapitre:
   code: 1RE-SECOND-DEGRE
   niveau: 1re
@@ -6,9 +8,493 @@ chapitre:
   titre: Second degré
 
 competences:
-  - code: 1RE-DISC
-    libelle: Utiliser le discriminant
+  # ---------------------------------------------------------------------------------------------
+  - code: 1RE-SD-FACTO-SIGNE
+    libelle: Exploiter la forme factorisée (racines, signe, somme et produit)
+    attendus: [1RE-SPE-2026-SD-01, 1RE-SPE-2026-SD-03, 1RE-SPE-2026-SD-04]
+    objectifs:
+      - >-
+        Lire les racines d'une fonction polynôme du second degré donnée sous la forme $a(x - x_1)(x - x_2)$.
+      - >-
+        Dresser le tableau de signes de cette fonction et résoudre une inéquation.
+      - >-
+        Déterminer une fonction du second degré connaissant ses deux racines et un point de sa courbe.
+    prerequis: [2NDE-SIGNE, 2NDE-EQ1]
+    resume: |
+      - Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, les racines de $f$ sont $x_1$ et $x_2$.
+      - $f(x)$ est **du signe de $a$ à l'extérieur des racines**, du signe contraire entre les racines.
+      - Somme des racines : $x_1 + x_2 = -\dfrac{b}{a}$ ; produit : $x_1 x_2 = \dfrac{c}{a}$.
+      - Les fonctions qui s'annulent en $x_1$ et $x_2$ sont les $x \mapsto a(x - x_1)(x - x_2)$, $a \neq 0$.
+    cours: |
+      ## Racines d'une forme factorisée
+      Une **racine** de $f$ est un nombre $x$ tel que $f(x) = 0$.
+      Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, un produit est nul si et seulement si l'un de ses facteurs est nul :
+      les racines sont $x_1$ et $x_2$.
+
+      $$f(x) = 3(x - 2)(x + 5) \quad\text{a pour racines}\quad 2 \text{ et } -5$$
+
+      ## Signe
+      En développant, $a(x - x_1)(x - x_2) = ax^2 - a(x_1 + x_2)x + a x_1 x_2$.
+      Avec $x_1 < x_2$, le tableau de signes des deux facteurs donne :
+
+      | $x$ | $-\infty$ … $x_1$ | $x_1$ … $x_2$ | $x_2$ … $+\infty$ |
+      |---|:-:|:-:|:-:|
+      | $f(x)$ | signe de $a$ | signe de $-a$ | signe de $a$ |
+
+      **À retenir :** « signe de $a$ à l'extérieur des racines ».
+
+      ## Somme et produit des racines
+      En identifiant avec $ax^2 + bx + c$ : $b = -a(x_1 + x_2)$ et $c = a x_1 x_2$, donc
+      $$x_1 + x_2 = -\frac{b}{a} \qquad x_1 x_2 = \frac{c}{a}$$
+
+      ## Fonctions s'annulant en deux nombres donnés
+      Les fonctions polynômes du second degré qui s'annulent en $x_1$ et $x_2$ (distincts) sont exactement
+      les fonctions $x \mapsto a(x - x_1)(x - x_2)$ avec $a \neq 0$. Une condition de plus (un point de la courbe)
+      permet de trouver $a$.
+    methodes:
+      - titre: Étudier le signe d'une forme factorisée
+        quand: >-
+          La fonction est donnée sous la forme $a(x - x_1)(x - x_2)$, ou se factorise facilement.
+        etapes:
+          - >-
+            Lire les racines $x_1$ et $x_2$ et les ranger dans l'ordre croissant.
+          - >-
+            Repérer le signe de $a$.
+          - >-
+            Conclure : signe de $a$ à l'extérieur des racines, signe contraire entre elles.
+          - >-
+            Pour une inéquation, écrire l'ensemble des solutions avec des intervalles, en incluant
+            les racines si l'inégalité est large.
+        exemple:
+          enonce: >-
+            Résoudre $-2(x + 1)(x - 3) \geq 0$.
+          resolution:
+            - >-
+              Les racines sont $-1$ et $3$, et $a = -2 < 0$.
+            - >-
+              $f(x)$ est négatif à l'extérieur des racines, positif entre elles.
+            - >-
+              L'inégalité est large : on inclut les racines.
+          resultat: >-
+            $S = [-1 ; 3]$
+      - titre: Déterminer une fonction connaissant ses racines et un point
+        etapes:
+          - >-
+            Écrire $f(x) = a(x - x_1)(x - x_2)$ avec $a$ inconnu.
+          - >-
+            Remplacer $x$ par l'abscisse du point connu, et $f(x)$ par son ordonnée.
+          - >-
+            Résoudre l'équation du premier degré obtenue pour trouver $a$.
+        exemple:
+          enonce: >-
+            $f$ s'annule en $1$ et en $4$, et $f(0) = 8$. Déterminer $f$.
+          resolution:
+            - >-
+              $f(x) = a(x - 1)(x - 4)$.
+            - >-
+              $f(0) = a \times (-1) \times (-4) = 4a$, donc $4a = 8$.
+            - >-
+              $a = 2$.
+          resultat: >-
+            $f(x) = 2(x - 1)(x - 4)$
+    erreurs_frequentes:
+      - erreur: >-
+          Lire les racines de $(x + 5)$ comme $5$.
+        explication: >-
+          $x + 5 = 0$ donne $x = -5$ : la racine est l'opposé du nombre écrit dans la parenthèse.
+      - erreur: >-
+          Oublier le signe de $a$ dans le tableau de signes.
+        explication: >-
+          Avec $a < 0$, tout le tableau s'inverse : $f$ est alors positif entre les racines.
+    questions:
+      - code: 1RE-SD-FACTO-SIGNE-01
+        difficulte: 1
+        type: numerique
+        enonce: >-
+          Soit $f(x) = 3(x - 2)(x + 5)$. Quelle est la plus grande racine de $f$ ?
+        solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Un produit est nul si et seulement si l'un de ses facteurs est nul.
+          etapes:
+            - >-
+              $x - 2 = 0$ donne $x = 2$.
+            - >-
+              $x + 5 = 0$ donne $x = -5$.
+            - >-
+              La plus grande des deux racines est $2$.
+          resultat: 2
+      - code: 1RE-SD-FACTO-SIGNE-02
+        difficulte: 1
+        type: qcm
+        enonce: >-
+          Soit $f(x) = 2(x - 1)(x - 4)$. Quel est le signe de $f(3)$ ?
+          A) positif  B) négatif  C) nul
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $f(3) = 2 \times (3 - 1) \times (3 - 4) = 2 \times 2 \times (-1) = -4$.
+            - >-
+              Autre lecture : $3$ est entre les racines $1$ et $4$, et $a = 2 > 0$, donc $f(3) < 0$.
+          resultat: B
+      - code: 1RE-SD-FACTO-SIGNE-03
+        difficulte: 2
+        type: numerique
+        enonce: >-
+          Soit $f(x) = -(x - 3)(x + 7)$. Calculer la somme des racines de $f$.
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              Les racines sont $3$ et $-7$ (le coefficient $-1$ ne change pas les racines).
+            - >-
+              $3 + (-7) = -4$.
+          resultat: -4
+          erreurs_frequentes:
+            - >-
+              Prendre $7$ au lieu de $-7$ comme racine.
+      - code: 1RE-SD-FACTO-SIGNE-04
+        difficulte: 2
+        type: qcm
+        enonce: >-
+          Sur quel ensemble $f(x) = (x + 2)(x - 5)$ est-il strictement négatif ?
+          A) $]-\infty ; -2[ \cup ]5 ; +\infty[$  B) $]-2 ; 5[$  C) $[-2 ; 5]$
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Signe de $a$ à l'extérieur des racines, signe contraire entre elles.
+          etapes:
+            - >-
+              Les racines sont $-2$ et $5$, et $a = 1 > 0$.
+            - >-
+              $f$ est donc strictement négative entre les racines.
+            - >-
+              L'inégalité est stricte : les racines sont exclues.
+          resultat: B
+      - code: 1RE-SD-FACTO-SIGNE-05
+        difficulte: 3
+        type: qcm
+        enonce: >-
+          Soit $f(x) = -2(x + 1)(x - 3)$. Quel est l'ensemble des solutions de $f(x) \geq 0$ ?
+          A) $[-1 ; 3]$  B) $]-\infty ; -1] \cup [3 ; +\infty[$  C) $]-1 ; 3[$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              Les racines sont $-1$ et $3$, et $a = -2 < 0$.
+            - >-
+              $f$ est positive entre les racines.
+            - >-
+              L'inégalité est large : on inclut $-1$ et $3$.
+          resultat: A
+          erreurs_frequentes:
+            - >-
+              Répondre B en oubliant que $a$ est négatif.
+      - code: 1RE-SD-FACTO-SIGNE-06
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Combien de nombres entiers $x$ vérifient $(x - 1)(x - 6) < 0$ ?
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              Les racines sont $1$ et $6$, et $a = 1 > 0$ : l'expression est strictement négative sur $]1 ; 6[$.
+            - >-
+              Les entiers de cet intervalle sont $2$, $3$, $4$ et $5$.
+          resultat: 4
+          erreurs_frequentes:
+            - >-
+              Compter $1$ et $6$ : l'inégalité est stricte et ces nombres annulent l'expression.
+      - code: 1RE-SD-FACTO-SIGNE-07
+        difficulte: 4
+        type: expression
+        enonce: >-
+          Déterminer la fonction polynôme du second degré $f$ qui s'annule en $1$ et en $4$,
+          et telle que $f(0) = 8$. Donner $f(x)$.
+        solution: 2(x-1)(x-4)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Les fonctions qui s'annulent en $1$ et $4$ s'écrivent $a(x - 1)(x - 4)$.
+          etapes:
+            - >-
+              $f(0) = a \times (-1) \times (-4) = 4a$.
+            - >-
+              $4a = 8$ donc $a = 2$.
+            - >-
+              $f(x) = 2(x - 1)(x - 4) = 2x^2 - 10x + 8$.
+          resultat: 2x^2 - 10x + 8
+      - code: 1RE-SD-FACTO-SIGNE-08
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          Une fonction du second degré a pour racines $-3$ et $5$, et son coefficient $a$ vaut $-1$.
+          Calculer $f(0)$.
+        solution: 15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $f(x) = -(x + 3)(x - 5)$.
+            - >-
+              $f(0) = -(3) \times (-5) = 15$.
+          resultat: 15
+      - code: 1RE-SD-FACTO-SIGNE-09
+        difficulte: 5
+        type: numerique
+        enonce: >-
+          La courbe d'une fonction du second degré $f$ coupe l'axe des abscisses en $-2$ et en $4$,
+          et passe par le point de coordonnées $(1 ; -18)$. Calculer $f(5)$.
+        solution: 14
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Écrire $f$ sous forme factorisée, puis trouver $a$ grâce au point connu.
+          etapes:
+            - >-
+              $f(x) = a(x + 2)(x - 4)$.
+            - >-
+              $f(1) = a \times 3 \times (-3) = -9a$, donc $-9a = -18$ et $a = 2$.
+            - >-
+              $f(5) = 2 \times 7 \times 1 = 14$.
+          resultat: 14
+
+  # ---------------------------------------------------------------------------------------------
+  - code: 1RE-SD-CANON
+    libelle: Déterminer et utiliser la forme canonique
     attendus: [1RE-SPE-2026-SD-02]
+    objectifs:
+      - >-
+        Obtenir la forme canonique par complétion du carré, dans des cas simples.
+      - >-
+        En déduire le sommet de la parabole et l'extremum de la fonction.
+    prerequis: [2NDE-DEV, 2NDE-CARRE]
+    resume: |
+      - Forme canonique : $f(x) = a(x - \alpha)^2 + \beta$, avec $\alpha = -\dfrac{b}{2a}$ et $\beta = f(\alpha)$.
+      - Complétion du carré : $x^2 + 2kx = (x + k)^2 - k^2$.
+      - Le sommet de la parabole est $S(\alpha ; \beta)$.
+      - Si $a > 0$, $\beta$ est le **minimum** de $f$ ; si $a < 0$, c'est son **maximum**, atteint en $\alpha$.
+    cours: |
+      ## Forme canonique
+      Toute fonction polynôme du second degré $f(x) = ax^2 + bx + c$ ($a \neq 0$) peut s'écrire
+      $$f(x) = a(x - \alpha)^2 + \beta$$
+      C'est la **forme canonique**. On a $\alpha = -\dfrac{b}{2a}$ et $\beta = f(\alpha)$.
+
+      ## Complétion du carré
+      L'identité $x^2 + 2kx = (x + k)^2 - k^2$ permet d'obtenir la forme canonique :
+      $$x^2 + 6x + 1 = (x + 3)^2 - 9 + 1 = (x + 3)^2 - 8$$
+      Si $a \neq 1$, on factorise d'abord par $a$ les termes en $x^2$ et en $x$ :
+      $$2x^2 - 12x + 11 = 2(x^2 - 6x) + 11 = 2\big[(x - 3)^2 - 9\big] + 11 = 2(x - 3)^2 - 7$$
+
+      ## Sommet et extremum
+      Un carré est toujours positif : $(x - \alpha)^2 \geq 0$, nul seulement pour $x = \alpha$.
+      - si $a > 0$, $f(x) \geq \beta$ : $\beta$ est le minimum de $f$, atteint en $\alpha$ ;
+      - si $a < 0$, $f(x) \leq \beta$ : $\beta$ est le maximum de $f$, atteint en $\alpha$.
+
+      La courbe est une **parabole** de sommet $S(\alpha ; \beta)$ et d'axe de symétrie la droite $x = \alpha$.
+    methodes:
+      - titre: Écrire la forme canonique par complétion du carré
+        quand: >-
+          Le coefficient de $x$ est pair (ou le coefficient $a$ se factorise simplement).
+        etapes:
+          - >-
+            Si $a \neq 1$, factoriser par $a$ les termes en $x^2$ et en $x$.
+          - >-
+            Écrire $x^2 + 2kx$ sous la forme $(x + k)^2 - k^2$.
+          - >-
+            Développer le crochet éventuel et réduire les constantes.
+        exemple:
+          enonce: >-
+            Écrire $x^2 - 10x + 21$ sous forme canonique et donner le minimum de la fonction.
+          resolution:
+            - >-
+              $x^2 - 10x = (x - 5)^2 - 25$.
+            - >-
+              $x^2 - 10x + 21 = (x - 5)^2 - 25 + 21 = (x - 5)^2 - 4$.
+            - >-
+              $a = 1 > 0$ : le minimum est $-4$, atteint en $x = 5$.
+          resultat: >-
+            $(x - 5)^2 - 4$ ; minimum $-4$ en $5$
+    erreurs_frequentes:
+      - erreur: >-
+          Écrire $x^2 + 6x = (x + 3)^2$ en oubliant de retrancher $9$.
+        explication: >-
+          $(x + 3)^2 = x^2 + 6x + 9$ : il faut retrancher $9$ pour retrouver $x^2 + 6x$.
+      - erreur: >-
+          Lire $\alpha = 2$ dans $(x + 2)^2$.
+        explication: >-
+          $(x + 2)^2 = (x - (-2))^2$ : ici $\alpha = -2$.
+    questions:
+      - code: 1RE-SD-CANON-01
+        difficulte: 1
+        type: numerique
+        enonce: >-
+          On écrit $x^2 + 6x + 1 = (x + 3)^2 + \beta$. Calculer $\beta$.
+        solution: -8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $(x + 3)^2 = x^2 + 6x + 9$.
+            - >-
+              Donc $x^2 + 6x + 1 = (x + 3)^2 - 9 + 1 = (x + 3)^2 - 8$.
+          resultat: -8
+      - code: 1RE-SD-CANON-02
+        difficulte: 1
+        type: numerique
+        enonce: >-
+          Soit $f(x) = 2(x - 1)^2 + 5$. Quelle est l'ordonnée du sommet de sa parabole ?
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              La forme canonique $a(x - \alpha)^2 + \beta$ donne directement le sommet $S(\alpha ; \beta)$.
+            - >-
+              Ici $\alpha = 1$ et $\beta = 5$.
+          resultat: 5
+      - code: 1RE-SD-CANON-03
+        difficulte: 2
+        type: numerique
+        enonce: >-
+          Quelle est l'abscisse du sommet de la parabole d'équation $y = x^2 - 8x + 3$ ?
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            $\alpha = -\dfrac{b}{2a}$.
+          etapes:
+            - >-
+              $a = 1$ et $b = -8$.
+            - >-
+              $\alpha = -\dfrac{-8}{2 \times 1} = 4$.
+          resultat: 4
+      - code: 1RE-SD-CANON-04
+        difficulte: 2
+        type: qcm
+        enonce: >-
+          Soit $f(x) = -3(x + 2)^2 + 7$. Que peut-on dire de $f$ ?
+          A) maximum $7$ atteint en $-2$  B) minimum $7$ atteint en $-2$  C) maximum $7$ atteint en $2$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $f(x) = -3(x - (-2))^2 + 7$ : $\alpha = -2$ et $\beta = 7$.
+            - >-
+              $a = -3 < 0$ : $\beta$ est un maximum.
+          resultat: A
+          erreurs_frequentes:
+            - >-
+              Lire $\alpha = 2$ (réponse C) au lieu de $\alpha = -2$.
+      - code: 1RE-SD-CANON-05
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Quelle est la valeur minimale de $f(x) = x^2 - 10x + 21$ sur $\mathbb{R}$ ?
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Complétion du carré.
+          etapes:
+            - >-
+              $x^2 - 10x + 21 = (x - 5)^2 - 25 + 21 = (x - 5)^2 - 4$.
+            - >-
+              Un carré est positif, donc $f(x) \geq -4$, avec égalité pour $x = 5$.
+          resultat: -4
+      - code: 1RE-SD-CANON-06
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Quelle est la valeur minimale de $f(x) = x^2 + 4x + 9$ sur $\mathbb{R}$ ?
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $x^2 + 4x + 9 = (x + 2)^2 - 4 + 9 = (x + 2)^2 + 5$.
+            - >-
+              Le minimum est $5$, atteint en $x = -2$.
+          resultat: 5
+      - code: 1RE-SD-CANON-07
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          À l'aide de la forme canonique, résoudre $x^2 + 2x - 8 = 0$. Donner la plus petite solution.
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $x^2 + 2x - 8 = (x + 1)^2 - 1 - 8 = (x + 1)^2 - 9$.
+            - >-
+              $(x + 1)^2 = 9$ donne $x + 1 = 3$ ou $x + 1 = -3$.
+            - >-
+              Les solutions sont $2$ et $-4$ ; la plus petite est $-4$.
+          resultat: -4
+          erreurs_frequentes:
+            - >-
+              Oublier la solution négative de $(x + 1)^2 = 9$.
+      - code: 1RE-SD-CANON-08
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          On écrit $2x^2 - 12x + 11 = 2(x - 3)^2 + \beta$. Calculer $\beta$.
+        solution: -7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $2x^2 - 12x + 11 = 2(x^2 - 6x) + 11$.
+            - >-
+              $x^2 - 6x = (x - 3)^2 - 9$, donc $2(x^2 - 6x) = 2(x - 3)^2 - 18$.
+            - >-
+              $2x^2 - 12x + 11 = 2(x - 3)^2 - 18 + 11 = 2(x - 3)^2 - 7$.
+          resultat: -7
+          erreurs_frequentes:
+            - >-
+              Ne pas multiplier $-9$ par $2$ et trouver $\beta = 2$.
+      - code: 1RE-SD-CANON-09
+        difficulte: 5
+        type: numerique
+        enonce: >-
+          Un rectangle a un périmètre de $20$ cm. Quelle est son aire maximale, en cm² ?
+        solution: 25
+        auteur: Brouillon IA (Claude)
+        competences_secondaires: [1RE-SD-PROBLEME]
+        correction:
+          methode: >-
+            Exprimer l'aire en fonction d'une longueur, puis utiliser la forme canonique.
+          etapes:
+            - >-
+              Si une longueur vaut $x$, l'autre vaut $10 - x$ (demi-périmètre $10$), avec $0 < x < 10$.
+            - >-
+              Aire : $A(x) = x(10 - x) = -x^2 + 10x = -(x^2 - 10x) = -(x - 5)^2 + 25$.
+            - >-
+              $a = -1 < 0$ : le maximum est $25$, atteint pour $x = 5$ (le rectangle est un carré).
+          resultat: 25
+
+  # ---------------------------------------------------------------------------------------------
+  - code: 1RE-DISC
+    libelle: Résoudre une équation du second degré avec le discriminant
+    attendus: [1RE-SPE-2026-SD-02, 1RE-SPE-2026-SD-07]
+    objectifs:
+      - >-
+        Calculer le discriminant et en déduire le nombre de solutions.
+      - >-
+        Résoudre une équation et une inéquation du second degré.
+      - >-
+        Connaitre la démonstration des formules de résolution.
+    prerequis: [1RE-SD-CANON]
     resume: |
       Pour $ax^2 + bx + c$ avec $a \neq 0$, on calcule $\Delta = b^2 - 4ac$.
       - $\Delta > 0$ : deux racines $x_{1,2} = \dfrac{-b \pm \sqrt{\Delta}}{2a}$
@@ -28,16 +514,588 @@ competences:
       Pour $2x^2 - 3x - 2 = 0$ : $\Delta = (-3)^2 - 4 \times 2 \times (-2) = 9 + 16 = 25$.
       Donc $x_1 = \dfrac{3 - 5}{4} = -\dfrac{1}{2}$ et $x_2 = \dfrac{3 + 5}{4} = 2$.
 
-      ## Attention aux signes
-      Si $b$ est négatif, $b^2$ reste positif : écrire $(-3)^2$ avec les parenthèses.
+      ## Démonstration (exigible)
+      On part de la forme canonique : pour $a \neq 0$,
+      $$ax^2 + bx + c = a\left[\left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a^2}\right] = a\left[\left(x + \frac{b}{2a}\right)^2 - \frac{\Delta}{4a^2}\right]$$
+      - Si $\Delta < 0$, le crochet est la somme d'un carré et d'un nombre strictement positif : il ne s'annule jamais.
+      - Si $\Delta = 0$, l'équation équivaut à $\left(x + \frac{b}{2a}\right)^2 = 0$, d'où $x_0 = -\frac{b}{2a}$.
+      - Si $\Delta > 0$, on reconnait une différence de deux carrés :
+        $\left(x + \frac{b}{2a}\right)^2 - \left(\frac{\sqrt{\Delta}}{2a}\right)^2 = \left(x + \frac{b - \sqrt{\Delta}}{2a}\right)\left(x + \frac{b + \sqrt{\Delta}}{2a}\right)$,
+        qui s'annule en $x_1$ et $x_2$.
+
+      ## Signe de $ax^2 + bx + c$
+      Si $\Delta > 0$, le polynôme est du signe de $a$ à l'extérieur des racines.
+      Si $\Delta \leq 0$, il est du signe de $a$ partout (et s'annule en $x_0$ si $\Delta = 0$).
+    methodes:
+      - titre: Résoudre une équation du second degré
+        quand: >-
+          Aucune racine évidente ni factorisation directe n'apparait.
+        etapes:
+          - >-
+            Écrire l'équation sous la forme $ax^2 + bx + c = 0$ et lire $a$, $b$, $c$.
+          - >-
+            Calculer $\Delta = b^2 - 4ac$ en mettant $b$ entre parenthèses s'il est négatif.
+          - >-
+            Conclure selon le signe de $\Delta$ avec les formules.
+        exemple:
+          enonce: >-
+            Résoudre $x^2 - 2x - 1 = 0$.
+          resolution:
+            - >-
+              $a = 1$, $b = -2$, $c = -1$.
+            - >-
+              $\Delta = (-2)^2 - 4 \times 1 \times (-1) = 8 > 0$.
+            - >-
+              $x_{1,2} = \dfrac{2 \pm \sqrt{8}}{2} = \dfrac{2 \pm 2\sqrt{2}}{2} = 1 \pm \sqrt{2}$.
+          resultat: >-
+            $S = \{1 - \sqrt{2} ; 1 + \sqrt{2}\}$
+    erreurs_frequentes:
+      - erreur: >-
+          Calculer $-3^2 = -9$ au lieu de $(-3)^2 = 9$.
+        explication: >-
+          $b^2$ est toujours positif : écrire $(-3)^2$ avec les parenthèses.
+      - erreur: >-
+          Diviser seulement $\sqrt{\Delta}$ par $2a$.
+        explication: >-
+          Toute la somme $-b \pm \sqrt{\Delta}$ est divisée par $2a$.
     questions:
       - code: 1RE-DISC-01
         difficulte: 1
         type: numerique
         enonce: Calculer le discriminant de x² − 4x + 3.
         solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $a = 1$, $b = -4$, $c = 3$.
+            - >-
+              $\Delta = (-4)^2 - 4 \times 1 \times 3 = 16 - 12 = 4$.
+          resultat: 4
       - code: 1RE-DISC-02
         difficulte: 2
         type: qcm
         enonce: Combien de solutions réelles a x² + x + 1 = 0 ? A) 0  B) 1  C) 2
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $\Delta = 1^2 - 4 \times 1 \times 1 = -3 < 0$.
+            - >-
+              Un discriminant strictement négatif : aucune solution réelle.
+          resultat: A
+      - code: 1RE-DISC-03
+        difficulte: 2
+        type: numerique
+        enonce: >-
+          Combien de solutions réelles l'équation $4x^2 - 4x + 1 = 0$ admet-elle ?
+        solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $\Delta = (-4)^2 - 4 \times 4 \times 1 = 16 - 16 = 0$.
+            - >-
+              Une seule solution (racine double) : $x_0 = \dfrac{4}{8} = \dfrac{1}{2}$.
+            - >-
+              On pouvait aussi reconnaitre $(2x - 1)^2$.
+          resultat: 1
+      - code: 1RE-DISC-04
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Résoudre $3x^2 + 5x - 2 = 0$. Donner la plus grande solution.
+        solution: 1/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $\Delta = 5^2 - 4 \times 3 \times (-2) = 25 + 24 = 49$, donc $\sqrt{\Delta} = 7$.
+            - >-
+              $x_1 = \dfrac{-5 - 7}{6} = -2$ et $x_2 = \dfrac{-5 + 7}{6} = \dfrac{1}{3}$.
+          resultat: 1/3
+      - code: 1RE-DISC-05
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Résoudre $x^2 - 2x - 1 = 0$. Donner la plus petite solution (valeur exacte).
+        solution: 1-sqrt(2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $\Delta = (-2)^2 - 4 \times 1 \times (-1) = 8$ et $\sqrt{8} = 2\sqrt{2}$.
+            - >-
+              $x_1 = \dfrac{2 - 2\sqrt{2}}{2} = 1 - \sqrt{2}$.
+          resultat: 1-sqrt(2)
+          erreurs_frequentes:
+            - >-
+              Simplifier $\dfrac{2 - 2\sqrt{2}}{2}$ en $1 - 2\sqrt{2}$ : les deux termes sont divisés par $2$.
+      - code: 1RE-DISC-06
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          Pour quelle valeur du réel $m$ l'équation $x^2 + 6x + m = 0$ admet-elle une unique solution ?
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Une unique solution équivaut à $\Delta = 0$.
+          etapes:
+            - >-
+              $\Delta = 6^2 - 4 \times 1 \times m = 36 - 4m$.
+            - >-
+              $36 - 4m = 0$ donne $m = 9$.
+            - >-
+              Vérification : $x^2 + 6x + 9 = (x + 3)^2$.
+          resultat: 9
+      - code: 1RE-DISC-07
+        difficulte: 4
+        type: qcm
+        enonce: >-
+          Quel est l'ensemble des solutions de $x^2 - x - 6 < 0$ ?
+          A) $]-2 ; 3[$  B) $]-\infty ; -2[ \cup ]3 ; +\infty[$  C) $]-3 ; 2[$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $\Delta = (-1)^2 - 4 \times 1 \times (-6) = 25$ : racines $\dfrac{1 - 5}{2} = -2$ et $\dfrac{1 + 5}{2} = 3$.
+            - >-
+              $a = 1 > 0$ : le polynôme est strictement négatif entre les racines.
+          resultat: A
+      - code: 1RE-DISC-08
+        difficulte: 5
+        type: numerique
+        enonce: >-
+          Combien de valeurs entières du réel $m$ rendent l'équation $x^2 + mx + 4 = 0$ sans solution réelle ?
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              Pas de solution réelle équivaut à $\Delta < 0$, soit $m^2 - 16 < 0$.
+            - >-
+              $m^2 - 16 = (m - 4)(m + 4)$ est strictement négatif pour $-4 < m < 4$.
+            - >-
+              Les entiers sont $-3, -2, -1, 0, 1, 2, 3$ : il y en a $7$.
+          resultat: 7
+
+  # ---------------------------------------------------------------------------------------------
+  - code: 1RE-SD-FACTO
+    libelle: Factoriser en diversifiant les stratégies
+    attendus: [1RE-SPE-2026-SD-05, 1RE-SPE-2026-SD-08]
+    objectifs:
+      - >-
+        Choisir la stratégie de factorisation la plus rapide : racine évidente, somme et produit,
+        identité remarquable, formules générales.
+    prerequis: [2NDE-DEV, 1RE-DISC]
+    resume: |
+      - **Racine évidente** : tester $0$, $1$, $-1$, $2$… ; l'autre racine vient du produit $x_1 x_2 = \dfrac{c}{a}$.
+      - **Somme et produit** : si $x_1 + x_2 = -\dfrac{b}{a}$ et $x_1 x_2 = \dfrac{c}{a}$ sont simples, chercher les racines de tête.
+      - **Identités remarquables** : $a^2 - b^2 = (a - b)(a + b)$, $a^2 \pm 2ab + b^2 = (a \pm b)^2$.
+      - Sinon, **discriminant** : $ax^2 + bx + c = a(x - x_1)(x - x_2)$.
+    cours: |
+      ## Pourquoi plusieurs stratégies ?
+      Les formules du discriminant marchent toujours, mais elles sont longues. Dans beaucoup de cas,
+      une factorisation directe est plus rapide et évite les erreurs de calcul.
+
+      ## Racine évidente
+      Si $x_1$ est une racine, le produit des racines vaut $\dfrac{c}{a}$, donc $x_2 = \dfrac{c}{a x_1}$ (si $x_1 \neq 0$).
+      Exemple : $1$ annule $x^2 + 4x - 5$, et $x_1 x_2 = -5$, donc $x_2 = -5$ et
+      $$x^2 + 4x - 5 = (x - 1)(x + 5)$$
+
+      ## Somme et produit
+      Pour $x^2 - 7x + 12$ : on cherche deux nombres de somme $7$ et de produit $12$, ce sont $3$ et $4$ :
+      $$x^2 - 7x + 12 = (x - 3)(x - 4)$$
+
+      ## Cas particuliers
+      - $c = 0$ : $ax^2 + bx = x(ax + b)$, racine apparente $0$.
+      - $b = 0$ : $x^2 - k^2 = (x - k)(x + k)$ ; $x^2 + k^2$ ne se factorise pas.
+      - Carré parfait : $4x^2 - 12x + 9 = (2x - 3)^2$.
+
+      ## N'oublier ni le coefficient $a$ ni la vérification
+      $2x^2 + 2x - 12 = 2(x^2 + x - 6) = 2(x - 2)(x + 3)$. On vérifie en redéveloppant.
+    methodes:
+      - titre: Factoriser grâce à une racine évidente
+        quand: >-
+          Les coefficients sont entiers et un petit entier ($0$, $1$, $-1$, $2$…) annule le polynôme.
+        etapes:
+          - >-
+            Tester les petites valeurs entières jusqu'à trouver une racine $x_1$.
+          - >-
+            Calculer l'autre racine avec le produit : $x_2 = \dfrac{c}{a x_1}$.
+          - >-
+            Écrire $a(x - x_1)(x - x_2)$ et vérifier en développant.
+        exemple:
+          enonce: >-
+            Factoriser $3x^2 + 5x + 2$.
+          resolution:
+            - >-
+              Pour $x = -1$ : $3 - 5 + 2 = 0$, donc $-1$ est racine.
+            - >-
+              Produit des racines : $\dfrac{c}{a} = \dfrac{2}{3}$, donc $x_2 = \dfrac{2}{3} \div (-1) = -\dfrac{2}{3}$.
+            - >-
+              $3x^2 + 5x + 2 = 3(x + 1)\left(x + \dfrac{2}{3}\right) = (x + 1)(3x + 2)$.
+          resultat: >-
+            $(x + 1)(3x + 2)$
+    erreurs_frequentes:
+      - erreur: >-
+          Oublier le coefficient $a$ : écrire $2x^2 + 2x - 12 = (x - 2)(x + 3)$.
+        explication: >-
+          $(x - 2)(x + 3) = x^2 + x - 6$ : il manque le facteur $2$. Redévelopper permet de le voir.
+      - erreur: >-
+          Factoriser $x^2 + 9$ en $(x - 3)(x + 3)$.
+        explication: >-
+          $(x - 3)(x + 3) = x^2 - 9$. Une somme de deux carrés ne se factorise pas dans $\mathbb{R}$.
+    questions:
+      - code: 1RE-SD-FACTO-01
+        difficulte: 1
+        type: qcm
+        enonce: >-
+          Quelle est une factorisation de $x^2 - 9$ ?
+          A) $(x - 3)^2$  B) $(x - 3)(x + 3)$  C) $(x - 9)(x + 1)$
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Identité remarquable $a^2 - b^2 = (a - b)(a + b)$.
+          etapes:
+            - >-
+              $x^2 - 9 = x^2 - 3^2 = (x - 3)(x + 3)$.
+          resultat: B
+      - code: 1RE-SD-FACTO-02
+        difficulte: 1
+        type: numerique
+        enonce: >-
+          $1$ est une racine évidente de $x^2 + 4x - 5$. Quelle est l'autre racine ?
+        solution: -5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Produit des racines : $x_1 x_2 = \dfrac{c}{a}$.
+          etapes:
+            - >-
+              $x_1 x_2 = \dfrac{-5}{1} = -5$ et $x_1 = 1$.
+            - >-
+              Donc $x_2 = -5$.
+          resultat: -5
+      - code: 1RE-SD-FACTO-03
+        difficulte: 2
+        type: qcm
+        enonce: >-
+          Quelle est la factorisation de $x^2 - 7x + 12$ ?
+          A) $(x - 3)(x - 4)$  B) $(x + 3)(x + 4)$  C) $(x - 2)(x - 6)$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Somme et produit des racines.
+          etapes:
+            - >-
+              On cherche deux nombres de somme $7$ et de produit $12$ : $3$ et $4$.
+            - >-
+              $(x - 3)(x - 4) = x^2 - 7x + 12$.
+          resultat: A
+          erreurs_frequentes:
+            - >-
+              Choisir C : $2 \times 6 = 12$, mais $2 + 6 = 8 \neq 7$.
+      - code: 1RE-SD-FACTO-04
+        difficulte: 2
+        type: numerique
+        enonce: >-
+          Factoriser $x^2 - 5x$ et donner sa racine non nulle.
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $x^2 - 5x = x(x - 5)$.
+            - >-
+              Les racines sont $0$ et $5$.
+          resultat: 5
+      - code: 1RE-SD-FACTO-05
+        difficulte: 3
+        type: qcm
+        enonce: >-
+          Quelle est la factorisation de $2x^2 + 2x - 12$ ?
+          A) $2(x - 2)(x + 3)$  B) $(x - 2)(x + 3)$  C) $2(x + 2)(x - 3)$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $2x^2 + 2x - 12 = 2(x^2 + x - 6)$.
+            - >-
+              Deux nombres de somme $-1$ et de produit $-6$ : $2$ et $-3$, donc $x^2 + x - 6 = (x - 2)(x + 3)$.
+          resultat: A
+          erreurs_frequentes:
+            - >-
+              Oublier le facteur $2$ (réponse B).
+      - code: 1RE-SD-FACTO-06
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          $-1$ est une racine de $3x^2 + 5x + 2$. Quelle est l'autre racine ?
+        solution: -2/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              Produit des racines : $\dfrac{c}{a} = \dfrac{2}{3}$.
+            - >-
+              $x_2 = \dfrac{2}{3} \div (-1) = -\dfrac{2}{3}$.
+            - >-
+              Vérification : $3 \times \dfrac{4}{9} - \dfrac{10}{3} + 2 = \dfrac{4}{3} - \dfrac{10}{3} + 2 = 0$.
+          resultat: -2/3
+      - code: 1RE-SD-FACTO-07
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          Factoriser $4x^2 - 12x + 9$ et donner sa racine double.
+        solution: 3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Identité remarquable $a^2 - 2ab + b^2 = (a - b)^2$.
+          etapes:
+            - >-
+              $4x^2 = (2x)^2$, $9 = 3^2$ et $12x = 2 \times 2x \times 3$.
+            - >-
+              $4x^2 - 12x + 9 = (2x - 3)^2$, qui s'annule pour $x = \dfrac{3}{2}$.
+          resultat: 3/2
+      - code: 1RE-SD-FACTO-08
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          Le polynôme $x^2 - 2x - 1$ n'a pas de racine évidente. On le factorise sous la forme
+          $(x - x_1)(x - x_2)$ avec $x_1 < x_2$. Donner $x_2$ (valeur exacte).
+        solution: 1+sqrt(2)
+        auteur: Brouillon IA (Claude)
+        competences_secondaires: [1RE-DISC]
+        correction:
+          methode: >-
+            Sans racine évidente, on utilise le discriminant.
+          etapes:
+            - >-
+              $\Delta = (-2)^2 - 4 \times 1 \times (-1) = 8$.
+            - >-
+              $x_2 = \dfrac{2 + \sqrt{8}}{2} = \dfrac{2 + 2\sqrt{2}}{2} = 1 + \sqrt{2}$.
+          resultat: 1+sqrt(2)
+      - code: 1RE-SD-FACTO-09
+        difficulte: 5
+        type: numerique
+        enonce: >-
+          On sait que $-1$ est une racine de $x^3 - 4x^2 + x + 6$, qui s'écrit donc $(x + 1)(x^2 + bx + c)$.
+          Quelle est la plus grande racine de ce polynôme ?
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Identifier les coefficients, puis factoriser le facteur du second degré.
+          etapes:
+            - >-
+              $(x + 1)(x^2 + bx + c) = x^3 + (b + 1)x^2 + (b + c)x + c$.
+            - >-
+              Par identification : $c = 6$ et $b + 1 = -4$, donc $b = -5$ (et $b + c = 1$ convient).
+            - >-
+              $x^2 - 5x + 6 = (x - 2)(x - 3)$ : les racines sont $-1$, $2$ et $3$.
+          resultat: 3
+
+  # ---------------------------------------------------------------------------------------------
+  - code: 1RE-SD-PROBLEME
+    libelle: Choisir une forme adaptée pour résoudre un problème
+    attendus: [1RE-SPE-2026-SD-06]
+    objectifs:
+      - >-
+        Choisir entre forme développée, canonique et factorisée selon la question posée.
+      - >-
+        Résoudre un problème d'optimisation modélisé par une fonction du second degré.
+    prerequis: [1RE-SD-CANON, 1RE-SD-FACTO-SIGNE]
+    resume: |
+      | Question posée | Forme la plus adaptée |
+      |---|---|
+      | Image de $0$, équation $f(x) = c$ | développée $ax^2 + bx + c$ |
+      | Extremum, sommet, équation $f(x) = k$ | canonique $a(x - \alpha)^2 + \beta$ |
+      | Racines, signe, inéquation $f(x) \geq 0$ | factorisée $a(x - x_1)(x - x_2)$ |
+    cours: |
+      ## Trois écritures d'une même fonction
+      Exemple : $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$.
+      On vérifie l'égalité en développant chaque forme.
+
+      ## Choisir la bonne forme
+      - **Forme développée** : $f(0) = -6$ se lit immédiatement ; $f(x) = -6$ donne $2x^2 - 4x = 0$.
+      - **Forme canonique** : le minimum vaut $-8$, atteint en $1$ ; $f(x) = 10$ donne $(x - 1)^2 = 9$.
+      - **Forme factorisée** : racines $-1$ et $3$ ; $f(x) \leq 0$ sur $[-1 ; 3]$.
+
+      ## Problèmes d'optimisation
+      On exprime la grandeur à optimiser en fonction d'une variable, on précise l'intervalle des valeurs possibles,
+      puis on cherche le sommet de la parabole avec la forme canonique (ou $\alpha = -\frac{b}{2a}$).
+    methodes:
+      - titre: Résoudre un problème d'optimisation
+        etapes:
+          - >-
+            Choisir la variable $x$ et préciser les valeurs possibles.
+          - >-
+            Exprimer la grandeur à optimiser en fonction de $x$.
+          - >-
+            Écrire la forme canonique, ou calculer $\alpha = -\dfrac{b}{2a}$ puis $f(\alpha)$.
+          - >-
+            Vérifier que $\alpha$ est une valeur possible et conclure dans le contexte, avec l'unité.
+        exemple:
+          enonce: >-
+            Une balle est lancée ; sa hauteur, en mètres, au bout de $t$ secondes est $h(t) = -5t^2 + 20t + 1$.
+            Quelle hauteur maximale atteint-elle ?
+          resolution:
+            - >-
+              $h(t) = -5(t^2 - 4t) + 1 = -5\big[(t - 2)^2 - 4\big] + 1 = -5(t - 2)^2 + 21$.
+            - >-
+              $a = -5 < 0$ : le maximum est $21$, atteint pour $t = 2$.
+          resultat: >-
+            $21$ m, au bout de $2$ secondes
+    erreurs_frequentes:
+      - erreur: >-
+          Développer systématiquement, même pour étudier un signe.
+        explication: >-
+          Pour un signe ou une inéquation, la forme factorisée donne la réponse sans calcul.
+      - erreur: >-
+          Donner l'abscisse du sommet au lieu de la valeur maximale demandée.
+        explication: >-
+          Le maximum est $\beta = f(\alpha)$ ; $\alpha$ est la valeur de la variable qui le donne.
+    questions:
+      - code: 1RE-SD-PROBLEME-01
+        difficulte: 1
+        type: numerique
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$. Calculer $f(0)$.
+        solution: -6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            La forme développée donne $f(0)$ directement : c'est le terme constant.
+          etapes:
+            - >-
+              $f(0) = 2 \times 0 - 4 \times 0 - 6 = -6$.
+          resultat: -6
+      - code: 1RE-SD-PROBLEME-02
+        difficulte: 2
+        type: numerique
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$. Quel est le minimum de $f$ ?
+        solution: -8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            La forme canonique donne l'extremum.
+          etapes:
+            - >-
+              $f(x) = 2(x - 1)^2 - 8$ avec $a = 2 > 0$.
+            - >-
+              Le minimum est $-8$, atteint en $x = 1$.
+          resultat: -8
+      - code: 1RE-SD-PROBLEME-03
+        difficulte: 2
+        type: qcm
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$. Quelles sont les solutions de $f(x) = 0$ ?
+          A) $-1$ et $3$  B) $1$ et $-3$  C) $1$ et $-8$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            La forme factorisée donne les racines.
+          etapes:
+            - >-
+              $2(x + 1)(x - 3) = 0$ donne $x = -1$ ou $x = 3$.
+          resultat: A
+      - code: 1RE-SD-PROBLEME-04
+        difficulte: 3
+        type: numerique
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$.
+          Résoudre $f(x) = -6$ et donner la plus grande solution.
+        solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            Avec la forme développée, les termes constants se simplifient.
+          etapes:
+            - >-
+              $2x^2 - 4x - 6 = -6$ équivaut à $2x^2 - 4x = 0$, soit $2x(x - 2) = 0$.
+            - >-
+              Les solutions sont $0$ et $2$.
+          resultat: 2
+      - code: 1RE-SD-PROBLEME-05
+        difficulte: 3
+        type: qcm
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$.
+          Quel est l'ensemble des solutions de $f(x) \leq 0$ ?
+          A) $[-1 ; 3]$  B) $]-\infty ; -1] \cup [3 ; +\infty[$  C) $[1 ; 3]$
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            La forme factorisée donne le signe.
+          etapes:
+            - >-
+              Racines $-1$ et $3$, $a = 2 > 0$ : $f$ est négative entre les racines.
+            - >-
+              Inégalité large : les racines sont incluses.
+          resultat: A
+      - code: 1RE-SD-PROBLEME-06
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          On a $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$.
+          Résoudre $f(x) = 10$ et donner la plus grande solution.
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: >-
+            La forme canonique ramène l'équation à un carré égal à un nombre.
+          etapes:
+            - >-
+              $2(x - 1)^2 - 8 = 10$ équivaut à $(x - 1)^2 = 9$.
+            - >-
+              $x - 1 = 3$ ou $x - 1 = -3$, soit $x = 4$ ou $x = -2$.
+          resultat: 4
+      - code: 1RE-SD-PROBLEME-07
+        difficulte: 4
+        type: numerique
+        enonce: >-
+          La hauteur, en mètres, d'une balle au bout de $t$ secondes est $h(t) = -5t^2 + 30t + 2$.
+          Quelle hauteur maximale atteint-elle ?
+        solution: 47
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+            - >-
+              $h(t) = -5(t^2 - 6t) + 2 = -5\big[(t - 3)^2 - 9\big] + 2 = -5(t - 3)^2 + 47$.
+            - >-
+              $a = -5 < 0$ : le maximum est $47$ m, atteint pour $t = 3$ s.
+          resultat: 47
+          erreurs_frequentes:
+            - >-
+              Répondre $3$ : c'est l'instant du maximum, pas la hauteur.
+      - code: 1RE-SD-PROBLEME-08
+        difficulte: 5
+        type: numerique
+        enonce: >-
+          Avec $40$ m de clôture, on délimite un enclos rectangulaire adossé à un mur :
+          la clôture ne borde que trois côtés. Quelle est l'aire maximale de l'enclos, en m² ?
+        solution: 200
+        auteur: Brouillon IA (Claude)
+        competences_secondaires: [1RE-SD-CANON]
+        correction:
+          methode: >-
+            Modéliser l'aire par une fonction du second degré, puis chercher son maximum.
+          etapes:
+            - >-
+              Soit $x$ la longueur des deux côtés perpendiculaires au mur : le troisième mesure $40 - 2x$, avec $0 < x < 20$.
+            - >-
+              $A(x) = x(40 - 2x) = -2x^2 + 40x = -2(x^2 - 20x) = -2(x - 10)^2 + 200$.
+            - >-
+              $a = -2 < 0$ : le maximum est $200$ m², pour $x = 10$ m (et un côté de $20$ m le long du mur).
+          resultat: 200

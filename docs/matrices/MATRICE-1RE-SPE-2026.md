@@ -4,7 +4,7 @@ Fichier **généré** par `python -m app.contenu matrice` le 2026-10-31 : ne pas
 Source : Programme d'enseignement de spécialité de mathématiques de la classe de première de la voie générale, BO n° 14 du 2 avril 2026 (`referentiels/sources/bo-2026-14-1re-specialite-515408.pdf`).
 
 - Attendus saisis : **27**, dont 24 obligatoires (les approfondissements ne le sont pas).
-- Obligatoires évalués ou validés : **0 %** · validés : 0 % · absents : 23.
+- Obligatoires évalués ou validés : **25 %** · validés : 0 % · absents : 17.
 - Légende : ✗ absent · ◐ partiel · ✎ enseigné, évaluation non automatisée · ● évalué · ✓ validé. « Évalué » = cours ou méthode, au moins 5 questions sur 3 difficultés.
 
 La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : un thème non saisi n'apparait pas.
@@ -35,14 +35,14 @@ La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : 
 
 | | Attendu | Type | Compétences PKP | Questions (validées) | Difficultés | Corrigées |
 |:-:|---|---|---|:-:|:-:|:-:|
-| ✗ | `1RE-SPE-2026-SD-01` Fonction polynôme du second degré donnée sous forme factorisée. Racines, signe, expression de la somme et du produit des racines. | contenu | — | 0 (0) | — | 0 |
-| ◐ | `1RE-SPE-2026-SD-02` Forme canonique d'une fonction polynôme du second degré. Discriminant. Factorisation éventuelle. Résolution d'une équation du second degré. Signe. | contenu | `1RE-DISC` | 2 (0) | 12 | 0 |
-| ✗ | `1RE-SPE-2026-SD-03` Étudier le signe d'une fonction polynôme du second degré donnée sous forme factorisée. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `1RE-SPE-2026-SD-04` Déterminer les fonctions polynômes du second degré s'annulant en deux nombres réels distincts. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `1RE-SPE-2026-SD-05` Factoriser une fonction polynôme du second degré, en diversifiant les stratégies : racine évidente, détection des racines par leur somme et leur produit, identité remarquable, application des formules générales. | capacite | — | 0 (0) | — | 0 |
-| ✗ | `1RE-SPE-2026-SD-06` Choisir une forme adaptée (développée réduite, canonique, factorisée) d'une fonction polynôme du second degré dans le cadre de la résolution d'un problème (équation, inéquation, optimisation, variations). | capacite | — | 0 (0) | — | 0 |
-| ✗ | `1RE-SPE-2026-SD-07` Résolution de l'équation du second degré. | demonstration | — | 0 (0) | — | 0 |
-| ✗ | `1RE-SPE-2026-SD-08` Factorisation d'un polynôme du troisième degré admettant une racine et résolution de l'équation associée. | approfondissement | — | 0 (0) | — | 0 |
+| ● | `1RE-SPE-2026-SD-01` Fonction polynôme du second degré donnée sous forme factorisée. Racines, signe, expression de la somme et du produit des racines. | contenu | `1RE-SD-FACTO-SIGNE` | 9 (0) | 12345 | 9 |
+| ● | `1RE-SPE-2026-SD-02` Forme canonique d'une fonction polynôme du second degré. Discriminant. Factorisation éventuelle. Résolution d'une équation du second degré. Signe. | contenu | `1RE-SD-CANON`, `1RE-DISC` | 17 (0) | 12345 | 17 |
+| ● | `1RE-SPE-2026-SD-03` Étudier le signe d'une fonction polynôme du second degré donnée sous forme factorisée. | capacite | `1RE-SD-FACTO-SIGNE` | 9 (0) | 12345 | 9 |
+| ● | `1RE-SPE-2026-SD-04` Déterminer les fonctions polynômes du second degré s'annulant en deux nombres réels distincts. | capacite | `1RE-SD-FACTO-SIGNE` | 9 (0) | 12345 | 9 |
+| ● | `1RE-SPE-2026-SD-05` Factoriser une fonction polynôme du second degré, en diversifiant les stratégies : racine évidente, détection des racines par leur somme et leur produit, identité remarquable, application des formules générales. | capacite | `1RE-SD-FACTO` | 9 (0) | 12345 | 9 |
+| ● | `1RE-SPE-2026-SD-06` Choisir une forme adaptée (développée réduite, canonique, factorisée) d'une fonction polynôme du second degré dans le cadre de la résolution d'un problème (équation, inéquation, optimisation, variations). | capacite | `1RE-SD-PROBLEME` | 8 (0) | 12345 | 8 |
+| ✎ | `1RE-SPE-2026-SD-07` Résolution de l'équation du second degré. | demonstration | `1RE-DISC` | 8 (0) | 12345 | 8 |
+| ● | `1RE-SPE-2026-SD-08` Factorisation d'un polynôme du troisième degré admettant une racine et résolution de l'équation associée. | approfondissement | `1RE-SD-FACTO` | 9 (0) | 12345 | 9 |
 | ✗ | `1RE-SPE-2026-SD-09` Factorisation de xⁿ – 1 par x – 1, de xⁿ – aⁿ par x – a. | approfondissement | — | 0 (0) | — | 0 |
 | ✗ | `1RE-SPE-2026-SD-10` Déterminer deux nombres réels connaissant leur somme s et leur produit p comme racines de la fonction polynôme x ↦ x² – sx + p. | approfondissement | — | 0 (0) | — | 0 |
 
