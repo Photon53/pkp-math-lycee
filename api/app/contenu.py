@@ -5,6 +5,8 @@ et leurs questions. Voir docs/CONTENU.md pour le format.
 
 Usage, depuis `api/` :
     python -m app.contenu verifier              # contrôle tous les fichiers, sans base
+    python -m app.contenu matrice               # docs/matrices/MATRICE-<programme>.md (couverture du BO)
+    python -m app.contenu ecarts                # attendus officiels absents ou incomplets
     python -m app.contenu importer --simulation # montre ce qui changerait
     python -m app.contenu importer              # applique
 
@@ -29,6 +31,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import programmes
 from app.db import models
 from app.referentiel import (
     LICENCES_NON_CLAIRES,
@@ -66,6 +69,25 @@ class ValidationYaml(_Strict):
         return self
 
 
+Texte = Annotated[str, Field(min_length=1, max_length=2000)]
+Etapes = Annotated[list[Texte], Field(min_length=1, max_length=12)]
+
+
+class CorrectionYaml(_Strict):
+    """Correction détaillée, montrée à l'élève après sa réponse (cahier des charges V2, E0.1)."""
+
+    methode: Annotated[str, Field(min_length=1, max_length=300)] | None = None  # la propriété ou la méthode utilisée
+    etapes: Etapes
+    # Obligatoire pour les types numérique et expression : contrôlé équivalent à `solution` par le moteur.
+    resultat: Annotated[str, Field(min_length=1, max_length=200)] | None = None
+    erreurs_frequentes: list[Texte] = []
+
+    @field_validator("resultat", mode="before")
+    @classmethod
+    def _texte(cls, v):
+        return str(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
+
+
 class QuestionYaml(_Strict):
     code: Code
     difficulte: Annotated[int, Field(ge=1, le=5)]
@@ -73,6 +95,11 @@ class QuestionYaml(_Strict):
     enonce: Annotated[str, Field(min_length=1, max_length=2000)]
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     archivee: bool = False
+    # Auteur de la question : la personne qui la valide doit être une autre personne (règle E0.2).
+    auteur: Annotated[str, Field(min_length=1, max_length=100)] | None = None
+    correction: CorrectionYaml | None = None
+    # Exercice de synthèse : autres compétences mobilisées (la compétence principale est celle qui le contient).
+    competences_secondaires: list[Code] = []
     # Registre des sources (traçabilité et droits de réutilisation)
     source: Annotated[str, Field(min_length=1, max_length=200)] = SOURCE_PKP
     source_url: Annotated[str, Field(pattern=r"^https?://", max_length=500)] | None = None
@@ -109,12 +136,49 @@ class QuestionYaml(_Strict):
         return v.strip()
 
 
+class ExempleResoluYaml(_Strict):
+    enonce: Texte
+    resolution: Etapes
+    resultat: Annotated[str, Field(min_length=1, max_length=300)] | None = None
+
+
+class MethodeYaml(_Strict):
+    """« Comment résoudre… » : une procédure réutilisable, illustrée par un exemple résolu."""
+
+    titre: Annotated[str, Field(min_length=1, max_length=200)]
+    quand: Annotated[str, Field(max_length=500)] | None = None  # dans quelles situations l'utiliser
+    etapes: Etapes
+    exemple: ExempleResoluYaml
+
+
+class ErreurFrequenteYaml(_Strict):
+    erreur: Texte
+    explication: Texte  # d'où vient l'erreur, et comment l'éviter
+
+
 class CompetenceYaml(_Strict):
     code: Code
     libelle: Annotated[str, Field(min_length=1, max_length=200)]
+    # Attendus officiels couverts (codes des référentiels, voir app/programmes.py).
+    attendus: list[str] = []
+    objectifs: list[Texte] = []
+    prerequis: list[Code] = []  # codes d'autres compétences, à revoir en cas de difficulté
     cours: str | None = None
     resume: str | None = None
+    methodes: list[MethodeYaml] = []
+    erreurs_frequentes: list[ErreurFrequenteYaml] = []
     questions: list[QuestionYaml] = []
+
+    def textes(self) -> list[tuple[str, str]]:
+        """Tous les textes affichés de la compétence (hors questions), pour les contrôles de formules."""
+        textes = [("cours", self.cours or ""), ("resume", self.resume or "")]
+        textes += [(f"objectifs[{i}]", t) for i, t in enumerate(self.objectifs)]
+        for i, m in enumerate(self.methodes):
+            textes += [(f"methodes[{i}].etapes", e) for e in m.etapes]
+            textes += [(f"methodes[{i}].exemple", t) for t in [m.exemple.enonce, *m.exemple.resolution, m.exemple.resultat or ""]]
+        for i, e in enumerate(self.erreurs_frequentes):
+            textes += [(f"erreurs_frequentes[{i}]", e.erreur), (f"erreurs_frequentes[{i}]", e.explication)]
+        return textes
 
     @model_validator(mode="after")
     def _lecon_complete(self):
@@ -177,8 +241,65 @@ def _verifier_question(q: QuestionYaml) -> str | None:
     return None
 
 
-def charger(dossier: Path = DOSSIER_PAR_DEFAUT) -> list[tuple[Path, FichierContenu]]:
-    """Lit et vérifie tous les fichiers. Lève ContenuInvalide avec toutes les erreurs trouvées."""
+def _verifier_correction(q: QuestionYaml) -> list[str]:
+    """Règles du lot 0 (E0.2) : pas de validation sans correction ni par l'auteur ; correction cohérente."""
+    erreurs = []
+    if q.validation.statut is StatutValidation.VALIDEE:
+        if q.correction is None:
+            erreurs.append("une question « validee » a une correction détaillée (`correction`)")
+        if q.auteur is None:
+            erreurs.append("une question « validee » indique son `auteur`")
+        elif q.validation.par and q.validation.par.strip().lower() == q.auteur.strip().lower():
+            erreurs.append("le relecteur (`validation.par`) ne peut pas être l'auteur de la question")
+    c = q.correction
+    if c is None:
+        return erreurs
+    textes = [c.methode or "", *c.etapes, c.resultat or "", *c.erreurs_frequentes]
+    if not all(_dollars_equilibres(t) for t in textes):
+        erreurs.append("nombre impair de « $ » dans la correction")
+    if q.type is TypeQuestion.QCM:
+        if c.resultat is not None and c.resultat.strip() != q.solution.strip():
+            erreurs.append(f"correction.resultat « {c.resultat} » différent de la solution « {q.solution} »")
+        return erreurs
+    if c.resultat is None:
+        erreurs.append("correction.resultat obligatoire pour une réponse numérique ou une expression")
+        return erreurs
+    try:
+        equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte), c.resultat)
+    except ExpressionInvalide:
+        equivalents = False
+    if not equivalents:
+        erreurs.append(f"correction.resultat « {c.resultat} » non équivalent à la solution « {q.solution} » selon le moteur")
+    return erreurs
+
+
+def _verifier_liens(fichiers, dossier: Path, codes_attendus: set[str] | None, erreurs: list[str]) -> None:
+    """Attendus officiels, prérequis et compétences secondaires : chaque code cité doit exister."""
+    competences = {c.code for _, contenu in fichiers for c in contenu.competences}
+    for chemin, contenu in fichiers:
+        nom = chemin.relative_to(dossier).as_posix()
+        for c in contenu.competences:
+            if codes_attendus is not None:
+                for a in c.attendus:
+                    if a not in codes_attendus:
+                        erreurs.append(f"{nom} : {c.code} : attendu « {a} » absent des référentiels")
+            for p in c.prerequis:
+                if p == c.code or p not in competences:
+                    erreurs.append(f"{nom} : {c.code} : prérequis « {p} » inconnu (code de compétence attendu)")
+            for q in c.questions:
+                for s in q.competences_secondaires:
+                    if s == c.code or s not in competences:
+                        erreurs.append(f"{nom} : {q.code} : compétence secondaire « {s} » inconnue")
+
+
+def charger(
+    dossier: Path = DOSSIER_PAR_DEFAUT, codes_attendus: set[str] | None = None
+) -> list[tuple[Path, FichierContenu]]:
+    """Lit et vérifie tous les fichiers. Lève ContenuInvalide avec toutes les erreurs trouvées.
+
+    `codes_attendus` : attendus officiels connus ; par défaut, ceux de referentiels/ s'il existe."""
+    if codes_attendus is None and programmes.DOSSIER_PAR_DEFAUT.is_dir():
+        codes_attendus = set(programmes.charger(verifier_empreintes=False).attendus)
     erreurs: list[str] = []
     fichiers: list[tuple[Path, FichierContenu]] = []
     chemins = sorted(dossier.rglob("*.yaml"))
@@ -201,8 +322,7 @@ def charger(dossier: Path = DOSSIER_PAR_DEFAUT) -> list[tuple[Path, FichierConte
         if not nom.startswith(attendu) or nom.count("/") != 2:
             erreurs.append(f"{nom} : à ranger dans contenu/{attendu} (niveau {ch.niveau.value}, parcours {ch.parcours.value})")
         for c in contenu.competences:
-            for champ in ("cours", "resume"):
-                texte = getattr(c, champ)
+            for champ, texte in c.textes():
                 if texte and not _dollars_equilibres(texte):
                     erreurs.append(f"{nom} : {c.code}.{champ} : nombre impair de « $ » (formule non fermée)")
             for q in c.questions:
@@ -212,9 +332,11 @@ def charger(dossier: Path = DOSSIER_PAR_DEFAUT) -> list[tuple[Path, FichierConte
                     erreurs.append(f"{nom} : {q.code} : nombre impair de « $ » dans l'énoncé")
                 if probleme := _verifier_question(q):
                     erreurs.append(f"{nom} : {q.code} : {probleme}")
+                erreurs.extend(f"{nom} : {q.code} : {p}" for p in _verifier_correction(q))
         fichiers.append((chemin, contenu))
 
     _verifier_unicite(fichiers, dossier, erreurs)
+    _verifier_liens(fichiers, dossier, codes_attendus, erreurs)
     if erreurs:
         raise ContenuInvalide(erreurs)
     return sorted(
@@ -414,6 +536,7 @@ def _importer_question(
 
 DIFFICULTES = range(1, 6)
 INVENTAIRE_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "docs" / "CONTENU-INVENTAIRE.md"
+MATRICES_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "docs" / "matrices"
 
 
 def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
@@ -479,7 +602,8 @@ def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Contenu pédagogique PKP Math Lycée")
-    parser.add_argument("commande", choices=["verifier", "importer", "inventaire"])
+    parser.add_argument("commande", choices=["verifier", "importer", "inventaire", "matrice", "ecarts"])
+    parser.add_argument("--programme", help="matrice, ecarts : code du programme (défaut : tous)")
     parser.add_argument("--dossier", type=Path, default=DOSSIER_PAR_DEFAUT)
     parser.add_argument("--simulation", action="store_true", help="importer : montre les changements sans les appliquer")
     parser.add_argument(
@@ -487,6 +611,8 @@ def main() -> None:
     )
     parser.add_argument("--sortie", type=Path, default=INVENTAIRE_PAR_DEFAUT, help="inventaire : fichier Markdown produit")
     args = parser.parse_args()
+    # Console Windows (cp1252) : les symboles de statut (✗ ◐ ✓) ne doivent pas faire échouer la commande.
+    sys.stdout.reconfigure(errors="replace")
 
     try:
         fichiers = charger(args.dossier)
@@ -497,6 +623,24 @@ def main() -> None:
     if args.commande == "inventaire":
         args.sortie.write_text(inventaire(fichiers), encoding="utf-8")
         print(f"Inventaire écrit dans {args.sortie}")
+    if args.commande in ("matrice", "ecarts"):
+        from app import matrice
+
+        try:
+            referentiels = programmes.charger()
+        except programmes.ReferentielInvalide as exc:
+            sys.exit(str(exc))
+        codes = [args.programme] if args.programme else list(referentiels.programmes)
+        if inconnus := [c for c in codes if c not in referentiels.programmes]:
+            sys.exit(f"Programme inconnu : {', '.join(inconnus)} (connus : {', '.join(referentiels.programmes)})")
+        for code in codes:
+            if args.commande == "ecarts":
+                print(matrice.ecarts(referentiels, fichiers, code))
+                continue
+            sortie = MATRICES_PAR_DEFAUT / f"MATRICE-{code}.md"
+            sortie.parent.mkdir(parents=True, exist_ok=True)
+            sortie.write_text(matrice.en_markdown(referentiels, fichiers, code, date.today()), encoding="utf-8")
+            print(f"Matrice écrite dans {sortie}")
     if args.commande == "importer":
         from app.db.session import SessionLocale
 

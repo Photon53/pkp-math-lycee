@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-DISC
     libelle: Utiliser le discriminant
+    attendus: [1RE-SPE-2026-SD-02]
     resume: |
       Pour $ax^2 + bx + c$ avec $a \neq 0$, on calcule $\Delta = b^2 - 4ac$.
       - $\Delta > 0$ : deux racines $x_{1,2} = \dfrac{-b \pm \sqrt{\Delta}}{2a}$

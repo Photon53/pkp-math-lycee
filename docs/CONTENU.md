@@ -106,7 +106,54 @@ Chaque question peut porter, en plus des champs ci-dessus :
 
 Une source **sans licence claire** (`licence_source` absente, « non clarifiée », « à vérifier »…)
 ne peut servir que d'**inspiration** : la vérification refuse `adaptee` et `reproduite`.
-Une question `validee` doit indiquer **qui** l'a validée (`par`) et **quand** (`le`).
+Une question `validee` doit indiquer **qui** l'a validée (`par`) et **quand** (`le`), son `auteur`
+(une autre personne que le relecteur) et une `correction` détaillée.
+
+### Référentiel officiel, méthodes, erreurs fréquentes et corrections
+
+Les attendus officiels sont saisis, mot pour mot depuis le BO, dans `referentiels/<programme>/`
+(voir `api/app/programmes.py`). Les PDF officiels sont conservés dans `referentiels/sources/` avec leur
+empreinte SHA-256. Une compétence déclare les attendus qu'elle couvre ; la vérification refuse un code inconnu.
+
+```yaml
+  - code: 1RE-SD-FACTO
+    libelle: Factoriser une fonction polynôme du second degré
+    attendus: [1RE-SPE-2026-SD-05]            # codes du référentiel
+    objectifs: [Choisir la stratégie de factorisation la plus rapide.]
+    prerequis: [2NDE-DEV]                     # compétences à revoir en cas de difficulté
+    cours: |
+      …
+    resume: |
+      …
+    methodes:                                 # fiches « Comment résoudre… »
+      - titre: Factoriser grâce à une racine évidente
+        quand: Les coefficients sont entiers et 1 ou −1 annule le polynôme.
+        etapes: [Tester $x = 1$ et $x = -1$., …]
+        exemple:                              # exemple résolu, étape par étape
+          enonce: Factoriser $x^2 - 5x + 4$.
+          resolution: [$1 - 5 + 4 = 0$ donc $1$ est racine., …]
+          resultat: $(x - 1)(x - 4)$
+    erreurs_frequentes:
+      - erreur: Oublier le coefficient $a$ dans $a(x - x_1)(x - x_2)$.
+        explication: …
+    questions:
+      - code: 1RE-SD-FACTO-01
+        # … champs habituels …
+        auteur: R. Martin
+        competences_secondaires: [2NDE-DEV]   # exercice de synthèse
+        correction:                           # montrée à l'élève après sa réponse
+          methode: Produit nul après factorisation.
+          etapes: […]
+          resultat: 4                         # obligatoire en numérique ou expression, équivalent à `solution`
+          erreurs_frequentes: […]
+```
+
+Couverture du programme, générée et jamais écrite à la main :
+
+```bash
+python -m app.contenu matrice      # docs/matrices/MATRICE-<programme>.md
+python -m app.contenu ecarts       # attendus absents ou incomplets, compétences non rattachées
+```
 
 Le réglage `PKP_SERVIR_QUESTIONS_NON_VALIDEES` (vrai par défaut) permet, une fois la banque relue,
 de ne plus servir aux élèves que les questions validées.

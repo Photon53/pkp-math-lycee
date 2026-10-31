@@ -11,6 +11,7 @@ WORKDIR /app
 COPY engine ./engine
 COPY api ./api
 COPY contenu ./contenu
+COPY referentiels ./referentiels
 RUN pip install ./engine "./api[postgres]" \
  && python -m app.contenu verifier --dossier ./contenu
 

@@ -1,0 +1,32 @@
+# Partie transversale « Automatismes » (pages 4 et 5 du PDF). Textes recopiés du BO.
+# « À la liste ci-dessous s'ajoute la liste des automatismes travaillés en classe de seconde,
+# qui doivent être entretenus en classe de première » : référentiel 2nde-2026, à saisir.
+# Ces attendus sont ceux de la partie automatismes de l'épreuve anticipée (sans calculatrice).
+theme:
+  code: AUTO
+  titre: Automatismes
+  partie: Transversale
+
+attendus:
+  # Évolutions et variations
+  - {code: 1RE-SPE-2026-AUTO-01, type: automatisme, page: 5, texte: Appliquer un taux d'évolution pour calculer une valeur finale ou initiale.}
+  - {code: 1RE-SPE-2026-AUTO-02, type: automatisme, page: 5, texte: "Calculer un taux d'évolution, l'exprimer en pourcentage."}
+  - {code: 1RE-SPE-2026-AUTO-03, type: automatisme, page: 5, texte: Calculer le taux d'évolution équivalent à plusieurs évolutions successives.}
+  - {code: 1RE-SPE-2026-AUTO-04, type: automatisme, page: 5, texte: Calculer un taux d'évolution réciproque.}
+  # Calcul numérique et algébrique
+  - {code: 1RE-SPE-2026-AUTO-05, type: automatisme, page: 5, texte: Déterminer les solutions d'une équation produit nul.}
+  - {code: 1RE-SPE-2026-AUTO-06, type: automatisme, page: 5, texte: "Déterminer le signe d'une expression du premier degré, d'une expression factorisée du second degré."}
+  - {code: 1RE-SPE-2026-AUTO-07, type: automatisme, page: 5, texte: "Développer, factoriser, réduire une expression algébrique simple."}
+  # Fonctions et représentations
+  - {code: 1RE-SPE-2026-AUTO-08, type: automatisme, page: 5, texte: "Résoudre graphiquement une équation, une inéquation du type : f(x) = k, f(x) < k, etc."}
+  - {code: 1RE-SPE-2026-AUTO-09, type: automatisme, page: 5, texte: Déterminer graphiquement le signe d'une fonction ou son tableau de variations.}
+  - {code: 1RE-SPE-2026-AUTO-10, type: automatisme, page: 5, texte: Tracer une droite donnée par son équation réduite ou par un point et son coefficient directeur.}
+  - {code: 1RE-SPE-2026-AUTO-11, type: automatisme, page: 5, texte: Lire graphiquement l'équation réduite d'une droite.}
+  - {code: 1RE-SPE-2026-AUTO-12, type: automatisme, page: 5, texte: Déterminer le coefficient directeur d'une droite à partir des coordonnées de deux de ses points.}
+  # Statistiques
+  - {code: 1RE-SPE-2026-AUTO-13, type: automatisme, page: 5, texte: "Lire un graphique, un histogramme, un diagramme en barres ou circulaire, un diagramme en boite ou toute autre représentation (repérer l'origine du repère, les unités de graduations ou les échelles, etc.)."}
+  - {code: 1RE-SPE-2026-AUTO-14, type: automatisme, page: 5, texte: Passer du graphique aux données et vice-versa.}
+  - {code: 1RE-SPE-2026-AUTO-15, type: automatisme, page: 5, texte: Calculer et interpréter des indicateurs statistiques pour une série statistique.}
+  # Probabilités
+  - {code: 1RE-SPE-2026-AUTO-16, type: automatisme, page: 5, texte: Calculer des probabilités conditionnelles lorsque les évènements sont présentés sous forme de tableau croisé d'effectifs ou d'arbres pondérés.}
+  - {code: 1RE-SPE-2026-AUTO-17, type: automatisme, page: 5, texte: "Distinguer P(A ∩ B), PA(B), PB(A)."}

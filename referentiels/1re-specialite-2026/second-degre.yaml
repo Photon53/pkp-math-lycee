@@ -1,0 +1,55 @@
+# Partie « Algèbre », rubrique « Équations, fonctions polynômes du second degré » (page 6 du PDF).
+# Textes recopiés du BO, sans reformulation. Les commentaires du BO (objectifs) éclairent les attendus :
+# - forme canonique par complétion du carré, x² + 2ax = (x + a)² − a², dans des cas simples ;
+#   « le calcul effectif de la forme canonique dans le cas général n'est pas un attendu du programme » ;
+# - factorisation directe : racines apparentes, coefficient de x nul, racines entières détectées
+#   par calcul mental à partir de leur somme et de leur produit.
+# La capacité « Étudier, en lien avec la dérivation, une fonction polynôme du second degré : variations,
+# extrémum, allure selon le signe du coefficient de x² » relève de la partie Analyse.
+theme:
+  code: SD
+  titre: Équations, fonctions polynômes du second degré
+  partie: Algèbre
+
+attendus:
+  - code: 1RE-SPE-2026-SD-01
+    type: contenu
+    texte: Fonction polynôme du second degré donnée sous forme factorisée. Racines, signe, expression de la somme et du produit des racines.
+    page: 6
+  - code: 1RE-SPE-2026-SD-02
+    type: contenu
+    texte: Forme canonique d'une fonction polynôme du second degré. Discriminant. Factorisation éventuelle. Résolution d'une équation du second degré. Signe.
+    page: 6
+  - code: 1RE-SPE-2026-SD-03
+    type: capacite
+    texte: Étudier le signe d'une fonction polynôme du second degré donnée sous forme factorisée.
+    page: 6
+  - code: 1RE-SPE-2026-SD-04
+    type: capacite
+    texte: Déterminer les fonctions polynômes du second degré s'annulant en deux nombres réels distincts.
+    page: 6
+  - code: 1RE-SPE-2026-SD-05
+    type: capacite
+    texte: "Factoriser une fonction polynôme du second degré, en diversifiant les stratégies : racine évidente, détection des racines par leur somme et leur produit, identité remarquable, application des formules générales."
+    page: 6
+  - code: 1RE-SPE-2026-SD-06
+    type: capacite
+    texte: Choisir une forme adaptée (développée réduite, canonique, factorisée) d'une fonction polynôme du second degré dans le cadre de la résolution d'un problème (équation, inéquation, optimisation, variations).
+    page: 6
+  - code: 1RE-SPE-2026-SD-07
+    type: demonstration
+    texte: Résolution de l'équation du second degré.
+    evaluation: auto_evaluation
+    page: 6
+  - code: 1RE-SPE-2026-SD-08
+    type: approfondissement
+    texte: Factorisation d'un polynôme du troisième degré admettant une racine et résolution de l'équation associée.
+    page: 6
+  - code: 1RE-SPE-2026-SD-09
+    type: approfondissement
+    texte: Factorisation de xⁿ – 1 par x – 1, de xⁿ – aⁿ par x – a.
+    page: 6
+  - code: 1RE-SPE-2026-SD-10
+    type: approfondissement
+    texte: Déterminer deux nombres réels connaissant leur somme s et leur produit p comme racines de la fonction polynôme x ↦ x² – sx + p.
+    page: 6

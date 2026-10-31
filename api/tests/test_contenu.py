@@ -248,7 +248,8 @@ class TestParcoursEtRegistre:
         ecrire(tmp_path, MINIMAL.replace(
             "solution: 2}",
             "solution: 2, source: MathALÉA, source_url: 'https://www.mathalea.fr/alea/', licence_source: CC BY-SA 4.0, "
-            "adaptation: adaptee, validation: {statut: validee, par: Mme Martin, le: 2026-10-29}}",
+            "adaptation: adaptee, validation: {statut: validee, par: Mme Martin, le: 2026-10-29}, "
+            "auteur: M. Durand, correction: {etapes: ['1 + 1 = 2'], resultat: 2}}",
         ))
         importer(session, charger(tmp_path))
         q = session.scalar(select(models.Question).where(models.Question.code == "TEST-C-01"))
