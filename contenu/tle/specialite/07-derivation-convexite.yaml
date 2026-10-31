@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: TLE-COMPOSEE
     libelle: Dériver une fonction composée
+    objectifs:
+    - Dériver une fonction composée $x \mapsto g(u(x))$.
+    prerequis:
+    - 1RE-DER-CALC
+    methodes:
+    - titre: Dériver une composée
+      etapes:
+      - Repérer la fonction intérieure $u$ et la fonction extérieure $g$.
+      - 'Appliquer $(g \circ u)'' = u'' \times g''(u)$ : $(u^n)'' = nu''u^{n-1}$, $(e^u)'' = u''e^u$, $(\sqrt u)'' = \dfrac{u''}{2\sqrt u}$.'
+      exemple:
+        enonce: Dériver $f(x) = e^{3x^2}$.
+        resolution:
+        - $u = 3x^2$, $u' = 6x$.
+        resultat: $f'(x) = 6x\,e^{3x^2}$
+    erreurs_frequentes:
+    - erreur: Oublier de multiplier par u'.
+      explication: '$((2x + 1)^3)'' = 3 \times 2 \times (2x + 1)^2$ : le facteur $2$ vient de $u''$.'
     resume: |
       - $(g \circ u)' = u' \times (g' \circ u)$, c'est-à-dire $\big(g(u(x))\big)' = u'(x)\,g'(u(x))$.
       - $(u^n)' = n\,u'\,u^{n-1}$ ; $(e^u)' = u'\,e^u$ ; $(\sqrt u)' = \dfrac{u'}{2\sqrt u}$ ; $\left(\dfrac{1}{u}\right)' = -\dfrac{u'}{u^2}$.
@@ -29,29 +46,73 @@ competences:
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = (2x + 1)^3$.'
         solution: 6(2x + 1)^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$u = 2x + 1$, $u'' = 2$ : $f''(x) = 3 \times 2 \times (2x + 1)^2$.'
+          resultat: 6(2x + 1)^2
       - code: TLE-COMPOSEE-02
         difficulte: 2
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = e^{x^2}$.'
         solution: 2x e^(x^2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(e^u)' = u'e^u$ avec $u = x^2$, $u' = 2x$.
+          resultat: 2x e^(x^2)
       - code: TLE-COMPOSEE-03
         difficulte: 3
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \sqrt{x^2 + 1}$.'
         solution: x/sqrt(x^2 + 1)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(\sqrt u)' = \dfrac{u'}{2\sqrt u} = \dfrac{2x}{2\sqrt{x^2 + 1}}$.
+          resultat: x/sqrt(x^2 + 1)
       - code: TLE-COMPOSEE-04
         difficulte: 4
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \dfrac{1}{x^2 + 1}$.'
         solution: -2x/(x^2 + 1)^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\left(\dfrac{1}{u}\right)' = -\dfrac{u'}{u^2}$ avec $u' = 2x$.
+          resultat: -2x/(x^2 + 1)^2
       - code: TLE-COMPOSEE-05
         difficulte: 5
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = x e^{-2x}$ (forme factorisée conseillée).'
         solution: (1 - 2x)e^(-2x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 1 \times e^{-2x} + x \times (-2e^{-2x})$.
+          - $= (1 - 2x)e^{-2x}$.
+          resultat: (1 - 2x)e^(-2x)
 
   - code: TLE-CONVEX
     libelle: Étudier la convexité d'une fonction
+    objectifs:
+    - Étudier la convexité avec la dérivée seconde et trouver un point d'inflexion.
+    prerequis:
+    - TLE-COMPOSEE
+    methodes:
+    - titre: Étudier la convexité
+      etapes:
+      - Calculer $f'$ puis $f''$.
+      - '$f'''' \geq 0$ : convexe ; $f'''' \leq 0$ : concave.'
+      - Un point d'inflexion est un point où $f''$ s'annule en changeant de signe.
+      exemple:
+        enonce: Convexité de $f(x) = x^3 + 3x^2$.
+        resolution:
+        - $f''(x) = 6x + 6$, négative avant $-1$, positive après.
+        resultat: Concave sur $]-\infty ; -1]$, convexe sur $[-1 ; +\infty[$, inflexion en $x = -1$.
+    erreurs_frequentes:
+    - erreur: Utiliser le signe de f' pour la convexité.
+      explication: f' donne les variations ; c'est f'' qui donne la convexité.
     resume: |
       - $f$ est **convexe** sur $I$ si $f'' \ge 0$ sur $I$ (courbe au-dessus de ses tangentes), **concave** si $f'' \le 0$.
       - Un **point d'inflexion** est un point où la courbe traverse sa tangente : $f''$ s'y annule en changeant de signe.
@@ -72,23 +133,49 @@ competences:
         type: expression
         enonce: 'Calculer la dérivée seconde $f''''(x)$ de $f(x) = x^3 - 3x^2$.'
         solution: 6x - 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 3x^2 - 6x$, puis $f''(x) = 6x - 6$.
+          resultat: 6x - 6
       - code: TLE-CONVEX-02
         difficulte: 2
         type: qcm
         enonce: '$f$ est convexe sur un intervalle $I$ lorsque, sur $I$ : A) $f'''' \ge 0$  B) $f'''' \le 0$  C) $f'' \ge 0$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Convexe signifie dérivée seconde positive.
+          resultat: A
       - code: TLE-CONVEX-03
         difficulte: 3
         type: numerique
         enonce: 'Donner l''abscisse du point d''inflexion de la courbe de $f(x) = x^3 - 3x^2 + 1$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f''(x) = 6x - 6$ s'annule en changeant de signe en $x = 1$.
+          resultat: 1
       - code: TLE-CONVEX-04
         difficulte: 4
         type: qcm
         enonce: 'La fonction exponentielle est sur $\mathbb{R}$ : A) convexe  B) concave  C) ni convexe ni concave'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(e^x)'' = e^x > 0$ sur $\mathbb{R}$.
+          resultat: A
       - code: TLE-CONVEX-05
         difficulte: 5
         type: numerique
         enonce: 'Donner l''abscisse du point d''inflexion de la courbe de $f(x) = x e^x$.'
         solution: -2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = (x + 1)e^x$ et $f''(x) = (x + 2)e^x$.
+          - $f''$ change de signe en $x = -2$.
+          resultat: -2

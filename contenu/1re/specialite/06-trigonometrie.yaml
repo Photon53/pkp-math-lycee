@@ -8,6 +8,21 @@ chapitre:
 competences:
   - code: 1RE-RAD
     libelle: Utiliser le radian et la mesure principale
+    objectifs:
+    - Convertir degrés et radians, et déterminer une mesure principale.
+    methodes:
+    - titre: Déterminer la mesure principale d'un angle
+      etapes:
+      - La mesure principale est la mesure dans $]-\pi ; \pi]$.
+      - Ajouter ou retirer $2\pi$ (autant de fois que nécessaire) pour y arriver.
+      exemple:
+        enonce: Mesure principale de $\dfrac{11\pi}{4}$.
+        resolution:
+        - $\dfrac{11\pi}{4} - 2\pi = \dfrac{11\pi - 8\pi}{4} = \dfrac{3\pi}{4}$, qui est dans $]-\pi ; \pi]$.
+        resultat: $\dfrac{3\pi}{4}$
+    erreurs_frequentes:
+    - erreur: Retirer $\pi$ au lieu de $2\pi$.
+      explication: 'Un tour complet vaut $2\pi$ : retirer $\pi$ change le point du cercle.'
     resume: |
       - $\pi$ radians $= 180°$ : multiplier par $\dfrac{\pi}{180}$ pour passer des degrés aux radians.
       - Un réel et ce réel $+ 2k\pi$ repèrent le même point du cercle trigonométrique.
@@ -30,29 +45,73 @@ competences:
         type: numerique
         enonce: 'Convertir 60° en radians (valeur exacte, utiliser pi).'
         solution: pi/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $180° = \pi$ rad, donc $60° = \dfrac{60}{180}\pi = \dfrac{\pi}{3}$.
+          resultat: pi/3
       - code: 1RE-RAD-02
         difficulte: 2
         type: numerique
         enonce: 'Convertir $\dfrac{3\pi}{4}$ radians en degrés.'
         solution: 135
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{3\pi}{4} = \dfrac{3}{4} \times 180° = 135°$.
+          resultat: 135
       - code: 1RE-RAD-03
         difficulte: 3
         type: numerique
         enonce: 'Donner la mesure principale de $\dfrac{7\pi}{3}$ (utiliser pi).'
         solution: pi/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{7\pi}{3} - 2\pi = \dfrac{\pi}{3}$, qui est dans $]-\pi ; \pi]$.
+          resultat: pi/3
       - code: 1RE-RAD-04
         difficulte: 4
         type: numerique
         enonce: 'Donner la mesure principale de $-\dfrac{5\pi}{4}$ (utiliser pi).'
         solution: 3pi/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $-\dfrac{5\pi}{4} + 2\pi = \dfrac{3\pi}{4}$, qui est dans $]-\pi ; \pi]$.
+          resultat: 3pi/4
       - code: 1RE-RAD-05
         difficulte: 5
         type: numerique
         enonce: 'Donner la mesure principale de $\dfrac{17\pi}{6}$ (utiliser pi).'
         solution: 5pi/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{17\pi}{6} - 2\pi = \dfrac{5\pi}{6}$, qui est dans $]-\pi ; \pi]$.
+          resultat: 5pi/6
 
   - code: 1RE-COSSIN
     libelle: Calculer avec cosinus et sinus
+    objectifs:
+    - Connaitre les valeurs remarquables et utiliser le cercle trigonométrique.
+    - Utiliser $\cos^2 x + \sin^2 x = 1$.
+    prerequis:
+    - 1RE-RAD
+    methodes:
+    - titre: Calculer un sinus connaissant le cosinus
+      etapes:
+      - $\sin^2 x = 1 - \cos^2 x$.
+      - Prendre la racine, puis choisir le signe grâce à l'intervalle où se trouve x.
+      exemple:
+        enonce: $\cos x = \dfrac{5}{13}$ et $x \in [0 ; \pi]$. Calculer $\sin x$.
+        resolution:
+        - $\sin^2 x = 1 - \dfrac{25}{169} = \dfrac{144}{169}$.
+        - Sur $[0 ; \pi]$, $\sin x \geq 0$, donc $\sin x = \dfrac{12}{13}$.
+        resultat: $\dfrac{12}{13}$
+    erreurs_frequentes:
+    - erreur: Oublier le signe d'un sinus ou d'un cosinus selon le quadrant.
+      explication: 'Sur le cercle, le cosinus est l''abscisse et le sinus l''ordonnée : $\cos\dfrac{2\pi}{3} < 0$.'
     resume: |
       - $\cos^2 x + \sin^2 x = 1$ et $-1 \le \cos x \le 1$, $-1 \le \sin x \le 1$.
       - Valeurs remarquables : $\cos\dfrac{\pi}{3} = \dfrac{1}{2}$, $\sin\dfrac{\pi}{4} = \dfrac{\sqrt 2}{2}$, $\sin\dfrac{\pi}{6} = \dfrac{1}{2}$, $\cos\dfrac{\pi}{6} = \dfrac{\sqrt 3}{2}$.
@@ -75,23 +134,51 @@ competences:
         type: numerique
         enonce: 'Donner la valeur exacte de $\cos\dfrac{\pi}{3}$.'
         solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Valeur remarquable : $\cos\dfrac{\pi}{3} = \dfrac{1}{2}$.'
+          resultat: 1/2
       - code: 1RE-COSSIN-02
         difficulte: 2
         type: numerique
         enonce: 'Donner la valeur exacte de $\sin\dfrac{\pi}{4}$.'
         solution: sqrt(2)/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Valeur remarquable : $\sin\dfrac{\pi}{4} = \dfrac{\sqrt{2}}{2}$.'
+          resultat: sqrt(2)/2
       - code: 1RE-COSSIN-03
         difficulte: 3
         type: numerique
         enonce: 'Donner la valeur exacte de $\cos\dfrac{2\pi}{3}$.'
         solution: -1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\dfrac{2\pi}{3} = \pi - \dfrac{\pi}{3}$ : point symétrique par rapport à l''axe des ordonnées.'
+          - $\cos\dfrac{2\pi}{3} = -\cos\dfrac{\pi}{3} = -\dfrac{1}{2}$.
+          resultat: -1/2
       - code: 1RE-COSSIN-04
         difficulte: 4
         type: numerique
         enonce: 'Calculer $\sin\left(-\dfrac{\pi}{6}\right) + \cos(\pi)$.'
         solution: -3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sin\left(-\dfrac{\pi}{6}\right) = -\dfrac{1}{2}$ et $\cos\pi = -1$.
+          - 'Somme : $-\dfrac{3}{2}$.'
+          resultat: -3/2
       - code: 1RE-COSSIN-05
         difficulte: 5
         type: numerique
         enonce: 'On sait que $\cos x = \dfrac{3}{5}$ et $x \in \left[0 ; \dfrac{\pi}{2}\right]$. Calculer $\sin x$.'
         solution: 4/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sin^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}$.
+          - '$x \in \left[0 ; \dfrac{\pi}{2}\right]$, donc $\sin x \geq 0$ : $\sin x = \dfrac{4}{5}$.'
+          resultat: 4/5

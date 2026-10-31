@@ -8,6 +8,25 @@ chapitre:
 competences:
   - code: 1RE-VAR
     libelle: Déduire les variations du signe de la dérivée
+    objectifs:
+    - Déduire les variations d'une fonction du signe de sa dérivée.
+    prerequis:
+    - 1RE-DER-CALC
+    methodes:
+    - titre: Dresser le tableau de variations
+      etapes:
+      - Calculer $f'(x)$ et la factoriser si possible.
+      - Étudier le signe de $f'(x)$ (tableau de signes).
+      - '$f'' > 0$ : $f$ croissante ; $f'' < 0$ : $f$ décroissante. Calculer les valeurs aux bornes et aux extremums.'
+      exemple:
+        enonce: Variations de $f(x) = x^3 - 12x$.
+        resolution:
+        - $f'(x) = 3x^2 - 12 = 3(x - 2)(x + 2)$.
+        - $f' > 0$ sur $]-\infty ; -2[$ et $]2 ; +\infty[$, $f' < 0$ sur $]-2 ; 2[$.
+        resultat: Croissante, puis décroissante sur $[-2 ; 2]$, puis croissante.
+    erreurs_frequentes:
+    - erreur: Étudier le signe de $f$ au lieu de celui de $f'$.
+      explication: Le signe de la dérivée donne le sens de variation ; le signe de f dit seulement si la courbe est au-dessus de l'axe.
     resume: |
       - Si $f' > 0$ sur un intervalle (sauf en des points isolés), $f$ y est strictement croissante.
       - Si $f' < 0$, $f$ est strictement décroissante.
@@ -32,29 +51,73 @@ competences:
         type: qcm
         enonce: 'Si $f''(x) > 0$ pour tout $x$ d''un intervalle $I$, alors $f$ est sur $I$ : A) croissante  B) décroissante  C) constante'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Une dérivée strictement positive sur un intervalle donne une fonction croissante.
+          resultat: A
       - code: 1RE-VAR-02
         difficulte: 2
         type: qcm
         enonce: 'La fonction $f(x) = x^2 - 6x + 1$ est décroissante sur : A) $]-\infty ; 3]$  B) $[3 ; +\infty[$  C) $\mathbb{R}$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 2x - 6 \leq 0$ pour $x \leq 3$.
+          resultat: A
       - code: 1RE-VAR-03
         difficulte: 3
         type: numerique
         enonce: 'Soit $f(x) = x^3 - 3x$. La fonction $f$ est décroissante sur l''intervalle $[-1 ; b]$. Donner $b$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)$, négative sur $[-1 ; 1]$.
+          resultat: 1
       - code: 1RE-VAR-04
         difficulte: 4
         type: qcm
         enonce: 'La fonction $f(x) = x^3 + 3x$ est : A) croissante sur $\mathbb{R}$  B) décroissante sur $\mathbb{R}$  C) décroissante puis croissante'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$f''(x) = 3x^2 + 3 > 0$ pour tout $x$ : $f$ est croissante sur $\mathbb{R}$.'
+          resultat: A
       - code: 1RE-VAR-05
         difficulte: 5
         type: qcm
         enonce: 'Sur $]-1 ; +\infty[$, la fonction $f(x) = \dfrac{2x - 1}{x + 1}$ est : A) croissante  B) décroissante  C) croissante puis décroissante'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = \dfrac{2(x + 1) - (2x - 1)}{(x + 1)^2} = \dfrac{3}{(x + 1)^2} > 0$.
+          resultat: A
 
   - code: 1RE-EXTR
     libelle: Déterminer un extremum et résoudre un problème d'optimisation
+    objectifs:
+    - Déterminer un extremum et résoudre un problème d'optimisation.
+    prerequis:
+    - 1RE-VAR
+    methodes:
+    - titre: Résoudre un problème d'optimisation
+      etapes:
+      - Choisir la variable et son intervalle de valeurs possibles.
+      - Exprimer la grandeur à optimiser en fonction de la variable.
+      - Étudier les variations sur l'intervalle et lire l'extremum.
+      exemple:
+        enonce: Maximum de $f(x) = x(10 - x)$ sur $[0 ; 10]$.
+        resolution:
+        - $f'(x) = 10 - 2x$, nulle en $5$, positive avant, négative après.
+        - Maximum $f(5) = 25$.
+        resultat: $25$, atteint en $x = 5$
+    erreurs_frequentes:
+    - erreur: Donner la valeur de $x$ au lieu de la valeur maximale demandée.
+      explication: 'Lire la question : « pour quelle valeur » demande x, « quel est le maximum » demande f(x).'
     resume: |
       - Si $f'$ s'annule en $a$ **en changeant de signe**, $f$ admet un extremum local en $a$.
       - Sur un intervalle fermé, on compare les extremums locaux et les valeurs aux bornes.
@@ -75,23 +138,54 @@ competences:
         type: numerique
         enonce: 'Quel est le minimum sur $\mathbb{R}$ de $f(x) = x^2 - 4x + 7$ ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 2x - 4$, nulle en $2$ ; $f$ décroît puis croît.
+          - 'Minimum : $f(2) = 4 - 8 + 7 = 3$.'
+          resultat: 3
       - code: 1RE-EXTR-02
         difficulte: 2
         type: numerique
         enonce: 'Quel est le maximum sur $\mathbb{R}$ de $f(x) = -2x^2 + 8x$ ?'
         solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = -4x + 8$, nulle en $2$ ; $f$ croît puis décroît.
+          - 'Maximum : $f(2) = -8 + 16 = 8$.'
+          resultat: 8
       - code: 1RE-EXTR-03
         difficulte: 3
         type: numerique
         enonce: 'Quel est le minimum de $f(x) = x^3 - 3x$ sur l''intervalle $[0 ; 3]$ ?'
         solution: -2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$f''(x) = 3(x - 1)(x + 1)$ : sur $[0 ; 3]$, $f$ décroît sur $[0 ; 1]$ puis croît.'
+          - 'Minimum : $f(1) = 1 - 3 = -2$.'
+          resultat: -2
       - code: 1RE-EXTR-04
         difficulte: 4
         type: numerique
         enonce: 'Parmi les rectangles de périmètre 20 cm, quelle est l''aire maximale en cm² ?'
         solution: 25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Côtés $x$ et $10 - x$ : aire $A(x) = 10x - x^2$, $A''(x) = 10 - 2x$, nulle en $5$.'
+          - Maximum $A(5) = 25$ cm² (le carré).
+          resultat: 25
       - code: 1RE-EXTR-05
         difficulte: 5
         type: numerique
         enonce: 'Dans un carré de carton de 12 cm de côté, on découpe aux quatre coins un carré de côté $x$ cm, puis on plie pour former une boîte sans couvercle de volume $V(x) = x(12 - 2x)^2$. Pour quelle valeur de $x$ le volume est-il maximal ?'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V'(x) = (12 - 2x)^2 - 4x(12 - 2x) = (12 - 2x)(12 - 6x)$.
+          - Sur $]0 ; 6[$, $V'$ s'annule en $x = 2$, positive avant et négative après.
+          - Le volume est maximal pour $x = 2$ cm (il vaut alors $128$ cm³).
+          resultat: 2

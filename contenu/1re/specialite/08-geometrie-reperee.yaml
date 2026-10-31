@@ -8,6 +8,24 @@ chapitre:
 competences:
   - code: 1RE-NORMAL
     libelle: Utiliser un vecteur normal à une droite
+    objectifs:
+    - Utiliser un vecteur normal pour écrire l'équation d'une droite et trouver un projeté orthogonal.
+    prerequis:
+    - 1RE-PS-APP
+    - 2NDE-DROITE
+    methodes:
+    - titre: Écrire une équation de droite avec un vecteur normal
+      etapes:
+      - Un vecteur normal $\vec n(a ; b)$ donne une équation $ax + by + c = 0$.
+      - Trouver $c$ en remplaçant par les coordonnées d'un point de la droite.
+      exemple:
+        enonce: Droite passant par $A(2 ; -1)$, de vecteur normal $\vec n(1 ; 4)$.
+        resolution:
+        - '$x + 4y + c = 0$ ; avec $A$ : $2 - 4 + c = 0$, donc $c = 2$.'
+        resultat: $x + 4y + 2 = 0$
+    erreurs_frequentes:
+    - erreur: Confondre vecteur normal et vecteur directeur.
+      explication: Pour $ax + by + c = 0$, $(a ; b)$ est normal et $(-b ; a)$ est directeur.
     resume: |
       - $\vec n(a ; b)$ est **normal** à la droite $d$ s'il est orthogonal à un vecteur directeur de $d$.
       - La droite d'équation $ax + by + c = 0$ a pour vecteur normal $\vec n(a ; b)$.
@@ -31,29 +49,78 @@ competences:
         type: qcm
         enonce: 'Quel vecteur est normal à la droite d''équation $2x - 3y + 1 = 0$ ? A) $\vec n(2 ; -3)$  B) $\vec n(3 ; 2)$  C) $\vec n(-3 ; 2)$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Pour $ax + by + c = 0$, $\vec n(a ; b)$ est normal : ici $(2 ; -3)$.'
+          resultat: A
       - code: 1RE-NORMAL-02
         difficulte: 2
         type: numerique
         enonce: 'La droite passant par $A(1 ; 2)$ de vecteur normal $\vec n(3 ; 1)$ a une équation $3x + y + c = 0$. Donner $c$.'
         solution: -5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3 \times 1 + 2 + c = 0$, donc $c = -5$.
+          resultat: -5
       - code: 1RE-NORMAL-03
         difficulte: 3
         type: qcm
         enonce: 'Quelle est une équation de la droite passant par $A(1 ; 1)$ et perpendiculaire à $d : x + 2y = 0$ ? A) $2x - y - 1 = 0$  B) $x + 2y - 3 = 0$  C) $2x + y - 3 = 0$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un vecteur normal à d est directeur de la perpendiculaire.
+          etapes:
+          - $\vec n(1 ; 2)$ est normal à $d$ ; la perpendiculaire a pour vecteur normal $(2 ; -1)$.
+          - '$2x - y + c = 0$ passant par $(1 ; 1)$ : $c = -1$.'
+          resultat: A
       - code: 1RE-NORMAL-04
         difficulte: 4
         type: numerique
         enonce: 'Soit $H$ le projeté orthogonal de l''origine $O$ sur la droite $x + y - 2 = 0$. Donner l''abscisse de $H$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$H$ est sur la droite passant par $O$ de vecteur directeur $\vec n(1 ; 1)$ : $H(t ; t)$.'
+          - $t + t - 2 = 0$, donc $t = 1$.
+          resultat: 1
       - code: 1RE-NORMAL-05
         difficulte: 5
         type: numerique
         enonce: 'La parabole d''équation $y = 2x^2 - 8x + 3$ a un axe de symétrie d''équation $x = k$. Donner $k$.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Axe de symétrie : $x = -\dfrac{b}{2a} = \dfrac{8}{4} = 2$.'
+          resultat: 2
 
   - code: 1RE-CERCLE
     libelle: Déterminer et utiliser l'équation d'un cercle
+    objectifs:
+    - Lire et déterminer l'équation d'un cercle, reconnaitre centre et rayon.
+    prerequis:
+    - 1RE-SD-CANON
+    methodes:
+    - titre: Retrouver centre et rayon par complétion du carré
+      etapes:
+      - Regrouper les termes en $x$ et en $y$.
+      - 'Compléter les carrés : $x^2 - 2ax = (x - a)^2 - a^2$.'
+      - 'Écrire $(x - a)^2 + (y - b)^2 = r^2$ : centre $(a ; b)$, rayon $r$.'
+      exemple:
+        enonce: $x^2 + y^2 - 2x + 4y - 4 = 0$.
+        resolution:
+        - $(x - 1)^2 - 1 + (y + 2)^2 - 4 - 4 = 0$.
+        - $(x - 1)^2 + (y + 2)^2 = 9$.
+        resultat: Centre $(1 ; -2)$, rayon $3$.
+    erreurs_frequentes:
+    - erreur: Lire le centre $(-2 ; 1)$ dans $(x - 2)^2 + (y + 1)^2$.
+      explication: '$(x - a)^2$ : le centre a pour abscisse $a$, donc $2$ ; $(y + 1)^2 = (y - (-1))^2$, ordonnée $-1$.'
+    - erreur: Prendre r² pour le rayon.
+      explication: 'Le membre de droite vaut $r^2$ : avec $9$, le rayon est $3$.'
     resume: |
       - Cercle de centre $\Omega(a ; b)$ et de rayon $r$ : $(x - a)^2 + (y - b)^2 = r^2$.
       - Pour reconnaître un cercle dans $x^2 + y^2 + \dots = 0$, on fait apparaître des carrés (forme canonique).
@@ -74,23 +141,50 @@ competences:
         type: numerique
         enonce: 'Quel est le rayon du cercle d''équation $(x - 2)^2 + (y + 1)^2 = 9$ ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $r^2 = 9$, donc $r = 3$.
+          resultat: 3
       - code: 1RE-CERCLE-02
         difficulte: 2
         type: qcm
         enonce: 'Quel est le centre du cercle d''équation $(x - 2)^2 + (y + 1)^2 = 9$ ? A) $(2 ; -1)$  B) $(-2 ; 1)$  C) $(2 ; 1)$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$(x - 2)^2 + (y - (-1))^2$ : centre $(2 ; -1)$.'
+          resultat: A
       - code: 1RE-CERCLE-03
         difficulte: 3
         type: qcm
         enonce: 'Le point $M(1 ; 2)$ appartient-il au cercle de centre $O$ et de rayon $\sqrt 5$ ? A) oui  B) non'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$OM^2 = 1 + 4 = 5 = (\sqrt{5})^2$ : $M$ est sur le cercle.'
+          resultat: A
       - code: 1RE-CERCLE-04
         difficulte: 4
         type: numerique
         enonce: 'L''équation $x^2 + y^2 - 4x + 6y - 3 = 0$ est celle d''un cercle. Donner son rayon.'
         solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(x - 2)^2 - 4 + (y + 3)^2 - 9 - 3 = 0$.
+          - '$(x - 2)^2 + (y + 3)^2 = 16$ : rayon $4$.'
+          resultat: 4
       - code: 1RE-CERCLE-05
         difficulte: 5
         type: numerique
         enonce: 'Le cercle de diamètre $[AB]$, avec $A(1 ; 2)$ et $B(5 ; 6)$, a pour équation $(x - 3)^2 + (y - 4)^2 = k$. Donner $k$.'
         solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Centre : milieu de $[AB]$, $(3 ; 4)$.'
+          - $AB^2 = 16 + 16 = 32$, donc $r^2 = \dfrac{32}{4} = 8$.
+          resultat: 8

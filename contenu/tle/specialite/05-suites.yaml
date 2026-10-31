@@ -8,6 +8,28 @@ chapitre:
 competences:
   - code: TLE-SUI-REC
     libelle: Raisonner par récurrence
+    objectifs:
+    - Rédiger un raisonnement par récurrence (initialisation, hérédité, conclusion).
+    prerequis:
+    - 1RE-SUI-TERME
+    methodes:
+    - titre: Rédiger une récurrence
+      etapes:
+      - Énoncer la propriété $P(n)$ à démontrer.
+      - 'Initialisation : vérifier $P(n_0)$ au premier rang.'
+      - 'Hérédité : supposer $P(k)$ vraie pour un $k$ fixé, et démontrer $P(k + 1)$ en utilisant cette hypothèse.'
+      - 'Conclusion : $P(n)$ est vraie pour tout $n \geq n_0$.'
+      exemple:
+        enonce: $u_0 = 1$, $u_{n+1} = u_n + 2n + 3$. Montrer que $u_n = (n + 1)^2$.
+        resolution:
+        - 'Initialisation : $u_0 = 1 = (0 + 1)^2$.'
+        - 'Hérédité : si $u_k = (k + 1)^2$, alors $u_{k+1} = (k + 1)^2 + 2k + 3 = k^2 + 4k + 4 = (k + 2)^2$.'
+        resultat: $u_n = (n + 1)^2$ pour tout $n$.
+    erreurs_frequentes:
+    - erreur: Supposer dans l'hérédité ce qu'on veut démontrer pour k + 1.
+      explication: On suppose P(k) seulement ; P(k + 1) est la cible, obtenue par un calcul.
+    - erreur: Oublier l'initialisation.
+      explication: Sans premier rang vérifié, l'hérédité seule ne prouve rien.
     resume: |
       Pour démontrer qu'une propriété $P(n)$ est vraie pour tout entier $n \geq n_0$ :
       1. **Initialisation** : vérifier $P(n_0)$.
@@ -48,26 +70,53 @@ competences:
         type: qcm
         enonce: 'Dans un raisonnement par récurrence, comment s''appelle l''étape où l''on vérifie la propriété au premier rang ? A) L''hérédité  B) L''initialisation  C) La conclusion'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La vérification au premier rang s'appelle l'initialisation.
+          resultat: B
       - code: TLE-SUI-REC-02
         difficulte: 2
         type: numerique
         enonce: 'La suite $(u_n)$ est définie par $u_0 = 3$ et $u_{n+1} = 2u_n - 1$. Calculer $u_3$.'
         solution: 17
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_1 = 5$, $u_2 = 9$, $u_3 = 17$.
+          resultat: 17
       - code: TLE-SUI-REC-03
         difficulte: 3
         type: qcm
         enonce: 'On veut démontrer que $u_n = 2^{n+1} - 1$ pour tout $n$. Dans l''hérédité, on suppose $u_k = 2^{k+1} - 1$. Que doit-on démontrer ? A) $u_k = 2^{k} - 1$  B) $u_{k+1} = 2^{k+2} - 1$  C) $u_{k+1} = 2^{k+1} - 1$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On démontre la propriété au rang $k + 1$ : $u_{k+1} = 2^{(k + 1) + 1} - 1 = 2^{k+2} - 1$.'
+          resultat: B
       - code: TLE-SUI-REC-04
         difficulte: 4
         type: numerique
         enonce: 'On pose $u_0 = 2$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$. On admet (démontrable par récurrence) que $u_n = \dfrac{2}{1 + 2n}$. Calculer $u_5$.'
         solution: 2/11
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_5 = \dfrac{2}{1 + 10} = \dfrac{2}{11}$.
+          resultat: 2/11
       - code: TLE-SUI-REC-05
         difficulte: 5
         type: expression
         enonce: 'On note $S_n = 1 + 3 + 5 + \dots + (2n - 1)$ la somme des $n$ premiers entiers impairs. Calculer $S_1$, $S_2$, $S_3$, conjecturer une expression de $S_n$ en fonction de $n$, puis la démontrer par récurrence. $S_n = ?$'
         solution: n^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$S_1 = 1$, $S_2 = 4$, $S_3 = 9$ : on conjecture $S_n = n^2$.'
+          - 'Initialisation : $S_1 = 1 = 1^2$.'
+          - 'Hérédité : si $S_k = k^2$, alors $S_{k+1} = k^2 + (2k + 1) = (k + 1)^2$.'
+          resultat: n^2
       - code: TLE-SUI-REC-06
         difficulte: 5
         type: qcm
@@ -77,9 +126,31 @@ competences:
         source_url: https://www.apmep.fr/Annales-du-Bac-Terminale-et-epreuves-anticipees-en-1re
         licence_source: non clarifiée
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Appliquer $f$ conserve l'ordre des inégalités seulement si $f$ est croissante sur $[5 ; 7]$.
+          - $f'(x) = -0{,}2x + 1{,}5 > 0$ sur $[5 ; 7]$.
+          resultat: A
 
   - code: TLE-SUI-LIM
     libelle: Définir la limite d'une suite
+    objectifs:
+    - Connaitre les limites de référence (1/n, q^n) et le théorème de convergence monotone.
+    methodes:
+    - titre: Déterminer la limite d'une suite géométrique q^n
+      etapes:
+      - '$-1 < q < 1$ : $q^n \to 0$.'
+      - '$q > 1$ : $q^n \to +\infty$.'
+      - '$q \leq -1$ : pas de limite (les signes alternent).'
+      exemple:
+        enonce: Limite de $u_n = 3 \times 0{,}5^n + 2$.
+        resolution:
+        - $0{,}5^n \to 0$, donc $u_n \to 0 + 2$.
+        resultat: $2$
+    erreurs_frequentes:
+    - erreur: Croire qu'une suite croissante et majorée par M converge vers M.
+      explication: Elle converge vers une limite inférieure ou égale à M, pas forcément égale.
     resume: |
       - $(u_n)$ **converge** vers $\ell$ si tout intervalle ouvert contenant $\ell$ contient tous les termes à partir d'un certain rang.
       - $(u_n)$ **tend vers** $+\infty$ si tout intervalle $]A ; +\infty[$ contient tous les termes à partir d'un certain rang.
@@ -121,26 +192,51 @@ competences:
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{1}{n}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Limite de référence : $\dfrac{1}{n} \to 0$.'
+          resultat: 0
       - code: TLE-SUI-LIM-02
         difficulte: 2
         type: qcm
         enonce: 'Quelle est la limite de la suite $\left(0{,}9^n\right)$ ? A) $0$  B) $1$  C) $+\infty$  D) Elle n''a pas de limite'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $-1 < 0{,}9 < 1$, donc $0{,}9^n \to 0$.
+          resultat: A
       - code: TLE-SUI-LIM-03
         difficulte: 2
         type: qcm
         enonce: 'Quelle est la limite de la suite $\left(1{,}5^n\right)$ ? A) $0$  B) $1{,}5$  C) $+\infty$  D) Elle n''a pas de limite'
         solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1{,}5 > 1$, donc $1{,}5^n \to +\infty$.
+          resultat: C
       - code: TLE-SUI-LIM-04
         difficulte: 3
         type: qcm
         enonce: 'Que peut-on dire de la suite $\left((-2)^n\right)$ ? A) Elle converge vers $0$  B) Elle tend vers $+\infty$  C) Elle tend vers $-\infty$  D) Elle n''a pas de limite'
         solution: D
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$q = -2 \leq -1$ : les termes alternent de signe et grandissent en valeur absolue, pas de limite.'
+          resultat: D
       - code: TLE-SUI-LIM-05
         difficulte: 4
         type: qcm
         enonce: 'Une suite $(u_n)$ est croissante et majorée par $5$. Que peut-on affirmer ? A) Elle converge vers $5$  B) Elle converge vers une limite inférieure ou égale à $5$  C) Elle tend vers $+\infty$  D) On ne peut rien dire'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Théorème de convergence monotone : la suite converge vers une limite $\ell \leq 5$.'
+          resultat: B
       - code: TLE-SUI-LIM-06
         difficulte: 3
         type: expression
@@ -150,9 +246,33 @@ competences:
         source_url: https://www.apmep.fr/Annales-du-Bac-Terminale-et-epreuves-anticipees-en-1re
         licence_source: non clarifiée
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Suite géométrique : $u_n = u_0 \times q^n = 8 \times 0{,}85^n$.'
+          resultat: 8*0.85^n
 
   - code: TLE-SUI-OPE
     libelle: Déterminer la limite d'une suite par opérations
+    objectifs:
+    - Calculer une limite par opérations et lever une forme indéterminée.
+    prerequis:
+    - TLE-SUI-LIM
+    methodes:
+    - titre: Lever une indétermination pour un quotient de polynômes
+      etapes:
+      - Factoriser le numérateur et le dénominateur par leur terme de plus haut degré.
+      - Simplifier, puis utiliser que 1/n et 1/n² tendent vers 0.
+      exemple:
+        enonce: Limite de $\dfrac{2n^2 + n}{5n^2 - 1}$.
+        resolution:
+        - $\dfrac{n^2(2 + \frac{1}{n})}{n^2(5 - \frac{1}{n^2})} = \dfrac{2 + \frac{1}{n}}{5 - \frac{1}{n^2}}$.
+        resultat: $\dfrac{2}{5}$
+    erreurs_frequentes:
+    - erreur: Conclure « ∞/∞ = 1 ».
+      explication: 'C''est une forme indéterminée : il faut factoriser pour conclure.'
+    - erreur: Conclure « $+\infty - \infty = 0$ ».
+      explication: 'Autre forme indéterminée : on factorise par le terme dominant ou on utilise la quantité conjuguée.'
     resume: |
       - Les limites se combinent par somme, produit et quotient, sauf dans quatre **formes indéterminées** :
         $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
@@ -192,34 +312,84 @@ competences:
         type: qcm
         enonce: 'Déterminer la limite de $u_n = n^2 + 3n$. A) $0$  B) $3$  C) $+\infty$  D) $-\infty$'
         solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Somme de deux termes qui tendent vers $+\infty$.
+          resultat: C
       - code: TLE-SUI-OPE-02
         difficulte: 2
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \left(2 + \dfrac{5}{n}\right)$.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{5}{n} \to 0$, donc la limite vaut $2$.
+          resultat: 2
       - code: TLE-SUI-OPE-03
         difficulte: 3
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{3n^2 - n}{n^2 + 1}$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{n^2(3 - \frac{1}{n})}{n^2(1 + \frac{1}{n^2})} = \dfrac{3 - \frac{1}{n}}{1 + \frac{1}{n^2}} \to 3$.
+          resultat: 3
       - code: TLE-SUI-OPE-04
         difficulte: 4
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{2n + 1}{4n^2 - 3}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{n(2 + \frac{1}{n})}{n^2(4 - \frac{3}{n^2})} = \dfrac{1}{n} \times \dfrac{2 + \frac{1}{n}}{4 - \frac{3}{n^2}} \to 0 \times \dfrac{1}{2}$.
+          resultat: 0
       - code: TLE-SUI-OPE-05
         difficulte: 4
         type: qcm
         enonce: 'Déterminer la limite de $u_n = n^2 - 5n^3 + 1$. A) $+\infty$  B) $-\infty$  C) $1$  D) Il n''y a pas de limite'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_n = n^3\left(\dfrac{1}{n} - 5 + \dfrac{1}{n^3}\right)$ ; la parenthèse tend vers $-5$.
+          - Donc $u_n \to -\infty$.
+          resultat: B
       - code: TLE-SUI-OPE-06
         difficulte: 5
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \left(\sqrt{n+1} - \sqrt{n}\right)$. Indication : multiplier par la quantité conjuguée.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sqrt{n + 1} - \sqrt{n} = \dfrac{(n + 1) - n}{\sqrt{n + 1} + \sqrt{n}} = \dfrac{1}{\sqrt{n + 1} + \sqrt{n}}$.
+          - Le dénominateur tend vers $+\infty$, donc la limite est $0$.
+          resultat: 0
 
   - code: TLE-SUI-COMP
     libelle: Déterminer la limite d'une suite par comparaison
+    objectifs:
+    - Déterminer une limite par comparaison ou avec le théorème des gendarmes.
+    prerequis:
+    - TLE-SUI-LIM
+    methodes:
+    - titre: Appliquer le théorème des gendarmes
+      etapes:
+      - Encadrer $u_n$ entre deux suites $v_n \leq u_n \leq w_n$ (souvent avec $-1 \leq \cos n \leq 1$).
+      - Vérifier que les deux suites ont la même limite ℓ.
+      - Conclure que la suite tend aussi vers ℓ.
+      exemple:
+        enonce: Limite de $\dfrac{\sin n}{n}$.
+        resolution:
+        - $-\dfrac{1}{n} \leq \dfrac{\sin n}{n} \leq \dfrac{1}{n}$ et les deux bornes tendent vers $0$.
+        resultat: $0$
+    erreurs_frequentes:
+    - erreur: Dire que $\cos n$ tend vers une limite.
+      explication: $\cos n$ n'a pas de limite ; on l'utilise seulement par son encadrement entre $-1$ et $1$.
     resume: |
       - **Comparaison** : si $u_n \geq v_n$ à partir d'un certain rang et $\lim v_n = +\infty$, alors $\lim u_n = +\infty$.
         (De même : $u_n \leq w_n$ et $\lim w_n = -\infty$ donnent $\lim u_n = -\infty$.)
@@ -252,23 +422,49 @@ competences:
         type: qcm
         enonce: 'Pour tout $n$, $u_n \geq n^2$. Que vaut la limite de $(u_n)$ ? A) $0$  B) $+\infty$  C) $-\infty$  D) On ne peut pas conclure'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$n^2 \to +\infty$ et $u_n \geq n^2$ : par comparaison, $u_n \to +\infty$.'
+          resultat: B
       - code: TLE-SUI-COMP-02
         difficulte: 3
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{(-1)^n}{n}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $-\dfrac{1}{n} \leq \dfrac{(-1)^n}{n} \leq \dfrac{1}{n}$, les deux bornes tendent vers $0$.
+          resultat: 0
       - code: TLE-SUI-COMP-03
         difficulte: 3
         type: qcm
         enonce: 'Pour tout $n \geq 1$, $u_n \leq -\sqrt{n}$. Que peut-on en déduire ? A) La suite converge vers $0$  B) La suite tend vers $-\infty$  C) La suite tend vers $+\infty$  D) On ne peut pas conclure'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$-\sqrt{n} \to -\infty$ et $u_n \leq -\sqrt{n}$ : par comparaison, $u_n \to -\infty$.'
+          resultat: B
       - code: TLE-SUI-COMP-04
         difficulte: 4
         type: numerique
         enonce: 'Déterminer $\lim\limits_{n \to +\infty} \dfrac{\cos(n)}{n^2}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$-\dfrac{1}{n^2} \leq \dfrac{\cos n}{n^2} \leq \dfrac{1}{n^2}$ : gendarmes, limite $0$.'
+          resultat: 0
       - code: TLE-SUI-COMP-05
         difficulte: 5
         type: numerique
         enonce: 'Pour tout $n \geq 1$ : $\dfrac{3n - 1}{n} \leq u_n \leq \dfrac{3n + 2}{n}$. Déterminer la limite de la suite $(u_n)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{3n - 1}{n} = 3 - \dfrac{1}{n} \to 3$ et $\dfrac{3n + 2}{n} = 3 + \dfrac{2}{n} \to 3$.
+          - Théorème des gendarmes.
+          resultat: 3

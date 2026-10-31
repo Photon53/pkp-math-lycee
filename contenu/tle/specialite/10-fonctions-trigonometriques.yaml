@@ -8,6 +8,26 @@ chapitre:
 competences:
   - code: TLE-TRIG-ETU
     libelle: Dériver et étudier les fonctions sinus et cosinus
+    objectifs:
+    - Dériver sin et cos, étudier parité et périodicité.
+    prerequis:
+    - 1RE-COSSIN
+    - TLE-COMPOSEE
+    methodes:
+    - titre: Dériver une fonction trigonométrique composée
+      etapes:
+      - $(\sin x)' = \cos x$ et $(\cos x)' = -\sin x$.
+      - $(\sin(ax + b))' = a\cos(ax + b)$ et $(\cos(ax + b))' = -a\sin(ax + b)$.
+      exemple:
+        enonce: Dériver $f(x) = \sin(4x)$.
+        resolution:
+        - $a = 4$.
+        resultat: $f'(x) = 4\cos(4x)$
+    erreurs_frequentes:
+    - erreur: Oublier le signe moins dans la dérivée de cos.
+      explication: $(\cos x)' = -\sin x$.
+    - erreur: Donner $2\pi$ comme période de $\sin(2x)$.
+      explication: 'La période de $\sin(ax)$ est $\dfrac{2\pi}{a}$ : ici $\pi$.'
     resume: |
       - $\sin' = \cos$ et $\cos' = -\sin$ ; $\big(\cos(ax + b)\big)' = -a\sin(ax + b)$, $\big(\sin(ax + b)\big)' = a\cos(ax + b)$.
       - $\cos$ est paire, $\sin$ est impaire ; toutes deux sont $2\pi$-périodiques.
@@ -30,29 +50,73 @@ competences:
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \sin x + \cos x$.'
         solution: cos(x) - sin(x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(\sin x)' = \cos x$ et $(\cos x)' = -\sin x$.
+          resultat: cos(x) - sin(x)
       - code: TLE-TRIG-ETU-02
         difficulte: 2
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \cos(3x)$.'
         solution: -3sin(3x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(\cos(3x))' = -3\sin(3x)$.
+          resultat: -3sin(3x)
       - code: TLE-TRIG-ETU-03
         difficulte: 3
         type: qcm
         enonce: 'La fonction cosinus est : A) paire  B) impaire  C) ni paire ni impaire'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\cos(-x) = \cos x$ : la fonction est paire.'
+          resultat: A
       - code: TLE-TRIG-ETU-04
         difficulte: 4
         type: numerique
         enonce: 'Quelle est la plus petite période strictement positive de $f(x) = \sin(2x)$ ? (Utiliser pi.)'
         solution: pi
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\sin(2(x + \pi)) = \sin(2x + 2\pi) = \sin(2x)$ : période $\dfrac{2\pi}{2} = \pi$.'
+          resultat: pi
       - code: TLE-TRIG-ETU-05
         difficulte: 5
         type: numerique
         enonce: 'Calculer la limite en 0 de $\dfrac{\sin x}{x}$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Reconnaitre un taux d'accroissement.
+          etapes:
+          - $\dfrac{\sin x - \sin 0}{x - 0}$ tend vers $\cos 0 = 1$.
+          resultat: 1
 
   - code: TLE-TRIG-EQ
     libelle: Résoudre des équations trigonométriques
+    objectifs:
+    - Résoudre $\cos x = a$ et $\sin x = a$ sur un intervalle.
+    prerequis:
+    - TLE-TRIG-ETU
+    methodes:
+    - titre: Résoudre une équation trigonométrique avec le cercle
+      etapes:
+      - Trouver une valeur remarquable α qui convient.
+      - '$\cos x = \cos\alpha$ : $x = \alpha$ ou $x = -\alpha$ (à $2\pi$ près) ; $\sin x = \sin\alpha$ : $x = \alpha$ ou $x = \pi - \alpha$.'
+      - Garder les solutions qui sont dans l'intervalle demandé.
+      exemple:
+        enonce: Résoudre $\sin x = \dfrac{\sqrt{2}}{2}$ dans $[0 ; 2\pi[$.
+        resolution:
+        - $\alpha = \dfrac{\pi}{4}$ et $\pi - \alpha = \dfrac{3\pi}{4}$.
+        resultat: $\left\{\dfrac{\pi}{4} ; \dfrac{3\pi}{4}\right\}$
+    erreurs_frequentes:
+    - erreur: Ne garder qu'une seule solution.
+      explication: Sur un tour complet, cos x = a (avec −1 < a < 1) a deux solutions, symétriques sur le cercle.
     resume: |
       - $\cos x = \cos a \iff x = a + 2k\pi$ ou $x = -a + 2k\pi$ ($k \in \mathbb{Z}$).
       - $\sin x = \sin a \iff x = a + 2k\pi$ ou $x = \pi - a + 2k\pi$.
@@ -73,23 +137,49 @@ competences:
         type: numerique
         enonce: 'Résoudre $\cos x = 0$ dans $[0 ; \pi]$. (Utiliser pi.)'
         solution: pi/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Sur $[0 ; \pi]$, seul $\dfrac{\pi}{2}$ a une abscisse nulle sur le cercle.
+          resultat: pi/2
       - code: TLE-TRIG-EQ-02
         difficulte: 2
         type: numerique
         enonce: 'Résoudre $\sin x = \dfrac{1}{2}$ dans $\left[0 ; \dfrac{\pi}{2}\right]$. (Utiliser pi.)'
         solution: pi/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Valeur remarquable : $\sin\dfrac{\pi}{6} = \dfrac{1}{2}$.'
+          resultat: pi/6
       - code: TLE-TRIG-EQ-03
         difficulte: 3
         type: numerique
         enonce: 'Combien l''équation $\cos x = \dfrac{1}{2}$ a-t-elle de solutions dans $[0 ; 2\pi[$ ?'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{\pi}{3}$ et $2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3}$.
+          resultat: 2
       - code: TLE-TRIG-EQ-04
         difficulte: 4
         type: numerique
         enonce: 'Donner la plus grande solution de $\cos x = \dfrac{1}{2}$ dans $[0 ; 2\pi[$. (Utiliser pi.)'
         solution: 5pi/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les solutions sont $\dfrac{\pi}{3}$ et $\dfrac{5\pi}{3}$ ; la plus grande est $\dfrac{5\pi}{3}$.
+          resultat: 5pi/3
       - code: TLE-TRIG-EQ-05
         difficulte: 5
         type: numerique
         enonce: 'Combien l''équation $\sin(2x) = 0$ a-t-elle de solutions dans $[0 ; 2\pi[$ ?'
         solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sin(2x) = 0 \iff 2x = k\pi \iff x = \dfrac{k\pi}{2}$.
+          - 'Dans $[0 ; 2\pi[$ : $0$, $\dfrac{\pi}{2}$, $\pi$, $\dfrac{3\pi}{2}$.'
+          resultat: 4

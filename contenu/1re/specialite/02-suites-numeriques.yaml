@@ -8,6 +8,25 @@ chapitre:
 competences:
   - code: 1RE-SUI-TERME
     libelle: Calculer les termes d'une suite
+    objectifs:
+    - Calculer des termes d'une suite définie explicitement ou par récurrence.
+    methodes:
+    - titre: Calculer des termes d'une suite définie par récurrence
+      etapes:
+      - Partir du premier terme donné ($u_0$ ou $u_1$).
+      - Appliquer la relation pour obtenir le terme suivant, en remplaçant $n$ par le bon indice.
+      - Recommencer jusqu'au terme demandé, sans sauter d'étape.
+      exemple:
+        enonce: $u_0 = 2$ et $u_{n+1} = 3u_n - 1$. Calculer $u_2$.
+        resolution:
+        - $u_1 = 3 \times 2 - 1 = 5$.
+        - $u_2 = 3 \times 5 - 1 = 14$.
+        resultat: $u_2 = 14$
+    erreurs_frequentes:
+    - erreur: Calculer $u_4$ d'une suite récurrente avec la formule « $u_n$ » directement.
+      explication: 'Par récurrence, chaque terme dépend du précédent : il faut calculer $u_1$, $u_2$, $u_3$ avant $u_4$.'
+    - erreur: Oublier que $n$ change dans la relation (comme dans $u_{n+1} = 2u_n + 3n$).
+      explication: 'Pour calculer $u_{n+1}$, on utilise la valeur de $n$ du terme précédent : $u_1 = 2u_0 + 3 \times 0$.'
     resume: |
       - **Suite explicite** $u_n = f(n)$ : on remplace $n$ par sa valeur, par exemple $u_5 = f(5)$.
       - **Suite récurrente** $u_{n+1} = f(u_n)$ : on calcule les termes **un par un** à partir de $u_0$.
@@ -35,6 +54,11 @@ competences:
         type: numerique
         enonce: 'La suite $(u_n)$ est définie par $u_n = 3n - 4$. Calculer $u_5$.'
         solution: 11
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_5 = 3 \times 5 - 4 = 11$.
+          resultat: 11
       - code: 1RE-SUI-TERME-02
         difficulte: 2
         type: numerique
@@ -44,6 +68,11 @@ competences:
         source_url: https://www.mathalea.fr/alea/
         licence_source: CC BY-SA 4.0
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_7 = 3 \times 49 - 2 \times 7 + 5 = 147 - 14 + 5 = 138$.
+          resultat: 138
       - code: 1RE-SUI-TERME-03
         difficulte: 3
         type: numerique
@@ -53,14 +82,46 @@ competences:
         source_url: https://www.mathalea.fr/alea/
         licence_source: CC BY-SA 4.0
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer les termes un par un.
+          etapes:
+          - $u_1 = 2 \times 1 + 3 \times 0 = 2$ ; $u_2 = 2 \times 2 + 3 \times 1 = 7$.
+          - $u_3 = 2 \times 7 + 3 \times 2 = 20$ ; $u_4 = 2 \times 20 + 3 \times 3 = 49$.
+          resultat: 49
       - code: 1RE-SUI-TERME-04
         difficulte: 4
         type: numerique
         enonce: 'La suite $(u_n)$ est définie par $u_0 = 5$ et $u_{n+1} = \dfrac{u_n}{2} + 1$. Calculer $u_3$ (valeur exacte ou décimale).'
         solution: 19/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_1 = \dfrac{5}{2} + 1 = \dfrac{7}{2}$ ; $u_2 = \dfrac{7}{4} + 1 = \dfrac{11}{4}$.
+          - $u_3 = \dfrac{11}{8} + 1 = \dfrac{19}{8}$.
+          resultat: 19/8
 
   - code: 1RE-SUI-MOD
     libelle: Modéliser une situation par une suite
+    objectifs:
+    - Reconnaitre une évolution arithmétique ou géométrique et écrire le terme général.
+    prerequis:
+    - 1RE-SUI-TERME
+    - 2NDE-EVO
+    methodes:
+    - titre: Choisir entre suite arithmétique et suite géométrique
+      etapes:
+      - 'On ajoute toujours la même quantité $r$ : suite arithmétique, $u_n = u_0 + nr$.'
+      - 'On multiplie toujours par le même nombre $q$ (évolution à taux fixe) : suite géométrique, $u_n = u_0 \times q^n$.'
+      exemple:
+        enonce: Une ville de $20\,000$ habitants perd $3\,\%$ de sa population par an. Population $P_n$ après $n$ années ?
+        resolution:
+        - 'Baisse de $3\,\%$ : on multiplie par $0{,}97$ chaque année.'
+        - Suite géométrique de premier terme $20\,000$ et de raison $0{,}97$.
+        resultat: $P_n = 20\,000 \times 0{,}97^n$
+    erreurs_frequentes:
+    - erreur: Prendre $1{,}02$ comme raison d'une suite arithmétique.
+      explication: 'Un taux fixe agit par multiplication : c''est une suite géométrique.'
     resume: |
       - On ajoute **la même quantité** à chaque étape : suite **arithmétique**, $u_n = u_0 + nr$.
       - On multiplie **par le même nombre** à chaque étape : suite **géométrique**, $u_n = u_0 \times q^n$.
@@ -86,6 +147,11 @@ competences:
         type: qcm
         enonce: 'Une population augmente de 50 individus chaque année. Le nombre d''individus au bout de $n$ années est modélisé par une suite : A) arithmétique de raison 50  B) géométrique de raison 50  C) ni arithmétique ni géométrique'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On ajoute $50$ chaque année : suite arithmétique de raison $50$.'
+          resultat: A
       - code: 1RE-SUI-MOD-02
         difficulte: 2
         type: expression
@@ -95,14 +161,45 @@ competences:
         source_url: https://www.mathalea.fr/alea/
         licence_source: CC BY-SA 4.0
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Partie fixe $12$, plus $1{,}50$ par emprunt : $w_n = 12 + 1{,}5n$ (suite arithmétique).'
+          resultat: 12 + 1.5n
       - code: 1RE-SUI-MOD-03
         difficulte: 3
         type: expression
         enonce: 'Un capital de 500 € est placé à intérêts composés au taux de 2 % par an. On note $C_n$ le capital au bout de $n$ années. Exprimer $C_n$ en fonction de $n$.'
         solution: 500*1.02^n
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Intérêts composés = évolution à taux fixe = suite géométrique.
+          etapes:
+          - Chaque année, le capital est multiplié par $1{,}02$.
+          - $C_n = 500 \times 1{,}02^n$.
+          resultat: 500*1.02^n
 
   - code: 1RE-SUI-VAR
     libelle: Étudier le sens de variation d'une suite
+    objectifs:
+    - Étudier le sens de variation d'une suite par le signe de $u_{n+1} - u_n$.
+    prerequis:
+    - 1RE-SUI-TERME
+    methodes:
+    - titre: Étudier le sens de variation d'une suite
+      etapes:
+      - Calculer $u_{n+1}$ en remplaçant $n$ par $n + 1$ dans la formule.
+      - Calculer et simplifier $u_{n+1} - u_n$ (réduire au même dénominateur si besoin).
+      - 'Signe positif pour tout $n$ : suite croissante ; négatif : décroissante.'
+      exemple:
+        enonce: $u_n = n^2 - 3n$. Sens de variation à partir de $n = 1$ ?
+        resolution:
+        - $u_{n+1} - u_n = (n + 1)^2 - 3(n + 1) - n^2 + 3n = 2n - 2$.
+        - $2n - 2 \geq 0$ pour $n \geq 1$.
+        resultat: Croissante à partir du rang 1.
+    erreurs_frequentes:
+    - erreur: Conclure à partir des premiers termes seulement.
+      explication: 'Quelques termes croissants ne prouvent rien : il faut le signe de $u_{n+1} - u_n$ pour tout $n$.'
     resume: |
       - $(u_n)$ est **croissante** si $u_{n+1} - u_n \geq 0$ pour tout $n$, **décroissante** si $u_{n+1} - u_n \leq 0$.
       - Méthode : calculer $u_{n+1} - u_n$, le **simplifier**, puis étudier son **signe**.
@@ -131,11 +228,22 @@ competences:
         type: qcm
         enonce: 'La suite $(u_n)$ est définie par $u_n = 5 - 2n$. Elle est : A) croissante  B) décroissante  C) ni croissante ni décroissante'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_{n+1} - u_n = 5 - 2(n + 1) - 5 + 2n = -2 < 0$.
+          resultat: B
       - code: 1RE-SUI-VAR-02
         difficulte: 3
         type: expression
         enonce: 'La suite $(u_n)$ est définie par $u_n = n^2 + n$. Exprimer $u_{n+1} - u_n$ en fonction de $n$, sous forme simplifiée.'
         solution: 2n + 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_{n+1} = (n + 1)^2 + (n + 1) = n^2 + 3n + 2$.
+          - $u_{n+1} - u_n = 2n + 2$.
+          resultat: 2n + 2
       - code: 1RE-SUI-VAR-03
         difficulte: 4
         type: qcm
@@ -145,6 +253,12 @@ competences:
         source_url: https://www.mathalea.fr/alea/
         licence_source: CC BY-SA 4.0
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u_{n+1} - u_n = \dfrac{7}{(n + 2)(n + 3)}$ (voir le calcul de la question suivante).
+          - 'Ce quotient est strictement positif pour tout $n$ : la suite est croissante.'
+          resultat: A
       - code: 1RE-SUI-VAR-04
         difficulte: 5
         type: expression
@@ -154,3 +268,11 @@ competences:
         source_url: https://www.mathalea.fr/alea/
         licence_source: CC BY-SA 4.0
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réduire au même dénominateur.
+          etapes:
+          - $u_{n+1} = \dfrac{3n + 2}{n + 3}$.
+          - $u_{n+1} - u_n = \dfrac{(3n + 2)(n + 2) - (3n - 1)(n + 3)}{(n + 2)(n + 3)}$.
+          - 'Numérateur : $(3n^2 + 8n + 4) - (3n^2 + 8n - 3) = 7$.'
+          resultat: 7/((n + 2)(n + 3))

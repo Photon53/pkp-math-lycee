@@ -8,6 +8,26 @@ chapitre:
 competences:
   - code: TLE-LN-DEF
     libelle: Définir la fonction logarithme népérien
+    objectifs:
+    - Utiliser ln comme réciproque de exp et ses propriétés algébriques.
+    prerequis:
+    - 1RE-EXP-ALG
+    methodes:
+    - titre: Résoudre une équation avec ln ou exp
+      etapes:
+      - $e^x = a$ (avec $a > 0$) équivaut à $x = \ln a$.
+      - $\ln x = b$ (avec $x > 0$) équivaut à $x = e^b$.
+      - Regrouper avec $\ln a + \ln b = \ln(ab)$ et $\ln a - \ln b = \ln\dfrac{a}{b}$.
+      exemple:
+        enonce: Résoudre $e^{2x} = 7$.
+        resolution:
+        - $2x = \ln 7$.
+        resultat: $x = \dfrac{\ln 7}{2}$
+    erreurs_frequentes:
+    - erreur: Écrire $\ln(a + b) = \ln a + \ln b$.
+      explication: 'La propriété concerne le produit : $\ln(ab) = \ln a + \ln b$.'
+    - erreur: Oublier le domaine x > 0.
+      explication: ln n'est défini que pour des nombres strictement positifs.
     resume: |
       - Pour $x > 0$, $\ln(x)$ est l'unique réel $y$ tel que $e^y = x$.
       - $\ln(1) = 0$, $\ln(e) = 1$, $e^{\ln(x)} = x$ pour $x > 0$, $\ln(e^x) = x$ pour tout $x$.
@@ -48,39 +68,93 @@ competences:
         type: numerique
         enonce: 'Calculer $\ln(1)$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $e^0 = 1$, donc $\ln 1 = 0$.
+          resultat: 0
       - code: TLE-LN-DEF-02
         difficulte: 1
         type: numerique
         enonce: 'Calculer $\ln\left(e^3\right)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\ln(e^a) = a$.
+          resultat: 3
       - code: TLE-LN-DEF-03
         difficulte: 2
         type: numerique
         enonce: 'Simplifier $\ln(8) - \ln(2)$. On attend une valeur exacte, par exemple sous la forme $k\ln(2)$.'
         solution: 2ln(2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\ln 8 - \ln 2 = \ln 4 = \ln(2^2) = 2\ln 2$.
+          resultat: 2ln(2)
       - code: TLE-LN-DEF-04
         difficulte: 2
         type: numerique
         enonce: 'Résoudre dans $]0 ; +\infty[$ l''équation $\ln(x) = 2$. Donner la valeur exacte de $x$.'
         solution: e^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\ln x = 2 \iff x = e^2$.
+          resultat: e^2
       - code: TLE-LN-DEF-05
         difficulte: 3
         type: numerique
         enonce: 'Résoudre dans $\mathbb{R}$ l''équation $e^{x} = 5$. Donner la valeur exacte de $x$.'
         solution: ln(5)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $e^x = 5 \iff x = \ln 5$.
+          resultat: ln(5)
       - code: TLE-LN-DEF-06
         difficulte: 4
         type: numerique
         enonce: 'Résoudre dans $]0 ; +\infty[$ l''équation $\ln(x) + \ln(2) = \ln(10)$. $x = ?$'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\ln(2x) = \ln 10$, donc $2x = 10$.
+          resultat: 5
       - code: TLE-LN-DEF-07
         difficulte: 5
         type: numerique
         enonce: 'L''équation $e^{2x} - 3e^{x} + 2 = 0$ a deux solutions, dont $0$. Donner la valeur exacte de l''autre. Indication : poser $X = e^x$.'
         solution: ln(2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Avec $X = e^x$ : $X^2 - 3X + 2 = (X - 1)(X - 2) = 0$.'
+          - $e^x = 1$ donne $x = 0$ ; $e^x = 2$ donne $x = \ln 2$.
+          resultat: ln(2)
 
   - code: TLE-LN-ETU
     libelle: Étudier la fonction logarithme népérien
+    objectifs:
+    - Dériver des fonctions avec ln et connaitre le signe et les limites de ln.
+    prerequis:
+    - TLE-LN-DEF
+    - TLE-COMPOSEE
+    methodes:
+    - titre: Dériver avec le logarithme
+      etapes:
+      - $(\ln x)' = \dfrac{1}{x}$ et $(\ln u)' = \dfrac{u'}{u}$ (avec $u > 0$).
+      - Combiner avec les formules du produit et du quotient.
+      exemple:
+        enonce: Dériver $f(x) = \ln(3x + 1)$.
+        resolution:
+        - $u = 3x + 1$, $u' = 3$.
+        resultat: $f'(x) = \dfrac{3}{3x + 1}$
+    erreurs_frequentes:
+    - erreur: Dériver $\ln(u)$ en $\dfrac{1}{u}$.
+      explication: 'Il manque $u''$ : $(\ln u)'' = \dfrac{u''}{u}$.'
     resume: |
       - $\ln$ est définie et dérivable sur $]0 ; +\infty[$, et $\ln'(x) = \dfrac{1}{x}$ : elle est strictement croissante.
       - $\lim\limits_{x \to 0^+} \ln(x) = -\infty$ et $\lim\limits_{x \to +\infty} \ln(x) = +\infty$.
@@ -112,34 +186,82 @@ competences:
         type: expression
         enonce: 'Donner la dérivée de $f(x) = \ln(x)$ sur $]0 ; +\infty[$.'
         solution: 1/x
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Formule de cours : $(\ln x)'' = \dfrac{1}{x}$.'
+          resultat: 1/x
       - code: TLE-LN-ETU-02
         difficulte: 2
         type: expression
         enonce: 'Dériver $f(x) = x\ln(x)$ sur $]0 ; +\infty[$.'
         solution: ln(x) + 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 1 \times \ln x + x \times \dfrac{1}{x} = \ln x + 1$.
+          resultat: ln(x) + 1
       - code: TLE-LN-ETU-03
         difficulte: 3
         type: expression
         enonce: 'Dériver $f(x) = \ln\left(x^2 + 1\right)$ sur $\mathbb{R}$.'
         solution: 2x/(x^2 + 1)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(\ln u)' = \dfrac{u'}{u}$ avec $u = x^2 + 1$, $u' = 2x$.
+          resultat: 2x/(x^2 + 1)
       - code: TLE-LN-ETU-04
         difficulte: 3
         type: qcm
         enonce: 'Sur quel intervalle a-t-on $\ln(x) < 0$ ? A) $]-\infty ; 0[$  B) $]0 ; 1[$  C) $]1 ; +\infty[$  D) $]0 ; e[$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\ln$ est croissante et $\ln 1 = 0$ : $\ln x < 0$ pour $0 < x < 1$.'
+          resultat: B
       - code: TLE-LN-ETU-05
         difficulte: 4
         type: qcm
         enonce: 'Que vaut $\lim\limits_{x \to 0^+} \ln(x)$ ? A) $0$  B) $1$  C) $-\infty$  D) $+\infty$'
         solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Limite de cours : $\ln x \to -\infty$ en $0^+$.'
+          resultat: C
       - code: TLE-LN-ETU-06
         difficulte: 5
         type: expression
         enonce: 'Dériver $f(x) = \dfrac{\ln(x)}{x}$ sur $]0 ; +\infty[$.'
         solution: (1 - ln(x))/x^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = \dfrac{\frac{1}{x} \times x - \ln x \times 1}{x^2} = \dfrac{1 - \ln x}{x^2}$.
+          resultat: (1 - ln(x))/x^2
 
   - code: TLE-LN-APP
     libelle: Approfondir l'étude de la fonction logarithme népérien
+    objectifs:
+    - Utiliser les croissances comparées et résoudre des inéquations du type q^n < a.
+    prerequis:
+    - TLE-LN-ETU
+    methodes:
+    - titre: Trouver un seuil n tel que q^n < a
+      etapes:
+      - 'Appliquer $\ln$ (croissante) : $n\ln q < \ln a$.'
+      - 'Si $0 < q < 1$, $\ln q < 0$ : diviser change le sens, $n > \dfrac{\ln a}{\ln q}$.'
+      - Prendre le premier entier qui convient.
+      exemple:
+        enonce: Plus petit $n$ tel que $0{,}5^n < 0{,}1$.
+        resolution:
+        - $n > \dfrac{\ln 0{,}1}{\ln 0{,}5} \approx 3{,}32$.
+        resultat: $n = 4$
+    erreurs_frequentes:
+    - erreur: Oublier de changer le sens de l'inégalité en divisant par $\ln q < 0$.
+      explication: Pour $0 < q < 1$, $\ln q$ est négatif.
     resume: |
       - **Croissances comparées** : $\lim\limits_{x \to +\infty} \dfrac{\ln(x)}{x} = 0$ et $\lim\limits_{x \to 0^+} x\ln(x) = 0$.
       - $\lim\limits_{x \to 0} \dfrac{\ln(1 + x)}{x} = 1$.
@@ -168,31 +290,64 @@ competences:
         type: numerique
         enonce: 'Déterminer $\lim\limits_{x \to +\infty} \dfrac{\ln(x)}{x}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Croissances comparées : x l''emporte sur ln x.'
+          resultat: 0
       - code: TLE-LN-APP-02
         difficulte: 3
         type: numerique
         enonce: 'Déterminer $\lim\limits_{x \to 0} \dfrac{\ln(1 + x)}{x}$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Taux d''accroissement de $\ln(1 + x)$ en $0$ : sa dérivée $\dfrac{1}{1 + x}$ vaut $1$ en $0$.'
+          resultat: 1
       - code: TLE-LN-APP-03
         difficulte: 3
         type: numerique
         enonce: 'Déterminer le plus petit entier $n$ tel que $2^n > 1000$.'
         solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $n > \dfrac{\ln 1000}{\ln 2} \approx 9{,}97$.
+          - 'Vérification : $2^9 = 512$ et $2^{10} = 1024$.'
+          resultat: 10
       - code: TLE-LN-APP-04
         difficulte: 4
         type: qcm
         enonce: 'Que vaut $\lim\limits_{x \to 0^+} x\ln(x)$ ? A) $-\infty$  B) $0$  C) $1$  D) $+\infty$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Croissances comparées : $x\ln x \to 0$ en $0^+$.'
+          resultat: B
       - code: TLE-LN-APP-05
         difficulte: 4
         type: numerique
         enonce: 'Un capital augmente de $5\,\%$ par an. Au bout de combien d''années entières aura-t-il au moins doublé ?'
         solution: 15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1{,}05^n \geq 2$ donne $n \geq \dfrac{\ln 2}{\ln 1{,}05} \approx 14{,}2$.
+          resultat: 15
       - code: TLE-LN-APP-06
         difficulte: 5
         type: numerique
         enonce: 'Déterminer le plus petit entier $n$ tel que $0{,}8^n < 0{,}01$.'
         solution: 21
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $n\ln 0{,}8 < \ln 0{,}01$ ; $\ln 0{,}8 < 0$ donc $n > \dfrac{\ln 0{,}01}{\ln 0{,}8} \approx 20{,}6$.
+          resultat: 21
+          erreurs_frequentes:
+          - Garder le sens de l'inégalité en divisant par $\ln 0{,}8 < 0$.
       - code: TLE-LN-APP-07
         difficulte: 4
         type: numerique
@@ -201,3 +356,9 @@ competences:
         source: math.ma
         licence_source: non clarifiée
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{\ln(1 + x^2)}{x} = x \times \dfrac{\ln(1 + x^2)}{x^2}$.
+          - Le second facteur tend vers $1$, le premier vers $0$.
+          resultat: 0

@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: TLE-BIENAYME
     libelle: Appliquer l'inégalité de Bienaymé-Tchebychev
+    objectifs:
+    - Appliquer l'inégalité de Bienaymé-Tchebychev.
+    prerequis:
+    - 1RE-VARIANCE
+    methodes:
+    - titre: Majorer ou minorer avec Bienaymé-Tchebychev
+      etapes:
+      - $P(|X - E(X)| \geq \delta) \leq \dfrac{V(X)}{\delta^2}$.
+      - 'Pour un minorant, passer au contraire : $P(|X - E(X)| < \delta) \geq 1 - \dfrac{V(X)}{\delta^2}$.'
+      exemple:
+        enonce: '$E(X) = 20$, $V(X) = 4$ : minorer $P(15 < X < 25)$.'
+        resolution:
+        - '$\delta = 5$ : $1 - \dfrac{4}{25}$.'
+        resultat: $\dfrac{21}{25}$
+    erreurs_frequentes:
+    - erreur: Diviser par δ au lieu de δ².
+      explication: L'inégalité fait intervenir le carré de l'écart δ.
     resume: |
       - Pour tout $\delta > 0$ : $P\big(|X - E(X)| \ge \delta\big) \le \dfrac{V(X)}{\delta^2}$.
       - Par passage au contraire : $P\big(|X - E(X)| < \delta\big) \ge 1 - \dfrac{V(X)}{\delta^2}$.
@@ -30,29 +47,75 @@ competences:
         type: qcm
         enonce: 'L''inégalité de Bienaymé-Tchebychev majore $P\big(|X - E(X)| \ge \delta\big)$ par : A) $\dfrac{V(X)}{\delta^2}$  B) $\dfrac{\sigma(X)}{\delta^2}$  C) $V(X) \times \delta^2$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Énoncé du cours : le majorant est V(X)/δ².'
+          resultat: A
       - code: TLE-BIENAYME-02
         difficulte: 2
         type: numerique
         enonce: 'On sait que $V(X) = 4$. Quel majorant de $P\big(|X - E(X)| \ge 4\big)$ donne l''inégalité de Bienaymé-Tchebychev ?'
         solution: 1/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{4}{4^2} = \dfrac{1}{4}$.
+          resultat: 1/4
       - code: TLE-BIENAYME-03
         difficulte: 3
         type: numerique
         enonce: 'On sait que $E(X) = 50$ et $V(X) = 25$. Quel minorant de $P(40 < X < 60)$ donne l''inégalité de Bienaymé-Tchebychev ?'
         solution: 3/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $40 < X < 60 \iff |X - 50| < 10$.
+          - $P \geq 1 - \dfrac{25}{100} = \dfrac{3}{4}$.
+          resultat: 3/4
       - code: TLE-BIENAYME-04
         difficulte: 4
         type: numerique
         enonce: '$X$ suit la loi binomiale $\mathcal B(100 ; 0{,}5)$. Quel majorant de $P\big(|X - 50| \ge 10\big)$ donne l''inégalité de Bienaymé-Tchebychev ?'
         solution: 1/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V(X) = 100 \times 0{,}5 \times 0{,}5 = 25$.
+          - $P \leq \dfrac{25}{100} = \dfrac{1}{4}$.
+          resultat: 1/4
       - code: TLE-BIENAYME-05
         difficulte: 5
         type: numerique
         enonce: 'Quel est le plus petit entier $k$ pour lequel l''inégalité de Bienaymé-Tchebychev garantit $P\big(|X - \mu| < k\sigma\big) \ge 0{,}96$ ?'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Avec $\delta = k\sigma$ : $P(|X - \mu| < k\sigma) \geq 1 - \dfrac{1}{k^2}$.'
+          - $1 - \dfrac{1}{k^2} \geq 0{,}96 \iff k^2 \geq 25$.
+          resultat: 5
 
   - code: TLE-CONCENTRATION
     libelle: Utiliser l'inégalité de concentration et la loi des grands nombres
+    objectifs:
+    - Utiliser l'inégalité de concentration et interpréter la loi des grands nombres.
+    prerequis:
+    - TLE-BIENAYME
+    - TLE-ECHANTILLON
+    methodes:
+    - titre: Déterminer une taille d'échantillon
+      etapes:
+      - 'Inégalité de concentration : $P(|M_n - \mu| \geq \delta) \leq \dfrac{V}{n\delta^2}$.'
+      - Résoudre $\dfrac{V}{n\delta^2} \leq \text{seuil}$ en $n$.
+      exemple:
+        enonce: $V = 1$, $\delta = 0{,}1$, seuil $0{,}1$.
+        resolution:
+        - $\dfrac{1}{0{,}01n} \leq 0{,}1$ donne $n \geq 1000$.
+        resultat: $n = 1000$
+    erreurs_frequentes:
+    - erreur: Oublier le facteur n dans le dénominateur.
+      explication: C'est lui qui fait diminuer le majorant quand l'échantillon grandit.
     resume: |
       - Inégalité de concentration : $P\big(|M_n - \mu| \ge \delta\big) \le \dfrac{V}{n\delta^2}$, où $M_n$ est la moyenne d'un échantillon.
       - **Loi des grands nombres** : $\lim\limits_{n \to +\infty} P\big(|M_n - \mu| \ge \delta\big) = 0$ ; la moyenne se rapproche de l'espérance.
@@ -73,23 +136,48 @@ competences:
         type: qcm
         enonce: 'D''après la loi des grands nombres, la moyenne d''un échantillon de grande taille se rapproche : A) de l''espérance  B) de la variance  C) de 0'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - La loi des grands nombres dit que la moyenne de l'échantillon tend vers l'espérance.
+          resultat: A
       - code: TLE-CONCENTRATION-02
         difficulte: 2
         type: numerique
         enonce: 'Variables de variance 1, échantillon de taille 100, $\delta = 0{,}5$. Quel majorant de $P\big(|M_n - \mu| \ge \delta\big)$ donne l''inégalité de concentration ?'
         solution: 1/25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1}{100 \times 0{,}25} = \dfrac{1}{25}$.
+          resultat: 1/25
       - code: TLE-CONCENTRATION-03
         difficulte: 3
         type: numerique
         enonce: 'Variables de variance 0,25, échantillon de taille 1000, $\delta = 0{,}05$. Quel majorant de $P\big(|M_n - \mu| \ge \delta\big)$ donne l''inégalité de concentration ?'
         solution: 1/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{0{,}25}{1000 \times 0{,}0025} = \dfrac{0{,}25}{2{,}5} = 0{,}1$.
+          resultat: 1/10
       - code: TLE-CONCENTRATION-04
         difficulte: 4
         type: numerique
         enonce: 'Variables de variance 0,25 et $\delta = 0{,}1$. Quelle taille minimale $n$ rend le majorant de l''inégalité de concentration inférieur ou égal à 0,05 ?'
         solution: 500
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{0{,}25}{0{,}01n} \leq 0{,}05 \iff n \geq \dfrac{0{,}25}{0{,}0005} = 500$.
+          resultat: 500
       - code: TLE-CONCENTRATION-05
         difficulte: 5
         type: numerique
         enonce: 'Variables de variance 0,25 et $\delta = 0{,}05$. Quelle taille minimale $n$ rend le majorant de l''inégalité de concentration inférieur ou égal à 0,01 ?'
         solution: 10000
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{0{,}25}{0{,}0025n} \leq 0{,}01 \iff n \geq \dfrac{100}{0{,}01} = 10\,000$.
+          resultat: 10000

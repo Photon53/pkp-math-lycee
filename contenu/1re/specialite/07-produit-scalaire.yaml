@@ -8,6 +8,22 @@ chapitre:
 competences:
   - code: 1RE-PS-CALC
     libelle: Calculer un produit scalaire
+    objectifs:
+    - Calculer un produit scalaire par les coordonnées, les normes et l'angle, ou une projection.
+    methodes:
+    - titre: Choisir la bonne formule du produit scalaire
+      etapes:
+      - 'Coordonnées connues (repère orthonormé) : $\vec u \cdot \vec v = xx'' + yy''$.'
+      - 'Normes et angle connus : $\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v)$.'
+      - 'Figure géométrique : projeter orthogonalement un vecteur sur la direction de l''autre.'
+      exemple:
+        enonce: $\|\vec u\| = 2$, $\|\vec v\| = 5$, angle $\dfrac{\pi}{6}$.
+        resolution:
+        - $\vec u \cdot \vec v = 2 \times 5 \times \cos\dfrac{\pi}{6} = 10 \times \dfrac{\sqrt{3}}{2} = 5\sqrt{3}$.
+        resultat: $5\sqrt{3}$
+    erreurs_frequentes:
+    - erreur: Calculer $xy' + x'y$ comme pour un déterminant.
+      explication: 'Le produit scalaire multiplie abscisse par abscisse et ordonnée par ordonnée : $xx'' + yy''$.'
     resume: |
       - En repère orthonormé : $\vec u \cdot \vec v = xx' + yy'$.
       - Avec les normes et l'angle : $\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v)$.
@@ -31,29 +47,75 @@ competences:
         type: numerique
         enonce: 'Calculer $\vec u \cdot \vec v$ pour $\vec u(2 ; 3)$ et $\vec v(4 ; -1)$ dans un repère orthonormé.'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2 \times 4 + 3 \times (-1) = 8 - 3 = 5$.
+          resultat: 5
       - code: 1RE-PS-CALC-02
         difficulte: 2
         type: numerique
         enonce: 'On donne $\|\vec u\| = 3$, $\|\vec v\| = 4$ et un angle $(\vec u, \vec v)$ de mesure $\dfrac{\pi}{3}$. Calculer $\vec u \cdot \vec v$.'
         solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3 \times 4 \times \cos\dfrac{\pi}{3} = 12 \times \dfrac{1}{2} = 6$.
+          resultat: 6
       - code: 1RE-PS-CALC-03
         difficulte: 3
         type: numerique
         enonce: 'Calculer $\vec u \cdot \vec u$ pour $\vec u(3 ; 4)$ dans un repère orthonormé.'
         solution: 25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\vec u \cdot \vec u = \|\vec u\|^2 = 9 + 16 = 25$.
+          resultat: 25
       - code: 1RE-PS-CALC-04
         difficulte: 4
         type: numerique
         enonce: '$ABCD$ est un carré de côté 2. Calculer $\overrightarrow{AB} \cdot \overrightarrow{AC}$.'
         solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Projeter orthogonalement C sur la droite (AB).
+          etapes:
+          - 'Le projeté de $C$ sur $(AB)$ est $B$ : $\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AB} = AB^2$.'
+          - $AB^2 = 4$.
+          resultat: 4
       - code: 1RE-PS-CALC-05
         difficulte: 5
         type: numerique
         enonce: 'On sait que $\|\vec u\| = 2$, $\|\vec v\| = 3$ et $\vec u \cdot \vec v = 1$. Calculer $\|\vec u + \vec v\|^2$.'
         solution: 15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$.
+          - $= 4 + 2 + 9 = 15$.
+          resultat: 15
 
   - code: 1RE-PS-APP
     libelle: Utiliser le produit scalaire (orthogonalité, angles, longueurs)
+    objectifs:
+    - Démontrer une orthogonalité, calculer un angle ou une longueur (Al-Kashi).
+    prerequis:
+    - 1RE-PS-CALC
+    methodes:
+    - titre: Calculer une longueur avec la formule d'Al-Kashi
+      etapes:
+      - 'Dans un triangle : $a^2 = b^2 + c^2 - 2bc\cos\widehat{A}$, avec $a$ le côté opposé à l''angle.'
+      - Remplacer et calculer, puis prendre la racine.
+      exemple:
+        enonce: $AB = 4$, $AC = 6$, $\widehat{A} = 60°$. Calculer $BC$.
+        resolution:
+        - $BC^2 = 16 + 36 - 2 \times 4 \times 6 \times \dfrac{1}{2} = 28$.
+        - $BC = \sqrt{28} = 2\sqrt{7}$.
+        resultat: $2\sqrt{7}$
+    erreurs_frequentes:
+    - erreur: Oublier le terme $-2bc\cos\widehat{A}$ (on retrouve alors Pythagore).
+      explication: Pythagore n'est que le cas particulier de l'angle droit, où le cosinus vaut 0.
     resume: |
       - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$.
       - $\cos(\vec u, \vec v) = \dfrac{\vec u \cdot \vec v}{\|\vec u\| \times \|\vec v\|}$.
@@ -74,23 +136,52 @@ competences:
         type: qcm
         enonce: 'Les vecteurs $\vec u(2 ; -1)$ et $\vec v(1 ; 2)$ sont-ils orthogonaux ? A) oui  B) non'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\vec u \cdot \vec v = 2 \times 1 + (-1) \times 2 = 0$ : orthogonaux.'
+          resultat: A
       - code: 1RE-PS-APP-02
         difficulte: 2
         type: numerique
         enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(m ; 3)$ et $\vec v(2 ; -4)$ sont-ils orthogonaux ?'
         solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2m + 3 \times (-4) = 0$, donc $m = 6$.
+          resultat: 6
       - code: 1RE-PS-APP-03
         difficulte: 3
         type: numerique
         enonce: 'Dans un triangle $ABC$, $AB = 3$, $AC = 5$ et $\widehat{BAC} = 60°$. Calculer $BC$ (valeur exacte).'
         solution: sqrt(19)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Formule d'Al-Kashi.
+          etapes:
+          - $BC^2 = 9 + 25 - 2 \times 3 \times 5 \times \dfrac{1}{2} = 34 - 15 = 19$.
+          - $BC = \sqrt{19}$.
+          resultat: sqrt(19)
       - code: 1RE-PS-APP-04
         difficulte: 4
         type: numerique
         enonce: 'Calculer le cosinus de l''angle entre $\vec u(1 ; 0)$ et $\vec v(1 ; 1)$ (valeur exacte).'
         solution: sqrt(2)/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\vec u \cdot \vec v = 1$, $\|\vec u\| = 1$, $\|\vec v\| = \sqrt{2}$.
+          - $\cos\theta = \dfrac{1}{\sqrt{2}} = \dfrac{\sqrt{2}}{2}$.
+          resultat: sqrt(2)/2
       - code: 1RE-PS-APP-05
         difficulte: 5
         type: numerique
         enonce: 'Un triangle a pour côtés 5, 7 et 8. Quelle est la mesure en degrés de l''angle opposé au côté de longueur 7 ?'
         solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $49 = 25 + 64 - 2 \times 5 \times 8 \cos\theta$, soit $80\cos\theta = 40$.
+          - $\cos\theta = \dfrac{1}{2}$, donc $\theta = 60°$.
+          resultat: 60

@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: 2NDE-IMG
     libelle: Calculer une image et rechercher un antécédent
+    objectifs:
+    - Calculer une image et chercher un antécédent par le calcul.
+    methodes:
+    - titre: Chercher les antécédents d'un nombre
+      etapes:
+      - Écrire l'équation $f(x) = k$.
+      - Résoudre l'équation ; vérifier que les solutions sont dans l'ensemble de définition.
+      exemple:
+        enonce: $f(x) = 4x - 3$. Antécédent de $9$ ?
+        resolution:
+        - $4x - 3 = 9$ donne $4x = 12$, soit $x = 3$.
+        resultat: $3$
+    erreurs_frequentes:
+    - erreur: Confondre image et antécédent.
+      explication: L'image de $a$ est $f(a)$ (on calcule) ; un antécédent de $k$ est un $x$ tel que $f(x) = k$ (on résout).
+    - erreur: Calculer $-3^2 = -9$ en remplaçant $x$ par $-3$ dans $x^2$.
+      explication: 'Remplacer $x$ par $(-3)$ avec les parenthèses : $(-3)^2 = 9$.'
     resume: |
       - L'**image** de $a$ par $f$ est le nombre $f(a)$ : il est unique.
       - Un **antécédent** de $b$ est un réel $x$ tel que $f(x) = b$ : il peut y en avoir zéro, un ou plusieurs.
@@ -29,29 +46,75 @@ competences:
         type: numerique
         enonce: 'Soit $f(x) = 3x - 2$. Calculer $f(4)$.'
         solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(4) = 3 \times 4 - 2 = 10$.
+          resultat: 10
       - code: 2NDE-IMG-02
         difficulte: 2
         type: numerique
         enonce: 'Soit $f(x) = x^2 - 2x$. Calculer $f(-3)$.'
         solution: 15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-3) = (-3)^2 - 2 \times (-3) = 9 + 6 = 15$.
+          resultat: 15
+          erreurs_frequentes:
+          - Écrire $-3^2 = -9$ sans parenthèses.
       - code: 2NDE-IMG-03
         difficulte: 3
         type: numerique
         enonce: 'Soit $f(x) = 2x + 5$. Quel est l''antécédent de 11 par $f$ ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2x + 5 = 11$ donne $x = 3$.
+          resultat: 3
       - code: 2NDE-IMG-04
         difficulte: 4
         type: qcm
         enonce: 'Quels sont les antécédents de 9 par la fonction carré ? A) 3 seulement  B) $-3$ et $3$  C) 81'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$x^2 = 9$ a deux solutions : $3$ et $-3$.'
+          resultat: B
       - code: 2NDE-IMG-05
         difficulte: 5
         type: numerique
         enonce: 'Soit $f(x) = \dfrac{x - 1}{x + 2}$ pour $x \neq -2$. Quel est l''antécédent de 2 par $f$ ?'
         solution: -5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\dfrac{x - 1}{x + 2} = 2$ avec $x \neq -2$ : $x - 1 = 2(x + 2)$.'
+          - $x - 1 = 2x + 4$, donc $x = -5$, qui est bien différent de $-2$.
+          resultat: -5
 
   - code: 2NDE-COURBE
     libelle: Exploiter la courbe représentative d'une fonction
+    objectifs:
+    - Savoir si un point appartient à une courbe.
+    - Trouver des points d'intersection et un ensemble de définition.
+    prerequis:
+    - 2NDE-IMG
+    methodes:
+    - titre: Tester si un point appartient à une courbe
+      etapes:
+      - Calculer $f(x_A)$.
+      - $A$ est sur la courbe si et seulement si $f(x_A) = y_A$.
+      exemple:
+        enonce: $A(3 ; 8)$ est-il sur la courbe de $f(x) = x^2 - 1$ ?
+        resolution:
+        - $f(3) = 9 - 1 = 8 = y_A$.
+        resultat: Oui.
+    erreurs_frequentes:
+    - erreur: Oublier une solution en cherchant l'intersection de deux courbes.
+      explication: Résoudre complètement $f(x) = g(x)$ ; une équation du second degré peut avoir deux solutions.
     resume: |
       - $M(x ; y)$ appartient à la courbe de $f$ $\iff y = f(x)$.
       - Les abscisses des points d'intersection avec l'axe des abscisses sont les solutions de $f(x) = 0$.
@@ -73,23 +136,50 @@ competences:
         type: qcm
         enonce: 'Le point $A(2 ; 5)$ appartient-il à la courbe de $f(x) = x^2 + 1$ ? A) oui  B) non'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$f(2) = 2^2 + 1 = 5 = y_A$ : $A$ est sur la courbe.'
+          resultat: A
       - code: 2NDE-COURBE-02
         difficulte: 2
         type: numerique
         enonce: 'Le point $B(k ; 7)$ appartient à la courbe de $f(x) = 2x + 1$. Donner $k$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2k + 1 = 7$, donc $k = 3$.
+          resultat: 3
       - code: 2NDE-COURBE-03
         difficulte: 3
         type: numerique
         enonce: 'Quelle est l''abscisse du point d''intersection de la courbe de $f(x) = 2x - 4$ avec l''axe des abscisses ?'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Sur l'axe des abscisses, l'ordonnée est nulle.
+          etapes:
+          - $2x - 4 = 0$ donne $x = 2$.
+          resultat: 2
       - code: 2NDE-COURBE-04
         difficulte: 4
         type: numerique
         enonce: 'Les courbes de $f(x) = x^2$ et $g(x) = x + 2$ se coupent en deux points. Donner la plus grande de leurs abscisses.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $x^2 = x + 2$ équivaut à $x^2 - x - 2 = 0$, soit $(x - 2)(x + 1) = 0$.
+          - 'Abscisses : $-1$ et $2$ ; la plus grande est $2$.'
+          resultat: 2
       - code: 2NDE-COURBE-05
         difficulte: 5
         type: qcm
         enonce: 'Quel est l''ensemble de définition de $f(x) = \dfrac{1}{x - 3}$ ? A) $\mathbb{R}$  B) $\mathbb{R} \setminus \{3\}$  C) $]3 ; +\infty[$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Le dénominateur s''annule pour $x = 3$ : cette valeur est interdite.'
+          resultat: B

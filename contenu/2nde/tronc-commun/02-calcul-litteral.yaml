@@ -8,6 +8,28 @@ chapitre:
 competences:
   - code: 2NDE-DEV
     libelle: Développer une expression
+    objectifs:
+    - Développer et réduire une expression avec la distributivité.
+    - Utiliser les identités remarquables dans les deux sens.
+    prerequis:
+    - 2NDE-PUIS
+    methodes:
+    - titre: Développer un produit de deux facteurs
+      etapes:
+      - 'Multiplier chaque terme du premier facteur par chaque terme du second : $(a + b)(c + d) = ac + ad + bc + bd$.'
+      - Faire attention aux signes de chaque produit.
+      - Réduire en regroupant les termes de même degré.
+      exemple:
+        enonce: Développer $(3x - 2)(x + 5)$.
+        resolution:
+        - $3x \times x + 3x \times 5 - 2 \times x - 2 \times 5$.
+        - $= 3x^2 + 15x - 2x - 10 = 3x^2 + 13x - 10$.
+        resultat: $3x^2 + 13x - 10$
+    erreurs_frequentes:
+    - erreur: Écrire $(x + 3)^2 = x^2 + 9$.
+      explication: 'Il manque le double produit : $(a + b)^2 = a^2 + 2ab + b^2$, donc $(x + 3)^2 = x^2 + 6x + 9$.'
+    - erreur: Oublier un signe moins en distribuant.
+      explication: '$-1 \times 4 = -4$ : on garde le signe de chaque terme.'
     resume: |
       - Simple distributivité : $k(a + b) = ka + kb$
       - Double distributivité : $(a + b)(c + d) = ac + ad + bc + bd$
@@ -37,16 +59,38 @@ competences:
         type: expression
         enonce: Développer (x + 3)².
         solution: x^2 + 6x + 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Identité remarquable $(a + b)^2 = a^2 + 2ab + b^2$.
+          etapes:
+          - '$a = x$ et $b = 3$ : $x^2 + 2 \times x \times 3 + 3^2$.'
+          - $= x^2 + 6x + 9$.
+          resultat: x^2 + 6x + 9
+          erreurs_frequentes:
+          - Oublier le double produit $6x$.
       - code: 2NDE-DEV-02
         difficulte: 2
         type: expression
         enonce: Développer (a + b)(a − b).
         solution: a^2 - b^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Identité remarquable $(a + b)(a - b) = a^2 - b^2$.
+          etapes:
+          - $(a + b)(a - b) = a^2 - ab + ab - b^2 = a^2 - b^2$.
+          resultat: a^2 - b^2
       - code: 2NDE-DEV-03
         difficulte: 3
         type: expression
         enonce: Développer (2x − 1)(x + 4).
         solution: 2x^2 + 7x - 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Double distributivité.
+          etapes:
+          - $(2x - 1)(x + 4) = 2x \times x + 2x \times 4 - 1 \times x - 1 \times 4$.
+          - $= 2x^2 + 8x - x - 4 = 2x^2 + 7x - 4$.
+          resultat: 2x^2 + 7x - 4
       - code: 2NDE-DEV-04
         difficulte: 4
         type: expression
@@ -56,9 +100,35 @@ competences:
         source_url: https://docs.stack-assessment.org/
         licence_source: à vérifier
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Développer le carré, puis multiplier par le dernier facteur.
+          etapes:
+          - $(x + 3)^2 = x^2 + 6x + 9$.
+          - $(x^2 + 6x + 9)(x + 3) = x^3 + 3x^2 + 6x^2 + 18x + 9x + 27$.
+          - $= x^3 + 9x^2 + 27x + 27$.
+          resultat: x^3 + 9x^2 + 27x + 27
 
   - code: 2NDE-EQ1
     libelle: Résoudre une équation du premier degré
+    objectifs:
+    - Résoudre une équation du premier degré à une inconnue.
+    - Vérifier la solution en la remplaçant dans l'équation.
+    methodes:
+    - titre: Résoudre une équation du premier degré
+      etapes:
+      - Regrouper les termes en $x$ d'un côté et les nombres de l'autre, en faisant la même opération des deux côtés.
+      - Diviser les deux membres par le coefficient de $x$.
+      - Vérifier en remplaçant $x$ par la valeur trouvée.
+      exemple:
+        enonce: Résoudre $5x - 3 = 2x + 9$.
+        resolution:
+        - $5x - 2x = 9 + 3$, soit $3x = 12$.
+        - '$x = 4$. Vérification : $5 \times 4 - 3 = 17$ et $2 \times 4 + 9 = 17$.'
+        resultat: $x = 4$
+    erreurs_frequentes:
+    - erreur: Changer un terme de membre sans changer son signe.
+      explication: '« Passer de l''autre côté » revient à soustraire (ou ajouter) ce terme aux deux membres : son signe change.'
     resume: |
       - On peut ajouter ou soustraire le même nombre aux deux membres.
       - On peut multiplier ou diviser les deux membres par le même nombre **non nul**.
@@ -81,16 +151,38 @@ competences:
         type: numerique
         enonce: Résoudre 3x + 5 = 20. x = ?
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3x + 5 = 20$ donne $3x = 15$.
+          - '$x = 5$. Vérification : $3 \times 5 + 5 = 20$.'
+          resultat: 5
       - code: 2NDE-EQ1-02
         difficulte: 2
         type: numerique
         enonce: Résoudre 2x − 7 = 4x + 1. x = ?
         solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2x - 4x = 1 + 7$, soit $-2x = 8$.
+          - $x = \dfrac{8}{-2} = -4$.
+          - 'Vérification : $2 \times (-4) - 7 = -15$ et $4 \times (-4) + 1 = -15$.'
+          resultat: -4
+          erreurs_frequentes:
+          - Diviser par $2$ au lieu de $-2$ et trouver $4$.
       - code: 2NDE-EQ1-03
         difficulte: 3
         type: numerique
         enonce: Résoudre (x + 1)/3 = 2. x = ?
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier les deux membres par le dénominateur.
+          etapes:
+          - $\dfrac{x + 1}{3} = 2$ donne $x + 1 = 6$.
+          - $x = 5$.
+          resultat: 5
       - code: 2NDE-EQ1-04
         difficulte: 1
         type: numerique

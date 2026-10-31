@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: TLE-SOMME-LIN
     libelle: Calculer espérance et variance d'une somme
+    objectifs:
+    - Calculer l'espérance et la variance d'une combinaison linéaire de variables aléatoires.
+    prerequis:
+    - 1RE-VARIANCE
+    methodes:
+    - titre: Espérance et variance de aX + bY
+      etapes:
+      - 'Toujours : $E(aX + bY) = aE(X) + bE(Y)$.'
+      - 'Si $X$ et $Y$ sont indépendantes : $V(aX + bY) = a^2V(X) + b^2V(Y)$.'
+      exemple:
+        enonce: $V(X) = 3$, $V(Y) = 1$, indépendantes. Calculer $V(X - 2Y)$.
+        resolution:
+        - $1 \times 3 + 4 \times 1$.
+        resultat: $7$
+    erreurs_frequentes:
+    - erreur: Écrire V(X − Y) = V(X) − V(Y).
+      explication: 'Le coefficient $-1$ est élevé au carré : $V(X - Y) = V(X) + V(Y)$.'
     resume: |
       - Toujours : $E(X + Y) = E(X) + E(Y)$ et $E(aX + b) = aE(X) + b$.
       - Si $X$ et $Y$ sont **indépendantes** : $V(X + Y) = V(X) + V(Y)$.
@@ -30,29 +47,72 @@ competences:
         type: numerique
         enonce: 'On sait que $E(X) = 3$ et $E(Y) = 5$. Calculer $E(X + Y)$.'
         solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Linéarité : $E(X + Y) = 3 + 5$.'
+          resultat: 8
       - code: TLE-SOMME-LIN-02
         difficulte: 2
         type: numerique
         enonce: '$X$ et $Y$ sont indépendantes avec $V(X) = 2$ et $V(Y) = 3$. Calculer $V(X - Y)$.'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Indépendance : $V(X - Y) = V(X) + V(Y) = 2 + 3$.'
+          resultat: 5
       - code: TLE-SOMME-LIN-03
         difficulte: 3
         type: numerique
         enonce: 'On sait que $E(X) = 4$ et $E(Y) = 1$. Calculer $E(2X - 3Y + 1)$.'
         solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2 \times 4 - 3 \times 1 + 1 = 6$.
+          resultat: 6
       - code: TLE-SOMME-LIN-04
         difficulte: 4
         type: numerique
         enonce: '$X$ et $Y$ sont indépendantes avec $V(X) = 1$ et $V(Y) = 2$. Calculer $V(2X + 3Y)$.'
         solution: 22
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $4V(X) + 9V(Y) = 4 + 18$.
+          resultat: 22
       - code: TLE-SOMME-LIN-05
         difficulte: 5
         type: numerique
         enonce: 'On lance 10 fois un dé équilibré à six faces et on additionne les résultats. Calculer l''espérance de cette somme.'
         solution: 35
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Un lancer a pour espérance $\dfrac{1 + 2 + \dots + 6}{6} = 3{,}5$.
+          - 'Somme de 10 lancers : $10 \times 3{,}5$.'
+          resultat: 35
 
   - code: TLE-ECHANTILLON
     libelle: Étudier la somme et la moyenne d'un échantillon
+    objectifs:
+    - Calculer espérance, variance et écart type de la somme et de la moyenne d'un échantillon.
+    prerequis:
+    - TLE-SOMME-LIN
+    methodes:
+    - titre: Espérance et variance d'une moyenne d'échantillon
+      etapes:
+      - 'Somme $S_n$ : $E(S_n) = n\mu$ et $V(S_n) = nV$.'
+      - 'Moyenne $M_n = \dfrac{S_n}{n}$ : $E(M_n) = \mu$, $V(M_n) = \dfrac{V}{n}$, $\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$.'
+      exemple:
+        enonce: $n = 25$ variables d'écart type $10$.
+        resolution:
+        - $\sigma(M_{25}) = \dfrac{10}{5}$.
+        resultat: $2$
+    erreurs_frequentes:
+    - erreur: Diviser l'écart type par $n$ au lieu de $\sqrt n$.
+      explication: C'est la variance qui est divisée par $n$ ; l'écart type est donc divisé par $\sqrt n$.
     resume: |
       - Un échantillon de taille $n$ : $X_1, \dots, X_n$ indépendantes et de même loi (espérance $\mu$, variance $V$).
       - Somme $S_n$ : $E(S_n) = n\mu$ et $V(S_n) = nV$.
@@ -73,23 +133,48 @@ competences:
         type: numerique
         enonce: '$M_n$ est la moyenne d''un échantillon de $n$ variables indépendantes d''espérance 5. Calculer $E(M_n)$.'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(M_n) = \mu = 5$.
+          resultat: 5
       - code: TLE-ECHANTILLON-02
         difficulte: 2
         type: numerique
         enonce: 'Un échantillon de taille 100 est formé de variables indépendantes de variance 4. Calculer la variance de la moyenne $M_{100}$.'
         solution: 1/25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V(M_{100}) = \dfrac{4}{100} = \dfrac{1}{25}$.
+          resultat: 1/25
       - code: TLE-ECHANTILLON-03
         difficulte: 3
         type: numerique
         enonce: 'Un échantillon de taille 36 est formé de variables indépendantes d''écart type 6. Calculer l''écart type de la moyenne $M_{36}$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sigma(M_{36}) = \dfrac{6}{\sqrt{36}} = 1$.
+          resultat: 1
       - code: TLE-ECHANTILLON-04
         difficulte: 4
         type: numerique
         enonce: '$S = X_1 + \dots + X_{50}$ où les $X_i$ sont indépendantes de variance 2. Calculer $V(S)$.'
         solution: 100
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V(S) = 50 \times 2$.
+          resultat: 100
       - code: TLE-ECHANTILLON-05
         difficulte: 5
         type: numerique
         enonce: 'Quelle taille $n$ d''échantillon rend l''écart type de la moyenne $M_n$ dix fois plus petit que celui d''une seule variable ?'
         solution: 100
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$ : il faut $\sqrt n = 10$.'
+          resultat: 100

@@ -8,6 +8,28 @@ chapitre:
 competences:
   - code: 2NDE-FRAC
     libelle: Calculer avec des fractions
+    objectifs:
+    - Additionner, multiplier et diviser des fractions.
+    - Donner un résultat sous forme irréductible.
+    methodes:
+    - titre: Additionner deux fractions
+      quand: Les dénominateurs sont différents.
+      etapes:
+      - Chercher un dénominateur commun, de préférence le plus petit multiple commun.
+      - 'Transformer chaque fraction : multiplier numérateur et dénominateur par le même nombre.'
+      - Additionner les numérateurs, garder le dénominateur commun, puis simplifier.
+      exemple:
+        enonce: Calculer $\dfrac{1}{4} + \dfrac{5}{6}$.
+        resolution:
+        - 'Dénominateur commun : $12$.'
+        - $\dfrac{1}{4} = \dfrac{3}{12}$ et $\dfrac{5}{6} = \dfrac{10}{12}$.
+        - $\dfrac{3}{12} + \dfrac{10}{12} = \dfrac{13}{12}$.
+        resultat: $\dfrac{13}{12}$
+    erreurs_frequentes:
+    - erreur: 'Additionner numérateurs et dénominateurs : $\dfrac{1}{2} + \dfrac{1}{3} = \dfrac{2}{5}$.'
+      explication: 'On ne peut additionner que des parts de même taille : il faut d''abord un dénominateur commun.'
+    - erreur: Diviser par une fraction en divisant les numérateurs et les dénominateurs « en croix ».
+      explication: Diviser par $\dfrac{c}{d}$, c'est multiplier par son inverse $\dfrac{d}{c}$.
     resume: |
       - $\dfrac{a}{b} + \dfrac{c}{d} = \dfrac{ad + bc}{bd}$ : on réduit d'abord au même dénominateur.
       - $\dfrac{a}{b} \times \dfrac{c}{d} = \dfrac{ac}{bd}$ : numérateur × numérateur, dénominateur × dénominateur.
@@ -36,16 +58,39 @@ competences:
         type: numerique
         enonce: Calculer 1/2 + 1/3.
         solution: 5/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réduire au même dénominateur.
+          etapes:
+          - 'Dénominateur commun : $6$. $\dfrac{1}{2} = \dfrac{3}{6}$ et $\dfrac{1}{3} = \dfrac{2}{6}$.'
+          - $\dfrac{3}{6} + \dfrac{2}{6} = \dfrac{5}{6}$.
+          resultat: 5/6
+          erreurs_frequentes:
+          - Répondre $\dfrac{2}{5}$ en additionnant numérateurs et dénominateurs.
       - code: 2NDE-FRAC-02
         difficulte: 2
         type: numerique
         enonce: Calculer 3/4 × 2/9.
         solution: 1/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier les numérateurs entre eux et les dénominateurs entre eux.
+          etapes:
+          - $\dfrac{3}{4} \times \dfrac{2}{9} = \dfrac{3 \times 2}{4 \times 9} = \dfrac{6}{36}$.
+          - $\dfrac{6}{36} = \dfrac{1}{6}$ (on divise par $6$).
+          resultat: 1/6
       - code: 2NDE-FRAC-03
         difficulte: 3
         type: numerique
         enonce: Calculer (2/3) ÷ (4/9).
         solution: 3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par une fraction, c'est multiplier par son inverse.
+          etapes:
+          - $\dfrac{2}{3} \div \dfrac{4}{9} = \dfrac{2}{3} \times \dfrac{9}{4}$.
+          - $= \dfrac{18}{12} = \dfrac{3}{2}$.
+          resultat: 3/2
       - code: 2NDE-FRAC-04
         difficulte: 2
         type: qcm
@@ -55,9 +100,36 @@ competences:
         source_url: https://docs.stack-assessment.org/
         licence_source: à vérifier
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Simplifier avant ou après la multiplication.
+          etapes:
+          - $\dfrac{4}{9} \times \dfrac{3}{8} = \dfrac{12}{72}$.
+          - '$\dfrac{12}{72} = \dfrac{1}{6}$ (on divise par $12$) : seule la réponse B est irréductible.'
+          resultat: B
 
   - code: 2NDE-PUIS
     libelle: Calculer avec des puissances
+    objectifs:
+    - Calculer une puissance et appliquer les règles de calcul.
+    - Connaitre le signe d'une puissance d'un nombre négatif.
+    methodes:
+    - titre: Simplifier un produit de puissances de 10
+      etapes:
+      - Utiliser $10^a \times 10^b = 10^{a+b}$.
+      - Se rappeler que $10^{-n} = \dfrac{1}{10^n}$.
+      - Écrire le résultat en écriture décimale si demandé.
+      exemple:
+        enonce: Calculer $10^4 \times 10^{-6}$.
+        resolution:
+        - $10^4 \times 10^{-6} = 10^{4 + (-6)} = 10^{-2}$.
+        - $10^{-2} = \dfrac{1}{100} = 0{,}01$.
+        resultat: $0{,}01$
+    erreurs_frequentes:
+    - erreur: Confondre $2^5$ et $2 \times 5$.
+      explication: '$2^5 = 2 \times 2 \times 2 \times 2 \times 2 = 32$ : l''exposant compte les facteurs.'
+    - erreur: Penser qu'une puissance d'un nombre négatif est toujours négative.
+      explication: 'Le signe dépend de l''exposant : pair donne un résultat positif, impair un résultat négatif.'
     resume: |
       Pour $a \neq 0$ et $m, n$ entiers :
       - $a^m \times a^n = a^{m+n}$ ;  $\dfrac{a^m}{a^n} = a^{m-n}$ ;  $(a^m)^n = a^{mn}$
@@ -89,19 +161,57 @@ competences:
         type: numerique
         enonce: Calculer 2⁵.
         solution: 32
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2^5 = 2 \times 2 \times 2 \times 2 \times 2 = 32$.
+          resultat: 32
       - code: 2NDE-PUIS-02
         difficulte: 2
         type: qcm
         enonce: Quel est le signe de (−3)⁷ ? A) positif  B) négatif
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le signe d'une puissance d'un nombre négatif dépend de la parité de l'exposant.
+          etapes:
+          - $(-3)^7$ est un produit de $7$ facteurs négatifs.
+          - Un nombre impair de facteurs négatifs donne un produit négatif.
+          resultat: B
       - code: 2NDE-PUIS-03
         difficulte: 3
         type: numerique
         enonce: Donner la valeur décimale de 10³ × 10⁻⁵.
         solution: 0.01
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $10^a \times 10^b = 10^{a+b}$.
+          etapes:
+          - $10^3 \times 10^{-5} = 10^{3 - 5} = 10^{-2}$.
+          - $10^{-2} = 0{,}01$.
+          resultat: 0.01
 
   - code: 2NDE-RAC
     libelle: Calculer avec des racines carrées
+    objectifs:
+    - Calculer avec des racines carrées et simplifier $\sqrt{a}$.
+    - Écrire un quotient sans racine carrée au dénominateur.
+    prerequis:
+    - 2NDE-PUIS
+    methodes:
+    - titre: Simplifier une racine carrée
+      etapes:
+      - Écrire le nombre sous la racine comme produit d'un carré parfait ($4$, $9$, $16$, $25$…) et d'un entier.
+      - Utiliser $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$ pour $a, b \geq 0$.
+      exemple:
+        enonce: Simplifier $\sqrt{50}$.
+        resolution:
+        - $50 = 25 \times 2$, et $25$ est un carré parfait.
+        - $\sqrt{50} = \sqrt{25} \times \sqrt{2} = 5\sqrt{2}$.
+        resultat: $5\sqrt{2}$
+    erreurs_frequentes:
+    - erreur: Écrire $\sqrt{a + b} = \sqrt{a} + \sqrt{b}$.
+      explication: 'C''est faux : $\sqrt{9 + 16} = \sqrt{25} = 5$ alors que $\sqrt{9} + \sqrt{16} = 7$.'
     resume: |
       - Pour $a \geq 0$ : $\sqrt{a}$ est le nombre positif dont le carré vaut $a$, et $(\sqrt{a})^2 = a$.
       - Pour $a, b \geq 0$ : $\sqrt{ab} = \sqrt{a}\sqrt{b}$, mais en général $\sqrt{a + b} \neq \sqrt{a} + \sqrt{b}$.
@@ -130,16 +240,36 @@ competences:
         type: numerique
         enonce: 'Calculer $\sqrt{49}$.'
         solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $7^2 = 49$ et $7 \geq 0$, donc $\sqrt{49} = 7$.
+          resultat: 7
       - code: 2NDE-RAC-02
         difficulte: 2
         type: numerique
         enonce: 'Calculer $\left(\sqrt{5}\right)^2$.'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Pour $a \geq 0$, $\left(\sqrt{a}\right)^2 = a$.
+          etapes:
+          - $\left(\sqrt{5}\right)^2 = 5$.
+          resultat: 5
       - code: 2NDE-RAC-03
         difficulte: 3
         type: qcm
         enonce: 'Écrire $\sqrt{12}$ sous la forme $a\sqrt{b}$, avec $b$ entier le plus petit possible : A) $4\sqrt{3}$  B) $2\sqrt{3}$  C) $3\sqrt{2}$  D) $6\sqrt{2}$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Faire apparaitre un carré parfait sous la racine.
+          etapes:
+          - $12 = 4 \times 3$.
+          - $\sqrt{12} = \sqrt{4} \times \sqrt{3} = 2\sqrt{3}$.
+          resultat: B
+          erreurs_frequentes:
+          - Répondre $4\sqrt{3}$ en oubliant de prendre la racine de $4$.
       - code: 2NDE-RAC-04
         difficulte: 3
         type: qcm
@@ -149,3 +279,10 @@ competences:
         source_url: https://docs.stack-assessment.org/
         licence_source: à vérifier
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier numérateur et dénominateur par la racine du dénominateur.
+          etapes:
+          - $\dfrac{1}{\sqrt{2}} = \dfrac{1 \times \sqrt{2}}{\sqrt{2} \times \sqrt{2}} = \dfrac{\sqrt{2}}{2}$.
+          - Les écritures B et C ont encore une racine au dénominateur.
+          resultat: A

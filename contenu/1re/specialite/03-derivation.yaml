@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: 1RE-DER-NB
     libelle: Utiliser le nombre dérivé et la tangente
+    objectifs:
+    - Interpréter le nombre dérivé comme pente de la tangente.
+    - Écrire l'équation d'une tangente.
+    methodes:
+    - titre: Écrire l'équation de la tangente en a
+      etapes:
+      - Calculer $f(a)$ et $f'(a)$.
+      - Écrire $y = f'(a)(x - a) + f(a)$, puis développer.
+      exemple:
+        enonce: Tangente à $f(x) = x^2 + 1$ en $a = 2$.
+        resolution:
+        - $f(2) = 5$ et $f'(x) = 2x$ donc $f'(2) = 4$.
+        - $y = 4(x - 2) + 5 = 4x - 3$.
+        resultat: $y = 4x - 3$
+    erreurs_frequentes:
+    - erreur: Écrire $y = f'(a)x + f(a)$ en oubliant le décalage $(x - a)$.
+      explication: 'La tangente passe par le point $(a ; f(a))$ : on vérifie en remplaçant $x$ par $a$.'
     resume: |
       - Taux d'accroissement entre $a$ et $a + h$ : $\dfrac{f(a + h) - f(a)}{h}$.
       - $f'(a)$ est la limite de ce taux quand $h$ tend vers $0$ : c'est la pente de la tangente en $a$.
@@ -30,29 +47,78 @@ competences:
         type: numerique
         enonce: 'Soit $f(x) = x^2$. Donner $f''(3)$.'
         solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 2x$, donc $f'(3) = 6$.
+          resultat: 6
       - code: 1RE-DER-NB-02
         difficulte: 2
         type: numerique
         enonce: 'Soit $f(x) = x^2$. Calculer le taux d''accroissement de $f$ entre 1 et $1 + h$ pour $h = 0{,}1$.'
         solution: 21/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Taux d''accroissement : $\dfrac{f(1 + h) - f(1)}{h}$.'
+          etapes:
+          - $\dfrac{1{,}1^2 - 1}{0{,}1} = \dfrac{0{,}21}{0{,}1} = 2{,}1$.
+          resultat: 21/10
       - code: 1RE-DER-NB-03
         difficulte: 3
         type: numerique
         enonce: 'La tangente à la courbe de $f$ au point d''abscisse 2 a pour équation $y = 3x - 1$. Donner $f''(2)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Le coefficient directeur de la tangente en $2$ est $f''(2)$ : ici $3$.'
+          resultat: 3
       - code: 1RE-DER-NB-04
         difficulte: 4
         type: expression
         enonce: 'Donner l''équation réduite $y = \dots$ de la tangente à la courbe de $f(x) = x^2$ au point d''abscisse 1. Écrire seulement l''expression en $x$.'
         solution: 2x - 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(1) = 1$ et $f'(1) = 2$.
+          - $y = 2(x - 1) + 1 = 2x - 1$.
+          resultat: 2x - 1
       - code: 1RE-DER-NB-05
         difficulte: 5
         type: numerique
         enonce: 'En quelle abscisse la courbe de $f(x) = x^2 - 4x$ admet-elle une tangente horizontale ?'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une tangente horizontale a un coefficient directeur nul.
+          etapes:
+          - $f'(x) = 2x - 4 = 0$ donne $x = 2$.
+          resultat: 2
 
   - code: 1RE-DER-CALC
     libelle: Calculer une fonction dérivée
+    objectifs:
+    - Calculer la dérivée d'une somme, d'un produit, d'un quotient et de x ↦ g(ax + b).
+    prerequis:
+    - 1RE-DER-NB
+    methodes:
+    - titre: Dériver un quotient
+      etapes:
+      - Identifier $u$ et $v$, puis calculer $u'$ et $v'$.
+      - Appliquer $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$.
+      - Développer et réduire le numérateur seulement.
+      exemple:
+        enonce: Dériver $f(x) = \dfrac{2x}{x + 1}$.
+        resolution:
+        - $u = 2x$, $u' = 2$, $v = x + 1$, $v' = 1$.
+        - $f'(x) = \dfrac{2(x + 1) - 2x \times 1}{(x + 1)^2} = \dfrac{2}{(x + 1)^2}$.
+        resultat: $\dfrac{2}{(x + 1)^2}$
+    erreurs_frequentes:
+    - erreur: 'Dériver un produit en multipliant les dérivées : $(uv)'' = u''v''$.'
+      explication: La bonne formule est $(uv)' = u'v + uv'$.
+    - erreur: Inverser le numérateur de la formule du quotient.
+      explication: 'C''est $u''v - uv''$ dans cet ordre : l''inverser change le signe du résultat.'
     resume: |
       - $(x^n)' = nx^{n-1}$ ; $\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$ ; $(\sqrt x)' = \dfrac{1}{2\sqrt x}$.
       - $(u + v)' = u' + v'$ ; $(ku)' = ku'$.
@@ -79,23 +145,51 @@ competences:
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = 3x^2 - 5x + 2$.'
         solution: 6x - 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f'(x) = 3 \times 2x - 5 = 6x - 5$.
+          resultat: 6x - 5
       - code: 1RE-DER-CALC-02
         difficulte: 2
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = x^3 + \dfrac{1}{x}$.'
         solution: 3x^2 - 1/x^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(x^3)' = 3x^2$ et $\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$.
+          resultat: 3x^2 - 1/x^2
       - code: 1RE-DER-CALC-03
         difficulte: 3
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = (2x + 1)(x - 3)$.'
         solution: 4x - 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $(uv)' = u'v + uv'$ (ou développer d'abord).
+          etapes:
+          - $f'(x) = 2(x - 3) + (2x + 1) \times 1 = 4x - 5$.
+          resultat: 4x - 5
       - code: 1RE-DER-CALC-04
         difficulte: 4
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \dfrac{x + 1}{x - 2}$.'
         solution: -3/(x - 2)^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $u = x + 1$, $v = x - 2$, $u' = v' = 1$.
+          - $f'(x) = \dfrac{(x - 2) - (x + 1)}{(x - 2)^2} = \dfrac{-3}{(x - 2)^2}$.
+          resultat: -3/(x - 2)^2
       - code: 1RE-DER-CALC-05
         difficulte: 5
         type: expression
         enonce: 'Calculer la dérivée de $f(x) = \sqrt{2x + 3}$ sur $\left]-\dfrac{3}{2} ; +\infty\right[$.'
         solution: 1/sqrt(2x + 3)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $(g(ax + b))' = a\,g'(ax + b)$ avec $g = \sqrt{\phantom{x}}$, $g'(t) = \dfrac{1}{2\sqrt{t}}$.
+          etapes:
+          - $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
+          resultat: 1/sqrt(2x + 3)

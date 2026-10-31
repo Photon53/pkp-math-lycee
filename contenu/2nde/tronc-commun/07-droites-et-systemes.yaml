@@ -8,6 +8,27 @@ chapitre:
 competences:
   - code: 2NDE-DROITE
     libelle: Déterminer et utiliser l'équation réduite d'une droite
+    objectifs:
+    - Lire et déterminer l'équation réduite d'une droite.
+    - Reconnaitre des droites parallèles.
+    prerequis:
+    - 2NDE-VEC-COORD
+    methodes:
+    - titre: Déterminer l'équation réduite d'une droite passant par deux points
+      etapes:
+      - 'Coefficient directeur : $m = \dfrac{y_B - y_A}{x_B - x_A}$.'
+      - 'Ordonnée à l''origine : remplacer $x$ et $y$ par les coordonnées d''un point dans $y = mx + p$.'
+      - Vérifier avec le second point.
+      exemple:
+        enonce: Droite passant par $A(1 ; 3)$ et $B(3 ; 7)$.
+        resolution:
+        - $m = \dfrac{7 - 3}{3 - 1} = 2$.
+        - $3 = 2 \times 1 + p$ donc $p = 1$.
+        - 'Vérification : $2 \times 3 + 1 = 7$.'
+        resultat: $y = 2x + 1$
+    erreurs_frequentes:
+    - erreur: 'Inverser le quotient : $\dfrac{x_B - x_A}{y_B - y_A}$.'
+      explication: 'Le coefficient directeur mesure la variation de $y$ quand $x$ augmente de $1$ : $\Delta y$ au numérateur.'
     resume: |
       - Une droite non parallèle à l'axe des ordonnées a une équation réduite $y = mx + p$.
       - $m$ : coefficient directeur, $m = \dfrac{y_B - y_A}{x_B - x_A}$ ; $p$ : ordonnée à l'origine.
@@ -32,29 +53,78 @@ competences:
         type: numerique
         enonce: 'Quel est le coefficient directeur de la droite d''équation $y = -3x + 2$ ?'
         solution: -3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Dans $y = mx + p$, le coefficient directeur est $m$ : ici $-3$.'
+          resultat: -3
       - code: 2NDE-DROITE-02
         difficulte: 2
         type: numerique
         enonce: 'Calculer le coefficient directeur de la droite $(AB)$ avec $A(1 ; 2)$ et $B(3 ; 8)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $m = \dfrac{8 - 2}{3 - 1} = \dfrac{6}{2} = 3$.
+          resultat: 3
       - code: 2NDE-DROITE-03
         difficulte: 3
         type: numerique
         enonce: 'Une droite de coefficient directeur 3 passe par $A(1 ; 2)$. Quelle est son ordonnée à l''origine ?'
         solution: -1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$y = 3x + p$ et $A(1 ; 2)$ : $2 = 3 \times 1 + p$.'
+          - $p = -1$.
+          resultat: -1
       - code: 2NDE-DROITE-04
         difficulte: 4
         type: expression
         enonce: 'Déterminer l''équation réduite $y = \dots$ de la droite passant par $A(2 ; 1)$ et $B(4 ; 5)$. Écrire seulement l''expression en $x$.'
         solution: 2x - 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $m = \dfrac{5 - 1}{4 - 2} = 2$.
+          - '$1 = 2 \times 2 + p$ donc $p = -3$. Vérification : $2 \times 4 - 3 = 5$.'
+          resultat: 2x - 3
       - code: 2NDE-DROITE-05
         difficulte: 5
         type: qcm
         enonce: 'Les droites d''équations $y = 2x + 1$ et $4x - 2y + 3 = 0$ sont : A) sécantes  B) strictement parallèles  C) confondues'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Mettre les deux équations sous forme réduite et comparer les coefficients.
+          etapes:
+          - $4x - 2y + 3 = 0$ donne $y = 2x + \dfrac{3}{2}$.
+          - 'Même coefficient directeur $2$, ordonnées à l''origine différentes ($1$ et $\dfrac{3}{2}$) : strictement parallèles.'
+          resultat: B
 
   - code: 2NDE-SYST
     libelle: Résoudre un système de deux équations à deux inconnues
+    objectifs:
+    - Résoudre un système de deux équations linéaires à deux inconnues.
+    - Modéliser un problème par un système.
+    prerequis:
+    - 2NDE-EQ1
+    methodes:
+    - titre: Résoudre un système par combinaison
+      etapes:
+      - Multiplier les équations pour que les coefficients d'une inconnue soient opposés.
+      - Additionner les équations pour éliminer cette inconnue, puis la calculer.
+      - Remplacer dans une équation pour trouver l'autre inconnue, puis vérifier.
+      exemple:
+        enonce: Résoudre $x + y = 7$ et $x - y = 3$.
+        resolution:
+        - 'En additionnant : $2x = 10$, donc $x = 5$.'
+        - $5 + y = 7$, donc $y = 2$.
+        resultat: $(x ; y) = (5 ; 2)$
+    erreurs_frequentes:
+    - erreur: Ne multiplier qu'un seul membre d'une équation.
+      explication: On multiplie tous les termes, des deux côtés de l'égalité.
     resume: |
       - **Substitution** : on isole une inconnue dans une équation et on la remplace dans l'autre.
       - **Combinaison** : on multiplie les équations pour éliminer une inconnue en les additionnant.
@@ -76,23 +146,57 @@ competences:
         type: numerique
         enonce: 'Résoudre le système $x + y = 5$ et $x - y = 1$. Donner $x$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'En additionnant : $2x = 6$, donc $x = 3$ (et $y = 2$).'
+          resultat: 3
       - code: 2NDE-SYST-02
         difficulte: 2
         type: numerique
         enonce: 'Résoudre le système $2x + y = 7$ et $x - y = 2$. Donner $y$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'En additionnant : $3x = 9$, donc $x = 3$.'
+          - $3 - y = 2$, donc $y = 1$.
+          resultat: 1
       - code: 2NDE-SYST-03
         difficulte: 3
         type: qcm
         enonce: 'Combien de solutions a le système $x + 2y = 3$ et $2x + 4y = 5$ ? A) une seule  B) aucune  C) une infinité'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer les deux équations.
+          etapes:
+          - 'En multipliant la première par $2$ : $2x + 4y = 6$.'
+          - 'Or la seconde impose $2x + 4y = 5$ : impossible, il n''y a aucune solution.'
+          resultat: B
       - code: 2NDE-SYST-04
         difficulte: 4
         type: numerique
         enonce: 'Résoudre le système $3x + 2y = 12$ et $5x - 3y = 1$. Donner $y$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Combinaison pour éliminer y.
+          etapes:
+          - '$\times 3$ et $\times 2$ : $9x + 6y = 36$ et $10x - 6y = 2$.'
+          - 'En additionnant : $19x = 38$, donc $x = 2$.'
+          - $3 \times 2 + 2y = 12$, donc $y = 3$.
+          resultat: 3
       - code: 2NDE-SYST-05
         difficulte: 5
         type: numerique
         enonce: '3 cahiers et 2 stylos coûtent 9,50 € ; 1 cahier et 4 stylos coûtent 6,50 €. Quel est le prix d''un cahier en euros ?'
         solution: 5/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Modéliser avec $c$ (cahier) et $s$ (stylo), puis résoudre.
+          etapes:
+          - $3c + 2s = 9{,}5$ et $c + 4s = 6{,}5$.
+          - $c = 6{,}5 - 4s$, donc $3(6{,}5 - 4s) + 2s = 9{,}5$, soit $19{,}5 - 10s = 9{,}5$ et $s = 1$.
+          - $c = 6{,}5 - 4 = 2{,}5$ €.
+          resultat: 5/2

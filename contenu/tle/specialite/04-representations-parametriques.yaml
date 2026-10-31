@@ -8,6 +8,24 @@ chapitre:
 competences:
   - code: TLE-DROITE-ESP
     libelle: Utiliser une représentation paramétrique de droite
+    objectifs:
+    - Utiliser une représentation paramétrique de droite.
+    - Étudier la position relative de deux droites.
+    prerequis:
+    - TLE-ESP-COORD
+    methodes:
+    - titre: Tester si un point appartient à une droite paramétrée
+      etapes:
+      - Résoudre l'équation en $t$ donnée par une coordonnée.
+      - Vérifier que cette même valeur de $t$ donne les deux autres coordonnées.
+      exemple:
+        enonce: '$M(5 ; 1 ; 0)$ est-il sur $d : x = 1 + 2t,\ y = t - 1,\ z = 4 - 2t$ ?'
+        resolution:
+        - $1 + 2t = 5$ donne $t = 2$ ; alors $y = 1$ et $z = 0$.
+        resultat: Oui, pour $t = 2$.
+    erreurs_frequentes:
+    - erreur: Prendre une valeur de t différente pour chaque coordonnée.
+      explication: Un point de la droite correspond à une seule valeur du paramètre.
     resume: |
       - La droite passant par $A(x_A ; y_A ; z_A)$ de vecteur directeur $\vec u(a ; b ; c)$ : $\begin{cases} x = x_A + at \\ y = y_A + bt \\ z = z_A + ct \end{cases}$, $t \in \mathbb{R}$.
       - Un point appartient à la droite s'il existe **un même** $t$ vérifiant les trois équations.
@@ -30,29 +48,75 @@ competences:
         type: qcm
         enonce: 'Un vecteur directeur de la droite $x = 1 + 2t$, $y = -t$, $z = 3 + t$ est : A) $(2 ; -1 ; 1)$  B) $(1 ; 0 ; 3)$  C) $(2 ; 0 ; 1)$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Les coefficients de $t$ donnent un vecteur directeur : $(2 ; -1 ; 1)$.'
+          resultat: A
       - code: TLE-DROITE-ESP-02
         difficulte: 2
         type: numerique
         enonce: 'Soit $d : x = 1 + 2t$, $y = -t$, $z = 3 + t$. Quelle est l''abscisse du point de $d$ de paramètre $t = 2$ ?'
         solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $x = 1 + 2 \times 2 = 5$.
+          resultat: 5
       - code: TLE-DROITE-ESP-03
         difficulte: 3
         type: qcm
         enonce: 'Le point $M(3 ; -1 ; 4)$ appartient-il à la droite $x = 1 + 2t$, $y = -t$, $z = 3 + t$ ? A) oui  B) non'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$1 + 2t = 3$ donne $t = 1$ ; alors $y = -1$ et $z = 4$ : c''est bien $M$.'
+          resultat: A
       - code: TLE-DROITE-ESP-04
         difficulte: 4
         type: numerique
         enonce: 'On donne $A(1 ; 2 ; 0)$ et $B(3 ; 1 ; 4)$. Quelle est l''ordonnée du point de la droite $(AB)$ de cote 2 ?'
         solution: 3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$\overrightarrow{AB}(2 ; -1 ; 4)$ : $(AB) : (1 + 2t ; 2 - t ; 4t)$.'
+          - $4t = 2$ donne $t = \dfrac{1}{2}$, puis $y = 2 - \dfrac{1}{2} = \dfrac{3}{2}$.
+          resultat: 3/2
       - code: TLE-DROITE-ESP-05
         difficulte: 5
         type: qcm
         enonce: 'Les droites $d_1 : (t ; 1 + t ; 2t)$ et $d_2 : (1 + s ; 2 + s ; 2 + 2s)$ sont : A) sécantes  B) strictement parallèles  C) confondues  D) non coplanaires'
         solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Même vecteur directeur $(1 ; 1 ; 2)$ : les droites sont parallèles.'
+          - 'Le point $(1 ; 2 ; 2)$ de $d_2$ est sur $d_1$ (pour $t = 1$) : elles sont confondues.'
+          resultat: C
 
   - code: TLE-INTERSECTION
     libelle: Déterminer l'intersection d'une droite et d'un plan
+    objectifs:
+    - Déterminer l'intersection d'une droite et d'un plan.
+    prerequis:
+    - TLE-DROITE-ESP
+    - TLE-PLAN-NORMAL
+    methodes:
+    - titre: Intersection d'une droite et d'un plan
+      etapes:
+      - Remplacer $x$, $y$, $z$ de la représentation paramétrique dans l'équation du plan.
+      - 'Résoudre en $t$ : une solution donne un point ; aucune, droite strictement parallèle ; toute valeur, droite contenue dans le plan.'
+      - Reporter $t$ dans la représentation pour obtenir le point.
+      exemple:
+        enonce: '$d : (1 + t ; t ; 2t)$ et $P : x + y + z = 5$.'
+        resolution:
+        - $1 + t + t + 2t = 5$ donne $t = 1$.
+        resultat: Point d'intersection $(2 ; 1 ; 2)$.
+    erreurs_frequentes:
+    - erreur: Donner la valeur de t comme réponse au lieu des coordonnées.
+      explication: t n'est qu'un intermédiaire ; il faut le reporter dans la représentation paramétrique.
     resume: |
       - On remplace $x$, $y$, $z$ de la représentation paramétrique dans l'équation du plan, puis on résout en $t$.
       - Une solution : la droite **coupe** le plan ; aucune : elle est **strictement parallèle** ; une infinité : elle est **contenue** dans le plan.
@@ -74,23 +138,51 @@ competences:
         type: numerique
         enonce: 'La droite $x = t$, $y = 2t$, $z = 1 - t$ coupe le plan $x + y + z = 7$. Pour quelle valeur du paramètre $t$ ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $t + 2t + 1 - t = 7$, soit $2t = 6$.
+          resultat: 3
       - code: TLE-INTERSECTION-02
         difficulte: 2
         type: numerique
         enonce: 'Quelle est la cote du point d''intersection de la droite $x = t$, $y = 2t$, $z = 1 - t$ avec le plan $x + y + z = 7$ ?'
         solution: -2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Avec $t = 3$ : $z = 1 - 3 = -2$.'
+          resultat: -2
       - code: TLE-INTERSECTION-03
         difficulte: 3
         type: qcm
         enonce: 'La droite passant par $(1 ; 0 ; 0)$ de vecteur directeur $(1 ; 1 ; 1)$ et le plan $x - y = 0$ : A) se coupent en un point  B) sont strictement parallèles  C) la droite est contenue dans le plan'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$(1 + t) - t = 1 \neq 0$ pour tout $t$ : aucune solution.'
+          - La droite est strictement parallèle au plan.
+          resultat: B
       - code: TLE-INTERSECTION-04
         difficulte: 4
         type: numerique
         enonce: 'Le plan passant par $A(1 ; 1 ; 1)$ et orthogonal à la droite de vecteur directeur $(2 ; -1 ; 3)$ a pour équation $2x - y + 3z + d = 0$. Donner $d$.'
         solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le vecteur directeur de la droite est normal au plan.
+          etapes:
+          - $2 - 1 + 3 + d = 0$, donc $d = -4$.
+          resultat: -4
       - code: TLE-INTERSECTION-05
         difficulte: 5
         type: numerique
         enonce: 'Donner l''abscisse du point d''intersection de la droite $x = 1 + t$, $y = 2t$, $z = 3 - t$ avec le plan $2x + y - z = 4$.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2(1 + t) + 2t - (3 - t) = 4$, soit $5t - 1 = 4$, donc $t = 1$.
+          - $x = 1 + 1 = 2$.
+          resultat: 2

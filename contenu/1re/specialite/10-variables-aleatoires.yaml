@@ -8,6 +8,24 @@ chapitre:
 competences:
   - code: 1RE-LOI
     libelle: Déterminer une loi de probabilité et une espérance
+    objectifs:
+    - Déterminer une loi de probabilité et calculer une espérance.
+    - Utiliser la linéarité de l'espérance.
+    methodes:
+    - titre: Calculer l'espérance d'un gain
+      etapes:
+      - Lister les valeurs possibles du gain (en retirant la mise).
+      - Associer à chaque valeur sa probabilité ; vérifier que leur somme vaut 1.
+      - $E(X) = \sum x_i \, p_i$.
+      exemple:
+        enonce: On paie $1$ € et on gagne $5$ € avec la probabilité $0{,}1$.
+        resolution:
+        - Gain $4$ avec probabilité $0{,}1$, gain $-1$ avec probabilité $0{,}9$.
+        - $E = 0{,}4 - 0{,}9 = -0{,}5$.
+        resultat: $-0{,}5$ € par partie en moyenne
+    erreurs_frequentes:
+    - erreur: Oublier de retirer la mise des gains.
+      explication: Le gain algébrique est ce qu'on reçoit moins ce qu'on a payé, y compris quand on perd.
     resume: |
       - La loi de $X$ donne chaque valeur $x_i$ et sa probabilité $p_i$, avec $\sum p_i = 1$.
       - Espérance : $E(X) = \sum p_i x_i$ (moyenne à long terme).
@@ -33,29 +51,76 @@ competences:
         type: numerique
         enonce: '$X$ prend les valeurs 1, 2 et 3 avec les probabilités 0,2 ; 0,5 et $p$. Donner $p$.'
         solution: 3/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'La somme des probabilités vaut $1$ : $p = 1 - 0{,}7 = 0{,}3$.'
+          resultat: 3/10
       - code: 1RE-LOI-02
         difficulte: 2
         type: numerique
         enonce: '$X$ prend les valeurs 0, 10 et 20 avec les probabilités 0,5 ; 0,3 et 0,2. Calculer $E(X)$.'
         solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(X) = 0 \times 0{,}5 + 10 \times 0{,}3 + 20 \times 0{,}2 = 7$.
+          resultat: 7
       - code: 1RE-LOI-03
         difficulte: 3
         type: numerique
         enonce: 'On sait que $E(X) = 4$. Calculer $E(2X + 3)$.'
         solution: 11
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Linéarité de l'espérance.
+          etapes:
+          - $E(2X + 3) = 2E(X) + 3 = 11$.
+          resultat: 11
       - code: 1RE-LOI-04
         difficulte: 4
         type: numerique
         enonce: 'On mise 2 € puis on lance un dé équilibré ; on reçoit 10 € si on obtient 6, rien sinon. Calculer l''espérance du gain algébrique (gain reçu moins mise).'
         solution: -1/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Gain $8$ avec probabilité $\dfrac{1}{6}$, gain $-2$ avec probabilité $\dfrac{5}{6}$.
+          - $E = \dfrac{8}{6} - \dfrac{10}{6} = -\dfrac{1}{3}$.
+          resultat: -1/3
       - code: 1RE-LOI-05
         difficulte: 5
         type: numerique
         enonce: 'Même jeu (on reçoit 10 € si le dé donne 6). Quelle mise $m$ en euros rend le jeu équitable ?'
         solution: 5/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Jeu équitable = espérance du gain nulle.
+          etapes:
+          - $E = \dfrac{10}{6} - m = 0$.
+          - $m = \dfrac{10}{6} = \dfrac{5}{3}$ €.
+          resultat: 5/3
 
   - code: 1RE-VARIANCE
     libelle: Calculer une variance et un écart type
+    objectifs:
+    - Calculer variance et écart type ; connaitre l'effet d'une transformation affine.
+    prerequis:
+    - 1RE-LOI
+    methodes:
+    - titre: Calculer une variance avec la formule de König-Huygens
+      etapes:
+      - Calculer $E(X)$ et $E(X^2) = \sum x_i^2 \, p_i$.
+      - $V(X) = E(X^2) - E(X)^2$ ; écart type $\sigma = \sqrt{V(X)}$.
+      exemple:
+        enonce: $X$ vaut $0$, $1$, $2$ avec les probabilités $0{,}25$ ; $0{,}5$ ; $0{,}25$.
+        resolution:
+        - $E(X) = 0{,}5 + 0{,}5 = 1$ et $E(X^2) = 0{,}5 + 1 = 1{,}5$.
+        - $V(X) = 1{,}5 - 1^2 = 0{,}5$.
+        resultat: $V(X) = 0{,}5$
+    erreurs_frequentes:
+    - erreur: Écrire $V(aX) = aV(X)$.
+      explication: 'La variance est quadratique : $V(aX + b) = a^2 V(X)$.'
     resume: |
       - $V(X) = \sum p_i (x_i - E(X))^2 = E(X^2) - E(X)^2$.
       - Écart type : $\sigma(X) = \sqrt{V(X)}$, il mesure la dispersion autour de l'espérance.
@@ -77,23 +142,49 @@ competences:
         type: numerique
         enonce: 'On sait que $V(X) = 9$. Donner l''écart type $\sigma(X)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\sigma(X) = \sqrt{9} = 3$.
+          resultat: 3
       - code: 1RE-VARIANCE-02
         difficulte: 2
         type: numerique
         enonce: '$X$ vaut $-1$ ou $1$, chacun avec la probabilité $\dfrac{1}{2}$. Calculer $V(X)$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(X) = 0$ et $E(X^2) = 1$, donc $V(X) = 1$.
+          resultat: 1
       - code: 1RE-VARIANCE-03
         difficulte: 3
         type: numerique
         enonce: '$X$ vaut 0 ou 4, chacun avec la probabilité $\dfrac{1}{2}$. Calculer $V(X)$.'
         solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$E(X) = 2$ ; écarts $\pm 2$ : $V(X) = \dfrac{4 + 4}{2} = 4$.'
+          resultat: 4
       - code: 1RE-VARIANCE-04
         difficulte: 4
         type: numerique
         enonce: 'On sait que $V(X) = 2$. Calculer $V(3X)$.'
         solution: 18
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $V(3X) = 3^2 \times V(X) = 18$.
+          resultat: 18
       - code: 1RE-VARIANCE-05
         difficulte: 5
         type: numerique
         enonce: '$X$ prend les valeurs 1, 2 et 3 avec la même probabilité. Calculer $V(X)$.'
         solution: 2/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(X) = 2$ et $E(X^2) = \dfrac{1 + 4 + 9}{3} = \dfrac{14}{3}$.
+          - $V(X) = \dfrac{14}{3} - 4 = \dfrac{2}{3}$.
+          resultat: 2/3

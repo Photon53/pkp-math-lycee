@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: TLE-INT-CALC
     libelle: Calculer une intégrale à l'aide d'une primitive
+    objectifs:
+    - Calculer une intégrale à l'aide d'une primitive.
+    prerequis:
+    - TLE-PRIM
+    methodes:
+    - titre: Calculer une intégrale
+      etapes:
+      - Trouver une primitive $F$ de $f$.
+      - $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a)$.
+      exemple:
+        enonce: $\displaystyle\int_1^2 (2x + 1)\,dx$.
+        resolution:
+        - $F(x) = x^2 + x$ ; $F(2) - F(1) = 6 - 2$.
+        resultat: $4$
+    erreurs_frequentes:
+    - erreur: Calculer F(a) − F(b).
+      explication: C'est la borne du haut moins la borne du bas.
     resume: |
       - Si $F$ est une primitive de $f$ continue sur $[a ; b]$ : $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a) = \big[F(x)\big]_a^b$.
       - Linéarité : $\displaystyle\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g$.
@@ -25,29 +42,72 @@ competences:
         type: numerique
         enonce: 'Calculer $\displaystyle\int_0^1 2x\,dx$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $[x^2]_0^1 = 1 - 0$.
+          resultat: 1
       - code: TLE-INT-CALC-02
         difficulte: 2
         type: numerique
         enonce: 'Calculer $\displaystyle\int_0^2 (3x^2 + 1)\,dx$.'
         solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $[x^3 + x]_0^2 = 8 + 2 - 0$.
+          resultat: 10
       - code: TLE-INT-CALC-03
         difficulte: 3
         type: numerique
         enonce: 'Calculer $\displaystyle\int_0^1 e^x\,dx$ (valeur exacte).'
         solution: e - 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $[e^x]_0^1 = e - 1$.
+          resultat: e - 1
       - code: TLE-INT-CALC-04
         difficulte: 4
         type: numerique
         enonce: 'Calculer $\displaystyle\int_1^e \frac{1}{x}\,dx$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $[\ln x]_1^e = \ln e - \ln 1 = 1$.
+          resultat: 1
       - code: TLE-INT-CALC-05
         difficulte: 5
         type: numerique
         enonce: 'Calculer $\displaystyle\int_0^\pi \sin x\,dx$.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $[-\cos x]_0^\pi = -\cos\pi + \cos 0 = 1 + 1$.
+          resultat: 2
 
   - code: TLE-INT-APP
     libelle: Utiliser l'intégrale (aires, valeur moyenne, intégration par parties)
+    objectifs:
+    - Calculer une aire, une valeur moyenne, intégrer par parties.
+    prerequis:
+    - TLE-INT-CALC
+    methodes:
+    - titre: Intégrer par parties
+      etapes:
+      - Choisir $u$ à dériver (souvent le polynôme ou $\ln x$) et $v'$ à intégrer.
+      - $\displaystyle\int_a^b uv' = [uv]_a^b - \int_a^b u'v$.
+      exemple:
+        enonce: $\displaystyle\int_0^{\pi} x\cos x\,dx$.
+        resolution:
+        - '$u = x$, $v'' = \cos x$ : $u'' = 1$, $v = \sin x$.'
+        - $[x\sin x]_0^\pi - \displaystyle\int_0^\pi \sin x\,dx = 0 - 2$.
+        resultat: $-2$
+    erreurs_frequentes:
+    - erreur: Calculer l'aire entre deux courbes sans savoir laquelle est au-dessus.
+      explication: On intègre (courbe du haut − courbe du bas) pour obtenir une aire positive.
     resume: |
       - Si $f \ge 0$ sur $[a ; b]$, $\displaystyle\int_a^b f$ est l'aire (en u.a.) sous la courbe.
       - Aire entre deux courbes avec $f \ge g$ : $\displaystyle\int_a^b (f - g)$.
@@ -70,23 +130,52 @@ competences:
         type: numerique
         enonce: 'Calculer l''aire, en unités d''aire, du domaine compris entre la courbe de $f(x) = x^2$, l''axe des abscisses et les droites $x = 0$ et $x = 3$.'
         solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$x^2 \geq 0$ : aire $= \displaystyle\int_0^3 x^2\,dx = \left[\dfrac{x^3}{3}\right]_0^3 = 9$.'
+          resultat: 9
       - code: TLE-INT-APP-02
         difficulte: 2
         type: numerique
         enonce: 'Calculer la valeur moyenne de $f(x) = x^2$ sur $[0 ; 3]$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1}{3 - 0}\displaystyle\int_0^3 x^2\,dx = \dfrac{9}{3}$.
+          resultat: 3
       - code: TLE-INT-APP-03
         difficulte: 3
         type: numerique
         enonce: 'Calculer l''aire du domaine compris entre les courbes de $y = x$ et $y = x^2$ sur $[0 ; 1]$.'
         solution: 1/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Sur $[0 ; 1]$, $x \geq x^2$.
+          - $\displaystyle\int_0^1 (x - x^2)\,dx = \dfrac{1}{2} - \dfrac{1}{3} = \dfrac{1}{6}$.
+          resultat: 1/6
       - code: TLE-INT-APP-04
         difficulte: 4
         type: numerique
         enonce: 'À l''aide d''une intégration par parties, calculer $\displaystyle\int_0^1 x e^x\,dx$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$u = x$, $v'' = e^x$ : $u'' = 1$, $v = e^x$.'
+          - $[xe^x]_0^1 - \displaystyle\int_0^1 e^x\,dx = e - (e - 1) = 1$.
+          resultat: 1
       - code: TLE-INT-APP-05
         difficulte: 5
         type: numerique
         enonce: 'À l''aide d''une intégration par parties, calculer $\displaystyle\int_1^e x\ln x\,dx$ (valeur exacte).'
         solution: (e^2 + 1)/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$u = \ln x$, $v'' = x$ : $u'' = \dfrac{1}{x}$, $v = \dfrac{x^2}{2}$.'
+          - $\left[\dfrac{x^2}{2}\ln x\right]_1^e - \displaystyle\int_1^e \dfrac{x}{2}\,dx = \dfrac{e^2}{2} - \dfrac{e^2 - 1}{4}$.
+          - $= \dfrac{e^2 + 1}{4}$.
+          resultat: (e^2 + 1)/4

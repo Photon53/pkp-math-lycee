@@ -8,6 +8,25 @@ chapitre:
 competences:
   - code: TLE-PRIM
     libelle: Déterminer une primitive
+    objectifs:
+    - Déterminer une primitive avec le tableau des primitives usuelles.
+    - Trouver la primitive qui vérifie une condition.
+    prerequis:
+    - TLE-COMPOSEE
+    methodes:
+    - titre: Trouver la primitive qui vérifie F(a) = b
+      etapes:
+      - Écrire une primitive générale $F(x) + C$ (penser à reconnaitre $u'e^u$, $u'u^n$, etc.).
+      - Utiliser la condition pour calculer $C$.
+      - Vérifier en dérivant.
+      exemple:
+        enonce: Primitive de $f(x) = 4x^3 - 1$ qui vaut $2$ en $1$.
+        resolution:
+        - $F(x) = x^4 - x + C$ et $F(1) = C = 2$.
+        resultat: $F(x) = x^4 - x + 2$
+    erreurs_frequentes:
+    - erreur: 'Oublier de diviser par $a$ pour $e^{ax}$ : la primitive de $e^{2x}$ n''est pas $e^{2x}$.'
+      explication: En dérivant $e^{2x}$ on obtient $2e^{2x}$ ; il faut donc $\dfrac{e^{2x}}{2}$.
     resume: |
       - $F$ est une primitive de $f$ sur $I$ si $F' = f$ ; les autres primitives sont $F + C$.
       - Une condition comme $F(0) = 0$ fixe la constante.
@@ -31,29 +50,74 @@ competences:
         type: expression
         enonce: 'Donner la primitive de $f(x) = 3x^2 + 2x$ qui s''annule en 0.'
         solution: x^3 + x^2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $F(x) = x^3 + x^2 + C$ et $F(0) = C = 0$.
+          resultat: x^3 + x^2
       - code: TLE-PRIM-02
         difficulte: 2
         type: expression
         enonce: 'Donner la primitive de $f(x) = e^{2x}$ qui s''annule en 0.'
         solution: e^(2x)/2 - 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $F(x) = \dfrac{e^{2x}}{2} + C$ et $F(0) = \dfrac{1}{2} + C = 0$.
+          resultat: e^(2x)/2 - 1/2
       - code: TLE-PRIM-03
         difficulte: 3
         type: expression
         enonce: 'Donner la primitive sur $]0 ; +\infty[$ de $f(x) = \dfrac{1}{x^2}$ qui s''annule en 1.'
         solution: 1 - 1/x
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $F(x) = -\dfrac{1}{x} + C$ et $F(1) = -1 + C = 0$, donc $C = 1$.
+          resultat: 1 - 1/x
       - code: TLE-PRIM-04
         difficulte: 4
         type: expression
         enonce: 'Donner la primitive de $f(x) = 2x e^{x^2}$ qui s''annule en 0.'
         solution: e^(x^2) - 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Reconnaitre $u'e^u$ avec $u = x^2$.
+          etapes:
+          - $F(x) = e^{x^2} + C$ et $F(0) = 1 + C = 0$.
+          resultat: e^(x^2) - 1
       - code: TLE-PRIM-05
         difficulte: 5
         type: expression
         enonce: 'Donner la primitive de $f(x) = \cos(2x)$ qui s''annule en 0.'
         solution: sin(2x)/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $F(x) = \dfrac{\sin(2x)}{2} + C$ et $F(0) = C = 0$.
+          resultat: sin(2x)/2
 
   - code: TLE-EQDIFF
     libelle: Résoudre une équation différentielle y' = ay + b
+    objectifs:
+    - Résoudre $y' = ay$ et $y' = ay + b$ avec une condition initiale.
+    prerequis:
+    - TLE-PRIM
+    - 1RE-EXP-ETU
+    methodes:
+    - titre: Résoudre y' = ay + b avec une condition initiale
+      etapes:
+      - 'Solution constante : $y = -\dfrac{b}{a}$.'
+      - 'Solutions : $y(x) = Ce^{ax} - \dfrac{b}{a}$.'
+      - Utiliser $y(0)$ pour trouver $C$.
+      exemple:
+        enonce: $y' = 2y - 4$ et $y(0) = 5$.
+        resolution:
+        - Solution constante $2$ ; $y = Ce^{2x} + 2$ et $C + 2 = 5$.
+        resultat: $y(x) = 3e^{2x} + 2$
+    erreurs_frequentes:
+    - erreur: Prendre la valeur initiale y(0) pour la constante C directement.
+      explication: '$y(0) = C - \dfrac{b}{a}$ : il faut retirer la solution constante.'
     resume: |
       - Les solutions de $y' = ay$ sont les fonctions $x \mapsto Ce^{ax}$, $C \in \mathbb{R}$.
       - Pour $y' = ay + b$ ($a \neq 0$) : solution constante $-\dfrac{b}{a}$, et solutions $x \mapsto Ce^{ax} - \dfrac{b}{a}$.
@@ -75,23 +139,49 @@ competences:
         type: qcm
         enonce: 'Les solutions de l''équation $y'' = 2y$ sont les fonctions : A) $x \mapsto Ce^{2x}$  B) $x \mapsto Ce^{x/2}$  C) $x \mapsto 2e^x + C$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les solutions de $y' = ay$ sont $x \mapsto Ce^{ax}$, ici $a = 2$.
+          resultat: A
       - code: TLE-EQDIFF-02
         difficulte: 2
         type: expression
         enonce: 'Donner la solution de $y'' = 3y$ telle que $y(0) = 2$.'
         solution: 2e^(3x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $y = Ce^{3x}$ et $y(0) = C = 2$.
+          resultat: 2e^(3x)
       - code: TLE-EQDIFF-03
         difficulte: 3
         type: numerique
         enonce: 'Quelle est la solution constante de l''équation $y'' = -2y + 6$ ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$y'' = 0$ : $-2y + 6 = 0$, donc $y = 3$.'
+          resultat: 3
       - code: TLE-EQDIFF-04
         difficulte: 4
         type: expression
         enonce: 'Donner la solution de $y'' = -2y + 6$ telle que $y(0) = 5$.'
         solution: 3 + 2e^(-2x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $y = Ce^{-2x} + 3$ et $y(0) = C + 3 = 5$, donc $C = 2$.
+          resultat: 3 + 2e^(-2x)
       - code: TLE-EQDIFF-05
         difficulte: 5
         type: numerique
         enonce: 'La température d''un café vérifie $\theta(t) = 20 + 60e^{-0{,}1t}$ ($t$ en minutes). Au bout de combien de minutes atteint-elle 50 °C ? (Valeur exacte avec ln.)'
         solution: 10ln(2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $20 + 60e^{-0{,}1t} = 50$ donne $e^{-0{,}1t} = \dfrac{1}{2}$.
+          - $-0{,}1t = -\ln 2$, donc $t = 10\ln 2$ (environ $6{,}9$ min).
+          resultat: 10ln(2)

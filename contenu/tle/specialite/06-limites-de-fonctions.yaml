@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: TLE-LIMF-OP
     libelle: Calculer une limite par opérations et lever une indétermination
+    objectifs:
+    - Calculer une limite de fonction en un réel ou à l'infini, lever une indétermination.
+    prerequis:
+    - TLE-SUI-OPE
+    methodes:
+    - titre: Calculer une limite à l'infini d'une fonction rationnelle
+      etapes:
+      - Factoriser par le terme de plus haut degré en haut et en bas.
+      - Simplifier et utiliser $\dfrac{1}{x^k} \to 0$ en $\pm\infty$.
+      exemple:
+        enonce: Limite en $+\infty$ de $\dfrac{4x^3 - x}{2x^3 + 5}$.
+        resolution:
+        - $\dfrac{4 - \frac{1}{x^2}}{2 + \frac{5}{x^3}} \to \dfrac{4}{2}$.
+        resultat: $2$
+    erreurs_frequentes:
+    - erreur: Oublier le côté (0⁺ ou 0⁻) pour une limite de 1/x en 0.
+      explication: En 0⁺, 1/x tend vers +∞ ; en 0⁻, vers −∞.
     resume: |
       - Formes indéterminées : $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
       - En $\pm\infty$, un polynôme ou un quotient de polynômes : on **factorise par le terme de plus haut degré**.
@@ -29,29 +46,75 @@ competences:
         type: qcm
         enonce: 'Quelle est la limite de $x^2 + 3x$ en $+\infty$ ? A) $+\infty$  B) 0  C) $-\infty$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Somme de deux termes qui tendent vers $+\infty$.
+          resultat: A
       - code: TLE-LIMF-OP-02
         difficulte: 2
         type: numerique
         enonce: 'Calculer la limite en $+\infty$ de $\dfrac{3x^2 + 1}{x^2 - 2}$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{3 + \frac{1}{x^2}}{1 - \frac{2}{x^2}} \to 3$.
+          resultat: 3
       - code: TLE-LIMF-OP-03
         difficulte: 3
         type: numerique
         enonce: 'Calculer la limite en $+\infty$ de $\dfrac{2x + 1}{x^2 + 1}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{1}{x} \times \dfrac{2 + \frac{1}{x}}{1 + \frac{1}{x^2}} \to 0 \times 2 = 0$.
+          resultat: 0
       - code: TLE-LIMF-OP-04
         difficulte: 4
         type: qcm
         enonce: 'Quelle est la limite de $\dfrac{1}{x}$ quand $x$ tend vers 0 par valeurs positives ? A) $+\infty$  B) $-\infty$  C) 0'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Pour $x > 0$ très petit, $\dfrac{1}{x}$ est positif et très grand.
+          resultat: A
       - code: TLE-LIMF-OP-05
         difficulte: 5
         type: numerique
         enonce: 'Calculer la limite en $+\infty$ de $\sqrt{x^2 + x} - x$.'
         solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Quantité conjuguée.
+          etapes:
+          - $\sqrt{x^2 + x} - x = \dfrac{x}{\sqrt{x^2 + x} + x} = \dfrac{1}{\sqrt{1 + \frac{1}{x}} + 1}$.
+          - 'Limite : $\dfrac{1}{1 + 1} = \dfrac{1}{2}$.'
+          resultat: 1/2
 
   - code: TLE-LIMF-ASYMP
     libelle: Interpréter des limites (asymptotes, croissances comparées)
+    objectifs:
+    - Interpréter une limite par une asymptote.
+    - Utiliser les croissances comparées.
+    prerequis:
+    - TLE-LIMF-OP
+    - 1RE-EXP-ETU
+    methodes:
+    - titre: Lire les asymptotes d'une fonction
+      etapes:
+      - '$\lim_{x \to \pm\infty} f(x) = \ell$ : asymptote horizontale $y = \ell$.'
+      - '$\lim_{x \to a} f(x) = \pm\infty$ : asymptote verticale $x = a$ (souvent une valeur interdite).'
+      exemple:
+        enonce: Asymptotes de $f(x) = \dfrac{3x}{x + 2}$.
+        resolution:
+        - En $\pm\infty$, $f(x) \to 3$ ; en $-2$, le dénominateur s'annule et $|f(x)| \to +\infty$.
+        resultat: $y = 3$ et $x = -2$.
+    erreurs_frequentes:
+    - erreur: Penser que $\dfrac{e^x}{x^n}$ a une limite finie car « l'infini sur l'infini » donne 1.
+      explication: Par croissances comparées, l'exponentielle l'emporte sur toute puissance de x.
     resume: |
       - $\lim\limits_{x \to \pm\infty} f(x) = \ell$ : asymptote **horizontale** $y = \ell$.
       - $\lim\limits_{x \to a} f(x) = \pm\infty$ : asymptote **verticale** $x = a$.
@@ -73,23 +136,50 @@ competences:
         type: qcm
         enonce: 'La courbe de $f(x) = \dfrac{2x + 1}{x - 3}$ admet pour asymptotes : A) $y = 2$ et $x = 3$  B) $y = 3$ et $x = 2$  C) $y = 2$ seulement'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'En $\pm\infty$, $f(x) \to 2$ : asymptote $y = 2$.'
+          - 'En $3$, le dénominateur s''annule (numérateur $7 \neq 0$) : asymptote $x = 3$.'
+          resultat: A
       - code: TLE-LIMF-ASYMP-02
         difficulte: 2
         type: qcm
         enonce: 'Quelle est la limite de $\dfrac{e^x}{x^2}$ en $+\infty$ ? A) $+\infty$  B) 0  C) 1'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Croissances comparées : l''exponentielle l''emporte sur x².'
+          resultat: A
       - code: TLE-LIMF-ASYMP-03
         difficulte: 3
         type: numerique
         enonce: 'Calculer la limite en $+\infty$ de $x e^{-x}$.'
         solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $xe^{-x} = \dfrac{x}{e^x}$ et, par croissances comparées, $\dfrac{e^x}{x} \to +\infty$.
+          resultat: 0
       - code: TLE-LIMF-ASYMP-04
         difficulte: 4
         type: qcm
         enonce: 'Quelle est la limite de $x e^x$ en $-\infty$ ? A) 0  B) $-\infty$  C) $+\infty$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Croissances comparées : $\lim_{x \to -\infty} xe^x = 0$.'
+          resultat: A
       - code: TLE-LIMF-ASYMP-05
         difficulte: 5
         type: numerique
         enonce: 'Calculer la limite en 0 de $\dfrac{e^x - 1}{x}$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Reconnaitre un taux d'accroissement.
+          etapes:
+          - $\dfrac{e^x - e^0}{x - 0}$ tend vers le nombre dérivé de $\exp$ en $0$, soit $e^0 = 1$.
+          resultat: 1

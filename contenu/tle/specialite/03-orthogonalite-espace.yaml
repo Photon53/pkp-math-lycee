@@ -8,6 +8,26 @@ chapitre:
 competences:
   - code: TLE-PS-ESP
     libelle: Utiliser le produit scalaire dans l'espace
+    objectifs:
+    - Calculer un produit scalaire, une distance ou un angle dans l'espace.
+    prerequis:
+    - 1RE-PS-CALC
+    - TLE-ESP-COORD
+    methodes:
+    - titre: Calculer un angle entre deux vecteurs
+      etapes:
+      - Calculer $\vec u \cdot \vec v = xx' + yy' + zz'$.
+      - Calculer les normes $\|\vec u\| = \sqrt{x^2 + y^2 + z^2}$.
+      - $\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\| \, \|\vec v\|}$, puis reconnaitre l'angle.
+      exemple:
+        enonce: Angle entre $\vec u(1 ; 0 ; 1)$ et $\vec v(1 ; 1 ; 0)$.
+        resolution:
+        - $\vec u \cdot \vec v = 1$, $\|\vec u\| = \|\vec v\| = \sqrt{2}$.
+        - $\cos\theta = \dfrac{1}{2}$.
+        resultat: $60°$
+    erreurs_frequentes:
+    - erreur: Oublier le produit des cotes zz'.
+      explication: Dans l'espace, le produit scalaire a trois termes.
     resume: |
       - En repère orthonormé : $\vec u \cdot \vec v = xx' + yy' + zz'$.
       - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$.
@@ -28,29 +48,74 @@ competences:
         type: numerique
         enonce: 'Calculer $\vec u \cdot \vec v$ pour $\vec u(1 ; 2 ; 3)$ et $\vec v(4 ; -1 ; 0)$.'
         solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1 \times 4 + 2 \times (-1) + 3 \times 0 = 2$.
+          resultat: 2
       - code: TLE-PS-ESP-02
         difficulte: 2
         type: numerique
         enonce: 'Pour quelle valeur de $m$ les vecteurs $\vec u(1 ; m ; 2)$ et $\vec v(3 ; 1 ; -1)$ sont-ils orthogonaux ?'
         solution: -1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $3 + m - 2 = 0$, donc $m = -1$.
+          resultat: -1
       - code: TLE-PS-ESP-03
         difficulte: 3
         type: numerique
         enonce: 'Dans un repère orthonormé, calculer la distance $AB$ pour $A(1 ; 2 ; 2)$ et $B(3 ; 4 ; 3)$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{AB}(2 ; 2 ; 1)$ et $AB = \sqrt{4 + 4 + 1} = 3$.
+          resultat: 3
       - code: TLE-PS-ESP-04
         difficulte: 4
         type: numerique
         enonce: 'On sait que $\|\vec u\| = 2$, $\|\vec v\| = 1$ et $\vec u \cdot \vec v = -1$. Calculer $\|\vec u + \vec v\|^2$.'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2 = 4 - 2 + 1 = 3$.
+          resultat: 3
       - code: TLE-PS-ESP-05
         difficulte: 5
         type: numerique
         enonce: 'Quelle est la mesure en degrés de l''angle entre $\vec u(1 ; 1 ; 0)$ et $\vec v(0 ; 1 ; 1)$ ?'
         solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\vec u \cdot \vec v = 1$ et $\|\vec u\| = \|\vec v\| = \sqrt{2}$.
+          - $\cos\theta = \dfrac{1}{2}$, donc $\theta = 60°$.
+          resultat: 60
 
   - code: TLE-PLAN-NORMAL
     libelle: Utiliser un vecteur normal à un plan
+    objectifs:
+    - Écrire l'équation cartésienne d'un plan à l'aide d'un vecteur normal.
+    - Déterminer un projeté orthogonal et une distance à un plan.
+    prerequis:
+    - TLE-PS-ESP
+    methodes:
+    - titre: Déterminer le projeté orthogonal d'un point sur un plan
+      etapes:
+      - 'Le projeté $H$ de $A$ est sur la droite passant par $A$ dirigée par le vecteur normal $\vec n$ : $H = A + t\vec n$.'
+      - Remplacer les coordonnées de $H$ dans l'équation du plan pour trouver $t$.
+      - La distance de $A$ au plan est $AH$.
+      exemple:
+        enonce: Projeté de $A(1 ; 1 ; 4)$ sur le plan $z = 1$.
+        resolution:
+        - $\vec n(0 ; 0 ; 1)$ ; $H(1 ; 1 ; 4 + t)$ et $4 + t = 1$, donc $t = -3$.
+        resultat: $H(1 ; 1 ; 1)$ et la distance vaut $3$.
+    erreurs_frequentes:
+    - erreur: Prendre le terme constant $d$ dans le vecteur normal.
+      explication: Pour $ax + by + cz + d = 0$, le vecteur normal est $(a ; b ; c)$ seulement.
     resume: |
       - $\vec n$ est normal au plan $\mathcal P$ s'il est orthogonal à deux vecteurs non colinéaires de $\mathcal P$.
       - Le plan d'équation $ax + by + cz + d = 0$ a pour vecteur normal $\vec n(a ; b ; c)$.
@@ -70,23 +135,51 @@ competences:
         type: qcm
         enonce: 'Quel vecteur est normal au plan d''équation $2x - y + 3z - 4 = 0$ ? A) $(2 ; -1 ; 3)$  B) $(2 ; -1 ; -4)$  C) $(-1 ; 3 ; -4)$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Les coefficients de $x$, $y$, $z$ donnent un vecteur normal : $(2 ; -1 ; 3)$.'
+          resultat: A
       - code: TLE-PLAN-NORMAL-02
         difficulte: 2
         type: numerique
         enonce: 'Le plan passant par $A(1 ; 0 ; 2)$ de vecteur normal $\vec n(1 ; 2 ; -1)$ a pour équation $x + 2y - z + d = 0$. Donner $d$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1 + 0 - 2 + d = 0$, donc $d = 1$.
+          resultat: 1
       - code: TLE-PLAN-NORMAL-03
         difficulte: 3
         type: qcm
         enonce: 'Le point $M(1 ; 1 ; 1)$ appartient-il au plan d''équation $x + y + z - 3 = 0$ ? A) oui  B) non'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$1 + 1 + 1 - 3 = 0$ : le point vérifie l''équation.'
+          resultat: A
       - code: TLE-PLAN-NORMAL-04
         difficulte: 4
         type: numerique
         enonce: 'Soit $H$ le projeté orthogonal de $A(2 ; 2 ; 2)$ sur le plan d''équation $x + y + z = 3$. Donner l''abscisse de $H$.'
         solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $H = A + t(1 ; 1 ; 1) = (2 + t ; 2 + t ; 2 + t)$.
+          - $3(2 + t) = 3$, donc $t = -1$ et $H(1 ; 1 ; 1)$.
+          resultat: 1
       - code: TLE-PLAN-NORMAL-05
         difficulte: 5
         type: numerique
         enonce: 'Calculer la distance de l''origine $O$ au plan d''équation $x + y + z - 3 = 0$ (valeur exacte).'
         solution: sqrt(3)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Projeter O sur le plan.
+          etapes:
+          - '$H = (t ; t ; t)$ avec $3t = 3$ : $H(1 ; 1 ; 1)$.'
+          - $OH = \sqrt{3}$.
+          resultat: sqrt(3)

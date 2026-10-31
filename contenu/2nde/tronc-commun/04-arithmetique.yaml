@@ -8,6 +8,23 @@ chapitre:
 competences:
   - code: 2NDE-MULT
     libelle: Utiliser multiples, diviseurs et parité
+    objectifs:
+    - Reconnaitre multiples et diviseurs, et raisonner sur la parité.
+    methodes:
+    - titre: Démontrer une propriété de parité ou de divisibilité
+      etapes:
+      - 'Écrire les entiers sous forme littérale : pair $2k$, impair $2k + 1$, consécutifs $n$, $n + 1$, $n + 2$.'
+      - Calculer et factoriser par le diviseur voulu.
+      - Conclure avec la définition du multiple.
+      exemple:
+        enonce: Montrer que la somme de deux entiers impairs est paire.
+        resolution:
+        - $(2k + 1) + (2m + 1) = 2k + 2m + 2$.
+        - $= 2(k + m + 1)$, qui est un multiple de $2$.
+        resultat: La somme est paire.
+    erreurs_frequentes:
+    - erreur: Vérifier sur quelques exemples et croire avoir démontré.
+      explication: Des exemples rendent une propriété plausible ; seule l'écriture littérale la démontre pour tous les entiers.
     resume: |
       - $a$ est un **multiple** de $b$ s'il existe un entier $k$ tel que $a = kb$ ; on dit aussi que $b$ **divise** $a$.
       - Un entier pair s'écrit $2k$, un entier impair $2k + 1$.
@@ -32,29 +49,77 @@ competences:
         type: qcm
         enonce: 'Lequel de ces nombres est un multiple de 7 ? A) 54  B) 63  C) 71'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $63 = 7 \times 9$ ; $54$ et $71$ ne sont pas divisibles par $7$.
+          resultat: B
       - code: 2NDE-MULT-02
         difficulte: 2
         type: numerique
         enonce: 'Combien le nombre 12 a-t-il de diviseurs positifs ?'
         solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Diviseurs de $12$ : $1, 2, 3, 4, 6, 12$.'
+          - Il y en a 6.
+          resultat: 6
       - code: 2NDE-MULT-03
         difficulte: 3
         type: qcm
         enonce: 'Si $n$ est un entier impair, alors $n^2$ est : A) pair  B) impair  C) pair ou impair selon $n$'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écriture littérale d'un impair.
+          etapes:
+          - $n = 2k + 1$, donc $n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$.
+          - '$n^2$ s''écrit $2m + 1$ : il est impair.'
+          resultat: B
       - code: 2NDE-MULT-04
         difficulte: 4
         type: numerique
         enonce: 'Quel est le plus petit entier strictement positif qui est à la fois multiple de 6 et de 8 ?'
         solution: 24
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Multiples de $8$ : $8, 16, 24$… Le premier divisible par $6$ est $24$.'
+          resultat: 24
       - code: 2NDE-MULT-05
         difficulte: 5
         type: qcm
         enonce: 'La somme de trois entiers consécutifs est toujours un multiple de : A) 2  B) 3  C) 6'
         solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire les trois entiers consécutifs avec une seule lettre.
+          etapes:
+          - $(n - 1) + n + (n + 1) = 3n$.
+          - 'C''est toujours un multiple de $3$ (mais pas toujours de $2$ : $1 + 2 + 3 = 6$, $2 + 3 + 4 = 9$).'
+          resultat: B
 
   - code: 2NDE-PREM
     libelle: Utiliser les nombres premiers et la décomposition
+    objectifs:
+    - Reconnaitre un nombre premier et décomposer un entier en facteurs premiers.
+    - Utiliser la décomposition pour simplifier une fraction.
+    prerequis:
+    - 2NDE-MULT
+    methodes:
+    - titre: Décomposer un entier en produit de facteurs premiers
+      etapes:
+      - Diviser par $2$ tant que c'est possible, puis par $3$, $5$, $7$…
+      - S'arrêter quand le quotient vaut 1, puis regrouper les facteurs égaux en puissances.
+      exemple:
+        enonce: Décomposer $90$.
+        resolution:
+        - $90 = 2 \times 45 = 2 \times 3 \times 15 = 2 \times 3 \times 3 \times 5$.
+        resultat: $90 = 2 \times 3^2 \times 5$
+    erreurs_frequentes:
+    - erreur: Laisser un facteur non premier, comme dans $2 \times 3 \times 14$.
+      explication: '$14 = 2 \times 7$ n''est pas premier : il faut continuer la décomposition.'
     resume: |
       - Un nombre **premier** a exactement deux diviseurs positifs : $1$ et lui-même ($1$ n'est pas premier).
       - Tout entier $\ge 2$ se décompose en produit de facteurs premiers, de façon unique.
@@ -77,23 +142,57 @@ competences:
         type: qcm
         enonce: 'Lequel de ces nombres est premier ? A) 21  B) 27  C) 29'
         solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $21 = 3 \times 7$ et $27 = 3 \times 9$.
+          - '$29$ n''est divisible ni par $2$, ni par $3$, ni par $5$ ($5^2 > 29$ suffit pour s''arrêter) : il est premier.'
+          resultat: C
       - code: 2NDE-PREM-02
         difficulte: 2
         type: numerique
         enonce: 'Combien y a-t-il de nombres premiers strictement inférieurs à 20 ?'
         solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2, 3, 5, 7, 11, 13, 17, 19$.
+          - Il y en a 8.
+          resultat: 8
+          erreurs_frequentes:
+          - Compter $1$, qui n'est pas premier (il n'a qu'un seul diviseur).
       - code: 2NDE-PREM-03
         difficulte: 3
         type: qcm
         enonce: 'Quelle est la décomposition de 84 en facteurs premiers ? A) $2^2 \times 3 \times 7$  B) $2 \times 3 \times 14$  C) $2^3 \times 7$'
         solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $84 = 2 \times 42 = 2 \times 2 \times 21 = 2^2 \times 3 \times 7$.
+          - B contient $14$ et C oublie le facteur $3$ ($2^3 \times 7 = 56$).
+          resultat: A
       - code: 2NDE-PREM-04
         difficulte: 4
         type: numerique
         enonce: 'Écrire $\dfrac{84}{126}$ sous forme de fraction irréductible.'
         solution: 2/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer numérateur et dénominateur, puis simplifier les facteurs communs.
+          etapes:
+          - $84 = 2^2 \times 3 \times 7$ et $126 = 2 \times 3^2 \times 7$.
+          - 'Facteurs communs : $2 \times 3 \times 7 = 42$. $\dfrac{84}{126} = \dfrac{2}{3}$.'
+          resultat: 2/3
       - code: 2NDE-PREM-05
         difficulte: 5
         type: numerique
         enonce: 'Quel est le plus petit entier $k > 0$ tel que $12k$ soit le carré d''un entier ?'
         solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un carré parfait a tous les exposants de sa décomposition pairs.
+          etapes:
+          - '$12 = 2^2 \times 3$ : l''exposant de $3$ est impair.'
+          - 'Avec $k = 3$ : $36 = 2^2 \times 3^2 = 6^2$.'
+          resultat: 3

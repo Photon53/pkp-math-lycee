@@ -8,6 +8,26 @@ chapitre:
 competences:
   - code: TLE-COMB-DEN
     libelle: Dénombrer avec les listes et les combinaisons
+    objectifs:
+    - Dénombrer des listes (p-uplets) et des combinaisons.
+    - Calculer une probabilité par dénombrement.
+    methodes:
+    - titre: Choisir le bon outil de dénombrement
+      etapes:
+      - 'L''ordre compte et les répétitions sont permises (code, mot) : n^p possibilités.'
+      - 'On choisit $k$ éléments parmi $n$ sans ordre (groupe, tirage simultané) : $\dbinom{n}{k}$.'
+      - Pour une probabilité, diviser le nombre de cas favorables par le nombre de cas possibles.
+      exemple:
+        enonce: Une urne contient 4 rouges et 2 noires ; on tire 2 boules simultanément. Probabilité d'avoir 2 rouges ?
+        resolution:
+        - 'Cas possibles : $\dbinom{6}{2} = 15$ ; cas favorables : $\dbinom{4}{2} = 6$.'
+        - $P = \dfrac{6}{15} = \dfrac{2}{5}$.
+        resultat: $\dfrac{2}{5}$
+    erreurs_frequentes:
+    - erreur: Utiliser des arrangements pour un tirage simultané.
+      explication: 'Dans un tirage simultané, l''ordre ne compte pas : on compte des combinaisons.'
+    - erreur: Calculer « au moins un » en additionnant tous les cas.
+      explication: 'Passer par l''événement contraire est plus rapide : $P(\text{au moins un}) = 1 - P(\text{aucun})$.'
     resume: |
       - **$k$-uplets** (ordre compte, répétitions permises) d'un ensemble à $n$ éléments : $n^k$.
       - **Combinaisons** (ordre ne compte pas, sans répétition) : $\dbinom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$.
@@ -38,16 +58,32 @@ competences:
         type: numerique
         enonce: 'Calculer $\dbinom{5}{2}$.'
         solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dbinom{5}{2} = \dfrac{5 \times 4}{2} = 10$.
+          resultat: 10
       - code: TLE-COMB-DEN-02
         difficulte: 2
         type: numerique
         enonce: 'Combien de codes de 4 chiffres (de 0000 à 9999) peut-on former ?'
         solution: 10000
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '10 choix pour chacun des 4 chiffres : $10^4 = 10\,000$.'
+          resultat: 10000
       - code: TLE-COMB-DEN-03
         difficulte: 2
         type: numerique
         enonce: 'De combien de façons peut-on choisir 3 délégués dans une classe de 25 élèves ?'
         solution: 2300
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Choix sans ordre de 3 élèves parmi 25.
+          etapes:
+          - $\dbinom{25}{3} = \dfrac{25 \times 24 \times 23}{6} = 2300$.
+          resultat: 2300
       - code: TLE-COMB-DEN-04
         difficulte: 4
         type: numerique
@@ -56,6 +92,13 @@ competences:
         source: math.ma
         licence_source: non clarifiée
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Cas possibles : $\dbinom{8}{3} = 56$.'
+          - 'Cas favorables : $\dbinom{5}{2} \times \dbinom{3}{1} = 10 \times 3 = 30$.'
+          - $P = \dfrac{30}{56} = \dfrac{15}{28}$.
+          resultat: 15/28
       - code: TLE-COMB-DEN-05
         difficulte: 5
         type: numerique
@@ -64,3 +107,10 @@ competences:
         source: math.ma
         licence_source: non clarifiée
         adaptation: inspiree
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Événement contraire « aucune verte ».
+          etapes:
+          - $P(\text{3 rouges}) = \dfrac{\binom{5}{3}}{56} = \dfrac{10}{56}$.
+          - $P = 1 - \dfrac{10}{56} = \dfrac{46}{56} = \dfrac{23}{28}$.
+          resultat: 23/28

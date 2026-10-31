@@ -8,6 +8,22 @@ chapitre:
 competences:
   - code: 2NDE-PROP
     libelle: Calculer et utiliser une proportion
+    objectifs:
+    - Calculer une proportion, une part d'un tout, et une proportion de proportion.
+    methodes:
+    - titre: Calculer une proportion de proportion
+      quand: Une sous-population est incluse dans une autre (« 25 % des internes »).
+      etapes:
+      - Écrire les proportions en écriture décimale.
+      - Les multiplier.
+      exemple:
+        enonce: $60\,\%$ des élèves sont demi-pensionnaires, et $30\,\%$ d'entre eux mangent bio. Quelle proportion des élèves mange bio ?
+        resolution:
+        - $0{,}6 \times 0{,}3 = 0{,}18$.
+        resultat: $18\,\%$
+    erreurs_frequentes:
+    - erreur: Additionner des pourcentages qui ne portent pas sur le même ensemble.
+      explication: '$25\,\%$ des internes et $40\,\%$ des élèves ne se rapportent pas au même total : on les multiplie.'
     resume: |
       - Proportion d'une sous-population $A$ dans $E$ : $p = \dfrac{n_A}{n_E}$, nombre entre $0$ et $1$.
       - $p\,\%$ de $N$ : $\dfrac{p}{100} \times N$.
@@ -30,29 +46,78 @@ competences:
         type: numerique
         enonce: 'Calculer 30 % de 250.'
         solution: 75
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $250 \times \dfrac{30}{100} = 75$.
+          resultat: 75
       - code: 2NDE-PROP-02
         difficulte: 2
         type: numerique
         enonce: 'Une classe compte 32 élèves dont 12 filles. Donner la proportion de filles en écriture décimale.'
         solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{12}{32} = \dfrac{3}{8} = 0{,}375$.
+          resultat: 3/8
       - code: 2NDE-PROP-03
         difficulte: 3
         type: numerique
         enonce: '40 % des élèves d''un lycée sont internes et 25 % des internes sont en Seconde. Quelle proportion (en écriture décimale) des élèves du lycée sont des internes de Seconde ?'
         solution: 1/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Proportion de proportion : on multiplie.'
+          etapes:
+          - $0{,}4 \times 0{,}25 = 0{,}1$.
+          resultat: 1/10
       - code: 2NDE-PROP-04
         difficulte: 4
         type: numerique
         enonce: '480 habitants représentent 15 % de la population d''une ville. Combien la ville compte-t-elle d''habitants ?'
         solution: 3200
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Effectif total $= \dfrac{\text{effectif partiel}}{\text{proportion}}$.
+          etapes:
+          - $\dfrac{480}{0{,}15} = 3\,200$.
+          - 'Vérification : $15\,\%$ de $3\,200 = 480$.'
+          resultat: 3200
       - code: 2NDE-PROP-05
         difficulte: 5
         type: numerique
         enonce: 'Dans un club, 30 % des membres font du tennis, 50 % du football et 10 % les deux. Quel pourcentage des membres pratique au moins l''un des deux sports ? (Donner le nombre sans le symbole %.)'
         solution: 70
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les membres qui font les deux sports sont comptés deux fois si on additionne.
+          etapes:
+          - $30 + 50 - 10 = 70$.
+          resultat: 70
 
   - code: 2NDE-EVO
     libelle: Calculer des évolutions et des taux
+    objectifs:
+    - Utiliser le coefficient multiplicateur pour des évolutions simples, successives ou réciproques.
+    prerequis:
+    - 2NDE-PROP
+    methodes:
+    - titre: Calculer une évolution globale ou réciproque
+      etapes:
+      - Associer à chaque évolution de $t\,\%$ son coefficient $1 + \dfrac{t}{100}$ (avec $t < 0$ pour une baisse).
+      - 'Évolutions successives : multiplier les coefficients.'
+      - 'Évolution réciproque : prendre l''inverse du coefficient.'
+      - 'Revenir à un taux : $t = (\text{coefficient} - 1) \times 100$.'
+      exemple:
+        enonce: Un prix baisse de $10\,\%$ puis augmente de $10\,\%$. Évolution globale ?
+        resolution:
+        - $0{,}9 \times 1{,}1 = 0{,}99$.
+        - $t = (0{,}99 - 1) \times 100 = -1$.
+        resultat: Baisse de $1\,\%$
+    erreurs_frequentes:
+    - erreur: 'Additionner les taux : $+20\,\%$ puis $-20\,\%$ ne donne pas $0\,\%$.'
+      explication: 'La seconde évolution s''applique à une valeur déjà modifiée : on multiplie les coefficients ($1{,}2 \times 0{,}8 = 0{,}96$).'
     resume: |
       - Une évolution de taux $t$ correspond au **coefficient multiplicateur** $CM = 1 + t$ (hausse de $15\,\%$ : $1{,}15$ ; baisse de $25\,\%$ : $0{,}75$).
       - Évolutions successives : on **multiplie** les coefficients.
@@ -77,23 +142,58 @@ competences:
         type: numerique
         enonce: 'Quel est le coefficient multiplicateur associé à une hausse de 15 % ?'
         solution: 1.15
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1 + \dfrac{15}{100} = 1{,}15$.
+          resultat: 1.15
       - code: 2NDE-EVO-02
         difficulte: 2
         type: numerique
         enonce: 'Un article coûte 80 €. Son prix baisse de 25 %. Quel est son nouveau prix en euros ?'
         solution: 60
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Coefficient d''une baisse de $25\,\%$ : $0{,}75$.'
+          - $80 \times 0{,}75 = 60$.
+          resultat: 60
       - code: 2NDE-EVO-03
         difficulte: 3
         type: numerique
         enonce: 'Un prix augmente de 20 % puis baisse de 20 %. Quel est le taux d''évolution global en pourcentage ? (Nombre négatif pour une baisse, sans le symbole %.)'
         solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Évolutions successives : on multiplie les coefficients.'
+          etapes:
+          - $1{,}2 \times 0{,}8 = 0{,}96$.
+          - $t = (0{,}96 - 1) \times 100 = -4$.
+          resultat: -4
+          erreurs_frequentes:
+          - Répondre $0$ en additionnant $+20$ et $-20$.
       - code: 2NDE-EVO-04
         difficulte: 4
         type: numerique
         enonce: 'Un loyer a augmenté de 25 %. De quel taux doit-il évoluer pour revenir à sa valeur initiale ? (En pourcentage, nombre négatif pour une baisse.)'
         solution: -20
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Évolution réciproque : coefficient inverse.'
+          etapes:
+          - $\dfrac{1}{1{,}25} = 0{,}8$.
+          - $t = (0{,}8 - 1) \times 100 = -20$.
+          resultat: -20
+          erreurs_frequentes:
+          - 'Répondre $-25$ : une baisse de $25\,\%$ s''applique à une valeur plus grande.'
       - code: 2NDE-EVO-05
         difficulte: 5
         type: numerique
         enonce: 'Deux hausses successives de même taux $t\,\%$ donnent une hausse globale de 21 %. Donner $t$.'
         solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(1 + t)^2 = 1{,}21$ avec $1 + t > 0$.
+          - $1 + t = 1{,}1$, donc une hausse de $10\,\%$.
+          resultat: 10
