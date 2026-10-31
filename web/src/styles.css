@@ -160,7 +160,9 @@ button.icone:hover:not(:disabled) { background: var(--surface-2); color: var(--t
 .classe {
   background: var(--surface); color: var(--texte); border: 1px solid var(--bordure); text-align: left;
   display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-weight: 400;
+  white-space: normal; min-width: 0; /* les libellés de parcours (« voie générale »…) passent à la ligne */
 }
+.classe .doux { overflow-wrap: anywhere; }
 .classe:hover:not(:disabled) { background: var(--action-doux); color: var(--texte); border-color: var(--action); }
 .classe.choisie { border-color: var(--action); box-shadow: 0 0 0 2px var(--action-doux); }
 .classe .code { font-family: var(--police-mono); font-weight: 700; font-size: 1.1rem; }
@@ -213,6 +215,8 @@ label.case input { width: auto; }
 .liste-cours { list-style: none; padding: 0; margin: 0 0 8px; }
 .liste-cours li { padding: 2px 0; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
 .liste-cours button.lien { text-align: left; }
+.titre-parcours { color: var(--primaire); border-bottom: 1px solid var(--bordure-forte); padding-bottom: 6px; margin: 28px 0 4px; }
+.carte > div:first-of-type > .titre-parcours { margin-top: 0; }
 .lecon > button.lien { padding-left: 0; }
 .outils-lecon { display: flex; gap: 8px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 

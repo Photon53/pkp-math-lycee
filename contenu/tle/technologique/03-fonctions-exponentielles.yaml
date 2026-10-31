@@ -1,0 +1,91 @@
+chapitre:
+  code: TLE-TEC-EXP
+  niveau: Tle
+  parcours: technologique
+  ordre: 3
+  titre: Fonctions exponentielles x ↦ a^x
+competences:
+- code: TLE-TEC-EXPA
+  libelle: Utiliser les fonctions exponentielles de base a
+  objectifs:
+  - Connaitre le sens de variation de x ↦ a^x et ses propriétés algébriques.
+  - Calculer un taux moyen et une proportion au bout d'une fraction de période.
+  prerequis:
+  - TLE-TEC-GEOM
+  resume: |
+    - $x \mapsto a^x$ ($a > 0$) est croissante si $a > 1$, décroissante si $0 < a < 1$.
+    - $a^{x + y} = a^xa^y$, $a^{x - y} = \dfrac{a^x}{a^y}$, $(a^x)^y = a^{xy}$.
+    - $a^{\frac{1}{n}}$ est le nombre positif dont la puissance $n$-ième vaut $a$.
+  cours: |
+    ## Propriétés
+    $8^{\frac{1}{3}} = 2$ car $2^3 = 8$ ; $2^{1{,}5} \times 2^{0{,}5} = 2^2 = 4$.
+
+    ## Taux moyen
+    Multiplication par $1{,}44$ en 2 ans : $1{,}44^{\frac{1}{2}} = 1{,}2$, soit $+20\,\%$ par an en moyenne.
+
+    ## Décroissance radioactive
+    Demi-vie $T$ : proportion restante $0{,}5^{\frac{t}{T}}$. Pour le carbone 14 ($T = 5\,730$ ans), après $11\,460$ ans : $0{,}5^2 = \dfrac{1}{4}$.
+  methodes:
+  - titre: Calculer un taux annuel moyen
+    etapes:
+    - Calculer le coefficient multiplicateur global CM.
+    - Calculer $CM^{\frac{1}{n}}$, puis retirer 1.
+    exemple:
+      enonce: Une valeur est multipliée par 1,21 en 2 ans.
+      resolution:
+      - $1{,}21^{0{,}5} = 1{,}1$.
+      resultat: $+10\,\%$ par an.
+  erreurs_frequentes:
+  - erreur: Écrire $a^x \times a^y = a^{xy}$.
+    explication: Les exposants s'additionnent quand on multiplie.
+  questions:
+  - code: TLE-TEC-EXPA-01
+    difficulte: 1
+    type: qcm
+    enonce: 'La fonction $x \mapsto 1{,}5^x$ est sur $[0 ; +\infty[$ : A) croissante  B) décroissante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$1{,}5 > 1$ : la fonction est croissante.'
+      resultat: A
+  - code: TLE-TEC-EXPA-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $8^{\frac{1}{3}}$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^3 = 8$, donc $8^{\frac{1}{3}} = 2$.
+      resultat: '2'
+  - code: TLE-TEC-EXPA-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $2^{1{,}5} \times 2^{0{,}5}$.
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^{1{,}5 + 0{,}5} = 2^2 = 4$.
+      resultat: '4'
+  - code: TLE-TEC-EXPA-04
+    difficulte: 4
+    type: numerique
+    enonce: Une population est multipliée par 1,44 en deux ans. Quel est le taux d'évolution annuel moyen, en pourcentage ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}44^{\frac{1}{2}} = 1{,}2$, soit $+20\,\%$ par an.
+      resultat: '20'
+  - code: TLE-TEC-EXPA-05
+    difficulte: 5
+    type: numerique
+    enonce: Le carbone 14 a une demi-vie de 5 730 ans. Quelle proportion des atomes initiaux reste-t-il au bout de 11 460 ans ?
+    solution: 1/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\dfrac{11\,460}{5\,730} = 2$ demi-vies : $0{,}5^2 = \dfrac{1}{4}$.'
+      resultat: 1/4

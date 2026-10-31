@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
 import Cours from "../eleve/Cours.jsx";
 import { naviguer } from "../navigation.js";
+import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
 import { useApi } from "./useApi.js";
 
-export const NIVEAUX = [
-  ["2nde", "Seconde"],
-  ["1re", "Première"],
-  ["Tle", "Terminale"],
-];
+export { NIVEAUX };
 
 /**
  * Tous les cours de la banque, y compris les chapitres pas encore ouverts aux élèves (module 2).
@@ -17,6 +14,7 @@ export const NIVEAUX = [
 export default function CoursEnseignant({ jeton, onExpire, chemin }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [niveau, setNiveau] = useState("");
+  const [parcours, setParcours] = useState("");
   const [recherche, setRecherche] = useState("");
   const [terme, setTerme] = useState("");
   const [sommaire, setSommaire] = useState(null);
@@ -31,10 +29,11 @@ export default function CoursEnseignant({ jeton, onExpire, chemin }) {
   useEffect(() => {
     const params = new URLSearchParams();
     if (niveau) params.set("niveau", niveau);
+    if (parcours) params.set("parcours", parcours);
     if (terme) params.set("q", terme);
     setSommaire(null);
     appeler(`/enseignants/cours${params.size ? `?${params}` : ""}`).then(setSommaire, () => setSommaire([]));
-  }, [appeler, niveau, terme]);
+  }, [appeler, niveau, parcours, terme]);
 
   const choisir = (id) => naviguer(id == null ? "/enseignant/cours" : `/enseignant/cours/${id}`);
 
@@ -44,7 +43,14 @@ export default function CoursEnseignant({ jeton, onExpire, chemin }) {
         <div className="carte filtres" role="search">
           <div>
             <label htmlFor="cours-niveau">Niveau</label>
-            <select id="cours-niveau" value={niveau} onChange={(e) => setNiveau(e.target.value)}>
+            <select
+              id="cours-niveau"
+              value={niveau}
+              onChange={(e) => {
+                setNiveau(e.target.value);
+                setParcours("");
+              }}
+            >
               <option value="">Tous</option>
               {NIVEAUX.map(([v, l]) => (
                 <option key={v} value={v}>
@@ -53,6 +59,19 @@ export default function CoursEnseignant({ jeton, onExpire, chemin }) {
               ))}
             </select>
           </div>
+          {PARCOURS_PAR_NIVEAU[niveau]?.length > 1 && (
+            <div>
+              <label htmlFor="cours-parcours">Parcours</label>
+              <select id="cours-parcours" value={parcours} onChange={(e) => setParcours(e.target.value)}>
+                <option value="">Tous</option>
+                {PARCOURS_PAR_NIVEAU[niveau].map((p) => (
+                  <option key={p} value={p}>
+                    {LIBELLES_PARCOURS[p]}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div style={{ flexGrow: 3 }}>
             <label htmlFor="cours-recherche">Rechercher dans les cours</label>
             <input

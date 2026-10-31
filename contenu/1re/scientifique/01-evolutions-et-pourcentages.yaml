@@ -1,0 +1,109 @@
+chapitre:
+  code: 1RE-ES-EVO
+  niveau: 1re
+  parcours: scientifique
+  ordre: 1
+  titre: Information chiffrée, évolutions et pourcentages
+competences:
+- code: 1RE-ES-EVO-TAUX
+  libelle: Calculer et enchainer des évolutions en pourcentage
+  objectifs:
+  - Appliquer un taux d'évolution pour obtenir une valeur finale ou initiale.
+  - Calculer un taux d'évolution, des évolutions successives et une évolution réciproque.
+  prerequis:
+  - 2NDE-EVO
+  - 2NDE-PROP
+  resume: |
+    - Évoluer de $t\,\%$ revient à **multiplier** par le coefficient multiplicateur $CM = 1 + \dfrac{t}{100}$ (baisse : $t < 0$).
+    - Taux d'évolution de $V_0$ à $V_1$ : $t = \dfrac{V_1 - V_0}{V_0}$.
+    - Évolutions successives : on **multiplie** les coefficients (on n'additionne pas les pourcentages).
+    - Évolution réciproque : coefficient $\dfrac{1}{CM}$.
+  cours: |
+    ## Coefficient multiplicateur
+    Augmenter de $15\,\%$ revient à multiplier par $1{,}15$ ; baisser de $20\,\%$ revient à multiplier par $0{,}8$.
+
+    | Évolution | Coefficient |
+    |---|---|
+    | $+t\,\%$ | $1 + \dfrac{t}{100}$ |
+    | $-t\,\%$ | $1 - \dfrac{t}{100}$ |
+
+    ## Taux d'évolution
+    $$t = \frac{V_{\text{finale}} - V_{\text{initiale}}}{V_{\text{initiale}}}$$
+    De $250$ € à $200$ € : $t = \dfrac{200 - 250}{250} = -0{,}2$, soit une baisse de $20\,\%$.
+
+    ## Évolutions successives et réciproque
+    - Une hausse de $10\,\%$ puis une hausse de $20\,\%$ : $1{,}1 \times 1{,}2 = 1{,}32$, soit $+32\,\%$ (et non $+30\,\%$).
+    - Pour annuler une baisse de $20\,\%$ ($CM = 0{,}8$), il faut multiplier par $\dfrac{1}{0{,}8} = 1{,}25$ : une hausse de $25\,\%$.
+  methodes:
+  - titre: Calculer un taux global
+    quand: Plusieurs évolutions s'enchainent.
+    etapes:
+    - Écrire le coefficient multiplicateur de chaque évolution.
+    - Les multiplier entre eux.
+    - Retirer 1 et convertir en pourcentage.
+    exemple:
+      enonce: Un prix baisse de $10\,\%$ puis augmente de $10\,\%$. Évolution globale ?
+      resolution:
+      - $0{,}9 \times 1{,}1 = 0{,}99$.
+      - $0{,}99 - 1 = -0{,}01$.
+      resultat: 'Baisse de $1\,\%$ : on ne revient pas au prix de départ.'
+  erreurs_frequentes:
+  - erreur: Additionner les pourcentages d'évolutions successives.
+    explication: Chaque évolution s'applique à la nouvelle valeur ; il faut multiplier les coefficients.
+  - erreur: Penser qu'une hausse de 20 % compense une baisse de 20 %.
+    explication: '$0{,}8 \times 1{,}2 = 0{,}96$ : il reste une baisse de $4\,\%$.'
+  questions:
+  - code: 1RE-ES-EVO-TAUX-01
+    difficulte: 1
+    type: numerique
+    enonce: Un article coûte 80 €. Son prix augmente de 15 %. Quel est son nouveau prix (en €) ?
+    solution: '92'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $80 \times 1{,}15 = 92$.
+      resultat: '92'
+  - code: 1RE-ES-EVO-TAUX-02
+    difficulte: 2
+    type: numerique
+    enonce: Un article passe de 250 € à 200 €. Quel est le taux d'évolution, en pourcentage ?
+    solution: '-20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{200 - 250}{250} = -0{,}2$, soit $-20\,\%$.
+      resultat: '-20'
+  - code: 1RE-ES-EVO-TAUX-03
+    difficulte: 3
+    type: numerique
+    enonce: Une hausse de 10 % suivie d'une hausse de 20 % équivaut à une hausse unique de combien de pourcents ?
+    solution: '32'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}1 \times 1{,}2 = 1{,}32$, soit $+32\,\%$.
+      erreurs_frequentes:
+      - Répondre 30 en additionnant les pourcentages.
+      resultat: '32'
+  - code: 1RE-ES-EVO-TAUX-04
+    difficulte: 4
+    type: numerique
+    enonce: Après une baisse de 20 %, quelle hausse (en pourcentage) faut-il appliquer pour revenir à la valeur initiale ?
+    solution: '25'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Évolution réciproque.
+      etapes:
+      - $\dfrac{1}{0{,}8} = 1{,}25$, soit une hausse de $25\,\%$.
+      resultat: '25'
+  - code: 1RE-ES-EVO-TAUX-05
+    difficulte: 5
+    type: numerique
+    enonce: Une population augmente de 5 % par an pendant deux ans, puis baisse de 10 % la troisième année. Quel est le taux d'évolution global sur les trois ans, en pourcentage (valeur exacte) ?
+    solution: '-0.775'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}05^2 \times 0{,}9 = 1{,}1025 \times 0{,}9 = 0{,}99225$.
+      - $0{,}99225 - 1 = -0{,}00775$, soit $-0{,}775\,\%$.
+      resultat: '-0.775'

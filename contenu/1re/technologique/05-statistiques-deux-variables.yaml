@@ -1,0 +1,91 @@
+chapitre:
+  code: 1RE-TEC-STAT
+  niveau: 1re
+  parcours: technologique
+  ordre: 5
+  titre: Séries statistiques à deux variables
+competences:
+- code: 1RE-TEC-STAT2
+  libelle: Utiliser un nuage de points et un ajustement affine
+  objectifs:
+  - Calculer le point moyen d'un nuage.
+  - Utiliser une droite d'ajustement pour estimer une valeur.
+  prerequis:
+  - 2NDE-MOY
+  resume: |
+    - Point moyen $G(\bar x ; \bar y)$.
+    - La droite d'ajustement $y = ax + b$ passe par $G$ ; on l'utilise pour interpoler ou extrapoler.
+  cours: |
+    ## Exemple
+    | $x$ | 2 | 4 | 6 | 8 |
+    |---|:-:|:-:|:-:|:-:|
+    | $y$ | 10 | 14 | 15 | 21 |
+
+    $G(5 ; 15)$. Le tableur donne $y = 1{,}75x + 6{,}25$, qui passe bien par $G$ : $1{,}75 \times 5 + 6{,}25 = 15$.
+
+    ## Estimer
+    Pour $x = 10$ : $y = 23{,}75$ (extrapolation, à prendre avec prudence).
+  methodes:
+  - titre: Estimer avec une droite d'ajustement
+    etapes:
+    - Remplacer x par la valeur donnée (ou résoudre pour x si y est donné).
+    - Interpréter dans le contexte.
+    exemple:
+      enonce: $y = 0{,}8x + 12$ ; pour quel $x$ a-t-on $y = 20$ ?
+      resolution:
+      - $0{,}8x = 8$.
+      resultat: $x = 10$
+  erreurs_frequentes:
+  - erreur: Calculer le point moyen avec les valeurs extrêmes seulement.
+    explication: Il faut la moyenne de toutes les valeurs.
+  questions:
+  - code: 1RE-TEC-STAT2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Série : $x$ = 2, 4, 6, 8 et $y$ = 10, 14, 15, 21. Quelle est l''abscisse du point moyen ?'
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{2 + 4 + 6 + 8}{4} = 5$.
+      resultat: '5'
+  - code: 1RE-TEC-STAT2-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Série : $x$ = 2, 4, 6, 8 et $y$ = 10, 14, 15, 21. Quelle est l''ordonnée du point moyen ?'
+    solution: '15'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{10 + 14 + 15 + 21}{4} = 15$.
+      resultat: '15'
+  - code: 1RE-TEC-STAT2-03
+    difficulte: 3
+    type: numerique
+    enonce: La droite d'ajustement d'un nuage est $y = 1{,}75x + 6{,}25$. Quelle valeur de $y$ estime-t-on pour $x = 10$ ?
+    solution: '23.75'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}75 \times 10 + 6{,}25 = 23{,}75$.
+      resultat: '23.75'
+  - code: 1RE-TEC-STAT2-04
+    difficulte: 4
+    type: numerique
+    enonce: Une droite d'ajustement passe par le point moyen $G(5 ; 15)$ et a pour coefficient directeur 2. Quelle est son ordonnée à l'origine ?
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $15 = 2 \times 5 + b$, donc $b = 5$.
+      resultat: '5'
+  - code: 1RE-TEC-STAT2-05
+    difficulte: 5
+    type: numerique
+    enonce: La droite d'ajustement d'un nuage est $y = 0{,}8x + 12$. Pour quelle valeur de $x$ estime-t-on $y = 20$ ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}8x + 12 = 20$, soit $0{,}8x = 8$, donc $x = 10$.
+      resultat: '10'

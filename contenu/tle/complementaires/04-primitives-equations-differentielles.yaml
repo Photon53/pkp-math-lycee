@@ -1,0 +1,182 @@
+chapitre:
+  code: TLE-MC-PRIM
+  niveau: Tle
+  parcours: complementaires
+  ordre: 4
+  titre: Primitives et équations différentielles
+competences:
+- code: TLE-MC-PRIMITIVE
+  libelle: Déterminer une primitive
+  objectifs:
+  - Reconnaitre la dérivée d'une fonction de référence ou une forme u'e^u, u'/u, 2uu'.
+  - Trouver la primitive vérifiant une condition.
+  prerequis:
+  - TLE-MC-DERIV
+  resume: |
+    - $F$ est une primitive de $f$ si $F' = f$ ; deux primitives diffèrent d'une constante.
+    - Primitives : $x^n \to \dfrac{x^{n+1}}{n + 1}$, $e^{ax} \to \dfrac{e^{ax}}{a}$, $\dfrac{1}{x} \to \ln x$, $u'e^u \to e^u$, $\dfrac{u'}{u} \to \ln u$.
+    - La condition $F(a) = b$ fixe la constante.
+  cours: |
+    ## Primitives usuelles
+    | $f(x)$ | une primitive $F(x)$ |
+    |---|---|
+    | $x^n$ | $\dfrac{x^{n+1}}{n + 1}$ |
+    | $e^{ax}$ | $\dfrac{e^{ax}}{a}$ |
+    | $\dfrac{1}{x}$ ($x > 0$) | $\ln x$ |
+    | $u'e^{u}$ | $e^{u}$ |
+    | $\dfrac{u'}{u}$ ($u > 0$) | $\ln u$ |
+
+    ## Condition initiale
+    Primitive de $2x + 3$ nulle en $0$ : $F(x) = x^2 + 3x + C$ et $F(0) = C = 0$.
+  methodes:
+  - titre: Vérifier qu'une fonction est une primitive
+    etapes:
+    - Dériver la fonction proposée.
+    - Comparer avec f.
+    exemple:
+      enonce: $F(x) = xe^x$ est-elle une primitive de $(x + 1)e^x$ ?
+      resolution:
+      - $F'(x) = e^x + xe^x = (x + 1)e^x$.
+      resultat: Oui.
+  erreurs_frequentes:
+  - erreur: Oublier de diviser par a pour e^(ax).
+    explication: En dérivant $\dfrac{e^{3x}}{3}$, on retrouve bien $e^{3x}$.
+  questions:
+  - code: TLE-MC-PRIMITIVE-01
+    difficulte: 1
+    type: expression
+    enonce: Donner la primitive de $f(x) = 2x + 3$ qui s'annule en 0.
+    solution: x^2 + 3x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $F(x) = x^2 + 3x + C$ et $F(0) = C = 0$.
+      resultat: x^2 + 3x
+  - code: TLE-MC-PRIMITIVE-02
+    difficulte: 2
+    type: qcm
+    enonce: 'La fonction $F(x) = xe^x$ est une primitive de : A) $(x + 1)e^x$  B) $e^x$  C) $xe^x$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $F'(x) = e^x + xe^x = (x + 1)e^x$.
+      resultat: A
+  - code: TLE-MC-PRIMITIVE-03
+    difficulte: 3
+    type: expression
+    enonce: Donner la primitive de $f(x) = e^{3x}$ qui s'annule en 0.
+    solution: e^(3x)/3 - 1/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $F(x) = \dfrac{e^{3x}}{3} + C$ et $F(0) = \dfrac{1}{3} + C = 0$.
+      resultat: e^(3x)/3 - 1/3
+  - code: TLE-MC-PRIMITIVE-04
+    difficulte: 4
+    type: expression
+    enonce: Donner la primitive sur $]0 ; +\infty[$ de $f(x) = \dfrac{1}{x}$ qui vaut 2 en 1.
+    solution: ln(x) + 2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $F(x) = \ln x + C$ et $F(1) = C = 2$.
+      resultat: ln(x) + 2
+  - code: TLE-MC-PRIMITIVE-05
+    difficulte: 5
+    type: expression
+    enonce: Donner la primitive de $f(x) = \dfrac{2x}{x^2 + 1}$ qui s'annule en 0.
+    solution: ln(x^2 + 1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Forme $\dfrac{u'}{u}$ avec $u = x^2 + 1 > 0$.
+      etapes:
+      - $F(x) = \ln(x^2 + 1) + C$ et $F(0) = \ln 1 + C = C = 0$.
+      resultat: ln(x^2 + 1)
+- code: TLE-MC-EQDIFF
+  libelle: Résoudre les équations différentielles y' = ay et y' = ay + b
+  objectifs:
+  - Vérifier qu'une fonction est solution d'une équation différentielle.
+  - Résoudre y' = ay + b avec une condition initiale.
+  prerequis:
+  - TLE-MC-PRIMITIVE
+  resume: |
+    - Solutions de $y' = ay$ : $y(x) = Ce^{ax}$.
+    - Pour $y' = ay + b$ ($a \neq 0$) : solution constante $-\dfrac{b}{a}$, et $y(x) = Ce^{ax} - \dfrac{b}{a}$.
+    - Une condition initiale $y(0) = y_0$ donne une solution unique.
+  cours: |
+    ## y' = ay
+    Les solutions sont les fonctions $x \mapsto Ce^{ax}$ ; avec $y(0) = 3$ pour $y' = 2y$ : $y = 3e^{2x}$.
+
+    ## y' = ay + b
+    $y' = -0{,}1y + 2$ : la solution constante vérifie $0 = -0{,}1y + 2$, soit $y = 20$.
+    Solutions : $y(x) = Ce^{-0{,}1x} + 20$ ; avec $y(0) = 0$ : $C = -20$.
+
+    ## Modèles
+    Refroidissement (loi de Newton), charge d'un condensateur, évolution d'une population.
+  methodes:
+  - titre: Résoudre y' = ay + b avec y(0) donné
+    etapes:
+    - Calculer la solution constante $-\dfrac{b}{a}$.
+    - Écrire $y(x) = Ce^{ax} - \dfrac{b}{a}$.
+    - Utiliser y(0) pour trouver C.
+    exemple:
+      enonce: $y' = 3y - 6$, $y(0) = 5$.
+      resolution:
+      - Solution constante $2$ ; $y = Ce^{3x} + 2$ et $C + 2 = 5$.
+      resultat: $y(x) = 3e^{3x} + 2$
+  erreurs_frequentes:
+  - erreur: Prendre y(0) pour C directement.
+    explication: $y(0) = C - \dfrac{b}{a}$.
+  questions:
+  - code: TLE-MC-EQDIFF-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Les solutions de $y'' = -3y$ sont les fonctions : A) $x \mapsto Ce^{-3x}$  B) $x \mapsto Ce^{3x}$  C) $x \mapsto -3x + C$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $y' = ay$ a pour solutions $Ce^{ax}$, ici $a = -3$.
+      resultat: A
+  - code: TLE-MC-EQDIFF-02
+    difficulte: 2
+    type: qcm
+    enonce: 'La fonction $x \mapsto e^{2x}$ est solution de : A) $y'' = 2y$  B) $y'' = y + 2$  C) $y'' = y$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(e^{2x})' = 2e^{2x} = 2y$.
+      resultat: A
+  - code: TLE-MC-EQDIFF-03
+    difficulte: 3
+    type: numerique
+    enonce: Quelle est la solution constante de $y' = 0{,}5y - 2$ ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0 = 0{,}5y - 2$, donc $y = 4$.
+      resultat: '4'
+  - code: TLE-MC-EQDIFF-04
+    difficulte: 4
+    type: expression
+    enonce: Donner la solution de $y' = 2y$ telle que $y(0) = 3$.
+    solution: 3e^(2x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $y = Ce^{2x}$ et $y(0) = C = 3$.
+      resultat: 3e^(2x)
+  - code: TLE-MC-EQDIFF-05
+    difficulte: 5
+    type: expression
+    enonce: Donner la solution de $y' = -0{,}1y + 2$ telle que $y(0) = 0$.
+    solution: 20 - 20e^(-0.1x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Solution constante : $20$ ; $y = Ce^{-0{,}1x} + 20$.'
+      - $y(0) = C + 20 = 0$, donc $C = -20$.
+      resultat: 20 - 20e^(-0.1x)

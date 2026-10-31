@@ -108,6 +108,32 @@ competences:
           - $(x^2 + 6x + 9)(x + 3) = x^3 + 3x^2 + 6x^2 + 18x + 9x + 27$.
           - $= x^3 + 9x^2 + 27x + 27$.
           resultat: x^3 + 9x^2 + 27x + 27
+      - code: 2NDE-DEV-05
+        difficulte: 1
+        type: expression
+        enonce: Développer $3(x + 4)$.
+        solution: 3x + 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Distributivité simple : $k(a + b) = ka + kb$.'
+          etapes:
+          - $3 \times x + 3 \times 4 = 3x + 12$.
+          resultat: 3x + 12
+      - code: 2NDE-DEV-06
+        difficulte: 5
+        type: expression
+        enonce: Développer et réduire $(2x - 3)^2 - (x + 1)(x - 1)$.
+        solution: 3x^2 - 12x + 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux identités remarquables, puis une soustraction entre parenthèses.
+          etapes:
+          - $(2x - 3)^2 = 4x^2 - 12x + 9$ et $(x + 1)(x - 1) = x^2 - 1$.
+          - $4x^2 - 12x + 9 - (x^2 - 1) = 4x^2 - 12x + 9 - x^2 + 1$.
+          - $= 3x^2 - 12x + 10$.
+          erreurs_frequentes:
+          - Oublier les parenthèses et écrire $- x^2 - 1$ au lieu de $- x^2 + 1$.
+          resultat: 3x^2 - 12x + 10
 
   - code: 2NDE-EQ1
     libelle: Résoudre une équation du premier degré
@@ -189,3 +215,27 @@ competences:
         enonce: Résoudre 2x = 6. x = ? (ancienne version)
         solution: 3
         archivee: true
+      - code: 2NDE-EQ1-05
+        difficulte: 4
+        type: numerique
+        enonce: Résoudre $\dfrac{2x - 1}{3} = \dfrac{x + 4}{2}$.
+        solution: '14'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier les deux membres par 6 (produit en croix).
+          etapes:
+          - $2(2x - 1) = 3(x + 4)$, soit $4x - 2 = 3x + 12$.
+          - '$x = 14$. Vérification : $\dfrac{27}{3} = 9$ et $\dfrac{18}{2} = 9$.'
+          resultat: '14'
+      - code: 2NDE-EQ1-06
+        difficulte: 5
+        type: numerique
+        enonce: Un forfait téléphonique coûte 12 € par mois plus 0,05 € par SMS ; un autre coûte 20 € par mois, SMS illimités. Pour combien de SMS par mois les deux forfaits coûtent-ils le même prix ?
+        solution: '160'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Mettre le problème en équation avec $x$ le nombre de SMS.
+          etapes:
+          - $12 + 0{,}05x = 20$, soit $0{,}05x = 8$.
+          - $x = \dfrac{8}{0{,}05} = 160$ SMS.
+          resultat: '160'

@@ -1,0 +1,185 @@
+chapitre:
+  code: 1RE-ES-PROBA
+  niveau: 1re
+  parcours: scientifique
+  ordre: 3
+  titre: Probabilités conditionnelles et indépendance
+competences:
+- code: 1RE-ES-PCOND
+  libelle: Calculer des probabilités conditionnelles avec un arbre ou un tableau
+  objectifs:
+  - Calculer une probabilité conditionnelle à partir d'un arbre pondéré ou d'un tableau croisé.
+  - Distinguer $P(A \cap B)$, $P_A(B)$ et $P_B(A)$.
+  prerequis:
+  - 2NDE-PROBA
+  resume: |
+    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$ : probabilité de $B$ **sachant** $A$.
+    - Sur un arbre : on **multiplie** le long d'un chemin, on **additionne** les chemins qui mènent au même événement.
+    - $P(B) = P(A \cap B) + P(\bar A \cap B)$ (probabilités totales).
+  cours: |
+    ## Arbre pondéré
+    Une maladie touche $2\,\%$ d'une population. Un test est positif pour $95\,\%$ des malades et pour $10\,\%$ des non-malades.
+    - $P(M \cap T) = 0{,}02 \times 0{,}95 = 0{,}019$.
+    - $P(\bar M \cap T) = 0{,}98 \times 0{,}1 = 0{,}098$.
+    - $P(T) = 0{,}019 + 0{,}098 = 0{,}117$.
+
+    ## Inverser le conditionnement
+    $P_T(M) = \dfrac{P(M \cap T)}{P(T)} = \dfrac{0{,}019}{0{,}117} \approx 0{,}16$ : un test positif ne signifie pas qu'on est probablement malade (faux positifs).
+  methodes:
+  - titre: Calculer P_B(A) à partir d'un arbre
+    etapes:
+    - Calculer $P(A \cap B)$ en multipliant le long du chemin.
+    - Calculer $P(B)$ en additionnant tous les chemins qui mènent à $B$.
+    - 'Diviser : $P_B(A) = \dfrac{P(A \cap B)}{P(B)}$.'
+    exemple:
+      enonce: $P(A) = 0{,}5$, $P_A(B) = 0{,}4$, $P_{\bar A}(B) = 0{,}2$. Calculer $P_B(A)$.
+      resolution:
+      - $P(A \cap B) = 0{,}2$ ; $P(B) = 0{,}2 + 0{,}5 \times 0{,}2 = 0{,}3$.
+      resultat: $P_B(A) = \dfrac{0{,}2}{0{,}3} = \dfrac{2}{3}$
+  erreurs_frequentes:
+  - erreur: Confondre $P_A(B)$ et $P(A \cap B)$.
+    explication: $P_A(B)$ est la probabilité lue sur la branche ; $P(A \cap B)$ est le produit le long du chemin.
+  - erreur: Confondre $P_A(B)$ et $P_B(A)$.
+    explication: Ce sont deux conditionnements différents, en général de valeurs différentes.
+  questions:
+  - code: 1RE-ES-PCOND-01
+    difficulte: 1
+    type: numerique
+    enonce: Sur un arbre pondéré, $P(A) = 0{,}4$ et $P_A(B) = 0{,}5$. Calculer $P(A \cap B)$.
+    solution: '0.2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P(A \cap B) = 0{,}4 \times 0{,}5 = 0{,}2$.
+      resultat: '0.2'
+  - code: 1RE-ES-PCOND-02
+    difficulte: 2
+    type: numerique
+    enonce: $P(A) = 0{,}3$, $P_A(B) = 0{,}2$ et $P_{\bar A}(B) = 0{,}6$. Calculer $P(B)$.
+    solution: '0.48'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Probabilités totales.
+      etapes:
+      - $P(B) = 0{,}3 \times 0{,}2 + 0{,}7 \times 0{,}6 = 0{,}06 + 0{,}42 = 0{,}48$.
+      resultat: '0.48'
+  - code: 1RE-ES-PCOND-03
+    difficulte: 3
+    type: numerique
+    enonce: $P(A) = 0{,}3$, $P_A(B) = 0{,}2$ et $P_{\bar A}(B) = 0{,}6$. Calculer $P_B(A)$ (fraction irréductible).
+    solution: 1/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P(A \cap B) = 0{,}06$ et $P(B) = 0{,}48$.
+      - $P_B(A) = \dfrac{0{,}06}{0{,}48} = \dfrac{1}{8}$.
+      resultat: 1/8
+  - code: 1RE-ES-PCOND-04
+    difficulte: 4
+    type: numerique
+    enonce: Une maladie touche 2 % de la population. Un test est positif pour 95 % des malades et pour 10 % des personnes saines. Quelle est la probabilité qu'un test soit positif ?
+    solution: '0.117'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
+      resultat: '0.117'
+  - code: 1RE-ES-PCOND-05
+    difficulte: 5
+    type: numerique
+    enonce: Même situation (2 % de malades, test positif pour 95 % des malades et 10 % des personnes saines). Le test d'une personne est positif. Quelle est la probabilité qu'elle soit malade ? (fraction irréductible)
+    solution: 19/117
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P_T(M) = \dfrac{P(M \cap T)}{P(T)} = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117}$.
+      - 'Environ 16 % seulement : la plupart des tests positifs sont des faux positifs.'
+      resultat: 19/117
+- code: 1RE-ES-INDEP
+  libelle: Utiliser l'indépendance et la répétition d'épreuves
+  objectifs:
+  - Reconnaitre ou justifier l'indépendance de deux événements.
+  - Calculer des probabilités pour une répétition d'au plus 4 épreuves de Bernoulli.
+  prerequis:
+  - 1RE-ES-PCOND
+  resume: |
+    - $A$ et $B$ sont **indépendants** si $P_B(A) = P(A)$, ce qui équivaut à $P(A \cap B) = P(A) \times P(B)$.
+    - Pour des épreuves indépendantes, la probabilité d'une suite d'issues est le **produit** des probabilités.
+    - « Au moins un » : passer par le contraire « aucun ».
+  cours: |
+    ## Indépendance
+    Savoir que $B$ est réalisé ne change pas la probabilité de $A$ : $P_B(A) = P(A)$.
+    Test pratique : comparer $P(A \cap B)$ et $P(A) \times P(B)$.
+
+    ## Répétition d'épreuves
+    On lance 3 fois une pièce équilibrée. L'arbre a $2^3 = 8$ chemins de probabilité $\dfrac{1}{8}$.
+    « Exactement 2 piles » : PPF, PFP, FPP, soit $\dfrac{3}{8}$.
+
+    ## Au moins un succès
+    Lancer 4 fois un dé : $P(\text{au moins un 6}) = 1 - \left(\dfrac{5}{6}\right)^4$.
+  methodes:
+  - titre: Tester l'indépendance de deux événements
+    etapes:
+    - Calculer $P(A) \times P(B)$.
+    - 'Comparer avec $P(A \cap B)$ : égalité signifie indépendance.'
+    exemple:
+      enonce: $P(A) = 0{,}6$, $P(B) = 0{,}5$, $P(A \cap B) = 0{,}3$.
+      resolution:
+      - $0{,}6 \times 0{,}5 = 0{,}3 = P(A \cap B)$.
+      resultat: Les événements sont indépendants.
+  erreurs_frequentes:
+  - erreur: Confondre événements indépendants et incompatibles.
+    explication: Incompatibles signifie $P(A \cap B) = 0$ ; indépendants signifie $P(A \cap B) = P(A)P(B)$.
+  questions:
+  - code: 1RE-ES-INDEP-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Deux événements de probabilités non nulles sont indépendants lorsque : A) savoir que l''un est réalisé ne change pas la probabilité de l''autre  B) ils ne peuvent pas se produire en même temps  C) la somme de leurs probabilités vaut 1'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - L'indépendance signifie que le conditionnement ne change pas la probabilité.
+      resultat: A
+  - code: 1RE-ES-INDEP-02
+    difficulte: 2
+    type: numerique
+    enonce: $A$ et $B$ sont indépendants, $P(A) = 0{,}5$ et $P(B) = 0{,}4$. Calculer $P(A \cap B)$.
+    solution: '0.2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P(A \cap B) = P(A) \times P(B) = 0{,}2$.
+      resultat: '0.2'
+  - code: 1RE-ES-INDEP-03
+    difficulte: 3
+    type: qcm
+    enonce: On sait que la probabilité de A vaut 0,5, celle de B vaut 0,3 et celle de « A et B » vaut 0,2. Les événements sont-ils indépendants ? A) oui  B) non
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$0{,}5 \times 0{,}3 = 0{,}15 \neq 0{,}2$ : ils ne sont pas indépendants.'
+      resultat: B
+  - code: 1RE-ES-INDEP-04
+    difficulte: 4
+    type: numerique
+    enonce: On lance trois fois une pièce équilibrée. Quelle est la probabilité d'obtenir exactement deux piles ?
+    solution: 3/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 8 issues équiprobables ; 3 contiennent exactement deux piles (PPF, PFP, FPP).
+      resultat: 3/8
+  - code: 1RE-ES-INDEP-05
+    difficulte: 5
+    type: numerique
+    enonce: On lance quatre fois un dé équilibré. Quelle est la probabilité d'obtenir au moins un 6 ? (fraction irréductible)
+    solution: 671/1296
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Événement contraire « aucun 6 ».
+      etapes:
+      - $P(\text{aucun 6}) = \left(\dfrac{5}{6}\right)^4 = \dfrac{625}{1296}$.
+      - $1 - \dfrac{625}{1296} = \dfrac{671}{1296}$.
+      resultat: 671/1296

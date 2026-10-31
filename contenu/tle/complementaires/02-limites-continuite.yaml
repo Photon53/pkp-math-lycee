@@ -1,0 +1,185 @@
+chapitre:
+  code: TLE-MC-FONC
+  niveau: Tle
+  parcours: complementaires
+  ordre: 2
+  titre: Limites, continuité et valeurs intermédiaires
+competences:
+- code: TLE-MC-LIM
+  libelle: Calculer des limites et interpréter les asymptotes
+  objectifs:
+  - Connaitre les limites des fonctions de référence.
+  - Interpréter une limite en termes d'asymptote.
+  prerequis:
+  - 1RE-EXP-ETU
+  resume: |
+    - En $+\infty$ : $x^2$, $x^3$, $\sqrt x$, $e^x$, $\ln x$ tendent vers $+\infty$ ; $\dfrac{1}{x} \to 0$.
+    - $\lim_{x \to 0^+} \dfrac{1}{x} = +\infty$ et $\lim_{x \to 0^+} \ln x = -\infty$ ; $\lim_{x \to -\infty} e^x = 0$.
+    - $\lim f = \ell$ en $\pm\infty$ : asymptote horizontale $y = \ell$ ; $\lim_{x \to a} f = \pm\infty$ : asymptote verticale $x = a$.
+  cours: |
+    ## Limites de référence
+    | Fonction | en $+\infty$ | en $0^+$ | en $-\infty$ |
+    |---|:-:|:-:|:-:|
+    | $\dfrac{1}{x}$ | $0$ | $+\infty$ | $0$ |
+    | $e^x$ | $+\infty$ | $1$ | $0$ |
+    | $\ln x$ | $+\infty$ | $-\infty$ | — |
+
+    ## Quotients de polynômes en l'infini
+    On factorise par le terme de plus haut degré : $\dfrac{2x^2 + 1}{x^2 + 3} = \dfrac{2 + \frac{1}{x^2}}{1 + \frac{3}{x^2}} \to 2$.
+
+    ## Asymptotes
+    $f(x) = 2 + \dfrac{1}{x - 1}$ : $f(x) \to 2$ en $\pm\infty$ (asymptote $y = 2$), et $|f(x)| \to +\infty$ en $1$ (asymptote $x = 1$).
+  methodes:
+  - titre: Calculer la limite en l'infini d'un quotient de polynômes
+    etapes:
+    - Factoriser numérateur et dénominateur par leur terme de plus haut degré.
+    - Simplifier et utiliser 1/x → 0.
+    exemple:
+      enonce: Limite en $+\infty$ de $\dfrac{6x + 1}{3x - 2}$.
+      resolution:
+      - $\dfrac{6 + \frac{1}{x}}{3 - \frac{2}{x}} \to \dfrac{6}{3}$.
+      resultat: $2$
+  erreurs_frequentes:
+  - erreur: Conclure « ∞/∞ = 1 ».
+    explication: 'C''est une forme indéterminée : il faut factoriser.'
+  questions:
+  - code: TLE-MC-LIM-01
+    difficulte: 1
+    type: qcm
+    enonce: Quelle est la limite de $e^x$ en $+\infty$ ? A) $0$  B) $+\infty$  C) $1$
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Limite de référence de l'exponentielle.
+      resultat: B
+  - code: TLE-MC-LIM-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer la limite en $+\infty$ de $3 + \dfrac{1}{x}$.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1}{x} \to 0$, donc la limite vaut $3$.
+      resultat: '3'
+  - code: TLE-MC-LIM-03
+    difficulte: 3
+    type: qcm
+    enonce: Quelle est la limite de $\ln x$ quand $x$ tend vers 0 par valeurs positives ? A) $-\infty$  B) $0$  C) $+\infty$
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Limite de référence : $\ln x \to -\infty$ en $0^+$.'
+      resultat: A
+  - code: TLE-MC-LIM-04
+    difficulte: 4
+    type: qcm
+    enonce: 'La courbe de $f(x) = 2 + \dfrac{1}{x - 1}$ admet pour asymptotes : A) $y = 2$ et $x = 1$  B) $y = 1$ et $x = 2$  C) $y = 2$ seulement'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'En $\pm\infty$, $\dfrac{1}{x - 1} \to 0$ : asymptote $y = 2$.'
+      - 'En $1$, $\left|\dfrac{1}{x - 1}\right| \to +\infty$ : asymptote $x = 1$.'
+      resultat: A
+  - code: TLE-MC-LIM-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer la limite en $+\infty$ de $\dfrac{2x^2 + 1}{x^2 + 3}$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{x^2(2 + \frac{1}{x^2})}{x^2(1 + \frac{3}{x^2})} = \dfrac{2 + \frac{1}{x^2}}{1 + \frac{3}{x^2}} \to 2$.
+      resultat: '2'
+- code: TLE-MC-TVI
+  libelle: Utiliser le théorème des valeurs intermédiaires
+  objectifs:
+  - Déterminer le nombre de solutions d'une équation f(x) = k à partir d'un tableau de variations.
+  - Encadrer une solution.
+  prerequis:
+  - 1RE-VAR
+  - TLE-MC-LIM
+  resume: |
+    - Si $f$ est **continue** sur $[a ; b]$ et si $k$ est entre $f(a)$ et $f(b)$, l'équation $f(x) = k$ a au moins une solution.
+    - Si de plus $f$ est **strictement monotone**, la solution est **unique**.
+    - On encadre la solution par balayage ou dichotomie.
+  cours: |
+    ## Théorème (admis)
+    $f$ continue sur $[a ; b]$, $k$ compris entre $f(a)$ et $f(b)$ : il existe $c \in [a ; b]$ tel que $f(c) = k$.
+
+    ## Unicité
+    $f(x) = x^3 + x$ : $f'(x) = 3x^2 + 1 > 0$, $f$ est strictement croissante. Comme $f(1) = 2 < 5 < 10 = f(2)$, l'équation $f(x) = 5$ a une unique solution dans $]1 ; 2[$.
+
+    ## Encadrement
+    $f(1{,}5) = 4{,}875 < 5$ et $f(1{,}6) = 5{,}696 > 5$ : la solution est dans $]1{,}5 ; 1{,}6[$.
+  methodes:
+  - titre: Compter les solutions de f(x) = k
+    etapes:
+    - Dresser le tableau de variations de f.
+    - Sur chaque intervalle de monotonie, regarder si k est entre les valeurs aux bornes.
+    - Chaque intervalle qui convient apporte une solution.
+    exemple:
+      enonce: $f(x) = x^3 - 3x$ ; nombre de solutions de $f(x) = 1$ ?
+      resolution:
+      - $f$ croît jusqu'à $f(-1) = 2$, décroît jusqu'à $f(1) = -2$, puis croît.
+      - $1$ est atteint sur chacun des trois intervalles.
+      resultat: 3 solutions.
+  erreurs_frequentes:
+  - erreur: Affirmer l'unicité sans stricte monotonie.
+    explication: La continuité seule garantit au moins une solution.
+  questions:
+  - code: TLE-MC-TVI-01
+    difficulte: 1
+    type: qcm
+    enonce: '$f$ est continue sur $[0 ; 2]$, avec $f(0) = -1$ et $f(2) = 3$. L''équation $f(x) = 0$ : A) a au moins une solution dans $[0 ; 2]$  B) n''a pas de solution  C) a exactement deux solutions'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$0$ est compris entre $-1$ et $3$ et $f$ est continue : théorème des valeurs intermédiaires.'
+      resultat: A
+  - code: TLE-MC-TVI-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = x^3 + x$ est strictement croissante sur $\mathbb{R}$ et va de $-\infty$ à $+\infty$. Combien l'équation $f(x) = 5$ a-t-elle de solutions ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Fonction continue strictement croissante de −∞ à +∞ : chaque valeur est atteinte une seule fois.'
+      resultat: '1'
+  - code: TLE-MC-TVI-03
+    difficulte: 3
+    type: qcm
+    enonce: 'La solution de $x^3 + x = 5$ appartient à : A) $]1 ; 2[$  B) $]2 ; 3[$  C) $]0 ; 1[$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(1) = 2 < 5$ et $f(2) = 10 > 5$.
+      resultat: A
+  - code: TLE-MC-TVI-04
+    difficulte: 4
+    type: numerique
+    enonce: Combien l'équation $x^3 - 3x = 1$ a-t-elle de solutions réelles ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f''(x) = 3(x - 1)(x + 1)$ : $f$ croît jusqu''à $f(-1) = 2$, décroît jusqu''à $f(1) = -2$, puis croît.'
+      - Sur chaque intervalle, la valeur 1 est atteinte une fois.
+      resultat: '3'
+  - code: TLE-MC-TVI-05
+    difficulte: 5
+    type: qcm
+    enonce: 'La solution de $x^3 + x = 5$ appartient à : A) $]1{,}4 ; 1{,}5[$  B) $]1{,}5 ; 1{,}6[$  C) $]1{,}6 ; 1{,}7[$'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(1{,}5) = 3{,}375 + 1{,}5 = 4{,}875 < 5$.
+      - $f(1{,}6) = 4{,}096 + 1{,}6 = 5{,}696 > 5$.
+      resultat: B

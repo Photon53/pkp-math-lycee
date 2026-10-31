@@ -13,16 +13,23 @@ compétence → difficulté (1 à 5)**. Le rangement des fichiers suit exactemen
 contenu/
   2nde/tronc-commun/01-nombres-et-calculs.yaml … 12-probabilites-et-echantillonnage.yaml   (12 chapitres)
   1re/specialite/01-second-degre.yaml … 10-variables-aleatoires.yaml                        (10 chapitres)
+  1re/scientifique/01-evolutions-et-pourcentages.yaml … 06-variation-exponentielle.yaml     (6 chapitres)
+  1re/technologique/01-automatismes.yaml … 07-variables-aleatoires.yaml                      (7 chapitres)
   tle/specialite/01-combinatoire.yaml … 15-loi-des-grands-nombres.yaml                      (15 chapitres)
-  tle/complementaires/…        (maths complémentaires, à venir)
-  tle/expertes/…               (maths expertes, à venir)
+  tle/complementaires/01-suites-modeles-discrets.yaml … 09-statistique-deux-variables.yaml  (9 chapitres)
+  tle/expertes/01-complexes-forme-algebrique.yaml … 08-graphes-markov.yaml                  (8 chapitres)
+  tle/technologique/01-proportions-indices.yaml … 08-loi-binomiale.yaml                      (8 chapitres)
 ```
 
 | Niveau | Parcours permis |
 |--------|-----------------|
 | `2nde` | `tronc-commun` |
-| `1re`  | `specialite` |
-| `Tle`  | `specialite`, `complementaires`, `expertes` |
+| `1re`  | `specialite`, `scientifique` (maths de l'enseignement scientifique), `technologique` |
+| `Tle`  | `specialite`, `complementaires`, `expertes`, `technologique` |
+
+La voie technologique a un seul programme de mathématiques commun à toutes les séries (STMG, STI2D,
+STL, ST2S, STD2A, STHR, S2TMD) ; les activités géométriques propres à la STD2A ne sont pas couvertes.
+Les maths expertes suivent le programme de 2019 : le BO n° 14 du 2 avril 2026 ne les a pas modifiées.
 
 Chaque **classe** a un parcours : ses élèves ne voient que les cours et questions de leur niveau
 **et** de leur parcours. Une classe de maths expertes ne reçoit pas les questions de spécialité.
@@ -57,7 +64,7 @@ l'interface enseignant ne sont pas touchées.
 chapitre:
   code: TLE-LN                 # identifiant stable, MAJUSCULES-ET-TIRETS, ne jamais le changer
   niveau: Tle                  # 2nde | 1re | Tle
-  parcours: specialite         # tronc-commun | specialite | complementaires | expertes
+  parcours: specialite         # tronc-commun | specialite | scientifique | complementaires | expertes | technologique
   ordre: 9                     # position dans l'année (unique par niveau et parcours)
   titre: Fonction logarithme népérien
 

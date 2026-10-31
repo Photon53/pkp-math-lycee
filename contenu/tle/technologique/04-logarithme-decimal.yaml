@@ -1,0 +1,94 @@
+chapitre:
+  code: TLE-TEC-LOGD
+  niveau: Tle
+  parcours: technologique
+  ordre: 4
+  titre: Fonction logarithme décimal
+competences:
+- code: TLE-TEC-LOG
+  libelle: Utiliser le logarithme décimal
+  objectifs:
+  - Calculer avec log et résoudre une équation 10^x = b.
+  - Résoudre un problème de seuil.
+  prerequis:
+  - TLE-TEC-EXPA
+  resume: |
+    - Pour $b > 0$, $\log b$ est l'unique solution de $10^x = b$ : $\log(10^n) = n$.
+    - $\log(ab) = \log a + \log b$, $\log\dfrac{a}{b} = \log a - \log b$, $\log(a^n) = n\log a$.
+    - $\log$ est croissante : elle conserve l'ordre des inégalités.
+  cours: |
+    ## Définition
+    $\log 1\,000 = 3$ car $10^3 = 1\,000$ ; $\log 0{,}01 = -2$.
+    $10^x = 50 \iff x = \log 50$.
+
+    ## Propriétés
+    $\log 2 + \log 5 = \log 10 = 1$.
+
+    ## Seuil
+    $2^n > 10^6 \iff n\log 2 > 6 \iff n > \dfrac{6}{\log 2} \approx 19{,}9$, donc $n = 20$.
+  methodes:
+  - titre: Résoudre a^n > b avec le logarithme
+    etapes:
+    - 'Appliquer $\log$ : $n\log a > \log b$.'
+    - Diviser par $\log a$ (positif si $a > 1$, sinon l'inégalité change de sens).
+    - Prendre le premier entier qui convient.
+    exemple:
+      enonce: $1{,}05^n > 2$.
+      resolution:
+      - $n > \dfrac{\log 2}{\log 1{,}05} \approx 14{,}2$.
+      resultat: $n = 15$
+  erreurs_frequentes:
+  - erreur: Écrire $\log(a + b) = \log a + \log b$.
+    explication: La propriété concerne le produit.
+  questions:
+  - code: TLE-TEC-LOG-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\log(1\,000)$.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $10^3 = 1\,000$.
+      resultat: '3'
+  - code: TLE-TEC-LOG-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\log(0{,}01)$.
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}01 = 10^{-2}$.
+      resultat: '-2'
+  - code: TLE-TEC-LOG-03
+    difficulte: 3
+    type: numerique
+    enonce: Résoudre $10^x = 50$ (valeur exacte).
+    solution: log(50)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x = \log 50$ (environ $1{,}7$).
+      resultat: log(50)
+  - code: TLE-TEC-LOG-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer $\log 2 + \log 5$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\log(2 \times 5) = \log 10 = 1$.
+      resultat: '1'
+  - code: TLE-TEC-LOG-05
+    difficulte: 5
+    type: numerique
+    enonce: Quel est le plus petit entier $n$ tel que $2^n > 10^6$ ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $n\log 2 > 6$, donc $n > \dfrac{6}{\log 2} \approx 19{,}93$.
+      - 'Vérification : $2^{20} = 1\,048\,576 > 10^6$ et $2^{19} = 524\,288$.'
+      resultat: '20'

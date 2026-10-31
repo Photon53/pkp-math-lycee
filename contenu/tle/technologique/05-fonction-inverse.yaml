@@ -1,0 +1,92 @@
+chapitre:
+  code: TLE-TEC-INVERSE
+  niveau: Tle
+  parcours: technologique
+  ordre: 5
+  titre: Fonction inverse
+competences:
+- code: TLE-TEC-INV
+  libelle: Étudier la fonction inverse et l'utiliser dans un problème
+  objectifs:
+  - Connaitre la dérivée, les variations et les asymptotes de la fonction inverse.
+  - Étudier une fonction de la forme ax + b + c/x.
+  prerequis:
+  - 1RE-TEC-VARIA
+  resume: |
+    - $f(x) = \dfrac{1}{x}$ sur $\mathbb{R}^*$ : $f'(x) = -\dfrac{1}{x^2} < 0$, décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$.
+    - $\dfrac{1}{x} \to 0$ en $\pm\infty$ (asymptote $y = 0$) ; asymptote verticale $x = 0$.
+    - $\left(\dfrac{k}{x}\right)' = -\dfrac{k}{x^2}$.
+  cours: |
+    ## Comportement
+    | $x$ | $-\infty$ | | $0$ | | $+\infty$ |
+    |---|---|---|---|---|---|
+    | $\dfrac{1}{x}$ | $0$ | décroît vers $-\infty$ | ‖ | décroît de $+\infty$ vers $0$ | |
+
+    ## Coût moyen
+    $C_M(x) = x + \dfrac{100}{x}$ pour $x > 0$ : $C_M'(x) = 1 - \dfrac{100}{x^2} = \dfrac{x^2 - 100}{x^2}$, nul en $x = 10$. Minimum $C_M(10) = 20$.
+  methodes:
+  - titre: Trouver le minimum d'une fonction ax + c/x
+    etapes:
+    - 'Dériver : $a - \dfrac{c}{x^2}$.'
+    - Réduire au même dénominateur et étudier le signe du numérateur.
+    - Calculer l'image de la valeur qui annule la dérivée.
+    exemple:
+      enonce: $f(x) = 4x + \dfrac{9}{x}$ sur $]0 ; +\infty[$.
+      resolution:
+      - $f'(x) = \dfrac{4x^2 - 9}{x^2}$, nul en $x = 1{,}5$.
+      resultat: Minimum $f(1{,}5) = 12$.
+  erreurs_frequentes:
+  - erreur: Dire que la fonction inverse est décroissante sur ℝ.
+    explication: 'Elle n''est pas définie en $0$ : $-1 < 1$ mais $\dfrac{1}{-1} < \dfrac{1}{1}$.'
+  questions:
+  - code: TLE-TEC-INV-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la limite de $\dfrac{1}{x}$ quand $x$ tend vers $+\infty$ ?
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Plus $x$ est grand, plus $\dfrac{1}{x}$ est proche de $0$.
+      resultat: '0'
+  - code: TLE-TEC-INV-02
+    difficulte: 2
+    type: expression
+    enonce: Donner la dérivée de $f(x) = \dfrac{1}{x}$.
+    solution: -1/x^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Formule de cours : $-\dfrac{1}{x^2}$.'
+      resultat: -1/x^2
+  - code: TLE-TEC-INV-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Sur $]0 ; +\infty[$, la fonction inverse est : A) décroissante  B) croissante  C) constante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Sa dérivée $-\dfrac{1}{x^2}$ est négative.
+      resultat: A
+  - code: TLE-TEC-INV-04
+    difficulte: 4
+    type: expression
+    enonce: Donner la dérivée de $f(x) = 3x + \dfrac{2}{x}$.
+    solution: 3 - 2/x^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(3x)' = 3$ et $\left(\dfrac{2}{x}\right)' = -\dfrac{2}{x^2}$.
+      resultat: 3 - 2/x^2
+  - code: TLE-TEC-INV-05
+    difficulte: 5
+    type: numerique
+    enonce: Le coût moyen de fabrication est $C_M(x) = x + \dfrac{100}{x}$ pour $x > 0$. Quel est le coût moyen minimal ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $C_M'(x) = \dfrac{x^2 - 100}{x^2}$, négatif avant $10$, positif après.
+      - $C_M(10) = 10 + 10 = 20$.
+      resultat: '20'

@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-ME-RAC
+  niveau: Tle
+  parcours: expertes
+  ordre: 3
+  titre: Racines n-ièmes de l'unité et équations polynomiales
+competences:
+- code: TLE-ME-RACINES
+  libelle: Utiliser les racines n-ièmes de l'unité
+  objectifs:
+  - Déterminer les racines $n$-ièmes de l'unité et leurs propriétés.
+  - Factoriser un polynôme à l'aide d'une racine connue.
+  prerequis:
+  - TLE-ME-CPLX-TRIG
+  - TLE-ME-CPLX-EQ
+  resume: |
+    - Les solutions de $z^n = 1$ sont les $n$ nombres $e^{2ik\pi/n}$, $k = 0, \dots, n - 1$.
+    - Leurs points forment un polygone régulier inscrit dans le cercle unité.
+    - Pour $n \geq 2$, leur **somme est nulle**.
+  cours: |
+    ## Racines n-ièmes
+    $z^4 = 1$ : $1$, $i$, $-1$, $-i$ (un carré).
+    $z^3 = 1$ : $1$, $j = e^{2i\pi/3}$, $j^2 = \bar j$ (un triangle équilatéral), et $1 + j + j^2 = 0$.
+
+    ## Pourquoi la somme est nulle
+    $1 + \omega + \dots + \omega^{n-1} = \dfrac{1 - \omega^n}{1 - \omega} = 0$ pour $\omega = e^{2i\pi/n} \neq 1$.
+
+    ## Factorisation
+    $z^3 + 8 = (z + 2)(z^2 - 2z + 4)$, et $z^2 - 2z + 4 = 0$ donne $z = 1 \pm i\sqrt{3}$.
+  methodes:
+  - titre: Factoriser un polynôme dont on connait une racine
+    etapes:
+    - Vérifier que P(a) = 0.
+    - Chercher $Q$ tel que $P(z) = (z - a)Q(z)$ par identification des coefficients.
+    - Résoudre Q(z) = 0.
+    exemple:
+      enonce: $z^3 - 1$.
+      resolution:
+      - $z^3 - 1 = (z - 1)(z^2 + z + 1)$.
+      resultat: Racines $1$ et $\dfrac{-1 \pm i\sqrt{3}}{2}$.
+  erreurs_frequentes:
+  - erreur: Ne trouver que les racines réelles 1 et −1.
+    explication: $z^n = 1$ a exactement $n$ solutions complexes.
+  questions:
+  - code: TLE-ME-RACINES-01
+    difficulte: 1
+    type: numerique
+    enonce: Combien de solutions complexes l'équation $z^4 = 1$ a-t-elle ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Les racines 4-ièmes de l''unité : $1$, $i$, $-1$, $-i$.'
+      resultat: '4'
+  - code: TLE-ME-RACINES-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Les racines 4-ièmes de l''unité sont : A) $1$, $i$, $-1$, $-i$  B) $1$ et $-1$  C) $1$, $2$, $3$, $4$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $i^4 = (i^2)^2 = 1$ et $(-i)^4 = 1$.
+      resultat: A
+  - code: TLE-ME-RACINES-03
+    difficulte: 3
+    type: numerique
+    enonce: Quelle est la somme des racines 5-ièmes de l'unité ?
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Avec $\omega = e^{2i\pi/5}$ : $1 + \omega + \dots + \omega^4 = \dfrac{1 - \omega^5}{1 - \omega} = 0$.'
+      resultat: '0'
+  - code: TLE-ME-RACINES-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le produit des trois racines cubiques de l'unité ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 \times e^{2i\pi/3} \times e^{4i\pi/3} = e^{2i\pi} = 1$.
+      resultat: '1'
+  - code: TLE-ME-RACINES-05
+    difficulte: 5
+    type: numerique
+    enonce: On factorise $z^3 + 8 = (z + 2)(z^2 - 2z + 4)$. Quelle est la partie imaginaire positive d'une racine non réelle ? (valeur exacte)
+    solution: sqrt(3)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$z^2 - 2z + 4 = 0$ : $\Delta = 4 - 16 = -12$.'
+      - $z = \dfrac{2 \pm 2i\sqrt{3}}{2} = 1 \pm i\sqrt{3}$.
+      resultat: sqrt(3)

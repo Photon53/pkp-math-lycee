@@ -1,0 +1,179 @@
+chapitre:
+  code: 1RE-ES-EXPO
+  niveau: 1re
+  parcours: scientifique
+  ordre: 6
+  titre: Variation exponentielle, suites géométriques
+competences:
+- code: 1RE-ES-GEOM
+  libelle: Modéliser une évolution à taux constant par une suite géométrique
+  objectifs:
+  - Reconnaitre une évolution à taux constant et calculer un terme de rang donné.
+  - Résoudre un problème de seuil.
+  prerequis:
+  - 1RE-ES-EVO-TAUX
+  resume: |
+    - Suite **géométrique** de raison $q > 0$ : $u(n + 1) = q \times u(n)$ et $u(n) = u(0) \times q^n$.
+    - Évolution de $t\,\%$ par période : $q = 1 + \dfrac{t}{100}$.
+    - Croissante si $q > 1$, décroissante si $0 < q < 1$.
+  cours: |
+    ## Suite géométrique
+    On multiplie toujours par le même nombre $q$ : $u(n) = u(0) \times q^n$.
+    - Placement de $2\,000$ € à $4\,\%$ composés : $C(n) = 2\,000 \times 1{,}04^n$.
+    - Une substance éliminée à $20\,\%$ par heure : $Q(n) = Q(0) \times 0{,}8^n$.
+
+    ## Seuil
+    On calcule les termes successifs (tableur, calculatrice) jusqu'à franchir la valeur cherchée.
+  methodes:
+  - titre: Résoudre un problème de seuil exponentiel
+    etapes:
+    - Écrire le terme général.
+    - Calculer les termes successifs jusqu'au franchissement du seuil.
+    exemple:
+      enonce: $u(n) = 100 \times 1{,}5^n$. Premier rang où $u(n) > 500$ ?
+      resolution:
+      - $u(3) = 337{,}5$ et $u(4) = 506{,}25$.
+      resultat: $n = 4$
+  erreurs_frequentes:
+  - erreur: Écrire $u(n) = u(0) + q^n$.
+    explication: Le premier terme est multiplié par q à chaque étape, pas additionné.
+  questions:
+  - code: 1RE-ES-GEOM-01
+    difficulte: 1
+    type: numerique
+    enonce: Une suite géométrique vérifie $u(0) = 3$ et a pour raison 2. Calculer $u(5)$.
+    solution: '96'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u(5) = 3 \times 2^5 = 96$.
+      resultat: '96'
+  - code: 1RE-ES-GEOM-02
+    difficulte: 2
+    type: expression
+    enonce: On place 2 000 € à intérêts composés de 4 % par an. Exprimer le capital $C(n)$ au bout de $n$ années.
+    solution: 2000*1.04^n
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Chaque année, le capital est multiplié par $1{,}04$ : $C(n) = 2\,000 \times 1{,}04^n$.'
+      resultat: 2000*1.04^n
+  - code: 1RE-ES-GEOM-03
+    difficulte: 3
+    type: numerique
+    enonce: On injecte 50 mg d'une substance ; le corps en élimine 20 % chaque heure. Quelle quantité reste-t-il au bout de 3 heures (en mg) ?
+    solution: '25.6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $50 \times 0{,}8^3 = 50 \times 0{,}512 = 25{,}6$ mg.
+      resultat: '25.6'
+  - code: 1RE-ES-GEOM-04
+    difficulte: 4
+    type: numerique
+    enonce: Même situation (50 mg au départ, 20 % éliminés par heure). Au bout de combien d'heures entières reste-t-il moins de 10 mg ?
+    solution: '8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On cherche $0{,}8^n < 0{,}2$.
+      - $0{,}8^7 \approx 0{,}210$ et $0{,}8^8 \approx 0{,}168$.
+      resultat: '8'
+  - code: 1RE-ES-GEOM-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Une population de 1 000 individus double tous les 10 ans ; une autre, de 4 000 individus, augmente de 100 individus par an. Au bout de 30 ans : A) la première est plus nombreuse  B) la seconde est plus nombreuse'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Première : $1\,000 \times 2^3 = 8\,000$ ; seconde : $4\,000 + 3\,000 = 7\,000$.'
+      - La croissance exponentielle finit toujours par dépasser la croissance linéaire (modèle de Malthus).
+      resultat: A
+- code: 1RE-ES-PUISS
+  libelle: Utiliser les fonctions exponentielles et le taux moyen
+  objectifs:
+  - Utiliser les propriétés de $x \mapsto a^x$ et son sens de variation.
+  - Calculer un taux d'évolution moyen.
+  prerequis:
+  - 1RE-ES-GEOM
+  resume: |
+    - Pour $a > 0$, $x \mapsto a^x$ prolonge la suite géométrique $(a^n)$ ; croissante si $a > 1$, décroissante si $0 < a < 1$.
+    - $a^{x + y} = a^x a^y$ et $a^{\frac{1}{n}}$ est la racine $n$-ième de $a$ : $\left(a^{\frac{1}{n}}\right)^n = a$.
+    - Taux moyen de $n$ évolutions de coefficient global $CM$ : $CM^{\frac{1}{n}} - 1$.
+  cours: |
+    ## Fonctions exponentielles
+    $x \mapsto 1{,}2^x$ est croissante, $x \mapsto 0{,}7^x$ est décroissante.
+    $4^{0{,}5} = 2$ car $2^2 = 4$.
+
+    ## Taux moyen
+    Une hausse totale de $21\,\%$ en 2 ans : $1{,}21^{\frac{1}{2}} = 1{,}1$, soit $10\,\%$ par an en moyenne.
+
+    ## Fraction de période
+    Un noyau radioactif de demi-vie $T$ : la proportion restante au bout d'un temps $t$ est $0{,}5^{\frac{t}{T}}$.
+  methodes:
+  - titre: Calculer un taux d'évolution moyen
+    etapes:
+    - Calculer le coefficient multiplicateur global.
+    - L'élever à la puissance 1/n.
+    - Retirer 1 et convertir en pourcentage.
+    exemple:
+      enonce: Un prix est multiplié par $1{,}331$ en 3 ans. Taux annuel moyen ?
+      resolution:
+      - $1{,}331^{\frac{1}{3}} = 1{,}1$.
+      resultat: $10\,\%$ par an.
+  erreurs_frequentes:
+  - erreur: Diviser le taux global par le nombre d'années.
+    explication: 'Les évolutions se multiplient : $21\,\%$ sur 2 ans donne $10\,\%$ par an, pas $10{,}5\,\%$.'
+  questions:
+  - code: 1RE-ES-PUISS-01
+    difficulte: 1
+    type: qcm
+    enonce: 'La fonction $x \mapsto 0{,}7^x$ est sur $[0 ; +\infty[$ : A) croissante  B) décroissante'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$0 < 0{,}7 < 1$ : la fonction est décroissante.'
+      resultat: B
+  - code: 1RE-ES-PUISS-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $4^{0{,}5}$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$4^{0{,}5} = 4^{\frac{1}{2}}$ est le nombre positif dont le carré vaut $4$ : c''est $2$.'
+      resultat: '2'
+  - code: 1RE-ES-PUISS-03
+    difficulte: 3
+    type: numerique
+    enonce: Un loyer a augmenté de 21 % en deux ans. Quel est le taux d'évolution annuel moyen, en pourcentage ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}21^{\frac{1}{2}} = 1{,}1$, soit $10\,\%$ par an.
+      resultat: '10'
+  - code: 1RE-ES-PUISS-04
+    difficulte: 4
+    type: numerique
+    enonce: Un élément radioactif a une demi-vie de 8 jours. Quelle proportion des noyaux reste-t-il au bout de 4 jours ? (valeur exacte)
+    solution: sqrt(2)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5^{\frac{4}{8}} = 0{,}5^{0{,}5} = \sqrt{0{,}5} = \dfrac{\sqrt{2}}{2}$ (environ $71\,\%$).
+      resultat: sqrt(2)/2
+  - code: 1RE-ES-PUISS-05
+    difficulte: 5
+    type: numerique
+    enonce: Un capital placé à intérêts composés a été multiplié par 1,331 en trois ans. Quel est le taux annuel moyen, en pourcentage ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}331^{\frac{1}{3}} = 1{,}1$ car $1{,}1^3 = 1{,}331$.
+      - 'Taux moyen : $10\,\%$ par an.'
+      resultat: '10'

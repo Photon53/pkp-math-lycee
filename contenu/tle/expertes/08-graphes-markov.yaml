@@ -1,0 +1,180 @@
+chapitre:
+  code: TLE-ME-GRAPHES
+  niveau: Tle
+  parcours: expertes
+  ordre: 8
+  titre: Graphes et chaînes de Markov
+competences:
+- code: TLE-ME-GRAPHE
+  libelle: Utiliser le vocabulaire des graphes et la matrice d'adjacence
+  objectifs:
+  - Calculer degrés et nombre d'arêtes, reconnaitre une chaîne eulérienne.
+  - Compter des chemins à l'aide des puissances de la matrice d'adjacence.
+  prerequis:
+  - TLE-ME-MAT-CALC
+  resume: |
+    - Somme des degrés $= 2 \times$ nombre d'arêtes.
+    - Graphe connexe : chaîne eulérienne si 0 ou 2 sommets de degré impair, cycle eulérien si 0.
+    - Le coefficient $(i, j)$ de $M^k$ compte les chemins de longueur $k$ de $i$ à $j$.
+  cours: |
+    ## Degrés
+    Chaque arête compte deux fois dans la somme des degrés. Le graphe complet à 4 sommets a $\dfrac{4 \times 3}{2} = 6$ arêtes.
+
+    ## Eulérien (théorème d'Euler)
+    Pour un graphe connexe : aucun sommet de degré impair donne un cycle eulérien ; exactement deux donnent une chaîne eulérienne (qui relie ces deux sommets).
+
+    ## Matrice d'adjacence
+    Triangle $ABC$ : $M = \begin{pmatrix} 0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 0 \end{pmatrix}$.
+    $M^2$ a $2$ sur la diagonale : deux chemins de longueur 2 de $A$ à $A$ ($A\!-\!B\!-\!A$ et $A\!-\!C\!-\!A$).
+  methodes:
+  - titre: Compter les chemins de longueur k
+    etapes:
+    - Écrire la matrice d'adjacence M.
+    - Calculer $M^k$ (à la calculatrice si besoin).
+    - Lire le coefficient ligne de départ, colonne d'arrivée.
+    exemple:
+      enonce: Triangle ABC, chemins de longueur 2 de A à B ?
+      resolution:
+      - $M^2 = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2 \end{pmatrix}$.
+      resultat: Un seul chemin, A − C − B.
+  erreurs_frequentes:
+  - erreur: Oublier de diviser par 2 en comptant les arêtes depuis les degrés.
+    explication: Chaque arête relie deux sommets.
+  questions:
+  - code: TLE-ME-GRAPHE-01
+    difficulte: 1
+    type: numerique
+    enonce: Combien d'arêtes possède le graphe complet à 4 sommets (chaque sommet est relié à tous les autres) ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4 \times 3}{2} = 6$.
+      resultat: '6'
+  - code: TLE-ME-GRAPHE-02
+    difficulte: 2
+    type: numerique
+    enonce: Un graphe possède 7 arêtes. Quelle est la somme des degrés de ses sommets ?
+    solution: '14'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Chaque arête ajoute 1 au degré de chacune de ses deux extrémités : 2 × 7.'
+      resultat: '14'
+  - code: TLE-ME-GRAPHE-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Un graphe connexe a des sommets de degrés 2, 2, 3, 3 et 2. Il possède : A) une chaîne eulérienne mais pas de cycle eulérien  B) un cycle eulérien  C) ni l''un ni l''autre'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Exactement deux sommets de degré impair (les deux de degré 3) : chaîne eulérienne entre eux, pas de cycle.'
+      resultat: A
+  - code: TLE-ME-GRAPHE-04
+    difficulte: 4
+    type: numerique
+    enonce: Dans le graphe triangle (trois sommets reliés deux à deux), combien y a-t-il de chemins de longueur 2 partant d'un sommet et revenant à ce même sommet ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'On part vers l''un des deux autres sommets et on revient : $A\!-\!B\!-\!A$ et $A\!-\!C\!-\!A$.'
+      resultat: '2'
+  - code: TLE-ME-GRAPHE-05
+    difficulte: 5
+    type: numerique
+    enonce: Dans le graphe triangle de sommets A, B, C, combien y a-t-il de chemins de longueur 3 allant de A à B ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $M^2 = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2 \end{pmatrix}$, puis $(M^3)_{AB} = 2 \times 1 + 1 \times 0 + 1 \times 1 = 3$.
+      - Ce sont $A\!-\!B\!-\!A\!-\!B$, $A\!-\!B\!-\!C\!-\!B$ et $A\!-\!C\!-\!A\!-\!B$.
+      resultat: '3'
+- code: TLE-ME-MARKOV
+  libelle: Étudier une chaîne de Markov à deux états
+  objectifs:
+  - Utiliser une matrice de transition pour calculer une distribution.
+  - Déterminer la distribution invariante.
+  prerequis:
+  - TLE-ME-GRAPHE
+  resume: |
+    - Matrice de transition $P$ : coefficient $(i, j)$ = probabilité de passer de $i$ à $j$ ; chaque ligne a pour somme $1$.
+    - Distribution après $n$ étapes : $\pi_{n+1} = \pi_n P$, donc $\pi_n = \pi_0 P^n$.
+    - Distribution invariante : $\pi = \pi P$.
+  cours: |
+    ## Exemple
+    Un client fidèle reste fidèle avec la probabilité $0{,}9$ ; un client perdu revient avec la probabilité $0{,}4$.
+    $$P = \begin{pmatrix} 0{,}9 & 0{,}1 \\ 0{,}4 & 0{,}6 \end{pmatrix}.$$
+    Départ $\pi_0 = (1 \;\; 0)$ : $\pi_1 = (0{,}9 \;\; 0{,}1)$, $\pi_2 = (0{,}85 \;\; 0{,}15)$.
+
+    ## Distribution invariante
+    $\pi = (a \;\; 1 - a)$ avec $a = 0{,}9a + 0{,}4(1 - a)$, soit $a = 0{,}8$ : à long terme, $80\,\%$ des clients sont fidèles.
+  methodes:
+  - titre: Trouver la distribution invariante d'une chaîne à deux états
+    etapes:
+    - Poser $\pi = (a \;\; 1 - a)$.
+    - Écrire l'équation donnée par la première coordonnée de πP = π.
+    - Résoudre en a.
+    exemple:
+      enonce: $P = \begin{pmatrix} 0{,}7 & 0{,}3 \\ 0{,}3 & 0{,}7 \end{pmatrix}$.
+      resolution:
+      - $a = 0{,}7a + 0{,}3(1 - a)$, soit $0{,}6a = 0{,}3$.
+      resultat: $\pi = (0{,}5 \;\; 0{,}5)$
+  erreurs_frequentes:
+  - erreur: Calculer $P\pi_n$ au lieu de $\pi_n P$.
+    explication: 'La distribution est une ligne : elle se multiplie à gauche de P.'
+  questions:
+  - code: TLE-ME-MARKOV-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Dans une matrice de transition, la somme des coefficients de chaque ligne vaut : A) 1  B) 0  C) le nombre d''états'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Depuis un état, on va forcément quelque part : les probabilités de la ligne ont pour somme 1.'
+      resultat: A
+  - code: TLE-ME-MARKOV-02
+    difficulte: 2
+    type: numerique
+    enonce: Matrice de transition $P = \begin{pmatrix} 0{,}9 & 0{,}1 \\ 0{,}4 & 0{,}6 \end{pmatrix}$, on part de l'état 1. Quelle est la probabilité d'être dans l'état 1 après une étape ?
+    solution: '0.9'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\pi_1 = (1 \;\; 0)P = (0{,}9 \;\; 0{,}1)$.
+      resultat: '0.9'
+  - code: TLE-ME-MARKOV-03
+    difficulte: 3
+    type: numerique
+    enonce: Matrice de transition $P = \begin{pmatrix} 0{,}9 & 0{,}1 \\ 0{,}4 & 0{,}6 \end{pmatrix}$, on part de l'état 1. Quelle est la probabilité d'être dans l'état 1 après deux étapes ?
+    solution: '0.85'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\pi_2 = (0{,}9 \;\; 0{,}1)P$ : première coordonnée $0{,}9 \times 0{,}9 + 0{,}1 \times 0{,}4 = 0{,}85$.'
+      resultat: '0.85'
+  - code: TLE-ME-MARKOV-04
+    difficulte: 4
+    type: numerique
+    enonce: Matrice de transition $P = \begin{pmatrix} 0{,}9 & 0{,}1 \\ 0{,}4 & 0{,}6 \end{pmatrix}$. Quelle est la probabilité de l'état 1 dans la distribution invariante ?
+    solution: '0.8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $a = 0{,}9a + 0{,}4(1 - a) = 0{,}5a + 0{,}4$.
+      - $0{,}5a = 0{,}4$, donc $a = 0{,}8$.
+      resultat: '0.8'
+  - code: TLE-ME-MARKOV-05
+    difficulte: 5
+    type: numerique
+    enonce: Matrice de transition $P = \begin{pmatrix} 0{,}5 & 0{,}5 \\ 0{,}2 & 0{,}8 \end{pmatrix}$. Quelle est la probabilité de l'état 1 dans la distribution invariante ? (fraction irréductible)
+    solution: 2/7
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $a = 0{,}5a + 0{,}2(1 - a) = 0{,}3a + 0{,}2$.
+      - $0{,}7a = 0{,}2$, donc $a = \dfrac{2}{7}$.
+      resultat: 2/7

@@ -1,0 +1,94 @@
+chapitre:
+  code: 1RE-TEC-SUI
+  niveau: 1re
+  parcours: technologique
+  ordre: 2
+  titre: Suites arithmétiques et géométriques
+competences:
+- code: 1RE-TEC-SUITES
+  libelle: Modéliser par une suite arithmétique ou géométrique
+  objectifs:
+  - Calculer un terme d'une suite arithmétique ou géométrique.
+  - Résoudre un problème de seuil.
+  prerequis:
+  - 2NDE-EVO
+  resume: |
+    - Arithmétique (on **ajoute** $r$) : $u(n) = u(0) + nr$.
+    - Géométrique (on **multiplie** par $q$) : $u(n) = u(0) \times q^n$.
+    - Seuil : calculer les termes jusqu'à dépasser la valeur demandée.
+  cours: |
+    ## Deux modèles
+    | | Arithmétique | Géométrique |
+    |---|---|---|
+    | Relation | $u(n + 1) = u(n) + r$ | $u(n + 1) = q \times u(n)$ |
+    | Terme général | $u(0) + nr$ | $u(0) \times q^n$ |
+    | Exemple | salaire $+30$ € par an | population $+5\,\%$ par an |
+
+    ## Seuil
+    $u(n) = 1\,000 \times 1{,}5^n$ : $u(5) \approx 7\,594$ et $u(6) \approx 11\,391$, donc $u(n) > 10\,000$ à partir de $n = 6$.
+  methodes:
+  - titre: Choisir le bon modèle
+    etapes:
+    - Ajout d'une quantité fixe → arithmétique.
+    - Pourcentage fixe → géométrique de raison 1 + t/100.
+    exemple:
+      enonce: Une population de 500 bactéries double chaque heure.
+      resolution:
+      - On multiplie par 2 chaque heure.
+      resultat: 'Géométrique : $u(n) = 500 \times 2^n$.'
+  erreurs_frequentes:
+  - erreur: Modéliser une hausse de 5 % par une suite arithmétique de raison 5.
+    explication: Un pourcentage fixe agit par multiplication.
+  questions:
+  - code: 1RE-TEC-SUITES-01
+    difficulte: 1
+    type: numerique
+    enonce: Une suite arithmétique vérifie $u(0) = 7$ et a pour raison 4. Calculer $u(5)$.
+    solution: '27'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $7 + 5 \times 4 = 27$.
+      resultat: '27'
+  - code: 1RE-TEC-SUITES-02
+    difficulte: 2
+    type: numerique
+    enonce: Une suite géométrique vérifie $u(0) = 5$ et a pour raison 3. Calculer $u(3)$.
+    solution: '135'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $5 \times 3^3 = 135$.
+      resultat: '135'
+  - code: 1RE-TEC-SUITES-03
+    difficulte: 3
+    type: qcm
+    enonce: 'La suite définie par $u(n + 1) = 0{,}9 \times u(n)$ et $u(0) = 100$ est : A) géométrique et décroissante  B) arithmétique  C) géométrique et croissante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'On multiplie par 0,9, compris entre 0 et 1 : géométrique décroissante.'
+      resultat: A
+  - code: 1RE-TEC-SUITES-04
+    difficulte: 4
+    type: numerique
+    enonce: Un salaire de 1 500 € augmente de 30 € chaque année. Au bout de combien d'années dépassera-t-il 1 800 € ?
+    solution: '11'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1\,500 + 30n > 1\,800$ donne $n > 10$.
+      - 'Pour $n = 10$, il vaut exactement $1\,800$ : il faut $n = 11$.'
+      resultat: '11'
+  - code: 1RE-TEC-SUITES-05
+    difficulte: 5
+    type: numerique
+    enonce: Une population de 1 000 insectes augmente de 50 % chaque semaine. Au bout de combien de semaines dépassera-t-elle 10 000 insectes ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u(n) = 1\,000 \times 1{,}5^n$.
+      - $u(5) \approx 7\,594$ et $u(6) \approx 11\,391$.
+      resultat: '6'

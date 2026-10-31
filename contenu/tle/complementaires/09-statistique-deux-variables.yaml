@@ -1,0 +1,93 @@
+chapitre:
+  code: TLE-MC-STAT
+  niveau: Tle
+  parcours: complementaires
+  ordre: 9
+  titre: Statistique à deux variables quantitatives
+competences:
+- code: TLE-MC-STAT2
+  libelle: Ajuster un nuage de points (point moyen, moindres carrés, changement de variable)
+  objectifs:
+  - Calculer un point moyen, interpréter un coefficient de corrélation.
+  - Utiliser un ajustement affine, éventuellement après changement de variable.
+  prerequis:
+  - 2NDE-MOY
+  resume: |
+    - Point moyen $G(\bar x ; \bar y)$ ; la droite des moindres carrés passe par $G$.
+    - Le coefficient de corrélation $r \in [-1 ; 1]$ mesure la qualité de l'ajustement affine ; $|r|$ proche de 1 : bon ajustement.
+    - Corrélation n'est pas causalité.
+    - Changement de variable : si $z = \ln y$ est affine en $x$, alors $y = e^{ax + b}$ (modèle exponentiel).
+  cours: |
+    ## Droite des moindres carrés
+    Elle minimise la somme des carrés des écarts verticaux ; la calculatrice donne $a$, $b$ et $r$. Elle passe par le point moyen.
+
+    ## Corrélation et causalité
+    Les ventes de glaces et les noyades sont fortement corrélées ($r$ proche de 1) : les deux dépendent de la chaleur, l'une ne cause pas l'autre.
+
+    ## Changement de variable
+    Si le nuage $(x ; \ln y)$ est presque aligné, on ajuste $z = \ln y$ par $z = ax + b$, puis $y = e^{ax + b}$.
+    Exemple : $z = 0{,}5x + 1$ donne $y = e^{0{,}5x + 1}$, et pour $x = 2$, $y = e^2$.
+  methodes:
+  - titre: Trouver l'ordonnée à l'origine d'une droite passant par G
+    etapes:
+    - Remplacer x et y par les coordonnées de G dans y = ax + b.
+    - Résoudre en b.
+    exemple:
+      enonce: $G(3 ; 7)$, $a = 2$.
+      resolution:
+      - $7 = 6 + b$.
+      resultat: $b = 1$
+  erreurs_frequentes:
+  - erreur: Conclure à une relation de cause à effet à partir d'une forte corrélation.
+    explication: Une troisième variable peut expliquer les deux.
+  questions:
+  - code: TLE-MC-STAT2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Série : $x$ = 1, 2, 3 et $y$ = 2, 4, 9. Quelle est l''abscisse du point moyen ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\bar x = \dfrac{1 + 2 + 3}{3} = 2$.
+      resultat: '2'
+  - code: TLE-MC-STAT2-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Série : $x$ = 1, 2, 3 et $y$ = 2, 4, 9. Quelle est l''ordonnée du point moyen ?'
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\bar y = \dfrac{2 + 4 + 9}{3} = 5$.
+      resultat: '5'
+  - code: TLE-MC-STAT2-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Les ventes de glaces et le nombre de noyades ont un coefficient de corrélation de 0,97. On peut dire : A) la corrélation est forte, sans prouver de lien de cause à effet  B) les glaces provoquent les noyades  C) il n''y a aucun lien'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Corrélation forte, mais les deux grandeurs dépendent de la chaleur : pas de causalité.'
+      resultat: A
+  - code: TLE-MC-STAT2-04
+    difficulte: 4
+    type: numerique
+    enonce: La droite des moindres carrés d'une série a pour coefficient directeur 1,5 et passe par le point moyen $G(4 ; 10)$. Quelle est son ordonnée à l'origine ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $10 = 1{,}5 \times 4 + b = 6 + b$, donc $b = 4$.
+      resultat: '4'
+  - code: TLE-MC-STAT2-05
+    difficulte: 5
+    type: numerique
+    enonce: On pose $z = \ln y$ et on obtient l'ajustement $z = 0{,}5x + 1$. Quelle valeur de $y$ ce modèle donne-t-il pour $x = 2$ ? (valeur exacte)
+    solution: e^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $z = 0{,}5 \times 2 + 1 = 2$, donc $y = e^z = e^2$.
+      resultat: e^2

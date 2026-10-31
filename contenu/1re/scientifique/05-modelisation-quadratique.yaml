@@ -1,0 +1,97 @@
+chapitre:
+  code: 1RE-ES-QUAD
+  niveau: 1re
+  parcours: scientifique
+  ordre: 5
+  titre: Modélisation quadratique
+competences:
+- code: 1RE-ES-PARAB
+  libelle: Exploiter une fonction polynôme de degré 2 (parabole, sommet, racines, signe)
+  objectifs:
+  - Associer une parabole à une expression de degré 2.
+  - Trouver l'axe de symétrie et le sommet, les racines et le signe d'une forme factorisée.
+  prerequis:
+  - 2NDE-CARRE
+  - 2NDE-SIGNE
+  resume: |
+    - La courbe de $x \mapsto ax^2 + bx + c$ est une **parabole**, tournée vers le haut si $a > 0$, vers le bas si $a < 0$.
+    - Forme factorisée $a(x - x_1)(x - x_2)$ : racines $x_1$ et $x_2$, axe de symétrie $x = \dfrac{x_1 + x_2}{2}$.
+    - Sans forme factorisée : résoudre $f(x) = c$ donne deux points symétriques, d'où l'axe.
+  cours: |
+    ## Allure
+    $a > 0$ : la parabole est tournée vers le haut (minimum) ; $a < 0$ : vers le bas (maximum).
+
+    ## Forme factorisée
+    $f(x) = (x - 1)(x - 5)$ s'annule en $1$ et $5$ ; l'axe de symétrie est $x = 3$, le sommet $(3 ; f(3)) = (3 ; -4)$.
+    Signe : $f(x)$ est du signe de $a$ à l'extérieur des racines, du signe contraire entre elles.
+
+    ## Trouver l'axe sans formule
+    $f(x) = x^2 - 6x + 4$ : $f(x) = 4 \iff x(x - 6) = 0 \iff x = 0$ ou $x = 6$. L'axe est $x = 3$ et $f(3) = -5$.
+  methodes:
+  - titre: Trouver le sommet d'une parabole
+    etapes:
+    - Résoudre f(x) = c (ou utiliser les racines) pour obtenir deux points de même ordonnée.
+    - L'abscisse du sommet est le milieu de ces deux abscisses.
+    - Calculer l'image de cette abscisse.
+    exemple:
+      enonce: $f(x) = -x^2 + 4x + 1$. Sommet ?
+      resolution:
+      - '$f(x) = 1 \iff x(4 - x) = 0 \iff x = 0$ ou $x = 4$ : axe $x = 2$.'
+      - $f(2) = -4 + 8 + 1 = 5$.
+      resultat: Sommet $(2 ; 5)$, c'est un maximum.
+  erreurs_frequentes:
+  - erreur: Lire les racines $-1$ et $-5$ dans $(x - 1)(x - 5)$.
+    explication: '$x - 1 = 0$ donne $x = 1$ : les racines sont $1$ et $5$.'
+  questions:
+  - code: 1RE-ES-PARAB-01
+    difficulte: 1
+    type: qcm
+    enonce: 'La parabole d''équation $y = -2x^2$ est tournée : A) vers le bas  B) vers le haut'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Le coefficient $a = -2$ est négatif : la parabole est tournée vers le bas.'
+      resultat: A
+  - code: 1RE-ES-PARAB-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = (x - 1)(x - 5)$. Quelle est la plus grande racine de $f$ ?
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Produit nul : $x = 1$ ou $x = 5$.'
+      resultat: '5'
+  - code: 1RE-ES-PARAB-03
+    difficulte: 3
+    type: numerique
+    enonce: $f(x) = (x - 1)(x - 5)$. Quelle est l'abscisse du sommet de la parabole ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Milieu des racines : $\dfrac{1 + 5}{2} = 3$.'
+      resultat: '3'
+  - code: 1RE-ES-PARAB-04
+    difficulte: 4
+    type: numerique
+    enonce: '$f(x) = x^2 - 6x + 4$. Quelle est l''ordonnée du sommet de la parabole ? (Indication : résoudre $f(x) = 4$.)'
+    solution: '-5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f(x) = 4 \iff x(x - 6) = 0$ : abscisses $0$ et $6$, axe $x = 3$.'
+      - $f(3) = 9 - 18 + 4 = -5$.
+      resultat: '-5'
+  - code: 1RE-ES-PARAB-05
+    difficulte: 5
+    type: numerique
+    enonce: La hauteur d'un ballon (en m) est $h(t) = -5t^2 + 20t$, $t$ en secondes. Quelle est la hauteur maximale atteinte ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$h(t) = -5t(t - 4)$ s''annule en $0$ et $4$ : le sommet est en $t = 2$.'
+      - $h(2) = -20 + 40 = 20$ m.
+      resultat: '20'

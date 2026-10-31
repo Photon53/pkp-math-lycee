@@ -1,0 +1,96 @@
+chapitre:
+  code: TLE-MC-CONV
+  niveau: Tle
+  parcours: complementaires
+  ordre: 5
+  titre: Fonctions convexes
+competences:
+- code: TLE-MC-CONVEX
+  libelle: Étudier la convexité d'une fonction
+  objectifs:
+  - Calculer une dérivée seconde et étudier la convexité.
+  - Trouver un point d'inflexion.
+  prerequis:
+  - TLE-MC-DERIV
+  resume: |
+    - $f$ **convexe** : courbe au-dessus de ses tangentes, $f'$ croissante, $f'' \geq 0$.
+    - $f$ **concave** : courbe en dessous de ses tangentes, $f'' \leq 0$.
+    - **Point d'inflexion** : la courbe traverse sa tangente ; $f''$ s'annule en changeant de signe.
+  cours: |
+    ## Dérivée seconde
+    $f''$ est la dérivée de $f'$. Pour $f(x) = x^3 - 6x^2$ : $f'(x) = 3x^2 - 12x$, $f''(x) = 6x - 12$.
+
+    ## Convexité
+    | Signe de $f''$ | $f$ est | Courbe |
+    |---|---|---|
+    | $\geq 0$ | convexe | au-dessus de ses tangentes, sous ses cordes |
+    | $\leq 0$ | concave | en dessous de ses tangentes |
+
+    ## Point d'inflexion
+    $f''(x) = 6x - 12$ change de signe en $2$ : point d'inflexion d'abscisse $2$.
+  methodes:
+  - titre: Étudier la convexité et chercher un point d'inflexion
+    etapes:
+    - Calculer f' puis f''.
+    - Étudier le signe de f''.
+    - Là où f'' change de signe, il y a un point d'inflexion.
+    exemple:
+      enonce: $f(x) = x^3 + 3x^2$.
+      resolution:
+      - $f''(x) = 6x + 6$, négatif puis positif en $-1$.
+      resultat: Concave puis convexe ; inflexion en $x = -1$.
+  erreurs_frequentes:
+  - erreur: Étudier le signe de f' au lieu de f''.
+    explication: f' donne les variations, f'' la convexité.
+  questions:
+  - code: TLE-MC-CONVEX-01
+    difficulte: 1
+    type: expression
+    enonce: Calculer $f''(x)$ pour $f(x) = x^3$.
+    solution: 6x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = 3x^2$ et $f''(x) = 6x$.
+      resultat: 6x
+  - code: TLE-MC-CONVEX-02
+    difficulte: 2
+    type: qcm
+    enonce: 'On sait que $f''''(x) = x^2 + 1$ sur $\mathbb{R}$. La fonction $f$ est : A) convexe sur $\mathbb{R}$  B) concave sur $\mathbb{R}$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$x^2 + 1 > 0$ : $f'''' > 0$, donc $f$ est convexe.'
+      resultat: A
+  - code: TLE-MC-CONVEX-03
+    difficulte: 3
+    type: numerique
+    enonce: Donner l'abscisse du point d'inflexion de la courbe de $f(x) = x^3 - 6x^2$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f''(x) = 6x - 12$ change de signe en $x = 2$.
+      resultat: '2'
+  - code: TLE-MC-CONVEX-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Sur un intervalle où $f'''' \leq 0$, la courbe de $f$ est : A) en dessous de ses tangentes  B) au-dessus de ses tangentes'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f'''' \leq 0$ : $f$ est concave, sa courbe est en dessous de ses tangentes.'
+      resultat: A
+  - code: TLE-MC-CONVEX-05
+    difficulte: 5
+    type: numerique
+    enonce: Donner l'abscisse du point d'inflexion de la courbe de $f(x) = (x - 3)e^x$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = e^x + (x - 3)e^x = (x - 2)e^x$.
+      - $f''(x) = e^x + (x - 2)e^x = (x - 1)e^x$, qui change de signe en $1$.
+      resultat: '1'

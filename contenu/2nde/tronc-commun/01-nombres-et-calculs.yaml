@@ -107,6 +107,32 @@ competences:
           - $\dfrac{4}{9} \times \dfrac{3}{8} = \dfrac{12}{72}$.
           - '$\dfrac{12}{72} = \dfrac{1}{6}$ (on divise par $12$) : seule la réponse B est irréductible.'
           resultat: B
+      - code: 2NDE-FRAC-05
+        difficulte: 4
+        type: numerique
+        enonce: Calculer $\dfrac{\frac{2}{3} - \frac{1}{4}}{\frac{5}{6}}$ et donner le résultat sous forme de fraction irréductible.
+        solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer le numérateur, puis diviser en multipliant par l'inverse.
+          etapes:
+          - $\dfrac{2}{3} - \dfrac{1}{4} = \dfrac{8}{12} - \dfrac{3}{12} = \dfrac{5}{12}$.
+          - $\dfrac{5}{12} \div \dfrac{5}{6} = \dfrac{5}{12} \times \dfrac{6}{5} = \dfrac{6}{12} = \dfrac{1}{2}$.
+          resultat: 1/2
+      - code: 2NDE-FRAC-06
+        difficulte: 5
+        type: numerique
+        enonce: Un réservoir est rempli aux $\dfrac{3}{5}$. On utilise le tiers de son contenu, puis on ajoute $\dfrac{1}{10}$ de la capacité totale. Quelle fraction du réservoir est alors remplie ?
+        solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '« Le tiers du contenu » se calcule en multipliant : $\dfrac{1}{3} \times \dfrac{3}{5}$.'
+          etapes:
+          - On utilise $\dfrac{1}{3} \times \dfrac{3}{5} = \dfrac{1}{5}$ ; il reste $\dfrac{3}{5} - \dfrac{1}{5} = \dfrac{2}{5}$.
+          - $\dfrac{2}{5} + \dfrac{1}{10} = \dfrac{4}{10} + \dfrac{1}{10} = \dfrac{5}{10} = \dfrac{1}{2}$.
+          erreurs_frequentes:
+          - Retirer $\dfrac{1}{3}$ du réservoir au lieu du tiers de son contenu.
+          resultat: 1/2
 
   - code: 2NDE-PUIS
     libelle: Calculer avec des puissances
@@ -190,6 +216,31 @@ competences:
           - $10^3 \times 10^{-5} = 10^{3 - 5} = 10^{-2}$.
           - $10^{-2} = 0{,}01$.
           resultat: 0.01
+      - code: 2NDE-PUIS-04
+        difficulte: 4
+        type: numerique
+        enonce: Calculer $\dfrac{2^5 \times 4^3}{8^3}$.
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tout écrire en puissances de 2.
+          etapes:
+          - $4^3 = (2^2)^3 = 2^6$ et $8^3 = (2^3)^3 = 2^9$.
+          - $\dfrac{2^5 \times 2^6}{2^9} = 2^{5 + 6 - 9} = 2^2 = 4$.
+          resultat: '4'
+      - code: 2NDE-PUIS-05
+        difficulte: 5
+        type: numerique
+        enonce: On écrit $\dfrac{(10^{-2})^3 \times 10^5}{10^{-4}}$ sous la forme $10^n$. Donner $n$.
+        solution: '3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $(10^{-2})^3 = 10^{-6}$, puis $10^{-6} \times 10^5 = 10^{-1}$.
+          - $\dfrac{10^{-1}}{10^{-4}} = 10^{-1 - (-4)} = 10^3$.
+          erreurs_frequentes:
+          - Calculer $-1 - 4$ au lieu de $-1 - (-4)$ au dénominateur.
+          resultat: '3'
 
   - code: 2NDE-RAC
     libelle: Calculer avec des racines carrées
@@ -286,3 +337,29 @@ competences:
           - $\dfrac{1}{\sqrt{2}} = \dfrac{1 \times \sqrt{2}}{\sqrt{2} \times \sqrt{2}} = \dfrac{\sqrt{2}}{2}$.
           - Les écritures B et C ont encore une racine au dénominateur.
           resultat: A
+      - code: 2NDE-RAC-05
+        difficulte: 4
+        type: numerique
+        enonce: On écrit $\sqrt{50} + \sqrt{18} - \sqrt{8}$ sous la forme $a\sqrt{2}$. Donner $a$.
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Faire apparaitre un carré parfait : $\sqrt{a^2 b} = a\sqrt{b}$.'
+          etapes:
+          - $\sqrt{50} = 5\sqrt{2}$, $\sqrt{18} = 3\sqrt{2}$, $\sqrt{8} = 2\sqrt{2}$.
+          - $5\sqrt{2} + 3\sqrt{2} - 2\sqrt{2} = 6\sqrt{2}$.
+          erreurs_frequentes:
+          - 'Écrire $\sqrt{50} + \sqrt{18} = \sqrt{68}$ : la racine d''une somme n''est pas la somme des racines.'
+          resultat: '6'
+      - code: 2NDE-RAC-06
+        difficulte: 5
+        type: numerique
+        enonce: Écrire $\dfrac{2}{\sqrt{3} - 1}$ sans racine au dénominateur (valeur exacte).
+        solution: sqrt(3) + 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier en haut et en bas par la quantité conjuguée.
+          etapes:
+          - $\dfrac{2(\sqrt{3} + 1)}{(\sqrt{3} - 1)(\sqrt{3} + 1)} = \dfrac{2(\sqrt{3} + 1)}{3 - 1}$.
+          - $= \sqrt{3} + 1$.
+          resultat: sqrt(3) + 1

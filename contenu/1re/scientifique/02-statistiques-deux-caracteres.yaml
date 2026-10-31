@@ -1,0 +1,188 @@
+chapitre:
+  code: 1RE-ES-STAT
+  niveau: 1re
+  parcours: scientifique
+  ordre: 2
+  titre: Statistiques à deux caractères
+competences:
+- code: 1RE-ES-CROISE
+  libelle: Exploiter un tableau croisé d'effectifs
+  objectifs:
+  - Lire un tableau croisé et calculer des fréquences, des fréquences conditionnelles.
+  - Comparer deux sous-populations.
+  prerequis:
+  - 2NDE-PROP
+  resume: |
+    - Un **tableau croisé** donne les effectifs selon deux caractères, avec les totaux en ligne et en colonne.
+    - Fréquence d'une modalité : effectif de la modalité ÷ effectif total.
+    - Fréquence **conditionnelle** : on divise par le total de la sous-population (ligne ou colonne).
+  cours: |
+    ## Exemple
+    Sur 200 élèves d'un lycée :
+
+    | | Demi-pensionnaires | Externes | Total |
+    |---|:-:|:-:|:-:|
+    | Filles | 70 | 50 | 120 |
+    | Garçons | 50 | 30 | 80 |
+    | Total | 120 | 80 | 200 |
+
+    - Fréquence des filles : $\dfrac{120}{200} = 0{,}6$.
+    - Fréquence des demi-pensionnaires **parmi les filles** : $\dfrac{70}{120}$ (on divise par le total de la ligne « Filles »).
+    - Fréquence des filles **parmi les demi-pensionnaires** : $\dfrac{70}{120}$ (total de la colonne).
+
+    ## Comparer deux groupes
+    On compare des fréquences conditionnelles, jamais des effectifs bruts : 50 garçons demi-pensionnaires sur 80, c'est $62{,}5\,\%$, plus que $\dfrac{70}{120} \approx 58{,}3\,\%$ chez les filles.
+  methodes:
+  - titre: Calculer une fréquence conditionnelle
+    etapes:
+    - Repérer la sous-population (après « parmi »).
+    - Diviser l'effectif cherché par l'effectif total de cette sous-population.
+    exemple:
+      enonce: Avec le tableau du cours, proportion d'externes parmi les garçons ?
+      resolution:
+      - 'Sous-population : les garçons, $80$ ; externes parmi eux : $30$.'
+      resultat: $\dfrac{30}{80} = \dfrac{3}{8}$
+  erreurs_frequentes:
+  - erreur: Diviser par l'effectif total au lieu de celui de la sous-population.
+    explication: « Parmi les filles » signifie que l'on se restreint aux 120 filles.
+  questions:
+  - code: 1RE-ES-CROISE-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sur 200 élèves : 70 filles demi-pensionnaires, 50 filles externes, 50 garçons demi-pensionnaires, 30 garçons externes. Quel est le pourcentage de filles ?'
+    solution: '60'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $70 + 50 = 120$ filles ; $\dfrac{120}{200} = 0{,}6$, soit $60\,\%$.
+      resultat: '60'
+  - code: 1RE-ES-CROISE-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Sur 200 élèves : 70 filles demi-pensionnaires, 50 filles externes, 50 garçons demi-pensionnaires, 30 garçons externes. Quelle est la proportion de demi-pensionnaires parmi les filles ? (fraction irréductible)'
+    solution: 7/12
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{70}{120} = \dfrac{7}{12}$.
+      resultat: 7/12
+  - code: 1RE-ES-CROISE-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sur 200 élèves : 70 filles demi-pensionnaires, 50 filles externes, 50 garçons demi-pensionnaires, 30 garçons externes. Quelle est la proportion de garçons parmi les externes ? (fraction irréductible)'
+    solution: 3/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Externes : $50 + 30 = 80$, dont $30$ garçons : $\dfrac{30}{80} = \dfrac{3}{8}$.'
+      resultat: 3/8
+  - code: 1RE-ES-CROISE-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sur 200 élèves : 70 filles demi-pensionnaires, 50 filles externes, 50 garçons demi-pensionnaires, 30 garçons externes. Quelle est la fréquence, sur tout le lycée, des élèves qui sont à la fois filles et externes ?'
+    solution: 1/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{50}{200} = \dfrac{1}{4}$.
+      resultat: 1/4
+  - code: 1RE-ES-CROISE-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Sur 200 élèves : 70 filles demi-pensionnaires, 50 filles externes, 50 garçons demi-pensionnaires, 30 garçons externes. La proportion de demi-pensionnaires est-elle plus forte chez les filles que chez les garçons ? A) oui  B) non'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Filles : $\dfrac{70}{120} \approx 0{,}583$ ; garçons : $\dfrac{50}{80} = 0{,}625$.'
+      - Elle est plus forte chez les garçons, même s'il y a moins de garçons demi-pensionnaires en effectif.
+      resultat: B
+- code: 1RE-ES-AJUST
+  libelle: Calculer un point moyen et utiliser un ajustement affine
+  objectifs:
+  - Calculer les coordonnées du point moyen d'un nuage.
+  - Utiliser une droite d'ajustement pour interpoler ou extrapoler.
+  prerequis:
+  - 2NDE-MOY
+  - 2NDE-DROITE
+  resume: |
+    - Le **point moyen** $G$ a pour coordonnées $(\bar x ; \bar y)$, moyennes des abscisses et des ordonnées.
+    - Une droite d'ajustement $y = ax + b$ passe (en général) par $G$.
+    - **Interpoler** : estimer une valeur à l'intérieur des données ; **extrapoler** : au-delà (plus risqué).
+  cours: |
+    ## Nuage de points et point moyen
+    | $x$ | 1 | 2 | 3 | 4 |
+    |---|:-:|:-:|:-:|:-:|
+    | $y$ | 3 | 5 | 6 | 10 |
+
+    $\bar x = \dfrac{1 + 2 + 3 + 4}{4} = 2{,}5$ et $\bar y = \dfrac{3 + 5 + 6 + 10}{4} = 6$ : $G(2{,}5 ; 6)$.
+
+    ## Ajustement affine
+    Si l'on retient la droite $y = 2x + 1$, on estime pour $x = 7$ : $y = 15$ (extrapolation).
+    Le tableur ou la calculatrice donne la droite des moindres carrés ; aucune formule n'est à connaitre.
+  methodes:
+  - titre: Trouver un seuil avec un ajustement affine
+    etapes:
+    - Écrire l'inéquation $ax + b > k$.
+    - Résoudre, puis prendre le premier entier qui convient.
+    - Revenir à la grandeur demandée (une année, par exemple).
+    exemple:
+      enonce: $y = 2x + 10$, $x$ nombre d'années depuis 2020. Quand $y$ dépasse-t-il 25 ?
+      resolution:
+      - $2x + 10 > 25$ donne $x > 7{,}5$, donc $x = 8$.
+      resultat: En 2028.
+  erreurs_frequentes:
+  - erreur: Faire confiance à une extrapolation lointaine.
+    explication: Le modèle n'est valable que près des données observées.
+  questions:
+  - code: 1RE-ES-AJUST-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Nuage de points : $x$ = 1, 2, 3, 4 et $y$ = 3, 5, 6, 10. Quelle est l''abscisse du point moyen ?'
+    solution: '2.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\bar x = \dfrac{1 + 2 + 3 + 4}{4} = 2{,}5$.
+      resultat: '2.5'
+  - code: 1RE-ES-AJUST-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Nuage de points : $x$ = 1, 2, 3, 4 et $y$ = 3, 5, 6, 10. Quelle est l''ordonnée du point moyen ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\bar y = \dfrac{3 + 5 + 6 + 10}{4} = \dfrac{24}{4} = 6$.
+      resultat: '6'
+  - code: 1RE-ES-AJUST-03
+    difficulte: 3
+    type: numerique
+    enonce: On ajuste un nuage par la droite $y = 2x + 1$. Quelle valeur de $y$ estime-t-on pour $x = 7$ ?
+    solution: '15'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $y = 2 \times 7 + 1 = 15$.
+      resultat: '15'
+  - code: 1RE-ES-AJUST-04
+    difficulte: 4
+    type: numerique
+    enonce: Une droite d'ajustement passe par le point moyen $G(2{,}5 ; 6)$ et a pour coefficient directeur $2{,}2$. Quelle est son ordonnée à l'origine ?
+    solution: '0.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $6 = 2{,}2 \times 2{,}5 + b = 5{,}5 + b$, donc $b = 0{,}5$.
+      resultat: '0.5'
+  - code: 1RE-ES-AJUST-05
+    difficulte: 5
+    type: numerique
+    enonce: La population d'une ville (en milliers) est ajustée par $y = 1{,}5x + 20$, où $x$ est le nombre d'années depuis 2020. En quelle année la population dépassera-t-elle 35 000 habitants ?
+    solution: '2031'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}5x + 20 > 35$ donne $x > 10$.
+      - 'Pour $x = 10$, on a exactement $35$ : il faut $x = 11$, soit 2031.'
+      resultat: '2031'

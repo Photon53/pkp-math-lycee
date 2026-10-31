@@ -100,6 +100,19 @@ competences:
           - $u_1 = \dfrac{5}{2} + 1 = \dfrac{7}{2}$ ; $u_2 = \dfrac{7}{4} + 1 = \dfrac{11}{4}$.
           - $u_3 = \dfrac{11}{8} + 1 = \dfrac{19}{8}$.
           resultat: 19/8
+      - code: 1RE-SUI-TERME-05
+        difficulte: 5
+        type: numerique
+        enonce: $u_0 = 1$ et $u_{n+1} = u_n + 2n + 1$. Calculer $u_{10}$.
+        solution: '101'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer quelques termes, conjecturer une formule, puis la vérifier.
+          etapes:
+          - '$u_1 = 2$, $u_2 = 5$, $u_3 = 10$, $u_4 = 17$ : on conjecture $u_n = n^2 + 1$.'
+          - 'Vérification : $(n^2 + 1) + 2n + 1 = (n + 1)^2 + 1$, la formule se transmet d''un rang au suivant.'
+          - $u_{10} = 100 + 1 = 101$.
+          resultat: '101'
 
   - code: 1RE-SUI-MOD
     libelle: Modéliser une situation par une suite
@@ -178,6 +191,42 @@ competences:
           - Chaque année, le capital est multiplié par $1{,}02$.
           - $C_n = 500 \times 1{,}02^n$.
           resultat: 500*1.02^n
+      - code: 1RE-SUI-MOD-04
+        difficulte: 1
+        type: qcm
+        enonce: 'Une tirelire contient 50 € ; chaque mois, Léa y ajoute 20 €. La somme contenue chaque mois se modélise par une suite : A) arithmétique de raison 20  B) géométrique de raison 20  C) arithmétique de raison 50'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On ajoute toujours la même quantité, 20 € : suite arithmétique de raison 20 (et de premier terme 50).'
+          resultat: A
+      - code: 1RE-SUI-MOD-05
+        difficulte: 4
+        type: numerique
+        enonce: Une population de 2 000 bactéries augmente de 10 % par heure. Au bout de combien d'heures entières dépasse-t-elle 4 000 bactéries ?
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suite géométrique, puis recherche de seuil.
+          etapes:
+          - $P_n = 2\,000 \times 1{,}1^n$ ; on cherche $1{,}1^n > 2$.
+          - $1{,}1^7 \approx 1{,}95 < 2$ et $1{,}1^8 \approx 2{,}14 > 2$.
+          resultat: '8'
+      - code: 1RE-SUI-MOD-06
+        difficulte: 5
+        type: numerique
+        enonce: Un abonnement coûte 30 € la première année, puis son prix augmente de 2 € chaque année. Quelle somme totale aura-t-on payée au bout de 10 années ?
+        solution: '390'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Somme des termes d'une suite arithmétique.
+          etapes:
+          - 'Prix de l''année $n$ (de 0 à 9) : $u_n = 30 + 2n$, donc $u_9 = 48$.'
+          - 'Somme : $10 \times \dfrac{u_0 + u_9}{2} = 10 \times \dfrac{30 + 48}{2} = 390$ €.'
+          erreurs_frequentes:
+          - 'Prendre $u_{10}$ comme dernier terme : 10 années vont de $u_0$ à $u_9$.'
+          resultat: '390'
 
   - code: 1RE-SUI-VAR
     libelle: Étudier le sens de variation d'une suite
@@ -276,3 +325,13 @@ competences:
           - $u_{n+1} - u_n = \dfrac{(3n + 2)(n + 2) - (3n - 1)(n + 3)}{(n + 2)(n + 3)}$.
           - 'Numérateur : $(3n^2 + 8n + 4) - (3n^2 + 8n - 3) = 7$.'
           resultat: 7/((n + 2)(n + 3))
+      - code: 1RE-SUI-VAR-05
+        difficulte: 1
+        type: qcm
+        enonce: 'Une suite arithmétique de raison $-3$ est : A) croissante  B) décroissante  C) constante'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$u_{n+1} - u_n = -3 < 0$ : la suite est décroissante.'
+          resultat: B

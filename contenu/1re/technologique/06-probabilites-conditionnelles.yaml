@@ -1,0 +1,95 @@
+chapitre:
+  code: 1RE-TEC-PROBA
+  niveau: 1re
+  parcours: technologique
+  ordre: 6
+  titre: Probabilités conditionnelles et indépendance
+competences:
+- code: 1RE-TEC-PCOND
+  libelle: Calculer des probabilités conditionnelles (tableau, arbre)
+  objectifs:
+  - Calculer une probabilité conditionnelle avec un tableau croisé ou un arbre.
+  - Utiliser la formule des probabilités totales et l'indépendance.
+  prerequis:
+  - 2NDE-PROBA
+  resume: |
+    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+    - Probabilités totales : $P(B) = P(A \cap B) + P(\bar A \cap B)$.
+    - $A$ et $B$ indépendants : $P_A(B) = P(B)$.
+  cours: |
+    ## Tableau croisé
+    | | Malades | Non malades | Total |
+    |---|:-:|:-:|:-:|
+    | Vaccinés | 4 | 36 | 40 |
+    | Non vaccinés | 15 | 45 | 60 |
+    | Total | 19 | 81 | 100 |
+
+    - $P(M) = 0{,}19$ ; $P_V(M) = \dfrac{4}{40} = 0{,}1$ ; $P_M(V) = \dfrac{4}{19}$.
+    - $P_V(M) \neq P(M)$ : être vacciné et être malade ne sont pas indépendants.
+
+    ## Arbre
+    $P(A) = 0{,}6$, $P_A(B) = 0{,}3$, $P_{\bar A}(B) = 0{,}5$ : $P(B) = 0{,}18 + 0{,}2 = 0{,}38$.
+  methodes:
+  - titre: Lire une probabilité conditionnelle dans un tableau
+    etapes:
+    - Repérer la ligne ou la colonne de la condition.
+    - Diviser l'effectif de la case par le total de cette ligne ou colonne.
+    exemple:
+      enonce: Avec le tableau du cours, probabilité d'être vacciné sachant qu'on n'est pas malade ?
+      resolution:
+      - 'Colonne « Non malades » : $81$, dont $36$ vaccinés.'
+      resultat: $\dfrac{36}{81} = \dfrac{4}{9}$
+  erreurs_frequentes:
+  - erreur: Confondre $P_V(M)$ et $P_M(V)$.
+    explication: La condition change le total par lequel on divise.
+  questions:
+  - code: 1RE-TEC-PCOND-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sur 100 personnes : 40 sont vaccinées, dont 4 malades ; 60 ne sont pas vaccinées, dont 15 malades. Quelle est la probabilité qu''une personne prise au hasard soit malade ?'
+    solution: 19/100
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $4 + 15 = 19$ malades sur $100$.
+      resultat: 19/100
+  - code: 1RE-TEC-PCOND-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Sur 100 personnes : 40 sont vaccinées, dont 4 malades ; 60 ne sont pas vaccinées, dont 15 malades. Quelle est la probabilité d''être malade sachant qu''on est vacciné ?'
+    solution: 1/10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4}{40} = \dfrac{1}{10}$.
+      resultat: 1/10
+  - code: 1RE-TEC-PCOND-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sur 100 personnes : 40 sont vaccinées, dont 4 malades ; 60 ne sont pas vaccinées, dont 15 malades. Quelle est la probabilité d''être vacciné sachant qu''on est malade ?'
+    solution: 4/19
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$19$ malades, dont $4$ vaccinés : $\dfrac{4}{19}$.'
+      resultat: 4/19
+  - code: 1RE-TEC-PCOND-04
+    difficulte: 4
+    type: numerique
+    enonce: Sur un arbre, $P(A) = 0{,}6$, $P_A(B) = 0{,}3$ et $P_{\bar A}(B) = 0{,}5$. Calculer $P(B)$.
+    solution: '0.38'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}6 \times 0{,}3 + 0{,}4 \times 0{,}5 = 0{,}18 + 0{,}2 = 0{,}38$.
+      resultat: '0.38'
+  - code: 1RE-TEC-PCOND-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Sur 100 personnes : 40 sont vaccinées, dont 4 malades ; 60 ne sont pas vaccinées, dont 15 malades. Les événements « être vacciné » et « être malade » sont-ils indépendants ? A) oui  B) non'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$P(M) = 0{,}19$ mais $P_V(M) = 0{,}1$ : la vaccination change la probabilité d''être malade.'
+      resultat: B

@@ -1,0 +1,178 @@
+chapitre:
+  code: TLE-MC-INTEG
+  niveau: Tle
+  parcours: complementaires
+  ordre: 6
+  titre: Intégration
+competences:
+- code: TLE-MC-INT
+  libelle: Calculer une intégrale à l'aide d'une primitive
+  objectifs:
+  - Calculer $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a)$.
+  prerequis:
+  - TLE-MC-PRIMITIVE
+  resume: |
+    - Pour $f$ continue et positive, $\displaystyle\int_a^b f(x)\,dx$ est l'aire sous la courbe entre $a$ et $b$.
+    - Si $F$ est une primitive de $f$ : $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a)$.
+    - Relation de Chasles : $\displaystyle\int_a^b + \int_b^c = \int_a^c$.
+  cours: |
+    ## Intégrale et aire
+    Pour une fonction continue positive, l'intégrale mesure l'aire (en unités d'aire) entre la courbe, l'axe des abscisses et les droites $x = a$ et $x = b$.
+
+    ## Calcul
+    $$\int_0^1 (2x + 1)\,dx = \big[x^2 + x\big]_0^1 = 2 - 0 = 2.$$
+    $\displaystyle\int_0^1 2xe^{x^2}\,dx = \big[e^{x^2}\big]_0^1 = e - 1$.
+  methodes:
+  - titre: Calculer une intégrale
+    etapes:
+    - Trouver une primitive F.
+    - Calculer F(b) − F(a), borne du haut moins borne du bas.
+    exemple:
+      enonce: $\displaystyle\int_1^2 3x^2\,dx$.
+      resolution:
+      - $\big[x^3\big]_1^2 = 8 - 1$.
+      resultat: $7$
+  erreurs_frequentes:
+  - erreur: Calculer F(a) − F(b).
+    explication: C'est la borne du haut moins la borne du bas.
+  questions:
+  - code: TLE-MC-INT-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^2 3\,dx$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Aire d''un rectangle de côtés $2$ et $3$ : $\big[3x\big]_0^2 = 6$.'
+      resultat: '6'
+  - code: TLE-MC-INT-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 (2x + 1)\,dx$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[x^2 + x\big]_0^1 = 2$.
+      resultat: '2'
+  - code: TLE-MC-INT-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^2 e^x\,dx$ (valeur exacte).
+    solution: e^2 - 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[e^x\big]_0^2 = e^2 - 1$.
+      resultat: e^2 - 1
+  - code: TLE-MC-INT-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer $\displaystyle\int_1^4 \dfrac{1}{x}\,dx$ (valeur exacte).
+    solution: ln(4)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[\ln x\big]_1^4 = \ln 4 - \ln 1 = \ln 4$.
+      resultat: ln(4)
+  - code: TLE-MC-INT-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 2xe^{x^2}\,dx$ (valeur exacte).
+    solution: e - 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Forme $u''e^u$ : primitive $e^{x^2}$.'
+      - $\big[e^{x^2}\big]_0^1 = e - 1$.
+      resultat: e - 1
+- code: TLE-MC-INT-APP
+  libelle: Calculer aires et valeurs moyennes, approcher une intégrale
+  objectifs:
+  - Calculer une aire sous une courbe ou entre deux courbes, une valeur moyenne.
+  - Approcher une intégrale par la méthode des rectangles.
+  prerequis:
+  - TLE-MC-INT
+  resume: |
+    - Aire entre deux courbes ($f \geq g$ sur $[a ; b]$) : $\displaystyle\int_a^b (f - g)$.
+    - Valeur moyenne : $\mu = \dfrac{1}{b - a}\displaystyle\int_a^b f(x)\,dx$.
+    - Méthode des rectangles : somme de $f(x_i)\,\Delta x$.
+  cours: |
+    ## Aire entre deux courbes
+    Sur $[0 ; 2]$, $2x \geq x^2$ : aire $= \displaystyle\int_0^2 (2x - x^2)\,dx = 4 - \dfrac{8}{3} = \dfrac{4}{3}$.
+
+    ## Valeur moyenne
+    Moyenne de $f(x) = 2x$ sur $[0 ; 5]$ : $\dfrac{1}{5}\big[x^2\big]_0^5 = 5$.
+
+    ## Méthode des rectangles
+    Pour $\displaystyle\int_0^1 x^2\,dx$ avec 2 rectangles « à gauche » de largeur $0{,}5$ : $0{,}5 \times (0^2 + 0{,}5^2) = 0{,}125$ (valeur exacte : $\dfrac{1}{3}$).
+
+    ## Interprétation
+    Une distance est l'intégrale de la vitesse : $d = \displaystyle\int_{t_1}^{t_2} v(t)\,dt$.
+  methodes:
+  - titre: Calculer l'aire entre deux courbes
+    etapes:
+    - Déterminer quelle courbe est au-dessus sur l'intervalle.
+    - Intégrer la différence (haut − bas).
+    exemple:
+      enonce: Aire entre $y = x$ et $y = x^3$ sur $[0 ; 1]$.
+      resolution:
+      - '$x \geq x^3$ sur $[0 ; 1]$ : $\displaystyle\int_0^1 (x - x^3)\,dx = \dfrac{1}{2} - \dfrac{1}{4}$.'
+      resultat: $\dfrac{1}{4}$
+  erreurs_frequentes:
+  - erreur: Oublier de diviser par b − a pour une valeur moyenne.
+    explication: La valeur moyenne est l'intégrale rapportée à la longueur de l'intervalle.
+  questions:
+  - code: TLE-MC-INT-APP-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer l'aire (en unités d'aire) sous la droite $y = x$ entre $x = 0$ et $x = 4$.
+    solution: '8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\displaystyle\int_0^4 x\,dx = \left[\dfrac{x^2}{2}\right]_0^4 = 8$ (aire d'un triangle).
+      resultat: '8'
+  - code: TLE-MC-INT-APP-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer la valeur moyenne de $f(x) = 2x$ sur $[0 ; 5]$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1}{5}\displaystyle\int_0^5 2x\,dx = \dfrac{1}{5} \times 25 = 5$.
+      resultat: '5'
+  - code: TLE-MC-INT-APP-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer l'aire du domaine compris entre les courbes de $y = 2x$ et $y = x^2$ sur $[0 ; 2]$.
+    solution: 4/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Sur $[0 ; 2]$, $2x \geq x^2$.
+      - $\displaystyle\int_0^2 (2x - x^2)\,dx = \left[x^2 - \dfrac{x^3}{3}\right]_0^2 = 4 - \dfrac{8}{3} = \dfrac{4}{3}$.
+      resultat: 4/3
+  - code: TLE-MC-INT-APP-04
+    difficulte: 4
+    type: numerique
+    enonce: On approche $\displaystyle\int_0^1 x^2\,dx$ par la méthode des rectangles avec 2 rectangles de largeur 0,5, la hauteur étant prise à gauche de chaque rectangle. Quelle valeur obtient-on ?
+    solution: 1/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Hauteurs : $f(0) = 0$ et $f(0{,}5) = 0{,}25$.'
+      - $0{,}5 \times (0 + 0{,}25) = 0{,}125$.
+      resultat: 1/8
+  - code: TLE-MC-INT-APP-05
+    difficulte: 5
+    type: numerique
+    enonce: La vitesse d'un mobile est $v(t) = 3t^2$ (en m/s). Quelle distance (en m) parcourt-il entre $t = 0$ et $t = 2$ ?
+    solution: '8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $d = \displaystyle\int_0^2 3t^2\,dt = \big[t^3\big]_0^2 = 8$ m.
+      resultat: '8'

@@ -2,26 +2,10 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
+import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
 import { useApi } from "./useApi.js";
 
-export const LIBELLES_PARCOURS = {
-  "tronc-commun": "Tronc commun",
-  specialite: "Spécialité",
-  complementaires: "Maths complémentaires",
-  expertes: "Maths expertes",
-};
-// Parcours permis par niveau (même règle que l'API, app/referentiel.py).
-const PARCOURS_PAR_NIVEAU = {
-  "2nde": ["tronc-commun"],
-  "1re": ["specialite"],
-  Tle: ["specialite", "complementaires", "expertes"],
-};
-
-const NIVEAUX = [
-  ["2nde", "Seconde"],
-  ["1re", "Première"],
-  ["Tle", "Terminale"],
-];
+export { LIBELLES_PARCOURS };
 
 const pourcent = (x) => (x == null ? "—" : `${Math.round(x * 100)} %`);
 const ignorer = () => {};
@@ -209,7 +193,7 @@ export default function Classes({ jeton, onExpire }) {
           {PARCOURS_PAR_NIVEAU[niveau].length > 1 && (
             <>
               <label htmlFor="parcours" className="visuellement-cache">
-                Spécialité de la nouvelle classe
+                Parcours de la nouvelle classe
               </label>
               <select id="parcours" value={parcours} onChange={(e) => setParcours(e.target.value)} style={{ width: "auto" }}>
                 {PARCOURS_PAR_NIVEAU[niveau].map((p) => (

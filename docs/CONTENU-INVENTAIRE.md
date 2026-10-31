@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **37** · compétences : **81** · questions actives : **420**
-- Validation pédagogique : 0 validée(s), 420 à valider, 0 à corriger
+- Chapitres : **75** · compétences : **138** · questions actives : **724**
+- Validation pédagogique : 0 validée(s), 724 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -13,11 +13,11 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
 |---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| 1. Nombres et calculs | `2NDE-FRAC` Calculer avec des fractions | ✓ | 1 | 2 | 1 | ⚠ 0 | ⚠ 0 | 4 | 4 |
-| 1. Nombres et calculs | `2NDE-PUIS` Calculer avec des puissances | ✓ | 1 | 1 | 1 | ⚠ 0 | ⚠ 0 | 3 | 3 |
-| 1. Nombres et calculs | `2NDE-RAC` Calculer avec des racines carrées | ✓ | 1 | 1 | 2 | ⚠ 0 | ⚠ 0 | 4 | 4 |
-| 2. Calcul littéral | `2NDE-DEV` Développer une expression | ✓ | ⚠ 0 | 2 | 1 | 1 | ⚠ 0 | 4 | 4 |
-| 2. Calcul littéral | `2NDE-EQ1` Résoudre une équation du premier degré | ✓ | 1 | 1 | 1 | ⚠ 0 | ⚠ 0 | 3 | 3 |
+| 1. Nombres et calculs | `2NDE-FRAC` Calculer avec des fractions | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 1. Nombres et calculs | `2NDE-PUIS` Calculer avec des puissances | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Nombres et calculs | `2NDE-RAC` Calculer avec des racines carrées | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 2. Calcul littéral | `2NDE-DEV` Développer une expression | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 2. Calcul littéral | `2NDE-EQ1` Résoudre une équation du premier degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Intervalles, inégalités et inéquations | `2NDE-INT` Utiliser les intervalles et la valeur absolue | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Intervalles, inégalités et inéquations | `2NDE-INEQ1` Résoudre une inéquation du premier degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 4. Multiples, diviseurs et nombres premiers | `2NDE-MULT` Utiliser multiples, diviseurs et parité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
@@ -48,9 +48,9 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 1. Second degré | `1RE-DISC` Résoudre une équation du second degré avec le discriminant | ✓ | 1 | 2 | 2 | 2 | 1 | 8 | 8 |
 | 1. Second degré | `1RE-SD-FACTO` Factoriser en diversifiant les stratégies | ✓ | 2 | 2 | 3 | 1 | 1 | 9 | 9 |
 | 1. Second degré | `1RE-SD-PROBLEME` Choisir une forme adaptée pour résoudre un problème | ✓ | 1 | 2 | 2 | 2 | 1 | 8 | 8 |
-| 2. Suites numériques | `1RE-SUI-TERME` Calculer les termes d'une suite | ✓ | 1 | 1 | 1 | 1 | ⚠ 0 | 4 | 4 |
-| 2. Suites numériques | `1RE-SUI-MOD` Modéliser une situation par une suite | ✓ | ⚠ 0 | 2 | 1 | ⚠ 0 | ⚠ 0 | 3 | 3 |
-| 2. Suites numériques | `1RE-SUI-VAR` Étudier le sens de variation d'une suite | ✓ | ⚠ 0 | 1 | 1 | 1 | 1 | 4 | 4 |
+| 2. Suites numériques | `1RE-SUI-TERME` Calculer les termes d'une suite | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Suites numériques | `1RE-SUI-MOD` Modéliser une situation par une suite | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 2. Suites numériques | `1RE-SUI-VAR` Étudier le sens de variation d'une suite | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Dérivation | `1RE-DER-NB` Utiliser le nombre dérivé et la tangente | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Dérivation | `1RE-DER-CALC` Calculer une fonction dérivée | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 4. Applications de la dérivation | `1RE-VAR` Déduire les variations du signe de la dérivée | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
@@ -68,11 +68,39 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 10. Variables aléatoires réelles | `1RE-LOI` Déterminer une loi de probabilité et une espérance | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 10. Variables aléatoires réelles | `1RE-VARIANCE` Calculer une variance et un écart type | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### 1re — Enseignement scientifique
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Information chiffrée, évolutions et pourcentages | `1RE-ES-EVO-TAUX` Calculer et enchainer des évolutions en pourcentage | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Statistiques à deux caractères | `1RE-ES-CROISE` Exploiter un tableau croisé d'effectifs | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Statistiques à deux caractères | `1RE-ES-AJUST` Calculer un point moyen et utiliser un ajustement affine | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Probabilités conditionnelles et indépendance | `1RE-ES-PCOND` Calculer des probabilités conditionnelles avec un arbre ou un tableau | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Probabilités conditionnelles et indépendance | `1RE-ES-INDEP` Utiliser l'indépendance et la répétition d'épreuves | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Variation linéaire, suites arithmétiques | `1RE-ES-ARITH` Modéliser une croissance linéaire par une suite arithmétique ou une fonction affine | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Modélisation quadratique | `1RE-ES-PARAB` Exploiter une fonction polynôme de degré 2 (parabole, sommet, racines, signe) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Variation exponentielle, suites géométriques | `1RE-ES-GEOM` Modéliser une évolution à taux constant par une suite géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Variation exponentielle, suites géométriques | `1RE-ES-PUISS` Utiliser les fonctions exponentielles et le taux moyen | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 1re — Voie technologique
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Automatismes, évolutions et calcul algébrique | `1RE-TEC-EVO` Calculer des évolutions en pourcentage | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Automatismes, évolutions et calcul algébrique | `1RE-TEC-CALC` Résoudre une équation produit nul et étudier un signe | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Suites arithmétiques et géométriques | `1RE-TEC-SUITES` Modéliser par une suite arithmétique ou géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Fonctions polynômes du second degré | `1RE-TEC-POLY2` Exploiter la forme factorisée d'un polynôme du second degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Dérivation | `1RE-TEC-DERIV` Calculer un nombre dérivé, une dérivée et une tangente | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Dérivation | `1RE-TEC-VARIA` Étudier les variations et les extremums avec la dérivée | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Séries statistiques à deux variables | `1RE-TEC-STAT2` Utiliser un nuage de points et un ajustement affine | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Probabilités conditionnelles et indépendance | `1RE-TEC-PCOND` Calculer des probabilités conditionnelles (tableau, arbre) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Variables aléatoires | `1RE-TEC-VA` Déterminer une loi de probabilité et une espérance | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
 ### Tle — Spécialité
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
 |---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| 1. Combinatoire et dénombrement | `TLE-COMB-DEN` Dénombrer avec les listes et les combinaisons | ✓ | 1 | 2 | ⚠ 0 | 1 | 1 | 5 | 5 |
+| 1. Combinatoire et dénombrement | `TLE-COMB-DEN` Dénombrer avec les listes et les combinaisons | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
 | 2. Vecteurs, droites et plans de l'espace | `TLE-ESP-COORD` Calculer avec des coordonnées dans l'espace | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 2. Vecteurs, droites et plans de l'espace | `TLE-ESP-COPLAN` Décomposer un vecteur et étudier la coplanarité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Orthogonalité et distances dans l'espace | `TLE-PS-ESP` Utiliser le produit scalaire dans l'espace | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
@@ -80,9 +108,9 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 4. Représentations paramétriques et équations cartésiennes | `TLE-DROITE-ESP` Utiliser une représentation paramétrique de droite | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 4. Représentations paramétriques et équations cartésiennes | `TLE-INTERSECTION` Déterminer l'intersection d'une droite et d'un plan | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 5. Suites | `TLE-SUI-REC` Raisonner par récurrence | ✓ | 1 | 1 | 1 | 1 | 2 | 6 | 6 |
-| 5. Suites | `TLE-SUI-LIM` Définir la limite d'une suite | ✓ | 1 | 2 | 2 | 1 | ⚠ 0 | 6 | 6 |
+| 5. Suites | `TLE-SUI-LIM` Définir la limite d'une suite | ✓ | 1 | 2 | 2 | 1 | 1 | 7 | 7 |
 | 5. Suites | `TLE-SUI-OPE` Déterminer la limite d'une suite par opérations | ✓ | 1 | 1 | 1 | 2 | 1 | 6 | 6 |
-| 5. Suites | `TLE-SUI-COMP` Déterminer la limite d'une suite par comparaison | ✓ | ⚠ 0 | 1 | 2 | 1 | 1 | 5 | 5 |
+| 5. Suites | `TLE-SUI-COMP` Déterminer la limite d'une suite par comparaison | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
 | 6. Limites de fonctions | `TLE-LIMF-OP` Calculer une limite par opérations et lever une indétermination | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 6. Limites de fonctions | `TLE-LIMF-ASYMP` Interpréter des limites (asymptotes, croissances comparées) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 7. Compléments sur la dérivation et convexité | `TLE-COMPOSEE` Dériver une fonction composée | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
@@ -91,7 +119,7 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 8. Continuité des fonctions | `TLE-POINT-FIXE` Déterminer la limite d'une suite récurrente | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 9. Fonction logarithme népérien | `TLE-LN-DEF` Définir la fonction logarithme népérien | ✓ | 2 | 2 | 1 | 1 | 1 | 7 | 7 |
 | 9. Fonction logarithme népérien | `TLE-LN-ETU` Étudier la fonction logarithme népérien | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
-| 9. Fonction logarithme népérien | `TLE-LN-APP` Approfondir l'étude de la fonction logarithme népérien | ✓ | ⚠ 0 | 1 | 2 | 3 | 1 | 7 | 7 |
+| 9. Fonction logarithme népérien | `TLE-LN-APP` Approfondir l'étude de la fonction logarithme népérien | ✓ | 1 | 1 | 2 | 3 | 1 | 8 | 8 |
 | 10. Fonctions trigonométriques | `TLE-TRIG-ETU` Dériver et étudier les fonctions sinus et cosinus | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 10. Fonctions trigonométriques | `TLE-TRIG-EQ` Résoudre des équations trigonométriques | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 11. Primitives et équations différentielles | `TLE-PRIM` Déterminer une primitive | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
@@ -105,26 +133,69 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 15. Concentration et loi des grands nombres | `TLE-BIENAYME` Appliquer l'inégalité de Bienaymé-Tchebychev | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 15. Concentration et loi des grands nombres | `TLE-CONCENTRATION` Utiliser l'inégalité de concentration et la loi des grands nombres | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### Tle — Maths complémentaires
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Suites numériques et modèles discrets | `TLE-MC-SUI-LIM` Calculer la limite d'une suite géométrique et d'une somme géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Suites numériques et modèles discrets | `TLE-MC-SUI-AG` Étudier une suite arithmético-géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Limites, continuité et valeurs intermédiaires | `TLE-MC-LIM` Calculer des limites et interpréter les asymptotes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Limites, continuité et valeurs intermédiaires | `TLE-MC-TVI` Utiliser le théorème des valeurs intermédiaires | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Logarithme népérien et dérivation | `TLE-MC-LN-ALG` Utiliser le logarithme pour résoudre équations et seuils | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Logarithme népérien et dérivation | `TLE-MC-DERIV` Dériver des fonctions composées simples | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Primitives et équations différentielles | `TLE-MC-PRIMITIVE` Déterminer une primitive | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Primitives et équations différentielles | `TLE-MC-EQDIFF` Résoudre les équations différentielles y' = ay et y' = ay + b | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Fonctions convexes | `TLE-MC-CONVEX` Étudier la convexité d'une fonction | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Intégration | `TLE-MC-INT` Calculer une intégrale à l'aide d'une primitive | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Intégration | `TLE-MC-INT-APP` Calculer aires et valeurs moyennes, approcher une intégrale | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Lois discrètes | `TLE-MC-BINOM` Utiliser la loi de Bernoulli et la loi binomiale | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Lois discrètes | `TLE-MC-GEOM` Utiliser la loi uniforme et la loi géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Lois à densité | `TLE-MC-UNIF` Utiliser une densité et la loi uniforme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Lois à densité | `TLE-MC-EXPO` Utiliser la loi exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 9. Statistique à deux variables quantitatives | `TLE-MC-STAT2` Ajuster un nuage de points (point moyen, moindres carrés, changement de variable) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### Tle — Maths expertes
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Nombres complexes, forme algébrique et équations | `TLE-ME-CPLX-ALG` Calculer avec la forme algébrique et le conjugué | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Nombres complexes, forme algébrique et équations | `TLE-ME-CPLX-EQ` Résoudre une équation polynomiale dans les complexes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Module, argument et géométrie | `TLE-ME-CPLX-TRIG` Utiliser module, argument et forme exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Module, argument et géométrie | `TLE-ME-CPLX-GEOM` Résoudre des problèmes de géométrie avec les complexes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Racines n-ièmes de l'unité et équations polynomiales | `TLE-ME-RACINES` Utiliser les racines n-ièmes de l'unité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Divisibilité et congruences | `TLE-ME-DIV` Utiliser la divisibilité et la division euclidienne | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Divisibilité et congruences | `TLE-ME-CONG` Calculer avec les congruences | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. PGCD, théorèmes de Bézout et de Gauss | `TLE-ME-PGCD-CALC` Calculer un PGCD avec l'algorithme d'Euclide | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. PGCD, théorèmes de Bézout et de Gauss | `TLE-ME-BEZOUT` Utiliser les théorèmes de Bézout et de Gauss | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Nombres premiers et petit théorème de Fermat | `TLE-ME-PREM` Utiliser les nombres premiers et le petit théorème de Fermat | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Matrices et systèmes linéaires | `TLE-ME-MAT-CALC` Calculer avec des matrices | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Matrices et systèmes linéaires | `TLE-ME-MAT-SYS` Résoudre un système linéaire avec une matrice inverse | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Graphes et chaînes de Markov | `TLE-ME-GRAPHE` Utiliser le vocabulaire des graphes et la matrice d'adjacence | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Graphes et chaînes de Markov | `TLE-ME-MARKOV` Étudier une chaîne de Markov à deux états | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### Tle — Voie technologique
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Automatismes, proportions et indices | `TLE-TEC-INDICE` Calculer des proportions de proportions et des indices base 100 | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Suites arithmétiques et géométriques, sommes | `TLE-TEC-ARITH` Calculer termes et sommes d'une suite arithmétique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Suites arithmétiques et géométriques, sommes | `TLE-TEC-GEOM` Calculer termes et sommes d'une suite géométrique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Fonctions exponentielles x ↦ a^x | `TLE-TEC-EXPA` Utiliser les fonctions exponentielles de base a | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Fonction logarithme décimal | `TLE-TEC-LOG` Utiliser le logarithme décimal | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Fonction inverse | `TLE-TEC-INV` Étudier la fonction inverse et l'utiliser dans un problème | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Séries statistiques à deux variables, changement de variable | `TLE-TEC-AJUST` Utiliser un ajustement après changement de variable | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Probabilités conditionnelles et probabilités totales | `TLE-TEC-PROBA` Utiliser la formule des probabilités totales | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Variables aléatoires et loi binomiale | `TLE-TEC-BINOM` Utiliser la loi binomiale et son espérance | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
 ## Trous à combler
 
-- `2NDE-FRAC` (Calculer avec des fractions) : aucune question de difficulté 4, 5
-- `2NDE-PUIS` (Calculer avec des puissances) : aucune question de difficulté 4, 5
-- `2NDE-RAC` (Calculer avec des racines carrées) : aucune question de difficulté 4, 5
-- `2NDE-DEV` (Développer une expression) : aucune question de difficulté 1, 5
-- `2NDE-EQ1` (Résoudre une équation du premier degré) : aucune question de difficulté 4, 5
-- `1RE-SUI-TERME` (Calculer les termes d'une suite) : aucune question de difficulté 5
-- `1RE-SUI-MOD` (Modéliser une situation par une suite) : aucune question de difficulté 1, 4, 5
-- `1RE-SUI-VAR` (Étudier le sens de variation d'une suite) : aucune question de difficulté 1
-- `TLE-COMB-DEN` (Dénombrer avec les listes et les combinaisons) : aucune question de difficulté 3
-- `TLE-SUI-LIM` (Définir la limite d'une suite) : aucune question de difficulté 5
-- `TLE-SUI-COMP` (Déterminer la limite d'une suite par comparaison) : aucune question de difficulté 1
-- `TLE-LN-APP` (Approfondir l'étude de la fonction logarithme népérien) : aucune question de difficulté 1
+Aucun.
 
 ## Registre des sources
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 407 |
+| PKP Math | — | originale | 711 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |
 | math.ma | non clarifiée | inspiree | 3 |

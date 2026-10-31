@@ -1,0 +1,90 @@
+chapitre:
+  code: TLE-TEC-PROB
+  niveau: Tle
+  parcours: technologique
+  ordre: 7
+  titre: Probabilités conditionnelles et probabilités totales
+competences:
+- code: TLE-TEC-PROBA
+  libelle: Utiliser la formule des probabilités totales
+  objectifs:
+  - Calculer une probabilité avec une partition en plusieurs événements.
+  - Inverser un conditionnement.
+  prerequis:
+  - 1RE-TEC-PCOND
+  resume: |
+    - Si $A$, $B$, $C$ forment une partition : $P(D) = P(A \cap D) + P(B \cap D) + P(C \cap D)$.
+    - $P(A \cap D) = P(A) \times P_A(D)$.
+    - $P_D(A) = \dfrac{P(A \cap D)}{P(D)}$.
+  cours: |
+    ## Trois machines
+    Une usine produit $50\,\%$, $30\,\%$ et $20\,\%$ de ses pièces avec les machines $A$, $B$, $C$, dont les taux de défaut sont $1\,\%$, $2\,\%$ et $3\,\%$.
+    $$P(D) = 0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}017.$$
+
+    ## Inverser
+    $P_D(C) = \dfrac{0{,}006}{0{,}017} = \dfrac{6}{17}$ : une pièce défectueuse vient de $C$ dans environ $35\,\%$ des cas.
+  methodes:
+  - titre: Appliquer les probabilités totales
+    etapes:
+    - Construire l'arbre avec une branche par événement de la partition.
+    - Multiplier le long de chaque chemin qui mène à D.
+    - Additionner ces produits.
+    exemple:
+      enonce: $P(A) = 0{,}7$, $P_A(D) = 0{,}1$, $P(\bar A) = 0{,}3$, $P_{\bar A}(D) = 0{,}4$.
+      resolution:
+      - $0{,}07 + 0{,}12$.
+      resultat: $P(D) = 0{,}19$
+  erreurs_frequentes:
+  - erreur: Additionner les probabilités conditionnelles sans les pondérer.
+    explication: Chaque taux de défaut se multiplie par la part de la machine correspondante.
+  questions:
+  - code: TLE-TEC-PROBA-01
+    difficulte: 1
+    type: numerique
+    enonce: $A$, $B$, $C$ forment une partition avec $P(A) = 0{,}5$, et $P_A(D) = 0{,}1$. Calculer $P(A \cap D)$.
+    solution: '0.05'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5 \times 0{,}1 = 0{,}05$.
+      resultat: '0.05'
+  - code: TLE-TEC-PROBA-02
+    difficulte: 2
+    type: numerique
+    enonce: $P(A) = 0{,}5$, $P(B) = 0{,}3$, $P(C) = 0{,}2$ (partition), avec $P_A(D) = 0{,}1$, $P_B(D) = 0{,}2$ et $P_C(D) = 0{,}5$. Calculer $P(D)$.
+    solution: '0.21'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}05 + 0{,}06 + 0{,}1 = 0{,}21$.
+      resultat: '0.21'
+  - code: TLE-TEC-PROBA-03
+    difficulte: 3
+    type: numerique
+    enonce: Mêmes données ($P(A) = 0{,}5$, $P(B) = 0{,}3$, $P(C) = 0{,}2$, $P_A(D) = 0{,}1$, $P_B(D) = 0{,}2$, $P_C(D) = 0{,}5$). Calculer $P_D(C)$ (fraction irréductible).
+    solution: 10/21
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{P(C \cap D)}{P(D)} = \dfrac{0{,}1}{0{,}21} = \dfrac{10}{21}$.
+      resultat: 10/21
+  - code: TLE-TEC-PROBA-04
+    difficulte: 4
+    type: numerique
+    enonce: Mêmes données, avec $P(D) = 0{,}21$. Calculer la probabilité de l'événement contraire de $D$.
+    solution: '0.79'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - 0{,}21 = 0{,}79$.
+      resultat: '0.79'
+  - code: TLE-TEC-PROBA-05
+    difficulte: 5
+    type: numerique
+    enonce: Une usine fabrique 50 %, 30 % et 20 % de ses pièces sur trois machines dont les taux de défaut sont respectivement 1 %, 2 % et 3 %. Quelle est la probabilité qu'une pièce soit défectueuse ?
+    solution: '0.017'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}005 + 0{,}006 + 0{,}006 = 0{,}017$.
+      resultat: '0.017'

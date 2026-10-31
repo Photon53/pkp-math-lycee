@@ -1,0 +1,182 @@
+chapitre:
+  code: TLE-MC-LN
+  niveau: Tle
+  parcours: complementaires
+  ordre: 3
+  titre: Logarithme népérien et dérivation
+competences:
+- code: TLE-MC-LN-ALG
+  libelle: Utiliser le logarithme pour résoudre équations et seuils
+  objectifs:
+  - Utiliser ln comme réciproque de l'exponentielle.
+  - Transformer une écriture avec les propriétés de ln et déterminer un seuil.
+  prerequis:
+  - 1RE-EXP-ALG
+  resume: |
+    - Pour $a > 0$ : $e^x = a \iff x = \ln a$ ; $\ln(e^x) = x$ et $e^{\ln a} = a$.
+    - $\ln(ab) = \ln a + \ln b$, $\ln\dfrac{a}{b} = \ln a - \ln b$, $\ln(a^n) = n\ln a$.
+    - Seuil : $q^n < k \iff n\ln q < \ln k$ (attention au signe de $\ln q$).
+  cours: |
+    ## Définition
+    Le logarithme népérien de $a > 0$ est l'unique réel $x$ tel que $e^x = a$ : $\ln 1 = 0$, $\ln e = 1$.
+
+    ## Propriétés
+    $\ln 12 - \ln 3 + \ln 5 = \ln\dfrac{12 \times 5}{3} = \ln 20$.
+
+    ## Seuils
+    $0{,}9^n < 0{,}5 \iff n\ln 0{,}9 < \ln 0{,}5 \iff n > \dfrac{\ln 0{,}5}{\ln 0{,}9} \approx 6{,}6$ (on divise par $\ln 0{,}9 < 0$, l'inégalité change de sens). Donc $n = 7$.
+  methodes:
+  - titre: Résoudre une équation e^(ax+b) = k
+    etapes:
+    - Vérifier que k > 0.
+    - 'Appliquer $\ln$ : $ax + b = \ln k$.'
+    - Résoudre l'équation du premier degré.
+    exemple:
+      enonce: $e^{2x - 1} = 5$.
+      resolution:
+      - $2x - 1 = \ln 5$.
+      resultat: $x = \dfrac{1 + \ln 5}{2}$
+  erreurs_frequentes:
+  - erreur: Écrire $\ln(a + b) = \ln a + \ln b$.
+    explication: La propriété concerne le produit, pas la somme.
+  questions:
+  - code: TLE-MC-LN-ALG-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\ln(e^4)$.
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ln(e^x) = x$.
+      resultat: '4'
+  - code: TLE-MC-LN-ALG-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $e^x = 7$ (valeur exacte).
+    solution: ln(7)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x = \ln 7$.
+      resultat: ln(7)
+  - code: TLE-MC-LN-ALG-03
+    difficulte: 3
+    type: numerique
+    enonce: Résoudre $\ln x = 3$ (valeur exacte).
+    solution: e^3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x = e^3$.
+      resultat: e^3
+  - code: TLE-MC-LN-ALG-04
+    difficulte: 4
+    type: numerique
+    enonce: Écrire $\ln 12 - \ln 3 + \ln 5$ sous la forme $\ln a$ (donner la valeur exacte de l'expression).
+    solution: ln(20)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ln\dfrac{12 \times 5}{3} = \ln 20$.
+      resultat: ln(20)
+  - code: TLE-MC-LN-ALG-05
+    difficulte: 5
+    type: numerique
+    enonce: Déterminer le plus petit entier $n$ tel que $0{,}9^n < 0{,}5$.
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$n\ln 0{,}9 < \ln 0{,}5$, et $\ln 0{,}9 < 0$ : $n > \dfrac{\ln 0{,}5}{\ln 0{,}9} \approx 6{,}58$.'
+      erreurs_frequentes:
+      - Oublier de changer le sens de l'inégalité.
+      resultat: '7'
+- code: TLE-MC-DERIV
+  libelle: Dériver des fonctions composées simples
+  objectifs:
+  - Dériver $x \mapsto f(ax + b)$, $e^{u}$, $\ln u$ et $u^2$.
+  prerequis:
+  - 1RE-DER-CALC
+  - TLE-MC-LN-ALG
+  resume: |
+    - $(\ln x)' = \dfrac{1}{x}$.
+    - $(e^u)' = u'e^u$, $(\ln u)' = \dfrac{u'}{u}$, $(u^2)' = 2uu'$.
+    - $(f(ax + b))' = af'(ax + b)$.
+  cours: |
+    ## Formules
+    | Fonction | Dérivée |
+    |---|---|
+    | $e^{u}$ | $u'e^{u}$ |
+    | $\ln u$ ($u > 0$) | $\dfrac{u'}{u}$ |
+    | $u^2$ | $2uu'$ |
+
+    ## Exemples
+    - $(e^{2x})' = 2e^{2x}$ ; $(e^{-x^2})' = -2xe^{-x^2}$.
+    - $(\ln(3x))' = \dfrac{3}{3x} = \dfrac{1}{x}$.
+    - $((x^2 + 1)^2)' = 2(x^2 + 1) \times 2x = 4x(x^2 + 1)$.
+  methodes:
+  - titre: Dériver une composée
+    etapes:
+    - Repérer la fonction intérieure u et calculer u'.
+    - Appliquer la formule correspondante.
+    exemple:
+      enonce: Dériver $f(x) = \ln(x^2 + 4)$.
+      resolution:
+      - $u = x^2 + 4$, $u' = 2x$.
+      resultat: $f'(x) = \dfrac{2x}{x^2 + 4}$
+  erreurs_frequentes:
+  - erreur: Oublier le facteur u'.
+    explication: $(e^{2x})' = 2e^{2x}$ et non $e^{2x}$.
+  questions:
+  - code: TLE-MC-DERIV-01
+    difficulte: 1
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = e^{2x}$.
+    solution: 2e^(2x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$u = 2x$, $u'' = 2$ : $f''(x) = 2e^{2x}$.'
+      resultat: 2e^(2x)
+  - code: TLE-MC-DERIV-02
+    difficulte: 2
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = \ln(3x)$ sur $]0 ; +\infty[$.
+    solution: 1/x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{u'}{u} = \dfrac{3}{3x} = \dfrac{1}{x}$.
+      resultat: 1/x
+  - code: TLE-MC-DERIV-03
+    difficulte: 3
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = (x^2 + 1)^2$.
+    solution: 4x(x^2 + 1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(u^2)' = 2uu' = 2(x^2 + 1) \times 2x$.
+      resultat: 4x(x^2 + 1)
+  - code: TLE-MC-DERIV-04
+    difficulte: 4
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = e^{-x^2}$.
+    solution: -2x e^(-x^2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$u = -x^2$, $u'' = -2x$ : $f''(x) = -2xe^{-x^2}$.'
+      resultat: -2x e^(-x^2)
+  - code: TLE-MC-DERIV-05
+    difficulte: 5
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = x\ln x - x$ sur $]0 ; +\infty[$.
+    solution: ln(x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(x\ln x)' = \ln x + x \times \dfrac{1}{x} = \ln x + 1$.
+      - $f'(x) = \ln x + 1 - 1 = \ln x$.
+      resultat: ln(x)

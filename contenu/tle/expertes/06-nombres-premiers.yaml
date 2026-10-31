@@ -1,0 +1,94 @@
+chapitre:
+  code: TLE-ME-PREMIERS
+  niveau: Tle
+  parcours: expertes
+  ordre: 6
+  titre: Nombres premiers et petit théorème de Fermat
+competences:
+- code: TLE-ME-PREM
+  libelle: Utiliser les nombres premiers et le petit théorème de Fermat
+  objectifs:
+  - Reconnaitre un nombre premier et décomposer un entier en facteurs premiers.
+  - Utiliser le petit théorème de Fermat pour calculer un reste.
+  prerequis:
+  - TLE-ME-CONG
+  resume: |
+    - Pour savoir si $n$ est premier, on teste les diviseurs premiers $p \leq \sqrt n$.
+    - Tout entier $\geq 2$ se décompose de façon unique en produit de facteurs premiers.
+    - **Fermat** : si $p$ est premier et ne divise pas $a$, alors $a^{p - 1} \equiv 1 \pmod p$.
+  cours: |
+    ## Test de primalité
+    $97$ : $\sqrt{97} < 10$ ; ni $2$, ni $3$, ni $5$, ni $7$ ne divisent $97$, donc $97$ est premier.
+
+    ## Décomposition
+    $84 = 2^2 \times 3 \times 7$.
+
+    ## Petit théorème de Fermat
+    $3^6 \equiv 1 \pmod 7$, donc $3^{100} = (3^6)^{16} \times 3^4 \equiv 3^4 = 81 \equiv 4 \pmod 7$.
+  methodes:
+  - titre: Calculer un reste avec Fermat
+    etapes:
+    - Vérifier que p est premier et ne divise pas a.
+    - Écrire l'exposant $m = (p - 1)q + r$.
+    - $a^m \equiv a^r \pmod p$.
+    exemple:
+      enonce: Reste de $2^{20}$ par 11.
+      resolution:
+      - $2^{10} \equiv 1 \pmod{11}$, donc $2^{20} \equiv 1$.
+      resultat: $1$
+  erreurs_frequentes:
+  - erreur: Appliquer Fermat avec un module non premier.
+    explication: Le théorème exige que p soit premier.
+  questions:
+  - code: TLE-ME-PREM-01
+    difficulte: 1
+    type: qcm
+    enonce: Le nombre 97 est-il premier ? A) oui  B) non
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{97} < 10$ et ni 2, ni 3, ni 5, ni 7 ne divisent 97.
+      resultat: A
+  - code: TLE-ME-PREM-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le plus grand facteur premier de 84 ?
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $84 = 2^2 \times 3 \times 7$.
+      resultat: '7'
+  - code: TLE-ME-PREM-03
+    difficulte: 3
+    type: numerique
+    enonce: Combien y a-t-il de nombres premiers inférieurs à 30 ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 2, 3, 5, 7, 11, 13, 17, 19, 23, 29.
+      resultat: '10'
+  - code: TLE-ME-PREM-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le reste de $2^{12}$ dans la division par 13 ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Petit théorème de Fermat.
+      etapes:
+      - '13 est premier et ne divise pas 2 : $2^{12} \equiv 1 \pmod{13}$.'
+      resultat: '1'
+  - code: TLE-ME-PREM-05
+    difficulte: 5
+    type: numerique
+    enonce: Quel est le reste de $3^{100}$ dans la division par 7 ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Fermat : $3^6 \equiv 1 \pmod 7$ ; $100 = 6 \times 16 + 4$.'
+      - $3^{100} \equiv 3^4 = 81 = 7 \times 11 + 4$.
+      resultat: '4'

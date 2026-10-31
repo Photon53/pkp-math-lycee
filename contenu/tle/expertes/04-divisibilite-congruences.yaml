@@ -1,0 +1,184 @@
+chapitre:
+  code: TLE-ME-ARITH
+  niveau: Tle
+  parcours: expertes
+  ordre: 4
+  titre: Divisibilité et congruences
+competences:
+- code: TLE-ME-DIV
+  libelle: Utiliser la divisibilité et la division euclidienne
+  objectifs:
+  - Effectuer une division euclidienne, y compris d'un entier négatif.
+  - Utiliser les propriétés de la divisibilité.
+  prerequis:
+  - 2NDE-MULT
+  - 2NDE-PREM
+  resume: |
+    - $a = bq + r$ avec $0 \leq r < b$ : $q$ quotient, $r$ reste (toujours positif).
+    - Si $d$ divise $a$ et $b$, il divise toute combinaison $au + bv$.
+    - Nombre de diviseurs de $p_1^{a_1} \cdots p_k^{a_k}$ : $(a_1 + 1) \cdots (a_k + 1)$.
+  cours: |
+    ## Division euclidienne
+    $100 = 7 \times 14 + 2$ : reste $2$.
+    Pour un négatif : $-17 = 5 \times (-4) + 3$ (et non $5 \times (-3) - 2$, car le reste doit être positif).
+
+    ## Combinaisons
+    Si $n + 3$ divise $n + 10$, il divise $(n + 10) - (n + 3) = 7$, donc $n + 3 \in \{1 ; 7\}$.
+
+    ## Nombre de diviseurs
+    $72 = 2^3 \times 3^2$ a $(3 + 1)(2 + 1) = 12$ diviseurs positifs.
+  methodes:
+  - titre: Résoudre « a(n) divise b(n) »
+    etapes:
+    - Éliminer n par une combinaison linéaire.
+    - Lister les diviseurs du nombre obtenu.
+    - Revenir à n et vérifier.
+    exemple:
+      enonce: Entiers $n \geq 0$ tels que $n + 1$ divise $n + 5$.
+      resolution:
+      - '$n + 1$ divise $4$ : $n + 1 \in \{1 ; 2 ; 4\}$.'
+      resultat: $n \in \{0 ; 1 ; 3\}$
+  erreurs_frequentes:
+  - erreur: Donner un reste négatif.
+    explication: Le reste vérifie $0 \leq r < b$.
+  questions:
+  - code: TLE-ME-DIV-01
+    difficulte: 1
+    type: qcm
+    enonce: Le nombre 91 est-il divisible par 7 ? A) oui  B) non
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $91 = 7 \times 13$.
+      resultat: A
+  - code: TLE-ME-DIV-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le reste de la division euclidienne de 100 par 7 ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $100 = 7 \times 14 + 2$.
+      resultat: '2'
+  - code: TLE-ME-DIV-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel est le reste de la division euclidienne de $-17$ par 5 ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $-17 = 5 \times (-4) + 3$, avec $0 \leq 3 < 5$.
+      resultat: '3'
+  - code: TLE-ME-DIV-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le plus grand entier naturel $n$ tel que $n + 3$ divise $n + 10$ ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $n + 3$ divise $(n + 10) - (n + 3) = 7$, donc $n + 3 = 1$ ou $7$.
+      - '$n \geq 0$ : $n + 3 = 7$, d''où $n = 4$.'
+      resultat: '4'
+  - code: TLE-ME-DIV-05
+    difficulte: 5
+    type: numerique
+    enonce: Combien l'entier 72 a-t-il de diviseurs positifs ?
+    solution: '12'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $72 = 2^3 \times 3^2$.
+      - $(3 + 1)(2 + 1) = 12$.
+      resultat: '12'
+- code: TLE-ME-CONG
+  libelle: Calculer avec les congruences
+  objectifs:
+  - Utiliser les congruences pour trouver un reste.
+  - Résoudre une équation de congruence simple.
+  prerequis:
+  - TLE-ME-DIV
+  resume: |
+    - $a \equiv b \pmod n$ : $a$ et $b$ ont le même reste dans la division par $n$.
+    - Les congruences se **multiplient** et s'élèvent à une **puissance**.
+    - Chercher une puissance qui vaut $1$ modulo $n$ pour simplifier $a^k$.
+  cours: |
+    ## Définition
+    $23 \equiv 3 \pmod 5$ car $23 = 5 \times 4 + 3$.
+
+    ## Puissances
+    $2^3 = 8 \equiv 1 \pmod 7$, donc $2^{10} = (2^3)^3 \times 2 \equiv 2 \pmod 7$.
+    Dernier chiffre de $3^k$ : $3, 9, 7, 1$ puis le cycle recommence (période 4).
+
+    ## Équations
+    $3x \equiv 2 \pmod 7$ : on teste $x = 0, \dots, 6$ ; $3 \times 3 = 9 \equiv 2$, donc $x \equiv 3 \pmod 7$.
+  methodes:
+  - titre: Calculer le reste d'une grande puissance
+    etapes:
+    - Trouver $k$ tel que $a^k \equiv 1 \pmod n$.
+    - Écrire l'exposant $m = kq + r$.
+    - $a^m \equiv a^r \pmod n$.
+    exemple:
+      enonce: Reste de $4^{50}$ par 5.
+      resolution:
+      - $4^2 = 16 \equiv 1$ ; $50 = 2 \times 25$.
+      resultat: $4^{50} \equiv 1 \pmod 5$
+  erreurs_frequentes:
+  - erreur: Diviser une congruence comme une égalité.
+    explication: '$2x \equiv 4 \pmod 6$ ne donne pas seulement $x \equiv 2$ : $x = 5$ convient aussi.'
+  questions:
+  - code: TLE-ME-CONG-01
+    difficulte: 1
+    type: numerique
+    enonce: Quel est le reste de 23 modulo 5 ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $23 = 5 \times 4 + 3$.
+      resultat: '3'
+  - code: TLE-ME-CONG-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le reste de $2^{10}$ dans la division par 7 ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^3 \equiv 1 \pmod 7$ et $2^{10} = (2^3)^3 \times 2 \equiv 2$.
+      resultat: '2'
+  - code: TLE-ME-CONG-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel est le chiffre des unités de $3^{2026}$ ?
+    solution: '9'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3^4 = 81 \equiv 1 \pmod{10}$ et $2026 = 4 \times 506 + 2$.
+      - $3^{2026} \equiv 3^2 = 9 \pmod{10}$.
+      resultat: '9'
+  - code: TLE-ME-CONG-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel entier $x$ de $\{0, 1, \dots, 6\}$ vérifie $3x \equiv 2 \pmod 7$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$3 \times 3 = 9 = 7 + 2$ : $x = 3$.'
+      resultat: '3'
+  - code: TLE-ME-CONG-05
+    difficulte: 5
+    type: numerique
+    enonce: Quel est le reste de $5^{100}$ dans la division par 13 ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $5^2 = 25 \equiv -1 \pmod{13}$, donc $5^4 \equiv 1$.
+      - $5^{100} = (5^4)^{25} \equiv 1$.
+      resultat: '1'

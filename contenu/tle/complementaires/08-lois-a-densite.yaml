@@ -1,0 +1,180 @@
+chapitre:
+  code: TLE-MC-DENS
+  niveau: Tle
+  parcours: complementaires
+  ordre: 8
+  titre: Lois à densité
+competences:
+- code: TLE-MC-UNIF
+  libelle: Utiliser une densité et la loi uniforme
+  objectifs:
+  - Vérifier qu'une fonction est une densité et calculer des probabilités comme des aires.
+  - Utiliser la loi uniforme sur [a ; b].
+  prerequis:
+  - TLE-MC-INT
+  resume: |
+    - Une densité $f$ sur $[a ; b]$ est positive et $\displaystyle\int_a^b f = 1$ ; $P(c \leq X \leq d) = \displaystyle\int_c^d f$.
+    - Loi uniforme sur $[a ; b]$ : $f = \dfrac{1}{b - a}$, $P(c \leq X \leq d) = \dfrac{d - c}{b - a}$, $E = \dfrac{a + b}{2}$.
+    - $E(X) = \displaystyle\int_a^b xf(x)\,dx$.
+  cours: |
+    ## Densité
+    $f(x) = kx$ sur $[0 ; 2]$ est une densité si $\displaystyle\int_0^2 kx\,dx = 2k = 1$, soit $k = \dfrac{1}{2}$.
+
+    ## Loi uniforme
+    $X$ uniforme sur $[2 ; 10]$ : $P(4 \leq X \leq 6) = \dfrac{6 - 4}{10 - 2} = \dfrac{1}{4}$ et $E(X) = 6$.
+
+    ## Espérance
+    Avec $f(x) = \dfrac{x}{2}$ sur $[0 ; 2]$ : $E(X) = \displaystyle\int_0^2 \dfrac{x^2}{2}\,dx = \dfrac{4}{3}$.
+  methodes:
+  - titre: Déterminer la constante d'une densité
+    etapes:
+    - Calculer l'intégrale de f sur son intervalle en fonction de k.
+    - Écrire qu'elle vaut 1.
+    exemple:
+      enonce: $f(x) = kx^2$ sur $[0 ; 3]$.
+      resolution:
+      - $\displaystyle\int_0^3 kx^2\,dx = 9k = 1$.
+      resultat: $k = \dfrac{1}{9}$
+  erreurs_frequentes:
+  - erreur: Donner une probabilité non nulle à P(X = c).
+    explication: Pour une loi à densité, la probabilité d'une valeur isolée est nulle.
+  questions:
+  - code: TLE-MC-UNIF-01
+    difficulte: 1
+    type: numerique
+    enonce: $X$ suit la loi uniforme sur $[0 ; 1]$. Calculer $P(X \leq 0{,}3)$.
+    solution: '0.3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Longueur de l'intervalle [0 ; 0,3] divisée par 1.
+      resultat: '0.3'
+  - code: TLE-MC-UNIF-02
+    difficulte: 2
+    type: numerique
+    enonce: $X$ suit la loi uniforme sur $[2 ; 10]$. Calculer $P(4 \leq X \leq 6)$.
+    solution: 1/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{6 - 4}{10 - 2} = \dfrac{2}{8} = \dfrac{1}{4}$.
+      resultat: 1/4
+  - code: TLE-MC-UNIF-03
+    difficulte: 3
+    type: numerique
+    enonce: $X$ suit la loi uniforme sur $[2 ; 10]$. Calculer $E(X)$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{2 + 10}{2} = 6$.
+      resultat: '6'
+  - code: TLE-MC-UNIF-04
+    difficulte: 4
+    type: numerique
+    enonce: Pour quelle valeur de $k$ la fonction $f(x) = kx$ est-elle une densité de probabilité sur $[0 ; 2]$ ?
+    solution: 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\displaystyle\int_0^2 kx\,dx = k\left[\dfrac{x^2}{2}\right]_0^2 = 2k = 1$.
+      resultat: 1/2
+  - code: TLE-MC-UNIF-05
+    difficulte: 5
+    type: numerique
+    enonce: $X$ a pour densité $f(x) = \dfrac{x}{2}$ sur $[0 ; 2]$. Calculer $E(X)$.
+    solution: 4/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E(X) = \displaystyle\int_0^2 x \times \dfrac{x}{2}\,dx = \left[\dfrac{x^3}{6}\right]_0^2 = \dfrac{8}{6} = \dfrac{4}{3}$.
+      resultat: 4/3
+- code: TLE-MC-EXPO
+  libelle: Utiliser la loi exponentielle
+  objectifs:
+  - Calculer des probabilités et l'espérance d'une loi exponentielle.
+  - Utiliser l'absence de mémoire.
+  prerequis:
+  - TLE-MC-UNIF
+  - TLE-MC-LN-ALG
+  resume: |
+    - Densité $f(x) = \lambda e^{-\lambda x}$ sur $[0 ; +\infty[$.
+    - $P(X \leq t) = 1 - e^{-\lambda t}$, $P(X > t) = e^{-\lambda t}$, $E(X) = \dfrac{1}{\lambda}$.
+    - Absence de mémoire : $P_{X > s}(X > s + t) = P(X > t)$.
+  cours: |
+    ## Durée de vie
+    La durée de vie (en années) d'un composant suit la loi exponentielle de paramètre $\lambda = 0{,}5$ :
+    - durée moyenne $E(X) = \dfrac{1}{0{,}5} = 2$ ans ;
+    - $P(X \leq 2) = 1 - e^{-1}$.
+
+    ## Absence de mémoire
+    Un composant qui a déjà fonctionné 2 ans a la même probabilité de durer encore 3 ans qu'un composant neuf : $P_{X > 2}(X > 5) = P(X > 3)$.
+
+    ## Médiane
+    $P(X \leq t) = \dfrac{1}{2} \iff e^{-\lambda t} = \dfrac{1}{2} \iff t = \dfrac{\ln 2}{\lambda}$.
+  methodes:
+  - titre: Calculer une probabilité avec la loi exponentielle
+    etapes:
+    - Identifier λ (souvent 1 / durée moyenne).
+    - Utiliser $P(X > t) = e^{-\lambda t}$ ou $P(X \leq t) = 1 - e^{-\lambda t}$.
+    exemple:
+      enonce: Durée moyenne 10 ans. $P(X > 5)$ ?
+      resolution:
+      - $\lambda = 0{,}1$ ; $P(X > 5) = e^{-0{,}5}$.
+      resultat: $e^{-0{,}5} \approx 0{,}61$
+  erreurs_frequentes:
+  - erreur: Prendre la durée moyenne pour λ.
+    explication: '$E(X) = \dfrac{1}{\lambda}$ : une moyenne de 10 ans donne $\lambda = 0{,}1$.'
+  questions:
+  - code: TLE-MC-EXPO-01
+    difficulte: 1
+    type: numerique
+    enonce: $X$ suit la loi exponentielle de paramètre 0,5. Calculer $E(X)$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E(X) = \dfrac{1}{0{,}5} = 2$.
+      resultat: '2'
+  - code: TLE-MC-EXPO-02
+    difficulte: 2
+    type: numerique
+    enonce: $X$ suit la loi exponentielle de paramètre 0,5. Calculer $P(X \leq 2)$ (valeur exacte).
+    solution: 1 - e^(-1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - e^{-0{,}5 \times 2} = 1 - e^{-1}$.
+      resultat: 1 - e^(-1)
+  - code: TLE-MC-EXPO-03
+    difficulte: 3
+    type: numerique
+    enonce: $X$ suit la loi exponentielle de paramètre 0,2. Calculer $P(X > 3)$ (valeur exacte).
+    solution: e^(-0.6)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $e^{-0{,}2 \times 3} = e^{-0{,}6}$.
+      resultat: e^(-0.6)
+  - code: TLE-MC-EXPO-04
+    difficulte: 4
+    type: numerique
+    enonce: $X$ suit la loi exponentielle de paramètre 0,1. Sachant que $X > 2$, quelle est la probabilité que $X > 5$ ? (valeur exacte)
+    solution: e^(-0.3)
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Absence de mémoire.
+      etapes:
+      - $P_{X > 2}(X > 5) = P(X > 3) = e^{-0{,}3}$.
+      resultat: e^(-0.3)
+  - code: TLE-MC-EXPO-05
+    difficulte: 5
+    type: numerique
+    enonce: $X$ suit la loi exponentielle de paramètre 0,02. Déterminer $t$ tel que $P(X \leq t) = \dfrac{1}{2}$ (valeur exacte avec ln).
+    solution: 50ln(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - e^{-0{,}02t} = \dfrac{1}{2} \iff e^{-0{,}02t} = \dfrac{1}{2}$.
+      - $-0{,}02t = -\ln 2$, donc $t = 50\ln 2$.
+      resultat: 50ln(2)

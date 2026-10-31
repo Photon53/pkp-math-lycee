@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-TEC-STAT
+  niveau: Tle
+  parcours: technologique
+  ordre: 6
+  titre: Séries statistiques à deux variables, changement de variable
+competences:
+- code: TLE-TEC-AJUST
+  libelle: Utiliser un ajustement après changement de variable
+  objectifs:
+  - Calculer un point moyen.
+  - Utiliser un ajustement z = log y pour un modèle exponentiel.
+  prerequis:
+  - 1RE-TEC-STAT2
+  - TLE-TEC-LOG
+  resume: |
+    - Point moyen $G(\bar x ; \bar y)$.
+    - Si le nuage $(x ; \log y)$ est presque aligné, on ajuste $z = \log y$ par $z = ax + b$.
+    - On revient à $y$ : $y = 10^{ax + b}$.
+  cours: |
+    ## Pourquoi changer de variable
+    Un nuage en forme de courbe exponentielle devient presque aligné si l'on remplace $y$ par $z = \log y$.
+
+    ## Exemple
+    On obtient $z = 0{,}3x + 1$. Alors $y = 10^{0{,}3x + 1}$ :
+    - pour $x = 0$, $y = 10$ ;
+    - pour $x = 10$, $y = 10^4 = 10\,000$.
+
+    ## Retrouver x
+    $y = 10^5 \iff z = 5$ ; avec $z = 0{,}5x + 2$, on obtient $x = 6$.
+  methodes:
+  - titre: Estimer y avec un ajustement en z = log y
+    etapes:
+    - Calculer z avec l'équation de la droite.
+    - Revenir à $y = 10^z$.
+    exemple:
+      enonce: $z = 0{,}2x + 1$, $x = 5$.
+      resolution:
+      - $z = 2$.
+      resultat: $y = 100$
+  erreurs_frequentes:
+  - erreur: Donner z comme estimation de y.
+    explication: z n'est qu'une variable intermédiaire ; il faut revenir à y.
+  questions:
+  - code: TLE-TEC-AJUST-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Série : $x$ = 0, 1, 2, 3 et $y$ = 1, 3, 5, 11. Quelle est l''ordonnée du point moyen ?'
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1 + 3 + 5 + 11}{4} = 5$.
+      resultat: '5'
+  - code: TLE-TEC-AJUST-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Série : $x$ = 0, 1, 2, 3 et $y$ = 1, 3, 5, 11. Quelle est l''abscisse du point moyen ?'
+    solution: '1.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0 + 1 + 2 + 3}{4} = 1{,}5$.
+      resultat: '1.5'
+  - code: TLE-TEC-AJUST-03
+    difficulte: 3
+    type: numerique
+    enonce: On pose $z = \log y$ et on obtient l'ajustement $z = 0{,}3x + 1$. Quelle valeur de $y$ ce modèle donne-t-il pour $x = 0$ ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $z = 1$, donc $y = 10^1 = 10$.
+      resultat: '10'
+  - code: TLE-TEC-AJUST-04
+    difficulte: 4
+    type: numerique
+    enonce: On pose $z = \log y$ et on obtient l'ajustement $z = 0{,}3x + 1$. Quelle valeur de $y$ ce modèle donne-t-il pour $x = 10$ ?
+    solution: '10000'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $z = 3 + 1 = 4$, donc $y = 10^4 = 10\,000$.
+      resultat: '10000'
+  - code: TLE-TEC-AJUST-05
+    difficulte: 5
+    type: numerique
+    enonce: On pose $z = \log y$ et on obtient l'ajustement $z = 0{,}5x + 2$. Pour quelle valeur de $x$ le modèle donne-t-il $y = 100\,000$ ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $y = 10^5$, donc $z = 5$.
+      - $0{,}5x + 2 = 5$ donne $x = 6$.
+      resultat: '6'

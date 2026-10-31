@@ -256,12 +256,14 @@ class TestParcoursEtRegistre:
         assert (q.source, q.adaptation.value, q.licence_source) == ("MathALÉA", "adaptee", "CC BY-SA 4.0")
         assert (q.statut_validation.value, q.valide_par, str(q.valide_le)) == ("validee", "Mme Martin", "2026-10-29")
 
-    def test_inventaire_matrice_trous_et_registre(self):
+    def test_inventaire_matrice_trous_et_registre(self, tmp_path):
         texte = contenu.inventaire(charger())
-        assert "### Tle — Spécialité" in texte
+        assert "### Tle — Spécialité" in texte and "### 1re — Enseignement scientifique" in texte
         assert "| 2. Suites numériques | `1RE-SUI-TERME`" in texte
-        assert "## Trous à combler" in texte and "aucune question de difficulté" in texte
+        assert "## Trous à combler\n\nAucun." in texte  # chaque compétence a un cours et les 5 difficultés
         assert "| math.ma | non clarifiée | inspiree |" in texte
+        ecrire(tmp_path, MINIMAL)  # une seule question : quatre difficultés manquantes
+        assert "aucune question de difficulté" in contenu.inventaire(charger(tmp_path))
 
     def test_inventaire_du_depot_a_jour(self):
         """Garde-fou : docs/CONTENU-INVENTAIRE.md doit être régénéré après chaque modification du contenu."""
@@ -278,9 +280,13 @@ class TestFiltreParParcours:
         assert classe["parcours"] == "expertes"
         codes = inscrire_eleves(client, classe["code"], ["Zoé"])
         h_eleve = connecter_eleve(client, "Zoé", classe["code"], codes["Zoé"])
-        assert client.get("/cours", headers=h_eleve).json() == []  # aucun chapitre « expertes » pour l'instant
-        assert client.get("/eleves/moi/chapitres", headers=h_eleve).json() == []
-        assert client.post("/seances", headers=h_eleve).status_code == 409  # rien d'ouvert à travailler
+        codes_cours = [ch["code"] for ch in client.get("/cours", headers=h_eleve).json()]
+        assert codes_cours and all(c.startswith("TLE-ME-") for c in codes_cours)  # les chapitres « expertes » seulement
+        assert {ch["code"] for ch in client.get("/eleves/moi/chapitres", headers=h_eleve).json()} == set(codes_cours)
+        seance = client.post("/seances", headers=h_eleve)
+        assert seance.status_code == 201
+        ids_expertes = {ch["id"] for ch in client.get("/cours", headers=h_eleve).json()}
+        assert {ch["id"] for ch in seance.json()["chapitres"]} <= ids_expertes
         assert client.get("/eleves/moi", headers=h_eleve).json()["parcours"] == "expertes"
 
     def test_cours_d_un_autre_parcours_introuvable(self, client):
@@ -295,7 +301,10 @@ class TestFiltreParParcours:
     @pytest.mark.parametrize(
         ("corps", "code", "parcours"),
         [({"niveau": "2nde"}, 201, "tronc-commun"), ({"niveau": "1re"}, 201, "specialite"),
-         ({"niveau": "2nde", "parcours": "expertes"}, 422, None), ({"niveau": "1re", "parcours": "complementaires"}, 422, None)],
+         ({"niveau": "1re", "parcours": "scientifique"}, 201, "scientifique"),
+         ({"niveau": "Tle", "parcours": "technologique"}, 201, "technologique"),
+         ({"niveau": "2nde", "parcours": "expertes"}, 422, None), ({"niveau": "1re", "parcours": "complementaires"}, 422, None),
+         ({"niveau": "2nde", "parcours": "technologique"}, 422, None), ({"niveau": "Tle", "parcours": "scientifique"}, 422, None)],
     )
     def test_parcours_de_la_classe_controle(self, client, corps, code, parcours):
         r = client.post("/enseignants/classes", headers=connecter_enseignant(client), json=corps)

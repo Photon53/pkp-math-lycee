@@ -1,0 +1,188 @@
+chapitre:
+  code: TLE-MC-SUI
+  niveau: Tle
+  parcours: complementaires
+  ordre: 1
+  titre: Suites numériques et modèles discrets
+competences:
+- code: TLE-MC-SUI-LIM
+  libelle: Calculer la limite d'une suite géométrique et d'une somme géométrique
+  objectifs:
+  - Connaitre la limite de $q^n$ pour $q > 0$.
+  - Calculer la limite de la somme des termes d'une suite géométrique de raison strictement comprise entre 0 et 1.
+  prerequis:
+  - 1RE-SUI-MOD
+  resume: |
+    - $0 < q < 1$ : $q^n \to 0$ ; $q = 1$ : $q^n = 1$ ; $q > 1$ : $q^n \to +\infty$.
+    - $1 + q + q^2 + \dots + q^n = \dfrac{1 - q^{n+1}}{1 - q}$ pour $q \neq 1$.
+    - Si $0 < q < 1$, cette somme tend vers $\dfrac{1}{1 - q}$.
+  cours: |
+    ## Limite de q^n
+    | Raison | Limite de $q^n$ |
+    |---|---|
+    | $0 < q < 1$ | $0$ |
+    | $q = 1$ | $1$ |
+    | $q > 1$ | $+\infty$ |
+
+    Multiplier par une constante positive ne change pas la nature de la limite : $3 \times 1{,}2^n \to +\infty$.
+
+    ## Somme des termes
+    $$S_n = u_0 + u_1 + \dots + u_n = u_0 \times \frac{1 - q^{n+1}}{1 - q}.$$
+    Si $0 < q < 1$, $q^{n+1} \to 0$, donc $S_n \to \dfrac{u_0}{1 - q}$.
+    Exemple : $1 + \dfrac{1}{2} + \dfrac{1}{4} + \dots \to \dfrac{1}{1 - \frac{1}{2}} = 2$.
+  methodes:
+  - titre: Calculer la limite d'une somme géométrique
+    etapes:
+    - Identifier le premier terme et la raison q.
+    - Vérifier que 0 < q < 1.
+    - Appliquer $\dfrac{\text{premier terme}}{1 - q}$.
+    exemple:
+      enonce: Limite de $3 + 1 + \dfrac{1}{3} + \dfrac{1}{9} + \dots$
+      resolution:
+      - Premier terme $3$, raison $\dfrac{1}{3}$.
+      - $\dfrac{3}{1 - \frac{1}{3}} = \dfrac{3}{\frac{2}{3}} = \dfrac{9}{2}$.
+      resultat: $\dfrac{9}{2}$
+  erreurs_frequentes:
+  - erreur: Penser qu'une somme d'une infinité de termes positifs est forcément infinie.
+    explication: Si les termes décroissent assez vite (raison entre 0 et 1), la somme a une limite finie.
+  questions:
+  - code: TLE-MC-SUI-LIM-01
+    difficulte: 1
+    type: qcm
+    enonce: Quelle est la limite de la suite $(0{,}6^n)$ ? A) $0$  B) $0{,}6$  C) $+\infty$
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0 < 0{,}6 < 1$, donc $0{,}6^n \to 0$.
+      resultat: A
+  - code: TLE-MC-SUI-LIM-02
+    difficulte: 2
+    type: qcm
+    enonce: Quelle est la limite de la suite $(3 \times 1{,}2^n)$ ? A) $0$  B) $3$  C) $+\infty$
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}2 > 1$ donc $1{,}2^n \to +\infty$, et multiplier par $3 > 0$ ne change rien.
+      resultat: C
+  - code: TLE-MC-SUI-LIM-03
+    difficulte: 3
+    type: numerique
+    enonce: Vers quoi tend la somme $1 + \dfrac{1}{2} + \dfrac{1}{4} + \dots + \dfrac{1}{2^n}$ quand $n$ tend vers $+\infty$ ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Somme géométrique de premier terme $1$ et de raison $\dfrac{1}{2}$ : limite $\dfrac{1}{1 - \frac{1}{2}} = 2$.'
+      resultat: '2'
+  - code: TLE-MC-SUI-LIM-04
+    difficulte: 4
+    type: numerique
+    enonce: On pose $u_n = 5 \times 0{,}8^n$. Vers quoi tend $u_0 + u_1 + \dots + u_n$ quand $n$ tend vers $+\infty$ ?
+    solution: '25'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{5}{1 - 0{,}8} = \dfrac{5}{0{,}2} = 25$.
+      resultat: '25'
+  - code: TLE-MC-SUI-LIM-05
+    difficulte: 5
+    type: numerique
+    enonce: On lâche une balle d'une hauteur de 5 m ; à chaque rebond, elle remonte à 60 % de la hauteur précédente. Quelle distance totale (en m) parcourt-elle, à la limite, en montées et descentes ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Première descente : $5$ m. Ensuite, chaque hauteur $3$ ; $1{,}8$ ; … est parcourue deux fois (montée et descente).'
+      - $3 + 1{,}8 + \dots \to \dfrac{3}{1 - 0{,}6} = 7{,}5$.
+      - 'Total : $5 + 2 \times 7{,}5 = 20$ m.'
+      resultat: '20'
+- code: TLE-MC-SUI-AG
+  libelle: Étudier une suite arithmético-géométrique
+  objectifs:
+  - Trouver la solution constante d'une récurrence arithmético-géométrique.
+  - En déduire le terme général et la limite.
+  prerequis:
+  - TLE-MC-SUI-LIM
+  resume: |
+    - Récurrence $u_{n+1} = au_n + b$ ($a \neq 1$) : la suite constante $\ell$ vérifie $\ell = a\ell + b$.
+    - $v_n = u_n - \ell$ est géométrique de raison $a$ : $u_n = \ell + (u_0 - \ell)a^n$.
+    - Si $0 < a < 1$, $u_n \to \ell$.
+  cours: |
+    ## Méthode
+    $u_{n+1} = 0{,}8u_n + 10$ et $u_0 = 20$.
+    1. Solution constante : $\ell = 0{,}8\ell + 10$, donc $\ell = 50$.
+    2. $v_n = u_n - 50$ : $v_{n+1} = 0{,}8u_n + 10 - 50 = 0{,}8(u_n - 50) = 0{,}8v_n$.
+    3. $v_n = v_0 \times 0{,}8^n = -30 \times 0{,}8^n$, donc $u_n = 50 - 30 \times 0{,}8^n$.
+    4. $0{,}8^n \to 0$, donc $u_n \to 50$.
+
+    ## Modèles
+    Dose de médicament renouvelée, population avec immigration constante, remboursement d'emprunt.
+  methodes:
+  - titre: Trouver le terme général d'une suite arithmético-géométrique
+    etapes:
+    - Résoudre ℓ = aℓ + b.
+    - Poser $v_n = u_n - \ell$ et montrer que $v_{n+1} = av_n$.
+    - Écrire $v_n = v_0a^n$, puis $u_n = v_n + \ell$.
+    exemple:
+      enonce: $u_{n+1} = 0{,}5u_n + 3$, $u_0 = 2$.
+      resolution:
+      - $\ell = 6$ ; $v_0 = -4$.
+      resultat: $u_n = 6 - 4 \times 0{,}5^n$
+  erreurs_frequentes:
+  - erreur: Écrire $v_0 = u_0$.
+    explication: '$v_0 = u_0 - \ell$ : on retire la solution constante.'
+  questions:
+  - code: TLE-MC-SUI-AG-01
+    difficulte: 1
+    type: numerique
+    enonce: $u_0 = 20$ et $u_{n+1} = 0{,}8u_n + 10$. Calculer $u_1$.
+    solution: '26'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u_1 = 0{,}8 \times 20 + 10 = 26$.
+      resultat: '26'
+  - code: TLE-MC-SUI-AG-02
+    difficulte: 2
+    type: numerique
+    enonce: Quelle est la suite constante solution de $u_{n+1} = 0{,}8u_n + 10$ ? (donner sa valeur)
+    solution: '50'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ell = 0{,}8\ell + 10$, soit $0{,}2\ell = 10$, donc $\ell = 50$.
+      resultat: '50'
+  - code: TLE-MC-SUI-AG-03
+    difficulte: 3
+    type: qcm
+    enonce: 'On pose $v_n = u_n - 50$ avec $u_{n+1} = 0{,}8u_n + 10$. La suite $(v_n)$ est : A) géométrique de raison 0,8  B) arithmétique de raison 10  C) géométrique de raison 10'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $v_{n+1} = 0{,}8u_n + 10 - 50 = 0{,}8(u_n - 50) = 0{,}8v_n$.
+      resultat: A
+  - code: TLE-MC-SUI-AG-04
+    difficulte: 4
+    type: expression
+    enonce: $u_0 = 20$ et $u_{n+1} = 0{,}8u_n + 10$. Exprimer $u_n$ en fonction de $n$.
+    solution: 50 - 30*0.8^n
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $v_0 = 20 - 50 = -30$, donc $v_n = -30 \times 0{,}8^n$.
+      - $u_n = 50 - 30 \times 0{,}8^n$.
+      resultat: 50 - 30*0.8^n
+  - code: TLE-MC-SUI-AG-05
+    difficulte: 5
+    type: numerique
+    enonce: Un patient reçoit 10 mg d'un médicament chaque jour ; entre deux prises, son organisme élimine 20 % de la quantité présente. Avec 20 mg au départ, vers quelle quantité (en mg) se stabilise-t-elle ?
+    solution: '50'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u_{n+1} = 0{,}8u_n + 10$, donc $u_n = 50 - 30 \times 0{,}8^n$.
+      - '$0{,}8^n \to 0$ : la quantité tend vers $50$ mg.'
+      resultat: '50'

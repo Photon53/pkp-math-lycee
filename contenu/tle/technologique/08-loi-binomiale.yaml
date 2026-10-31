@@ -1,0 +1,94 @@
+chapitre:
+  code: TLE-TEC-BIN
+  niveau: Tle
+  parcours: technologique
+  ordre: 8
+  titre: Variables aléatoires et loi binomiale
+competences:
+- code: TLE-TEC-BINOM
+  libelle: Utiliser la loi binomiale et son espérance
+  objectifs:
+  - Utiliser les coefficients binomiaux et le triangle de Pascal.
+  - Calculer des probabilités et l'espérance d'une loi binomiale.
+  prerequis:
+  - 1RE-TEC-VA
+  resume: |
+    - $X \sim \mathcal B(n ; p)$ compte les succès de $n$ épreuves de Bernoulli identiques et indépendantes.
+    - $P(X = k) = \dbinom{n}{k}p^k(1 - p)^{n - k}$ ; $E(X) = np$.
+    - $\dbinom{n}{1} = n$ ; les coefficients se lisent dans le triangle de Pascal.
+  cours: |
+    ## Triangle de Pascal
+    | $n$ | coefficients |
+    |---|---|
+    | 4 | 1 4 6 4 1 |
+    | 5 | 1 5 10 10 5 1 |
+    | 6 | 1 6 15 20 15 6 1 |
+
+    ## Exemple
+    $X \sim \mathcal B(4 ; 0{,}1)$ : $P(X = 1) = 4 \times 0{,}1 \times 0{,}9^3 = 0{,}2916$.
+    $X \sim \mathcal B(20 ; 0{,}15)$ : $E(X) = 3$ succès en moyenne.
+  methodes:
+  - titre: Justifier une loi binomiale
+    etapes:
+    - Identifier l'épreuve à deux issues et la probabilité p du succès.
+    - Vérifier que les n répétitions sont identiques et indépendantes.
+    - X compte les succès.
+    exemple:
+      enonce: On lance 5 fois un dé et on compte les 6.
+      resolution:
+      - Succès « obtenir 6 », $p = \dfrac{1}{6}$, 5 lancers indépendants.
+      resultat: $X \sim \mathcal B\left(5 ; \dfrac{1}{6}\right)$
+  erreurs_frequentes:
+  - erreur: Oublier le facteur $(1 - p)^{n - k}$.
+    explication: Les autres épreuves doivent être des échecs.
+  questions:
+  - code: TLE-TEC-BINOM-01
+    difficulte: 1
+    type: numerique
+    enonce: Donner $\dbinom{5}{1}$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\dbinom{n}{1} = n$ : il y a 5 positions possibles pour un succès.'
+      resultat: '5'
+  - code: TLE-TEC-BINOM-02
+    difficulte: 2
+    type: numerique
+    enonce: À l'aide du triangle de Pascal, donner $\dbinom{6}{3}$.
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Ligne 6 : 1, 6, 15, 20, 15, 6, 1.'
+      resultat: '20'
+  - code: TLE-TEC-BINOM-03
+    difficulte: 3
+    type: numerique
+    enonce: $X \sim \mathcal B(3 ; 0{,}5)$. Calculer $P(X = 3)$.
+    solution: 1/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5^3 = \dfrac{1}{8}$.
+      resultat: 1/8
+  - code: TLE-TEC-BINOM-04
+    difficulte: 4
+    type: numerique
+    enonce: $X \sim \mathcal B(20 ; 0{,}15)$. Calculer $E(X)$.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $np = 20 \times 0{,}15 = 3$.
+      resultat: '3'
+  - code: TLE-TEC-BINOM-05
+    difficulte: 5
+    type: numerique
+    enonce: $X \sim \mathcal B(4 ; 0{,}1)$. Calculer $P(X = 1)$.
+    solution: '0.2916'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dbinom{4}{1} \times 0{,}1 \times 0{,}9^3 = 4 \times 0{,}1 \times 0{,}729 = 0{,}2916$.
+      resultat: '0.2916'

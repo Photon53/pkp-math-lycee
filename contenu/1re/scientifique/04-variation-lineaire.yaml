@@ -1,0 +1,95 @@
+chapitre:
+  code: 1RE-ES-LIN
+  niveau: 1re
+  parcours: scientifique
+  ordre: 4
+  titre: Variation linéaire, suites arithmétiques
+competences:
+- code: 1RE-ES-ARITH
+  libelle: Modéliser une croissance linéaire par une suite arithmétique ou une fonction affine
+  objectifs:
+  - Reconnaitre une croissance linéaire et calculer un terme de rang donné.
+  - Résoudre un problème de seuil dans le cas linéaire.
+  prerequis:
+  - 2NDE-AFF
+  resume: |
+    - Suite **arithmétique** de raison $r$ : $u(n + 1) = u(n) + r$, et $u(n) = u(0) + nr$.
+    - Croissante si $r > 0$, décroissante si $r < 0$ ; ses points sont alignés.
+    - Une fonction affine $f(x) = ax + b$ est le modèle continu d'une croissance linéaire.
+  cours: |
+    ## Suite arithmétique
+    On ajoute toujours la même quantité $r$ : $u(n) = u(0) + n \times r$.
+    Exemple : un placement de $1\,000$ € à intérêts simples de $3\,\%$ rapporte $30$ € par an : $C(n) = 1\,000 + 30n$.
+
+    ## Fonction affine
+    $F = 1{,}8C + 32$ convertit les degrés Celsius en degrés Fahrenheit ; le coefficient $1{,}8$ est le taux d'accroissement constant.
+
+    ## Problème de seuil
+    On résout une inéquation du premier degré, puis on choisit le premier entier qui convient.
+  methodes:
+  - titre: Résoudre un problème de seuil linéaire
+    etapes:
+    - Écrire le terme général de la suite.
+    - Résoudre l'inéquation obtenue.
+    - Prendre le premier entier qui convient.
+    exemple:
+      enonce: $u(n) = 50 + 7n$. À partir de quel rang $u(n) > 100$ ?
+      resolution:
+      - $7n > 50$ donne $n > 7{,}1$.
+      resultat: À partir de $n = 8$.
+  erreurs_frequentes:
+  - erreur: Écrire $u(n) = u(0) + (n + 1)r$.
+    explication: Entre $u(0)$ et $u(n)$, on ajoute $r$ exactement $n$ fois.
+  questions:
+  - code: 1RE-ES-ARITH-01
+    difficulte: 1
+    type: numerique
+    enonce: Une suite arithmétique vérifie $u(0) = 5$ et a pour raison 3. Calculer $u(4)$.
+    solution: '17'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u(4) = 5 + 4 \times 3 = 17$.
+      resultat: '17'
+  - code: 1RE-ES-ARITH-02
+    difficulte: 2
+    type: numerique
+    enonce: $u(0) = 30$ et $u(n + 1) = u(n) - 2$. Calculer $u(10)$.
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Suite arithmétique de raison $-2$ : $u(10) = 30 - 20 = 10$.'
+      resultat: '10'
+  - code: 1RE-ES-ARITH-03
+    difficulte: 3
+    type: expression
+    enonce: On place 1 000 € à intérêts simples de 3 % par an. Exprimer le capital $C(n)$ au bout de $n$ années.
+    solution: 1000 + 30n
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Les intérêts annuels sont fixes : $3\,\%$ de $1\,000$, soit $30$ €.'
+      - $C(n) = 1\,000 + 30n$.
+      resultat: 1000 + 30n
+  - code: 1RE-ES-ARITH-04
+    difficulte: 4
+    type: numerique
+    enonce: La formule $F = 1{,}8C + 32$ convertit les degrés Celsius en degrés Fahrenheit. Quelle température en degrés Celsius correspond à 86 °F ?
+    solution: '30'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}8C + 32 = 86$, soit $1{,}8C = 54$, donc $C = 30$.
+      resultat: '30'
+  - code: 1RE-ES-ARITH-05
+    difficulte: 5
+    type: numerique
+    enonce: Le niveau moyen des océans monte de 3,3 mm par an. En prenant 2020 comme référence (élévation 0), en quelle année l'élévation dépassera-t-elle 100 mm ?
+    solution: '2051'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3{,}3n > 100$ donne $n > 30{,}3$, donc $n = 31$.
+      - $2020 + 31 = 2051$.
+      resultat: '2051'

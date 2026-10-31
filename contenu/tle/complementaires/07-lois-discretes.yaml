@@ -1,0 +1,186 @@
+chapitre:
+  code: TLE-MC-DISC
+  niveau: Tle
+  parcours: complementaires
+  ordre: 7
+  titre: Lois discrètes
+competences:
+- code: TLE-MC-BINOM
+  libelle: Utiliser la loi de Bernoulli et la loi binomiale
+  objectifs:
+  - Identifier un schéma de Bernoulli et une loi binomiale.
+  - Calculer des coefficients binomiaux, des probabilités et une espérance.
+  prerequis:
+  - 1RE-LOI
+  resume: |
+    - Loi de Bernoulli de paramètre $p$ : $E = p$, $\sigma = \sqrt{p(1 - p)}$.
+    - $X \sim \mathcal B(n ; p)$ compte les succès de $n$ épreuves indépendantes : $P(X = k) = \dbinom{n}{k}p^k(1 - p)^{n - k}$.
+    - $E(X) = np$ ; les $\dbinom{n}{k}$ se lisent dans le triangle de Pascal.
+  cours: |
+    ## Triangle de Pascal
+    | $n$ | coefficients |
+    |---|---|
+    | 2 | 1 2 1 |
+    | 3 | 1 3 3 1 |
+    | 4 | 1 4 6 4 1 |
+
+    $\dbinom{4}{2} = 6$ : il y a 6 façons de placer 2 succès parmi 4 épreuves.
+
+    ## Loi binomiale
+    $X \sim \mathcal B(4 ; 0{,}5)$ : $P(X = 1) = \dbinom{4}{1} \times 0{,}5^1 \times 0{,}5^3 = \dfrac{4}{16} = \dfrac{1}{4}$.
+    Espérance : $E(X) = np$.
+
+    ## Au moins un succès
+    $P(X \geq 1) = 1 - P(X = 0) = 1 - (1 - p)^n$.
+  methodes:
+  - titre: Calculer P(X = k) pour une loi binomiale
+    etapes:
+    - Justifier les n épreuves identiques et indépendantes à deux issues.
+    - Appliquer $\dbinom{n}{k}p^k(1 - p)^{n - k}$.
+    exemple:
+      enonce: $X \sim \mathcal B(3 ; 0{,}2)$. $P(X = 2)$ ?
+      resolution:
+      - $3 \times 0{,}2^2 \times 0{,}8 = 0{,}096$.
+      resultat: $0{,}096$
+  erreurs_frequentes:
+  - erreur: Oublier le coefficient binomial.
+    explication: Il compte les différentes positions possibles des succès.
+  questions:
+  - code: TLE-MC-BINOM-01
+    difficulte: 1
+    type: numerique
+    enonce: Une variable de Bernoulli a pour paramètre 0,3. Quelle est son espérance ?
+    solution: '0.3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E = 1 \times 0{,}3 + 0 \times 0{,}7 = 0{,}3$.
+      resultat: '0.3'
+  - code: TLE-MC-BINOM-02
+    difficulte: 2
+    type: numerique
+    enonce: À l'aide du triangle de Pascal, donner $\dbinom{4}{2}$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Ligne 4 du triangle de Pascal : 1, 4, 6, 4, 1.'
+      resultat: '6'
+  - code: TLE-MC-BINOM-03
+    difficulte: 3
+    type: numerique
+    enonce: $X \sim \mathcal B(4 ; 0{,}5)$. Calculer $P(X = 1)$.
+    solution: 1/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dbinom{4}{1} \times 0{,}5^4 = \dfrac{4}{16} = \dfrac{1}{4}$.
+      resultat: 1/4
+  - code: TLE-MC-BINOM-04
+    difficulte: 4
+    type: numerique
+    enonce: $X \sim \mathcal B(10 ; 0{,}2)$. Calculer $E(X)$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E(X) = np = 10 \times 0{,}2 = 2$.
+      resultat: '2'
+  - code: TLE-MC-BINOM-05
+    difficulte: 5
+    type: numerique
+    enonce: $X \sim \mathcal B(3 ; 0{,}4)$. Calculer $P(X \geq 1)$.
+    solution: '0.784'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P(X = 0) = 0{,}6^3 = 0{,}216$.
+      - $P(X \geq 1) = 1 - 0{,}216 = 0{,}784$.
+      resultat: '0.784'
+- code: TLE-MC-GEOM
+  libelle: Utiliser la loi uniforme et la loi géométrique
+  objectifs:
+  - Calculer l'espérance d'une loi uniforme sur {1, …, n}.
+  - Calculer des probabilités et l'espérance d'une loi géométrique, utiliser l'absence de mémoire.
+  prerequis:
+  - TLE-MC-BINOM
+  resume: |
+    - Loi uniforme sur $\{1, \dots, n\}$ : $E = \dfrac{n + 1}{2}$.
+    - Loi géométrique de paramètre $p$ (rang du premier succès) : $P(X = k) = (1 - p)^{k - 1}p$, $E = \dfrac{1}{p}$.
+    - $P(X > k) = (1 - p)^k$ et **absence de mémoire** : $P_{X > m}(X > m + k) = P(X > k)$.
+  cours: |
+    ## Loi uniforme
+    Un dé équilibré : $E = \dfrac{1 + 2 + \dots + 6}{6} = 3{,}5$.
+
+    ## Loi géométrique
+    On répète une épreuve de succès $p = 0{,}2$ jusqu'au premier succès ; $X$ est le rang de ce succès.
+    - $P(X = 3) = 0{,}8^2 \times 0{,}2 = 0{,}128$ (deux échecs puis un succès).
+    - $E(X) = \dfrac{1}{0{,}2} = 5$ : en moyenne, le premier succès arrive à la 5ᵉ épreuve.
+
+    ## Absence de mémoire
+    Savoir qu'on a déjà attendu ne change pas la loi de l'attente restante : $P_{X > 2}(X > 5) = P(X > 3) = 0{,}8^3$.
+  methodes:
+  - titre: Calculer P(X = k) pour une loi géométrique
+    etapes:
+    - Identifier p, la probabilité de succès à chaque épreuve.
+    - k − 1 échecs puis un succès.
+    exemple:
+      enonce: $p = \dfrac{1}{6}$ (obtenir un 6). Probabilité du premier 6 au 2ᵉ lancer ?
+      resolution:
+      - $\dfrac{5}{6} \times \dfrac{1}{6}$.
+      resultat: $\dfrac{5}{36}$
+  erreurs_frequentes:
+  - erreur: Mettre k échecs au lieu de k − 1.
+    explication: Le k-ième essai est le succès.
+  questions:
+  - code: TLE-MC-GEOM-01
+    difficulte: 1
+    type: numerique
+    enonce: On lance un dé équilibré à six faces. Quelle est l'espérance du résultat ?
+    solution: '3.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Loi uniforme sur $\{1, \dots, 6\}$ : $E = \dfrac{6 + 1}{2} = 3{,}5$.'
+      resultat: '3.5'
+  - code: TLE-MC-GEOM-02
+    difficulte: 2
+    type: numerique
+    enonce: $X$ suit la loi géométrique de paramètre 0,2. Calculer $P(X = 1)$.
+    solution: '0.2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Succès dès la première épreuve : probabilité p = 0,2.'
+      resultat: '0.2'
+  - code: TLE-MC-GEOM-03
+    difficulte: 3
+    type: numerique
+    enonce: $X$ suit la loi géométrique de paramètre 0,2. Calculer $P(X = 3)$.
+    solution: '0.128'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}8^2 \times 0{,}2 = 0{,}64 \times 0{,}2 = 0{,}128$.
+      resultat: '0.128'
+  - code: TLE-MC-GEOM-04
+    difficulte: 4
+    type: numerique
+    enonce: $X$ suit la loi géométrique de paramètre 0,2. Calculer $E(X)$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E(X) = \dfrac{1}{p} = 5$.
+      resultat: '5'
+  - code: TLE-MC-GEOM-05
+    difficulte: 5
+    type: numerique
+    enonce: $X$ suit la loi géométrique de paramètre 0,2. Sachant que $X > 2$, quelle est la probabilité que $X > 5$ ?
+    solution: '0.512'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Absence de mémoire.
+      etapes:
+      - $P_{X > 2}(X > 5) = P(X > 3) = 0{,}8^3 = 0{,}512$.
+      resultat: '0.512'

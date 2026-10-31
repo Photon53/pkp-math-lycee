@@ -1,0 +1,96 @@
+chapitre:
+  code: 1RE-TEC-FONC
+  niveau: 1re
+  parcours: technologique
+  ordre: 3
+  titre: Fonctions polynômes du second degré
+competences:
+- code: 1RE-TEC-POLY2
+  libelle: Exploiter la forme factorisée d'un polynôme du second degré
+  objectifs:
+  - Lire racines, axe de symétrie et sommet à partir de la forme factorisée.
+  - Calculer un taux de variation.
+  prerequis:
+  - 2NDE-CARRE
+  - 1RE-TEC-CALC
+  resume: |
+    - $f(x) = a(x - x_1)(x - x_2)$ : racines $x_1$, $x_2$, axe $x = \dfrac{x_1 + x_2}{2}$.
+    - Sommet : point de la courbe sur l'axe de symétrie.
+    - Taux de variation entre $a$ et $b$ : $\dfrac{f(b) - f(a)}{b - a}$.
+  cours: |
+    ## Exemple
+    $f(x) = 3(x - 1)(x - 5)$ :
+    - racines $1$ et $5$ ;
+    - axe de symétrie $x = 3$ ;
+    - sommet $(3 ; f(3)) = (3 ; -12)$ ; comme $a = 3 > 0$, c'est un minimum.
+
+    ## Signe
+    $-(x - 2)(x - 6)$ : $a = -1 < 0$, l'expression est positive entre les racines $2$ et $6$.
+
+    ## Taux de variation
+    Pour $f(x) = x^2$ entre $1$ et $3$ : $\dfrac{9 - 1}{3 - 1} = 4$.
+  methodes:
+  - titre: Trouver le sommet à partir de la forme factorisée
+    etapes:
+    - Lire les racines.
+    - Prendre leur moyenne pour l'abscisse du sommet.
+    - Calculer son image.
+    exemple:
+      enonce: $f(x) = 2(x + 1)(x - 3)$.
+      resolution:
+      - Axe $x = 1$ ; $f(1) = 2 \times 2 \times (-2) = -8$.
+      resultat: Sommet $(1 ; -8)$
+  erreurs_frequentes:
+  - erreur: Lire la racine $2$ dans $(x + 2)$.
+    explication: $x + 2 = 0$ donne $x = -2$.
+  questions:
+  - code: 1RE-TEC-POLY2-01
+    difficulte: 1
+    type: numerique
+    enonce: $f(x) = (x + 2)(x - 4)$. Quelle est la racine négative de $f$ ?
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x + 2 = 0$ donne $x = -2$.
+      resultat: '-2'
+  - code: 1RE-TEC-POLY2-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = (x + 2)(x - 4)$. Quelle est l'abscisse de l'axe de symétrie de sa courbe ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{-2 + 4}{2} = 1$.
+      resultat: '1'
+  - code: 1RE-TEC-POLY2-03
+    difficulte: 3
+    type: numerique
+    enonce: $f(x) = 3(x - 1)(x - 5)$. Quelle est l'ordonnée du sommet de la parabole ?
+    solution: '-12'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Axe $x = 3$ ; $f(3) = 3 \times 2 \times (-2) = -12$.
+      resultat: '-12'
+  - code: 1RE-TEC-POLY2-04
+    difficulte: 4
+    type: qcm
+    enonce: 'L''expression $-(x - 2)(x - 6)$ est positive : A) sur $[2 ; 6]$  B) en dehors de $[2 ; 6]$  C) partout'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$a = -1 < 0$ : signe de $-a$, donc positif, entre les racines.'
+      resultat: A
+  - code: 1RE-TEC-POLY2-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer le taux de variation de $f(x) = x^2$ entre $x = 1$ et $x = 3$.
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{f(3) - f(1)}{3 - 1} = \dfrac{9 - 1}{2} = 4$.
+      resultat: '4'

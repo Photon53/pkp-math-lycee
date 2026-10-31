@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api, ouvrirLien, ouvrirPdf } from "../api.js";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
+import { libelleNiveauParcours, trierChapitres } from "../parcours.js";
 import Icone from "../ui/Icone.jsx";
 import { ErreursFrequentes, Methodes, Objectifs } from "../ui/Pedagogie.jsx";
 import ParcoursPKP from "./ParcoursPKP.jsx";
@@ -72,7 +73,10 @@ export default function Cours({
     );
   }
 
-  const chapitres = sommaireFourni ?? sommaire;
+  const brut = sommaireFourni ?? sommaire;
+  // Le professeur voit toute la banque : on la range par niveau puis par parcours (voie générale, technologique…).
+  const chapitres = enseignant && brut ? trierChapitres(brut) : brut;
+  const groupe = (ch) => `${ch.niveau}|${ch.parcours}`;
   return (
     <section className="carte">
       {!enseignant && <h2>Cours</h2>}
@@ -81,8 +85,11 @@ export default function Cours({
       {chapitres?.length === 0 && (
         <p className="doux">{enseignant ? "Aucun cours ne correspond." : "Aucun cours pour ton niveau pour l'instant."}</p>
       )}
-      {chapitres?.map((chapitre) => (
+      {chapitres?.map((chapitre, i) => (
         <div key={chapitre.id}>
+          {enseignant && chapitre.parcours && (i === 0 || groupe(chapitres[i - 1]) !== groupe(chapitre)) && (
+            <h2 className="titre-parcours">{libelleNiveauParcours(chapitre.niveau, chapitre.parcours)}</h2>
+          )}
           <h3>
             {chapitre.titre}
             {enseignant && (

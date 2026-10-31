@@ -109,9 +109,9 @@ describe("spécialité des classes", () => {
     });
     render(<Classes jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByText(/Seconde · Tronc commun · 2 élèves/)).toBeInTheDocument();
-    expect(screen.queryByLabelText("Spécialité de la nouvelle classe")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Parcours de la nouvelle classe")).not.toBeInTheDocument();
     await userEvent.selectOptions(screen.getByLabelText("Niveau de la nouvelle classe"), "Tle");
-    await userEvent.selectOptions(screen.getByLabelText("Spécialité de la nouvelle classe"), "expertes");
+    await userEvent.selectOptions(screen.getByLabelText("Parcours de la nouvelle classe"), "expertes");
     await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));
     expect(appels.find((a) => a.cle === "POST /enseignants/classes").corps).toEqual({ niveau: "Tle", parcours: "expertes" });
   });

@@ -1,0 +1,184 @@
+chapitre:
+  code: TLE-ME-CALG
+  niveau: Tle
+  parcours: expertes
+  ordre: 1
+  titre: Nombres complexes, forme algébrique et équations
+competences:
+- code: TLE-ME-CPLX-ALG
+  libelle: Calculer avec la forme algébrique et le conjugué
+  objectifs:
+  - Effectuer somme, produit, quotient de nombres complexes en forme algébrique.
+  - Utiliser le conjugué.
+  prerequis:
+  - 2NDE-DEV
+  resume: |
+    - $z = a + ib$ avec $a = \mathrm{Re}(z)$, $b = \mathrm{Im}(z)$ réels et $i^2 = -1$.
+    - Conjugué $\bar z = a - ib$ ; $z\bar z = a^2 + b^2$ est un réel positif.
+    - Quotient : multiplier en haut et en bas par le conjugué du dénominateur.
+  cours: |
+    ## Calculs
+    - $(2 + 3i) + (1 - 5i) = 3 - 2i$.
+    - $(2 + i)(3 - i) = 6 - 2i + 3i - i^2 = 7 + i$.
+    - Puissances de $i$ : $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, puis le cycle recommence.
+
+    ## Quotient
+    $$\frac{1}{1 + i} = \frac{1 - i}{(1 + i)(1 - i)} = \frac{1 - i}{2} = \frac{1}{2} - \frac{1}{2}i.$$
+
+    ## Équation avec conjugué
+    On pose $z = x + iy$, puis on identifie parties réelles et imaginaires.
+  methodes:
+  - titre: Résoudre une équation contenant z et son conjugué
+    etapes:
+    - Poser $z = x + iy$ et $\bar z = x - iy$.
+    - Développer et regrouper parties réelle et imaginaire.
+    - 'Identifier les deux membres : deux équations réelles.'
+    exemple:
+      enonce: $z + \bar z = 4$ et $z - \bar z = 6i$.
+      resolution:
+      - $2x = 4$ et $2iy = 6i$.
+      resultat: $z = 2 + 3i$
+  erreurs_frequentes:
+  - erreur: Oublier que i² = −1 en développant.
+    explication: $(2 + i)(3 - i)$ contient $-i^2 = +1$.
+  - erreur: Donner ib comme partie imaginaire.
+    explication: La partie imaginaire de a + ib est le réel b, sans le i.
+  questions:
+  - code: TLE-ME-CPLX-ALG-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la partie réelle de $(2 + 3i) + (1 - 5i)$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(2 + 1) + (3 - 5)i = 3 - 2i$.
+      resultat: '3'
+  - code: TLE-ME-CPLX-ALG-02
+    difficulte: 2
+    type: numerique
+    enonce: Quelle est la partie imaginaire de $(2 + i)(3 - i)$ ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $6 - 2i + 3i - i^2 = 6 + i + 1 = 7 + i$.
+      resultat: '1'
+  - code: TLE-ME-CPLX-ALG-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $i^{2026}$.
+    solution: '-1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $i^4 = 1$ et $2026 = 4 \times 506 + 2$.
+      - $i^{2026} = i^2 = -1$.
+      resultat: '-1'
+  - code: TLE-ME-CPLX-ALG-04
+    difficulte: 4
+    type: numerique
+    enonce: Quelle est la partie réelle de $\dfrac{1}{1 + i}$ ?
+    solution: 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1 - i}{(1 + i)(1 - i)} = \dfrac{1 - i}{2}$.
+      resultat: 1/2
+  - code: TLE-ME-CPLX-ALG-05
+    difficulte: 5
+    type: numerique
+    enonce: Le nombre complexe $z$ vérifie $z + 2\bar z = 3 - i$. Quelle est sa partie imaginaire ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$z = x + iy$ : $x + iy + 2x - 2iy = 3x - iy$.'
+      - '$3x = 3$ et $-y = -1$ : $z = 1 + i$.'
+      resultat: '1'
+- code: TLE-ME-CPLX-EQ
+  libelle: Résoudre une équation polynomiale dans les complexes
+  objectifs:
+  - Résoudre une équation du second degré à coefficients réels.
+  - Factoriser un polynôme par z − a quand a est une racine.
+  prerequis:
+  - TLE-ME-CPLX-ALG
+  - 1RE-DISC
+  resume: |
+    - $az^2 + bz + c = 0$ ($a, b, c$ réels) : si $\Delta < 0$, deux solutions conjuguées $\dfrac{-b \pm i\sqrt{-\Delta}}{2a}$.
+    - Si $P(a) = 0$, on peut factoriser : $P(z) = (z - a)Q(z)$.
+  cours: |
+    ## Discriminant négatif
+    $z^2 + 2z + 5 = 0$ : $\Delta = 4 - 20 = -16 = (4i)^2$.
+    $$z = \frac{-2 \pm 4i}{2} = -1 \pm 2i.$$
+
+    ## Factorisation
+    $P(z) = z^3 - 2z^2 + 4z - 8$ : $P(2) = 8 - 8 + 8 - 8 = 0$, donc $P(z) = (z - 2)(z^2 + 4)$.
+    Les solutions sont $2$, $2i$ et $-2i$.
+  methodes:
+  - titre: Résoudre une équation du second degré avec Δ < 0
+    etapes:
+    - Calculer Δ.
+    - Écrire $\Delta = (i\sqrt{-\Delta})^2$.
+    - Appliquer $z = \dfrac{-b \pm i\sqrt{-\Delta}}{2a}$.
+    exemple:
+      enonce: $z^2 - 2z + 2 = 0$.
+      resolution:
+      - $\Delta = -4$ ; $z = \dfrac{2 \pm 2i}{2}$.
+      resultat: $1 + i$ et $1 - i$
+  erreurs_frequentes:
+  - erreur: Conclure « pas de solution » quand Δ < 0.
+    explication: Il n'y a pas de solution réelle, mais deux solutions complexes conjuguées.
+  questions:
+  - code: TLE-ME-CPLX-EQ-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer le discriminant de $z^2 + 2z + 5$.
+    solution: '-16'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\Delta = 2^2 - 4 \times 5 = -16$.
+      resultat: '-16'
+  - code: TLE-ME-CPLX-EQ-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Les solutions complexes de $z^2 = -9$ sont : A) $3i$ et $-3i$  B) $3$ et $-3$  C) il n''y en a pas'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(3i)^2 = 9i^2 = -9$, de même pour $-3i$.
+      resultat: A
+  - code: TLE-ME-CPLX-EQ-03
+    difficulte: 3
+    type: numerique
+    enonce: Les solutions de $z^2 + 2z + 5 = 0$ sont conjuguées. Quelle est la partie imaginaire de celle dont la partie imaginaire est positive ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\Delta = -16$ : $z = \dfrac{-2 \pm 4i}{2} = -1 \pm 2i$.'
+      resultat: '2'
+  - code: TLE-ME-CPLX-EQ-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le module des solutions de $z^2 - 4z + 13 = 0$ ? (valeur exacte)
+    solution: sqrt(13)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\Delta = 16 - 52 = -36$ : $z = \dfrac{4 \pm 6i}{2} = 2 \pm 3i$.'
+      - $|2 + 3i| = \sqrt{4 + 9} = \sqrt{13}$.
+      resultat: sqrt(13)
+  - code: TLE-ME-CPLX-EQ-05
+    difficulte: 5
+    type: numerique
+    enonce: $P(z) = z^3 - 2z^2 + 4z - 8$. Vérifier que $P(2) = 0$, factoriser $P$, puis donner le module des solutions non réelles de $P(z) = 0$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $P(2) = 0$, et $P(z) = (z - 2)(z^2 + 4)$.
+      - $z^2 = -4$ donne $z = \pm 2i$, de module $2$.
+      resultat: '2'

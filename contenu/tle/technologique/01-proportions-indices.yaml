@@ -1,0 +1,90 @@
+chapitre:
+  code: TLE-TEC-AUTOM
+  niveau: Tle
+  parcours: technologique
+  ordre: 1
+  titre: Automatismes, proportions et indices
+competences:
+- code: TLE-TEC-INDICE
+  libelle: Calculer des proportions de proportions et des indices base 100
+  objectifs:
+  - Calculer la proportion d'une proportion.
+  - Calculer et interpréter un indice base 100.
+  prerequis:
+  - 1RE-TEC-EVO
+  resume: |
+    - Proportion d'une proportion : on **multiplie** les proportions.
+    - Indice base 100 : $I = 100 \times \dfrac{\text{valeur}}{\text{valeur de référence}}$.
+    - Passer de l'indice $I_1$ à $I_2$ : taux $\dfrac{I_2 - I_1}{I_1}$.
+  cours: |
+    ## Proportion d'une proportion
+    $40\,\%$ des élèves sont internes et $25\,\%$ des internes sont des filles : les filles internes représentent $0{,}4 \times 0{,}25 = 10\,\%$ des élèves.
+
+    ## Indices base 100
+    Prix $80$ € en 2020 (base 100), $92$ € en 2025 : indice $100 \times \dfrac{92}{80} = 115$, soit $+15\,\%$ depuis 2020.
+    De l'indice $125$ à l'indice $150$ : $\dfrac{150 - 125}{125} = 20\,\%$ (et non $25\,\%$).
+  methodes:
+  - titre: Calculer un taux entre deux indices
+    etapes:
+    - Ne pas soustraire les indices directement s'ils ne sont pas à 100.
+    - Diviser la différence par l'indice de départ.
+    exemple:
+      enonce: De l'indice 120 à l'indice 132 ?
+      resolution:
+      - $\dfrac{132 - 120}{120} = 0{,}1$.
+      resultat: $+10\,\%$
+  erreurs_frequentes:
+  - erreur: Lire « 150 − 125 = 25 % ».
+    explication: Seul un écart depuis l'indice 100 se lit directement en pourcentage.
+  questions:
+  - code: TLE-TEC-INDICE-01
+    difficulte: 1
+    type: numerique
+    enonce: Dans un lycée, 40 % des élèves sont internes, et 25 % des internes sont des filles. Quel pourcentage des élèves du lycée sont des filles internes ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}4 \times 0{,}25 = 0{,}1$, soit $10\,\%$.
+      resultat: '10'
+  - code: TLE-TEC-INDICE-02
+    difficulte: 2
+    type: numerique
+    enonce: Un prix vaut 80 € en 2020 (indice 100) et 92 € en 2025. Quel est l'indice en 2025 ?
+    solution: '115'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $100 \times \dfrac{92}{80} = 115$.
+      resultat: '115'
+  - code: TLE-TEC-INDICE-03
+    difficulte: 3
+    type: numerique
+    enonce: Un indice passe de 100 à 130. Quel est le taux d'évolution correspondant, en pourcentage ?
+    solution: '30'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Depuis la base 100, l''écart se lit directement : $+30\,\%$.'
+      resultat: '30'
+  - code: TLE-TEC-INDICE-04
+    difficulte: 4
+    type: numerique
+    enonce: Un indice vaut 125 en 2023 et 150 en 2025. Quel est le taux d'évolution entre 2023 et 2025, en pourcentage ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{150 - 125}{125} = 0{,}2$, soit $20\,\%$.
+      resultat: '20'
+  - code: TLE-TEC-INDICE-05
+    difficulte: 5
+    type: numerique
+    enonce: Après une baisse de 30 %, de quel pourcentage faut-il augmenter pour retrouver la valeur initiale ? (valeur exacte)
+    solution: 300/7
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1}{0{,}7} = \dfrac{10}{7}$, donc une hausse de $\dfrac{10}{7} - 1 = \dfrac{3}{7}$.
+      - Soit $\dfrac{300}{7}\,\% \approx 42{,}9\,\%$.
+      resultat: 300/7

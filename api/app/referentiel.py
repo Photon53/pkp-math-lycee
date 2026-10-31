@@ -14,12 +14,14 @@ class Parcours(str, Enum):
     SPECIALITE = "specialite"  # Première et Terminale : spécialité mathématiques
     COMPLEMENTAIRES = "complementaires"  # Terminale : option mathématiques complémentaires
     EXPERTES = "expertes"  # Terminale : option mathématiques expertes
+    SCIENTIFIQUE = "scientifique"  # Première : mathématiques de l'enseignement scientifique (sans la spécialité)
+    TECHNOLOGIQUE = "technologique"  # Première et Terminale : voie technologique (STMG, STI2D, STL, ST2S…)
 
 
 PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
     Niveau.SECONDE: (Parcours.TRONC_COMMUN,),
-    Niveau.PREMIERE: (Parcours.SPECIALITE,),
-    Niveau.TERMINALE: (Parcours.SPECIALITE, Parcours.COMPLEMENTAIRES, Parcours.EXPERTES),
+    Niveau.PREMIERE: (Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE),
+    Niveau.TERMINALE: (Parcours.SPECIALITE, Parcours.COMPLEMENTAIRES, Parcours.EXPERTES, Parcours.TECHNOLOGIQUE),
 }
 
 LIBELLES_PARCOURS = {
@@ -27,6 +29,8 @@ LIBELLES_PARCOURS = {
     Parcours.SPECIALITE: "Spécialité",
     Parcours.COMPLEMENTAIRES: "Maths complémentaires",
     Parcours.EXPERTES: "Maths expertes",
+    Parcours.SCIENTIFIQUE: "Enseignement scientifique",
+    Parcours.TECHNOLOGIQUE: "Voie technologique",
 }
 
 

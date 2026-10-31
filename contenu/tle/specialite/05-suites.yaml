@@ -251,6 +251,19 @@ competences:
           etapes:
           - 'Suite géométrique : $u_n = u_0 \times q^n = 8 \times 0{,}85^n$.'
           resultat: 8*0.85^n
+      - code: TLE-SUI-LIM-07
+        difficulte: 5
+        type: numerique
+        enonce: $u_0 = 0$ et $u_{n+1} = 0{,}5u_n + 4$. On pose $v_n = u_n - 8$. Après avoir montré que $(v_n)$ est géométrique, déterminer la limite de $(u_n)$.
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suite arithmético-géométrique et suite auxiliaire.
+          etapes:
+          - '$v_{n+1} = 0{,}5u_n + 4 - 8 = 0{,}5(u_n - 8) = 0{,}5v_n$ : géométrique de raison $0{,}5$, avec $v_0 = -8$.'
+          - $v_n = -8 \times 0{,}5^n \to 0$ car $0 < 0{,}5 < 1$.
+          - $u_n = v_n + 8 \to 8$.
+          resultat: '8'
 
   - code: TLE-SUI-OPE
     libelle: Déterminer la limite d'une suite par opérations
@@ -468,3 +481,13 @@ competences:
           - $\dfrac{3n - 1}{n} = 3 - \dfrac{1}{n} \to 3$ et $\dfrac{3n + 2}{n} = 3 + \dfrac{2}{n} \to 3$.
           - Théorème des gendarmes.
           resultat: 3
+      - code: TLE-SUI-COMP-06
+        difficulte: 1
+        type: qcm
+        enonce: 'Pour tout $n$, $u_n \geq v_n$, et $\lim\limits_{n \to +\infty} v_n = +\infty$. Alors : A) $\lim u_n = +\infty$  B) $\lim u_n = 0$  C) on ne peut pas conclure'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Théorème de comparaison : une suite plus grande qu''une suite qui tend vers +∞ tend aussi vers +∞.'
+          resultat: A

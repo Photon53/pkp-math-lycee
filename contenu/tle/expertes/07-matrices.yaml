@@ -1,0 +1,173 @@
+chapitre:
+  code: TLE-ME-MAT
+  niveau: Tle
+  parcours: expertes
+  ordre: 7
+  titre: Matrices et systèmes linéaires
+competences:
+- code: TLE-ME-MAT-CALC
+  libelle: Calculer avec des matrices
+  objectifs:
+  - Additionner et multiplier des matrices.
+  - Calculer des puissances et l'inverse d'une matrice carrée d'ordre 2.
+  resume: |
+    - Coefficient $(i, j)$ du produit $AB$ : ligne $i$ de $A$ « fois » colonne $j$ de $B$.
+    - En général $AB \neq BA$.
+    - $M = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ est inversible si $ad - bc \neq 0$, et $M^{-1} = \dfrac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$.
+  cours: |
+    ## Produit
+    $$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}.$$
+
+    ## Puissances
+    $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ : on conjecture (et on démontre par récurrence) $A^n = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.
+
+    ## Inverse
+    $M = \begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix}$ : $ad - bc = 1$, donc $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.
+  methodes:
+  - titre: Inverser une matrice d'ordre 2
+    etapes:
+    - Calculer ad − bc et vérifier qu'il est non nul.
+    - Échanger a et d, changer le signe de b et c.
+    - Diviser par ad − bc.
+    exemple:
+      enonce: $M = \begin{pmatrix} 4 & 3 \\ 1 & 1 \end{pmatrix}$.
+      resolution:
+      - $ad - bc = 4 - 3 = 1$.
+      resultat: $M^{-1} = \begin{pmatrix} 1 & -3 \\ -1 & 4 \end{pmatrix}$
+  erreurs_frequentes:
+  - erreur: Multiplier les matrices coefficient par coefficient.
+    explication: Le produit se fait ligne par colonne.
+  questions:
+  - code: TLE-ME-MAT-CALC-01
+    difficulte: 1
+    type: numerique
+    enonce: $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ et $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$. Quel est le coefficient en ligne 1, colonne 1 de $A + B$ ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + 0 = 1$.
+      resultat: '1'
+  - code: TLE-ME-MAT-CALC-02
+    difficulte: 2
+    type: numerique
+    enonce: $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ et $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$. Quel est le coefficient en ligne 1, colonne 1 de $AB$ ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Ligne 1 de $A$ par colonne 1 de $B$ : $1 \times 0 + 2 \times 1 = 2$.'
+      resultat: '2'
+  - code: TLE-ME-MAT-CALC-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $ad - bc$ pour $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$.
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 \times 4 - 2 \times 3 = -2$.
+      resultat: '-2'
+  - code: TLE-ME-MAT-CALC-04
+    difficulte: 4
+    type: numerique
+    enonce: $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. Quel est le coefficient en ligne 1, colonne 2 de $A^{10}$ ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$A^2 = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$, $A^3 = \begin{pmatrix} 1 & 3 \\ 0 & 1 \end{pmatrix}$ : $A^n = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.'
+      resultat: '10'
+  - code: TLE-ME-MAT-CALC-05
+    difficulte: 5
+    type: numerique
+    enonce: $M = \begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix}$. Quel est le coefficient en ligne 2, colonne 2 de $M^{-1}$ ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $ad - bc = 1$ ; $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.
+      resultat: '2'
+- code: TLE-ME-MAT-SYS
+  libelle: Résoudre un système linéaire avec une matrice inverse
+  objectifs:
+  - Écrire un système sous la forme MX = B.
+  - Le résoudre avec l'inverse de M.
+  prerequis:
+  - TLE-ME-MAT-CALC
+  - 2NDE-SYST
+  resume: |
+    - Le système $\begin{cases} ax + by = e \\ cx + dy = f \end{cases}$ s'écrit $MX = B$.
+    - Si $M$ est inversible : $X = M^{-1}B$.
+  cours: |
+    ## Écriture matricielle
+    $\begin{cases} 3x + y = 4 \\ 5x + 2y = 7 \end{cases}$ s'écrit $\begin{pmatrix} 3 & 1 \\ 5 & 2 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 4 \\ 7 \end{pmatrix}$.
+
+    ## Résolution
+    $ad - bc = 1$ : $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$ et $X = M^{-1}B = \begin{pmatrix} 8 - 7 \\ -20 + 21 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+  methodes:
+  - titre: Résoudre MX = B
+    etapes:
+    - Écrire M et B à partir du système.
+    - Calculer M⁻¹.
+    - Calculer $X = M^{-1}B$.
+    exemple:
+      enonce: $\begin{cases} 2x + y = 5 \\ x + y = 3 \end{cases}$
+      resolution:
+      - $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$, $X = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$.
+      resultat: $x = 2$, $y = 1$
+  erreurs_frequentes:
+  - erreur: Calculer BM⁻¹ au lieu de M⁻¹B.
+    explication: Le produit matriciel n'est pas commutatif ; B est une colonne, elle se place à droite.
+  questions:
+  - code: TLE-ME-MAT-SYS-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Le système $2x + y = 5$, $x - y = 1$ s''écrit $MX = B$ avec $M$ égale à : A) $\begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}$  B) $\begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix}$  C) $\begin{pmatrix} 5 & 1 \\ 1 & -1 \end{pmatrix}$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Chaque ligne de M contient les coefficients de x et de y d'une équation.
+      resultat: A
+  - code: TLE-ME-MAT-SYS-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre le système $2x + y = 5$, $x - y = 1$. Donner $x$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'En additionnant : $3x = 6$, donc $x = 2$ (et $y = 1$).'
+      resultat: '2'
+  - code: TLE-ME-MAT-SYS-03
+    difficulte: 3
+    type: numerique
+    enonce: $M = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}$ et $X = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$. Quel est le premier coefficient de $MX$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 \times 1 + 2 \times 1 = 3$.
+      resultat: '3'
+  - code: TLE-ME-MAT-SYS-04
+    difficulte: 4
+    type: numerique
+    enonce: $M = \begin{pmatrix} 3 & 1 \\ 5 & 2 \end{pmatrix}$. Quel est le coefficient en ligne 1, colonne 1 de $M^{-1}$ ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $ad - bc = 6 - 5 = 1$ ; $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$.
+      resultat: '2'
+  - code: TLE-ME-MAT-SYS-05
+    difficulte: 5
+    type: numerique
+    enonce: Résoudre le système $3x + y = 4$, $5x + 2y = 7$ à l'aide d'une matrice inverse. Donner $y$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$.
+      - $y = -5 \times 4 + 3 \times 7 = 1$ (et $x = 2 \times 4 - 7 = 1$).
+      resultat: '1'

@@ -1,0 +1,184 @@
+chapitre:
+  code: TLE-ME-PGCD
+  niveau: Tle
+  parcours: expertes
+  ordre: 5
+  titre: PGCD, théorèmes de Bézout et de Gauss
+competences:
+- code: TLE-ME-PGCD-CALC
+  libelle: Calculer un PGCD avec l'algorithme d'Euclide
+  objectifs:
+  - Calculer un PGCD par l'algorithme d'Euclide.
+  - Reconnaitre des entiers premiers entre eux.
+  prerequis:
+  - TLE-ME-DIV
+  resume: |
+    - $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, r)$ où $r$ est le reste de $a$ par $b$.
+    - Le dernier reste non nul de l'algorithme d'Euclide est le PGCD.
+    - $a$ et $b$ sont **premiers entre eux** si leur PGCD vaut 1.
+  cours: |
+    ## Algorithme d'Euclide
+    $\mathrm{PGCD}(1071, 462)$ :
+    - $1071 = 2 \times 462 + 147$
+    - $462 = 3 \times 147 + 21$
+    - $147 = 7 \times 21 + 0$
+
+    Le dernier reste non nul est $21$.
+
+    ## Expressions en n
+    $\mathrm{PGCD}(2n + 3, n + 1) = \mathrm{PGCD}(n + 1, 1) = 1$ car $2n + 3 = 2(n + 1) + 1$.
+
+    ## PPCM
+    $\mathrm{PPCM}(12, 18) = 36$ : deux évènements périodiques de 12 et 18 minutes coïncident toutes les 36 minutes.
+  methodes:
+  - titre: Calculer un PGCD par l'algorithme d'Euclide
+    etapes:
+    - Diviser le plus grand par le plus petit.
+    - Remplacer le couple par (diviseur, reste).
+    - S'arrêter au reste nul ; le PGCD est le dernier reste non nul.
+    exemple:
+      enonce: $\mathrm{PGCD}(84, 30)$.
+      resolution:
+      - $84 = 2 \times 30 + 24$ ; $30 = 1 \times 24 + 6$ ; $24 = 4 \times 6$.
+      resultat: $6$
+  erreurs_frequentes:
+  - erreur: Prendre le dernier reste (0) comme PGCD.
+    explication: C'est le dernier reste non nul.
+  questions:
+  - code: TLE-ME-PGCD-CALC-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\mathrm{PGCD}(12, 18)$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Diviseurs communs : 1, 2, 3, 6.'
+      resultat: '6'
+  - code: TLE-ME-PGCD-CALC-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\mathrm{PGCD}(1071, 462)$ par l'algorithme d'Euclide.
+    solution: '21'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1071 = 2 \times 462 + 147$ ; $462 = 3 \times 147 + 21$ ; $147 = 7 \times 21$.
+      resultat: '21'
+  - code: TLE-ME-PGCD-CALC-03
+    difficulte: 3
+    type: qcm
+    enonce: Les entiers 35 et 18 sont-ils premiers entre eux ? A) oui  B) non
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$35 = 5 \times 7$ et $18 = 2 \times 3^2$ : aucun facteur commun.'
+      resultat: A
+  - code: TLE-ME-PGCD-CALC-04
+    difficulte: 4
+    type: numerique
+    enonce: Pour tout entier naturel $n$, que vaut $\mathrm{PGCD}(2n + 3, n + 1)$ ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2n + 3 = 2(n + 1) + 1$, donc $\mathrm{PGCD}(2n + 3, n + 1) = \mathrm{PGCD}(n + 1, 1) = 1$.
+      resultat: '1'
+  - code: TLE-ME-PGCD-CALC-05
+    difficulte: 5
+    type: numerique
+    enonce: Deux bus partent ensemble d'un arrêt ; l'un y repasse toutes les 12 minutes, l'autre toutes les 18 minutes. Au bout de combien de minutes repasseront-ils ensemble pour la première fois ?
+    solution: '36'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On cherche $\mathrm{PPCM}(12, 18)$.
+      - '$12 = 2^2 \times 3$, $18 = 2 \times 3^2$ : $\mathrm{PPCM} = 2^2 \times 3^2 = 36$.'
+      resultat: '36'
+- code: TLE-ME-BEZOUT
+  libelle: Utiliser les théorèmes de Bézout et de Gauss
+  objectifs:
+  - Utiliser Bézout pour prouver que deux entiers sont premiers entre eux.
+  - Résoudre une équation ax + by = c et utiliser le théorème de Gauss.
+  prerequis:
+  - TLE-ME-PGCD-CALC
+  resume: |
+    - **Bézout** : $a$ et $b$ premiers entre eux $\iff$ il existe $u, v$ entiers avec $au + bv = 1$.
+    - $ax + by = c$ a des solutions entières si et seulement si $\mathrm{PGCD}(a, b)$ divise $c$.
+    - **Gauss** : si $a$ divise $bc$ et $a$ est premier avec $b$, alors $a$ divise $c$.
+  cours: |
+    ## Bézout
+    $7 \times 3 + 5 \times (-4) = 1$ : $7$ et $5$ sont premiers entre eux.
+
+    ## Existence de solutions
+    $6x + 9y = 4$ n'a pas de solution entière : $3$ divise $6x + 9y$ mais pas $4$.
+
+    ## Gauss
+    $3x = 7y$ : $7$ divise $3x$ et $7$ est premier avec $3$, donc $7$ divise $x$. La plus petite solution positive est $x = 7$ (avec $y = 3$).
+  methodes:
+  - titre: Résoudre une équation ax = by avec a et b premiers entre eux
+    etapes:
+    - Utiliser Gauss pour obtenir que b divise x.
+    - Écrire $x = bk$, puis en déduire $y = ak$.
+    exemple:
+      enonce: $4x = 9y$ en entiers.
+      resolution:
+      - '$9$ divise $4x$ et $\mathrm{PGCD}(9, 4) = 1$ : $x = 9k$.'
+      resultat: $x = 9k$, $y = 4k$ ($k$ entier).
+  erreurs_frequentes:
+  - erreur: Appliquer Gauss sans vérifier que les nombres sont premiers entre eux.
+    explication: $6$ divise $4 \times 3$, mais $6$ ne divise ni $4$ ni $3$.
+  questions:
+  - code: TLE-ME-BEZOUT-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Deux entiers $a$ et $b$ sont premiers entre eux si et seulement si : A) il existe des entiers $u$ et $v$ tels que $au + bv = 1$  B) $a$ divise $b$  C) $a$ et $b$ sont tous deux premiers'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Théorème de Bézout.
+      resultat: A
+  - code: TLE-ME-BEZOUT-02
+    difficulte: 2
+    type: numerique
+    enonce: Trouver l'entier $u$ tel que $5u + 3 \times (-3) = 1$.
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $5u - 9 = 1$, donc $5u = 10$ et $u = 2$.
+      resultat: '2'
+  - code: TLE-ME-BEZOUT-03
+    difficulte: 3
+    type: numerique
+    enonce: Trouver l'entier $x$ tel que $7x + 5 \times (-4) = 1$.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $7x - 20 = 1$, donc $7x = 21$ et $x = 3$.
+      resultat: '3'
+  - code: TLE-ME-BEZOUT-04
+    difficulte: 4
+    type: qcm
+    enonce: 'L''équation $6x + 9y = 4$ : A) a des solutions entières  B) n''a aucune solution entière'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\mathrm{PGCD}(6, 9) = 3$ divise $6x + 9y$ mais ne divise pas $4$.
+      resultat: B
+  - code: TLE-ME-BEZOUT-05
+    difficulte: 5
+    type: numerique
+    enonce: On cherche les entiers $x$ et $y$ tels que $3x = 7y$. Quelle est la plus petite valeur strictement positive de $x$ ?
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Théorème de Gauss.
+      etapes:
+      - $7$ divise $3x$ et $\mathrm{PGCD}(7, 3) = 1$, donc $7$ divise $x$.
+      - $x = 7$ convient avec $y = 3$.
+      resultat: '7'

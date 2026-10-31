@@ -1,0 +1,177 @@
+chapitre:
+  code: TLE-ME-CGEO
+  niveau: Tle
+  parcours: expertes
+  ordre: 2
+  titre: Module, argument et géométrie
+competences:
+- code: TLE-ME-CPLX-TRIG
+  libelle: Utiliser module, argument et forme exponentielle
+  objectifs:
+  - Calculer module et argument d'un nombre complexe.
+  - Utiliser la forme exponentielle pour calculer des puissances.
+  prerequis:
+  - TLE-ME-CPLX-ALG
+  - 1RE-COSSIN
+  resume: |
+    - $|a + ib| = \sqrt{a^2 + b^2}$ ; un argument $\theta$ vérifie $\cos\theta = \dfrac{a}{|z|}$, $\sin\theta = \dfrac{b}{|z|}$.
+    - Forme exponentielle : $z = re^{i\theta}$ avec $r = |z|$.
+    - $|zz'| = |z||z'|$, $\arg(zz') = \arg z + \arg z'$, $(re^{i\theta})^n = r^ne^{in\theta}$ (Moivre).
+  cours: |
+    ## Module et argument
+    $1 + i$ : $|1 + i| = \sqrt{2}$ et $\cos\theta = \sin\theta = \dfrac{\sqrt{2}}{2}$, donc $\theta = \dfrac{\pi}{4}$ : $1 + i = \sqrt{2}e^{i\pi/4}$.
+
+    ## Puissances
+    $(1 + i)^8 = (\sqrt{2})^8 e^{i \cdot 2\pi} = 16$.
+    $1 + i\sqrt{3} = 2e^{i\pi/3}$, donc $(1 + i\sqrt{3})^6 = 64e^{2i\pi} = 64$.
+  methodes:
+  - titre: Calculer une puissance avec la forme exponentielle
+    etapes:
+    - Calculer le module r et un argument θ.
+    - $z^n = r^n e^{in\theta}$.
+    - Revenir à la forme algébrique si besoin.
+    exemple:
+      enonce: $(\sqrt{3} + i)^3$.
+      resolution:
+      - '$\sqrt{3} + i = 2e^{i\pi/6}$ ; puissance 3 : $8e^{i\pi/2}$.'
+      resultat: $8i$
+  erreurs_frequentes:
+  - erreur: Écrire $|a + ib| = a + b$.
+    explication: 'Le module est une distance : $\sqrt{a^2 + b^2}$.'
+  questions:
+  - code: TLE-ME-CPLX-TRIG-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer le module de $3 + 4i$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{9 + 16} = 5$.
+      resultat: '5'
+  - code: TLE-ME-CPLX-TRIG-02
+    difficulte: 2
+    type: numerique
+    enonce: Donner l'argument de $i$ appartenant à $]-\pi ; \pi]$. (Utiliser pi.)
+    solution: pi/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$i$ est sur l''axe imaginaire positif : $\arg i = \dfrac{\pi}{2}$.'
+      resultat: pi/2
+  - code: TLE-ME-CPLX-TRIG-03
+    difficulte: 3
+    type: numerique
+    enonce: Donner l'argument de $1 + i$ appartenant à $]-\pi ; \pi]$. (Utiliser pi.)
+    solution: pi/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|1 + i| = \sqrt{2}$, $\cos\theta = \sin\theta = \dfrac{\sqrt{2}}{2}$.
+      resultat: pi/4
+  - code: TLE-ME-CPLX-TRIG-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer le module de $(1 + i)^8$.
+    solution: '16'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|(1 + i)^8| = |1 + i|^8 = (\sqrt{2})^8 = 16$.
+      resultat: '16'
+  - code: TLE-ME-CPLX-TRIG-05
+    difficulte: 5
+    type: numerique
+    enonce: Quelle est la partie réelle de $(1 + i\sqrt{3})^6$ ?
+    solution: '64'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + i\sqrt{3} = 2e^{i\pi/3}$.
+      - $(1 + i\sqrt{3})^6 = 2^6 e^{2i\pi} = 64$.
+      resultat: '64'
+- code: TLE-ME-CPLX-GEOM
+  libelle: Résoudre des problèmes de géométrie avec les complexes
+  objectifs:
+  - Calculer distances et milieux avec les affixes.
+  - Interpréter des égalités entre complexes (cercles, triangles, rotations).
+  prerequis:
+  - TLE-ME-CPLX-TRIG
+  resume: |
+    - $AB = |z_B - z_A|$ ; milieu de $[AB]$ : $\dfrac{z_A + z_B}{2}$.
+    - $|z - z_\Omega| = r$ : cercle de centre $\Omega$ et de rayon $r$.
+    - Multiplier par $e^{i\theta}$ : rotation d'angle $\theta$ autour de $O$ ; par $i$ : quart de tour.
+  cours: |
+    ## Distances
+    $A(1 + i)$, $B(4 + 5i)$ : $AB = |3 + 4i| = 5$.
+
+    ## Ensembles de points
+    $|z - 2i| = 3$ : cercle de centre le point d'affixe $2i$ et de rayon $3$.
+
+    ## Triangles
+    $z_B - z_A = i(z_C - z_A)$ : $AB = AC$ et $(\overrightarrow{AC}, \overrightarrow{AB}) = \dfrac{\pi}{2}$ : le triangle est rectangle isocèle en $A$.
+  methodes:
+  - titre: Reconnaitre la nature d'un triangle
+    etapes:
+    - Calculer $\dfrac{z_B - z_A}{z_C - z_A}$.
+    - Lire son module (rapport de longueurs) et son argument (angle).
+    exemple:
+      enonce: $\dfrac{z_B - z_A}{z_C - z_A} = e^{i\pi/3}$.
+      resolution:
+      - 'Module $1$ : $AB = AC$ ; angle $\dfrac{\pi}{3}$.'
+      resultat: Triangle équilatéral.
+  erreurs_frequentes:
+  - erreur: Calculer $AB$ avec $|z_A| - |z_B|$.
+    explication: 'C''est le module de la différence : $|z_B - z_A|$.'
+  questions:
+  - code: TLE-ME-CPLX-GEOM-01
+    difficulte: 1
+    type: numerique
+    enonce: Les points $A$ et $B$ ont pour affixes $1 + i$ et $4 + 5i$. Calculer $AB$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|z_B - z_A| = |3 + 4i| = 5$.
+      resultat: '5'
+  - code: TLE-ME-CPLX-GEOM-02
+    difficulte: 2
+    type: numerique
+    enonce: Les points $A$ et $B$ ont pour affixes $2 + i$ et $4 - 3i$. Quelle est la partie réelle de l'affixe du milieu de $[AB]$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{(2 + i) + (4 - 3i)}{2} = 3 - i$.
+      resultat: '3'
+  - code: TLE-ME-CPLX-GEOM-03
+    difficulte: 3
+    type: qcm
+    enonce: 'L''ensemble des points d''affixe $z$ tels que $|z - 2i| = 3$ est : A) le cercle de centre le point d''affixe $2i$ et de rayon 3  B) une droite  C) le cercle de centre $O$ et de rayon 3'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|z - 2i|$ est la distance entre le point d'affixe $z$ et le point d'affixe $2i$.
+      resultat: A
+  - code: TLE-ME-CPLX-GEOM-04
+    difficulte: 4
+    type: qcm
+    enonce: 'On sait que $z_B - z_A = i(z_C - z_A)$. Le triangle formé par ces trois points est : A) rectangle isocèle en son sommet d''affixe $z_A$  B) équilatéral  C) quelconque'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|i| = 1$ donne deux côtés égaux issus de ce sommet, et $\arg i = \dfrac{\pi}{2}$ un angle droit.
+      resultat: A
+  - code: TLE-ME-CPLX-GEOM-05
+    difficulte: 5
+    type: numerique
+    enonce: On fait tourner le point d'affixe $3 + 2i$ d'un quart de tour direct autour de l'origine. Quelle est la partie réelle de l'affixe de son image ?
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Quart de tour direct : multiplication par $i$.'
+      - $i(3 + 2i) = 3i + 2i^2 = -2 + 3i$.
+      resultat: '-2'

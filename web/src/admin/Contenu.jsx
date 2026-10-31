@@ -5,14 +5,10 @@ import { useApi } from "../enseignant/useApi.js";
 import { Maths, formulesInvalides } from "../maths.jsx";
 import { naviguer } from "../navigation.js";
 import { Modale, formaterDate } from "../ui/Cadre.jsx";
+import { LIBELLES_PARCOURS } from "../parcours.js";
 import Icone from "../ui/Icone.jsx";
 
-const PARCOURS = [
-  ["tronc-commun", "Tronc commun"],
-  ["specialite", "Spécialité"],
-  ["complementaires", "Maths complémentaires"],
-  ["expertes", "Maths expertes"],
-];
+const PARCOURS = Object.entries(LIBELLES_PARCOURS);
 
 /**
  * Arborescence niveau › chapitre › compétence et éditeur de leçon (EA3.11 à EA3.14).

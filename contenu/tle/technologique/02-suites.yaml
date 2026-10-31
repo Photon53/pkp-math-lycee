@@ -1,0 +1,174 @@
+chapitre:
+  code: TLE-TEC-SUI
+  niveau: Tle
+  parcours: technologique
+  ordre: 2
+  titre: Suites arithmétiques et géométriques, sommes
+competences:
+- code: TLE-TEC-ARITH
+  libelle: Calculer termes et sommes d'une suite arithmétique
+  objectifs:
+  - Exprimer le terme de rang n d'une suite arithmétique.
+  - Calculer la somme de ses premiers termes.
+  prerequis:
+  - 1RE-TEC-SUITES
+  resume: |
+    - $u_n = u_0 + nr$ ; moyenne arithmétique de $a$ et $b$ : $\dfrac{a + b}{2}$.
+    - Somme de termes consécutifs : $\text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}$.
+    - $1 + 2 + \dots + n = \dfrac{n(n + 1)}{2}$.
+  cours: |
+    ## Somme des termes
+    $u_0 = 5$, $r = 3$ : les 10 premiers termes vont de $u_0 = 5$ à $u_9 = 32$.
+    $$S = 10 \times \frac{5 + 32}{2} = 185.$$
+
+    ## Somme des entiers
+    $1 + 2 + \dots + 100 = \dfrac{100 \times 101}{2} = 5\,050$.
+  methodes:
+  - titre: Calculer une somme de termes arithmétiques
+    etapes:
+    - Compter le nombre de termes.
+    - Calculer le premier et le dernier terme.
+    - Appliquer $n \times \dfrac{\text{premier} + \text{dernier}}{2}$.
+    exemple:
+      enonce: $2 + 5 + 8 + \dots + 29$.
+      resolution:
+      - '$29 = 2 + 3 \times 9$ : 10 termes.'
+      resultat: $10 \times \dfrac{2 + 29}{2} = 155$
+  erreurs_frequentes:
+  - erreur: Se tromper d'un dans le nombre de termes.
+    explication: De $u_0$ à $u_9$, il y a 10 termes.
+  questions:
+  - code: TLE-TEC-ARITH-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la moyenne arithmétique de 8 et 14 ?
+    solution: '11'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{8 + 14}{2} = 11$.
+      resultat: '11'
+  - code: TLE-TEC-ARITH-02
+    difficulte: 2
+    type: numerique
+    enonce: $u_n = 3 + 2n$. Calculer $u_{20}$.
+    solution: '43'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3 + 40 = 43$.
+      resultat: '43'
+  - code: TLE-TEC-ARITH-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $1 + 2 + 3 + \dots + 100$.
+    solution: '5050'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{100 \times 101}{2} = 5\,050$.
+      resultat: '5050'
+  - code: TLE-TEC-ARITH-04
+    difficulte: 4
+    type: numerique
+    enonce: Une suite arithmétique a pour premier terme $u_0 = 5$ et pour raison 3. Calculer la somme de ses 10 premiers termes.
+    solution: '185'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u_9 = 5 + 27 = 32$.
+      - $10 \times \dfrac{5 + 32}{2} = 185$.
+      resultat: '185'
+  - code: TLE-TEC-ARITH-05
+    difficulte: 5
+    type: numerique
+    enonce: On épargne 50 € le premier mois, puis 10 € de plus chaque mois que le mois précédent. Quelle somme a-t-on épargnée au bout de 12 mois ?
+    solution: '1260'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Dernier versement : $50 + 11 \times 10 = 160$ €.'
+      - $12 \times \dfrac{50 + 160}{2} = 1\,260$ €.
+      resultat: '1260'
+- code: TLE-TEC-GEOM
+  libelle: Calculer termes et sommes d'une suite géométrique
+  objectifs:
+  - Exprimer le terme de rang n d'une suite géométrique.
+  - Calculer la somme de ses premiers termes et résoudre un problème de seuil.
+  prerequis:
+  - TLE-TEC-ARITH
+  resume: |
+    - $u_n = u_0 \times q^n$ ; moyenne géométrique de $a, b > 0$ : $\sqrt{ab}$.
+    - $1 + q + \dots + q^{n} = \dfrac{1 - q^{n+1}}{1 - q}$ ($q \neq 1$).
+    - Somme de $n$ termes depuis $u_0$ : $u_0 \times \dfrac{1 - q^n}{1 - q}$.
+  cours: |
+    ## Somme des termes
+    $1 + 2 + 4 + \dots + 2^9 = \dfrac{1 - 2^{10}}{1 - 2} = 1\,023$.
+    Dix versements de $100 \times 1{,}1^k$ ($k = 0$ à $9$) : $100 \times \dfrac{1{,}1^{10} - 1}{0{,}1} = 1\,000 \times (1{,}1^{10} - 1)$.
+
+    ## Seuil
+    $5\,000 \times 1{,}03^n > 6\,000 \iff 1{,}03^n > 1{,}2$ : $1{,}03^6 \approx 1{,}194$ et $1{,}03^7 \approx 1{,}230$, donc $n = 7$.
+  methodes:
+  - titre: Calculer une somme géométrique
+    etapes:
+    - Identifier le premier terme, la raison et le nombre de termes n.
+    - Appliquer $\text{premier} \times \dfrac{1 - q^n}{1 - q}$.
+    exemple:
+      enonce: $3 + 6 + 12 + \dots$ (5 termes).
+      resolution:
+      - $3 \times \dfrac{1 - 2^5}{1 - 2} = 3 \times 31$.
+      resultat: $93$
+  erreurs_frequentes:
+  - erreur: Utiliser la formule de la somme arithmétique pour une suite géométrique.
+    explication: La formule $n \times \dfrac{\text{premier} + \text{dernier}}{2}$ ne vaut que pour une suite arithmétique.
+  questions:
+  - code: TLE-TEC-GEOM-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la moyenne géométrique de 4 et 9 ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{4 \times 9} = \sqrt{36} = 6$.
+      resultat: '6'
+  - code: TLE-TEC-GEOM-02
+    difficulte: 2
+    type: numerique
+    enonce: Une suite géométrique a pour premier terme $u_0 = 2$ et pour raison 3. Calculer $u_4$.
+    solution: '162'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 \times 3^4 = 162$.
+      resultat: '162'
+  - code: TLE-TEC-GEOM-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $1 + 2 + 4 + \dots + 2^9$.
+    solution: '1023'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1 - 2^{10}}{1 - 2} = 1\,024 - 1 = 1\,023$.
+      resultat: '1023'
+  - code: TLE-TEC-GEOM-04
+    difficulte: 4
+    type: numerique
+    enonce: Une suite géométrique a pour premier terme $u_0 = 100$ et pour raison 1,1. Donner la valeur exacte de la somme de ses 10 premiers termes.
+    solution: 1000*(1.1^10 - 1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $100 \times \dfrac{1 - 1{,}1^{10}}{1 - 1{,}1} = 100 \times \dfrac{1{,}1^{10} - 1}{0{,}1} = 1\,000 \times (1{,}1^{10} - 1)$.
+      resultat: 1000*(1.1^10 - 1)
+  - code: TLE-TEC-GEOM-05
+    difficulte: 5
+    type: numerique
+    enonce: Un capital de 5 000 € est placé à intérêts composés de 3 % par an. Au bout de combien d'années entières dépassera-t-il 6 000 € ?
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1{,}03^n > 1{,}2$ ; $1{,}03^6 \approx 1{,}194$ et $1{,}03^7 \approx 1{,}230$.
+      resultat: '7'

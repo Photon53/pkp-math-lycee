@@ -114,3 +114,14 @@ competences:
           - $P(\text{3 rouges}) = \dfrac{\binom{5}{3}}{56} = \dfrac{10}{56}$.
           - $P = 1 - \dfrac{10}{56} = \dfrac{46}{56} = \dfrac{23}{28}$.
           resultat: 23/28
+      - code: TLE-COMB-DEN-06
+        difficulte: 3
+        type: numerique
+        enonce: Combien de mots (ayant un sens ou non) peut-on former en utilisant une fois chacune des lettres du mot MATHS ?
+        solution: '120'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Permutations de $n$ éléments distincts : $n!$.'
+          etapes:
+          - '5 lettres distinctes : $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$.'
+          resultat: '120'

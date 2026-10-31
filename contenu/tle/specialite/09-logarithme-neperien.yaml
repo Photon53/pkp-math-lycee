@@ -362,3 +362,15 @@ competences:
           - $\dfrac{\ln(1 + x^2)}{x} = x \times \dfrac{\ln(1 + x^2)}{x^2}$.
           - Le second facteur tend vers $1$, le premier vers $0$.
           resultat: 0
+      - code: TLE-LN-APP-08
+        difficulte: 1
+        type: numerique
+        enonce: Résoudre $2^n = 32$ en utilisant le logarithme. $n = ?$
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\ln(a^n) = n\ln a$.
+          etapes:
+          - $n\ln 2 = \ln 32 = \ln(2^5) = 5\ln 2$.
+          - $n = 5$.
+          resultat: '5'

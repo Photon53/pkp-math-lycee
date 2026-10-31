@@ -1,0 +1,176 @@
+chapitre:
+  code: 1RE-TEC-DER
+  niveau: 1re
+  parcours: technologique
+  ordre: 4
+  titre: Dérivation
+competences:
+- code: 1RE-TEC-DERIV
+  libelle: Calculer un nombre dérivé, une dérivée et une tangente
+  objectifs:
+  - Calculer la dérivée d'un polynôme de degré au plus 3.
+  - Écrire l'équation d'une tangente.
+  prerequis:
+  - 1RE-TEC-POLY2
+  resume: |
+    - Le nombre dérivé $f'(a)$ est la limite du taux de variation entre $a$ et $a + h$ : c'est la pente de la tangente.
+    - $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(kf)' = kf'$, $(f + g)' = f' + g'$.
+    - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
+  cours: |
+    ## Du taux de variation au nombre dérivé
+    Pour $f(x) = x^2$ en $2$ : $\dfrac{(2 + h)^2 - 4}{h} = 4 + h$, qui tend vers $4$ : $f'(2) = 4$.
+
+    ## Dérivées
+    $f(x) = 2x^3 - 5x^2 + x - 7$ donne $f'(x) = 6x^2 - 10x + 1$.
+
+    ## Tangente
+    $f(x) = x^3$ en $1$ : $f(1) = 1$, $f'(1) = 3$, donc $y = 3(x - 1) + 1 = 3x - 2$.
+  methodes:
+  - titre: Écrire l'équation d'une tangente
+    etapes:
+    - Calculer f(a) et f'(a).
+    - Écrire $y = f'(a)(x - a) + f(a)$ et développer.
+    exemple:
+      enonce: $f(x) = x^2 - 3x$, tangente en $a = 2$.
+      resolution:
+      - $f(2) = -2$, $f'(x) = 2x - 3$, $f'(2) = 1$.
+      resultat: $y = x - 4$
+  erreurs_frequentes:
+  - erreur: Dériver une constante en elle-même.
+    explication: La dérivée d'une constante est 0.
+  questions:
+  - code: 1RE-TEC-DERIV-01
+    difficulte: 1
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = x^3$.
+    solution: 3x^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Formule de cours : $(x^3)'' = 3x^2$.'
+      resultat: 3x^2
+  - code: 1RE-TEC-DERIV-02
+    difficulte: 2
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = 2x^3 - 5x^2 + x - 7$.
+    solution: 6x^2 - 10x + 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 \times 3x^2 - 5 \times 2x + 1 - 0$.
+      resultat: 6x^2 - 10x + 1
+  - code: 1RE-TEC-DERIV-03
+    difficulte: 3
+    type: numerique
+    enonce: $f(x) = x^2$. Calculer $f'(3)$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = 2x$, donc $f'(3) = 6$.
+      resultat: '6'
+  - code: 1RE-TEC-DERIV-04
+    difficulte: 4
+    type: numerique
+    enonce: La tangente à la courbe de $f(x) = x^3$ au point d'abscisse 1 a pour équation $y = mx + p$. Donner $p$.
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f(1) = 1$ et $f''(1) = 3$ : $y = 3(x - 1) + 1 = 3x - 2$.'
+      resultat: '-2'
+  - code: 1RE-TEC-DERIV-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer le taux de variation de $f(x) = x^2$ entre $2$ et $2{,}01$.
+    solution: '4.01'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{2{,}01^2 - 4}{0{,}01} = \dfrac{0{,}0401}{0{,}01} = 4{,}01$.
+      - On retrouve presque $f'(2) = 4$.
+      resultat: '4.01'
+- code: 1RE-TEC-VARIA
+  libelle: Étudier les variations et les extremums avec la dérivée
+  objectifs:
+  - Déduire les variations du signe de la dérivée.
+  - Trouver un extremum dans un problème.
+  prerequis:
+  - 1RE-TEC-DERIV
+  resume: |
+    - $f' > 0$ sur un intervalle : $f$ croissante ; $f' < 0$ : décroissante.
+    - Un extremum se trouve là où $f'$ s'annule en changeant de signe.
+  cours: |
+    ## Tableau de variations
+    $f(x) = x^2 - 8x + 3$ : $f'(x) = 2x - 8$, négatif avant $4$, positif après.
+    $f$ décroît puis croît : minimum $f(4) = -13$.
+
+    ## Optimisation
+    Bénéfice $B(x) = -x^3 + 3x^2 + 9x$ sur $[0 ; 5]$ : $B'(x) = -3(x - 3)(x + 1)$, positif sur $[0 ; 3[$, négatif ensuite. Bénéfice maximal $B(3) = 27$.
+  methodes:
+  - titre: Trouver un extremum
+    etapes:
+    - Calculer f' et la factoriser.
+    - Étudier son signe sur l'intervalle.
+    - Calculer l'image de la valeur où f' change de signe.
+    exemple:
+      enonce: $f(x) = -x^2 + 6x$.
+      resolution:
+      - $f'(x) = -2x + 6$, positif avant $3$, négatif après.
+      resultat: Maximum $f(3) = 9$.
+  erreurs_frequentes:
+  - erreur: Donner la valeur où f' s'annule au lieu de l'extremum demandé.
+    explication: Le maximum est une valeur de f, atteinte en un x.
+  questions:
+  - code: 1RE-TEC-VARIA-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Si $f''(x) > 0$ sur un intervalle, alors $f$ y est : A) croissante  B) décroissante  C) constante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Dérivée positive : fonction croissante.'
+      resultat: A
+  - code: 1RE-TEC-VARIA-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = x^2 - 8x + 3$. En quelle valeur de $x$ la dérivée s'annule-t-elle ?
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = 2x - 8 = 0$ donne $x = 4$.
+      resultat: '4'
+  - code: 1RE-TEC-VARIA-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel est le minimum de $f(x) = x^2 - 8x + 3$ ?
+    solution: '-13'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f$ décroît puis croît, minimum en $4$ : $f(4) = 16 - 32 + 3 = -13$.'
+      resultat: '-13'
+  - code: 1RE-TEC-VARIA-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le minimum de $f(x) = x^3 - 12x$ sur $[0 ; 3]$ ?
+    solution: '-16'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = 3x^2 - 12 = 3(x - 2)(x + 2)$, négatif sur $[0 ; 2[$, positif sur $]2 ; 3]$.
+      - $f(2) = 8 - 24 = -16$.
+      resultat: '-16'
+  - code: 1RE-TEC-VARIA-05
+    difficulte: 5
+    type: numerique
+    enonce: Le bénéfice d'une entreprise (en milliers d'euros) est $B(x) = -x^3 + 3x^2 + 9x$ pour $x \in [0 ; 5]$ (centaines d'objets). Quel est le bénéfice maximal ?
+    solution: '27'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$B''(x) = -3x^2 + 6x + 9 = -3(x - 3)(x + 1)$ : positif sur $[0 ; 3[$, négatif ensuite.'
+      - $B(3) = -27 + 27 + 27 = 27$ milliers d'euros.
+      resultat: '27'

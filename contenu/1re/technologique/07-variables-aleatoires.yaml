@@ -1,0 +1,93 @@
+chapitre:
+  code: 1RE-TEC-VAR
+  niveau: 1re
+  parcours: technologique
+  ordre: 7
+  titre: Variables aléatoires
+competences:
+- code: 1RE-TEC-VA
+  libelle: Déterminer une loi de probabilité et une espérance
+  objectifs:
+  - Compléter une loi de probabilité et calculer une espérance.
+  - Utiliser la loi de Bernoulli et décider si un jeu est équitable.
+  prerequis:
+  - 1RE-TEC-PCOND
+  resume: |
+    - Les probabilités d'une loi ont pour somme $1$.
+    - $E(X) = \sum x_i p_i$ : valeur moyenne sur un grand nombre de répétitions.
+    - Loi de Bernoulli de paramètre $p$ : $E = p$. Jeu équitable : espérance du gain nulle.
+  cours: |
+    ## Loi et espérance
+    | $x_i$ | 0 | 1 | 2 |
+    |---|:-:|:-:|:-:|
+    | $p_i$ | 0,5 | 0,3 | 0,2 |
+
+    $E(X) = 0 \times 0{,}5 + 1 \times 0{,}3 + 2 \times 0{,}2 = 0{,}7$.
+
+    ## Jeu
+    Mise $2$ €, gain $10$ € avec la probabilité $\dfrac{1}{8}$. Gain net moyen : $\dfrac{10}{8} - 2 = -0{,}75$ € : le jeu est défavorable au joueur.
+  methodes:
+  - titre: Décider si un jeu est équitable
+    etapes:
+    - Calculer l'espérance du gain (en tenant compte de la mise).
+    - Équitable si elle vaut 0, favorable si elle est positive.
+    exemple:
+      enonce: Mise 1 €, gain de 4 € avec probabilité 1/4.
+      resolution:
+      - $\dfrac{4}{4} - 1 = 0$.
+      resultat: Jeu équitable.
+  erreurs_frequentes:
+  - erreur: Oublier la mise dans le calcul du gain.
+    explication: Le gain net est ce qu'on reçoit moins ce qu'on a payé.
+  questions:
+  - code: 1RE-TEC-VA-01
+    difficulte: 1
+    type: numerique
+    enonce: Une variable aléatoire prend les valeurs 0, 1, 2 avec les probabilités 0,5 ; 0,3 et $p$. Calculer $p$.
+    solution: '0.2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $p = 1 - 0{,}5 - 0{,}3 = 0{,}2$.
+      resultat: '0.2'
+  - code: 1RE-TEC-VA-02
+    difficulte: 2
+    type: numerique
+    enonce: Une variable aléatoire prend les valeurs 0, 1, 2 avec les probabilités 0,5 ; 0,3 et 0,2. Calculer son espérance.
+    solution: '0.7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0 + 0{,}3 + 0{,}4 = 0{,}7$.
+      resultat: '0.7'
+  - code: 1RE-TEC-VA-03
+    difficulte: 3
+    type: numerique
+    enonce: Une variable de Bernoulli a pour paramètre 0,25. Quelle est son espérance ?
+    solution: '0.25'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $E = p = 0{,}25$.
+      resultat: '0.25'
+  - code: 1RE-TEC-VA-04
+    difficulte: 4
+    type: numerique
+    enonce: On mise 2 € pour jouer ; on gagne 10 € avec la probabilité 1/8 et rien sinon. Quelle est l'espérance du gain net (en €) ?
+    solution: '-0.75'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Gain net $8$ avec la probabilité $\dfrac{1}{8}$, $-2$ avec la probabilité $\dfrac{7}{8}$.
+      - $E = 1 - \dfrac{14}{8} = -0{,}75$.
+      resultat: '-0.75'
+  - code: 1RE-TEC-VA-05
+    difficulte: 5
+    type: numerique
+    enonce: On mise 2 € pour jouer ; on gagne une somme $G$ avec la probabilité 1/8 et rien sinon. Quelle valeur de $G$ (en €) rend le jeu équitable ?
+    solution: '16'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{G}{8} - 2 = 0$, donc $G = 16$.
+      resultat: '16'
