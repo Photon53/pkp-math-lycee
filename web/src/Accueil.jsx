@@ -1,16 +1,28 @@
 import Icone from "./ui/Icone.jsx";
 
-/** Page d'accueil publique (EA6.10) : présentation et choix de l'espace. */
+/** Page d'accueil publique (EA6.10) : courte, avec le choix de l'espace et la méthode PKP. */
 export default function Accueil() {
   return (
     <>
       <section className="accueil-hero">
         <span className="badge accent">Seconde · Première · Terminale</span>
-        <h1>Les mathématiques du lycée, à son rythme.</h1>
+        <h1>Comprendre, progresser, prendre confiance en mathématiques !</h1>
         <p>
-          Des exercices corrigés instantanément, choisis selon ce que chaque élève maîtrise déjà, et des cours
-          clairs pour revoir l'essentiel. Le professeur suit sa classe compétence par compétence.
+          <strong>PKP Math t'accompagne pour apprendre à ton rythme, comprendre les méthodes et développer ton raisonnement.</strong>{" "}
+          Grâce à des cours structurés, des exemples corrigés et des exercices progressifs, tu avances étape par étape vers
+          l'autonomie.
         </p>
+        <p>
+          <strong>
+            En mathématiques, on ne réussit pas parce qu'on est né fort : on progresse en comprenant, en pratiquant et en
+            persévérant.
+          </strong>
+        </p>
+        <div className="actions">
+          <a className="bouton" href="/methode">
+            Découvrir la méthode PKP
+          </a>
+        </div>
       </section>
 
       <div className="choix-espace">
@@ -26,22 +38,7 @@ export default function Accueil() {
         </a>
       </div>
 
-      <section className="atouts" aria-label="Points forts">
-        <div>
-          <strong>Correction immédiate</strong>
-          <span className="doux">
-            Fractions, racines, expressions : la valeur compte, pas l'écriture.
-          </span>
-        </div>
-        <div>
-          <strong>Progression adaptée</strong>
-          <span className="doux">Les questions suivent la maîtrise de chaque compétence.</span>
-        </div>
-        <div>
-          <strong>Respect des élèves</strong>
-          <span className="doux">Prénom seul, aucune publicité, données supprimées après un an d'inactivité.</span>
-        </div>
-      </section>
+      <p className="accroche">Comprendre aujourd'hui, réussir demain !</p>
     </>
   );
 }

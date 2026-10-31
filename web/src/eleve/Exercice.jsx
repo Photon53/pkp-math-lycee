@@ -7,6 +7,7 @@ import { ecrire, lire } from "../stockage.js";
 
 export const CLE_SEANCE = "pkp.seance";
 export const CLE_BILAN = "pkp.bilan";
+export const CLE_CIBLE = "pkp.cible";
 const BILAN_VIDE = { reponses: 0, reussies: 0 };
 
 const AIDE = {
@@ -29,7 +30,7 @@ export function decouperQcm(enonce) {
  * Déroulé d'une séance : accueil → question → résultat → question… → bilan.
  * La séance en cours est mémorisée : recharger la page reprend la même question.
  */
-export default function Exercice({ jeton, onExpire, onVoirCours }) {
+export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
   const [seanceId, setSeanceId] = useState(() => lire(CLE_SEANCE));
   const [etape, setEtape] = useState(seanceId ? "chargement" : "accueil");
   const [question, setQuestion] = useState(null);
@@ -38,11 +39,15 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
   const [bilan, setBilan] = useState(() => lire(CLE_BILAN) ?? BILAN_VIDE);
   const [erreur, setErreur] = useState(null);
   const [envoi, setEnvoi] = useState(false);
+  // Compétence visée par la séance en cours (séance lancée depuis une leçon ou l'historique).
+  const [competenceVisee, setCompetenceVisee] = useState(() => lire(CLE_CIBLE));
   const champ = useRef(null);
 
-  function changerSeance(id) {
+  function changerSeance(id, visee = null) {
     ecrire(CLE_SEANCE, id);
+    ecrire(CLE_CIBLE, visee);
     setSeanceId(id);
+    setCompetenceVisee(visee);
   }
 
   async function appeler(chemin, options) {
@@ -124,16 +129,29 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
     });
   }
 
-  async function demarrer() {
+  async function demarrer(corps = { chapitre_ids: [...coches] }, visee = null) {
     try {
-      const seance = await appeler("/seances", { methode: "POST", corps: { chapitre_ids: [...coches] } });
-      changerSeance(seance.id);
+      const seance = await appeler("/seances", { methode: "POST", corps });
+      changerSeance(seance.id, visee);
       setBilan(BILAN_VIDE);
       await chargerQuestion(seance.id);
     } catch (err) {
       if (err.status !== 401) setErreur(err.message);
     }
   }
+
+  // « S'entraîner sur cette compétence » : la séance en cours est close (ses réponses restent
+  // dans l'historique), puis une séance ciblée démarre.
+  useEffect(() => {
+    if (!cible) return;
+    (async () => {
+      if (seanceId) await api(`/seances/${seanceId}/fin`, { methode: "POST", jeton }).catch(() => {});
+      const niveaux = cible.niveaux ? { difficulte_min: cible.niveaux.min, difficulte_max: cible.niveaux.max } : {};
+      await demarrer({ competence_ids: [cible.id], ...niveaux }, { id: cible.id, libelle: cible.libelle, niveaux: cible.niveaux });
+    })();
+    // Uniquement quand une nouvelle demande arrive (cible.n change).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cible?.n]);
 
   async function repondre(valeur) {
     try {
@@ -208,7 +226,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
         )}
         <Erreur message={erreur} />
         <div className="actions">
-          <button onClick={demarrer} disabled={envoi || coches.size === 0}>
+          <button onClick={() => demarrer()} disabled={envoi || coches.size === 0}>
             {etape === "bilan" ? "Nouvelle séance" : "Démarrer une séance"}
           </button>
         </div>
@@ -248,6 +266,13 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
   return (
     <>
       {enCours}
+      {competenceVisee && (
+        <p className="info petit">
+          Entrainement ciblé : <strong>{competenceVisee.libelle}</strong>
+          {competenceVisee.niveaux &&
+            ` · niveaux ${competenceVisee.niveaux.min} ${competenceVisee.niveaux.max - competenceVisee.niveaux.min > 1 ? "à" : "et"} ${competenceVisee.niveaux.max}`}
+        </p>
+      )}
       <article className="carte">
         <div className="meta">
           <span className="badge">{LIBELLES_TYPE[question.type]}</span>
@@ -306,6 +331,17 @@ export default function Exercice({ jeton, onExpire, onVoirCours }) {
             </p>
           )}
           <Correction correction={resultat.correction} />
+          {!resultat.correction && resultat.rappel && (
+            <details className="correction" open={!resultat.correcte}>
+              <summary>Partie du cours à utiliser : {resultat.competence}</summary>
+              <p className="doux petit">
+                La correction pas à pas de cette question n'est pas encore rédigée. Voici l'essentiel du cours à appliquer :
+              </p>
+              <section className="resume">
+                <Maths texte={resultat.rappel} />
+              </section>
+            </details>
+          )}
           <BarreMaitrise valeur={resultat.maitrise} maitrisee={resultat.maitrisee} libelle="Maîtrise de cette compétence" />
           <div className="actions">
             <button autoFocus onClick={() => chargerQuestion(seanceId)} disabled={envoi}>

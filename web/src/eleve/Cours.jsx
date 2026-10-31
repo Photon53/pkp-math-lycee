@@ -4,6 +4,7 @@ import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
 import Icone from "../ui/Icone.jsx";
 import { ErreursFrequentes, Methodes, Objectifs } from "../ui/Pedagogie.jsx";
+import ParcoursPKP from "./ParcoursPKP.jsx";
 
 /**
  * Sommaire des cours et lecture d'une leçon (résumé, cours, ressources).
@@ -11,7 +12,18 @@ import { ErreursFrequentes, Methodes, Objectifs } from "../ui/Pedagogie.jsx";
  * (`base` = "/enseignants/cours", toute la banque, avec projection, impression et exercices).
  * `competenceId` ouvre directement une leçon (lien « Revoir le cours » depuis un exercice).
  */
-export default function Cours({ jeton, onExpire, competenceId, onChoisir, base = "/cours", enseignant = false, sommaireFourni }) {
+export default function Cours({
+  jeton,
+  onExpire,
+  competenceId,
+  onChoisir,
+  base = "/cours",
+  enseignant = false,
+  sommaireFourni,
+  onRetourExercice = null,
+  onEntrainer = null,
+  onVoirHistorique = null,
+}) {
   const [sommaire, setSommaire] = useState(null);
   const [lecon, setLecon] = useState(null);
   const [erreur, setErreur] = useState(null);
@@ -53,6 +65,9 @@ export default function Cours({ jeton, onExpire, competenceId, onChoisir, base =
         enseignant={enseignant}
         base={base}
         onRetour={() => onChoisir(null)}
+        onRetourExercice={onRetourExercice}
+        onEntrainer={onEntrainer}
+        onVoirHistorique={onVoirHistorique}
       />
     );
   }
@@ -100,7 +115,7 @@ export default function Cours({ jeton, onExpire, competenceId, onChoisir, base =
   );
 }
 
-function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour }) {
+function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour, onRetourExercice, onEntrainer, onVoirHistorique }) {
   const [projection, setProjection] = useState(false);
 
   useEffect(() => {
@@ -113,9 +128,13 @@ function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour }) {
   return (
     <article className={projection ? "carte lecon projection" : "carte lecon"}>
       <div className="outils-lecon">
-        <button className="lien" onClick={projection ? () => setProjection(false) : onRetour}>
-          {projection ? "Quitter la projection (Échap)" : "← Tous les cours"}
-        </button>
+        {onRetourExercice && !projection ? (
+          <button onClick={onRetourExercice}>← Revenir à l'exercice</button>
+        ) : (
+          <button className="lien" onClick={projection ? () => setProjection(false) : onRetour}>
+            {projection ? "Quitter la projection (Échap)" : "← Tous les cours"}
+          </button>
+        )}
         {enseignant && lecon && !projection && (
           <span className="actions" style={{ marginTop: 0 }}>
             <button className="secondaire petit" onClick={() => setProjection(true)}>
@@ -133,15 +152,36 @@ function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour }) {
         <>
           <p className="doux">{lecon.chapitre}</p>
           <h2>{lecon.libelle}</h2>
+          {onEntrainer && onVoirHistorique && (
+            <ParcoursPKP
+              competenceId={lecon.competence_id}
+              libelle={lecon.libelle}
+              jeton={jeton}
+              onEntrainer={onEntrainer}
+              onVoirHistorique={onVoirHistorique}
+            />
+          )}
           <Objectifs objectifs={lecon.objectifs} />
-          <section className="resume" aria-labelledby="titre-resume">
+          <section id="lecon-fiche" className="resume" aria-labelledby="titre-resume">
             <h3 id="titre-resume">L'essentiel</h3>
             <Maths texte={lecon.resume} />
           </section>
-          <Maths texte={lecon.cours} />
+          <div id="lecon-cours">
+            <Maths texte={lecon.cours} />
+          </div>
           <Methodes methodes={lecon.methodes} />
           <ErreursFrequentes erreurs={lecon.erreurs_frequentes} />
           <Ressources ressources={lecon.ressources ?? []} jeton={jeton} />
+          {onEntrainer && (
+            <div className="actions">
+              <button onClick={() => onEntrainer(lecon.competence_id, lecon.libelle)}>S'entraîner sur cette compétence</button>
+              {onRetourExercice && (
+                <button className="secondaire" onClick={onRetourExercice}>
+                  Revenir à l'exercice
+                </button>
+              )}
+            </div>
+          )}
           {enseignant && !projection && <ExercicesDeLaCompetence base={base} competenceId={lecon.competence_id} jeton={jeton} />}
         </>
       )}

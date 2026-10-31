@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import Accueil from "./Accueil.jsx";
 import EspaceEleve from "./eleve/EspaceEleve.jsx";
 import EspaceEnseignant from "./enseignant/EspaceEnseignant.jsx";
+import Methode from "./Methode.jsx";
 import { useChemin } from "./navigation.js";
 import { Logo } from "./ui/Icone.jsx";
 
@@ -23,15 +24,17 @@ export default function App() {
 
   // Élève et accueil public : colonne centrée, priorité au mobile.
   const eleve = chemin === "/eleve" || chemin.startsWith("/eleve/");
+  const methode = chemin === "/methode";
   return (
     <div className="page">
       <header className="entete">
         <Logo />
         <nav aria-label="Espaces">
+          {!methode && <a href="/methode">La méthode PKP</a>}
           {eleve ? <a href="/enseignant">Espace professeur</a> : <a href="/eleve">Espace élève</a>}
         </nav>
       </header>
-      <main>{eleve ? <EspaceEleve /> : <Accueil />}</main>
+      <main>{eleve ? <EspaceEleve /> : methode ? <Methode /> : <Accueil />}</main>
       <footer className="pied">
         <span>© {new Date().getFullYear()} PKP Math Lycée</span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>

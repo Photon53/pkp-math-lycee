@@ -17,10 +17,19 @@ from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
 from app.db.conversions import historique_eleve, question_vers_domaine
-from app.progression import filtre_validation, ids_ouverts, nb_questions_servables, progression_eleve
+from app.progression import (
+    filtre_validation,
+    avancement_competence,
+    historique_reponses,
+    ids_ouverts,
+    nb_questions_servables,
+    progression_eleve,
+)
 from app.schemas import (
+    AvancementCompetence,
     ChapitreOuvert,
     ConnexionEleve,
+    PageHistorique,
     EleveInfo,
     JetonEleve,
     ProgressionCompetence,
@@ -119,16 +128,44 @@ def mes_chapitres(eleve: EleveCourant, session: SessionDB) -> list[ChapitreOuver
     return [ChapitreOuvert(id=c.id, code=c.code, titre=c.titre, nb_questions=nb.get(c.id, 0)) for c in chapitres]
 
 
+@router.get("/eleves/moi/historique", response_model=PageHistorique)
+def mon_historique(
+    eleve: EleveCourant, session: SessionDB, page: int = 1, erreurs: bool = False, competence_id: int | None = None
+) -> PageHistorique:
+    """Ce que l'élève a déjà fait : questions, réponses, corrections (questions déjà répondues uniquement)."""
+    return historique_reponses(session, eleve, page, erreurs, competence_id)
+
+
+@router.get("/eleves/moi/competences/{competence_id}/avancement", response_model=AvancementCompetence)
+def mon_avancement(competence_id: int, eleve: EleveCourant, session: SessionDB) -> AvancementCompetence:
+    """Avancement dans la méthode PKP pour une compétence d'un chapitre ouvert."""
+    competence = session.get(models.Competence, competence_id)
+    if competence is None or competence.masque or competence.chapitre_id not in ids_ouverts(eleve.classe):
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Compétence introuvable.")
+    return avancement_competence(session, eleve, competence)
+
+
 @router.post("/seances", response_model=SeanceInfo, status_code=status.HTTP_201_CREATED)
 def demarrer_seance(eleve: EleveCourant, session: SessionDB, corps: SeanceCreation | None = None) -> models.Seance:
     """Démarre une séance sur les chapitres choisis (tous les chapitres ouverts si aucun choix)."""
     ouverts = {c.id: c for c in eleve.classe.chapitres_proposes if not c.masque}
     if not ouverts:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ton professeur n'a pas encore ouvert de chapitre.")
-    choisis = list(dict.fromkeys(corps.chapitre_ids)) if corps and corps.chapitre_ids else list(ouverts)
+    competences = []
+    if corps and corps.competence_ids:
+        # Séance ciblée depuis une leçon : les chapitres sont ceux des compétences demandées.
+        competences = [session.get(models.Competence, i) for i in dict.fromkeys(corps.competence_ids)]
+        if any(c is None or c.masque or c.chapitre_id not in ouverts for c in competences):
+            raise HTTPException(422, "Cette compétence n'est pas proposée par ton professeur.")
+        choisis = list(dict.fromkeys(c.chapitre_id for c in competences))
+    else:
+        choisis = list(dict.fromkeys(corps.chapitre_ids)) if corps and corps.chapitre_ids else list(ouverts)
     if any(i not in ouverts for i in choisis):
         raise HTTPException(422, "Ce chapitre n'est pas proposé par ton professeur.")
-    seance = models.Seance(eleve=eleve, debut=_maintenant(), chapitres=[ouverts[i] for i in choisis])
+    seance = models.Seance(
+        eleve=eleve, debut=_maintenant(), chapitres=[ouverts[i] for i in choisis], competences=competences,
+        difficulte_min=corps.difficulte_min if corps else None, difficulte_max=corps.difficulte_max if corps else None,
+    )
     session.add(seance)
     session.commit()
     return seance
@@ -174,6 +211,9 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
                 models.Chapitre.id.in_([c.id for c in seance.chapitres] or ids_ouverts(eleve.classe)),
                 models.Question.archivee.is_(False),
                 *filtre_validation(),
+                *([models.Question.competence_id.in_([c.id for c in seance.competences])] if seance.competences else []),
+                *([models.Question.difficulte >= seance.difficulte_min] if seance.difficulte_min else []),
+                *([models.Question.difficulte <= seance.difficulte_max] if seance.difficulte_max else []),
             )
         )
     }
@@ -218,6 +258,8 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
         correcte=correcte,
         solution=question.solution,
         correction=question.correction,
+        competence=question.competence.libelle,
+        rappel=question.competence.lecon.resume if question.competence.lecon else None,
         maitrise=calculer_maitrise(historique, question.competence_id),
         maitrisee=est_maitrisee(historique, question.competence_id),
     )

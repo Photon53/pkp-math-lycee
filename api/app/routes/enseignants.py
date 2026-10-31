@@ -20,6 +20,7 @@ from app.db import models
 from app.progression import (
     chapitres_du_programme,
     export_eleve,
+    historique_reponses,
     nb_questions_servables,
     progression_eleve,
     resume_eleve,
@@ -36,6 +37,7 @@ from app.schemas import (
     CreationEleves,
     EleveResume,
     JetonEnseignant,
+    PageHistorique,
     ProgressionCompetence,
     QuestionEnseignant,
     ResultatCreationEleves,
@@ -250,6 +252,14 @@ def nouveau_code(eleve_id: int, enseignant: EnseignantCourant, session: SessionD
 @router.get("/eleves/{eleve_id}/progression", response_model=list[ProgressionCompetence])
 def progression(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[ProgressionCompetence]:
     return progression_eleve(session, _mon_eleve(session, eleve_id, enseignant))
+
+
+@router.get("/eleves/{eleve_id}/historique", response_model=PageHistorique)
+def historique(
+    eleve_id: int, enseignant: EnseignantCourant, session: SessionDB, page: int = 1, erreurs: bool = False
+) -> PageHistorique:
+    """Suivi par le professeur : les réponses de son élève, avec les corrections."""
+    return historique_reponses(session, _mon_eleve(session, eleve_id, enseignant), page, erreurs)
 
 
 @router.get("/eleves/{eleve_id}/export")

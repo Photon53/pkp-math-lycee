@@ -1,5 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { Erreur } from "../composants.jsx";
+import { Erreur, Onglets } from "../composants.jsx";
+import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
 import { useApi } from "./useApi.js";
 
@@ -299,7 +300,7 @@ export default function Classes({ jeton, onExpire }) {
                       {detail?.eleveId === e.id && (
                         <tr className="detail">
                           <td colSpan={5}>
-                            <ListeProgression competences={detail.competences} />
+                            <DetailEleve eleve={e} competences={detail.competences} jeton={jeton} onExpire={onExpire} />
                           </td>
                         </tr>
                       )}
@@ -338,6 +339,28 @@ export default function Classes({ jeton, onExpire }) {
 }
 
 /** Programme de la classe : l'enseignant coche les chapitres ouverts à ses élèves. */
+/** Suivi d'un élève : maîtrise par compétence, et historique de ses réponses avec les corrections. */
+function DetailEleve({ eleve, competences, jeton, onExpire }) {
+  const [vue, setVue] = useState("progression");
+  return (
+    <>
+      <Onglets
+        valeur={vue}
+        onChange={setVue}
+        options={[
+          ["progression", "Progression"],
+          ["historique", `Historique de ${eleve.prenom}`],
+        ]}
+      />
+      {vue === "progression" ? (
+        <ListeProgression competences={competences} />
+      ) : (
+        <Historique jeton={jeton} onExpire={onExpire} chemin={`/enseignants/eleves/${eleve.id}/historique`} eleve={false} />
+      )}
+    </>
+  );
+}
+
 function ChapitresProposes({ classe, appeler }) {
   const [chapitres, setChapitres] = useState(null);
   const [coches, setCoches] = useState(new Set());

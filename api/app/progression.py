@@ -14,7 +14,12 @@ from app.db import models
 from app.config import settings
 from app.db.conversions import historique_eleve
 from app.referentiel import StatutValidation
-from app.schemas import EleveResume, ProgressionCompetence
+from app.schemas import AvancementCompetence, EleveResume, PageHistorique, ProgressionCompetence, ReponseHistorique
+
+TAILLE_PAGE_HISTORIQUE = 30
+# Méthode PKP : bonnes réponses attendues avant de passer à l'étape suivante.
+OBJECTIF_BASES = 3
+OBJECTIF_AVANCEES = 2
 
 
 def programme_de(classe: models.Classe):
@@ -133,3 +138,64 @@ def export_eleve(session: Session, eleve: models.Eleve) -> JSONResponse:
     nom = f"pkp-{eleve.classe.code}-{eleve.prenom}.json".replace(" ", "_")
     # filename* (RFC 5987) : les prénoms accentués restent lisibles.
     return JSONResponse(donnees, headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quote(nom)}"})
+
+
+def historique_reponses(
+    session: Session, eleve: models.Eleve, page: int = 1, erreurs_seulement: bool = False, competence_id: int | None = None
+) -> PageHistorique:
+    """Réponses de l'élève, de la plus récente à la plus ancienne, avec la correction de chaque question."""
+    filtres = [models.Seance.eleve_id == eleve.id]
+    if competence_id is not None:
+        filtres.append(models.Question.competence_id == competence_id)
+    base = (
+        select(models.Reponse, models.Question, models.Competence, models.Chapitre)
+        .join(models.Seance, models.Seance.id == models.Reponse.seance_id)
+        .join(models.Question, models.Question.id == models.Reponse.question_id)
+        .join(models.Competence, models.Competence.id == models.Question.competence_id)
+        .join(models.Chapitre, models.Chapitre.id == models.Competence.chapitre_id)
+        .where(*filtres)
+    )
+    total = session.scalar(select(func.count()).select_from(base.subquery()))
+    erreurs = session.scalar(select(func.count()).select_from(base.where(models.Reponse.correcte.is_(False)).subquery()))
+    if erreurs_seulement:
+        base = base.where(models.Reponse.correcte.is_(False))
+    lignes = session.execute(
+        base.order_by(models.Reponse.repondu_le.desc(), models.Reponse.id.desc())
+        .offset((max(page, 1) - 1) * TAILLE_PAGE_HISTORIQUE)
+        .limit(TAILLE_PAGE_HISTORIQUE)
+    ).all()
+    return PageHistorique(
+        total=total,
+        erreurs=erreurs,
+        elements=[
+            ReponseHistorique(
+                id=r.id, repondu_le=r.repondu_le, seance_id=r.seance_id, question_id=q.id, competence_id=c.id,
+                competence=c.libelle, chapitre=ch.titre, enonce=q.enonce, type=q.type, difficulte=q.difficulte,
+                reponse_donnee=r.reponse_donnee, correcte=r.correcte, solution=q.solution, correction=q.correction,
+                duree_s=round(r.duree_s, 1),
+            )
+            for r, q, c, ch in lignes
+        ],
+    )
+
+
+def avancement_competence(session: Session, eleve: models.Eleve, competence: models.Competence) -> AvancementCompetence:
+    """Bonnes réponses par niveau (1 à 3, puis 4 et 5) et maîtrise calculée par le moteur."""
+    lignes = session.execute(
+        select(models.Question.difficulte, models.Reponse.correcte)
+        .join(models.Reponse, models.Reponse.question_id == models.Question.id)
+        .join(models.Seance, models.Seance.id == models.Reponse.seance_id)
+        .where(models.Seance.eleve_id == eleve.id, models.Question.competence_id == competence.id)
+    ).all()
+    historique = historique_eleve(session, eleve.id)
+    return AvancementCompetence(
+        competence_id=competence.id,
+        libelle=competence.libelle,
+        reponses=len(lignes),
+        reussies_bases=sum(1 for d, ok in lignes if ok and d <= 3),
+        objectif_bases=OBJECTIF_BASES,
+        reussies_avancees=sum(1 for d, ok in lignes if ok and d >= 4),
+        objectif_avancees=OBJECTIF_AVANCEES,
+        maitrise=calculer_maitrise(historique, competence.id),
+        maitrisee=est_maitrisee(historique, competence.id),
+    )

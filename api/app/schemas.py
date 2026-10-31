@@ -76,9 +76,24 @@ class ChapitreResume(_Modele):
 
 
 class SeanceCreation(BaseModel):
-    """Chapitres choisis par l'élève ; vide = tous les chapitres ouverts de sa classe."""
+    """Chapitres choisis par l'élève ; vide = tous les chapitres ouverts de sa classe.
+    `competence_ids` cible la séance sur ces compétences (bouton « S'entraîner » d'une leçon)."""
 
     chapitre_ids: Annotated[list[int], Field(max_length=60)] = []
+    competence_ids: Annotated[list[int], Field(max_length=20)] = []
+    difficulte_min: Annotated[int, Field(ge=1, le=5)] | None = None
+    difficulte_max: Annotated[int, Field(ge=1, le=5)] | None = None
+
+    @model_validator(mode="after")
+    def _niveaux(self):
+        if self.difficulte_min and self.difficulte_max and self.difficulte_min > self.difficulte_max:
+            raise ValueError("Le niveau minimal dépasse le niveau maximal.")
+        return self
+
+
+class CompetenceResume(_Modele):
+    id: int
+    libelle: str
 
 
 class SeanceInfo(_Modele):
@@ -86,6 +101,9 @@ class SeanceInfo(_Modele):
     debut: datetime
     fin: datetime | None
     chapitres: list[ChapitreResume] = []
+    competences: list[CompetenceResume] = []
+    difficulte_min: int | None = None
+    difficulte_max: int | None = None
 
 
 class ChapitreOuvert(BaseModel):
@@ -224,8 +242,51 @@ class ResultatReponse(BaseModel):
     solution: str
     # Correction détaillée : envoyée seulement ici, donc après la réponse de l'élève (E0.3).
     correction: dict | None = None
+    # Partie du cours à revoir : toujours fournie, pour les questions qui n'ont pas encore de correction détaillée.
+    competence: str | None = None
+    rappel: str | None = None  # résumé « L'essentiel » de la leçon
     maitrise: float = Field(description="Maîtrise de la compétence après cette réponse, entre 0 et 1.")
     maitrisee: bool
+
+
+class ReponseHistorique(BaseModel):
+    """Une réponse passée : l'élève (et son professeur) revoient la question, la réponse et la correction."""
+
+    id: int
+    repondu_le: datetime
+    seance_id: int
+    question_id: int
+    competence_id: int
+    competence: str
+    chapitre: str
+    enonce: str
+    type: TypeQuestion
+    difficulte: int
+    reponse_donnee: str
+    correcte: bool
+    solution: str
+    correction: dict | None = None
+    duree_s: float
+
+
+class AvancementCompetence(BaseModel):
+    """Méthode PKP sur une compétence : où en est l'élève dans les étapes « je m'entraîne », « je me dépasse », « je vérifie »."""
+
+    competence_id: int
+    libelle: str
+    reponses: int
+    reussies_bases: int  # bonnes réponses de niveau 1 à 3
+    objectif_bases: int
+    reussies_avancees: int  # bonnes réponses de niveau 4 et 5
+    objectif_avancees: int
+    maitrise: float
+    maitrisee: bool
+
+
+class PageHistorique(BaseModel):
+    total: int
+    erreurs: int
+    elements: list[ReponseHistorique]
 
 
 class ProgressionCompetence(BaseModel):

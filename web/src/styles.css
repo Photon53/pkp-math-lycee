@@ -393,3 +393,34 @@ li.cible { box-shadow: inset 0 2px 0 var(--action); }
 .etapes li { margin: 4px 0; }
 details.correction { margin: 12px 0; }
 details.correction summary { cursor: pointer; font-weight: 600; color: var(--action); }
+
+/* Historique des réponses (élève, professeur) */
+.historique { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.reponse-historique { border: 1px solid var(--bordure); border-left: 4px solid var(--bordure-forte); border-radius: var(--rayon-petit); padding: 10px 14px; background: var(--surface); }
+.reponse-historique.ok { border-left-color: var(--ok); }
+.reponse-historique.ko { border-left-color: var(--ko); }
+.reponse-historique p { margin: 6px 0; }
+
+/* Méthode PKP : page de présentation et étapes dans chaque leçon */
+.accroche { text-align: center; font-size: var(--t-l); font-weight: 700; color: var(--primaire); margin: 32px 0 8px; }
+.etapes-methode { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.etapes-methode li { display: flex; gap: 14px; align-items: flex-start; }
+.etapes-methode p { margin: 2px 0; }
+.etapes-methode .numero {
+  flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--action); color: var(--action-texte); font-weight: 700;
+}
+.parcours-pkp { margin: 12px 0 20px; }
+.parcours-pkp ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.parcours-pkp li {
+  border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 10px; background: var(--surface);
+  display: flex; flex-direction: column; gap: 6px; font-size: var(--t-s);
+}
+.parcours-pkp li.acquis { border-color: var(--ok); background: var(--ok-doux); }
+.parcours-pkp li.suivante { border-color: var(--action); box-shadow: 0 0 0 2px var(--action-doux); }
+.parcours-pkp .titre-etape { font-weight: 700; display: flex; gap: 6px; align-items: center; }
+.parcours-pkp .numero { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-size: var(--t-xs); flex: none; }
+.parcours-pkp li.acquis .numero { background: var(--ok); color: #fff; }
+.parcours-pkp li.suivante .numero { background: var(--action); color: var(--action-texte); }
+.parcours-pkp button { margin-top: auto; }
+@media (max-width: 760px) { .parcours-pkp ol { grid-template-columns: 1fr; } }

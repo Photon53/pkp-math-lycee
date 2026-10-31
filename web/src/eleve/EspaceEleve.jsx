@@ -3,7 +3,8 @@ import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
 import { ecrire, lire } from "../stockage.js";
 import Cours from "./Cours.jsx";
-import Exercice, { CLE_BILAN, CLE_SEANCE } from "./Exercice.jsx";
+import Exercice, { CLE_BILAN, CLE_CIBLE, CLE_SEANCE } from "./Exercice.jsx";
+import Historique from "./Historique.jsx";
 import Progression from "./Progression.jsx";
 
 const CLE_COMPTE = "pkp.eleve";
@@ -12,10 +13,36 @@ export default function EspaceEleve() {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
   const [onglet, setOnglet] = useState("exercice");
   const [leconOuverte, setLeconOuverte] = useState(null);
+  // Leçon ouverte depuis un exercice : la leçon propose d'y revenir, l'exercice n'est pas perdu.
+  const [depuisExercice, setDepuisExercice] = useState(false);
+  // Demande d'entrainement ciblé, depuis une leçon ou l'historique : { id, libelle, n }.
+  const [cible, setCible] = useState(null);
 
-  function voirCours(competenceId) {
+  function voirCours(competenceId, { depuisLExercice = true } = {}) {
     setLeconOuverte(competenceId);
+    setDepuisExercice(depuisLExercice);
     setOnglet("cours");
+  }
+
+  // Historique filtré sur une compétence (étape « Je vérifie » d'une leçon) ; null = tout.
+  const [historiqueDe, setHistoriqueDe] = useState(null);
+
+  function entrainer(competenceId, libelle, niveaux = null) {
+    setCible({ id: competenceId, libelle, niveaux, n: Date.now() });
+    setDepuisExercice(false);
+    setOnglet("exercice");
+  }
+
+  function changerOnglet(nouvel) {
+    if (nouvel !== "cours") setDepuisExercice(false);
+    if (nouvel !== "historique") setHistoriqueDe(null);
+    setOnglet(nouvel);
+  }
+
+  function voirHistorique(competenceId) {
+    setDepuisExercice(false);
+    setHistoriqueDe(competenceId);
+    setOnglet("historique");
   }
 
   function connecter(nouveau) {
@@ -27,6 +54,7 @@ export default function EspaceEleve() {
     ecrire(CLE_COMPTE, null);
     ecrire(CLE_SEANCE, null);
     ecrire(CLE_BILAN, null);
+    ecrire(CLE_CIBLE, null);
     setCompte(null);
   }
 
@@ -44,16 +72,42 @@ export default function EspaceEleve() {
       </div>
       <Onglets
         valeur={onglet}
-        onChange={setOnglet}
+        onChange={changerOnglet}
         options={[
           ["exercice", "S'entraîner"],
           ["cours", "Cours"],
+          ["historique", "Mon historique"],
           ["progression", "Ma progression"],
         ]}
       />
-      {onglet === "exercice" && <Exercice jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} />}
+      {/* Toujours monté, seulement masqué : aller au cours ne fait pas perdre la question ni sa correction. */}
+      <div hidden={onglet !== "exercice"}>
+        <Exercice jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} cible={cible} />
+      </div>
       {onglet === "cours" && (
-        <Cours jeton={compte.jeton} onExpire={deconnecter} competenceId={leconOuverte} onChoisir={setLeconOuverte} />
+        <Cours
+          jeton={compte.jeton}
+          onExpire={deconnecter}
+          competenceId={leconOuverte}
+          onChoisir={(id) => {
+            setLeconOuverte(id);
+            if (id === null) setDepuisExercice(false);
+          }}
+          onRetourExercice={depuisExercice ? () => changerOnglet("exercice") : null}
+          onEntrainer={entrainer}
+          onVoirHistorique={voirHistorique}
+        />
+      )}
+      {onglet === "historique" && (
+        <Historique
+          jeton={compte.jeton}
+          onExpire={deconnecter}
+          chemin="/eleves/moi/historique"
+          competenceId={historiqueDe}
+          onToutVoir={() => setHistoriqueDe(null)}
+          onVoirCours={(id) => voirCours(id, { depuisLExercice: false })}
+          onEntrainer={entrainer}
+        />
       )}
       {onglet === "progression" && <Progression jeton={compte.jeton} onExpire={deconnecter} />}
     </>

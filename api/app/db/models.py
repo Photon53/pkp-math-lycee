@@ -89,6 +89,14 @@ chapitres_de_seance = Table(
     Column("chapitre_id", ForeignKey("chapitre.id", ondelete="RESTRICT"), primary_key=True),
 )
 
+# Séance ciblée sur des compétences (bouton « S'entraîner » d'une leçon) ; vide = tous les chapitres choisis.
+competences_de_seance = Table(
+    "seance_competence",
+    Base.metadata,
+    Column("seance_id", ForeignKey("seance.id", ondelete="CASCADE"), primary_key=True),
+    Column("competence_id", ForeignKey("competence.id", ondelete="RESTRICT"), primary_key=True),
+)
+
 
 class Enseignant(Base):
     __tablename__ = "enseignant"
@@ -275,6 +283,10 @@ class Seance(Base):
     question_courante: Mapped["Question | None"] = relationship()
     # Vide pour les séances antérieures à ce choix : tous les chapitres ouverts de la classe.
     chapitres: Mapped[list["Chapitre"]] = relationship(secondary=chapitres_de_seance)
+    competences: Mapped[list["Competence"]] = relationship(secondary=competences_de_seance)
+    # Méthode PKP : « Je m'entraîne » (niveaux 1 à 3) ou « Je me dépasse » (niveaux 4 et 5) ; vide = tous.
+    difficulte_min: Mapped[int | None] = mapped_column(Integer)
+    difficulte_max: Mapped[int | None] = mapped_column(Integer)
     reponses: Mapped[list["Reponse"]] = relationship(
         back_populates="seance", cascade="all, delete-orphan", passive_deletes=True
     )
