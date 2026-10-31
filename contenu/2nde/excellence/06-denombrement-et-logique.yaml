@@ -1,0 +1,179 @@
+chapitre:
+  code: 2NDE-EX-DENOMB
+  niveau: 2nde
+  parcours: excellence
+  ordre: 6
+  titre: Dénombrement et principe des tiroirs
+competences:
+- code: 2NDE-EX-DENOMBR
+  libelle: Compter méthodiquement (arrangements, complémentaire, tiroirs)
+  objectifs:
+  - Compter des rangements et des codes, passer par le complémentaire.
+  - Utiliser le principe des tiroirs.
+  prerequis:
+  - 2NDE-PROBA
+  resume: |
+    - Ranger $n$ objets : $n! = n \times (n - 1) \times \dots \times 1$.
+    - Codes à éléments distincts : $n(n - 1)(n - 2)\cdots$.
+    - Complémentaire : compter ce qui ne convient pas, puis soustraire.
+    - Tiroirs : $n + 1$ objets dans $n$ tiroirs, un tiroir en contient au moins deux.
+  cours: |
+    ## Rangements et codes
+    4 livres : $4! = 24$ rangements. Codes de 3 lettres distinctes : $26 \times 25 \times 24 = 15\,600$.
+
+    ## Complémentaire
+    Entiers de 1 à 1 000 sans chiffre 7 : $9^3 = 729$ (écrits sur trois chiffres de 000 à 999, en remplaçant 000 par 1 000). Donc $271$ contiennent un 7.
+
+    ## Principe des tiroirs
+    Avec 13 personnes, deux au moins sont nées le même mois (12 tiroirs).
+  methodes:
+  - titre: Passer par le complémentaire
+    etapes:
+    - Compter le total.
+    - Compter les cas qui ne vérifient pas la condition (souvent plus simple).
+    - Soustraire.
+    exemple:
+      enonce: Nombres de 2 chiffres contenant au moins un 5.
+      resolution:
+      - 'Total $90$ ; sans 5 : $8 \times 9 = 72$.'
+      resultat: '18'
+  erreurs_frequentes:
+  - erreur: Compter deux fois les nombres contenant deux chiffres 7.
+    explication: Le complémentaire évite ces doublons.
+  questions:
+  - code: 2NDE-EX-DENOMBR-01
+    difficulte: 1
+    type: numerique
+    enonce: De combien de façons peut-on ranger 4 livres différents sur une étagère ?
+    solution: '24'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $4 \times 3 \times 2 \times 1 = 24$.
+      resultat: '24'
+  - code: 2NDE-EX-DENOMBR-02
+    difficulte: 2
+    type: numerique
+    enonce: Combien de codes de 3 lettres (parmi 26) peut-on former si les lettres doivent être distinctes ?
+    solution: '15600'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $26 \times 25 \times 24 = 15\,600$.
+      resultat: '15600'
+  - code: 2NDE-EX-DENOMBR-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel nombre minimal de personnes faut-il réunir pour être sûr que deux d'entre elles sont nées le même mois ?
+    solution: '13'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Principe des tiroirs.
+      etapes:
+      - Avec 12 personnes, elles peuvent toutes être nées des mois différents ; avec 13, c'est impossible.
+      resultat: '13'
+  - code: 2NDE-EX-DENOMBR-04
+    difficulte: 4
+    type: numerique
+    enonce: Combien y a-t-il de chemins de longueur minimale sur un quadrillage 3 × 3, d'un coin au coin opposé, en ne faisant que des pas vers la droite ou vers le haut ?
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '6 pas dont 3 vers le haut : $\dbinom{6}{3} = 20$.'
+      resultat: '20'
+  - code: 2NDE-EX-DENOMBR-05
+    difficulte: 5
+    type: numerique
+    enonce: Combien d'entiers compris entre 1 et 1 000 contiennent au moins une fois le chiffre 7 ?
+    solution: '271'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Complémentaire.
+      etapes:
+      - 'Sans 7 : $9^3 = 729$ (de 000 à 999 en remplaçant 000 par 1 000).'
+      - $1\,000 - 729 = 271$.
+      resultat: '271'
+- code: 2NDE-EX-DENOMB-PB
+  libelle: 'Problème guidé : chemins et triangle de Pascal'
+  objectifs:
+  - Relier les chemins sur un quadrillage aux coefficients du triangle de Pascal.
+  prerequis:
+  - 2NDE-EX-DENOMBR
+  resume: |
+    - Le nombre de chemins vers un point est la somme des chemins vers ses deux voisins (gauche et bas) : c'est la règle du triangle de Pascal.
+    - Chemins passant par un point : produit des chemins avant et après.
+  cours: |
+    ## Le problème
+    Sur un quadrillage, on va de $(0 ; 0)$ à $(3 ; 3)$ par pas vers la droite ou vers le haut. Combien de chemins, et combien évitent un point donné ?
+
+    ## Pascal
+    Lignes du triangle : 1 ; 1 1 ; 1 2 1 ; 1 3 3 1 ; 1 4 6 4 1… La somme de la ligne $n$ vaut $2^n$.
+
+    ## Passer par un point, l'éviter
+    Chemins passant par $(1 ; 1)$ : $2 \times 6 = 12$ (2 chemins jusqu'à $(1 ; 1)$, puis 6 jusqu'à $(3 ; 3)$). Chemins l'évitant : $20 - 12 = 8$.
+  methodes:
+  - titre: Compter les chemins passant par un point
+    etapes:
+    - Compter les chemins du départ au point.
+    - Compter ceux du point à l'arrivée.
+    - Multiplier.
+    exemple:
+      enonce: De $(0 ; 0)$ à $(2 ; 2)$ en passant par $(1 ; 0)$.
+      resolution:
+      - $1 \times 3 = 3$.
+      resultat: '3'
+  erreurs_frequentes:
+  - erreur: Additionner au lieu de multiplier les deux portions.
+    explication: Chaque début peut se combiner avec chaque fin.
+  questions:
+  - code: 2NDE-EX-DENOMB-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (Pascal), étape 1 : dans la ligne 1 4 6 4 1 du triangle de Pascal, quel est le coefficient du milieu ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dbinom{4}{2} = 6$.
+      resultat: '6'
+  - code: 2NDE-EX-DENOMB-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (Pascal), étape 2 : quelle est la somme des coefficients de la ligne 5 du triangle de Pascal (1 5 10 10 5 1) ?'
+    solution: '32'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^5 = 32$.
+      resultat: '32'
+  - code: 2NDE-EX-DENOMB-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (Pascal), étape 3 : combien de chemins vont de $(0 ; 0)$ à $(2 ; 2)$ par pas vers la droite ou vers le haut ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dbinom{4}{2} = 6$.
+      resultat: '6'
+  - code: 2NDE-EX-DENOMB-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (Pascal), étape 4 : combien de chemins de $(0 ; 0)$ à $(3 ; 3)$ passent par le point $(1 ; 1)$ ?'
+    solution: '12'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$2$ chemins jusqu''à $(1 ; 1)$, puis $\dbinom{4}{2} = 6$ jusqu''à $(3 ; 3)$ : $12$.'
+      resultat: '12'
+  - code: 2NDE-EX-DENOMB-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (Pascal), étape 5 : combien de chemins de $(0 ; 0)$ à $(3 ; 3)$ évitent le point $(1 ; 1)$ ?'
+    solution: '8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Total $\dbinom{6}{3} = 20$, moins $12$ : $8$.'
+      resultat: '8'

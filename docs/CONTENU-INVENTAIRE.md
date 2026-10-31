@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **75** · compétences : **138** · questions actives : **724**
-- Validation pédagogique : 0 validée(s), 724 à valider, 0 à corriger
+- Chapitres : **110** · compétences : **199** · questions actives : **1029**
+- Validation pédagogique : 0 validée(s), 1029 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -38,6 +38,31 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 11. Statistiques descriptives | `2NDE-DISP` Mesurer la dispersion d'une série | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 12. Probabilités et échantillonnage | `2NDE-PROBA` Calculer des probabilités | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 12. Probabilités et échantillonnage | `2NDE-ECH` Utiliser la fluctuation d'échantillonnage | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 2nde — Excellence et olympiades
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Arithmétique approfondie | `2NDE-EX-ARITHM` Raisonner sur les entiers (diviseurs, restes, divisibilité) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Arithmétique approfondie | `2NDE-EX-ARITH-PB` Problème guidé : les nombres parfaits | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Ordre et inégalités | `2NDE-EX-INEG` Comparer des nombres et démontrer des inégalités | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Ordre et inégalités | `2NDE-EX-ORDRE-PB` Problème guidé : l'inégalité des moyennes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, algèbre et combinatoire | `2NDE-EX-OLYMPIADE` Résoudre des problèmes de type olympiade (sommes, comptages, identités) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, algèbre et combinatoire | `2NDE-EX-OLYMP-PB` Problème guidé : poignées de main et diagonales | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Géométrie et vecteurs approfondis | `2NDE-EX-GEOMETRIE` Calculer longueurs, angles et aires dans des configurations riches | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Géométrie et vecteurs approfondis | `2NDE-EX-GEO-PB` Problème guidé : le centre de gravité d'un triangle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Fonctions et équations | `2NDE-EX-FONCTIONS` Raisonner sur les fonctions (composition, extremum, équations fonctionnelles) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Fonctions et équations | `2NDE-EX-FONC-PB` Problème guidé : l'enclos le long d'un mur | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Dénombrement et principe des tiroirs | `2NDE-EX-DENOMBR` Compter méthodiquement (arrangements, complémentaire, tiroirs) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Dénombrement et principe des tiroirs | `2NDE-EX-DENOMB-PB` Problème guidé : chemins et triangle de Pascal | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 2nde — Mise à niveau
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Bases du collège, calcul numérique | `2NDE-MAN-CALCUL` Calculer avec fractions, priorités et puissances | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Bases du collège, calcul littéral et équations | `2NDE-MAN-EQUATIONS` Développer, réduire et résoudre une équation du premier degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Bases du collège, proportionnalité et géométrie | `2NDE-MAN-PROPORTION` Utiliser pourcentages, proportionnalité, Pythagore et Thalès | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
 ### 1re — Spécialité
 
@@ -95,6 +120,42 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 5. Séries statistiques à deux variables | `1RE-TEC-STAT2` Utiliser un nuage de points et un ajustement affine | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 6. Probabilités conditionnelles et indépendance | `1RE-TEC-PCOND` Calculer des probabilités conditionnelles (tableau, arbre) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 7. Variables aléatoires | `1RE-TEC-VA` Déterminer une loi de probabilité et une espérance | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 1re — Excellence et olympiades
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Logique et raisonnements | `1RE-EX-LOGIQUE` Utiliser quantificateurs, négation, contraposée et récurrence | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Logique et raisonnements | `1RE-EX-LOG-PB` Problème guidé : la somme des cubes par récurrence | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Ensembles et applications | `1RE-EX-APPLI` Étudier injectivité, surjectivité, bijection et compter des applications | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Ensembles et applications | `1RE-EX-ENS-PB` Problème guidé : composer et inverser des fonctions | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, géométrie et trigonométrie | `1RE-EX-OLYMPIADE` Résoudre des problèmes de type olympiade en géométrie et trigonométrie | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, géométrie et trigonométrie | `1RE-EX-OLYMP-PB` Problème guidé : tout savoir sur le triangle 13-14-15 | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Suites et récurrences avancées | `1RE-EX-SUITES` Calculer avec des suites récurrentes et des sommes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Suites et récurrences avancées | `1RE-EX-SUI-PB` Problème guidé : un placement avec versements réguliers | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Second degré avec paramètre, somme et produit des racines | `1RE-EX-POLYNOMES` Utiliser somme et produit des racines sans les calculer | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Second degré avec paramètre, somme et produit des racines | `1RE-EX-POLY-PB` Problème guidé : une équation avec paramètre | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Probabilités approfondies | `1RE-EX-PROBAS` Résoudre des problèmes de probabilités classiques | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Probabilités approfondies | `1RE-EX-PROBA-PB` Problème guidé : faux positifs et second test | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 1re — Mise à niveau
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Bases de seconde, calcul algébrique | `1RE-MAN-ALGEBRE` Résoudre équations, inéquations et systèmes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Bases de seconde, fonctions et droites | `1RE-MAN-FONCTIONS` Calculer des images, des équations de droites et étudier un signe | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Bases de seconde, vecteurs, statistiques et probabilités | `1RE-MAN-VECPROBA` Calculer avec des coordonnées, une moyenne et une probabilité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 1re — Préparation aux examens
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Épreuve anticipée, partie automatismes (QCM) | `1RE-EXA-AUTO-CALC` Automatismes de calcul (QCM sans calculatrice) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Épreuve anticipée, partie automatismes (QCM) | `1RE-EXA-AUTO-FONC` Automatismes sur fonctions, statistiques et probabilités (QCM) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Sujet blanc n° 1 (second degré et suites) | `1RE-EXA-B1-EX1` Exercice 1 : bénéfice et second degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Sujet blanc n° 1 (second degré et suites) | `1RE-EXA-B1-EX2` Exercice 2 : évolution d'une population | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Sujet blanc n° 2 (dérivation et probabilités) | `1RE-EXA-B2-EX1` Exercice 1 : étude d'une fonction polynôme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Sujet blanc n° 2 (dérivation et probabilités) | `1RE-EXA-B2-EX2` Exercice 2 : un jeu de hasard | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
 ### Tle — Spécialité
 
@@ -187,6 +248,46 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 7. Probabilités conditionnelles et probabilités totales | `TLE-TEC-PROBA` Utiliser la formule des probabilités totales | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 8. Variables aléatoires et loi binomiale | `TLE-TEC-BINOM` Utiliser la loi binomiale et son espérance | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### Tle — Excellence et olympiades
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Suites et limites approfondies | `TLE-EX-SUITES` Calculer des limites de suites délicates | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Suites et limites approfondies | `TLE-EX-SUI-PB` Problème guidé : convergence et vitesse de la suite racine de (2 + u) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Logarithme, exponentielle et QCM de concours | `TLE-EX-FONC` Résoudre rapidement des questions de concours sur ln et exp | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Logarithme, exponentielle et QCM de concours | `TLE-EX-CONC-PB` Problème guidé : comparer e puissance pi et pi puissance e | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, arithmétique et dénombrement | `TLE-EX-OLYMPIADE` Résoudre des problèmes de type olympiade en arithmétique et dénombrement | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Olympiades, arithmétique et dénombrement | `TLE-EX-OLYMP-PB` Problème guidé : le critère de divisibilité par 11 | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Vers la prépa MPSI, sommes et raisonnement | `TLE-EX-MPSI-SOMMES` Manipuler sommes, factorielles et parties entières | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Vers la prépa MPSI, sommes et raisonnement | `TLE-EX-MPSI-PB` Problème guidé : calculer la somme des k fois 2 puissance k | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Vers la prépa PCSI, calcul et nombres complexes | `TLE-EX-PCSI-CALCUL` Maîtriser le calcul intégral et la forme exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Vers la prépa PCSI, calcul et nombres complexes | `TLE-EX-PCSI-PB` Problème guidé : les intégrales de Wallis | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Vers la prépa commerciale (ECG), probabilités et suites | `TLE-EX-ECG-PROBA` Modéliser par des probabilités et des suites récurrentes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Vers la prépa commerciale (ECG), probabilités et suites | `TLE-EX-ECG-PB` Problème guidé : la fidélité des clients (chaîne à deux états) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Intégrales et suites d'intégrales | `TLE-EX-INTEGRALES` Calculer des intégrales astucieuses | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Intégrales et suites d'intégrales | `TLE-EX-INT-PB` Problème guidé : la suite d'intégrales J(n) | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Géométrie dans l'espace approfondie | `TLE-EX-ESPACE` Calculer longueurs, angles, aires et volumes dans l'espace | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Géométrie dans l'espace approfondie | `TLE-EX-ESP-PB` Problème guidé : projeté orthogonal et distance à un plan | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### Tle — Mise à niveau
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Bases de première, second degré | `TLE-MAN-SECOND` Résoudre et étudier un trinôme du second degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Bases de première, dérivation et variations | `TLE-MAN-DERIVATION` Dériver, écrire une tangente et trouver un extremum | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Bases de première, suites et exponentielle | `TLE-MAN-SUITES-EXP` Calculer avec les suites usuelles et la fonction exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### Tle — Préparation aux examens
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Bac blanc n° 1 (exponentielle et probabilités) | `TLE-EXA-B1-EX1` Exercice 1 : étude d'une fonction exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Bac blanc n° 1 (exponentielle et probabilités) | `TLE-EXA-B1-EX2` Exercice 2 : contrôle qualité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Bac blanc n° 2 (suites et géométrie dans l'espace) | `TLE-EXA-B2-EX1` Exercice 1 : une suite définie par récurrence | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Bac blanc n° 2 (suites et géométrie dans l'espace) | `TLE-EXA-B2-EX2` Exercice 2 : tétraèdre et plan dans l'espace | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Sujet type annales (logarithme et équation différentielle) | `TLE-EXA-AN-EX1` Exercice 1 : une fonction avec le logarithme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Sujet type annales (logarithme et équation différentielle) | `TLE-EXA-AN-EX2` Exercice 2 : une équation différentielle en contexte | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
 ## Trous à combler
 
 Aucun.
@@ -195,8 +296,8 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 711 |
+| PKP Math | — | originale | 986 |
+| math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |
-| math.ma | non clarifiée | inspiree | 3 |
 | APMEP (annales du bac) | non clarifiée | inspiree | 2 |

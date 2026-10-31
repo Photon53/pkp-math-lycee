@@ -192,10 +192,11 @@ class TestCoursAdmin:
 
     def test_ordre_des_chapitres(self, client):
         h = connecter_admin(client)
-        chapitres = [c for c in client.get("/admin/contenu?niveau=2nde", headers=h).json()]
-        ids = [c["id"] for c in chapitres][::-1]
+        # L'ordre se règle parcours par parcours (la Seconde a aussi la mise à niveau et l'excellence).
+        tronc = lambda: [c["id"] for c in client.get("/admin/contenu?niveau=2nde", headers=h).json() if c["parcours"] == "tronc-commun"]
+        ids = tronc()[::-1]
         assert client.post("/admin/chapitres/ordre/2nde/tronc-commun", headers=h, json={"ids": ids}).status_code == 204
-        assert [c["id"] for c in client.get("/admin/contenu?niveau=2nde", headers=h).json()] == ids
+        assert tronc() == ids
 
 
 class TestExercicesAdmin:
@@ -252,7 +253,9 @@ class TestCoursProfesseur:
 
     def test_classes_ou_le_chapitre_est_ouvert(self, client):
         sommaire = client.get("/enseignants/cours?niveau=2nde", headers=connecter_enseignant(client)).json()
-        assert all(ch["ouvert_dans"] == ["2NDE-A-DEMO"] for ch in sommaire)
+        # La classe de démo suit le tronc commun : ses chapitres y sont ouverts, pas ceux des autres parcours.
+        assert all(ch["ouvert_dans"] == ["2NDE-A-DEMO"] for ch in sommaire if ch["parcours"] == "tronc-commun")
+        assert all(ch["ouvert_dans"] == [] for ch in sommaire if ch["parcours"] != "tronc-commun")
 
     def test_recherche(self, client):
         sommaire = client.get("/enseignants/cours?q=fraction", headers=connecter_enseignant(client)).json()

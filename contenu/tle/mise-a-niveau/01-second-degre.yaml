@@ -1,0 +1,95 @@
+chapitre:
+  code: TLE-MAN-SD
+  niveau: Tle
+  parcours: mise-a-niveau
+  ordre: 1
+  titre: Bases de première, second degré
+competences:
+- code: TLE-MAN-SECOND
+  libelle: Résoudre et étudier un trinôme du second degré
+  objectifs:
+  - Calculer le discriminant et les racines.
+  - Lire un extremum sur la forme canonique, étudier un signe.
+  prerequis:
+  - 1RE-DISC
+  - 1RE-SD-CANON
+  - 1RE-SD-FACTO-SIGNE
+  resume: |
+    - $\Delta = b^2 - 4ac$ : deux racines si $\Delta > 0$, une si $\Delta = 0$, aucune réelle si $\Delta < 0$.
+    - Forme canonique $a(x - \alpha)^2 + \beta$ : extremum $\beta$ en $\alpha$.
+    - $ax^2 + bx + c$ est du signe de $a$ sauf entre les racines.
+  cours: |
+    ## Discriminant
+    $x^2 - 5x + 6$ : $\Delta = 25 - 24 = 1$, racines $\dfrac{5 \pm 1}{2}$, soit $2$ et $3$.
+    $x^2 + x + 1$ : $\Delta = -3 < 0$, aucune racine réelle.
+
+    ## Forme canonique
+    $2(x - 1)^2 + 3 \geq 3$ : minimum $3$ en $x = 1$.
+
+    ## Signe
+    $x^2 - x - 6 = (x + 2)(x - 3) \leq 0 \iff x \in [-2 ; 3]$.
+  methodes:
+  - titre: Résoudre ax² + bx + c = 0
+    etapes:
+    - Calculer Δ.
+    - 'Si $\Delta > 0$ : $x = \dfrac{-b \pm \sqrt\Delta}{2a}$.'
+    exemple:
+      enonce: $x^2 - 2x - 3 = 0$.
+      resolution:
+      - $\Delta = 16$, $x = \dfrac{2 \pm 4}{2}$.
+      resultat: $-1$ et $3$
+  erreurs_frequentes:
+  - erreur: Calculer $b^2$ sans parenthèses quand $b < 0$.
+    explication: $(-5)^2 = 25$.
+  questions:
+  - code: TLE-MAN-SECOND-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer le discriminant de $x^2 - 5x + 6$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(-5)^2 - 4 \times 6 = 1$.
+      resultat: '1'
+  - code: TLE-MAN-SECOND-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $x^2 - 5x + 6 = 0$. Donner la plus grande racine.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\dfrac{5 \pm 1}{2}$ : $2$ et $3$.'
+      resultat: '3'
+  - code: TLE-MAN-SECOND-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel est le minimum de $f(x) = 2(x - 1)^2 + 3$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2(x - 1)^2 \geq 0$, donc $f(x) \geq 3$, avec égalité en $1$.
+      resultat: '3'
+  - code: TLE-MAN-SECOND-04
+    difficulte: 4
+    type: numerique
+    enonce: Combien l'équation $x^2 + x + 1 = 0$ a-t-elle de solutions réelles ?
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\Delta = 1 - 4 = -3 < 0$.
+      resultat: '0'
+  - code: TLE-MAN-SECOND-05
+    difficulte: 5
+    type: numerique
+    enonce: Combien d'entiers sont solutions de $x^2 - x - 6 \leq 0$ ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Racines $-2$ et $3$ ; le trinôme ($a > 0$) est négatif entre elles : $[-2 ; 3]$.'
+      - 'Entiers : $-2, -1, 0, 1, 2, 3$.'
+      resultat: '6'

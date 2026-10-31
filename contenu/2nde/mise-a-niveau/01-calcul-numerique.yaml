@@ -1,0 +1,93 @@
+chapitre:
+  code: 2NDE-MAN-NUM
+  niveau: 2nde
+  parcours: mise-a-niveau
+  ordre: 1
+  titre: Bases du collège, calcul numérique
+competences:
+- code: 2NDE-MAN-CALCUL
+  libelle: Calculer avec fractions, priorités et puissances
+  objectifs:
+  - Additionner, multiplier et diviser des fractions.
+  - Respecter les priorités opératoires et utiliser les puissances de 10.
+  resume: |
+    - Additionner des fractions : même dénominateur d'abord.
+    - Diviser par une fraction, c'est multiplier par son inverse.
+    - Priorités : parenthèses, puissances, multiplications et divisions, puis additions et soustractions.
+    - $a^m \times a^n = a^{m+n}$ et $a^{-n} = \dfrac{1}{a^n}$.
+  cours: |
+    ## Fractions
+    $\dfrac{3}{4} + \dfrac{1}{6} = \dfrac{9}{12} + \dfrac{2}{12} = \dfrac{11}{12}$ ; $\dfrac{2}{3} \div \dfrac{4}{9} = \dfrac{2}{3} \times \dfrac{9}{4} = \dfrac{3}{2}$.
+
+    ## Priorités
+    $5 + 3 \times (4 - 6)^2 = 5 + 3 \times 4 = 17$ : parenthèses, puis carré, puis produit, puis somme.
+
+    ## Puissances et écriture scientifique
+    $2^3 \times 2^{-5} = 2^{-2} = \dfrac{1}{4}$ ; $\dfrac{10^4 \times 3 \times 10^{-2}}{6 \times 10^{-3}} = \dfrac{3}{6} \times 10^{4 - 2 + 3} = 0{,}5 \times 10^5 = 50\,000$.
+  methodes:
+  - titre: Additionner deux fractions
+    etapes:
+    - Chercher un dénominateur commun (le plus petit multiple commun).
+    - Transformer chaque fraction, puis additionner les numérateurs.
+    - Simplifier le résultat.
+    exemple:
+      enonce: $\dfrac{5}{6} - \dfrac{3}{4}$.
+      resolution:
+      - $\dfrac{10}{12} - \dfrac{9}{12}$.
+      resultat: $\dfrac{1}{12}$
+  erreurs_frequentes:
+  - erreur: 'Additionner numérateurs et dénominateurs : $\dfrac{1}{2} + \dfrac{1}{3} = \dfrac{2}{5}$.'
+    explication: Il faut un dénominateur commun ; on trouve 5/6.
+  - erreur: Calculer de gauche à droite sans respecter les priorités.
+    explication: $5 + 3 \times 4 = 17$, pas $32$.
+  questions:
+  - code: 2NDE-MAN-CALCUL-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\dfrac{3}{4} + \dfrac{1}{6}$ (fraction irréductible).
+    solution: 11/12
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{9}{12} + \dfrac{2}{12} = \dfrac{11}{12}$.
+      resultat: 11/12
+  - code: 2NDE-MAN-CALCUL-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{2}{3} \div \dfrac{4}{9}$ (fraction irréductible).
+    solution: 3/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{2}{3} \times \dfrac{9}{4} = \dfrac{18}{12} = \dfrac{3}{2}$.
+      resultat: 3/2
+  - code: 2NDE-MAN-CALCUL-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $5 + 3 \times (4 - 6)^2$.
+    solution: '17'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(4 - 6)^2 = 4$, puis $3 \times 4 = 12$, puis $5 + 12 = 17$.
+      resultat: '17'
+  - code: 2NDE-MAN-CALCUL-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer $2^3 \times 2^{-5}$ (fraction).
+    solution: 1/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^{3 - 5} = 2^{-2} = \dfrac{1}{4}$.
+      resultat: 1/4
+  - code: 2NDE-MAN-CALCUL-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\dfrac{10^4 \times 3 \times 10^{-2}}{6 \times 10^{-3}}$.
+    solution: '50000'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3}{6} \times 10^{4 - 2 - (-3)} = 0{,}5 \times 10^5 = 50\,000$.
+      resultat: '50000'

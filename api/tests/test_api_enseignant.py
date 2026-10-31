@@ -47,7 +47,7 @@ class TestClasses:
     def test_creer_une_classe(self, client):
         h = connecter_enseignant(client)
         classe = client.post("/enseignants/classes", headers=h, json={"niveau": "1re"}).json()
-        assert re.fullmatch(r"1RE-[2-9A-HJKMNP-Z]{5}", classe["code"])
+        assert re.fullmatch(r"1RE-SPE-[2-9A-HJKMNP-Z]{5}", classe["code"])  # niveau, parcours, partie aléatoire
         assert classe["nb_eleves"] == 0
         codes = inscrire_eleves(client, classe["code"], ["Sam"])
         connecter_eleve(client, "Sam", classe["code"].lower(), codes["Sam"].lower())

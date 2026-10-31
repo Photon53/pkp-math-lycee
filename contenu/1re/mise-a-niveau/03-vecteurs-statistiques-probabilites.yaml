@@ -1,0 +1,94 @@
+chapitre:
+  code: 1RE-MAN-VEC
+  niveau: 1re
+  parcours: mise-a-niveau
+  ordre: 3
+  titre: Bases de seconde, vecteurs, statistiques et probabilités
+competences:
+- code: 1RE-MAN-VECPROBA
+  libelle: Calculer avec des coordonnées, une moyenne et une probabilité
+  objectifs:
+  - Calculer une distance, un milieu, tester une colinéarité.
+  - Calculer une moyenne et une probabilité simple.
+  prerequis:
+  - 2NDE-VEC-COORD
+  - 2NDE-MOY
+  - 2NDE-PROBA
+  resume: |
+    - $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}$ ; milieu $\left(\dfrac{x_A + x_B}{2} ; \dfrac{y_A + y_B}{2}\right)$.
+    - $\vec u(x ; y)$ et $\vec v(x' ; y')$ colinéaires $\iff xy' - x'y = 0$.
+    - Équiprobabilité : $P(A) = \dfrac{\text{cas favorables}}{\text{cas possibles}}$.
+  cours: |
+    ## Repérage
+    $A(1 ; 2)$, $B(4 ; -2)$ : $AB = \sqrt{9 + 16} = 5$.
+    $\vec u(2 ; 3)$ et $\vec v(4 ; 6)$ : $2 \times 6 - 4 \times 3 = 0$, colinéaires.
+
+    ## Statistiques
+    Moyenne de $8, 12, 15, 9, 11$ : $\dfrac{55}{5} = 11$.
+
+    ## Probabilités
+    Dé : « pair ou multiple de 3 » = $\{2, 3, 4, 6\}$, soit $\dfrac{4}{6} = \dfrac{2}{3}$ (le 6 n'est compté qu'une fois).
+  methodes:
+  - titre: Tester la colinéarité de deux vecteurs
+    etapes:
+    - Calculer le déterminant xy' − x'y.
+    - Nul signifie colinéaires.
+    exemple:
+      enonce: $\vec u(3 ; -1)$, $\vec v(-6 ; 2)$.
+      resolution:
+      - $3 \times 2 - (-6) \times (-1) = 0$.
+      resultat: Colinéaires.
+  erreurs_frequentes:
+  - erreur: Compter deux fois les issues communes à « A ou B ».
+    explication: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+  questions:
+  - code: 1RE-MAN-VECPROBA-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer la distance $AB$ pour $A(1 ; 2)$ et $B(4 ; -2)$.
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{3^2 + (-4)^2} = 5$.
+      resultat: '5'
+  - code: 1RE-MAN-VECPROBA-02
+    difficulte: 2
+    type: numerique
+    enonce: Quelle est l'abscisse du milieu de $[AB]$ avec $A(1 ; 2)$ et $B(5 ; 6)$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1 + 5}{2} = 3$.
+      resultat: '3'
+  - code: 1RE-MAN-VECPROBA-03
+    difficulte: 3
+    type: qcm
+    enonce: Les vecteurs $\vec u(2 ; 3)$ et $\vec v(4 ; 6)$ sont-ils colinéaires ? A) oui  B) non
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 \times 6 - 4 \times 3 = 0$ (et $\vec v = 2\vec u$).
+      resultat: A
+  - code: 1RE-MAN-VECPROBA-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer la moyenne de la série 8, 12, 15, 9, 11.
+    solution: '11'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{8 + 12 + 15 + 9 + 11}{5} = \dfrac{55}{5} = 11$.
+      resultat: '11'
+  - code: 1RE-MAN-VECPROBA-05
+    difficulte: 5
+    type: numerique
+    enonce: On lance un dé équilibré. Quelle est la probabilité d'obtenir un nombre pair ou un multiple de 3 ?
+    solution: 2/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Issues favorables : 2, 3, 4, 6, soit $\dfrac{4}{6} = \dfrac{2}{3}$.'
+      resultat: 2/3

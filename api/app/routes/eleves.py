@@ -12,7 +12,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from pkp_engine import calculer_maitrise, choisir_prochaine_question, corriger, est_maitrisee
 from sqlalchemy import select
 
-from app import limitation
+from app import inscriptions, limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -31,6 +31,7 @@ from app.schemas import (
     ConnexionEleve,
     PageHistorique,
     EleveInfo,
+    InscriptionLiee,
     JetonEleve,
     ProgressionCompetence,
     QuestionPublique,
@@ -113,6 +114,25 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
 @router.get("/eleves/moi", response_model=EleveInfo)
 def moi(eleve: EleveCourant) -> EleveInfo:
     return _info(eleve)
+
+
+@router.get("/eleves/moi/parcours", response_model=list[InscriptionLiee])
+def mes_parcours(eleve: EleveCourant, session: SessionDB) -> list[InscriptionLiee]:
+    """Toutes les inscriptions de l'élève (celle-ci comprise), reliées par son professeur."""
+    autres = inscriptions.liees(session, eleve)
+    return [inscriptions.decrire(e, actuelle=e.id == eleve.id) for e in sorted([eleve, *autres], key=lambda e: e.id)]
+
+
+@router.post("/eleves/moi/parcours/{eleve_id}", response_model=JetonEleve)
+def changer_de_parcours(eleve_id: int, eleve: EleveCourant, session: SessionDB) -> JetonEleve:
+    """Passe à une autre inscription du même élève : vérifié côté serveur (lien posé par le professeur)."""
+    cible = next((e for e in inscriptions.liees(session, eleve) if e.id == eleve_id), None)
+    if cible is None or cible.code_hash is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parcours introuvable.")
+    if not cible.classe.enseignant.actif:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte du professeur de cette classe est suspendu.")
+    version = version_mot_de_passe(cible.code_hash)
+    return JetonEleve(jeton=creer_jeton(ELEVE, cible.id, settings.duree_jeton_eleve_h, version), eleve=_info(cible))
 
 
 @router.get("/eleves/moi/progression", response_model=list[ProgressionCompetence])

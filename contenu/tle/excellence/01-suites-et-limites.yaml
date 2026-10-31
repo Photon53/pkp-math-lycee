@@ -1,0 +1,199 @@
+chapitre:
+  code: TLE-EX-SUI
+  niveau: Tle
+  parcours: excellence
+  ordre: 1
+  titre: Suites et limites approfondies
+competences:
+- code: TLE-EX-SUITES
+  libelle: Calculer des limites de suites délicates
+  objectifs:
+  - Lever des indéterminations avec conjugué, télescopage ou formules de sommes.
+  - Trouver la limite d'une suite récurrente.
+  prerequis:
+  - TLE-SUI-OPE
+  - TLE-POINT-FIXE
+  resume: |
+    - $\left(1 + \dfrac{1}{n}\right)^n \to e$.
+    - Conjugué : $\sqrt{a} - \sqrt{b} = \dfrac{a - b}{\sqrt a + \sqrt b}$.
+    - $\sum_{k=1}^{n} k^2 = \dfrac{n(n + 1)(2n + 1)}{6}$.
+  cours: |
+    ## Une limite célèbre
+    $\ln\left(1 + \dfrac{1}{n}\right)^n = \dfrac{\ln(1 + \frac{1}{n})}{\frac{1}{n}} \to 1$, donc $\left(1 + \dfrac{1}{n}\right)^n \to e$.
+
+    ## Conjugué
+    $n\left(\sqrt{n^2 + 1} - n\right) = \dfrac{n}{\sqrt{n^2 + 1} + n} \to \dfrac{1}{2}$.
+
+    ## Sommes
+    $\dfrac{1}{n^3}\sum_{k=1}^{n} k^2 = \dfrac{(n + 1)(2n + 1)}{6n^2} \to \dfrac{1}{3}$.
+
+    ## Récurrence
+    $u_{n+1} = \dfrac{u_n}{2} + \dfrac{1}{u_n}$, $u_0 = 1$ : si la suite converge vers $\ell > 0$, alors $\ell = \dfrac{\ell}{2} + \dfrac{1}{\ell}$, soit $\ell = \sqrt{2}$ (méthode de Héron).
+  methodes:
+  - titre: Calculer la limite d'une somme de n termes
+    etapes:
+    - Chercher une forme fermée (télescopage, somme connue).
+    - Simplifier, puis passer à la limite.
+    exemple:
+      enonce: $\dfrac{1 + 2 + \dots + n}{n^2}$.
+      resolution:
+      - $\dfrac{n(n + 1)}{2n^2} = \dfrac{1}{2} + \dfrac{1}{2n}$.
+      resultat: $\dfrac{1}{2}$
+  erreurs_frequentes:
+  - erreur: Conclure que $\left(1 + \dfrac{1}{n}\right)^n \to 1$ car « $1^\infty = 1$ ».
+    explication: C'est une forme indéterminée ; on passe par le logarithme.
+  questions:
+  - code: TLE-EX-SUITES-01
+    difficulte: 1
+    type: numerique
+    enonce: Déterminer $\lim\limits_{n \to +\infty} \left(1 + \dfrac{1}{n}\right)^n$ (valeur exacte).
+    solution: e
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $n\ln\left(1 + \dfrac{1}{n}\right) \to 1$, donc la suite tend vers $e^1 = e$.
+      resultat: e
+  - code: TLE-EX-SUITES-02
+    difficulte: 2
+    type: numerique
+    enonce: $u_0 = 1$ et $u_{n+1} = \dfrac{u_n}{2} + \dfrac{1}{u_n}$. On admet que la suite converge vers un réel strictement positif. Lequel ? (valeur exacte)
+    solution: sqrt(2)
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ell = \dfrac{\ell}{2} + \dfrac{1}{\ell}$, soit $\dfrac{\ell^2}{2} = 1$ et $\ell = \sqrt{2}$.
+      resultat: sqrt(2)
+  - code: TLE-EX-SUITES-03
+    difficulte: 3
+    type: numerique
+    enonce: Déterminer $\lim\limits_{n \to +\infty} n\left(\sqrt{n^2 + 1} - n\right)$.
+    solution: 1/2
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{n}{\sqrt{n^2 + 1} + n} = \dfrac{1}{\sqrt{1 + \frac{1}{n^2}} + 1} \to \dfrac{1}{2}$.
+      resultat: 1/2
+  - code: TLE-EX-SUITES-04
+    difficulte: 4
+    type: numerique
+    enonce: Déterminer $\lim\limits_{n \to +\infty} \displaystyle\sum_{k=1}^{n} \dfrac{1}{k(k + 1)}$.
+    solution: '1'
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Télescopage : la somme vaut $1 - \dfrac{1}{n + 1} \to 1$.'
+      resultat: '1'
+  - code: TLE-EX-SUITES-05
+    difficulte: 5
+    type: numerique
+    enonce: Déterminer $\lim\limits_{n \to +\infty} \dfrac{1^2 + 2^2 + \dots + n^2}{n^3}$.
+    solution: 1/3
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{n(n + 1)(2n + 1)}{6n^3} = \dfrac{(1 + \frac{1}{n})(2 + \frac{1}{n})}{6} \to \dfrac{2}{6} = \dfrac{1}{3}$.
+      resultat: 1/3
+- code: TLE-EX-SUI-PB
+  libelle: 'Problème guidé : convergence et vitesse de la suite racine de (2 + u)'
+  objectifs:
+  - Trouver une limite, puis majorer l'écart pour estimer la vitesse de convergence.
+  prerequis:
+  - TLE-EX-SUITES
+  resume: |
+    - $u_{n+1} = \sqrt{2 + u_n}$, $u_0 = 0$ : la suite croît vers $2$.
+    - $|u_{n+1} - 2| = \dfrac{|u_n - 2|}{\sqrt{2 + u_n} + 2} \leq \dfrac{|u_n - 2|}{2}$.
+    - Donc $|u_n - 2| \leq \dfrac{2}{2^n}$ : on gagne un facteur 2 à chaque étape.
+  cours: |
+    ## Le problème
+    On sait souvent qu'une suite converge, mais à quelle vitesse ? Ici on obtient un majorant explicite de l'erreur.
+
+    ## Majorer l'écart
+    $\sqrt{2 + u_n} - 2 = \dfrac{(2 + u_n) - 4}{\sqrt{2 + u_n} + 2}$ (quantité conjuguée), et le dénominateur est au moins $2$.
+
+    ## Nombre d'étapes
+    Pour une erreur inférieure à $10^{-3}$, il suffit que $\dfrac{2}{2^n} < 10^{-3}$, soit $2^n > 2\,000$ : $n = 11$.
+  methodes:
+  - titre: Estimer une vitesse de convergence
+    etapes:
+    - Exprimer $|u_{n+1} - \ell|$ en fonction de $|u_n - \ell|$.
+    - Majorer par $k|u_n - \ell|$ avec $0 < k < 1$.
+    - En déduire $|u_n - \ell| \leq k^n|u_0 - \ell|$.
+    exemple:
+      enonce: $|u_{n+1} - \ell| \leq \dfrac{1}{3}|u_n - \ell|$ et $|u_0 - \ell| = 1$.
+      resolution:
+      - $|u_n - \ell| \leq \dfrac{1}{3^n}$.
+      resultat: Moins de $10^{-2}$ dès $n = 5$.
+  erreurs_frequentes:
+  - erreur: Utiliser l'équation ℓ = f(ℓ) avant d'avoir justifié la convergence.
+    explication: Ici, la majoration de l'écart prouve à la fois la convergence et sa vitesse.
+  questions:
+  - code: TLE-EX-SUI-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (racine de 2 + u), étape 1 : $u_0 = 0$ et $u_{n+1} = \sqrt{2 + u_n}$. Calculer $u_1$ (valeur exacte).'
+    solution: sqrt(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $u_1 = \sqrt{2 + 0} = \sqrt{2}$.
+      resultat: sqrt(2)
+  - code: TLE-EX-SUI-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (racine de 2 + u), étape 2 : quel est le seul réel positif $\ell$ tel que $\ell = \sqrt{2 + \ell}$ ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ell^2 = 2 + \ell \iff (\ell - 2)(\ell + 1) = 0$, et $\ell \geq 0$.
+      resultat: '2'
+  - code: TLE-EX-SUI-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (racine de 2 + u), étape 3 : on montre que $|u_{n+1} - 2| \leq k|u_n - 2|$. Quelle est la meilleure constante $k$ obtenue en minorant $\sqrt{2 + u_n} + 2$ par 2 ?'
+    solution: 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|u_{n+1} - 2| = \dfrac{|u_n - 2|}{\sqrt{2 + u_n} + 2} \leq \dfrac{|u_n - 2|}{2}$.
+      resultat: 1/2
+  - code: TLE-EX-SUI-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (racine de 2 + u), étape 4 : sachant $|u_0 - 2| = 2$, quel majorant de $|u_5 - 2|$ obtient-on ?'
+    solution: 1/16
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|u_5 - 2| \leq \dfrac{2}{2^5} = \dfrac{1}{16}$.
+      resultat: 1/16
+  - code: TLE-EX-SUI-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (racine de 2 + u), étape 5 : à partir de quel rang $n$ le majorant $\dfrac{2}{2^n}$ est-il inférieur à $10^{-3}$ ?'
+    solution: '11'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$2^n > 2\,000$ : $2^{10} = 1\,024$ et $2^{11} = 2\,048$.'
+      resultat: '11'

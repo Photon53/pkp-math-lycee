@@ -14,13 +14,16 @@ export const LIBELLES_PARCOURS = {
   complementaires: "Maths complémentaires (voie générale)",
   expertes: "Maths expertes (voie générale)",
   technologique: "Voie technologique (STMG, STI2D, STL, ST2S…)",
+  "mise-a-niveau": "Mise à niveau (bases de l'année précédente)",
+  excellence: "Excellence et olympiades (exercices très poussés)",
+  examens: "Préparation aux examens (épreuve anticipée, bac blanc)",
 };
 
-// Ordre d'affichage : la voie générale d'abord, la voie technologique ensuite.
+// Ordre d'affichage : la voie générale, la voie technologique, puis les groupes de soutien et d'approfondissement.
 export const PARCOURS_PAR_NIVEAU = {
-  "2nde": ["tronc-commun"],
-  "1re": ["specialite", "scientifique", "technologique"],
-  Tle: ["specialite", "complementaires", "expertes", "technologique"],
+  "2nde": ["tronc-commun", "mise-a-niveau", "excellence"],
+  "1re": ["specialite", "scientifique", "technologique", "mise-a-niveau", "excellence", "examens"],
+  Tle: ["specialite", "complementaires", "expertes", "technologique", "mise-a-niveau", "excellence", "examens"],
 };
 
 const RANG_NIVEAU = Object.fromEntries(NIVEAUX.map(([v], i) => [v, i]));

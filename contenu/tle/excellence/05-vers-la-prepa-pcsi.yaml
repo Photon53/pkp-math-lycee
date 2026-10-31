@@ -1,0 +1,183 @@
+chapitre:
+  code: TLE-EX-PCSI
+  niveau: Tle
+  parcours: excellence
+  ordre: 5
+  titre: Vers la prépa PCSI, calcul et nombres complexes
+competences:
+- code: TLE-EX-PCSI-CALCUL
+  libelle: Maîtriser le calcul intégral et la forme exponentielle
+  objectifs:
+  - Calculer des intégrales par linéarisation, primitive usuelle ou intégration par parties répétée.
+  - Utiliser la forme exponentielle pour des puissances de complexes.
+  prerequis:
+  - TLE-INT-APP
+  - TLE-TRIG-ETU
+  resume: |
+    - $(re^{i\theta})^n = r^ne^{in\theta}$.
+    - Linéariser : $\sin^2 x = \dfrac{1 - \cos 2x}{2}$.
+    - $\tan = \dfrac{\sin}{\cos} = -\dfrac{(\cos)'}{\cos}$ : une primitive de $\tan$ est $-\ln|\cos|$.
+    - Une IPP par degré du polynôme.
+  cours: |
+    ## Complexes
+    $1 + i\sqrt{3} = 2e^{i\pi/3}$, donc $(1 + i\sqrt{3})^9 = 2^9e^{3i\pi} = -512$.
+
+    ## Linéariser
+    $\displaystyle\int_0^{\pi/2} \sin^2 x\,dx = \int_0^{\pi/2} \frac{1 - \cos 2x}{2}\,dx = \frac{\pi}{4}$.
+
+    ## Deux intégrations par parties
+    $\displaystyle\int_0^1 x^2e^x\,dx = \big[e^x(x^2 - 2x + 2)\big]_0^1 = e - 2$.
+
+    ## Forme u'/u
+    $\displaystyle\int_0^{\pi/4} \tan x\,dx = \big[-\ln\cos x\big]_0^{\pi/4} = \ln\sqrt{2} = \frac{\ln 2}{2}$.
+  methodes:
+  - titre: Intégrer polynôme × exponentielle
+    etapes:
+    - Dériver le polynôme, intégrer l'exponentielle.
+    - Recommencer autant de fois que le degré du polynôme.
+    - Vérifier en dérivant la primitive obtenue.
+    exemple:
+      enonce: $\displaystyle\int_0^1 xe^x\,dx$.
+      resolution:
+      - $\big[xe^x\big]_0^1 - \displaystyle\int_0^1 e^x\,dx = e - (e - 1)$.
+      resultat: '1'
+  erreurs_frequentes:
+  - erreur: Intégrer $\sin^2 x$ en $\dfrac{\sin^3 x}{3}$.
+    explication: Cette fonction n'a pas pour dérivée $\sin^2 x$ ; il faut linéariser.
+  questions:
+  - code: TLE-EX-PCSI-CALCUL-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer le module de $(1 + i)^{10}$.
+    solution: '32'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $|1 + i|^{10} = (\sqrt{2})^{10} = 32$.
+      resultat: '32'
+  - code: TLE-EX-PCSI-CALCUL-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^{\pi/2} \sin^2 x\,dx$. (Utiliser pi.)
+    solution: pi/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sin^2 x = \dfrac{1 - \cos 2x}{2}$ ; $\left[\dfrac{x}{2} - \dfrac{\sin 2x}{4}\right]_0^{\pi/2} = \dfrac{\pi}{4}$.
+      resultat: pi/4
+  - code: TLE-EX-PCSI-CALCUL-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 x^2e^x\,dx$ (valeur exacte).
+    solution: e - 2
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Deux intégrations par parties.
+      etapes:
+      - 'Primitive : $e^x(x^2 - 2x + 2)$ (on vérifie en dérivant).'
+      - $e(1 - 2 + 2) - 2 = e - 2$.
+      resultat: e - 2
+  - code: TLE-EX-PCSI-CALCUL-04
+    difficulte: 4
+    type: numerique
+    enonce: Quelle est la partie réelle de $(1 + i\sqrt{3})^9$ ?
+    solution: '-512'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + i\sqrt{3} = 2e^{i\pi/3}$, donc $(1 + i\sqrt{3})^9 = 512e^{3i\pi} = -512$.
+      resultat: '-512'
+  - code: TLE-EX-PCSI-CALCUL-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^{\pi/4} \tan x\,dx$ (valeur exacte).
+    solution: ln(2)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\tan x = -\dfrac{(\cos x)''}{\cos x}$ : primitive $-\ln(\cos x)$ sur $\left[0 ; \dfrac{\pi}{4}\right]$.'
+      - $-\ln\dfrac{\sqrt{2}}{2} + \ln 1 = \ln\sqrt{2} = \dfrac{\ln 2}{2}$.
+      resultat: ln(2)/2
+- code: TLE-EX-PCSI-PB
+  libelle: 'Problème guidé : les intégrales de Wallis'
+  objectifs:
+  - Établir une relation de récurrence entre intégrales par parties et l'exploiter.
+  prerequis:
+  - TLE-EX-PCSI-CALCUL
+  resume: |
+    - $W_n = \displaystyle\int_0^{\pi/2} \sin^n x\,dx$.
+    - Par parties : $W_{n+2} = \dfrac{n + 1}{n + 2}W_n$.
+    - $W_0 = \dfrac{\pi}{2}$, $W_1 = 1$.
+  cours: |
+    ## Le problème
+    Les intégrales de Wallis mènent à la formule de Wallis pour $\pi$ et à la formule de Stirling : un grand classique de première année de prépa.
+
+    ## Relation de récurrence
+    En intégrant par parties $\sin^{n+1}x \times \sin x$ puis en utilisant $\cos^2 = 1 - \sin^2$ : $(n + 2)W_{n+2} = (n + 1)W_n$.
+
+    ## Valeurs
+    $W_2 = \dfrac{1}{2} \times \dfrac{\pi}{2} = \dfrac{\pi}{4}$, $W_3 = \dfrac{2}{3}$, $W_4 = \dfrac{3}{4} \times \dfrac{\pi}{4} = \dfrac{3\pi}{16}$.
+  methodes:
+  - titre: Exploiter une relation de récurrence entre intégrales
+    etapes:
+    - Calculer directement les premiers termes.
+    - Appliquer la relation de proche en proche.
+    exemple:
+      enonce: $W_5$ ?
+      resolution:
+      - $W_5 = \dfrac{4}{5}W_3 = \dfrac{4}{5} \times \dfrac{2}{3}$.
+      resultat: $\dfrac{8}{15}$
+  erreurs_frequentes:
+  - erreur: Utiliser la relation avec un décalage d'indice.
+    explication: Elle relie W de n + 2 à W de n, pas à W de n + 1.
+  questions:
+  - code: TLE-EX-PCSI-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (Wallis), étape 1 : calculer $W_0 = \displaystyle\int_0^{\pi/2} 1\,dx$. (Utiliser pi.)'
+    solution: pi/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Longueur de l''intervalle : $\dfrac{\pi}{2}$.'
+      resultat: pi/2
+  - code: TLE-EX-PCSI-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (Wallis), étape 2 : calculer $W_1 = \displaystyle\int_0^{\pi/2} \sin x\,dx$.'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[-\cos x\big]_0^{\pi/2} = 0 + 1 = 1$.
+      resultat: '1'
+  - code: TLE-EX-PCSI-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (Wallis), étape 3 : on admet $W_{n+2} = \dfrac{n + 1}{n + 2}W_n$. Calculer $W_2$. (Utiliser pi.)'
+    solution: pi/4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $W_2 = \dfrac{1}{2}W_0 = \dfrac{\pi}{4}$.
+      resultat: pi/4
+  - code: TLE-EX-PCSI-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (Wallis), étape 4 : calculer $W_3$.'
+    solution: 2/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $W_3 = \dfrac{2}{3}W_1 = \dfrac{2}{3}$.
+      resultat: 2/3
+  - code: TLE-EX-PCSI-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (Wallis), étape 5 : calculer $W_4$. (Utiliser pi.)'
+    solution: 3pi/16
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $W_4 = \dfrac{3}{4}W_2 = \dfrac{3}{4} \times \dfrac{\pi}{4} = \dfrac{3\pi}{16}$.
+      resultat: 3pi/16

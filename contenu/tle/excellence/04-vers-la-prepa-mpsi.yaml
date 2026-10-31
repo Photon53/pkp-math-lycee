@@ -1,0 +1,183 @@
+chapitre:
+  code: TLE-EX-MPSI
+  niveau: Tle
+  parcours: excellence
+  ordre: 4
+  titre: Vers la prépa MPSI, sommes et raisonnement
+competences:
+- code: TLE-EX-MPSI-SOMMES
+  libelle: Manipuler sommes, factorielles et parties entières
+  objectifs:
+  - Calculer des sommes avec la notation $\sum$, le binôme et le télescopage.
+  - Résoudre une équation en entiers par factorisation.
+  prerequis:
+  - TLE-COMB-DEN
+  - TLE-SUI-REC
+  resume: |
+    - Binôme : $\sum_{k=0}^{n} \dbinom{n}{k} = 2^n$.
+    - $\sum_{k=1}^{n} k^3 = \left(\dfrac{n(n + 1)}{2}\right)^2$.
+    - Télescopage : $k \cdot k! = (k + 1)! - k!$.
+    - Partie entière : $\lfloor \sqrt{k} \rfloor = m$ pour $m^2 \leq k < (m + 1)^2$, soit $2m + 1$ valeurs de $k$.
+  cours: |
+    ## Sommes classiques
+    $\sum_{k=0}^{10} \dbinom{10}{k} = (1 + 1)^{10} = 1\,024$ et $\sum_{k=1}^{10} k^3 = 55^2 = 3\,025$.
+
+    ## Télescopage
+    $\sum_{k=1}^{n} k \cdot k! = \sum_{k=1}^{n} \big((k + 1)! - k!\big) = (n + 1)! - 1$.
+
+    ## Équations en entiers
+    $x^2 - y^2 = 45 \iff (x - y)(x + y) = 45$ : on parcourt les factorisations $1 \times 45$, $3 \times 15$, $5 \times 9$.
+
+    ## Regrouper par paliers
+    $\sum_{k=1}^{100} \lfloor \sqrt k \rfloor$ : la valeur $m$ ($1 \leq m \leq 9$) est prise $2m + 1$ fois, et $10$ une fois.
+  methodes:
+  - titre: Calculer une somme en regroupant par valeurs
+    etapes:
+    - Repérer les paliers où le terme est constant.
+    - Compter le nombre de termes de chaque palier.
+    - Sommer valeur × effectif.
+    exemple:
+      enonce: $\sum_{k=1}^{15} \lfloor \sqrt k \rfloor$.
+      resolution:
+      - '$1$ (3 fois), $2$ (5 fois), $3$ (7 fois) : $3 + 10 + 21$.'
+      resultat: '34'
+  erreurs_frequentes:
+  - erreur: Oublier des factorisations ou la parité des facteurs.
+    explication: x − y et x + y ont la même parité ; il faut toutes les décompositions compatibles.
+  questions:
+  - code: TLE-EX-MPSI-SOMMES-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\displaystyle\sum_{k=0}^{10} \dbinom{10}{k}$.
+    solution: '1024'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Binôme de Newton avec $a = b = 1$ : $2^{10} = 1\,024$.'
+      resultat: '1024'
+  - code: TLE-EX-MPSI-SOMMES-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\displaystyle\sum_{k=1}^{10} k^3$.
+    solution: '3025'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\left(\dfrac{10 \times 11}{2}\right)^2 = 55^2 = 3\,025$.
+      resultat: '3025'
+  - code: TLE-EX-MPSI-SOMMES-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $\displaystyle\sum_{k=1}^{5} k \times k!$.
+    solution: '719'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Télescopage.
+      etapes:
+      - $k \cdot k! = (k + 1)! - k!$, donc la somme vaut $6! - 1! = 719$.
+      resultat: '719'
+  - code: TLE-EX-MPSI-SOMMES-04
+    difficulte: 4
+    type: numerique
+    enonce: Combien de couples d'entiers naturels $(x, y)$ vérifient $x^2 - y^2 = 45$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(x - y)(x + y) = 45$ avec $0 \leq x - y \leq x + y$.
+      - $(1, 45)$, $(3, 15)$, $(5, 9)$ donnent $(23, 22)$, $(9, 6)$, $(7, 2)$.
+      resultat: '3'
+  - code: TLE-EX-MPSI-SOMMES-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\displaystyle\sum_{k=1}^{100} \lfloor \sqrt{k} \rfloor$, où $\lfloor t \rfloor$ désigne la partie entière de $t$.
+    solution: '625'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Pour $1 \leq m \leq 9$, $\lfloor \sqrt k \rfloor = m$ pour $2m + 1$ valeurs de $k$ ; et $\lfloor \sqrt{100} \rfloor = 10$.
+      - $\sum_{m=1}^{9} m(2m + 1) + 10 = 2 \times 285 + 45 + 10 = 625$.
+      resultat: '625'
+- code: TLE-EX-MPSI-PB
+  libelle: 'Problème guidé : calculer la somme des k fois 2 puissance k'
+  objectifs:
+  - Établir une formule de somme, la vérifier et étudier son comportement asymptotique.
+  prerequis:
+  - TLE-EX-MPSI-SOMMES
+  resume: |
+    - $\sum_{k=0}^{n} 2^k = 2^{n+1} - 1$.
+    - $S_n = \sum_{k=1}^{n} k2^k = (n - 1)2^{n+1} + 2$ (se démontre par récurrence).
+    - $S_n \sim n2^{n+1}$ quand $n \to +\infty$.
+  cours: |
+    ## Le problème
+    Les sommes $\sum k q^k$ apparaissent en probabilités (espérances) et en informatique (complexité). On cherche une formule fermée pour $q = 2$.
+
+    ## Formule
+    $S_n = (n - 1)2^{n+1} + 2$. Hérédité : $(n - 1)2^{n+1} + 2 + (n + 1)2^{n+1} = 2n \cdot 2^{n+1} + 2 = n2^{n+2} + 2$.
+
+    ## Comportement
+    $\dfrac{S_n}{n2^{n+1}} = \dfrac{n - 1}{n} + \dfrac{2}{n2^{n+1}} \to 1$.
+  methodes:
+  - titre: Valider une formule de somme
+    etapes:
+    - La tester sur les petites valeurs de n.
+    - La démontrer par récurrence.
+    exemple:
+      enonce: $S_1 = 2$ ?
+      resolution:
+      - $(1 - 1)2^2 + 2 = 2$.
+      resultat: La formule est vraie au rang 1.
+  erreurs_frequentes:
+  - erreur: Confondre la somme de 0 à n et la somme de 1 à n.
+    explication: Le terme k = 0 de la somme des k2^k est nul, mais pas celui de la somme des 2^k.
+  questions:
+  - code: TLE-EX-MPSI-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (somme des k fois 2^k), étape 1 : calculer $\displaystyle\sum_{k=0}^{5} 2^k$.'
+    solution: '63'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^6 - 1 = 63$.
+      resultat: '63'
+  - code: TLE-EX-MPSI-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (somme des k fois 2^k), étape 2 : calculer $S_3 = 1 \times 2 + 2 \times 2^2 + 3 \times 2^3$.'
+    solution: '34'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 + 8 + 24 = 34$.
+      resultat: '34'
+  - code: TLE-EX-MPSI-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (somme des k fois 2^k), étape 3 : on admet $S_n = (n - 1)2^{n+1} + 2$. Calculer $S_5$.'
+    solution: '258'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$4 \times 64 + 2 = 258$ (on vérifie : $2 + 8 + 24 + 64 + 160 = 258$).'
+      resultat: '258'
+  - code: TLE-EX-MPSI-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (somme des k fois 2^k), étape 4 : calculer $S_{10}$.'
+    solution: '18434'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $9 \times 2^{11} + 2 = 9 \times 2\,048 + 2 = 18\,434$.
+      resultat: '18434'
+  - code: TLE-EX-MPSI-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (somme des k fois 2^k), étape 5 : déterminer $\lim\limits_{n \to +\infty} \dfrac{S_n}{n2^{n+1}}$.'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{(n - 1)2^{n+1} + 2}{n2^{n+1}} = 1 - \dfrac{1}{n} + \dfrac{2}{n2^{n+1}} \to 1$.
+      resultat: '1'

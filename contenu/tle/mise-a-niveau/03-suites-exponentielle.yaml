@@ -1,0 +1,91 @@
+chapitre:
+  code: TLE-MAN-SUI
+  niveau: Tle
+  parcours: mise-a-niveau
+  ordre: 3
+  titre: Bases de première, suites et exponentielle
+competences:
+- code: TLE-MAN-SUITES-EXP
+  libelle: Calculer avec les suites usuelles et la fonction exponentielle
+  objectifs:
+  - Calculer termes et sommes de suites arithmétiques et géométriques.
+  - Dériver et résoudre avec l'exponentielle.
+  prerequis:
+  - 1RE-SUI-MOD
+  - 1RE-EXP-ALG
+  - 1RE-EXP-ETU
+  resume: |
+    - Arithmétique : $u_n = u_0 + nr$ ; géométrique : $u_n = u_0q^n$.
+    - $1 + 2 + \dots + n = \dfrac{n(n + 1)}{2}$.
+    - $(e^{ax})' = ae^{ax}$ ; $e^A = e^B \iff A = B$.
+  cours: |
+    ## Suites
+    $u_0 = 2$, $r = 5$ : $u_{10} = 52$. $u_0 = 3$, $q = 2$ : $u_6 = 192$.
+    $1 + 2 + \dots + 50 = \dfrac{50 \times 51}{2} = 1\,275$.
+
+    ## Exponentielle
+    $(e^{3x})' = 3e^{3x}$ ; $e^{2x} = e^6 \iff 2x = 6 \iff x = 3$.
+  methodes:
+  - titre: Résoudre une équation avec l'exponentielle
+    etapes:
+    - Se ramener à $e^A = e^B$.
+    - Résoudre A = B.
+    exemple:
+      enonce: $e^{x + 1} = e^{4}$.
+      resolution:
+      - $x + 1 = 4$.
+      resultat: $x = 3$
+  erreurs_frequentes:
+  - erreur: Confondre suite arithmétique (on ajoute) et géométrique (on multiplie).
+    explication: $u_{n+1} = u_n + r$ ou $u_{n+1} = qu_n$.
+  questions:
+  - code: TLE-MAN-SUITES-EXP-01
+    difficulte: 1
+    type: numerique
+    enonce: Une suite arithmétique vérifie $u_0 = 2$ et a pour raison 5. Calculer $u_{10}$.
+    solution: '52'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 + 10 \times 5 = 52$.
+      resultat: '52'
+  - code: TLE-MAN-SUITES-EXP-02
+    difficulte: 2
+    type: numerique
+    enonce: Une suite géométrique vérifie $u_0 = 3$ et a pour raison 2. Calculer $u_6$.
+    solution: '192'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3 \times 2^6 = 192$.
+      resultat: '192'
+  - code: TLE-MAN-SUITES-EXP-03
+    difficulte: 3
+    type: expression
+    enonce: Calculer la dérivée de $f(x) = e^{3x}$.
+    solution: 3e^(3x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(e^{ax})' = ae^{ax}$ avec $a = 3$.
+      resultat: 3e^(3x)
+  - code: TLE-MAN-SUITES-EXP-04
+    difficulte: 4
+    type: numerique
+    enonce: Résoudre $e^{2x} = e^{6}$.
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2x = 6$, donc $x = 3$.
+      resultat: '3'
+  - code: TLE-MAN-SUITES-EXP-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $1 + 2 + 3 + \dots + 50$.
+    solution: '1275'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{50 \times 51}{2} = 1\,275$.
+      resultat: '1275'

@@ -1,0 +1,197 @@
+chapitre:
+  code: 1RE-EX-ENS
+  niveau: 1re
+  parcours: excellence
+  ordre: 2
+  titre: Ensembles et applications
+competences:
+- code: 1RE-EX-APPLI
+  libelle: Étudier injectivité, surjectivité, bijection et compter des applications
+  objectifs:
+  - Déterminer l'image d'une fonction et reconnaitre une bijection.
+  - Dénombrer des parties et des applications entre ensembles finis.
+  prerequis:
+  - 1RE-EX-LOGIQUE
+  - 1RE-SD-CANON
+  resume: |
+    - Un ensemble à $n$ éléments a $2^n$ parties.
+    - Applications de $E$ ($p$ éléments) dans $F$ ($n$ éléments) : $n^p$ ; injectives : $n(n - 1)\cdots(n - p + 1)$.
+    - Bijection : chaque élément de l'arrivée a exactement un antécédent.
+  cours: |
+    ## Image d'une fonction
+    $f(x) = x^2 - 4x + 5 = (x - 2)^2 + 1$ : $f(\mathbb{R}) = [1 ; +\infty[$, donc $f$ n'est pas surjective de $\mathbb{R}$ dans $\mathbb{R}$.
+
+    ## Bijection et réciproque
+    $f(x) = \dfrac{2x + 1}{x - 1}$ réalise une bijection de $\mathbb{R} \setminus \{1\}$ sur $\mathbb{R} \setminus \{2\}$ : on résout $f(x) = y$, soit $x = \dfrac{y + 1}{y - 2}$.
+
+    ## Dénombrement
+    Applications injectives de $\{1, 2, 3\}$ dans un ensemble à 5 éléments : $5 \times 4 \times 3 = 60$.
+  methodes:
+  - titre: Montrer qu'une fonction est bijective
+    etapes:
+    - Fixer y dans l'ensemble d'arrivée.
+    - Résoudre f(x) = y.
+    - Une unique solution dans l'ensemble de départ, pour tout y, signifie bijection.
+    exemple:
+      enonce: $f(x) = 3x - 2$ de $\mathbb{R}$ dans $\mathbb{R}$.
+      resolution:
+      - $3x - 2 = y \iff x = \dfrac{y + 2}{3}$.
+      resultat: Bijective, $f^{-1}(y) = \dfrac{y + 2}{3}$.
+  erreurs_frequentes:
+  - erreur: Oublier de préciser les ensembles de départ et d'arrivée.
+    explication: La même formule peut être bijective ou non selon ces ensembles.
+  questions:
+  - code: 1RE-EX-APPLI-01
+    difficulte: 1
+    type: numerique
+    enonce: Combien de parties (sous-ensembles) possède un ensemble à 5 éléments ?
+    solution: '32'
+    source: math.ma
+    source_url: https://www.math.ma/c:223:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Chaque élément est dedans ou non : $2^5 = 32$.'
+      resultat: '32'
+  - code: 1RE-EX-APPLI-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = x^2 - 4x + 5$. L'image $f(\mathbb{R})$ est un intervalle $[m ; +\infty[$. Donner $m$.
+    solution: '1'
+    source: math.ma
+    source_url: https://www.math.ma/c:223:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(x) = (x - 2)^2 + 1 \geq 1$, avec égalité en $2$.
+      resultat: '1'
+  - code: 1RE-EX-APPLI-03
+    difficulte: 3
+    type: qcm
+    enonce: 'L''application $f : \mathbb{R} \to \mathbb{R}$, $f(x) = 2x + 3$ est : A) bijective  B) injective mais pas surjective  C) ni injective ni surjective'
+    solution: A
+    source: math.ma
+    source_url: https://www.math.ma/c:223:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$2x + 3 = y \iff x = \dfrac{y - 3}{2}$ : une unique solution pour tout $y$.'
+      resultat: A
+  - code: 1RE-EX-APPLI-04
+    difficulte: 4
+    type: numerique
+    enonce: Combien y a-t-il d'applications injectives de $\{1, 2, 3\}$ dans $\{1, 2, 3, 4, 5\}$ ?
+    solution: '60'
+    source: math.ma
+    source_url: https://www.math.ma/c:223:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '5 choix pour l''image de 1, puis 4 pour 2, puis 3 pour 3 : $60$.'
+      resultat: '60'
+  - code: 1RE-EX-APPLI-05
+    difficulte: 5
+    type: numerique
+    enonce: $f(x) = \dfrac{2x + 1}{x - 1}$ réalise une bijection de $\mathbb{R} \setminus \{1\}$ sur $\mathbb{R} \setminus \{2\}$. Calculer $f^{-1}(5)$.
+    solution: '2'
+    source: math.ma
+    source_url: https://www.math.ma/c:223:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{2x + 1}{x - 1} = 5 \iff 2x + 1 = 5x - 5 \iff x = 2$.
+      resultat: '2'
+- code: 1RE-EX-ENS-PB
+  libelle: 'Problème guidé : composer et inverser des fonctions'
+  objectifs:
+  - Calculer des composées, une réciproque, et comparer f∘g et g∘f.
+  prerequis:
+  - 1RE-EX-APPLI
+  resume: |
+    - $(g \circ f)(x) = g(f(x))$ : on applique d'abord $f$.
+    - En général $g \circ f \neq f \circ g$.
+    - Réciproque : on résout $f(x) = y$ en $x$.
+  cours: |
+    ## Le problème
+    Avec $f(x) = 2x + 3$ et $g(x) = x^2$, on étudie les composées et la réciproque de $f$.
+
+    ## Composées
+    $(g \circ f)(x) = (2x + 3)^2$ et $(f \circ g)(x) = 2x^2 + 3$ : elles sont différentes.
+
+    ## Réciproque
+    $2x + 3 = y \iff x = \dfrac{y - 3}{2}$, donc $f^{-1}(x) = \dfrac{x - 3}{2}$.
+  methodes:
+  - titre: Calculer une composée
+    etapes:
+    - Calculer d'abord la fonction intérieure.
+    - Remplacer x par ce résultat dans la fonction extérieure.
+    exemple:
+      enonce: '$f(x) = x + 1$, $g(x) = 3x$ : $(g \circ f)(2)$.'
+      resolution:
+      - $f(2) = 3$, puis $g(3) = 9$.
+      resultat: '9'
+  erreurs_frequentes:
+  - erreur: Appliquer les fonctions dans le mauvais ordre.
+    explication: Dans g∘f, f agit en premier.
+  questions:
+  - code: 1RE-EX-ENS-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (composées), étape 1 : $f(x) = 2x + 3$ et $g(x) = x^2$. Calculer $(g \circ f)(1)$.'
+    solution: '25'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(1) = 5$, puis $g(5) = 25$.
+      resultat: '25'
+  - code: 1RE-EX-ENS-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (composées), étape 2 : avec les mêmes fonctions, calculer $(f \circ g)(1)$.'
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $g(1) = 1$, puis $f(1) = 5$.
+      resultat: '5'
+  - code: 1RE-EX-ENS-PB-03
+    difficulte: 3
+    type: expression
+    enonce: 'Problème guidé (composées), étape 3 : exprimer $(g \circ f)(x)$ en fonction de $x$.'
+    solution: (2x + 3)^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $g(f(x)) = (2x + 3)^2$.
+      resultat: (2x + 3)^2
+  - code: 1RE-EX-ENS-PB-04
+    difficulte: 4
+    type: expression
+    enonce: 'Problème guidé (composées), étape 4 : $f(x) = 2x + 3$ est une bijection de $\mathbb{R}$ sur $\mathbb{R}$. Exprimer $f^{-1}(x)$.'
+    solution: (x - 3)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2y + 3 = x \iff y = \dfrac{x - 3}{2}$.
+      resultat: (x - 3)/2
+  - code: 1RE-EX-ENS-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (composées), étape 5 : combien de réels $x$ vérifient $(g \circ f)(x) = (f \circ g)(x)$ ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(2x + 3)^2 = 2x^2 + 3 \iff 2x^2 + 12x + 6 = 0 \iff x^2 + 6x + 3 = 0$.
+      - '$\Delta = 36 - 12 = 24 > 0$ : deux solutions.'
+      resultat: '2'

@@ -1,0 +1,201 @@
+chapitre:
+  code: TLE-EX-CONC
+  niveau: Tle
+  parcours: excellence
+  ordre: 2
+  titre: Logarithme, exponentielle et QCM de concours
+competences:
+- code: TLE-EX-FONC
+  libelle: Résoudre rapidement des questions de concours sur ln et exp
+  objectifs:
+  - Reconnaitre un taux d'accroissement, utiliser une tangente ou une convexité.
+  - Intégrer par parties ln(1 + x).
+  prerequis:
+  - TLE-LN-APP
+  - TLE-INT-APP
+  resume: |
+    - $\dfrac{f(x) - f(a)}{x - a} \to f'(a)$ : $\dfrac{e^{2x} - 1}{x} \to 2$.
+    - $e^x \geq x + 1$ (convexité), avec égalité seulement en $0$.
+    - $x^{1/x} = e^{\frac{\ln x}{x}} \to 1$ en $+\infty$.
+  cours: |
+    ## Taux d'accroissement
+    $\dfrac{e^{2x} - 1}{x}$ est le taux d'accroissement de $x \mapsto e^{2x}$ en $0$ : sa limite est la dérivée $2e^0 = 2$.
+
+    ## Tangente et convexité
+    $e^x$ est convexe et $y = x + 1$ est sa tangente en $0$ : $e^x = x + 1$ n'a que la solution $0$.
+
+    ## Minimum de x ln x
+    $(x\ln x)' = \ln x + 1$, nul en $\dfrac{1}{e}$ : minimum $-\dfrac{1}{e}$.
+
+    ## Intégration par parties
+    $\displaystyle\int_0^1 \ln(1 + x)\,dx = \big[(1 + x)\ln(1 + x) - x\big]_0^1 = 2\ln 2 - 1$.
+  methodes:
+  - titre: Reconnaitre un nombre dérivé
+    etapes:
+    - Écrire la limite sous la forme $\dfrac{f(x) - f(a)}{x - a}$.
+    - Calculer $f'(a)$.
+    exemple:
+      enonce: $\lim\limits_{x \to 0} \dfrac{\ln(1 + 3x)}{x}$.
+      resolution:
+      - $f(x) = \ln(1 + 3x)$, $f(0) = 0$, $f'(0) = 3$.
+      resultat: $3$
+  erreurs_frequentes:
+  - erreur: Conclure 0/0 = 0.
+    explication: C'est une forme indéterminée, souvent un nombre dérivé.
+  questions:
+  - code: TLE-EX-FONC-01
+    difficulte: 1
+    type: qcm
+    enonce: Que vaut $\lim\limits_{x \to 0} \dfrac{e^{2x} - 1}{x}$ ? A) 2  B) 1  C) 0
+    solution: A
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Taux d''accroissement de $e^{2x}$ en $0$ : dérivée $2$.'
+      resultat: A
+  - code: TLE-EX-FONC-02
+    difficulte: 2
+    type: numerique
+    enonce: Combien l'équation $e^x = x + 1$ a-t-elle de solutions réelles ?
+    solution: '1'
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$y = x + 1$ est la tangente en $0$ à la courbe convexe de $\exp$ : la courbe est au-dessus, sauf au point de contact.'
+      resultat: '1'
+  - code: TLE-EX-FONC-03
+    difficulte: 3
+    type: numerique
+    enonce: Déterminer $\lim\limits_{x \to +\infty} x^{\frac{1}{x}}$.
+    solution: '1'
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x^{\frac{1}{x}} = e^{\frac{\ln x}{x}}$ et $\dfrac{\ln x}{x} \to 0$.
+      resultat: '1'
+  - code: TLE-EX-FONC-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le minimum de $f(x) = x\ln x$ sur $]0 ; +\infty[$ ? (valeur exacte)
+    solution: -1/e
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = \ln x + 1$, nul en $x = \dfrac{1}{e}$, négatif avant, positif après.
+      - $f\left(\dfrac{1}{e}\right) = -\dfrac{1}{e}$.
+      resultat: -1/e
+  - code: TLE-EX-FONC-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 \ln(1 + x)\,dx$ (valeur exacte).
+    solution: 2ln(2) - 1
+    source: math.ma
+    source_url: https://www.math.ma/c:322:%D8%B3%D9%84%D8%A7%D8%B3%D9%84-%D8%AA%D9%85%D8%A7%D8%B1%D9%8A%D9%86
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Intégration par parties avec $u = \ln(1 + x)$, $v' = 1$ (on prend $v = 1 + x$).
+      etapes:
+      - $\big[(1 + x)\ln(1 + x)\big]_0^1 - \displaystyle\int_0^1 1\,dx = 2\ln 2 - 1$.
+      resultat: 2ln(2) - 1
+- code: TLE-EX-CONC-PB
+  libelle: 'Problème guidé : comparer e puissance pi et pi puissance e'
+  objectifs:
+  - Étudier une fonction pour comparer deux nombres et résoudre une équation transcendante.
+  prerequis:
+  - TLE-EX-FONC
+  resume: |
+    - $f(x) = \dfrac{\ln x}{x}$ croît sur $]0 ; e]$, décroît sur $[e ; +\infty[$, maximum $\dfrac{1}{e}$.
+    - $a^b < b^a \iff b\ln a < a\ln b \iff f(a) < f(b)$.
+  cours: |
+    ## Le problème
+    Lequel est le plus grand, $e^\pi$ ou $\pi^e$ ? Une calculatrice répond, mais on veut une preuve.
+
+    ## L'idée
+    $\pi^e < e^\pi \iff e\ln\pi < \pi \iff \dfrac{\ln \pi}{\pi} < \dfrac{\ln e}{e}$ : il suffit de savoir que $f(x) = \dfrac{\ln x}{x}$ est maximale en $e$.
+
+    ## Bonus
+    $x^2 = 2^x \iff \dfrac{\ln x}{x} = \dfrac{\ln 2}{2}$ (pour $x > 0$) : la courbe de $f$ coupe deux fois ce niveau, en $2$ et en $4$.
+  methodes:
+  - titre: Comparer a^b et b^a
+    etapes:
+    - Passer au logarithme.
+    - Se ramener à comparer ln(a)/a et ln(b)/b.
+    - Conclure avec les variations de ln(x)/x.
+    exemple:
+      enonce: $3^4$ ou $4^3$ ?
+      resolution:
+      - '$3$ et $4$ sont après $e$ où $f$ décroît : $f(3) > f(4)$, donc $4\ln 3 > 3\ln 4$.'
+      resultat: $3^4 > 4^3$ ($81 > 64$).
+  erreurs_frequentes:
+  - erreur: Oublier le domaine x > 0 en passant au logarithme.
+    explication: Les deux membres doivent être strictement positifs.
+  questions:
+  - code: TLE-EX-CONC-PB-01
+    difficulte: 1
+    type: expression
+    enonce: 'Problème guidé (e et pi), étape 1 : calculer la dérivée de $f(x) = \dfrac{\ln x}{x}$.'
+    solution: (1 - ln(x))/x^2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{\frac{1}{x} \times x - \ln x}{x^2} = \dfrac{1 - \ln x}{x^2}$.
+      resultat: (1 - ln(x))/x^2
+  - code: TLE-EX-CONC-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (e et pi), étape 2 : en quelle valeur de $x$ la fonction $f(x) = \dfrac{\ln x}{x}$ atteint-elle son maximum ? (valeur exacte)'
+    solution: e
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - \ln x$ change de signe en $x = e$.
+      resultat: e
+  - code: TLE-EX-CONC-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (e et pi), étape 3 : quelle est la valeur de ce maximum ? (valeur exacte)'
+    solution: 1/e
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(e) = \dfrac{\ln e}{e} = \dfrac{1}{e}$.
+      resultat: 1/e
+  - code: TLE-EX-CONC-PB-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Problème guidé (e et pi), étape 4 : en utilisant que $f(\pi) < f(e)$, on obtient : A) $e^\pi$ est le plus grand  B) $\pi^e$ est le plus grand'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{\ln \pi}{\pi} < \dfrac{1}{e} \iff e\ln \pi < \pi \iff \pi^e < e^\pi$.
+      resultat: A
+  - code: TLE-EX-CONC-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (e et pi), étape 5 : combien de réels $x > 0$ vérifient $x^2 = 2^x$ ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Équivaut à $f(x) = \dfrac{\ln 2}{2}$, valeur strictement comprise entre $0$ et $\dfrac{1}{e}$ : une solution avant $e$, une après.'
+      - Ce sont $x = 2$ et $x = 4$.
+      resultat: '2'

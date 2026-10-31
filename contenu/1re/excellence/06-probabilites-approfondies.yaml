@@ -1,0 +1,177 @@
+chapitre:
+  code: 1RE-EX-PROBA
+  niveau: 1re
+  parcours: excellence
+  ordre: 6
+  titre: Probabilités approfondies
+competences:
+- code: 1RE-EX-PROBAS
+  libelle: Résoudre des problèmes de probabilités classiques
+  objectifs:
+  - Modéliser des lancers et des tirages, raisonner par le contraire.
+  - Analyser un paradoxe (Monty Hall).
+  prerequis:
+  - 1RE-LOI
+  - 2NDE-PROBA
+  resume: |
+    - Deux dés : 36 issues équiprobables.
+    - « Au moins un » : $1 - P(\text{aucun})$.
+    - Monty Hall : changer de porte fait gagner avec la probabilité $\dfrac{2}{3}$.
+  cours: |
+    ## Deux dés
+    Somme 7 : $(1,6), (2,5), \dots, (6,1)$, soit $\dfrac{6}{36} = \dfrac{1}{6}$.
+
+    ## Monty Hall
+    Le présentateur ouvre toujours une porte perdante. Si l'on a choisi une mauvaise porte (probabilité $\dfrac{2}{3}$), changer fait gagner à coup sûr.
+
+    ## Tirages sans remise
+    4 rouges et 6 bleues, 2 tirages : couleurs différentes avec la probabilité $2 \times \dfrac{4}{10} \times \dfrac{6}{9} = \dfrac{8}{15}$.
+  methodes:
+  - titre: Compter avec un tableau à double entrée
+    etapes:
+    - Dresser le tableau des 36 issues de deux dés.
+    - Compter les cases favorables.
+    exemple:
+      enonce: Probabilité d'un double avec deux dés.
+      resolution:
+      - 6 cases sur la diagonale.
+      resultat: $\dfrac{1}{6}$
+  erreurs_frequentes:
+  - erreur: Croire qu'après l'ouverture d'une porte, chaque porte restante a une chance sur deux.
+    explication: 'L''ouverture n''est pas aléatoire : le présentateur sait où est le gain.'
+  questions:
+  - code: 1RE-EX-PROBAS-01
+    difficulte: 1
+    type: numerique
+    enonce: On lance deux dés équilibrés. Quelle est la probabilité que la somme soit 7 ?
+    solution: 1/6
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 6 issues favorables sur 36.
+      resultat: 1/6
+  - code: 1RE-EX-PROBAS-02
+    difficulte: 2
+    type: numerique
+    enonce: On lance deux fois un dé. Quelle est la probabilité d'obtenir au moins un 6 ?
+    solution: 11/36
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - \dfrac{25}{36} = \dfrac{11}{36}$.
+      resultat: 11/36
+  - code: 1RE-EX-PROBAS-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Jeu de Monty Hall : trois portes, un seul gain. Après votre choix, le présentateur ouvre une porte perdante parmi les deux autres. Quelle est la probabilité de gagner si vous changez de porte ?'
+    solution: 2/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'On gagne en changeant exactement quand le premier choix était perdant : probabilité $\dfrac{2}{3}$.'
+      resultat: 2/3
+  - code: 1RE-EX-PROBAS-04
+    difficulte: 4
+    type: numerique
+    enonce: Une urne contient 4 boules rouges et 6 bleues. On tire 2 boules sans remise. Quelle est la probabilité qu'elles soient de couleurs différentes ?
+    solution: 8/15
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4}{10} \times \dfrac{6}{9} + \dfrac{6}{10} \times \dfrac{4}{9} = \dfrac{48}{90} = \dfrac{8}{15}$.
+      resultat: 8/15
+  - code: 1RE-EX-PROBAS-05
+    difficulte: 5
+    type: numerique
+    enonce: On lance trois fois un dé. Quelle est l'espérance du nombre de 6 obtenus ?
+    solution: 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Somme de trois variables de Bernoulli de paramètre $\dfrac{1}{6}$ : $3 \times \dfrac{1}{6} = \dfrac{1}{2}$.'
+      resultat: 1/2
+- code: 1RE-EX-PROBA-PB
+  libelle: 'Problème guidé : faux positifs et second test'
+  objectifs:
+  - Appliquer la formule de Bayes et mesurer l'effet d'un second test.
+  prerequis:
+  - 1RE-EX-PROBAS
+  resume: |
+    - $P_T(M) = \dfrac{P(M \cap T)}{P(T)}$.
+    - Une maladie rare rend les faux positifs majoritaires.
+    - Deux tests positifs indépendants changent radicalement la conclusion.
+  cours: |
+    ## Le problème
+    1 % de la population est malade ; le test détecte 99 % des malades mais donne 2 % de faux positifs.
+
+    ## Un seul test
+    $P(T) = 0{,}0099 + 0{,}0198 = 0{,}0297$ et $P_T(M) = \dfrac{0{,}0099}{0{,}0297} = \dfrac{1}{3}$ : seulement une chance sur trois d'être malade.
+
+    ## Deux tests positifs
+    $\dfrac{0{,}01 \times 0{,}99^2}{0{,}01 \times 0{,}99^2 + 0{,}99 \times 0{,}02^2} = \dfrac{99}{103} \approx 96\,\%$.
+  methodes:
+  - titre: Appliquer la formule de Bayes
+    etapes:
+    - Construire l'arbre maladie puis test.
+    - Calculer P(T) par les probabilités totales.
+    - Diviser la branche « malade et positif » par P(T).
+    exemple:
+      enonce: 10 % de malades, test 90 % sensible, 10 % de faux positifs.
+      resolution:
+      - $\dfrac{0{,}09}{0{,}09 + 0{,}09}$.
+      resultat: $\dfrac{1}{2}$
+  erreurs_frequentes:
+  - erreur: Confondre la sensibilité (P_M(T)) et P_T(M).
+    explication: Un test sensible à 99 % ne signifie pas 99 % de malades parmi les positifs.
+  questions:
+  - code: 1RE-EX-PROBA-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (dépistage), étape 1 : 1 % de malades ; le test est positif pour 99 % des malades. Calculer la probabilité d''être malade et positif.'
+    solution: '0.0099'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}01 \times 0{,}99 = 0{,}0099$.
+      resultat: '0.0099'
+  - code: 1RE-EX-PROBA-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (dépistage), étape 2 : le test est positif pour 2 % des personnes saines. Calculer la probabilité d''être sain et positif.'
+    solution: '0.0198'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}99 \times 0{,}02 = 0{,}0198$.
+      resultat: '0.0198'
+  - code: 1RE-EX-PROBA-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (dépistage), étape 3 : calculer la probabilité qu''un test soit positif.'
+    solution: '0.0297'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}0099 + 0{,}0198 = 0{,}0297$.
+      resultat: '0.0297'
+  - code: 1RE-EX-PROBA-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (dépistage), étape 4 : le test est positif. Quelle est la probabilité d''être malade ? (fraction irréductible)'
+    solution: 1/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0{,}0099}{0{,}0297} = \dfrac{1}{3}$.
+      resultat: 1/3
+  - code: 1RE-EX-PROBA-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (dépistage), étape 5 : on refait un second test, indépendant du premier, et il est aussi positif. Quelle est maintenant la probabilité d''être malade ? (fraction irréductible)'
+    solution: 99/103
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0{,}01 \times 0{,}99^2}{0{,}01 \times 0{,}99^2 + 0{,}99 \times 0{,}02^2} = \dfrac{0{,}009801}{0{,}010197}$.
+      - $= \dfrac{99}{103} \approx 96\,\%$.
+      resultat: 99/103

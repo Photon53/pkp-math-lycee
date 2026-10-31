@@ -1,0 +1,201 @@
+chapitre:
+  code: 2NDE-EX-ORDRE
+  niveau: 2nde
+  parcours: excellence
+  ordre: 2
+  titre: Ordre et inégalités
+competences:
+- code: 2NDE-EX-INEG
+  libelle: Comparer des nombres et démontrer des inégalités
+  objectifs:
+  - Comparer des expressions avec des racines en élevant au carré.
+  - Utiliser l'inégalité fondamentale (a − b)² ≥ 0 pour trouver un minimum ou un maximum.
+  prerequis:
+  - 2NDE-INT
+  - 2NDE-RAC
+  resume: |
+    - Deux nombres **positifs** sont rangés dans le même ordre que leurs carrés.
+    - $(a - b)^2 \geq 0$ donne $a^2 + b^2 \geq 2ab$ et, pour $x > 0$, $x + \dfrac{1}{x} \geq 2$.
+    - À somme fixée $a + b = S$, le produit $ab$ est maximal pour $a = b = \dfrac{S}{2}$.
+  cours: |
+    ## Comparer avec des racines
+    $\sqrt{5} + \sqrt{7}$ et $\sqrt{3} + 3$ sont positifs ; leurs carrés valent $12 + 2\sqrt{35} = 12 + \sqrt{140}$ et $12 + 6\sqrt{3} = 12 + \sqrt{108}$. Donc $\sqrt{5} + \sqrt{7} > \sqrt{3} + 3$.
+
+    ## L'inégalité fondamentale
+    Pour $x > 0$ : $x + \dfrac{1}{x} - 2 = \dfrac{(x - 1)^2}{x} \geq 0$, avec égalité pour $x = 1$.
+
+    ## Encadrements
+    Si $1 \leq x \leq 3$ et $-2 \leq y \leq -1$, alors $1 \leq -y \leq 2$ et $2 \leq x - y \leq 5$ (on ajoute les encadrements, jamais on ne les soustrait).
+  methodes:
+  - titre: Trouver un minimum avec un carré
+    etapes:
+    - Écrire la différence entre l'expression et la valeur supposée minimale.
+    - La mettre sous la forme d'un carré (ou d'un quotient de carré par un positif).
+    - Conclure, et donner le cas d'égalité.
+    exemple:
+      enonce: Minimum de $x^2 - 6x + 11$.
+      resolution:
+      - $x^2 - 6x + 11 = (x - 3)^2 + 2 \geq 2$.
+      resultat: Minimum $2$, atteint en $x = 3$.
+  erreurs_frequentes:
+  - erreur: Soustraire deux encadrements membre à membre.
+    explication: On encadre d'abord −y, puis on ajoute.
+  - erreur: Élever au carré des nombres de signes quelconques.
+    explication: '$-3 < 2$ mais $9 > 4$ : il faut des nombres positifs.'
+  questions:
+  - code: 2NDE-EX-INEG-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Comparer $\sqrt{5} + \sqrt{7}$ et $\sqrt{3} + 3$ : A) le premier est le plus grand  B) le second est le plus grand  C) ils sont égaux'
+    solution: A
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Carrés : $12 + \sqrt{140}$ et $12 + \sqrt{108}$, et $\sqrt{140} > \sqrt{108}$.'
+      resultat: A
+  - code: 2NDE-EX-INEG-02
+    difficulte: 2
+    type: numerique
+    enonce: On sait que $1 \leq x \leq 3$ et $-2 \leq y \leq -1$. Quelle est la plus grande valeur possible de $x - y$ ?
+    solution: '5'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 \leq -y \leq 2$, donc $2 \leq x - y \leq 5$, atteint pour $x = 3$, $y = -2$.
+      resultat: '5'
+  - code: 2NDE-EX-INEG-03
+    difficulte: 3
+    type: numerique
+    enonce: Quelle est la valeur minimale de $x + \dfrac{1}{x}$ pour $x > 0$ ?
+    solution: '2'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x + \dfrac{1}{x} - 2 = \dfrac{(x - 1)^2}{x} \geq 0$, avec égalité en $x = 1$.
+      resultat: '2'
+  - code: 2NDE-EX-INEG-04
+    difficulte: 4
+    type: numerique
+    enonce: Les réels positifs $a$ et $b$ vérifient $a + b = 10$. Quelle est la valeur maximale de $ab$ ?
+    solution: '25'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $ab = a(10 - a) = 25 - (a - 5)^2 \leq 25$, avec égalité pour $a = b = 5$.
+      resultat: '25'
+  - code: 2NDE-EX-INEG-05
+    difficulte: 5
+    type: numerique
+    enonce: Les réels strictement positifs $x$ et $y$ vérifient $x + y = 1$. Quelle est la valeur minimale de $\dfrac{1}{x} + \dfrac{1}{y}$ ?
+    solution: '4'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1}{x} + \dfrac{1}{y} = \dfrac{x + y}{xy} = \dfrac{1}{xy}$.
+      - $xy \leq \dfrac{1}{4}$ (à somme fixée, maximum pour $x = y = \dfrac{1}{2}$), donc $\dfrac{1}{xy} \geq 4$.
+      resultat: '4'
+- code: 2NDE-EX-ORDRE-PB
+  libelle: 'Problème guidé : l''inégalité des moyennes'
+  objectifs:
+  - Démontrer et utiliser l'inégalité entre moyennes arithmétique et géométrique.
+  prerequis:
+  - 2NDE-EX-INEG
+  resume: |
+    - Pour $a, b \geq 0$ : $\dfrac{a + b}{2} \geq \sqrt{ab}$, car $(\sqrt a - \sqrt b)^2 \geq 0$.
+    - Égalité si et seulement si $a = b$.
+    - Conséquence : $x + \dfrac{k}{x} \geq 2\sqrt k$ pour $x > 0$.
+  cours: |
+    ## Le problème
+    Comparer la moyenne arithmétique et la moyenne géométrique de deux nombres positifs, puis s'en servir pour optimiser.
+
+    ## Démonstration
+    $(\sqrt a - \sqrt b)^2 = a + b - 2\sqrt{ab} \geq 0$, donc $\dfrac{a + b}{2} \geq \sqrt{ab}$.
+
+    ## Application géométrique
+    Un rectangle d'aire $36$ a des côtés $x$ et $\dfrac{36}{x}$ ; son demi-périmètre $x + \dfrac{36}{x} \geq 2 \times 6 = 12$ : le carré a le plus petit périmètre.
+  methodes:
+  - titre: Trouver un minimum avec l'inégalité des moyennes
+    etapes:
+    - Écrire la quantité comme une somme de deux termes positifs dont le produit est constant.
+    - Appliquer a + b ≥ 2√(ab).
+    - Vérifier que l'égalité peut être atteinte.
+    exemple:
+      enonce: Minimum de $4x + \dfrac{1}{x}$ pour $x > 0$.
+      resolution:
+      - 'Produit constant $4$ : $4x + \dfrac{1}{x} \geq 2\sqrt 4 = 4$, égalité pour $x = \dfrac{1}{2}$.'
+      resultat: '4'
+  erreurs_frequentes:
+  - erreur: Oublier de vérifier que l'égalité est atteinte.
+    explication: Sinon la borne trouvée n'est pas forcément un minimum.
+  questions:
+  - code: 2NDE-EX-ORDRE-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (moyennes), étape 1 : calculer la moyenne arithmétique de 4 et 9.'
+    solution: '6.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4 + 9}{2} = 6{,}5$.
+      resultat: '6.5'
+  - code: 2NDE-EX-ORDRE-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (moyennes), étape 2 : calculer la moyenne géométrique $\sqrt{4 \times 9}$.'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$\sqrt{36} = 6 \leq 6{,}5$ : la moyenne géométrique est plus petite.'
+      resultat: '6'
+  - code: 2NDE-EX-ORDRE-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (moyennes), étape 3 : pour $x > 0$, on a $x + \dfrac{9}{x} \geq 6$. Pour quelle valeur de $x$ y a-t-il égalité ?'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Égalité quand les deux termes sont égaux : $x = \dfrac{9}{x}$, soit $x = 3$.'
+      resultat: '3'
+  - code: 2NDE-EX-ORDRE-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (moyennes), étape 4 : quelle est la valeur minimale de $x + \dfrac{9}{x}$ pour $x > 0$ ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x + \dfrac{9}{x} \geq 2\sqrt{9} = 6$, atteint en $x = 3$.
+      resultat: '6'
+  - code: 2NDE-EX-ORDRE-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (moyennes), étape 5 : quel est le plus petit périmètre possible d''un rectangle d''aire 36 ?'
+    solution: '24'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Périmètre $2\left(x + \dfrac{36}{x}\right) \geq 2 \times 2\sqrt{36} = 24$.
+      - Atteint pour le carré de côté 6.
+      resultat: '24'

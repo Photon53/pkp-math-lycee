@@ -1,0 +1,185 @@
+chapitre:
+  code: 1RE-EX-OLYMP
+  niveau: 1re
+  parcours: excellence
+  ordre: 3
+  titre: Olympiades, géométrie et trigonométrie
+competences:
+- code: 1RE-EX-OLYMPIADE
+  libelle: Résoudre des problèmes de type olympiade en géométrie et trigonométrie
+  objectifs:
+  - Utiliser aires, cercle inscrit et formule de Héron.
+  - Simplifier des expressions trigonométriques remarquables.
+  prerequis:
+  - 1RE-COSSIN
+  - 1RE-PS-APP
+  resume: |
+    - Somme des angles d'un polygone à $n$ côtés : $(n - 2) \times 180°$.
+    - Héron : aire $= \sqrt{s(s - a)(s - b)(s - c)}$ avec $s$ le demi-périmètre.
+    - Cercle inscrit : aire $= r \times s$ ; dans un triangle rectangle, $r = \dfrac{a + b - c}{2}$.
+    - $\cos\left(\dfrac{\pi}{2} - x\right) = \sin x$ et $\sin 2x = 2\sin x\cos x$.
+  cours: |
+    ## Aire et cercle inscrit
+    Triangle $13$, $14$, $15$ : $s = 21$, aire $\sqrt{21 \times 8 \times 7 \times 6} = 84$.
+    Triangle rectangle $6$, $8$, $10$ : $r = \dfrac{6 + 8 - 10}{2} = 2$.
+
+    ## Trigonométrie astucieuse
+    $\cos^2\dfrac{\pi}{8} + \cos^2\dfrac{3\pi}{8} = \cos^2\dfrac{\pi}{8} + \sin^2\dfrac{\pi}{8} = 1$.
+
+    ## Produit de cosinus
+    Pour $P = \cos\dfrac{\pi}{7}\cos\dfrac{2\pi}{7}\cos\dfrac{4\pi}{7}$, on multiplie par $8\sin\dfrac{\pi}{7}$ et on applique trois fois $2\sin x\cos x = \sin 2x$ : $8\sin\dfrac{\pi}{7}\,P = \sin\dfrac{8\pi}{7} = -\sin\dfrac{\pi}{7}$, donc $P = -\dfrac{1}{8}$.
+  methodes:
+  - titre: Simplifier un produit de cosinus d'angles doublés
+    etapes:
+    - Multiplier par le sinus du plus petit angle.
+    - Appliquer sin x cos x = sin(2x)/2 de proche en proche.
+    - Utiliser une relation de symétrie pour conclure.
+    exemple:
+      enonce: $\cos\dfrac{\pi}{5}\cos\dfrac{2\pi}{5}$.
+      resolution:
+      - $4\sin\dfrac{\pi}{5}\cos\dfrac{\pi}{5}\cos\dfrac{2\pi}{5} = \sin\dfrac{4\pi}{5} = \sin\dfrac{\pi}{5}$.
+      resultat: $\dfrac{1}{4}$
+  erreurs_frequentes:
+  - erreur: Appliquer Pythagore pour l'aire d'un triangle quelconque.
+    explication: Héron (ou une hauteur bien choisie) est nécessaire si le triangle n'est pas rectangle.
+  questions:
+  - code: 1RE-EX-OLYMPIADE-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la somme des angles intérieurs d'un hexagone (en degrés) ?
+    solution: '720'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(6 - 2) \times 180 = 720$.
+      resultat: '720'
+  - code: 1RE-EX-OLYMPIADE-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\cos^2\dfrac{\pi}{8} + \cos^2\dfrac{3\pi}{8}$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3\pi}{8} = \dfrac{\pi}{2} - \dfrac{\pi}{8}$, donc $\cos\dfrac{3\pi}{8} = \sin\dfrac{\pi}{8}$.
+      - $\cos^2 + \sin^2 = 1$.
+      resultat: '1'
+  - code: 1RE-EX-OLYMPIADE-03
+    difficulte: 3
+    type: numerique
+    enonce: Un triangle a pour côtés 13, 14 et 15. Calculer son aire.
+    solution: '84'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Formule de Héron.
+      etapes:
+      - $s = 21$ ; aire $= \sqrt{21 \times 8 \times 7 \times 6} = \sqrt{7\,056} = 84$.
+      resultat: '84'
+  - code: 1RE-EX-OLYMPIADE-04
+    difficulte: 4
+    type: numerique
+    enonce: Les côtés de l'angle droit d'un triangle rectangle mesurent 6 et 8. Quel est le rayon de son cercle inscrit ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Hypoténuse $10$ ; aire $24 = r \times s$ avec $s = 12$.
+      - $r = 2$.
+      resultat: '2'
+  - code: 1RE-EX-OLYMPIADE-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\cos\dfrac{\pi}{7} \times \cos\dfrac{2\pi}{7} \times \cos\dfrac{4\pi}{7}$.
+    solution: -1/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $8\sin\dfrac{\pi}{7}\cos\dfrac{\pi}{7}\cos\dfrac{2\pi}{7}\cos\dfrac{4\pi}{7} = \sin\dfrac{8\pi}{7}$ (trois fois $2\sin x\cos x = \sin 2x$).
+      - $\sin\dfrac{8\pi}{7} = -\sin\dfrac{\pi}{7}$, donc le produit vaut $-\dfrac{1}{8}$.
+      resultat: -1/8
+- code: 1RE-EX-OLYMP-PB
+  libelle: 'Problème guidé : tout savoir sur le triangle 13-14-15'
+  objectifs:
+  - Enchaîner aire, hauteur, cercles inscrit et circonscrit.
+  prerequis:
+  - 1RE-EX-OLYMPIADE
+  resume: |
+    - Héron : $\mathcal A = \sqrt{s(s - a)(s - b)(s - c)}$.
+    - Hauteur : $h = \dfrac{2\mathcal A}{\text{base}}$.
+    - Cercle inscrit : $r = \dfrac{\mathcal A}{s}$ ; cercle circonscrit : $R = \dfrac{abc}{4\mathcal A}$.
+  cours: |
+    ## Le problème
+    Le triangle de côtés 13, 14, 15 est célèbre : toutes ses grandeurs remarquables se calculent exactement.
+
+    ## Les formules
+    | Grandeur | Formule | Valeur |
+    |---|---|---|
+    | Demi-périmètre | $s = \dfrac{a + b + c}{2}$ | $21$ |
+    | Aire | Héron | $84$ |
+    | Hauteur sur 14 | $\dfrac{2 \times 84}{14}$ | $12$ |
+    | $r$ | $\dfrac{84}{21}$ | $4$ |
+    | $R$ | $\dfrac{13 \times 14 \times 15}{4 \times 84}$ | $\dfrac{65}{8}$ |
+  methodes:
+  - titre: Calculer le rayon du cercle circonscrit
+    etapes:
+    - Calculer l'aire du triangle.
+    - Appliquer $R = \dfrac{abc}{4\mathcal A}$.
+    exemple:
+      enonce: Triangle 3, 4, 5.
+      resolution:
+      - Aire $6$ ; $R = \dfrac{60}{24}$.
+      resultat: $\dfrac{5}{2}$ (la moitié de l'hypoténuse)
+  erreurs_frequentes:
+  - erreur: Confondre r = A/s et R = abc/(4A).
+    explication: r est le rayon du cercle inscrit, R celui du cercle circonscrit.
+  questions:
+  - code: 1RE-EX-OLYMP-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (triangle 13-14-15), étape 1 : calculer le demi-périmètre du triangle de côtés 13, 14 et 15.'
+    solution: '21'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{13 + 14 + 15}{2} = 21$.
+      resultat: '21'
+  - code: 1RE-EX-OLYMP-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (triangle 13-14-15), étape 2 : calculer son aire avec la formule de Héron.'
+    solution: '84'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{21 \times 8 \times 7 \times 6} = \sqrt{7\,056} = 84$.
+      resultat: '84'
+  - code: 1RE-EX-OLYMP-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (triangle 13-14-15), étape 3 : calculer la hauteur relative au côté de longueur 14.'
+    solution: '12'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $h = \dfrac{2 \times 84}{14} = 12$.
+      resultat: '12'
+  - code: 1RE-EX-OLYMP-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (triangle 13-14-15), étape 4 : calculer le rayon de son cercle inscrit.'
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $r = \dfrac{\mathcal A}{s} = \dfrac{84}{21} = 4$.
+      resultat: '4'
+  - code: 1RE-EX-OLYMP-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (triangle 13-14-15), étape 5 : calculer le rayon de son cercle circonscrit (fraction irréductible).'
+    solution: 65/8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $R = \dfrac{13 \times 14 \times 15}{4 \times 84} = \dfrac{2\,730}{336} = \dfrac{65}{8}$.
+      resultat: 65/8

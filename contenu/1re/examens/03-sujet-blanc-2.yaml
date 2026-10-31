@@ -1,0 +1,167 @@
+chapitre:
+  code: 1RE-EXA-BLANC2
+  niveau: 1re
+  parcours: examens
+  ordre: 3
+  titre: Sujet blanc n° 2 (dérivation et probabilités)
+competences:
+- code: 1RE-EXA-B2-EX1
+  libelle: 'Exercice 1 : étude d''une fonction polynôme'
+  objectifs:
+  - Dériver, écrire une tangente, étudier les variations et compter des solutions.
+  prerequis:
+  - 1RE-VAR
+  - 1RE-DER-NB
+  resume: |
+    - $f'$ donne les variations ; tangente $y = f'(a)(x - a) + f(a)$.
+    - Nombre de solutions de $f(x) = 0$ : lire le tableau de variations.
+  cours: |
+    ## L'exercice
+    $f(x) = x^3 - 3x^2 + 2$ sur $\mathbb{R}$.
+
+    ## Ce qui est attendu
+    $f'(x) = 3x^2 - 6x = 3x(x - 2)$ : $f$ croît, décroît sur $[0 ; 2]$, puis croît. Maximum local $f(0) = 2$, minimum local $f(2) = -2$ : l'équation $f(x) = 0$ a trois solutions.
+  methodes:
+  - titre: Compter les solutions avec le tableau de variations
+    etapes:
+    - Dresser le tableau de variations complet.
+    - Regarder si 0 est atteint sur chaque intervalle de monotonie.
+    exemple:
+      enonce: $g(x) = x^3 - 3x$, $g(x) = 3$ ?
+      resolution:
+      - 'Maximum local $g(-1) = 2 < 3$ : une seule solution, après $1$.'
+      resultat: Une solution.
+  erreurs_frequentes:
+  - erreur: Oublier les limites aux bornes dans le tableau.
+    explication: Elles garantissent que la courbe traverse bien l'axe sur les intervalles extrêmes.
+  questions:
+  - code: 1RE-EXA-B2-EX1-01
+    difficulte: 1
+    type: expression
+    enonce: 'Sujet blanc 2, exercice 1 : $f(x) = x^3 - 3x^2 + 2$. Calculer $f''(x)$.'
+    solution: 3x^2 - 6x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3x^2 - 6x$.
+      resultat: 3x^2 - 6x
+  - code: 1RE-EXA-B2-EX1-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 1 : calculer $f''(1)$.'
+    solution: '-3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3 - 6 = -3$.
+      resultat: '-3'
+  - code: 1RE-EXA-B2-EX1-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 1 : la tangente au point d''abscisse 1 a pour équation $y = -3x + p$. Donner $p$.'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f(1) = 0$ : $y = -3(x - 1) + 0 = -3x + 3$.'
+      resultat: '3'
+  - code: 1RE-EXA-B2-EX1-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 1 : quelle est la valeur du minimum local de $f$ ?'
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f''(x) = 3x(x - 2)$ change de signe de $-$ à $+$ en $2$ : $f(2) = 8 - 12 + 2 = -2$.'
+      resultat: '-2'
+  - code: 1RE-EXA-B2-EX1-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 1 : combien de solutions réelles l''équation $f(x) = 0$ possède-t-elle ?'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Maximum local $f(0) = 2 > 0$, minimum local $f(2) = -2 < 0$, et $f$ va de $-\infty$ à $+\infty$ : trois solutions ($1$ et $1 \pm \sqrt3$).'
+      resultat: '3'
+- code: 1RE-EXA-B2-EX2
+  libelle: 'Exercice 2 : un jeu de hasard'
+  objectifs:
+  - Calculer une loi, une espérance, et des probabilités de tirages successifs.
+  prerequis:
+  - 1RE-LOI
+  resume: |
+    - Espérance du gain : $\sum x_i p_i$ ; jeu équitable si elle est nulle.
+    - Avec remise : épreuves indépendantes ; sans remise : la composition change.
+  cours: |
+    ## L'exercice
+    Une urne contient 3 boules rouges et 2 noires. Tirer une rouge fait gagner 2 €, une noire fait perdre 3 €.
+
+    ## Ce qui est attendu
+    $E = 2 \times \dfrac{3}{5} - 3 \times \dfrac{2}{5} = 0$ : le jeu est équitable. Puis on étudie deux tirages, avec et sans remise.
+  methodes:
+  - titre: Calculer « au moins une » sans remise
+    etapes:
+    - Calculer la probabilité de l'événement contraire (aucune).
+    - Retirer de 1.
+    exemple:
+      enonce: Deux tirages sans remise, au moins une rouge ?
+      resolution:
+      - 'Aucune rouge : $\dfrac{2}{5} \times \dfrac{1}{4} = \dfrac{1}{10}$.'
+      resultat: $\dfrac{9}{10}$
+  erreurs_frequentes:
+  - erreur: Garder les mêmes probabilités au second tirage sans remise.
+    explication: Une boule a été retirée, l'urne a changé.
+  questions:
+  - code: 1RE-EXA-B2-EX2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 2 : une urne contient 3 boules rouges et 2 noires. Probabilité de tirer une rouge ?'
+    solution: 3/5
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3}{5}$.
+      resultat: 3/5
+  - code: 1RE-EXA-B2-EX2-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 2 : une rouge fait gagner 2 €, une noire fait perdre 3 €. Calculer l''espérance du gain.'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 \times \dfrac{3}{5} - 3 \times \dfrac{2}{5} = 0$.
+      resultat: '0'
+  - code: 1RE-EXA-B2-EX2-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Sujet blanc 2, exercice 2 : ce jeu est : A) favorable au joueur  B) défavorable au joueur  C) équitable'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - L'espérance du gain est nulle.
+      resultat: C
+  - code: 1RE-EXA-B2-EX2-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 2 : on tire deux boules avec remise. Probabilité d''obtenir deux rouges ?'
+    solution: 9/25
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3}{5} \times \dfrac{3}{5} = \dfrac{9}{25}$.
+      resultat: 9/25
+  - code: 1RE-EXA-B2-EX2-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet blanc 2, exercice 2 : on tire deux boules sans remise. Probabilité d''obtenir au moins une noire ?'
+    solution: 7/10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Deux rouges : $\dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.'
+      - $1 - \dfrac{3}{10} = \dfrac{7}{10}$.
+      resultat: 7/10

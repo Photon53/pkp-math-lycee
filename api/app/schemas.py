@@ -65,6 +65,28 @@ class EleveInfo(BaseModel):
     parcours: Parcours
 
 
+class InscriptionLiee(BaseModel):
+    """Une inscription (classe) d'un élève suivi dans plusieurs parcours."""
+
+    eleve_id: int
+    prenom: str
+    code_classe: str
+    niveau: Niveau
+    parcours: Parcours
+    actuelle: bool = False
+
+
+class LiensEleve(BaseModel):
+    """Côté professeur : inscriptions déjà reliées, et suggestions (même prénom dans ses autres classes)."""
+
+    liees: list[InscriptionLiee]
+    suggestions: list[InscriptionLiee]
+
+
+class LienCreation(BaseModel):
+    eleve_id: int
+
+
 class JetonEleve(BaseModel):
     jeton: str
     eleve: EleveInfo
@@ -373,6 +395,7 @@ class EleveResume(BaseModel):
     taux_reussite: float | None
     competences_maitrisees: int
     competences_total: int
+    classes_liees: list[str] = []  # codes des autres classes du même élève
 
 
 class CreationEleves(BaseModel):

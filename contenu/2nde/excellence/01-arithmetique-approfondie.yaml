@@ -1,0 +1,209 @@
+chapitre:
+  code: 2NDE-EX-ARITH
+  niveau: 2nde
+  parcours: excellence
+  ordre: 1
+  titre: Arithmétique approfondie
+competences:
+- code: 2NDE-EX-ARITHM
+  libelle: Raisonner sur les entiers (diviseurs, restes, divisibilité)
+  objectifs:
+  - Compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.
+  - Utiliser une division pour éliminer une variable dans un problème de divisibilité.
+  prerequis:
+  - 2NDE-PREM
+  - 2NDE-MULT
+  resume: |
+    - Si $n = p_1^{a_1} \times \dots \times p_k^{a_k}$, alors $n$ a $(a_1 + 1)\cdots(a_k + 1)$ diviseurs positifs.
+    - Pour « $d$ divise $A(n)$ », on écrit $A(n) = d(n) \times Q(n) + r$ : $d(n)$ doit diviser $r$.
+    - Principe d'inclusion-exclusion : $|A \cup B| = |A| + |B| - |A \cap B|$.
+  cours: |
+    ## Nombre de diviseurs
+    $360 = 2^3 \times 3^2 \times 5$ : un diviseur s'écrit $2^a 3^b 5^c$ avec $a \in \{0..3\}$, $b \in \{0..2\}$, $c \in \{0, 1\}$, soit $4 \times 3 \times 2 = 24$ diviseurs.
+
+    ## Restes de grandes puissances
+    $2^3 = 8 = 7 + 1$ : les puissances de $8$ ont pour reste $1$ dans la division par $7$. Donc $2^{99} = 8^{33}$ a pour reste $1$ et $2^{100}$ a pour reste $2$.
+
+    ## Éliminer la variable
+    $n^2 + 6 = (n + 2)(n - 2) + 10$ : si $n + 2$ divise $n^2 + 6$, il divise $10$.
+
+    ## Produits d'entiers consécutifs
+    Parmi 4 entiers consécutifs, il y a un multiple de 4, un autre nombre pair et un multiple de 3 : leur produit est divisible par $2 \times 4 \times 3 = 24$.
+  methodes:
+  - titre: Résoudre « d(n) divise A(n) »
+    etapes:
+    - Effectuer la division de A(n) par d(n) pour obtenir un reste constant r.
+    - En déduire que d(n) divise r, et lister les diviseurs de r.
+    - Revenir à n et vérifier chaque candidat.
+    exemple:
+      enonce: Entiers $n \geq 0$ tels que $n + 1$ divise $n^2 + 3$.
+      resolution:
+      - '$n^2 + 3 = (n + 1)(n - 1) + 4$ : $n + 1$ divise $4$.'
+      - $n + 1 \in \{1 ; 2 ; 4\}$.
+      resultat: $n \in \{0 ; 1 ; 3\}$
+  erreurs_frequentes:
+  - erreur: Oublier de vérifier les candidats obtenus.
+    explication: La condition « divise r » est nécessaire ; on contrôle chaque valeur dans l'énoncé de départ.
+  questions:
+  - code: 2NDE-EX-ARITHM-01
+    difficulte: 1
+    type: numerique
+    enonce: Combien l'entier 360 a-t-il de diviseurs positifs ?
+    solution: '24'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $360 = 2^3 \times 3^2 \times 5$.
+      - $(3 + 1)(2 + 1)(1 + 1) = 24$.
+      resultat: '24'
+  - code: 2NDE-EX-ARITHM-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le reste de la division euclidienne de $2^{100}$ par 7 ?
+    solution: '2'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2^3 = 8 = 7 + 1$, donc $8^{33} = 2^{99}$ a pour reste $1$.
+      - $2^{100} = 2 \times 2^{99}$ a pour reste $2$.
+      resultat: '2'
+  - code: 2NDE-EX-ARITHM-03
+    difficulte: 3
+    type: numerique
+    enonce: Combien d'entiers compris entre 1 et 100 sont divisibles par 3 ou par 5 ?
+    solution: '47'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Inclusion-exclusion.
+      etapes:
+      - 'Multiples de 3 : $33$ ; de 5 : $20$ ; de 15 : $6$.'
+      - $33 + 20 - 6 = 47$.
+      resultat: '47'
+  - code: 2NDE-EX-ARITHM-04
+    difficulte: 4
+    type: numerique
+    enonce: Quelle est la somme de tous les entiers naturels $n$ tels que $n + 2$ divise $n^2 + 6$ ?
+    solution: '11'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$n^2 + 6 = (n + 2)(n - 2) + 10$ : $n + 2$ divise $10$, avec $n + 2 \geq 2$.'
+      - '$n + 2 \in \{2 ; 5 ; 10\}$, donc $n \in \{0 ; 3 ; 8\}$ (on vérifie : $2 \mid 6$, $5 \mid 15$, $10 \mid 70$).'
+      - $0 + 3 + 8 = 11$.
+      resultat: '11'
+  - code: 2NDE-EX-ARITHM-05
+    difficulte: 5
+    type: numerique
+    enonce: Quel est le plus grand entier qui divise $n(n + 1)(n + 2)(n + 3)$ pour tout entier $n \geq 1$ ?
+    solution: '24'
+    source: math.ma
+    source_url: https://www.math.ma/c:102:series-d-exercices
+    licence_source: non clarifiée
+    adaptation: inspiree
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Pour $n = 1$ : $24$. Ce plus grand diviseur commun divise donc $24$.'
+      - 'Parmi 4 entiers consécutifs : un multiple de 4, un autre nombre pair et un multiple de 3 ; le produit est toujours divisible par 24.'
+      resultat: '24'
+- code: 2NDE-EX-ARITH-PB
+  libelle: 'Problème guidé : les nombres parfaits'
+  objectifs:
+  - Enchaîner des calculs de diviseurs jusqu'à un résultat d'Euclide.
+  prerequis:
+  - 2NDE-EX-ARITHM
+  resume: |
+    - Un entier est **parfait** s'il est égal à la somme de ses diviseurs autres que lui-même (6, 28, 496…).
+    - $1 + 2 + 4 + \dots + 2^k = 2^{k+1} - 1$.
+    - Euclide : si $2^p - 1$ est premier, $2^{p-1}(2^p - 1)$ est parfait.
+  cours: |
+    ## Le problème
+    On cherche des entiers égaux à la somme de leurs diviseurs stricts. Les étapes montent en difficulté : compter des diviseurs, les additionner, puis découvrir la formule d'Euclide.
+
+    ## L'outil clé
+    Les diviseurs de $2^{k}$ sont $1, 2, 4, \dots, 2^k$, de somme $2^{k+1} - 1$ (somme géométrique).
+
+    ## Pour aller plus loin
+    $2^5 - 1 = 31$ est premier, donc $2^4 \times 31 = 496$ est parfait. On ne sait toujours pas s'il existe un nombre parfait impair.
+  methodes:
+  - titre: Traiter un problème en plusieurs étapes
+    etapes:
+    - Lire tout l'énoncé avant de commencer.
+    - Utiliser le résultat de chaque étape dans la suivante.
+    - Vérifier chaque résultat intermédiaire sur un exemple.
+    exemple:
+      enonce: 6 est-il parfait ?
+      resolution:
+      - 'Diviseurs stricts de 6 : 1, 2, 3, de somme 6.'
+      resultat: Oui, 6 est parfait.
+  erreurs_frequentes:
+  - erreur: Inclure le nombre lui-même dans la somme des diviseurs stricts.
+    explication: On additionne les diviseurs autres que le nombre.
+  questions:
+  - code: 2NDE-EX-ARITH-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (nombres parfaits), étape 1 : combien l''entier 12 a-t-il de diviseurs positifs ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 1, 2, 3, 4, 6, 12.
+      resultat: '6'
+  - code: 2NDE-EX-ARITH-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (nombres parfaits), étape 2 : calculer la somme de tous les diviseurs positifs de 12.'
+    solution: '28'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$1 + 2 + 3 + 4 + 6 + 12 = 28$ ($12$ n''est pas parfait : ses diviseurs stricts ont pour somme $16$).'
+      resultat: '28'
+  - code: 2NDE-EX-ARITH-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (nombres parfaits), étape 3 : calculer la somme des diviseurs de 28 autres que 28.'
+    solution: '28'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$1 + 2 + 4 + 7 + 14 = 28$ : 28 est parfait.'
+      resultat: '28'
+  - code: 2NDE-EX-ARITH-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (nombres parfaits), étape 4 : calculer la somme de tous les diviseurs positifs de $2^4 = 16$.'
+    solution: '31'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + 2 + 4 + 8 + 16 = 31 = 2^5 - 1$.
+      resultat: '31'
+  - code: 2NDE-EX-ARITH-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (nombres parfaits), étape 5 : $2^5 - 1 = 31$ est premier ; d''après Euclide, $2^4 \times 31$ est parfait. Calculer ce nombre.'
+    solution: '496'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $16 \times 31 = 496$.
+      - 'Vérification : les diviseurs stricts de 496 ont pour somme $(1 + 2 + 4 + 8 + 16) + 31 \times (1 + 2 + 4 + 8) = 31 + 465 = 496$.'
+      resultat: '496'

@@ -1,0 +1,91 @@
+chapitre:
+  code: 2NDE-MAN-PROP
+  niveau: 2nde
+  parcours: mise-a-niveau
+  ordre: 3
+  titre: Bases du collège, proportionnalité et géométrie
+competences:
+- code: 2NDE-MAN-PROPORTION
+  libelle: Utiliser pourcentages, proportionnalité, Pythagore et Thalès
+  objectifs:
+  - Calculer un pourcentage et une quatrième proportionnelle.
+  - Utiliser les théorèmes de Pythagore et de Thalès.
+  resume: |
+    - $t\,\%$ de $a$ : $\dfrac{t}{100} \times a$.
+    - Quatrième proportionnelle : produit en croix.
+    - Pythagore : dans un triangle rectangle, $c^2 = a^2 + b^2$ ($c$ hypoténuse).
+    - Thalès : $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$ si $(MN) \parallel (BC)$.
+  cours: |
+    ## Pourcentages
+    $20\,\%$ de $45$ : $0{,}2 \times 45 = 9$. Un prix TTC de $96$ € avec une TVA de $20\,\%$ : $HT = \dfrac{96}{1{,}2} = 80$ €.
+
+    ## Proportionnalité
+    3 cahiers coûtent $7{,}50$ € ; un cahier coûte $2{,}50$ €, donc 5 cahiers coûtent $12{,}50$ €.
+
+    ## Géométrie
+    Côtés de l'angle droit $5$ et $12$ : hypoténuse $\sqrt{25 + 144} = 13$.
+    Thalès : $AM = 3$, $AB = 5$, $AC = 10$ donnent $AN = \dfrac{3}{5} \times 10 = 6$.
+  methodes:
+  - titre: Retrouver un prix hors taxe
+    etapes:
+    - Le prix TTC est le prix HT multiplié par 1 + taux.
+    - Diviser le prix TTC par ce coefficient.
+    exemple:
+      enonce: TTC 60 €, TVA 20 %.
+      resolution:
+      - $\dfrac{60}{1{,}2} = 50$.
+      resultat: 50 €
+  erreurs_frequentes:
+  - erreur: Retirer 20 % au prix TTC pour retrouver le prix HT.
+    explication: '$96 - 20\,\% \times 96 = 76{,}8 \neq 80$ : il faut diviser par $1{,}2$.'
+  questions:
+  - code: 2NDE-MAN-PROPORTION-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer 20 % de 45.
+    solution: '9'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}2 \times 45 = 9$.
+      resultat: '9'
+  - code: 2NDE-MAN-PROPORTION-02
+    difficulte: 2
+    type: numerique
+    enonce: 3 cahiers coûtent 7,50 €. Combien coûtent 5 cahiers (en €) ?
+    solution: '12.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Un cahier : $2{,}50$ € ; cinq : $12{,}50$ €.'
+      resultat: '12.5'
+  - code: 2NDE-MAN-PROPORTION-03
+    difficulte: 3
+    type: numerique
+    enonce: Les côtés de l'angle droit d'un triangle rectangle mesurent 5 et 12. Quelle est la longueur de l'hypoténuse ?
+    solution: '13'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{25 + 144} = \sqrt{169} = 13$.
+      resultat: '13'
+  - code: 2NDE-MAN-PROPORTION-04
+    difficulte: 4
+    type: numerique
+    enonce: $M \in [AB]$, $N \in [AC]$ et $(MN) \parallel (BC)$, avec $AM = 3$, $AB = 5$ et $AC = 10$. Calculer $AN$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Thalès : $\dfrac{AN}{AC} = \dfrac{AM}{AB} = \dfrac{3}{5}$, donc $AN = 6$.'
+      resultat: '6'
+  - code: 2NDE-MAN-PROPORTION-05
+    difficulte: 5
+    type: numerique
+    enonce: Un article coûte 96 € TTC, avec une TVA de 20 %. Quel est son prix hors taxe (en €) ?
+    solution: '80'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{96}{1{,}2} = 80$.
+      resultat: '80'

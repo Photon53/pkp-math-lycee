@@ -1,0 +1,95 @@
+chapitre:
+  code: 1RE-MAN-ALG
+  niveau: 1re
+  parcours: mise-a-niveau
+  ordre: 1
+  titre: Bases de seconde, calcul algébrique
+competences:
+- code: 1RE-MAN-ALGEBRE
+  libelle: Résoudre équations, inéquations et systèmes
+  objectifs:
+  - Utiliser les identités remarquables et la valeur absolue.
+  - Résoudre une inéquation du premier degré, un système, une équation quotient.
+  prerequis:
+  - 2NDE-DEV
+  - 2NDE-INEQ1
+  - 2NDE-SYST
+  resume: |
+    - $(a - b)(a + b) = a^2 - b^2$.
+    - $|x - a| = r$ : $x = a - r$ ou $x = a + r$.
+    - Multiplier ou diviser une inégalité par un négatif change son sens.
+  cours: |
+    ## Identités et valeur absolue
+    $(x - 4)(x + 4) = x^2 - 16$ ; $|x - 2| = 5 \iff x = -3$ ou $x = 7$.
+
+    ## Inéquations
+    $-2x + 6 > 0 \iff -2x > -6 \iff x < 3$ (on divise par $-2$ : le sens change).
+
+    ## Systèmes et quotients
+    $x + y = 7$ et $x - y = 1$ : en additionnant, $2x = 8$.
+    $\dfrac{2x - 1}{x + 3} = 1 \iff 2x - 1 = x + 3$ (avec $x \neq -3$), soit $x = 4$.
+  methodes:
+  - titre: Résoudre une inéquation du premier degré
+    etapes:
+    - Isoler les x d'un côté.
+    - Diviser par le coefficient, en changeant le sens s'il est négatif.
+    - Écrire l'ensemble des solutions.
+    exemple:
+      enonce: $-3x + 2 \leq 11$.
+      resolution:
+      - $-3x \leq 9$, donc $x \geq -3$.
+      resultat: $[-3 ; +\infty[$
+  erreurs_frequentes:
+  - erreur: Garder le sens de l'inégalité en divisant par un négatif.
+    explication: $-2x > -6$ donne $x < 3$, pas $x > 3$.
+  questions:
+  - code: 1RE-MAN-ALGEBRE-01
+    difficulte: 1
+    type: expression
+    enonce: Développer $(x - 4)(x + 4)$.
+    solution: x^2 - 16
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$(a - b)(a + b) = a^2 - b^2$ : $x^2 - 16$.'
+      resultat: x^2 - 16
+  - code: 1RE-MAN-ALGEBRE-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $|x - 2| = 5$. Donner la plus grande solution.
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Les points à distance 5 de 2 : $-3$ et $7$.'
+      resultat: '7'
+  - code: 1RE-MAN-ALGEBRE-03
+    difficulte: 3
+    type: numerique
+    enonce: Quel est le plus grand entier solution de $-2x + 6 > 0$ ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$x < 3$ : le plus grand entier est $2$.'
+      resultat: '2'
+  - code: 1RE-MAN-ALGEBRE-04
+    difficulte: 4
+    type: numerique
+    enonce: Résoudre le système $x + y = 7$, $x - y = 1$. Donner $x$.
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'En additionnant : $2x = 8$, donc $x = 4$ (et $y = 3$).'
+      resultat: '4'
+  - code: 1RE-MAN-ALGEBRE-05
+    difficulte: 5
+    type: numerique
+    enonce: Résoudre $\dfrac{2x - 1}{x + 3} = 1$.
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Pour $x \neq -3$ : $2x - 1 = x + 3$, donc $x = 4$.'
+      resultat: '4'

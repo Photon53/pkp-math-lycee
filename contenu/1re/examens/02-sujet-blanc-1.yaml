@@ -1,0 +1,168 @@
+chapitre:
+  code: 1RE-EXA-BLANC1
+  niveau: 1re
+  parcours: examens
+  ordre: 2
+  titre: Sujet blanc n° 1 (second degré et suites)
+competences:
+- code: 1RE-EXA-B1-EX1
+  libelle: 'Exercice 1 : bénéfice et second degré'
+  objectifs:
+  - Traiter un exercice complet de type examen sur une fonction du second degré.
+  prerequis:
+  - 1RE-SD-PROBLEME
+  resume: |
+    - Lire l'énoncé en entier, repérer les questions indépendantes.
+    - Rédiger chaque réponse avec la propriété utilisée.
+    - Interpréter le résultat dans le contexte (unités, bénéfice…).
+  cours: |
+    ## L'exercice
+    Le bénéfice d'une entreprise (en milliers d'euros) pour $x$ centaines d'objets vendus est $f(x) = -x^2 + 6x - 5$, avec $x \in [0 ; 6]$.
+
+    ## Ce qui est attendu
+    Calculer des valeurs, trouver les racines (seuils de rentabilité), le sommet (bénéfice maximal), et conclure dans le contexte.
+  methodes:
+  - titre: Rédiger un exercice d'examen
+    etapes:
+    - Annoncer la méthode (discriminant, forme canonique…).
+    - Faire le calcul proprement.
+    - Conclure par une phrase qui répond à la question.
+    exemple:
+      enonce: À partir de combien d'objets l'entreprise est-elle rentable ?
+      resolution:
+      - $f(x) \geq 0$ entre les racines $1$ et $5$.
+      resultat: Entre 100 et 500 objets vendus.
+  erreurs_frequentes:
+  - erreur: Oublier de conclure dans le contexte.
+    explication: Une réponse « x = 3 » doit devenir « 300 objets, pour un bénéfice de 4 000 € ».
+  questions:
+  - code: 1RE-EXA-B1-EX1-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 1 : le bénéfice (en milliers d''euros) est $f(x) = -x^2 + 6x - 5$. Calculer $f(1)$.'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$-1 + 6 - 5 = 0$ : vendre 100 objets ne rapporte rien.'
+      resultat: '0'
+  - code: 1RE-EXA-B1-EX1-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 1 : calculer le discriminant de $-x^2 + 6x - 5$.'
+    solution: '16'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $36 - 4 \times (-1) \times (-5) = 36 - 20 = 16$.
+      resultat: '16'
+  - code: 1RE-EXA-B1-EX1-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 1 : quelle est la plus grande racine de $f$ ?'
+    solution: '5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$x = \dfrac{-6 \pm 4}{-2}$ : $1$ et $5$.'
+      resultat: '5'
+  - code: 1RE-EXA-B1-EX1-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 1 : pour combien de centaines d''objets le bénéfice est-il maximal ?'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Sommet en $x = -\dfrac{b}{2a} = 3$ (milieu des racines).
+      resultat: '3'
+  - code: 1RE-EXA-B1-EX1-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 1 : quel est le bénéfice maximal, en milliers d''euros ?'
+    solution: '4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(3) = -9 + 18 - 5 = 4$, soit $4\,000$ €.
+      resultat: '4'
+- code: 1RE-EXA-B1-EX2
+  libelle: 'Exercice 2 : évolution d''une population'
+  objectifs:
+  - Modéliser par une suite géométrique et résoudre un problème de seuil.
+  prerequis:
+  - 1RE-SUI-MOD
+  resume: |
+    - Évolution de $t\,\%$ par an : suite géométrique de raison $1 + \dfrac{t}{100}$.
+    - Seuil : calculer les termes jusqu'à franchir la valeur.
+  cours: |
+    ## L'exercice
+    Une commune compte $2\,000$ habitants en 2026 ; sa population augmente de $3\,\%$ par an. On note $u_n$ la population en $2026 + n$.
+
+    ## Ce qui est attendu
+    Calculer des termes, reconnaitre la suite, écrire le terme général, chercher un seuil, interpréter.
+  methodes:
+  - titre: Résoudre un seuil à la calculatrice
+    etapes:
+    - Écrire le terme général.
+    - Utiliser le tableau de valeurs de la calculatrice.
+    - Donner le premier rang qui dépasse, puis l'année.
+    exemple:
+      enonce: $u_n = 2\,000 \times 1{,}03^n > 2\,200$ ?
+      resolution:
+      - $1{,}03^3 \approx 1{,}093$, $1{,}03^4 \approx 1{,}126$.
+      resultat: En 2030.
+  erreurs_frequentes:
+  - erreur: Ajouter 3 % de la population initiale chaque année.
+    explication: Les 3 % s'appliquent à la population de l'année précédente.
+  questions:
+  - code: 1RE-EXA-B1-EX2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 2 : une population de 2 000 habitants augmente de 3 % par an. Combien d''habitants un an plus tard ?'
+    solution: '2060'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2\,000 \times 1{,}03 = 2\,060$.
+      resultat: '2060'
+  - code: 1RE-EXA-B1-EX2-02
+    difficulte: 2
+    type: expression
+    enonce: 'Sujet blanc 1, exercice 2 : exprimer la population $u_n$ au bout de $n$ années.'
+    solution: 2000*1.03^n
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Suite géométrique de premier terme $2\,000$ et de raison $1{,}03$.
+      resultat: 2000*1.03^n
+  - code: 1RE-EXA-B1-EX2-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Sujet blanc 1, exercice 2 : la suite $(u_n)$ est : A) arithmétique de raison 60  B) géométrique de raison 1,03  C) géométrique de raison 0,03'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On multiplie par 1,03 chaque année.
+      resultat: B
+  - code: 1RE-EXA-B1-EX2-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 2 : au bout de combien d''années entières la population dépassera-t-elle 2 500 habitants ?'
+    solution: '8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$1{,}03^n > 1{,}25$ : $1{,}03^7 \approx 1{,}230$ et $1{,}03^8 \approx 1{,}267$.'
+      resultat: '8'
+  - code: 1RE-EXA-B1-EX2-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet blanc 1, exercice 2 : donner la valeur exacte, en pourcentage, de l''augmentation totale de la population en 10 ans (expression avec une puissance).'
+    solution: 100*(1.03^10 - 1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Coefficient global $1{,}03^{10}$, soit une hausse de $100 \times (1{,}03^{10} - 1) \approx 34{,}4\,\%$.
+      resultat: 100*(1.03^10 - 1)

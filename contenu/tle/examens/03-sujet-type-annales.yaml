@@ -1,0 +1,172 @@
+chapitre:
+  code: TLE-EXA-ANNALES
+  niveau: Tle
+  parcours: examens
+  ordre: 3
+  titre: Sujet type annales (logarithme et équation différentielle)
+competences:
+- code: TLE-EXA-AN-EX1
+  libelle: 'Exercice 1 : une fonction avec le logarithme'
+  objectifs:
+  - Étudier une fonction avec ln et calculer une intégrale par parties.
+  prerequis:
+  - TLE-LN-ETU
+  - TLE-INT-APP
+  resume: |
+    - $g(x) = x - \ln x$ : $g'(x) = 1 - \dfrac{1}{x}$, minimum $g(1) = 1$.
+    - $\displaystyle\int \ln x\,dx = x\ln x - x$.
+  cours: |
+    ## L'exercice
+    Ce sujet reprend la structure classique des exercices de bac sur le logarithme : étude de fonction, limites, puis calcul intégral.
+
+    ## Ce qui est attendu
+    $g(x) = x - \ln x$ sur $]0 ; +\infty[$ : minimum $1$ en $x = 1$, $\lim_{x \to 0^+} g(x) = +\infty$, et
+    $$\int_1^e g(x)\,dx = \left[\frac{x^2}{2} - x\ln x + x\right]_1^e = \frac{e^2 - 3}{2}.$$
+
+    ## Annales officielles
+    Les sujets officiels des années précédentes peuvent être ajoutés par le professeur dans « Mes ressources » (lien ou PDF).
+  methodes:
+  - titre: Calculer une intégrale contenant ln
+    etapes:
+    - Utiliser la primitive x ln x − x de ln.
+    - Primitiver les autres termes.
+    - Évaluer aux bornes, en se souvenant que ln 1 = 0 et ln e = 1.
+    exemple:
+      enonce: $\displaystyle\int_1^e (1 + \ln x)\,dx$.
+      resolution:
+      - $\big[x + x\ln x - x\big]_1^e = \big[x\ln x\big]_1^e$.
+      resultat: $e$
+  erreurs_frequentes:
+  - erreur: Prendre $\dfrac{1}{x}$ comme primitive de $\ln x$.
+    explication: $\dfrac{1}{x}$ est sa dérivée ; une primitive est $x\ln x - x$.
+  questions:
+  - code: TLE-EXA-AN-EX1-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sujet type annales, exercice 1 : $g(x) = x - \ln x$ sur $]0 ; +\infty[$. Calculer $g(1)$.'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - \ln 1 = 1$.
+      resultat: '1'
+  - code: TLE-EXA-AN-EX1-02
+    difficulte: 2
+    type: expression
+    enonce: 'Sujet type annales, exercice 1 : calculer $g''(x)$.'
+    solution: 1 - 1/x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - \dfrac{1}{x}$.
+      resultat: 1 - 1/x
+  - code: TLE-EXA-AN-EX1-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sujet type annales, exercice 1 : quel est le minimum de $g$ ?'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$g''(x) = \dfrac{x - 1}{x}$, négatif sur $]0 ; 1[$, positif ensuite : minimum $g(1) = 1$.'
+      resultat: '1'
+  - code: TLE-EXA-AN-EX1-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Sujet type annales, exercice 1 : la limite de $g(x)$ quand $x$ tend vers 0 par valeurs positives est : A) $-\infty$  B) 0  C) $+\infty$'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x \to 0$ et $-\ln x \to +\infty$.
+      resultat: C
+  - code: TLE-EXA-AN-EX1-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet type annales, exercice 1 : calculer $\displaystyle\int_1^e g(x)\,dx$ (valeur exacte).'
+    solution: (e^2 - 3)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Primitive : $\dfrac{x^2}{2} - (x\ln x - x)$.'
+      - $\dfrac{e^2}{2} - \left(\dfrac{1}{2} + 1\right) = \dfrac{e^2 - 3}{2}$.
+      resultat: (e^2 - 3)/2
+- code: TLE-EXA-AN-EX2
+  libelle: 'Exercice 2 : une équation différentielle en contexte'
+  objectifs:
+  - Résoudre y' = ay + b avec une condition initiale et interpréter.
+  prerequis:
+  - TLE-EQDIFF
+  resume: |
+    - $y' = -0{,}5y + 10$ : solution constante $20$.
+    - $y(t) = 20 + Ce^{-0{,}5t}$ ; avec $y(0) = 0$, $C = -20$.
+  cours: |
+    ## L'exercice
+    La concentration d'un médicament (en mg/L) vérifie $y' = -0{,}5y + 10$, avec $y(0) = 0$ ($t$ en heures).
+
+    ## Ce qui est attendu
+    $y(t) = 20 - 20e^{-0{,}5t}$ ; la concentration tend vers $20$ mg/L ; elle atteint la moitié de cette valeur au bout de $2\ln 2 \approx 1{,}39$ h.
+  methodes:
+  - titre: Trouver l'instant où une grandeur atteint une valeur
+    etapes:
+    - Écrire l'équation y(t) = valeur.
+    - Isoler l'exponentielle, puis appliquer ln.
+    exemple:
+      enonce: $20 - 20e^{-0{,}5t} = 15$.
+      resolution:
+      - $e^{-0{,}5t} = \dfrac{1}{4}$, $t = 2\ln 4$.
+      resultat: $t = 4\ln 2$
+  erreurs_frequentes:
+  - erreur: Oublier la solution constante dans la solution générale.
+    explication: $y = Ce^{at}$ ne résout que $y' = ay$.
+  questions:
+  - code: TLE-EXA-AN-EX2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Sujet type annales, exercice 2 : quelle est la solution constante de $y'' = -0{,}5y + 10$ ?'
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0 = -0{,}5y + 10$, donc $y = 20$.
+      resultat: '20'
+  - code: TLE-EXA-AN-EX2-02
+    difficulte: 2
+    type: expression
+    enonce: 'Sujet type annales, exercice 2 : donner la solution de $y'' = -0{,}5y + 10$ telle que $y(0) = 0$ (variable $x$).'
+    solution: 20 - 20e^(-0.5x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $y = 20 + Ce^{-0{,}5x}$ et $20 + C = 0$.
+      resultat: 20 - 20e^(-0.5x)
+  - code: TLE-EXA-AN-EX2-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Sujet type annales, exercice 2 : avec $y(t) = 20 - 20e^{-0{,}5t}$, calculer $y(2)$ (valeur exacte).'
+    solution: 20 - 20e^(-1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $20 - 20e^{-1} \approx 12{,}6$ mg/L.
+      resultat: 20 - 20e^(-1)
+  - code: TLE-EXA-AN-EX2-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sujet type annales, exercice 2 : à quel instant $t$ la concentration atteint-elle 10 mg/L ? (valeur exacte)'
+    solution: 2ln(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $e^{-0{,}5t} = \dfrac{1}{2}$, donc $-0{,}5t = -\ln 2$ et $t = 2\ln 2$.
+      resultat: 2ln(2)
+  - code: TLE-EXA-AN-EX2-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Sujet type annales, exercice 2 : vers quelle concentration tend $y(t)$ quand $t$ tend vers $+\infty$ ?'
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $e^{-0{,}5t} \to 0$, donc $y(t) \to 20$ mg/L.
+      resultat: '20'

@@ -348,6 +348,8 @@ fieldset.choix-chapitres label.case { margin: 6px 0; }
 
 .arbre { list-style: none; margin: 0; padding: 0; }
 .arbre > li { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); margin-bottom: 8px; background: var(--surface); }
+.arbre > li.groupe-parcours { border: none; background: none; margin: 20px 0 6px; }
+.arbre > li.groupe-parcours:first-child { margin-top: 0; }
 .arbre .noeud { display: flex; gap: 8px; align-items: center; padding: 8px 12px; flex-wrap: wrap; }
 .arbre .noeud .titre { flex: 1 1 240px; font-weight: 600; }
 .arbre .noeud > button, .arbre ul li > button, .arbre ul li > .badge { flex: none; }
@@ -442,9 +444,20 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .gestes { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .gestes li { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 12px 14px; background: var(--surface); }
 .gestes p { margin: 6px 0 0; }
+.parcours-methode { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.parcours-methode li { border: 1px solid var(--bordure); border-top: 3px solid var(--primaire); border-radius: var(--rayon-petit); padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; }
+.parcours-methode p { margin: 6px 0 0; }
 .exemple-geste { font-size: var(--t-s); color: var(--texte-doux); border-left: 3px solid var(--accent); padding-left: 8px; }
 @media (max-width: 640px) {
   .schema-etapes { grid-template-columns: 1fr; }
   .schema-etapes li:not(:last-child)::after { content: "↓"; right: auto; top: auto; bottom: -14px; transform: none; }
 }
 .accroche.citation { text-align: left; margin: 20px 0 0; padding: 12px 16px; border-left: 4px solid var(--accent); background: var(--accent-doux); border-radius: var(--rayon-petit); }
+
+/* Autres parcours d'un élève (classes reliées) */
+.parcours-lies { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.parcours-lies ul { margin: 0; padding-left: 18px; }
+.parcours-lies li { margin: 2px 0; }
+.choix-parcours { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.choix-parcours label { margin: 0; }
+.choix-parcours select { width: auto; max-width: 100%; }

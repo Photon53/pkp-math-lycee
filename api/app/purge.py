@@ -15,6 +15,7 @@ from datetime import UTC, datetime, timedelta
 from sqlalchemy import DateTime, func, select
 from sqlalchemy.orm import Session
 
+from app import inscriptions
 from app.config import settings
 from app.db import models
 
@@ -57,7 +58,9 @@ def purger(
     inactifs = eleves_inactifs(session, limite)
     if not simulation:
         for eleve in inactifs:
-            session.delete(session.get(models.Eleve, eleve.id))
+            a_supprimer = session.get(models.Eleve, eleve.id)
+            inscriptions.delier(session, a_supprimer)  # le numéro de groupe reste celui d'un élève existant
+            session.delete(a_supprimer)
         session.commit()
     return inactifs
 

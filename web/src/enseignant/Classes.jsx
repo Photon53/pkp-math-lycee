@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
-import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
+import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
 import { useApi } from "./useApi.js";
 
 export { LIBELLES_PARCOURS };
@@ -21,6 +21,8 @@ export default function Classes({ jeton, onExpire }) {
   const [message, setMessage] = useState(null);
   const [prenomsSaisis, setPrenomsSaisis] = useState("");
   const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
+  // Autres parcours d'un élève : { eleveId, liees, suggestions } (GET /enseignants/eleves/{id}/liens).
+  const [liens, setLiens] = useState(null);
 
   const chargerClasses = useCallback(() => appeler("/enseignants/classes").then(setClasses, ignorer), [appeler]);
   const chargerEleves = useCallback(
@@ -95,6 +97,45 @@ export default function Classes({ jeton, onExpire }) {
     if (detail?.eleveId === eleveId) return setDetail(null);
     try {
       setDetail({ eleveId, competences: await appeler(`/enseignants/eleves/${eleveId}/progression`) });
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function basculerLiens(eleveId) {
+    if (liens?.eleveId === eleveId) return setLiens(null);
+    try {
+      setLiens({ eleveId, ...(await appeler(`/enseignants/eleves/${eleveId}/liens`)) });
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function relier(eleve, autre) {
+    const ok = window.confirm(
+      `Relier ${eleve.prenom} (${classes.find((c) => c.id === classeId)?.code}) et ${autre.prenom} (${autre.code_classe}) ?
+
+` +
+        `C'est le même élève : il passera d'un parcours à l'autre avec un seul code, celui de cette classe. ` +
+        `L'ancien code de ${autre.code_classe} ne fonctionnera plus.`,
+    );
+    if (!ok) return;
+    try {
+      const r = await appeler(`/enseignants/eleves/${eleve.id}/liens`, { methode: "POST", corps: { eleve_id: autre.eleve_id } });
+      setLiens({ eleveId: eleve.id, ...r });
+      setMessage(`${eleve.prenom} suit désormais aussi ${autre.code_classe}, avec le code de cette classe.`);
+      await chargerEleves(classeId);
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function delier(eleve) {
+    try {
+      const r = await appeler(`/enseignants/eleves/${eleve.id}/liens`, { methode: "DELETE" });
+      setLiens({ eleveId: eleve.id, ...r });
+      setMessage(`${eleve.prenom} n'est plus relié·e à ses autres parcours dans cette classe.`);
+      await chargerEleves(classeId);
     } catch {
       // erreur déjà affichée
     }
@@ -260,6 +301,11 @@ export default function Classes({ jeton, onExpire }) {
                         <td>
                           {e.prenom}
                           {!e.a_un_code && <span className="pastille archivee">sans code</span>}
+                          {e.classes_liees?.length > 0 && (
+                            <span className="doux petit" style={{ display: "block" }}>
+                              aussi : {e.classes_liees.join(", ")}
+                            </span>
+                          )}
                         </td>
                         <td className="nombre">{e.nb_reponses}</td>
                         <td className="nombre">{pourcent(e.taux_reussite)}</td>
@@ -269,6 +315,14 @@ export default function Classes({ jeton, onExpire }) {
                         <td className="nombre">
                           <button className="lien petit" aria-expanded={detail?.eleveId === e.id} onClick={() => basculerDetail(e.id)}>
                             {detail?.eleveId === e.id ? "Masquer" : "Détail"}
+                          </button>
+                          <button
+                            className="lien petit"
+                            aria-expanded={liens?.eleveId === e.id}
+                            onClick={() => basculerLiens(e.id)}
+                            aria-label={`Autres parcours de ${e.prenom}`}
+                          >
+                            Parcours
                           </button>
                           <button className="lien petit" onClick={() => nouveauCode(e)} aria-label={`Nouveau code pour ${e.prenom}`}>
                             Nouveau code
@@ -281,6 +335,13 @@ export default function Classes({ jeton, onExpire }) {
                           </button>
                         </td>
                       </tr>
+                      {liens?.eleveId === e.id && (
+                        <tr className="detail">
+                          <td colSpan={5}>
+                            <ParcoursLies eleve={e} liens={liens} onRelier={relier} onDelier={delier} />
+                          </td>
+                        </tr>
+                      )}
                       {detail?.eleveId === e.id && (
                         <tr className="detail">
                           <td colSpan={5}>
@@ -460,6 +521,55 @@ function FicheCodes({ classe, codes, onFermer }) {
           J'ai noté les codes
         </button>
       </div>
+    </div>
+  );
+}
+
+/** Le même élève dans vos autres classes (spécialité, mise à niveau, excellence…) : un seul code, bascule libre. */
+function ParcoursLies({ eleve, liens, onRelier, onDelier }) {
+  return (
+    <div className="parcours-lies">
+      <strong>Autres parcours de {eleve.prenom}</strong>
+      {liens.liees.length > 0 ? (
+        <>
+          <ul>
+            {liens.liees.map((i) => (
+              <li key={i.eleve_id}>
+                {i.code_classe} · {libelleNiveauParcours(i.niveau, i.parcours)}
+              </li>
+            ))}
+          </ul>
+          <p className="aide">
+            Un seul code pour toutes ces classes ; une fois connecté·e, {eleve.prenom} change de parcours depuis son espace.
+          </p>
+          <button className="lien petit" onClick={() => onDelier(eleve)}>
+            Détacher cette classe des autres parcours
+          </button>
+        </>
+      ) : (
+        <p className="doux">Aucun autre parcours relié.</p>
+      )}
+      {liens.suggestions.length > 0 && (
+        <>
+          <p>Même prénom dans vos autres classes : est-ce le même élève ?</p>
+          <ul>
+            {liens.suggestions.map((s) => (
+              <li key={s.eleve_id}>
+                {s.prenom} · {s.code_classe} · {libelleNiveauParcours(s.niveau, s.parcours)}{" "}
+                <button className="secondaire petit" onClick={() => onRelier(eleve, s)}>
+                  Relier
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {liens.liees.length === 0 && liens.suggestions.length === 0 && (
+        <p className="aide">
+          Pour relier une autre inscription, inscrivez {eleve.prenom} avec le même prénom dans votre autre classe : elle
+          apparaîtra ici.
+        </p>
+      )}
     </div>
   );
 }

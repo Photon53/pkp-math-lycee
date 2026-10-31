@@ -1,0 +1,182 @@
+chapitre:
+  code: TLE-EX-OLYMP
+  niveau: Tle
+  parcours: excellence
+  ordre: 3
+  titre: Olympiades, arithmétique et dénombrement
+competences:
+- code: TLE-EX-OLYMPIADE
+  libelle: Résoudre des problèmes de type olympiade en arithmétique et dénombrement
+  objectifs:
+  - Utiliser congruences et petit théorème de Fermat.
+  - Compter chemins et solutions, appliquer l'inclusion-exclusion.
+  prerequis:
+  - TLE-COMB-DEN
+  resume: |
+    - Fermat : $p$ premier ne divisant pas $a$, alors $a^{p - 1} \equiv 1 \pmod p$.
+    - Chemins monotones sur un quadrillage $a \times b$ : $\dbinom{a + b}{a}$.
+    - Équations « produit » : $\dfrac{1}{x} + \dfrac{1}{y} = \dfrac{1}{n} \iff (x - n)(y - n) = n^2$.
+  cours: |
+    ## Congruences
+    $7^4 \equiv 1 \pmod{10}$ : le chiffre des unités de $7^k$ suit le cycle $7, 9, 3, 1$.
+    Fermat : $2^{12} \equiv 1 \pmod{13}$, donc $2^{2026} \equiv 2^{10} = 1\,024 \equiv 10$.
+
+    ## Chemins
+    De $(0, 0)$ à $(4, 3)$ en pas vers la droite ou vers le haut : on place 3 pas « haut » parmi 7, soit $\dbinom{7}{3} = 35$.
+
+    ## Équation diophantienne
+    $\dfrac{1}{x} + \dfrac{1}{y} = \dfrac{1}{6} \iff xy - 6x - 6y = 0 \iff (x - 6)(y - 6) = 36$. Les solutions positives correspondent aux 9 diviseurs positifs de 36.
+  methodes:
+  - titre: Compter avec l'inclusion-exclusion
+    etapes:
+    - Compter chaque propriété séparément.
+    - Retirer les intersections deux à deux.
+    - Rajouter l'intersection des trois.
+    exemple:
+      enonce: Entiers de 1 à 30 divisibles par 2 ou 3.
+      resolution:
+      - $15 + 10 - 5 = 20$.
+      resultat: '20'
+  erreurs_frequentes:
+  - erreur: Appliquer Fermat avec un exposant non réduit modulo p − 1.
+    explication: On réduit l'exposant modulo p − 1, pas modulo p.
+  questions:
+  - code: TLE-EX-OLYMPIADE-01
+    difficulte: 1
+    type: numerique
+    enonce: Quel est le chiffre des unités de $7^{2026}$ ?
+    solution: '9'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Cycle $7, 9, 3, 1$ de période 4 ; $2026 = 4 \times 506 + 2$.
+      - 'Deuxième terme du cycle : $9$.'
+      resultat: '9'
+  - code: TLE-EX-OLYMPIADE-02
+    difficulte: 2
+    type: numerique
+    enonce: Combien y a-t-il de chemins de $(0, 0)$ à $(4, 3)$ sur un quadrillage, en ne faisant que des pas d'une unité vers la droite ou vers le haut ?
+    solution: '35'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '7 pas dont 3 vers le haut : $\dbinom{7}{3} = 35$.'
+      resultat: '35'
+  - code: TLE-EX-OLYMPIADE-03
+    difficulte: 3
+    type: numerique
+    enonce: Combien de couples d'entiers strictement positifs $(x, y)$ vérifient $\dfrac{1}{x} + \dfrac{1}{y} = \dfrac{1}{6}$ ?
+    solution: '9'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(x - 6)(y - 6) = 36$ ; comme $x, y > 6$, les deux facteurs sont des diviseurs positifs de 36.
+      - 36 a 9 diviseurs positifs, d'où 9 couples.
+      resultat: '9'
+  - code: TLE-EX-OLYMPIADE-04
+    difficulte: 4
+    type: numerique
+    enonce: Quel est le reste de la division de $2^{2026}$ par 13 ?
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Petit théorème de Fermat.
+      etapes:
+      - $2^{12} \equiv 1 \pmod{13}$ et $2026 = 12 \times 168 + 10$.
+      - $2^{10} = 1\,024 = 13 \times 78 + 10$.
+      resultat: '10'
+  - code: TLE-EX-OLYMPIADE-05
+    difficulte: 5
+    type: numerique
+    enonce: Combien d'entiers compris entre 1 et 1 000 ne sont divisibles ni par 2, ni par 3, ni par 5 ?
+    solution: '266'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Inclusion-exclusion.
+      etapes:
+      - 'Divisibles par 2, 3 ou 5 : $500 + 333 + 200 - 166 - 100 - 66 + 33 = 734$.'
+      - $1\,000 - 734 = 266$.
+      resultat: '266'
+- code: TLE-EX-OLYMP-PB
+  libelle: 'Problème guidé : le critère de divisibilité par 11'
+  objectifs:
+  - Démontrer un critère de divisibilité avec les congruences et l'appliquer.
+  prerequis:
+  - TLE-EX-OLYMPIADE
+  resume: |
+    - $10 \equiv -1 \pmod{11}$, donc $10^k \equiv (-1)^k$.
+    - Un entier est congru modulo 11 à la somme alternée de ses chiffres, en partant des unités.
+  cours: |
+    ## Le problème
+    Pourquoi $1\,234$ a-t-il pour reste $2$ dans la division par $11$ ? On démontre un critère valable pour tout entier.
+
+    ## Démonstration
+    $\overline{a_k \dots a_1a_0} = \sum a_i 10^i \equiv \sum a_i(-1)^i = a_0 - a_1 + a_2 - \dots \pmod{11}$.
+
+    ## Exemple
+    $1\,234$ : $4 - 3 + 2 - 1 = 2$.
+  methodes:
+  - titre: Appliquer le critère par 11
+    etapes:
+    - Partir du chiffre des unités.
+    - Alterner + et − en remontant.
+    - Le reste de la somme obtenue modulo 11 est le reste cherché.
+    exemple:
+      enonce: $918\,082$.
+      resolution:
+      - $2 - 8 + 0 - 8 + 1 - 9 = -22 \equiv 0$.
+      resultat: Divisible par 11.
+  erreurs_frequentes:
+  - erreur: Commencer l'alternance par le chiffre de gauche avec le mauvais signe.
+    explication: Le chiffre des unités porte toujours le signe +.
+  questions:
+  - code: TLE-EX-OLYMP-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (critère par 11), étape 1 : quel est le reste de 10 dans la division par 11 ?'
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $10 = 11 \times 0 + 10$, et $10 \equiv -1 \pmod{11}$.
+      resultat: '10'
+  - code: TLE-EX-OLYMP-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (critère par 11), étape 2 : quel est le reste de $10^2$ dans la division par 11 ?'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(-1)^2 = 1$ ; en effet $100 = 99 + 1$.
+      resultat: '1'
+  - code: TLE-EX-OLYMP-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (critère par 11), étape 3 : avec la somme alternée des chiffres, trouver le reste de 1 234 dans la division par 11.'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $4 - 3 + 2 - 1 = 2$.
+      resultat: '2'
+  - code: TLE-EX-OLYMP-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (critère par 11), étape 4 : quel chiffre $a$ rend le nombre $\overline{5a27}$ divisible par 11 ?'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$7 - 2 + a - 5 = a$ doit être un multiple de 11 : $a = 0$ ($5\,027 = 11 \times 457$).'
+      resultat: '0'
+  - code: TLE-EX-OLYMP-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (critère par 11), étape 5 : quel est le reste de $10^{2026}$ dans la division par 11 ?'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $10^{2026} \equiv (-1)^{2026} = 1 \pmod{11}$.
+      resultat: '1'

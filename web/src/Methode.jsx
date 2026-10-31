@@ -109,6 +109,43 @@ const GESTES = [
   },
 ];
 
+/** Parcours de soutien, d'approfondissement et de préparation (contenu/…/mise-a-niveau, excellence, examens). */
+const PARCOURS_METHODE = [
+  {
+    titre: "Revoir les bases (mise à niveau)",
+    pour: "Seconde, Première, Terminale — pour vérifier et consolider les acquis de l'année précédente",
+    quoi:
+      "En Seconde, les bases du collège (fractions, calcul littéral, Pythagore, Thalès) ; en Première, celles de " +
+      "Seconde ; en Terminale, celles de Première (second degré, dérivation, suites, exponentielle). Chaque compétence " +
+      "renvoie vers la leçon de l'année précédente à revoir.",
+    conseil:
+      "Commence par là si un chapitre de l'année te résiste : une erreur au niveau 3 vient souvent d'une base de " +
+      "l'année d'avant. Vise les niveaux 1 à 3 sans faute avant de passer à la suite.",
+  },
+  {
+    titre: "Aller plus loin (excellence et olympiades)",
+    pour: "Pour les élèves qui veulent des exercices très poussés, préparer une olympiade ou une classe préparatoire",
+    quoi:
+      "Chaque chapitre propose une série d'exercices d'approfondissement et un problème guidé en cinq étapes de " +
+      "difficulté croissante (nombres parfaits, inégalité des moyennes, intégrales de Wallis, formule de Bayes…). " +
+      "En Terminale, trois chapitres préparent à l'entrée en prépa MPSI, PCSI et ECG.",
+    conseil:
+      "Un problème guidé se fait dans l'ordre : chaque étape utilise la précédente. Bloqué ? Relis la méthode de la " +
+      "leçon, cherche un exemple plus simple, puis reviens. Chercher longtemps fait partie du travail.",
+  },
+  {
+    titre: "Préparer les examens",
+    pour: "Première et Terminale — épreuve anticipée de mathématiques, bac blanc, sujets type annales",
+    quoi:
+      "En Première : les automatismes en QCM de l'épreuve anticipée, puis deux sujets blancs. En Terminale : deux bacs " +
+      "blancs et un sujet type annales. Chaque exercice est découpé en questions de difficulté croissante, comme le jour " +
+      "de l'épreuve. Ton professeur peut ajouter les sujets officiels des années précédentes dans les ressources.",
+    conseil:
+      "Fais un sujet en temps limité, sans le cours, puis corrige-toi avec la correction détaillée et note tes erreurs " +
+      "dans ton carnet. Refais les questions manquées deux jours plus tard.",
+  },
+];
+
 /** Ce que l'élève fait à chaque étape, dans l'ordre : le fil conducteur de chaque chapitre. */
 const SCHEMA = ["Cours", "Fiche", "Niveaux 1, 2, 3", "Niveaux 4 et 5", "Bilan"];
 
@@ -153,6 +190,29 @@ export default function Methode() {
         <p className="aide">
           Dans chaque leçon, ces étapes apparaissent en haut de page, avec ton avancement. Elles ne sont pas verrouillées :
           tu peux revenir à n'importe laquelle à tout moment, par exemple relire ta fiche après une erreur au niveau 4.
+        </p>
+      </section>
+
+      <section className="carte" aria-labelledby="titre-parcours">
+        <h2 id="titre-parcours">Trois façons de travailler, selon ton besoin</h2>
+        <p className="doux">
+          Ton professeur t'inscrit dans le parcours de ta classe : spécialité, enseignement scientifique, voie
+          technologique, maths complémentaires ou expertes. Trois parcours complémentaires s'ajoutent, avec les mêmes cinq
+          étapes.
+        </p>
+        <ul className="parcours-methode">
+          {PARCOURS_METHODE.map((p) => (
+            <li key={p.titre}>
+              <strong>{p.titre}</strong>
+              <span className="doux petit">{p.pour}</span>
+              <p>{p.quoi}</p>
+              <p className="exemple-geste">{p.conseil}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="aide">
+          Ces parcours se travaillent dans un groupe à part (soutien, approfondissement ou préparation), avec son propre
+          code de classe : par exemple « 1RE-MAN-… », « TLE-EXC-… » ou « TLE-EXAM-… ».
         </p>
       </section>
 

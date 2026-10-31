@@ -1,0 +1,170 @@
+chapitre:
+  code: TLE-EXA-BLANC1
+  niveau: Tle
+  parcours: examens
+  ordre: 1
+  titre: Bac blanc n° 1 (exponentielle et probabilités)
+competences:
+- code: TLE-EXA-B1-EX1
+  libelle: 'Exercice 1 : étude d''une fonction exponentielle'
+  objectifs:
+  - Étudier une fonction avec l'exponentielle et calculer une intégrale.
+  prerequis:
+  - TLE-LIMF-ASYMP
+  - TLE-INT-CALC
+  resume: |
+    - $(uv)' = u'v + uv'$ ; $e^x > 0$ donne le signe de $f'$.
+    - Croissances comparées : $\lim_{x \to -\infty} xe^x = 0$.
+    - Vérifier une primitive en la dérivant.
+  cours: |
+    ## L'exercice
+    $f(x) = (x - 1)e^x$ sur $\mathbb{R}$.
+
+    ## Ce qui est attendu
+    $f'(x) = xe^x$ : $f$ décroît sur $]-\infty ; 0]$, croît ensuite, minimum $f(0) = -1$.
+    En $-\infty$, $f(x) = xe^x - e^x \to 0$. Une primitive est $F(x) = (x - 2)e^x$, d'où $\displaystyle\int_0^1 f = 2 - e$.
+  methodes:
+  - titre: Vérifier une primitive proposée
+    etapes:
+    - Dériver la fonction proposée.
+    - Comparer à f.
+    exemple:
+      enonce: $F(x) = (x - 2)e^x$.
+      resolution:
+      - $F'(x) = e^x + (x - 2)e^x = (x - 1)e^x$.
+      resultat: F est bien une primitive de f.
+  erreurs_frequentes:
+  - erreur: Conclure « 0 × ∞ » sans croissances comparées.
+    explication: $\lim_{x \to -\infty} xe^x = 0$ est un résultat de cours.
+  questions:
+  - code: TLE-EXA-B1-EX1-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 1 : $f(x) = (x - 1)e^x$. Calculer $f(0)$.'
+    solution: '-1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(0 - 1)e^0 = -1$.
+      resultat: '-1'
+  - code: TLE-EXA-B1-EX1-02
+    difficulte: 2
+    type: expression
+    enonce: 'Bac blanc 1, exercice 1 : calculer $f''(x)$.'
+    solution: x e^x
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $e^x + (x - 1)e^x = xe^x$.
+      resultat: x e^x
+  - code: TLE-EXA-B1-EX1-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 1 : quel est le minimum de $f$ sur $\mathbb{R}$ ?'
+    solution: '-1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$f''(x) = xe^x$ est du signe de $x$ : minimum en $0$, $f(0) = -1$.'
+      resultat: '-1'
+  - code: TLE-EXA-B1-EX1-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 1 : déterminer $\lim\limits_{x \to -\infty} f(x)$.'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(x) = xe^x - e^x$ ; $xe^x \to 0$ (croissances comparées) et $e^x \to 0$.
+      resultat: '0'
+  - code: TLE-EXA-B1-EX1-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 1 : calculer $\displaystyle\int_0^1 f(x)\,dx$ (valeur exacte). On pourra vérifier que $F(x) = (x - 2)e^x$ est une primitive de $f$.'
+    solution: 2 - e
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $F(1) - F(0) = -e - (-2) = 2 - e$.
+      resultat: 2 - e
+- code: TLE-EXA-B1-EX2
+  libelle: 'Exercice 2 : contrôle qualité'
+  objectifs:
+  - Enchaîner arbre, probabilité conditionnelle inversée et loi binomiale.
+  prerequis:
+  - TLE-BINOM-ESP
+  resume: |
+    - Probabilités totales puis Bayes : $P_D(A) = \dfrac{P(A \cap D)}{P(D)}$.
+    - Pièces prélevées indépendamment : loi binomiale.
+    - « Au moins un » : $1 - (1 - p)^n$.
+  cours: |
+    ## L'exercice
+    60 % des pièces viennent de l'atelier A (5 % de défauts), 40 % de l'atelier B (10 % de défauts).
+
+    ## Ce qui est attendu
+    $P(D) = 0{,}03 + 0{,}04 = 0{,}07$ ; $P_D(A) = \dfrac{3}{7}$. Sur 20 pièces : $X \sim \mathcal B(20 ; 0{,}07)$, $E(X) = 1{,}4$.
+  methodes:
+  - titre: Trouver une taille d'échantillon
+    etapes:
+    - Écrire $1 - (1 - p)^n > \text{seuil}$.
+    - Isoler la puissance, appliquer ln (attention au sens).
+    - Prendre le premier entier qui convient.
+    exemple:
+      enonce: $p = 0{,}1$, seuil $0{,}5$.
+      resolution:
+      - $0{,}9^n < 0{,}5$ donne $n > 6{,}6$.
+      resultat: $n = 7$
+  erreurs_frequentes:
+  - erreur: Confondre P_A(D) (donné) et P_D(A) (demandé).
+    explication: Il faut inverser le conditionnement avec la formule de Bayes.
+  questions:
+  - code: TLE-EXA-B1-EX2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 2 : 60 % des pièces viennent de A (5 % défectueuses), 40 % de B (10 % défectueuses). Probabilité qu''une pièce soit défectueuse ?'
+    solution: '0.07'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}6 \times 0{,}05 + 0{,}4 \times 0{,}1 = 0{,}07$.
+      resultat: '0.07'
+  - code: TLE-EXA-B1-EX2-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 2 : une pièce est défectueuse. Probabilité qu''elle vienne de A ? (fraction irréductible)'
+    solution: 3/7
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0{,}03}{0{,}07} = \dfrac{3}{7}$.
+      resultat: 3/7
+  - code: TLE-EXA-B1-EX2-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 2 : on prélève 20 pièces de façon indépendante ; $X$ compte les défectueuses. Calculer $E(X)$.'
+    solution: '1.4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$X \sim \mathcal B(20 ; 0{,}07)$ : $E(X) = 20 \times 0{,}07 = 1{,}4$.'
+      resultat: '1.4'
+  - code: TLE-EXA-B1-EX2-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 2 : donner la valeur exacte de $P(X = 0)$ (expression avec une puissance).'
+    solution: 0.93^20
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(1 - 0{,}07)^{20} = 0{,}93^{20} \approx 0{,}23$.
+      resultat: 0.93^20
+  - code: TLE-EXA-B1-EX2-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Bac blanc 1, exercice 2 : combien de pièces faut-il prélever, au minimum, pour que la probabilité d''en trouver au moins une défectueuse dépasse 0,9 ?'
+    solution: '32'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 - 0{,}93^n > 0{,}9 \iff 0{,}93^n < 0{,}1 \iff n > \dfrac{\ln 0{,}1}{\ln 0{,}93} \approx 31{,}7$.
+      resultat: '32'

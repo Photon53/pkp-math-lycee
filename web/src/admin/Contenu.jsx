@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { Erreur } from "../composants.jsx";
 import { NIVEAUX } from "../enseignant/CoursEnseignant.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Maths, formulesInvalides } from "../maths.jsx";
 import { naviguer } from "../navigation.js";
 import { Modale, formaterDate } from "../ui/Cadre.jsx";
-import { LIBELLES_PARCOURS } from "../parcours.js";
+import { LIBELLES_PARCOURS, PARCOURS_PAR_NIVEAU, libelleNiveauParcours, trierChapitres } from "../parcours.js";
 import Icone from "../ui/Icone.jsx";
-
-const PARCOURS = Object.entries(LIBELLES_PARCOURS);
 
 /**
  * Arborescence niveau › chapitre › compétence et éditeur de leçon (EA3.11 à EA3.14).
@@ -26,6 +24,7 @@ export default function Contenu({ jeton, onExpire, chemin }) {
 function Arbre({ jeton, onExpire }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [niveau, setNiveau] = useState("2nde");
+  const [parcours, setParcours] = useState("");
   const [chapitres, setChapitres] = useState(null);
   const [fenetre, setFenetre] = useState(null);
   const [glisse, setGlisse] = useState(null);
@@ -55,14 +54,20 @@ function Arbre({ jeton, onExpire }) {
     ecrire(`/admin/chapitres/${chapitre.id}/competences/ordre`, { ids });
   }
 
-  function deplacerChapitre(index, sens) {
-    const parParcours = chapitres.filter((c) => c.parcours === chapitres[index].parcours);
-    const position = parParcours.indexOf(chapitres[index]);
+  // Rangés par parcours (voie générale, technologique, soutien, approfondissement), puis par ordre dans l'année.
+  const visibles = useMemo(
+    () => (chapitres ? trierChapitres(chapitres).filter((c) => !parcours || c.parcours === parcours) : null),
+    [chapitres, parcours],
+  );
+
+  function deplacerChapitre(chapitre, sens) {
+    const parParcours = chapitres.filter((c) => c.parcours === chapitre.parcours);
+    const position = parParcours.indexOf(chapitre);
     const voisin = parParcours[position + sens];
     if (!voisin) return;
     const ids = parParcours.map((c) => c.id);
     [ids[position], ids[position + sens]] = [ids[position + sens], ids[position]];
-    ecrire(`/admin/chapitres/ordre/${niveau}/${chapitres[index].parcours}`, { ids });
+    ecrire(`/admin/chapitres/ordre/${niveau}/${chapitre.parcours}`, { ids });
   }
 
   return (
@@ -70,10 +75,28 @@ function Arbre({ jeton, onExpire }) {
       <div className="carte filtres">
         <div style={{ maxWidth: 240 }}>
           <label htmlFor="ct-niveau">Niveau</label>
-          <select id="ct-niveau" value={niveau} onChange={(e) => setNiveau(e.target.value)}>
+          <select
+            id="ct-niveau"
+            value={niveau}
+            onChange={(e) => {
+              setNiveau(e.target.value);
+              setParcours("");
+            }}
+          >
             {NIVEAUX.map(([v, l]) => (
               <option key={v} value={v}>
                 {l}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div style={{ maxWidth: 360 }}>
+          <label htmlFor="ct-parcours">Parcours</label>
+          <select id="ct-parcours" value={parcours} onChange={(e) => setParcours(e.target.value)}>
+            <option value="">Tous</option>
+            {PARCOURS_PAR_NIVEAU[niveau].map((p) => (
+              <option key={p} value={p}>
+                {LIBELLES_PARCOURS[p]}
               </option>
             ))}
           </select>
@@ -87,17 +110,23 @@ function Arbre({ jeton, onExpire }) {
       <Erreur message={erreur} />
       {chapitres === null && <p className="doux">Chargement…</p>}
       <ul className="arbre">
-        {chapitres?.map((ch, index) => (
-          <li key={ch.id} className={ch.masque ? "estompe" : ""}>
+        {visibles?.map((ch, index) => (
+          <Fragment key={ch.id}>
+            {(index === 0 || visibles[index - 1].parcours !== ch.parcours) && (
+              <li className="groupe-parcours">
+                <h2 className="titre-parcours">{libelleNiveauParcours(ch.niveau ?? niveau, ch.parcours)}</h2>
+              </li>
+            )}
+          <li className={ch.masque ? "estompe" : ""}>
             <div className="noeud">
               <span className="titre">
-                {ch.titre} <span className="doux petit">{ch.code} · {PARCOURS.find(([v]) => v === ch.parcours)?.[1]}</span>
+                {ch.titre} <span className="doux petit">{ch.code}</span>
               </span>
               {ch.masque && <span className="badge neutre">Masqué</span>}
-              <button className="icone" aria-label={`Monter ${ch.titre}`} title="Monter" onClick={() => deplacerChapitre(index, -1)}>
+              <button className="icone" aria-label={`Monter ${ch.titre}`} title="Monter" onClick={() => deplacerChapitre(ch, -1)}>
                 ↑
               </button>
-              <button className="icone" aria-label={`Descendre ${ch.titre}`} title="Descendre" onClick={() => deplacerChapitre(index, 1)}>
+              <button className="icone" aria-label={`Descendre ${ch.titre}`} title="Descendre" onClick={() => deplacerChapitre(ch, 1)}>
                 ↓
               </button>
               <button
@@ -170,6 +199,7 @@ function Arbre({ jeton, onExpire }) {
               </ul>
             )}
           </li>
+          </Fragment>
         ))}
       </ul>
 
@@ -193,7 +223,7 @@ function FenetreArbre({ fenetre, niveau, appeler, onFermer, onFait }) {
   const { genre, chapitre, competence } = fenetre;
   const [texte, setTexte] = useState(chapitre && genre === "renommer-chapitre" ? chapitre.titre : competence?.libelle ?? "");
   const [code, setCode] = useState("");
-  const [parcours, setParcours] = useState(niveau === "2nde" ? "tronc-commun" : "specialite");
+  const [parcours, setParcours] = useState(PARCOURS_PAR_NIVEAU[niveau][0]);
   const [erreur, setErreur] = useState(null);
   const creation = genre === "chapitre" || genre === "competence";
   const titres = {
@@ -241,9 +271,9 @@ function FenetreArbre({ fenetre, niveau, appeler, onFermer, onFait }) {
           <>
             <label htmlFor="f-parcours">Parcours</label>
             <select id="f-parcours" value={parcours} onChange={(e) => setParcours(e.target.value)}>
-              {PARCOURS.map(([v, l]) => (
+              {PARCOURS_PAR_NIVEAU[niveau].map((v) => (
                 <option key={v} value={v}>
-                  {l}
+                  {LIBELLES_PARCOURS[v]}
                 </option>
               ))}
             </select>

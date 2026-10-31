@@ -1,0 +1,184 @@
+chapitre:
+  code: 2NDE-EX-OLYMP
+  niveau: 2nde
+  parcours: excellence
+  ordre: 3
+  titre: Olympiades, algèbre et combinatoire
+competences:
+- code: 2NDE-EX-OLYMPIADE
+  libelle: Résoudre des problèmes de type olympiade (sommes, comptages, identités)
+  objectifs:
+  - Repérer une astuce (regroupement, télescopage, identité) au lieu de calculer terme à terme.
+  - Compter méthodiquement.
+  prerequis:
+  - 2NDE-EX-ARITHM
+  - 2NDE-DEV
+  resume: |
+    - **Regrouper** les termes par paquets : $1 - 2 + 3 - 4 + \dots$ se traite par paires.
+    - **Télescopage** : $\dfrac{1}{k(k + 1)} = \dfrac{1}{k} - \dfrac{1}{k + 1}$.
+    - **Identités** : $x^3 + y^3 = (x + y)^3 - 3xy(x + y)$.
+    - Zéros de $n!$ : compter les facteurs 5.
+  cours: |
+    ## Regrouper
+    $1 - 2 + 3 - 4 + \dots + 99 - 100$ : 50 paires valant chacune $-1$, soit $-50$.
+
+    ## Télescoper
+    $$\sum_{k=1}^{99} \frac{1}{k(k + 1)} = \left(1 - \tfrac{1}{2}\right) + \left(\tfrac{1}{2} - \tfrac{1}{3}\right) + \dots = 1 - \frac{1}{100}.$$
+
+    ## Compter les zéros de 100!
+    Chaque zéro vient d'un facteur $10 = 2 \times 5$, et les 5 sont les plus rares : $\left\lfloor\dfrac{100}{5}\right\rfloor + \left\lfloor\dfrac{100}{25}\right\rfloor = 20 + 4 = 24$.
+
+    ## Utiliser somme et produit
+    Si $x + y = 5$ et $xy = 3$ : $x^3 + y^3 = 125 - 3 \times 3 \times 5 = 80$, sans calculer $x$ et $y$.
+  methodes:
+  - titre: Chercher une structure avant de calculer
+    etapes:
+    - Écrire les premiers termes pour voir un motif.
+    - Regrouper, télescoper ou utiliser une identité remarquable.
+    - Vérifier sur un petit cas.
+    exemple:
+      enonce: $\dfrac{1}{1 \times 3} + \dfrac{1}{3 \times 5} + \dots + \dfrac{1}{9 \times 11}$.
+      resolution:
+      - $\dfrac{1}{k(k + 2)} = \dfrac{1}{2}\left(\dfrac{1}{k} - \dfrac{1}{k + 2}\right)$.
+      resultat: $\dfrac{1}{2}\left(1 - \dfrac{1}{11}\right) = \dfrac{5}{11}$
+  erreurs_frequentes:
+  - erreur: Compter seulement les multiples de 5 pour les zéros de n!.
+    explication: 25, 50, 75, 100 apportent chacun un 5 supplémentaire.
+  questions:
+  - code: 2NDE-EX-OLYMPIADE-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $1 - 2 + 3 - 4 + \dots + 99 - 100$.
+    solution: '-50'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '50 paires $(2k - 1) - 2k = -1$ : total $-50$.'
+      resultat: '-50'
+  - code: 2NDE-EX-OLYMPIADE-02
+    difficulte: 2
+    type: numerique
+    enonce: Combien d'entiers de trois chiffres ont une somme de chiffres égale à 5 ?
+    solution: '15'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Chiffre des centaines $a \geq 1$ : on pose $a'' = a - 1$, et $a'' + b + c = 4$.'
+      - 'Nombre de façons de répartir 4 unités en 3 chiffres : $\dbinom{6}{2} = 15$.'
+      resultat: '15'
+  - code: 2NDE-EX-OLYMPIADE-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $\dfrac{1}{1 \times 2} + \dfrac{1}{2 \times 3} + \dots + \dfrac{1}{99 \times 100}$.
+    solution: 99/100
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Télescopage.
+      etapes:
+      - '$\dfrac{1}{k(k + 1)} = \dfrac{1}{k} - \dfrac{1}{k + 1}$ : tout se simplifie sauf $1 - \dfrac{1}{100}$.'
+      resultat: 99/100
+  - code: 2NDE-EX-OLYMPIADE-04
+    difficulte: 4
+    type: numerique
+    enonce: Par combien de zéros se termine l'écriture de $100!$ (produit des entiers de 1 à 100) ?
+    solution: '24'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Facteurs 5 : $20$ multiples de 5, plus $4$ multiples de 25 (un 5 de plus chacun).'
+      - 'Les facteurs 2 sont bien plus nombreux : 24 zéros.'
+      resultat: '24'
+  - code: 2NDE-EX-OLYMPIADE-05
+    difficulte: 5
+    type: numerique
+    enonce: Les réels $x$ et $y$ vérifient $x + y = 5$ et $xy = 3$. Calculer $x^3 + y^3$.
+    solution: '80'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(x + y)^3 = x^3 + y^3 + 3xy(x + y)$.
+      - $x^3 + y^3 = 125 - 3 \times 3 \times 5 = 80$.
+      resultat: '80'
+- code: 2NDE-EX-OLYMP-PB
+  libelle: 'Problème guidé : poignées de main et diagonales'
+  objectifs:
+  - Passer d'un comptage concret à une formule générale, puis l'utiliser à rebours.
+  prerequis:
+  - 2NDE-EX-OLYMPIADE
+  resume: |
+    - $n$ personnes se serrent la main deux à deux : $\dfrac{n(n - 1)}{2}$ poignées.
+    - Un polygone à $n$ sommets a $\dfrac{n(n - 1)}{2} - n = \dfrac{n(n - 3)}{2}$ diagonales.
+  cours: |
+    ## Le problème
+    Chaque personne serre la main de toutes les autres. Combien de poignées ? Et combien de personnes pour un nombre donné de poignées ?
+
+    ## Compter sans compter deux fois
+    Chacune des $n$ personnes serre $n - 1$ mains ; chaque poignée est alors comptée deux fois : $\dfrac{n(n - 1)}{2}$.
+
+    ## Même idée en géométrie
+    Les segments joignant deux sommets d'un polygone sont les côtés ($n$) et les diagonales.
+  methodes:
+  - titre: Corriger un double comptage
+    etapes:
+    - Compter en choisissant d'abord un élément, puis l'autre.
+    - Diviser par le nombre de fois où chaque objet a été compté.
+    exemple:
+      enonce: Nombre de matchs dans un tournoi de 6 équipes (aller simple).
+      resolution:
+      - $\dfrac{6 \times 5}{2} = 15$.
+      resultat: '15'
+  erreurs_frequentes:
+  - erreur: Oublier de diviser par 2.
+    explication: La poignée A-B est la même que B-A.
+  questions:
+  - code: 2NDE-EX-OLYMP-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (poignées de main), étape 1 : 4 personnes se serrent toutes la main deux à deux. Combien de poignées de main ?'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4 \times 3}{2} = 6$.
+      resultat: '6'
+  - code: 2NDE-EX-OLYMP-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (poignées de main), étape 2 : même question avec 10 personnes.'
+    solution: '45'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{10 \times 9}{2} = 45$.
+      resultat: '45'
+  - code: 2NDE-EX-OLYMP-PB-03
+    difficulte: 3
+    type: expression
+    enonce: 'Problème guidé (poignées de main), étape 3 : exprimer le nombre de poignées de main pour $n$ personnes.'
+    solution: n(n - 1)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Chacun serre $n - 1$ mains, chaque poignée est comptée deux fois : $\dfrac{n(n - 1)}{2}$.'
+      resultat: n(n - 1)/2
+  - code: 2NDE-EX-OLYMP-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (poignées de main), étape 4 : il y a eu 66 poignées de main. Combien de personnes étaient présentes ?'
+    solution: '12'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $n(n - 1) = 132 = 12 \times 11$, donc $n = 12$.
+      resultat: '12'
+  - code: 2NDE-EX-OLYMP-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (poignées de main), étape 5 : combien de diagonales possède un polygone convexe à 12 côtés ?'
+    solution: '54'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Segments entre deux sommets : $\dfrac{12 \times 11}{2} = 66$, dont $12$ côtés.'
+      - $66 - 12 = 54$ diagonales.
+      resultat: '54'

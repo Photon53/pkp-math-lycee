@@ -1,0 +1,92 @@
+chapitre:
+  code: 2NDE-MAN-LIT
+  niveau: 2nde
+  parcours: mise-a-niveau
+  ordre: 2
+  titre: Bases du collège, calcul littéral et équations
+competences:
+- code: 2NDE-MAN-EQUATIONS
+  libelle: Développer, réduire et résoudre une équation du premier degré
+  objectifs:
+  - Développer avec la distributivité et l'identité (a + b)².
+  - Résoudre une équation du premier degré ou produit nul.
+  prerequis:
+  - 2NDE-MAN-CALCUL
+  resume: |
+    - $k(a + b) = ka + kb$ ; $(a + b)^2 = a^2 + 2ab + b^2$.
+    - Équation : on fait la même opération des deux côtés.
+    - Produit nul : $AB = 0 \iff A = 0$ ou $B = 0$.
+  cours: |
+    ## Développer
+    $4(2x - 3) = 8x - 12$ ; $(x + 5)^2 = x^2 + 10x + 25$.
+
+    ## Équations du premier degré
+    $2(x - 1) = 5x + 4 \iff 2x - 2 = 5x + 4 \iff -3x = 6 \iff x = -2$.
+
+    ## Produit nul
+    $(x - 3)(2x + 1) = 0 \iff x = 3$ ou $x = -\dfrac{1}{2}$.
+  methodes:
+  - titre: Résoudre une équation du premier degré
+    etapes:
+    - Développer si besoin.
+    - Regrouper les x d'un côté, les nombres de l'autre.
+    - Diviser par le coefficient de x, puis vérifier.
+    exemple:
+      enonce: $3(x + 2) = x + 10$.
+      resolution:
+      - $3x + 6 = x + 10$, soit $2x = 4$.
+      resultat: $x = 2$
+  erreurs_frequentes:
+  - erreur: Écrire $(x + 5)^2 = x^2 + 25$.
+    explication: Il manque le double produit $10x$.
+  questions:
+  - code: 2NDE-MAN-EQUATIONS-01
+    difficulte: 1
+    type: expression
+    enonce: Développer $4(2x - 3)$.
+    solution: 8x - 12
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $4 \times 2x - 4 \times 3 = 8x - 12$.
+      resultat: 8x - 12
+  - code: 2NDE-MAN-EQUATIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $3x - 7 = 11$.
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3x = 18$, donc $x = 6$.
+      resultat: '6'
+  - code: 2NDE-MAN-EQUATIONS-03
+    difficulte: 3
+    type: expression
+    enonce: Développer $(x + 5)^2$.
+    solution: x^2 + 10x + 25
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x^2 + 2 \times 5 \times x + 25$.
+      resultat: x^2 + 10x + 25
+  - code: 2NDE-MAN-EQUATIONS-04
+    difficulte: 4
+    type: numerique
+    enonce: Résoudre $2(x - 1) = 5x + 4$.
+    solution: '-2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2x - 2 = 5x + 4$, soit $-3x = 6$, donc $x = -2$.
+      resultat: '-2'
+  - code: 2NDE-MAN-EQUATIONS-05
+    difficulte: 5
+    type: numerique
+    enonce: Résoudre $(x - 3)(2x + 1) = 0$. Donner la plus petite solution.
+    solution: -1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$x - 3 = 0$ ou $2x + 1 = 0$ : $x = 3$ ou $x = -\dfrac{1}{2}$.'
+      resultat: -1/2

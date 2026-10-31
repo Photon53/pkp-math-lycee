@@ -1,0 +1,169 @@
+chapitre:
+  code: TLE-EXA-BLANC2
+  niveau: Tle
+  parcours: examens
+  ordre: 2
+  titre: Bac blanc n° 2 (suites et géométrie dans l'espace)
+competences:
+- code: TLE-EXA-B2-EX1
+  libelle: 'Exercice 1 : une suite définie par récurrence'
+  objectifs:
+  - Calculer des termes, conjecturer, utiliser une suite auxiliaire, trouver la limite.
+  prerequis:
+  - TLE-SUI-REC
+  - TLE-SUI-LIM
+  resume: |
+    - $u_{n+1} = \dfrac{u_n}{1 + u_n}$ : on pose $v_n = \dfrac{1}{u_n}$.
+    - $v_{n+1} = v_n + 1$ : $(v_n)$ est arithmétique, donc $u_n = \dfrac{1}{n + 1}$.
+  cours: |
+    ## L'exercice
+    $u_0 = 1$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$.
+
+    ## Ce qui est attendu
+    Premiers termes $\dfrac{1}{2}$, $\dfrac{1}{3}$, $\dfrac{1}{4}$ : on conjecture $u_n = \dfrac{1}{n + 1}$. Avec $v_n = \dfrac{1}{u_n}$ : $v_{n+1} = \dfrac{1 + u_n}{u_n} = v_n + 1$.
+  methodes:
+  - titre: Utiliser une suite auxiliaire donnée par l'énoncé
+    etapes:
+    - Calculer v(n + 1) en remplaçant u(n + 1) par son expression.
+    - Reconnaitre une suite arithmétique ou géométrique.
+    - Revenir à u(n).
+    exemple:
+      enonce: $u_{n+1} = \dfrac{u_n}{1 + 2u_n}$, $v_n = \dfrac{1}{u_n}$.
+      resolution:
+      - $v_{n+1} = v_n + 2$.
+      resultat: Arithmétique de raison 2.
+  erreurs_frequentes:
+  - erreur: Considérer la conjecture comme démontrée.
+    explication: Il faut la prouver (récurrence ou suite auxiliaire).
+  questions:
+  - code: TLE-EXA-B2-EX1-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 1 : $u_0 = 1$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$. Calculer $u_1$.'
+    solution: 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1}{1 + 1} = \dfrac{1}{2}$.
+      resultat: 1/2
+  - code: TLE-EXA-B2-EX1-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 1 : calculer $u_2$.'
+    solution: 1/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1/2}{3/2} = \dfrac{1}{3}$.
+      resultat: 1/3
+  - code: TLE-EXA-B2-EX1-03
+    difficulte: 3
+    type: expression
+    enonce: 'Bac blanc 2, exercice 1 : conjecturer l''expression de $u_n$ en fonction de $n$.'
+    solution: 1/(n + 1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$1, \dfrac{1}{2}, \dfrac{1}{3}, \dfrac{1}{4}, \dots$ : $u_n = \dfrac{1}{n + 1}$.'
+      resultat: 1/(n + 1)
+  - code: TLE-EXA-B2-EX1-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 1 : on pose $v_n = \dfrac{1}{u_n}$. Calculer $v_{n+1} - v_n$.'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $v_{n+1} = \dfrac{1 + u_n}{u_n} = \dfrac{1}{u_n} + 1 = v_n + 1$.
+      resultat: '1'
+  - code: TLE-EXA-B2-EX1-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 1 : déterminer la limite de $(u_n)$.'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $v_n = n + 1 \to +\infty$, donc $u_n = \dfrac{1}{n + 1} \to 0$.
+      resultat: '0'
+- code: TLE-EXA-B2-EX2
+  libelle: 'Exercice 2 : tétraèdre et plan dans l''espace'
+  objectifs:
+  - Déterminer une équation de plan, une distance, un volume et une aire.
+  prerequis:
+  - TLE-PLAN-NORMAL
+  - TLE-PS-ESP
+  resume: |
+    - Plan passant par $A(a ; 0 ; 0)$, $B(0 ; b ; 0)$, $C(0 ; 0 ; c)$ : $\dfrac{x}{a} + \dfrac{y}{b} + \dfrac{z}{c} = 1$.
+    - Volume = $\dfrac{1}{3} \times$ aire de base $\times$ hauteur, dans les deux sens.
+  cours: |
+    ## L'exercice
+    $A(1 ; 0 ; 0)$, $B(0 ; 2 ; 0)$, $C(0 ; 0 ; 3)$ et $O$ l'origine.
+
+    ## Ce qui est attendu
+    Plan $(ABC)$ : $6x + 3y + 2z = 6$, vecteur normal de norme $7$, distance de $O$ au plan $\dfrac{6}{7}$. Volume de $OABC$ : $\dfrac{1}{3} \times \dfrac{1 \times 2}{2} \times 3 = 1$. Aire de $ABC$ : $\dfrac{3 \times 1}{6/7} = \dfrac{7}{2}$.
+  methodes:
+  - titre: Calculer une aire grâce au volume
+    etapes:
+    - Calculer le volume avec une base simple.
+    - Calculer la hauteur relative à l'autre face (distance au plan).
+    - 'En déduire l''aire : $\dfrac{3V}{h}$.'
+    exemple:
+      enonce: Tétraèdre de volume 2 et hauteur 3 sur la face ABC.
+      resolution:
+      - $\dfrac{3 \times 2}{3}$.
+      resultat: Aire 2.
+  erreurs_frequentes:
+  - erreur: Oublier le facteur 1/3 du volume.
+    explication: Une pyramide occupe le tiers du prisme correspondant.
+  questions:
+  - code: TLE-EXA-B2-EX2-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 2 : $A(1 ; 0 ; 0)$, $B(0 ; 2 ; 0)$, $C(0 ; 0 ; 3)$. Le plan $(ABC)$ a pour équation $6x + 3y + 2z = d$. Donner $d$.'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Avec $A$ : $6 \times 1 = 6$ (et $B$ : $3 \times 2 = 6$, $C$ : $2 \times 3 = 6$).'
+      resultat: '6'
+  - code: TLE-EXA-B2-EX2-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 2 : calculer la norme du vecteur normal $(6 ; 3 ; 2)$.'
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{36 + 9 + 4} = 7$.
+      resultat: '7'
+  - code: TLE-EXA-B2-EX2-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 2 : calculer la distance de l''origine au plan $(ABC)$.'
+    solution: 6/7
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{|0 - 6|}{7} = \dfrac{6}{7}$.
+      resultat: 6/7
+  - code: TLE-EXA-B2-EX2-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 2 : calculer le volume du tétraèdre $OABC$.'
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Base $OAB$ d''aire $1$, hauteur $OC = 3$ : $\dfrac{1}{3} \times 1 \times 3 = 1$.'
+      resultat: '1'
+  - code: TLE-EXA-B2-EX2-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Bac blanc 2, exercice 2 : en déduire l''aire du triangle $ABC$.'
+    solution: 7/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $V = \dfrac{1}{3} \times \mathcal A_{ABC} \times \dfrac{6}{7} = 1$, donc $\mathcal A_{ABC} = \dfrac{7}{2}$.
+      resultat: 7/2

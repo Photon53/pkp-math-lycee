@@ -101,7 +101,7 @@ describe("classes et élèves", () => {
 });
 
 describe("spécialité des classes", () => {
-  it("propose la spécialité en Terminale seulement, et l'envoie à la création", async () => {
+  it("propose les parcours du niveau choisi, et les envoie à la création", async () => {
     const appels = fausseApi({
       "GET /enseignants/classes": { json: CLASSES },
       "POST /enseignants/classes": (corps) => ({ status: 201, json: { id: 9, code: "TLE-ABCDE", ...corps, nb_eleves: 0 } }),
@@ -109,7 +109,9 @@ describe("spécialité des classes", () => {
     });
     render(<Classes jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByText(/Seconde · Tronc commun · 2 élèves/)).toBeInTheDocument();
-    expect(screen.queryByLabelText("Parcours de la nouvelle classe")).not.toBeInTheDocument();
+    // Seconde : tronc commun, mise à niveau ou excellence ; la voie technologique n'existe qu'en 1re et Tle.
+    const options = [...screen.getByLabelText("Parcours de la nouvelle classe").options].map((o) => o.value);
+    expect(options).toEqual(["tronc-commun", "mise-a-niveau", "excellence"]);
     await userEvent.selectOptions(screen.getByLabelText("Niveau de la nouvelle classe"), "Tle");
     await userEvent.selectOptions(screen.getByLabelText("Parcours de la nouvelle classe"), "expertes");
     await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));

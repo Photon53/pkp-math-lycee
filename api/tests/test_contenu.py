@@ -9,6 +9,7 @@ from sqlalchemy import func, select
 from app import contenu
 from app.contenu import ContenuInvalide, charger, importer
 from app.db import models
+from app.referentiel import ABREVIATIONS_PARCOURS, Parcours
 from tests.conftest import connecter_eleve, connecter_enseignant, inscrire_eleves
 
 MINIMAL = """
@@ -303,6 +304,10 @@ class TestFiltreParParcours:
         [({"niveau": "2nde"}, 201, "tronc-commun"), ({"niveau": "1re"}, 201, "specialite"),
          ({"niveau": "1re", "parcours": "scientifique"}, 201, "scientifique"),
          ({"niveau": "Tle", "parcours": "technologique"}, 201, "technologique"),
+         ({"niveau": "2nde", "parcours": "excellence"}, 201, "excellence"),
+         ({"niveau": "Tle", "parcours": "mise-a-niveau"}, 201, "mise-a-niveau"),
+         ({"niveau": "1re", "parcours": "examens"}, 201, "examens"),
+         ({"niveau": "2nde", "parcours": "examens"}, 422, None),
          ({"niveau": "2nde", "parcours": "expertes"}, 422, None), ({"niveau": "1re", "parcours": "complementaires"}, 422, None),
          ({"niveau": "2nde", "parcours": "technologique"}, 422, None), ({"niveau": "Tle", "parcours": "scientifique"}, 422, None)],
     )
@@ -311,6 +316,8 @@ class TestFiltreParParcours:
         assert r.status_code == code
         if parcours:
             assert r.json()["parcours"] == parcours
+            # Le code dit le niveau et le parcours : « 1RE-ES-4KQ7M », « TLE-TECH-… ».
+            assert r.json()["code"].split("-")[1] == ABREVIATIONS_PARCOURS[Parcours(parcours)]
 
     def test_classes_de_demo_et_registre_visible_par_l_enseignant(self, client):
         h = connecter_enseignant(client)

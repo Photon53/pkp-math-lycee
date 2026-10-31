@@ -1,0 +1,177 @@
+chapitre:
+  code: 1RE-EXA-AUTO
+  niveau: 1re
+  parcours: examens
+  ordre: 1
+  titre: Épreuve anticipée, partie automatismes (QCM)
+competences:
+- code: 1RE-EXA-AUTO-CALC
+  libelle: Automatismes de calcul (QCM sans calculatrice)
+  objectifs:
+  - Répondre vite et juste à des questions de calcul, de pourcentages et d'algèbre, sans calculatrice.
+  prerequis:
+  - 1RE-MAN-ALGEBRE
+  resume: |
+    - Partie 1 de l'épreuve anticipée : des **QCM d'automatismes**, sans calculatrice.
+    - Gérer son temps : une minute par question environ, ne pas rester bloqué.
+    - Vérifier chaque réponse par un ordre de grandeur ou un calcul inverse.
+  cours: |
+    ## À quoi ressemble l'épreuve
+    La partie « automatismes » rassemble de courtes questions à choix multiples : pourcentages, fractions, développement, équations et inéquations, lecture graphique, statistiques et probabilités.
+
+    ## Stratégie
+    - Lire toutes les propositions avant de répondre : une proposition fausse s'élimine souvent vite.
+    - Pour une équation, remplacer $x$ par la valeur proposée.
+    - Pour un développement, tester avec $x = 1$.
+
+    ## Exemple
+    $(x - 2)^2$ vaut, pour $x = 1$ : $1$. Parmi $x^2 - 4x + 4$ (vaut 1), $x^2 - 4$ (vaut −3), $x^2 + 4$ (vaut 5), seule la première convient.
+  methodes:
+  - titre: Éliminer les mauvaises propositions d'un QCM
+    etapes:
+    - Remplacer la variable par une valeur simple (0, 1, 2).
+    - Comparer avec chaque proposition.
+    - Garder celle qui convient, puis vérifier avec une autre valeur.
+    exemple:
+      enonce: $(x + 3)^2 = $ ? $x^2 + 9$ ou $x^2 + 6x + 9$ ?
+      resolution:
+      - 'Pour $x = 1$ : $16$ ; $x^2 + 9 = 10$, $x^2 + 6x + 9 = 16$.'
+      resultat: $x^2 + 6x + 9$
+  erreurs_frequentes:
+  - erreur: Répondre trop vite sans lire toutes les propositions.
+    explication: Les propositions fausses reprennent souvent les erreurs classiques.
+  questions:
+  - code: 1RE-EXA-AUTO-CALC-01
+    difficulte: 1
+    type: qcm
+    enonce: '25 % de 80 est égal à : A) 32  B) 20  C) 25'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{80}{4} = 20$.
+      resultat: B
+  - code: 1RE-EXA-AUTO-CALC-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Un prix passe de 50 € à 60 €. Le taux d''évolution est : A) +10 %  B) +16,7 %  C) +20 %'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{60 - 50}{50} = 0{,}2$.
+      resultat: C
+  - code: 1RE-EXA-AUTO-CALC-03
+    difficulte: 3
+    type: qcm
+    enonce: '$\dfrac{2}{3} + \dfrac{1}{6}$ est égal à : A) $\dfrac{5}{6}$  B) $\dfrac{3}{9}$  C) $\dfrac{1}{2}$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{4}{6} + \dfrac{1}{6} = \dfrac{5}{6}$.
+      resultat: A
+  - code: 1RE-EXA-AUTO-CALC-04
+    difficulte: 4
+    type: qcm
+    enonce: '$(x - 2)^2$ est égal à : A) $x^2 - 4$  B) $x^2 - 4x + 4$  C) $x^2 + 4$'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(a - b)^2 = a^2 - 2ab + b^2$.
+      resultat: B
+  - code: 1RE-EXA-AUTO-CALC-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Les solutions de $3x - 5 > 7$ sont les réels : A) $x < 4$  B) $x > \dfrac{2}{3}$  C) $x > 4$'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3x > 12$, donc $x > 4$.
+      resultat: C
+- code: 1RE-EXA-AUTO-FONC
+  libelle: Automatismes sur fonctions, statistiques et probabilités (QCM)
+  objectifs:
+  - Lire et calculer rapidement sur les fonctions, les séries statistiques et les probabilités.
+  prerequis:
+  - 1RE-MAN-FONCTIONS
+  - 1RE-MAN-VECPROBA
+  resume: |
+    - Coefficient directeur : $\dfrac{\Delta y}{\Delta x}$.
+    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+    - Un produit $(x - a)(x - b)$ est négatif entre ses racines.
+  cours: |
+    ## Fonctions
+    Droite passant par $(0 ; 1)$ et $(2 ; 5)$ : coefficient directeur $\dfrac{5 - 1}{2 - 0} = 2$.
+
+    ## Statistiques et probabilités
+    Moyenne de $4$, $8$, $12$ : $8$. Si $P(A) = 0{,}5$ et $P(A \cap B) = 0{,}2$, alors $P_A(B) = 0{,}4$.
+
+    ## Signe
+    $(x - 1)(x - 3)$ est négatif sur $]1 ; 3[$.
+  methodes:
+  - titre: Calculer une probabilité conditionnelle de tête
+    etapes:
+    - Repérer $P(A \cap B)$ et $P(A)$.
+    - Diviser.
+    exemple:
+      enonce: $P(A) = 0{,}4$, $P(A \cap B) = 0{,}1$.
+      resolution:
+      - $\dfrac{0{,}1}{0{,}4}$.
+      resultat: $0{,}25$
+  erreurs_frequentes:
+  - erreur: 'Calculer $f(-2)$ en oubliant les parenthèses : $-2^2 = -4$.'
+    explication: $(-2)^2 = 4$.
+  questions:
+  - code: 1RE-EXA-AUTO-FONC-01
+    difficulte: 1
+    type: qcm
+    enonce: 'Le coefficient directeur de la droite passant par $(0 ; 1)$ et $(2 ; 5)$ est : A) 4  B) $\dfrac{1}{2}$  C) 2'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{5 - 1}{2 - 0} = 2$.
+      resultat: C
+  - code: 1RE-EXA-AUTO-FONC-02
+    difficulte: 2
+    type: qcm
+    enonce: '$f(x) = x^2 - 3$. $f(-2)$ vaut : A) 1  B) $-7$  C) 7'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(-2)^2 - 3 = 4 - 3 = 1$.
+      resultat: A
+  - code: 1RE-EXA-AUTO-FONC-03
+    difficulte: 3
+    type: qcm
+    enonce: 'La moyenne de la série 4, 8, 12 est : A) 12  B) 8  C) 6'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{24}{3} = 8$.
+      resultat: B
+  - code: 1RE-EXA-AUTO-FONC-04
+    difficulte: 4
+    type: qcm
+    enonce: 'On sait que la probabilité de l''événement $E$ vaut 0,5 et celle de « $E$ et $F$ » vaut 0,2. La probabilité de $F$ sachant $E$ vaut : A) 0,1  B) 0,7  C) 0,4'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0{,}2}{0{,}5} = 0{,}4$.
+      resultat: C
+  - code: 1RE-EXA-AUTO-FONC-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Sur l''intervalle $]1 ; 3[$, l''expression $(x - 1)(x - 3)$ est : A) négative  B) positive  C) nulle'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Entre les racines, $x - 1 > 0$ et $x - 3 < 0$.
+      resultat: A

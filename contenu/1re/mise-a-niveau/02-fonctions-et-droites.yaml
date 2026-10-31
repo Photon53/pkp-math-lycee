@@ -1,0 +1,94 @@
+chapitre:
+  code: 1RE-MAN-FONC
+  niveau: 1re
+  parcours: mise-a-niveau
+  ordre: 2
+  titre: Bases de seconde, fonctions et droites
+competences:
+- code: 1RE-MAN-FONCTIONS
+  libelle: Calculer des images, des équations de droites et étudier un signe
+  objectifs:
+  - Calculer une image et le coefficient directeur d'une droite.
+  - Étudier le sens de variation d'une fonction affine et le signe d'un produit.
+  prerequis:
+  - 2NDE-IMG
+  - 2NDE-DROITE
+  - 2NDE-SIGNE
+  resume: |
+    - Coefficient directeur de $(AB)$ : $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+    - $f(x) = mx + p$ est croissante si $m > 0$, décroissante si $m < 0$.
+    - Un produit est négatif quand ses facteurs sont de signes contraires.
+  cours: |
+    ## Image
+    $f(x) = x^2 - 3x$ : $f(-2) = 4 + 6 = 10$ (parenthèses autour de $-2$ !).
+
+    ## Droite
+    $A(1 ; 2)$, $B(3 ; 8)$ : $m = \dfrac{8 - 2}{3 - 1} = 3$, puis $2 = 3 \times 1 + p$ donne $p = -1$ : $y = 3x - 1$.
+
+    ## Signe d'un produit
+    $(x - 1)(x + 2) < 0$ entre les racines : $x \in\ ]-2 ; 1[$.
+  methodes:
+  - titre: Trouver l'équation d'une droite passant par deux points
+    etapes:
+    - Calculer le coefficient directeur m.
+    - Remplacer les coordonnées d'un point dans y = mx + p pour trouver p.
+    exemple:
+      enonce: $A(0 ; 1)$, $B(2 ; 5)$.
+      resolution:
+      - $m = 2$, $p = 1$.
+      resultat: $y = 2x + 1$
+  erreurs_frequentes:
+  - erreur: Calculer $-2^2 = -4$ au lieu de $(-2)^2 = 4$.
+    explication: On remplace x par −2 entre parenthèses.
+  questions:
+  - code: 1RE-MAN-FONCTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: $f(x) = x^2 - 3x$. Calculer $f(-2)$.
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(-2)^2 - 3 \times (-2) = 4 + 6 = 10$.
+      resultat: '10'
+  - code: 1RE-MAN-FONCTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le coefficient directeur de la droite passant par $A(1 ; 2)$ et $B(3 ; 8)$ ?
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{8 - 2}{3 - 1} = 3$.
+      resultat: '3'
+  - code: 1RE-MAN-FONCTIONS-03
+    difficulte: 3
+    type: expression
+    enonce: Donner l'équation réduite $y = \dots$ de la droite passant par $A(1 ; 2)$ et $B(3 ; 8)$ (écrire l'expression en $x$).
+    solution: 3x - 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $m = 3$ et $2 = 3 + p$, donc $p = -1$.
+      resultat: 3x - 1
+  - code: 1RE-MAN-FONCTIONS-04
+    difficulte: 4
+    type: qcm
+    enonce: 'La fonction $f(x) = -2x + 5$ est : A) décroissante  B) croissante  C) constante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Coefficient directeur $-2 < 0$.
+      resultat: A
+  - code: 1RE-MAN-FONCTIONS-05
+    difficulte: 5
+    type: numerique
+    enonce: Quel est le plus grand entier solution de $(x - 1)(x + 2) < 0$ ?
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Le produit est négatif entre les racines : $-2 < x < 1$.'
+      - 'Plus grand entier : $0$.'
+      resultat: '0'

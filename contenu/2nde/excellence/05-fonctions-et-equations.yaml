@@ -1,0 +1,180 @@
+chapitre:
+  code: 2NDE-EX-FONC
+  niveau: 2nde
+  parcours: excellence
+  ordre: 5
+  titre: Fonctions et équations
+competences:
+- code: 2NDE-EX-FONCTIONS
+  libelle: Raisonner sur les fonctions (composition, extremum, équations fonctionnelles)
+  objectifs:
+  - Composer des fonctions, trouver un extremum par forme canonique.
+  - Résoudre une équation fonctionnelle simple.
+  prerequis:
+  - 2NDE-IMG
+  - 2NDE-AFF
+  - 2NDE-CARRE
+  resume: |
+    - $f(f(x))$ : on applique $f$ deux fois.
+    - $x^2 + bx = \left(x + \dfrac{b}{2}\right)^2 - \dfrac{b^2}{4}$ donne le minimum.
+    - Équation fonctionnelle : poser $t = x + 1$ pour retrouver $f(t)$.
+  cours: |
+    ## Composition
+    $f(x) = 2x + 1$ : $f(f(1)) = f(3) = 7$.
+
+    ## Minimum
+    $x^2 - 4x = (x - 2)^2 - 4 \geq -4$.
+
+    ## Valeurs absolues
+    $|x - 1| = |x + 3|$ : $x$ est à égale distance de $1$ et de $-3$, donc $x = -1$.
+
+    ## Équation fonctionnelle
+    Si $f(x + 1) = x^2 + 2x$ pour tout $x$, on pose $t = x + 1$ : $f(t) = (t - 1)^2 + 2(t - 1) = t^2 - 1$.
+  methodes:
+  - titre: Résoudre une équation fonctionnelle par changement de variable
+    etapes:
+    - Poser t égal à l'expression à l'intérieur de f.
+    - Exprimer x en fonction de t et remplacer.
+    - Simplifier pour obtenir f(t).
+    exemple:
+      enonce: $f(2x) = 4x + 1$.
+      resolution:
+      - '$t = 2x$ : $f(t) = 2t + 1$.'
+      resultat: $f(x) = 2x + 1$
+  erreurs_frequentes:
+  - erreur: Remplacer seulement une partie des x lors du changement de variable.
+    explication: Tous les x doivent être exprimés en fonction de t.
+  questions:
+  - code: 2NDE-EX-FONCTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: $f(x) = 2x + 1$. Calculer $f(f(1))$.
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(1) = 3$, puis $f(3) = 7$.
+      resultat: '7'
+  - code: 2NDE-EX-FONCTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: Quelle est la valeur minimale de $x^2 - 4x$ ?
+    solution: '-4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $(x - 2)^2 - 4 \geq -4$, atteint en $x = 2$.
+      resultat: '-4'
+  - code: 2NDE-EX-FONCTIONS-03
+    difficulte: 3
+    type: numerique
+    enonce: Combien de réels vérifient $|x - 1| = |x + 3|$ ?
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Le point équidistant de 1 et de −3 est leur milieu −1 : une seule solution.'
+      resultat: '1'
+  - code: 2NDE-EX-FONCTIONS-04
+    difficulte: 4
+    type: numerique
+    enonce: $f$ est affine, $f(1) = 3$ et $f(3) = 7$. Calculer $f(10)$.
+    solution: '21'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Coefficient $\dfrac{7 - 3}{3 - 1} = 2$, donc $f(x) = 2x + 1$ et $f(10) = 21$.
+      resultat: '21'
+  - code: 2NDE-EX-FONCTIONS-05
+    difficulte: 5
+    type: numerique
+    enonce: Pour tout réel $x$, $f(x + 1) = x^2 + 2x$. Calculer $f(5)$.
+    solution: '24'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Avec $x = 4$ : $f(5) = 16 + 8 = 24$ (et en général $f(t) = t^2 - 1$).'
+      resultat: '24'
+- code: 2NDE-EX-FONC-PB
+  libelle: 'Problème guidé : l''enclos le long d''un mur'
+  objectifs:
+  - Modéliser une aire par une fonction et l'optimiser.
+  prerequis:
+  - 2NDE-EX-FONCTIONS
+  resume: |
+    - Avec 40 m de grillage et un mur, l'enclos a deux côtés $x$ et un côté $40 - 2x$.
+    - $A(x) = x(40 - 2x) = -2(x - 10)^2 + 200$ : maximum $200$ m² pour $x = 10$.
+  cours: |
+    ## Le problème
+    On dispose de 40 m de grillage pour clore un enclos rectangulaire adossé à un mur (le mur ferme un côté). Quelle aire maximale ?
+
+    ## Modélisation
+    Côtés perpendiculaires au mur : $x$ ; côté parallèle : $40 - 2x$, avec $0 < x < 20$.
+
+    ## Optimisation
+    $A(x) = 40x - 2x^2 = -2(x - 10)^2 + 200$.
+  methodes:
+  - titre: Optimiser une aire
+    etapes:
+    - Choisir la variable et son domaine.
+    - Exprimer l'aire en fonction de la variable.
+    - Trouver le maximum (forme canonique ou symétrie de la parabole).
+    exemple:
+      enonce: Même problème avec 60 m de grillage.
+      resolution:
+      - $A(x) = x(60 - 2x)$, maximum en $x = 15$.
+      resultat: 450 m²
+  erreurs_frequentes:
+  - erreur: Compter quatre côtés de grillage.
+    explication: Le mur remplace l'un des côtés.
+  questions:
+  - code: 2NDE-EX-FONC-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (enclos), étape 1 : avec 40 m de grillage le long d''un mur, on prend des côtés perpendiculaires au mur de 5 m. Quelle est l''aire de l''enclos (en m²) ?'
+    solution: '150'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Côté parallèle : $40 - 10 = 30$ ; aire $5 \times 30 = 150$.'
+      resultat: '150'
+  - code: 2NDE-EX-FONC-PB-02
+    difficulte: 2
+    type: expression
+    enonce: 'Problème guidé (enclos), étape 2 : exprimer l''aire $A(x)$ en fonction de la longueur $x$ des côtés perpendiculaires au mur.'
+    solution: x(40 - 2x)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $A(x) = x(40 - 2x)$.
+      resultat: x(40 - 2x)
+  - code: 2NDE-EX-FONC-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (enclos), étape 3 : $x$ varie dans $]0 ; m[$. Quelle est la valeur de $m$ ?'
+    solution: '20'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Il faut $40 - 2x > 0$, soit $x < 20$.
+      resultat: '20'
+  - code: 2NDE-EX-FONC-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (enclos), étape 4 : pour quelle valeur de $x$ l''aire est-elle maximale ?'
+    solution: '10'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$A(x) = -2(x - 10)^2 + 200$ : maximum en $x = 10$ (milieu des racines $0$ et $20$).'
+      resultat: '10'
+  - code: 2NDE-EX-FONC-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (enclos), étape 5 : quelle est l''aire maximale (en m²) ?'
+    solution: '200'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $A(10) = 10 \times 20 = 200$ m².
+      resultat: '200'

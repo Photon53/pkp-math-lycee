@@ -1,0 +1,174 @@
+chapitre:
+  code: TLE-EX-ESP
+  niveau: Tle
+  parcours: excellence
+  ordre: 8
+  titre: Géométrie dans l'espace approfondie
+competences:
+- code: TLE-EX-ESPACE
+  libelle: Calculer longueurs, angles, aires et volumes dans l'espace
+  objectifs:
+  - Utiliser coordonnées et produit scalaire dans le cube et le tétraèdre.
+  prerequis:
+  - TLE-PS-ESP
+  - TLE-PLAN-NORMAL
+  resume: |
+    - Diagonale d'un cube d'arête $a$ : $a\sqrt3$.
+    - Volume d'une pyramide : $\dfrac{1}{3} \times \text{base} \times \text{hauteur}$.
+    - Distance d'un point au plan $ax + by + cz + d = 0$ : $\dfrac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}}$.
+  cours: |
+    ## Le cube
+    Diagonale $\sqrt3$ ; deux grandes diagonales, de vecteurs $(1 ; 1 ; 1)$ et $(1 ; 1 ; -1)$, forment un angle de cosinus $\dfrac{1}{3}$.
+
+    ## Le tétraèdre OABC
+    $A(1 ; 0 ; 0)$, $B(0 ; 1 ; 0)$, $C(0 ; 0 ; 1)$ : volume $\dfrac{1}{3} \times \dfrac{1}{2} \times 1 = \dfrac{1}{6}$. Le triangle $ABC$ est équilatéral de côté $\sqrt2$, d'aire $\dfrac{\sqrt3}{2}$.
+
+    ## Distance au plan
+    $O$ au plan $x + y + z = 1$ : $\dfrac{1}{\sqrt3} = \dfrac{\sqrt3}{3}$.
+  methodes:
+  - titre: Calculer l'angle de deux vecteurs de l'espace
+    etapes:
+    - Calculer le produit scalaire et les normes.
+    - $\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\,\|\vec v\|}$.
+    exemple:
+      enonce: $(1 ; 0 ; 1)$ et $(0 ; 1 ; 1)$.
+      resolution:
+      - $\dfrac{1}{\sqrt2 \times \sqrt2}$.
+      resultat: $\cos\theta = \dfrac{1}{2}$, angle $60°$.
+  erreurs_frequentes:
+  - erreur: Oublier le facteur 1/3 dans le volume d'une pyramide.
+    explication: Une pyramide occupe le tiers du prisme de même base et même hauteur.
+  questions:
+  - code: TLE-EX-ESPACE-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la longueur de la diagonale d'un cube d'arête 1 ? (valeur exacte)
+    solution: sqrt(3)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{1 + 1 + 1} = \sqrt3$.
+      resultat: sqrt(3)
+  - code: TLE-EX-ESPACE-02
+    difficulte: 2
+    type: numerique
+    enonce: $O$ est l'origine, $A(1 ; 0 ; 0)$, $B(0 ; 1 ; 0)$ et $C(0 ; 0 ; 1)$. Calculer le volume du tétraèdre $OABC$.
+    solution: 1/6
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Base $OAB$ d''aire $\dfrac{1}{2}$, hauteur $OC = 1$ : $\dfrac{1}{3} \times \dfrac{1}{2} \times 1 = \dfrac{1}{6}$.'
+      resultat: 1/6
+  - code: TLE-EX-ESPACE-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer la distance de l'origine au plan d'équation $x + y + z = 1$ (valeur exacte).
+    solution: sqrt(3)/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{|0 + 0 + 0 - 1|}{\sqrt3} = \dfrac{\sqrt3}{3}$.
+      resultat: sqrt(3)/3
+  - code: TLE-EX-ESPACE-04
+    difficulte: 4
+    type: numerique
+    enonce: Deux grandes diagonales d'un cube sont dirigées par $(1 ; 1 ; 1)$ et $(1 ; 1 ; -1)$. Quel est le cosinus de l'angle qu'elles forment ?
+    solution: 1/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{1 + 1 - 1}{\sqrt3 \times \sqrt3} = \dfrac{1}{3}$.
+      resultat: 1/3
+  - code: TLE-EX-ESPACE-05
+    difficulte: 5
+    type: numerique
+    enonce: $A(1 ; 0 ; 0)$, $B(0 ; 1 ; 0)$ et $C(0 ; 0 ; 1)$. Calculer l'aire du triangle $ABC$ (valeur exacte).
+    solution: sqrt(3)/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Triangle équilatéral de côté $\sqrt2$ : aire $\dfrac{\sqrt3}{4} \times 2 = \dfrac{\sqrt3}{2}$.'
+      resultat: sqrt(3)/2
+- code: TLE-EX-ESP-PB
+  libelle: 'Problème guidé : projeté orthogonal et distance à un plan'
+  objectifs:
+  - Construire le projeté orthogonal d'un point sur un plan et en déduire la distance.
+  prerequis:
+  - TLE-EX-ESPACE
+  resume: |
+    - Le projeté $H$ de $A$ sur le plan $P$ est $H = A + t\vec n$, avec $t$ tel que $H \in P$.
+    - $AH = |t| \times \|\vec n\|$.
+  cours: |
+    ## Le problème
+    Plan $P : 2x - y + 2z = 9$ et point $A(1 ; 1 ; 1)$. On cherche le point de $P$ le plus proche de $A$.
+
+    ## Construction
+    $\vec n(2 ; -1 ; 2)$, de norme $3$. $H = (1 + 2t ; 1 - t ; 1 + 2t)$ et $2(1 + 2t) - (1 - t) + 2(1 + 2t) = 3 + 9t = 9$, donc $t = \dfrac{2}{3}$.
+
+    ## Distance
+    $AH = \dfrac{2}{3} \times 3 = 2$, et $H\left(\dfrac{7}{3} ; \dfrac{1}{3} ; \dfrac{7}{3}\right)$.
+  methodes:
+  - titre: Projeter un point sur un plan
+    etapes:
+    - Lire un vecteur normal du plan.
+    - Paramétrer la droite passant par A dirigée par ce vecteur.
+    - Remplacer dans l'équation du plan pour trouver t.
+    exemple:
+      enonce: $A(0 ; 0 ; 0)$ sur $x + 2y + 2z = 9$.
+      resolution:
+      - $H = (t ; 2t ; 2t)$, $9t = 9$.
+      resultat: $H(1 ; 2 ; 2)$, distance $3$.
+  erreurs_frequentes:
+  - erreur: Donner t comme distance.
+    explication: La distance est |t| multiplié par la norme du vecteur normal.
+  questions:
+  - code: TLE-EX-ESP-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (projeté), étape 1 : plan $P : 2x - y + 2z = 9$. Calculer la norme du vecteur normal $\vec n(2 ; -1 ; 2)$.'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{4 + 1 + 4} = 3$.
+      resultat: '3'
+  - code: TLE-EX-ESP-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (projeté), étape 2 : calculer $2x - y + 2z$ au point $A(1 ; 1 ; 1)$.'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$2 - 1 + 2 = 3 \neq 9$ : $A$ n''est pas dans $P$.'
+      resultat: '3'
+  - code: TLE-EX-ESP-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (projeté), étape 3 : $H = A + t\vec n$ appartient à $P$. Calculer $t$.'
+    solution: 2/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2(1 + 2t) - (1 - t) + 2(1 + 2t) = 3 + 9t = 9$, donc $t = \dfrac{2}{3}$.
+      resultat: 2/3
+  - code: TLE-EX-ESP-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (projeté), étape 4 : calculer la distance de $A$ au plan $P$.'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $AH = |t| \times \|\vec n\| = \dfrac{2}{3} \times 3 = 2$.
+      resultat: '2'
+  - code: TLE-EX-ESP-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (projeté), étape 5 : quelle est l''abscisse de $H$ ? (fraction)'
+    solution: 7/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1 + 2 \times \dfrac{2}{3} = \dfrac{7}{3}$.
+      resultat: 7/3

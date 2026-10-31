@@ -1,0 +1,178 @@
+chapitre:
+  code: 1RE-EX-SUI
+  niveau: 1re
+  parcours: excellence
+  ordre: 4
+  titre: Suites et récurrences avancées
+competences:
+- code: 1RE-EX-SUITES
+  libelle: Calculer avec des suites récurrentes et des sommes
+  objectifs:
+  - Calculer des termes de suites récurrentes (Fibonacci, affines).
+  - Calculer des sommes géométriques et conjecturer une formule.
+  prerequis:
+  - 1RE-SUI-TERME
+  - 1RE-SUI-VAR
+  resume: |
+    - Fibonacci : $F_{n+2} = F_{n+1} + F_n$.
+    - $1 + q + \dots + q^n = \dfrac{q^{n+1} - 1}{q - 1}$.
+    - $u_{n+1} - u_n$ donne le sens de variation, et parfois le terme général.
+  cours: |
+    ## Suites récurrentes
+    Fibonacci ($F_1 = F_2 = 1$) : 1, 1, 2, 3, 5, 8, 13, 21, 34, 55.
+    $u_{n+1} = 3u_n + 2$, $u_0 = 0$ : 0, 2, 8, 26, 80 (on remarque $u_n = 3^n - 1$).
+
+    ## Sommes géométriques
+    $\sum_{k=0}^{9} 3^k = \dfrac{3^{10} - 1}{2} = 29\,524$.
+
+    ## Différences
+    $u_{n+1} = u_n + 2n + 1$ avec $u_0 = 0$ : $u_n = 1 + 3 + \dots + (2n - 1) = n^2$.
+  methodes:
+  - titre: Conjecturer puis vérifier un terme général
+    etapes:
+    - Calculer les premiers termes.
+    - Chercher un motif (puissances, carrés…).
+    - Vérifier que la formule respecte la relation de récurrence.
+    exemple:
+      enonce: $u_{n+1} = 2u_n + 1$, $u_0 = 0$.
+      resolution:
+      - '0, 1, 3, 7, 15 : $u_n = 2^n - 1$, et $2(2^n - 1) + 1 = 2^{n+1} - 1$.'
+      resultat: $u_n = 2^n - 1$
+  erreurs_frequentes:
+  - erreur: Se tromper d'indice de départ.
+    explication: Vérifier toujours la formule sur le premier terme.
+  questions:
+  - code: 1RE-EX-SUITES-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Suite de Fibonacci : $F_1 = F_2 = 1$ et $F_{n+2} = F_{n+1} + F_n$. Calculer $F_{10}$.'
+    solution: '55'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 1, 1, 2, 3, 5, 8, 13, 21, 34, 55.
+      resultat: '55'
+  - code: 1RE-EX-SUITES-02
+    difficulte: 2
+    type: numerique
+    enonce: $u_0 = 0$ et $u_{n+1} = 3u_n + 2$. Calculer $u_4$.
+    solution: '80'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 0, 2, 8, 26, 80.
+      resultat: '80'
+  - code: 1RE-EX-SUITES-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $1 + 3 + 3^2 + \dots + 3^9$.
+    solution: '29524'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3^{10} - 1}{3 - 1} = \dfrac{59\,048}{2} = 29\,524$.
+      resultat: '29524'
+  - code: 1RE-EX-SUITES-04
+    difficulte: 4
+    type: numerique
+    enonce: $u_n = \dfrac{n}{n + 1}$. Calculer $u_5 - u_4$ (fraction irréductible).
+    solution: 1/30
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$u_{n+1} - u_n = \dfrac{1}{(n + 1)(n + 2)}$ ; pour $n = 4$ : $\dfrac{1}{30}$.'
+      resultat: 1/30
+  - code: 1RE-EX-SUITES-05
+    difficulte: 5
+    type: numerique
+    enonce: $u_0 = 0$ et $u_{n+1} = u_n + 2n + 1$. Calculer $u_{100}$.
+    solution: '10000'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$u_n$ est la somme des $n$ premiers impairs : $u_n = n^2$.'
+      - $u_{100} = 10\,000$.
+      resultat: '10000'
+- code: 1RE-EX-SUI-PB
+  libelle: 'Problème guidé : un placement avec versements réguliers'
+  objectifs:
+  - Étudier une suite arithmético-géométrique avec une suite auxiliaire.
+  prerequis:
+  - 1RE-EX-SUITES
+  resume: |
+    - $C_{n+1} = 1{,}05C_n + 100$ : intérêts de 5 % puis versement de 100 €.
+    - Point fixe $\ell = -2\,000$ ; $v_n = C_n + 2\,000$ est géométrique de raison $1{,}05$.
+  cours: |
+    ## Le problème
+    On place 1 000 € à 5 % par an et l'on ajoute 100 € à la fin de chaque année. Quelle somme au bout de $n$ ans ?
+
+    ## Suite auxiliaire
+    $\ell = 1{,}05\ell + 100$ donne $\ell = -2\,000$. Alors $v_n = C_n + 2\,000$ vérifie $v_{n+1} = 1{,}05v_n$.
+
+    ## Formule
+    $v_0 = 3\,000$, donc $C_n = 3\,000 \times 1{,}05^n - 2\,000$.
+  methodes:
+  - titre: Résoudre u(n+1) = a u(n) + b
+    etapes:
+    - Chercher le point fixe ℓ.
+    - Poser v(n) = u(n) − ℓ, géométrique de raison a.
+    - Revenir à u(n).
+    exemple:
+      enonce: $u_{n+1} = 2u_n + 3$, $u_0 = 1$.
+      resolution:
+      - $\ell = -3$ ; $v_0 = 4$.
+      resultat: $u_n = 4 \times 2^n - 3$
+  erreurs_frequentes:
+  - erreur: Penser qu'un point fixe négatif est absurde.
+    explication: C'est un outil de calcul, pas une valeur atteinte par la suite.
+  questions:
+  - code: 1RE-EX-SUI-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (placement), étape 1 : $C_0 = 1\,000$ et $C_{n+1} = 1{,}05C_n + 100$. Calculer $C_1$.'
+    solution: '1150'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1\,050 + 100 = 1\,150$.
+      resultat: '1150'
+  - code: 1RE-EX-SUI-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (placement), étape 2 : quel réel $\ell$ vérifie $\ell = 1{,}05\ell + 100$ ?'
+    solution: '-2000'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $-0{,}05\ell = 100$, donc $\ell = -2\,000$.
+      resultat: '-2000'
+  - code: 1RE-EX-SUI-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (placement), étape 3 : on pose $v_n = C_n + 2\,000$. Calculer $v_0$.'
+    solution: '3000'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $1\,000 + 2\,000 = 3\,000$.
+      resultat: '3000'
+  - code: 1RE-EX-SUI-PB-04
+    difficulte: 4
+    type: expression
+    enonce: 'Problème guidé (placement), étape 4 : $(v_n)$ est géométrique de raison 1,05. Exprimer $C_n$ en fonction de $n$.'
+    solution: 3000*1.05^n - 2000
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $v_n = 3\,000 \times 1{,}05^n$ et $C_n = v_n - 2\,000$.
+      resultat: 3000*1.05^n - 2000
+  - code: 1RE-EX-SUI-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (placement), étape 5 : donner la valeur exacte de $C_{10}$ (expression avec une puissance).'
+    solution: 3000*1.05^10 - 2000
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $C_{10} = 3\,000 \times 1{,}05^{10} - 2\,000 \approx 2\,886{,}68$ €.
+      resultat: 3000*1.05^10 - 2000

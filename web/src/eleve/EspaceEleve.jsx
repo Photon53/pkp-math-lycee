@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
+import { libelleNiveauParcours } from "../parcours.js";
 import { ecrire, lire } from "../stockage.js";
 import Cours from "./Cours.jsx";
 import Exercice, { CLE_BILAN, CLE_CIBLE, CLE_SEANCE } from "./Exercice.jsx";
@@ -22,6 +23,32 @@ export default function EspaceEleve() {
     setLeconOuverte(competenceId);
     setDepuisExercice(depuisLExercice);
     setOnglet("cours");
+  }
+
+  // Inscriptions reliées par le professeur (spécialité, mise à niveau, excellence…) : l'élève change de parcours ici.
+  const [mesParcours, setMesParcours] = useState([]);
+  const [erreurParcours, setErreurParcours] = useState(null);
+  useEffect(() => {
+    if (!compte) return setMesParcours([]);
+    api("/eleves/moi/parcours", { jeton: compte.jeton }).then(setMesParcours, () => setMesParcours([]));
+  }, [compte]);
+
+  async function changerParcours(eleveId) {
+    try {
+      const nouveau = await api(`/eleves/moi/parcours/${eleveId}`, { methode: "POST", jeton: compte.jeton });
+      // La séance en cours appartient à l'autre parcours : on repart de l'accueil du nouveau.
+      ecrire(CLE_SEANCE, null);
+      ecrire(CLE_BILAN, null);
+      ecrire(CLE_CIBLE, null);
+      setCible(null);
+      setLeconOuverte(null);
+      setHistoriqueDe(null);
+      setOnglet("exercice");
+      setErreurParcours(null);
+      connecter(nouveau);
+    } catch (err) {
+      setErreurParcours(err.message);
+    }
   }
 
   // Historique filtré sur une compétence (étape « Je vérifie » d'une leçon) ; null = tout.
@@ -64,12 +91,29 @@ export default function EspaceEleve() {
     <>
       <div className="barre-session">
         <p>
-          Bonjour <strong>{compte.eleve.prenom}</strong> <span className="doux">· {compte.eleve.code_classe}</span>
+          Bonjour <strong>{compte.eleve.prenom}</strong>{" "}
+          <span className="doux">
+            · {compte.eleve.code_classe}
+            {compte.eleve.parcours && ` · ${libelleNiveauParcours(compte.eleve.niveau, compte.eleve.parcours)}`}
+          </span>
         </p>
+        {mesParcours.length > 1 && (
+          <div className="choix-parcours">
+            <label htmlFor="mon-parcours">Mon parcours</label>
+            <select id="mon-parcours" value={compte.eleve.id} onChange={(e) => changerParcours(Number(e.target.value))}>
+              {mesParcours.map((p) => (
+                <option key={p.eleve_id} value={p.eleve_id}>
+                  {libelleNiveauParcours(p.niveau, p.parcours)} ({p.code_classe})
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <button className="lien" onClick={deconnecter}>
           Ce n'est pas moi
         </button>
       </div>
+      <Erreur message={erreurParcours} />
       <Onglets
         valeur={onglet}
         onChange={changerOnglet}
@@ -82,10 +126,11 @@ export default function EspaceEleve() {
       />
       {/* Toujours monté, seulement masqué : aller au cours ne fait pas perdre la question ni sa correction. */}
       <div hidden={onglet !== "exercice"}>
-        <Exercice jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} cible={cible} />
+        <Exercice key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} cible={cible} />
       </div>
       {onglet === "cours" && (
         <Cours
+          key={compte.eleve.id}
           jeton={compte.jeton}
           onExpire={deconnecter}
           competenceId={leconOuverte}
@@ -100,6 +145,7 @@ export default function EspaceEleve() {
       )}
       {onglet === "historique" && (
         <Historique
+          key={compte.eleve.id}
           jeton={compte.jeton}
           onExpire={deconnecter}
           chemin="/eleves/moi/historique"
@@ -109,7 +155,7 @@ export default function EspaceEleve() {
           onEntrainer={entrainer}
         />
       )}
-      {onglet === "progression" && <Progression jeton={compte.jeton} onExpire={deconnecter} />}
+      {onglet === "progression" && <Progression key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
     </>
   );
 }
@@ -153,7 +199,7 @@ export function ConnexionEleve({ onConnexion }) {
         id="code"
         value={code}
         onChange={(e) => setCode(e.target.value.toUpperCase())}
-        placeholder="ex. 2NDE-7KQ4M"
+        placeholder="ex. 1RE-SPE-7KQ4M"
         autoComplete="off"
         spellCheck={false}
         maxLength={20}

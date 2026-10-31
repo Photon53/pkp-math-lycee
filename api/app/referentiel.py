@@ -16,12 +16,21 @@ class Parcours(str, Enum):
     EXPERTES = "expertes"  # Terminale : option mathématiques expertes
     SCIENTIFIQUE = "scientifique"  # Première : mathématiques de l'enseignement scientifique (sans la spécialité)
     TECHNOLOGIQUE = "technologique"  # Première et Terminale : voie technologique (STMG, STI2D, STL, ST2S…)
+    EXCELLENCE = "excellence"  # Tous niveaux : exercices très poussés et olympiades (groupe d'approfondissement)
+    MISE_A_NIVEAU = "mise-a-niveau"  # Tous niveaux : vérifier les bases de l'année précédente (groupe de soutien)
+    EXAMENS = "examens"  # 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
 
 
 PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
-    Niveau.SECONDE: (Parcours.TRONC_COMMUN,),
-    Niveau.PREMIERE: (Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE),
-    Niveau.TERMINALE: (Parcours.SPECIALITE, Parcours.COMPLEMENTAIRES, Parcours.EXPERTES, Parcours.TECHNOLOGIQUE),
+    Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    Niveau.PREMIERE: (
+        Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE,
+        Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS,
+    ),
+    Niveau.TERMINALE: (
+        Parcours.SPECIALITE, Parcours.COMPLEMENTAIRES, Parcours.EXPERTES, Parcours.TECHNOLOGIQUE,
+        Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS,
+    ),
 }
 
 LIBELLES_PARCOURS = {
@@ -31,6 +40,23 @@ LIBELLES_PARCOURS = {
     Parcours.EXPERTES: "Maths expertes",
     Parcours.SCIENTIFIQUE: "Enseignement scientifique",
     Parcours.TECHNOLOGIQUE: "Voie technologique",
+    Parcours.EXCELLENCE: "Excellence et olympiades",
+    Parcours.MISE_A_NIVEAU: "Mise à niveau",
+    Parcours.EXAMENS: "Préparation aux examens",
+}
+
+
+# Abréviation du parcours dans le code d'une classe (« TLE-EXP-4KQ7M ») : on devine la spécialité au premier coup d'œil.
+ABREVIATIONS_PARCOURS = {
+    Parcours.TRONC_COMMUN: "TC",
+    Parcours.SPECIALITE: "SPE",
+    Parcours.SCIENTIFIQUE: "ES",
+    Parcours.COMPLEMENTAIRES: "COMP",
+    Parcours.EXPERTES: "EXP",
+    Parcours.TECHNOLOGIQUE: "TECH",
+    Parcours.MISE_A_NIVEAU: "MAN",
+    Parcours.EXCELLENCE: "EXC",
+    Parcours.EXAMENS: "EXAM",
 }
 
 

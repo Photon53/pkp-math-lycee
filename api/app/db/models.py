@@ -147,6 +147,9 @@ class Eleve(Base):
     # Empreinte du code personnel distribué par l'enseignant (audit A-07, décision D1).
     # Vide tant que l'enseignant n'a pas généré de code : l'élève ne peut pas se connecter.
     code_hash: Mapped[str | None] = mapped_column(String(255))
+    # Même élève inscrit dans plusieurs classes (spécialité, mise à niveau, excellence…) : ses inscriptions
+    # partagent ce numéro (l'id de la première), et il passe de l'une à l'autre sans ressaisir de code.
+    groupe_id: Mapped[int | None] = mapped_column(Integer, index=True)
 
     classe: Mapped[Classe] = relationship(back_populates="eleves")
     seances: Mapped[list["Seance"]] = relationship(

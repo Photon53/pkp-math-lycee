@@ -19,13 +19,26 @@ contenu/
   tle/complementaires/01-suites-modeles-discrets.yaml … 09-statistique-deux-variables.yaml  (9 chapitres)
   tle/expertes/01-complexes-forme-algebrique.yaml … 08-graphes-markov.yaml                  (8 chapitres)
   tle/technologique/01-proportions-indices.yaml … 08-loi-binomiale.yaml                      (8 chapitres)
+  2nde|1re|tle/mise-a-niveau/…   (3 chapitres par niveau : les bases de l'année précédente)
+  2nde|1re|tle/excellence/…      (6 chapitres en 2nde et 1re, 8 en Tle : exercices poussés + problème guidé par chapitre)
+  1re|tle/examens/…              (3 chapitres : épreuve anticipée, sujets blancs, bacs blancs, sujet type annales)
 ```
 
 | Niveau | Parcours permis |
 |--------|-----------------|
-| `2nde` | `tronc-commun` |
-| `1re`  | `specialite`, `scientifique` (maths de l'enseignement scientifique), `technologique` |
-| `Tle`  | `specialite`, `complementaires`, `expertes`, `technologique` |
+| `2nde` | `tronc-commun`, `mise-a-niveau`, `excellence` |
+| `1re`  | `specialite`, `scientifique` (maths de l'enseignement scientifique), `technologique`, `mise-a-niveau`, `excellence`, `examens` |
+| `Tle`  | `specialite`, `complementaires`, `expertes`, `technologique`, `mise-a-niveau`, `excellence`, `examens` |
+
+`mise-a-niveau` (groupe de soutien) vérifie les bases de l'année précédente : collège en 2nde, 2nde en 1re,
+1re en Tle. `excellence` (groupe d'approfondissement) propose des exercices très poussés inspirés des séries
+« Sciences Mathématiques » de math.ma (licence non clarifiée : idées reprises, énoncés entièrement réécrits),
+des problèmes de type olympiade, et en Tle des exercices d'entrée en prépa MPSI, PCSI et ECG ; chaque chapitre a
+aussi un « problème guidé » en cinq étapes. `examens` prépare l'épreuve anticipée de 1re et le bac (sujets blancs
+originaux ; les sujets officiels des années précédentes s'ajoutent en ressources, lien ou PDF).
+
+Le code d'une classe dit son parcours : `NIVEAU-ABRÉVIATION-XXXXX` (`TC`, `SPE`, `ES`, `COMP`, `EXP`, `TECH`, `MAN`,
+`EXC`, `EXAM`), par exemple `TLE-EXP-4KQ7M`.
 
 La voie technologique a un seul programme de mathématiques commun à toutes les séries (STMG, STI2D,
 STL, ST2S, STD2A, STHR, S2TMD) ; les activités géométriques propres à la STD2A ne sont pas couvertes.
@@ -64,7 +77,7 @@ l'interface enseignant ne sont pas touchées.
 chapitre:
   code: TLE-LN                 # identifiant stable, MAJUSCULES-ET-TIRETS, ne jamais le changer
   niveau: Tle                  # 2nde | 1re | Tle
-  parcours: specialite         # tronc-commun | specialite | scientifique | complementaires | expertes | technologique
+  parcours: specialite         # tronc-commun | specialite | scientifique | complementaires | expertes | technologique | mise-a-niveau | excellence | examens
   ordre: 9                     # position dans l'année (unique par niveau et parcours)
   titre: Fonction logarithme népérien
 

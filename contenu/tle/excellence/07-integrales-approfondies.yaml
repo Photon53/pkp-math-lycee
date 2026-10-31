@@ -1,0 +1,176 @@
+chapitre:
+  code: TLE-EX-INT
+  niveau: Tle
+  parcours: excellence
+  ordre: 7
+  titre: Intégrales et suites d'intégrales
+competences:
+- code: TLE-EX-INTEGRALES
+  libelle: Calculer des intégrales astucieuses
+  objectifs:
+  - Utiliser parité, formes u'/u et u'e^u, intégration par parties.
+  prerequis:
+  - TLE-INT-CALC
+  - TLE-INT-APP
+  resume: |
+    - Fonction impaire sur $[-a ; a]$ : intégrale nulle.
+    - $\displaystyle\int \dfrac{u'}{u} = \ln|u|$.
+    - $\displaystyle\int_1^e \ln x\,dx = \big[x\ln x - x\big]_1^e = 1$.
+  cours: |
+    ## Symétrie
+    $\displaystyle\int_{-1}^{1} x^3\,dx = 0$ : les aires de part et d'autre de $0$ se compensent.
+
+    ## Reconnaitre une forme
+    $\displaystyle\int_0^{\ln 2} \frac{e^x}{1 + e^x}\,dx = \big[\ln(1 + e^x)\big]_0^{\ln 2} = \ln 3 - \ln 2 = \ln\frac{3}{2}$.
+
+    ## Par parties
+    $\displaystyle\int_1^e \ln x\,dx$ avec $u = \ln x$, $v' = 1$ : $\big[x\ln x\big]_1^e - \int_1^e 1\,dx = e - (e - 1) = 1$.
+  methodes:
+  - titre: Repérer une forme u'/u
+    etapes:
+    - Regarder si le numérateur est la dérivée du dénominateur (à une constante près).
+    - Intégrer en ln du dénominateur.
+    exemple:
+      enonce: $\displaystyle\int_0^1 \dfrac{2x}{x^2 + 1}\,dx$.
+      resolution:
+      - $\big[\ln(x^2 + 1)\big]_0^1$.
+      resultat: $\ln 2$
+  erreurs_frequentes:
+  - erreur: Calculer laborieusement une intégrale nulle par symétrie.
+    explication: Vérifier d'abord la parité de la fonction sur un intervalle symétrique.
+  questions:
+  - code: TLE-EX-INTEGRALES-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 x^9\,dx$.
+    solution: 1/10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\left[\dfrac{x^{10}}{10}\right]_0^1 = \dfrac{1}{10}$.
+      resultat: 1/10
+  - code: TLE-EX-INTEGRALES-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\displaystyle\int_{-1}^{1} x^3\,dx$.
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Fonction impaire sur un intervalle symétrique.
+      resultat: '0'
+  - code: TLE-EX-INTEGRALES-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^1 e^{-x}\,dx$ (valeur exacte).
+    solution: 1 - e^(-1)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[-e^{-x}\big]_0^1 = 1 - e^{-1}$.
+      resultat: 1 - e^(-1)
+  - code: TLE-EX-INTEGRALES-04
+    difficulte: 4
+    type: numerique
+    enonce: Calculer $\displaystyle\int_1^e \ln x\,dx$.
+    solution: '1'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: Intégration par parties.
+      etapes:
+      - $\big[x\ln x - x\big]_1^e = (e - e) - (0 - 1) = 1$.
+      resultat: '1'
+  - code: TLE-EX-INTEGRALES-05
+    difficulte: 5
+    type: numerique
+    enonce: Calculer $\displaystyle\int_0^{\ln 2} \dfrac{e^x}{1 + e^x}\,dx$ (valeur exacte).
+    solution: ln(3/2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Forme $\dfrac{u''}{u}$ avec $u = 1 + e^x$ : $\big[\ln(1 + e^x)\big]_0^{\ln 2} = \ln 3 - \ln 2$.'
+      resultat: ln(3/2)
+- code: TLE-EX-INT-PB
+  libelle: 'Problème guidé : la suite d''intégrales J(n)'
+  objectifs:
+  - Établir une relation entre termes consécutifs, étudier monotonie et limite.
+  prerequis:
+  - TLE-EX-INTEGRALES
+  resume: |
+    - $J_n = \displaystyle\int_0^1 \dfrac{x^n}{1 + x}\,dx$.
+    - $J_n + J_{n+1} = \dfrac{1}{n + 1}$.
+    - $0 \leq J_n \leq \dfrac{1}{n + 1}$, donc $J_n \to 0$.
+  cours: |
+    ## Le problème
+    Les intégrales $J_n$ ne se calculent pas directement, mais une relation de récurrence et un encadrement suffisent à tout savoir.
+
+    ## Relation
+    $J_n + J_{n+1} = \displaystyle\int_0^1 \frac{x^n(1 + x)}{1 + x}\,dx = \int_0^1 x^n\,dx = \frac{1}{n + 1}$.
+
+    ## Monotonie et limite
+    Sur $[0 ; 1]$, $x^{n+1} \leq x^n$, donc $J_{n+1} \leq J_n$. Et $\dfrac{x^n}{1 + x} \leq x^n$ donne $0 \leq J_n \leq \dfrac{1}{n + 1}$.
+  methodes:
+  - titre: Encadrer une intégrale pour trouver sa limite
+    etapes:
+    - Encadrer la fonction intégrée sur l'intervalle.
+    - Intégrer l'encadrement (croissance de l'intégrale).
+    - Appliquer le théorème des gendarmes.
+    exemple:
+      enonce: $K_n = \displaystyle\int_0^1 x^ne^{x}\,dx$.
+      resolution:
+      - $0 \leq x^ne^x \leq ex^n$, donc $0 \leq K_n \leq \dfrac{e}{n + 1}$.
+      resultat: $K_n \to 0$
+  erreurs_frequentes:
+  - erreur: Chercher une primitive de x^n/(1 + x) pour tout n.
+    explication: La relation de récurrence évite ce calcul.
+  questions:
+  - code: TLE-EX-INT-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (suite J), étape 1 : calculer $J_0 = \displaystyle\int_0^1 \dfrac{1}{1 + x}\,dx$ (valeur exacte).'
+    solution: ln(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\big[\ln(1 + x)\big]_0^1 = \ln 2$.
+      resultat: ln(2)
+  - code: TLE-EX-INT-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (suite J), étape 2 : sachant que $J_0 + J_1 = 1$, donner la valeur exacte de $J_1$.'
+    solution: 1 - ln(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $J_0 + J_1 = \displaystyle\int_0^1 1\,dx = 1$, donc $J_1 = 1 - \ln 2$.
+      resultat: 1 - ln(2)
+  - code: TLE-EX-INT-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (suite J), étape 3 : sachant que $J_1 + J_2 = \dfrac{1}{2}$, donner la valeur exacte de $J_2$.'
+    solution: ln(2) - 1/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $J_2 = \dfrac{1}{2} - (1 - \ln 2) = \ln 2 - \dfrac{1}{2}$.
+      resultat: ln(2) - 1/2
+  - code: TLE-EX-INT-PB-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Problème guidé (suite J), étape 4 : la suite $(J_n)$ est : A) décroissante  B) croissante  C) constante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Sur $[0 ; 1]$, $x^{n+1} \leq x^n$, donc $J_{n+1} \leq J_n$.
+      resultat: A
+  - code: TLE-EX-INT-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (suite J), étape 5 : en encadrant $J_n$ entre 0 et $\dfrac{1}{n + 1}$, déterminer $\lim J_n$.'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Théorème des gendarmes.
+      resultat: '0'

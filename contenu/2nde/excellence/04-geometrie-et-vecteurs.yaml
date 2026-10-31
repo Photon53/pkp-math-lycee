@@ -1,0 +1,176 @@
+chapitre:
+  code: 2NDE-EX-GEO
+  niveau: 2nde
+  parcours: excellence
+  ordre: 4
+  titre: Géométrie et vecteurs approfondis
+competences:
+- code: 2NDE-EX-GEOMETRIE
+  libelle: Calculer longueurs, angles et aires dans des configurations riches
+  objectifs:
+  - Utiliser Pythagore, angles inscrits et coordonnées pour des calculs exacts.
+  prerequis:
+  - 2NDE-VEC-COORD
+  - 2NDE-RAC
+  resume: |
+    - Triangle équilatéral de côté $a$ : hauteur $\dfrac{a\sqrt3}{2}$, aire $\dfrac{a^2\sqrt3}{4}$.
+    - Angle inscrit = moitié de l'angle au centre qui intercepte le même arc.
+    - Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse.
+  cours: |
+    ## Configurations à connaitre
+    - Diagonale d'un carré de côté $a$ : $a\sqrt2$.
+    - Triangle équilatéral de côté $2$ : hauteur $\sqrt3$, aire $\sqrt3$.
+
+    ## Angles dans un cercle
+    Un angle au centre de $100°$ intercepte le même arc qu'un angle inscrit de $50°$.
+
+    ## Cercles et carré
+    Cercle inscrit dans un carré de côté $2$ : rayon $1$ ; cercle circonscrit : rayon $\sqrt2$. Rapport des aires : $\dfrac{(\sqrt2)^2}{1^2} = 2$.
+  methodes:
+  - titre: Calculer avec des coordonnées
+    etapes:
+    - Placer un repère adapté (origine au sommet de l'angle droit).
+    - Calculer milieux et distances avec les formules.
+    exemple:
+      enonce: '$A(0 ; 0)$, $B(6 ; 0)$, $C(0 ; 8)$ : longueur de la médiane issue de $A$.'
+      resolution:
+      - 'Milieu de $[BC]$ : $(3 ; 4)$, à distance $5$ de $A$.'
+      resultat: 5 (moitié de l'hypoténuse 10)
+  erreurs_frequentes:
+  - erreur: Prendre l'angle inscrit égal à l'angle au centre.
+    explication: L'angle inscrit en est la moitié.
+  questions:
+  - code: 2NDE-EX-GEOMETRIE-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer l'aire d'un triangle équilatéral de côté 2 (valeur exacte).
+    solution: sqrt(3)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Hauteur $\sqrt{4 - 1} = \sqrt3$ ; aire $\dfrac{2 \times \sqrt3}{2} = \sqrt3$.
+      resultat: sqrt(3)
+  - code: 2NDE-EX-GEOMETRIE-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer la longueur de la diagonale d'un carré de côté 1 (valeur exacte).
+    solution: sqrt(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\sqrt{1 + 1} = \sqrt2$.
+      resultat: sqrt(2)
+  - code: 2NDE-EX-GEOMETRIE-03
+    difficulte: 3
+    type: numerique
+    enonce: Dans un cercle, un angle au centre mesure 100°. Combien mesure un angle inscrit qui intercepte le même arc (en degrés) ?
+    solution: '50'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - L'angle inscrit vaut la moitié de l'angle au centre.
+      resultat: '50'
+  - code: 2NDE-EX-GEOMETRIE-04
+    difficulte: 4
+    type: numerique
+    enonce: $A(0 ; 0)$, $B(4 ; 0)$ et $C(0 ; 3)$. Calculer la longueur de la médiane issue de $A$.
+    solution: '2.5'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Milieu de $[BC]$ : $(2 ; 1{,}5)$ ; distance à $A$ : $\sqrt{4 + 2{,}25} = 2{,}5$.'
+      - 'Moitié de l''hypoténuse BC = 5 : propriété du triangle rectangle.'
+      resultat: '2.5'
+  - code: 2NDE-EX-GEOMETRIE-05
+    difficulte: 5
+    type: numerique
+    enonce: Un carré de côté 2 a un cercle inscrit et un cercle circonscrit. Combien de fois l'aire du disque circonscrit est-elle plus grande que celle du disque inscrit ?
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Rayons $1$ et $\sqrt2$ (demi-diagonale).
+      - 'Rapport des aires : $\dfrac{\pi \times 2}{\pi \times 1} = 2$.'
+      resultat: '2'
+- code: 2NDE-EX-GEO-PB
+  libelle: 'Problème guidé : le centre de gravité d''un triangle'
+  objectifs:
+  - Calculer milieu, médiane et centre de gravité, puis une propriété d'aire.
+  prerequis:
+  - 2NDE-EX-GEOMETRIE
+  resume: |
+    - Le centre de gravité $G$ est aux deux tiers de chaque médiane en partant du sommet.
+    - $G$ a pour coordonnées la moyenne des coordonnées des sommets.
+    - $G$ découpe le triangle en trois triangles de même aire.
+  cours: |
+    ## Le problème
+    Triangle $A(0 ; 0)$, $B(6 ; 0)$, $C(0 ; 6)$ : on construit le milieu $I$ de $[BC]$, la médiane $[AI]$, puis le centre de gravité $G$.
+
+    ## Coordonnées
+    $I(3 ; 3)$, $G\left(\dfrac{0 + 6 + 0}{3} ; \dfrac{0 + 0 + 6}{3}\right) = (2 ; 2)$, et $AG = \dfrac{2}{3}AI$.
+
+    ## Aires
+    Les triangles $GBC$, $GCA$, $GAB$ ont chacun pour aire le tiers de celle de $ABC$.
+  methodes:
+  - titre: Placer le centre de gravité
+    etapes:
+    - Faire la moyenne des abscisses, puis des ordonnées des trois sommets.
+    exemple:
+      enonce: $A(1 ; 1)$, $B(4 ; 1)$, $C(1 ; 7)$.
+      resolution:
+      - $\left(\dfrac{6}{3} ; \dfrac{9}{3}\right)$.
+      resultat: $G(2 ; 3)$
+  erreurs_frequentes:
+  - erreur: Placer G au milieu de la médiane.
+    explication: G est aux deux tiers depuis le sommet.
+  questions:
+  - code: 2NDE-EX-GEO-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (centre de gravité), étape 1 : $A(0 ; 0)$, $B(6 ; 0)$, $C(0 ; 6)$. Quelle est l''abscisse du milieu $I$ de $[BC]$ ?'
+    solution: '3'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{6 + 0}{2} = 3$.
+      resultat: '3'
+  - code: 2NDE-EX-GEO-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (centre de gravité), étape 2 : calculer la longueur de la médiane $AI$ (valeur exacte).'
+    solution: 3sqrt(2)
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$I(3 ; 3)$ : $AI = \sqrt{9 + 9} = 3\sqrt2$.'
+      resultat: 3sqrt(2)
+  - code: 2NDE-EX-GEO-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (centre de gravité), étape 3 : quelle est l''abscisse du centre de gravité $G$ ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{0 + 6 + 0}{3} = 2$ (et $G$ est bien aux deux tiers de $[AI]$).
+      resultat: '2'
+  - code: 2NDE-EX-GEO-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (centre de gravité), étape 4 : calculer $GA^2 + GB^2 + GC^2$.'
+    solution: '48'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$G(2 ; 2)$ : $GA^2 = 8$, $GB^2 = 16 + 4 = 20$, $GC^2 = 4 + 16 = 20$.'
+      resultat: '48'
+  - code: 2NDE-EX-GEO-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (centre de gravité), étape 5 : calculer l''aire du triangle $GBC$.'
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Aire de $ABC$ : $\dfrac{6 \times 6}{2} = 18$, et $G$ partage le triangle en trois aires égales : $6$.'
+      resultat: '6'

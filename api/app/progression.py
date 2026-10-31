@@ -10,6 +10,7 @@ from pkp_engine import calculer_maitrise, est_maitrisee
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app import inscriptions
 from app.db import models
 from app.config import settings
 from app.db.conversions import historique_eleve
@@ -103,6 +104,7 @@ def resume_eleve(session: Session, eleve: models.Eleve) -> EleveResume:
         taux_reussite=sum(r.correcte for r in historique) / len(historique) if historique else None,
         competences_maitrisees=sum(est_maitrisee(historique, c.id) for c in competences),
         competences_total=len(competences),
+        classes_liees=[e.classe.code for e in inscriptions.liees(session, eleve)],
     )
 
 

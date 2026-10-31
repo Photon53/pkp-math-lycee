@@ -1,0 +1,178 @@
+chapitre:
+  code: 1RE-EX-POLY
+  niveau: 1re
+  parcours: excellence
+  ordre: 5
+  titre: Second degré avec paramètre, somme et produit des racines
+competences:
+- code: 1RE-EX-POLYNOMES
+  libelle: Utiliser somme et produit des racines sans les calculer
+  objectifs:
+  - Utiliser S = −b/a et P = c/a.
+  - Calculer des expressions symétriques des racines.
+  prerequis:
+  - 1RE-SD-FACTO-SIGNE
+  - 1RE-DISC
+  resume: |
+    - Si $x_1$ et $x_2$ sont racines de $ax^2 + bx + c$ : $x_1 + x_2 = -\dfrac{b}{a}$ et $x_1x_2 = \dfrac{c}{a}$.
+    - $x_1^2 + x_2^2 = S^2 - 2P$ et $\dfrac{1}{x_1} + \dfrac{1}{x_2} = \dfrac{S}{P}$.
+    - Racine double : $\Delta = 0$.
+  cours: |
+    ## Somme et produit
+    $x^2 - 7x + 10$ : $S = 7$, $P = 10$ (racines 2 et 5).
+
+    ## Expressions symétriques
+    Racines de $x^2 - 3x + 1$ : $x_1^2 + x_2^2 = 9 - 2 = 7$, sans calculer les racines ($\dfrac{3 \pm \sqrt5}{2}$).
+
+    ## Racine double
+    $x^2 + mx + 9$ a une racine double si $m^2 - 36 = 0$, soit $m = \pm 6$.
+  methodes:
+  - titre: Calculer une expression symétrique des racines
+    etapes:
+    - Lire S et P sur les coefficients.
+    - Écrire l'expression en fonction de S et P.
+    exemple:
+      enonce: $(x_1 - x_2)^2$ pour $x^2 - 5x + 2$.
+      resolution:
+      - $S^2 - 4P = 25 - 8$.
+      resultat: '17'
+  erreurs_frequentes:
+  - erreur: Écrire S = b/a.
+    explication: La somme des racines est −b/a.
+  questions:
+  - code: 1RE-EX-POLYNOMES-01
+    difficulte: 1
+    type: numerique
+    enonce: Quelle est la somme des racines de $x^2 - 7x + 10$ ?
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $-\dfrac{-7}{1} = 7$ (racines 2 et 5).
+      resultat: '7'
+  - code: 1RE-EX-POLYNOMES-02
+    difficulte: 2
+    type: numerique
+    enonce: Quel est le produit des racines de $2x^2 + 3x - 8$ ?
+    solution: '-4'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{c}{a} = \dfrac{-8}{2} = -4$ ($\Delta = 73 > 0$, les racines existent).
+      resultat: '-4'
+  - code: 1RE-EX-POLYNOMES-03
+    difficulte: 3
+    type: numerique
+    enonce: Pour quelle valeur strictement positive de $m$ le trinôme $x^2 + mx + 9$ a-t-il une racine double ?
+    solution: '6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\Delta = m^2 - 36 = 0$, donc $m = 6$ (ou $-6$).
+      resultat: '6'
+  - code: 1RE-EX-POLYNOMES-04
+    difficulte: 4
+    type: numerique
+    enonce: $x_1$ et $x_2$ sont les racines de $x^2 - 3x + 1$. Calculer $x_1^2 + x_2^2$.
+    solution: '7'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $S^2 - 2P = 9 - 2 = 7$.
+      resultat: '7'
+  - code: 1RE-EX-POLYNOMES-05
+    difficulte: 5
+    type: numerique
+    enonce: $x_1$ et $x_2$ sont les racines de $x^2 - 5x + 3$. Calculer $\dfrac{1}{x_1} + \dfrac{1}{x_2}$.
+    solution: 5/3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{x_1 + x_2}{x_1x_2} = \dfrac{S}{P} = \dfrac{5}{3}$.
+      resultat: 5/3
+- code: 1RE-EX-POLY-PB
+  libelle: 'Problème guidé : une équation avec paramètre'
+  objectifs:
+  - Discuter le nombre de solutions selon un paramètre.
+  prerequis:
+  - 1RE-EX-POLYNOMES
+  resume: |
+    - $(m - 1)x^2 - 2mx + m + 2 = 0$ : du premier degré si $m = 1$.
+    - Sinon $\Delta = 4m^2 - 4(m - 1)(m + 2) = 8 - 4m$.
+  cours: |
+    ## Le problème
+    On étudie $(E_m) : (m - 1)x^2 - 2mx + m + 2 = 0$ selon la valeur du réel $m$.
+
+    ## Cas particulier
+    $m = 1$ : $-2x + 3 = 0$, une solution $\dfrac{3}{2}$.
+
+    ## Discussion
+    $m \neq 1$ : $\Delta = 8 - 4m$.
+    - $m < 2$ ($m \neq 1$) : deux solutions ;
+    - $m = 2$ : une solution double $x = \dfrac{2m}{2(m - 1)} = 2$ ;
+    - $m > 2$ : aucune solution.
+  methodes:
+  - titre: Discuter selon un paramètre
+    etapes:
+    - Traiter à part la valeur qui annule le coefficient de x².
+    - Calculer Δ en fonction du paramètre.
+    - Étudier le signe de Δ.
+    exemple:
+      enonce: $x^2 + 2x + m = 0$.
+      resolution:
+      - $\Delta = 4 - 4m$.
+      resultat: Deux solutions si $m < 1$, une si $m = 1$, aucune si $m > 1$.
+  erreurs_frequentes:
+  - erreur: Oublier le cas où le coefficient de x² est nul.
+    explication: L'équation n'est alors plus du second degré.
+  questions:
+  - code: 1RE-EX-POLY-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (paramètre), étape 1 : $(m - 1)x^2 - 2mx + m + 2 = 0$. Pour $m = 1$, l''équation est du premier degré. Quelle est sa solution ?'
+    solution: 3/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $-2x + 3 = 0$, donc $x = \dfrac{3}{2}$.
+      resultat: 3/2
+  - code: 1RE-EX-POLY-PB-02
+    difficulte: 2
+    type: expression
+    enonce: 'Problème guidé (paramètre), étape 2 : pour $m \neq 1$, exprimer le discriminant en fonction de $m$.'
+    solution: 8 - 4m
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $4m^2 - 4(m - 1)(m + 2) = 4m^2 - 4(m^2 + m - 2) = 8 - 4m$.
+      resultat: 8 - 4m
+  - code: 1RE-EX-POLY-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (paramètre), étape 3 : pour quelle valeur de $m$ l''équation a-t-elle une solution double ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $8 - 4m = 0$, donc $m = 2$.
+      resultat: '2'
+  - code: 1RE-EX-POLY-PB-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Problème guidé (paramètre), étape 4 : quelle est cette solution double (pour $m = 2$) ?'
+    solution: '2'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $x^2 - 4x + 4 = (x - 2)^2 = 0$, donc $x = 2$.
+      resultat: '2'
+  - code: 1RE-EX-POLY-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (paramètre), étape 5 : quel est le plus grand entier $m$ pour lequel l''équation a deux solutions distinctes ?'
+    solution: '0'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Il faut $m \neq 1$ et $8 - 4m > 0$, soit $m < 2$ : le plus grand entier possible est $0$.'
+      resultat: '0'

@@ -1,0 +1,178 @@
+chapitre:
+  code: TLE-EX-ECG
+  niveau: Tle
+  parcours: excellence
+  ordre: 6
+  titre: Vers la prépa commerciale (ECG), probabilités et suites
+competences:
+- code: TLE-EX-ECG-PROBA
+  libelle: Modéliser par des probabilités et des suites récurrentes
+  objectifs:
+  - Calculer des probabilités de tirages, d'unions et d'événements contraires.
+  - Exploiter une suite arithmético-géométrique.
+  prerequis:
+  - TLE-BINOM-ESP
+  - TLE-SUI-REC
+  resume: |
+    - Tirage sans remise de $k$ boules : $\dfrac{\text{combinaisons favorables}}{\text{combinaisons possibles}}$.
+    - $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ ; si indépendance, $P(A \cap B) = P(A)P(B)$.
+    - $V(X) = np(1 - p)$ pour une loi binomiale.
+    - « Au moins deux identiques » : passer par le contraire « tous différents ».
+  cours: |
+    ## Tirages
+    Urne de 3 rouges et 2 bleues, 2 boules sans remise : $P(\text{2 rouges}) = \dfrac{\binom{3}{2}}{\binom{5}{2}} = \dfrac{3}{10}$.
+
+    ## Suite arithmético-géométrique
+    $u_{n+1} = 2u_n - 3$ : point fixe $3$, et $u_n - 3 = 2^n(u_0 - 3)$.
+
+    ## Paradoxe des anniversaires (mois)
+    Trois personnes : $P(\text{mois tous différents}) = \dfrac{12 \times 11 \times 10}{12^3} = \dfrac{55}{72}$, donc $P(\text{au moins deux le même mois}) = \dfrac{17}{72}$.
+  methodes:
+  - titre: Calculer « au moins deux identiques »
+    etapes:
+    - Calculer la probabilité que tous soient différents (produit décroissant).
+    - Prendre le complément à 1.
+    exemple:
+      enonce: 'Deux dés : probabilité d''obtenir deux faces identiques ?'
+      resolution:
+      - 'Différentes : $\dfrac{6 \times 5}{36} = \dfrac{5}{6}$.'
+      resultat: $\dfrac{1}{6}$
+  erreurs_frequentes:
+  - erreur: Additionner P(A) et P(B) sans retirer l'intersection.
+    explication: Les issues communes seraient comptées deux fois.
+  questions:
+  - code: TLE-EX-ECG-PROBA-01
+    difficulte: 1
+    type: numerique
+    enonce: Une urne contient 3 boules rouges et 2 bleues. On tire 2 boules sans remise. Quelle est la probabilité d'obtenir 2 rouges ?
+    solution: 3/10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.
+      resultat: 3/10
+  - code: TLE-EX-ECG-PROBA-02
+    difficulte: 2
+    type: numerique
+    enonce: $X$ suit la loi binomiale $\mathcal B\left(10 ; \dfrac{1}{2}\right)$. Calculer $V(X)$.
+    solution: 5/2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $np(1 - p) = 10 \times \dfrac{1}{2} \times \dfrac{1}{2} = \dfrac{5}{2}$.
+      resultat: 5/2
+  - code: TLE-EX-ECG-PROBA-03
+    difficulte: 3
+    type: numerique
+    enonce: $u_0 = 4$ et $u_{n+1} = 2u_n - 3$. Calculer $u_{10}$.
+    solution: '1027'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Point fixe : $\ell = 2\ell - 3$, $\ell = 3$ ; $u_n - 3 = 2^n(4 - 3)$.'
+      - $u_{10} = 3 + 1\,024 = 1\,027$.
+      resultat: '1027'
+  - code: TLE-EX-ECG-PROBA-04
+    difficulte: 4
+    type: numerique
+    enonce: $A$ et $B$ sont indépendants, $P(A) = 0{,}3$ et $P(B) = 0{,}5$. Calculer $P(A \cup B)$.
+    solution: '0.65'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}3 + 0{,}5 - 0{,}3 \times 0{,}5 = 0{,}65$.
+      resultat: '0.65'
+  - code: TLE-EX-ECG-PROBA-05
+    difficulte: 5
+    type: numerique
+    enonce: Trois personnes sont choisies au hasard ; on suppose les 12 mois de naissance équiprobables et indépendants. Quelle est la probabilité qu'au moins deux soient nées le même mois ?
+    solution: 17/72
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Tous différents : $\dfrac{12 \times 11 \times 10}{12^3} = \dfrac{1\,320}{1\,728} = \dfrac{55}{72}$.'
+      - $1 - \dfrac{55}{72} = \dfrac{17}{72}$.
+      resultat: 17/72
+- code: TLE-EX-ECG-PB
+  libelle: 'Problème guidé : la fidélité des clients (chaîne à deux états)'
+  objectifs:
+  - Modéliser une évolution aléatoire par une suite arithmético-géométrique et étudier sa limite.
+  prerequis:
+  - TLE-EX-ECG-PROBA
+  resume: |
+    - $p_{n+1} = 0{,}8p_n + 0{,}3(1 - p_n) = 0{,}5p_n + 0{,}3$ (probabilités totales).
+    - Point fixe $0{,}6$ ; $p_n = 0{,}6 + (p_0 - 0{,}6) \times 0{,}5^n$.
+  cours: |
+    ## Le problème
+    Un client fidèle le reste le mois suivant avec la probabilité $0{,}8$ ; un client parti revient avec la probabilité $0{,}3$. Au départ, le client est fidèle ($p_0 = 1$). Que devient sa probabilité d'être fidèle ?
+
+    ## Mise en équation
+    Probabilités totales : $p_{n+1} = 0{,}8p_n + 0{,}3(1 - p_n) = 0{,}5p_n + 0{,}3$.
+
+    ## Résolution
+    Point fixe $\ell = 0{,}6$, $p_n - 0{,}6 = 0{,}4 \times 0{,}5^n$, donc $p_n \to 0{,}6$ : à long terme, 60 % des clients sont fidèles, quel que soit le départ.
+  methodes:
+  - titre: Passer d'un arbre à une récurrence
+    etapes:
+    - Dessiner l'arbre d'une étape à la suivante.
+    - Appliquer les probabilités totales.
+    - Résoudre la récurrence arithmético-géométrique obtenue.
+    exemple:
+      enonce: Rester $0{,}9$, revenir $0{,}2$.
+      resolution:
+      - $p_{n+1} = 0{,}7p_n + 0{,}2$, point fixe $\dfrac{2}{3}$.
+      resultat: Limite $\dfrac{2}{3}$
+  erreurs_frequentes:
+  - erreur: Oublier la branche des clients qui reviennent.
+    explication: Elle contribue aussi à la probabilité d'être fidèle au mois suivant.
+  questions:
+  - code: TLE-EX-ECG-PB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Problème guidé (fidélité), étape 1 : un client fidèle le reste avec la probabilité 0,8 ; un client parti revient avec la probabilité 0,3. Il est fidèle au départ ($p_0 = 1$). Calculer $p_1$.'
+    solution: '0.8'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}8 \times 1 + 0{,}3 \times 0 = 0{,}8$.
+      resultat: '0.8'
+  - code: TLE-EX-ECG-PB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Problème guidé (fidélité), étape 2 : on a $p_{n+1} = 0{,}5p_n + 0{,}3$. Quel est le point fixe de cette récurrence ?'
+    solution: '0.6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\ell = 0{,}5\ell + 0{,}3$, donc $\ell = 0{,}6$.
+      resultat: '0.6'
+  - code: TLE-EX-ECG-PB-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Problème guidé (fidélité), étape 3 : calculer $p_3$ (avec $p_0 = 1$).'
+    solution: '0.65'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $p_1 = 0{,}8$, $p_2 = 0{,}7$, $p_3 = 0{,}65$.
+      resultat: '0.65'
+  - code: TLE-EX-ECG-PB-04
+    difficulte: 4
+    type: expression
+    enonce: 'Problème guidé (fidélité), étape 4 : exprimer $p_n$ en fonction de $n$.'
+    solution: 0.6 + 0.4*0.5^n
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $p_n - 0{,}6$ est géométrique de raison $0{,}5$ et de premier terme $0{,}4$.
+      resultat: 0.6 + 0.4*0.5^n
+  - code: TLE-EX-ECG-PB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Problème guidé (fidélité), étape 5 : vers quelle valeur tend $p_n$ ?'
+    solution: '0.6'
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $0{,}5^n \to 0$, donc $p_n \to 0{,}6$.
+      resultat: '0.6'

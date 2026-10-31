@@ -25,6 +25,8 @@ from app.progression import (
     progression_eleve,
     resume_eleve,
 )
+from app import inscriptions
+from app.referentiel import ABREVIATIONS_PARCOURS
 from app.schemas import (
     ChangementMotDePasse,
     ChapitreProgramme,
@@ -37,6 +39,8 @@ from app.schemas import (
     CreationEleves,
     EleveResume,
     JetonEnseignant,
+    LienCreation,
+    LiensEleve,
     PageHistorique,
     ProgressionCompetence,
     QuestionEnseignant,
@@ -139,7 +143,8 @@ def mes_classes(enseignant: EnseignantCourant, session: SessionDB) -> list[Class
 @router.post("/classes", response_model=ClasseResume, status_code=status.HTTP_201_CREATED)
 def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: SessionDB) -> ClasseResume:
     while True:
-        code = f"{PREFIXES_CODE[corps.niveau]}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
+        prefixe = f"{PREFIXES_CODE[corps.niveau]}-{ABREVIATIONS_PARCOURS[corps.parcours]}"
+        code = f"{prefixe}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
         if not session.scalar(select(models.Classe).where(models.Classe.code == code)):
             break
     classe = models.Classe(code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant)
@@ -243,10 +248,52 @@ def generer_codes_manquants(classe_id: int, enseignant: EnseignantCourant, sessi
 
 @router.post("/eleves/{eleve_id}/code", response_model=CodeEleve)
 def nouveau_code(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> CodeEleve:
-    """Code oublié ou divulgué : en génère un nouveau ; l'ancien et ses sessions cessent de fonctionner."""
-    code = _attribuer_code(_mon_eleve(session, eleve_id, enseignant))
+    """Code oublié ou divulgué : en génère un nouveau ; l'ancien et ses sessions cessent de fonctionner.
+    Il vaut pour toutes les inscriptions reliées du même élève (un seul code à retenir)."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    code = _attribuer_code(eleve)
+    for autre in inscriptions.liees(session, eleve):
+        autre.code_hash = eleve.code_hash
     session.commit()
     return code
+
+
+# --- Même élève dans plusieurs parcours ----------------------------------------
+
+
+def _liens(session: SessionDB, eleve: models.Eleve) -> LiensEleve:
+    return LiensEleve(
+        liees=[inscriptions.decrire(e) for e in inscriptions.liees(session, eleve)],
+        suggestions=[inscriptions.decrire(e) for e in inscriptions.suggestions(session, eleve)],
+    )
+
+
+@router.get("/eleves/{eleve_id}/liens", response_model=LiensEleve)
+def liens_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> LiensEleve:
+    """Autres inscriptions du même élève, et inscriptions du même prénom dans vos autres classes."""
+    return _liens(session, _mon_eleve(session, eleve_id, enseignant))
+
+
+@router.post("/eleves/{eleve_id}/liens", response_model=LiensEleve)
+def relier_eleve(eleve_id: int, corps: LienCreation, enseignant: EnseignantCourant, session: SessionDB) -> LiensEleve:
+    """Relie deux inscriptions du même élève (vos deux classes) : il passe de l'une à l'autre avec un seul code,
+    celui de l'inscription `eleve_id`."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    try:
+        inscriptions.relier(session, eleve, _mon_eleve(session, corps.eleve_id, enseignant))
+    except inscriptions.LienImpossible as exc:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
+    session.commit()
+    return _liens(session, eleve)
+
+
+@router.delete("/eleves/{eleve_id}/liens", response_model=LiensEleve)
+def delier_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> LiensEleve:
+    """Détache cette inscription des autres parcours de l'élève."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    inscriptions.delier(session, eleve)
+    session.commit()
+    return _liens(session, eleve)
 
 
 @router.get("/eleves/{eleve_id}/progression", response_model=list[ProgressionCompetence])
@@ -271,7 +318,10 @@ def exporter_eleve(eleve_id: int, enseignant: EnseignantCourant, session: Sessio
 @router.delete("/classes/{classe_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> Response:
     """Fin d'année : supprime la classe, ses élèves, leurs séances et réponses."""
-    session.delete(_ma_classe(session, classe_id, enseignant))
+    classe = _ma_classe(session, classe_id, enseignant)
+    for eleve in classe.eleves:
+        inscriptions.delier(session, eleve)  # leurs autres parcours restent, sans ce lien
+    session.delete(classe)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -279,7 +329,9 @@ def supprimer_classe(classe_id: int, enseignant: EnseignantCourant, session: Ses
 @router.delete("/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> Response:
     """Droit à l'effacement (RGPD) : supprime l'élève, ses séances et ses réponses."""
-    session.delete(_mon_eleve(session, eleve_id, enseignant))
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    inscriptions.delier(session, eleve)
+    session.delete(eleve)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
