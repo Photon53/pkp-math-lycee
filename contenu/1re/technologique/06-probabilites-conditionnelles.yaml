@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: 1RE-TEC-PCOND
   libelle: Calculer des probabilités conditionnelles (tableau, arbre)
+  attendus: [1RE-TEC-2026-AUTO-16, 1RE-TEC-2026-AUTO-17, 1RE-TEC-2026-SP-07, 1RE-TEC-2026-SP-08, 1RE-TEC-2026-SP-09, 1RE-TEC-2026-SP-10]
   objectifs:
   - Calculer une probabilité conditionnelle avec un tableau croisé ou un arbre.
   - Utiliser la formule des probabilités totales et l'indépendance.

@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-PROP
     libelle: Calculer et utiliser une proportion
+    attendus: [2NDE-2026-AUTO-13, 2NDE-2026-AUTO-14, 2NDE-2026-STAT-01, 2NDE-2026-STAT-10, 2NDE-2026-STAT-11]
     objectifs:
     - Calculer une proportion, une part d'un tout, et une proportion de proportion.
     methodes:
@@ -98,6 +99,7 @@ competences:
 
   - code: 2NDE-EVO
     libelle: Calculer des évolutions et des taux
+    attendus: [2NDE-2026-AUTO-15, 2NDE-2026-STAT-02, 2NDE-2026-STAT-03, 2NDE-2026-STAT-12, 2NDE-2026-STAT-13]
     objectifs:
     - Utiliser le coefficient multiplicateur pour des évolutions simples, successives ou réciproques.
     prerequis:

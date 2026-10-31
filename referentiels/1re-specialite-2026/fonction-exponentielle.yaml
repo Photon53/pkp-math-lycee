@@ -1,0 +1,18 @@
+# Partie « Analyse », rubrique « Fonction exponentielle » (page 8 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: EXP
+  titre: Fonction exponentielle
+  partie: Analyse
+
+attendus:
+  - {code: 1RE-SPE-2026-EXP-01, type: contenu, page: 8, texte: "Définition de la fonction exponentielle comme unique fonction dérivable sur ℝ vérifiant ƒ′ = ƒ et ƒ(0) = 1. L’existence et l’unicité sont admises. Notation exp(x)."}
+  - {code: 1RE-SPE-2026-EXP-02, type: contenu, page: 8, texte: "Pour tous réels x et y, exp(x + y) = exp(x) exp(y) et exp(x) exp(–x) = 1. Nombre e. Notation eˣ."}
+  - {code: 1RE-SPE-2026-EXP-03, type: contenu, page: 8, texte: "Signe, sens de variation et courbe représentative de la fonction exponentielle. Lien avec les suites géométriques."}
+  - {code: 1RE-SPE-2026-EXP-04, type: capacite, page: 8, texte: "Transformer une expression en utilisant les propriétés algébriques de la fonction exponentielle."}
+  - {code: 1RE-SPE-2026-EXP-05, type: capacite, page: 8, texte: "Pour a réel, dérivée de la fonction t ↦ e^(at)."}
+  - {code: 1RE-SPE-2026-EXP-06, type: capacite, page: 8, texte: "Pour une valeur numérique strictement positive de k, représenter graphiquement les fonctions t ↦ e^(–kt) et t ↦ e^(kt)."}
+  - {code: 1RE-SPE-2026-EXP-07, type: capacite, page: 8, texte: "Modéliser une situation par une croissance, une décroissance exponentielle (par exemple évolution d’un capital à taux fixe, décroissance radioactive)."}
+  - {code: 1RE-SPE-2026-EXP-08, type: approfondissement, page: 8, texte: "Unicité d’une fonction ƒ dérivable sur ℝ telle que vérifiant ƒ′ = ƒ et ƒ(0) = 1."}
+  - {code: 1RE-SPE-2026-EXP-09, type: approfondissement, page: 8, texte: "Pour tous réels x et y, exp(x + y) = exp(x) exp(y)."}
+  - {code: 1RE-SPE-2026-EXP-10, type: approfondissement, page: 8, texte: "La fonction exponentielle est strictement positive et croissante."}

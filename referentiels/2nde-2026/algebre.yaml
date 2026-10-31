@@ -1,0 +1,26 @@
+# Partie « Nombres et calculs, algèbre », rubrique « Algèbre » (page 7 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: ALG
+  titre: Algèbre
+  partie: Nombres et calculs, algèbre
+
+attendus:
+  - {code: 2NDE-2026-ALG-01, type: contenu, page: 7, texte: "Règles de calcul sur les puissances entières relatives, sur les racines carrées. Relation √(a²) = |a|."}
+  - {code: 2NDE-2026-ALG-02, type: contenu, page: 7, texte: "Exemples simples de calcul sur des expressions algébriques, en particulier sur des expressions fractionnaires."}
+  - {code: 2NDE-2026-ALG-03, type: contenu, page: 7, texte: "Somme d’inégalités. Produit d’une inégalité par un réel positif, négatif, en liaison avec le sens de variation d’une fonction affine."}
+  - {code: 2NDE-2026-ALG-04, type: contenu, page: 8, texte: "Comparaison additive (par différence), comparaison multiplicative (par rapport, pour deux nombres strictement positifs)."}
+  - {code: 2NDE-2026-ALG-05, type: contenu, page: 8, texte: "Ensemble des solutions des équations du type ax + b = 0, et des inéquations de la forme ax + b > 0."}
+  - {code: 2NDE-2026-ALG-06, type: contenu, page: 8, texte: "Équation de la forme A(x)B(x) = 0 (équation produit nul)."}
+  - {code: 2NDE-2026-ALG-07, type: contenu, page: 8, texte: "En liaison avec la section « Fonctions », étude du signe des expressions de la forme A(x)B(x) et A(x)/B(x)."}
+  - {code: 2NDE-2026-ALG-08, type: contenu, page: 8, texte: "Équation A(x)/B(x) = k (équation quotient) en lien avec l’ensemble de définition d’une expression."}
+  - {code: 2NDE-2026-ALG-09, type: capacite, page: 8, texte: "Effectuer des calculs numériques ou littéraux mettant en jeu des puissances, des racines carrées, des écritures fractionnaires."}
+  - {code: 2NDE-2026-ALG-10, type: capacite, page: 8, texte: "Sur des cas simples de relations entre variables (par exemple U = RI, d = vt, S = πr², V = abc, V = πr²h), exprimer une variable en fonction des autres. Cas d’une relation du premier degré ax + by = c."}
+  - {code: 2NDE-2026-ALG-11, type: capacite, page: 8, texte: "Choisir la forme la plus adaptée (factorisée, développée réduite) d’une expression en vue de la résolution d’un problème."}
+  - {code: 2NDE-2026-ALG-12, type: capacite, page: 8, texte: "Comparer deux quantités en utilisant leur différence, ou leur rapport (ratio) dans le cas de quantités positives. Interpréter, selon le contexte, cette comparaison en termes de variation additive ou multiplicative."}
+  - {code: 2NDE-2026-ALG-13, type: capacite, page: 8, texte: "Modéliser un problème par une inéquation."}
+  - {code: 2NDE-2026-ALG-14, type: capacite, page: 8, texte: "Donner l’ensemble des solutions d’une équation du premier degré du type ax = b, a + x = b, ax + b = cx + d, d’une inéquation du premier degré du type ax ⩾ b, a + x ⩾ b, ax + b ⩾ cx + d, d’une équation du type x² = a."}
+  - {code: 2NDE-2026-ALG-15, type: demonstration, page: 8, texte: "Quels que soient les réels positifs a et b, on a √ab = √a √b."}
+  - {code: 2NDE-2026-ALG-16, type: approfondissement, page: 8, texte: "Développement de (a + b + c)²."}
+  - {code: 2NDE-2026-ALG-17, type: approfondissement, page: 8, texte: "Développement de (a + b)³."}
+  - {code: 2NDE-2026-ALG-18, type: approfondissement, page: 8, texte: "Inégalité entre moyennes géométrique et arithmétique de deux réels strictement positifs."}

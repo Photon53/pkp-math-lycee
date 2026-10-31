@@ -1,0 +1,18 @@
+# Partie « Algorithmique et programmation », rubrique « Variables et instructions élémentaires » (page 4 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: ALGOVAR
+  titre: Variables et instructions élémentaires
+  partie: Algorithmique et programmation
+
+attendus:
+  - {code: 2NDE-2026-ALGOVAR-01, type: contenu, page: 4, texte: "Variables informatiques de type entier, booléen, flottant, chaine de caractères."}
+  - {code: 2NDE-2026-ALGOVAR-02, type: contenu, page: 5, texte: "Affectation (notée ← en langage naturel)."}
+  - {code: 2NDE-2026-ALGOVAR-03, type: contenu, page: 5, texte: "Séquence d’instructions."}
+  - {code: 2NDE-2026-ALGOVAR-04, type: contenu, page: 5, texte: "Instruction conditionnelle."}
+  - {code: 2NDE-2026-ALGOVAR-05, type: contenu, page: 5, texte: "Boucle bornée (for), boucle non bornée (while)."}
+  - {code: 2NDE-2026-ALGOVAR-06, type: capacite, page: 5, texte: "Choisir ou déterminer le type d’une variable (entier, flottant ou chaine de caractères)."}
+  - {code: 2NDE-2026-ALGOVAR-07, type: capacite, page: 5, texte: "Concevoir et écrire une instruction d’affectation, une séquence d’instructions, une instruction conditionnelle."}
+  - {code: 2NDE-2026-ALGOVAR-08, type: capacite, page: 5, texte: "Écrire une formule permettant un calcul combinant des variables."}
+  - {code: 2NDE-2026-ALGOVAR-09, type: capacite, page: 5, texte: "Programmer, dans des cas simples, une boucle bornée, une boucle non bornée."}
+  - {code: 2NDE-2026-ALGOVAR-10, type: capacite, page: 5, texte: "Dans des cas plus complexes : lire, comprendre, modifier ou compléter un algorithme ou un programme."}

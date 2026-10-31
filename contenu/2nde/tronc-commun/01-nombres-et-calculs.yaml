@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-FRAC
     libelle: Calculer avec des fractions
+    attendus: [2NDE-2026-ARITH-04, 2NDE-2026-AUTO-02, 2NDE-2026-ALG-09]
     objectifs:
     - Additionner, multiplier et diviser des fractions.
     - Donner un résultat sous forme irréductible.
@@ -136,6 +137,7 @@ competences:
 
   - code: 2NDE-PUIS
     libelle: Calculer avec des puissances
+    attendus: [2NDE-2026-ALG-01, 2NDE-2026-ALG-09, 2NDE-2026-AUTO-03]
     objectifs:
     - Calculer une puissance et appliquer les règles de calcul.
     - Connaitre le signe d'une puissance d'un nombre négatif.
@@ -244,6 +246,7 @@ competences:
 
   - code: 2NDE-RAC
     libelle: Calculer avec des racines carrées
+    attendus: [2NDE-2026-ALG-01, 2NDE-2026-ALG-09, 2NDE-2026-ALG-15]
     objectifs:
     - Calculer avec des racines carrées et simplifier $\sqrt{a}$.
     - Écrire un quotient sans racine carrée au dénominateur.

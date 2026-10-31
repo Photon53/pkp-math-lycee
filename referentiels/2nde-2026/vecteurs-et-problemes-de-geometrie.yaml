@@ -1,0 +1,30 @@
+# Partie « Géométrie », rubrique « Vecteurs et problèmes de géométrie » (page 9 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: VEC
+  titre: Vecteurs et problèmes de géométrie
+  partie: Géométrie
+
+attendus:
+  - {code: 2NDE-2026-VEC-01, type: contenu, page: 9, texte: "Égalité de deux vecteurs. Notation u⃗. Vecteur nul."}
+  - {code: 2NDE-2026-VEC-02, type: contenu, page: 9, texte: "Représentants d’un vecteur."}
+  - {code: 2NDE-2026-VEC-03, type: contenu, page: 9, texte: "Produit d’un vecteur par un nombre réel. Colinéarité de deux vecteurs."}
+  - {code: 2NDE-2026-VEC-04, type: contenu, page: 9, texte: "Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires."}
+  - {code: 2NDE-2026-VEC-05, type: contenu, page: 9, texte: "Base orthonormée. Coordonnées d’un vecteur. Expression de la norme d’un vecteur."}
+  - {code: 2NDE-2026-VEC-06, type: contenu, page: 9, texte: "Expression des coordonnées de A⃗⃗⃗⃗B⃗ en fonction de celles de A et de B."}
+  - {code: 2NDE-2026-VEC-07, type: contenu, page: 9, texte: "Déterminant de deux vecteurs dans une base orthonormée, critère de colinéarité. Application à l’alignement, au parallélisme."}
+  - {code: 2NDE-2026-VEC-08, type: contenu, page: 9, texte: "Caractérisation vectorielle du milieu d’un segment"}
+  - {code: 2NDE-2026-VEC-09, type: capacite, page: 9, texte: "Représenter la somme de deux vecteurs à partir de représentants de même origine."}
+  - {code: 2NDE-2026-VEC-10, type: capacite, page: 9, texte: "Représenter un vecteur dont on connait les coordonnées. Lire les coordonnées d’un vecteur."}
+  - {code: 2NDE-2026-VEC-11, type: capacite, page: 9, texte: "Calculer les coordonnées d’une somme de vecteurs, d’un produit d’un vecteur par un nombre réel."}
+  - {code: 2NDE-2026-VEC-12, type: capacite, page: 9, texte: "Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment."}
+  - {code: 2NDE-2026-VEC-13, type: capacite, page: 9, texte: "Caractériser alignement et parallélisme par la colinéarité de vecteurs."}
+  - {code: 2NDE-2026-VEC-14, type: capacite, page: 9, texte: "Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs."}
+  - {code: 2NDE-2026-VEC-15, type: capacite, page: 9, texte: "Résoudre des problèmes avec des méthodes diverses (méthodes vectorielles, repérées ou non, méthodes géométriques)."}
+  - {code: 2NDE-2026-VEC-16, type: demonstration, page: 9, texte: "Caractérisations de la colinéarité de deux vecteurs non nuls : nullité du déterminant ; proportionnalité des coordonnées."}
+  - {code: 2NDE-2026-VEC-17, type: approfondissement, page: 9, texte: "Barycentre de deux ou trois points."}
+  - {code: 2NDE-2026-VEC-18, type: approfondissement, page: 9, texte: "Formule permettant le calcul des coordonnées du milieu d’un segment."}
+  - {code: 2NDE-2026-VEC-19, type: approfondissement, page: 9, texte: "Démontrer que les hauteurs d’un triangle sont concourantes."}
+  - {code: 2NDE-2026-VEC-20, type: approfondissement, page: 9, texte: "Expression de l’aire d’un triangle : ½ ab sin C."}
+  - {code: 2NDE-2026-VEC-21, type: approfondissement, page: 9, texte: "Démontrer que l’isobarycentre de trois points non alignés est l’intersection des médianes."}
+  - {code: 2NDE-2026-VEC-22, type: approfondissement, page: 9, texte: "Démontrer que le point de concours des médiatrices est le centre du cercle circonscrit."}

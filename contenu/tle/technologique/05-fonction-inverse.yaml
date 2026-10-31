@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-INV
   libelle: Étudier la fonction inverse et l'utiliser dans un problème
+  attendus: [TLE-TEC-2026-ANA-21, TLE-TEC-2026-ANA-22]
   objectifs:
   - Connaitre la dérivée, les variations et les asymptotes de la fonction inverse.
   - Étudier une fonction de la forme ax + b + c/x.

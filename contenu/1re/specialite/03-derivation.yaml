@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-DER-NB
     libelle: Utiliser le nombre dérivé et la tangente
+    attendus: [1RE-SPE-2026-DER-01, 1RE-SPE-2026-DER-02, 1RE-SPE-2026-DER-03, 1RE-SPE-2026-DER-10, 1RE-SPE-2026-DER-11, 1RE-SPE-2026-DER-12, 1RE-SPE-2026-DER-13, 1RE-SPE-2026-DER-16]
     objectifs:
     - Interpréter le nombre dérivé comme pente de la tangente.
     - Écrire l'équation d'une tangente.
@@ -98,6 +99,7 @@ competences:
 
   - code: 1RE-DER-CALC
     libelle: Calculer une fonction dérivée
+    attendus: [1RE-SPE-2026-DER-05, 1RE-SPE-2026-DER-06, 1RE-SPE-2026-DER-07, 1RE-SPE-2026-DER-08, 1RE-SPE-2026-DER-15, 1RE-SPE-2026-DER-18]
     objectifs:
     - Calculer la dérivée d'une somme, d'un produit, d'un quotient et de x ↦ g(ax + b).
     prerequis:

@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-MULT
     libelle: Utiliser multiples, diviseurs et parité
+    attendus: [2NDE-2026-ARITH-01, 2NDE-2026-ARITH-02, 2NDE-2026-ARITH-03, 2NDE-2026-ARITH-05, 2NDE-2026-ARITH-06]
     objectifs:
     - Reconnaitre multiples et diviseurs, et raisonner sur la parité.
     methodes:
@@ -102,6 +103,7 @@ competences:
 
   - code: 2NDE-PREM
     libelle: Utiliser les nombres premiers et la décomposition
+    attendus: [2NDE-2026-ARITH-04]
     objectifs:
     - Reconnaitre un nombre premier et décomposer un entier en facteurs premiers.
     - Utiliser la décomposition pour simplifier une fraction.

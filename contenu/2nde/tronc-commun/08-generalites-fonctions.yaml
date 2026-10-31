@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-IMG
     libelle: Calculer une image et rechercher un antécédent
+    attendus: [2NDE-2026-AUTO-16, 2NDE-2026-FREP-01, 2NDE-2026-FREP-02]
     objectifs:
     - Calculer une image et chercher un antécédent par le calcul.
     methodes:
@@ -97,6 +98,7 @@ competences:
 
   - code: 2NDE-COURBE
     libelle: Exploiter la courbe représentative d'une fonction
+    attendus: [2NDE-2026-FREP-03, 2NDE-2026-FREP-06, 2NDE-2026-FREP-09, 2NDE-2026-FREP-11, 2NDE-2026-FVAR-05, 2NDE-2026-FVAR-06]
     objectifs:
     - Savoir si un point appartient à une courbe.
     - Trouver des points d'intersection et un ensemble de définition.

@@ -1,0 +1,13 @@
+# Partie « Algorithmique et programmation », rubrique « Notion de fonction » (page 5 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: ALGOFCT
+  titre: Notion de fonction
+  partie: Algorithmique et programmation
+
+attendus:
+  - {code: 2NDE-2026-ALGOFCT-01, type: contenu, page: 5, texte: "Fonctions à un ou plusieurs arguments."}
+  - {code: 2NDE-2026-ALGOFCT-02, type: contenu, page: 5, texte: "Fonction renvoyant un nombre aléatoire. Série statistique obtenue par la répétition de l’appel d’une telle fonction."}
+  - {code: 2NDE-2026-ALGOFCT-03, type: capacite, page: 5, texte: "Écrire des fonctions simples ; lire, comprendre, modifier, compléter des fonctions plus complexes. Appeler une fonction."}
+  - {code: 2NDE-2026-ALGOFCT-04, type: capacite, page: 5, texte: "Lire et comprendre une fonction renvoyant une moyenne, un écart type. Aucune connaissance sur les listes n’est exigée."}
+  - {code: 2NDE-2026-ALGOFCT-05, type: capacite, page: 5, texte: "Écrire des fonctions renvoyant le résultat numérique d’une expérience aléatoire, d’une répétition d’expériences aléatoires indépendantes."}

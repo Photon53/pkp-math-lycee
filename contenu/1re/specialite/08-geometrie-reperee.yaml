@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-NORMAL
     libelle: Utiliser un vecteur normal à une droite
+    attendus: [1RE-SPE-2026-GEOREP-01, 1RE-SPE-2026-GEOREP-04]
     objectifs:
     - Utiliser un vecteur normal pour écrire l'équation d'une droite et trouver un projeté orthogonal.
     prerequis:
@@ -100,6 +101,7 @@ competences:
 
   - code: 1RE-CERCLE
     libelle: Déterminer et utiliser l'équation d'un cercle
+    attendus: [1RE-SPE-2026-GEOREP-03, 1RE-SPE-2026-GEOREP-06, 1RE-SPE-2026-GEOREP-07]
     objectifs:
     - Lire et déterminer l'équation d'un cercle, reconnaitre centre et rayon.
     prerequis:

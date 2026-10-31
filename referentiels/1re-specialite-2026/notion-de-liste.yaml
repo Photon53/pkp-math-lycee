@@ -1,0 +1,12 @@
+# Partie transversale « Algorithmique et programmation », rubrique « Notion de liste » (page 4 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: LISTE
+  titre: Notion de liste
+  partie: Algorithmique et programmation
+
+attendus:
+  - {code: 1RE-SPE-2026-LISTE-01, type: capacite, page: 4, texte: "Générer une liste (en extension, par ajouts successifs ou en compréhension)."}
+  - {code: 1RE-SPE-2026-LISTE-02, type: capacite, page: 4, texte: "Manipuler des éléments d’une liste (ajouter, supprimer, etc.) et leurs indices."}
+  - {code: 1RE-SPE-2026-LISTE-03, type: capacite, page: 4, texte: "Parcourir une liste."}
+  - {code: 1RE-SPE-2026-LISTE-04, type: capacite, page: 4, texte: "Itérer sur les éléments d’une liste."}

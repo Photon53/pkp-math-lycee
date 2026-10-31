@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-LOG
   libelle: Utiliser le logarithme décimal
+  attendus: [TLE-TEC-2026-ANA-17, TLE-TEC-2026-ANA-18, TLE-TEC-2026-ANA-19, TLE-TEC-2026-ANA-20]
   objectifs:
   - Calculer avec log et résoudre une équation 10^x = b.
   - Résoudre un problème de seuil.

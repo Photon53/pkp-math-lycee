@@ -1,0 +1,14 @@
+# Partie « Analyse », rubrique « Fonctions trigonométriques » (page 8 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: TRIG
+  titre: Fonctions trigonométriques
+  partie: Analyse
+
+attendus:
+  - {code: 1RE-SPE-2026-TRIG-01, type: contenu, page: 8, texte: "Cercle trigonométrique. Longueur d’arc. Radian."}
+  - {code: 1RE-SPE-2026-TRIG-02, type: contenu, page: 8, texte: "Enroulement de la droite sur le cercle trigonométrique. Image d’un nombre réel."}
+  - {code: 1RE-SPE-2026-TRIG-03, type: contenu, page: 8, texte: "Cosinus et sinus d’un nombre réel. Lien avec le sinus et le cosinus dans un triangle rectangle. Valeurs remarquables."}
+  - {code: 1RE-SPE-2026-TRIG-04, type: capacite, page: 8, texte: "Placer un point sur le cercle trigonométrique."}
+  - {code: 1RE-SPE-2026-TRIG-05, type: capacite, page: 8, texte: "Par lecture du cercle trigonométrique, déterminer, pour des valeurs remarquables de x, les cosinus et sinus d’angles associés à x."}
+  - {code: 1RE-SPE-2026-TRIG-06, type: demonstration, page: 8, texte: "Calcul de cos(π/4), sin(π/4), cos(π/3), sin(π/3)."}

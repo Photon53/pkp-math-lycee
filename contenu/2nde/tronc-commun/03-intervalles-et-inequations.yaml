@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-INT
     libelle: Utiliser les intervalles et la valeur absolue
+    attendus: [2NDE-2026-REELS-02, 2NDE-2026-REELS-03, 2NDE-2026-REELS-04, 2NDE-2026-REELS-08]
     objectifs:
     - Traduire une inégalité par un intervalle, et inversement.
     - Utiliser la valeur absolue comme une distance.
@@ -111,6 +112,7 @@ competences:
 
   - code: 2NDE-INEQ1
     libelle: Résoudre une inéquation du premier degré
+    attendus: [2NDE-2026-ALG-03, 2NDE-2026-ALG-05, 2NDE-2026-ALG-13]
     objectifs:
     - Résoudre une inéquation du premier degré et écrire ses solutions avec un intervalle.
     prerequis:

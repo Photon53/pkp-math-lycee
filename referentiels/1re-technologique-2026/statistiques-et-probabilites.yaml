@@ -1,0 +1,32 @@
+# Partie « Statistiques et probabilités » (pages 9 et 10 du PDF). Textes recopiés du BO ;
+# la « Situation algorithmique (sauf série STD2A) » finale est saisie comme capacité.
+theme:
+  code: SP
+  titre: Statistiques et probabilités
+  partie: Statistiques et probabilités
+
+attendus:
+  # Séries statistiques à deux variables quantitatives
+  - {code: 1RE-TEC-2026-SP-01, type: contenu, page: 9, texte: "Nuage de points associé à une série statistique à deux variables quantitatives."}
+  - {code: 1RE-TEC-2026-SP-02, type: contenu, page: 9, texte: "Ajustement affine, point moyen."}
+  - {code: 1RE-TEC-2026-SP-03, type: capacite, page: 9, texte: "Représenter un nuage de points."}
+  - {code: 1RE-TEC-2026-SP-04, type: capacite, page: 9, texte: "Savoir calculer les coordonnées du point moyen."}
+  - {code: 1RE-TEC-2026-SP-05, type: capacite, page: 9, texte: "Déterminer et utiliser un ajustement affine."}
+  - {code: 1RE-TEC-2026-SP-06, type: capacite, page: 9, texte: "Interpoler ou extrapoler des valeurs inconnues à l’aide d’un ajustement affine."}
+  # Probabilités conditionnelles : indépendance
+  - {code: 1RE-TEC-2026-SP-07, type: contenu, page: 10, texte: "Indépendance de deux évènements."}
+  - {code: 1RE-TEC-2026-SP-08, type: contenu, page: 10, texte: "Formule des probabilités totales."}
+  - {code: 1RE-TEC-2026-SP-09, type: capacite, page: 10, texte: "Savoir utiliser ou justifier l’indépendance de deux évènements."}
+  - {code: 1RE-TEC-2026-SP-10, type: capacite, page: 10, texte: "Dans les cas simples, calculer une probabilité à l’aide de la formule des probabilités totales."}
+  # Modèle associé à une expérience aléatoire à plusieurs épreuves indépendantes
+  - {code: 1RE-TEC-2026-SP-11, type: contenu, page: 10, texte: "Probabilité associée à la répétition d’épreuves aléatoires identiques et indépendantes de Bernoulli."}
+  - {code: 1RE-TEC-2026-SP-12, type: capacite, page: 10, texte: "Représenter par un arbre de probabilités la répétition de n épreuves aléatoires identiques et indépendantes de Bernoulli avec n ⩽ 4 afin de calculer des probabilités."}
+  # Variables aléatoires
+  - {code: 1RE-TEC-2026-SP-13, type: contenu, page: 10, texte: "Variable aléatoire discrète : loi de probabilité, espérance."}
+  - {code: 1RE-TEC-2026-SP-14, type: contenu, page: 10, texte: "Loi de Bernoulli (0,1) de paramètre p, espérance."}
+  - {code: 1RE-TEC-2026-SP-15, type: capacite, page: 10, texte: "Interpréter en situation les écritures {X = a}, {X ⩽ a} où X désigne une variable aléatoire et calculer les probabilités correspondantes P(X = a), P(X ⩽ a)."}
+  - {code: 1RE-TEC-2026-SP-16, type: capacite, page: 10, texte: "Calculer et interpréter en contexte l'espérance d'une variable aléatoire discrète."}
+  - {code: 1RE-TEC-2026-SP-17, type: capacite, page: 10, texte: "Reconnaitre une situation aléatoire modélisée par une loi de Bernoulli."}
+  - {code: 1RE-TEC-2026-SP-18, type: capacite, page: 10, texte: "Simuler N échantillons de taille n d’une loi de Bernoulli et représenter les fréquences observées des 1 par un histogramme ou un nuage de points."}
+  - {code: 1RE-TEC-2026-SP-19, type: capacite, page: 10, texte: "Interpréter sur des exemples la distance à p de la fréquence observée des 1 dans un échantillon de taille n d’une loi de Bernoulli de paramètre p."}
+  - {code: 1RE-TEC-2026-SP-20, type: capacite, page: 10, texte: "Simuler des échantillons de taille n d’une loi de Bernoulli à partir d’un générateur de nombres aléatoires entre 0 et 1 (situation algorithmique)."}

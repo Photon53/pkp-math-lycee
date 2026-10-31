@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: 1RE-TEC-EVO
   libelle: Calculer des évolutions en pourcentage
+  attendus: [1RE-TEC-2026-AUTO-01, 1RE-TEC-2026-AUTO-02, 1RE-TEC-2026-AUTO-03, 1RE-TEC-2026-AUTO-04]
   objectifs:
   - Appliquer un taux d'évolution pour obtenir une valeur finale ou initiale.
   - Calculer des évolutions successives et une évolution réciproque.
@@ -93,6 +94,7 @@ competences:
       resultat: '33.1'
 - code: 1RE-TEC-CALC
   libelle: Résoudre une équation produit nul et étudier un signe
+  attendus: [1RE-TEC-2026-AUTO-05, 1RE-TEC-2026-AUTO-06, 1RE-TEC-2026-AUTO-07]
   objectifs:
   - Résoudre une équation produit nul.
   - Déterminer le signe d'une expression du premier degré ou d'un produit factorisé.

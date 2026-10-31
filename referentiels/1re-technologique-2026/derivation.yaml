@@ -1,0 +1,21 @@
+# Partie « Analyse », rubrique « Dérivation » (pages 8 et 9 du PDF). Textes recopiés du BO.
+theme:
+  code: DER
+  titre: Dérivation
+  partie: Analyse
+
+attendus:
+  # Point de vue local : approche graphique de la notion de nombre dérivé
+  - {code: 1RE-TEC-2026-DER-01, type: contenu, page: 8, texte: "Sécantes à une courbe passant par un point donné ; taux de variation en un point."}
+  - {code: 1RE-TEC-2026-DER-02, type: contenu, page: 8, texte: "Tangente à une courbe en un point, définie comme position limite des sécantes passant par ce point."}
+  - {code: 1RE-TEC-2026-DER-03, type: contenu, page: 8, texte: "Nombre dérivé en un point défini comme limite du taux de variation en ce point."}
+  - {code: 1RE-TEC-2026-DER-04, type: contenu, page: 8, texte: "Équation réduite de la tangente en un point."}
+  # Point de vue global
+  - {code: 1RE-TEC-2026-DER-05, type: contenu, page: 8, texte: "Fonction dérivée ; fonctions dérivées de : x ↦ x², x ↦ x³."}
+  - {code: 1RE-TEC-2026-DER-06, type: contenu, page: 8, texte: "Dérivée d’une somme, dérivée de kf (k ∈ ℝ), dérivée d’un polynôme de degré inférieur ou égal à 3."}
+  - {code: 1RE-TEC-2026-DER-07, type: contenu, page: 8, texte: "Sens de variation d’une fonction, lien avec le signe de la dérivée. Tableau de variations, extrémums."}
+  - {code: 1RE-TEC-2026-DER-08, type: capacite, page: 8, texte: "Interpréter géométriquement le nombre dérivé comme coefficient directeur de la tangente."}
+  - {code: 1RE-TEC-2026-DER-09, type: capacite, page: 8, texte: "Construire la tangente à une courbe en un point."}
+  - {code: 1RE-TEC-2026-DER-10, type: capacite, page: 8, texte: "Déterminer l’équation réduite de la tangente à une courbe en un point."}
+  - {code: 1RE-TEC-2026-DER-11, type: capacite, page: 8, texte: "Calculer la dérivée d’une fonction polynôme de degré inférieur ou égal à trois."}
+  - {code: 1RE-TEC-2026-DER-12, type: capacite, page: 8, texte: "Déterminer le sens de variation et les extrémums d’une fonction polynôme de degré inférieur ou égal à 3."}

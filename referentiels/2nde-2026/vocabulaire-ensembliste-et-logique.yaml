@@ -1,0 +1,17 @@
+# Partie transversale « Vocabulaire ensembliste et logique » (page 4 du PDF). Textes recopiés du BO
+# (« Les élèves apprennent en situation à : … »). Pas de séquence de cours spécifique, mais un enseignement explicite.
+theme:
+  code: LOGIQUE
+  titre: Vocabulaire ensembliste et logique
+  partie: Transversale
+
+attendus:
+  - {code: 2NDE-2026-LOGIQUE-01, type: contenu, page: 4, texte: "Notions d’élément d’un ensemble, de sous-ensemble, d’ensemble vide, d’appartenance et d’inclusion, de réunion, d’intersection et de complémentaire ; notation des ensembles de nombres et des intervalles. Notion de couple, produit cartésien de deux ensembles."}
+  - {code: 2NDE-2026-LOGIQUE-02, type: capacite, page: 4, texte: "Reconnaitre ce qu’est une proposition mathématique, utiliser des variables pour écrire des propositions mathématiques."}
+  - {code: 2NDE-2026-LOGIQUE-03, type: capacite, page: 4, texte: "Lire et écrire des propositions contenant les connecteurs « et », « ou »."}
+  - {code: 2NDE-2026-LOGIQUE-04, type: capacite, page: 4, texte: "Formuler la négation de propositions simples (sans implication ni quantificateurs)."}
+  - {code: 2NDE-2026-LOGIQUE-05, type: capacite, page: 4, texte: "Mobiliser un contre-exemple pour montrer qu’une proposition est fausse."}
+  - {code: 2NDE-2026-LOGIQUE-06, type: capacite, page: 4, texte: "Formuler une implication, une équivalence logique, et les mobiliser dans un raisonnement simple."}
+  - {code: 2NDE-2026-LOGIQUE-07, type: capacite, page: 4, texte: "Formuler la réciproque d’une implication, la contraposée."}
+  - {code: 2NDE-2026-LOGIQUE-08, type: capacite, page: 4, texte: "Lire et écrire des propositions contenant une quantification universelle ou existentielle (les symboles ∀ et ∃ sont hors programme)."}
+  - {code: 2NDE-2026-LOGIQUE-09, type: capacite, page: 4, texte: "Produire des raisonnements par disjonction des cas et par l’absurde."}

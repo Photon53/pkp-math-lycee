@@ -1,0 +1,17 @@
+# Partie « Statistiques et probabilités », rubrique « Probabilités » (page 13 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: PROBA
+  titre: Probabilités
+  partie: Statistiques et probabilités
+
+attendus:
+  - {code: 2NDE-2026-PROBA-01, type: contenu, page: 13, texte: "Version vulgarisée de la loi des grands nombres : « Lorsque n est grand, sauf exception, la fréquence observée est proche de la probabilité. »"}
+  - {code: 2NDE-2026-PROBA-02, type: contenu, page: 13, texte: "Probabilité conditionnelle d’un évènement B sachant un évènement A de probabilité non nulle. Notation PA(B)."}
+  - {code: 2NDE-2026-PROBA-03, type: contenu, page: 13, texte: "Arbres de probabilité, application au calcul de probabilités."}
+  - {code: 2NDE-2026-PROBA-04, type: capacite, page: 13, texte: "Observer la loi des grands nombres à l’aide d’une simulation sur Python ou tableur."}
+  - {code: 2NDE-2026-PROBA-05, type: capacite, page: 13, texte: "Construire un arbre pondéré ou un tableau en lien avec une situation donnée. Passer du registre de la langue naturelle au registre symbolique et inversement."}
+  - {code: 2NDE-2026-PROBA-06, type: capacite, page: 13, texte: "Calculer des probabilités conditionnelles lorsque les évènements sont présentés sous forme de tableau croisé d’effectifs (tirage au sort avec équiprobabilité d’un individu dans une population) ou d’un arbre de probabilité."}
+  - {code: 2NDE-2026-PROBA-07, type: capacite, page: 13, texte: "Interpréter les pondérations de chaque branche d’un arbre en termes de probabilités, et notamment de probabilités conditionnelles."}
+  - {code: 2NDE-2026-PROBA-08, type: capacite, page: 13, texte: "Faire le lien entre la définition des probabilités conditionnelles et la multiplication des probabilités des branches du chemin correspondant."}
+  - {code: 2NDE-2026-PROBA-09, type: capacite, page: 13, texte: "Distinguer en situation PA(B) et PB(A), par exemple dans des situations de type « faux positifs."}

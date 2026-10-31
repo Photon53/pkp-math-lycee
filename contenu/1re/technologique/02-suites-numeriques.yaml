@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: 1RE-TEC-SUITES
   libelle: Modéliser par une suite arithmétique ou géométrique
+  attendus: [1RE-TEC-2026-ANA-01, 1RE-TEC-2026-ANA-02, 1RE-TEC-2026-ANA-03, 1RE-TEC-2026-ANA-04, 1RE-TEC-2026-ANA-05, 1RE-TEC-2026-ANA-08, 1RE-TEC-2026-ANA-09]
   objectifs:
   - Calculer un terme d'une suite arithmétique ou géométrique.
   - Résoudre un problème de seuil.

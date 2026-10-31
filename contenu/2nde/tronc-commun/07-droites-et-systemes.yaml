@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-DROITE
     libelle: Déterminer et utiliser l'équation réduite d'une droite
+    attendus: [2NDE-2026-DROITE-02, 2NDE-2026-DROITE-03, 2NDE-2026-DROITE-04, 2NDE-2026-DROITE-05]
     objectifs:
     - Lire et déterminer l'équation réduite d'une droite.
     - Reconnaitre des droites parallèles.
@@ -105,6 +106,7 @@ competences:
 
   - code: 2NDE-SYST
     libelle: Résoudre un système de deux équations à deux inconnues
+    attendus: [2NDE-2026-DROITE-08, 2NDE-2026-DROITE-09]
     objectifs:
     - Résoudre un système de deux équations linéaires à deux inconnues.
     - Modéliser un problème par un système.

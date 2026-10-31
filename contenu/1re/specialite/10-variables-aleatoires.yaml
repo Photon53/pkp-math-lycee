@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-LOI
     libelle: Déterminer une loi de probabilité et une espérance
+    attendus: [1RE-SPE-2026-VA-01, 1RE-SPE-2026-VA-02, 1RE-SPE-2026-VA-06, 1RE-SPE-2026-VA-07, 1RE-SPE-2026-VA-08, 1RE-SPE-2026-VA-10]
     objectifs:
     - Déterminer une loi de probabilité et calculer une espérance.
     - Utiliser la linéarité de l'espérance.
@@ -103,6 +104,7 @@ competences:
 
   - code: 1RE-VARIANCE
     libelle: Calculer une variance et un écart type
+    attendus: [1RE-SPE-2026-VA-03, 1RE-SPE-2026-VA-05, 1RE-SPE-2026-VA-09]
     objectifs:
     - Calculer variance et écart type ; connaitre l'effet d'une transformation affine.
     prerequis:

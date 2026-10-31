@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-EXP-ALG
     libelle: Utiliser les propriétés algébriques de l'exponentielle
+    attendus: [1RE-SPE-2026-EXP-01, 1RE-SPE-2026-EXP-02, 1RE-SPE-2026-EXP-04]
     objectifs:
     - Utiliser les propriétés algébriques de l'exponentielle et résoudre des équations.
     methodes:
@@ -95,6 +96,7 @@ competences:
 
   - code: 1RE-EXP-ETU
     libelle: Dériver et étudier des fonctions avec l'exponentielle
+    attendus: [1RE-SPE-2026-EXP-03, 1RE-SPE-2026-EXP-05, 1RE-SPE-2026-EXP-06, 1RE-SPE-2026-EXP-07]
     objectifs:
     - Dériver des fonctions avec l'exponentielle et en étudier les variations.
     prerequis:

@@ -1,0 +1,29 @@
+# Partie « Analyse », rubrique « Dérivation » (page 7 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: DER
+  titre: Dérivation
+  partie: Analyse
+
+attendus:
+  # Point de vue local
+  - {code: 1RE-SPE-2026-DER-01, type: contenu, page: 7, texte: "Taux de variation. Sécantes à la courbe représentative d’une fonction en un point donné."}
+  - {code: 1RE-SPE-2026-DER-02, type: contenu, page: 7, texte: "Nombre dérivé d’une fonction en un point, comme limite du taux de variation. Notation ƒ′(a)."}
+  - {code: 1RE-SPE-2026-DER-03, type: contenu, page: 7, texte: "Tangente à la courbe représentative d’une fonction en un point, comme « limite des sécantes ». Pente. Équation : la tangente à la courbe représentative de ƒ au point d’abscisse a est la droite d’équation y = ƒ(a) + ƒ′(a)(x – a)."}
+  - {code: 1RE-SPE-2026-DER-04, type: contenu, page: 7, texte: "Approximation linéaire : fonction affine tangente x ↦ ƒ(a) + ƒ′(a)(x – a) et approximation de ƒ(a + h) par ƒ(a) + ƒ′(a)h."}
+  # Point de vue global
+  - {code: 1RE-SPE-2026-DER-05, type: contenu, page: 7, texte: "Fonction dérivable sur un intervalle. Fonction dérivée."}
+  - {code: 1RE-SPE-2026-DER-06, type: contenu, page: 7, texte: "Fonction dérivée des fonctions carré, cube, inverse, racine carrée."}
+  - {code: 1RE-SPE-2026-DER-07, type: contenu, page: 7, texte: "Opérations sur les fonctions dérivables : somme, produit, inverse, quotient."}
+  - {code: 1RE-SPE-2026-DER-08, type: contenu, page: 7, texte: "Pour n dans ℤ, fonction dérivée de la fonction x ↦ xⁿ."}
+  - {code: 1RE-SPE-2026-DER-09, type: contenu, page: 7, texte: "Fonction valeur absolue : étude de la dérivabilité en 0."}
+  - {code: 1RE-SPE-2026-DER-10, type: capacite, page: 7, texte: "Calculer un taux de variation, la pente d’une sécante."}
+  - {code: 1RE-SPE-2026-DER-11, type: capacite, page: 7, texte: "Interpréter le nombre dérivé en contexte : pente d’une tangente, vitesse instantanée, cout marginal, etc."}
+  - {code: 1RE-SPE-2026-DER-12, type: capacite, page: 7, texte: "Déterminer graphiquement un nombre dérivé par la pente de la tangente. Construire la tangente en un point à une courbe représentative connaissant le nombre dérivé."}
+  - {code: 1RE-SPE-2026-DER-13, type: capacite, page: 7, texte: "Déterminer l’équation de la tangente en un point à la courbe représentative d’une fonction."}
+  - {code: 1RE-SPE-2026-DER-14, type: capacite, page: 7, texte: "Calculer une valeur approchée de ƒ(a + h)."}
+  - {code: 1RE-SPE-2026-DER-15, type: capacite, page: 7, texte: "Dans des cas simples, calculer une fonction dérivée en utilisant les propriétés des opérations sur les fonctions dérivables."}
+  - {code: 1RE-SPE-2026-DER-16, type: demonstration, page: 8, texte: "Équation de la tangente en un point à une courbe représentative."}
+  - {code: 1RE-SPE-2026-DER-17, type: demonstration, page: 8, texte: "La fonction racine carrée n’est pas dérivable en 0."}
+  - {code: 1RE-SPE-2026-DER-18, type: demonstration, page: 8, texte: "Fonction dérivée de la fonction carrée, de la fonction inverse."}
+  - {code: 1RE-SPE-2026-DER-19, type: demonstration, page: 8, texte: "Fonction dérivée d’un produit."}

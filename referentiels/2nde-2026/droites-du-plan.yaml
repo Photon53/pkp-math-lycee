@@ -1,0 +1,20 @@
+# Partie « Géométrie », rubrique « Droites du plan » (page 9 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: DROITE
+  titre: Droites du plan
+  partie: Géométrie
+
+attendus:
+  - {code: 2NDE-2026-DROITE-01, type: contenu, page: 9, texte: "Vecteur directeur d’une droite."}
+  - {code: 2NDE-2026-DROITE-02, type: contenu, page: 9, texte: "Équation de droite : équation cartésienne, équation réduite."}
+  - {code: 2NDE-2026-DROITE-03, type: contenu, page: 9, texte: "Pente (ou coefficient directeur) d’une droite non parallèle à l’axe des ordonnées."}
+  - {code: 2NDE-2026-DROITE-04, type: capacite, page: 9, texte: "Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente."}
+  - {code: 2NDE-2026-DROITE-05, type: capacite, page: 9, texte: "Déterminer la pente ou un vecteur directeur d’une droite donnée par une équation ou une représentation graphique."}
+  - {code: 2NDE-2026-DROITE-06, type: capacite, page: 9, texte: "Tracer une droite connaissant son équation cartésienne ou réduite."}
+  - {code: 2NDE-2026-DROITE-07, type: capacite, page: 9, texte: "Établir que trois points sont alignés ou non."}
+  - {code: 2NDE-2026-DROITE-08, type: capacite, page: 9, texte: "Déterminer si deux droites sont parallèles ou sécantes."}
+  - {code: 2NDE-2026-DROITE-09, type: capacite, page: 9, texte: "Déterminer le point d’intersection de deux droites sécantes données par leur équation réduite."}
+  - {code: 2NDE-2026-DROITE-10, type: demonstration, page: 9, texte: "En utilisant le déterminant, établir la forme générale d’une équation de droite."}
+  - {code: 2NDE-2026-DROITE-11, type: approfondissement, page: 10, texte: "Ensemble des points équidistants d’un point et de l’axe des abscisses."}
+  - {code: 2NDE-2026-DROITE-12, type: approfondissement, page: 10, texte: "Représentation, sur des exemples, de parties du plan décrites par des inégalités sur les coordonnées."}

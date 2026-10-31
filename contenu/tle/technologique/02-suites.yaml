@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-ARITH
   libelle: Calculer termes et sommes d'une suite arithmétique
+  attendus: [TLE-TEC-2026-ANA-01, TLE-TEC-2026-ANA-03, TLE-TEC-2026-ANA-04, TLE-TEC-2026-ANA-05, TLE-TEC-2026-ANA-06, TLE-TEC-2026-ANA-07]
   objectifs:
   - Exprimer le terme de rang n d'une suite arithmétique.
   - Calculer la somme de ses premiers termes.
@@ -92,6 +93,7 @@ competences:
       resultat: '1260'
 - code: TLE-TEC-GEOM
   libelle: Calculer termes et sommes d'une suite géométrique
+  attendus: [TLE-TEC-2026-ANA-02, TLE-TEC-2026-AUTO-09]
   objectifs:
   - Exprimer le terme de rang n d'une suite géométrique.
   - Calculer la somme de ses premiers termes et résoudre un problème de seuil.

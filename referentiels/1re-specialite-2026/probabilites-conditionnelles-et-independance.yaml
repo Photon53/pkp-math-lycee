@@ -1,0 +1,18 @@
+# Partie « Probabilités et statistiques », rubrique « Probabilités conditionnelles et indépendance » (page 10 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: PCOND
+  titre: Probabilités conditionnelles et indépendance
+  partie: Probabilités et statistiques
+
+attendus:
+  - {code: 1RE-SPE-2026-PCOND-01, type: contenu, page: 10, texte: "Indépendance de deux évènements."}
+  - {code: 1RE-SPE-2026-PCOND-02, type: contenu, page: 10, texte: "Partition de l’univers (systèmes complets d’évènements). Formule des probabilités totales."}
+  - {code: 1RE-SPE-2026-PCOND-03, type: contenu, page: 10, texte: "Succession de deux épreuves indépendantes. Représentation par un arbre ou un tableau."}
+  - {code: 1RE-SPE-2026-PCOND-04, type: contenu, page: 10, texte: "Pour n ⩽ 4, répétition de n épreuves de Bernoulli indépendantes et identiques."}
+  - {code: 1RE-SPE-2026-PCOND-05, type: capacite, page: 10, texte: "Dans des cas simples, calculer une probabilité à l’aide de la formule des probabilités totales."}
+  - {code: 1RE-SPE-2026-PCOND-06, type: capacite, page: 10, texte: "Savoir utiliser ou justifier l’indépendance de deux évènements."}
+  - {code: 1RE-SPE-2026-PCOND-07, type: capacite, page: 10, texte: "Représenter la succession de deux épreuves indépendantes par un arbre ou un tableau."}
+  - {code: 1RE-SPE-2026-PCOND-08, type: capacite, page: 10, texte: "Pour n ⩽ 4, représenter l’arbre associé à la répétition de n épreuves de Bernoulli indépendantes et identiques afin de calculer des probabilités."}
+  - {code: 1RE-SPE-2026-PCOND-09, type: approfondissement, page: 10, texte: "Exemples de succession de plusieurs épreuves indépendantes."}
+  - {code: 1RE-SPE-2026-PCOND-10, type: approfondissement, page: 10, texte: "Exemples de marches aléatoires."}

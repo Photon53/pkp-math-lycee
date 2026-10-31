@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-PS-CALC
     libelle: Calculer un produit scalaire
+    attendus: [1RE-SPE-2026-PS-01, 1RE-SPE-2026-PS-02, 1RE-SPE-2026-PS-06]
     objectifs:
     - Calculer un produit scalaire par les coordonnées, les normes et l'angle, ou une projection.
     methodes:
@@ -98,6 +99,7 @@ competences:
 
   - code: 1RE-PS-APP
     libelle: Utiliser le produit scalaire (orthogonalité, angles, longueurs)
+    attendus: [1RE-SPE-2026-PS-03, 1RE-SPE-2026-PS-05, 1RE-SPE-2026-PS-07, 1RE-SPE-2026-PS-08]
     objectifs:
     - Démontrer une orthogonalité, calculer un angle ou une longueur (Al-Kashi).
     prerequis:

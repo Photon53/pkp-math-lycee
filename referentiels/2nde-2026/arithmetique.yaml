@@ -1,0 +1,14 @@
+# Partie « Nombres et calculs, algèbre », rubrique « Arithmétique » (page 7 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: ARITH
+  titre: Arithmétique
+  partie: Nombres et calculs, algèbre
+
+attendus:
+  - {code: 2NDE-2026-ARITH-01, type: contenu, page: 7, texte: "Notations ℕ et ℤ."}
+  - {code: 2NDE-2026-ARITH-02, type: contenu, page: 7, texte: "Définition des notions de multiple, de diviseur, de nombre pair, de nombre impair : a est multiple de b s’il existe un entier k tel que a = kb."}
+  - {code: 2NDE-2026-ARITH-03, type: capacite, page: 7, texte: "Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair, de nombre impair."}
+  - {code: 2NDE-2026-ARITH-04, type: capacite, page: 7, texte: "Présenter les fractions sous forme irréductible."}
+  - {code: 2NDE-2026-ARITH-05, type: demonstration, page: 7, texte: "Pour une valeur numérique de a, la somme de deux multiples de a est multiple de a."}
+  - {code: 2NDE-2026-ARITH-06, type: demonstration, page: 7, texte: "Le carré d’un nombre impair est impair."}

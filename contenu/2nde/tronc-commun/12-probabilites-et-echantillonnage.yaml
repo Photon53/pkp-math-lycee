@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-PROBA
     libelle: Calculer des probabilités
+    attendus: [2NDE-2026-AUTO-27, 2NDE-2026-AUTO-28, 2NDE-2026-AUTO-29, 2NDE-2026-AUTO-30]
     objectifs:
     - Calculer des probabilités en situation d'équiprobabilité.
     - Utiliser l'évènement contraire et la formule de la réunion.
@@ -102,6 +103,7 @@ competences:
 
   - code: 2NDE-ECH
     libelle: Utiliser la fluctuation d'échantillonnage
+    attendus: [2NDE-2026-PROBA-01, 2NDE-2026-PROBA-04]
     objectifs:
     - Calculer une fréquence et utiliser l'intervalle de fluctuation au seuil de 95 %.
     prerequis:

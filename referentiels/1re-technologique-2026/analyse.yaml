@@ -1,0 +1,35 @@
+# Partie « Analyse » : suites numériques, fonctions de la variable réelle (pages 7 et 8 du PDF).
+# Textes recopiés du BO ; les « Situations algorithmiques (sauf série STD2A) » sont saisies comme capacités.
+theme:
+  code: ANA
+  titre: Suites numériques et fonctions de la variable réelle
+  partie: Analyse
+
+attendus:
+  # Suites numériques : contenus
+  - {code: 1RE-TEC-2026-ANA-01, type: contenu, page: 7, texte: "Différents modes de génération d’une suite numérique. Sens de variation. Représentation graphique : nuage de points (n, u(n))."}
+  - {code: 1RE-TEC-2026-ANA-02, type: contenu, page: 7, texte: "Suites arithmétiques (croissance linéaire) et suites géométriques à termes strictement positifs (croissance exponentielle) : relation de récurrence, explicitation du terme de rang n, sens de variation, représentation graphique."}
+  # Suites numériques : capacités attendues
+  - {code: 1RE-TEC-2026-ANA-03, type: capacite, page: 7, texte: "Modéliser une situation à l’aide d’une suite."}
+  - {code: 1RE-TEC-2026-ANA-04, type: capacite, page: 7, texte: "Reconnaitre si une situation relève d’un modèle discret de variation linéaire ou exponentielle."}
+  - {code: 1RE-TEC-2026-ANA-05, type: capacite, page: 7, texte: "Calculer un terme de rang donné d’une suite définie par une relation fonctionnelle ou une relation de récurrence."}
+  - {code: 1RE-TEC-2026-ANA-06, type: capacite, page: 7, texte: "Réaliser et exploiter la représentation graphique des termes d'une suite."}
+  - {code: 1RE-TEC-2026-ANA-07, type: capacite, page: 7, texte: "Conjecturer, à partir de sa représentation graphique, la nature arithmétique ou géométrique d’une suite."}
+  - {code: 1RE-TEC-2026-ANA-08, type: capacite, page: 7, texte: "Démontrer qu’une suite est arithmétique ou géométrique."}
+  - {code: 1RE-TEC-2026-ANA-09, type: capacite, page: 7, texte: "Déterminer le sens de variation d’une suite arithmétique ou géométrique à l’aide de la raison."}
+  - {code: 1RE-TEC-2026-ANA-10, type: capacite, page: 7, texte: "Calculer un terme de rang donné d’une suite, une somme finie de termes. Déterminer une liste de termes d’une suite et les représenter. Déterminer le rang à partir duquel les termes d'une suite sont supérieurs ou inférieurs à un seuil donné, ou aux termes de même rang d'une autre suite (situations algorithmiques)."}
+  # Fonctions de la variable réelle : contenus
+  - {code: 1RE-TEC-2026-ANA-11, type: contenu, page: 8, texte: "Différents modes de représentation d’une fonction : expression littérale, représentation graphique. Notations y = f(x) et x ↦ f(x)."}
+  - {code: 1RE-TEC-2026-ANA-12, type: contenu, page: 8, texte: "Taux de variation, entre deux valeurs de la variable x, d’une grandeur y vérifiant y = f(x). Fonctions monotones sur un intervalle, lien avec le signe du taux de variation."}
+  - {code: 1RE-TEC-2026-ANA-13, type: contenu, page: 8, texte: "Fonctions polynômes de degré 2 : éléments caractéristiques de la courbe : allure, axe de symétrie, coordonnées du sommet en lien avec la symétrie et tableau de variation de la fonction."}
+  - {code: 1RE-TEC-2026-ANA-14, type: contenu, page: 8, texte: "Racines et signe d’un polynôme de degré 2 donné sous forme factorisée (le calcul des racines à l’aide du discriminant ne figure pas au programme)."}
+  # Fonctions de la variable réelle : capacités attendues
+  - {code: 1RE-TEC-2026-ANA-15, type: capacite, page: 8, texte: "Modéliser la dépendance entre deux grandeurs à l’aide d’une fonction."}
+  - {code: 1RE-TEC-2026-ANA-16, type: capacite, page: 8, texte: "Résoudre graphiquement une équation du type f(x) = k ou une inéquation de la forme f(x) < k ou f(x) > k."}
+  - {code: 1RE-TEC-2026-ANA-17, type: capacite, page: 8, texte: "Interpréter le taux de variation comme pente de la sécante à la courbe passant par deux points distincts."}
+  - {code: 1RE-TEC-2026-ANA-18, type: capacite, page: 8, texte: "Associer une parabole à une expression algébrique de degré 2, pour les fonctions de la forme : x ↦ ax², x ↦ ax² + b, x ↦ a(x − x₁)(x − x₂)."}
+  - {code: 1RE-TEC-2026-ANA-19, type: capacite, page: 8, texte: "Déterminer des éléments caractéristiques de la fonction x ↦ ax² + bx + c. Aucune formule n’est attendue. On déterminera l’axe de symétrie par exemple en résolvant l’équation f(x) = c."}
+  - {code: 1RE-TEC-2026-ANA-20, type: capacite, page: 8, texte: "Vérifier qu’une valeur conjecturée est racine d’un polynôme de degré 2."}
+  - {code: 1RE-TEC-2026-ANA-21, type: capacite, page: 8, texte: "Savoir factoriser, dans des cas simples, une expression du second degré connaissant au moins une de ses racines."}
+  - {code: 1RE-TEC-2026-ANA-22, type: capacite, page: 8, texte: "Utiliser la forme factorisée (en produit de facteurs du premier degré) d’un polynôme de degré 2 pour trouver ses racines et étudier son signe."}
+  - {code: 1RE-TEC-2026-ANA-23, type: capacite, page: 8, texte: "Calculer une valeur approchée d’une solution d’une équation par balayage (situation algorithmique)."}

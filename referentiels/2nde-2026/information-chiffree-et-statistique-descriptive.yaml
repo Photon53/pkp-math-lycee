@@ -1,0 +1,27 @@
+# Partie « Statistiques et probabilités », rubrique « Information chiffrée et statistique descriptive » (page 11 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: STAT
+  titre: Information chiffrée et statistique descriptive
+  partie: Statistiques et probabilités
+
+attendus:
+  # Proportions
+  - {code: 2NDE-2026-STAT-01, type: contenu, page: 11, texte: "Ensembles de référence inclus les uns dans les autres : pourcentage de pourcentage."}
+  # Évolution
+  - {code: 2NDE-2026-STAT-02, type: contenu, page: 12, texte: "Évolution : variation absolue (variation additive) V2 – V1, coefficient multiplicateur (variation multiplicative) V2 , variation relative V2 – V1 (taux d’évolution). V1 V1"}
+  - {code: 2NDE-2026-STAT-03, type: contenu, page: 12, texte: "Évolutions successives, évolution réciproque : relation sur les coefficients multiplicateurs (produit, inverse)."}
+  # Statistiques à une variable
+  - {code: 2NDE-2026-STAT-04, type: contenu, page: 12, texte: "Linéarité de la moyenne."}
+  - {code: 2NDE-2026-STAT-05, type: contenu, page: 12, texte: "Indicateurs de dispersion : écart type."}
+  - {code: 2NDE-2026-STAT-06, type: contenu, page: 12, texte: "Influence sur la moyenne, la médiane de l’ajout ou de la suppression d’une valeur dans la série."}
+  # Regroupement par classes de même amplitude d’une série statistique continue
+  - {code: 2NDE-2026-STAT-07, type: contenu, page: 12, texte: "Représentation graphique : histogramme, polygone des fréquences cumulées."}
+  - {code: 2NDE-2026-STAT-08, type: contenu, page: 12, texte: "Calcul de la moyenne à partir de la moyenne et des effectifs de chaque classe (moyenne pondérée) ; cas particulier où la répartition est uniforme dans chaque classe (donc égale au centre de la classe)."}
+  - {code: 2NDE-2026-STAT-09, type: contenu, page: 12, texte: "Détermination de la classe médiane à partir des effectifs des classes ; estimation de la médiane dans le cas de répartition uniforme dans la classe médiane."}
+  - {code: 2NDE-2026-STAT-10, type: capacite, page: 12, texte: "Exploiter la relation entre effectifs, proportions et pourcentages."}
+  - {code: 2NDE-2026-STAT-11, type: capacite, page: 12, texte: "Traiter des situations simples mettant en jeu des pourcentages de pourcentages."}
+  - {code: 2NDE-2026-STAT-12, type: capacite, page: 12, texte: "Exploiter la relation entre deux valeurs successives et leur taux d’évolution."}
+  - {code: 2NDE-2026-STAT-13, type: capacite, page: 12, texte: "Calculer le taux d’évolution global à partir des taux d’évolution successifs. Calculer un taux d’évolution réciproque."}
+  - {code: 2NDE-2026-STAT-14, type: capacite, page: 12, texte: "Pour une série statistique regroupée en classes : calculer la moyenne à partir de la moyenne et des effectifs de chaque classe (moyenne pondérée) ; cas particulier où la répartition est uniforme dans chaque classe (donc égale au centre de la classe) ; déterminer la classe médiane à partir des effectifs des classes ; estimation de la médiane dans le cas de répartition uniforme dans la classe médiane."}
+  - {code: 2NDE-2026-STAT-15, type: capacite, page: 12, texte: "Décrire les différences entre deux séries statistiques, en s’appuyant sur des indicateurs ou couples d’indicateurs (moyenne- écart type/ médiane-écart interquartile), sur des représentations graphiques données."}

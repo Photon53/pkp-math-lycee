@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: 1RE-TEC-DERIV
   libelle: Calculer un nombre dérivé, une dérivée et une tangente
+  attendus: [1RE-TEC-2026-DER-01, 1RE-TEC-2026-DER-02, 1RE-TEC-2026-DER-03, 1RE-TEC-2026-DER-04, 1RE-TEC-2026-DER-05, 1RE-TEC-2026-DER-06, 1RE-TEC-2026-DER-08, 1RE-TEC-2026-DER-09, 1RE-TEC-2026-DER-10, 1RE-TEC-2026-DER-11]
   objectifs:
   - Calculer la dérivée d'un polynôme de degré au plus 3.
   - Écrire l'équation d'une tangente.
@@ -92,6 +93,7 @@ competences:
       resultat: '4.01'
 - code: 1RE-TEC-VARIA
   libelle: Étudier les variations et les extremums avec la dérivée
+  attendus: [1RE-TEC-2026-DER-07, 1RE-TEC-2026-DER-12]
   objectifs:
   - Déduire les variations du signe de la dérivée.
   - Trouver un extremum dans un problème.

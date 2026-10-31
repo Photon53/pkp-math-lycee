@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-EXPA
   libelle: Utiliser les fonctions exponentielles de base a
+  attendus: [TLE-TEC-2026-ANA-09, TLE-TEC-2026-ANA-10, TLE-TEC-2026-ANA-11, TLE-TEC-2026-ANA-12, TLE-TEC-2026-ANA-13, TLE-TEC-2026-ANA-14, TLE-TEC-2026-ANA-15]
   objectifs:
   - Connaitre le sens de variation de x ↦ a^x et ses propriétés algébriques.
   - Calculer un taux moyen et une proportion au bout d'une fraction de période.

@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-CARRE
     libelle: Utiliser la fonction carré
+    attendus: [2NDE-2026-FREP-08, 2NDE-2026-FVAR-10, 2NDE-2026-FVAR-14]
     objectifs:
     - Résoudre $x^2 = a$ et $x^2 < a$, encadrer un carré.
     methodes:
@@ -98,6 +99,7 @@ competences:
 
   - code: 2NDE-INV
     libelle: Utiliser les fonctions inverse, racine carrée et cube
+    attendus: [2NDE-2026-FREP-12, 2NDE-2026-FVAR-11]
     objectifs:
     - Utiliser les fonctions inverse, racine carrée et cube, et leurs variations.
     methodes:

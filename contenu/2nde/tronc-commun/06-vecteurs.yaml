@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-VEC-COORD
     libelle: Calculer avec les coordonnées de vecteurs
+    attendus: [2NDE-2026-VEC-05, 2NDE-2026-VEC-06, 2NDE-2026-VEC-10, 2NDE-2026-VEC-11, 2NDE-2026-VEC-12]
     objectifs:
     - Calculer les coordonnées d'un vecteur, d'un milieu, et une distance dans un repère orthonormé.
     methodes:
@@ -103,6 +104,7 @@ competences:
 
   - code: 2NDE-VEC-COL
     libelle: Étudier la colinéarité de deux vecteurs
+    attendus: [2NDE-2026-VEC-03, 2NDE-2026-VEC-07, 2NDE-2026-VEC-13, 2NDE-2026-VEC-16]
     objectifs:
     - Tester la colinéarité de deux vecteurs avec le déterminant.
     - En déduire un alignement ou un parallélisme.

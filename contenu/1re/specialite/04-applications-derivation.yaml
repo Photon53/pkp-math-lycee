@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-VAR
     libelle: Déduire les variations du signe de la dérivée
+    attendus: [1RE-SPE-2026-VAR-02, 1RE-SPE-2026-VAR-04, 1RE-SPE-2026-VAR-07]
     objectifs:
     - Déduire les variations d'une fonction du signe de sa dérivée.
     prerequis:
@@ -99,6 +100,7 @@ competences:
 
   - code: 1RE-EXTR
     libelle: Déterminer un extremum et résoudre un problème d'optimisation
+    attendus: [1RE-SPE-2026-VAR-03, 1RE-SPE-2026-VAR-05, 1RE-SPE-2026-VAR-06]
     objectifs:
     - Déterminer un extremum et résoudre un problème d'optimisation.
     prerequis:

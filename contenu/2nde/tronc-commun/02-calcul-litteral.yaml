@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-DEV
     libelle: Développer une expression
+    attendus: [2NDE-2026-AUTO-09, 2NDE-2026-ALG-02, 2NDE-2026-ALG-11]
     objectifs:
     - Développer et réduire une expression avec la distributivité.
     - Utiliser les identités remarquables dans les deux sens.
@@ -137,6 +138,7 @@ competences:
 
   - code: 2NDE-EQ1
     libelle: Résoudre une équation du premier degré
+    attendus: [2NDE-2026-ALG-05, 2NDE-2026-ALG-14, 2NDE-2026-AUTO-10]
     objectifs:
     - Résoudre une équation du premier degré à une inconnue.
     - Vérifier la solution en la remplaçant dans l'équation.

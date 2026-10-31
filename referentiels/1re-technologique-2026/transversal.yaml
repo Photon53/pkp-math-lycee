@@ -1,0 +1,29 @@
+# Parties transversales « Vocabulaire ensembliste et logique » et « Algorithmique et programmation (sauf série STD2A) »
+# (pages 4 et 5 du PDF). Textes recopiés du BO. La partie « Activités géométriques » (uniquement série STD2A)
+# n'est pas saisie : aucune classe STD2A n'utilise PKP pour l'instant.
+theme:
+  code: TRANS
+  titre: Logique, algorithmique et programmation
+  partie: Transversale
+
+attendus:
+  # Vocabulaire ensembliste et logique (« les élèves s'exercent : … »)
+  - {code: 1RE-TEC-2026-TRANS-01, type: capacite, page: 4, texte: "Utiliser correctement les connecteurs logiques « et », « ou »."}
+  - {code: 1RE-TEC-2026-TRANS-02, type: capacite, page: 4, texte: "Identifier le statut d’une égalité (identité, équation) et celui de la ou des lettres utilisées (variable, indéterminée, inconnue, paramètre)."}
+  - {code: 1RE-TEC-2026-TRANS-03, type: capacite, page: 4, texte: "Utiliser un contre-exemple pour infirmer une proposition universelle."}
+  - {code: 1RE-TEC-2026-TRANS-04, type: capacite, page: 4, texte: "Distinguer une proposition de sa réciproque, de sa contraposée."}
+  - {code: 1RE-TEC-2026-TRANS-05, type: capacite, page: 4, texte: "Utiliser à bon escient les expressions « condition nécessaire », « condition suffisante », « équivalence logique »."}
+  # Algorithmique et programmation : variables
+  - {code: 1RE-TEC-2026-TRANS-06, type: capacite, page: 5, texte: "Utiliser un générateur de nombres aléatoires entre 0 et 1 pour simuler une loi de Bernoulli de paramètre p."}
+  - {code: 1RE-TEC-2026-TRANS-07, type: capacite, page: 5, texte: "Utiliser la notion de compteur."}
+  - {code: 1RE-TEC-2026-TRANS-08, type: capacite, page: 5, texte: "Utiliser le principe d’accumulateur pour calculer une somme, un produit."}
+  # Fonctions
+  - {code: 1RE-TEC-2026-TRANS-09, type: capacite, page: 5, texte: "Identifier les entrées et les sorties d’une fonction."}
+  - {code: 1RE-TEC-2026-TRANS-10, type: capacite, page: 5, texte: "Structurer un programme en ayant recours aux fonctions."}
+  # Listes
+  - {code: 1RE-TEC-2026-TRANS-11, type: capacite, page: 5, texte: "Générer une liste (en extension, par ajouts successifs, en compréhension)."}
+  - {code: 1RE-TEC-2026-TRANS-12, type: capacite, page: 5, texte: "Manipuler des éléments d’une liste (ajouter, supprimer, etc.) et leurs indices."}
+  - {code: 1RE-TEC-2026-TRANS-13, type: capacite, page: 5, texte: "Itérer sur les éléments d’une liste."}
+  # Sélection de données
+  - {code: 1RE-TEC-2026-TRANS-14, type: capacite, page: 5, texte: "Traiter un fichier contenant des données réelles pour en extraire de l’information et l’analyser."}
+  - {code: 1RE-TEC-2026-TRANS-15, type: capacite, page: 5, texte: "Réaliser un tableau croisé de données sur deux critères à partir de données brutes."}

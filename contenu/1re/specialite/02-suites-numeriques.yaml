@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-SUI-TERME
     libelle: Calculer les termes d'une suite
+    attendus: [1RE-SPE-2026-SUI-01, 1RE-SPE-2026-SUI-02, 1RE-SPE-2026-SUI-09]
     objectifs:
     - Calculer des termes d'une suite définie explicitement ou par récurrence.
     methodes:
@@ -116,6 +117,7 @@ competences:
 
   - code: 1RE-SUI-MOD
     libelle: Modéliser une situation par une suite
+    attendus: [1RE-SPE-2026-SUI-03, 1RE-SPE-2026-SUI-04, 1RE-SPE-2026-SUI-08, 1RE-SPE-2026-SUI-10, 1RE-SPE-2026-SUI-11, 1RE-SPE-2026-SUI-13]
     objectifs:
     - Reconnaitre une évolution arithmétique ou géométrique et écrire le terme général.
     prerequis:
@@ -230,6 +232,7 @@ competences:
 
   - code: 1RE-SUI-VAR
     libelle: Étudier le sens de variation d'une suite
+    attendus: [1RE-SPE-2026-SUI-05, 1RE-SPE-2026-SUI-12]
     objectifs:
     - Étudier le sens de variation d'une suite par le signe de $u_{n+1} - u_n$.
     prerequis:

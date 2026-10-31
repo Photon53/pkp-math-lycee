@@ -1,0 +1,18 @@
+# Partie « Géométrie », rubrique « Géométrie repérée » (page 9 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: GEOREP
+  titre: Géométrie repérée
+  partie: Géométrie
+
+attendus:
+  - {code: 1RE-SPE-2026-GEOREP-01, type: contenu, page: 9, texte: "Vecteur normal à une droite. Le vecteur de coordonnées (a, b) est normal à la droite d’équation ax + by + c = 0."}
+  - {code: 1RE-SPE-2026-GEOREP-02, type: contenu, page: 9, texte: "Projection orthogonale d’un point sur une droite."}
+  - {code: 1RE-SPE-2026-GEOREP-03, type: contenu, page: 9, texte: "Équation de cercle."}
+  - {code: 1RE-SPE-2026-GEOREP-04, type: capacite, page: 9, texte: "Déterminer une équation cartésienne d’une droite connaissant un point et un vecteur normal."}
+  - {code: 1RE-SPE-2026-GEOREP-05, type: capacite, page: 9, texte: "Déterminer les coordonnées du projeté orthogonal d’un point sur une droite."}
+  - {code: 1RE-SPE-2026-GEOREP-06, type: capacite, page: 9, texte: "Déterminer et utiliser l’équation d’un cercle donné par son centre et son rayon."}
+  - {code: 1RE-SPE-2026-GEOREP-07, type: capacite, page: 9, texte: "Reconnaitre une équation de cercle, déterminer centre et rayon."}
+  - {code: 1RE-SPE-2026-GEOREP-08, type: capacite, page: 9, texte: "Utiliser un repère pour étudier une configuration."}
+  - {code: 1RE-SPE-2026-GEOREP-09, type: approfondissement, page: 9, texte: "Recherche de l’ensemble des points équidistants de l’axe des abscisses et d’un point donné."}
+  - {code: 1RE-SPE-2026-GEOREP-10, type: approfondissement, page: 9, texte: "Déterminer l’intersection d’un cercle ou d’une parabole d’équation y = ax² + bx + c avec une droite parallèle à un axe."}

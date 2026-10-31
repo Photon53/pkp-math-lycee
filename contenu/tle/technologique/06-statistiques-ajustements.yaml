@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-AJUST
   libelle: Utiliser un ajustement après changement de variable
+  attendus: [TLE-TEC-2026-SP-01, TLE-TEC-2026-SP-02]
   objectifs:
   - Calculer un point moyen.
   - Utiliser un ajustement z = log y pour un modèle exponentiel.

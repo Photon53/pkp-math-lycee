@@ -1,0 +1,22 @@
+# Partie « Nombres et calculs, algèbre », rubrique « Nombres réels » (page 7 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: REELS
+  titre: Nombres réels
+  partie: Nombres et calculs, algèbre
+
+attendus:
+  - {code: 2NDE-2026-REELS-01, type: contenu, page: 7, texte: "Ensemble ℝ des nombres réels, droite numérique."}
+  - {code: 2NDE-2026-REELS-02, type: contenu, page: 7, texte: "Intervalles de ℝ. Représentation graphique, notations du type [a, +∞[, ] –∞, a], [a, b], etc."}
+  - {code: 2NDE-2026-REELS-03, type: contenu, page: 7, texte: "Notation en valeur absolue |a| pour la distance de a à 0. Distance entre deux nombres réels."}
+  - {code: 2NDE-2026-REELS-04, type: contenu, page: 7, texte: "Inéquation du type |x – a| ⩽ r. Représentation graphique des solutions, intervalle [a – r, a + r]."}
+  - {code: 2NDE-2026-REELS-05, type: contenu, page: 7, texte: "Ensemble 𝔻 des nombres décimaux. Encadrement décimal d’un nombre réel à 10⁻ⁿ près."}
+  - {code: 2NDE-2026-REELS-06, type: contenu, page: 7, texte: "Ensemble ℚ des nombres rationnels. Nombres irrationnels ; exemples fournis par la géométrie, par exemple √2 et π."}
+  - {code: 2NDE-2026-REELS-07, type: capacite, page: 7, texte: "Lire l’abscisse d’un nombre réel sur une droite graduée et placer un nombre réel d’abscisse donnée."}
+  - {code: 2NDE-2026-REELS-08, type: capacite, page: 7, texte: "Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné."}
+  - {code: 2NDE-2026-REELS-09, type: capacite, page: 7, texte: "Donner un encadrement, d’amplitude donnée, d’un nombre réel par des décimaux."}
+  - {code: 2NDE-2026-REELS-10, type: capacite, page: 7, texte: "Dans le cadre de la résolution de problèmes, arrondir en donnant le nombre de chiffres significatifs adapté à la situation étudiée."}
+  - {code: 2NDE-2026-REELS-11, type: demonstration, page: 7, texte: "Le nombre rationnel 1/3 n’est pas décimal."}
+  - {code: 2NDE-2026-REELS-12, type: demonstration, page: 7, texte: "Le nombre réel √2 est irrationnel."}
+  - {code: 2NDE-2026-REELS-13, type: approfondissement, page: 7, texte: "Développement décimal illimité d’un nombre réel."}
+  - {code: 2NDE-2026-REELS-14, type: approfondissement, page: 7, texte: "Observation, sur des exemples, de la périodicité du développement décimal de nombres rationnels."}

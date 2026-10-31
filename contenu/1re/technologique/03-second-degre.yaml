@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: 1RE-TEC-POLY2
   libelle: Exploiter la forme factorisée d'un polynôme du second degré
+  attendus: [1RE-TEC-2026-ANA-13, 1RE-TEC-2026-ANA-14, 1RE-TEC-2026-ANA-18, 1RE-TEC-2026-ANA-19, 1RE-TEC-2026-ANA-20, 1RE-TEC-2026-ANA-21, 1RE-TEC-2026-ANA-22]
   objectifs:
   - Lire racines, axe de symétrie et sommet à partir de la forme factorisée.
   - Calculer un taux de variation.

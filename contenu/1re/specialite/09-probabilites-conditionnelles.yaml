@@ -9,6 +9,7 @@ chapitre:
 competences:
   - code: 1RE-COND
     libelle: Calculer une probabilité conditionnelle
+    attendus: [1RE-SPE-2026-AUTO-16, 1RE-SPE-2026-AUTO-17, 1RE-SPE-2026-PCOND-01, 1RE-SPE-2026-PCOND-06]
     objectifs:
       - >-
         Identifier l'univers de référence : sur qui, ou sur quoi, porte la probabilité demandée.
@@ -159,6 +160,7 @@ competences:
 
   - code: 1RE-TOTALES
     libelle: Utiliser un arbre et la formule des probabilités totales
+    attendus: [1RE-SPE-2026-PCOND-02, 1RE-SPE-2026-PCOND-03, 1RE-SPE-2026-PCOND-05, 1RE-SPE-2026-PCOND-07]
     objectifs:
       - >-
         Construire un arbre pondéré à partir d'un énoncé.

@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-MOY
     libelle: Calculer une moyenne et une médiane
+    attendus: [2NDE-2026-AUTO-25, 2NDE-2026-STAT-04, 2NDE-2026-STAT-06, 2NDE-2026-STAT-08, 2NDE-2026-STAT-09, 2NDE-2026-STAT-14]
     objectifs:
     - Calculer une moyenne simple ou pondérée, et une médiane.
     methodes:
@@ -99,6 +100,7 @@ competences:
 
   - code: 2NDE-DISP
     libelle: Mesurer la dispersion d'une série
+    attendus: [2NDE-2026-STAT-05, 2NDE-2026-STAT-15, 2NDE-2026-AUTO-26]
     objectifs:
     - Calculer étendue, quartiles, écart interquartile et écart type.
     prerequis:

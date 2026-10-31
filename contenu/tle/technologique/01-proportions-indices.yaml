@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-INDICE
   libelle: Calculer des proportions de proportions et des indices base 100
+  attendus: [TLE-TEC-2026-AUTO-01, TLE-TEC-2026-AUTO-02, TLE-TEC-2026-AUTO-06]
   objectifs:
   - Calculer la proportion d'une proportion.
   - Calculer et interpréter un indice base 100.

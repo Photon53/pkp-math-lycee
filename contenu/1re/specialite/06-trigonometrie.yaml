@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 1RE-RAD
     libelle: Utiliser le radian et la mesure principale
+    attendus: [1RE-SPE-2026-TRIG-01, 1RE-SPE-2026-TRIG-02, 1RE-SPE-2026-TRIG-04]
     objectifs:
     - Convertir degrés et radians, et déterminer une mesure principale.
     methodes:
@@ -93,6 +94,7 @@ competences:
 
   - code: 1RE-COSSIN
     libelle: Calculer avec cosinus et sinus
+    attendus: [1RE-SPE-2026-TRIG-03, 1RE-SPE-2026-TRIG-05, 1RE-SPE-2026-TRIG-06]
     objectifs:
     - Connaitre les valeurs remarquables et utiliser le cercle trigonométrique.
     - Utiliser $\cos^2 x + \sin^2 x = 1$.

@@ -8,6 +8,7 @@ chapitre:
 competences:
   - code: 2NDE-AFF
     libelle: Étudier une fonction affine
+    attendus: [2NDE-2026-AUTO-18, 2NDE-2026-FREP-04, 2NDE-2026-FVAR-03, 2NDE-2026-FVAR-04, 2NDE-2026-FVAR-08, 2NDE-2026-FVAR-12]
     objectifs:
     - Déterminer le sens de variation et le signe d'une fonction affine.
     - Retrouver une fonction affine à partir de deux valeurs.
@@ -101,6 +102,7 @@ competences:
 
   - code: 2NDE-SIGNE
     libelle: Étudier le signe d'un produit ou d'un quotient
+    attendus: [2NDE-2026-ALG-06, 2NDE-2026-ALG-07, 2NDE-2026-FREP-05, 2NDE-2026-FREP-10]
     objectifs:
     - Étudier le signe d'un produit ou d'un quotient avec un tableau de signes.
     - Résoudre une inéquation produit ou quotient.

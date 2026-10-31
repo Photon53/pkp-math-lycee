@@ -1,0 +1,28 @@
+# Partie « Statistiques et probabilités » (pages 9 et 10 du PDF). Textes recopiés du BO ;
+# les formules sur plusieurs lignes dans le PDF sont réécrites en ligne, les « Situations algorithmiques » saisies comme capacités.
+theme:
+  code: SP
+  titre: Statistiques et probabilités
+  partie: Statistiques et probabilités
+
+attendus:
+  # Séries statistiques à deux variables quantitatives
+  - {code: TLE-TEC-2026-SP-01, type: contenu, page: 9, texte: "Changement de variable dans l’étude graphique d’une série statistique à deux variables quantitatives. Ajustement se ramenant par changement de variable à un ajustement affine."}
+  - {code: TLE-TEC-2026-SP-02, type: capacite, page: 9, texte: "Représenter un nuage de points en effectuant un changement de variable donné (par exemple x², 1/x, 1/y, log(y), etc.) afin de conjecturer une relation de linéarité entre de nouvelles variables."}
+  - {code: TLE-TEC-2026-SP-03, type: capacite, page: 9, texte: "Automatiser le calcul de Σ(yᵢ − (axᵢ + b))². Rechercher un couple (a, b) minimisant cette expression parmi un ensemble fini de couples proposés par les élèves ou générés par balayage, tirage aléatoire, etc. (situations algorithmiques)."}
+  # Probabilités conditionnelles
+  - {code: TLE-TEC-2026-SP-04, type: contenu, page: 10, texte: "Formule des probabilités totales pour une partition de l’univers."}
+  - {code: TLE-TEC-2026-SP-05, type: capacite, page: 10, texte: "Construire un arbre de probabilités associé à une situation aléatoire donnée."}
+  - {code: TLE-TEC-2026-SP-06, type: capacite, page: 10, texte: "Interpréter les pondérations de chaque branche d’un arbre en termes de probabilités, et notamment de probabilités conditionnelles."}
+  - {code: TLE-TEC-2026-SP-07, type: capacite, page: 10, texte: "Faire le lien entre la définition des probabilités conditionnelles et la multiplication des probabilités des branches du chemin correspondant."}
+  - {code: TLE-TEC-2026-SP-08, type: capacite, page: 10, texte: "Utiliser un arbre de probabilités pour calculer des probabilités."}
+  - {code: TLE-TEC-2026-SP-09, type: capacite, page: 10, texte: "Calculer la probabilité d’un évènement connaissant ses probabilités conditionnelles relatives à une partition de l’univers."}
+  # Variables aléatoires discrètes finies
+  - {code: TLE-TEC-2026-SP-10, type: contenu, page: 10, texte: "Espérance d’une variable aléatoire discrète."}
+  - {code: TLE-TEC-2026-SP-11, type: contenu, page: 10, texte: "Loi binomiale B(n, p) ; espérance. Coefficients binomiaux (n k) ; triangle de Pascal."}
+  - {code: TLE-TEC-2026-SP-12, type: capacite, page: 10, texte: "Calculer l’espérance d’une variable aléatoire discrète dans des cas simples et l’interpréter."}
+  - {code: TLE-TEC-2026-SP-13, type: capacite, page: 10, texte: "Calculer des coefficients binomiaux (n k) à l’aide du triangle de Pascal pour n ⩽ 10."}
+  - {code: TLE-TEC-2026-SP-14, type: capacite, page: 10, texte: "Reconnaitre une situation relevant de la loi binomiale et en identifier le couple de paramètres."}
+  - {code: TLE-TEC-2026-SP-15, type: capacite, page: 10, texte: "Lorsque la variable aléatoire X suit une loi binomiale : interpréter l’évènement {X = k} sur un arbre de probabilité ; calculer les probabilités des évènements {X = 0}, {X = 1}, {X = n}, {X = n − 1} et de ceux qui s’en déduisent par réunion ; calculer la probabilité de l’évènement {X = k} à l’aide des coefficients binomiaux."}
+  - {code: TLE-TEC-2026-SP-16, type: capacite, page: 10, texte: "Générer un triangle de Pascal de taille n donnée. Représenter par un diagramme en bâtons la loi de probabilité d’une loi binomiale B(n, p) ; faire le lien avec l’histogramme des fréquences observées des 1 lors de la simulation d’échantillons d'une loi de Bernoulli faite en classe de première (situations algorithmiques)."}
+  - {code: TLE-TEC-2026-SP-17, type: capacite, page: 10, texte: "Calculer l’espérance Σ xᵢpᵢ d’une variable aléatoire suivant une loi de probabilité donnée ; cas particulier d’une variable aléatoire suivant la loi binomiale B(n, p). Représenter graphiquement l’espérance de lois binomiales B(n, p) à n fixé et p variable, à p fixé et n variable puis faire le lien avec l’expression admise de l’espérance (situations algorithmiques)."}

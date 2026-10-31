@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-TEC-BINOM
   libelle: Utiliser la loi binomiale et son espérance
+  attendus: [TLE-TEC-2026-SP-10, TLE-TEC-2026-SP-11, TLE-TEC-2026-SP-12, TLE-TEC-2026-SP-13, TLE-TEC-2026-SP-14, TLE-TEC-2026-SP-15]
   objectifs:
   - Utiliser les coefficients binomiaux et le triangle de Pascal.
   - Calculer des probabilités et l'espérance d'une loi binomiale.
