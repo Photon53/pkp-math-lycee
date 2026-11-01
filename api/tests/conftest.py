@@ -26,6 +26,10 @@ NB_QUESTIONS = sum(len(c.questions) for c in COMPETENCES)
 NB_QUESTIONS_ACTIVES = sum(not q.archivee for c in COMPETENCES for q in c.questions)
 
 
+def nb_chapitres_de(niveau: str, parcours: str) -> int:
+    return sum(f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours for f in _FICHIERS)
+
+
 def competences_de(niveau: str, parcours: str) -> list[str]:
     """Codes des compétences d'un niveau et d'un parcours, dans l'ordre du programme."""
     fichiers = sorted(

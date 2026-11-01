@@ -187,6 +187,6 @@ class TestParcours:
         h = connecter_eleve(client)
         progression = {p["code"]: p for p in client.get("/eleves/moi/progression", headers=h).json()}
         assert list(progression) == competences_de("2nde", "tronc-commun")  # ordre du programme
-        assert list(progression)[:5] == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-DEV", "2NDE-EQ1"]
+        assert list(progression)[:5] == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-ENSEMBLES", "2NDE-ENCADR"]
         assert progression["2NDE-FRAC"]["nb_reponses"] == 2
         assert progression["2NDE-PUIS"] == {**progression["2NDE-PUIS"], "nb_reponses": 0, "maitrise": 0.0, "maitrisee": False}

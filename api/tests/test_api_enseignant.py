@@ -60,6 +60,7 @@ class TestClasses:
         assert par_prenom["Lina"] == {
             "id": 1, "prenom": "Lina", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
             "competences_maitrisees": 0, "competences_total": len(competences_de("2nde", "tronc-commun")),
+            "classes_liees": [],
         }
         assert par_prenom["Inès"]["taux_reussite"] is None
 
