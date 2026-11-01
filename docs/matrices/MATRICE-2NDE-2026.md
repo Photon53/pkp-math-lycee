@@ -1,6 +1,6 @@
 # Matrice de couverture — Mathématiques, classe de seconde générale et technologique (programme 2026)
 
-Fichier **généré** par `python -m app.contenu matrice` le 2026-10-31 : ne pas modifier à la main.
+Fichier **généré** par `python -m app.contenu matrice` le 2026-11-01 : ne pas modifier à la main.
 Source : Programme d'enseignement de mathématiques de la classe de seconde générale et technologique, BO n° 14 du 2 avril 2026 (`referentiels/sources/bo-2026-14-2nde-gt-515402.pdf`).
 
 - Attendus saisis : **181**, dont 167 obligatoires (les approfondissements ne le sont pas).

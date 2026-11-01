@@ -1,0 +1,31 @@
+# Partie « Graphes et matrices » (pages 10 et 11 du PDF). Textes recopiés du BO ;
+# les « Problèmes possibles » (non exigibles) sont saisis comme approfondissements.
+theme:
+  code: GRAPHMAT
+  titre: Graphes et matrices
+  partie: Graphes et matrices
+
+attendus:
+  - {code: TLE-EXP-2019-GRAPHMAT-01, type: contenu, page: 10, texte: "Graphe, sommets, arêtes. Exemple du graphe complet."}
+  - {code: TLE-EXP-2019-GRAPHMAT-02, type: contenu, page: 10, texte: "Sommets adjacents, degré, ordre d’un graphe, chaîne, longueur d’une chaîne, graphe connexe."}
+  - {code: TLE-EXP-2019-GRAPHMAT-03, type: contenu, page: 10, texte: "Notion de matrice (tableau de nombres réels). Matrice carrée, matrice colonne, matrice ligne. Opérations. Inverse, puissances d’une matrice carrée."}
+  - {code: TLE-EXP-2019-GRAPHMAT-04, type: contenu, page: 10, texte: "Exemples de représentations matricielles : matrice d’adjacence d’un graphe ; transformations géométriques du plan ; systèmes linéaires ; suites récurrentes."}
+  - {code: TLE-EXP-2019-GRAPHMAT-05, type: contenu, page: 10, texte: "Exemples de calcul de puissances de matrices carrées d’ordre 2 ou 3."}
+  - {code: TLE-EXP-2019-GRAPHMAT-06, type: contenu, page: 10, texte: "Suite de matrices colonnes (Uₙ) vérifiant une relation de récurrence du type Uₙ₊₁ = AUₙ + C."}
+  - {code: TLE-EXP-2019-GRAPHMAT-07, type: contenu, page: 10, texte: "Graphe orienté pondéré associé à une chaîne de Markov à deux ou trois états."}
+  - {code: TLE-EXP-2019-GRAPHMAT-08, type: contenu, page: 10, texte: "Chaîne de Markov à deux ou trois états. Distribution initiale, représentée par une matrice ligne π₀. Matrice de transition, graphe pondéré associé."}
+  - {code: TLE-EXP-2019-GRAPHMAT-09, type: contenu, page: 10, texte: "Pour une chaîne de Markov à deux ou trois états de matrice P, interprétation du coefficient (i, j) de Pⁿ. Distribution après n transitions, représentée comme la matrice ligne π₀Pⁿ."}
+  - {code: TLE-EXP-2019-GRAPHMAT-10, type: contenu, page: 10, texte: "Distributions invariantes d’une chaîne de Markov à deux ou trois états."}
+  - {code: TLE-EXP-2019-GRAPHMAT-11, type: capacite, page: 11, texte: "Modéliser une situation par un graphe."}
+  - {code: TLE-EXP-2019-GRAPHMAT-12, type: capacite, page: 11, texte: "Modéliser une situation par une matrice."}
+  - {code: TLE-EXP-2019-GRAPHMAT-13, type: capacite, page: 11, texte: "Associer un graphe orienté pondéré à une chaîne de Markov à deux ou trois états."}
+  - {code: TLE-EXP-2019-GRAPHMAT-14, type: capacite, page: 11, texte: "Calculer l’inverse, les puissances d’une matrice carrée."}
+  - {code: TLE-EXP-2019-GRAPHMAT-15, type: capacite, page: 11, texte: "Dans le cadre de la résolution de problèmes, utiliser le calcul matriciel, notamment l’inverse et les puissances d’une matrice carrée, pour résoudre un système linéaire, étudier une suite récurrente linéaire, calculer le nombre de chemins de longueur donnée entre deux sommets d’un graphe, étudier une chaîne de Markov à deux ou trois états (calculer des probabilités, déterminer une probabilité invariante)."}
+  - {code: TLE-EXP-2019-GRAPHMAT-16, type: demonstration, page: 11, texte: "Expression du nombre de chemins de longueur n reliant deux sommets d'un graphe à l’aide de la puissance n-ième de la matrice d’adjacence."}
+  - {code: TLE-EXP-2019-GRAPHMAT-17, type: demonstration, page: 11, texte: "Pour une chaîne de Markov, expression de la probabilité de passer de l’état i à l'état j en n transitions, de la matrice ligne représentant la distribution après n transitions."}
+  - {code: TLE-EXP-2019-GRAPHMAT-18, type: approfondissement, page: 11, texte: "Étude de graphes eulériens."}
+  - {code: TLE-EXP-2019-GRAPHMAT-19, type: approfondissement, page: 11, texte: "Interpolation polynomiale."}
+  - {code: TLE-EXP-2019-GRAPHMAT-20, type: approfondissement, page: 11, texte: "Marche aléatoire sur un graphe. Étude asymptotique."}
+  - {code: TLE-EXP-2019-GRAPHMAT-21, type: approfondissement, page: 11, texte: "Modèle de diffusion d’Ehrenfest."}
+  - {code: TLE-EXP-2019-GRAPHMAT-22, type: approfondissement, page: 11, texte: "Modèle « proie-prédateur » discrétisé : évolution couplée de deux suites récurrentes."}
+  - {code: TLE-EXP-2019-GRAPHMAT-23, type: approfondissement, page: 11, texte: "Algorithme PageRank."}

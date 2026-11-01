@@ -1,0 +1,40 @@
+# Partie « Arithmétique » (page 9 du PDF). Textes recopiés du BO ; les « Exemples d'algorithmes » sont saisis
+# comme capacités, les « Problèmes possibles » (non exigibles) comme approfondissements.
+theme:
+  code: ARITH
+  titre: Arithmétique
+  partie: Arithmétique
+
+attendus:
+  - {code: TLE-EXP-2019-ARITH-01, type: contenu, page: 9, texte: "Divisibilité dans ℤ."}
+  - {code: TLE-EXP-2019-ARITH-02, type: contenu, page: 9, texte: "Division euclidienne d'un élément de ℤ par un élément de ℕ*."}
+  - {code: TLE-EXP-2019-ARITH-03, type: contenu, page: 9, texte: "Congruences dans ℤ. Compatibilité des congruences avec les opérations."}
+  - {code: TLE-EXP-2019-ARITH-04, type: contenu, page: 9, texte: "PGCD de deux entiers. Algorithme d’Euclide."}
+  - {code: TLE-EXP-2019-ARITH-05, type: contenu, page: 9, texte: "Couples d’entiers premiers entre eux."}
+  - {code: TLE-EXP-2019-ARITH-06, type: contenu, page: 9, texte: "Théorème de Bézout."}
+  - {code: TLE-EXP-2019-ARITH-07, type: contenu, page: 9, texte: "Théorème de Gauss."}
+  - {code: TLE-EXP-2019-ARITH-08, type: contenu, page: 9, texte: "Nombres premiers. Leur ensemble est infini."}
+  - {code: TLE-EXP-2019-ARITH-09, type: contenu, page: 9, texte: "Existence et unicité de la décomposition d'un entier en produit de facteurs premiers."}
+  - {code: TLE-EXP-2019-ARITH-10, type: contenu, page: 9, texte: "Petit théorème de Fermat."}
+  - {code: TLE-EXP-2019-ARITH-11, type: capacite, page: 9, texte: "Déterminer les diviseurs d’un entier, le PGCD de deux entiers."}
+  - {code: TLE-EXP-2019-ARITH-12, type: capacite, page: 9, texte: "Résoudre une congruence ax ≡ b [n]. Déterminer un inverse de a modulo n lorsque a et n sont premiers entre eux."}
+  - {code: TLE-EXP-2019-ARITH-13, type: capacite, page: 9, texte: "Établir et utiliser des tests de divisibilité, étudier la primalité de certains nombres, étudier des problèmes de chiffrement."}
+  - {code: TLE-EXP-2019-ARITH-14, type: capacite, page: 9, texte: "Résoudre des équations diophantiennes simples."}
+  - {code: TLE-EXP-2019-ARITH-15, type: demonstration, page: 9, texte: "Écriture du PGCD de a et b sous la forme ax + by, (x, y) ∈ ℤ²."}
+  - {code: TLE-EXP-2019-ARITH-16, type: demonstration, page: 9, texte: "Théorème de Gauss."}
+  - {code: TLE-EXP-2019-ARITH-17, type: demonstration, page: 9, texte: "L’ensemble des nombres premiers est infini."}
+  # Exemples d'algorithmes
+  - {code: TLE-EXP-2019-ARITH-18, type: capacite, page: 9, texte: "Algorithme d’Euclide de calcul du PGCD de deux nombres et calcul d’un couple de Bézout. Crible d’Ératosthène. Décomposition en facteurs premiers (exemples d'algorithmes)."}
+  # Problèmes possibles
+  - {code: TLE-EXP-2019-ARITH-19, type: approfondissement, page: 9, texte: "Détermination des racines rationnelles d’un polynôme à coefficients entiers."}
+  - {code: TLE-EXP-2019-ARITH-20, type: approfondissement, page: 9, texte: "Lemme chinois et applications à des situations concrètes."}
+  - {code: TLE-EXP-2019-ARITH-21, type: approfondissement, page: 9, texte: "Démonstrations du petit théorème de Fermat."}
+  - {code: TLE-EXP-2019-ARITH-22, type: approfondissement, page: 9, texte: "Problèmes de codage (codes barres, code ISBN, clé du Rib, code Insee)."}
+  - {code: TLE-EXP-2019-ARITH-23, type: approfondissement, page: 9, texte: "Étude de tests de primalité : notion de témoin, nombres de Carmichaël."}
+  - {code: TLE-EXP-2019-ARITH-24, type: approfondissement, page: 9, texte: "Problèmes de chiffrement (affine, Vigenère, Hill, RSA)."}
+  - {code: TLE-EXP-2019-ARITH-25, type: approfondissement, page: 9, texte: "Recherche de nombres premiers particuliers (Mersenne, Fermat)."}
+  - {code: TLE-EXP-2019-ARITH-26, type: approfondissement, page: 9, texte: "Exemples simples de codes correcteurs."}
+  - {code: TLE-EXP-2019-ARITH-27, type: approfondissement, page: 9, texte: "Étude du système cryptographique RSA."}
+  - {code: TLE-EXP-2019-ARITH-28, type: approfondissement, page: 9, texte: "Détermination des triplets pythagoriciens."}
+  - {code: TLE-EXP-2019-ARITH-29, type: approfondissement, page: 9, texte: "Étude des sommes de deux carrés par les entiers de Gauss."}
+  - {code: TLE-EXP-2019-ARITH-30, type: approfondissement, page: 9, texte: "Étude de l’équation de Pell-Fermat."}

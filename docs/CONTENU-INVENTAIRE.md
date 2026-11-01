@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **118** · compétences : **250** · questions actives : **1289**
-- Validation pédagogique : 0 validée(s), 1289 à valider, 0 à corriger
+- Chapitres : **118** · compétences : **256** · questions actives : **1319**
+- Validation pédagogique : 0 validée(s), 1319 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -265,16 +265,22 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 |---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | 1. Nombres complexes, forme algébrique et équations | `TLE-ME-CPLX-ALG` Calculer avec la forme algébrique et le conjugué | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 1. Nombres complexes, forme algébrique et équations | `TLE-ME-CPLX-EQ` Résoudre une équation polynomiale dans les complexes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Nombres complexes, forme algébrique et équations | `TLE-ME-BINOME` Utiliser la formule du binôme dans ℂ | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Nombres complexes, forme algébrique et équations | `TLE-ME-POLY` Factoriser un polynôme dont une racine est connue | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 2. Module, argument et géométrie | `TLE-ME-CPLX-TRIG` Utiliser module, argument et forme exponentielle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 2. Module, argument et géométrie | `TLE-ME-CPLX-GEOM` Résoudre des problèmes de géométrie avec les complexes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Module, argument et géométrie | `TLE-ME-EULER` Utiliser les formules d'addition, d'Euler et de Moivre | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Racines n-ièmes de l'unité et équations polynomiales | `TLE-ME-RACINES` Utiliser les racines n-ièmes de l'unité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 4. Divisibilité et congruences | `TLE-ME-DIV` Utiliser la divisibilité et la division euclidienne | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 4. Divisibilité et congruences | `TLE-ME-CONG` Calculer avec les congruences | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 5. PGCD, théorèmes de Bézout et de Gauss | `TLE-ME-PGCD-CALC` Calculer un PGCD avec l'algorithme d'Euclide | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 5. PGCD, théorèmes de Bézout et de Gauss | `TLE-ME-BEZOUT` Utiliser les théorèmes de Bézout et de Gauss | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. PGCD, théorèmes de Bézout et de Gauss | `TLE-ME-DIOPH` Résoudre une congruence ax ≡ b [n] et une équation diophantienne | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 6. Nombres premiers et petit théorème de Fermat | `TLE-ME-PREM` Utiliser les nombres premiers et le petit théorème de Fermat | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Nombres premiers et petit théorème de Fermat | `TLE-ME-PREM-ALGO` Démontrer l'infinité des nombres premiers et programmer les algorithmes d'arithmétique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 7. Matrices et systèmes linéaires | `TLE-ME-MAT-CALC` Calculer avec des matrices | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 7. Matrices et systèmes linéaires | `TLE-ME-MAT-SYS` Résoudre un système linéaire avec une matrice inverse | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Matrices et systèmes linéaires | `TLE-ME-MAT-SUITE` Étudier une suite de matrices Uₙ₊₁ = AUₙ + C | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 8. Graphes et chaînes de Markov | `TLE-ME-GRAPHE` Utiliser le vocabulaire des graphes et la matrice d'adjacence | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 8. Graphes et chaînes de Markov | `TLE-ME-MARKOV` Étudier une chaîne de Markov à deux états | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
@@ -347,7 +353,7 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 1246 |
+| PKP Math | — | originale | 1276 |
 | math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |

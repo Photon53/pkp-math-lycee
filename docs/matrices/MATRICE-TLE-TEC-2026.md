@@ -1,6 +1,6 @@
 # Matrice de couverture — Mathématiques, classe terminale de la voie technologique (programme 2026)
 
-Fichier **généré** par `python -m app.contenu matrice` le 2026-10-31 : ne pas modifier à la main.
+Fichier **généré** par `python -m app.contenu matrice` le 2026-11-01 : ne pas modifier à la main.
 Source : Programme d'enseignement de mathématiques de la classe terminale de la voie technologique, BO n° 14 du 2 avril 2026 (`referentiels/sources/bo-2026-14-tle-technologique-515420.pdf`).
 
 - Attendus saisis : **86**, dont 86 obligatoires (les approfondissements ne le sont pas).

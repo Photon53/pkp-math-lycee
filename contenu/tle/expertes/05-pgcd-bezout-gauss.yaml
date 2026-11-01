@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-PGCD-CALC
   libelle: Calculer un PGCD avec l'algorithme d'Euclide
+  attendus: [TLE-EXP-2019-ARITH-04, TLE-EXP-2019-ARITH-11]
   objectifs:
   - Calculer un PGCD par l'algorithme d'Euclide.
   - Reconnaitre des entiers premiers entre eux.
@@ -98,6 +99,7 @@ competences:
       resultat: '36'
 - code: TLE-ME-BEZOUT
   libelle: Utiliser les théorèmes de Bézout et de Gauss
+  attendus: [TLE-EXP-2019-ARITH-05, TLE-EXP-2019-ARITH-06, TLE-EXP-2019-ARITH-07, TLE-EXP-2019-ARITH-15, TLE-EXP-2019-ARITH-16]
   objectifs:
   - Utiliser Bézout pour prouver que deux entiers sont premiers entre eux.
   - Résoudre une équation ax + by = c et utiliser le théorème de Gauss.
@@ -182,3 +184,97 @@ competences:
       - $7$ divise $3x$ et $\mathrm{PGCD}(7, 3) = 1$, donc $7$ divise $x$.
       - $x = 7$ convient avec $y = 3$.
       resultat: '7'
+
+- code: TLE-ME-DIOPH
+  libelle: Résoudre une congruence ax ≡ b [n] et une équation diophantienne
+  attendus: [TLE-EXP-2019-ARITH-12, TLE-EXP-2019-ARITH-14]
+  objectifs:
+  - Déterminer un inverse de $a$ modulo $n$ quand $a$ et $n$ sont premiers entre eux.
+  - Résoudre $ax \equiv b \; [n]$ et une équation $ax + by = c$ en entiers.
+  prerequis:
+  - TLE-ME-BEZOUT
+  - TLE-ME-CONG
+  methodes:
+  - titre: Résoudre $ax + by = c$ en entiers
+    quand: $a$ et $b$ sont des entiers et le PGCD $d$ de $a$ et $b$ divise $c$.
+    etapes:
+    - Trouver une solution particulière $(x_0, y_0)$ (à vue ou par l'algorithme d'Euclide étendu).
+    - Soustraire $:$ $a(x - x_0) = -b(y - y_0)$.
+    - Appliquer le théorème de Gauss pour obtenir toutes les solutions.
+    exemple:
+      enonce: Résoudre $3x + 5y = 1$.
+      resolution:
+      - Solution particulière $(2, -1)$.
+      - $3(x - 2) = -5(y + 1)$ ; $5$ divise $3(x - 2)$ et $\text{PGCD}(3, 5) = 1$, donc $x = 2 + 5k$.
+      resultat: $(2 + 5k, -1 - 3k)$, $k \in \mathbb{Z}$
+  erreurs_frequentes:
+  - erreur: Diviser une congruence par un nombre.
+    explication: On ne divise pas modulo $n$ $:$ on multiplie par un inverse de $a$ modulo $n$, quand il existe.
+  resume: |
+    - $a$ a un inverse modulo $n$ si et seulement si $\text{PGCD}(a, n) = 1$ ; Bézout le fournit : $au + nv = 1$ donne $au \equiv 1 \; [n]$.
+    - $ax \equiv b \; [n]$ : on multiplie par l'inverse $u$ de $a$ : $x \equiv ub \; [n]$.
+    - $ax + by = c$ a des solutions entières si et seulement si $\text{PGCD}(a, b)$ divise $c$.
+  cours: |
+    ## Inverse modulo $n$
+    $3 \times 5 = 15 \equiv 1 \; [7]$ : $5$ est un inverse de $3$ modulo $7$.
+
+    ## Congruence linéaire
+    $3x \equiv 4 \; [7]$ : on multiplie par $5$, $x \equiv 20 \equiv 6 \; [7]$.
+
+    ## Équation diophantienne
+    $3x + 5y = 1$ : solutions $(2 + 5k, -1 - 3k)$ avec $k \in \mathbb{Z}$. L'équation $4x + 6y = 3$ n'a pas de solution entière, car $\text{PGCD}(4, 6) = 2$ ne divise pas $3$.
+  questions:
+    - code: TLE-ME-DIOPH-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Donner l''inverse de $3$ modulo $7$, compris entre $0$ et $6$.'
+      solution: 5
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $3 \times 5 = 15 = 2 \times 7 + 1$.
+        resultat: 5
+    - code: TLE-ME-DIOPH-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Résoudre $3x \equiv 4 \; [7]$ : donner la solution comprise entre $0$ et $6$.'
+      solution: 6
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - On multiplie par $5$ $:$ $x \equiv 20 \equiv 6 \; [7]$.
+        - Vérification $:$ $3 \times 6 = 18 \equiv 4 \; [7]$.
+        resultat: 6
+    - code: TLE-ME-DIOPH-03
+      difficulte: 3
+      type: qcm
+      enonce: 'L''équation $4x + 6y = 3$ a-t-elle des solutions entières ? A) Non, car $\text{PGCD}(4, 6) = 2$ ne divise pas $3$  B) Oui, par exemple $x = 0$  C) Oui, une infinité'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $4x + 6y$ est toujours pair, alors que $3$ est impair.
+        resultat: A
+    - code: TLE-ME-DIOPH-04
+      difficulte: 4
+      type: qcm
+      enonce: 'Quelles sont les solutions entières de $3x + 5y = 1$ ? A) $(2 + 5k, -1 - 3k)$, $k \in \mathbb{Z}$  B) $(2 + 3k, -1 - 5k)$, $k \in \mathbb{Z}$  C) $(2, -1)$ seulement'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $3(x - 2) = -5(y + 1)$ ; Gauss $:$ $5 \mid x - 2$, $x = 2 + 5k$.
+        - Puis $y = -1 - 3k$ ; on vérifie $3(2 + 5k) + 5(-1 - 3k) = 1$.
+        resultat: A
+    - code: TLE-ME-DIOPH-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Un chiffrement affine code la lettre de rang $x$ (de $0$ à $25$) par $y \equiv 7x + 3 \; [26]$. On reçoit $y = 10$. Quel est le rang $x$ de la lettre d''origine ?'
+      solution: 1
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $7x \equiv 7 \; [26]$.
+        - $7 \times 15 = 105 = 4 \times 26 + 1$ $:$ l'inverse de $7$ modulo $26$ est $15$.
+        - $x \equiv 15 \times 7 = 105 \equiv 1 \; [26]$.
+        resultat: 1

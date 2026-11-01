@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-CPLX-TRIG
   libelle: Utiliser module, argument et forme exponentielle
+  attendus: [TLE-EXP-2019-CPLX-10, TLE-EXP-2019-CPLX-11, TLE-EXP-2019-CPLX-12, TLE-EXP-2019-CPLX-14, TLE-EXP-2019-CPLX-15, TLE-EXP-2019-CPLX-16, TLE-EXP-2019-CPLX-17, TLE-EXP-2019-CPLX-18, TLE-EXP-2019-TRIGPOLY-02, TLE-EXP-2019-TRIGPOLY-05, TLE-EXP-2019-TRIGPOLY-06]
   objectifs:
   - Calculer module et argument d'un nombre complexe.
   - Utiliser la forme exponentielle pour calculer des puissances.
@@ -92,6 +93,7 @@ competences:
       resultat: '64'
 - code: TLE-ME-CPLX-GEOM
   libelle: Résoudre des problèmes de géométrie avec les complexes
+  attendus: [TLE-EXP-2019-GEOM-01, TLE-EXP-2019-GEOM-03]
   objectifs:
   - Calculer distances et milieux avec les affixes.
   - Interpréter des égalités entre complexes (cercles, triangles, rotations).
@@ -175,3 +177,94 @@ competences:
       - 'Quart de tour direct : multiplication par $i$.'
       - $i(3 + 2i) = 3i + 2i^2 = -2 + 3i$.
       resultat: '-2'
+
+- code: TLE-ME-EULER
+  libelle: Utiliser les formules d'addition, d'Euler et de Moivre
+  attendus: [TLE-EXP-2019-TRIGPOLY-01, TLE-EXP-2019-TRIGPOLY-03, TLE-EXP-2019-TRIGPOLY-04, TLE-EXP-2019-TRIGPOLY-07, TLE-EXP-2019-TRIGPOLY-08]
+  objectifs:
+  - Établir et utiliser les formules d'addition et de duplication.
+  - Utiliser les formules d'Euler et de Moivre pour linéariser ou calculer des puissances.
+  prerequis:
+  - TLE-ME-CPLX-TRIG
+  methodes:
+  - titre: Linéariser avec les formules d'Euler
+    quand: On doit transformer une puissance de $\cos$ ou de $\sin$ (par exemple pour intégrer).
+    etapes:
+    - Remplacer $\cos x$ par $\dfrac{e^{ix} + e^{-ix}}{2}$ (ou $\sin x$ par $\dfrac{e^{ix} - e^{-ix}}{2i}$).
+    - Développer avec la formule du binôme.
+    - Regrouper les termes conjugués pour revenir à des cosinus et sinus.
+    exemple:
+      enonce: Linéariser $\cos^2 x$.
+      resolution:
+      - $\cos^2 x = \dfrac{e^{2ix} + 2 + e^{-2ix}}{4}$.
+      - $= \dfrac{2\cos(2x) + 2}{4}$.
+      resultat: $\cos^2 x = \dfrac{1 + \cos(2x)}{2}$
+  erreurs_frequentes:
+  - erreur: Écrire $\cos(a + b) = \cos a + \cos b$.
+    explication: $\cos(a + b) = \cos a \cos b - \sin a \sin b$.
+  resume: |
+    - $\cos(a + b) = \cos a \cos b - \sin a \sin b$ ; $\sin(a + b) = \sin a \cos b + \cos a \sin b$.
+    - $\cos(2a) = \cos^2 a - \sin^2 a = 2\cos^2 a - 1$ ; $\sin(2a) = 2 \sin a \cos a$.
+    - Euler : $\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}$, $\sin\theta = \dfrac{e^{i\theta} - e^{-i\theta}}{2i}$.
+    - Moivre : $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$.
+  cours: |
+    ## Formules d'addition
+    Avec $\vec{u}(\cos a ; \sin a)$ et $\vec{v}(\cos b ; \sin b)$, unitaires, d'angle $(\vec{v}, \vec{u}) = a - b$ : $\vec{u} \cdot \vec{v} = \cos(a - b)$ et, en coordonnées, $\vec{u} \cdot \vec{v} = \cos a \cos b + \sin a \sin b$. On en déduit $\cos(a + b)$ en remplaçant $b$ par $-b$.
+
+    ## Moivre
+    $e^{i n\theta} = (e^{i\theta})^n$ donne $\cos(3\theta) + i\sin(3\theta) = (\cos\theta + i\sin\theta)^3$ ; en développant et en identifiant les parties réelles, $\cos(3\theta) = 4\cos^3\theta - 3\cos\theta$.
+
+    ## Puissances
+    $(1 + i)^{10} = (\sqrt{2}\,e^{i\pi/4})^{10} = 32\,e^{i 5\pi/2} = 32i$.
+  questions:
+    - code: TLE-ME-EULER-01
+      difficulte: 1
+      type: qcm
+      enonce: 'Quelle formule est correcte ? A) $\cos(a + b) = \cos a \cos b - \sin a \sin b$  B) $\cos(a + b) = \cos a + \cos b$  C) $\cos(a + b) = \cos a \sin b + \sin a \cos b$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - C'est la formule d'addition du cosinus ; la troisième est celle de $\sin(a + b)$.
+        resultat: A
+    - code: TLE-ME-EULER-02
+      difficulte: 2
+      type: numerique
+      enonce: 'On sait que $\cos a = 0{,}6$. Calculer $\cos(2a)$.'
+      solution: -0.28
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\cos(2a) = 2\cos^2 a - 1 = 2 \times 0{,}36 - 1 = -0{,}28$.
+        resultat: -0.28
+    - code: TLE-ME-EULER-03
+      difficulte: 3
+      type: qcm
+      enonce: 'Que vaut $\dfrac{e^{i\theta} + e^{-i\theta}}{2}$ ? A) $\cos\theta$  B) $\sin\theta$  C) $i\sin\theta$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $e^{i\theta} + e^{-i\theta} = 2\cos\theta$ (les parties imaginaires s'annulent).
+        resultat: A
+    - code: TLE-ME-EULER-04
+      difficulte: 4
+      type: qcm
+      enonce: 'Quelle est la forme algébrique de $(1 + i)^{10}$ ? A) $32i$  B) $-32$  C) $1\,024$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $1 + i = \sqrt{2}\,e^{i\pi/4}$, donc $(1 + i)^{10} = 2^5 e^{i 10\pi/4} = 32\,e^{i\pi/2} \times e^{2i\pi} = 32i$.
+        resultat: A
+    - code: TLE-ME-EULER-05
+      difficulte: 5
+      type: expression
+      enonce: 'À l''aide de la formule de Moivre, exprimer $\cos(3\theta)$ en fonction de $c = \cos\theta$ (réponse en fonction de $c$).'
+      solution: 4c^3 - 3c
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Partie réelle de $(c + is)^3$ $:$ $c^3 - 3cs^2$.
+        - Avec $s^2 = 1 - c^2$ $:$ $c^3 - 3c(1 - c^2) = 4c^3 - 3c$.
+        resultat: 4c^3 - 3c

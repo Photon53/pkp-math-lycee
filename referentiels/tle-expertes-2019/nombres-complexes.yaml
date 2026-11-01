@@ -1,0 +1,31 @@
+# Partie « Nombres complexes », rubriques « point de vue algébrique » et « point de vue géométrique » (page 6 du PDF).
+# Textes recopiés du BO ; les « Problèmes possibles » (non exigibles) sont saisis comme approfondissements.
+theme:
+  code: CPLX
+  titre: Nombres complexes, points de vue algébrique et géométrique
+  partie: Nombres complexes
+
+attendus:
+  # Point de vue algébrique
+  - {code: TLE-EXP-2019-CPLX-01, type: contenu, page: 6, texte: "Ensemble ℂ des nombres complexes. Partie réelle et partie imaginaire. Opérations."}
+  - {code: TLE-EXP-2019-CPLX-02, type: contenu, page: 6, texte: "Conjugaison. Propriétés algébriques."}
+  - {code: TLE-EXP-2019-CPLX-03, type: contenu, page: 6, texte: "Inverse d’un nombre complexe non nul."}
+  - {code: TLE-EXP-2019-CPLX-04, type: contenu, page: 6, texte: "Formule du binôme dans ℂ."}
+  - {code: TLE-EXP-2019-CPLX-05, type: capacite, page: 6, texte: "Effectuer des calculs algébriques avec des nombres complexes."}
+  - {code: TLE-EXP-2019-CPLX-06, type: capacite, page: 6, texte: "Résoudre une équation linéaire az = b."}
+  - {code: TLE-EXP-2019-CPLX-07, type: capacite, page: 6, texte: "Résoudre une équation simple faisant intervenir z et z̄."}
+  - {code: TLE-EXP-2019-CPLX-08, type: demonstration, page: 6, texte: "Conjugué d’un produit, d’un inverse, d’une puissance entière."}
+  - {code: TLE-EXP-2019-CPLX-09, type: demonstration, page: 6, texte: "Formule du binôme."}
+  # Point de vue géométrique
+  - {code: TLE-EXP-2019-CPLX-10, type: contenu, page: 6, texte: "Image d’un nombre complexe. Image du conjugué. Affixe d’un point, d’un vecteur."}
+  - {code: TLE-EXP-2019-CPLX-11, type: contenu, page: 6, texte: "Module d’un nombre complexe. Interprétation géométrique."}
+  - {code: TLE-EXP-2019-CPLX-12, type: contenu, page: 6, texte: "Relation |z|² = z z̄. Module d’un produit, d’un inverse."}
+  - {code: TLE-EXP-2019-CPLX-13, type: contenu, page: 6, texte: "Ensemble 𝕌 des nombres complexes de module 1. Stabilité de 𝕌 par produit et passage à l’inverse."}
+  - {code: TLE-EXP-2019-CPLX-14, type: contenu, page: 6, texte: "Arguments d’un nombre complexe non nul. Interprétation géométrique."}
+  - {code: TLE-EXP-2019-CPLX-15, type: contenu, page: 6, texte: "Forme trigonométrique."}
+  - {code: TLE-EXP-2019-CPLX-16, type: capacite, page: 6, texte: "Déterminer le module et les arguments d’un nombre complexe."}
+  - {code: TLE-EXP-2019-CPLX-17, type: capacite, page: 6, texte: "Représenter un nombre complexe par un point. Déterminer l’affixe d'un point."}
+  - {code: TLE-EXP-2019-CPLX-18, type: demonstration, page: 6, texte: "Formule |z|² = z z̄. Module d’un produit. Module d’une puissance."}
+  - {code: TLE-EXP-2019-CPLX-19, type: approfondissement, page: 6, texte: "Suite de nombres complexes définie par zₙ₊₁ = azₙ + b."}
+  - {code: TLE-EXP-2019-CPLX-20, type: approfondissement, page: 6, texte: "Inégalité triangulaire pour deux nombres complexes ; cas d’égalité."}
+  - {code: TLE-EXP-2019-CPLX-21, type: approfondissement, page: 6, texte: "Étude expérimentale de l’ensemble de Mandelbrot, d’ensembles de Julia."}

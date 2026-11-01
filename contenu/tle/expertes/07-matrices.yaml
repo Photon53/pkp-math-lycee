@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-MAT-CALC
   libelle: Calculer avec des matrices
+  attendus: [TLE-EXP-2019-GRAPHMAT-03, TLE-EXP-2019-GRAPHMAT-05, TLE-EXP-2019-GRAPHMAT-12, TLE-EXP-2019-GRAPHMAT-14]
   objectifs:
   - Additionner et multiplier des matrices.
   - Calculer des puissances et l'inverse d'une matrice carrée d'ordre 2.
@@ -90,6 +91,7 @@ competences:
       resultat: '2'
 - code: TLE-ME-MAT-SYS
   libelle: Résoudre un système linéaire avec une matrice inverse
+  attendus: [TLE-EXP-2019-GRAPHMAT-04]
   objectifs:
   - Écrire un système sous la forme MX = B.
   - Le résoudre avec l'inverse de M.
@@ -171,3 +173,91 @@ competences:
       - $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$.
       - $y = -5 \times 4 + 3 \times 7 = 1$ (et $x = 2 \times 4 - 7 = 1$).
       resultat: '1'
+
+- code: TLE-ME-MAT-SUITE
+  libelle: Étudier une suite de matrices Uₙ₊₁ = AUₙ + C
+  attendus: [TLE-EXP-2019-GRAPHMAT-06, TLE-EXP-2019-GRAPHMAT-15]
+  objectifs:
+  - Traduire deux suites récurrentes couplées par une relation matricielle.
+  - Exprimer $U_n$ en fonction de $n$ à l'aide des puissances d'une matrice, éventuellement après un changement de suite.
+  prerequis:
+  - TLE-ME-MAT-CALC
+  - TLE-ME-MAT-SYS
+  methodes:
+  - titre: Résoudre $U_{n+1} = AU_n + C$
+    quand: La matrice $I - A$ est inversible.
+    etapes:
+    - Chercher la matrice constante $L$ telle que $L = AL + C$ $:$ $L = (I - A)^{-1}C$.
+    - Poser $V_n = U_n - L$ $:$ alors $V_{n+1} = AV_n$, donc $V_n = A^n V_0$.
+    - Conclure $:$ $U_n = A^n(U_0 - L) + L$.
+    exemple:
+      enonce: $u_{n+1} = 0{,}5u_n + 2$ vu comme une matrice $1 \times 1$.
+      resolution:
+      - $L = 0{,}5L + 2$ donne $L = 4$.
+      - $u_n = 0{,}5^n(u_0 - 4) + 4$.
+      resultat: $u_n = 4 + 0{,}5^n(u_0 - 4)$
+  erreurs_frequentes:
+  - erreur: Écrire $U_n = A^n U_0 + nC$.
+    explication: La constante $C$ est elle aussi multipliée par $A$ à chaque étape ; il faut passer par la suite $V_n = U_n - L$.
+  resume: |
+    - Deux suites couplées $u_{n+1} = au_n + bv_n$, $v_{n+1} = cu_n + dv_n$ s'écrivent $U_{n+1} = AU_n$ avec $U_n = \begin{pmatrix} u_n \\ v_n \end{pmatrix}$.
+    - Si $U_{n+1} = AU_n$, alors $U_n = A^n U_0$.
+    - Si $U_{n+1} = AU_n + C$ et $L = AL + C$, alors $U_n = A^n(U_0 - L) + L$.
+  cours: |
+    ## Écriture matricielle
+    Chaque année, $90\,\%$ des abonnés d'un opérateur restent et $20\,\%$ des clients du concurrent le rejoignent. Avec $U_n = \begin{pmatrix} a_n \\ b_n \end{pmatrix}$ : $U_{n+1} = \begin{pmatrix} 0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8 \end{pmatrix} U_n$.
+
+    ## Avec une constante
+    $U_{n+1} = AU_n + C$ : on cherche l'état d'équilibre $L$, puis on étudie l'écart $U_n - L$, qui vérifie une relation sans constante.
+  questions:
+    - code: TLE-ME-MAT-SUITE-01
+      difficulte: 1
+      type: numerique
+      enonce: 'On a $U_{n+1} = AU_n$ avec $A = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$ et $U_0 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$. Quelle est la seconde coordonnée de $U_2$ ?'
+      solution: 9
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $U_2 = A^2 U_0$ et $A^2 = \begin{pmatrix} 4 & 0 \\ 0 & 9 \end{pmatrix}$.
+        resultat: 9
+    - code: TLE-ME-MAT-SUITE-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Avec $A = \begin{pmatrix} 0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8 \end{pmatrix}$ et $U_0 = \begin{pmatrix} 1\,000 \\ 500 \end{pmatrix}$, calculer la première coordonnée de $U_1 = AU_0$.'
+      solution: 1000
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}9 \times 1\,000 + 0{,}2 \times 500 = 900 + 100 = 1\,000$.
+        resultat: 1000
+    - code: TLE-ME-MAT-SUITE-03
+      difficulte: 3
+      type: numerique
+      enonce: 'La suite $(u_n)$ vérifie $u_{n+1} = 0{,}5u_n + 2$. Quelle est la valeur $L$ telle que $L = 0{,}5L + 2$ ?'
+      solution: 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}5L = 2$, donc $L = 4$.
+        resultat: 4
+    - code: TLE-ME-MAT-SUITE-04
+      difficulte: 4
+      type: qcm
+      enonce: 'On a $U_{n+1} = AU_n + C$ et une matrice $L$ vérifiant $L = AL + C$. On pose $V_n = U_n - L$. Quelle relation vérifie $(V_n)$ ? A) $V_{n+1} = AV_n$  B) $V_{n+1} = AV_n + C$  C) $V_{n+1} = V_n + C$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $V_{n+1} = AU_n + C - (AL + C) = A(U_n - L) = AV_n$.
+        resultat: A
+    - code: TLE-ME-MAT-SUITE-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Avec $A = \begin{pmatrix} 0{,}5 & 0 \\ 0 & 0{,}5 \end{pmatrix}$, $C = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$, $U_{n+1} = AU_n + C$ et $U_0 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$, vers quelle valeur tend la première coordonnée de $U_n$ ?'
+      solution: 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $L = (I - A)^{-1}C = 2C$, soit $L = \begin{pmatrix} 4 \\ 2 \end{pmatrix}$.
+        - $U_n = A^n(U_0 - L) + L$ et $A^n$ tend vers la matrice nulle $:$ $U_n$ tend vers $L$.
+        resultat: 4

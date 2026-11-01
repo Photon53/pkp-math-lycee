@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-DIV
   libelle: Utiliser la divisibilité et la division euclidienne
+  attendus: [TLE-EXP-2019-ARITH-01, TLE-EXP-2019-ARITH-02, TLE-EXP-2019-ARITH-11]
   objectifs:
   - Effectuer une division euclidienne, y compris d'un entier négatif.
   - Utiliser les propriétés de la divisibilité.
@@ -96,6 +97,7 @@ competences:
       resultat: '12'
 - code: TLE-ME-CONG
   libelle: Calculer avec les congruences
+  attendus: [TLE-EXP-2019-ARITH-03, TLE-EXP-2019-ARITH-13]
   objectifs:
   - Utiliser les congruences pour trouver un reste.
   - Résoudre une équation de congruence simple.

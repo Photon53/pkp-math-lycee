@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-PREM
   libelle: Utiliser les nombres premiers et le petit théorème de Fermat
+  attendus: [TLE-EXP-2019-ARITH-08, TLE-EXP-2019-ARITH-09, TLE-EXP-2019-ARITH-10]
   objectifs:
   - Reconnaitre un nombre premier et décomposer un entier en facteurs premiers.
   - Utiliser le petit théorème de Fermat pour calculer un reste.
@@ -92,3 +93,107 @@ competences:
       - 'Fermat : $3^6 \equiv 1 \pmod 7$ ; $100 = 6 \times 16 + 4$.'
       - $3^{100} \equiv 3^4 = 81 = 7 \times 11 + 4$.
       resultat: '4'
+
+- code: TLE-ME-PREM-ALGO
+  libelle: Démontrer l'infinité des nombres premiers et programmer les algorithmes d'arithmétique
+  attendus: [TLE-EXP-2019-ARITH-17, TLE-EXP-2019-ARITH-18]
+  objectifs:
+  - Démontrer que l'ensemble des nombres premiers est infini.
+  - Lire et programmer l'algorithme d'Euclide, le crible d'Ératosthène et la décomposition en facteurs premiers.
+  prerequis:
+  - TLE-ME-PREM
+  - TLE-ME-PGCD-CALC
+  methodes:
+  - titre: Suivre l'algorithme d'Euclide
+    quand: On veut le PGCD de deux entiers $a > b > 0$.
+    etapes:
+    - Remplacer $(a, b)$ par $(b, r)$ où $r$ est le reste de la division de $a$ par $b$.
+    - Recommencer jusqu'à obtenir un reste nul.
+    - Le PGCD est le dernier reste non nul.
+    exemple:
+      enonce: PGCD de $252$ et $198$.
+      resolution:
+      - $252 = 198 + 54$ ; $198 = 3 \times 54 + 36$ ; $54 = 36 + 18$ ; $36 = 2 \times 18$.
+      resultat: $18$
+  erreurs_frequentes:
+  - erreur: Croire que $N = p_1 p_2 \cdots p_n + 1$ est toujours premier.
+    explication: $2 \times 3 \times 5 \times 7 \times 11 \times 13 + 1 = 30\,031 = 59 \times 509$ $:$ $N$ a seulement un facteur premier hors de la liste.
+  resume: |
+    - Infinité : si $p_1, \ldots, p_n$ étaient tous les premiers, $N = p_1 \cdots p_n + 1$ aurait un diviseur premier différent de tous les $p_i$ : contradiction.
+    - Euclide : `while b != 0: a, b = b, a % b` ; le PGCD est `a` à la fin.
+    - Crible : on raye les multiples de chaque nombre premier jusqu'à $\sqrt{N}$.
+    - Décomposition : on divise par $2$, $3$, $5$… tant que c'est possible.
+  cours: |
+    ## Infinité des nombres premiers
+    Supposons qu'il n'y ait qu'un nombre fini de premiers $p_1, \ldots, p_n$. L'entier $N = p_1 p_2 \cdots p_n + 1 \geqslant 2$ admet un diviseur premier $p$. Ce $p$ est l'un des $p_i$, donc il divise $p_1 \cdots p_n$ ; il divise alors $N - p_1 \cdots p_n = 1$ : impossible.
+
+    ## Algorithmes
+    ```python
+    def pgcd(a, b):
+        while b != 0:
+            a, b = b, a % b
+        return a
+
+    def facteurs(n):
+        L = []
+        d = 2
+        while n > 1:
+            while n % d == 0:
+                L.append(d)
+                n = n // d
+            d = d + 1
+        return L
+    ```
+    `facteurs(360)` renvoie `[2, 2, 2, 3, 3, 5]`.
+  questions:
+    - code: TLE-ME-PREM-ALGO-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Que renvoie `pgcd(252, 198)` (algorithme d''Euclide) ?'
+      solution: 18
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Restes successifs $:$ $54$, $36$, $18$, $0$.
+        resultat: 18
+    - code: TLE-ME-PREM-ALGO-02
+      difficulte: 2
+      type: numerique
+      enonce: 'La fonction `facteurs(360)` renvoie la liste des facteurs premiers de $360$, avec répétition. Combien d''éléments contient cette liste ?'
+      solution: 6
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $360 = 2^3 \times 3^2 \times 5$ $:$ la liste est `[2, 2, 2, 3, 3, 5]`.
+        resultat: 6
+    - code: TLE-ME-PREM-ALGO-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Dans le crible d''Ératosthène jusqu''à $100$, quel est le plus grand nombre premier dont il faut rayer les multiples ?'
+      solution: 7
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Il suffit de traiter les premiers $p \leqslant \sqrt{100} = 10$ $:$ $2, 3, 5, 7$.
+        resultat: 7
+    - code: TLE-ME-PREM-ALGO-04
+      difficulte: 4
+      type: qcm
+      enonce: 'Dans la démonstration de l''infinité des nombres premiers, on pose $N = p_1 p_2 \cdots p_n + 1$. Pourquoi aucun $p_i$ ne divise-t-il $N$ ? A) Parce qu''il diviserait alors $1$  B) Parce que $N$ est premier  C) Parce que $N$ est impair'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Si $p_i$ divise $N$ et $p_1 \cdots p_n$, il divise leur différence $1$, ce qui est impossible.
+        resultat: A
+    - code: TLE-ME-PREM-ALGO-05
+      difficulte: 5
+      type: qcm
+      enonce: 'L''entier $30\,031 = 2 \times 3 \times 5 \times 7 \times 11 \times 13 + 1$ vaut $59 \times 509$. Que montre cet exemple ? A) $N = p_1 \cdots p_n + 1$ n''est pas toujours premier, mais ses facteurs premiers sont hors de la liste  B) La démonstration de l''infinité des nombres premiers est fausse  C) $59$ divise l''un des nombres $2, 3, 5, 7, 11, 13$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - La démonstration n'affirme pas que $N$ est premier, seulement qu'il a un diviseur premier absent de la liste.
+        - $59$ et $509$ sont bien des premiers qui ne figurent pas parmi $2, \ldots, 13$.
+        resultat: A

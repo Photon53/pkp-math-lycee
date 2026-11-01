@@ -7,6 +7,7 @@ chapitre:
 competences:
 - code: TLE-ME-GRAPHE
   libelle: Utiliser le vocabulaire des graphes et la matrice d'adjacence
+  attendus: [TLE-EXP-2019-GRAPHMAT-01, TLE-EXP-2019-GRAPHMAT-02, TLE-EXP-2019-GRAPHMAT-11, TLE-EXP-2019-GRAPHMAT-16]
   objectifs:
   - Calculer degrés et nombre d'arêtes, reconnaitre une chaîne eulérienne.
   - Compter des chemins à l'aide des puissances de la matrice d'adjacence.
@@ -94,6 +95,7 @@ competences:
       resultat: '3'
 - code: TLE-ME-MARKOV
   libelle: Étudier une chaîne de Markov à deux états
+  attendus: [TLE-EXP-2019-GRAPHMAT-07, TLE-EXP-2019-GRAPHMAT-08, TLE-EXP-2019-GRAPHMAT-09, TLE-EXP-2019-GRAPHMAT-10, TLE-EXP-2019-GRAPHMAT-13, TLE-EXP-2019-GRAPHMAT-17]
   objectifs:
   - Utiliser une matrice de transition pour calculer une distribution.
   - Déterminer la distribution invariante.
