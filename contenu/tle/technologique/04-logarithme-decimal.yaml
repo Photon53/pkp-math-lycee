@@ -13,20 +13,65 @@ competences:
   - Résoudre un problème de seuil.
   prerequis:
   - TLE-TEC-EXPA
+  cours_couvre: [TLE-TEC-2026-ANA-17, TLE-TEC-2026-ANA-18, TLE-TEC-2026-ANA-19, TLE-TEC-2026-ANA-20]
   resume: |
-    - Pour $b > 0$, $\log b$ est l'unique solution de $10^x = b$ : $\log(10^n) = n$.
-    - $\log(ab) = \log a + \log b$, $\log\dfrac{a}{b} = \log a - \log b$, $\log(a^n) = n\log a$.
-    - $\log$ est croissante : elle conserve l'ordre des inégalités.
+    - Pour $b > 0$, $\log b$ est l'unique réel $x$ tel que $10^x = b$ ; $\log 1 = 0$, $\log 10 = 1$, $\log 10^n = n$.
+    - $\log$ est strictement croissante sur $]0 ; +\infty[$ : $a < b \iff \log a < \log b$.
+    - $\log(ab) = \log a + \log b$, $\log\left(\dfrac{a}{b}\right) = \log a - \log b$, $\log(a^n) = n \log a$.
+    - $a^x = b \iff x = \dfrac{\log b}{\log a}$ ; en divisant par $\log a < 0$ (cas $a < 1$), on change le sens d'une inégalité.
   cours: |
-    ## Définition
-    $\log 1\,000 = 3$ car $10^3 = 1\,000$ ; $\log 0{,}01 = -2$.
-    $10^x = 50 \iff x = \log 50$.
+    ## 1. Définition
 
-    ## Propriétés
-    $\log 2 + \log 5 = \log 10 = 1$.
+    Pour tout réel $b > 0$, l'équation $10^x = b$ admet une unique solution, car $x \mapsto 10^x$ est strictement croissante et prend toutes les valeurs strictement positives.
 
-    ## Seuil
-    $2^n > 10^6 \iff n\log 2 > 6 \iff n > \dfrac{6}{\log 2} \approx 19{,}9$, donc $n = 20$.
+    **Définition.** Le **logarithme décimal** de $b > 0$ est l'unique réel $x$ tel que $10^x = b$. On le note $\log b$ :
+    $$10^x = b \iff x = \log b.$$
+
+    > **Propriété.** $\log 1 = 0$, $\log 10 = 1$, $\log(10^n) = n$ pour tout entier $n$, et $10^{\log b} = b$ pour $b > 0$.
+
+    Exemples : $\log 1\,000 = 3$, $\log 0{,}01 = -2$. Le logarithme décimal d'un nombre indique son « nombre de chiffres » : $\log 50 \approx 1{,}7$ car $10 < 50 < 100$.
+
+    ## 2. Sens de variation
+
+    > **Propriété.** La fonction $\log$ est strictement croissante sur $]0 ; +\infty[$ : pour $a, b > 0$, $a < b \iff \log a < \log b$.
+
+    Conséquences : $\log b < 0$ si $0 < b < 1$, $\log b > 0$ si $b > 1$. La fonction $\log$ n'est pas définie pour $b \leqslant 0$.
+
+    ## 3. Propriétés algébriques
+
+    > **Propriété.** Pour $a > 0$, $b > 0$ et $n$ entier naturel :
+    > $$\log(ab) = \log a + \log b, \qquad \log\left(\frac{a}{b}\right) = \log a - \log b, \qquad \log(a^n) = n \log a.$$
+
+    **Démonstration de la première.** Posons $x = \log a$ et $y = \log b$ : $10^x = a$ et $10^y = b$. Alors $ab = 10^x \times 10^y = 10^{x+y}$, donc $\log(ab) = x + y$.
+
+    On admet de plus que $\log(a^x) = x \log a$ pour tout réel $x$, ce qui sert à résoudre les équations ci-dessous.
+
+    ## 4. Résoudre des équations et inéquations
+
+    **Équation $a^x = b$** ($a > 0$, $a \neq 1$, $b > 0$) : on applique $\log$ aux deux membres :
+    $$a^x = b \iff x \log a = \log b \iff x = \frac{\log b}{\log a}.$$
+
+    **Équation $x^a = b$** ($x > 0$) : $x = b^{\frac{1}{a}}$ ; avec le logarithme, $\log x = \dfrac{\log b}{a}$.
+
+    **Inéquation $a^n < b$ d'inconnue entière $n$** : $\log$ étant croissante, $a^n < b \iff n \log a < \log b$. On divise ensuite par $\log a$ :
+    - si $a > 1$, $\log a > 0$ : le sens de l'inégalité est conservé ;
+    - si $0 < a < 1$, $\log a < 0$ : le sens de l'inégalité **change**.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Une voiture perd $15\,\%$ de sa valeur par an. Au bout de combien d'années entières vaudra-t-elle moins de la moitié de son prix d'achat ?
+
+    **Résolution.**
+    1. Au bout de $n$ années, la valeur est multipliée par $0{,}85^n$. On cherche le plus petit $n$ tel que $0{,}85^n < 0{,}5$.
+    2. $\log$ est croissante : $n \log 0{,}85 < \log 0{,}5$.
+    3. $\log 0{,}85 < 0$ : on divise en changeant le sens, $n > \dfrac{\log 0{,}5}{\log 0{,}85} \approx 4{,}27$.
+    4. Le plus petit entier est $n = 5$. Vérification : $0{,}85^4 \approx 0{,}522$ et $0{,}85^5 \approx 0{,}444$.
+
+    ## 6. Erreurs fréquentes
+
+    - Écrire $\log(a + b) = \log a + \log b$ : la propriété porte sur un **produit**.
+    - Oublier de changer le sens de l'inégalité en divisant par $\log a$ négatif.
+    - Calculer $\log$ d'un nombre négatif ou nul.
   methodes:
   - titre: Résoudre a^n > b avec le logarithme
     etapes:
@@ -70,7 +115,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $x = \log 50$ (environ $1{,}7$).
+      - 'Par définition, $\log 50$ est l''unique réel $x$ tel que $10^x = 50$.'
+      - 'Donc $x = \log 50$ ; comme $10^1 < 50 < 10^2$, on a $1 < x < 2$ (environ $1{,}7$).'
       resultat: log(50)
   - code: TLE-TEC-LOG-04
     difficulte: 4
@@ -80,7 +126,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\log(2 \times 5) = \log 10 = 1$.
+      - 'Propriété : $\log a + \log b = \log(ab)$ pour $a > 0$ et $b > 0$.'
+      - '$\log 2 + \log 5 = \log(2 \times 5) = \log 10$.'
+      - '$\log 10 = 1$ car $10^1 = 10$.'
       resultat: '1'
   - code: TLE-TEC-LOG-05
     difficulte: 5

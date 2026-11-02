@@ -13,17 +13,67 @@ competences:
   - Calculer et interpréter un indice base 100.
   prerequis:
   - 1RE-TEC-EVO
+  cours_couvre: [TLE-TEC-2026-AUTO-01, TLE-TEC-2026-AUTO-02, TLE-TEC-2026-AUTO-06]
   resume: |
-    - Proportion d'une proportion : on **multiplie** les proportions.
-    - Indice base 100 : $I = 100 \times \dfrac{\text{valeur}}{\text{valeur de référence}}$.
-    - Passer de l'indice $I_1$ à $I_2$ : taux $\dfrac{I_2 - I_1}{I_1}$.
+    - Proportion d'une partie $A$ dans un ensemble $E$ : $p = \dfrac{n_A}{n_E}$, comprise entre $0$ et $1$, écrite en décimal, en fraction ou en pourcentage ; $n_A = p \times n_E$.
+    - Proportion d'une proportion : si $A \subset B \subset E$, alors $p_{A/E} = p_{A/B} \times p_{B/E}$.
+    - Indice base 100 : $I = 100 \times \dfrac{V}{V_0}$ ; $I - 100$ est le taux d'évolution (en %) **depuis la date de base**.
+    - Entre deux indices $I_1$ et $I_2$ : $t = \dfrac{I_2 - I_1}{I_1}$, et non $I_2 - I_1$.
   cours: |
-    ## Proportion d'une proportion
-    $40\,\%$ des élèves sont internes et $25\,\%$ des internes sont des filles : les filles internes représentent $0{,}4 \times 0{,}25 = 10\,\%$ des élèves.
+    ## 1. Proportion
 
-    ## Indices base 100
-    Prix $80$ € en 2020 (base 100), $92$ € en 2025 : indice $100 \times \dfrac{92}{80} = 115$, soit $+15\,\%$ depuis 2020.
-    De l'indice $125$ à l'indice $150$ : $\dfrac{150 - 125}{125} = 20\,\%$ (et non $25\,\%$).
+    **Définition.** Dans un ensemble $E$ de $n_E$ éléments, une partie $A$ en compte $n_A$. La **proportion** (ou fréquence) de $A$ dans $E$ est
+    $$p = \frac{n_A}{n_E}, \qquad 0 \leqslant p \leqslant 1.$$
+
+    Elle s'écrit sous trois formes équivalentes : $\dfrac{3}{8} = 0{,}375 = 37{,}5\,\%$.
+
+    > **Propriété.** Connaissant $p$ et $n_E$, l'effectif de la partie est $n_A = p \times n_E$ ; connaissant $p$ et $n_A$, l'effectif total est $n_E = \dfrac{n_A}{p}$.
+
+    Exemple : $35\,\%$ de $240$ personnes, c'est $0{,}35 \times 240 = 84$ personnes.
+
+    ## 2. Proportion d'une proportion
+
+    > **Propriété.** Si $A \subset B \subset E$, la proportion de $A$ dans $E$ est le produit des proportions : $$p_{A/E} = p_{A/B} \times p_{B/E}.$$
+
+    **Justification.** $\dfrac{n_A}{n_E} = \dfrac{n_A}{n_B} \times \dfrac{n_B}{n_E}$ : on a simplement multiplié et divisé par $n_B$.
+
+    Exemple : $60\,\%$ des salariés d'une entreprise sont cadres et $15\,\%$ des cadres travaillent à temps partiel. La proportion de cadres à temps partiel parmi **tous** les salariés est $0{,}15 \times 0{,}6 = 0{,}09$, soit $9\,\%$.
+
+    ## 3. Indice base 100
+
+    **Définition.** Une grandeur vaut $V_0$ à une date de référence (la **base**) et $V$ à une autre date. L'**indice** de $V$ base 100 est
+    $$I = 100 \times \frac{V}{V_0}.$$
+
+    À la date de base, l'indice vaut $100$. Un indice n'a pas d'unité : il compare deux valeurs.
+
+    > **Propriété (interprétation).** $I - 100$ est le taux d'évolution, en pourcentage, **entre la date de base et la date de l'indice**. Un indice $112$ signifie $+12\,\%$ depuis la base ; un indice $85$ signifie $-15\,\%$.
+
+    **Retrouver une valeur.** De $I = 100 \times \dfrac{V}{V_0}$ on tire $V = V_0 \times \dfrac{I}{100}$.
+
+    ## 4. Taux d'évolution entre deux indices
+
+    > **Propriété.** Entre deux dates d'indices $I_1$ et $I_2$ (même base), le taux d'évolution est $$t = \frac{I_2 - I_1}{I_1}.$$
+
+    En effet, les indices sont proportionnels aux valeurs : $\dfrac{V_2 - V_1}{V_1} = \dfrac{I_2 - I_1}{I_1}$.
+
+    La différence $I_2 - I_1$ est un écart **en points d'indice**, pas un pourcentage, sauf si $I_1 = 100$.
+
+    ## 5. Méthode et exemple complet
+
+    **Énoncé.** Le prix moyen d'un panier vaut $64$ € en 2020, $72$ € en 2023 et $80$ € en 2025. Calculer les indices base 100 en 2020, puis le taux d'évolution entre 2023 et 2025.
+
+    **Résolution.**
+    1. Indice 2023 : $100 \times \dfrac{72}{64} = 112{,}5$ ; indice 2025 : $100 \times \dfrac{80}{64} = 125$.
+    2. Interprétation : $+12{,}5\,\%$ de 2020 à 2023 et $+25\,\%$ de 2020 à 2025.
+    3. De 2023 à 2025 : $t = \dfrac{125 - 112{,}5}{112{,}5} \approx 0{,}111$, soit environ $+11{,}1\,\%$ (et non $12{,}5\,\%$).
+
+    Vérification avec les prix : $\dfrac{80 - 72}{72} \approx 0{,}111$.
+
+    ## 6. Erreurs fréquentes
+
+    - Lire « de 125 à 150, cela fait $+25\,\%$ » : c'est $+25$ **points**, soit $\dfrac{25}{125} = 20\,\%$.
+    - Additionner deux proportions emboîtées au lieu de les multiplier.
+    - Oublier qu'un pourcentage s'écrit en décimal avant de multiplier : $25\,\% = 0{,}25$.
   methodes:
   - titre: Calculer un taux entre deux indices
     etapes:
@@ -66,7 +116,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'Depuis la base 100, l''écart se lit directement : $+30\,\%$.'
+      - 'Le taux d''évolution se calcule par $\dfrac{I_2 - I_1}{I_1} = \dfrac{130 - 100}{100} = 0{,}30$.'
+      - 'Depuis la base 100, l''écart à $100$ se lit donc directement en pourcentage : $+30\,\%$.'
       resultat: '30'
   - code: TLE-TEC-INDICE-04
     difficulte: 4
@@ -76,7 +127,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{150 - 125}{125} = 0{,}2$, soit $20\,\%$.
+      - 'L''écart $150 - 125 = 25$ est un écart en points d''indice : il ne donne pas le taux, car la valeur de départ n''est pas $100$.'
+      - 'Taux entre deux indices : $\dfrac{I_2 - I_1}{I_1} = \dfrac{150 - 125}{125} = \dfrac{25}{125}$.'
+      - '$\dfrac{25}{125} = 0{,}2$, soit une hausse de $20\,\%$.'
       resultat: '20'
   - code: TLE-TEC-INDICE-05
     difficulte: 5
@@ -125,18 +178,65 @@ competences:
   erreurs_frequentes:
   - erreur: Écrire qu'une baisse de $8\,\%$ revient à multiplier par $0{,}08$.
     explication: Il reste $92\,\%$ de la valeur $:$ on multiplie par $0{,}92$.
+  cours_couvre: [TLE-TEC-2026-AUTO-03, TLE-TEC-2026-AUTO-04, TLE-TEC-2026-AUTO-05, TLE-TEC-2026-AUTO-07, TLE-TEC-2026-AUTO-08]
   resume: |
-    - « Augmenter de $5\,\%$ » = « multiplier par $1{,}05$ » ; « diminuer de $5\,\%$ » = « multiplier par $0{,}95$ ».
-    - Taux : $\dfrac{V_2 - V_1}{V_1}$ ; coefficient : $\dfrac{V_2}{V_1}$.
-    - Évolutions successives : produit des coefficients ; réciproque : inverse du coefficient.
+    - Augmenter de $t\,\%$ revient à multiplier par $1 + \dfrac{t}{100}$ ; diminuer de $t\,\%$, à multiplier par $1 - \dfrac{t}{100}$.
+    - Taux d'évolution de $V_D$ à $V_A$ : $t = \dfrac{V_A - V_D}{V_D}$ ; $V_A = V_D \times (1 + t)$ et $V_D = \dfrac{V_A}{1 + t}$.
+    - Évolutions successives : on **multiplie** les coefficients multiplicateurs (on n'additionne pas les taux).
+    - Évolution réciproque : coefficient $\dfrac{1}{1 + t}$.
   cours: |
-    ## Formulation multiplicative
-    Un loyer de $650$ € augmenté de $2\,\%$ : $650 \times 1{,}02 = 663$ €.
+    ## 1. Coefficient multiplicateur
 
-    ## Taux, global et réciproque
-    De $400$ à $340$ : $\dfrac{340 - 400}{400} = -0{,}15$, soit $-15\,\%$.
-    $-8\,\%$ puis $+5\,\%$ : coefficient global $0{,}966$, soit $-3{,}4\,\%$.
-    Après une baisse de $20\,\%$, il faut une hausse de $25\,\%$ pour revenir au départ ($\dfrac{1}{0{,}8} = 1{,}25$).
+    **Définition.** Une grandeur passe d'une valeur de départ $V_D > 0$ à une valeur d'arrivée $V_A$. Le **taux d'évolution** est
+    $$t = \frac{V_A - V_D}{V_D},$$
+    et le **coefficient multiplicateur** est $c = \dfrac{V_A}{V_D}$.
+
+    > **Propriété.** $c = 1 + t$, et $V_A = V_D \times (1 + t)$.
+
+    **Démonstration.** $1 + t = \dfrac{V_D}{V_D} + \dfrac{V_A - V_D}{V_D} = \dfrac{V_A}{V_D}$.
+
+    Passage d'une formulation additive à une formulation multiplicative :
+
+    | Formulation additive | Formulation multiplicative |
+    |---|---|
+    | augmenter de $5\,\%$ | multiplier par $1{,}05$ |
+    | diminuer de $5\,\%$ | multiplier par $0{,}95$ |
+    | augmenter de $120\,\%$ | multiplier par $2{,}2$ |
+    | diminuer de $30\,\%$ | multiplier par $0{,}7$ |
+
+    ## 2. Valeur finale, valeur initiale, taux
+
+    - Valeur finale : $V_A = V_D \times (1 + t)$. Un loyer de $500$ € augmenté de $3\,\%$ devient $500 \times 1{,}03 = 515$ €.
+    - Valeur initiale : $V_D = \dfrac{V_A}{1 + t}$. Un article soldé à $-40\,\%$ coûte $54$ € : il valait $\dfrac{54}{0{,}6} = 90$ €.
+    - Taux : $t = \dfrac{V_A - V_D}{V_D}$, puis on multiplie par $100$ pour l'exprimer en pourcentage. Un $t$ négatif traduit une baisse.
+
+    ## 3. Évolutions successives
+
+    > **Propriété.** Si une grandeur subit des évolutions successives de taux $t_1, t_2, \dots, t_n$, le coefficient multiplicateur global est le produit $$c = (1 + t_1)(1 + t_2) \cdots (1 + t_n),$$ et le taux global est $T = c - 1$.
+
+    Exemple : $+10\,\%$ puis $+10\,\%$ donne $1{,}1 \times 1{,}1 = 1{,}21$, soit $+21\,\%$ et non $+20\,\%$.
+
+    ## 4. Évolution réciproque
+
+    > **Propriété.** L'évolution qui ramène $V_A$ à $V_D$ a pour coefficient $c' = \dfrac{1}{1 + t}$ ; son taux est $t' = \dfrac{1}{1 + t} - 1$.
+
+    **Justification.** $V_A \times c' = V_D$ et $V_A = V_D(1 + t)$ donnent $c' (1 + t) = 1$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Un prix de $250$ € baisse de $12\,\%$, puis augmente de $5\,\%$. Donner le prix final, le taux global et la hausse nécessaire ensuite pour revenir à $250$ €.
+
+    **Résolution.**
+    1. Coefficient global : $0{,}88 \times 1{,}05 = 0{,}924$ ; prix final $250 \times 0{,}924 = 231$ €.
+    2. Taux global : $0{,}924 - 1 = -0{,}076$, soit $-7{,}6\,\%$.
+    3. Réciproque : $\dfrac{1}{0{,}924} \approx 1{,}0823$, soit une hausse d'environ $8{,}23\,\%$.
+
+    ## 6. Erreurs fréquentes
+
+    - Écrire qu'une baisse de $8\,\%$ revient à multiplier par $0{,}08$ : on multiplie par $1 - 0{,}08 = 0{,}92$.
+    - Additionner les taux successifs ($-12 + 5 = -7$) au lieu de multiplier les coefficients.
+    - Croire qu'une hausse de $t\,\%$ « annule » une baisse de $t\,\%$ : $0{,}8 \times 1{,}2 = 0{,}96 \neq 1$.
+    - Diviser par $V_A$ au lieu de $V_D$ dans le calcul du taux.
   questions:
     - code: TLE-TEC-AUTO-EVO-01
       difficulte: 1
@@ -166,7 +266,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $\dfrac{340 - 400}{400} = -0{,}15$.
+        - 'Formule du taux : $t = \dfrac{V_A - V_D}{V_D}$ avec $V_D = 400$ (départ) et $V_A = 340$ (arrivée).'
+        - '$t = \dfrac{340 - 400}{400} = \dfrac{-60}{400} = -0{,}15$.'
+        - 'Le taux est négatif : c''est une baisse de $15\,\%$, d''où la réponse $-15$.'
         resultat: -15
     - code: TLE-TEC-AUTO-EVO-04
       difficulte: 4
@@ -187,5 +289,7 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $\dfrac{1}{0{,}8} = 1{,}25$, soit une hausse de $25\,\%$.
+        - 'Une baisse de $20\,\%$ correspond au coefficient multiplicateur $0{,}8$. On cherche le coefficient $c$ tel que $0{,}8 \times c = 1$.'
+        - '$c = \dfrac{1}{0{,}8} = 1{,}25$.'
+        - '$c = 1 + t$ donne $t = 0{,}25$ : il faut une hausse de $25\,\%$ (et non de $20\,\%$).'
         resultat: 25

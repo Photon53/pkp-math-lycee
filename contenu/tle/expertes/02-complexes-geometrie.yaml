@@ -14,17 +14,77 @@ competences:
   prerequis:
   - TLE-ME-CPLX-ALG
   - 1RE-COSSIN
+  cours_couvre: [TLE-EXP-2019-CPLX-10, TLE-EXP-2019-CPLX-11, TLE-EXP-2019-CPLX-12, TLE-EXP-2019-CPLX-14, TLE-EXP-2019-CPLX-15, TLE-EXP-2019-CPLX-16, TLE-EXP-2019-CPLX-17, TLE-EXP-2019-CPLX-18, TLE-EXP-2019-TRIGPOLY-02, TLE-EXP-2019-TRIGPOLY-05, TLE-EXP-2019-TRIGPOLY-06]
   resume: |
-    - $|a + ib| = \sqrt{a^2 + b^2}$ ; un argument $\theta$ vérifie $\cos\theta = \dfrac{a}{|z|}$, $\sin\theta = \dfrac{b}{|z|}$.
-    - Forme exponentielle : $z = re^{i\theta}$ avec $r = |z|$.
-    - $|zz'| = |z||z'|$, $\arg(zz') = \arg z + \arg z'$, $(re^{i\theta})^n = r^ne^{in\theta}$ (Moivre).
+    - $z = a + ib$ a pour image $M(a ; b)$ ; $|z| = \sqrt{a^2 + b^2} = OM$, $|z|^2 = z\bar z$, $|zz'| = |z||z'|$, $|z^n| = |z|^n$.
+    - Un argument $\theta$ de $z \neq 0$ vérifie $\cos\theta = \dfrac{a}{|z|}$, $\sin\theta = \dfrac{b}{|z|}$ ; il est défini à $2\pi$ près.
+    - Forme exponentielle : $z = re^{i\theta}$ avec $e^{i\theta} = \cos\theta + i\sin\theta$ et $e^{i\theta}e^{i\theta'} = e^{i(\theta + \theta')}$.
+    - $\arg(zz') = \arg z + \arg z'$, $\arg(z^n) = n\arg z$, $\arg\left(\dfrac{1}{z}\right) = -\arg z$ (modulo $2\pi$) : forme exponentielle pour produits et puissances.
   cours: |
-    ## Module et argument
-    $1 + i$ : $|1 + i| = \sqrt{2}$ et $\cos\theta = \sin\theta = \dfrac{\sqrt{2}}{2}$, donc $\theta = \dfrac{\pi}{4}$ : $1 + i = \sqrt{2}e^{i\pi/4}$.
+    ## 1. Représentation géométrique
 
-    ## Puissances
-    $(1 + i)^8 = (\sqrt{2})^8 e^{i \cdot 2\pi} = 16$.
-    $1 + i\sqrt{3} = 2e^{i\pi/3}$, donc $(1 + i\sqrt{3})^6 = 64e^{2i\pi} = 64$.
+    Le plan est muni d'un repère orthonormé direct $(O ; \vec u, \vec v)$.
+
+    **Définitions.** Le point $M(a ; b)$ est l'**image** de $z = a + ib$, et $z$ est l'**affixe** de $M$. Le vecteur $\vec w(a ; b)$ a aussi pour affixe $z$. Si $A$ et $B$ ont pour affixes $z_A$ et $z_B$, le vecteur $\overrightarrow{AB}$ a pour affixe $z_B - z_A$.
+
+    L'image de $\bar z$ est le **symétrique** de $M$ par rapport à l'axe des abscisses ; celle de $-z$ est son symétrique par rapport à $O$.
+
+    ## 2. Module
+
+    **Définition.** Le module de $z = a + ib$ est $|z| = \sqrt{a^2 + b^2}$. C'est la distance $OM$. Pour un réel, c'est la valeur absolue.
+
+    > **Propriétés.** Pour tous complexes $z$, $z'$ et tout entier naturel $n$ :
+    > $$|z|^2 = z\bar z, \qquad |zz'| = |z|\,|z'|, \qquad |z^n| = |z|^n, \qquad \left|\frac{1}{z}\right| = \frac{1}{|z|} \ (z \neq 0), \qquad |z_B - z_A| = AB.$$
+
+    **Démonstrations.**
+    - $z\bar z = (a + ib)(a - ib) = a^2 - i^2 b^2 = a^2 + b^2 = |z|^2$.
+    - $|zz'|^2 = zz'\,\overline{zz'} = z z' \bar z \bar{z'} = (z\bar z)(z'\bar{z'}) = |z|^2|z'|^2$ ; les modules étant positifs, $|zz'| = |z||z'|$.
+    - Par récurrence : $|z^0| = 1 = |z|^0$ et, si $|z^n| = |z|^n$, alors $|z^{n+1}| = |z^n \times z| = |z|^n|z| = |z|^{n+1}$.
+    - Pour $z \neq 0$ : $|z| \times \left|\dfrac{1}{z}\right| = \left|z \times \dfrac{1}{z}\right| = 1$.
+
+    ## 3. Arguments et forme trigonométrique
+
+    **Définition.** Pour $z \neq 0$ d'image $M$, un **argument** de $z$ est une mesure $\theta$ de l'angle orienté $(\vec u, \overrightarrow{OM})$. Il est défini **à $2\pi$ près** ; on note $\arg z \equiv \theta \pmod{2\pi}$.
+
+    > **Propriété.** Avec $r = |z|$ : $\cos\theta = \dfrac{a}{r}$ et $\sin\theta = \dfrac{b}{r}$, donc $$z = r(\cos\theta + i\sin\theta) \qquad \text{(forme trigonométrique)}.$$
+
+    Exemples : $\arg i = \dfrac{\pi}{2}$, $\arg(-2) = \pi$, $\arg(1 + i) = \dfrac{\pi}{4}$ (modulo $2\pi$).
+
+    ## 4. Forme exponentielle
+
+    **Définition.** Pour tout réel $\theta$, on note $e^{i\theta} = \cos\theta + i\sin\theta$. C'est le complexe de module $1$ et d'argument $\theta$.
+
+    > **Propriété (relation fonctionnelle).** $e^{i\theta} \times e^{i\theta'} = e^{i(\theta + \theta')}$.
+
+    **Justification.** $(\cos\theta + i\sin\theta)(\cos\theta' + i\sin\theta') = (\cos\theta\cos\theta' - \sin\theta\sin\theta') + i(\sin\theta\cos\theta' + \cos\theta\sin\theta')$, qui vaut $\cos(\theta + \theta') + i\sin(\theta + \theta')$ d'après les formules d'addition.
+
+    Tout complexe non nul s'écrit $z = re^{i\theta}$ avec $r = |z| > 0$ et $\theta = \arg z$ : c'est la **forme exponentielle**.
+
+    > **Conséquences.** Pour $z = re^{i\theta}$ et $z' = r'e^{i\theta'}$ non nuls, et $n \in \mathbb{Z}$ :
+    > $$zz' = rr'e^{i(\theta + \theta')}, \qquad \frac{z}{z'} = \frac{r}{r'}e^{i(\theta - \theta')}, \qquad z^n = r^n e^{in\theta}, \qquad \bar z = re^{-i\theta}.$$
+
+    ## 5. Méthodes
+
+    **De la forme algébrique à la forme exponentielle** : calculer $r = |z|$, puis chercher $\theta$ tel que $\cos\theta = \dfrac{a}{r}$ et $\sin\theta = \dfrac{b}{r}$ (valeurs remarquables, en regardant les **deux** signes).
+
+    **De la forme exponentielle à la forme algébrique** : $re^{i\theta} = r\cos\theta + ir\sin\theta$.
+
+    **Choisir la forme adaptée** : la forme algébrique pour les sommes ; la forme exponentielle pour les produits, quotients et puissances.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** Écrire $z = -\sqrt{3} + i$ sous forme exponentielle, puis calculer $z^4$ sous forme algébrique.
+
+    **Résolution.**
+    1. $r = \sqrt{3 + 1} = 2$ ; $\cos\theta = -\dfrac{\sqrt{3}}{2}$ et $\sin\theta = \dfrac{1}{2}$, donc $\theta = \dfrac{5\pi}{6}$ : $z = 2e^{i5\pi/6}$.
+    2. $z^4 = 2^4 e^{i \cdot 4 \cdot 5\pi/6} = 16e^{i10\pi/3}$. Or $\dfrac{10\pi}{3} = -\dfrac{2\pi}{3} + 4\pi$, donc $z^4 = 16e^{-i2\pi/3}$.
+    3. $z^4 = 16\left(-\dfrac{1}{2} - i\dfrac{\sqrt{3}}{2}\right) = -8 - 8\sqrt{3}\,i$.
+
+    ## 7. Erreurs fréquentes
+
+    - Écrire $|a + ib| = a + b$ ou $\sqrt{a^2 - b^2}$.
+    - Ne regarder que le cosinus pour trouver l'argument : $\cos\theta = \dfrac{1}{2}$ donne $\dfrac{\pi}{3}$ **ou** $-\dfrac{\pi}{3}$, le signe du sinus tranche.
+    - Écrire $|z + z'| = |z| + |z'|$ : c'est faux en général (seulement $\leqslant$).
   methodes:
   - titre: Calculer une puissance avec la forme exponentielle
     etapes:
@@ -68,7 +128,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $|1 + i| = \sqrt{2}$, $\cos\theta = \sin\theta = \dfrac{\sqrt{2}}{2}$.
+      - 'Module : $|1 + i| = \sqrt{1^2 + 1^2} = \sqrt{2}$.'
+      - 'Un argument $\theta$ vérifie $\cos\theta = \dfrac{1}{\sqrt{2}} = \dfrac{\sqrt{2}}{2}$ et $\sin\theta = \dfrac{\sqrt{2}}{2}$.'
+      - 'Dans $]-\pi ; \pi]$, le seul angle qui convient est $\theta = \dfrac{\pi}{4}$.'
       resultat: pi/4
   - code: TLE-ME-CPLX-TRIG-04
     difficulte: 4
@@ -78,7 +140,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $|(1 + i)^8| = |1 + i|^8 = (\sqrt{2})^8 = 16$.
+      - 'Le module d''une puissance est la puissance du module : $|(1 + i)^8| = |1 + i|^8$.'
+      - '$|1 + i| = \sqrt{2}$, donc $|(1 + i)^8| = (\sqrt{2})^8 = 2^4 = 16$.'
       resultat: '16'
   - code: TLE-ME-CPLX-TRIG-05
     difficulte: 5
@@ -114,19 +177,57 @@ competences:
   - Interpréter des égalités entre complexes (cercles, triangles, rotations).
   prerequis:
   - TLE-ME-CPLX-TRIG
+  cours_couvre: [TLE-EXP-2019-GEOM-01, TLE-EXP-2019-GEOM-03]
   resume: |
-    - $AB = |z_B - z_A|$ ; milieu de $[AB]$ : $\dfrac{z_A + z_B}{2}$.
-    - $|z - z_\Omega| = r$ : cercle de centre $\Omega$ et de rayon $r$.
-    - Multiplier par $e^{i\theta}$ : rotation d'angle $\theta$ autour de $O$ ; par $i$ : quart de tour.
+    - $AB = |z_B - z_A|$ ; le milieu de $[AB]$ a pour affixe $\dfrac{z_A + z_B}{2}$.
+    - $\left|\dfrac{z_C - z_A}{z_B - z_A}\right| = \dfrac{AC}{AB}$ et $\arg\left(\dfrac{z_C - z_A}{z_B - z_A}\right) \equiv (\overrightarrow{AB}, \overrightarrow{AC}) \pmod{2\pi}$.
+    - Ce quotient est réel $\iff$ $A$, $B$, $C$ alignés ; imaginaire pur $\iff$ $(AB) \perp (AC)$ ; égal à $\pm i$ : triangle rectangle isocèle en $A$.
+    - $|z - z_\Omega| = r$ : cercle de centre $\Omega$ et de rayon $r$ ; $|z - z_A| = |z - z_B|$ : médiatrice de $[AB]$.
   cours: |
-    ## Distances
-    $A(1 + i)$, $B(4 + 5i)$ : $AB = |3 + 4i| = 5$.
+    ## 1. Distances et milieux
 
-    ## Ensembles de points
-    $|z - 2i| = 3$ : cercle de centre le point d'affixe $2i$ et de rayon $3$.
+    > **Propriété.** Si $A$ et $B$ ont pour affixes $z_A$ et $z_B$ : $AB = |z_B - z_A|$, et le milieu $I$ de $[AB]$ a pour affixe $z_I = \dfrac{z_A + z_B}{2}$.
 
-    ## Triangles
-    $z_B - z_A = i(z_C - z_A)$ : $AB = AC$ et $(\overrightarrow{AC}, \overrightarrow{AB}) = \dfrac{\pi}{2}$ : le triangle est rectangle isocèle en $A$.
+    Exemple : $A(1 + i)$, $B(4 + 5i)$ : $AB = |3 + 4i| = 5$.
+
+    ## 2. Interprétation de $\dfrac{z_C - z_A}{z_B - z_A}$
+
+    > **Théorème.** Soient $A$, $B$, $C$ trois points distincts. Alors
+    > $$\left|\frac{z_C - z_A}{z_B - z_A}\right| = \frac{AC}{AB} \qquad \text{et} \qquad \arg\left(\frac{z_C - z_A}{z_B - z_A}\right) \equiv (\overrightarrow{AB}, \overrightarrow{AC}) \pmod{2\pi}.$$
+
+    **Justification.** Le module d'un quotient est le quotient des modules, et $|z_C - z_A| = AC$. Pour l'argument : $\arg(z_C - z_A) \equiv (\vec u, \overrightarrow{AC})$ et $\arg(z_B - z_A) \equiv (\vec u, \overrightarrow{AB})$ ; l'argument d'un quotient est la différence des arguments, et la relation de Chasles donne $(\vec u, \overrightarrow{AC}) - (\vec u, \overrightarrow{AB}) \equiv (\overrightarrow{AB}, \overrightarrow{AC})$.
+
+    > **Conséquences.** Notons $q = \dfrac{z_C - z_A}{z_B - z_A}$.
+    > - $A$, $B$, $C$ sont **alignés** $\iff$ $q$ est réel (angle $0$ ou $\pi$).
+    > - $(AB) \perp (AC)$ $\iff$ $q$ est imaginaire pur (angle $\pm\dfrac{\pi}{2}$).
+    > - $ABC$ est isocèle en $A$ $\iff$ $|q| = 1$ ; rectangle isocèle en $A$ $\iff$ $q = i$ ou $q = -i$ ; équilatéral $\iff$ $q = e^{i\pi/3}$ ou $q = e^{-i\pi/3}$.
+
+    ## 3. Ensembles de points
+
+    - $|z - z_\Omega| = r$ ($r > 0$) : $\Omega M = r$, cercle de centre $\Omega$ et de rayon $r$ ; $|z - z_\Omega| \leqslant r$ : disque.
+    - $|z - z_A| = |z - z_B|$ : $MA = MB$, **médiatrice** de $[AB]$.
+    - $\arg(z - z_A) \equiv \theta \pmod{2\pi}$ : demi-droite d'origine $A$ (privée de $A$) dirigée par $e^{i\theta}$.
+
+    **Méthode** : traduire le module ou l'argument en distance ou en angle, puis reconnaitre la figure.
+
+    ## 4. Rotations
+
+    Multiplier par $e^{i\theta}$ fait tourner d'un angle $\theta$ : l'image de $M(z)$ par la rotation de centre $\Omega$ et d'angle $\theta$ est $M'(z')$ avec $$z' - z_\Omega = e^{i\theta}(z - z_\Omega).$$ Pour un quart de tour direct autour de $O$ : $z' = iz$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** $A$, $B$, $C$ ont pour affixes $1$, $3 + 2i$ et $-1 + 2i$. Quelle est la nature du triangle $ABC$ ?
+
+    **Résolution.**
+    1. $z_B - z_A = 2 + 2i$ et $z_C - z_A = -2 + 2i$.
+    2. $q = \dfrac{-2 + 2i}{2 + 2i} = \dfrac{(-2 + 2i)(2 - 2i)}{(2 + 2i)(2 - 2i)} = \dfrac{-4 + 4i + 4i + 4}{8} = i$.
+    3. $|q| = 1$ donne $AB = AC$, et $\arg q = \dfrac{\pi}{2}$ donne $(\overrightarrow{AB}, \overrightarrow{AC}) = \dfrac{\pi}{2}$ : $ABC$ est **rectangle isocèle en $A$**, avec $AB = AC = |2 + 2i| = 2\sqrt{2}$.
+
+    ## 6. Erreurs fréquentes
+
+    - Calculer $AB$ avec $|z_A| - |z_B|$ au lieu de $|z_B - z_A|$.
+    - Inverser l'ordre : $\arg\dfrac{z_C - z_A}{z_B - z_A}$ mesure l'angle **de** $\overrightarrow{AB}$ **vers** $\overrightarrow{AC}$.
+    - Confondre « le quotient est réel » (alignement) et « le quotient vaut $1$ » ($B = C$).
   methodes:
   - titre: Reconnaitre la nature d'un triangle
     etapes:
@@ -169,7 +270,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $|z - 2i|$ est la distance entre le point d'affixe $z$ et le point d'affixe $2i$.
+      - 'Notons $\Omega$ le point d''affixe $2i$ et $M$ celui d''affixe $z$ : $|z - 2i| = |z - z_\Omega| = \Omega M$.'
+      - 'La condition $\Omega M = 3$ caractérise les points situés à la distance $3$ de $\Omega$.'
+      - 'C''est le cercle de centre le point d''affixe $2i$ et de rayon $3$ (réponse A).'
       resultat: A
   - code: TLE-ME-CPLX-GEOM-04
     difficulte: 4
@@ -179,7 +282,10 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $|i| = 1$ donne deux côtés égaux issus de ce sommet, et $\arg i = \dfrac{\pi}{2}$ un angle droit.
+      - 'On divise : $\dfrac{z_B - z_A}{z_C - z_A} = i$.'
+      - 'Module : $\dfrac{AB}{AC} = |i| = 1$, donc $AB = AC$.'
+      - 'Argument : $(\overrightarrow{AC}, \overrightarrow{AB}) \equiv \arg i = \dfrac{\pi}{2} \pmod{2\pi}$, donc l''angle en $A$ est droit.'
+      - 'Le triangle est rectangle isocèle en son sommet d''affixe $z_A$ (réponse A).'
       resultat: A
   - code: TLE-ME-CPLX-GEOM-05
     difficulte: 5
@@ -217,20 +323,72 @@ competences:
   erreurs_frequentes:
   - erreur: Écrire $\cos(a + b) = \cos a + \cos b$.
     explication: $\cos(a + b) = \cos a \cos b - \sin a \sin b$.
+  cours_couvre: [TLE-EXP-2019-TRIGPOLY-01, TLE-EXP-2019-TRIGPOLY-03, TLE-EXP-2019-TRIGPOLY-04, TLE-EXP-2019-TRIGPOLY-07, TLE-EXP-2019-TRIGPOLY-08]
   resume: |
-    - $\cos(a + b) = \cos a \cos b - \sin a \sin b$ ; $\sin(a + b) = \sin a \cos b + \cos a \sin b$.
-    - $\cos(2a) = \cos^2 a - \sin^2 a = 2\cos^2 a - 1$ ; $\sin(2a) = 2 \sin a \cos a$.
-    - Euler : $\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}$, $\sin\theta = \dfrac{e^{i\theta} - e^{-i\theta}}{2i}$.
-    - Moivre : $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$.
+    - $\cos(a - b) = \cos a\cos b + \sin a\sin b$, $\cos(a + b) = \cos a\cos b - \sin a\sin b$, $\sin(a + b) = \sin a\cos b + \cos a\sin b$.
+    - Duplication : $\cos 2a = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a$, $\sin 2a = 2\sin a\cos a$.
+    - Euler : $\cos\theta = \dfrac{e^{i\theta} + e^{-i\theta}}{2}$, $\sin\theta = \dfrac{e^{i\theta} - e^{-i\theta}}{2i}$ ; Moivre : $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$.
+    - Linéariser $\cos^n$ ou $\sin^n$ : Euler, binôme, puis regrouper ; exprimer $\cos(n\theta)$ en fonction de $\cos\theta$ : Moivre, binôme, partie réelle.
   cours: |
-    ## Formules d'addition
-    Avec $\vec{u}(\cos a ; \sin a)$ et $\vec{v}(\cos b ; \sin b)$, unitaires, d'angle $(\vec{v}, \vec{u}) = a - b$ : $\vec{u} \cdot \vec{v} = \cos(a - b)$ et, en coordonnées, $\vec{u} \cdot \vec{v} = \cos a \cos b + \sin a \sin b$. On en déduit $\cos(a + b)$ en remplaçant $b$ par $-b$.
+    ## 1. Formules d'addition
 
-    ## Moivre
-    $e^{i n\theta} = (e^{i\theta})^n$ donne $\cos(3\theta) + i\sin(3\theta) = (\cos\theta + i\sin\theta)^3$ ; en développant et en identifiant les parties réelles, $\cos(3\theta) = 4\cos^3\theta - 3\cos\theta$.
+    > **Théorème.** Pour tous réels $a$ et $b$ :
+    > $$\cos(a - b) = \cos a\cos b + \sin a\sin b, \qquad \cos(a + b) = \cos a\cos b - \sin a\sin b,$$
+    > $$\sin(a + b) = \sin a\cos b + \cos a\sin b, \qquad \sin(a - b) = \sin a\cos b - \cos a\sin b.$$
 
-    ## Puissances
-    $(1 + i)^{10} = (\sqrt{2}\,e^{i\pi/4})^{10} = 32\,e^{i 5\pi/2} = 32i$.
+    **Démonstration de la première, par le produit scalaire.** Dans un repère orthonormé direct, soient $\vec u(\cos a ; \sin a)$ et $\vec v(\cos b ; \sin b)$, deux vecteurs de norme $1$ tels que $(\vec\imath, \vec u) = a$ et $(\vec\imath, \vec v) = b$.
+    - Avec les coordonnées : $\vec u \cdot \vec v = \cos a\cos b + \sin a\sin b$.
+    - Avec la formule du cosinus : $\vec u \cdot \vec v = \|\vec u\|\,\|\vec v\|\cos(\vec u, \vec v) = \cos(b - a) = \cos(a - b)$, car $(\vec u, \vec v) = (\vec u, \vec\imath) + (\vec\imath, \vec v) = b - a$ et le cosinus est pair.
+
+    **Les autres s'en déduisent.** On remplace $b$ par $-b$ (avec $\cos(-b) = \cos b$, $\sin(-b) = -\sin b$) pour $\cos(a + b)$. Puis $\sin(a + b) = \cos\left(\dfrac{\pi}{2} - a - b\right) = \cos\left(\left(\dfrac{\pi}{2} - a\right) - b\right) = \sin a\cos b + \cos a\sin b$.
+
+    > **Formules de duplication** ($b = a$) : $$\cos(2a) = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a, \qquad \sin(2a) = 2\sin a\cos a.$$
+
+    Exemple : $\cos\dfrac{\pi}{12} = \cos\left(\dfrac{\pi}{3} - \dfrac{\pi}{4}\right) = \dfrac{1}{2} \cdot \dfrac{\sqrt{2}}{2} + \dfrac{\sqrt{3}}{2} \cdot \dfrac{\sqrt{2}}{2} = \dfrac{\sqrt{2} + \sqrt{6}}{4}$.
+
+    ## 2. Formules d'Euler
+
+    > **Propriété.** Pour tout réel $\theta$ : $$\cos\theta = \frac{e^{i\theta} + e^{-i\theta}}{2}, \qquad \sin\theta = \frac{e^{i\theta} - e^{-i\theta}}{2i}.$$
+
+    **Démonstration.** $e^{i\theta} = \cos\theta + i\sin\theta$ et $e^{-i\theta} = \cos\theta - i\sin\theta$. En additionnant : $2\cos\theta$ ; en soustrayant : $2i\sin\theta$.
+
+    ## 3. Formule de Moivre
+
+    > **Propriété.** Pour tout réel $\theta$ et tout entier $n$ : $$(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta).$$
+
+    **Démonstration.** C'est $(e^{i\theta})^n = e^{in\theta}$, conséquence de la relation fonctionnelle (récurrence pour $n \geqslant 0$, puis passage à l'inverse pour $n < 0$).
+
+    ## 4. Méthodes
+
+    **Linéariser** $\cos^n\theta$ ou $\sin^n\theta$ (l'écrire comme combinaison de $\cos(k\theta)$, $\sin(k\theta)$, par exemple pour calculer une intégrale) :
+    1. Remplacer par la formule d'Euler ;
+    2. Développer avec le binôme ;
+    3. Regrouper $e^{ik\theta}$ et $e^{-ik\theta}$ et réutiliser Euler.
+
+    Exemple : $\cos^3\theta = \dfrac{(e^{i\theta} + e^{-i\theta})^3}{8} = \dfrac{e^{3i\theta} + 3e^{i\theta} + 3e^{-i\theta} + e^{-3i\theta}}{8} = \dfrac{\cos(3\theta) + 3\cos\theta}{4}$.
+
+    Application : $\cos^2 x = \dfrac{1 + \cos(2x)}{2}$, d'où $\displaystyle\int_0^{\pi/2} \cos^2 x\,dx = \left[\frac{x}{2} + \frac{\sin(2x)}{4}\right]_0^{\pi/2} = \frac{\pi}{4}$.
+
+    **Exprimer $\cos(n\theta)$ ou $\sin(n\theta)$ en fonction de $\cos\theta$ et $\sin\theta$** : développer $(\cos\theta + i\sin\theta)^n$ par le binôme, puis prendre la partie réelle ou imaginaire (Moivre).
+
+    **Calculer une puissance** : passer à la forme exponentielle, puis $\left(re^{i\theta}\right)^n = r^n e^{in\theta}$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Exprimer $\sin(3\theta)$ en fonction de $s = \sin\theta$.
+
+    **Résolution.** Notons $c = \cos\theta$.
+    1. Moivre : $\sin(3\theta) = \operatorname{Im}\left((c + is)^3\right)$.
+    2. Binôme : $(c + is)^3 = c^3 + 3c^2(is) + 3c(is)^2 + (is)^3 = (c^3 - 3cs^2) + i(3c^2 s - s^3)$.
+    3. Donc $\sin(3\theta) = 3c^2 s - s^3 = 3(1 - s^2)s - s^3 = 3s - 4s^3$.
+
+    Contrôle avec $\theta = \dfrac{\pi}{2}$ : $\sin\dfrac{3\pi}{2} = -1$ et $3 - 4 = -1$.
+
+    ## 6. Erreurs fréquentes
+
+    - Écrire $\cos(a + b) = \cos a + \cos b$.
+    - Se tromper de signe : $\cos(a + b)$ contient $-\sin a\sin b$.
+    - Oublier le $2i$ au dénominateur de la formule d'Euler pour $\sin\theta$.
   questions:
     - code: TLE-ME-EULER-01
       difficulte: 1
@@ -260,7 +418,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $e^{i\theta} + e^{-i\theta} = 2\cos\theta$ (les parties imaginaires s'annulent).
+        - '$e^{i\theta} = \cos\theta + i\sin\theta$ et $e^{-i\theta} = \cos(-\theta) + i\sin(-\theta) = \cos\theta - i\sin\theta$.'
+        - 'En additionnant, les parties imaginaires s''annulent : $e^{i\theta} + e^{-i\theta} = 2\cos\theta$.'
+        - 'Donc $\dfrac{e^{i\theta} + e^{-i\theta}}{2} = \cos\theta$ (formule d''Euler, réponse A).'
         resultat: A
     - code: TLE-ME-EULER-04
       difficulte: 4
@@ -270,7 +430,10 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $1 + i = \sqrt{2}\,e^{i\pi/4}$, donc $(1 + i)^{10} = 2^5 e^{i 10\pi/4} = 32\,e^{i\pi/2} \times e^{2i\pi} = 32i$.
+        - 'Forme exponentielle : $|1 + i| = \sqrt{2}$ et $\arg(1 + i) = \dfrac{\pi}{4}$, donc $1 + i = \sqrt{2}\,e^{i\pi/4}$.'
+        - '$(1 + i)^{10} = (\sqrt{2})^{10} e^{i 10\pi/4} = 32\,e^{i 5\pi/2}$.'
+        - '$\dfrac{5\pi}{2} = \dfrac{\pi}{2} + 2\pi$, donc $e^{i 5\pi/2} = e^{i\pi/2} = i$.'
+        - '$(1 + i)^{10} = 32i$ (réponse A).'
         resultat: A
     - code: TLE-ME-EULER-05
       difficulte: 5

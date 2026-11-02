@@ -13,19 +13,64 @@ competences:
   - Utiliser le petit théorème de Fermat pour calculer un reste.
   prerequis:
   - TLE-ME-CONG
+  cours_couvre: [TLE-EXP-2019-ARITH-08, TLE-EXP-2019-ARITH-09, TLE-EXP-2019-ARITH-10]
   resume: |
-    - Pour savoir si $n$ est premier, on teste les diviseurs premiers $p \leq \sqrt n$.
-    - Tout entier $\geq 2$ se décompose de façon unique en produit de facteurs premiers.
-    - **Fermat** : si $p$ est premier et ne divise pas $a$, alors $a^{p - 1} \equiv 1 \pmod p$.
+    - Un nombre premier a exactement deux diviseurs positifs, $1$ et lui-même ; tout entier $n \geqslant 2$ a au moins un diviseur premier, et l'ensemble des nombres premiers est infini.
+    - Si $n \geqslant 2$ n'a aucun diviseur premier $p \leqslant \sqrt{n}$, alors $n$ est premier.
+    - Tout entier $n \geqslant 2$ s'écrit de façon unique (à l'ordre près) $n = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$ ; il a $(\alpha_1 + 1) \cdots (\alpha_k + 1)$ diviseurs positifs.
+    - Petit théorème de Fermat : si $p$ est premier et ne divise pas $a$, alors $a^{p-1} \equiv 1 \pmod p$ ; pour tout $a$, $a^p \equiv a \pmod p$.
   cours: |
-    ## Test de primalité
-    $97$ : $\sqrt{97} < 10$ ; ni $2$, ni $3$, ni $5$, ni $7$ ne divisent $97$, donc $97$ est premier.
+    ## 1. Nombres premiers
 
-    ## Décomposition
-    $84 = 2^2 \times 3 \times 7$.
+    **Définition.** Un entier naturel $p$ est **premier** s'il a exactement deux diviseurs positifs : $1$ et $p$. Ainsi $1$ n'est pas premier ; $2$ est le seul nombre premier pair.
 
-    ## Petit théorème de Fermat
-    $3^6 \equiv 1 \pmod 7$, donc $3^{100} = (3^6)^{16} \times 3^4 \equiv 3^4 = 81 \equiv 4 \pmod 7$.
+    Les premiers nombres premiers : $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, \dots$
+
+    > **Propriété.** Tout entier $n \geqslant 2$ admet au moins un diviseur premier : son plus petit diviseur strictement supérieur à $1$.
+
+    **Démonstration.** Soit $p$ ce plus petit diviseur. Si $p$ n'était pas premier, il aurait un diviseur $d$ avec $1 < d < p$ ; $d$ diviserait $n$ et serait plus petit que $p$ : contradiction.
+
+    > **Théorème.** L'ensemble des nombres premiers est infini (démonstration dans la compétence suivante).
+
+    ## 2. Test de primalité
+
+    > **Propriété.** Si $n \geqslant 2$ n'est pas premier, il a un diviseur premier $p$ tel que $p^2 \leqslant n$.
+
+    **Démonstration.** $n = ab$ avec $1 < a \leqslant b$ ; alors $a^2 \leqslant ab = n$, et un diviseur premier de $a$ convient.
+
+    **Méthode.** Pour savoir si $n$ est premier, on teste sa divisibilité par les nombres premiers $p \leqslant \sqrt{n}$. Exemple : $97$ ; $\sqrt{97} < 10$ et $97$ n'est divisible ni par $2$, ni par $3$, ni par $5$, ni par $7$ : il est premier.
+
+    ## 3. Décomposition en facteurs premiers
+
+    > **Théorème fondamental de l'arithmétique.** Tout entier $n \geqslant 2$ s'écrit comme produit de nombres premiers $$n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k},$$ avec $p_1 < p_2 < \dots < p_k$ premiers et $\alpha_i \geqslant 1$, et cette écriture est **unique**.
+
+    **Existence (récurrence forte).** $2$ est premier. Si tout entier de $2$ à $n - 1$ se décompose, alors $n$ est premier (c'est fini) ou $n = ab$ avec $2 \leqslant a, b < n$, et l'on juxtapose les décompositions de $a$ et $b$. **Unicité** : elle repose sur le fait (conséquence du théorème de Gauss) qu'un nombre premier qui divise un produit divise l'un des facteurs.
+
+    **Applications.**
+    - Les diviseurs positifs de $n$ sont les $p_1^{\beta_1} \cdots p_k^{\beta_k}$ avec $0 \leqslant \beta_i \leqslant \alpha_i$ ; il y en a $(\alpha_1 + 1)(\alpha_2 + 1) \cdots (\alpha_k + 1)$. Exemple : $360 = 2^3 \times 3^2 \times 5$ a $4 \times 3 \times 2 = 24$ diviseurs.
+    - Le PGCD s'obtient en prenant les facteurs communs avec le plus petit exposant : $\mathrm{PGCD}(360, 84) = \mathrm{PGCD}(2^3 \cdot 3^2 \cdot 5,\ 2^2 \cdot 3 \cdot 7) = 2^2 \times 3 = 12$.
+
+    ## 4. Petit théorème de Fermat
+
+    > **Théorème.** Soit $p$ un nombre premier et $a$ un entier **non divisible par $p$**. Alors $$a^{p-1} \equiv 1 \pmod p.$$ Pour tout entier $a$ : $a^p \equiv a \pmod p$.
+
+    **Méthode : reste de $a^N$ modulo $p$ premier.** Si $p \nmid a$, on écrit $N = (p - 1)q + r$ ; alors $a^N = (a^{p-1})^q \times a^r \equiv a^r \pmod p$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Déterminer le reste de $5^{38}$ dans la division par $11$.
+
+    **Résolution.**
+    1. $11$ est premier et ne divise pas $5$ : Fermat donne $5^{10} \equiv 1 \pmod{11}$.
+    2. $38 = 10 \times 3 + 8$, donc $5^{38} = (5^{10})^3 \times 5^8 \equiv 5^8 \pmod{11}$.
+    3. $5^2 = 25 \equiv 3$, $5^4 \equiv 3^2 = 9$, $5^8 \equiv 9^2 = 81 \equiv 4 \pmod{11}$.
+    4. Le reste est $4$.
+
+    ## 6. Erreurs fréquentes
+
+    - Appliquer Fermat avec un module non premier : $2^{8} = 256 \equiv 4 \pmod 9$, et non $1$.
+    - Oublier l'hypothèse « $p$ ne divise pas $a$ » : $7^{6} \equiv 0 \pmod 7$.
+    - Considérer $1$ comme premier, ou oublier $2$ dans la liste.
   methodes:
   - titre: Calculer un reste avec Fermat
     etapes:
@@ -69,7 +114,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 2, 3, 5, 7, 11, 13, 17, 19, 23, 29.
+      - 'On élimine de la liste $2, 3, \dots, 29$ les multiples stricts de $2$, $3$ et $5$ (il suffit d''aller jusqu''à $\sqrt{30} < 6$).'
+      - 'Il reste $2, 3, 5, 7, 11, 13, 17, 19, 23, 29$.'
+      - 'Il y a $10$ nombres premiers inférieurs à $30$.'
       resultat: '10'
   - code: TLE-ME-PREM-04
     difficulte: 4
@@ -80,7 +127,9 @@ competences:
     correction:
       methode: Petit théorème de Fermat.
       etapes:
-      - '13 est premier et ne divise pas 2 : $2^{12} \equiv 1 \pmod{13}$.'
+      - '$13$ est premier et ne divise pas $2$ : le petit théorème de Fermat s''applique avec $p = 13$.'
+      - 'Il donne $2^{p - 1} = 2^{12} \equiv 1 \pmod{13}$.'
+      - 'Le reste est $1$ (contrôle : $2^{12} = 4\,096 = 13 \times 315 + 1$).'
       resultat: '1'
   - code: TLE-ME-PREM-05
     difficulte: 5
@@ -118,33 +167,95 @@ competences:
   erreurs_frequentes:
   - erreur: Croire que $N = p_1 p_2 \cdots p_n + 1$ est toujours premier.
     explication: $2 \times 3 \times 5 \times 7 \times 11 \times 13 + 1 = 30\,031 = 59 \times 509$ $:$ $N$ a seulement un facteur premier hors de la liste.
+  cours_couvre: [TLE-EXP-2019-ARITH-17, TLE-EXP-2019-ARITH-18]
   resume: |
-    - Infinité : si $p_1, \ldots, p_n$ étaient tous les premiers, $N = p_1 \cdots p_n + 1$ aurait un diviseur premier différent de tous les $p_i$ : contradiction.
-    - Euclide : `while b != 0: a, b = b, a % b` ; le PGCD est `a` à la fin.
-    - Crible : on raye les multiples de chaque nombre premier jusqu'à $\sqrt{N}$.
-    - Décomposition : on divise par $2$, $3$, $5$… tant que c'est possible.
+    - L'ensemble des nombres premiers est infini : si $p_1, \dots, p_n$ étaient tous les premiers, un diviseur premier de $N = p_1 \cdots p_n + 1$ diviserait $1$.
+    - Algorithme d'Euclide : `while b != 0: a, b = b, a % b` ; le PGCD est la dernière valeur de `a`.
+    - Crible d'Ératosthène jusqu'à $n$ : rayer les multiples des premiers $p \leqslant \sqrt{n}$, à partir de $p^2$.
+    - Décomposition : diviser $n$ par $d = 2, 3, \dots$ tant que $d^2 \leqslant n$ ; le reste final, s'il dépasse $1$, est premier.
   cours: |
-    ## Infinité des nombres premiers
-    Supposons qu'il n'y ait qu'un nombre fini de premiers $p_1, \ldots, p_n$. L'entier $N = p_1 p_2 \cdots p_n + 1 \geqslant 2$ admet un diviseur premier $p$. Ce $p$ est l'un des $p_i$, donc il divise $p_1 \cdots p_n$ ; il divise alors $N - p_1 \cdots p_n = 1$ : impossible.
+    ## 1. L'ensemble des nombres premiers est infini
 
-    ## Algorithmes
+    > **Théorème.** Il existe une infinité de nombres premiers.
+
+    **Démonstration (par l'absurde).** Supposons qu'il n'y en ait qu'un nombre fini : $p_1, p_2, \dots, p_n$. Posons $N = p_1 p_2 \cdots p_n + 1$.
+    - $N \geqslant 2$, donc $N$ admet un diviseur premier $p$, qui est l'un des $p_i$.
+    - Ce $p_i$ divise $N$ et divise le produit $p_1 \cdots p_n$ ; il divise donc leur différence $N - p_1 \cdots p_n = 1$.
+    - Or aucun nombre premier ne divise $1$ : contradiction. L'ensemble des nombres premiers est infini.
+
+    **Remarque.** $N$ n'est pas forcément premier : $2 \times 3 \times 5 \times 7 \times 11 \times 13 + 1 = 30\,031 = 59 \times 509$. On sait seulement que ses facteurs premiers ne sont pas dans la liste.
+
+    ## 2. Algorithme d'Euclide et couple de Bézout
+
     ```python
     def pgcd(a, b):
         while b != 0:
             a, b = b, a % b
         return a
+    ```
 
+    À chaque tour, `(a, b)` est remplacé par `(b, r)` où `r = a % b` est le reste : le PGCD ne change pas, et `b` diminue strictement jusqu'à $0$.
+
+    **Algorithme d'Euclide étendu** (récursif) : il renvoie $d$ et un couple $(u ; v)$ tel que $au + bv = d$.
+
+    ```python
+    def bezout(a, b):
+        if b == 0:
+            return (a, 1, 0)
+        d, u, v = bezout(b, a % b)
+        return (d, v, u - (a // b) * v)
+    ```
+
+    **Justification.** Si $bu + rv = d$ avec $r = a - bq$, alors $bu + (a - bq)v = d$, soit $av + b(u - qv) = d$.
+
+    ## 3. Crible d'Ératosthène
+
+    On écrit les entiers de $2$ à $n$. Le premier non rayé est premier ; on raye ses multiples, puis on recommence avec le suivant non rayé. On peut s'arrêter dès que $p^2 > n$ : tout composé $m \leqslant n$ a un facteur premier $p \leqslant \sqrt{m} \leqslant \sqrt{n}$, donc il est déjà rayé.
+
+    ```python
+    def crible(n):
+        premier = [True] * (n + 1)
+        premier[0] = premier[1] = False
+        p = 2
+        while p * p <= n:
+            if premier[p]:
+                for m in range(p * p, n + 1, p):
+                    premier[m] = False
+            p = p + 1
+        return [k for k in range(n + 1) if premier[k]]
+    ```
+
+    ## 4. Décomposition en facteurs premiers
+
+    ```python
     def facteurs(n):
         L = []
         d = 2
-        while n > 1:
+        while d * d <= n:
             while n % d == 0:
                 L.append(d)
                 n = n // d
             d = d + 1
+        if n > 1:
+            L.append(n)
         return L
     ```
-    `facteurs(360)` renvoie `[2, 2, 2, 3, 3, 5]`.
+
+    Le premier diviseur trouvé est toujours premier (ses propres facteurs ont déjà été retirés). Quand $d^2 > n$, ce qui reste de $n$, s'il dépasse $1$, n'a pas de diviseur $\leqslant \sqrt{n}$ : il est premier.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Faire tourner `pgcd(330, 126)` et `facteurs(252)`.
+
+    **Résolution.**
+    1. `pgcd` : $(330, 126) \to (126, 78) \to (78, 48) \to (48, 30) \to (30, 18) \to (18, 12) \to (12, 6) \to (6, 0)$ ; résultat `6`.
+    2. `facteurs(252)` : $252 = 2 \times 126 = 2^2 \times 63$ ; puis $63 = 3 \times 21 = 3^2 \times 7$ ; avec $d = 4$, $d^2 = 16 > 7$, on ajoute $7$. Résultat `[2, 2, 3, 3, 7]`, soit $252 = 2^2 \times 3^2 \times 7$.
+
+    ## 6. Erreurs fréquentes
+
+    - Croire que $N = p_1 p_2 \cdots p_n + 1$ est toujours premier.
+    - Dans le crible, continuer au-delà de $\sqrt{n}$ (inutile) ou commencer à rayer à $p$ au lieu de $2p$ (on rayerait $p$ lui-même).
+    - Oublier d'ajouter le dernier facteur (`if n > 1`) dans la décomposition.
   questions:
     - code: TLE-ME-PREM-ALGO-01
       difficulte: 1
@@ -174,7 +285,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - Il suffit de traiter les premiers $p \leqslant \sqrt{100} = 10$ $:$ $2, 3, 5, 7$.
+        - 'Un entier composé $m \leqslant 100$ a un diviseur premier $p$ tel que $p \leqslant \sqrt{m} \leqslant 10$.'
+        - 'Il suffit donc de rayer les multiples des nombres premiers inférieurs ou égaux à $10$ : $2, 3, 5, 7$.'
+        - 'Le plus grand est $7$ (les multiples composés de $11$ inférieurs à $100$, comme $77$, sont déjà rayés comme multiples d''un premier plus petit).'
         resultat: 7
     - code: TLE-ME-PREM-ALGO-04
       difficulte: 4
@@ -184,7 +297,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - Si $p_i$ divise $N$ et $p_1 \cdots p_n$, il divise leur différence $1$, ce qui est impossible.
+        - 'Supposons que $p_i$ divise $N$. Il divise aussi le produit $p_1 p_2 \cdots p_n$, dont il est un facteur.'
+        - 'Il divise alors la différence $N - p_1 p_2 \cdots p_n = 1$.'
+        - 'Aucun nombre premier ne divise $1$ : contradiction, donc aucun $p_i$ ne divise $N$ (réponse A).'
         resultat: A
     - code: TLE-ME-PREM-ALGO-05
       difficulte: 5

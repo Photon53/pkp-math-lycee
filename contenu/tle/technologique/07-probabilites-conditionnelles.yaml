@@ -13,17 +13,58 @@ competences:
   - Inverser un conditionnement.
   prerequis:
   - 1RE-TEC-PCOND
+  cours_couvre: [TLE-TEC-2026-SP-04, TLE-TEC-2026-SP-05, TLE-TEC-2026-SP-06, TLE-TEC-2026-SP-07, TLE-TEC-2026-SP-08, TLE-TEC-2026-SP-09]
   resume: |
-    - Si $A$, $B$, $C$ forment une partition : $P(D) = P(A \cap D) + P(B \cap D) + P(C \cap D)$.
-    - $P(A \cap D) = P(A) \times P_A(D)$.
-    - $P_D(A) = \dfrac{P(A \cap D)}{P(D)}$.
+    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, donc $P(A \cap B) = P(A) \times P_A(B)$ : la probabilité d'un chemin est le **produit** des probabilités de ses branches.
+    - Dans un arbre, les branches issues d'un même nœud ont une somme égale à $1$ ; au second niveau, on lit des **probabilités conditionnelles**.
+    - Probabilités totales : si $A_1, \dots, A_n$ forment une partition, $P(B) = P(A_1)P_{A_1}(B) + \dots + P(A_n)P_{A_n}(B)$.
+    - Pour « inverser » un conditionnement : $P_B(A_1) = \dfrac{P(A_1 \cap B)}{P(B)}$.
   cours: |
-    ## Trois machines
-    Une usine produit $50\,\%$, $30\,\%$ et $20\,\%$ de ses pièces avec les machines $A$, $B$, $C$, dont les taux de défaut sont $1\,\%$, $2\,\%$ et $3\,\%$.
-    $$P(D) = 0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}017.$$
+    ## 1. Probabilité conditionnelle
 
-    ## Inverser
-    $P_D(C) = \dfrac{0{,}006}{0{,}017} = \dfrac{6}{17}$ : une pièce défectueuse vient de $C$ dans environ $35\,\%$ des cas.
+    **Définition.** Soient $A$ et $B$ deux événements avec $P(A) \neq 0$. La probabilité de $B$ **sachant** $A$ est
+    $$P_A(B) = \frac{P(A \cap B)}{P(A)}.$$
+
+    C'est la probabilité de $B$ quand on se restreint aux issues de $A$.
+
+    > **Propriété.** $P(A \cap B) = P(A) \times P_A(B)$.
+
+    ## 2. Arbre de probabilités
+
+    **Construire un arbre.** Au premier niveau, on place les événements de la première étape avec leurs probabilités ; au second niveau, partant de chaque nœud, les événements de la seconde étape avec leurs probabilités **conditionnelles**.
+
+    **Interpréter les pondérations.**
+    - Une branche du premier niveau porte une probabilité « simple », par exemple $P(A)$.
+    - Une branche du second niveau partant de $A$ porte $P_A(B)$ : c'est une probabilité **sachant** $A$.
+
+    > **Règles de l'arbre.**
+    > 1. La somme des probabilités des branches issues d'un même nœud vaut $1$.
+    > 2. La probabilité d'un **chemin** est le produit des probabilités de ses branches : c'est exactement la formule $P(A \cap B) = P(A) \times P_A(B)$.
+    > 3. La probabilité d'un événement est la somme des probabilités des chemins qui y mènent.
+
+    ## 3. Partition et formule des probabilités totales
+
+    **Définition.** Des événements $A_1, A_2, \dots, A_n$ de probabilités non nulles forment une **partition** de l'univers s'ils sont deux à deux incompatibles et si leur réunion est l'univers. Par exemple, $A$ et $\overline{A}$.
+
+    > **Propriété (probabilités totales).** Si $A_1, \dots, A_n$ forment une partition, alors pour tout événement $B$ : $$P(B) = P(A_1 \cap B) + \dots + P(A_n \cap B) = P(A_1)P_{A_1}(B) + \dots + P(A_n)P_{A_n}(B).$$
+
+    **Justification.** Les événements $A_1 \cap B, \dots, A_n \cap B$ sont incompatibles et leur réunion est $B$ ; on additionne leurs probabilités, puis on écrit chacune comme un produit. Sur l'arbre, cela revient à additionner les chemins qui mènent à $B$.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Un magasin achète ses ampoules à trois fournisseurs : $45\,\%$ chez $F_1$, $35\,\%$ chez $F_2$, $20\,\%$ chez $F_3$. Les taux d'ampoules défectueuses sont $2\,\%$, $4\,\%$ et $5\,\%$. On choisit une ampoule au hasard ; $D$ : « elle est défectueuse ». Calculer $P(D)$, puis $P_D(F_3)$.
+
+    **Résolution.**
+    1. Arbre : premier niveau $P(F_1) = 0{,}45$, $P(F_2) = 0{,}35$, $P(F_3) = 0{,}2$ ; second niveau $P_{F_1}(D) = 0{,}02$, $P_{F_2}(D) = 0{,}04$, $P_{F_3}(D) = 0{,}05$ (et les branches $\overline{D}$ complémentaires : $0{,}98$, $0{,}96$, $0{,}95$).
+    2. Chemins menant à $D$ : $0{,}45 \times 0{,}02 = 0{,}009$ ; $0{,}35 \times 0{,}04 = 0{,}014$ ; $0{,}2 \times 0{,}05 = 0{,}01$.
+    3. Probabilités totales ($F_1$, $F_2$, $F_3$ forment une partition) : $P(D) = 0{,}009 + 0{,}014 + 0{,}01 = 0{,}033$.
+    4. $P_D(F_3) = \dfrac{P(F_3 \cap D)}{P(D)} = \dfrac{0{,}01}{0{,}033} = \dfrac{10}{33} \approx 0{,}303$ : près d'un tiers des ampoules défectueuses vient de $F_3$, alors qu'il ne fournit que $20\,\%$ du stock.
+
+    ## 5. Erreurs fréquentes
+
+    - Additionner les probabilités conditionnelles $0{,}02 + 0{,}04 + 0{,}05$ sans les pondérer par $P(F_i)$.
+    - Confondre $P_A(B)$ (lue sur une branche) et $P(A \cap B)$ (probabilité d'un chemin).
+    - Confondre $P_D(F_3)$ et $P_{F_3}(D)$ : l'ordre du conditionnement compte.
   methodes:
   - titre: Appliquer les probabilités totales
     etapes:
@@ -67,7 +108,10 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{P(C \cap D)}{P(D)} = \dfrac{0{,}1}{0{,}21} = \dfrac{10}{21}$.
+      - 'Formule : $P_D(C) = \dfrac{P(C \cap D)}{P(D)}$.'
+      - 'Chemin $C$ puis $D$ : $P(C \cap D) = P(C) \times P_C(D) = 0{,}2 \times 0{,}5 = 0{,}1$.'
+      - 'Probabilités totales : $P(D) = 0{,}5 \times 0{,}1 + 0{,}3 \times 0{,}2 + 0{,}2 \times 0{,}5 = 0{,}05 + 0{,}06 + 0{,}1 = 0{,}21$.'
+      - '$P_D(C) = \dfrac{0{,}1}{0{,}21} = \dfrac{10}{21}$.'
       resultat: 10/21
   - code: TLE-TEC-PROBA-04
     difficulte: 4
@@ -77,7 +121,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1 - 0{,}21 = 0{,}79$.
+      - 'La probabilité de l''événement contraire est $P(\overline{D}) = 1 - P(D)$.'
+      - '$P(\overline{D}) = 1 - 0{,}21 = 0{,}79$.'
       resultat: '0.79'
   - code: TLE-TEC-PROBA-05
     difficulte: 5
@@ -87,7 +132,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}005 + 0{,}006 + 0{,}006 = 0{,}017$.
+      - 'Notons $M_1$, $M_2$, $M_3$ les machines, qui forment une partition ($0{,}5$ ; $0{,}3$ ; $0{,}2$), et $D$ « la pièce est défectueuse » : $P_{M_1}(D) = 0{,}01$, $P_{M_2}(D) = 0{,}02$, $P_{M_3}(D) = 0{,}03$.'
+      - 'Probabilités totales : $P(D) = P(M_1)P_{M_1}(D) + P(M_2)P_{M_2}(D) + P(M_3)P_{M_3}(D)$.'
+      - '$P(D) = 0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}005 + 0{,}006 + 0{,}006 = 0{,}017$.'
       resultat: '0.017'
   - code: TLE-TEC-PROBA-V1
     difficulte: 3

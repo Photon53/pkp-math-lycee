@@ -30,17 +30,68 @@ competences:
   erreurs_frequentes:
   - erreur: Croire qu'une implication vraie a une réciproque vraie.
     explication: « Si $x = 2$, alors $x^2 = 4$ » est vraie ; « si $x^2 = 4$, alors $x = 2$ » est fausse ($x = -2$).
+  cours_couvre: [TLE-TEC-2026-TRANS-01, TLE-TEC-2026-TRANS-02, TLE-TEC-2026-TRANS-03, TLE-TEC-2026-TRANS-04, TLE-TEC-2026-TRANS-05]
   resume: |
-    - « P et Q » : les deux sont vraies ; « P ou Q » : au moins l'une est vraie.
-    - Un contre-exemple suffit pour montrer qu'une proposition « pour tout » est fausse.
-    - Si « P ⟹ Q » est vraie : P est une condition suffisante pour Q, Q une condition nécessaire pour P.
-    - Équivalence : P ⟺ Q quand l'implication et sa réciproque sont vraies.
+    - « $P$ et $Q$ » est vraie quand les deux le sont ; « $P$ ou $Q$ » quand au moins l'une l'est (« ou » inclusif).
+    - Une **identité** est vraie pour toutes les valeurs ; une **équation** pose la question des valeurs de l'**inconnue** qui la rendent vraie.
+    - Un seul **contre-exemple** suffit pour montrer qu'une proposition « pour tout » est fausse.
+    - La réciproque de « si $P$, alors $Q$ » est « si $Q$, alors $P$ » ; si $P \Rightarrow Q$, $P$ est condition **suffisante** pour $Q$ et $Q$ condition **nécessaire** pour $P$.
   cours: |
-    ## Statut des lettres
-    Dans $u_n = 3 + 2n$, $n$ est une variable ; dans $1{,}05^n = 2$, $n$ est l'inconnue ; dans $y = ax + b$, $a$ et $b$ sont des paramètres.
+    ## 1. Connecteurs « et », « ou »
 
-    ## Conditions
-    Pour qu'un quadrilatère soit un carré, il est nécessaire qu'il soit un rectangle, mais ce n'est pas suffisant.
+    - « $P$ **et** $Q$ » est vraie lorsque $P$ et $Q$ sont vraies toutes les deux.
+    - « $P$ **ou** $Q$ » est vraie lorsque l'une au moins est vraie : en mathématiques, le « ou » est **inclusif** (les deux peuvent être vraies).
+
+    Exemples : $x \in [2 ; 5]$ signifie « $x \geqslant 2$ **et** $x \leqslant 5$ » ; $x \in ]-\infty ; 1[ \cup ]4 ; +\infty[$ signifie « $x < 1$ **ou** $x > 4$ ».
+
+    > **Négation.** Le contraire de « $P$ et $Q$ » est « non $P$ **ou** non $Q$ » ; le contraire de « $P$ ou $Q$ » est « non $P$ **et** non $Q$ ».
+
+    ## 2. Statut d'une égalité et des lettres
+
+    - Une **identité** est vraie quelles que soient les valeurs des lettres : $(x + 1)^2 = x^2 + 2x + 1$. Les lettres y sont des **variables** (ou des indéterminées).
+    - Une **équation** est une égalité dont on cherche les valeurs de l'**inconnue** qui la rendent vraie : $2x + 1 = 7$.
+    - Un **paramètre** est une lettre fixée mais quelconque : dans $y = mx + p$, $m$ et $p$ sont des paramètres et $x$ la variable.
+    - Dans une formule comme $d = vt$, chaque lettre peut devenir l'inconnue selon la question posée.
+
+    ## 3. Propositions universelles et contre-exemples
+
+    Une proposition **universelle** commence (parfois implicitement) par « pour tout » : « pour tout réel $x$, $x^2 \geqslant x$ ».
+
+    > **Propriété.** Pour démontrer qu'une proposition universelle est **fausse**, il suffit d'exhiber **un** contre-exemple. Pour démontrer qu'elle est vraie, des exemples ne suffisent pas : il faut une démonstration.
+
+    Ici $x = 0{,}5$ donne $x^2 = 0{,}25 < 0{,}5$ : la proposition est fausse.
+
+    ## 4. Implication et réciproque
+
+    « Si $P$, alors $Q$ » (noté $P \Rightarrow Q$) signifie : chaque fois que $P$ est vraie, $Q$ l'est aussi.
+
+    **Définition.** La **réciproque** de « si $P$, alors $Q$ » est « si $Q$, alors $P$ ».
+
+    Une implication vraie peut avoir une réciproque fausse : « si $x = 3$, alors $x^2 = 9$ » est vraie, mais sa réciproque « si $x^2 = 9$, alors $x = 3$ » est fausse ($x = -3$).
+
+    ## 5. Condition nécessaire, condition suffisante, équivalence
+
+    > **Vocabulaire.** Si $P \Rightarrow Q$ est vraie :
+    > - $P$ est une condition **suffisante** pour $Q$ (il suffit que $P$ soit vraie pour avoir $Q$) ;
+    > - $Q$ est une condition **nécessaire** pour $P$ (sans $Q$, pas de $P$).
+    > Si $P \Rightarrow Q$ et sa réciproque sont vraies, $P$ et $Q$ sont **équivalentes** : $P \iff Q$ (« si et seulement si »).
+
+    Exemple : « être un carré » $\Rightarrow$ « être un rectangle ». Être un rectangle est **nécessaire** pour être un carré, mais pas suffisant.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** On considère « si un nombre entier est divisible par $6$, alors il est pair ». Est-elle vraie ? Sa réciproque ? Quel vocabulaire employer ?
+
+    **Résolution.**
+    1. Si $n = 6k$, alors $n = 2 \times 3k$ est pair : l'implication est vraie.
+    2. Réciproque : « si un entier est pair, alors il est divisible par $6$ ». Contre-exemple : $4$ est pair mais pas divisible par $6$. Elle est fausse.
+    3. Être divisible par $6$ est une condition suffisante pour être pair ; être pair est une condition nécessaire, non suffisante, pour être divisible par $6$. Les deux propositions ne sont pas équivalentes.
+
+    ## 7. Erreurs fréquentes
+
+    - Croire qu'une implication vraie a une réciproque vraie.
+    - Comprendre « ou » comme exclusif.
+    - Penser que quelques exemples démontrent une proposition universelle.
   questions:
   - code: TLE-TEC-LOGIQUE-01
     difficulte: 1
@@ -71,7 +122,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - La réciproque échange hypothèse et conclusion ; ici elle est fausse ($x = -2$).
+      - 'La réciproque de « si $P$, alors $Q$ » est « si $Q$, alors $P$ » : on échange hypothèse et conclusion.'
+      - 'Ici $P$ est « $x = 2$ » et $Q$ est « $x^2 = 4$ » : la réciproque est « si $x^2 = 4$, alors $x = 2$ » (réponse A).'
+      - 'Cette réciproque est fausse ($x = -2$ est un contre-exemple), alors que l''implication de départ est vraie.'
       resultat: A
   - code: TLE-TEC-LOGIQUE-04
     difficulte: 4
@@ -119,13 +172,37 @@ competences:
   erreurs_frequentes:
   - erreur: Écrire `range(1, n)` pour aller jusqu'à $n$.
     explication: '`range(1, n)` s''arrête à $n - 1$ $:$ il faut `range(1, n + 1)`.'
+  cours_couvre: [TLE-TEC-2026-TRANS-06, TLE-TEC-2026-TRANS-07, TLE-TEC-2026-TRANS-08, TLE-TEC-2026-TRANS-09, TLE-TEC-2026-TRANS-10, TLE-TEC-2026-TRANS-11, TLE-TEC-2026-TRANS-12, TLE-TEC-2026-TRANS-13, TLE-TEC-2026-TRANS-14, TLE-TEC-2026-TRANS-15, TLE-TEC-2026-ANA-08, TLE-TEC-2026-ANA-16, TLE-TEC-2026-SP-03, TLE-TEC-2026-SP-16, TLE-TEC-2026-SP-17]
   resume: |
-    - $\sum_{k = 1}^{n} a_k$ : accumulateur initialisé à $0$, boucle de $1$ à $n$.
-    - Moyenne arithmétique de $a$ et $b$ : $\dfrac{a + b}{2}$ ; géométrique : $\sqrt{ab}$.
-    - Espérance : $E(X) = \sum x_i p_i$ ; pour la loi binomiale $\mathcal{B}(n, p)$, $E(X) = np$.
-    - Triangle de Pascal : chaque coefficient est la somme des deux coefficients situés au-dessus.
+    - Une **fonction** Python reçoit des entrées (paramètres) et renvoie une sortie avec `return`.
+    - **Compteur** : `c = c + 1` ; **accumulateur** : `s = s + terme` (initialisé à $0$) ou `p = p * terme` (initialisé à $1$).
+    - $\displaystyle\sum_{k=1}^{n} u_k$ se programme avec `for k in range(1, n + 1)` : la borne de fin de `range` est **exclue**.
+    - Listes : `[1, 4, 9]`, `L.append(x)`, `[k**2 for k in range(5)]`, `L[0]` est le premier élément ; `random() < p` simule une épreuve de Bernoulli.
   cours: |
-    ## Sommes
+    ## 1. Fonctions : entrées et sorties
+
+    Une **fonction** regroupe des instructions réutilisables. Ses **entrées** sont ses paramètres, sa **sortie** est la valeur renvoyée par `return`.
+
+    ```python
+    def moyenne_geometrique(a, b):
+        return (a * b) ** 0.5
+    ```
+
+    `moyenne_geometrique(4, 9)` renvoie `6.0`. Structurer un programme en fonctions courtes (une tâche chacune) le rend lisible et testable.
+
+    ## 2. Compteur et accumulateur
+
+    - Un **compteur** compte des événements : on l'initialise à `0` et on ajoute `1` à chaque événement.
+    - Un **accumulateur** cumule des valeurs : initialisé à `0` pour une somme, à `1` pour un produit.
+
+    ## 3. Sommes $\Sigma$ et boucles
+
+    > **Correspondance.** Pour calculer $\displaystyle S = \sum_{k=1}^{n} u_k$ :
+    > - **initialisation** : `s = 0` ;
+    > - **compteur** : `k` parcourt $1, 2, \dots, n$ grâce à `for k in range(1, n + 1)` ;
+    > - **accumulateur** : `s = s + u(k)` à chaque tour ;
+    > - **sortie de boucle** : après le dernier tour ($k = n$), on renvoie `s`.
+
     ```python
     def somme_carres(n):
         s = 0
@@ -134,16 +211,101 @@ competences:
         return s
     ```
 
-    ## Triangle de Pascal
-    ```python
-    ligne = [1]
-    for n in range(4):
-        ligne = [1] + [ligne[k] + ligne[k + 1] for k in range(len(ligne) - 1)] + [1]
-    ```
-    Après $4$ tours, `ligne` vaut `[1, 4, 6, 4, 1]` : ce sont les coefficients $\binom{4}{k}$.
+    `somme_carres(4)` renvoie $1 + 4 + 9 + 16 = 30$. On remplace `k ** 2` par `k ** 3` pour la somme des cubes, par `1 / k` pour la somme des inverses.
 
-    ## Ajustement
-    Pour une droite $y = ax + b$, on calcule $\sum (y_i - (ax_i + b))^2$ pour plusieurs couples $(a, b)$ et on garde celui qui donne la plus petite valeur.
+    **Moyennes et points intercalés.** Entre les points $A(x_A ; y_A)$ et $B(x_B ; y_B)$ d'une courbe exponentielle, le point d'abscisse $\dfrac{x_A + x_B}{2}$ (moyenne arithmétique) a pour ordonnée $\sqrt{y_A y_B}$ (moyenne géométrique). Une boucle qui répète cette construction remplit peu à peu la courbe.
+
+    ## 4. Listes
+
+    - **Création** : en extension `L = [3, 7, 2]` ; par ajouts successifs `L = []` puis `L.append(x)` ; en compréhension `C = [k ** 2 for k in range(1, 6)]`.
+    - **Indices** : `L[0]` est le premier élément, `L[len(L) - 1]` le dernier ; `L[i] = v` modifie un élément ; `L.pop(i)` supprime l'élément d'indice `i`, `L.remove(v)` la première occurrence de `v`.
+    - **Itération** : `for x in L:` parcourt les éléments ; `for i in range(len(L)):` parcourt les indices.
+
+    **Espérance d'une loi donnée par deux listes** :
+
+    ```python
+    def esperance(x, p):
+        e = 0
+        for i in range(len(x)):
+            e = e + x[i] * p[i]
+        return e
+    ```
+
+    ## 5. Simulation et loi binomiale
+
+    `random()` (module `random`) renvoie un nombre aléatoire de $[0 ; 1[$. Le test `random() < p` est vrai avec la probabilité $p$ : il simule une **épreuve de Bernoulli**.
+
+    ```python
+    from random import random
+
+    def nombre_succes(n, p):
+        c = 0
+        for i in range(n):
+            if random() < p:
+                c = c + 1
+        return c
+    ```
+
+    En répétant `nombre_succes(n, p)` un grand nombre de fois, l'histogramme des fréquences observées ressemble au **diagramme en bâtons** de $\mathcal B(n ; p)$ (tracé par exemple avec `matplotlib`), et la moyenne des résultats est proche de $E(X) = np$ ; en représentant $E(X)$ pour plusieurs lois $\mathcal B(n ; p)$, on visualise que l'espérance « centre » le diagramme.
+
+    **Triangle de Pascal** : chaque ligne se construit à partir de la précédente.
+
+    ```python
+    def pascal(n):
+        ligne = [1]
+        for i in range(n):
+            ligne = [1] + [ligne[k] + ligne[k + 1] for k in range(len(ligne) - 1)] + [1]
+        return ligne
+    ```
+
+    `pascal(4)` renvoie `[1, 4, 6, 4, 1]`.
+
+    ## 6. Ajustement : somme des carrés des écarts
+
+    Pour une droite $y = ax + b$ et les points $(x_i ; y_i)$, on mesure la qualité de l'ajustement par $\displaystyle\sum (y_i - (a x_i + b))^2$ : plus elle est petite, meilleur est l'ajustement.
+
+    ```python
+    def ecarts(x, y, a, b):
+        s = 0
+        for i in range(len(x)):
+            s = s + (y[i] - (a * x[i] + b)) ** 2
+        return s
+    ```
+
+    On peut **balayer** des couples $(a ; b)$ (par exemple $a$ de $1$ à $3$ par pas de $0{,}1$) et garder celui qui donne la plus petite somme.
+
+    ## 7. Données réelles et tableau croisé
+
+    Un fichier de données (CSV) se lit ligne par ligne ; chaque ligne devient une liste de valeurs. On peut alors filtrer, compter, calculer des moyennes. Un **tableau croisé** compte les individus selon deux critères : on utilise un compteur par case, par exemple un dictionnaire dont les clés sont les couples (critère 1, critère 2).
+
+    ```python
+    tableau = {}
+    for (classe, option) in donnees:
+        cle = (classe, option)
+        tableau[cle] = tableau.get(cle, 0) + 1
+    ```
+
+    ## 8. Exemple complet
+
+    **Énoncé.** Écrire une fonction `seuil(u0, q, M)` qui renvoie le premier rang $n$ tel que $u_0 \times q^n > M$, puis l'utiliser pour un capital de $1\,000$ € placé à $4\,\%$ par an, avec $M = 1\,500$.
+
+    ```python
+    def seuil(u0, q, M):
+        n = 0
+        u = u0
+        while u <= M:
+            u = u * q
+            n = n + 1
+        return n
+    ```
+
+    `seuil(1000, 1.04, 1500)` renvoie `11` : $1{,}04^{10} \approx 1{,}480$ et $1{,}04^{11} \approx 1{,}539$. Ici `n` est un compteur et `u` un accumulateur multiplicatif.
+
+    ## 9. Erreurs fréquentes
+
+    - Écrire `range(1, n)` pour aller jusqu'à $n$ : la dernière valeur est $n - 1$.
+    - Oublier d'initialiser l'accumulateur, ou l'initialiser à `0` pour un produit.
+    - Confondre l'indice `i` et l'élément `L[i]` ; le premier indice est `0`.
   questions:
   - code: TLE-TEC-ALGO-01
     difficulte: 1
@@ -173,7 +335,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1 + \dfrac{1}{2} + \dfrac{1}{3} + \dfrac{1}{4} = \dfrac{12 + 6 + 4 + 3}{12} = \dfrac{25}{12}$.
+      - '`range(1, 5)` donne $k = 1, 2, 3, 4$ (la borne $5$ est exclue) : la boucle calcule $\displaystyle\sum_{k=1}^{4} \dfrac{1}{k}$.'
+      - '$s = 1 + \dfrac{1}{2} + \dfrac{1}{3} + \dfrac{1}{4}$ ; au dénominateur commun $12$ : $\dfrac{12}{12} + \dfrac{6}{12} + \dfrac{4}{12} + \dfrac{3}{12}$.'
+      - '$s = \dfrac{25}{12}$.'
       resultat: 25/12
   - code: TLE-TEC-ALGO-04
     difficulte: 4

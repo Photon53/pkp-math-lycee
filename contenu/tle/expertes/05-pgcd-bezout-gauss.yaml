@@ -13,24 +13,57 @@ competences:
   - Reconnaitre des entiers premiers entre eux.
   prerequis:
   - TLE-ME-DIV
+  cours_couvre: [TLE-EXP-2019-ARITH-04, TLE-EXP-2019-ARITH-11]
   resume: |
-    - $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, r)$ où $r$ est le reste de $a$ par $b$.
-    - Le dernier reste non nul de l'algorithme d'Euclide est le PGCD.
-    - $a$ et $b$ sont **premiers entre eux** si leur PGCD vaut 1.
+    - $\mathrm{PGCD}(a, b)$ : plus grand diviseur commun de $a$ et $b$ (non tous deux nuls) ; $\mathrm{PGCD}(a, 0) = |a|$.
+    - $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, a - kb)$ ; en particulier $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, r)$ où $r$ est le reste de $a$ par $b$.
+    - Algorithme d'Euclide : on divise, puis on remplace $(a, b)$ par $(b, r)$ ; le PGCD est le **dernier reste non nul**.
+    - $a$ et $b$ sont premiers entre eux si $\mathrm{PGCD}(a, b) = 1$ ; les diviseurs communs de $a$ et $b$ sont les diviseurs de leur PGCD.
   cours: |
-    ## Algorithme d'Euclide
-    $\mathrm{PGCD}(1071, 462)$ :
-    - $1071 = 2 \times 462 + 147$
-    - $462 = 3 \times 147 + 21$
-    - $147 = 7 \times 21 + 0$
+    ## 1. Définition
 
-    Le dernier reste non nul est $21$.
+    **Définition.** Soient $a$ et $b$ deux entiers non tous deux nuls. L'ensemble de leurs diviseurs communs positifs est fini et contient $1$ ; son plus grand élément est le **PGCD** de $a$ et $b$, noté $\mathrm{PGCD}(a, b)$.
 
-    ## Expressions en n
-    $\mathrm{PGCD}(2n + 3, n + 1) = \mathrm{PGCD}(n + 1, 1) = 1$ car $2n + 3 = 2(n + 1) + 1$.
+    Propriétés immédiates : $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, a) = \mathrm{PGCD}(|a|, |b|)$ ; $\mathrm{PGCD}(a, 0) = |a|$ ; si $b \mid a$, alors $\mathrm{PGCD}(a, b) = |b|$.
 
-    ## PPCM
-    $\mathrm{PPCM}(12, 18) = 36$ : deux évènements périodiques de 12 et 18 minutes coïncident toutes les 36 minutes.
+    **Définition.** $a$ et $b$ sont **premiers entre eux** si $\mathrm{PGCD}(a, b) = 1$ : leur seul diviseur commun positif est $1$.
+
+    ## 2. Le lemme d'Euclide
+
+    > **Propriété.** Pour tous entiers $a$, $b$, $k$ : $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, a - kb)$. En particulier, si $a = bq + r$ (division euclidienne), $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, r)$.
+
+    **Démonstration.** Si $d$ divise $a$ et $b$, il divise la combinaison $a - kb$. Réciproquement, si $d$ divise $b$ et $a - kb$, il divise $(a - kb) + kb = a$. Les deux couples ont donc **les mêmes diviseurs communs**, donc le même PGCD.
+
+    ## 3. Algorithme d'Euclide
+
+    Pour $a \geqslant b > 0$ : on effectue la division euclidienne de $a$ par $b$, puis on recommence avec $b$ et le reste. Les restes sont des entiers positifs strictement décroissants, donc l'un d'eux finit par être nul.
+
+    > **Propriété.** Le PGCD de $a$ et $b$ est le **dernier reste non nul** de l'algorithme d'Euclide.
+
+    En effet, à chaque étape le PGCD ne change pas, et à la fin $\mathrm{PGCD}(r, 0) = r$.
+
+    > **Conséquence.** Les diviseurs communs de $a$ et $b$ sont exactement les diviseurs de $\mathrm{PGCD}(a, b)$.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Calculer $\mathrm{PGCD}(2\,024, 828)$ et en déduire les diviseurs communs de ces deux nombres.
+
+    **Résolution.**
+    1. $2\,024 = 828 \times 2 + 368$.
+    2. $828 = 368 \times 2 + 92$.
+    3. $368 = 92 \times 4 + 0$.
+    4. Le dernier reste non nul est $92$ : $\mathrm{PGCD}(2\,024, 828) = 92$ (et en effet $2\,024 = 92 \times 22$, $828 = 92 \times 9$).
+    5. Les diviseurs communs positifs sont ceux de $92 = 2^2 \times 23$ : $1, 2, 4, 23, 46, 92$.
+
+    **Avec des expressions.** $\mathrm{PGCD}(3n + 5, n + 2) = \mathrm{PGCD}(n + 2, (3n + 5) - 3(n + 2)) = \mathrm{PGCD}(n + 2, -1) = 1$ : ces deux entiers sont premiers entre eux pour tout $n$.
+
+    **Problème concret.** Le PGCD répond aux questions de **partage maximal** : découper un rectangle de $2\,024$ cm sur $828$ cm en carrés identiques les plus grands possibles donne des carrés de $92$ cm de côté.
+
+    ## 5. Erreurs fréquentes
+
+    - Prendre le dernier reste ($0$) comme PGCD : c'est le dernier reste **non nul**.
+    - Croire que deux nombres non premiers sont forcément non premiers entre eux : $8$ et $15$ sont premiers entre eux.
+    - Confondre PGCD et PPCM dans un problème (partage → PGCD ; rendez-vous commun → PPCM).
   methodes:
   - titre: Calculer un PGCD par l'algorithme d'Euclide
     etapes:
@@ -74,7 +107,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$35 = 5 \times 7$ et $18 = 2 \times 3^2$ : aucun facteur commun.'
+      - 'Décomposition : $35 = 5 \times 7$ et $18 = 2 \times 3^2$.'
+      - 'Aucun facteur premier commun, donc $\mathrm{PGCD}(35, 18) = 1$.'
+      - 'Deux entiers dont le PGCD vaut $1$ sont premiers entre eux (réponse A).'
       resultat: A
   - code: TLE-ME-PGCD-CALC-04
     difficulte: 4
@@ -84,7 +119,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $2n + 3 = 2(n + 1) + 1$, donc $\mathrm{PGCD}(2n + 3, n + 1) = \mathrm{PGCD}(n + 1, 1) = 1$.
+      - 'On utilise $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, a - kb)$ : on retire à $2n + 3$ deux fois $n + 1$.'
+      - '$2n + 3 = 2(n + 1) + 1$, donc $\mathrm{PGCD}(2n + 3, n + 1) = \mathrm{PGCD}(n + 1, 1)$.'
+      - 'Le seul diviseur positif de $1$ est $1$ : le PGCD vaut $1$ pour tout $n$.'
       resultat: '1'
   - code: TLE-ME-PGCD-CALC-05
     difficulte: 5
@@ -121,19 +158,62 @@ competences:
   - Résoudre une équation ax + by = c et utiliser le théorème de Gauss.
   prerequis:
   - TLE-ME-PGCD-CALC
+  cours_couvre: [TLE-EXP-2019-ARITH-05, TLE-EXP-2019-ARITH-06, TLE-EXP-2019-ARITH-07, TLE-EXP-2019-ARITH-15, TLE-EXP-2019-ARITH-16]
   resume: |
-    - **Bézout** : $a$ et $b$ premiers entre eux $\iff$ il existe $u, v$ entiers avec $au + bv = 1$.
-    - $ax + by = c$ a des solutions entières si et seulement si $\mathrm{PGCD}(a, b)$ divise $c$.
-    - **Gauss** : si $a$ divise $bc$ et $a$ est premier avec $b$, alors $a$ divise $c$.
+    - Identité de Bézout : il existe des entiers $u$, $v$ tels que $au + bv = \mathrm{PGCD}(a, b)$.
+    - Théorème de Bézout : $a$ et $b$ sont premiers entre eux $\iff$ il existe $u$, $v$ entiers tels que $au + bv = 1$.
+    - Théorème de Gauss : si $a \mid bc$ et $\mathrm{PGCD}(a, b) = 1$, alors $a \mid c$.
+    - Corollaire : si $a \mid n$, $b \mid n$ et $\mathrm{PGCD}(a, b) = 1$, alors $ab \mid n$.
   cours: |
-    ## Bézout
-    $7 \times 3 + 5 \times (-4) = 1$ : $7$ et $5$ sont premiers entre eux.
+    ## 1. Identité de Bézout
 
-    ## Existence de solutions
-    $6x + 9y = 4$ n'a pas de solution entière : $3$ divise $6x + 9y$ mais pas $4$.
+    > **Théorème.** Soient $a$ et $b$ deux entiers non tous deux nuls et $d = \mathrm{PGCD}(a, b)$. Il existe des entiers relatifs $u$ et $v$ tels que $$au + bv = d.$$
 
-    ## Gauss
-    $3x = 7y$ : $7$ divise $3x$ et $7$ est premier avec $3$, donc $7$ divise $x$. La plus petite solution positive est $x = 7$ (avec $y = 3$).
+    **Démonstration.** Soit $E$ l'ensemble des entiers **strictement positifs** de la forme $au + bv$ ($u$, $v$ entiers). $E$ est non vide (il contient $a^2 + b^2$) ; il a donc un plus petit élément $m = au_0 + bv_0$.
+    - **$m$ divise $a$.** Division euclidienne : $a = mq + r$ avec $0 \leqslant r < m$. Alors $r = a - q(au_0 + bv_0) = a(1 - qu_0) + b(-qv_0)$ est de la forme $au + bv$. S'il était strictement positif, il serait dans $E$ et plus petit que $m$ : impossible. Donc $r = 0$ et $m \mid a$. De même, $m \mid b$.
+    - **$m$ est le plus grand diviseur commun.** Tout diviseur commun de $a$ et $b$ divise la combinaison $au_0 + bv_0 = m$, donc lui est inférieur ou égal.
+    Ainsi $m = d$, et $d = au_0 + bv_0$.
+
+    Un couple $(u ; v)$ s'obtient en « remontant » l'algorithme d'Euclide (algorithme d'Euclide étendu).
+
+    ## 2. Théorème de Bézout
+
+    > **Théorème.** $a$ et $b$ sont premiers entre eux si et seulement s'il existe des entiers $u$ et $v$ tels que $au + bv = 1$.
+
+    **Démonstration.** Si $\mathrm{PGCD}(a, b) = 1$, c'est l'identité de Bézout. Réciproquement, si $au + bv = 1$, tout diviseur commun positif de $a$ et $b$ divise $1$, donc vaut $1$.
+
+    **Méthode** : pour prouver que deux expressions sont premières entre elles, on cherche une combinaison égale à $1$. Exemple : $3(2n + 1) - 2(3n + 1) = 1$, donc $2n + 1$ et $3n + 1$ sont premiers entre eux pour tout $n$.
+
+    > **Corollaire.** L'équation $ax + by = c$ a des solutions entières si et seulement si $\mathrm{PGCD}(a, b)$ divise $c$.
+
+    ## 3. Théorème de Gauss
+
+    > **Théorème.** Soient $a$, $b$, $c$ des entiers. Si $a$ divise $bc$ et si $a$ et $b$ sont premiers entre eux, alors $a$ divise $c$.
+
+    **Démonstration.** D'après Bézout, il existe $u$, $v$ tels que $au + bv = 1$. En multipliant par $c$ : $c = acu + bcv$. Or $a \mid acu$ et $a \mid bc$, donc $a \mid bcv$ ; $a$ divise la somme, c'est-à-dire $c$.
+
+    > **Corollaire.** Si $a$ et $b$ divisent $n$ et sont premiers entre eux, alors $ab$ divise $n$.
+
+    **Justification.** $n = ak$ ; $b \mid ak$ et $\mathrm{PGCD}(a, b) = 1$, donc $b \mid k$ par Gauss : $k = bk'$ et $n = abk'$.
+
+    ## 4. Méthode : résoudre $ax = by$
+
+    Si $a$ et $b$ sont premiers entre eux : $a \mid by$ donc $a \mid y$ (Gauss) ; on écrit $y = ak$, puis $x = bk$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Résoudre dans $\mathbb{Z}^2$ l'équation $5x = 8y$.
+
+    **Résolution.**
+    1. $5$ divise $8y$, et $\mathrm{PGCD}(5, 8) = 1$ (car $5 \times 5 - 8 \times 3 = 1$). Par le théorème de Gauss, $5$ divise $y$ : $y = 5k$ avec $k \in \mathbb{Z}$.
+    2. Alors $5x = 40k$, donc $x = 8k$.
+    3. Réciproquement, $(8k ; 5k)$ convient : $5 \times 8k = 8 \times 5k$. Les solutions sont les couples $(8k ; 5k)$, $k \in \mathbb{Z}$.
+
+    ## 6. Erreurs fréquentes
+
+    - Appliquer Gauss sans vérifier que les nombres sont premiers entre eux : $6 \mid 4 \times 3$ mais $6 \nmid 4$.
+    - Croire que le couple de Bézout est unique : $(u + bk ; v - ak)$ convient aussi.
+    - Conclure $\mathrm{PGCD}(a, b) = c$ à partir de $au + bv = c$ avec $c \neq 1$ : on sait seulement que le PGCD divise $c$.
   methodes:
   - titre: Résoudre une équation ax = by avec a et b premiers entre eux
     etapes:
@@ -176,7 +256,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $7x - 20 = 1$, donc $7x = 21$ et $x = 3$.
+      - 'On remplace : $7x + 5 \times (-4) = 7x - 20 = 1$.'
+      - '$7x = 21$, donc $x = 3$.'
+      - 'Le couple $(3 ; -4)$ est un couple de Bézout pour $7$ et $5$, qui sont donc premiers entre eux.'
       resultat: '3'
   - code: TLE-ME-BEZOUT-04
     difficulte: 4
@@ -186,7 +268,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\mathrm{PGCD}(6, 9) = 3$ divise $6x + 9y$ mais ne divise pas $4$.
+      - '$\mathrm{PGCD}(6, 9) = 3$, et $3$ divise $6x + 9y$ pour tous entiers $x$ et $y$.'
+      - 'S''il existait une solution, $3$ diviserait $4$ : c''est impossible.'
+      - 'L''équation n''a aucune solution entière (réponse B).'
       resultat: B
   - code: TLE-ME-BEZOUT-05
     difficulte: 5
@@ -226,19 +310,61 @@ competences:
   erreurs_frequentes:
   - erreur: Diviser une congruence par un nombre.
     explication: On ne divise pas modulo $n$ $:$ on multiplie par un inverse de $a$ modulo $n$, quand il existe.
+  cours_couvre: [TLE-EXP-2019-ARITH-12, TLE-EXP-2019-ARITH-14]
   resume: |
-    - $a$ a un inverse modulo $n$ si et seulement si $\text{PGCD}(a, n) = 1$ ; Bézout le fournit : $au + nv = 1$ donne $au \equiv 1 \; [n]$.
-    - $ax \equiv b \; [n]$ : on multiplie par l'inverse $u$ de $a$ : $x \equiv ub \; [n]$.
-    - $ax + by = c$ a des solutions entières si et seulement si $\text{PGCD}(a, b)$ divise $c$.
+    - Si $\mathrm{PGCD}(a, n) = 1$, $a$ a un **inverse modulo $n$** : un entier $u$ tel que $au \equiv 1 \pmod n$ (donné par Bézout $au + nv = 1$).
+    - $ax \equiv b \pmod n$ avec $a$ inversible : on multiplie par l'inverse, $x \equiv ub \pmod n$.
+    - $ax + by = c$ : solutions si et seulement si $d = \mathrm{PGCD}(a, b)$ divise $c$.
+    - Solution générale : à partir d'une solution particulière $(x_0 ; y_0)$, $x = x_0 + \dfrac{b}{d}k$, $y = y_0 - \dfrac{a}{d}k$, $k \in \mathbb{Z}$ (Gauss).
   cours: |
-    ## Inverse modulo $n$
-    $3 \times 5 = 15 \equiv 1 \; [7]$ : $5$ est un inverse de $3$ modulo $7$.
+    ## 1. Inverse modulo $n$
 
-    ## Congruence linéaire
-    $3x \equiv 4 \; [7]$ : on multiplie par $5$, $x \equiv 20 \equiv 6 \; [7]$.
+    **Définition.** Un entier $u$ est un **inverse de $a$ modulo $n$** si $au \equiv 1 \pmod n$.
 
-    ## Équation diophantienne
-    $3x + 5y = 1$ : solutions $(2 + 5k, -1 - 3k)$ avec $k \in \mathbb{Z}$. L'équation $4x + 6y = 3$ n'a pas de solution entière, car $\text{PGCD}(4, 6) = 2$ ne divise pas $3$.
+    > **Propriété.** $a$ admet un inverse modulo $n$ si et seulement si $a$ et $n$ sont premiers entre eux.
+
+    **Démonstration.** Si $\mathrm{PGCD}(a, n) = 1$, Bézout donne $au + nv = 1$, donc $au \equiv 1 \pmod n$. Réciproquement, $au \equiv 1 \pmod n$ s'écrit $au - nk = 1$, et Bézout donne $\mathrm{PGCD}(a, n) = 1$.
+
+    **Trouver l'inverse** : pour un petit $n$, on teste $u = 1, 2, \dots, n - 1$ ; sinon on remonte l'algorithme d'Euclide. Exemple : $5 \times 5 = 25 \equiv 1 \pmod{12}$, donc $5$ est son propre inverse modulo $12$.
+
+    ## 2. Résoudre $ax \equiv b \pmod n$
+
+    > **Méthode.** Si $u$ est un inverse de $a$ modulo $n$ : $$ax \equiv b \pmod n \iff x \equiv ub \pmod n.$$
+
+    **Justification.** Si $ax \equiv b$, en multipliant par $u$ : $uax \equiv ub$, et $ua \equiv 1$ donne $x \equiv ub$. Réciproquement, si $x \equiv ub$, alors $ax \equiv aub \equiv b$.
+
+    Exemple : $5x \equiv 7 \pmod{12} \iff x \equiv 5 \times 7 = 35 \equiv 11 \pmod{12}$. Contrôle : $5 \times 11 = 55 = 48 + 7$.
+
+    **Chiffrement affine.** Le codage $y \equiv ax + b \pmod{26}$ n'est décodable que si $a$ est premier avec $26$ ; on décode par $x \equiv u(y - b) \pmod{26}$, où $u$ est l'inverse de $a$.
+
+    ## 3. Équation diophantienne $ax + by = c$
+
+    > **Propriété.** L'équation $ax + by = c$ ($a$, $b$ non nuls) a des solutions entières si et seulement si $d = \mathrm{PGCD}(a, b)$ divise $c$.
+
+    En effet, $d$ divise toujours $ax + by$ ; réciproquement, si $c = dc'$, l'identité de Bézout $au + bv = d$ multipliée par $c'$ donne une solution.
+
+    > **Méthode de résolution** (on suppose d'abord $a$ et $b$ premiers entre eux, quitte à tout diviser par $d$).
+    > 1. Trouver une **solution particulière** $(x_0 ; y_0)$ (évidente, ou par Bézout multiplié par $c$).
+    > 2. Soustraire : $a(x - x_0) = -b(y - y_0)$.
+    > 3. Gauss : $b \mid a(x - x_0)$ et $\mathrm{PGCD}(a, b) = 1$, donc $x - x_0 = bk$ ; puis $y - y_0 = -ak$.
+    > 4. Vérifier que tous ces couples conviennent.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Résoudre dans $\mathbb{Z}^2$ : $7x + 12y = 3$.
+
+    **Résolution.**
+    1. $\mathrm{PGCD}(7, 12) = 1$ divise $3$ : il y a des solutions.
+    2. Solution particulière : $7 \times 9 + 12 \times (-5) = 63 - 60 = 3$, donc $(x_0 ; y_0) = (9 ; -5)$.
+    3. Par soustraction : $7(x - 9) + 12(y + 5) = 0$, soit $7(x - 9) = -12(y + 5)$.
+    4. $12$ divise $7(x - 9)$ et $\mathrm{PGCD}(12, 7) = 1$ : par Gauss, $x - 9 = 12k$ ($k \in \mathbb{Z}$). Alors $7 \times 12k = -12(y + 5)$, donc $y = -5 - 7k$.
+    5. Réciproquement, $7(9 + 12k) + 12(-5 - 7k) = 63 - 60 = 3$. Solutions : $(9 + 12k ; -5 - 7k)$, $k \in \mathbb{Z}$.
+
+    ## 5. Erreurs fréquentes
+
+    - Diviser une congruence par un nombre au lieu de multiplier par un inverse.
+    - Oublier de vérifier que $\mathrm{PGCD}(a, b)$ divise $c$ avant de chercher des solutions.
+    - Se tromper de signe dans la solution générale : si $x$ augmente de $b$, $y$ diminue de $a$.
   questions:
     - code: TLE-ME-DIOPH-01
       difficulte: 1
@@ -269,7 +395,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $4x + 6y$ est toujours pair, alors que $3$ est impair.
+        - '$\mathrm{PGCD}(4, 6) = 2$, et $2$ divise $4x + 6y$ quels que soient les entiers $x$ et $y$ : $4x + 6y$ est toujours pair.'
+        - 'Or $3$ est impair, donc $4x + 6y = 3$ est impossible en entiers.'
+        - 'C''est le critère général : $ax + by = c$ a des solutions entières si et seulement si $\mathrm{PGCD}(a, b)$ divise $c$ (réponse A).'
         resultat: A
     - code: TLE-ME-DIOPH-04
       difficulte: 4
