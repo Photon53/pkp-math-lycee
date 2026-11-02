@@ -13,8 +13,12 @@ def test_referentiels_pilotes():
 
 
 def test_seances_pilotes_90_minutes_et_packs_separes():
-    for niveau, code in (("4e", "4e-01"), ("3e", "3e-01")):
-        seance = charger_seance(RACINE / "seances" / niveau / f"{code}-pilote.json")
+    # Chaque fichier déposé est contrôlé, sans liste à tenir à jour.
+    fichiers = sorted((RACINE / "seances").glob("*/*.json"))
+    assert len(fichiers) >= 4
+    for chemin in fichiers:
+        seance = charger_seance(chemin)
+        assert seance.niveau == chemin.parent.name
         assert sum(e.duree_minutes for e in seance.etapes) == 90
         assert len(seance.fiches) == 3
         eleve = generer_pack_eleve(seance)

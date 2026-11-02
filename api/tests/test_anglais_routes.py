@@ -37,6 +37,14 @@ def test_chaque_seance_listee_s_ouvre_et_produit_ses_pdf(client):
             assert pdf.content.startswith(b"%PDF")
 
 
+def test_chaque_fichier_de_seance_est_au_catalogue():
+    """Une séance déposée dans contenu/anglais/seances mais oubliée dans SEANCES n'apparaîtrait jamais."""
+    from app.routes.anglais import CONTENU, SEANCES
+
+    deposes = {(f.parent.name, f.name) for f in CONTENU.glob("*/*.json")}
+    assert deposes == set(SEANCES.values())
+
+
 def test_code_ou_pack_inconnu(client):
     h = connecter_anglais(client)
     assert client.get("/anglais/seances/5E-01", headers=h).status_code == 404
