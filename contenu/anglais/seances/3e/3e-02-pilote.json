@@ -1,0 +1,139 @@
+{
+  "code": "3E-02",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Defending your project",
+  "objective": "Défendre une proposition, comparer deux solutions et répondre avec courtoisie à une objection.",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "fiches imprimées",
+    "tableau",
+    "chronomètre"
+  ],
+  "model_text": "Our school should start a reading club. It could help students discover new books. Some people might say that students are too busy. However, we could meet only once a month. This solution is practical because it does not take much time. What do you think?",
+  "language_toolkit": [
+    "We should + verb",
+    "It could + verb",
+    "Some people might say…",
+    "However, …",
+    "I understand your point, but…",
+    "because"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Diagnostic rapide",
+      "duration_minutes": 8,
+      "student_instruction": "Explain your project in two sentences to a partner.",
+      "facilitator_instruction": "Réactiver la séance 3E-01 sans noter systématiquement."
+    },
+    {
+      "order": 2,
+      "title": "Lire et comprendre un argument",
+      "duration_minutes": 12,
+      "student_instruction": "Read the model. Highlight the claim, objection, response and reason.",
+      "facilitator_instruction": "Lire le modèle et demander des preuves textuelles."
+    },
+    {
+      "order": 3,
+      "title": "Boîte à outils argumentative",
+      "duration_minutes": 12,
+      "student_instruction": "Match each connector to its purpose and correct two short sentences.",
+      "facilitator_instruction": "Revoir should/could + base verbale, because, however."
+    },
+    {
+      "order": 4,
+      "title": "Préparer sa défense A/B/C",
+      "duration_minutes": 20,
+      "student_instruction": "Complete the planning sheet for your track.",
+      "facilitator_instruction": "Étayer A; demander un exemple concret à B et C."
+    },
+    {
+      "order": 5,
+      "title": "Questions croisées en binômes",
+      "duration_minutes": 13,
+      "student_instruction": "Ask one challenging but respectful question and improve your answer.",
+      "facilitator_instruction": "Distribuer les rôles et rappeler les règles de discussion."
+    },
+    {
+      "order": 6,
+      "title": "Mini-débats en groupes",
+      "duration_minutes": 17,
+      "student_instruction": "Defend your project and respond to at least one objection.",
+      "facilitator_instruction": "Groupes simultanés; observation ciblée et traces entre pairs."
+    },
+    {
+      "order": 7,
+      "title": "Remédiation collective",
+      "duration_minutes": 5,
+      "student_instruction": "Improve three anonymous sentences together.",
+      "facilitator_instruction": "Traiter trois erreurs fréquentes maximum."
+    },
+    {
+      "order": 8,
+      "title": "Exit ticket",
+      "duration_minutes": 3,
+      "student_instruction": "Write your best argument and one improvement.",
+      "facilitator_instruction": "Conserver un objectif pour la suite."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete: We should ___. It could help because ___. Some people say ___. However, we could ___. Read your argument aloud.",
+      "facilitator_correction": "Réponse ouverte; vérifier un projet, une raison et une réponse à l'objection."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a short defence of your project: one claim, two reasons, one possible objection and a response. Prepare one question for another group.",
+      "facilitator_correction": "Réponse ouverte; vérifier claim, arguments, objection, réponse et question."
+    },
+    {
+      "track": "C",
+      "student_content": "Compare two ways to achieve the same project goal. Defend the more realistic option with two reasons, anticipate an objection and answer a follow-up question.",
+      "facilitator_correction": "Réponse ouverte; vérifier comparaison, justification, prise en compte d'une objection et interaction."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "Défend une proposition compréhensible",
+      "Donne une justification",
+      "Répond à une objection",
+      "Interagit de manière respectueuse"
+    ]
+  },
+  "common_errors": [
+    {
+      "error": "We should to create",
+      "remediation": "Après should, base verbale sans to."
+    },
+    {
+      "error": "However because",
+      "remediation": "Distinguer opposition et cause."
+    },
+    {
+      "error": "Objection ignorée",
+      "remediation": "Reformuler l'objection avant d'y répondre."
+    },
+    {
+      "error": "Argument sans exemple",
+      "remediation": "Ajouter for example + illustration."
+    },
+    {
+      "error": "Réponse trop brève",
+      "remediation": "Ajouter because + sujet + verbe."
+    }
+  ],
+  "source_objectives": [
+    "3E-02"
+  ],
+  "license": "Contenu original PKP, validation humaine obligatoire avant remise au bénévole"
+}
