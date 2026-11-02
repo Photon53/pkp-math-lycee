@@ -1,0 +1,98 @@
+{
+  "code": "4E-01",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "My daily life and my preferences",
+  "objective": "Parler de ses habitudes, comparer des routines et exprimer ses préférences",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "fiches imprimées",
+    "chronomètre"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up and retrieval",
+      "duration_minutes": 10,
+      "student_instruction": "Write three activities you do after school. Share one with a partner.",
+      "facilitator_instruction": "Recueillir des exemples, reformuler sans interrompre; noter les acquis."
+    },
+    {
+      "order": 2,
+      "title": "Listening: two routines",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to the volunteer reading the two short routines twice. Identify who plays football and who reads.",
+      "facilitator_instruction": "Lire deux fois: Alex: I usually play football after school. I sometimes read in the evening. Sam: I often read after school. I never play football on weekdays. Faire justifier avec les mots entendus."
+    },
+    {
+      "order": 3,
+      "title": "Language focus",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: I ___ play football. She ___ reading. Ask: How often do you read?",
+      "facilitator_instruction": "Présent simple: I play / she plays; adverbes always, usually, often, sometimes, never; I like + -ing."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C activity sheet; then compare answers in pairs.",
+      "facilitator_instruction": "A: étayage et banque de mots; B: phrases autonomes; C: comparer et justifier. Donner une aide sans dévoiler le corrigé."
+    },
+    {
+      "order": 5,
+      "title": "Pair interviews",
+      "duration_minutes": 20,
+      "student_instruction": "Interview a partner about routines and preferences; report one difference.",
+      "facilitator_instruction": "Binômes; observer questions, réponses et intelligibilité. Faire tourner les rôles."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence about your partner and one question you can now ask.",
+      "facilitator_instruction": "Collecter deux traces courtes et noter les difficultés récurrentes."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete using always / sometimes / never: (1) I ___ eat breakfast. (2) I ___ play tennis after school. Then write: I like ___ (read).",
+      "facilitator_correction": "Réponses personnelles possibles pour 1 et 2 si cohérentes; I like reading."
+    },
+    {
+      "track": "B",
+      "student_content": "Write five sentences about your week. Include two frequency adverbs and two preferences. Ask a classmate two questions.",
+      "facilitator_correction": "Exemple: I usually walk to school. I sometimes play chess. I like drawing. I prefer reading because it is relaxing. How often do you play chess? What do you like doing?"
+    },
+    {
+      "track": "C",
+      "student_content": "Compare your routine with a partner's in 7–9 sentences. Explain two differences and justify one preference.",
+      "facilitator_correction": "Production ouverte; critères: comparaison explicite, fréquence cohérente, questions pertinentes, justification with because."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève formule une question au présent simple",
+      "L'élève exprime une préférence",
+      "L'élève compare deux habitudes"
+    ]
+  },
+  "common_errors": [
+    "Confusion he/she + -s",
+    "Oubli de -ing après like",
+    "Placement de l'adverbe de fréquence"
+  ],
+  "source_objectives": [
+    "4E-01"
+  ],
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}
