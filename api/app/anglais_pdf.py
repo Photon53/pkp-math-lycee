@@ -29,12 +29,12 @@ def produire_pdf(seance: dict, public: str) -> bytes:
         raise ValueError("Pack incomplet")
     buf = BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=(21*cm, 29.7*cm), leftMargin=1.65*cm, rightMargin=1.65*cm,
-                            topMargin=1.65*cm, bottomMargin=1.65*cm)
+                            topMargin=1.35*cm, bottomMargin=1.4*cm)
     styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(name="PKPTitle", fontName="Helvetica-Bold", fontSize=19, leading=24, textColor=NAVY, spaceAfter=10))
-    styles.add(ParagraphStyle(name="PKPHeading", fontName="Helvetica-Bold", fontSize=13, leading=17, textColor=BLUE, spaceBefore=12, spaceAfter=7))
-    styles.add(ParagraphStyle(name="PKPText", fontName="Helvetica", fontSize=10, leading=15, spaceAfter=7))
-    styles.add(ParagraphStyle(name="PKPSmall", fontName="Helvetica", fontSize=8.5, leading=12, spaceAfter=5))
+    styles.add(ParagraphStyle(name="PKPTitle", fontName="Helvetica-Bold", fontSize=17, leading=20, textColor=NAVY, spaceAfter=6))
+    styles.add(ParagraphStyle(name="PKPHeading", fontName="Helvetica-Bold", fontSize=11.5, leading=14, textColor=BLUE, spaceBefore=8, spaceAfter=4))
+    styles.add(ParagraphStyle(name="PKPText", fontName="Helvetica", fontSize=9, leading=12, spaceAfter=4))
+    styles.add(ParagraphStyle(name="PKPSmall", fontName="Helvetica", fontSize=8, leading=10, spaceAfter=3))
     story = []
     def p(s, style="PKPText"):
         story.append(Paragraph(escape(str(s)).replace("\n","<br/>"), styles[style]))
@@ -46,32 +46,31 @@ def produire_pdf(seance: dict, public: str) -> bytes:
         t=Table([[Paragraph(escape(text),styles["PKPText"])]],colWidths=[17.4*cm])
         t.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),PALE),("BOX",(0,0),(-1,-1),0.6,BLUE),("LEFTPADDING",(0,0),(-1,-1),11),("RIGHTPADDING",(0,0),(-1,-1),11),("TOPPADDING",(0,0),(-1,-1),9),("BOTTOMPADDING",(0,0),(-1,-1),8)]))
         story.append(t)
-    def lined(n=3):
+    def lined(n=2):
         for _ in range(n):
-            p("________________________________________________________________________________","PKPSmall")
+            story.append(Spacer(1,12))
     p("PKP ANGLAIS  /  "+seance["niveau"].upper()+"  /  "+("CAHIER ELEVE" if public=="eleve" else "GUIDE ANIMATEUR"),"PKPSmall")
     p(seance["titre"],"PKPTitle")
     rulebox(r["hook"]+"  |  90 MIN  |  "+seance["objectif"])
-    space(14)
+    space(7)
     heading("1. GET CURIOUS - Choose your idea")
-    d=Drawing(490,80)
+    d=Drawing(490,55)
     palette=["#DCEFFC","#DFF4E9","#FFF0D5","#F4E3F5"]
     for i,label in enumerate(r["visual"]):
         x=i*123
-        d.add(Rect(x,4,117,70,rx=10,ry=10,fillColor=colors.HexColor(palette[i]),strokeColor=colors.HexColor("#C6D3DF")))
-        d.add(String(x+58,39,label,fontName="Helvetica-Bold",fontSize=10,textAnchor="middle",fillColor=NAVY))
+        d.add(Rect(x,3,117,48,rx=10,ry=10,fillColor=colors.HexColor(palette[i]),strokeColor=colors.HexColor("#C6D3DF")))
+        d.add(String(x+58,26,label,fontName="Helvetica-Bold",fontSize=10,textAnchor="middle",fillColor=NAVY))
     story.append(d)
     p("Which one interests you most? Explain your choice to a partner.")
-    lined(2)
+    lined(1)
     heading("2. WORD POWER - Learn and remember")
     cells=[[Paragraph("<b>English</b>",styles["PKPSmall"]),Paragraph("<b>Français</b>",styles["PKPSmall"])]]
     for en,fr in r["vocab"]:
         cells.append([Paragraph(escape(en),styles["PKPSmall"]),Paragraph(escape(fr),styles["PKPSmall"])])
     tab=Table(cells,colWidths=[8.7*cm,8.7*cm],repeatRows=1,hAlign="LEFT")
-    tab.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),PALE),("ROWBACKGROUNDS",(0,1),(-1,-1),[colors.white,colors.HexColor("#F7FAFD")]),("LINEBELOW",(0,0),(-1,-1),0.25,colors.HexColor("#D8E2E9")),("VALIGN",(0,0),(-1,-1),"TOP"),("LEFTPADDING",(0,0),(-1,-1),10),("TOPPADDING",(0,0),(-1,-1),4),("BOTTOMPADDING",(0,0),(-1,-1),4)]))
+    tab.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),PALE),("ROWBACKGROUNDS",(0,1),(-1,-1),[colors.white,colors.HexColor("#F7FAFD")]),("LINEBELOW",(0,0),(-1,-1),0.25,colors.HexColor("#D8E2E9")),("VALIGN",(0,0),(-1,-1),"TOP"),("LEFTPADDING",(0,0),(-1,-1),10),("TOPPADDING",(0,0),(-1,-1),2),("BOTTOMPADDING",(0,0),(-1,-1),2)]))
     story.append(tab)
     p("Memory challenge: cover the French column and recall at least five meanings.","PKPSmall")
-    story.append(PageBreak())
     heading("3. LISTEN AND NOTICE")
     listen=r["listening"]
     p(listen["title"])
@@ -91,15 +90,14 @@ def produire_pdf(seance: dict, public: str) -> bytes:
     for i,q in enumerate(r["practice"],1):
         p(str(i)+". "+q)
         lined(2)
-    story.append(PageBreak())
     heading("6. CHOOSE YOUR CHALLENGE - A / B / C")
     for f in seance["fiches"]:
         heading("Track "+f["parcours"])
         p(f["enonce"])
-        lined(3)
+        lined(2)
     heading("7. FINAL MISSION")
     rulebox(r["mission"])
-    lined(5)
+    lined(3)
     heading("8. REMEMBER FOR NEXT TIME")
     p(r["memory"])
     lined(3)
