@@ -12,6 +12,7 @@ competences:
 - code: 1RE-TEC-LOGIQUE
   libelle: Raisonner avec les connecteurs, les conditions et les contre-exemples
   attendus: [1RE-TEC-2026-TRANS-01, 1RE-TEC-2026-TRANS-02, 1RE-TEC-2026-TRANS-03, 1RE-TEC-2026-TRANS-04, 1RE-TEC-2026-TRANS-05]
+  cours_couvre: [1RE-TEC-2026-TRANS-01, 1RE-TEC-2026-TRANS-02, 1RE-TEC-2026-TRANS-03, 1RE-TEC-2026-TRANS-04, 1RE-TEC-2026-TRANS-05]
   objectifs:
   - Utiliser correctement « et », « ou », et distinguer une identité d'une équation.
   - Infirmer une proposition par un contre-exemple, distinguer une proposition de sa réciproque et de sa contraposée.
@@ -32,16 +33,59 @@ competences:
   - erreur: Confondre une identité et une équation.
     explication: $(x + 1)^2 = x^2 + 2x + 1$ est vraie pour tout $x$ (identité) ; $x^2 = 4$ n'est vraie que pour certaines valeurs (équation).
   resume: |
-    - « P et Q » est vraie si les deux le sont ; « P ou Q » si au moins l'une l'est.
-    - Un contre-exemple suffit pour montrer qu'une proposition « pour tout » est fausse.
-    - Réciproque de « si P, alors Q » : « si Q, alors P » ; contraposée : « si non Q, alors non P ».
-    - Si « P ⟹ Q » est vraie : P est suffisante pour Q, Q est nécessaire pour P.
+    - « $P$ **et** $Q$ » est vraie quand les deux le sont ; « $P$ **ou** $Q$ » quand au moins l'une l'est (ou inclusif).
+    - Égalité : **identité** (vraie pour toutes les valeurs) ou **équation** (on cherche les valeurs qui la rendent vraie) ; lettre : variable, inconnue, paramètre…
+    - Un **contre-exemple** suffit à prouver qu'une proposition « pour tout » est fausse.
+    - « Si $P$ alors $Q$ » : **réciproque** « si $Q$ alors $P$ », **contraposée** « si non $Q$ alors non $P$ » (de même valeur de vérité) ; $P$ est une condition **suffisante** pour $Q$, $Q$ une condition **nécessaire** pour $P$.
   cours: |
-    ## Statut d'une égalité
-    Dans $y = 3x + 2$, $x$ et $y$ sont des variables ; dans $3x + 2 = 11$, $x$ est l'inconnue ; dans $y = mx + p$, $m$ et $p$ sont des paramètres.
+    ## 1. Connecteurs « et », « ou »
 
-    ## Implications
-    « Si un triangle est équilatéral, alors il est isocèle » est vraie ; sa réciproque est fausse ; sa contraposée « si un triangle n'est pas isocèle, il n'est pas équilatéral » est vraie.
+    > **Définition.**
+    > - « $P$ et $Q$ » est vraie lorsque $P$ et $Q$ sont **toutes les deux** vraies.
+    > - « $P$ ou $Q$ » est vraie lorsque **au moins une** des deux est vraie (le « ou » mathématique est inclusif).
+
+    *Exemples.* « $x > 2$ et $x < 5$ » : $x \in ]2 ; 5[$. « $x < 0$ ou $x > 3$ » : $x \in ]-\infty ; 0[ \cup ]3 ; +\infty[$.
+    La négation de « $P$ et $Q$ » est « non $P$ ou non $Q$ » ; celle de « $P$ ou $Q$ » est « non $P$ et non $Q$ ».
+
+    ## 2. Statut d'une égalité et des lettres
+
+    - **Identité** : égalité vraie pour toutes les valeurs des lettres, comme $(x + 1)^2 = x^2 + 2x + 1$ ; la lettre est une **variable**.
+    - **Équation** : égalité dont on cherche les valeurs qui la rendent vraie, comme $2x + 1 = 7$ ; la lettre est une **inconnue**.
+    - **Formule** : relation entre grandeurs, comme $d = v \times t$.
+    - **Paramètre** : lettre fixée mais quelconque, comme $m$ et $p$ dans $y = mx + p$.
+    - **Indéterminée** : lettre d'une expression que l'on manipule formellement (un polynôme en $x$).
+
+    ## 3. Contre-exemple
+
+    > **Propriété.** Pour montrer qu'une proposition « pour tout $x$, … » est **fausse**, il suffit d'exhiber **un** cas où elle est fausse : un **contre-exemple**.
+
+    *Exemple.* « Pour tout réel $x$, $x^2 \geqslant x$ » est fausse : pour $x = 0{,}5$, $x^2 = 0{,}25 < 0{,}5$.
+    À l'inverse, des exemples, même nombreux, ne prouvent pas qu'une proposition universelle est vraie.
+
+    ## 4. Implication, réciproque, contraposée
+
+    Pour l'implication « si $P$, alors $Q$ » ($P \Rightarrow Q$) :
+    - la **réciproque** est « si $Q$, alors $P$ » : elle peut être fausse alors que l'implication est vraie ;
+    - la **contraposée** est « si non $Q$, alors non $P$ » : elle est **toujours** vraie quand l'implication est vraie (et réciproquement).
+
+    *Exemple.* « Si un nombre est multiple de $6$, alors il est pair » est vraie.
+    - Réciproque : « s'il est pair, il est multiple de $6$ » : fausse ($4$ est un contre-exemple).
+    - Contraposée : « s'il n'est pas pair, il n'est pas multiple de $6$ » : vraie.
+
+    ## 5. Condition nécessaire, condition suffisante, équivalence
+
+    > **Définition.** Si $P \Rightarrow Q$ est vraie :
+    > - $P$ est une **condition suffisante** pour $Q$ (il suffit que $P$ soit vraie pour que $Q$ le soit) ;
+    > - $Q$ est une **condition nécessaire** pour $P$ (il faut que $Q$ soit vraie pour que $P$ le soit).
+    > Si $P \Rightarrow Q$ et $Q \Rightarrow P$ sont vraies, $P$ et $Q$ sont **équivalentes** : $P \iff Q$ (« si et seulement si »).
+
+    *Exemple.* « Être multiple de $6$ » est suffisant pour « être pair », mais pas nécessaire. « $x^2 = 9$ » est nécessaire pour « $x = 3$ », pas suffisant. « $2x = 6$ » et « $x = 3$ » sont équivalentes.
+
+    ## 6. Erreurs fréquentes
+
+    - Utiliser la réciproque d'un théorème comme si elle était automatiquement vraie.
+    - Confondre réciproque et contraposée.
+    - Croire qu'un exemple prouve une propriété générale.
   questions:
   - code: 1RE-TEC-LOGIQUE-01
     difficulte: 1
@@ -72,7 +116,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - La réciproque échange l'hypothèse et la conclusion ; elle est fausse ici.
+      - 'L''implication « si $P$ alors $Q$ » a pour hypothèse $P$ : « équilatéral » et pour conclusion $Q$ : « isocèle ».'
+      - 'La réciproque est « si $Q$ alors $P$ » : on échange hypothèse et conclusion.'
+      - 'Réponse A ; la réciproque est fausse ici (un triangle isocèle non équilatéral est un contre-exemple), et B est la contraposée.'
       resultat: A
   - code: 1RE-TEC-LOGIQUE-04
     difficulte: 4
@@ -100,6 +146,7 @@ competences:
 - code: 1RE-TEC-ALGO
   libelle: Programmer avec compteurs, accumulateurs, fonctions et listes
   attendus: [1RE-TEC-2026-TRANS-06, 1RE-TEC-2026-TRANS-07, 1RE-TEC-2026-TRANS-08, 1RE-TEC-2026-TRANS-09, 1RE-TEC-2026-TRANS-10, 1RE-TEC-2026-TRANS-11, 1RE-TEC-2026-TRANS-12, 1RE-TEC-2026-TRANS-13, 1RE-TEC-2026-TRANS-14, 1RE-TEC-2026-TRANS-15]
+  cours_couvre: [1RE-TEC-2026-TRANS-06, 1RE-TEC-2026-TRANS-07, 1RE-TEC-2026-TRANS-08, 1RE-TEC-2026-TRANS-09, 1RE-TEC-2026-TRANS-10, 1RE-TEC-2026-TRANS-11, 1RE-TEC-2026-TRANS-12, 1RE-TEC-2026-TRANS-13, 1RE-TEC-2026-TRANS-14, 1RE-TEC-2026-TRANS-15]
   objectifs:
   - Utiliser un compteur et un accumulateur dans une boucle.
   - Structurer un programme en fonctions et identifier leurs entrées et sorties.
@@ -121,32 +168,83 @@ competences:
   - erreur: Initialiser un accumulateur de produit à $0$.
     explication: Le produit resterait toujours nul $:$ on initialise un produit à $1$.
   resume: |
-    - Compteur : `c = 0` puis `c = c + 1` sous condition.
-    - Accumulateur : `s = 0` puis `s = s + x` (somme) ; `p = 1` puis `p = p * x` (produit).
-    - Fonction : `def nom(entrées):` … `return sortie`.
-    - Listes : `L = [ ]`, `L.append(x)`, `L[i]` (indice à partir de $0$), `for x in L:`.
+    - `random() < p` simule une épreuve de Bernoulli de paramètre $p$.
+    - **Compteur** : `c = c + 1` quand une condition est vérifiée ; **accumulateur** : `s = s + x` (somme) ou `p = p * x` (produit), initialisé à $0$ ou à $1$.
+    - Une **fonction** `def nom(entrees):` … `return sortie` structure un programme ; on identifie ses entrées et sa sortie.
+    - Listes : générer (extension, `append`, compréhension), manipuler par indices, itérer avec `for x in L` ; traiter des données réelles et faire un **tableau croisé**.
   cours: |
-    ## Compteur et accumulateur
+    ## 1. Simuler une loi de Bernoulli
+
     ```python
-    L = [12, 5, 18, 9, 15]
-    c = 0
+    from random import random
+    def bernoulli(p):
+        return 1 if random() < p else 0
+    ```
+    `random()` renvoie un nombre au hasard dans $[0 ; 1[$ ; il est inférieur à $p$ avec la probabilité $p$.
+
+    ## 2. Compteur et accumulateur
+
+    > **Compteur.** Variable initialisée à $0$ et augmentée de $1$ chaque fois qu'un évènement se produit : `c = c + 1`.
+    > **Accumulateur.** Variable qui cumule des valeurs : initialisée à $0$ pour une **somme** (`s = s + x`), à $1$ pour un **produit** (`p = p * x`).
+
+    ```python
     s = 0
-    for x in L:
-        s = s + x
-        if x > 10:
-            c = c + 1
+    for k in range(1, 11):
+        s = s + k          # s vaut 55 : 1 + 2 + ... + 10
+    p = 1
+    for k in range(5):
+        p = p * 1.02       # p vaut 1.02**5 : coefficient de 5 hausses de 2 %
     ```
-    À la fin, `s` vaut $59$ et `c` vaut $3$.
 
-    ## Fonctions
+    ## 3. Fonctions : entrées et sorties
+
     ```python
-    def moyenne(L):
-        return sum(L) / len(L)
+    def prix_ttc(prix_ht, taux):
+        return prix_ht * (1 + taux / 100)
     ```
-    Entrée : une liste ; sortie : un nombre.
+    Les **entrées** (paramètres) sont `prix_ht` et `taux` ; la **sortie** est la valeur renvoyée par `return`. `prix_ttc(50, 20)` renvoie `60.0`. Découper un programme en fonctions courtes le rend plus lisible et réutilisable.
 
-    ## Sélection de données
-    À partir de deux listes `sexe` et `sport` (une case par individu), on compte les individus qui vérifient deux critères pour remplir un tableau croisé.
+    ## 4. Listes
+
+    - **Générer** : en extension `L = [3, 8, 5]` ; par ajouts successifs `L.append(x)` dans une boucle ; en compréhension `[2 * k for k in range(5)]` donne `[0, 2, 4, 6, 8]`.
+    - **Manipuler** : `L[0]` est le premier élément (indices à partir de $0$), `L[-1]` le dernier, `len(L)` la longueur ; `L[1] = 7` remplace, `L.remove(5)` supprime la valeur $5$, `L.pop(0)` supprime l'élément d'indice $0$.
+    - **Itérer** : `for x in L:` parcourt les éléments ; `for i in range(len(L)):` parcourt les indices.
+
+    ## 5. Traiter des données réelles
+
+    Un fichier de données (CSV) contient une ligne par individu. On le lit, on range chaque colonne dans une liste, puis on calcule des indicateurs (effectifs, moyennes, extremums) avec des compteurs et accumulateurs.
+
+    **Tableau croisé.** À partir de deux critères (par exemple « filière » et « option »), on compte les individus pour chaque couple de valeurs :
+    ```python
+    eleves = [("STMG", "sport"), ("STI2D", "théâtre"), ("STMG", "théâtre"), ("STMG", "sport")]
+    tableau = {}
+    for filiere, option in eleves:
+        cle = (filiere, option)
+        tableau[cle] = tableau.get(cle, 0) + 1
+    # {("STMG", "sport"): 2, ("STI2D", "théâtre"): 1, ("STMG", "théâtre"): 1}
+    ```
+    Au tableur, on obtient le même résultat avec un tableau croisé dynamique ou `NB.SI.ENS`.
+
+    ## 6. Exemple complet
+
+    Températures relevées sur une semaine : `T = [12, 15, 9, 14, 18, 11, 13]`. Nombre de jours au-dessus de $12$ °C et moyenne ?
+    ```python
+    def analyse(T):
+        compteur = 0
+        somme = 0
+        for t in T:
+            somme = somme + t
+            if t > 12:
+                compteur = compteur + 1
+        return compteur, somme / len(T)
+    ```
+    `analyse(T)` renvoie `(4, 13.142...)` : $4$ jours au-dessus de $12$ °C, moyenne $\dfrac{92}{7} \approx 13{,}1$ °C.
+
+    ## 7. Erreurs fréquentes
+
+    - Initialiser un accumulateur de produit à $0$ : le produit reste nul.
+    - Placer l'initialisation à l'intérieur de la boucle : le compteur repart de zéro à chaque tour.
+    - Oublier `return` : la fonction ne renvoie rien (`None`).
   questions:
   - code: 1RE-TEC-ALGO-01
     difficulte: 1
@@ -176,7 +274,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{12 + 5 + 18 + 9 + 15}{5} = \dfrac{59}{5} = 11{,}8$.
+      - '`sum(L)` additionne les éléments : $12 + 5 + 18 + 9 + 15 = 59$.'
+      - '`len(L)` compte les éléments : $5$.'
+      - '`sum(L) / len(L)` est la moyenne : $\dfrac{59}{5} = 11{,}8$.'
       resultat: 11.8
   - code: 1RE-TEC-ALGO-04
     difficulte: 4

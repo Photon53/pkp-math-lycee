@@ -8,25 +8,12 @@ competences:
 - code: 1RE-TEC-SUITES
   libelle: Modéliser par une suite arithmétique ou géométrique
   attendus: [1RE-TEC-2026-ANA-01, 1RE-TEC-2026-ANA-02, 1RE-TEC-2026-ANA-03, 1RE-TEC-2026-ANA-04, 1RE-TEC-2026-ANA-05, 1RE-TEC-2026-ANA-08, 1RE-TEC-2026-ANA-09]
+  cours_couvre: [1RE-TEC-2026-ANA-01, 1RE-TEC-2026-ANA-02, 1RE-TEC-2026-ANA-03, 1RE-TEC-2026-ANA-04, 1RE-TEC-2026-ANA-05, 1RE-TEC-2026-ANA-08, 1RE-TEC-2026-ANA-09]
   objectifs:
   - Calculer un terme d'une suite arithmétique ou géométrique.
   - Résoudre un problème de seuil.
   prerequis:
   - 2NDE-EVO
-  resume: |
-    - Arithmétique (on **ajoute** $r$) : $u(n) = u(0) + nr$.
-    - Géométrique (on **multiplie** par $q$) : $u(n) = u(0) \times q^n$.
-    - Seuil : calculer les termes jusqu'à dépasser la valeur demandée.
-  cours: |
-    ## Deux modèles
-    | | Arithmétique | Géométrique |
-    |---|---|---|
-    | Relation | $u(n + 1) = u(n) + r$ | $u(n + 1) = q \times u(n)$ |
-    | Terme général | $u(0) + nr$ | $u(0) \times q^n$ |
-    | Exemple | salaire $+30$ € par an | population $+5\,\%$ par an |
-
-    ## Seuil
-    $u(n) = 1\,000 \times 1{,}5^n$ : $u(5) \approx 7\,594$ et $u(6) \approx 11\,391$, donc $u(n) > 10\,000$ à partir de $n = 6$.
   methodes:
   - titre: Choisir le bon modèle
     etapes:
@@ -40,6 +27,56 @@ competences:
   erreurs_frequentes:
   - erreur: Modéliser une hausse de 5 % par une suite arithmétique de raison 5.
     explication: Un pourcentage fixe agit par multiplication.
+  resume: |
+    - Une suite se définit par une **formule** $u(n) = f(n)$ ou par une **relation de récurrence** $u(n + 1) = \ldots u(n)$ et un premier terme.
+    - **Arithmétique** (croissance linéaire) : $u(n + 1) = u(n) + r$ et $u(n) = u(0) + n \times r$.
+    - **Géométrique** à termes positifs (croissance exponentielle) : $u(n + 1) = u(n) \times q$ et $u(n) = u(0) \times q^n$.
+    - Sens de variation : arithmétique selon le signe de $r$ ; géométrique ($u(0) > 0$) croissante si $q > 1$, décroissante si $0 < q < 1$.
+  cours: |
+    ## 1. Générer une suite
+
+    **Définition.** Une **suite** $u$ associe à chaque entier naturel $n$ un nombre $u(n)$ (on note aussi $u_n$), appelé terme de rang $n$.
+
+    - **Relation fonctionnelle** : $u(n) = f(n)$. *Ex.* $u(n) = 3n + 2$ donne $u(10) = 32$ directement.
+    - **Relation de récurrence** : on donne $u(0)$ et une règle pour passer d'un terme au suivant. *Ex.* $u(0) = 4$ et $u(n + 1) = 2u(n) - 1$ : $u(1) = 7$, $u(2) = 13$, $u(3) = 25$.
+
+    **Sens de variation.** La suite est **croissante** si chaque terme est supérieur ou égal au précédent ($u(n + 1) \geqslant u(n)$), **décroissante** s'il est inférieur ou égal.
+
+    ## 2. Suites arithmétiques : variation linéaire
+
+    > **Définition et propriété.** Une suite est **arithmétique** de raison $r$ si l'on passe d'un terme au suivant en **ajoutant** $r$ : $u(n + 1) = u(n) + r$. Alors $$u(n) = u(0) + n \times r.$$
+    > Elle est croissante si $r > 0$, décroissante si $r < 0$, constante si $r = 0$.
+
+    Elle modélise une grandeur qui varie de la **même quantité** à chaque étape (croissance **linéaire**).
+
+    ## 3. Suites géométriques : variation exponentielle
+
+    > **Définition et propriété.** Une suite à termes strictement positifs est **géométrique** de raison $q > 0$ si l'on passe d'un terme au suivant en **multipliant** par $q$ : $u(n + 1) = u(n) \times q$. Alors $$u(n) = u(0) \times q^n.$$
+    > Elle est croissante si $q > 1$, décroissante si $0 < q < 1$, constante si $q = 1$.
+
+    Elle modélise une grandeur qui varie du **même pourcentage** à chaque étape : une hausse de $t\,\%$ donne $q = 1 + \dfrac{t}{100}$, une baisse de $t\,\%$ donne $q = 1 - \dfrac{t}{100}$.
+
+    ## 4. Méthodes
+
+    **Reconnaître le modèle.** « Augmente de $50$ par an » : arithmétique ($r = 50$). « Augmente de $5\,\%$ par an » : géométrique ($q = 1{,}05$).
+
+    **Démontrer qu'une suite est arithmétique ou géométrique.**
+    - Arithmétique : montrer que $u(n + 1) - u(n)$ est le même nombre pour tout $n$.
+    - Géométrique : montrer que $u(n + 1) = q \times u(n)$ avec $q$ indépendant de $n$ (ou que $\dfrac{u(n + 1)}{u(n)}$ est constant).
+    - Pour montrer qu'elle ne l'est **pas** : trouver deux différences (ou deux quotients) différents sur les premiers termes.
+
+    ## 5. Exemple complet
+
+    Un abonnement coûte $30$ € la première année ($n = 0$).
+    - *Offre A* : $+2$ € par an. $a(n + 1) = a(n) + 2$, arithmétique de raison $2$ : $a(n) = 30 + 2n$ ; $a(5) = 40$ €. Croissante car $r = 2 > 0$.
+    - *Offre B* : $+6\,\%$ par an. $b(n + 1) = 1{,}06 \times b(n)$, géométrique de raison $1{,}06$ : $b(n) = 30 \times 1{,}06^n$ ; $b(5) \approx 40{,}15$ €. Croissante car $q > 1$.
+    - *Suite $c(n) = n^2$* : $c(1) - c(0) = 1$ et $c(2) - c(1) = 3$ : les différences ne sont pas constantes, $c$ n'est pas arithmétique.
+
+    ## 6. Erreurs fréquentes
+
+    - Confondre « $+5$ » (arithmétique) et « $+5\,\%$ » (géométrique, $q = 1{,}05$).
+    - Écrire $u(n) = u(0) + q^n$ ou $u(n) = u(0) \times n \times q$.
+    - Se tromper de rang quand la suite commence à $u(1)$ : alors $u(n) = u(1) + (n - 1)r$.
   questions:
   - code: 1RE-TEC-SUITES-01
     difficulte: 1
@@ -69,7 +106,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'On multiplie par 0,9, compris entre 0 et 1 : géométrique décroissante.'
+      - 'On passe d''un terme au suivant en multipliant par le même nombre $0{,}9$ : la suite est géométrique de raison $q = 0{,}9$.'
+      - 'Ses termes sont strictement positifs ($u(0) = 100 > 0$) et $0 < q < 1$.'
+      - 'Chaque terme est donc plus petit que le précédent : la suite est géométrique et décroissante (réponse A).'
       resultat: A
   - code: 1RE-TEC-SUITES-04
     difficulte: 4
@@ -112,6 +151,7 @@ competences:
 - code: 1RE-TEC-SUI-GRAPH
   libelle: Représenter une suite et automatiser ses calculs
   attendus: [1RE-TEC-2026-ANA-06, 1RE-TEC-2026-ANA-07, 1RE-TEC-2026-ANA-10]
+  cours_couvre: [1RE-TEC-2026-ANA-06, 1RE-TEC-2026-ANA-07, 1RE-TEC-2026-ANA-10]
   objectifs:
   - Représenter les termes d'une suite par un nuage de points et conjecturer sa nature.
   - Calculer des termes, une somme ou un seuil à l'aide d'un algorithme.
@@ -133,23 +173,59 @@ competences:
   - erreur: Relier les points du nuage par une courbe.
     explication: Une suite n'est définie que pour des entiers $:$ sa représentation est un nuage de points isolés.
   resume: |
-    - Représentation d'une suite : les points $(n ; u_n)$.
-    - Points alignés : suite arithmétique ; quotient constant entre termes consécutifs : suite géométrique.
-    - Seuil : une boucle `while` répète le calcul du terme suivant tant que le seuil n'est pas atteint.
+    - On représente une suite par le **nuage de points** $(n ; u(n))$ : des points isolés, pas une courbe continue.
+    - Points **alignés** : on conjecture une suite **arithmétique** ; points qui s'écartent de plus en plus vite (ou s'écrasent vers l'axe) : suite **géométrique**.
+    - Au tableur : `=B2+3` (arithmétique) ou `=B2*1,05` (géométrique), recopié vers le bas ; somme avec `=SOMME(B2:B11)`.
+    - **Seuil** : on calcule les termes un à un (boucle « tant que ») jusqu'à dépasser la valeur donnée.
   cours: |
-    ## Nuage de points
-    $u_n = 2n + 1$ : les points $(0 ; 1)$, $(1 ; 3)$, $(2 ; 5)$… sont alignés.
-    $v_n = 3 \times 2^n$ : les points s'éloignent de plus en plus vite de l'axe des abscisses.
+    ## 1. Représenter les termes d'une suite
 
-    ## Algorithme de seuil
+    **Définition.** La représentation graphique d'une suite $u$ est l'ensemble des points de coordonnées $(n ; u(n))$. Ce sont des **points isolés** : on ne les relie pas.
+
+    **Méthode.** Calculer les premiers termes (calculatrice en mode suite, ou tableur), les placer dans un repère en choisissant une échelle adaptée.
+
+    ## 2. Conjecturer la nature d'une suite
+
+    > **Propriété.**
+    > - Une suite **arithmétique** de raison $r$ est représentée par des points **alignés** (sur une droite de coefficient directeur $r$) : variation linéaire.
+    > - Une suite **géométrique** de raison $q > 0$ ($q \neq 1$) est représentée par des points qui ne sont pas alignés : les écarts entre deux points consécutifs augmentent ($q > 1$) ou diminuent ($0 < q < 1$) : variation exponentielle.
+
+    Un graphique permet seulement de **conjecturer** ; on confirme par le calcul (différences ou quotients constants).
+
+    ## 3. Utiliser un tableur ou un programme
+
+    | | A | B |
+    |---|---|---|
+    | 1 | $n$ | $u(n)$ |
+    | 2 | 0 | 500 |
+    | 3 | `=A2+1` | `=B2*0,9` |
+
+    On recopie la ligne 3 vers le bas pour obtenir les termes successifs ; `=SOMME(B2:B13)` donne la somme des $12$ premiers termes.
+
+    **Rang à partir duquel on dépasse un seuil.** On calcule les termes jusqu'au premier qui franchit le seuil, au tableur ou avec un programme :
     ```python
-    u = 1000
     n = 0
-    while u < 2000:
-        u = u * 1.1
+    u = 500
+    while u >= 100:
         n = n + 1
+        u = 0.9 * u
+    print(n)
     ```
-    Ce programme renvoie le premier rang $n$ pour lequel $u_n \geqslant 2\,000$ ; ici $n = 8$.
+    On peut de même comparer deux suites terme à terme (première valeur de $n$ telle que $v(n) > u(n)$).
+
+    ## 4. Exemple complet
+
+    Une ville de $8\,000$ habitants perd $10\,\%$ de sa population chaque année ($u(n + 1) = 0{,}9 \times u(n)$) ; une autre de $5\,000$ habitants en gagne $150$ par an ($v(n + 1) = v(n) + 150$).
+    - Nuages de points : $v$ donne des points alignés (arithmétique), $u$ des points qui descendent de moins en moins vite (géométrique, $q = 0{,}9$).
+    - Termes : $u(1) = 7\,200$, $u(2) = 6\,480$, $u(3) = 5\,832$ ; $v(1) = 5\,150$, $v(2) = 5\,300$, $v(3) = 5\,450$, $v(4) = 5\,600$ et $u(4) \approx 5\,249$.
+    - Comparaison : $u(3) > v(3)$ mais $u(4) < v(4)$ : la seconde ville devient plus peuplée à partir de $n = 4$.
+    - Population totale cumulée de la seconde ville sur $5$ ans : $5\,000 + 5\,150 + 5\,300 + 5\,450 + 5\,600 = 26\,500$ habitants-années.
+
+    ## 5. Erreurs fréquentes
+
+    - Relier les points comme pour une fonction.
+    - Conclure qu'une suite est arithmétique parce que les points « ont l'air » alignés, sans vérifier par le calcul.
+    - Décaler les rangs dans le tableur (ligne 2 = rang $0$).
   questions:
     - code: 1RE-TEC-SUI-GRAPH-01
       difficulte: 1
@@ -179,7 +255,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $u_6 = 5 + 6 \times 4 = 29$.
+        - 'On ajoute $4$ à chaque étape : $(u_n)$ est arithmétique de premier terme $u_0 = 5$ et de raison $r = 4$.'
+        - 'Terme général : $u_n = u_0 + nr = 5 + 4n$.'
+        - 'Le point d''abscisse $6$ a pour ordonnée $u_6 = 5 + 4 \times 6 = 29$.'
         resultat: 29
     - code: 1RE-TEC-SUI-GRAPH-04
       difficulte: 4

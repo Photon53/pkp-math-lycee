@@ -392,6 +392,7 @@ competences:
   - code: 1RE-BERNOULLI
     libelle: Répéter des épreuves de Bernoulli indépendantes (n ⩽ 4)
     attendus: [1RE-SPE-2026-PCOND-04, 1RE-SPE-2026-PCOND-08]
+    cours_couvre: [1RE-SPE-2026-PCOND-04, 1RE-SPE-2026-PCOND-08]
     objectifs:
     - Représenter par un arbre la répétition de $n \leqslant 4$ épreuves de Bernoulli identiques et indépendantes.
     - Calculer la probabilité d'un nombre donné de succès en comptant les chemins.
@@ -414,19 +415,51 @@ competences:
     - erreur: Oublier de compter tous les ordres possibles des succès.
       explication: « Deux succès sur trois » correspond à trois chemins (SSE, SES, ESS), pas à un seul.
     resume: |
-      - Épreuve de Bernoulli : deux issues, succès (probabilité $p$) et échec ($1 - p$).
-      - Épreuves indépendantes : on multiplie les probabilités le long d'un chemin.
-      - Un chemin avec $k$ succès et $n - k$ échecs a la probabilité $p^k (1 - p)^{n - k}$.
-      - « Au moins un succès » : passer par le contraire, $1 - (1 - p)^n$.
+      - **Épreuve de Bernoulli** : deux issues, succès $S$ (probabilité $p$) et échec $\bar S$ (probabilité $1 - p$).
+      - Répéter $n$ fois ($n \leqslant 4$) une même épreuve de Bernoulli de façon **indépendante** : arbre à $2^n$ chemins.
+      - Probabilité d'un chemin : produit des probabilités ; un chemin à $k$ succès a pour probabilité $p^k(1 - p)^{n - k}$.
+      - $P(\text{au moins un succès}) = 1 - (1 - p)^n$.
     cours: |
-      ## Arbre de la répétition
-      Pour $n = 3$, l'arbre a $2^3 = 8$ chemins. Avec $p = 0{,}6$ :
-      - $0$ succès : $1$ chemin, $0{,}4^3 = 0{,}064$ ;
-      - $1$ succès : $3$ chemins, $3 \times 0{,}6 \times 0{,}4^2 = 0{,}288$ ;
-      - $2$ succès : $3$ chemins, $3 \times 0{,}6^2 \times 0{,}4 = 0{,}432$ ;
-      - $3$ succès : $1$ chemin, $0{,}6^3 = 0{,}216$.
+      ## 1. Épreuve de Bernoulli
 
-      La somme vaut bien $1$.
+      > **Définition.** Une **épreuve de Bernoulli** est une expérience aléatoire à deux issues : le **succès** $S$, de probabilité $p$, et l'**échec** $\bar S$, de probabilité $1 - p$. Le réel $p$ est le **paramètre** de l'épreuve.
+
+      *Exemples.* Lancer un dé et noter si l'on obtient $6$ ($p = \dfrac{1}{6}$) ; tirer un article et regarder s'il est défectueux ($p = 0{,}03$).
+
+      ## 2. Répétition d'épreuves indépendantes et identiques
+
+      On répète $n$ fois **la même** épreuve de Bernoulli, les répétitions étant **indépendantes** (le résultat d'une épreuve n'influence pas les autres : tirages avec remise, lancers successifs…).
+
+      > **Propriété.** On représente la situation par un arbre à $n$ niveaux. Sur chaque nœud, les branches portent $p$ (vers $S$) et $1 - p$ (vers $\bar S$).
+      > - La probabilité d'une issue (un chemin) est le **produit** des probabilités rencontrées.
+      > - Un chemin comportant $k$ succès et $n - k$ échecs a pour probabilité $p^k(1 - p)^{n - k}$.
+      > - La probabilité d'un évènement est la **somme** des probabilités des chemins qui le réalisent.
+
+      ## 3. Méthode : calculer une probabilité
+
+      1. Identifier l'épreuve, le succès, $p$ et le nombre $n$ de répétitions ; justifier l'indépendance.
+      2. Dessiner l'arbre (au plus $16$ chemins pour $n = 4$).
+      3. Repérer les chemins qui réalisent l'évènement et les compter.
+      4. Additionner leurs probabilités (tous les chemins à $k$ succès ont la même probabilité).
+      5. Penser à l'évènement contraire pour « au moins un ».
+
+      ## 4. Exemple complet
+
+      Un tireur atteint sa cible avec la probabilité $0{,}7$. Il tire $3$ fois, de façon indépendante.
+      - *Trois succès :* $P(SSS) = 0{,}7^3 = 0{,}343$.
+      - *Exactement deux succès :* trois chemins $SS\bar S$, $S\bar SS$, $\bar SSS$, chacun de probabilité $0{,}7^2 \times 0{,}3 = 0{,}147$. Total : $3 \times 0{,}147 = 0{,}441$.
+      - *Au moins un succès :* contraire de « trois échecs » : $1 - 0{,}3^3 = 1 - 0{,}027 = 0{,}973$.
+      Contrôle : $P(0) + P(1) + P(2) + P(3) = 0{,}027 + 0{,}189 + 0{,}441 + 0{,}343 = 1$.
+
+      ## 5. Nombre de chemins
+
+      Pour $n = 4$, le nombre de chemins avec $k$ succès est : $1$ ($k = 0$), $4$ ($k = 1$), $6$ ($k = 2$), $4$ ($k = 3$), $1$ ($k = 4$) ; au total $16 = 2^4$. On les retrouve en dénombrant les places possibles des succès.
+
+      ## 6. Erreurs fréquentes
+
+      - Oublier de multiplier par le nombre de chemins (« exactement deux succès » n'est pas un seul chemin).
+      - Appliquer ce modèle à des tirages **sans remise** : les épreuves ne sont alors ni identiques ni indépendantes.
+      - Calculer « au moins un » en additionnant beaucoup de chemins au lieu d'utiliser l'évènement contraire.
     questions:
       - code: 1RE-BERNOULLI-01
         difficulte: 1

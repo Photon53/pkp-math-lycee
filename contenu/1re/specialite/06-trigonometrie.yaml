@@ -9,6 +9,7 @@ competences:
   - code: 1RE-RAD
     libelle: Utiliser le radian et la mesure principale
     attendus: [1RE-SPE-2026-TRIG-01, 1RE-SPE-2026-TRIG-02, 1RE-SPE-2026-TRIG-04]
+    cours_couvre: [1RE-SPE-2026-TRIG-01, 1RE-SPE-2026-TRIG-02, 1RE-SPE-2026-TRIG-04]
     objectifs:
     - Convertir degrés et radians, et déterminer une mesure principale.
     methodes:
@@ -25,21 +26,52 @@ competences:
     - erreur: Retirer $\pi$ au lieu de $2\pi$.
       explication: 'Un tour complet vaut $2\pi$ : retirer $\pi$ change le point du cercle.'
     resume: |
-      - $\pi$ radians $= 180°$ : multiplier par $\dfrac{\pi}{180}$ pour passer des degrés aux radians.
-      - Un réel et ce réel $+ 2k\pi$ repèrent le même point du cercle trigonométrique.
-      - La **mesure principale** est l'unique mesure dans $]-\pi ; \pi]$.
+      - **Cercle trigonométrique** : centre $O$, rayon $1$, orienté dans le sens direct (inverse des aiguilles d'une montre).
+      - **Radian** : l'angle qui intercepte un arc de longueur $1$ ; $\pi$ rad $= 180°$, et longueur d'arc $= r \times \theta$.
+      - **Enroulement** : à tout réel $x$ correspond un unique point $M(x)$ du cercle ; $x$ et $x + 2k\pi$ ($k \in \mathbb{Z}$) ont la même image.
+      - **Mesure principale** : l'unique mesure dans $]-\pi ; \pi]$.
     cours: |
-      ## Conversion
-      $60° = 60 \times \dfrac{\pi}{180} = \dfrac{\pi}{3}$ et $\dfrac{3\pi}{4} = \dfrac{3 \times 180°}{4} = 135°$.
+      ## 1. Cercle trigonométrique
 
-      ## Enroulement de la droite des réels
-      Sur le cercle trigonométrique (rayon $1$), un tour complet mesure $2\pi$.
+      **Définition.** Dans un repère orthonormé $(O ; I, J)$, le **cercle trigonométrique** est le cercle de centre $O$ et de rayon $1$, muni d'un sens de parcours : le **sens direct** (sens inverse des aiguilles d'une montre).
 
-      ## Mesure principale
-      On ajoute ou retranche des multiples de $2\pi$ pour arriver dans $]-\pi ; \pi]$ :
-      - $\dfrac{7\pi}{3} - 2\pi = \dfrac{\pi}{3}$ ;
-      - $-\dfrac{5\pi}{4} + 2\pi = \dfrac{3\pi}{4}$ ;
-      - $\dfrac{17\pi}{6} - 2\pi = \dfrac{5\pi}{6}$.
+      ## 2. Radian et longueur d'arc
+
+      **Définition.** Le **radian** est la mesure de l'angle au centre qui intercepte, sur un cercle de rayon $1$, un arc de longueur $1$.
+
+      Le cercle trigonométrique a pour périmètre $2\pi$ : un tour complet mesure $2\pi$ rad, et $\pi$ rad $= 180°$.
+
+      > **Propriété.** Les mesures en degrés et en radians sont proportionnelles : $\theta_{\text{rad}} = \dfrac{\pi}{180} \times \theta_{\text{deg}}$.
+      > Sur un cercle de rayon $r$, un angle de $\theta$ radians intercepte un arc de longueur $\ell = r\theta$.
+
+      | Degrés | $0$ | $30$ | $45$ | $60$ | $90$ | $180$ | $360$ |
+      |---|---|---|---|---|---|---|---|
+      | Radians | $0$ | $\dfrac{\pi}{6}$ | $\dfrac{\pi}{4}$ | $\dfrac{\pi}{3}$ | $\dfrac{\pi}{2}$ | $\pi$ | $2\pi$ |
+
+      *Exemple.* Un arc de $120°$ sur un cercle de rayon $3$ cm : $120° = \dfrac{2\pi}{3}$ rad, longueur $3 \times \dfrac{2\pi}{3} = 2\pi \approx 6{,}28$ cm.
+
+      ## 3. Enroulement de la droite des réels
+
+      On place une droite graduée tangente au cercle en $I$, puis on l'**enroule** autour du cercle : les réels positifs dans le sens direct, les négatifs dans le sens indirect. À chaque réel $x$ correspond ainsi un point $M$ du cercle, appelé **image** de $x$.
+
+      > **Propriété.** Les réels $x$ et $x + 2k\pi$ ($k \in \mathbb{Z}$) ont la même image : faire un tour complet ramène au même point. Un point du cercle est l'image d'une infinité de réels.
+
+      **Définition.** La **mesure principale** d'un réel $x$ est l'unique réel de $]-\pi ; \pi]$ qui a la même image que $x$.
+
+      ## 4. Méthodes
+
+      **Placer l'image d'un réel.** Écrire le réel sous la forme $\dfrac{k\pi}{n}$, partager le demi-cercle en $n$ parts égales et compter $k$ parts à partir de $I$ (sens direct si $k > 0$).
+      *Exemple :* $\dfrac{5\pi}{6}$ : $5$ sixièmes de demi-tour, soit $150°$ ; le point est dans le quadrant en haut à gauche.
+
+      **Trouver une mesure principale.** Ajouter ou retirer des multiples de $2\pi$ jusqu'à tomber dans $]-\pi ; \pi]$.
+
+      *Exemple complet.* Mesure principale de $\dfrac{31\pi}{4}$. On écrit $2\pi = \dfrac{8\pi}{4}$ et $31 = 4 \times 8 - 1$ : $\dfrac{31\pi}{4} = 4 \times 2\pi - \dfrac{\pi}{4}$. Donc la mesure principale est $-\dfrac{\pi}{4}$ (et l'image est celle de $-\dfrac{\pi}{4}$, en bas à droite).
+
+      ## 5. Erreurs fréquentes
+
+      - Retirer $\pi$ au lieu de $2\pi$ : $x$ et $x + \pi$ ont des images **diamétralement opposées**.
+      - Donner une « mesure principale » égale à $-\pi$ : l'intervalle est $]-\pi ; \pi]$, on prend $\pi$.
+      - Mélanger degrés et radians dans un même calcul (vérifier le mode de la calculatrice).
     questions:
       - code: 1RE-RAD-01
         difficulte: 1
@@ -69,7 +101,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{7\pi}{3} - 2\pi = \dfrac{\pi}{3}$, qui est dans $]-\pi ; \pi]$.
+          - 'La mesure principale est l''unique mesure dans $]-\pi ; \pi]$ ; on ajoute ou retire des multiples de $2\pi = \dfrac{6\pi}{3}$.'
+          - '$\dfrac{7\pi}{3} - \dfrac{6\pi}{3} = \dfrac{\pi}{3}$.'
+          - '$\dfrac{\pi}{3}$ est bien dans $]-\pi ; \pi]$ : c''est la mesure principale.'
           resultat: pi/3
       - code: 1RE-RAD-04
         difficulte: 4
@@ -79,7 +113,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $-\dfrac{5\pi}{4} + 2\pi = \dfrac{3\pi}{4}$, qui est dans $]-\pi ; \pi]$.
+          - '$-\dfrac{5\pi}{4} < -\pi$ : elle n''est pas dans $]-\pi ; \pi]$, on ajoute $2\pi = \dfrac{8\pi}{4}$.'
+          - '$-\dfrac{5\pi}{4} + \dfrac{8\pi}{4} = \dfrac{3\pi}{4}$.'
+          - '$\dfrac{3\pi}{4}$ est dans $]-\pi ; \pi]$ : c''est la mesure principale.'
           resultat: 3pi/4
       - code: 1RE-RAD-05
         difficulte: 5
@@ -89,12 +125,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{17\pi}{6} - 2\pi = \dfrac{5\pi}{6}$, qui est dans $]-\pi ; \pi]$.
+          - '$2\pi = \dfrac{12\pi}{6}$ ; on retire $2\pi$ autant de fois que nécessaire.'
+          - '$\dfrac{17\pi}{6} - \dfrac{12\pi}{6} = \dfrac{5\pi}{6}$.'
+          - '$\dfrac{5\pi}{6}$ est dans $]-\pi ; \pi]$ (car $5 < 6$) : c''est la mesure principale.'
           resultat: 5pi/6
 
   - code: 1RE-COSSIN
     libelle: Calculer avec cosinus et sinus
     attendus: [1RE-SPE-2026-TRIG-03, 1RE-SPE-2026-TRIG-05, 1RE-SPE-2026-TRIG-06]
+    cours_couvre: [1RE-SPE-2026-TRIG-03, 1RE-SPE-2026-TRIG-05, 1RE-SPE-2026-TRIG-06]
     objectifs:
     - Connaitre les valeurs remarquables et utiliser le cercle trigonométrique.
     - Utiliser $\cos^2 x + \sin^2 x = 1$.
@@ -115,21 +154,58 @@ competences:
     - erreur: Oublier le signe d'un sinus ou d'un cosinus selon le quadrant.
       explication: 'Sur le cercle, le cosinus est l''abscisse et le sinus l''ordonnée : $\cos\dfrac{2\pi}{3} < 0$.'
     resume: |
-      - $\cos^2 x + \sin^2 x = 1$ et $-1 \le \cos x \le 1$, $-1 \le \sin x \le 1$.
-      - Valeurs remarquables : $\cos\dfrac{\pi}{3} = \dfrac{1}{2}$, $\sin\dfrac{\pi}{4} = \dfrac{\sqrt 2}{2}$, $\sin\dfrac{\pi}{6} = \dfrac{1}{2}$, $\cos\dfrac{\pi}{6} = \dfrac{\sqrt 3}{2}$.
-      - $\cos(-x) = \cos x$, $\sin(-x) = -\sin x$, $\cos(\pi - x) = -\cos x$, $\sin(\pi - x) = \sin x$.
+      - Si $M(x)$ est l'image de $x$ sur le cercle trigonométrique, $\cos x$ est son **abscisse** et $\sin x$ son **ordonnée**.
+      - $\cos^2 x + \sin^2 x = 1$, $-1 \leqslant \cos x \leqslant 1$, $-1 \leqslant \sin x \leqslant 1$.
+      - Valeurs remarquables : $\cos\dfrac{\pi}{6} = \dfrac{\sqrt3}{2}$, $\cos\dfrac{\pi}{4} = \dfrac{\sqrt2}{2}$, $\cos\dfrac{\pi}{3} = \dfrac{1}{2}$ (et les sinus « dans l'autre sens »).
+      - Angles associés : $\cos(-x) = \cos x$, $\sin(-x) = -\sin x$, $\cos(\pi - x) = -\cos x$, $\sin(\pi - x) = \sin x$, $\cos(\pi + x) = -\cos x$, $\sin(\pi + x) = -\sin x$.
     cours: |
-      ## Valeurs remarquables
+      ## 1. Définition
+
+      > **Définition.** Soit $x$ un réel et $M$ son image sur le cercle trigonométrique. Le **cosinus** de $x$ est l'abscisse de $M$ et le **sinus** de $x$ est son ordonnée : $M(\cos x ; \sin x)$.
+
+      > **Propriété.** Pour tout réel $x$ et tout entier $k$ :
+      > - $-1 \leqslant \cos x \leqslant 1$ et $-1 \leqslant \sin x \leqslant 1$ ;
+      > - $\cos^2 x + \sin^2 x = 1$ (Pythagore, car $OM = 1$) ;
+      > - $\cos(x + 2k\pi) = \cos x$ et $\sin(x + 2k\pi) = \sin x$.
+
+      **Lien avec le triangle rectangle.** Pour $x \in \left]0 ; \dfrac{\pi}{2}\right[$, si $H$ est le projeté de $M$ sur l'axe des abscisses, le triangle $OHM$ est rectangle en $H$ d'hypoténuse $OM = 1$ : $\cos x = \dfrac{OH}{OM} = OH$ et $\sin x = \dfrac{HM}{OM} = HM$. On retrouve les définitions du collège.
+
+      ## 2. Valeurs remarquables
+
       | $x$ | $0$ | $\dfrac{\pi}{6}$ | $\dfrac{\pi}{4}$ | $\dfrac{\pi}{3}$ | $\dfrac{\pi}{2}$ | $\pi$ |
       |---|---|---|---|---|---|---|
-      | $\cos x$ | $1$ | $\dfrac{\sqrt 3}{2}$ | $\dfrac{\sqrt 2}{2}$ | $\dfrac{1}{2}$ | $0$ | $-1$ |
-      | $\sin x$ | $0$ | $\dfrac{1}{2}$ | $\dfrac{\sqrt 2}{2}$ | $\dfrac{\sqrt 3}{2}$ | $1$ | $0$ |
+      | $\cos x$ | $1$ | $\dfrac{\sqrt3}{2}$ | $\dfrac{\sqrt2}{2}$ | $\dfrac{1}{2}$ | $0$ | $-1$ |
+      | $\sin x$ | $0$ | $\dfrac{1}{2}$ | $\dfrac{\sqrt2}{2}$ | $\dfrac{\sqrt3}{2}$ | $1$ | $0$ |
 
-      ## Angles associés
-      $\cos\dfrac{2\pi}{3} = \cos\left(\pi - \dfrac{\pi}{3}\right) = -\cos\dfrac{\pi}{3} = -\dfrac{1}{2}$.
+      **Démonstration pour $\dfrac{\pi}{4}$ (exigible).** $M$ est sur la bissectrice du premier quadrant, donc $\cos\dfrac{\pi}{4} = \sin\dfrac{\pi}{4} = c > 0$. Avec $\cos^2 + \sin^2 = 1$ : $2c^2 = 1$, $c = \dfrac{1}{\sqrt2} = \dfrac{\sqrt2}{2}$.
 
-      ## Relation fondamentale
-      Si $\cos x = \dfrac{3}{5}$ avec $x \in \left[0 ; \dfrac{\pi}{2}\right]$, alors $\sin^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}$ et $\sin x \ge 0$, donc $\sin x = \dfrac{4}{5}$.
+      **Démonstration pour $\dfrac{\pi}{3}$ (exigible).** Avec $I(1 ; 0)$ et $M$ image de $\dfrac{\pi}{3}$ : $OI = OM = 1$ et $\widehat{IOM} = 60°$, donc le triangle $OIM$ est équilatéral. La hauteur issue de $M$ tombe au milieu $H$ de $[OI]$ : $\cos\dfrac{\pi}{3} = OH = \dfrac{1}{2}$. Puis $\sin^2\dfrac{\pi}{3} = 1 - \dfrac{1}{4} = \dfrac{3}{4}$ et $\sin\dfrac{\pi}{3} > 0$, donc $\sin\dfrac{\pi}{3} = \dfrac{\sqrt3}{2}$.
+
+      ## 3. Angles associés
+
+      Les symétries du cercle donnent :
+
+      > **Propriété.**
+      > - Symétrie par rapport à l'axe des abscisses : $\cos(-x) = \cos x$, $\sin(-x) = -\sin x$.
+      > - Symétrie par rapport à l'axe des ordonnées : $\cos(\pi - x) = -\cos x$, $\sin(\pi - x) = \sin x$.
+      > - Symétrie par rapport à $O$ : $\cos(\pi + x) = -\cos x$, $\sin(\pi + x) = -\sin x$.
+
+      ## 4. Méthode : cosinus et sinus d'un angle associé
+
+      1. Réduire à la mesure principale si besoin.
+      2. Repérer l'angle de référence ($\dfrac{\pi}{6}$, $\dfrac{\pi}{4}$ ou $\dfrac{\pi}{3}$) et le quadrant du point.
+      3. Lire les signes : abscisse positive à droite, ordonnée positive en haut.
+
+      *Exemple complet.* $\cos\dfrac{5\pi}{6}$ et $\sin\dfrac{5\pi}{6}$. On a $\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}$ : le point est en haut à gauche.
+      $\cos\dfrac{5\pi}{6} = -\cos\dfrac{\pi}{6} = -\dfrac{\sqrt3}{2}$ et $\sin\dfrac{5\pi}{6} = \sin\dfrac{\pi}{6} = \dfrac{1}{2}$.
+
+      *Autre exemple.* $\sin\left(-\dfrac{2\pi}{3}\right) = -\sin\dfrac{2\pi}{3} = -\sin\left(\pi - \dfrac{\pi}{3}\right) = -\dfrac{\sqrt3}{2}$.
+
+      ## 5. Erreurs fréquentes
+
+      - Inverser cosinus et sinus : le cosinus se lit sur l'axe **horizontal**.
+      - Oublier le signe selon le quadrant.
+      - Écrire $\cos(2x) = 2\cos x$ ou $\cos(a + b) = \cos a + \cos b$ : c'est faux.
     questions:
       - code: 1RE-COSSIN-01
         difficulte: 1

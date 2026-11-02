@@ -8,24 +8,12 @@ competences:
 - code: 1RE-TEC-STAT2
   libelle: Utiliser un nuage de points et un ajustement affine
   attendus: [1RE-TEC-2026-SP-01, 1RE-TEC-2026-SP-02, 1RE-TEC-2026-SP-03, 1RE-TEC-2026-SP-04, 1RE-TEC-2026-SP-05, 1RE-TEC-2026-SP-06]
+  cours_couvre: [1RE-TEC-2026-SP-01, 1RE-TEC-2026-SP-02, 1RE-TEC-2026-SP-03, 1RE-TEC-2026-SP-04, 1RE-TEC-2026-SP-05, 1RE-TEC-2026-SP-06]
   objectifs:
   - Calculer le point moyen d'un nuage.
   - Utiliser une droite d'ajustement pour estimer une valeur.
   prerequis:
   - 2NDE-MOY
-  resume: |
-    - Point moyen $G(\bar x ; \bar y)$.
-    - La droite d'ajustement $y = ax + b$ passe par $G$ ; on l'utilise pour interpoler ou extrapoler.
-  cours: |
-    ## Exemple
-    | $x$ | 2 | 4 | 6 | 8 |
-    |---|:-:|:-:|:-:|:-:|
-    | $y$ | 10 | 14 | 15 | 21 |
-
-    $G(5 ; 15)$. Le tableur donne $y = 1{,}75x + 6{,}25$, qui passe bien par $G$ : $1{,}75 \times 5 + 6{,}25 = 15$.
-
-    ## Estimer
-    Pour $x = 10$ : $y = 23{,}75$ (extrapolation, à prendre avec prudence).
   methodes:
   - titre: Estimer avec une droite d'ajustement
     etapes:
@@ -39,6 +27,54 @@ competences:
   erreurs_frequentes:
   - erreur: Calculer le point moyen avec les valeurs extrêmes seulement.
     explication: Il faut la moyenne de toutes les valeurs.
+  resume: |
+    - Une série à deux variables $(x_i ; y_i)$ se représente par un **nuage de points**.
+    - **Point moyen** : $G(\bar x ; \bar y)$, où $\bar x$ et $\bar y$ sont les moyennes des $x_i$ et des $y_i$.
+    - **Ajustement affine** : une droite $y = ax + b$ proche des points, qui passe en général par $G$.
+    - On s'en sert pour **interpoler** (à l'intérieur des données) ou **extrapoler** (au-delà, avec prudence).
+  cours: |
+    ## 1. Nuage de points
+
+    > **Définition.** Une **série statistique à deux variables** associe à chaque individu deux valeurs numériques $x_i$ et $y_i$. Dans un repère, les points $M_i(x_i ; y_i)$ forment le **nuage de points** de la série.
+
+    *Exemple.* Dépenses publicitaires $x_i$ (milliers d'euros) et ventes $y_i$ (milliers d'articles) sur 5 mois :
+
+    | $x_i$ | $1$ | $2$ | $3$ | $4$ | $5$ |
+    |---|---|---|---|---|---|
+    | $y_i$ | $12$ | $15$ | $19$ | $20$ | $24$ |
+
+    Si les points semblent proches d'une droite, on peut envisager un **ajustement affine**.
+
+    ## 2. Point moyen
+
+    > **Définition.** Le **point moyen** du nuage est $G(\bar x ; \bar y)$ avec $\bar x = \dfrac{x_1 + \cdots + x_n}{n}$ et $\bar y = \dfrac{y_1 + \cdots + y_n}{n}$.
+
+    Ici $\bar x = \dfrac{15}{5} = 3$ et $\bar y = \dfrac{90}{5} = 18$ : $G(3 ; 18)$.
+
+    ## 3. Ajustement affine
+
+    **Définition.** Réaliser un **ajustement affine**, c'est choisir une droite $D : y = ax + b$ qui passe « au plus près » des points du nuage. On impose en général qu'elle passe par $G$.
+
+    > **Méthodes.**
+    > - **Droite passant par deux points choisis** (par exemple $G$ et un autre point bien placé) : on calcule $a = \dfrac{y_B - y_A}{x_B - x_A}$, puis $b$ en écrivant que $G$ est sur la droite.
+    > - **Droite donnée par la calculatrice ou le tableur** (droite des moindres carrés) : on la reçoit sous la forme $y = ax + b$.
+    > - Dans tous les cas, si $D$ passe par $G$ : $\bar y = a\bar x + b$.
+
+    *Suite de l'exemple.* La calculatrice donne $y = 2{,}9x + 9{,}3$. Contrôle : $2{,}9 \times 3 + 9{,}3 = 18$, la droite passe par $G$.
+
+    ## 4. Interpoler, extrapoler
+
+    - **Interpoler** : estimer une valeur à l'intérieur de la plage des données. Pour $x = 3{,}5$ : $y \approx 2{,}9 \times 3{,}5 + 9{,}3 = 19{,}45$.
+    - **Extrapoler** : estimer au-delà des données. Pour $x = 8$ : $y \approx 32{,}5$, à condition que la tendance se maintienne.
+    - **Valeur de $x$ pour un $y$ donné** : résoudre $ax + b = y$. Pour $30$ milliers d'articles : $2{,}9x + 9{,}3 = 30$, soit $x \approx 7{,}1$ milliers d'euros.
+
+    Ces résultats sont des **estimations** : leur fiabilité dépend de la proximité des points avec la droite, et diminue quand on extrapole loin.
+
+    ## 5. Erreurs fréquentes
+
+    - Placer les points en inversant abscisses et ordonnées.
+    - Oublier de vérifier que la droite passe par le point moyen.
+    - Présenter une extrapolation lointaine comme une certitude.
   questions:
   - code: 1RE-TEC-STAT2-01
     difficulte: 1
@@ -68,7 +104,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1{,}75 \times 10 + 6{,}25 = 23{,}75$.
+      - 'On estime $y$ en remplaçant $x$ par $10$ dans l''équation de la droite d''ajustement.'
+      - '$y = 1{,}75 \times 10 + 6{,}25 = 17{,}5 + 6{,}25$.'
+      - '$y \approx 23{,}75$ (c''est une estimation, pas une valeur exacte).'
       resultat: '23.75'
   - code: 1RE-TEC-STAT2-04
     difficulte: 4
@@ -78,7 +116,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $15 = 2 \times 5 + b$, donc $b = 5$.
+      - 'La droite a pour équation $y = 2x + b$ et passe par le point moyen $G(5 ; 15)$.'
+      - 'Les coordonnées de $G$ vérifient l''équation : $15 = 2 \times 5 + b$.'
+      - '$b = 15 - 10 = 5$.'
       resultat: '5'
   - code: 1RE-TEC-STAT2-05
     difficulte: 5
@@ -88,7 +128,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $0{,}8x + 12 = 20$, soit $0{,}8x = 8$, donc $x = 10$.
+      - 'On cherche $x$ tel que $0{,}8x + 12 = 20$.'
+      - '$0{,}8x = 20 - 12 = 8$.'
+      - '$x = \dfrac{8}{0{,}8} = 10$.'
       resultat: '10'
   - code: 1RE-TEC-STAT2-V1
     difficulte: 2

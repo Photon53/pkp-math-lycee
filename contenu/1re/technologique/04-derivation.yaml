@@ -8,24 +8,12 @@ competences:
 - code: 1RE-TEC-DERIV
   libelle: Calculer un nombre dérivé, une dérivée et une tangente
   attendus: [1RE-TEC-2026-DER-01, 1RE-TEC-2026-DER-02, 1RE-TEC-2026-DER-03, 1RE-TEC-2026-DER-04, 1RE-TEC-2026-DER-05, 1RE-TEC-2026-DER-06, 1RE-TEC-2026-DER-08, 1RE-TEC-2026-DER-09, 1RE-TEC-2026-DER-10, 1RE-TEC-2026-DER-11]
+  cours_couvre: [1RE-TEC-2026-DER-01, 1RE-TEC-2026-DER-02, 1RE-TEC-2026-DER-03, 1RE-TEC-2026-DER-04, 1RE-TEC-2026-DER-05, 1RE-TEC-2026-DER-06, 1RE-TEC-2026-DER-08, 1RE-TEC-2026-DER-09, 1RE-TEC-2026-DER-10, 1RE-TEC-2026-DER-11]
   objectifs:
   - Calculer la dérivée d'un polynôme de degré au plus 3.
   - Écrire l'équation d'une tangente.
   prerequis:
   - 1RE-TEC-POLY2
-  resume: |
-    - Le nombre dérivé $f'(a)$ est la limite du taux de variation entre $a$ et $a + h$ : c'est la pente de la tangente.
-    - $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(kf)' = kf'$, $(f + g)' = f' + g'$.
-    - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
-  cours: |
-    ## Du taux de variation au nombre dérivé
-    Pour $f(x) = x^2$ en $2$ : $\dfrac{(2 + h)^2 - 4}{h} = 4 + h$, qui tend vers $4$ : $f'(2) = 4$.
-
-    ## Dérivées
-    $f(x) = 2x^3 - 5x^2 + x - 7$ donne $f'(x) = 6x^2 - 10x + 1$.
-
-    ## Tangente
-    $f(x) = x^3$ en $1$ : $f(1) = 1$, $f'(1) = 3$, donc $y = 3(x - 1) + 1 = 3x - 2$.
   methodes:
   - titre: Écrire l'équation d'une tangente
     etapes:
@@ -39,6 +27,58 @@ competences:
   erreurs_frequentes:
   - erreur: Dériver une constante en elle-même.
     explication: La dérivée d'une constante est 0.
+  resume: |
+    - Le **nombre dérivé** $f'(a)$ est la limite du taux de variation entre $a$ et $a + h$ quand $h$ tend vers $0$ : c'est la **pente de la tangente** en $a$.
+    - $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(x)' = 1$, $(k)' = 0$ ; $(f + g)' = f' + g'$ et $(kf)' = kf'$.
+    - Polynôme de degré au plus 3 : on dérive terme à terme, par exemple $(2x^3 - 5x^2 + x - 7)' = 6x^2 - 10x + 1$.
+    - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
+  cours: |
+    ## 1. Sécantes et taux de variation en un point
+
+    Soit $f$ une fonction et $A(a ; f(a))$ un point de sa courbe. Pour $h \neq 0$, la **sécante** passant par $A$ et $M(a + h ; f(a + h))$ a pour pente le **taux de variation**
+    $$\frac{f(a + h) - f(a)}{h}.$$
+
+    ## 2. Nombre dérivé et tangente
+
+    > **Définition.** Quand $h$ se rapproche de $0$, le point $M$ se rapproche de $A$ ; si le taux de variation se rapproche d'un nombre, ce nombre est le **nombre dérivé** de $f$ en $a$, noté $f'(a)$. La **tangente** en $A$ est la position limite des sécantes $(AM)$ : c'est la droite passant par $A$ de coefficient directeur $f'(a)$.
+
+    *Exemple.* $f(x) = x^2$ en $a = 2$ : $\dfrac{(2 + h)^2 - 4}{h} = \dfrac{4h + h^2}{h} = 4 + h$, qui se rapproche de $4$. Donc $f'(2) = 4$.
+
+    **Interprétation.** $f'(a)$ est le coefficient directeur de la tangente : $f'(a) > 0$, la courbe monte en $A$ ; $f'(a) < 0$, elle descend ; $f'(a) = 0$, tangente horizontale.
+
+    **Construire la tangente.** Depuis $A$, avancer de $1$ unité horizontalement et monter de $f'(a)$ (descendre si $f'(a)$ est négatif) : on obtient un second point de la tangente.
+
+    ## 3. Équation réduite de la tangente
+
+    > **Propriété.** La tangente à la courbe de $f$ au point d'abscisse $a$ a pour équation $$y = f'(a)(x - a) + f(a).$$
+
+    ## 4. Fonction dérivée
+
+    > **Propriété.** La fonction dérivée $f'$ associe à chaque $x$ le nombre dérivé $f'(x)$.
+    >
+    > | $f(x)$ | $k$ | $x$ | $x^2$ | $x^3$ |
+    > |---|---|---|---|---|
+    > | $f'(x)$ | $0$ | $1$ | $2x$ | $3x^2$ |
+    >
+    > Pour deux fonctions $u$, $v$ et un réel $k$ : $(u + v)' = u' + v'$ et $(ku)' = ku'$.
+
+    **Conséquence.** Pour un polynôme de degré au plus 3 : $(ax^3 + bx^2 + cx + d)' = 3ax^2 + 2bx + c$.
+
+    ## 5. Exemple complet
+
+    $f(x) = x^3 - 3x^2 + 2$. Équation de la tangente au point d'abscisse $1$.
+    - $f'(x) = 3x^2 - 6x$.
+    - $f(1) = 1 - 3 + 2 = 0$ et $f'(1) = 3 - 6 = -3$.
+    - $y = -3(x - 1) + 0$, soit $y = -3x + 3$.
+    - Interprétation : la courbe descend au point d'abscisse $1$, avec une pente de $-3$.
+
+    *Autre exemple.* $g(x) = -0{,}5x^2 + 4x$ : $g'(x) = -x + 4$, nul en $x = 4$ : la tangente au point d'abscisse $4$ est horizontale.
+
+    ## 6. Erreurs fréquentes
+
+    - Dériver $x^3$ en $3x$ : c'est $3x^2$.
+    - Oublier que la dérivée d'une constante est nulle : $(x^2 + 5)' = 2x$.
+    - Écrire la tangente $y = f'(a)x + f(a)$ en oubliant le décalage $(x - a)$.
   questions:
   - code: 1RE-TEC-DERIV-01
     difficulte: 1
@@ -68,7 +108,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $f'(x) = 2x$, donc $f'(3) = 6$.
+      - 'La dérivée de $x \mapsto x^2$ est $x \mapsto 2x$.'
+      - '$f''(3) = 2 \times 3$.'
+      - '$f''(3) = 6$ : c''est la pente de la tangente au point d''abscisse $3$.'
       resultat: '6'
   - code: 1RE-TEC-DERIV-04
     difficulte: 4
@@ -78,7 +120,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$f(1) = 1$ et $f''(1) = 3$ : $y = 3(x - 1) + 1 = 3x - 2$.'
+      - '$f(1) = 1^3 = 1$ ; $f''(x) = 3x^2$ donc $f''(1) = 3$.'
+      - 'Tangente en $a = 1$ : $y = f''(1)(x - 1) + f(1) = 3(x - 1) + 1$.'
+      - '$y = 3x - 2$ : $m = 3$ et $p = -2$.'
       resultat: '-2'
   - code: 1RE-TEC-DERIV-05
     difficulte: 5
@@ -216,7 +260,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$f$ décroît puis croît, minimum en $4$ : $f(4) = 16 - 32 + 3 = -13$.'
+      - '$f''(x) = 2x - 8$, qui s''annule en $x = 4$.'
+      - '$f''(x) < 0$ pour $x < 4$ et $f''(x) > 0$ pour $x > 4$ : $f$ décroît puis croît, son minimum est atteint en $4$.'
+      - '$f(4) = 16 - 32 + 3 = -13$.'
       resultat: '-13'
   - code: 1RE-TEC-VARIA-04
     difficulte: 4

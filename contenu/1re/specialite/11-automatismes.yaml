@@ -11,6 +11,7 @@ competences:
   - code: 1RE-AUTO-EVO
     libelle: Calculer avec des taux d'évolution
     attendus: [1RE-SPE-2026-AUTO-01, 1RE-SPE-2026-AUTO-02, 1RE-SPE-2026-AUTO-03, 1RE-SPE-2026-AUTO-04]
+    cours_couvre: [1RE-SPE-2026-AUTO-01, 1RE-SPE-2026-AUTO-02, 1RE-SPE-2026-AUTO-03, 1RE-SPE-2026-AUTO-04]
     objectifs:
     - Appliquer un taux d'évolution, calculer un taux, une évolution globale et une évolution réciproque.
     methodes:
@@ -29,18 +30,60 @@ competences:
     - erreur: Ajouter les pourcentages d'évolutions successives.
       explication: $+10\,\%$ puis $+10\,\%$ donne $1{,}1^2 = 1{,}21$, soit $+21\,\%$.
     resume: |
-      - $CM = 1 + \dfrac{t}{100}$ ; valeur finale $= $ valeur initiale $\times\, CM$.
-      - Taux d'évolution : $\dfrac{V_2 - V_1}{V_1}$.
-      - Évolutions successives : produit des coefficients. Réciproque : $\dfrac{1}{CM}$.
+      - Évolution de $t\,\%$ : **coefficient multiplicateur** $CM = 1 + \dfrac{t}{100}$ (hausse : $t > 0$ ; baisse : $t < 0$) ; $V_f = CM \times V_i$.
+      - **Taux d'évolution** de $V_i$ à $V_f$ : $t = \dfrac{V_f - V_i}{V_i}$, à écrire en pourcentage.
+      - **Évolutions successives** : on **multiplie** les coefficients ; les pourcentages ne s'additionnent pas.
+      - **Évolution réciproque** : coefficient $\dfrac{1}{CM}$.
     cours: |
-      ## Appliquer un taux
-      $80$ € augmentés de $15\,\%$ : $80 \times 1{,}15 = 92$ €. Un prix de $63$ € après une baisse de $10\,\%$ valait $\dfrac{63}{0{,}9} = 70$ €.
+      ## 1. Coefficient multiplicateur
 
-      ## Calculer un taux
-      De $50$ à $58$ : $\dfrac{58 - 50}{50} = 0{,}16$, soit $+16\,\%$.
+      > **Propriété.** Augmenter une quantité de $t\,\%$ revient à la multiplier par $1 + \dfrac{t}{100}$ ; la diminuer de $t\,\%$ revient à la multiplier par $1 - \dfrac{t}{100}$. Ce nombre est le **coefficient multiplicateur** $CM$ :
+      > $$V_f = CM \times V_i.$$
 
-      ## Successives et réciproque
-      $+20\,\%$ puis $-20\,\%$ : $1{,}2 \times 0{,}8 = 0{,}96$, soit $-4\,\%$. Après une hausse de $25\,\%$, il faut une baisse de $20\,\%$ pour revenir à la valeur de départ.
+      | Évolution | $+5\,\%$ | $+100\,\%$ | $-20\,\%$ | $-3\,\%$ |
+      |---|---|---|---|---|
+      | $CM$ | $1{,}05$ | $2$ | $0{,}8$ | $0{,}97$ |
+
+      $CM > 1$ : hausse ; $0 < CM < 1$ : baisse.
+
+      ## 2. Calculer une valeur finale ou initiale
+
+      - **Valeur finale** : $V_f = V_i \times CM$.
+      - **Valeur initiale** : $V_i = \dfrac{V_f}{CM}$ (on **divise**, on ne retire pas le pourcentage de la valeur finale).
+
+      *Exemple complet.* Un vélo coûte $480$ € après une remise de $20\,\%$. Prix avant remise : $V_i = \dfrac{480}{0{,}8} = 600$ €. Contrôle : $600 \times 0{,}8 = 480$.
+
+      ## 3. Taux d'évolution
+
+      > **Définition.** Le **taux d'évolution** de $V_i$ à $V_f$ ($V_i \neq 0$) est $t = \dfrac{V_f - V_i}{V_i} = \dfrac{V_f}{V_i} - 1$. On l'exprime souvent en pourcentage.
+
+      *Exemple.* Un abonnement passe de $40$ € à $46$ € : $t = \dfrac{6}{40} = 0{,}15$, soit $+15\,\%$.
+
+      ## 4. Évolutions successives
+
+      > **Propriété.** Si une quantité subit des évolutions de coefficients $CM_1$, $CM_2$, …, $CM_n$, le coefficient global est le **produit** $CM = CM_1 \times CM_2 \times \cdots \times CM_n$. Le taux global est $CM - 1$.
+
+      *Exemple.* $+10\,\%$ puis $-10\,\%$ : $1{,}1 \times 0{,}9 = 0{,}99$, soit $-1\,\%$ (et non $0\,\%$). Trois hausses de $5\,\%$ : $1{,}05^3 \approx 1{,}158$, soit environ $+15{,}8\,\%$.
+
+      ## 5. Évolution réciproque
+
+      > **Propriété.** L'évolution qui ramène $V_f$ à $V_i$ a pour coefficient $\dfrac{1}{CM}$ ; son taux est $\dfrac{1}{CM} - 1$.
+
+      *Exemple.* Après une hausse de $25\,\%$ ($CM = 1{,}25$), il faut une baisse de coefficient $\dfrac{1}{1{,}25} = 0{,}8$, soit $-20\,\%$, pour revenir au point de départ.
+
+      ## 6. Méthode
+
+      1. Traduire chaque pourcentage en coefficient multiplicateur.
+      2. Combiner : multiplier (successives), inverser (réciproque), diviser (valeur initiale).
+      3. Revenir au pourcentage : $t = CM - 1$, puis vérifier l'ordre de grandeur.
+
+      *Exemple complet.* Une action perd $30\,\%$, puis gagne $30\,\%$. Coefficient global : $0{,}7 \times 1{,}3 = 0{,}91$, soit $-9\,\%$. Pour retrouver sa valeur initiale après la baisse de $30\,\%$, il lui fallait gagner $\dfrac{1}{0{,}7} - 1 \approx 42{,}9\,\%$.
+
+      ## 7. Erreurs fréquentes
+
+      - Additionner des pourcentages successifs.
+      - Croire qu'une baisse de $t\,\%$ compense une hausse de $t\,\%$.
+      - Pour retrouver un prix avant remise, retirer le pourcentage du prix final au lieu de diviser par $CM$.
     questions:
       - code: 1RE-AUTO-EVO-01
         difficulte: 1
@@ -70,7 +113,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{63}{0{,}9} = 70$.
+          - 'Une baisse de $10\,\%$ correspond au coefficient multiplicateur $1 - 0{,}1 = 0{,}9$ : prix final $= 0{,}9 \times$ prix initial.'
+          - 'Prix initial $= \dfrac{63}{0{,}9}$.'
+          - '$\dfrac{63}{0{,}9} = 70$ € (vérification : $70 \times 0{,}9 = 63$).'
           resultat: 70
       - code: 1RE-AUTO-EVO-04
         difficulte: 4
@@ -113,6 +158,7 @@ competences:
   - code: 1RE-AUTO-CALC
     libelle: Automatismes de calcul algébrique et de signe
     attendus: [1RE-SPE-2026-AUTO-05, 1RE-SPE-2026-AUTO-06, 1RE-SPE-2026-AUTO-07]
+    cours_couvre: [1RE-SPE-2026-AUTO-05, 1RE-SPE-2026-AUTO-06, 1RE-SPE-2026-AUTO-07]
     objectifs:
     - Résoudre une équation produit nul.
     - Donner le signe d'une expression du premier degré ou factorisée du second degré.
@@ -134,20 +180,58 @@ competences:
     - erreur: Développer avant de résoudre une équation produit nul.
       explication: La forme factorisée donne directement les solutions $:$ $A \times B = 0 \iff A = 0$ ou $B = 0$.
     resume: |
-      - $A(x) \times B(x) = 0 \iff A(x) = 0$ ou $B(x) = 0$.
-      - $ax + b$ est du signe de $a$ à droite de $-\dfrac{b}{a}$.
-      - $a(x - x_1)(x - x_2)$ est du signe de $a$ à l'extérieur des racines.
-      - Identités : $(a \pm b)^2 = a^2 \pm 2ab + b^2$, $(a + b)(a - b) = a^2 - b^2$.
+      - **Produit nul** : $A \times B = 0 \iff A = 0$ ou $B = 0$.
+      - $mx + p$ ($m \neq 0$) s'annule en $-\dfrac{p}{m}$ ; il est du signe de $m$ **après** cette valeur, du signe contraire avant.
+      - $a(x - x_1)(x - x_2)$ est du signe de $a$ à l'extérieur des racines, du signe de $-a$ entre elles.
+      - Identités : $(a + b)^2 = a^2 + 2ab + b^2$, $(a - b)^2 = a^2 - 2ab + b^2$, $(a - b)(a + b) = a^2 - b^2$.
     cours: |
-      ## Produit nul
-      $(2x - 6)(x + 5) = 0 \iff x = 3$ ou $x = -5$.
+      ## 1. Développer, factoriser, réduire
 
-      ## Signe
-      $-3x + 6$ est positif pour $x < 2$ et négatif pour $x > 2$.
-      $2(x - 1)(x + 3)$ est positif sur $]-\infty ; -3[$ et sur $]1 ; +\infty[$, négatif sur $]-3 ; 1[$.
+      - **Développer** : transformer un produit en somme, avec la distributivité $k(a + b) = ka + kb$ et $(a + b)(c + d) = ac + ad + bc + bd$.
+      - **Factoriser** : transformer une somme en produit, en repérant un **facteur commun** ou une **identité remarquable**.
+      - **Réduire** : regrouper les termes de même nature ($x^2$, $x$, constantes).
 
-      ## Développer, factoriser
-      $(x - 4)^2 = x^2 - 8x + 16$ ; $9x^2 - 25 = (3x - 5)(3x + 5)$ ; $x^2 + 3x = x(x + 3)$.
+      > **Identités remarquables.** Pour tous réels $a$ et $b$ :
+      > $$(a + b)^2 = a^2 + 2ab + b^2, \qquad (a - b)^2 = a^2 - 2ab + b^2, \qquad (a - b)(a + b) = a^2 - b^2.$$
+
+      *Exemples.* $(2x - 3)^2 = 4x^2 - 12x + 9$ ; $x^2 - 16 = (x - 4)(x + 4)$ ; $(x + 1)(2x - 5) + 3(x + 1) = (x + 1)(2x - 2) = 2(x + 1)(x - 1)$.
+
+      ## 2. Équation produit nul
+
+      > **Propriété.** Un produit de facteurs est nul si et seulement si l'un au moins de ses facteurs est nul : $A \times B = 0 \iff A = 0$ ou $B = 0$.
+
+      **Méthode.** Tout ramener dans un membre ($\ldots = 0$), **factoriser**, puis annuler chaque facteur.
+      *Exemple.* $x^2 = 5x \iff x^2 - 5x = 0 \iff x(x - 5) = 0 \iff x = 0$ ou $x = 5$. (Diviser par $x$ ferait perdre la solution $0$.)
+
+      ## 3. Signe d'une expression du premier degré
+
+      > **Propriété.** Pour $m \neq 0$, $mx + p$ s'annule en $x_0 = -\dfrac{p}{m}$ ; il est du **signe de $m$ à droite** de $x_0$ et du signe contraire à gauche.
+
+      | $x$ | $-\infty$ | | $x_0$ | | $+\infty$ |
+      |---|---|---|---|---|---|
+      | $mx + p$ | | signe de $-m$ | $0$ | signe de $m$ | |
+
+      ## 4. Signe d'un produit de deux facteurs du premier degré
+
+      On fait un **tableau de signes** : une ligne par facteur, puis la règle des signes. Pour $a(x - x_1)(x - x_2)$ avec $x_1 < x_2$ : signe de $a$ à l'extérieur de $[x_1 ; x_2]$, signe de $-a$ à l'intérieur.
+
+      *Exemple complet.* Résoudre $(2x - 6)(x + 1) < 0$.
+      - $2x - 6 = 0 \iff x = 3$ ; coefficient $2 > 0$ : négatif avant $3$, positif après.
+      - $x + 1 = 0 \iff x = -1$ ; négatif avant $-1$, positif après.
+
+      | $x$ | $-\infty$ | | $-1$ | | $3$ | | $+\infty$ |
+      |---|---|---|---|---|---|---|---|
+      | $2x - 6$ | | $-$ | | $-$ | $0$ | $+$ | |
+      | $x + 1$ | | $-$ | $0$ | $+$ | | $+$ | |
+      | produit | | $+$ | $0$ | $-$ | $0$ | $+$ | |
+
+      $S = ]-1 ; 3[$.
+
+      ## 5. Erreurs fréquentes
+
+      - $(a + b)^2 = a^2 + b^2$ : on oublie le double produit $2ab$.
+      - Diviser une inégalité par un nombre négatif sans changer son sens.
+      - Simplifier une équation par une expression qui peut être nulle.
     questions:
       - code: 1RE-AUTO-CALC-01
         difficulte: 1
@@ -177,7 +261,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $a^2 - b^2 = (a - b)(a + b)$ avec $a = 3x$ et $b = 5$.
+          - 'On reconnaît une différence de deux carrés : $9x^2 = (3x)^2$ et $25 = 5^2$.'
+          - 'Identité remarquable : $a^2 - b^2 = (a - b)(a + b)$ avec $a = 3x$ et $b = 5$.'
+          - '$9x^2 - 25 = (3x - 5)(3x + 5)$.'
           resultat: (3x - 5)(3x + 5)
       - code: 1RE-AUTO-CALC-04
         difficulte: 4
@@ -187,7 +273,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $-3x + 6 > 0 \iff -3x > -6 \iff x < 2$ (on divise par $-3$, on change de sens).
+          - 'On résout $-3x + 6 > 0$, soit $-3x > -6$.'
+          - 'On divise par $-3$, nombre négatif : le sens de l''inégalité change, $x < 2$.'
+          - 'L''ensemble des solutions est $]-\infty ; 2[$ (réponse A).'
           resultat: A
       - code: 1RE-AUTO-CALC-05
         difficulte: 5
@@ -197,12 +285,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - Le coefficient $-2$ est négatif $:$ l'expression est du signe de $-2$ à l'extérieur des racines, positive entre elles.
+          - 'Les racines de $-2(x - 1)(x - 3)$ sont $1$ et $3$.'
+          - 'Un trinôme factorisé $a(x - x_1)(x - x_2)$ est du signe de $a$ à l''extérieur des racines et du signe de $-a$ entre elles ; ici $a = -2 < 0$.'
+          - 'L''expression est donc positive entre $1$ et $3$ et nulle en $1$ et $3$ : $[1 ; 3]$ (réponse A).'
           resultat: A
 
   - code: 1RE-AUTO-GRAPH
     libelle: Lectures graphiques de fonctions et de droites
     attendus: [1RE-SPE-2026-AUTO-08, 1RE-SPE-2026-AUTO-09, 1RE-SPE-2026-AUTO-10, 1RE-SPE-2026-AUTO-11, 1RE-SPE-2026-AUTO-12]
+    cours_couvre: [1RE-SPE-2026-AUTO-08, 1RE-SPE-2026-AUTO-09, 1RE-SPE-2026-AUTO-10, 1RE-SPE-2026-AUTO-11, 1RE-SPE-2026-AUTO-12]
     objectifs:
     - Résoudre graphiquement $f(x) = k$ ou $f(x) < k$, lire un signe ou des variations.
     - Tracer une droite, lire son équation réduite, calculer un coefficient directeur.
@@ -222,19 +313,47 @@ competences:
     - erreur: Calculer $\dfrac{x_B - x_A}{y_B - y_A}$ pour le coefficient directeur.
       explication: $m = \dfrac{y_B - y_A}{x_B - x_A}$ $:$ variation des ordonnées sur variation des abscisses.
     resume: |
-      - Solutions de $f(x) = k$ : abscisses des points de la courbe d'ordonnée $k$.
-      - Solutions de $f(x) < k$ : abscisses des points de la courbe situés sous la droite $y = k$.
-      - $f(x) > 0$ là où la courbe est au-dessus de l'axe des abscisses.
-      - $m = \dfrac{y_B - y_A}{x_B - x_A}$ ; la droite $y = mx + p$ coupe l'axe des ordonnées en $(0 ; p)$.
+      - Solutions de $f(x) = k$ : **abscisses** des points d'intersection de la courbe avec la droite horizontale $y = k$.
+      - $f(x) < k$ : abscisses des points de la courbe situés **strictement au-dessous** de cette droite.
+      - Signe de $f$ : position de la courbe par rapport à l'axe des abscisses ; variations : la courbe monte ou descend.
+      - Droite $y = mx + p$ : $p$ ordonnée à l'origine, $m = \dfrac{y_B - y_A}{x_B - x_A}$ coefficient directeur.
     cours: |
-      ## Résoudre graphiquement
-      On trace la droite horizontale $y = k$ et on lit les abscisses des points d'intersection avec la courbe.
+      ## 1. Résoudre graphiquement une équation ou une inéquation
 
-      ## Signe et variations
-      Le signe se lit par rapport à l'axe des abscisses ; les variations, en suivant la courbe de gauche à droite.
+      > **Méthode.** Soit $\mathcal{C}_f$ la courbe de $f$ et $k$ un réel.
+      > - Les solutions de $f(x) = k$ sont les **abscisses** des points d'intersection de $\mathcal{C}_f$ avec la droite d'équation $y = k$.
+      > - Les solutions de $f(x) < k$ (resp. $f(x) > k$) sont les abscisses des points de $\mathcal{C}_f$ situés strictement au-dessous (resp. au-dessus) de cette droite.
+      > - De même, $f(x) = g(x)$ : abscisses des points d'intersection de $\mathcal{C}_f$ et $\mathcal{C}_g$.
 
-      ## Droites
-      Pour tracer $y = \dfrac{1}{2}x - 1$, on place $(0 ; -1)$ puis on avance de $2$ en abscisse et de $1$ en ordonnée.
+      On donne les solutions sous forme d'intervalles ; les bornes sont incluses pour $\leqslant$, exclues pour $<$.
+
+      ## 2. Signe et variations lus sur un graphique
+
+      - $f(x) > 0$ là où la courbe est **au-dessus** de l'axe des abscisses, $f(x) < 0$ là où elle est au-dessous ; elle coupe l'axe aux points où $f(x) = 0$.
+      - $f$ est croissante sur un intervalle si la courbe « monte » quand on la parcourt de gauche à droite, décroissante si elle « descend ». On résume dans un **tableau de variations** avec les extrémums.
+
+      ## 3. Droites : équation réduite et coefficient directeur
+
+      > **Propriété.** Toute droite non parallèle à l'axe des ordonnées a une équation réduite $y = mx + p$ :
+      > - $p$ est l'**ordonnée à l'origine** (la droite passe par $(0 ; p)$) ;
+      > - $m$ est le **coefficient directeur** : quand $x$ augmente de $1$, $y$ varie de $m$. Si $A$ et $B$ sont deux points de la droite, $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+
+      **Tracer** $y = mx + p$ : placer $(0 ; p)$, puis avancer de $1$ et monter de $m$ (ou avancer de $3$ et monter de $3m$, pour plus de précision).
+      **Lire** l'équation : lire $p$ sur l'axe des ordonnées, puis $m$ avec deux points à coordonnées entières.
+
+      ## 4. Exemple complet
+
+      Une fonction $f$ définie sur $[-3 ; 5]$ a une courbe qui passe par $(-3 ; 4)$, descend jusqu'à $(1 ; -2)$ puis remonte jusqu'à $(5 ; 6)$ ; elle coupe la droite $y = 2$ en $x = -2$ et $x = 3$, et l'axe des abscisses en $x = -1$ et $x = 2$.
+      - $f(x) = 2$ : $S = \{-2 ; 3\}$ ; $f(x) \leqslant 2$ : $S = [-2 ; 3]$.
+      - Signe : $f(x) > 0$ sur $[-3 ; -1[ \cup ]2 ; 5]$, $f(x) < 0$ sur $]-1 ; 2[$.
+      - Variations : décroissante sur $[-3 ; 1]$, croissante sur $[1 ; 5]$ ; minimum $-2$ en $1$.
+      - La droite passant par $A(-1 ; 3)$ et $B(3 ; -5)$ : $m = \dfrac{-5 - 3}{3 + 1} = -2$, puis $3 = -2 \times (-1) + p$, donc $p = 1$ : $y = -2x + 1$.
+
+      ## 5. Erreurs fréquentes
+
+      - Donner des **ordonnées** au lieu des abscisses comme solutions.
+      - Ne pas faire attention aux bornes (incluses ou exclues) et aux unités des axes.
+      - Calculer $\dfrac{x_B - x_A}{y_B - y_A}$ : c'est la variation de $y$ au **numérateur**.
     questions:
       - code: 1RE-AUTO-GRAPH-01
         difficulte: 1
@@ -264,7 +383,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $f(x) < 2$ là où la courbe est sous la droite $y = 2$, entre les abscisses $-1$ et $4$ (bornes exclues).
+          - 'Résoudre $f(x) < 2$ revient à chercher les abscisses des points de la courbe situés strictement sous la droite $y = 2$.'
+          - 'Les points d''intersection ont pour abscisses $-1$ et $4$ ; ils sont exclus car l''inégalité est stricte.'
+          - 'La courbe est sous la droite entre ces abscisses : $S = ]-1 ; 4[$ (réponse A).'
           resultat: A
       - code: 1RE-AUTO-GRAPH-04
         difficulte: 4
@@ -274,7 +395,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{1}{2}x - 1 = 0 \iff x = 2$.
+          - 'Un point de l''axe des abscisses a une ordonnée nulle : on résout $y = 0$.'
+          - '$\dfrac{1}{2}x - 1 = 0 \iff \dfrac{1}{2}x = 1$.'
+          - '$x = 2$ : la droite coupe l''axe des abscisses au point $(2 ; 0)$.'
           resultat: 2
       - code: 1RE-AUTO-GRAPH-05
         difficulte: 5
@@ -291,6 +414,7 @@ competences:
   - code: 1RE-AUTO-STAT
     libelle: Lire des représentations de données et calculer des indicateurs
     attendus: [1RE-SPE-2026-AUTO-13, 1RE-SPE-2026-AUTO-14, 1RE-SPE-2026-AUTO-15]
+    cours_couvre: [1RE-SPE-2026-AUTO-13, 1RE-SPE-2026-AUTO-14, 1RE-SPE-2026-AUTO-15]
     objectifs:
     - Lire un histogramme, un diagramme en barres, circulaire ou en boîte.
     - Calculer et interpréter moyenne, médiane, quartiles.
@@ -310,19 +434,53 @@ competences:
     - erreur: Confondre médiane et moyenne.
       explication: La médiane partage la série en deux moitiés ; la moyenne est sensible aux valeurs extrêmes.
     resume: |
-      - Moyenne pondérée : $\bar{x} = \dfrac{\sum n_i x_i}{N}$.
-      - Médiane : valeur centrale de la série ordonnée.
-      - $Q_1$ et $Q_3$ : au moins $25\,\%$ (resp. $75\,\%$) des valeurs sont inférieures ou égales.
-      - Repérer l'origine, les unités et les échelles avant toute lecture.
+      - Avant de lire un graphique : repérer l'**origine**, les **unités** et l'échelle de chaque axe, la légende.
+      - **Moyenne** pondérée : $\bar x = \dfrac{n_1x_1 + \cdots + n_px_p}{N}$, avec $N$ l'effectif total.
+      - **Médiane** : partage la série ordonnée en deux moitiés ; **quartiles** $Q_1$, $Q_3$ : au moins $25\,\%$ (resp. $75\,\%$) des valeurs leur sont inférieures ou égales.
+      - Dispersion : **étendue** $= \max - \min$, **écart interquartile** $= Q_3 - Q_1$, **écart type**.
     cours: |
-      ## Indicateurs
-      Série $3, 5, 6, 8, 13$ : moyenne $7$, médiane $6$.
+      ## 1. Lire une représentation graphique
 
-      ## Données regroupées
-      Notes $8$ (effectif $2$), $12$ (effectif $5$), $15$ (effectif $3$) : moyenne $\dfrac{16 + 60 + 45}{10} = 12{,}1$.
+      > **Méthode.** Avant toute lecture : identifier ce que représente chaque axe, son **origine** (elle n'est pas toujours $0$), son **unité** et son **échelle** ; lire la légende et le titre.
 
-      ## Du graphique aux données
-      Un diagramme en barres donne les effectifs ; on reconstitue la série pour calculer ses indicateurs.
+      - **Diagramme en barres** : la hauteur de chaque barre est l'effectif (ou la fréquence) d'une valeur.
+      - **Diagramme circulaire** : l'angle d'un secteur est proportionnel à la fréquence : $\text{angle} = f \times 360°$.
+      - **Histogramme** : données regroupées en classes ; pour des classes de même amplitude, la hauteur est proportionnelle à l'effectif.
+      - **Diagramme en boîte** : il indique min, $Q_1$, médiane, $Q_3$, max ; chaque « quart » contient environ $25\,\%$ des valeurs.
+
+      Passer **des données au graphique** : calculer fréquences ou angles, choisir une échelle. Passer **du graphique aux données** : relire les hauteurs ou les angles et reconstituer le tableau d'effectifs.
+
+      ## 2. Indicateurs de position
+
+      > **Définitions.** Pour une série de valeurs $x_1, \ldots, x_p$ d'effectifs $n_1, \ldots, n_p$ et d'effectif total $N$ :
+      > - **moyenne** : $\bar x = \dfrac{n_1x_1 + n_2x_2 + \cdots + n_px_p}{N}$ ;
+      > - **médiane** : valeur qui partage la série **ordonnée** en deux groupes de même effectif (si $N$ est pair, moyenne des deux valeurs centrales) ;
+      > - **premier quartile** $Q_1$ : plus petite valeur de la série telle qu'au moins $25\,\%$ des valeurs lui soient inférieures ou égales ; **troisième quartile** $Q_3$ : même définition avec $75\,\%$.
+
+      ## 3. Indicateurs de dispersion
+
+      - **Étendue** : $\max - \min$ (sensible aux valeurs extrêmes).
+      - **Écart interquartile** : $Q_3 - Q_1$ (largeur de la boîte, contient environ la moitié centrale des valeurs).
+      - **Écart type** $\sigma$ : mesure l'écart moyen à la moyenne (calculatrice ou tableur) ; il s'utilise avec la moyenne.
+
+      ## 4. Exemple complet
+
+      Temps de trajet (en minutes) de $20$ élèves :
+
+      | Temps | $10$ | $15$ | $20$ | $30$ | $45$ |
+      |---|---|---|---|---|---|
+      | Effectif | $3$ | $6$ | $5$ | $4$ | $2$ |
+
+      - Moyenne : $\dfrac{30 + 90 + 100 + 120 + 90}{20} = \dfrac{430}{20} = 21{,}5$ min.
+      - Médiane : $N = 20$, moyenne des 10e et 11e valeurs ; les effectifs cumulés sont $3$, $9$, $14$… donc ces deux valeurs valent $20$ : médiane $20$ min.
+      - $Q_1$ : $25\,\%$ de $20$ donne $5$, 5e valeur : $15$ ; $Q_3$ : $75\,\%$ de $20$ donne $15$, 15e valeur : $30$. Écart interquartile : $15$ min ; étendue : $35$ min.
+      - Diagramme circulaire : le secteur « $15$ min » mesure $\dfrac{6}{20} \times 360° = 108°$.
+
+      ## 5. Erreurs fréquentes
+
+      - Calculer la médiane sans avoir **ordonné** la série.
+      - Faire la moyenne des valeurs sans tenir compte des effectifs.
+      - Lire une hauteur sans regarder l'échelle de l'axe (axe qui ne commence pas à $0$).
     questions:
       - code: 1RE-AUTO-STAT-01
         difficulte: 1
@@ -352,7 +510,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{2 \times 8 + 5 \times 12 + 3 \times 15}{10} = \dfrac{121}{10} = 12{,}1$.
+          - 'Effectif total : $2 + 5 + 3 = 10$ élèves.'
+          - 'Somme des notes, chaque valeur étant pondérée par son effectif : $2 \times 8 + 5 \times 12 + 3 \times 15 = 16 + 60 + 45 = 121$.'
+          - 'Moyenne : $\dfrac{121}{10} = 12{,}1$.'
           resultat: 12.1
       - code: 1RE-AUTO-STAT-04
         difficulte: 4
@@ -362,7 +522,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $Q_3 - Q_1 = 14 - 8 = 6$.
+          - 'L''écart interquartile est $Q_3 - Q_1$ : il mesure l''étendue de la moitié centrale des valeurs.'
+          - '$Q_3 - Q_1 = 14 - 8$.'
+          - 'L''écart interquartile vaut $6$ (la médiane ne sert pas ici).'
           resultat: 6
       - code: 1RE-AUTO-STAT-05
         difficulte: 5

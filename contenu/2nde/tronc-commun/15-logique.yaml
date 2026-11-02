@@ -11,6 +11,7 @@ competences:
   - code: 2NDE-ENS-LOG
     libelle: Utiliser le vocabulaire des ensembles et les connecteurs logiques
     attendus: [2NDE-2026-LOGIQUE-01, 2NDE-2026-LOGIQUE-02, 2NDE-2026-LOGIQUE-03, 2NDE-2026-LOGIQUE-04, 2NDE-2026-LOGIQUE-08]
+    cours_couvre: [2NDE-2026-LOGIQUE-01, 2NDE-2026-LOGIQUE-02, 2NDE-2026-LOGIQUE-03, 2NDE-2026-LOGIQUE-04, 2NDE-2026-LOGIQUE-08]
     objectifs:
     - Utiliser appartenance, inclusion, réunion, intersection et complémentaire.
     - Lire et écrire des propositions avec « et », « ou », « pour tout », « il existe ».
@@ -33,23 +34,61 @@ competences:
     - erreur: Croire que « ou » est exclusif en mathématiques.
       explication: « $A$ ou $B$ » est vraie si au moins l'une des deux l'est, éventuellement les deux.
     resume: |
-      - $x \in A$ : $x$ appartient à $A$ ; $A \subset B$ : tout élément de $A$ est dans $B$.
-      - $A \cap B$ : éléments communs ; $A \cup B$ : éléments de $A$ ou de $B$ ; $\bar{A}$ : éléments de $E$ hors de $A$.
-      - Non (P et Q) = (non P) ou (non Q) ; non (P ou Q) = (non P) et (non Q).
-      - « Pour tout $x$, P » est fausse dès qu'un $x$ ne vérifie pas P ; « il existe $x$ tel que P » est vraie dès qu'un $x$ convient.
+      - $x \in E$ : $x$ appartient à $E$ ; $A \subset E$ : tout élément de $A$ est dans $E$ ; $\varnothing$ : ensemble vide.
+      - $A \cap B$ (« et »), $A \cup B$ (« ou », au sens inclusif), $\bar A$ : complémentaire de $A$ dans $E$.
+      - Une **proposition** est un énoncé vrai ou faux ; « $P$ et $Q$ » est vraie si les deux le sont, « $P$ ou $Q$ » si l'une au moins l'est.
+      - Négation : non($P$ et $Q$) $=$ non $P$ ou non $Q$ ; non($P$ ou $Q$) $=$ non $P$ et non $Q$.
+      - « Pour tout » (quantificateur universel) et « il existe » (quantificateur existentiel) ; couple $(x ; y)$ et produit cartésien $E \times F$.
     cours: |
-      ## Ensembles
-      Avec $E = \{1, 2, \ldots, 10\}$, $A = \{2, 4, 6, 8, 10\}$ (pairs) et $B = \{1, 2, 3, 4\}$ :
-      $A \cap B = \{2, 4\}$, $A \cup B = \{1, 2, 3, 4, 6, 8, 10\}$, $\bar{A} = \{1, 3, 5, 7, 9\}$, $\text{Card}(A) = 5$.
+      ## 1. Ensembles
+      - Un **ensemble** est une collection d'objets, ses **éléments**. On note $x \in E$ si $x$ appartient à $E$, et $x \notin E$ sinon.
+      - On décrit un ensemble en extension, $\{1 ; 3 ; 5\}$, ou par une propriété, « l'ensemble des réels $x$ tels que $x^2 < 4$ ».
+      - L'**ensemble vide**, noté $\varnothing$, ne contient aucun élément.
+      - $A$ est un **sous-ensemble** (ou une partie) de $E$, ce que l'on note $A \subset E$, si tout élément de $A$ est un élément de $E$. Exemples : $\mathbb{N} \subset \mathbb{Z}$, $[1 ; 2] \subset [0 ; 5[$.
 
-      ## Propositions et connecteurs
-      Une proposition est un énoncé vrai ou faux. « $x$ est pair et $x > 5$ » est vraie pour $x = 6$, fausse pour $x = 4$.
+      > **Définitions.** Soit $A$ et $B$ deux parties d'un ensemble $E$.
+      > - L'**intersection** $A \cap B$ est l'ensemble des éléments qui appartiennent à $A$ **et** à $B$.
+      > - La **réunion** $A \cup B$ est l'ensemble des éléments qui appartiennent à $A$ **ou** à $B$ (éventuellement aux deux).
+      > - Le **complémentaire** de $A$ dans $E$, noté $\bar A$, est l'ensemble des éléments de $E$ qui n'appartiennent pas à $A$.
 
-      ## Quantificateurs
-      « Pour tout réel $x$, $x^2 \geqslant 0$ » est vraie. « Il existe un réel $x$ tel que $x^2 = 2$ » est vraie ($x = \sqrt{2}$).
+      Exemple : dans $E = \{1 ; 2 ; \dots ; 10\}$, avec $A$ les nombres pairs et $B$ les multiples de $3$ : $A \cap B = \{6\}$, $A \cup B = \{2 ; 3 ; 4 ; 6 ; 8 ; 9 ; 10\}$, $\bar A = \{1 ; 3 ; 5 ; 7 ; 9\}$. Les ensembles de nombres ($\mathbb{N}$, $\mathbb{Z}$, $\mathbb{D}$, $\mathbb{Q}$, $\mathbb{R}$) et les intervalles sont des ensembles particuliers.
 
-      ## Négation
-      La négation de « pour tout $x$, P » est « il existe $x$ tel que non P ».
+      **Couples et produit cartésien.** Un **couple** $(x ; y)$ est un objet formé de deux éléments **dans un ordre donné** : $(2 ; 5) \neq (5 ; 2)$. Le **produit cartésien** $E \times F$ est l'ensemble des couples $(x ; y)$ avec $x \in E$ et $y \in F$. Les coordonnées d'un point du plan forment un couple de $\mathbb{R} \times \mathbb{R}$.
+
+      ## 2. Propositions et connecteurs
+      Une **proposition** est un énoncé mathématique qui est soit vrai, soit faux. « $7$ est premier » est une proposition vraie ; « $x > 3$ » dépend de la variable $x$ : elle est vraie pour $x = 5$ et fausse pour $x = 1$.
+
+      > **Définitions.** Soit $P$ et $Q$ deux propositions.
+      > - « $P$ et $Q$ » est vraie lorsque $P$ et $Q$ sont **toutes les deux** vraies.
+      > - « $P$ ou $Q$ » est vraie lorsque **l'une au moins** des deux est vraie (le « ou » mathématique est **inclusif**).
+
+      Lien avec les ensembles : $x \in A \cap B$ signifie « $x \in A$ et $x \in B$ » ; $x \in A \cup B$ signifie « $x \in A$ ou $x \in B$ ».
+
+      ## 3. Négation
+      La **négation** de $P$, notée « non $P$ », est vraie quand $P$ est fausse, et fausse quand $P$ est vraie.
+
+      > **Propriété.** non($P$ et $Q$) équivaut à (non $P$) ou (non $Q$) ; non($P$ ou $Q$) équivaut à (non $P$) et (non $Q$).
+
+      ### Méthode : nier une proposition simple
+      1. Nier chaque condition élémentaire : la négation de $x < 3$ est $x \geqslant 3$ (attention aux inégalités larges ou strictes), celle de « $n$ est pair » est « $n$ est impair ».
+      2. Échanger « et » et « ou ».
+
+      **Exemple complet.** Nier « $x \geqslant -1$ et $x < 4$ », c'est-à-dire « $x \in [-1 ; 4[$ ».
+      - Négation de $x \geqslant -1$ : $x < -1$. Négation de $x < 4$ : $x \geqslant 4$.
+      - Le « et » devient « ou » : « $x < -1$ ou $x \geqslant 4$ ».
+      - En termes d'ensembles : $x \in ]-\infty ; -1[ \cup [4 ; +\infty[$, le complémentaire de $[-1 ; 4[$ dans $\mathbb{R}$.
+
+      ## 4. Quantificateurs
+      - **Quantification universelle** : « pour tout réel $x$, $x^2 \geqslant 0$ » (vraie). Pour la prouver fausse, un seul contre-exemple suffit.
+      - **Quantification existentielle** : « il existe un entier $n$ tel que $n^2 = 49$ » (vraie, avec $n = 7$). Pour la prouver vraie, un seul exemple suffit.
+
+      Dans une phrase, l'ordre des quantificateurs compte : « pour tout réel $x$, il existe un réel $y$ tel que $y > x$ » est vraie, alors que « il existe un réel $y$ tel que, pour tout réel $x$, $y > x$ » est fausse.
+
+      ## 5. Erreurs fréquentes
+      - Confondre $\in$ (un élément appartient à un ensemble) et $\subset$ (un ensemble est inclus dans un autre) : $2 \in \mathbb{N}$ mais $\{2\} \subset \mathbb{N}$.
+      - Comprendre le « ou » comme exclusif.
+      - Nier « $x > 2$ » par « $x < 2$ » en oubliant le cas $x = 2$.
+      - Garder « et » dans la négation d'une proposition « $P$ et $Q$ ».
     questions:
       - code: 2NDE-ENS-LOG-01
         difficulte: 1
@@ -79,7 +118,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - On nie chaque inégalité (inégalités larges) et « et » devient « ou ».
+          - 'La négation de « $P$ et $Q$ » est « (non $P$) ou (non $Q$) » : on nie chaque condition et le « et » devient « ou ».'
+          - 'La négation de $x > 2$ est $x \leqslant 2$, et celle de $x < 5$ est $x \geqslant 5$ : les inégalités deviennent larges.'
+          - 'D''où « $x \leqslant 2$ ou $x \geqslant 5$ » : réponse A. La réponse B est impossible (aucun réel ne la vérifie) et la réponse C oublie les cas $x = 2$ et $x = 5$.'
           resultat: A
       - code: 2NDE-ENS-LOG-04
         difficulte: 4
@@ -107,6 +148,7 @@ competences:
   - code: 2NDE-RAISON
     libelle: Raisonner avec implications, réciproques et contre-exemples
     attendus: [2NDE-2026-LOGIQUE-05, 2NDE-2026-LOGIQUE-06, 2NDE-2026-LOGIQUE-07, 2NDE-2026-LOGIQUE-09]
+    cours_couvre: [2NDE-2026-LOGIQUE-05, 2NDE-2026-LOGIQUE-06, 2NDE-2026-LOGIQUE-07, 2NDE-2026-LOGIQUE-09]
     objectifs:
     - Formuler une implication, sa réciproque et sa contraposée.
     - Utiliser un contre-exemple, la disjonction des cas et le raisonnement par l'absurde.
@@ -131,22 +173,58 @@ competences:
     - erreur: Démontrer une proposition « pour tout » avec un seul exemple.
       explication: Un exemple ne prouve rien pour tous les cas ; seul un contre-exemple suffit, pour montrer qu'elle est fausse.
     resume: |
-      - « Si P, alors Q » : $P \Rightarrow Q$. Réciproque : $Q \Rightarrow P$. Contraposée : non $Q \Rightarrow$ non $P$.
-      - $P \iff Q$ : l'implication et sa réciproque sont vraies.
-      - Contre-exemple : un cas où P est vraie et Q fausse suffit à montrer que $P \Rightarrow Q$ est fausse.
-      - Disjonction des cas : on étudie séparément tous les cas possibles. Absurde : on suppose le contraire et on aboutit à une contradiction.
+      - L'implication « si $P$, alors $Q$ » ($P \Rightarrow Q$) est fausse seulement quand $P$ est vraie et $Q$ fausse.
+      - Réciproque de $P \Rightarrow Q$ : $Q \Rightarrow P$ (elle peut être fausse) ; contraposée : non $Q \Rightarrow$ non $P$ (elle a toujours la même valeur de vérité).
+      - Équivalence $P \iff Q$ : l'implication et sa réciproque sont vraies.
+      - Un **contre-exemple** suffit pour montrer qu'une proposition générale est fausse.
+      - Disjonction des cas : examiner tous les cas possibles ; raisonnement par l'absurde : supposer le contraire et aboutir à une contradiction.
     cours: |
-      ## Implication et réciproque
-      « Si un quadrilatère est un carré, alors c'est un rectangle » est vraie ; sa réciproque est fausse.
+      ## 1. Implication
+      > **Définition.** L'implication « si $P$, alors $Q$ », notée $P \Rightarrow Q$, signifie que chaque fois que $P$ est vraie, $Q$ l'est aussi. On dit que $P$ est une condition **suffisante** pour $Q$, et que $Q$ est une condition **nécessaire** pour $P$.
 
-      ## Contraposée
-      « Si $n^2$ est pair, alors $n$ est pair » équivaut à sa contraposée « si $n$ est impair, alors $n^2$ est impair », facile à démontrer : $(2k + 1)^2 = 2(2k^2 + 2k) + 1$.
+      Exemple : « si un entier se termine par $0$, alors il est pair » est vraie.
 
-      ## Disjonction des cas
-      Pour tout entier $n$, $n(n + 1)$ est pair : si $n$ est pair, le facteur $n$ l'est ; si $n$ est impair, $n + 1$ est pair.
+      ## 2. Réciproque, contraposée, équivalence
+      > **Définitions.** Soit l'implication $P \Rightarrow Q$.
+      > - Sa **réciproque** est $Q \Rightarrow P$.
+      > - Sa **contraposée** est (non $Q$) $\Rightarrow$ (non $P$).
 
-      ## Raisonnement par l'absurde
-      Voir la démonstration de l'irrationalité de $\sqrt{2}$ (chapitre « Nombres et calculs »).
+      > **Propriété.** Une implication et sa contraposée sont toujours **toutes deux vraies ou toutes deux fausses**. En revanche, la réciproque d'une implication vraie peut être fausse.
+
+      Exemple : « si un entier se termine par $0$, alors il est pair » est vraie ; sa réciproque « si un entier est pair, alors il se termine par $0$ » est fausse ($4$ est pair) ; sa contraposée « si un entier est impair, alors il ne se termine pas par $0$ » est vraie.
+
+      > **Définition.** Lorsque $P \Rightarrow Q$ et $Q \Rightarrow P$ sont vraies, $P$ et $Q$ sont **équivalentes** : on note $P \iff Q$ et on lit « $P$ si et seulement si $Q$ ». Exemple : pour un réel $x$, $2x + 1 = 7 \iff x = 3$.
+
+      Dans un raisonnement, on enchaîne les implications ou les équivalences ; on n'écrit $\iff$ que si chaque étape se lit dans les deux sens. Par exemple $x = 3 \Rightarrow x^2 = 9$ est vraie, mais $x^2 = 9$ n'implique pas $x = 3$ ($x$ peut valoir $-3$).
+
+      ## 3. Contre-exemple
+      Pour montrer qu'une proposition du type « pour tout $x$, $P(x)$ » est **fausse**, il suffit de trouver **une** valeur de $x$ pour laquelle $P(x)$ est fausse : c'est un **contre-exemple**.
+
+      Exemple : « pour tout réel $x$, $x^2 \geqslant x$ » est fausse : pour $x = 0{,}5$, $x^2 = 0{,}25 < 0{,}5$. En revanche, des exemples ne suffisent jamais à prouver qu'une proposition générale est vraie.
+
+      ## 4. Disjonction des cas
+      On sépare le problème en plusieurs cas qui **recouvrent toutes les possibilités**, et on démontre le résultat dans chacun.
+
+      **Exemple complet.** Montrer que, pour tout entier $n$, $n(n + 1)$ est pair.
+      - Cas 1 : $n$ est pair, $n = 2k$. Alors $n(n + 1) = 2k(2k + 1) = 2 \times k(2k + 1)$ : il est pair.
+      - Cas 2 : $n$ est impair, $n = 2k + 1$. Alors $n + 1 = 2k + 2 = 2(k + 1)$ et $n(n + 1) = 2 \times (2k + 1)(k + 1)$ : il est pair.
+      - Tout entier est pair ou impair : dans tous les cas, $n(n + 1)$ est pair.
+
+      ## 5. Raisonnement par l'absurde
+      Pour démontrer qu'une proposition $P$ est vraie, on **suppose que $P$ est fausse** et on en déduit une contradiction (un résultat impossible). La supposition est donc fausse : $P$ est vraie.
+
+      **Exemple.** Montrer qu'il n'existe pas de plus grand entier naturel. Supposons qu'il en existe un, noté $N$. Alors $N + 1$ est un entier naturel strictement plus grand que $N$ : c'est une contradiction. Donc il n'existe pas de plus grand entier naturel. Les démonstrations de « $\dfrac{1}{3}$ n'est pas décimal » et « $\sqrt{2}$ est irrationnel » utilisent aussi ce raisonnement.
+
+      ### Méthode : choisir un type de raisonnement
+      1. Pour montrer qu'une affirmation générale est fausse : chercher un contre-exemple.
+      2. Si le résultat dépend d'une propriété qui prend peu de formes (pair ou impair, signe, position) : disjonction des cas.
+      3. Si la conclusion est une impossibilité (« n'est pas », « il n'existe pas ») : raisonnement par l'absurde ou contraposée.
+
+      ## 6. Erreurs fréquentes
+      - Utiliser la réciproque d'un théorème à la place du théorème (ou l'inverse).
+      - Confondre la contraposée (non $Q \Rightarrow$ non $P$) et la réciproque ($Q \Rightarrow P$).
+      - Croire que plusieurs exemples démontrent une propriété générale.
+      - Oublier un cas dans une disjonction des cas.
     questions:
       - code: 2NDE-RAISON-01
         difficulte: 1

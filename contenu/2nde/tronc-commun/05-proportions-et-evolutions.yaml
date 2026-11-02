@@ -9,6 +9,7 @@ competences:
   - code: 2NDE-PROP
     libelle: Calculer et utiliser une proportion
     attendus: [2NDE-2026-AUTO-13, 2NDE-2026-AUTO-14, 2NDE-2026-STAT-01, 2NDE-2026-STAT-10, 2NDE-2026-STAT-11]
+    cours_couvre: [2NDE-2026-AUTO-13, 2NDE-2026-AUTO-14, 2NDE-2026-STAT-01, 2NDE-2026-STAT-10, 2NDE-2026-STAT-11]
     objectifs:
     - Calculer une proportion, une part d'un tout, et une proportion de proportion.
     methodes:
@@ -26,21 +27,48 @@ competences:
     - erreur: Additionner des pourcentages qui ne portent pas sur le même ensemble.
       explication: '$25\,\%$ des internes et $40\,\%$ des élèves ne se rapportent pas au même total : on les multiplie.'
     resume: |
-      - Proportion d'une sous-population $A$ dans $E$ : $p = \dfrac{n_A}{n_E}$, nombre entre $0$ et $1$.
-      - $p\,\%$ de $N$ : $\dfrac{p}{100} \times N$.
-      - Proportion de proportion : si $A \subset B \subset E$, $p_{A/E} = p_{A/B} \times p_{B/E}$.
+      - Proportion d'une sous-population $A$ dans une population $E$ : $p = \dfrac{n_A}{n_E}$, avec $0 \leqslant p \leqslant 1$.
+      - Elle s'écrit en décimal, en fraction ou en pourcentage : $0{,}35 = \dfrac{7}{20} = 35\,\%$.
+      - Partie : $n_A = p \times n_E$ ; tout : $n_E = \dfrac{n_A}{p}$.
+      - Si $A \subset B \subset E$ : $p_{A/E} = p_{A/B} \times p_{B/E}$ (pourcentage de pourcentage).
+      - Proportions de deux parties disjointes : on les additionne ; sinon, on retire la partie commune.
     cours: |
-      ## Proportion
-      Dans une classe de $32$ élèves dont $12$ filles, la proportion de filles est $\dfrac{12}{32} = 0{,}375$, soit $37{,}5\,\%$.
+      ## 1. Définition
+      Soit $E$ une population de référence d'effectif $n_E$ et $A$ une sous-population d'effectif $n_A$.
 
-      ## Retrouver l'effectif total
-      Si $480$ personnes représentent $15\,\%$ d'une population : $N = \dfrac{480}{0{,}15} = 3200$.
+      > **Définition.** La **proportion** (ou fréquence) de $A$ dans $E$ est $p = \dfrac{n_A}{n_E}$. C'est un nombre compris entre $0$ et $1$.
 
-      ## Proportions emboîtées
-      $40\,\%$ des élèves sont internes et $25\,\%$ des internes sont en Seconde : la proportion d'internes de Seconde parmi tous les élèves est $0{,}25 \times 0{,}40 = 0{,}1$.
+      Une proportion peut s'écrire sous forme **décimale**, **fractionnaire** ou en **pourcentage** : $p = 0{,}35 = \dfrac{35}{100} = \dfrac{7}{20} = 35\,\%$. Pour passer d'un décimal à un pourcentage, on multiplie par $100$.
 
-      ## Réunion
-      $p_{A \cup B} = p_A + p_B - p_{A \cap B}$ : on retire ce qui est compté deux fois.
+      ## 2. Relation entre effectifs et proportion
+      > **Propriété.** $n_A = p \times n_E$ et, si $p \neq 0$, $n_E = \dfrac{n_A}{p}$.
+
+      ### Méthode : calculer une partie ou le tout
+      1. Repérer la population de référence (le « tout ») et la sous-population (la « partie »).
+      2. Écrire la proportion en décimal.
+      3. Pour une partie : multiplier le tout par $p$. Pour le tout : diviser la partie par $p$.
+
+      **Exemples.**
+      - $18\,\%$ des $650$ élèves d'un lycée font du théâtre : $0{,}18 \times 650 = 117$ élèves.
+      - $42$ élèves, soit $12\,\%$ des élèves d'un lycée, sont délégués : le lycée compte $\dfrac{42}{0{,}12} = 350$ élèves.
+
+      ## 3. Proportion de proportion
+      > **Propriété.** Si $A \subset B \subset E$, en notant $p_1$ la proportion de $A$ dans $B$ et $p_2$ la proportion de $B$ dans $E$, la proportion de $A$ dans $E$ est $p = p_1 \times p_2$.
+
+      **Justification.** $\dfrac{n_A}{n_E} = \dfrac{n_A}{n_B} \times \dfrac{n_B}{n_E}$.
+
+      **Exemple complet.** Dans une entreprise, $60\,\%$ des salariés travaillent en atelier, et $15\,\%$ des salariés d'atelier sont des chefs d'équipe. La proportion de chefs d'équipe d'atelier parmi tous les salariés est $0{,}15 \times 0{,}6 = 0{,}09$, soit $9\,\%$. S'il y a $800$ salariés, cela représente $0{,}09 \times 800 = 72$ personnes.
+
+      ## 4. Réunion de deux sous-populations
+      Si $A$ et $B$ sont deux parties de $E$ **sans élément commun**, la proportion de « $A$ ou $B$ » est $p_A + p_B$. Sinon, les éléments communs sont comptés deux fois : la proportion de « $A$ ou $B$ » est $p_A + p_B - p_{A \text{ et } B}$.
+
+      Exemple : $40\,\%$ des clients achètent du pain, $25\,\%$ des croissants et $10\,\%$ les deux ; donc $40 + 25 - 10 = 55\,\%$ achètent au moins l'un des deux.
+
+      ## 5. Erreurs fréquentes
+      - Additionner deux pourcentages qui n'ont pas la même population de référence.
+      - Additionner au lieu de multiplier dans un pourcentage de pourcentage : « $15\,\%$ de $60\,\%$ » vaut $9\,\%$, pas $75\,\%$.
+      - Oublier de retirer la partie commune quand on regroupe deux sous-populations.
+      - Confondre la proportion $p$ (entre $0$ et $1$) et le pourcentage ($p \times 100$).
     questions:
       - code: 2NDE-PROP-01
         difficulte: 1
@@ -71,7 +99,10 @@ competences:
         correction:
           methode: 'Proportion de proportion : on multiplie.'
           etapes:
-          - $0{,}4 \times 0{,}25 = 0{,}1$.
+          - 'Les internes de Seconde forment une partie des internes, qui forment eux-mêmes une partie des élèves du lycée : c''est une proportion de proportion.'
+          - 'Proportion des internes dans le lycée : $0{,}4$ ; proportion des Secondes parmi les internes : $0{,}25$.'
+          - 'On multiplie les deux proportions : $0{,}4 \times 0{,}25 = 0{,}1$.'
+          - 'Les internes de Seconde représentent donc $0{,}1 = \dfrac{1}{10}$ des élèves, soit $10\,\%$.'
           resultat: 1/10
       - code: 2NDE-PROP-04
         difficulte: 4
@@ -94,7 +125,9 @@ competences:
         correction:
           methode: Les membres qui font les deux sports sont comptés deux fois si on additionne.
           etapes:
-          - $30 + 50 - 10 = 70$.
+          - 'Si on additionne $30\,\%$ et $50\,\%$, les membres qui pratiquent les deux sports sont comptés deux fois : une fois avec le tennis, une fois avec le football.'
+          - 'On retire donc une fois la partie commune : $30 + 50 - 10 = 70$.'
+          - '$70\,\%$ des membres pratiquent au moins l''un des deux sports (et donc $30\,\%$ n''en pratiquent aucun).'
           resultat: 70
       - code: 2NDE-PROP-V1
         difficulte: 2
@@ -115,6 +148,7 @@ competences:
   - code: 2NDE-EVO
     libelle: Calculer des évolutions et des taux
     attendus: [2NDE-2026-AUTO-15, 2NDE-2026-STAT-02, 2NDE-2026-STAT-03, 2NDE-2026-STAT-12, 2NDE-2026-STAT-13]
+    cours_couvre: [2NDE-2026-AUTO-15, 2NDE-2026-STAT-02, 2NDE-2026-STAT-03, 2NDE-2026-STAT-12, 2NDE-2026-STAT-13]
     objectifs:
     - Utiliser le coefficient multiplicateur pour des évolutions simples, successives ou réciproques.
     prerequis:
@@ -136,23 +170,54 @@ competences:
     - erreur: 'Additionner les taux : $+20\,\%$ puis $-20\,\%$ ne donne pas $0\,\%$.'
       explication: 'La seconde évolution s''applique à une valeur déjà modifiée : on multiplie les coefficients ($1{,}2 \times 0{,}8 = 0{,}96$).'
     resume: |
-      - Une évolution de taux $t$ correspond au **coefficient multiplicateur** $CM = 1 + t$ (hausse de $15\,\%$ : $1{,}15$ ; baisse de $25\,\%$ : $0{,}75$).
-      - Évolutions successives : on **multiplie** les coefficients.
+      - Variation absolue : $V_2 - V_1$ ; coefficient multiplicateur : $CM = \dfrac{V_2}{V_1}$ ; taux d'évolution : $t = \dfrac{V_2 - V_1}{V_1}$.
+      - $CM = 1 + t$ : augmenter de $5\,\%$, c'est multiplier par $1{,}05$ ; diminuer de $5\,\%$, c'est multiplier par $0{,}95$.
+      - Évolutions successives : les coefficients multiplicateurs se **multiplient** (les taux ne s'additionnent pas).
       - Évolution réciproque : coefficient $\dfrac{1}{CM}$.
     cours: |
-      ## Coefficient multiplicateur
-      $$V_{\text{arrivée}} = V_{\text{départ}} \times (1 + t)$$
-      Un prix de $80$ € baisse de $25\,\%$ : $80 \times 0{,}75 = 60$ €.
+      ## 1. Trois façons de mesurer une évolution
+      Une grandeur passe d'une valeur $V_1 > 0$ à une valeur $V_2$.
 
-      ## Évolutions successives
-      Une hausse de $20\,\%$ puis une baisse de $20\,\%$ : $1{,}2 \times 0{,}8 = 0{,}96$, soit une **baisse** globale de $4\,\%$.
-      Les taux ne s'additionnent pas !
+      > **Définitions.**
+      > - **Variation absolue** (additive) : $V_2 - V_1$, exprimée dans l'unité de la grandeur.
+      > - **Coefficient multiplicateur** (variation multiplicative) : $CM = \dfrac{V_2}{V_1}$.
+      > - **Taux d'évolution** (variation relative) : $t = \dfrac{V_2 - V_1}{V_1}$, souvent exprimé en pourcentage.
 
-      ## Évolution réciproque
-      Après une hausse de $25\,\%$, pour revenir au prix initial : $\dfrac{1}{1{,}25} = 0{,}8$, soit une baisse de $20\,\%$.
+      > **Propriété.** $CM = 1 + t$ et $V_2 = V_1 \times (1 + t)$.
 
-      ## Taux moyen
-      Deux hausses de même taux $t$ donnant $+21\,\%$ : $(1 + t)^2 = 1{,}21$, donc $1 + t = 1{,}1$ et $t = 10\,\%$.
+      **Démonstration.** $1 + t = \dfrac{V_1}{V_1} + \dfrac{V_2 - V_1}{V_1} = \dfrac{V_2}{V_1} = CM$.
+
+      Ainsi, une hausse de $t\,\%$ correspond à un coefficient $1 + \dfrac{t}{100}$, une baisse de $t\,\%$ à un coefficient $1 - \dfrac{t}{100}$. « Augmenter de $5\,\%$ » revient à « multiplier par $1{,}05$ » ; « diminuer de $5\,\%$ » revient à « multiplier par $0{,}95$ ».
+
+      **Exemple.** Un prix passe de $80$ € à $92$ € : variation absolue $12$ €, coefficient $\dfrac{92}{80} = 1{,}15$, taux $+15\,\%$.
+
+      ## 2. Retrouver une valeur
+      - Valeur d'arrivée : $V_2 = V_1 \times CM$. Un article à $45$ € soldé à $-20\,\%$ coûte $45 \times 0{,}8 = 36$ €.
+      - Valeur de départ : $V_1 = \dfrac{V_2}{CM}$. Après une hausse de $8\,\%$, un loyer vaut $702$ € ; avant, il valait $\dfrac{702}{1{,}08} = 650$ €.
+
+      ## 3. Évolutions successives
+      > **Propriété.** Si une grandeur subit successivement des évolutions de coefficients $CM_1$ et $CM_2$, le coefficient global est $CM = CM_1 \times CM_2$. Le taux global est $t = CM - 1$.
+
+      **Exemple complet.** Un prix augmente de $20\,\%$ puis baisse de $20\,\%$.
+      - Coefficients : $1{,}2$ puis $0{,}8$.
+      - Coefficient global : $1{,}2 \times 0{,}8 = 0{,}96$.
+      - Taux global : $0{,}96 - 1 = -0{,}04$, soit une **baisse** de $4\,\%$ : le prix ne revient pas à sa valeur initiale.
+
+      ## 4. Évolution réciproque
+      > **Propriété.** L'évolution qui ramène $V_2$ à $V_1$ a pour coefficient $CM' = \dfrac{1}{CM}$, et pour taux $t' = \dfrac{1}{CM} - 1$.
+
+      Exemple : après une hausse de $25\,\%$ ($CM = 1{,}25$), il faut une baisse de coefficient $\dfrac{1}{1{,}25} = 0{,}8$, soit $-20\,\%$, pour revenir à la valeur de départ.
+
+      ### Méthode : calculer un taux global ou réciproque
+      1. Traduire chaque pourcentage en coefficient multiplicateur.
+      2. Multiplier les coefficients (évolutions successives) ou prendre l'inverse (évolution réciproque).
+      3. Revenir au taux en soustrayant $1$, puis l'écrire en pourcentage.
+
+      ## 5. Erreurs fréquentes
+      - Additionner des taux successifs : $+20\,\%$ puis $-20\,\%$ ne donnent pas $0\,\%$.
+      - Croire que la réciproque d'une hausse de $t\,\%$ est une baisse de $t\,\%$.
+      - Diviser par $V_2$ au lieu de $V_1$ dans le calcul d'un taux : la référence est la valeur de **départ**.
+      - Confondre variation absolue (en euros, en habitants…) et taux (sans unité).
     questions:
       - code: 2NDE-EVO-01
         difficulte: 1

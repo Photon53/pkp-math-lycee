@@ -9,6 +9,7 @@ competences:
   - code: 2NDE-MOY
     libelle: Calculer une moyenne et une médiane
     attendus: [2NDE-2026-AUTO-25, 2NDE-2026-STAT-04, 2NDE-2026-STAT-06, 2NDE-2026-STAT-08, 2NDE-2026-STAT-09, 2NDE-2026-STAT-14]
+    cours_couvre: [2NDE-2026-AUTO-25, 2NDE-2026-STAT-04, 2NDE-2026-STAT-06, 2NDE-2026-STAT-08, 2NDE-2026-STAT-09, 2NDE-2026-STAT-14]
     objectifs:
     - Calculer une moyenne simple ou pondérée, et une médiane.
     methodes:
@@ -27,20 +28,62 @@ competences:
     - erreur: Faire la moyenne de deux moyennes de groupes de tailles différentes.
       explication: Chaque moyenne doit être pondérée par l'effectif de son groupe.
     resume: |
-      - Moyenne : $\bar x = \dfrac{n_1 x_1 + \dots + n_p x_p}{N}$ (somme des valeurs divisée par l'effectif).
-      - Médiane : valeur qui partage la série **ordonnée** en deux moitiés de même effectif.
-      - Si $N$ est pair, la médiane est la moyenne des deux valeurs centrales.
-      - Moyenne de deux groupes : on pondère par les effectifs, on ne fait pas la moyenne des moyennes.
+      - Moyenne : $\bar x = \dfrac{n_1x_1 + n_2x_2 + \dots + n_px_p}{N}$ avec $N = n_1 + \dots + n_p$ (moyenne pondérée par les effectifs).
+      - Linéarité : si on transforme chaque valeur en $ax + b$, la moyenne devient $a\bar x + b$.
+      - Médiane : partage la série ordonnée en deux groupes de même effectif ; quartiles $Q_1$ et $Q_3$ : au moins $25\,\%$ (respectivement $75\,\%$) des valeurs leur sont inférieures ou égales.
+      - Données en classes : on remplace chaque classe par son **centre** ; la classe médiane est la première dont l'effectif cumulé atteint $\dfrac{N}{2}$.
+      - Une valeur extrême modifie fortement la moyenne, peu la médiane.
     cours: |
-      ## Moyenne pondérée
-      Notes $12$ (coefficient $2$), $9$ (coefficient $3$), $15$ (coefficient $1$) :
-      $$\bar x = \frac{2 \times 12 + 3 \times 9 + 1 \times 15}{2 + 3 + 1} = \frac{66}{6} = 11$$
+      ## 1. Moyenne
+      Une série statistique prend les valeurs $x_1, \dots, x_p$ avec les effectifs $n_1, \dots, n_p$ ; l'effectif total est $N = n_1 + \dots + n_p$.
 
-      ## Médiane
-      Série $3, 7, 1, 9, 5, 8$. On ordonne : $1, 3, 5, 7, 8, 9$. Effectif pair : médiane $\dfrac{5 + 7}{2} = 6$.
+      > **Définition.** La **moyenne** de la série est $\bar x = \dfrac{n_1x_1 + n_2x_2 + \dots + n_px_p}{N}$. On peut aussi utiliser les fréquences $f_i = \dfrac{n_i}{N}$ : $\bar x = f_1x_1 + \dots + f_px_p$.
 
-      ## Regrouper deux séries
-      $20$ élèves de moyenne $12$ et $30$ élèves de moyenne $10$ : $\bar x = \dfrac{20 \times 12 + 30 \times 10}{50} = 10{,}8$, et non $11$.
+      **Moyenne de sous-groupes.** Si un groupe d'effectif $N_1$ a pour moyenne $m_1$ et un groupe d'effectif $N_2$ a pour moyenne $m_2$, la moyenne de l'ensemble est $\dfrac{N_1m_1 + N_2m_2}{N_1 + N_2}$ : c'est une moyenne **pondérée** par les effectifs, et non la moyenne des moyennes.
+
+      > **Propriété (linéarité).** Si on remplace chaque valeur $x_i$ par $ax_i + b$, la nouvelle moyenne est $a\bar x + b$.
+
+      Exemple : des températures de moyenne $15$ °C ; en ajoutant $2$ °C à chaque mesure, la moyenne passe à $17$ °C ; en convertissant en °F avec $1{,}8x + 32$, elle devient $1{,}8 \times 15 + 32 = 59$ °F.
+
+      ## 2. Médiane et quartiles
+      Les valeurs sont rangées dans l'ordre croissant.
+
+      > **Définitions.**
+      > - La **médiane** $Me$ partage la série en deux parties de même effectif : si $N$ est impair, c'est la valeur de rang $\dfrac{N + 1}{2}$ ; si $N$ est pair, c'est la moyenne des valeurs de rangs $\dfrac{N}{2}$ et $\dfrac{N}{2} + 1$.
+      > - Le **premier quartile** $Q_1$ est la plus petite valeur de la série telle qu'au moins $25\,\%$ des valeurs lui sont inférieures ou égales ; le **troisième quartile** $Q_3$, la plus petite telle qu'au moins $75\,\%$ des valeurs lui sont inférieures ou égales.
+
+      **Exemple.** Série : $3, 5, 6, 8, 9, 11, 12, 14$ ($N = 8$). $Me = \dfrac{8 + 9}{2} = 8{,}5$. $\dfrac{N}{4} = 2$ : $Q_1$ est la $2^\text{e}$ valeur, $5$. $\dfrac{3N}{4} = 6$ : $Q_3$ est la $6^\text{e}$ valeur, $11$.
+
+      ## 3. Ajout ou suppression d'une valeur
+      La moyenne tient compte de **toutes** les valeurs : une valeur très grande ou très petite la déplace beaucoup. La médiane ne dépend que du rang : elle est peu sensible aux valeurs extrêmes.
+
+      Exemple : salaires $1\,500$, $1\,600$, $1\,700$, $1\,800$, $1\,900$ € : moyenne et médiane valent $1\,700$ €. Si on ajoute un salaire de $9\,000$ €, la moyenne passe à $\dfrac{8\,500 + 9\,000}{6} \approx 2\,917$ €, alors que la médiane ne passe qu'à $1\,750$ €.
+
+      ## 4. Données regroupées en classes
+      ### Moyenne
+      Quand on ne connaît que les effectifs des classes, on suppose la répartition **uniforme** dans chaque classe et on remplace chaque classe par son **centre** (par exemple $15$ pour $[10 ; 20[$). Si on connaît la moyenne de chaque classe, on l'utilise à la place du centre.
+
+      ### Classe médiane et estimation de la médiane
+      1. Calculer les effectifs cumulés croissants.
+      2. La **classe médiane** est la première classe dont l'effectif cumulé atteint $\dfrac{N}{2}$.
+      3. En supposant la répartition uniforme dans cette classe $[a ; b[$, d'effectif $n$, avec un effectif cumulé $c$ avant elle : $Me \approx a + \dfrac{\frac{N}{2} - c}{n} \times (b - a)$.
+
+      **Exemple complet.** Temps de trajet de $40$ élèves :
+
+      | Durée (min) | $[0 ; 10[$ | $[10 ; 20[$ | $[20 ; 30[$ | $[30 ; 40[$ |
+      |---|---|---|---|---|
+      | Effectif | $8$ | $14$ | $10$ | $8$ |
+      | Effectif cumulé | $8$ | $22$ | $32$ | $40$ |
+
+      - Moyenne avec les centres : $\dfrac{5 \times 8 + 15 \times 14 + 25 \times 10 + 35 \times 8}{40} = \dfrac{780}{40} = 19{,}5$ min.
+      - $\dfrac{N}{2} = 20$ : la classe médiane est $[10 ; 20[$ (cumul $22 \geqslant 20$).
+      - Estimation : $Me \approx 10 + \dfrac{20 - 8}{14} \times 10 \approx 18{,}6$ min.
+
+      ## 5. Erreurs fréquentes
+      - Faire la moyenne des moyennes de groupes d'effectifs différents.
+      - Chercher la médiane sans avoir rangé les valeurs.
+      - Prendre une borne de classe au lieu du centre pour calculer la moyenne.
+      - Confondre le rang de la médiane et sa valeur.
     questions:
       - code: 2NDE-MOY-01
         difficulte: 1
@@ -71,7 +114,10 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{12 \times 2 + 9 \times 3 + 15 \times 1}{2 + 3 + 1} = \dfrac{66}{6} = 11$.
+          - 'Une moyenne avec coefficients est une moyenne pondérée : on multiplie chaque note par son coefficient.'
+          - 'Somme pondérée : $12 \times 2 + 9 \times 3 + 15 \times 1 = 24 + 27 + 15 = 66$.'
+          - 'Somme des coefficients : $2 + 3 + 1 = 6$.'
+          - 'Moyenne : $\dfrac{66}{6} = 11$.'
           resultat: 11
       - code: 2NDE-MOY-04
         difficulte: 4
@@ -93,7 +139,10 @@ competences:
         correction:
           methode: Moyenne pondérée par les effectifs des classes.
           etapes:
-          - $\dfrac{20 \times 12 + 30 \times 10}{50} = \dfrac{540}{50} = 10{,}8$.
+          - 'Les deux classes n''ont pas le même effectif : on calcule une moyenne pondérée par les effectifs, et non la moyenne des deux moyennes.'
+          - 'Total des notes de la classe A : $20 \times 12 = 240$ ; total de la classe B : $30 \times 10 = 300$.'
+          - 'Total des $50$ élèves : $240 + 300 = 540$.'
+          - 'Moyenne générale : $\dfrac{540}{50} = 10{,}8 = \dfrac{54}{5}$. Elle est plus proche de $10$, car la classe B est plus nombreuse.'
           resultat: 54/5
           erreurs_frequentes:
           - Répondre $11$, la moyenne des deux moyennes, sans tenir compte des effectifs.
@@ -116,6 +165,7 @@ competences:
   - code: 2NDE-DISP
     libelle: Mesurer la dispersion d'une série
     attendus: [2NDE-2026-STAT-05, 2NDE-2026-STAT-15, 2NDE-2026-AUTO-26]
+    cours_couvre: [2NDE-2026-STAT-05, 2NDE-2026-STAT-15, 2NDE-2026-AUTO-26]
     objectifs:
     - Calculer étendue, quartiles, écart interquartile et écart type.
     prerequis:
@@ -136,21 +186,50 @@ competences:
     - erreur: Calculer les quartiles comme des médianes de moitiés.
       explication: 'En France, on utilise la définition par les rangs N/4 et 3N/4 : les résultats peuvent différer.'
     resume: |
-      - Étendue : plus grande valeur moins plus petite.
-      - $Q_1$ : plus petite valeur telle qu'au moins $25\,\%$ des données lui sont inférieures ou égales ; $Q_3$ : idem avec $75\,\%$.
-      - Écart interquartile : $Q_3 - Q_1$.
-      - Écart type : $\sigma = \sqrt{\dfrac{1}{N}\sum n_i (x_i - \bar x)^2}$.
-      - Ajouter une constante à toutes les valeurs décale la moyenne mais ne change pas l'écart type.
+      - Étendue : $\max - \min$ ; écart interquartile : $Q_3 - Q_1$ (contient environ la moitié centrale des valeurs).
+      - Écart type : $\sigma = \sqrt{\dfrac{n_1(x_1 - \bar x)^2 + \dots + n_p(x_p - \bar x)^2}{N}}$ ; plus il est grand, plus les valeurs sont dispersées autour de la moyenne.
+      - Couples d'indicateurs : (moyenne ; écart type) ou (médiane ; écart interquartile).
+      - Boîte à moustaches : min, $Q_1$, $Me$, $Q_3$, max ; on compare la position (médianes) et la dispersion (longueurs).
     cours: |
-      ## Quartiles
-      Série ordonnée de $8$ valeurs : $2, 4, 5, 7, 8, 10, 12, 15$.
-      - $\dfrac{8}{4} = 2$ : $Q_1$ est la 2ᵉ valeur, $Q_1 = 4$.
-      - $\dfrac{3 \times 8}{4} = 6$ : $Q_3$ est la 6ᵉ valeur, $Q_3 = 10$.
-      L'écart interquartile vaut $10 - 4 = 6$. (Si le rang n'est pas entier, on arrondit à l'entier supérieur.)
+      ## 1. Pourquoi mesurer la dispersion ?
+      Deux séries peuvent avoir la même moyenne et être très différentes : $10, 10, 10, 10$ et $0, 5, 15, 20$ ont toutes deux pour moyenne $10$. Un **indicateur de dispersion** mesure l'étalement des valeurs.
 
-      ## Écart type
-      Série $2, 4, 4, 4, 5, 5, 7, 9$ de moyenne $5$ : carrés des écarts $9, 1, 1, 1, 0, 0, 4, 16$, de moyenne $\dfrac{32}{8} = 4$.
-      Donc $\sigma = \sqrt{4} = 2$.
+      ## 2. Étendue et écart interquartile
+      - L'**étendue** est la différence entre la plus grande et la plus petite valeur. Elle est très sensible aux valeurs extrêmes.
+      - L'**écart interquartile** est $Q_3 - Q_1$. L'intervalle $[Q_1 ; Q_3]$ contient environ la moitié des valeurs, les plus centrales ; il est peu sensible aux valeurs extrêmes.
+
+      ## 3. Écart type
+      > **Définition.** L'**écart type** d'une série de moyenne $\bar x$ est $\sigma = \sqrt{\dfrac{n_1(x_1 - \bar x)^2 + n_2(x_2 - \bar x)^2 + \dots + n_p(x_p - \bar x)^2}{N}}$.
+
+      C'est une sorte de « distance moyenne » des valeurs à la moyenne : il s'exprime dans la même unité que les valeurs. Plus $\sigma$ est grand, plus les valeurs sont dispersées autour de la moyenne. En pratique, on le calcule avec la calculatrice ou le tableur.
+
+      ### Méthode : calculer un écart type à la main
+      1. Calculer la moyenne $\bar x$.
+      2. Calculer chaque écart $x_i - \bar x$, puis son carré.
+      3. Faire la moyenne (pondérée par les effectifs) de ces carrés : c'est la **variance** $V$.
+      4. Prendre la racine carrée : $\sigma = \sqrt{V}$.
+
+      **Exemple complet.** Série : $4, 8, 10, 12, 16$.
+      - $\bar x = \dfrac{50}{5} = 10$.
+      - Écarts : $-6, -2, 0, 2, 6$ ; carrés : $36, 4, 0, 4, 36$.
+      - $V = \dfrac{80}{5} = 16$, donc $\sigma = 4$.
+
+      ## 4. Boîte à moustaches
+      Une **boîte à moustaches** représente, sur un axe gradué : le minimum et le maximum (extrémités des moustaches), $Q_1$ et $Q_3$ (bords de la boîte) et la médiane (trait dans la boîte). La boîte contient environ $50\,\%$ des valeurs ; chaque moustache et chaque moitié de boîte, environ $25\,\%$.
+
+      ## 5. Comparer deux séries
+      1. Choisir un couple d'indicateurs cohérent : (moyenne ; écart type) ou (médiane ; écart interquartile), ce dernier étant préférable quand il y a des valeurs extrêmes.
+      2. Comparer la **position** (moyennes ou médianes) : quelle série a des valeurs plus élevées ?
+      3. Comparer la **dispersion** (écarts types, écarts interquartiles, longueurs des boîtes) : quelle série est plus homogène ?
+      4. Conclure par une phrase dans le contexte.
+
+      **Exemple.** Deux classes ont pour notes : classe A, $Me = 11$, $Q_1 = 9$, $Q_3 = 13$ ; classe B, $Me = 11$, $Q_1 = 6$, $Q_3 = 15$. Les médianes sont égales, mais l'écart interquartile vaut $4$ pour A et $9$ pour B : les notes de la classe B sont beaucoup plus dispersées. Sur les boîtes à moustaches, la boîte de B est plus longue.
+
+      ## 6. Erreurs fréquentes
+      - Oublier la racine carrée : la variance n'est pas l'écart type.
+      - Mélanger les couples d'indicateurs (médiane avec écart type).
+      - Croire que la boîte contient la moitié des **individus** quand elle est plus longue : chaque partie contient environ un quart des valeurs, quelle que soit sa longueur.
+      - Comparer deux séries uniquement par leur moyenne.
     questions:
       - code: 2NDE-DISP-01
         difficulte: 1
@@ -211,6 +290,7 @@ competences:
   - code: 2NDE-CROISE
     libelle: Exploiter un tableau croisé et des fréquences conditionnelles
     attendus: [2NDE-2026-CROISE-01, 2NDE-2026-CROISE-02, 2NDE-2026-CROISE-03, 2NDE-2026-CROISE-04]
+    cours_couvre: [2NDE-2026-CROISE-01, 2NDE-2026-CROISE-02, 2NDE-2026-CROISE-03, 2NDE-2026-CROISE-04]
     objectifs:
     - Lire un tableau croisé d'effectifs et calculer une fréquence marginale.
     - Calculer une fréquence conditionnelle en repérant la sous-population de référence.
@@ -251,33 +331,54 @@ competences:
     - erreur: Confondre « la part des filles parmi les sportifs » et « la part des sportifs parmi les filles ».
       explication: 'Ce sont deux fréquences différentes : la case est la même, mais le dénominateur change.'
     resume: |
-      - Un **tableau croisé** répartit une population selon deux caractères ; les **marges** donnent les totaux de chaque ligne et de chaque colonne.
-      - **Fréquence marginale** : effectif d'une marge divisé par l'effectif total.
-      - **Fréquence conditionnelle** de $B$ parmi $A$ : $\dfrac{\text{effectif de } A \text{ et } B}{\text{effectif de } A}$.
-      - Le mot « parmi » désigne la sous-population qui sert de dénominateur.
+      - Un **tableau croisé d'effectifs** répartit une population selon deux critères ; la dernière ligne et la dernière colonne donnent les totaux (marges).
+      - Fréquence **marginale** : effectif d'une marge divisé par l'effectif total.
+      - Fréquence **conditionnelle** de $B$ parmi $A$ : $f_A(B) = \dfrac{\text{effectif de } A \text{ et } B}{\text{effectif de } A}$.
+      - On complète un tableau avec les totaux (somme d'une ligne ou d'une colonne) ou avec des fréquences : effectif $=$ fréquence $\times$ effectif de référence.
     cours: |
-      ## Tableau croisé d'effectifs
-      On interroge $200$ élèves sur leur pratique d'un sport en club.
+      ## 1. Tableau croisé d'effectifs
+      Lorsqu'on étudie **deux variables qualitatives** sur une même population, on présente les données dans un **tableau croisé** : chaque case contient l'effectif des individus qui vérifient à la fois un caractère de la ligne et un caractère de la colonne. La dernière ligne et la dernière colonne contiennent les **totaux**, appelés **marges**.
 
-      | | Sport | Pas de sport | Total |
-      |---|:-:|:-:|:-:|
-      | Filles | $36$ | $64$ | $100$ |
-      | Garçons | $54$ | $46$ | $100$ |
-      | Total | $90$ | $110$ | $200$ |
+      **Exemple.** On interroge $200$ élèves sur leur demi-pension et leur niveau.
 
-      La dernière ligne et la dernière colonne sont les **marges** du tableau.
+      |  | Demi-pensionnaire ($D$) | Externe | Total |
+      |---|---|---|---|
+      | Seconde ($S$) | $54$ | $26$ | $80$ |
+      | Première | $66$ | $54$ | $120$ |
+      | Total | $120$ | $80$ | $200$ |
 
-      ## Fréquence marginale
-      La fréquence des sportifs dans tout le lycée est $\dfrac{90}{200} = 0{,}45$, soit $45\,\%$.
+      ## 2. Fréquences marginales et conditionnelles
+      > **Définitions.**
+      > - La **fréquence marginale** d'un caractère est l'effectif total de ce caractère (lu dans une marge) divisé par l'effectif total.
+      > - La **fréquence conditionnelle** du caractère $B$ parmi les individus ayant le caractère $A$ est $f_A(B) = \dfrac{\text{effectif de } A \text{ et } B}{\text{effectif de } A}$. La population de référence n'est plus l'ensemble, mais seulement les individus de $A$.
 
-      ## Fréquence conditionnelle
-      - Fréquence des sportifs **parmi les filles** : $\dfrac{36}{100} = 0{,}36$.
-      - Fréquence des filles **parmi les sportifs** : $\dfrac{36}{90} = 0{,}4$.
+      Dans l'exemple :
+      - fréquence marginale des demi-pensionnaires : $\dfrac{120}{200} = 0{,}6$ ;
+      - fréquence des demi-pensionnaires parmi les Secondes : $f_S(D) = \dfrac{54}{80} = 0{,}675$ ;
+      - fréquence des Secondes parmi les demi-pensionnaires : $f_D(S) = \dfrac{54}{120} = 0{,}45$.
 
-      Les deux calculs utilisent la même case ($36$) mais pas la même sous-population : il faut toujours se demander « parmi qui ? ».
+      > **Attention.** $f_S(D)$ et $f_D(S)$ ont le même numérateur mais pas le même dénominateur : ce ne sont pas les mêmes fréquences.
 
-      ## Compléter un tableau
-      Les pourcentages d'un énoncé se transforment en effectifs ; les cases manquantes se trouvent ensuite par différence avec les totaux.
+      ### Méthode : calculer une fréquence conditionnelle
+      1. Repérer dans la phrase la population de référence (« parmi les… », « sachant que… ») : c'est elle qui donne le **dénominateur**.
+      2. Lire l'effectif de l'intersection dans la case correspondante : c'est le **numérateur**.
+      3. Diviser, puis interpréter dans le contexte.
+
+      ## 3. Compléter un tableau croisé
+      - Avec les **effectifs** : chaque total est la somme de sa ligne ou de sa colonne ; une case manquante s'obtient par différence.
+      - Avec des **fréquences** : effectif $=$ fréquence $\times$ effectif de la population de référence.
+
+      **Exemple complet.** Dans un club de $150$ adhérents, $40\,\%$ sont mineurs ; $75\,\%$ des mineurs font de la compétition, contre $30\,\%$ des majeurs. Compléter le tableau.
+      - Mineurs : $0{,}4 \times 150 = 60$ ; majeurs : $150 - 60 = 90$.
+      - Mineurs en compétition : $0{,}75 \times 60 = 45$ ; mineurs hors compétition : $60 - 45 = 15$.
+      - Majeurs en compétition : $0{,}3 \times 90 = 27$ ; majeurs hors compétition : $90 - 27 = 63$.
+      - Total en compétition : $45 + 27 = 72$, soit une fréquence marginale de $\dfrac{72}{150} = 0{,}48$.
+
+      ## 4. Erreurs fréquentes
+      - Diviser par l'effectif total au lieu de l'effectif de la population de référence.
+      - Confondre $f_A(B)$ et $f_B(A)$.
+      - Additionner des fréquences conditionnelles calculées sur des populations différentes.
+      - Oublier de vérifier que les totaux des lignes et des colonnes concordent.
     questions:
       - code: 2NDE-CROISE-01
         difficulte: 1

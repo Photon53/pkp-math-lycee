@@ -8,25 +8,12 @@ competences:
 - code: 1RE-TEC-VA
   libelle: Déterminer une loi de probabilité et une espérance
   attendus: [1RE-TEC-2026-SP-13, 1RE-TEC-2026-SP-14, 1RE-TEC-2026-SP-15, 1RE-TEC-2026-SP-16, 1RE-TEC-2026-SP-17]
+  cours_couvre: [1RE-TEC-2026-SP-13, 1RE-TEC-2026-SP-14, 1RE-TEC-2026-SP-15, 1RE-TEC-2026-SP-16, 1RE-TEC-2026-SP-17]
   objectifs:
   - Compléter une loi de probabilité et calculer une espérance.
   - Utiliser la loi de Bernoulli et décider si un jeu est équitable.
   prerequis:
   - 1RE-TEC-PCOND
-  resume: |
-    - Les probabilités d'une loi ont pour somme $1$.
-    - $E(X) = \sum x_i p_i$ : valeur moyenne sur un grand nombre de répétitions.
-    - Loi de Bernoulli de paramètre $p$ : $E = p$. Jeu équitable : espérance du gain nulle.
-  cours: |
-    ## Loi et espérance
-    | $x_i$ | 0 | 1 | 2 |
-    |---|:-:|:-:|:-:|
-    | $p_i$ | 0,5 | 0,3 | 0,2 |
-
-    $E(X) = 0 \times 0{,}5 + 1 \times 0{,}3 + 2 \times 0{,}2 = 0{,}7$.
-
-    ## Jeu
-    Mise $2$ €, gain $10$ € avec la probabilité $\dfrac{1}{8}$. Gain net moyen : $\dfrac{10}{8} - 2 = -0{,}75$ € : le jeu est défavorable au joueur.
   methodes:
   - titre: Décider si un jeu est équitable
     etapes:
@@ -40,6 +27,57 @@ competences:
   erreurs_frequentes:
   - erreur: Oublier la mise dans le calcul du gain.
     explication: Le gain net est ce qu'on reçoit moins ce qu'on a payé.
+  resume: |
+    - Une **variable aléatoire** $X$ associe un nombre à chaque issue ; sa **loi** donne les valeurs $x_i$ et les probabilités $P(X = x_i)$, de somme $1$.
+    - $\{X = a\}$ : « $X$ prend la valeur $a$ » ; $\{X \leqslant a\}$ : « $X$ prend une valeur au plus égale à $a$ ».
+    - **Espérance** : $E(X) = x_1P(X = x_1) + \cdots + x_nP(X = x_n)$, la moyenne à long terme ; jeu équitable si $E = 0$.
+    - **Loi de Bernoulli** de paramètre $p$ : $X = 1$ (succès) avec la probabilité $p$, $X = 0$ sinon ; $E(X) = p$.
+  cours: |
+    ## 1. Variable aléatoire et loi
+
+    **Définition.** Une **variable aléatoire** $X$ associe un nombre réel à chaque issue d'une expérience aléatoire (un gain, un nombre de succès, une durée…).
+
+    La **loi de probabilité** de $X$ est le tableau des valeurs $x_i$ qu'elle peut prendre et des probabilités $P(X = x_i)$ ; leur somme vaut $1$.
+
+    *Exemple.* Une roue a $8$ secteurs égaux : $1$ rapporte $10$ €, $3$ rapportent $2$ €, $4$ ne rapportent rien. $X$ est le gain.
+
+    | $x_i$ | $0$ | $2$ | $10$ |
+    |---|---|---|---|
+    | $P(X = x_i)$ | $\dfrac{4}{8}$ | $\dfrac{3}{8}$ | $\dfrac{1}{8}$ |
+
+    ## 2. Notations $\{X = a\}$ et $\{X \leqslant a\}$
+
+    - $\{X = 2\}$ : « gagner exactement $2$ € », $P(X = 2) = \dfrac{3}{8}$.
+    - $\{X \leqslant 2\}$ : « gagner au plus $2$ € », $P(X \leqslant 2) = \dfrac{4}{8} + \dfrac{3}{8} = \dfrac{7}{8}$.
+    - $\{X > 0\}$ : « gagner quelque chose », $P(X > 0) = 1 - P(X = 0) = \dfrac{1}{2}$.
+
+    ## 3. Espérance
+
+    > **Définition.** $E(X) = x_1P(X = x_1) + x_2P(X = x_2) + \cdots + x_nP(X = x_n)$.
+
+    **Interprétation.** Si l'on répète l'expérience un grand nombre de fois, la moyenne des valeurs obtenues est proche de $E(X)$.
+
+    *Suite de l'exemple.* $E(X) = 0 \times \dfrac{4}{8} + 2 \times \dfrac{3}{8} + 10 \times \dfrac{1}{8} = \dfrac{16}{8} = 2$ € : en moyenne, une partie rapporte $2$ €. Si la partie coûte $2$ €, le gain net moyen est nul : le jeu est **équitable**. Si elle coûte $3$ €, le joueur perd en moyenne $1$ € par partie.
+
+    ## 4. Loi de Bernoulli
+
+    > **Définition.** Une variable aléatoire $X$ suit la **loi de Bernoulli** de paramètre $p$ si elle prend la valeur $1$ avec la probabilité $p$ et la valeur $0$ avec la probabilité $1 - p$.
+    > Son espérance est $E(X) = 0 \times (1 - p) + 1 \times p = p$.
+
+    On l'utilise dès qu'une expérience a **deux issues** : on code le succès par $1$, l'échec par $0$.
+    *Exemple.* Un client est satisfait avec la probabilité $0{,}85$ : $X = 1$ s'il est satisfait, $X = 0$ sinon. $X$ suit la loi de Bernoulli de paramètre $0{,}85$ et $E(X) = 0{,}85$.
+
+    ## 5. Méthode et exemple complet
+
+    > **Méthode.** 1) Définir $X$ avec une phrase. 2) Lister ses valeurs. 3) Calculer chaque probabilité. 4) Vérifier que la somme vaut $1$. 5) Calculer $E(X)$ et l'interpréter avec l'unité.
+
+    On lance un dé équilibré : on gagne $6$ € si l'on obtient $6$, on perd $1$ € sinon. $G$ prend les valeurs $6$ (probabilité $\dfrac{1}{6}$) et $-1$ (probabilité $\dfrac{5}{6}$). $E(G) = \dfrac{6 - 5}{6} = \dfrac{1}{6} \approx 0{,}17$ € : le jeu est légèrement favorable au joueur.
+
+    ## 6. Erreurs fréquentes
+
+    - Oublier une valeur de $X$ : la somme des probabilités n'est plus $1$.
+    - Confondre $P(X \leqslant a)$ et $P(X < a)$.
+    - Interpréter l'espérance comme le gain d'une partie : c'est une **moyenne** sur un grand nombre de parties.
   questions:
   - code: 1RE-TEC-VA-01
     difficulte: 1
@@ -69,7 +107,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $E = p = 0{,}25$.
+      - 'Une variable de Bernoulli de paramètre $p$ vaut $1$ avec la probabilité $p$ et $0$ avec la probabilité $1 - p$.'
+      - '$E(X) = 1 \times p + 0 \times (1 - p) = p$.'
+      - 'Ici $E(X) = 0{,}25$.'
       resultat: '0.25'
   - code: 1RE-TEC-VA-04
     difficulte: 4
@@ -90,7 +130,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{G}{8} - 2 = 0$, donc $G = 16$.
+      - 'Gain algébrique $X$ : $G - 2$ avec la probabilité $\dfrac{1}{8}$, $-2$ avec la probabilité $\dfrac{7}{8}$.'
+      - '$E(X) = \dfrac{1}{8}(G - 2) + \dfrac{7}{8}(-2) = \dfrac{G}{8} - 2$.'
+      - 'Jeu équitable : $E(X) = 0$, donc $\dfrac{G}{8} = 2$ et $G = 16$ €.'
       resultat: '16'
   - code: 1RE-TEC-VA-V1
     difficulte: 3
@@ -111,6 +153,7 @@ competences:
 - code: 1RE-TEC-SIMUL
   libelle: Simuler des échantillons d'une loi de Bernoulli
   attendus: [1RE-TEC-2026-SP-18, 1RE-TEC-2026-SP-19, 1RE-TEC-2026-SP-20]
+  cours_couvre: [1RE-TEC-2026-SP-18, 1RE-TEC-2026-SP-19, 1RE-TEC-2026-SP-20]
   objectifs:
   - Simuler une épreuve de Bernoulli et des échantillons de taille $n$ avec un générateur aléatoire.
   - Observer la fluctuation de la fréquence des succès autour de $p$.
@@ -132,24 +175,64 @@ competences:
   - erreur: Attendre une fréquence exactement égale à $p$.
     explication: La fréquence fluctue d'un échantillon à l'autre ; elle se rapproche de $p$ quand $n$ augmente.
   resume: |
-    - `random()` renvoie un nombre aléatoire de $[0 ; 1[$ ; `random() < p` est vrai avec la probabilité $p$.
-    - La fréquence observée des succès varie d'un échantillon à l'autre : c'est la fluctuation d'échantillonnage.
-    - Plus la taille $n$ est grande, plus les fréquences sont en général proches de $p$.
+    - `random()` donne un nombre au hasard dans $[0 ; 1[$ ; le test `random() < p` est vrai avec la probabilité $p$ : il simule une épreuve de Bernoulli de paramètre $p$.
+    - Un **échantillon de taille $n$** : $n$ épreuves ; la **fréquence observée** des $1$ est $f = \dfrac{\text{nombre de succès}}{n}$.
+    - D'un échantillon à l'autre, $f$ **fluctue** autour de $p$ ; plus $n$ est grand, plus $f$ est en général proche de $p$.
+    - On représente les fréquences de $N$ échantillons par un histogramme ou un nuage de points.
   cours: |
-    ## Simulation
+    ## 1. Simuler une loi de Bernoulli
+
+    La fonction `random()` (module `random` de Python, ou `ALEA()` au tableur) renvoie un nombre au hasard entre $0$ et $1$ ($1$ exclu), de manière uniforme : la probabilité qu'il soit inférieur à $p$ est $p$.
+
+    > **Propriété.** Le test `random() < p` est vrai avec la probabilité $p$. La variable qui vaut $1$ si le test est vrai et $0$ sinon suit la **loi de Bernoulli** de paramètre $p$.
+
     ```python
     from random import random
 
+    def bernoulli(p):
+        if random() < p:
+            return 1
+        return 0
+    ```
+    Au tableur : `=SI(ALEA()<0,3;1;0)` simule une loi de Bernoulli de paramètre $0{,}3$.
+
+    ## 2. Simuler un échantillon et calculer une fréquence
+
+    Un **échantillon de taille $n$** est le résultat de $n$ répétitions indépendantes. On compte les succès avec un **compteur**, puis on divise par $n$.
+
+    ```python
     def frequence(n, p):
-        s = 0
+        succes = 0
         for i in range(n):
-            if random() < p:
-                s = s + 1
-        return s / n
+            succes = succes + bernoulli(p)
+        return succes / n
     ```
 
-    ## Fluctuation
-    En simulant $N = 100$ échantillons de taille $n = 50$ avec $p = 0{,}4$, on représente les $100$ fréquences par un histogramme : elles se regroupent autour de $0{,}4$. Avec $n = 500$, l'histogramme est plus resserré.
+    ## 3. Simuler $N$ échantillons et représenter les fréquences
+
+    ```python
+    frequences = [frequence(100, 0.3) for k in range(50)]
+    ```
+    On obtient $50$ fréquences observées, que l'on représente par un **nuage de points** (numéro de l'échantillon en abscisse, fréquence en ordonnée) ou par un **histogramme** (nombre d'échantillons dont la fréquence tombe dans chaque classe).
+
+    ## 4. Interpréter : fluctuation d'échantillonnage
+
+    > **Constat.** Les fréquences observées **varient** d'un échantillon à l'autre : c'est la **fluctuation d'échantillonnage**. Elles se regroupent autour de la probabilité $p$, et l'écart entre $f$ et $p$ tend à diminuer quand la taille $n$ augmente.
+
+    Sur des exemples, on constate qu'une grande majorité des fréquences (environ $95\,\%$) vérifient $|f - p| \leqslant \dfrac{1}{\sqrt n}$ : pour $n = 100$, l'écart dépasse rarement $0{,}1$ ; pour $n = 2\,500$, il dépasse rarement $0{,}02$.
+
+    ## 5. Exemple complet
+
+    Une machine produit $3\,\%$ de pièces défectueuses ($p = 0{,}03$). On simule $40$ échantillons de $400$ pièces.
+    - Nombre moyen de pièces défectueuses par échantillon : $400 \times 0{,}03 = 12$.
+    - Les fréquences observées vont, par exemple, de $0{,}015$ à $0{,}05$ : elles fluctuent autour de $0{,}03$.
+    - $\dfrac{1}{\sqrt{400}} = 0{,}05$ : une fréquence de $0{,}09$ (écart $0{,}06$) serait **inhabituelle** et pourrait faire douter du réglage de la machine.
+
+    ## 6. Erreurs fréquentes
+
+    - Confondre la **probabilité** $p$ (fixe) et la **fréquence observée** $f$ (qui change à chaque simulation).
+    - Écrire `random() > p` pour un succès de probabilité $p$ : la probabilité est alors $1 - p$.
+    - Oublier de remettre le compteur à zéro pour chaque nouvel échantillon.
   questions:
     - code: 1RE-TEC-SIMUL-01
       difficulte: 1
@@ -179,7 +262,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - '`s` compte les succès, `f` les rapporte à la taille de l''échantillon.'
+        - '`random() < 0.4` simule une épreuve de Bernoulli de paramètre $0{,}4$ ; `s` compte les succès sur les $100$ épreuves.'
+        - '`f = s / 100` rapporte ce nombre de succès à la taille de l''échantillon.'
+        - '`f` est la fréquence observée des succès ; elle fluctue autour de $0{,}4$ sans lui être égale (réponse B).'
         resultat: B
     - code: 1RE-TEC-SIMUL-04
       difficulte: 4
@@ -189,7 +274,9 @@ competences:
       auteur: Brouillon IA (Claude)
       correction:
         etapes:
-        - $200 \times 0{,}25 = 50$ ; le nombre observé fluctue autour de cette valeur.
+        - 'Chaque épreuve est un succès avec la probabilité $p = 0{,}25$ ; la fréquence observée fluctue autour de $p$.'
+        - 'Nombre moyen de succès : $n \times p = 200 \times 0{,}25$.'
+        - 'On s''attend à environ $50$ succès ; un échantillon donné peut en compter un peu plus ou un peu moins.'
         resultat: 50
     - code: 1RE-TEC-SIMUL-05
       difficulte: 5

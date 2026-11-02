@@ -9,6 +9,7 @@ competences:
   - code: 1RE-NORMAL
     libelle: Utiliser un vecteur normal à une droite
     attendus: [1RE-SPE-2026-GEOREP-01, 1RE-SPE-2026-GEOREP-04]
+    cours_couvre: [1RE-SPE-2026-GEOREP-01, 1RE-SPE-2026-GEOREP-04]
     objectifs:
     - Utiliser un vecteur normal pour écrire l'équation d'une droite et trouver un projeté orthogonal.
     prerequis:
@@ -28,22 +29,53 @@ competences:
     - erreur: Confondre vecteur normal et vecteur directeur.
       explication: Pour $ax + by + c = 0$, $(a ; b)$ est normal et $(-b ; a)$ est directeur.
     resume: |
-      - $\vec n(a ; b)$ est **normal** à la droite $d$ s'il est orthogonal à un vecteur directeur de $d$.
-      - La droite d'équation $ax + by + c = 0$ a pour vecteur normal $\vec n(a ; b)$.
-      - Projeté orthogonal $H$ de $A$ sur $d$ : $H \in d$ et $\overrightarrow{AH}$ colinéaire à $\vec n$.
-      - La parabole $y = ax^2 + bx + c$ a pour axe de symétrie la droite $x = -\dfrac{b}{2a}$.
+      - Un **vecteur normal** à une droite $d$ est un vecteur non nul orthogonal à un vecteur directeur de $d$.
+      - La droite d'équation $ax + by + c = 0$ a pour vecteur normal $\vec n(a ; b)$ (et pour vecteur directeur $\vec u(-b ; a)$).
+      - Droite passant par $A$ de vecteur normal $\vec n$ : $M \in d \iff \overrightarrow{AM} \cdot \vec n = 0$, soit $a(x - x_A) + b(y - y_A) = 0$.
+      - Deux droites sont perpendiculaires si et seulement si leurs vecteurs normaux sont orthogonaux.
     cours: |
-      ## Équation à partir d'un vecteur normal
-      Droite passant par $A(1 ; 2)$ de vecteur normal $\vec n(3 ; 1)$ : $3x + y + c = 0$ et $3 + 2 + c = 0$, donc $c = -5$.
+      ## 1. Vecteur normal
 
-      ## Droite perpendiculaire
-      Une perpendiculaire à $d : x + 2y = 0$ a pour vecteur **directeur** $(1 ; 2)$, donc pour vecteur normal $(2 ; -1)$ : $2x - y + c = 0$.
+      > **Définition.** Un vecteur $\vec n$ **non nul** est **normal** à une droite $d$ s'il est orthogonal à un vecteur directeur de $d$.
 
-      ## Projeté orthogonal
-      Projeté de $O$ sur $d : x + y - 2 = 0$ : $H = (t ; t)$ (colinéaire à $\vec n(1 ; 1)$) avec $2t - 2 = 0$, donc $H(1 ; 1)$.
+      Une droite admet une infinité de vecteurs normaux, tous colinéaires entre eux.
 
-      ## Parabole
-      $y = 2x^2 - 8x + 3$ : axe de symétrie $x = \dfrac{8}{4} = 2$.
+      ## 2. Lien avec l'équation cartésienne
+
+      Dans un repère orthonormé :
+
+      > **Propriété.**
+      > - Si $\vec n(a ; b)$ est normal à une droite $d$, alors $d$ a une équation de la forme $ax + by + c = 0$.
+      > - Réciproquement, la droite d'équation $ax + by + c = 0$ (avec $(a ; b) \neq (0 ; 0)$) admet $\vec n(a ; b)$ comme vecteur normal.
+
+      **Démonstration.** Soit $A(x_A ; y_A)$ un point de $d$ et $M(x ; y)$. $M \in d \iff \overrightarrow{AM} \perp \vec n \iff \overrightarrow{AM} \cdot \vec n = 0 \iff a(x - x_A) + b(y - y_A) = 0$, c'est-à-dire $ax + by + c = 0$ avec $c = -ax_A - by_A$.
+      Réciproquement, la droite $ax + by + c = 0$ a pour vecteur directeur $\vec u(-b ; a)$ et $\vec n \cdot \vec u = -ab + ba = 0$.
+
+      ## 3. Méthode : équation d'une droite de point et vecteur normal donnés
+
+      1. Écrire $ax + by + c = 0$ avec $(a ; b)$ les coordonnées du vecteur normal.
+      2. Remplacer $x$ et $y$ par les coordonnées du point pour trouver $c$.
+         (Ou écrire directement $\overrightarrow{AM} \cdot \vec n = 0$.)
+
+      *Exemple complet.* Droite $d$ passant par $A(2 ; -1)$ de vecteur normal $\vec n(3 ; 4)$ : $3x + 4y + c = 0$ et $3 \times 2 + 4 \times (-1) + c = 0$, donc $c = -2$.
+      $d : 3x + 4y - 2 = 0$. Contrôle : $A$ vérifie l'équation.
+
+      ## 4. Applications
+
+      **Hauteur d'un triangle.** La hauteur issue de $C$ dans $ABC$ passe par $C$ et a pour vecteur normal $\overrightarrow{AB}$.
+      *Exemple :* $A(0 ; 0)$, $B(4 ; 2)$, $C(1 ; 3)$. $\overrightarrow{AB}(4 ; 2)$ : $4x + 2y + c = 0$ avec $4 + 6 + c = 0$, soit $4x + 2y - 10 = 0$, ou $2x + y - 5 = 0$.
+
+      **Médiatrice d'un segment $[AB]$.** Elle passe par le milieu de $[AB]$ et a pour vecteur normal $\overrightarrow{AB}$.
+
+      **Perpendicularité.** $d : ax + by + c = 0$ et $d' : a'x + b'y + c' = 0$ sont perpendiculaires si et seulement si $aa' + bb' = 0$.
+
+      **Tangente à un cercle.** La tangente en un point $T$ au cercle de centre $\Omega$ a pour vecteur normal $\overrightarrow{\Omega T}$.
+
+      ## 5. Erreurs fréquentes
+
+      - Confondre vecteur normal $(a ; b)$ et vecteur directeur $(-b ; a)$.
+      - Lire un vecteur normal sur une équation réduite $y = mx + p$ sans la réécrire : $mx - y + p = 0$ donne $\vec n(m ; -1)$.
+      - Utiliser cette méthode dans un repère non orthonormé.
     questions:
       - code: 1RE-NORMAL-01
         difficulte: 1
@@ -96,12 +128,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - 'Axe de symétrie : $x = -\dfrac{b}{2a} = \dfrac{8}{4} = 2$.'
+          - '$f(x) = 2x^2 - 8x + 3$ a pour coefficients $a = 2$ et $b = -8$.'
+          - 'L''axe de symétrie passe par le sommet, d''abscisse $-\dfrac{b}{2a} = -\dfrac{-8}{4} = 2$.'
+          - 'Vérification par symétrie : $f(0) = f(4) = 3$, et le milieu de $0$ et $4$ est $2$. Donc $k = 2$.'
           resultat: 2
 
   - code: 1RE-CERCLE
     libelle: Déterminer et utiliser l'équation d'un cercle
     attendus: [1RE-SPE-2026-GEOREP-03, 1RE-SPE-2026-GEOREP-06, 1RE-SPE-2026-GEOREP-07]
+    cours_couvre: [1RE-SPE-2026-GEOREP-03, 1RE-SPE-2026-GEOREP-06, 1RE-SPE-2026-GEOREP-07]
     objectifs:
     - Lire et déterminer l'équation d'un cercle, reconnaitre centre et rayon.
     prerequis:
@@ -124,19 +159,49 @@ competences:
     - erreur: Prendre r² pour le rayon.
       explication: 'Le membre de droite vaut $r^2$ : avec $9$, le rayon est $3$.'
     resume: |
-      - Cercle de centre $\Omega(a ; b)$ et de rayon $r$ : $(x - a)^2 + (y - b)^2 = r^2$.
-      - Pour reconnaître un cercle dans $x^2 + y^2 + \dots = 0$, on fait apparaître des carrés (forme canonique).
-      - $M$ est sur le cercle de diamètre $[AB]$ $\iff \overrightarrow{MA} \cdot \overrightarrow{MB} = 0$.
+      - Le cercle de centre $\Omega(a ; b)$ et de rayon $r$ a pour équation $(x - a)^2 + (y - b)^2 = r^2$.
+      - $M$ est sur le cercle $\iff \Omega M^2 = r^2$.
+      - Pour reconnaître un cercle dans $x^2 + y^2 + \alpha x + \beta y + \gamma = 0$ : **compléter les carrés**.
+      - On obtient $(x - a)^2 + (y - b)^2 = k$ : cercle si $k > 0$ (rayon $\sqrt k$), point si $k = 0$, ensemble vide si $k < 0$.
     cours: |
-      ## Équation
-      $(x - 2)^2 + (y + 1)^2 = 9$ : centre $\Omega(2 ; -1)$, rayon $3$.
+      ## 1. Équation d'un cercle
 
-      ## Forme développée
-      $$x^2 + y^2 - 4x + 6y - 3 = 0 \iff (x - 2)^2 - 4 + (y + 3)^2 - 9 - 3 = 0 \iff (x - 2)^2 + (y + 3)^2 = 16$$
-      Centre $(2 ; -3)$, rayon $4$.
+      Dans un repère orthonormé, soit $\mathcal{C}$ le cercle de centre $\Omega(a ; b)$ et de rayon $r > 0$.
 
-      ## Cercle de diamètre donné
-      $A(1 ; 2)$, $B(5 ; 6)$ : centre = milieu $(3 ; 4)$, $r^2 = \left(\dfrac{AB}{2}\right)^2 = \dfrac{32}{4} = 8$.
+      > **Propriété.** $M(x ; y) \in \mathcal{C} \iff (x - a)^2 + (y - b)^2 = r^2$.
+
+      **Démonstration.** $M \in \mathcal{C} \iff \Omega M = r \iff \Omega M^2 = r^2$ (des distances sont positives), et $\Omega M^2 = (x - a)^2 + (y - b)^2$.
+
+      *Exemple.* Le cercle de centre $\Omega(2 ; -3)$ et de rayon $4$ a pour équation $(x - 2)^2 + (y + 3)^2 = 16$.
+
+      ## 2. Utiliser l'équation
+
+      - **Appartenance** : $M(6 ; -3)$ est sur ce cercle car $(6 - 2)^2 + 0^2 = 16$.
+      - **Intérieur / extérieur** : $M$ est intérieur au disque si $\Omega M^2 < r^2$, extérieur si $\Omega M^2 > r^2$.
+      - **Intersection avec une droite parallèle à un axe** : avec $x = 2$, $(y + 3)^2 = 16$, donc $y = 1$ ou $y = -7$.
+      - **Cercle défini autrement** : par son centre et un point (le rayon est la distance entre eux), ou par un diamètre $[AB]$ (centre au milieu, rayon $\dfrac{AB}{2}$).
+
+      ## 3. Reconnaître une équation de cercle
+
+      > **Méthode.** Pour une équation $x^2 + y^2 + \alpha x + \beta y + \gamma = 0$ :
+      > 1. Regrouper les termes en $x$ et en $y$.
+      > 2. Compléter les carrés : $x^2 + \alpha x = \left(x + \dfrac{\alpha}{2}\right)^2 - \dfrac{\alpha^2}{4}$.
+      > 3. Obtenir $(x - a)^2 + (y - b)^2 = k$ et conclure selon le signe de $k$.
+
+      *Exemple complet.* $x^2 + y^2 - 6x + 4y - 3 = 0$.
+      $x^2 - 6x = (x - 3)^2 - 9$ et $y^2 + 4y = (y + 2)^2 - 4$.
+      L'équation devient $(x - 3)^2 - 9 + (y + 2)^2 - 4 - 3 = 0$, soit $(x - 3)^2 + (y + 2)^2 = 16$.
+      C'est le cercle de centre $\Omega(3 ; -2)$ et de rayon $4$.
+
+      *Contre-exemple.* $x^2 + y^2 + 2x + 5 = 0$ donne $(x + 1)^2 + y^2 = -4$ : aucun point ne vérifie l'équation.
+
+      Remarque : une équation de cercle a des coefficients de $x^2$ et $y^2$ **égaux** et pas de terme en $xy$.
+
+      ## 4. Erreurs fréquentes
+
+      - Lire le centre avec le mauvais signe : $(x + 3)^2$ correspond à $a = -3$.
+      - Donner $r^2$ au lieu de $r$ : dans $(x - 1)^2 + y^2 = 9$, le rayon est $3$.
+      - Oublier de retrancher $\dfrac{\alpha^2}{4}$ en complétant le carré.
     questions:
       - code: 1RE-CERCLE-01
         difficulte: 1
@@ -166,7 +231,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$OM^2 = 1 + 4 = 5 = (\sqrt{5})^2$ : $M$ est sur le cercle.'
+          - '$M$ appartient au cercle de centre $O$ et de rayon $r$ si et seulement si $OM^2 = r^2$.'
+          - '$OM^2 = 1^2 + 2^2 = 5$ et $r^2 = (\sqrt 5)^2 = 5$.'
+          - '$OM^2 = r^2$ : $M$ est sur le cercle (réponse A).'
           resultat: A
       - code: 1RE-CERCLE-04
         difficulte: 4
@@ -210,6 +277,7 @@ competences:
   - code: 1RE-PROJ
     libelle: Déterminer un projeté orthogonal et étudier une configuration en repère
     attendus: [1RE-SPE-2026-GEOREP-02, 1RE-SPE-2026-GEOREP-05, 1RE-SPE-2026-GEOREP-08]
+    cours_couvre: [1RE-SPE-2026-GEOREP-02, 1RE-SPE-2026-GEOREP-05, 1RE-SPE-2026-GEOREP-08]
     objectifs:
     - Calculer les coordonnées du projeté orthogonal d'un point sur une droite.
     - Choisir un repère adapté pour démontrer une propriété géométrique.
@@ -232,16 +300,55 @@ competences:
     - erreur: Prendre un point quelconque de $d$ comme projeté.
       explication: Le projeté $H$ est le seul point de $d$ tel que $(AH)$ soit perpendiculaire à $d$.
     resume: |
-      - Le projeté orthogonal $H$ de $A$ sur $d$ est le point de $d$ tel que $(AH) \perp d$.
-      - $AH$ est la distance de $A$ à la droite $d$ (la plus courte distance de $A$ à un point de $d$).
-      - Avec $d \colon ax + by + c = 0$, $H = A + t\,\vec{n}$ où $\vec{n}(a ; b)$.
-      - Un repère bien choisi (origine en un sommet, axes le long des côtés) simplifie les calculs.
+      - Le **projeté orthogonal** $H$ d'un point $A$ sur une droite $d$ est le point de $d$ tel que $(AH) \perp d$.
+      - $AH$ est la **distance** de $A$ à $d$ : c'est la plus petite distance entre $A$ et un point de $d$.
+      - Calcul : $H$ est sur $d$ et sur la droite passant par $A$ de vecteur directeur $\vec n$ (normal à $d$) ; on résout le système.
+      - Pour une configuration, on choisit un **repère** adapté et on traduit les propriétés en calculs.
     cours: |
-      ## Projeté orthogonal
-      Pour $A(4 ; 1)$ et $d \colon x + y - 1 = 0$ : $H(2 ; -1)$ et $AH = \sqrt{2^2 + 2^2} = 2\sqrt{2}$.
+      ## 1. Projeté orthogonal d'un point sur une droite
 
-      ## Étudier une configuration
-      Pour démontrer que les diagonales d'un carré $OABC$ sont perpendiculaires, on prend $O$ comme origine et $\overrightarrow{OA}$, $\overrightarrow{OC}$ comme base : $A(1 ; 0)$, $B(1 ; 1)$, $C(0 ; 1)$. Alors $\overrightarrow{OB} \cdot \overrightarrow{AC} = 1 \times (-1) + 1 \times 1 = 0$.
+      > **Définition.** Soit $d$ une droite et $A$ un point. Le **projeté orthogonal** de $A$ sur $d$ est le point d'intersection $H$ de $d$ avec la perpendiculaire à $d$ passant par $A$.
+
+      Si $A \in d$, alors $H = A$.
+
+      > **Propriété.** $AH$ est la plus courte distance entre $A$ et un point de $d$ : pour tout $M \in d$, $AM \geqslant AH$. On l'appelle **distance de $A$ à la droite $d$**.
+
+      *Démonstration.* Si $M \in d$, le triangle $AHM$ est rectangle en $H$, donc $AM^2 = AH^2 + HM^2 \geqslant AH^2$.
+
+      ## 2. Méthode : coordonnées du projeté orthogonal
+
+      Soit $d : ax + by + c = 0$, de vecteur normal $\vec n(a ; b)$, et $A(x_A ; y_A)$.
+      1. $H$ est sur la droite passant par $A$ dirigée par $\vec n$ : il existe un réel $t$ tel que $H(x_A + ta ; y_A + tb)$.
+      2. On écrit que $H \in d$ : on obtient une équation du premier degré en $t$.
+      3. On en déduit $t$, puis les coordonnées de $H$, puis éventuellement la distance $AH$.
+
+      *Variante.* Écrire l'équation de la perpendiculaire $\Delta$ à $d$ passant par $A$ (de vecteur normal un vecteur directeur de $d$) et résoudre le système formé par les équations de $d$ et $\Delta$.
+
+      ## 3. Exemple complet
+
+      $d : 2x - y + 1 = 0$ et $A(4 ; 0)$. Vecteur normal $\vec n(2 ; -1)$, donc $H(4 + 2t ; -t)$.
+      $H \in d$ : $2(4 + 2t) - (-t) + 1 = 0$, soit $5t + 9 = 0$, $t = -\dfrac{9}{5}$.
+      $H\left(4 - \dfrac{18}{5} ; \dfrac{9}{5}\right) = \left(\dfrac{2}{5} ; \dfrac{9}{5}\right)$.
+      Distance : $AH = |t| \times \|\vec n\| = \dfrac{9}{5}\sqrt5 = \dfrac{9\sqrt5}{5} \approx 4{,}02$.
+      Contrôle : $2 \times \dfrac{2}{5} - \dfrac{9}{5} + 1 = 0$ ✓.
+
+      ## 4. Utiliser un repère pour étudier une configuration
+
+      > **Méthode.**
+      > 1. Choisir un repère orthonormé adapté (origine en un sommet, axes le long de côtés perpendiculaires).
+      > 2. Donner les coordonnées de tous les points utiles.
+      > 3. Traduire la question : alignement (colinéarité), orthogonalité (produit scalaire nul), longueur, appartenance à un cercle…
+      > 4. Conclure **dans le langage de la géométrie**.
+
+      *Exemple.* Dans un carré $ABCD$ de côté $1$, $I$ milieu de $[BC]$ et $J$ milieu de $[CD]$. Les droites $(AI)$ et $(BJ)$ sont-elles perpendiculaires ?
+      Repère $(A ; B, D)$ : $A(0 ; 0)$, $B(1 ; 0)$, $I\left(1 ; \dfrac{1}{2}\right)$, $J\left(\dfrac{1}{2} ; 1\right)$.
+      $\overrightarrow{AI}\left(1 ; \dfrac{1}{2}\right)$, $\overrightarrow{BJ}\left(-\dfrac{1}{2} ; 1\right)$, $\overrightarrow{AI} \cdot \overrightarrow{BJ} = -\dfrac{1}{2} + \dfrac{1}{2} = 0$ : oui.
+
+      ## 5. Erreurs fréquentes
+
+      - Utiliser un vecteur **directeur** de $d$ au lieu d'un vecteur normal pour aller de $A$ vers $H$.
+      - Oublier de vérifier que $H$ appartient bien à $d$.
+      - Choisir un repère non orthonormé puis utiliser le produit scalaire en coordonnées.
     questions:
       - code: 1RE-PROJ-01
         difficulte: 1
@@ -271,7 +378,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $H \in d$ $:$ $4 + t + 1 + t - 1 = 0$, soit $2t + 4 = 0$.
+          - '$d : x + y - 1 = 0$ a pour vecteur normal $\vec n(1 ; 1)$ ; $H$ est sur la droite passant par $A$ dirigée par $\vec n$, d''où $H(4 + t ; 1 + t)$.'
+          - 'On écrit que $H$ appartient à $d$ : $(4 + t) + (1 + t) - 1 = 0$.'
+          - '$2t + 4 = 0$, donc $t = -2$ (et $H(2 ; -1)$).'
           resultat: -2
       - code: 1RE-PROJ-04
         difficulte: 4

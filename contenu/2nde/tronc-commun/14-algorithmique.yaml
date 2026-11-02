@@ -12,6 +12,7 @@ competences:
   - code: 2NDE-PY-VAR
     libelle: Utiliser variables, affectations et instructions conditionnelles
     attendus: [2NDE-2026-ALGOVAR-01, 2NDE-2026-ALGOVAR-02, 2NDE-2026-ALGOVAR-03, 2NDE-2026-ALGOVAR-04, 2NDE-2026-ALGOVAR-06, 2NDE-2026-ALGOVAR-07, 2NDE-2026-ALGOVAR-08]
+    cours_couvre: [2NDE-2026-ALGOVAR-01, 2NDE-2026-ALGOVAR-02, 2NDE-2026-ALGOVAR-03, 2NDE-2026-ALGOVAR-04, 2NDE-2026-ALGOVAR-06, 2NDE-2026-ALGOVAR-07, 2NDE-2026-ALGOVAR-08]
     objectifs:
     - Reconnaître le type d'une variable (entier, flottant, chaîne, booléen).
     - Prévoir l'effet d'une suite d'affectations et d'une instruction conditionnelle.
@@ -34,30 +35,89 @@ competences:
     - erreur: Confondre `=` (affectation) et `==` (test d'égalité).
       explication: '`x == 3` vaut `True` ou `False` ; `x = 3` range $3$ dans `x`.'
     resume: |
-      - Types : `int` (entier), `float` (flottant, ex. `2.5`), `str` (chaîne, ex. `"bonjour"`), `bool` (`True`, `False`).
-      - L'affectation `x = expression` calcule d'abord l'expression, puis range sa valeur dans `x` (en langage naturel : $x \leftarrow$ expression).
-      - Instruction conditionnelle : `if condition:` … `else:` … ; le bloc est délimité par l'indentation.
+      - Une variable a un nom, une valeur et un **type** : entier (`int`), flottant (`float`), chaîne de caractères (`str`), booléen (`bool`).
+      - L'affectation `x = 5` (notée `x ← 5` en langage naturel) range une valeur dans une variable ; l'ancienne valeur est perdue.
+      - Les instructions d'une séquence s'exécutent dans l'ordre, l'une après l'autre.
+      - Instruction conditionnelle : `if condition:` … `else:` …, avec des blocs **indentés**.
+      - Opérateurs : `+ - * /`, `**` (puissance), `//` (quotient entier), `%` (reste) ; comparaisons `==`, `!=`, `<`, `<=`.
     cours: |
-      ## Variables et types
+      ## 1. Variables et types
+      Une **variable** est une case mémoire désignée par un nom, qui contient une valeur. En Python, le type est déterminé par la valeur :
+
+      | Type | Nom Python | Exemples |
+      |---|---|---|
+      | entier | `int` | `12`, `-3`, `0` |
+      | flottant (nombre à virgule) | `float` | `3.5`, `-0.25`, `2.0` |
+      | chaîne de caractères | `str` | `"Bonjour"`, `"12"` |
+      | booléen | `bool` | `True`, `False` |
+
+      On choisit le type selon ce que représente la variable : un nombre d'élèves est un entier, une moyenne un flottant, un nom une chaîne, le résultat d'un test (« la note est-elle au moins $10$ ? ») un booléen. Attention : `"12"` est un texte, pas un nombre ; `int("12")` le convertit en entier.
+
+      ## 2. Affectation
+      > **Définition.** L'**affectation** donne une valeur à une variable. En langage naturel on écrit `a ← 3` ; en Python, `a = 3`. La valeur précédente de la variable est remplacée.
+
+      Le signe `=` de Python n'est pas une égalité mathématique : `x = x + 1` signifie « calculer `x + 1` puis ranger le résultat dans `x` », c'est-à-dire augmenter `x` de $1$.
+
+      On écrit des **formules** combinant des variables : `prix_ttc = prix_ht * 1.2`, `aire = longueur * largeur`, `moyenne = (n1 + n2 + n3) / 3`. Opérateurs utiles : `**` pour la puissance (`x ** 2`), `//` pour le quotient entier et `%` pour le reste (`17 // 5` vaut `3` et `17 % 5` vaut `2`).
+
+      ## 3. Séquence d'instructions
+      Les instructions s'exécutent **dans l'ordre**. Pour comprendre un programme, on peut suivre l'évolution des variables dans un tableau :
+
       ```python
-      n = 7          # int
-      prix = 12.5    # float
-      nom = "Lou"    # str
-      majeur = n >= 18   # bool : False
+      a = 4
+      b = 7
+      a = a + b
+      b = a - b
+      a = a - b
       ```
 
-      ## Affectation
-      Les instructions s'exécutent dans l'ordre. Après `a = 3`, `b = a + 2`, `a = a * b`, on a `b` égal à $5$ et `a` égal à $15$.
+      | Instruction | `a` | `b` |
+      |---|---|---|
+      | `a = 4` | $4$ | — |
+      | `b = 7` | $4$ | $7$ |
+      | `a = a + b` | $11$ | $7$ |
+      | `b = a - b` | $11$ | $4$ |
+      | `a = a - b` | $7$ | $4$ |
 
-      ## Instruction conditionnelle
+      Ce programme échange les valeurs de `a` et `b`.
+
+      ## 4. Instruction conditionnelle
+      > **Définition.** Une instruction conditionnelle exécute un bloc d'instructions seulement si une **condition** (une expression booléenne) est vraie.
+
       ```python
-      def tarif(age):
-          if age < 12:
-              return 5
-          else:
-              return 9
+      if condition:
+          instructions si vrai
+      elif autre_condition:
+          instructions si la seconde condition est vraie
+      else:
+          instructions sinon
       ```
-      `tarif(10)` renvoie $5$ ; `tarif(15)` renvoie $9$.
+
+      Les blocs sont repérés par l'**indentation** (décalage de $4$ espaces) et la ligne `if` se termine par `:`. Les conditions utilisent `==` (égal), `!=` (différent), `<`, `<=`, `>`, `>=`, et se combinent avec `and`, `or`, `not`.
+
+      ### Méthode : écrire un programme avec une condition
+      1. Identifier les données (variables d'entrée) et leur type.
+      2. Écrire la condition qui sépare les cas, en faisant attention aux inégalités strictes ou larges.
+      3. Écrire le bloc de chaque cas, indenté.
+      4. Tester le programme avec une valeur de chaque cas, et avec la valeur « frontière ».
+
+      **Exemple complet.** Un parking coûte $2$ € pour moins de $3$ heures, puis $1{,}5$ € par heure au total à partir de $3$ heures.
+
+      ```python
+      duree = 5
+      if duree < 3:
+          prix = 2
+      else:
+          prix = 1.5 * duree
+      ```
+
+      Avec `duree = 5`, la condition `5 < 3` est fausse : le bloc `else` donne `prix = 7.5`. Avec `duree = 3` (valeur frontière), on obtient `4.5`.
+
+      ## 5. Erreurs fréquentes
+      - Confondre `=` (affectation) et `==` (test d'égalité).
+      - Oublier les deux-points `:` ou l'indentation après `if` et `else`.
+      - Additionner une chaîne et un nombre : `"12" + 3` provoque une erreur.
+      - Se tromper de condition à la frontière (`<` au lieu de `<=`).
     questions:
       - code: 2NDE-PY-VAR-01
         difficulte: 1
@@ -98,7 +158,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '`12 < 12` est faux $:$ on exécute le bloc `else`.'
+          - 'On appelle `tarif(12)` : la variable `age` vaut `12`, et la fonction teste la condition `age < 12`.'
+          - '`12 < 12` est faux, car l''inégalité est stricte : $12$ n''est pas strictement inférieur à $12$.'
+          - 'La condition étant fausse, c''est le bloc `else` qui s''exécute : la fonction renvoie `9`.'
           resultat: 9
       - code: 2NDE-PY-VAR-05
         difficulte: 5
@@ -115,6 +177,7 @@ competences:
   - code: 2NDE-PY-BOUCLE
     libelle: Programmer une boucle bornée ou non bornée
     attendus: [2NDE-2026-ALGOVAR-05, 2NDE-2026-ALGOVAR-09, 2NDE-2026-ALGOVAR-10]
+    cours_couvre: [2NDE-2026-ALGOVAR-05, 2NDE-2026-ALGOVAR-09, 2NDE-2026-ALGOVAR-10]
     objectifs:
     - Utiliser une boucle `for` quand le nombre de répétitions est connu.
     - Utiliser une boucle `while` pour répéter tant qu'une condition est vraie.
@@ -138,28 +201,81 @@ competences:
     - erreur: Écrire une boucle `while` dont la condition reste toujours vraie.
       explication: Le programme ne s'arrête jamais ; une variable de la condition doit évoluer à chaque tour.
     resume: |
-      - Boucle bornée : `for i in range(n):` répète $n$ fois, avec `i` de $0$ à $n - 1$.
-      - Boucle non bornée : `while condition:` répète tant que la condition est vraie.
-      - Accumulateur : `s = 0` puis `s = s + …` à chaque tour.
+      - Boucle **bornée** `for i in range(n):` : le bloc est répété exactement $n$ fois, avec `i` prenant les valeurs $0, 1, \dots, n - 1$.
+      - `range(a, b)` donne les entiers de $a$ à $b - 1$.
+      - Boucle **non bornée** `while condition:` : le bloc est répété **tant que** la condition est vraie ; on ne connaît pas à l'avance le nombre de tours.
+      - Dans une boucle `while`, une variable de la condition doit changer, sinon la boucle ne s'arrête jamais.
+      - Un tableau de suivi des variables permet de comprendre ou de vérifier un programme.
     cours: |
-      ## Boucle bornée
+      ## 1. Boucle bornée
+      On utilise une **boucle bornée** quand on connaît à l'avance le nombre de répétitions.
+
+      ```python
+      for i in range(n):
+          instructions
+      ```
+
+      `range(n)` produit les entiers $0, 1, \dots, n - 1$ (soit $n$ valeurs) ; `range(a, b)` produit les entiers de $a$ à $b - 1$.
+
+      **Exemple : somme des entiers de $1$ à $100$.**
+
       ```python
       s = 0
-      for i in range(1, 11):
-          s = s + i
+      for k in range(1, 101):
+          s = s + k
       ```
-      `range(1, 11)` donne $1, 2, \ldots, 10$ : à la fin, `s` vaut $55$.
 
-      ## Boucle non bornée
-      Un capital de $1\,000$ € placé à $5\,\%$ par an : en combien d'années dépasse-t-il $1\,500$ € ?
+      La variable `s` est un **accumulateur** : initialisée à $0$, elle augmente de $k$ à chaque tour. À la fin, `s` vaut $5\,050$.
+
+      ## 2. Boucle non bornée
+      On utilise une **boucle non bornée** quand on répète une action **tant qu'**une condition est vraie, sans savoir combien de fois.
+
       ```python
-      c = 1000
-      n = 0
-      while c <= 1500:
-          c = c * 1.05
-          n = n + 1
+      while condition:
+          instructions
       ```
-      À la fin, `n` vaut $9$.
+
+      La condition est testée **avant** chaque tour ; dès qu'elle est fausse, on sort de la boucle.
+
+      ### Méthode : programmer une recherche de seuil
+      1. Initialiser les variables (la grandeur étudiée et un compteur).
+      2. Écrire la condition « on n'a pas encore atteint le seuil ».
+      3. Dans la boucle, mettre à jour la grandeur et le compteur.
+      4. Après la boucle, le compteur contient la réponse.
+
+      **Exemple complet.** Un capital de $1\,000$ € augmente de $5\,\%$ par an. Au bout de combien d'années dépasse-t-il $1\,500$ € ?
+
+      ```python
+      capital = 1000
+      annees = 0
+      while capital <= 1500:
+          capital = capital * 1.05
+          annees = annees + 1
+      ```
+
+      | Tour | `capital` (arrondi) | `annees` |
+      |---|---|---|
+      | départ | $1\,000$ | $0$ |
+      | 1 | $1\,050$ | $1$ |
+      | 2 | $1\,102{,}50$ | $2$ |
+      | … | … | … |
+      | 8 | $1\,477{,}46$ | $8$ |
+      | 9 | $1\,551{,}33$ | $9$ |
+
+      Après le $9^\text{e}$ tour, `capital <= 1500` est faux : la boucle s'arrête et `annees` vaut $9$.
+
+      ## 3. Lire, modifier ou compléter un programme
+      1. Repérer les variables et leur rôle (compteur, accumulateur, valeur testée).
+      2. Faire un tableau de suivi sur les premiers tours.
+      3. Pour modifier : changer la valeur initiale, la condition ou la mise à jour, puis vérifier sur un exemple.
+
+      Par exemple, pour compter les multiples de $7$ inférieurs à $100$, on peut ajouter une condition dans une boucle bornée : `if k % 7 == 0: compteur = compteur + 1`.
+
+      ## 4. Erreurs fréquentes
+      - Croire que `range(5)` va de $1$ à $5$ : il va de $0$ à $4$.
+      - Oublier d'initialiser un accumulateur ou un compteur avant la boucle.
+      - Écrire une boucle `while` dont la condition ne devient jamais fausse (boucle infinie).
+      - Placer une instruction dans la boucle ou hors de la boucle par erreur d'indentation.
     questions:
       - code: 2NDE-PY-BOUCLE-01
         difficulte: 1
@@ -234,6 +350,7 @@ competences:
   - code: 2NDE-PY-FONC
     libelle: Écrire et utiliser des fonctions en Python
     attendus: [2NDE-2026-ALGOFCT-01, 2NDE-2026-ALGOFCT-02, 2NDE-2026-ALGOFCT-03, 2NDE-2026-ALGOFCT-04, 2NDE-2026-ALGOFCT-05]
+    cours_couvre: [2NDE-2026-ALGOFCT-01, 2NDE-2026-ALGOFCT-02, 2NDE-2026-ALGOFCT-03, 2NDE-2026-ALGOFCT-04, 2NDE-2026-ALGOFCT-05]
     objectifs:
     - Définir et appeler une fonction à un ou plusieurs arguments.
     - Lire une fonction qui calcule une moyenne ou simule une expérience aléatoire.
@@ -255,33 +372,88 @@ competences:
     - erreur: Confondre `print` et `return`.
       explication: '`print` affiche une valeur ; `return` la renvoie au programme, qui peut la réutiliser dans un calcul.'
     resume: |
-      - `def nom(param1, param2):` définit une fonction ; `return valeur` renvoie le résultat.
-      - L'appel `nom(3, 4)` exécute la fonction avec ces valeurs.
-      - `random()` (module `random`) renvoie un flottant aléatoire de $[0 ; 1[$ : `random() < p` simule un succès de probabilité $p$.
+      - Une fonction se définit par `def nom(arguments):` et renvoie un résultat avec `return`.
+      - On l'**appelle** en écrivant `nom(valeurs)` ; elle peut avoir un ou plusieurs arguments.
+      - `random()` renvoie un flottant aléatoire de $[0 ; 1[$ ; `randint(a, b)` un entier aléatoire entre $a$ et $b$ inclus.
+      - En appelant plusieurs fois une fonction aléatoire, on obtient une série statistique (fréquence, moyenne…).
+      - Une fonction peut calculer une moyenne ou un écart type avec des accumulateurs, sans liste.
     cours: |
-      ## Définir une fonction
+      ## 1. Définir et appeler une fonction
+      Une **fonction** est un sous-programme qui reçoit des **arguments** et **renvoie** un résultat.
+
       ```python
       def aire_rectangle(longueur, largeur):
           return longueur * largeur
       ```
-      `aire_rectangle(3, 4)` renvoie $12$.
 
-      ## Simuler une expérience aléatoire
+      - `def` introduit la définition ; la ligne se termine par `:` et le corps est indenté.
+      - `return` renvoie le résultat et termine l'exécution de la fonction.
+      - On **appelle** la fonction en lui donnant des valeurs : `aire_rectangle(5, 3)` renvoie `15`.
+
+      Une fonction peut avoir un seul argument (`def carre(x): return x ** 2`), plusieurs, et contenir des conditions ou des boucles :
+
       ```python
-      from random import random
-
-      def lancer(p):
-          if random() < p:
-              return 1
-          return 0
-
-      def frequence(n, p):
-          succes = 0
-          for i in range(n):
-              succes = succes + lancer(p)
-          return succes / n
+      def valeur_absolue(x):
+          if x >= 0:
+              return x
+          else:
+              return -x
       ```
-      `frequence(1000, 0.3)` renvoie une fréquence proche de $0{,}3$ (loi des grands nombres).
+
+      ## 2. Fonctions aléatoires
+      Le module `random` fournit des fonctions qui renvoient des nombres aléatoires :
+      - `random()` : un flottant aléatoire de $[0 ; 1[$ ;
+      - `randint(a, b)` : un entier aléatoire entre `a` et `b`, **bornes incluses**.
+
+      On les importe avec `from random import random, randint`.
+
+      ### Méthode : simuler une expérience aléatoire
+      1. Écrire une fonction qui simule **une** expérience et renvoie son résultat numérique (par exemple $1$ pour un succès, $0$ sinon).
+      2. Écrire une seconde fonction qui répète l'expérience $n$ fois dans une boucle et accumule les résultats.
+      3. Renvoyer la fréquence, la moyenne ou le nombre de succès.
+
+      **Exemple complet.** On lance deux dés et on s'intéresse à l'événement « la somme vaut $7$ ».
+
+      ```python
+      from random import randint
+
+      def somme_deux_des():
+          return randint(1, 6) + randint(1, 6)
+
+      def frequence_sept(n):
+          compteur = 0
+          for i in range(n):
+              if somme_deux_des() == 7:
+                  compteur = compteur + 1
+          return compteur / n
+      ```
+
+      L'appel `frequence_sept(10000)` renvoie une valeur proche de $\dfrac{6}{36} \approx 0{,}167$, conformément à la loi des grands nombres. Chaque appel donne un résultat un peu différent : c'est la fluctuation d'échantillonnage.
+
+      ## 3. Moyenne et écart type d'une série simulée
+      Sans utiliser de liste, on accumule la somme des valeurs et la somme de leurs carrés :
+
+      ```python
+      from math import sqrt
+
+      def moyenne_ecart_type(n):
+          s = 0
+          s2 = 0
+          for i in range(n):
+              x = somme_deux_des()
+              s = s + x
+              s2 = s2 + x ** 2
+          m = s / n
+          return m, sqrt(s2 / n - m ** 2)
+      ```
+
+      La moyenne est `s / n`. Pour l'écart type, on utilise la formule (admise) : le carré de l'écart type est égal à la moyenne des carrés moins le carré de la moyenne. Il suffit de savoir **lire** et **comprendre** ce type de fonction.
+
+      ## 4. Erreurs fréquentes
+      - Confondre `print` (afficher) et `return` (renvoyer une valeur réutilisable).
+      - Définir une fonction sans jamais l'appeler, ou l'appeler sans parenthèses.
+      - Oublier que `randint(1, 6)` inclut $6$, alors que `range(1, 6)` s'arrête à $5$.
+      - Placer `return` à l'intérieur de la boucle : la fonction s'arrête dès le premier tour.
     questions:
       - code: 2NDE-PY-FONC-01
         difficulte: 1
@@ -311,7 +483,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{12 + 15 + 9}{3} = \dfrac{36}{3} = 12$.
+          - 'À l''appel `moyenne(12, 15, 9)`, les arguments prennent les valeurs `a = 12`, `b = 15` et `c = 9`.'
+          - 'La fonction calcule d''abord la parenthèse : $12 + 15 + 9 = 36$.'
+          - 'Puis elle divise par $3$ : $\dfrac{36}{3} = 12$. Elle renvoie donc `12` (affiché `12.0`, car `/` donne un flottant).'
           resultat: 12
       - code: 2NDE-PY-FONC-04
         difficulte: 4

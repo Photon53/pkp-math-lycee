@@ -9,6 +9,7 @@ competences:
   - code: 1RE-SUI-TERME
     libelle: Calculer les termes d'une suite
     attendus: [1RE-SPE-2026-SUI-01, 1RE-SPE-2026-SUI-02, 1RE-SPE-2026-SUI-09]
+    cours_couvre: [1RE-SPE-2026-SUI-01, 1RE-SPE-2026-SUI-02, 1RE-SPE-2026-SUI-09]
     objectifs:
     - Calculer des termes d'une suite définie explicitement ou par récurrence.
     methodes:
@@ -29,26 +30,58 @@ competences:
     - erreur: Oublier que $n$ change dans la relation (comme dans $u_{n+1} = 2u_n + 3n$).
       explication: 'Pour calculer $u_{n+1}$, on utilise la valeur de $n$ du terme précédent : $u_1 = 2u_0 + 3 \times 0$.'
     resume: |
-      - **Suite explicite** $u_n = f(n)$ : on remplace $n$ par sa valeur, par exemple $u_5 = f(5)$.
-      - **Suite récurrente** $u_{n+1} = f(u_n)$ : on calcule les termes **un par un** à partir de $u_0$.
-      - Bien distinguer le **rang** $n$ et le **terme** $u_n$.
+      - Une **suite** $(u_n)$ associe à chaque entier naturel $n$ un réel $u_n$ (terme de rang $n$) ; on note aussi $u(n)$.
+      - **Forme explicite** $u_n = f(n)$ : on calcule directement n'importe quel terme.
+      - **Récurrence** $u_{n+1} = f(u_n)$ et $u_0$ donné : on calcule les termes de proche en proche.
+      - Une suite peut aussi être produite par un **algorithme** ou un **motif géométrique**.
     cours: |
-      ## Deux façons de définir une suite
-      Une suite $(u_n)$ associe à chaque entier naturel $n$ un nombre $u_n$, appelé **terme de rang $n$**.
+      ## 1. Notion de suite
 
-      | Définition | Exemple | Calcul de $u_3$ |
-      |---|---|---|
-      | **Explicite** : $u_n$ en fonction de $n$ | $u_n = 4n - 1$ | $u_3 = 4 \times 3 - 1 = 11$ |
-      | **Par récurrence** : premier terme et lien entre deux termes consécutifs | $u_0 = 2$, $u_{n+1} = u_n + 5$ | $u_1 = 7$, $u_2 = 12$, $u_3 = 17$ |
+      **Définition.** Une **suite numérique** $u$ est une fonction qui, à tout entier naturel $n$ (éventuellement à partir d'un rang $n_0$), associe un réel noté $u(n)$ ou $u_n$, appelé **terme de rang $n$**. La suite elle-même se note $u$, $(u(n))$ ou $(u_n)$.
 
-      ## Suite explicite
-      On calcule directement n'importe quel terme. Attention aux priorités : $u_n = 2n^2$ donne $u_3 = 2 \times 9 = 18$,
-      et non $(2 \times 3)^2$.
+      Attention : $u_n$ est un **nombre**, $(u_n)$ est la **suite**. Le terme qui suit $u_n$ est $u_{n+1}$, à ne pas confondre avec $u_n + 1$.
 
-      ## Suite définie par récurrence
-      Pour obtenir $u_4$, il faut d'abord $u_1$, $u_2$ et $u_3$ : on ne peut pas « sauter » d'étape.
-      Quand la relation contient aussi $n$, comme $u_{n+1} = 2u_n + n$, on remplace $n$ par le rang **du terme précédent** :
-      $u_1 = 2u_0 + 0$, $u_2 = 2u_1 + 1$, etc.
+      ## 2. Suite définie de façon explicite
+
+      > **Définition.** La suite est définie **explicitement** lorsque $u_n = f(n)$ pour une fonction $f$ définie sur $[0 ; +\infty[$.
+
+      *Exemple.* $u_n = n^2 - 3n$ : $u_0 = 0$, $u_1 = -2$, $u_{10} = 70$. On calcule $u_{10}$ sans calculer les termes précédents.
+
+      ## 3. Suite définie par récurrence
+
+      > **Définition.** La suite est définie **par récurrence** lorsqu'on donne son premier terme et une relation $u_{n+1} = f(u_n)$ permettant de calculer chaque terme à partir du précédent.
+
+      *Exemple complet.* $u_0 = 2$ et $u_{n+1} = 3u_n - 1$.
+      - $u_1 = 3 \times 2 - 1 = 5$ ;
+      - $u_2 = 3 \times 5 - 1 = 14$ ;
+      - $u_3 = 3 \times 14 - 1 = 41$.
+      Pour obtenir $u_{10}$, il faut calculer tous les termes intermédiaires (calculatrice, tableur ou programme).
+
+      ## 4. Suite définie par un algorithme
+
+      ```python
+      u = 2
+      for k in range(10):
+          u = 3 * u - 1
+      print(u)   # affiche u_10
+      ```
+      La boucle applique dix fois la relation de récurrence. Au tableur : $2$ en A1, puis `=3*A1-1` en A2, recopié vers le bas.
+
+      ## 5. Suite définie par un motif
+
+      On construit des figures étape par étape : 1 carré, puis 3, puis 5… Si l'on ajoute $2$ carrés à chaque étape, le nombre de carrés à l'étape $n$ vérifie $c_{n+1} = c_n + 2$ et $c_n = 1 + 2n$. On cherche à traduire le motif par une relation de récurrence **et** par une formule explicite.
+
+      ## 6. Méthode : calculer un terme
+
+      1. Repérer le mode de génération (explicite ou récurrence).
+      2. Explicite : remplacer $n$ par le rang demandé.
+      3. Récurrence : partir du premier terme et appliquer la relation autant de fois que nécessaire, en notant chaque terme.
+
+      ## 7. Erreurs fréquentes
+
+      - Confondre $u_{n+1}$ (terme suivant) et $u_n + 1$.
+      - Se décaler d'un rang : si la suite commence à $u_0$, le 5e terme est $u_4$.
+      - Pour une récurrence, remplacer $n$ au lieu de $u_n$ dans la relation.
     questions:
       - code: 1RE-SUI-TERME-01
         difficulte: 1
@@ -133,6 +166,7 @@ competences:
   - code: 1RE-SUI-MOD
     libelle: Modéliser une situation par une suite
     attendus: [1RE-SPE-2026-SUI-03, 1RE-SPE-2026-SUI-04, 1RE-SPE-2026-SUI-08, 1RE-SPE-2026-SUI-10, 1RE-SPE-2026-SUI-11, 1RE-SPE-2026-SUI-13]
+    cours_couvre: [1RE-SPE-2026-SUI-03, 1RE-SPE-2026-SUI-04, 1RE-SPE-2026-SUI-08, 1RE-SPE-2026-SUI-10, 1RE-SPE-2026-SUI-11, 1RE-SPE-2026-SUI-13]
     objectifs:
     - Reconnaitre une évolution arithmétique ou géométrique et écrire le terme général.
     prerequis:
@@ -153,24 +187,58 @@ competences:
     - erreur: Prendre $1{,}02$ comme raison d'une suite arithmétique.
       explication: 'Un taux fixe agit par multiplication : c''est une suite géométrique.'
     resume: |
-      - On ajoute **la même quantité** à chaque étape : suite **arithmétique**, $u_n = u_0 + nr$.
-      - On multiplie **par le même nombre** à chaque étape : suite **géométrique**, $u_n = u_0 \times q^n$.
-      - Augmenter de $t\,\%$, c'est multiplier par $1 + \dfrac{t}{100}$.
+      - **Arithmétique** de raison $r$ : $u_{n+1} = u_n + r$, $u_n = u_0 + nr = u_p + (n - p)r$ ; croissance linéaire.
+      - **Géométrique** de raison $q$ : $u_{n+1} = q\,u_n$, $u_n = u_0\,q^n = u_p\,q^{n-p}$ ; croissance exponentielle.
+      - Une évolution de $t\,\%$ répétée : suite géométrique de raison $q = 1 + \dfrac{t}{100}$.
+      - $1 + 2 + \cdots + n = \dfrac{n(n + 1)}{2}$ et, pour $q \neq 1$, $1 + q + \cdots + q^n = \dfrac{1 - q^{n+1}}{1 - q}$.
     cours: |
-      ## Repérer le type d'évolution
-      | Situation | Évolution | Modèle |
-      |---|---|---|
-      | Un forfait de 20 € puis 3 € par séance | $+3$ à chaque séance | arithmétique : $u_n = 20 + 3n$ |
-      | Une population qui augmente de 4 % par an | $\times 1{,}04$ chaque année | géométrique : $u_n = u_0 \times 1{,}04^n$ |
-      | Une valeur qui baisse de 10 % par an | $\times 0{,}9$ chaque année | géométrique : $u_n = u_0 \times 0{,}9^n$ |
+      ## 1. Suites arithmétiques
 
-      ## Méthode
-      1. Calculer les premiers termes à la main : $u_0$, $u_1$, $u_2$.
-      2. Regarder si l'on **ajoute** toujours le même nombre ou si l'on **multiplie** toujours par le même nombre.
-      3. Écrire la formule, puis la **vérifier** sur les termes calculés.
+      **Définition.** $(u_n)$ est **arithmétique** s'il existe un réel $r$ (la **raison**) tel que pour tout $n$, $u_{n+1} = u_n + r$. On passe d'un terme au suivant en **ajoutant** toujours le même nombre.
 
-      ## Attention à $u_0$
-      Le premier terme correspond souvent à la situation de départ ($n = 0$ séance, année 0) : bien lire l'énoncé.
+      > **Propriété (terme général).** Pour tous entiers $n$ et $p$ : $u_n = u_0 + nr$ et $u_n = u_p + (n - p)r$.
+
+      **Démonstration.** $u_1 = u_0 + r$, $u_2 = u_1 + r = u_0 + 2r$… On ajoute $n$ fois la raison pour aller de $u_0$ à $u_n$ : $u_n = u_0 + nr$. De même $u_p = u_0 + pr$, donc $u_n - u_p = (n - p)r$.
+
+      **Lien avec les fonctions affines.** $u_n = u_0 + rn$ : les points $(n ; u_n)$ sont alignés sur la droite $y = rx + u_0$. C'est le modèle des **accroissements constants** (croissance linéaire).
+
+      ## 2. Suites géométriques
+
+      **Définition.** $(u_n)$ est **géométrique** s'il existe un réel $q$ (la **raison**) tel que pour tout $n$, $u_{n+1} = q\,u_n$. On passe d'un terme au suivant en **multipliant** toujours par le même nombre.
+
+      > **Propriété (terme général).** Pour tous entiers $n$ et $p$ : $u_n = u_0\,q^n$ et $u_n = u_p\,q^{n-p}$.
+
+      **Démonstration.** $u_1 = qu_0$, $u_2 = qu_1 = q^2u_0$… On multiplie $n$ fois par $q$ pour aller de $u_0$ à $u_n$ : $u_n = u_0q^n$.
+
+      **Lien avec les évolutions en pourcentage.** Une grandeur qui augmente de $t\,\%$ par période est multipliée par $1 + \dfrac{t}{100}$ : elle forme une suite géométrique (taux constant, croissance **exponentielle**). Lien avec la fonction exponentielle : pour tout réel $a$, $e^{a(n+1)} = e^a \times e^{an}$, donc la suite $(e^{an})$ est géométrique de raison $e^a$.
+
+      ## 3. Démontrer qu'une suite est arithmétique ou géométrique
+
+      > **Méthode.**
+      > - Arithmétique : montrer que $u_{n+1} - u_n$ est une constante (indépendante de $n$).
+      > - Géométrique (termes non nuls) : montrer que $\dfrac{u_{n+1}}{u_n}$ est une constante, ou écrire $u_{n+1} = q\,u_n$.
+      > - Pour prouver que ce n'est **pas** le cas : trouver deux différences (ou deux quotients) différents parmi les premiers termes.
+
+      *Exemple.* $u_n = 5 - 3n$ : $u_{n+1} - u_n = 5 - 3(n + 1) - 5 + 3n = -3$. Suite arithmétique de raison $-3$.
+
+      ## 4. Sommes de termes
+
+      > **Propriété.** $1 + 2 + \cdots + n = \dfrac{n(n + 1)}{2}$ et, pour $q \neq 1$, $1 + q + q^2 + \cdots + q^n = \dfrac{1 - q^{n+1}}{1 - q}$.
+
+      (Démonstrations dans le cours sur les sommes.) Conséquence : une somme de termes consécutifs d'une suite arithmétique vaut $\text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}$ ; pour une suite géométrique, $u_0 + \cdots + u_n = u_0 \dfrac{1 - q^{n+1}}{1 - q}$.
+
+      ## 5. Modéliser
+
+      *Exemple complet.* Une ville compte $20\,000$ habitants en 2025.
+      - Modèle A : elle gagne $500$ habitants par an. $a_n = 20\,000 + 500n$ (arithmétique, raison $500$). En 2035 : $a_{10} = 25\,000$.
+      - Modèle B : elle gagne $2\,\%$ par an. $b_n = 20\,000 \times 1{,}02^n$ (géométrique, raison $1{,}02$). En 2035 : $b_{10} \approx 24\,380$.
+      - Population cumulée sur 2025–2034 dans le modèle A : $10 \times \dfrac{20\,000 + 24\,500}{2} = 222\,500$ habitants-années.
+
+      ## 6. Erreurs fréquentes
+
+      - Écrire $u_n = u_1 + nr$ quand la suite commence à $u_1$ : c'est $u_n = u_1 + (n - 1)r$.
+      - Confondre « $+2\,\%$ par an » (raison $1{,}02$) et « $+2$ par an » (raison $2$, arithmétique).
+      - Conclure qu'une suite est arithmétique en vérifiant seulement les trois premiers termes : il faut un calcul **pour tout $n$**.
     questions:
       - code: 1RE-SUI-MOD-01
         difficulte: 2
@@ -263,6 +331,7 @@ competences:
   - code: 1RE-SUI-VAR
     libelle: Étudier le sens de variation d'une suite
     attendus: [1RE-SPE-2026-SUI-05, 1RE-SPE-2026-SUI-12]
+    cours_couvre: [1RE-SPE-2026-SUI-05, 1RE-SPE-2026-SUI-12]
     objectifs:
     - Étudier le sens de variation d'une suite par le signe de $u_{n+1} - u_n$.
     prerequis:
@@ -283,27 +352,59 @@ competences:
     - erreur: Conclure à partir des premiers termes seulement.
       explication: 'Quelques termes croissants ne prouvent rien : il faut le signe de $u_{n+1} - u_n$ pour tout $n$.'
     resume: |
-      - $(u_n)$ est **croissante** si $u_{n+1} - u_n \geq 0$ pour tout $n$, **décroissante** si $u_{n+1} - u_n \leq 0$.
-      - Méthode : calculer $u_{n+1} - u_n$, le **simplifier**, puis étudier son **signe**.
-      - Si $u_n = f(n)$ avec $f$ monotone sur $[0 ; +\infty[$, la suite a le même sens de variation que $f$.
+      - $(u_n)$ est **croissante** si $u_{n+1} \geqslant u_n$ pour tout $n$, **décroissante** si $u_{n+1} \leqslant u_n$.
+      - Méthode générale : étudier le **signe de $u_{n+1} - u_n$**.
+      - Arithmétique : croissante si $r > 0$, décroissante si $r < 0$. Géométrique ($u_0 > 0$) : croissante si $q > 1$, décroissante si $0 < q < 1$.
+      - Si $u_n = f(n)$ et $f$ est monotone sur $[0 ; +\infty[$, la suite a le même sens de variation que $f$.
     cours: |
-      ## Définition
-      - $(u_n)$ est **croissante** si, pour tout $n$, $u_{n+1} \geq u_n$.
-      - $(u_n)$ est **décroissante** si, pour tout $n$, $u_{n+1} \leq u_n$.
+      ## 1. Définitions
 
-      ## Méthode de la différence
-      On étudie le signe de $u_{n+1} - u_n$.
+      > **Définition.** Une suite $(u_n)$ est
+      > - **croissante** si pour tout $n$, $u_{n+1} \geqslant u_n$ ;
+      > - **décroissante** si pour tout $n$, $u_{n+1} \leqslant u_n$ ;
+      > - **constante** si pour tout $n$, $u_{n+1} = u_n$ ;
+      > - **monotone** si elle est croissante ou décroissante.
 
-      Exemple : $u_n = n^2 - 3n$.
-      $$u_{n+1} - u_n = (n+1)^2 - 3(n+1) - (n^2 - 3n) = 2n - 2$$
-      Pour $n \geq 1$, $2n - 2 \geq 0$ : la suite est croissante **à partir du rang 1**.
+      (Strictement croissante : $u_{n+1} > u_n$.) Une suite peut n'être ni croissante ni décroissante : $u_n = (-1)^n$.
 
-      ## Avec une fonction
-      Si $u_n = f(n)$ et que $f$ est croissante sur $[0 ; +\infty[$, alors $(u_n)$ est croissante.
-      Attention, la réciproque est fausse : une suite peut être croissante sans que la fonction le soit sur tout $[0 ; +\infty[$.
+      ## 2. Méthode 1 : signe de $u_{n+1} - u_n$
 
-      ## Erreur fréquente
-      Comparer seulement $u_0$ et $u_1$ ne suffit pas : il faut un argument valable **pour tout $n$**.
+      *Exemple.* $u_n = n^2 - 4n$. $u_{n+1} - u_n = (n + 1)^2 - 4(n + 1) - n^2 + 4n = 2n - 3$.
+      $2n - 3 \geqslant 0 \iff n \geqslant 2$ : la suite est croissante à partir du rang $2$ ($u_0 = 0$, $u_1 = -3$, $u_2 = -4$, $u_3 = -3$…).
+
+      ## 3. Méthode 2 : fonction associée
+
+      > **Propriété.** Si $u_n = f(n)$ avec $f$ croissante (resp. décroissante) sur $[0 ; +\infty[$, alors $(u_n)$ est croissante (resp. décroissante).
+
+      *Exemple.* $u_n = \dfrac{1}{n + 1}$ : $f(x) = \dfrac{1}{x + 1}$ est décroissante sur $[0 ; +\infty[$, donc $(u_n)$ est décroissante.
+      La réciproque est fausse : une suite peut être croissante sans que $f$ le soit sur tout l'intervalle.
+
+      ## 4. Méthode 3 : suites de référence
+
+      > **Propriété.**
+      > - Suite arithmétique de raison $r$ : $u_{n+1} - u_n = r$. Croissante si $r > 0$, décroissante si $r < 0$, constante si $r = 0$.
+      > - Suite géométrique de raison $q > 0$ et de premier terme $u_0 > 0$ : $u_{n+1} - u_n = u_0q^n(q - 1)$. Croissante si $q > 1$, décroissante si $0 < q < 1$.
+      > - Si $u_0 < 0$, les conclusions s'inversent ; si $q < 0$, les termes changent de signe et la suite n'est pas monotone.
+
+      ## 5. Conjecturer une limite
+
+      On calcule des termes (tableur, programme) ou on trace le nuage de points $(n ; u_n)$ et on observe le comportement quand $n$ devient grand :
+      - $u_n = 3 + \dfrac{1}{n}$ ($n \geqslant 1$) : $4$ ; $3{,}5$ ; … ; $3{,}001$ : les termes semblent s'approcher de $3$. On conjecture que la limite est $3$.
+      - $u_n = 1{,}1^n$ : les termes dépassent n'importe quel nombre : limite $+\infty$.
+      - $u_n = (-1)^n$ : alternance entre $-1$ et $1$ : pas de limite.
+      - $u_n = 0{,}5^n$ : les termes se rapprochent de $0$.
+
+      Ce ne sont que des **conjectures** : la démonstration se fera en terminale.
+
+      ## 6. Exemple complet
+
+      $u_0 = 100$ et $u_{n+1} = 0{,}8u_n$. Géométrique de raison $0{,}8 \in ]0 ; 1[$ avec $u_0 > 0$ : décroissante. Termes : $100$ ; $80$ ; $64$ ; $51{,}2$ ; … ; $u_{20} \approx 1{,}15$. On conjecture que $(u_n)$ tend vers $0$.
+
+      ## 7. Erreurs fréquentes
+
+      - Conclure sur le sens de variation à partir de deux ou trois termes seulement.
+      - Étudier le signe de $u_n$ au lieu de celui de $u_{n+1} - u_n$.
+      - Dire « la raison est négative donc la suite décroît » pour une suite **géométrique** : avec $q < 0$, elle n'est pas monotone.
     questions:
       - code: 1RE-SUI-VAR-01
         difficulte: 2
@@ -372,6 +473,7 @@ competences:
   - code: 1RE-SUI-SOMME
     libelle: Calculer une somme de termes et conjecturer une limite
     attendus: [1RE-SPE-2026-SUI-06, 1RE-SPE-2026-SUI-07, 1RE-SPE-2026-SUI-14, 1RE-SPE-2026-SUI-15]
+    cours_couvre: [1RE-SPE-2026-SUI-06, 1RE-SPE-2026-SUI-07, 1RE-SPE-2026-SUI-14, 1RE-SPE-2026-SUI-15]
     objectifs:
     - Calculer $1 + 2 + \cdots + n$ et $1 + q + \cdots + q^n$, et les démontrer.
     - Conjecturer la limite éventuelle d'une suite à partir de ses termes ou de sa représentation graphique.
@@ -397,20 +499,58 @@ competences:
       explication: Les premiers termes suggèrent une conjecture ; la limite se démontre en terminale.
     resume: |
       - $1 + 2 + \cdots + n = \dfrac{n(n + 1)}{2}$.
-      - Pour $q \neq 1$ : $1 + q + q^2 + \cdots + q^n = \dfrac{1 - q^{n + 1}}{1 - q}$.
-      - Une suite peut tendre vers un réel, vers $+\infty$ ou $-\infty$, ou n'avoir pas de limite (ex. $(-1)^n$).
-      - On passe d'un registre à l'autre : phrase, formule, tableau de valeurs, nuage de points.
+      - Pour $q \neq 1$ : $1 + q + q^2 + \cdots + q^n = \dfrac{1 - q^{n+1}}{1 - q}$ (attention : $n + 1$ termes).
+      - Somme de termes consécutifs : arithmétique $= N \times \dfrac{\text{premier} + \text{dernier}}{2}$ ; géométrique $= \text{premier} \times \dfrac{1 - q^N}{1 - q}$, $N$ = nombre de termes.
+      - On décrit une suite en mots, par une formule ou par un graphique, et on conjecture sa limite (finie, infinie ou absente).
     cours: |
-      ## Somme des premiers entiers
-      $S = 1 + 2 + \cdots + n$ ; en écrivant la somme à l'envers et en ajoutant terme à terme, $2S = n(n + 1)$, d'où $S = \dfrac{n(n + 1)}{2}$.
+      ## 1. Somme des $n$ premiers entiers
 
-      ## Somme géométrique
-      $S = 1 + q + \cdots + q^n$ ; alors $qS = q + q^2 + \cdots + q^{n + 1}$ et $S - qS = 1 - q^{n + 1}$, d'où, pour $q \neq 1$, $S = \dfrac{1 - q^{n + 1}}{1 - q}$.
+      > **Propriété.** Pour tout entier $n \geqslant 1$ : $$1 + 2 + \cdots + n = \frac{n(n + 1)}{2}.$$
 
-      ## Approche intuitive de la limite
-      - $u_n = \dfrac{1}{n}$ : les termes se rapprochent de $0$.
-      - $v_n = 2^n$ : les termes deviennent aussi grands qu'on veut ($+\infty$).
-      - $w_n = (-1)^n$ : les termes valent alternativement $1$ et $-1$ ; pas de limite.
+      **Démonstration (exigible).** Notons $S = 1 + 2 + \cdots + n$. On l'écrit aussi dans l'ordre inverse : $S = n + (n - 1) + \cdots + 1$. En additionnant terme à terme :
+      $$2S = (1 + n) + (2 + n - 1) + \cdots + (n + 1) = n(n + 1),$$
+      car chacune des $n$ parenthèses vaut $n + 1$. Donc $S = \dfrac{n(n + 1)}{2}$.
+
+      *Exemple.* $1 + 2 + \cdots + 100 = \dfrac{100 \times 101}{2} = 5\,050$.
+
+      ## 2. Somme des puissances successives de $q$
+
+      > **Propriété.** Pour tout réel $q \neq 1$ et tout entier $n$ : $$1 + q + q^2 + \cdots + q^n = \frac{1 - q^{n+1}}{1 - q}.$$
+
+      **Démonstration (exigible).** Notons $S = 1 + q + \cdots + q^n$. Alors $qS = q + q^2 + \cdots + q^{n+1}$. En soustrayant, tous les termes intermédiaires se simplifient : $S - qS = 1 - q^{n+1}$, soit $(1 - q)S = 1 - q^{n+1}$, et comme $q \neq 1$, $S = \dfrac{1 - q^{n+1}}{1 - q}$.
+
+      *Exemple.* $1 + 2 + 4 + \cdots + 2^{9} = \dfrac{1 - 2^{10}}{1 - 2} = 1\,023$.
+
+      ## 3. Sommes de termes de suites arithmétiques ou géométriques
+
+      > **Méthode.** Compter d'abord le **nombre de termes** $N$ : de $u_p$ à $u_n$, il y en a $n - p + 1$.
+      > - Arithmétique : $u_p + \cdots + u_n = N \times \dfrac{u_p + u_n}{2}$.
+      > - Géométrique de raison $q \neq 1$ : $u_p + \cdots + u_n = u_p \times \dfrac{1 - q^N}{1 - q}$.
+
+      *Exemple complet.* Un club compte $40$ adhérents la première année et en gagne $6$ chaque année. Total des cotisations versées sur $10$ ans, à $30$ € par adhérent et par an ?
+      Adhérents : $u_1 = 40$, $u_{10} = 40 + 9 \times 6 = 94$. Somme : $10 \times \dfrac{40 + 94}{2} = 670$ adhérents-années, soit $670 \times 30 = 20\,100$ €.
+
+      ## 4. Différents registres
+
+      Une même suite se décrit :
+      - en **langue naturelle** : « chaque année, on ajoute 6 adhérents » ;
+      - de façon **algébrique** : $u_{n+1} = u_n + 6$, ou $u_n = 34 + 6n$ ;
+      - **graphiquement** : nuage de points $(n ; u_n)$, ici alignés.
+      Savoir passer de l'un à l'autre fait partie de l'étude d'une suite.
+
+      ## 5. Approche intuitive de la limite
+
+      En observant les termes ou le nuage de points :
+      - **limite finie** $\ell$ : les termes finissent par être aussi proches de $\ell$ qu'on veut (ex. $u_n = 2 - 0{,}5^n$ s'approche de $2$) ;
+      - **limite infinie** : les termes finissent par dépasser tout nombre (ex. $u_n = n^2$) ;
+      - **pas de limite** : ex. $u_n = (-1)^n$, ou $u_n = \cos(n)$.
+      Avec les sommes : si $0 < q < 1$, $q^{n+1}$ s'approche de $0$ et $1 + q + \cdots + q^n$ semble tendre vers $\dfrac{1}{1 - q}$ (pour $q = \dfrac{1}{2}$, vers $2$).
+
+      ## 6. Erreurs fréquentes
+
+      - Se tromper dans le nombre de termes : de $u_0$ à $u_n$, il y a $n + 1$ termes.
+      - Utiliser la formule géométrique avec $q = 1$ (division par $0$) : la somme vaut alors simplement $N$ fois le premier terme.
+      - Confondre $q^{n+1}$ et $q^n + 1$.
     questions:
       - code: 1RE-SUI-SOMME-01
         difficulte: 1

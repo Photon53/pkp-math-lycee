@@ -9,6 +9,7 @@ competences:
   - code: 2NDE-CARRE
     libelle: Utiliser la fonction carré
     attendus: [2NDE-2026-FREP-08, 2NDE-2026-FVAR-10, 2NDE-2026-FVAR-14]
+    cours_couvre: [2NDE-2026-FREP-08, 2NDE-2026-FVAR-10, 2NDE-2026-FVAR-14]
     objectifs:
     - Résoudre $x^2 = a$ et $x^2 < a$, encadrer un carré.
     methodes:
@@ -27,21 +28,59 @@ competences:
     - erreur: Oublier la solution négative de $x^2 = 16$.
       explication: '$(-4)^2 = 16$ aussi : $x^2 = a$ avec $a > 0$ a deux solutions, $\sqrt{a}$ et $-\sqrt{a}$.'
     resume: |
-      - $x \mapsto x^2$ est décroissante sur $]-\infty ; 0]$ et croissante sur $[0 ; +\infty[$ ; minimum $0$ en $0$.
-      - $x^2 = a$ : deux solutions $\pm\sqrt{a}$ si $a > 0$, une seule ($0$) si $a = 0$, aucune si $a < 0$.
-      - $x^2 < a$ (avec $a > 0$) $\iff -\sqrt{a} < x < \sqrt{a}$.
-      - Sur $]0 ; 1[$, $x^2 < x$ ; sur $]1 ; +\infty[$, $x^2 > x$.
+      - Fonction carré $x \mapsto x^2$ sur $\mathbb{R}$ : décroissante sur $]-\infty ; 0]$, croissante sur $[0 ; +\infty[$, minimum $0$ en $0$ ; sa courbe est une **parabole** symétrique par rapport à l'axe des ordonnées.
+      - Fonction valeur absolue $x \mapsto |x|$ : mêmes variations et même signe (positive, nulle en $0$) ; sa courbe est formée de deux demi-droites.
+      - Fonction inverse $x \mapsto \dfrac{1}{x}$ sur $\mathbb{R}^*$ : décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$ ; sa courbe est une **hyperbole**.
+      - Pour $0 < x < 1$, $x^2 < x$ ; pour $x > 1$, $x^2 > x$.
     cours: |
-      ## Variations
-      La courbe est une parabole symétrique par rapport à l'axe des ordonnées (fonction **paire** : $(-x)^2 = x^2$).
+      ## 1. La fonction carré
+      > **Définition.** La fonction carré est la fonction $f$ définie sur $\mathbb{R}$ par $f(x) = x^2$.
 
-      ## Équations et inéquations
-      $x^2 = 16 \iff x = -4$ ou $x = 4$. $x^2 = -4$ n'a pas de solution réelle.
-      $x^2 < 9 \iff x \in ]-3 ; 3[$.
+      Pour tout réel $x$, $x^2 \geqslant 0$ : la fonction carré est **positive**, et ne s'annule qu'en $0$. Comme $(-x)^2 = x^2$, sa courbe, appelée **parabole**, est symétrique par rapport à l'axe des ordonnées.
 
-      ## Encadrer un carré
-      Si $-3 \le x \le 2$, il faut couper en deux : sur $[-3 ; 0]$, $x^2 \in [0 ; 9]$ ; sur $[0 ; 2]$, $x^2 \in [0 ; 4]$.
-      Donc $x^2 \in [0 ; 9]$. Erreur fréquente : répondre $[4 ; 9]$ en élevant les bornes au carré.
+      | $x$ | $-3$ | $-2$ | $-1$ | $0$ | $1$ | $2$ | $3$ |
+      |---|---|---|---|---|---|---|---|
+      | $x^2$ | $9$ | $4$ | $1$ | $0$ | $1$ | $4$ | $9$ |
+
+      > **Propriété (variations).** La fonction carré est strictement décroissante sur $]-\infty ; 0]$ et strictement croissante sur $[0 ; +\infty[$. Son minimum sur $\mathbb{R}$ est $0$, atteint en $x = 0$.
+
+      **Démonstration (exigible).** Soit $a$ et $b$ deux réels avec $a < b$. On étudie le signe de $f(b) - f(a) = b^2 - a^2 = (b - a)(b + a)$, où $b - a > 0$.
+      - Si $0 \leqslant a < b$, alors $a + b > 0$, donc $f(b) - f(a) > 0$ : $f(a) < f(b)$, la fonction est strictement croissante sur $[0 ; +\infty[$.
+      - Si $a < b \leqslant 0$, alors $a + b < 0$, donc $f(b) - f(a) < 0$ : $f(a) > f(b)$, la fonction est strictement décroissante sur $]-\infty ; 0]$.
+
+      ## 2. La fonction valeur absolue
+      > **Définition.** La fonction valeur absolue est définie sur $\mathbb{R}$ par $f(x) = |x|$, c'est-à-dire $|x| = x$ si $x \geqslant 0$ et $|x| = -x$ si $x < 0$.
+
+      Sa courbe est formée de deux demi-droites d'origine $O$ : celle d'équation $y = x$ pour $x \geqslant 0$ et celle d'équation $y = -x$ pour $x \leqslant 0$. Elle est symétrique par rapport à l'axe des ordonnées.
+
+      > **Propriété.** La fonction valeur absolue est positive, nulle seulement en $0$, décroissante sur $]-\infty ; 0]$ et croissante sur $[0 ; +\infty[$.
+
+      En effet, sur $[0 ; +\infty[$ elle coïncide avec $x \mapsto x$ (croissante) et sur $]-\infty ; 0]$ avec $x \mapsto -x$ (décroissante).
+
+      ## 3. La fonction inverse
+      > **Définition.** La fonction inverse est définie sur $\mathbb{R}^* = ]-\infty ; 0[ \cup ]0 ; +\infty[$ par $f(x) = \dfrac{1}{x}$. Elle est du signe de $x$. Sa courbe est une **hyperbole**, symétrique par rapport à l'origine.
+
+      > **Propriété (variations).** La fonction inverse est strictement décroissante sur $]-\infty ; 0[$ et strictement décroissante sur $]0 ; +\infty[$.
+
+      **Démonstration (exigible).** Soit $a$ et $b$ deux réels non nuls **de même signe** avec $a < b$. Alors $f(b) - f(a) = \dfrac{1}{b} - \dfrac{1}{a} = \dfrac{a - b}{ab}$. Le numérateur $a - b$ est négatif ; le dénominateur $ab$ est positif car $a$ et $b$ ont le même signe. Donc $f(b) - f(a) < 0$, soit $f(a) > f(b)$ : la fonction est strictement décroissante sur chacun des deux intervalles.
+
+      **Attention** : elle n'est pas décroissante sur $\mathbb{R}^*$ tout entier : $-1 < 1$ et pourtant $\dfrac{1}{-1} < \dfrac{1}{1}$.
+
+      ## 4. Méthode : comparer des carrés
+      1. Repérer l'intervalle où se trouvent les nombres ($[0 ; +\infty[$ ou $]-\infty ; 0]$).
+      2. Appliquer le sens de variation : sur $[0 ; +\infty[$ les carrés sont rangés dans le **même** ordre ; sur $]-\infty ; 0]$, dans l'ordre **contraire**.
+
+      **Exemple complet.** Comparer $(-3{,}2)^2$ et $(-2{,}7)^2$ sans calculatrice.
+      - $-3{,}2 < -2{,}7 \leqslant 0$ : les deux nombres sont dans $]-\infty ; 0]$.
+      - La fonction carré y est décroissante, elle inverse l'ordre : $(-3{,}2)^2 > (-2{,}7)^2$.
+
+      **Comparer $x$ et $x^2$ pour $x \geqslant 0$.** $x^2 - x = x(x - 1)$ : pour $0 < x < 1$, ce produit est négatif, donc $x^2 < x$ ; pour $x > 1$, il est positif, donc $x^2 > x$.
+
+      ## 5. Erreurs fréquentes
+      - Croire que la fonction carré est croissante sur $\mathbb{R}$ : $-3 < -2$ mais $9 > 4$.
+      - Penser que $x^2$ est toujours plus grand que $x$ : $0{,}5^2 = 0{,}25 < 0{,}5$.
+      - Dire que la fonction inverse est décroissante sur $\mathbb{R}^*$ : il faut le dire sur **chacun** des deux intervalles.
+      - Calculer l'image de $0$ par la fonction inverse : $0$ n'a pas d'image.
     questions:
       - code: 2NDE-CARRE-01
         difficulte: 1
@@ -84,7 +123,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$0{,}7^2 = 0{,}49 < 0{,}7$ : pour $0 < x < 1$, $x^2 < x$.'
+          - 'On compare $0{,}7^2$ et $0{,}7$ en étudiant le signe de leur différence : $0{,}7^2 - 0{,}7 = 0{,}7 \times (0{,}7 - 1) = 0{,}7 \times (-0{,}3)$.'
+          - 'Ce produit est négatif (un facteur positif, un facteur négatif), donc $0{,}7^2 < 0{,}7$. Calcul direct : $0{,}7^2 = 0{,}49$.'
+          - 'Règle générale : pour $0 < x < 1$, on a $x^2 < x$. Réponse A.'
           resultat: A
       - code: 2NDE-CARRE-05
         difficulte: 5
@@ -94,12 +135,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $x^2 < 9$ équivaut à $-3 < x < 3$.
+          - 'On résout d''abord l''équation associée : $x^2 = 9$ a pour solutions $-3$ et $3$.'
+          - 'Sur la parabole $y = x^2$, les points situés sous la droite $y = 9$ sont ceux dont l''abscisse est strictement comprise entre $-3$ et $3$.'
+          - 'Donc $x^2 < 9 \iff -3 < x < 3$, soit $]-3 ; 3[$ : réponse A. La réponse B oublie que $(-4)^2 = 16 > 9$.'
           resultat: A
 
   - code: 2NDE-INV
     libelle: Utiliser les fonctions inverse, racine carrée et cube
     attendus: [2NDE-2026-FREP-12, 2NDE-2026-FVAR-11]
+    cours_couvre: [2NDE-2026-FREP-12, 2NDE-2026-FVAR-11]
     objectifs:
     - Utiliser les fonctions inverse, racine carrée et cube, et leurs variations.
     methodes:
@@ -116,22 +160,63 @@ competences:
     - erreur: Garder l'ordre en passant à l'inverse.
       explication: '$2 < 5$ mais $\dfrac{1}{2} > \dfrac{1}{5}$ : la fonction inverse est décroissante.'
     resume: |
-      - Inverse $x \mapsto \dfrac{1}{x}$ : définie sur $\mathbb{R}^*$, décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$.
-      - Racine carrée : définie et croissante sur $[0 ; +\infty[$ ; $\sqrt{x} = a \iff x = a^2$ (avec $a \ge 0$).
-      - Cube $x \mapsto x^3$ : croissante sur $\mathbb{R}$ ; $x^3 = a$ a une unique solution.
-      - Sur $]0 ; 1[$ : $x^2 < x < \sqrt{x}$.
+      - Racine carrée $x \mapsto \sqrt{x}$ sur $[0 ; +\infty[$ : croissante ; cube $x \mapsto x^3$ sur $\mathbb{R}$ : croissante ; inverse : décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$.
+      - Une fonction croissante conserve l'ordre, une fonction décroissante l'inverse : c'est ainsi qu'on compare $f(a)$ et $f(b)$.
+      - $\sqrt{x} = k$ : solution $k^2$ si $k \geqslant 0$, aucune si $k < 0$. $x^3 = k$ : une unique solution pour tout $k$.
+      - $\dfrac{1}{x} = k$ avec $k \neq 0$ : unique solution $\dfrac{1}{k}$. $x^2 = k$ : deux solutions si $k > 0$.
+      - Pour une inéquation $f(x) < k$, on s'aide de la courbe et des solutions de $f(x) = k$.
     cours: |
-      ## Fonction inverse
-      Elle est décroissante sur $]0 ; +\infty[$ : si $2 \le x \le 5$, alors $\dfrac{1}{5} \le \dfrac{1}{x} \le \dfrac{1}{2}$ (l'ordre s'inverse).
+      ## 1. Trois fonctions de référence
+      | Fonction | Définie sur | Variations | Courbe |
+      |---|---|---|---|
+      | inverse $\dfrac{1}{x}$ | $\mathbb{R}^*$ | décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$ | hyperbole |
+      | racine carrée $\sqrt{x}$ | $[0 ; +\infty[$ | croissante | demi-parabole « couchée » |
+      | cube $x^3$ | $\mathbb{R}$ | croissante | symétrique par rapport à l'origine |
 
-      ## Racine carrée
-      $\sqrt{x} = 7 \iff x = 49$. Sur $]0 ; 1[$, par exemple $\sqrt{0{,}25} = 0{,}5 > 0{,}25$.
+      > **Propriété (racine carrée).** La fonction racine carrée est strictement croissante sur $[0 ; +\infty[$.
 
-      ## Fonction cube
-      Elle est impaire et croissante : $x^3 = -8 \iff x = -2$.
+      **Justification.** Pour $0 \leqslant a < b$ : $\sqrt{b} - \sqrt{a} = \dfrac{b - a}{\sqrt{b} + \sqrt{a}} > 0$ (multiplier et diviser par $\sqrt{b} + \sqrt{a} > 0$).
 
-      ## Erreur fréquente
-      Écrire « $\dfrac{1}{x}$ est décroissante sur $\mathbb{R}^*$ » : c'est faux, car $-1 < 1$ et $\dfrac{1}{-1} < \dfrac{1}{1}$.
+      > **Propriété (cube).** La fonction cube est strictement croissante sur $\mathbb{R}$ ; $(-x)^3 = -x^3$, et $x^3$ est du signe de $x$.
+
+      ## 2. Comparer des images
+      > **Principe.** Si $f$ est croissante sur un intervalle $I$, pour $a$ et $b$ dans $I$ : $a < b \Rightarrow f(a) \leqslant f(b)$ (l'ordre est conservé). Si $f$ est décroissante sur $I$ : $a < b \Rightarrow f(a) \geqslant f(b)$ (l'ordre est inversé). Avec « strictement », les inégalités sont strictes.
+
+      ### Méthode
+      1. Vérifier que $a$ et $b$ sont dans un **même intervalle** où $f$ est monotone.
+      2. Comparer $a$ et $b$.
+      3. Conclure avec le sens de variation (ou en lisant la courbe : le point d'abscisse $b$ est-il plus haut ?).
+
+      **Exemples.** $\sqrt{2{,}9} < \sqrt{3{,}1}$ (racine croissante) ; $\dfrac{1}{0{,}7} > \dfrac{1}{0{,}9}$ (inverse décroissante sur $]0 ; +\infty[$) ; $(-1{,}5)^3 < (-1{,}2)^3$ (cube croissante). Si $a$ et $b$ ne sont pas dans un même intervalle de monotonie, on compare les signes ou on calcule : $\dfrac{1}{-2} < 0 < \dfrac{1}{3}$.
+
+      ## 3. Résoudre $f(x) = k$ et $f(x) < k$
+      | Équation | Solutions |
+      |---|---|
+      | $mx + p = k$ ($m \neq 0$) | $x = \dfrac{k - p}{m}$ |
+      | $x^2 = k$ | $-\sqrt{k}$ et $\sqrt{k}$ si $k > 0$ ; $0$ si $k = 0$ ; aucune si $k < 0$ |
+      | $|x| = k$ | $-k$ et $k$ si $k > 0$ ; $0$ si $k = 0$ ; aucune si $k < 0$ |
+      | $\dfrac{1}{x} = k$ | $\dfrac{1}{k}$ si $k \neq 0$ ; aucune si $k = 0$ |
+      | $\sqrt{x} = k$ | $k^2$ si $k \geqslant 0$ ; aucune si $k < 0$ |
+      | $x^3 = k$ | une unique solution pour tout $k$ (par exemple $x^3 = -8 \iff x = -2$) |
+
+      ### Méthode pour une inéquation
+      1. Résoudre l'équation $f(x) = k$ associée.
+      2. Tracer (ou imaginer) la courbe de $f$ et la droite $y = k$.
+      3. Lire les abscisses des points de la courbe situés sous (ou au-dessus de) la droite, en tenant compte de l'ensemble de définition.
+
+      **Exemple complet.** Résoudre $\dfrac{1}{x} > 2$.
+      - $\dfrac{1}{x} = 2 \iff x = \dfrac{1}{2}$.
+      - Pour $x < 0$, $\dfrac{1}{x} < 0$ : aucune solution.
+      - Sur $]0 ; +\infty[$, la fonction inverse est décroissante : $\dfrac{1}{x} > 2 = \dfrac{1}{1/2} \iff x < \dfrac{1}{2}$.
+      - $S = \left]0 ; \dfrac{1}{2}\right[$.
+
+      Autres exemples : $x^2 \leqslant 4 \iff x \in [-2 ; 2]$ ; $\sqrt{x} < 3 \iff x \in [0 ; 9[$ ; $|x| > 1 \iff x \in ]-\infty ; -1[ \cup ]1 ; +\infty[$.
+
+      ## 4. Erreurs fréquentes
+      - Comparer $\dfrac{1}{a}$ et $\dfrac{1}{b}$ quand $a$ et $b$ sont de signes contraires avec la règle « l'inverse renverse l'ordre ».
+      - Écrire $\sqrt{x} = -3 \iff x = 9$ : une racine carrée n'est jamais négative.
+      - Résoudre $x^2 < 4$ par $x < 2$ seulement, en oubliant $x > -2$.
+      - Oublier la valeur interdite $0$ pour la fonction inverse.
     questions:
       - code: 2NDE-INV-01
         difficulte: 1
@@ -161,7 +246,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\sqrt{x} = 7$ avec $x \geq 0$ équivaut à $x = 7^2 = 49$.
+          - 'L''équation n''a de sens que pour $x \geqslant 0$, et le second membre $7$ est positif : une solution existe.'
+          - 'Pour $x \geqslant 0$, deux nombres positifs sont égaux si et seulement si leurs carrés le sont : $\sqrt{x} = 7 \iff x = 7^2$.'
+          - 'Donc $x = 49$. Vérification : $\sqrt{49} = 7$.'
           resultat: 49
       - code: 2NDE-INV-04
         difficulte: 4
@@ -182,5 +269,7 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$(-2)^3 = -8$, et la fonction cube est strictement croissante : la solution est unique.'
+          - 'On cherche un nombre dont le cube vaut $-8$. Comme $-8 < 0$, ce nombre est négatif (un cube a le signe du nombre).'
+          - '$2^3 = 8$, donc $(-2)^3 = -8$ : $-2$ est solution.'
+          - 'La fonction cube est strictement croissante sur $\mathbb{R}$ : deux nombres différents ont des cubes différents, donc $-2$ est la seule solution.'
           resultat: -2

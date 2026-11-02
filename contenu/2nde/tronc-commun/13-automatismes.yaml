@@ -11,6 +11,7 @@ competences:
   - code: 2NDE-AUTO-ECRIT
     libelle: Changer d'écriture, estimer un ordre de grandeur, contrôler un résultat
     attendus: [2NDE-2026-AUTO-04, 2NDE-2026-AUTO-05, 2NDE-2026-AUTO-06]
+    cours_couvre: [2NDE-2026-AUTO-04, 2NDE-2026-AUTO-05, 2NDE-2026-AUTO-06]
     objectifs:
     - Passer d'une écriture décimale à une fraction ou à un pourcentage, et inversement.
     - Estimer un ordre de grandeur pour contrôler la vraisemblance d'un résultat.
@@ -31,23 +32,52 @@ competences:
     - erreur: Écrire $0{,}5\,\% = 0{,}5$.
       explication: $0{,}5\,\% = \dfrac{0{,}5}{100} = 0{,}005$.
     resume: |
-      - $\dfrac{3}{4} = 0{,}75 = 75\,\%$ ; $\dfrac{1}{5} = 0{,}2 = 20\,\%$ ; $\dfrac{1}{8} = 0{,}125 = 12{,}5\,\%$.
-      - $t\,\% = \dfrac{t}{100}$.
-      - Ordre de grandeur : on arrondit chaque nombre à une valeur simple avant de calculer.
-      - Un résultat invraisemblable (une probabilité de $1{,}3$, une taille de $17$ m) signale une erreur.
+      - Un même nombre s'écrit en décimal, en fraction ou en pourcentage : $0{,}25 = \dfrac{1}{4} = 25\,\%$.
+      - Pourcentage $\to$ décimal : diviser par $100$ ; fraction $\to$ décimal : diviser le numérateur par le dénominateur.
+      - Ordre de grandeur : remplacer chaque nombre par une valeur proche et simple, puis calculer de tête.
+      - Contrôler un résultat : ordre de grandeur, signe, unité, cohérence avec la situation.
     cours: |
-      ## Trois écritures d'un même nombre
+      ## 1. Changer d'écriture
+      Un nombre rationnel peut s'écrire sous plusieurs formes :
+
       | Fraction | Décimal | Pourcentage |
-      |:-:|:-:|:-:|
+      |---|---|---|
       | $\dfrac{1}{2}$ | $0{,}5$ | $50\,\%$ |
       | $\dfrac{1}{4}$ | $0{,}25$ | $25\,\%$ |
-      | $\dfrac{3}{20}$ | $0{,}15$ | $15\,\%$ |
+      | $\dfrac{3}{4}$ | $0{,}75$ | $75\,\%$ |
+      | $\dfrac{1}{5}$ | $0{,}2$ | $20\,\%$ |
+      | $\dfrac{1}{10}$ | $0{,}1$ | $10\,\%$ |
+      | $\dfrac{1}{3}$ | $0{,}333\dots$ | environ $33{,}3\,\%$ |
 
-      ## Ordre de grandeur
-      $\dfrac{6\,012}{29{,}7} \approx \dfrac{6\,000}{30} = 200$.
+      > **Propriété.** $t\,\% = \dfrac{t}{100}$. Pour passer d'un décimal à un pourcentage, on multiplie par $100$ ; pour passer d'un pourcentage à un décimal, on divise par $100$.
 
-      ## Contrôler un résultat
-      Avant de conclure, on se demande si le résultat a le bon signe, la bonne unité et une taille raisonnable.
+      ### Méthode : passer d'une écriture à une autre
+      - **Fraction → décimal** : diviser le numérateur par le dénominateur ($\dfrac{7}{8} = 0{,}875$).
+      - **Décimal → fraction** : écrire sur une puissance de $10$ puis simplifier ($0{,}35 = \dfrac{35}{100} = \dfrac{7}{20}$).
+      - **Fraction → pourcentage** : se ramener à un dénominateur $100$ quand c'est possible ($\dfrac{3}{25} = \dfrac{12}{100} = 12\,\%$), sinon passer par le décimal.
+
+      ## 2. Estimer un ordre de grandeur
+      Un **ordre de grandeur** d'un résultat est une valeur approchée simple, obtenue en remplaçant les nombres par des valeurs proches faciles à manipuler.
+
+      **Exemple complet.** Ordre de grandeur de $\dfrac{612 \times 0{,}048}{2{,}9}$.
+      - On remplace : $612 \approx 600$, $0{,}048 \approx 0{,}05$, $2{,}9 \approx 3$.
+      - $\dfrac{600 \times 0{,}05}{3} = \dfrac{30}{3} = 10$.
+      - Le résultat exact (environ $10{,}13$) est bien de l'ordre de $10$.
+
+      Avec les puissances de $10$ : $3{,}2 \times 10^5 \times 2{,}1 \times 10^{-2} \approx 3 \times 2 \times 10^{3} = 6\,000$.
+
+      ## 3. Contrôler la vraisemblance d'un résultat
+      Avant de conclure, on se pose quelques questions :
+      - Le résultat a-t-il le bon **ordre de grandeur** (comparaison avec l'estimation) ?
+      - Le **signe** est-il cohérent (une longueur, une durée, une masse sont positives) ?
+      - L'**unité** est-elle la bonne ?
+      - Le résultat est-il **réaliste** (un élève ne mesure pas $17$ m, une probabilité est entre $0$ et $1$, un prix soldé est inférieur au prix initial) ?
+
+      ## 4. Erreurs fréquentes
+      - Écrire $0{,}5\,\%$ pour $\dfrac{1}{2}$ : $\dfrac{1}{2} = 0{,}5 = 50\,\%$.
+      - Confondre $\dfrac{1}{3}$ et $0{,}3$.
+      - Prendre des valeurs approchées trop grossières qui changent l'ordre de grandeur.
+      - Recopier le résultat de la calculatrice sans vérifier sa vraisemblance (erreur de parenthèses, de touche).
     questions:
       - code: 2NDE-AUTO-ECRIT-01
         difficulte: 1
@@ -77,7 +107,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $400 \times 0{,}5 = 200$.
+          - 'On remplace chaque facteur par une valeur proche et simple : $398 \approx 400$ et $0{,}51 \approx 0{,}5$.'
+          - 'On calcule de tête : $400 \times 0{,}5 = 200$ (multiplier par $0{,}5$, c''est prendre la moitié).'
+          - 'L''ordre de grandeur est $200$ : réponse B. Contrôle : le résultat exact est $202{,}98$.'
           resultat: B
       - code: 2NDE-AUTO-ECRIT-04
         difficulte: 4
@@ -105,6 +137,7 @@ competences:
   - code: 2NDE-AUTO-UNITES
     libelle: Convertir des unités
     attendus: [2NDE-2026-AUTO-07]
+    cours_couvre: [2NDE-2026-AUTO-07]
     objectifs:
     - Convertir longueurs, aires, volumes, contenances, durées, vitesses et masses.
     methodes:
@@ -125,19 +158,55 @@ competences:
     - erreur: Écrire $1{,}5$ h $= 1$ h $50$ min.
       explication: $0{,}5$ h $= 30$ min, donc $1{,}5$ h $= 1$ h $30$ min.
     resume: |
-      - Longueurs : facteur $10$ entre deux unités voisines ; aires : $100$ ; volumes : $1\,000$.
-      - $1$ L $= 1$ dm³ ; $1$ mL $= 1$ cm³.
-      - $1$ h $= 60$ min $= 3\,600$ s.
-      - Pour passer des km/h aux m/s, on divise par $3{,}6$.
+      - Longueurs et masses : on passe d'une unité à la suivante en multipliant ou divisant par $10$.
+      - Aires : par $100$ d'une unité à la suivante ($1$ m² $= 100$ dm²) ; volumes : par $1\,000$ ($1$ m³ $= 1\,000$ dm³).
+      - $1$ dm³ $= 1$ L et $1$ cm³ $= 1$ mL.
+      - Durées : $1$ h $= 60$ min $= 3\,600$ s (système non décimal).
+      - Vitesses : pour passer de km/h à m/s, on divise par $3{,}6$ ; de m/s à km/h, on multiplie par $3{,}6$.
     cours: |
-      ## Aires et volumes
-      $3$ m² $= 30\,000$ cm² (facteur $100 \times 100$) ; $2$ m³ $= 2\,000$ dm³ $= 2\,000$ L.
+      ## 1. Longueurs, masses et contenances
+      Ces unités suivent le système décimal : on passe d'une unité à l'unité voisine en multipliant ou en divisant par $10$.
+      - Longueurs : km, hm, dam, **m**, dm, cm, mm.
+      - Masses : t ($1$ t $= 1\,000$ kg), kg, hg, dag, **g**, dg, cg, mg.
+      - Contenances : hL, daL, **L**, dL, cL, mL.
 
-      ## Durées
-      $2{,}25$ h $= 2$ h $+ 0{,}25 \times 60$ min $= 2$ h $15$ min.
+      Exemples : $3{,}7$ km $= 3\,700$ m ; $450$ mg $= 0{,}45$ g ; $2{,}5$ L $= 250$ cL.
 
-      ## Vitesses
-      $90$ km/h $= \dfrac{90\,000 \text{ m}}{3\,600 \text{ s}} = 25$ m/s.
+      ## 2. Aires et volumes
+      > **Propriété.** Pour les aires, on multiplie par $100$ en passant à l'unité immédiatement inférieure : $1$ m² $= 100$ dm² $= 10\,000$ cm². Pour les volumes, on multiplie par $1\,000$ : $1$ m³ $= 1\,000$ dm³ $= 1\,000\,000$ cm³.
+
+      **Pourquoi ?** Un carré de $1$ m de côté mesure $10$ dm de côté, donc son aire est $10 \times 10 = 100$ dm². Un cube de $1$ m d'arête contient $10 \times 10 \times 10 = 1\,000$ cubes de $1$ dm d'arête.
+
+      > **Lien volume–contenance.** $1$ dm³ $= 1$ L, $1$ cm³ $= 1$ mL et $1$ m³ $= 1\,000$ L.
+
+      Pour les surfaces agricoles : $1$ ha (hectare) $= 10\,000$ m², $1$ a (are) $= 100$ m².
+
+      ## 3. Durées
+      Les durées ne sont **pas** décimales : $1$ h $= 60$ min, $1$ min $= 60$ s, donc $1$ h $= 3\,600$ s.
+
+      Exemples : $2{,}25$ h $= 2$ h $+ 0{,}25 \times 60$ min $= 2$ h $15$ min ; $1$ h $48$ min $= 1 + \dfrac{48}{60} = 1{,}8$ h.
+
+      ## 4. Vitesses
+      Une vitesse est un quotient d'une distance par une durée. Pour convertir, on convertit séparément la distance et la durée.
+
+      > **Propriété.** $1$ m/s $= \dfrac{3\,600 \text{ m}}{1 \text{ h}} = 3{,}6$ km/h. Donc pour passer de m/s à km/h, on multiplie par $3{,}6$ ; de km/h à m/s, on divise par $3{,}6$.
+
+      ### Méthode : convertir une grandeur
+      1. Identifier le type de grandeur (longueur, aire, volume, durée, vitesse…).
+      2. Utiliser le bon facteur ($10$, $100$, $1\,000$, $60$…) ou un tableau de conversion.
+      3. Pour une grandeur quotient, convertir le numérateur et le dénominateur séparément.
+      4. Contrôler la vraisemblance : une unité plus petite donne un nombre plus grand.
+
+      **Exemple complet.** Une piscine de $8$ m sur $4$ m, remplie sur $1{,}5$ m de profondeur, se remplit à $20$ L par seconde. Combien de temps faut-il ?
+      - Volume : $8 \times 4 \times 1{,}5 = 48$ m³ $= 48\,000$ dm³ $= 48\,000$ L.
+      - Durée : $\dfrac{48\,000}{20} = 2\,400$ s.
+      - $2\,400$ s $= \dfrac{2\,400}{60}$ min $= 40$ min.
+
+      ## 5. Erreurs fréquentes
+      - Multiplier par $10$ au lieu de $100$ pour les aires (ou de $1\,000$ pour les volumes).
+      - Écrire $1{,}5$ h $= 1$ h $50$ min : c'est $1$ h $30$ min.
+      - Multiplier par $3{,}6$ au lieu de diviser pour passer de km/h à m/s.
+      - Confondre m³ et L : $1$ m³ $= 1\,000$ L.
     questions:
       - code: 2NDE-AUTO-UNITES-01
         difficulte: 1
@@ -167,7 +236,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $0{,}12$ m³ $= 120$ dm³ $= 120$ L.
+          - 'Pour les volumes, on multiplie par $1\,000$ en passant à l''unité immédiatement inférieure : $1$ m³ $= 1\,000$ dm³.'
+          - '$0{,}12$ m³ $= 0{,}12 \times 1\,000$ dm³ $= 120$ dm³.'
+          - 'Comme $1$ dm³ $= 1$ L, l''aquarium contient $120$ L.'
           resultat: 120
       - code: 2NDE-AUTO-UNITES-04
         difficulte: 4
@@ -177,7 +248,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{72\,000 \text{ m}}{3\,600 \text{ s}} = 20$ m/s.
+          - '$72$ km/h signifie $72$ km parcourus en $1$ h. On convertit la distance : $72$ km $= 72\,000$ m.'
+          - 'On convertit la durée : $1$ h $= 3\,600$ s.'
+          - 'Vitesse : $\dfrac{72\,000 \text{ m}}{3\,600 \text{ s}} = 20$ m/s. Raccourci : on divise par $3{,}6$, $\dfrac{72}{3{,}6} = 20$.'
           resultat: 20
       - code: 2NDE-AUTO-UNITES-05
         difficulte: 5
@@ -209,6 +282,7 @@ competences:
   - code: 2NDE-AUTO-LITT
     libelle: Calcul littéral élémentaire et formules
     attendus: [2NDE-2026-AUTO-08, 2NDE-2026-AUTO-11, 2NDE-2026-AUTO-12, 2NDE-2026-ALG-10]
+    cours_couvre: [2NDE-2026-AUTO-08, 2NDE-2026-AUTO-11, 2NDE-2026-AUTO-12, 2NDE-2026-ALG-10]
     objectifs:
     - Appliquer les règles de signe et de quotient dans un calcul littéral.
     - Isoler une variable dans une formule et faire une application numérique.
@@ -229,21 +303,52 @@ competences:
     - erreur: Écrire $-(a - b) = -a - b$.
       explication: Le signe $-$ change tous les signes de la parenthèse $:$ $-(a - b) = -a + b = b - a$.
     resume: |
-      - $-(a + b) = -a - b$ ; $-(a - b) = b - a$.
-      - $\dfrac{a}{1} = a$, $\dfrac{a}{a} = 1$ ($a \neq 0$), $\dfrac{a}{b} \div \dfrac{c}{d} = \dfrac{a}{b} \times \dfrac{d}{c}$.
-      - Pour isoler une variable, on défait les opérations dans l'ordre inverse.
-      - Application numérique : on remplace chaque lettre par sa valeur, avec les unités cohérentes.
+      - $-(a + b) = -a - b$ et $-(a - b) = b - a$ ; $(-1) \times a = -a$, $0 \times a = 0$.
+      - Pour $a \neq 0$ et $b \neq 0$ : $\dfrac{a}{a} = 1$, $\dfrac{1}{1/a} = a$ et $\dfrac{a/b}{c/d} = \dfrac{a}{b} \times \dfrac{d}{c}$.
+      - Isoler une variable : appliquer aux deux membres l'opération **inverse** de celle qui « accroche » la variable.
+      - Application numérique : remplacer chaque lettre par sa valeur, dans les bonnes unités, avec des parenthèses.
     cours: |
-      ## Règles de calcul
-      $-(3x - 5) = -3x + 5$ ; $\dfrac{2}{3} \div \dfrac{4}{5} = \dfrac{2}{3} \times \dfrac{5}{4} = \dfrac{10}{12} = \dfrac{5}{6}$.
+      ## 1. Règles du calcul littéral élémentaire
+      > **Expressions additives.** $-(a + b) = -a - b$ ; $-(a - b) = -a + b = b - a$ ; $a - (b - c) = a - b + c$.
 
-      ## Isoler une variable
-      - $U = RI$ donne $I = \dfrac{U}{R}$.
-      - $V = \pi r^2 h$ donne $h = \dfrac{V}{\pi r^2}$.
-      - $2x + 3y = 12$ donne $y = \dfrac{12 - 2x}{3}$.
+      > **Expressions multiplicatives.** $x = 1 \times x$ ; $\dfrac{x}{1} = x$ ; $(-1) \times a = -a$ ; $0 \times a = 0$ ; et, pour $a \neq 0$, $b \neq 0$, $c \neq 0$, $d \neq 0$ : $\dfrac{0}{a} = 0$, $\dfrac{a}{a} = 1$, $\dfrac{1}{1/a} = a$, $\dfrac{a/b}{c/d} = \dfrac{a}{b} \times \dfrac{d}{c}$.
 
-      ## Application numérique
-      Avec $U = 12$ V et $R = 4$ Ω : $I = \dfrac{12}{4} = 3$ A.
+      Exemples : $5 - (x - 3) = 8 - x$ ; $\dfrac{3x}{3} = x$ ; $\dfrac{2/5}{4/15} = \dfrac{2}{5} \times \dfrac{15}{4} = \dfrac{3}{2}$.
+
+      ## 2. Isoler une variable dans une formule
+      Isoler une variable, c'est réécrire la formule sous la forme « variable $=$ expression des autres ». On applique les mêmes règles que pour résoudre une équation : on fait la même opération sur les deux membres.
+
+      ### Méthode
+      1. Repérer les opérations appliquées à la variable cherchée.
+      2. Les « défaire » dans l'ordre inverse, en appliquant l'opération contraire aux deux membres : une addition se défait par une soustraction, une multiplication par une division (par un nombre non nul).
+      3. Vérifier avec des valeurs simples.
+
+      **Exemples.**
+      - $U = RI$ : pour $R \neq 0$, $I = \dfrac{U}{R}$.
+      - $d = vt$ : pour $v \neq 0$, $t = \dfrac{d}{v}$.
+      - $V = abc$ : $c = \dfrac{V}{ab}$.
+      - $S = \pi r^2$ avec $r > 0$ : $r^2 = \dfrac{S}{\pi}$, donc $r = \sqrt{\dfrac{S}{\pi}}$.
+      - $V = \pi r^2 h$ : $h = \dfrac{V}{\pi r^2}$.
+
+      ### Relation du premier degré $ax + by = c$
+      Pour $b \neq 0$ : $by = c - ax$, donc $y = \dfrac{c - ax}{b}$. Exemple : $3x + 2y = 12$ donne $y = 6 - 1{,}5x$. C'est l'équation réduite d'une droite.
+
+      ## 3. Application numérique d'une formule
+      1. Écrire la formule littérale.
+      2. Vérifier que les unités sont compatibles (convertir si besoin).
+      3. Remplacer chaque lettre par sa valeur, entre parenthèses si elle est négative.
+      4. Calculer et donner le résultat avec son unité et une précision adaptée.
+
+      **Exemple complet.** L'énergie cinétique d'un objet est $E = \dfrac{1}{2}mv^2$ (en joules, $m$ en kg, $v$ en m/s). Calculer $E$ pour un vélo et son cycliste de $80$ kg roulant à $18$ km/h.
+      - Conversion : $18$ km/h $= \dfrac{18}{3{,}6} = 5$ m/s.
+      - $E = \dfrac{1}{2} \times 80 \times 5^2 = 40 \times 25 = 1\,000$ J.
+      - Inversement, la vitesse s'isole : $v^2 = \dfrac{2E}{m}$, donc $v = \sqrt{\dfrac{2E}{m}}$ pour $v \geqslant 0$.
+
+      ## 4. Erreurs fréquentes
+      - Écrire $-(a - b) = -a - b$.
+      - Soustraire au lieu de diviser : de $U = RI$, on ne déduit pas $I = U - R$.
+      - Oublier le carré : de $S = \pi r^2$, on déduit $r^2 = \dfrac{S}{\pi}$, pas $r = \dfrac{S}{\pi}$.
+      - Faire l'application numérique avec des unités incompatibles (km/h et m/s mélangés).
     questions:
       - code: 2NDE-AUTO-LITT-01
         difficulte: 1
@@ -273,7 +378,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $I = \dfrac{U}{R} = \dfrac{12}{4} = 3$.
+          - 'On isole $I$ dans $U = RI$ : $I$ est multiplié par $R$, on divise donc les deux membres par $R \neq 0$, ce qui donne $I = \dfrac{U}{R}$.'
+          - 'Application numérique : $I = \dfrac{12}{4}$.'
+          - '$I = 3$ A. Contrôle : $4 \times 3 = 12$ V.'
           resultat: 3
       - code: 2NDE-AUTO-LITT-04
         difficulte: 4
@@ -294,12 +401,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $h$ est multiplié par $\pi r^2$ ; on divise les deux membres par $\pi r^2$.
+          - 'Dans $V = \pi r^2 h$, la hauteur $h$ est multipliée par $\pi r^2$, qui est non nul pour un vrai cylindre.'
+          - 'On divise les deux membres par $\pi r^2$ : $\dfrac{V}{\pi r^2} = h$.'
+          - 'Donc $h = \dfrac{V}{\pi r^2}$ : réponse B. La réponse A soustrait au lieu de diviser, la réponse C inverse le quotient.'
           resultat: B
 
   - code: 2NDE-AUTO-COMPAR
     libelle: Comparer deux nombres ou deux quantités
     attendus: [2NDE-2026-AUTO-01, 2NDE-2026-ALG-04, 2NDE-2026-ALG-12]
+    cours_couvre: [2NDE-2026-AUTO-01, 2NDE-2026-ALG-04, 2NDE-2026-ALG-12]
     objectifs:
     - Comparer deux nombres par le signe de leur différence ou par leur quotient.
     - Interpréter une comparaison en termes de variation additive ou multiplicative.
@@ -320,19 +430,41 @@ competences:
     - erreur: Comparer par quotient deux nombres de signes quelconques.
       explication: Le critère $\dfrac{a}{b} > 1 \Rightarrow a > b$ n'est valable que pour $a, b > 0$.
     resume: |
-      - $a > b \iff a - b > 0$.
-      - Pour $a, b > 0$ : $a > b \iff \dfrac{a}{b} > 1$.
-      - Comparaison additive : « $a$ dépasse $b$ de $a - b$ ».
-      - Comparaison multiplicative : « $a$ vaut $\dfrac{a}{b}$ fois $b$ » (ratio).
+      - Comparer par la **différence** : $a > b \iff a - b > 0$.
+      - Comparer par le **quotient** (pour $a > 0$ et $b > 0$) : $a > b \iff \dfrac{a}{b} > 1$.
+      - La différence donne une comparaison **additive** (« $a$ dépasse $b$ de… ») ; le quotient une comparaison **multiplicative** (« $a$ vaut … fois $b$ »).
+      - Le choix dépend du contexte : un écart en unités ou un rapport sans unité.
     cours: |
-      ## Par la différence
-      $\dfrac{5}{7} - \dfrac{7}{10} = \dfrac{1}{70} > 0$, donc $\dfrac{5}{7} > \dfrac{7}{10}$.
+      ## 1. Comparer par la différence
+      > **Propriété.** Pour tous réels $a$ et $b$ : $a > b \iff a - b > 0$ ; $a = b \iff a - b = 0$ ; $a < b \iff a - b < 0$.
 
-      ## Par le quotient (nombres positifs)
-      $\dfrac{2^{10}}{10^3} = \dfrac{1\,024}{1\,000} > 1$, donc $2^{10} > 10^3$.
+      La différence $a - b$ s'exprime dans l'unité des grandeurs : c'est une **comparaison additive**. Exemple : un smartphone coûte $420$ € et un autre $380$ € ; le premier coûte $40$ € de plus.
 
-      ## Interpréter
-      Un salaire passe de $1\,800$ € à $2\,700$ € : il augmente de $900$ € (comparaison additive) et il est multiplié par $\dfrac{2\,700}{1\,800} = 1{,}5$ (comparaison multiplicative).
+      Cette méthode s'utilise aussi avec des expressions : pour comparer $x^2 + 1$ et $2x$, on calcule $(x^2 + 1) - 2x = (x - 1)^2 \geqslant 0$, donc $x^2 + 1 \geqslant 2x$ pour tout réel $x$.
+
+      ## 2. Comparer par le quotient
+      > **Propriété.** Pour deux réels **strictement positifs** $a$ et $b$ : $a > b \iff \dfrac{a}{b} > 1$ ; $a = b \iff \dfrac{a}{b} = 1$ ; $a < b \iff \dfrac{a}{b} < 1$.
+
+      Le quotient (ou **ratio**) $\dfrac{a}{b}$ n'a pas d'unité : c'est une **comparaison multiplicative**. Exemple : une ville de $150\,000$ habitants et une ville de $50\,000$ habitants : $\dfrac{150\,000}{50\,000} = 3$, la première est $3$ fois plus peuplée.
+
+      Le quotient sert aussi pour des nombres écrits avec des puissances : $\dfrac{4 \times 10^{8}}{2 \times 10^{5}} = 2 \times 10^{3}$, le premier est $2\,000$ fois plus grand.
+
+      ## 3. Choisir et interpréter
+      ### Méthode
+      1. Vérifier si les quantités sont positives (le quotient n'est utilisable que dans ce cas).
+      2. Se demander ce que la situation demande : un **écart** (« de combien de plus ? ») ou un **rapport** (« combien de fois plus ? »).
+      3. Calculer la différence ou le quotient, puis interpréter en variation additive ou multiplicative.
+
+      **Exemple complet.** Le prix d'un ticket passe de $1{,}60$ € à $2{,}00$ €, celui d'un abonnement de $40$ € à $45$ €.
+      - Variations additives : $+0{,}40$ € et $+5$ €. L'abonnement augmente plus, en euros.
+      - Variations multiplicatives : $\dfrac{2{,}00}{1{,}60} = 1{,}25$ et $\dfrac{45}{40} = 1{,}125$. Le ticket est multiplié par $1{,}25$ (hausse de $25\,\%$), l'abonnement par $1{,}125$ (hausse de $12{,}5\,\%$).
+      - Conclusion : en proportion, c'est le ticket qui augmente le plus.
+
+      ## 4. Erreurs fréquentes
+      - Utiliser le quotient avec des nombres négatifs : $-6 < -3$ alors que $\dfrac{-6}{-3} = 2 > 1$.
+      - Dire « $3$ fois plus » quand on a calculé une différence de $3$.
+      - Comparer des grandeurs exprimées dans des unités différentes sans les convertir.
+      - Conclure sur une seule comparaison alors que l'additive et la multiplicative donnent des conclusions différentes.
     questions:
       - code: 2NDE-AUTO-COMPAR-01
         difficulte: 1
@@ -362,7 +494,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{750}{600} = 1{,}25$.
+          - 'Le nombre par lequel on a multiplié est le quotient de la nouvelle valeur par l''ancienne : $\dfrac{750}{600}$.'
+          - 'On simplifie par $150$ : $\dfrac{750}{600} = \dfrac{5}{4} = 1{,}25$.'
+          - 'Contrôle : $600 \times 1{,}25 = 750$. Le loyer a été multiplié par $1{,}25$, soit une hausse de $25\,\%$.'
           resultat: 5/4
       - code: 2NDE-AUTO-COMPAR-04
         difficulte: 4
@@ -390,6 +524,7 @@ competences:
   - code: 2NDE-AUTO-MESURES
     libelle: Calculer des périmètres, des aires et des volumes
     attendus: [2NDE-2026-AUTO-21]
+    cours_couvre: [2NDE-2026-AUTO-21]
     objectifs:
     - Connaître les formules de périmètres, d'aires et de volumes usuels.
     methodes:
@@ -408,20 +543,52 @@ competences:
     - erreur: Oublier le facteur $\dfrac{1}{3}$ pour une pyramide ou un cône.
       explication: Pyramide et cône ont un volume égal au tiers du prisme ou du cylindre de même base et même hauteur.
     resume: |
-      - Cercle : $P = 2\pi r$ ; disque : $\mathcal{A} = \pi r^2$ ; triangle : $\mathcal{A} = \dfrac{b \times h}{2}$.
-      - Pavé : $V = L \ell h$ ; prisme et cylindre : $V = \mathcal{B} \times h$.
-      - Pyramide et cône : $V = \dfrac{1}{3}\mathcal{B} \times h$ ; boule : $V = \dfrac{4}{3}\pi r^3$.
+      - Périmètre d'un polygone : somme des côtés ; d'un cercle de rayon $r$ : $2\pi r$.
+      - Aires : rectangle $L \times \ell$ ; triangle $\dfrac{b \times h}{2}$ ; disque $\pi r^2$.
+      - Volumes « droits » (pavé, prisme, cylindre) : aire de la base $\times$ hauteur.
+      - Volumes « pointus » (pyramide, cône) : $\dfrac{1}{3} \times$ aire de la base $\times$ hauteur ; boule : $\dfrac{4}{3}\pi r^3$.
     cours: |
-      ## Périmètres et aires
-      Un disque de rayon $3$ cm a pour périmètre $6\pi$ cm et pour aire $9\pi$ cm².
+      ## 1. Périmètres
+      - **Polygone** : somme des longueurs des côtés. Rectangle : $2(L + \ell)$ ; carré de côté $c$ : $4c$.
+      - **Cercle** de rayon $r$ (diamètre $d = 2r$) : $P = 2\pi r = \pi d$.
 
-      ## Volumes
-      | Solide | Volume |
+      ## 2. Aires
+      | Figure | Aire |
       |---|---|
-      | Pavé droit | $L \times \ell \times h$ |
-      | Prisme, cylindre | aire de la base $\times$ hauteur |
-      | Pyramide, cône | $\dfrac{1}{3} \times$ aire de la base $\times$ hauteur |
-      | Boule | $\dfrac{4}{3}\pi r^3$ |
+      | Rectangle de longueur $L$ et largeur $\ell$ | $L \times \ell$ |
+      | Carré de côté $c$ | $c^2$ |
+      | Triangle de base $b$ et hauteur associée $h$ | $\dfrac{b \times h}{2}$ |
+      | Disque de rayon $r$ | $\pi r^2$ |
+
+      > **Attention.** La hauteur d'un triangle est **perpendiculaire** à la base choisie ; ce n'est pas forcément un côté.
+
+      ## 3. Volumes
+      > **Propriété (solides droits).** Le volume d'un **pavé droit**, d'un **prisme droit** ou d'un **cylindre** est $V = \mathcal{B} \times h$, où $\mathcal{B}$ est l'aire de la base et $h$ la hauteur. Pavé : $V = L \times \ell \times h$ ; cylindre : $V = \pi r^2 h$.
+
+      > **Propriété (solides pointus).** Le volume d'une **pyramide** ou d'un **cône** est $V = \dfrac{1}{3} \times \mathcal{B} \times h$. Cône : $V = \dfrac{1}{3}\pi r^2 h$.
+
+      > **Propriété (boule).** Le volume d'une boule de rayon $r$ est $V = \dfrac{4}{3}\pi r^3$.
+
+      ### Méthode : calculer une aire ou un volume
+      1. Identifier la figure ou le solide et écrire la formule.
+      2. Repérer les longueurs utiles (rayon et non diamètre, hauteur perpendiculaire à la base) et les exprimer dans la **même unité**.
+      3. Remplacer et calculer ; donner une valeur exacte (avec $\pi$) puis, si demandé, une valeur approchée.
+      4. Écrire l'unité : cm pour un périmètre, cm² pour une aire, cm³ pour un volume.
+
+      **Exemple complet.** Un cornet de glace est un cône de diamètre $6$ cm et de hauteur $12$ cm, surmonté d'une demi-boule de même diamètre. Volume total ?
+      - Rayon : $r = 3$ cm.
+      - Cône : $\dfrac{1}{3}\pi \times 3^2 \times 12 = 36\pi$ cm³.
+      - Demi-boule : $\dfrac{1}{2} \times \dfrac{4}{3}\pi \times 3^3 = 18\pi$ cm³.
+      - Total : $54\pi \approx 169{,}6$ cm³.
+
+      ## 4. Effet d'un agrandissement
+      Si toutes les longueurs sont multipliées par $k > 0$, les aires sont multipliées par $k^2$ et les volumes par $k^3$. Doubler le rayon d'une boule multiplie son volume par $8$.
+
+      ## 5. Erreurs fréquentes
+      - Utiliser le diamètre à la place du rayon dans $\pi r^2$ ou $\dfrac{4}{3}\pi r^3$.
+      - Confondre périmètre ($2\pi r$) et aire ($\pi r^2$) du disque.
+      - Oublier le facteur $\dfrac{1}{3}$ pour une pyramide ou un cône, ou le diviseur $2$ pour un triangle.
+      - Mélanger les unités (cm et m) dans un même calcul, ou oublier l'unité au carré ou au cube.
     questions:
       - code: 2NDE-AUTO-MESURES-01
         difficulte: 1
@@ -462,7 +629,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{4}{3}\pi \times 27 = 36\pi$.
+          - 'Le volume d''une boule de rayon $r$ est $V = \dfrac{4}{3}\pi r^3$.'
+          - 'Avec $r = 3$ cm : $r^3 = 3 \times 3 \times 3 = 27$.'
+          - '$V = \dfrac{4}{3} \times 27 \times \pi = 4 \times 9 \times \pi = 36\pi$ cm³ (environ $113{,}1$ cm³).'
           resultat: 36pi
       - code: 2NDE-AUTO-MESURES-05
         difficulte: 5
@@ -480,6 +649,7 @@ competences:
   - code: 2NDE-AUTO-TRIANGLE
     libelle: Utiliser Pythagore, Thalès et la trigonométrie
     attendus: [2NDE-2026-AUTO-22, 2NDE-2026-AUTO-23]
+    cours_couvre: [2NDE-2026-AUTO-22, 2NDE-2026-AUTO-23]
     objectifs:
     - Calculer une longueur avec le théorème de Pythagore ou de Thalès.
     - Utiliser cosinus, sinus et tangente dans un triangle rectangle.
@@ -500,18 +670,52 @@ competences:
     - erreur: Appliquer le théorème de Pythagore dans un triangle qui n'est pas rectangle.
       explication: L'égalité $a^2 + b^2 = c^2$ ne vaut que si l'angle opposé à $c$ est droit.
     resume: |
-      - Pythagore : dans un triangle rectangle d'hypoténuse $c$, $a^2 + b^2 = c^2$.
-      - Thalès : si $(MN) \parallel (BC)$ avec $M \in [AB]$, $N \in [AC]$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
-      - $\cos = \dfrac{\text{adjacent}}{\text{hypoténuse}}$, $\sin = \dfrac{\text{opposé}}{\text{hypoténuse}}$, $\tan = \dfrac{\text{opposé}}{\text{adjacent}}$.
+      - Pythagore : si $ABC$ est rectangle en $A$, alors $BC^2 = AB^2 + AC^2$ ; réciproquement, si l'égalité est vraie, le triangle est rectangle en $A$.
+      - Thalès : si $(MN) \parallel (BC)$ avec $M \in (AB)$ et $N \in (AC)$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - Dans un triangle rectangle : $\cos = \dfrac{\text{adjacent}}{\text{hypoténuse}}$, $\sin = \dfrac{\text{opposé}}{\text{hypoténuse}}$, $\tan = \dfrac{\text{opposé}}{\text{adjacent}}$.
+      - Calculatrice en mode **degrés** ; on utilise $\cos^{-1}$, $\sin^{-1}$, $\tan^{-1}$ pour retrouver un angle.
     cours: |
-      ## Pythagore
-      Côtés de l'angle droit $6$ et $8$ : hypoténuse $\sqrt{36 + 64} = 10$.
+      ## 1. Théorème de Pythagore
+      > **Théorème.** Si le triangle $ABC$ est rectangle en $A$, alors $BC^2 = AB^2 + AC^2$ ($[BC]$ est l'**hypoténuse**, le côté opposé à l'angle droit).
 
-      ## Thalès
-      $AM = 3$, $AB = 5$, $BC = 10$ et $(MN) \parallel (BC)$ : $MN = \dfrac{3}{5} \times 10 = 6$.
+      > **Réciproque.** Si $BC^2 = AB^2 + AC^2$, alors le triangle $ABC$ est rectangle en $A$.
 
-      ## Trigonométrie
-      Valeurs à connaître : $\cos 60° = \sin 30° = \dfrac{1}{2}$ ; $\cos 30° = \sin 60° = \dfrac{\sqrt{3}}{2}$ ; $\tan 45° = 1$.
+      **Exemple.** Triangle rectangle en $A$ avec $AB = 5$ et $AC = 12$ : $BC^2 = 25 + 144 = 169$, donc $BC = 13$. Si l'on connaît l'hypoténuse : $AC^2 = BC^2 - AB^2$.
+
+      Pour **montrer** qu'un triangle est rectangle, on calcule séparément le carré du plus grand côté et la somme des carrés des deux autres, puis on compare.
+
+      ## 2. Théorème de Thalès
+      > **Théorème.** Soit $ABC$ un triangle, $M$ un point de la droite $(AB)$ et $N$ un point de la droite $(AC)$. Si $(MN) \parallel (BC)$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+
+      **Exemple.** $AM = 3$, $AB = 5$, $BC = 8$ et $(MN) \parallel (BC)$ : $\dfrac{MN}{8} = \dfrac{3}{5}$, donc $MN = \dfrac{24}{5} = 4{,}8$.
+
+      La réciproque permet de prouver un parallélisme : si les points sont dans le même ordre et si $\dfrac{AM}{AB} = \dfrac{AN}{AC}$, alors $(MN) \parallel (BC)$.
+
+      ## 3. Trigonométrie dans le triangle rectangle
+      Dans un triangle rectangle, pour un angle aigu $\hat{B}$ :
+
+      > **Définitions.** $\cos \hat{B} = \dfrac{\text{côté adjacent à } \hat{B}}{\text{hypoténuse}}$ ; $\sin \hat{B} = \dfrac{\text{côté opposé à } \hat{B}}{\text{hypoténuse}}$ ; $\tan \hat{B} = \dfrac{\text{côté opposé à } \hat{B}}{\text{côté adjacent à } \hat{B}}$.
+
+      Le cosinus et le sinus d'un angle aigu sont compris entre $0$ et $1$.
+
+      ### Méthode : choisir la bonne formule
+      1. Repérer l'angle utilisé et nommer les côtés par rapport à lui : hypoténuse, opposé, adjacent.
+      2. Choisir la ligne trigonométrique qui relie les deux longueurs en jeu (la connue et la cherchée).
+      3. Écrire l'égalité, isoler l'inconnue, calculer (calculatrice en degrés).
+
+      **Exemple complet.** Une échelle de $5$ m est appuyée contre un mur et fait un angle de $70°$ avec le sol. À quelle hauteur touche-t-elle le mur ?
+      - Le triangle sol–mur–échelle est rectangle au pied du mur ; l'échelle est l'hypoténuse.
+      - La hauteur $h$ est le côté **opposé** à l'angle de $70°$ : on utilise le sinus.
+      - $\sin 70° = \dfrac{h}{5}$, donc $h = 5 \sin 70° \approx 4{,}70$ m.
+      - Distance du pied au mur : $5 \cos 70° \approx 1{,}71$ m ; contrôle avec Pythagore : $4{,}70^2 + 1{,}71^2 \approx 25$.
+
+      Pour retrouver un angle : si $\cos \hat{B} = 0{,}6$, alors $\hat{B} = \cos^{-1}(0{,}6) \approx 53{,}1°$.
+
+      ## 4. Erreurs fréquentes
+      - Appliquer Pythagore à un triangle non rectangle, ou ajouter les carrés en prenant l'hypoténuse comme un côté de l'angle droit.
+      - Oublier la racine carrée à la fin : $BC^2 = 169$ donne $BC = 13$, pas $169$.
+      - Écrire les rapports de Thalès sans respecter les correspondances (petit triangle au numérateur, grand au dénominateur).
+      - Utiliser la calculatrice en radians au lieu des degrés.
     questions:
       - code: 2NDE-AUTO-TRIANGLE-01
         difficulte: 1
@@ -586,6 +790,7 @@ competences:
   - code: 2NDE-AUTO-GRAPH
     libelle: Lire et commenter des graphiques usuels
     attendus: [2NDE-2026-AUTO-24, 2NDE-2026-STAT-07]
+    cours_couvre: [2NDE-2026-AUTO-24, 2NDE-2026-STAT-07]
     objectifs:
     - Lire un diagramme en barres, un diagramme circulaire, une courbe, un histogramme.
     - Repérer les échelles et les unités avant d'interpréter.
@@ -608,19 +813,48 @@ competences:
     - erreur: Lire la hauteur d'un rectangle d'histogramme comme un effectif quand les classes n'ont pas la même amplitude.
       explication: Dans un histogramme, c'est l'aire du rectangle qui est proportionnelle à l'effectif.
     resume: |
-      - Diagramme en barres : la hauteur est proportionnelle à l'effectif.
-      - Diagramme circulaire : l'angle est proportionnel à l'effectif ($360°$ pour le total).
-      - Histogramme (série regroupée en classes) : l'aire est proportionnelle à l'effectif.
-      - Toujours repérer l'origine, les unités et les graduations avant de lire.
+      - Diagramme en barres : hauteur proportionnelle à l'effectif ; diagramme circulaire : angle proportionnel à l'effectif ($360°$ pour le total, $180°$ pour un semi-circulaire).
+      - Histogramme (données en classes) : l'**aire** de chaque rectangle est proportionnelle à l'effectif.
+      - Polygone des fréquences cumulées croissantes : il permet d'estimer la médiane et les quartiles.
+      - Courbe ou nuage de points : décrire l'évolution, les maximums, les tendances, sans conclure au-delà des données.
     cours: |
-      ## Diagrammes en barres et circulaires
-      Un secteur de $72°$ représente $\dfrac{72}{360} = 20\,\%$ de l'effectif.
+      ## 1. Diagrammes en barres et circulaires
+      - **Diagramme en barres** : pour une variable qualitative ou discrète ; la hauteur de chaque barre est proportionnelle à l'effectif (ou à la fréquence).
+      - **Diagramme circulaire** : chaque secteur a un angle proportionnel à l'effectif ; le disque entier ($360°$) représente l'effectif total. Pour un diagramme **semi-circulaire**, le total correspond à $180°$.
 
-      ## Histogramme
-      Pour une série regroupée en classes de même amplitude, la hauteur de chaque rectangle est proportionnelle à l'effectif de la classe. Pour des classes d'amplitudes différentes, c'est l'aire qui l'est.
+      > **Propriété.** Dans un diagramme circulaire, l'angle d'un secteur de fréquence $f$ est $f \times 360°$ ; inversement, un angle $\alpha$ correspond à la fréquence $\dfrac{\alpha}{360}$.
 
-      ## Courbe et nuage de points
-      On lit en abscisse la variable (souvent le temps), en ordonnée la grandeur étudiée ; une graduation qui ne commence pas à $0$ peut exagérer les variations.
+      Exemple : une fréquence de $15\,\%$ correspond à $0{,}15 \times 360 = 54°$.
+
+      ## 2. Histogramme
+      Pour une série regroupée en classes, on trace un **histogramme** : sur chaque classe, un rectangle dont l'**aire** est proportionnelle à l'effectif. Si toutes les classes ont la même amplitude, les hauteurs sont aussi proportionnelles aux effectifs.
+
+      ## 3. Polygone des fréquences cumulées
+      On calcule les **fréquences cumulées croissantes** (fréquence des valeurs inférieures à la borne supérieure de chaque classe), puis on place les points (borne supérieure ; fréquence cumulée) en partant de (première borne ; $0$), et on les relie par des segments.
+
+      > **Utilisation.** L'abscisse du point d'ordonnée $0{,}5$ donne une estimation de la **médiane** ; celles des points d'ordonnées $0{,}25$ et $0{,}75$ des estimations des **quartiles**.
+
+      **Exemple complet.** Tailles de $50$ plants (en cm) : $[0 ; 10[$ : $5$ ; $[10 ; 20[$ : $15$ ; $[20 ; 30[$ : $20$ ; $[30 ; 40[$ : $10$.
+      - Fréquences : $0{,}1$ ; $0{,}3$ ; $0{,}4$ ; $0{,}2$. Fréquences cumulées : $0{,}1$ ; $0{,}4$ ; $0{,}8$ ; $1$.
+      - Points du polygone : $(0 ; 0)$, $(10 ; 0{,}1)$, $(20 ; 0{,}4)$, $(30 ; 0{,}8)$, $(40 ; 1)$.
+      - La fréquence cumulée $0{,}5$ est atteinte entre $20$ et $30$, au quart du segment (de $0{,}4$ à $0{,}8$) : médiane estimée $20 + \dfrac{0{,}5 - 0{,}4}{0{,}8 - 0{,}4} \times 10 = 22{,}5$ cm.
+
+      ## 4. Courbes et nuages de points
+      Une **courbe** (évolution d'une grandeur dans le temps) ou un **nuage de points** (deux variables numériques) se lit en repérant :
+      - les axes, leurs unités et leurs graduations (l'axe ne commence pas toujours à $0$) ;
+      - les valeurs remarquables (maximum, minimum, valeurs à une date donnée) ;
+      - les tendances (hausse, baisse, stabilité), et pour un nuage, si les points semblent alignés.
+
+      ### Méthode : commenter un graphique
+      1. Dire ce qui est représenté : quelles grandeurs, quelles unités, quelle période.
+      2. Relever deux ou trois informations chiffrées précises.
+      3. Décrire la tendance générale, puis conclure prudemment, sans affirmer de cause.
+
+      ## 5. Erreurs fréquentes
+      - Oublier qu'un axe vertical tronqué exagère visuellement les écarts.
+      - Lire la hauteur d'un histogramme à classes inégales comme un effectif.
+      - Utiliser $100°$ au lieu de $360°$ pour un diagramme circulaire.
+      - Confondre fréquences et fréquences cumulées.
     questions:
       - code: 2NDE-AUTO-GRAPH-01
         difficulte: 1
@@ -650,7 +884,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\dfrac{72}{360} = 0{,}2 = 20\,\%$.
+          - 'Dans un diagramme circulaire, le disque entier ($360°$) représente $100\,\%$ de l''effectif, et les angles sont proportionnels aux effectifs.'
+          - 'La fréquence associée au secteur est donc $\dfrac{72}{360} = \dfrac{1}{5} = 0{,}2$.'
+          - '$0{,}2 = 20\,\%$ : le secteur représente $20\,\%$ de l''effectif.'
           resultat: 20
       - code: 2NDE-AUTO-GRAPH-04
         difficulte: 4
@@ -679,6 +915,7 @@ competences:
   - code: 2NDE-AUTO-REPERE
     libelle: Se repérer sur une droite graduée et dans un repère
     attendus: [2NDE-2026-AUTO-19, 2NDE-2026-AUTO-20, 2NDE-2026-REELS-07, 2NDE-2026-AUTO-17]
+    cours_couvre: [2NDE-2026-AUTO-19, 2NDE-2026-AUTO-20, 2NDE-2026-REELS-07, 2NDE-2026-AUTO-17]
     objectifs:
     - Lire et placer l'abscisse d'un point sur une droite graduée.
     - Lire et placer les coordonnées d'un point dans un repère, et tester l'appartenance à une courbe.
@@ -697,18 +934,47 @@ competences:
     - erreur: Inverser abscisse et ordonnée.
       explication: Dans $(x ; y)$, l'abscisse $x$ se lit sur l'axe horizontal, l'ordonnée $y$ sur l'axe vertical.
     resume: |
-      - Sur une droite graduée, chaque réel est l'abscisse d'un unique point.
-      - Dans un repère, un point a des coordonnées $(x ; y)$ : abscisse puis ordonnée.
-      - $A(x_A ; y_A)$ est sur la courbe d'équation $y = f(x)$ si et seulement si $y_A = f(x_A)$.
+      - Sur une droite graduée, chaque point a une **abscisse** ; on détermine d'abord le pas de la graduation.
+      - Dans un repère du plan, un point a deux coordonnées $(x ; y)$ : l'**abscisse** se lit sur l'axe horizontal, l'**ordonnée** sur l'axe vertical.
+      - $M(a ; b)$ appartient à la courbe d'équation $y = f(x)$ si et seulement si $f(a) = b$.
+      - Pour trouver une coordonnée manquante, on remplace la coordonnée connue dans l'équation.
     cours: |
-      ## Droite graduée
-      Entre $0$ et $1$, une graduation en cinq parts a un pas de $0{,}2$ : le troisième trait après $0$ a pour abscisse $0{,}6$.
+      ## 1. Droite graduée
+      Une **droite graduée** est munie d'une origine $O$ (d'abscisse $0$), d'un sens et d'une unité. Tout point de la droite a pour **abscisse** un réel, et tout réel est l'abscisse d'un unique point.
 
-      ## Repère du plan
-      Le point $B(-2 ; 3)$ est à $2$ unités à gauche de l'axe des ordonnées et $3$ unités au-dessus de l'axe des abscisses.
+      ### Méthode : lire ou placer une abscisse
+      1. Déterminer le **pas** de la graduation : écart entre deux graduations consécutives (par exemple, si $4$ intervalles séparent $0$ et $1$, le pas est $0{,}25$).
+      2. Compter les graduations depuis un repère connu, vers la droite (on ajoute) ou vers la gauche (on retire).
+      3. Pour un nombre comme $\sqrt{2}$ ou $\dfrac{7}{3}$, utiliser une valeur approchée ($1{,}41$ ; $2{,}33$) pour le placer.
 
-      ## Appartenance à une courbe
-      $C(-1 ; 3)$ et la courbe $y = x^2 + 1$ : $(-1)^2 + 1 = 2 \neq 3$, donc $C$ n'est pas sur la courbe.
+      Exemple : avec un pas de $0{,}2$, le point situé $3$ graduations à gauche de $-1$ a pour abscisse $-1 - 3 \times 0{,}2 = -1{,}6$.
+
+      ## 2. Repère du plan
+      Un **repère** $(O ; I, J)$ est formé de deux axes gradués sécants en $O$. Il est **orthogonal** si les axes sont perpendiculaires, **orthonormé** s'ils sont de plus gradués avec la même unité.
+
+      > **Définition.** Tout point $M$ du plan a des **coordonnées** $(x ; y)$ : $x$ est l'**abscisse** (lue sur l'axe horizontal), $y$ l'**ordonnée** (lue sur l'axe vertical).
+
+      Les points de l'axe des abscisses ont une ordonnée nulle ; ceux de l'axe des ordonnées, une abscisse nulle.
+
+      ## 3. Exploiter une équation de courbe
+      > **Propriété.** Le point $M(a ; b)$ appartient à la courbe d'équation $y = f(x)$ si et seulement si $f(a) = b$.
+
+      ### Méthode
+      - **Tester l'appartenance** : calculer $f(a)$ et comparer avec $b$.
+      - **Abscisse connue** : l'ordonnée est $f(a)$.
+      - **Ordonnée connue** : résoudre l'équation $f(x) = b$.
+
+      **Exemple complet.** Courbe $\mathcal{C}$ d'équation $y = x^2 - 2x$.
+      - $A(3 ; 3)$ : $3^2 - 2 \times 3 = 3$, donc $A \in \mathcal{C}$.
+      - $B(-1 ; 1)$ : $(-1)^2 - 2 \times (-1) = 3 \neq 1$, donc $B \notin \mathcal{C}$.
+      - Le point de $\mathcal{C}$ d'abscisse $4$ a pour ordonnée $16 - 8 = 8$.
+      - Les points de $\mathcal{C}$ d'ordonnée $0$ vérifient $x^2 - 2x = 0$, soit $x(x - 2) = 0$ : ce sont $(0 ; 0)$ et $(2 ; 0)$.
+
+      ## 4. Erreurs fréquentes
+      - Inverser abscisse et ordonnée : dans $(x ; y)$, l'abscisse vient en premier.
+      - Se tromper de pas en supposant qu'une graduation vaut toujours $1$.
+      - Oublier les parenthèses en remplaçant $x$ par un nombre négatif.
+      - Conclure qu'un point appartient à la courbe parce qu'il « a l'air d'être dessus » sur le dessin.
     questions:
       - code: 2NDE-AUTO-REPERE-01
         difficulte: 1
@@ -738,7 +1004,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $2^2 + 1 = 5$ $:$ l'ordonnée correspond.
+          - '$K(2 ; 5)$ appartient à la courbe si et seulement si son ordonnée est égale à l''image de son abscisse : on calcule $y$ pour $x = 2$.'
+          - '$2^2 + 1 = 4 + 1 = 5$.'
+          - 'On trouve l''ordonnée de $K$, donc $K$ appartient à la courbe : réponse A.'
           resultat: A
       - code: 2NDE-AUTO-REPERE-04
         difficulte: 4
@@ -748,7 +1016,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $k = 2 \times 9 - 15 = 3$.
+          - '$M(3 ; k)$ est sur la courbe, donc son ordonnée $k$ est l''image de son abscisse $3$ : $k = 2 \times 3^2 - 5 \times 3$.'
+          - 'On respecte les priorités : $3^2 = 9$, donc $k = 2 \times 9 - 15 = 18 - 15$.'
+          - '$k = 3$.'
           resultat: 3
       - code: 2NDE-AUTO-REPERE-05
         difficulte: 5
@@ -758,5 +1028,7 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $3a - 2 = 7$, donc $a = 3$.
+          - '$N(a ; 7)$ est sur la droite, donc ses coordonnées vérifient l''équation : $7 = 3a - 2$.'
+          - 'On résout : $3a = 7 + 2 = 9$, donc $a = 3$.'
+          - 'Contrôle : $3 \times 3 - 2 = 7$, c''est bien l''ordonnée de $N$.'
           resultat: 3
