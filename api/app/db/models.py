@@ -107,6 +107,9 @@ class Enseignant(Base):
     mot_de_passe_hash: Mapped[str] = mapped_column(String(255))
     # Un administrateur est aussi enseignant : il change d'espace par le menu (cahier des charges V2, § 2).
     role: Mapped[Role] = mapped_column(_enum(Role, "role"), default=Role.ENSEIGNANT, server_default=Role.ENSEIGNANT.value)
+    # Disciplines cochées par un administrateur : chacune ouvre son espace (maths : /enseignant, anglais : /anglais).
+    enseigne_maths: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
+    enseigne_anglais: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
     # Désactivé : ni lui ni ses élèves ne peuvent se connecter ; aucune donnée n'est supprimée.
     actif: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
     derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

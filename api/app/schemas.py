@@ -358,6 +358,9 @@ class JetonEnseignant(BaseModel):
     role: Role = Role.ENSEIGNANT
     # Vrai : l'interface demande un nouveau mot de passe avant tout le reste.
     mdp_provisoire: bool = False
+    # Espaces ouverts au compte ; l'API les revérifie à chaque requête.
+    enseigne_maths: bool = True
+    enseigne_anglais: bool = False
 
 
 class ChangementMotDePasse(BaseModel):

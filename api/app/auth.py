@@ -61,10 +61,26 @@ def enseignant_authentifie(identifiants: Identifiants, session: SessionDB) -> mo
     return _compte(identifiants, session, ENSEIGNANT)
 
 
-def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+def _enseignant_pret(identifiants: Identifiants, session: Session) -> models.Enseignant:
     enseignant = _compte(identifiants, session, ENSEIGNANT)
     if enseignant.mdp_provisoire:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Choisissez d'abord un nouveau mot de passe.")
+    return enseignant
+
+
+def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+    """Espace professeur de mathématiques : la discipline est revérifiée en base à chaque requête."""
+    enseignant = _enseignant_pret(identifiants, session)
+    if not enseignant.enseigne_maths:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs de mathématiques.")
+    return enseignant
+
+
+def enseignant_anglais(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+    """Espace PKP Anglais : séances, déroulés et corrigés réservés aux professeurs d'anglais."""
+    enseignant = _enseignant_pret(identifiants, session)
+    if not enseignant.enseigne_anglais:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs d'anglais.")
     return enseignant
 
 
@@ -78,5 +94,6 @@ def admin_courant(identifiants: Identifiants, session: SessionDB) -> models.Ense
 
 EleveCourant = Annotated[models.Eleve, Depends(eleve_courant)]
 EnseignantCourant = Annotated[models.Enseignant, Depends(enseignant_courant)]
+EnseignantAnglais = Annotated[models.Enseignant, Depends(enseignant_anglais)]
 EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authentifie)]
 AdminCourant = Annotated[models.Enseignant, Depends(admin_courant)]

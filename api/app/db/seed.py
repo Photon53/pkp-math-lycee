@@ -32,6 +32,7 @@ from app.security import generer_identifiant, hacher_code_eleve, hacher_mot_de_p
 
 EMAIL_DEMO = "demo@pkp.test"
 EMAIL_ADMIN_DEMO = "admin@pkp.test"
+EMAIL_ANGLAIS_DEMO = "anglais@pkp.test"
 
 # Codes fixes pour pouvoir tester en local ; en vrai, l'enseignant les génère (aléatoires).
 CODES_DEMO = {"Lina": "PKP222", "Yanis": "PKP333", "Inès": "PKP444", "Hugo": "PKP555", "Emma": "PKP666"}
@@ -65,6 +66,16 @@ def charger_demo(session: Session) -> bool:
         session.add(
             models.Enseignant(
                 nom="Administrateur Démo", email=EMAIL_ADMIN_DEMO, role=Role.ADMIN,
+                mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
+            )
+        )
+        session.commit()
+
+    # Professeur d'anglais seul : n'a accès qu'à l'espace /anglais (ajouté à part, comme l'administrateur).
+    if not session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO)):
+        session.add(
+            models.Enseignant(
+                nom="Professeur d'anglais Démo", email=EMAIL_ANGLAIS_DEMO, enseigne_maths=False, enseigne_anglais=True,
                 mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
             )
         )

@@ -104,6 +104,8 @@ def _jeton(enseignant: models.Enseignant) -> JetonEnseignant:
         nom=enseignant.nom,
         role=enseignant.role,
         mdp_provisoire=enseignant.mdp_provisoire,
+        enseigne_maths=enseignant.enseigne_maths,
+        enseigne_anglais=enseignant.enseigne_anglais,
     )
 
 

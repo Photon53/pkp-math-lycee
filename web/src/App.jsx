@@ -8,6 +8,8 @@ import { Logo } from "./ui/Icone.jsx";
 
 // L'espace administrateur n'est chargé que par ceux qui l'ouvrent : les élèves ne le téléchargent pas.
 const EspaceAdmin = lazy(() => import("./admin/EspaceAdmin.jsx"));
+// Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
+const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
 
 export default function App() {
   const chemin = useChemin();
@@ -21,6 +23,13 @@ export default function App() {
     );
   }
   if (chemin === "/enseignant" || chemin.startsWith("/enseignant/")) return <EspaceEnseignant chemin={chemin} />;
+  if (chemin === "/anglais" || chemin.startsWith("/anglais/")) {
+    return (
+      <Suspense fallback={<p className="doux page">Chargement…</p>}>
+        <EspaceAnglais chemin={chemin} />
+      </Suspense>
+    );
+  }
 
   // Élève et accueil public : colonne centrée, priorité au mobile.
   const eleve = chemin === "/eleve" || chemin.startsWith("/eleve/");

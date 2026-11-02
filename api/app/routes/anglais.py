@@ -1,4 +1,4 @@
-"""Lecture des séances PKP Anglais et génération PDF, réservées aux enseignants authentifiés."""
+"""Lecture des séances PKP Anglais et génération PDF, réservées aux professeurs d'anglais."""
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
@@ -7,7 +7,7 @@ from pkp_anglais.contenu import charger_seance
 from pkp_anglais.seances import generer_pack_animateur, generer_pack_eleve
 
 from app.anglais_pdf import produire_pdf
-from app.auth import EnseignantCourant
+from app.auth import EnseignantAnglais
 
 router = APIRouter(prefix="/anglais", tags=["anglais"])
 
@@ -28,7 +28,7 @@ def _seance(code: str):
 
 
 @router.get("/seances")
-def lister_seances(_: EnseignantCourant):
+def lister_seances(_: EnseignantAnglais):
     return [
         {"code": s.code, "niveau": s.niveau, "titre": s.titre, "objectif": s.objectif, "duree_minutes": 90}
         for code in SEANCES for s in [_seance(code)]
@@ -36,12 +36,12 @@ def lister_seances(_: EnseignantCourant):
 
 
 @router.get("/seances/{code}")
-def consulter_seance(code: str, _: EnseignantCourant):
+def consulter_seance(code: str, _: EnseignantAnglais):
     return generer_pack_animateur(_seance(code))
 
 
 @router.get("/seances/{code}/pdf/{public}")
-def telecharger_pdf(code: str, public: str, _: EnseignantCourant):
+def telecharger_pdf(code: str, public: str, _: EnseignantAnglais):
     if public not in ("eleve", "animateur"):
         raise HTTPException(404, "Pack inconnu.")
     seance = _seance(code)

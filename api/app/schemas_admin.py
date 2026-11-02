@@ -4,7 +4,7 @@ from datetime import date, datetime
 from typing import Annotated
 
 from pkp_engine import Niveau, TypeQuestion
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import Adaptation, Parcours, Role, StatutValidation
 
@@ -46,6 +46,8 @@ class EnseignantAdmin(BaseModel):
     nom: str
     email: str
     role: Role
+    enseigne_maths: bool
+    enseigne_anglais: bool
     actif: bool
     mdp_provisoire: bool
     totp_configure: bool
@@ -58,11 +60,19 @@ class EnseignantEdition(BaseModel):
     nom: Annotated[str, Field(min_length=1, max_length=100)]
     email: Annotated[str, Field(min_length=3, max_length=254)]
     role: Role = Role.ENSEIGNANT
+    enseigne_maths: bool = True
+    enseigne_anglais: bool = False
 
     @field_validator("email")
     @classmethod
     def _valider_email(cls, v: str) -> str:
         return _email(v)
+
+    @model_validator(mode="after")
+    def _une_discipline(self) -> "EnseignantEdition":
+        if not (self.enseigne_maths or self.enseigne_anglais):
+            raise ValueError("Cochez au moins une discipline.")
+        return self
 
 
 class EnseignantCree(BaseModel):

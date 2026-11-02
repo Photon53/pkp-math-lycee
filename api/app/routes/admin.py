@@ -45,7 +45,7 @@ from app.security import (
 
 router = APIRouter(prefix="/admin", tags=["administration"])
 
-CHAMPS_ENSEIGNANT = ("nom", "email", "role", "actif")
+CHAMPS_ENSEIGNANT = ("nom", "email", "role", "enseigne_maths", "enseigne_anglais", "actif")
 
 
 # --- Connexion ----------------------------------------------------------------------
@@ -90,7 +90,8 @@ def _vue_enseignant(session: SessionDB, e: models.Enseignant) -> EnseignantAdmin
         select(func.count(models.Eleve.id)).join(models.Classe).where(models.Classe.enseignant_id == e.id)
     )
     return EnseignantAdmin(
-        id=e.id, nom=e.nom, email=e.email, role=e.role, actif=e.actif, mdp_provisoire=e.mdp_provisoire,
+        id=e.id, nom=e.nom, email=e.email, role=e.role, enseigne_maths=e.enseigne_maths,
+        enseigne_anglais=e.enseigne_anglais, actif=e.actif, mdp_provisoire=e.mdp_provisoire,
         totp_configure=e.totp_secret is not None, nb_classes=len(e.classes), nb_eleves=nb_eleves,
         derniere_connexion=e.derniere_connexion,
     )
@@ -124,6 +125,7 @@ def creer_enseignant(corps: EnseignantEdition, admin: AdminCourant, session: Ses
     provisoire = generer_mot_de_passe_provisoire()
     e = models.Enseignant(
         nom=corps.nom.strip(), email=corps.email, role=corps.role,
+        enseigne_maths=corps.enseigne_maths, enseigne_anglais=corps.enseigne_anglais,
         mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
     )
     session.add(e)
@@ -143,6 +145,7 @@ def modifier_enseignant(
     _email_libre(session, corps.email, sauf_id=e.id)
     avant = journal.instantane(e, CHAMPS_ENSEIGNANT)
     e.nom, e.email, e.role = corps.nom.strip(), corps.email, corps.role
+    e.enseigne_maths, e.enseigne_anglais = corps.enseigne_maths, corps.enseigne_anglais
     journal.noter(session, admin, "modifier", "enseignant", e.id, avant, journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.commit()
     return _vue_enseignant(session, e)
@@ -177,6 +180,9 @@ def transferer_classes(enseignant_id: int, corps: Transfert, admin: AdminCourant
     de, vers = _enseignant(session, enseignant_id), _enseignant(session, corps.vers_enseignant_id)
     if de.id == vers.id:
         raise HTTPException(422, "Choisissez un autre professeur.")
+    # Les classes sont celles de l'espace maths : un professeur d'anglais seul ne pourrait pas les ouvrir.
+    if not vers.enseigne_maths:
+        raise HTTPException(422, "Ce professeur n'enseigne pas les mathématiques.")
     codes = [c.code for c in de.classes]
     for classe in list(de.classes):
         classe.enseignant = vers

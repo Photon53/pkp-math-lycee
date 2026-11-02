@@ -6,19 +6,18 @@ import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import Classes from "./Classes.jsx";
-import SeancesAnglais from "../anglais/SeancesAnglais.jsx";
 import CoursEnseignant from "./CoursEnseignant.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
 
-const CLE_COMPTE = "pkp.enseignant";
+// Session partagée avec l'espace PKP Anglais : un professeur des deux disciplines ne se connecte qu'une fois.
+export const CLE_COMPTE = "pkp.enseignant";
 
 const PAGES = [
   { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
-  { vers: "/enseignant/anglais", libelle: "PKP Anglais", icone: "cours" },
 ];
 
 export default function EspaceEnseignant({ chemin = "/enseignant" }) {
@@ -42,6 +41,19 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       </PageSimple>
     );
   }
+  // Session ouverte avant l'ajout des disciplines : le champ manque, le compte reste un compte de maths.
+  if (compte.enseigne_maths === false) {
+    return (
+      <PageSimple>
+        <AccesReserve
+          titre="Espace réservé aux professeurs de mathématiques"
+          compte={compte}
+          autreEspace={{ vers: "/anglais", libelle: "Aller à l'espace PKP Anglais" }}
+          onDeconnexion={deconnecter}
+        />
+      </PageSimple>
+    );
+  }
 
   const page = PAGES.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
     (a, b) => b.vers.length - a.vers.length,
@@ -61,6 +73,11 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
               <Icone nom="bouclier" /> Administration
             </a>
           )}
+          {compte.enseigne_anglais && (
+            <a href="/anglais">
+              <Icone nom="cours" /> PKP Anglais
+            </a>
+          )}
           <button className="nav" onClick={deconnecter}>
             <Icone nom="sortie" /> Se déconnecter
           </button>
@@ -72,16 +89,15 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
-      {page.vers === "/enseignant/anglais" && <SeancesAnglais {...props} />}
     </CadreApplication>
   );
 }
 
-function PageSimple({ children }) {
+export function PageSimple({ marque, children }) {
   return (
     <div className="page">
       <header className="entete">
-        <Logo />
+        <Logo marque={marque} />
         <nav aria-label="Espaces">
           <a href="/eleve">Espace élève</a>
         </nav>
@@ -91,7 +107,30 @@ function PageSimple({ children }) {
   );
 }
 
-function ConnexionEnseignant({ onConnexion }) {
+/** Compte connecté sans la discipline de cet espace : l'API refuserait aussi chaque requête (403). */
+export function AccesReserve({ titre, compte, autreEspace, onDeconnexion }) {
+  return (
+    <div className="carte carte-etroite">
+      <h1>{titre}</h1>
+      <p className="doux">
+        Le compte de {compte.nom} n'y a pas accès. Si c'est une erreur, demandez à un administrateur de cocher la discipline sur
+        votre compte.
+      </p>
+      <div className="actions">
+        {autreEspace && (
+          <a className="bouton" href={autreEspace.vers}>
+            {autreEspace.libelle}
+          </a>
+        )}
+        <button type="button" className="lien" onClick={onDeconnexion}>
+          Se déconnecter
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexion }) {
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState(null);
@@ -113,7 +152,7 @@ function ConnexionEnseignant({ onConnexion }) {
 
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
-      <h1>Connexion professeur</h1>
+      <h1>{titre}</h1>
       <label htmlFor="email">Email</label>
       <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required />
       <label htmlFor="mdp">Mot de passe</label>
@@ -136,7 +175,7 @@ function ConnexionEnseignant({ onConnexion }) {
 }
 
 /** Mot de passe provisoire donné par un administrateur : à remplacer avant tout le reste (EA3.2). */
-function NouveauMotDePasse({ compte, onChange, onAnnuler }) {
+export function NouveauMotDePasse({ compte, onChange, onAnnuler, retour = "/enseignant" }) {
   const [actuel, setActuel] = useState("");
   const [nouveau, setNouveau] = useState("");
   const [confirmation, setConfirmation] = useState("");
@@ -148,7 +187,7 @@ function NouveauMotDePasse({ compte, onChange, onAnnuler }) {
     setErreur(null);
     try {
       onChange(await api("/enseignants/mot-de-passe", { methode: "POST", jeton: compte.jeton, corps: { actuel, nouveau } }));
-      naviguer("/enseignant");
+      naviguer(retour);
     } catch (err) {
       if (err.status === 401 && err.message.startsWith("Authentification")) onAnnuler();
       else setErreur(err.message);
