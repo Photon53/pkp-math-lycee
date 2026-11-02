@@ -486,6 +486,8 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .anglais-encadre.prononciation { background: var(--ok-doux); }
 .anglais-encadre ul, .anglais-encadre p { margin: 4px 0; }
 .anglais-texte { white-space: pre-wrap; }
+.liste-eleves-anglais { list-style: none; padding: 0; margin: 8px 0 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px 16px; }
+.liste-eleves-anglais li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--bordure); border-radius: 8px; }
 .anglais-bulles { display: grid; gap: 6px; margin: 8px 0; }
 .anglais-bulles .bulle { margin: 0; padding: 8px 12px; border-radius: var(--rayon-petit); border: 1px solid var(--bordure); max-width: 80%; }
 .anglais-bulles .gauche { background: var(--surface-2); justify-self: start; }

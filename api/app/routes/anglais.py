@@ -1,14 +1,18 @@
-"""Lecture des séances PKP Anglais et génération PDF, réservées aux professeurs d'anglais."""
+"""Séances PKP Anglais, génération PDF et groupes d'élèves, réservés aux professeurs d'anglais."""
 from pathlib import Path
+from typing import Annotated, Literal
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import Response
 from pkp_anglais.contenu import charger_seance
 from pkp_anglais.seances import generer_pack_animateur, generer_pack_eleve
+from pydantic import BaseModel, Field, field_validator
 
 from app.anglais_pdf import charger_ressources, produire_pdf
 from app.anglais_pictos import image_svg
-from app.auth import EnseignantAnglais
+from app.auth import EnseignantAnglais, SessionDB
+from app.db import models
+from app.schemas import CreationEleves
 
 router = APIRouter(prefix="/anglais", tags=["anglais"])
 
@@ -62,3 +66,104 @@ def telecharger_pdf(code: str, public: str, _: EnseignantAnglais):
             "X-Content-Type-Options": "nosniff",
         },
     )
+
+
+# --- Groupes d'élèves (4e, 3e) ------------------------------------------------
+# Séparés des classes de maths (niveaux lycée, parcours, chapitres) : le CDC anglais interdit de les détourner.
+
+ELEVES_PAR_GROUPE = 30  # le CDC recommande 8 à 10 élèves ; la limite évite seulement les saisies aberrantes
+
+
+class GroupeCreation(BaseModel):
+    nom: Annotated[str, Field(max_length=60)]
+    niveau: Literal["4e", "3e"]
+
+    @field_validator("nom")
+    @classmethod
+    def _nom(cls, v: str) -> str:
+        v = " ".join(v.split())
+        if not v:
+            raise ValueError("Donnez un nom au groupe.")
+        return v
+
+
+class EleveAnglaisResume(BaseModel):
+    id: int
+    prenom: str
+
+
+class GroupeResume(BaseModel):
+    id: int
+    nom: str
+    niveau: str
+    eleves: list[EleveAnglaisResume]
+
+
+class ResultatInscription(BaseModel):
+    groupe: GroupeResume
+    deja_presents: list[str]
+
+
+def _resume(groupe: models.GroupeAnglais) -> GroupeResume:
+    eleves = sorted(groupe.eleves, key=lambda e: e.prenom.lower())
+    return GroupeResume(id=groupe.id, nom=groupe.nom, niveau=groupe.niveau,
+                        eleves=[EleveAnglaisResume(id=e.id, prenom=e.prenom) for e in eleves])
+
+
+def _mon_groupe(session: SessionDB, groupe_id: int, enseignant: models.Enseignant) -> models.GroupeAnglais:
+    groupe = session.get(models.GroupeAnglais, groupe_id)
+    if groupe is None or groupe.enseignant_id != enseignant.id:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Groupe introuvable.")
+    return groupe
+
+
+@router.get("/groupes", response_model=list[GroupeResume])
+def mes_groupes(enseignant: EnseignantAnglais) -> list[GroupeResume]:
+    # 4e avant 3e, comme le programme.
+    groupes = sorted(enseignant.groupes_anglais, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.nom.lower()))
+    return [_resume(g) for g in groupes]
+
+
+@router.post("/groupes", response_model=GroupeResume, status_code=status.HTTP_201_CREATED)
+def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
+    if any(g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
+    groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant)
+    session.add(groupe)
+    session.commit()
+    return _resume(groupe)
+
+
+@router.post("/groupes/{groupe_id}/eleves", response_model=ResultatInscription, status_code=status.HTTP_201_CREATED)
+def inscrire_eleves(
+    groupe_id: int, corps: CreationEleves, enseignant: EnseignantAnglais, session: SessionDB
+) -> ResultatInscription:
+    """Inscrit des élèves par leur seul prénom ; ceux déjà présents sont ignorés."""
+    groupe = _mon_groupe(session, groupe_id, enseignant)
+    existants = {e.prenom for e in groupe.eleves}
+    nouveaux = [p for p in corps.prenoms if p not in existants]
+    if len(groupe.eleves) + len(nouveaux) > ELEVES_PAR_GROUPE:
+        raise HTTPException(422, f"Un groupe compte au plus {ELEVES_PAR_GROUPE} élèves.")
+    groupe.eleves.extend(models.EleveAnglais(prenom=p) for p in nouveaux)
+    session.commit()
+    return ResultatInscription(groupe=_resume(groupe), deja_presents=[p for p in corps.prenoms if p in existants])
+
+
+@router.delete("/groupes/{groupe_id}/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
+def retirer_eleve(groupe_id: int, eleve_id: int, enseignant: EnseignantAnglais, session: SessionDB) -> Response:
+    """Droit à l'effacement (RGPD) : le prénom est supprimé, pas archivé."""
+    groupe = _mon_groupe(session, groupe_id, enseignant)
+    eleve = session.get(models.EleveAnglais, eleve_id)
+    if eleve is None or eleve.groupe_id != groupe.id:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
+    session.delete(eleve)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.delete("/groupes/{groupe_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_groupe(groupe_id: int, enseignant: EnseignantAnglais, session: SessionDB) -> Response:
+    """Fin d'année : supprime le groupe et ses élèves."""
+    session.delete(_mon_groupe(session, groupe_id, enseignant))
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

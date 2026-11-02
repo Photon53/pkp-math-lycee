@@ -10,7 +10,7 @@ from tests.conftest import config_alembic
 TABLES = {
     "lecon_version", "journal_admin", "seance_competence", "ressource", "ressource_classe", "ressource_consultation", "domaine_interdit",
     "enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse",
-    "classe_chapitre", "seance_chapitre",
+    "classe_chapitre", "seance_chapitre", "groupe_anglais", "eleve_anglais",
 }
 
 

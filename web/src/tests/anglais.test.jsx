@@ -138,4 +138,37 @@ describe("PKP Anglais", () => {
     const creation = appels.find((a) => a.cle === "POST /admin/enseignants");
     expect(creation.corps).toMatchObject({ enseigne_maths: false, enseigne_anglais: true });
   });
+
+  it("le professeur d'anglais crée un groupe de 4e et y inscrit ses élèves", async () => {
+    connecte({ enseigne_maths: false, enseigne_anglais: true });
+    let groupes = [{ id: 1, nom: "3e A", niveau: "3e", eleves: [] }];
+    const appels = fausseApi({
+      "GET /anglais/groupes": () => ({ json: groupes }),
+      "POST /anglais/groupes": (corps) => {
+        const g = { id: 2, ...corps, eleves: [] };
+        groupes = [g, ...groupes];
+        return { status: 201, json: g };
+      },
+      "POST /anglais/groupes/2/eleves": ({ prenoms }) => {
+        groupes[0] = { ...groupes[0], eleves: prenoms.map((prenom, i) => ({ id: 10 + i, prenom })) };
+        return { status: 201, json: { groupe: groupes[0], deja_presents: [] } };
+      },
+    });
+    render(<EspaceAnglais chemin="/anglais/groupes" />);
+    expect(await screen.findByRole("heading", { name: "Mes groupes", level: 1 })).toBeInTheDocument();
+    expect(screen.getByText("Aucun groupe de 4e pour l'instant.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /3e A/ })).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText("Nom du nouveau groupe"), "4e B");
+    await userEvent.selectOptions(screen.getByLabelText("Niveau du nouveau groupe"), "4e");
+    await userEvent.click(screen.getByRole("button", { name: "Créer le groupe" }));
+    expect(await screen.findByRole("heading", { name: "Groupe 4e B · 4e" })).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText(/Inscrire des élèves/), "Lina{enter}Yanis");
+    await userEvent.click(screen.getByRole("button", { name: "Inscrire" }));
+    expect(await screen.findByRole("button", { name: "Retirer Yanis" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /4e B/ })).toHaveTextContent("2 élèves");
+    expect(appels.find((a) => a.cle === "POST /anglais/groupes").corps).toEqual({ nom: "4e B", niveau: "4e" });
+    expect(appels.find((a) => a.cle === "POST /anglais/groupes/2/eleves").corps).toEqual({ prenoms: ["Lina", "Yanis"] });
+  });
 });

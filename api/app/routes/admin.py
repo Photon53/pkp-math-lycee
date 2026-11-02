@@ -203,6 +203,8 @@ def supprimer_enseignant(enseignant_id: int, confirmation: str, admin: AdminCour
         raise HTTPException(422, "Saisissez l'adresse e-mail du compte pour confirmer.")
     if e.classes:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des classes : transférez-les d'abord.")
+    if e.groupes_anglais:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des groupes d'anglais : il doit d'abord les supprimer.")
     fichiers = [r.fichier for r in session.scalars(select(models.Ressource).where(models.Ressource.auteur_id == e.id))]
     journal.noter(session, admin, "supprimer", "enseignant", e.id, avant=journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.delete(e)

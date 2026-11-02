@@ -119,6 +119,7 @@ class Enseignant(Base):
     totp_secret: Mapped[str | None] = mapped_column(String(64))
 
     classes: Mapped[list["Classe"]] = relationship(back_populates="enseignant")
+    groupes_anglais: Mapped[list["GroupeAnglais"]] = relationship(back_populates="enseignant")
 
 
 class Classe(Base):
@@ -161,6 +162,41 @@ class Eleve(Base):
     seances: Mapped[list["Seance"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )
+
+
+NIVEAUX_ANGLAIS = ("4e", "3e")
+
+
+class GroupeAnglais(Base):
+    """Groupe PKP Anglais (collège) : séparé des classes de maths, sans parcours ni chapitres (CDC anglais V1.8)."""
+
+    __tablename__ = "groupe_anglais"
+    __table_args__ = (CheckConstraint("niveau IN ('4e', '3e')", name="ck_groupe_anglais_niveau"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nom: Mapped[str] = mapped_column(String(60))
+    niveau: Mapped[str] = mapped_column(String(2))
+    enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+
+    enseignant: Mapped[Enseignant] = relationship(back_populates="groupes_anglais")
+    eleves: Mapped[list["EleveAnglais"]] = relationship(
+        back_populates="groupe", cascade="all, delete-orphan", passive_deletes=True
+    )
+
+
+class EleveAnglais(Base):
+    """Élève d'un groupe d'anglais : un prénom, rien d'autre."""
+
+    __tablename__ = "eleve_anglais"
+    __table_args__ = (UniqueConstraint("prenom", "groupe_id", name="uq_eleve_anglais_prenom_groupe"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    prenom: Mapped[str] = mapped_column(String(50))
+    groupe_id: Mapped[int] = mapped_column(ForeignKey("groupe_anglais.id", ondelete="CASCADE"), index=True)
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+
+    groupe: Mapped[GroupeAnglais] = relationship(back_populates="eleves")
 
 
 class Chapitre(Base):
