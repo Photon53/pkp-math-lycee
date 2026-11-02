@@ -258,8 +258,12 @@ class TestCoursProfesseur:
         assert all(ch["ouvert_dans"] == [] for ch in sommaire if ch["parcours"] != "tronc-commun")
 
     def test_recherche(self, client):
-        sommaire = client.get("/enseignants/cours?q=fraction", headers=connecter_enseignant(client)).json()
-        assert sommaire and len(sommaire) < 10
+        entetes = connecter_enseignant(client)
+        tous = client.get("/enseignants/cours", headers=entetes).json()
+        sommaire = client.get("/enseignants/cours?q=fraction", headers=entetes).json()
+        # Suit le contenu : la recherche trouve des chapitres, mais pas toute la banque.
+        assert sommaire and len(sommaire) < len(tous)
+        assert client.get("/enseignants/cours?q=terme-introuvable", headers=entetes).json() == []
 
     def test_exercices_avec_solutions_sous_le_cours(self, client):
         questions = client.get("/enseignants/cours/1/questions", headers=connecter_enseignant(client)).json()
