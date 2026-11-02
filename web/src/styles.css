@@ -471,3 +471,22 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .choix-parcours { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .choix-parcours label { margin: 0; }
 .choix-parcours select { width: auto; max-width: 100%; }
+
+/* PKP Anglais : le cours affiché comme le cahier élève */
+.anglais-accroche { font-weight: 700; font-size: var(--t-l); color: var(--primaire); margin: 4px 0 8px; }
+.anglais-rubrique h3 { margin-top: 0; }
+.anglais-visuels { list-style: none; padding: 0; margin: 0 0 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.anglais-visuels li {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 8px; font-weight: 700;
+  background: var(--surface-2); border: 1px solid var(--bordure); border-radius: var(--rayon-petit);
+}
+.anglais-encadre { padding: 10px 12px; border-radius: var(--rayon-petit); background: var(--surface-2); border: 1px solid var(--bordure); }
+.anglais-encadre.grammaire { background: var(--alerte-doux); }
+.anglais-encadre.culture { background: var(--accent-doux); }
+.anglais-encadre.prononciation { background: var(--ok-doux); }
+.anglais-encadre ul, .anglais-encadre p { margin: 4px 0; }
+.anglais-texte { white-space: pre-wrap; }
+.anglais-bulles { display: grid; gap: 6px; margin: 8px 0; }
+.anglais-bulles .bulle { margin: 0; padding: 8px 12px; border-radius: var(--rayon-petit); border: 1px solid var(--bordure); max-width: 80%; }
+.anglais-bulles .gauche { background: var(--surface-2); justify-self: start; }
+.anglais-bulles .droite { background: var(--accent-doux); justify-self: end; }

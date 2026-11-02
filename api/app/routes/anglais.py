@@ -6,7 +6,8 @@ from fastapi.responses import Response
 from pkp_anglais.contenu import charger_seance
 from pkp_anglais.seances import generer_pack_animateur, generer_pack_eleve
 
-from app.anglais_pdf import produire_pdf
+from app.anglais_pdf import charger_ressources, produire_pdf
+from app.anglais_pictos import image_svg
 from app.auth import EnseignantAnglais
 
 router = APIRouter(prefix="/anglais", tags=["anglais"])
@@ -37,7 +38,13 @@ def lister_seances(_: EnseignantAnglais):
 
 @router.get("/seances/{code}")
 def consulter_seance(code: str, _: EnseignantAnglais):
-    return generer_pack_animateur(_seance(code))
+    pack = generer_pack_animateur(_seance(code))
+    r = charger_ressources().get(code)
+    # Tout le contenu du cahier, pour que l'écran du professeur montre le même cours que le PDF.
+    # Les écoutes restent de simples liens : rien n'est intégré, donc aucun traceur tiers.
+    if r:
+        pack["cahier"] = {**r, "visual": [{**v, "image": image_svg(v["picto"])} for v in r["visual"]]}
+    return pack
 
 
 @router.get("/seances/{code}/pdf/{public}")

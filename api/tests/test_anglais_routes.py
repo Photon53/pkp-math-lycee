@@ -31,6 +31,11 @@ def test_chaque_seance_listee_s_ouvre_et_produit_ses_pdf(client):
         seance = client.get(f"/anglais/seances/{item['code']}", headers=h)
         assert seance.status_code == 200, item["code"]
         assert all("corrige" in f for f in seance.json()["fiches"])
+        # Le même cours que le PDF : toutes les rubriques du cahier, pictogrammes compris.
+        cahier = seance.json()["cahier"]
+        assert {"vocab", "grammar", "listening", "model", "practice", "starters", "mission", "can_do"} <= cahier.keys()
+        assert cahier["listening"]["url"].startswith("https://")
+        assert all(v["image"].startswith("data:image/svg+xml;base64,") for v in cahier["visual"])
         for public in ("eleve", "animateur"):
             pdf = client.get(f"/anglais/seances/{item['code']}/pdf/{public}", headers=h)
             assert pdf.status_code == 200

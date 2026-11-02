@@ -11,6 +11,26 @@ const SEANCE = {
   code: "4E-01", niveau: "4e", titre: "My daily life", objectif: "Parler de ses habitudes",
   etapes: [{ titre: "Warm-up", duree_minutes: 90, consigne_eleve: "Write three activities", consigne_animateur: "Recueillir" }],
   fiches: [{ parcours: "A", enonce: "Complete", corrige: "I like reading" }],
+  cahier: {
+    hook: "AFTER SCHOOL: WHAT'S YOUR STYLE?",
+    visual: [{ label: "FOOTBALL", picto: "ballon", image: "data:image/svg+xml;base64,PHN2Zy8+" }],
+    vocab: [["usually", "d'habitude", "I usually walk to school."]],
+    grammar: { title: "Present simple + how often?", rule: "He plays.", examples: ["How often do you read?"] },
+    pronunciation: "plays sounds like [z]",
+    did_you_know: "In the UK, the school day usually ends around half past three.",
+    model: "Alex: I usually play football.\nSam: I often read.",
+    listening: {
+      title: "Free time", source: "British Council - LearnEnglish Teens", level: "A2", media: "audio",
+      url: "https://learnenglishteens.britishcouncil.org/skills/listening/a2-listening/free-time", verified_on: "2026-11-02",
+      questions: ["What sport does Tyrone want to try?"], answers: ["Water polo"], fallback: "Tyrone: I'd like to join the water polo club.",
+    },
+    go_further: [],
+    practice: ["Complete: She ___ (play) tennis."], practice_answers: ["plays"],
+    starters: ["After school, I usually..."],
+    mission: "Interview a partner about three after-school activities.",
+    can_do: ["I can say how often I do an activity."],
+    memory: "Write five frequency words.",
+  },
 };
 
 function connecte(disciplines) {
@@ -58,6 +78,40 @@ describe("PKP Anglais", () => {
     expect(await screen.findByRole("heading", { name: "My daily life" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "PDF élève" })).toBeInTheDocument();
     expect(screen.queryByText("Espace professeur de maths")).not.toBeInTheDocument();
+    // Écoute : simple lien vers le site source, ouvert à part, sans lecteur intégré.
+    const lien = screen.getByRole("link", { name: "Free time" });
+    expect(lien).toHaveAttribute("href", SEANCE.cahier.listening.url);
+    expect(lien).toHaveAttribute("target", "_blank");
+    expect(lien).toHaveAttribute("rel", "noopener noreferrer");
+    expect(document.querySelector("iframe")).toBeNull();
+    expect(screen.getByText("Script de secours (sans réseau, à lire deux fois)")).toBeInTheDocument();
+  });
+
+  it("la page du professeur reprend le cours du cahier, rubrique par rubrique", async () => {
+    connecte({ enseigne_maths: false, enseigne_anglais: true });
+    fausseApi({
+      "GET /anglais/seances": { json: [{ code: "4E-01", niveau: "4e", titre: "My daily life", objectif: "x", duree_minutes: 90 }] },
+      "GET /anglais/seances/4E-01": { json: SEANCE },
+    });
+    render(<EspaceAnglais chemin="/anglais" />);
+    await screen.findByRole("heading", { name: "Le cours" });
+    const rubriques = screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
+    expect(rubriques).toEqual([
+      "1. Get curious - Choose your idea", "2. Word power - Learn and remember",
+      "3. Grammar focus - Present simple + how often?", "4. Listen and watch", "5. Read the model",
+      "6. Practise - Try it yourself", "7. Choose your challenge - A / B / C", "8. Final mission",
+      "9. Check yourself - I can...", "10. Remember for next time",
+    ]);
+    expect(screen.getByText("FOOTBALL").querySelector("img")).toHaveAttribute("src", SEANCE.cahier.visual[0].image);
+    expect(screen.getByText("I usually walk to school.")).toBeInTheDocument();
+    expect(screen.getByText("I can say how often I do an activity.")).toBeInTheDocument();
+    expect(screen.getByText(/After school, I usually/)).toBeInTheDocument();
+    // Dialogue en bulles, comme dans le cahier.
+    expect(screen.getByText("I usually play football.").closest("p")).toHaveClass("bulle", "gauche");
+    expect(screen.getByText("I often read.").closest("p")).toHaveClass("bulle", "droite");
+    // Les réponses sont présentes mais repliées.
+    expect(screen.getByText("Water polo").closest("details")).not.toHaveAttribute("open");
+    expect(screen.getByText("plays").closest("details")).not.toHaveAttribute("open");
   });
 
   it("l'administrateur coche les disciplines d'un nouveau professeur", async () => {

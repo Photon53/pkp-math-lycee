@@ -2,235 +2,195 @@
   "4E-01": {
     "hook": "AFTER SCHOOL: WHAT'S YOUR STYLE?",
     "visual": [
-      "FOOTBALL",
-      "BOOKS",
-      "MUSIC",
-      "GAMES"
+      {"label": "FOOTBALL", "picto": "ballon"},
+      {"label": "BOOKS", "picto": "livre"},
+      {"label": "MUSIC", "picto": "musique"},
+      {"label": "GAMES", "picto": "manette"}
     ],
     "vocab": [
-      [
-        "usually",
-        "d'habitude"
-      ],
-      [
-        "sometimes",
-        "parfois"
-      ],
-      [
-        "never",
-        "jamais"
-      ],
-      [
-        "often",
-        "souvent"
-      ],
-      [
-        "after school",
-        "après les cours"
-      ],
-      [
-        "free time",
-        "temps libre"
-      ],
-      [
-        "to practise",
-        "s'entraîner"
-      ],
-      [
-        "to relax",
-        "se détendre"
-      ],
-      [
-        "to prefer",
-        "préférer"
-      ],
-      [
-        "to read",
-        "lire"
-      ]
+      ["usually", "d'habitude", "I usually walk to school."],
+      ["sometimes", "parfois", "I sometimes play chess."],
+      ["never", "jamais", "She never watches TV in the morning."],
+      ["often", "souvent", "We often meet at the park."],
+      ["after school", "après les cours", "After school, I go to the library."],
+      ["free time", "temps libre", "In my free time, I draw."],
+      ["to practise", "s'entraîner", "He practises the guitar every day."],
+      ["to relax", "se détendre", "Music helps me relax."],
+      ["to prefer", "préférer", "I prefer reading to running."],
+      ["to read", "lire", "Do you read comics?"]
     ],
+    "grammar": {
+      "title": "Present simple + how often?",
+      "rule": "I / you / we / they play  -  he / she / it plays. The frequency word goes before the verb: I usually play. But after be: I am often late.",
+      "examples": ["How often do you read?", "She never plays video games.", "We sometimes go swimming."]
+    },
+    "pronunciation": "The -s of he / she / it: plays and reads sound like [z], walks and likes sound like [s], watches and practises add a syllable [iz].",
+    "did_you_know": "In the UK, the school day usually ends around half past three. Many secondary schools offer after-school clubs: sport, drama, music, coding...",
     "model": "Alex: I usually play football after school. I sometimes read in the evening.\nSam: I often read after school. I never play football on weekdays.\nAlex: What do you like doing?\nSam: I like drawing because it helps me relax.",
     "listening": {
-      "title": "Free time — British Council A2",
+      "title": "Free time",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A2",
+      "media": "audio",
       "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a2-listening/free-time",
+      "verified_on": "2026-11-02",
       "questions": [
         "What sport does Tyrone want to try?",
         "How old is he?",
         "On which two weekdays is the training?"
       ],
-      "answers": [
-        "Water polo",
-        "15",
-        "Tuesday and Thursday"
-      ],
-      "fallback": "Alex: I usually play football after school. I sometimes read in the evening. Sam: I often read after school. I never play football on weekdays."
+      "answers": ["Water polo", "15", "Tuesday and Thursday"],
+      "fallback": "Receptionist: Good afternoon, Riverside Swimming Pool.\nTyrone: Hello! I'd like to join the water polo club, please.\nReceptionist: Of course. How old are you?\nTyrone: I'm fifteen.\nReceptionist: Then you're in the junior team. Training is on Tuesdays and Thursdays, from half past six to eight.\nTyrone: Great, thanks a lot!"
     },
+    "go_further": [
+      {
+        "title": "Stop wasting time",
+        "source": "British Council - LearnEnglish Teens",
+        "level": "A2",
+        "media": "audio",
+        "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a2-listening/stop-wasting-time",
+        "verified_on": "2026-11-02",
+        "task": "Tom can't concentrate on his homework. Note three things that distract him."
+      }
+    ],
     "practice": [
-      "Circle the adverb: I usually read / I read usually.",
+      "Circle the correct sentence: I usually read / I read usually.",
       "Complete: She ___ (play) tennis on Mondays.",
       "Ask your partner: How often do you read? Write the answer.",
       "Write two sentences about a hobby you like and one reason."
     ],
-    "practice_answers": [
-      "I usually read",
-      "plays",
-      "Réponse personnelle",
-      "Réponse personnelle"
-    ],
+    "practice_answers": ["I usually read", "plays", "Réponse personnelle", "Réponse personnelle"],
+    "starters": ["After school, I usually...", "I sometimes... but I never...", "My favourite activity is... because...", "How often do you...?"],
     "mission": "Interview a partner about three after-school activities. Report two similarities or differences.",
+    "can_do": [
+      "I can say how often I do an activity.",
+      "I can ask: How often do you...?",
+      "I can explain why I like an activity with because."
+    ],
     "memory": "Without looking, write five frequency or hobby words; check, correct, and reuse two in sentences."
   },
   "4E-02": {
     "hook": "ONE SATURDAY. TWO FRIENDS. ONE PLAN!",
     "visual": [
-      "CINEMA",
-      "PARK",
-      "MUSEUM",
-      "SPORT"
+      {"label": "CINEMA", "picto": "cinema"},
+      {"label": "PARK", "picto": "arbre"},
+      {"label": "MUSEUM", "picto": "musee"},
+      {"label": "SPORT", "picto": "ballon"}
     ],
     "vocab": [
-      [
-        "to suggest",
-        "proposer"
-      ],
-      [
-        "to agree",
-        "être d'accord"
-      ],
-      [
-        "to prefer",
-        "préférer"
-      ],
-      [
-        "instead",
-        "à la place"
-      ],
-      [
-        "free time",
-        "temps libre"
-      ],
-      [
-        "to meet up",
-        "se retrouver"
-      ],
-      [
-        "to go bowling",
-        "aller au bowling"
-      ],
-      [
-        "how about…?",
-        "et si… ?"
-      ],
-      [
-        "sounds great",
-        "super idée"
-      ],
-      [
-        "because",
-        "parce que"
-      ]
+      ["to suggest", "proposer", "Can I suggest a film?"],
+      ["to agree", "être d'accord", "I agree with you."],
+      ["to prefer", "préférer", "I'd prefer to stay inside."],
+      ["instead", "à la place", "Let's go bowling instead."],
+      ["free time", "temps libre", "What do you do in your free time?"],
+      ["to meet up", "se retrouver", "Let's meet up at two."],
+      ["to go bowling", "aller au bowling", "We could go bowling on Saturday."],
+      ["bowling alley", "salle de bowling", "The bowling alley is near the station."],
+      ["how about...?", "et si... ?", "How about going to the park?"],
+      ["sounds great", "super idée", "A picnic? That sounds great!"],
+      ["because", "parce que", "Let's stay in because it's raining."]
     ],
+    "grammar": {
+      "title": "Making suggestions",
+      "rule": "Let's + verb  -  We could + verb  -  How about / What about + verb-ing? Answer: Good idea! / I'd rather + verb...",
+      "examples": ["Let's go to the cinema.", "We could visit the museum.", "How about going bowling?"]
+    },
+    "pronunciation": "Go up at the end of a yes/no question: Do you want to come? Go down for a suggestion: Let's go to the park.",
+    "did_you_know": "British teenagers often say \"Fancy going to the cinema?\" to make a suggestion. Fancy + verb-ing = Ça te dit de... ?",
     "model": "Mia: What shall we do on Saturday?\nLeo: We could visit the park.\nMia: I'd rather go to the cinema because it's raining.\nLeo: How about visiting the museum?\nMia: That sounds great! Let's meet at two.",
     "listening": {
-      "title": "Making plans — British Council A2",
+      "title": "Making plans",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A2",
+      "media": "video",
       "url": "https://learnenglishteens.britishcouncil.org/skills/speaking/a2-speaking/making-plans",
+      "verified_on": "2026-11-02",
       "questions": [
         "What are the friends planning?",
         "Which activity do they finally choose?",
         "When do they plan to meet?"
       ],
-      "answers": [
-        "A birthday celebration",
-        "Bowling",
-        "Saturday at three o'clock"
-      ],
-      "fallback": "Mia: What shall we do on Saturday? Leo: We could visit the park. Mia: I'd rather go to the cinema because it's raining. Leo: How about visiting the museum? Mia: That sounds great! Let's meet at two."
+      "answers": ["A birthday celebration", "Bowling", "Saturday at three o'clock"],
+      "fallback": "Gemma: It's Jack's birthday this weekend. Let's organise a surprise!\nMakayla: Good idea! How about the cinema?\nGemma: Hmm, we saw that film last week. And ice skating? No, Jack doesn't like it.\nMakayla: Everybody likes bowling. Let's go bowling!\nGemma: Perfect. Let's meet on Saturday at three, in front of the bowling alley."
     },
+    "go_further": [
+      {
+        "title": "Going to the cinema",
+        "source": "British Council - LearnEnglish Teens",
+        "level": "A2",
+        "media": "audio",
+        "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a2-listening/going-cinema",
+        "verified_on": "2026-11-02",
+        "task": "Tamara and Mario choose a film. Note the time of the film and the time they meet."
+      }
+    ],
     "practice": [
       "Complete: We could ___ (visit) the park.",
       "Complete: How about ___ (go) to the cinema?",
       "Write a polite refusal and an alternative suggestion.",
       "With a partner, agree on two activities and one meeting time."
     ],
-    "practice_answers": [
-      "visit",
-      "going",
-      "Réponse possible: I'd rather visit the museum. How about Saturday?",
-      "Réponse personnelle"
-    ],
+    "practice_answers": ["visit", "going", "Réponse possible: I'd rather visit the museum. How about Saturday?", "Réponse personnelle"],
+    "starters": ["Let's...", "We could...", "How about...ing?", "I'd rather... because...", "OK, let's meet at..."],
     "mission": "In pairs, plan a Saturday with a budget and weather constraint. Make suggestions, justify a preference and agree on a plan.",
+    "can_do": [
+      "I can make a suggestion with let's, we could or how about.",
+      "I can refuse politely and suggest something else.",
+      "I can agree on a time and a place."
+    ],
     "memory": "Recall five expressions for suggesting, agreeing or preferring. Use three in a short dialogue."
   },
   "3E-01": {
     "hook": "MAKE YOUR SCHOOL BETTER!",
     "visual": [
-      "GARDEN",
-      "READING",
-      "RECYCLING",
-      "SPORT"
+      {"label": "GARDEN", "picto": "plante"},
+      {"label": "READING", "picto": "livre"},
+      {"label": "RECYCLING", "picto": "recyclage"},
+      {"label": "SPORT", "picto": "ballon"}
     ],
     "vocab": [
-      [
-        "project",
-        "projet"
-      ],
-      [
-        "aim",
-        "objectif"
-      ],
-      [
-        "benefit",
-        "avantage"
-      ],
-      [
-        "to improve",
-        "améliorer"
-      ],
-      [
-        "to organise",
-        "organiser"
-      ],
-      [
-        "to create",
-        "créer"
-      ],
-      [
-        "first",
-        "d'abord"
-      ],
-      [
-        "then",
-        "ensuite"
-      ],
-      [
-        "finally",
-        "enfin"
-      ],
-      [
-        "because",
-        "parce que"
-      ],
-      [
-        "we could",
-        "nous pourrions"
-      ]
+      ["project", "projet", "Our project is a reading club."],
+      ["aim", "objectif", "Our aim is to help new students."],
+      ["benefit", "avantage", "The main benefit is less waste."],
+      ["to improve", "améliorer", "We want to improve the playground."],
+      ["to organise", "organiser", "We will organise a book sale."],
+      ["to create", "créer", "Let's create a school garden."],
+      ["first", "d'abord", "First, we will ask the head teacher."],
+      ["then", "ensuite", "Then, we will make posters."],
+      ["finally", "enfin", "Finally, we will present our results."],
+      ["because", "parce que", "It's useful because students need help."],
+      ["we could", "nous pourrions", "We could also invite parents."]
     ],
+    "grammar": {
+      "title": "Talking about plans: will / could",
+      "rule": "will + verb = a decision or a plan (We will plant herbs). could + verb = a possibility (We could sell vegetables). Our aim is + to + verb.",
+      "examples": ["First, we will make a poster.", "We could ask the science teacher.", "Our aim is to reduce waste."]
+    },
+    "pronunciation": "Stress the important word in a pitch: Our AIM is to make our school GREENER. Pause after First, Then and Finally.",
+    "did_you_know": "Many schools in the UK and in France have an eco-committee: students who lead projects like recycling, saving energy or growing a garden. The international programme is called Eco-Schools (Éco-École in France).",
     "model": "Our project is a school garden. Our aim is to grow vegetables and make our school greener. First, we will ask the science teacher for help. Then, we will plant tomatoes and herbs in the schoolyard. We could also share what we grow with other classes. We want to do this because it will help students learn about nature and work together. Finally, we will show our garden to other classes. Thank you.",
     "listening": {
-      "title": "PKP original model — volunteer reads aloud",
-      "url": "",
+      "title": "Turning plastic waste into art",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B1",
+      "media": "video",
+      "url": "https://learnenglishteens.britishcouncil.org/study-break/video-zone/turning-plastic-waste-art",
+      "verified_on": "2026-11-02",
       "questions": [
-        "What is the main aim?",
-        "Name two planned actions.",
-        "Why could this project help students?"
+        "In which country do the Greenfingers Changemakers live?",
+        "What plastic waste do they collect? Name two things.",
+        "What do they make with it? Name two things.",
+        "What is their message?"
       ],
       "answers": [
-        "Grow vegetables and make school greener",
-        "Ask the science teacher; plant tomatoes and herbs",
-        "Learn about nature and work together"
+        "Nigeria",
+        "Cups, bottles, bottle caps",
+        "Wall murals, jewellery (earrings, bracelets, necklaces), plastic dresses, a Christmas tree",
+        "Stop using single-use plastics, or recycle them"
       ],
-      "fallback": "Our project is a school garden. Our aim is to grow vegetables and make our school greener. First, we will ask the science teacher for help. Then, we will plant tomatoes and herbs in the schoolyard. We want to do this because it will help students learn about nature."
+      "fallback": "Hi, I'm Nicole. I'm a Greenfingers Changemaker in Nigeria. With my friends, we collect plastic in our streets: cups, bottles and lots of bottle caps. Then we turn this waste into art. We make wall murals with bottle-cap flowers, we make earrings and bracelets, and we even made a Christmas tree with green bottles! Our message is simple: stop using single-use plastics. And if you use them, recycle them!"
     },
+    "go_further": [],
     "practice": [
       "Underline the aim in the model.",
       "Find two actions and one benefit.",
@@ -239,79 +199,69 @@
     ],
     "practice_answers": [
       "Our aim is to grow vegetables and make our school greener.",
-      "Ask science teacher; plant tomatoes and herbs; benefit: learn about nature and work together.",
+      "Ask the science teacher; plant tomatoes and herbs; benefit: learn about nature and work together.",
       "to make",
       "Réponse personnelle"
     ],
+    "starters": ["Our project is...", "Our aim is to...", "First, we will... Then, we will...", "It will help students because...", "Thank you. Any questions?"],
     "mission": "Pitch your school improvement project to a group. Explain the aim, two actions, a benefit and answer one question.",
+    "can_do": [
+      "I can present the aim of a project.",
+      "I can explain the steps with first, then and finally.",
+      "I can justify my project with because and answer a question."
+    ],
     "memory": "Close the page: recall aim, action, benefit, first and because; use them in a mini-pitch."
   },
   "3E-02": {
     "hook": "CAN YOU DEFEND YOUR IDEA?",
     "visual": [
-      "DEBATE",
-      "IDEAS",
-      "TEAM",
-      "SOLUTION"
+      {"label": "DEBATE", "picto": "bulles"},
+      {"label": "IDEAS", "picto": "ampoule"},
+      {"label": "TEAM", "picto": "equipe"},
+      {"label": "SOLUTION", "picto": "valide"}
     ],
     "vocab": [
-      [
-        "to defend",
-        "défendre"
-      ],
-      [
-        "argument",
-        "argument"
-      ],
-      [
-        "objection",
-        "objection"
-      ],
-      [
-        "solution",
-        "solution"
-      ],
-      [
-        "however",
-        "cependant"
-      ],
-      [
-        "although",
-        "bien que"
-      ],
-      [
-        "realistic",
-        "réaliste"
-      ],
-      [
-        "to convince",
-        "convaincre"
-      ],
-      [
-        "in my opinion",
-        "à mon avis"
-      ],
-      [
-        "for example",
-        "par exemple"
-      ]
+      ["to defend", "défendre", "I want to defend my idea."],
+      ["argument", "argument", "That's a strong argument."],
+      ["objection", "objection", "Do you have an objection?"],
+      ["solution", "solution", "We found a cheap solution."],
+      ["however", "cependant", "It's a good idea. However, it's expensive."],
+      ["although", "bien que", "Although it's hard, it's possible."],
+      ["realistic", "réaliste", "Is this plan realistic?"],
+      ["to convince", "convaincre", "Can you convince the class?"],
+      ["in my opinion", "à mon avis", "In my opinion, we need more clubs."],
+      ["for example", "par exemple", "For example, a chess club."]
     ],
+    "grammar": {
+      "title": "Answering an objection",
+      "rule": "Accept, then contrast: I see what you mean, but... / That's true. However, ... / Although + idea, + your answer.",
+      "examples": ["I see what you mean, but it only takes one hour.", "That's true. However, students can choose.", "Although it costs money, it's useful."]
+    },
+    "pronunciation": "Use a polite, calm voice: slow down on HOWEVER and BUT, then stress your key argument.",
+    "did_you_know": "Debating clubs are popular in British schools, and some students take part in national competitions. Good debaters listen to the other side, accept a fair point, and then explain their own argument calmly.",
     "model": "Our school should start a reading club. It could help students discover new books. Some people might say that students are too busy. However, we could meet only once a month. This solution is practical because it does not take much time. What do you think?",
     "listening": {
-      "title": "PKP original model — volunteer reads aloud",
-      "url": "",
+      "title": "Different opinions",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B1",
+      "media": "video",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/speaking/b1-speaking/different-opinions",
+      "verified_on": "2026-11-02",
       "questions": [
-        "What is the proposal?",
-        "What is the objection?",
-        "How does the speaker answer it?"
+        "What do Gemma and Jack disagree about?",
+        "Why does Gemma like her French teacher?",
+        "Which expression does Jack use to end the disagreement?",
+        "Which teacher do they both like?"
       ],
       "answers": [
-        "Start a reading club",
-        "Students are too busy",
-        "Meet only once a month"
+        "Their teachers",
+        "She is strict, but students learn a lot",
+        "Let's agree to disagree",
+        "Miss McCloud, the science teacher"
       ],
-      "fallback": "Our school should start a reading club. It could help students discover new books. Some people might say that students are too busy. However, we could meet only once a month."
+      "fallback": "Gemma: I really like Madame Martin, our French teacher. She's strict, but we learn a lot.\nJack: I see what you mean, but her lessons are hard for me. I don't understand everything!\nGemma: OK... let's agree to disagree.\nJack: But Miss McCloud, the science teacher, is brilliant.\nGemma: Yes, I agree with you there. She's really kind."
     },
+    "go_further": [],
     "practice": [
       "Underline the main proposal.",
       "Circle the objection and box the response.",
@@ -320,11 +270,17 @@
     ],
     "practice_answers": [
       "Our school should start a reading club.",
-      "Objection: students too busy; reply: meet once a month.",
+      "Objection: students are too busy; reply: meet only once a month.",
       "create",
       "Réponse personnelle"
     ],
+    "starters": ["In my opinion, our school should...", "For example, ...", "Some people might say that...", "I see what you mean, but...", "This solution is realistic because..."],
     "mission": "Defend a school project with two reasons and respond politely to one objection from another group.",
+    "can_do": [
+      "I can give my opinion and two reasons.",
+      "I can answer an objection politely with however or but.",
+      "I can disagree without being rude."
+    ],
     "memory": "Without looking, recall five argument words; make a sentence with however and one with because."
   }
 }
