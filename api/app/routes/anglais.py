@@ -13,7 +13,8 @@ router = APIRouter(prefix="/anglais", tags=["anglais"])
 
 # Résolution indépendante du répertoire de lancement du processus.
 CONTENU = Path(__file__).resolve().parents[3] / "contenu" / "anglais" / "seances"
-SEANCES = {"4e-01": ("4e", "4e-01-pilote.json"), "3e-01": ("3e", "3e-01-pilote.json")}
+# Les clés reprennent le champ "code" des fichiers : c'est lui que /seances renvoie au front.
+SEANCES = {"4E-01": ("4e", "4e-01-pilote.json"), "3E-01": ("3e", "3e-01-pilote.json")}
 
 
 def _seance(code: str):
