@@ -6,6 +6,7 @@ import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import Classes from "./Classes.jsx";
+import SeancesAnglais from "../anglais/SeancesAnglais.jsx";
 import CoursEnseignant from "./CoursEnseignant.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
@@ -17,6 +18,7 @@ const PAGES = [
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
+  { vers: "/enseignant/anglais", libelle: "PKP Anglais", icone: "cours" },
 ];
 
 export default function EspaceEnseignant({ chemin = "/enseignant" }) {
@@ -70,6 +72,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
+      {page.vers === "/enseignant/anglais" && <SeancesAnglais {...props} />}
     </CadreApplication>
   );
 }
