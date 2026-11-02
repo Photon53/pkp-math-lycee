@@ -97,6 +97,21 @@ competences:
       - '$z = x + iy$ : $x + iy + 2x - 2iy = 3x - iy$.'
       - '$3x = 3$ et $-y = -1$ : $z = 1 + i$.'
       resultat: '1'
+  - code: TLE-ME-CPLX-ALG-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-5, 5]}, b: {entre: [-5, 5], sauf: [0]}, c: {entre: [-5, 5]}, d: {entre: [-5, 5], sauf: [0]}}
+      calculs: {re: "a*c - b*d", im: "a*d + b*c"}
+    enonce: 'Calculer la partie réelle de $([[a]] [[b:+]]i)([[c]] [[d:+]]i)$.'
+    solution: '[[re]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Développer, puis utiliser $i^2 = -1$.'
+      etapes:
+      - '$([[a]] [[b:+]]i)([[c]] [[d:+]]i) = [[a*c]] [[a*d:+]]i [[b*c:+]]i [[b*d:+]]i^2$.'
+      - '$= [[a*c]] [[-b*d:+]] + ([[a*d + b*c]])i = [[re]] [[im:+]]i$.'
+      resultat: '[[re]]'
 - code: TLE-ME-CPLX-EQ
   libelle: Résoudre une équation polynomiale dans les complexes
   attendus: [TLE-EXP-2019-TRIGPOLY-09, TLE-EXP-2019-TRIGPOLY-13]

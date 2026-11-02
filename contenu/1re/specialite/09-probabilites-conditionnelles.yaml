@@ -10,6 +10,7 @@ competences:
   - code: 1RE-COND
     libelle: Calculer une probabilité conditionnelle
     attendus: [1RE-SPE-2026-AUTO-16, 1RE-SPE-2026-AUTO-17, 1RE-SPE-2026-PCOND-01, 1RE-SPE-2026-PCOND-06]
+    cours_couvre: [1RE-SPE-2026-PCOND-01, 1RE-SPE-2026-PCOND-06, 1RE-SPE-2026-AUTO-16, 1RE-SPE-2026-AUTO-17]
     objectifs:
       - >-
         Identifier l'univers de référence : sur qui, ou sur quoi, porte la probabilité demandée.
@@ -19,22 +20,52 @@ competences:
         Reconnaitre et utiliser l'indépendance de deux évènements.
     resume: |
       - Si $P(A) \neq 0$ : $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, donc $P(A \cap B) = P(A) \times P_A(B)$.
+      - **Arbre pondéré** : premier niveau $P(A)$, $P(\bar A)$ ; second niveau les probabilités **conditionnelles** ; les branches d'un même nœud ont une somme égale à $1$.
       - Sur un arbre, on **multiplie** les probabilités le long d'un chemin.
-      - $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$.
+      - $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$, c'est-à-dire si $P_A(B) = P(B)$.
     cours: |
-      ## Définition
-      $P(A) = 0{,}4$ et $P(A \cap B) = 0{,}12$ : $P_A(B) = \dfrac{0{,}12}{0{,}4} = 0{,}3$.
+      ## 1. Probabilité conditionnelle
 
-      ## Tableau croisé
-      Dans un lycée de $200$ élèves dont $120$ filles, $30$ filles sont gauchères.
-      La probabilité qu'une élève choisie parmi les filles soit gauchère est $\dfrac{30}{120} = \dfrac{1}{4}$ : on se restreint à la ligne « filles ».
+      **Définition.** Soit $A$ un évènement de probabilité non nulle. La probabilité de $B$ **sachant** $A$ est
+      $$P_A(B) = \frac{P(A \cap B)}{P(A)}.$$
+      C'est la probabilité de $B$ quand on sait que $A$ est réalisé : on se restreint aux issues de $A$.
 
-      ## Indépendance
-      Si $A$ et $B$ sont indépendants, $P(A \cap B) = P(A)P(B)$ et $P_A(B) = P(B)$.
-      Avec $P(A) = 0{,}5$, $P(B) = 0{,}4$ : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+      *Avec un tableau croisé.* Dans un lycée de $200$ élèves dont $120$ filles, $30$ filles sont gauchères. On choisit un élève au hasard. Sachant que c'est une fille, la probabilité qu'il soit gaucher est $\dfrac{30}{120} = \dfrac{1}{4}$ : on se restreint à la ligne « filles ».
 
-      ## Erreur fréquente
-      Confondre $P_A(B)$ et $P_B(A)$ : ce ne sont pas les mêmes « univers de référence ».
+      Ne pas confondre $P(A \cap B)$ (les deux à la fois, sur toute la population), $P_A(B)$ (parmi les $A$) et $P_B(A)$ (parmi les $B$).
+
+      ## 2. Construire un arbre pondéré
+
+      Un arbre pondéré représente une expérience en deux étapes. **Méthode :**
+      1. **Premier niveau** : on part d'un point (la racine) et on trace une branche par issue de la première étape, par exemple $A$ et $\bar A$ ; on écrit sur chaque branche sa probabilité $P(A)$ et $P(\bar A) = 1 - P(A)$.
+      2. **Second niveau** : au bout de chaque branche, on trace les branches de la seconde étape ($B$ et $\bar B$). Leurs pondérations sont des probabilités **conditionnelles** : depuis $A$, on écrit $P_A(B)$ et $P_A(\bar B)$ ; depuis $\bar A$, on écrit $P_{\bar A}(B)$ et $P_{\bar A}(\bar B)$.
+      3. **Contrôle** : les branches issues d'un même nœud ont une somme égale à $1$.
+      4. **Chemins** : chaque chemin de la racine à une extrémité correspond à une intersection, par exemple $A \cap B$.
+
+      *Exemple.* $40\,\%$ des élèves font du sport ($S$) ; parmi eux, $30\,\%$ sont gauchers ($G$) ; parmi les autres, $10\,\%$ sont gauchers.
+      - Premier niveau : $P(S) = 0{,}4$ et $P(\bar S) = 0{,}6$.
+      - Depuis $S$ : $P_S(G) = 0{,}3$ et $P_S(\bar G) = 0{,}7$. Depuis $\bar S$ : $P_{\bar S}(G) = 0{,}1$ et $P_{\bar S}(\bar G) = 0{,}9$.
+
+      ## 3. Règles de calcul sur un arbre
+
+      > **Propriété (chemin).** La probabilité d'un chemin est le **produit** des probabilités de ses branches : $P(A \cap B) = P(A) \times P_A(B)$.
+
+      Dans l'exemple : $P(S \cap G) = 0{,}4 \times 0{,}3 = 0{,}12$ et $P(\bar S \cap G) = 0{,}6 \times 0{,}1 = 0{,}06$.
+
+      > **Propriété (évènement).** La probabilité d'un évènement est la **somme** des probabilités des chemins qui y mènent (formule des probabilités totales, voir la compétence suivante) : $P(G) = 0{,}12 + 0{,}06 = 0{,}18$.
+
+      ## 4. Indépendance
+
+      **Définition.** $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$. Lorsque $P(A) \neq 0$, cela équivaut à $P_A(B) = P(B)$ : savoir que $A$ est réalisé ne change pas la probabilité de $B$.
+
+      *Exemple.* $P(A) = 0{,}5$, $P(B) = 0{,}4$ et $P(A \cap B) = 0{,}2 = 0{,}5 \times 0{,}4$ : $A$ et $B$ sont indépendants. Alors $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+
+      *Contre-exemple.* Dans l'arbre ci-dessus, $P_S(G) = 0{,}3$ mais $P(G) = 0{,}18$ : être sportif et être gaucher ne sont pas indépendants.
+
+      ## 5. Erreurs fréquentes
+      - Confondre $P_A(B)$ et $P_B(A)$ : ce ne sont pas les mêmes « univers de référence ».
+      - Écrire sur une branche du second niveau $P(B)$ au lieu de $P_A(B)$.
+      - Additionner les probabilités le long d'un chemin au lieu de les multiplier.
     methodes:
       - titre: Calculer une probabilité conditionnelle à partir d'effectifs
         quand: >-
@@ -161,6 +192,7 @@ competences:
   - code: 1RE-TOTALES
     libelle: Utiliser un arbre et la formule des probabilités totales
     attendus: [1RE-SPE-2026-PCOND-02, 1RE-SPE-2026-PCOND-03, 1RE-SPE-2026-PCOND-05, 1RE-SPE-2026-PCOND-07]
+    cours_couvre: [1RE-SPE-2026-PCOND-02, 1RE-SPE-2026-PCOND-03, 1RE-SPE-2026-PCOND-05, 1RE-SPE-2026-PCOND-07]
     objectifs:
       - >-
         Construire un arbre pondéré à partir d'un énoncé.
@@ -168,21 +200,44 @@ competences:
         Calculer une probabilité totale, puis « inverser » un conditionnement.
     prerequis: [1RE-COND]
     resume: |
-      - Si $A$ et $\bar A$ partitionnent l'univers : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$.
+      - **Partition** : $A_1, \ldots, A_n$ incompatibles deux à deux et dont la réunion est l'univers ; par exemple $A$ et $\bar A$.
+      - **Probabilités totales** : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$ : on **additionne** les chemins qui mènent à $B$.
       - Pour « inverser » un conditionnement : $P_B(A) = \dfrac{P(A \cap B)}{P(B)}$.
-      - Tirages **sans remise** : les probabilités des branches changent d'un tirage à l'autre.
+      - Deux épreuves **indépendantes** : les branches du second niveau ne dépendent pas du premier résultat.
     cours: |
-      ## Probabilités totales
-      $P(A) = 0{,}3$, $P_A(B) = 0{,}2$, $P_{\bar A}(B) = 0{,}5$ :
-      $$P(B) = 0{,}3 \times 0{,}2 + 0{,}7 \times 0{,}5 = 0{,}06 + 0{,}35 = 0{,}41$$
+      ## 1. Partition de l'univers
 
-      ## Test de dépistage
-      Une maladie touche $2\,\%$ d'une population. Le test est positif chez $95\,\%$ des malades et chez $10\,\%$ des personnes saines.
-      $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
-      $P_T(M) = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117} \approx 0{,}16$ : un test positif est loin d'être une certitude !
+      **Définition.** Des évènements $A_1, A_2, \ldots, A_n$ forment une **partition** de l'univers $\Omega$ s'ils sont de probabilités non nulles, deux à deux incompatibles, et si leur réunion est $\Omega$. Le cas le plus courant : $A$ et $\bar A$.
 
-      ## Sans remise
-      Urne de $3$ rouges et $2$ bleues, deux tirages sans remise : $P(RR) = \dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.
+      ## 2. Formule des probabilités totales
+
+      > **Propriété.** Si $A_1, \ldots, A_n$ forment une partition de $\Omega$, alors pour tout évènement $B$ :
+      > $$P(B) = P(A_1 \cap B) + \cdots + P(A_n \cap B) = P(A_1)P_{A_1}(B) + \cdots + P(A_n)P_{A_n}(B).$$
+      > Avec la partition $(A, \bar A)$ : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$.
+
+      Sur l'arbre, cela revient à **additionner les probabilités de tous les chemins** qui aboutissent à $B$.
+
+      *Exemple.* $P(A) = 0{,}3$, $P_A(B) = 0{,}2$, $P_{\bar A}(B) = 0{,}5$ :
+      $$P(B) = 0{,}3 \times 0{,}2 + 0{,}7 \times 0{,}5 = 0{,}06 + 0{,}35 = 0{,}41.$$
+
+      ## 3. Inverser un conditionnement
+
+      On connaît souvent $P_A(B)$ et on cherche $P_B(A)$. On calcule $P(A \cap B)$ avec l'arbre, $P(B)$ avec la formule des probabilités totales, puis
+      $$P_B(A) = \frac{P(A \cap B)}{P(B)}.$$
+
+      *Test de dépistage.* Une maladie touche $2\,\%$ d'une population. Le test est positif chez $95\,\%$ des malades et chez $10\,\%$ des personnes saines.
+      - $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
+      - $P_T(M) = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117} \approx 0{,}16$ : un test positif est loin d'être une certitude !
+
+      ## 4. Succession de deux épreuves
+
+      **Épreuves indépendantes.** Si le résultat de la première épreuve n'influence pas la seconde, les pondérations du second niveau sont les mêmes sur toutes les branches. *Exemple :* deux lancers d'une pièce, $P(PP) = \dfrac{1}{2} \times \dfrac{1}{2} = \dfrac{1}{4}$. On peut aussi représenter la situation par un **tableau à double entrée**.
+
+      **Tirages sans remise.** Les probabilités changent d'un tirage à l'autre : urne de $3$ rouges et $2$ bleues, deux tirages sans remise : $P(RR) = \dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.
+
+      ## 5. Erreurs fréquentes
+      - Oublier un chemin dans la formule des probabilités totales.
+      - Diviser par $P(A)$ au lieu de $P(B)$ pour calculer $P_B(A)$.
     methodes:
       - titre: Utiliser un arbre pondéré et la formule des probabilités totales
         quand: >-
@@ -318,6 +373,21 @@ competences:
           erreurs_frequentes:
             - >-
               Répondre $0{,}95$ : c'est $P_M(T)$, la probabilité d'être positif sachant qu'on est malade, pas l'inverse.
+      - code: 1RE-TOTALES-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [0.1, 0.9], pas: 0.1}, b: {entre: [0.05, 0.95], pas: 0.05}, c: {entre: [0.05, 0.95], pas: 0.05}}
+          calculs: {p: "a*b + (1 - a)*c"}
+        enonce: 'On sait que $P(A) = [[a]]$, $P_A(B) = [[b]]$ et $P_{\bar A}(B) = [[c]]$. Calculer $P(B)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Formule des probabilités totales avec la partition $(A, \bar A)$.'
+          etapes:
+          - '$P(B) = P(A) P_A(B) + P(\bar A) P_{\bar A}(B)$.'
+          - '$= [[a]] \times [[b]] + [[1 - a]] \times [[c]] = [[a*b]] + [[(1 - a)*c]] = [[p]]$.'
+          resultat: '[[p]]'
 
   - code: 1RE-BERNOULLI
     libelle: Répéter des épreuves de Bernoulli indépendantes (n ⩽ 4)
@@ -412,3 +482,18 @@ competences:
           - Chacun a la probabilité $\left(\dfrac{1}{2}\right)^4 = \dfrac{1}{16}$.
           - $\dfrac{6}{16} = \dfrac{3}{8}$.
           resultat: 3/8
+      - code: 1RE-BERNOULLI-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {p: {entre: [0.1, 0.9], pas: 0.1}, n: {entre: [2, 4]}}
+          calculs: {q: "1 - (1 - p)**n"}
+        enonce: 'On répète $[[n]]$ fois, de façon indépendante, une épreuve de succès de probabilité $[[p]]$. Quelle est la probabilité d''obtenir au moins un succès ?'
+        solution: '[[q]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Passer par le contraire : aucun succès.'
+          etapes:
+          - 'Aucun succès : $[[1 - p]]^{[[n]]} = [[(1 - p)**n]]$.'
+          - 'Au moins un succès : $1 - [[(1 - p)**n]] = [[q]]$.'
+          resultat: '[[q]]'

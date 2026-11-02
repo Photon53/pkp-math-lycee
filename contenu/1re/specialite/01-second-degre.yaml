@@ -268,6 +268,22 @@ competences:
           resultat: 14
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-SD-FACTO-SIGNE-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-4, 4], sauf: [0]}, r: {entre: [-7, 7]}, s: {entre: [-7, 7]}}
+          calculs: {p: "r*s"}
+          conditions: ["r != s"]
+        enonce: 'Soit $f(x) = [[a:coef]](x [[-r:+]])(x [[-s:+]])$. Calculer le produit des racines de $f$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Lire les racines sur la forme factorisée.'
+          etapes:
+          - 'Les racines sont $[[r]]$ et $[[s]]$ (chaque facteur s''annule).'
+          - 'Produit : $[[r]] \times ([[s]]) = [[p]]$.'
+          resultat: '[[p]]'
   - code: 1RE-SD-CANON
     libelle: Déterminer et utiliser la forme canonique
     attendus: [1RE-SPE-2026-SD-02]
@@ -484,6 +500,22 @@ competences:
           resultat: 25
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-SD-CANON-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, h: {entre: [-5, 5]}, k: {entre: [-9, 9]}}
+          calculs: {b: "-2*a*h", c: "a*h*h + k"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. Quel est l''extremum de $f$ (ordonnée du sommet de la parabole) ?'
+        solution: '[[k]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Abscisse du sommet $\alpha = -\dfrac{b}{2a}$, puis $\beta = f(\alpha)$.'
+          etapes:
+          - '$\alpha = -\dfrac{[[b]]}{2 \times ([[a]])} = [[h]]$.'
+          - '$\beta = f([[h]]) = [[a]] \times ([[h]])^2 [[b:+]] \times ([[h]]) [[c:+]] = [[k]]$.'
+          - 'Forme canonique : $f(x) = [[a:coef]](x [[-h:+]])^2 [[k:+]]$.'
+          resultat: '[[k]]'
   - code: 1RE-DISC
     libelle: Résoudre une équation du second degré avec le discriminant
     attendus: [1RE-SPE-2026-SD-02, 1RE-SPE-2026-SD-07]
@@ -683,6 +715,38 @@ competences:
           resultat: 7
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-DISC-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 4], sauf: [0]}, b: {entre: [-9, 9]}, c: {entre: [-9, 9]}}
+          calculs: {d: "b*b - 4*a*c"}
+        enonce: 'Calculer le discriminant de $[[a:coef]]x^2 [[b:+]]x [[c:+]]$.'
+        solution: '[[d]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Discriminant : $\Delta = b^2 - 4ac$.'
+          etapes:
+          - '$a = [[a]]$, $b = [[b]]$, $c = [[c]]$.'
+          - '$\Delta = ([[b]])^2 - 4 \times ([[a]]) \times ([[c]]) = [[b*b]] [[-4*a*c:+]] = [[d]]$.'
+          resultat: '[[d]]'
+      - code: 1RE-DISC-V2
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [1, 3]}, r: {entre: [-6, 6]}, s: {entre: [-6, 6]}}
+          calculs: {b: "-a*(r + s)", c: "a*r*s", g: "max(r, s)"}
+          conditions: ["r != s"]
+        enonce: 'Résoudre $[[a:coef]]x^2 [[b:+]]x [[c:+]] = 0$ et donner la plus grande solution.'
+        solution: '[[g]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Discriminant, puis formule des racines.'
+          etapes:
+          - '$\Delta = ([[b]])^2 - 4 \times [[a]] \times ([[c]]) = [[b*b - 4*a*c]] > 0$ : deux solutions.'
+          - '$x = \dfrac{[[-b]] \pm \sqrt{[[b*b - 4*a*c]]}}{[[2*a]]}$, soit $x = [[min(r, s)]]$ ou $x = [[g]]$.'
+          - 'Vérification : $[[a:coef]]x^2 [[b:+]]x [[c:+]] = [[a:coef]](x [[-r:+]])(x [[-s:+]])$.'
+          resultat: '[[g]]'
   - code: 1RE-SD-FACTO
     libelle: Factoriser en diversifiant les stratégies
     attendus: [1RE-SPE-2026-SD-05, 1RE-SPE-2026-SD-08]

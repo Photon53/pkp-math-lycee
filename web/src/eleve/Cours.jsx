@@ -24,6 +24,7 @@ export default function Cours({
   onRetourExercice = null,
   onEntrainer = null,
   onVoirHistorique = null,
+  ancre = null,
 }) {
   const [sommaire, setSommaire] = useState(null);
   const [lecon, setLecon] = useState(null);
@@ -69,6 +70,7 @@ export default function Cours({
         onRetourExercice={onRetourExercice}
         onEntrainer={onEntrainer}
         onVoirHistorique={onVoirHistorique}
+        ancre={ancre}
       />
     );
   }
@@ -122,8 +124,14 @@ export default function Cours({
   );
 }
 
-function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour, onRetourExercice, onEntrainer, onVoirHistorique }) {
+function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour, onRetourExercice, onEntrainer, onVoirHistorique, ancre }) {
   const [projection, setProjection] = useState(false);
+
+  // Arrivée depuis une correction : on montre directement la section citée (cours ou fiche méthode).
+  useEffect(() => {
+    if (!lecon || !ancre) return;
+    document.getElementById(ancre)?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+  }, [lecon, ancre]);
 
   useEffect(() => {
     if (!projection) return;

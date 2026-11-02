@@ -10,7 +10,7 @@ from pkp_engine import calculer_maitrise, est_maitrisee
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app import inscriptions
+from app import exemplaires, inscriptions
 from app.db import models
 from app.config import settings
 from app.db.conversions import historique_eleve
@@ -99,6 +99,7 @@ def resume_eleve(session: Session, eleve: models.Eleve) -> EleveResume:
     return EleveResume(
         id=eleve.id,
         prenom=eleve.prenom,
+        identifiant=eleve.identifiant,
         a_un_code=eleve.code_hash is not None,
         nb_reponses=len(historique),
         taux_reussite=sum(r.correcte for r in historique) / len(historique) if historique else None,
@@ -172,8 +173,9 @@ def historique_reponses(
         elements=[
             ReponseHistorique(
                 id=r.id, repondu_le=r.repondu_le, seance_id=r.seance_id, question_id=q.id, competence_id=c.id,
-                competence=c.libelle, chapitre=ch.titre, enonce=q.enonce, type=q.type, difficulte=q.difficulte,
-                reponse_donnee=r.reponse_donnee, correcte=r.correcte, solution=q.solution, correction=q.correction,
+                competence=c.libelle, chapitre=ch.titre, enonce=exemplaires.enonce(q, r.tirage), type=q.type,
+                difficulte=q.difficulte, reponse_donnee=r.reponse_donnee, correcte=r.correcte,
+                solution=exemplaires.solution(q, r.tirage), correction=exemplaires.correction(q, r.tirage),
                 duree_s=round(r.duree_s, 1),
             )
             for r, q, c, ch in lignes

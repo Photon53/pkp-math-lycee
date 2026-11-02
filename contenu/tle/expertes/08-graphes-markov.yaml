@@ -180,3 +180,18 @@ competences:
       - $a = 0{,}5a + 0{,}2(1 - a) = 0{,}3a + 0{,}2$.
       - $0{,}7a = 0{,}2$, donc $a = \dfrac{2}{7}$.
       resultat: 2/7
+  - code: TLE-ME-MARKOV-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {p: {entre: [0.1, 0.9], pas: 0.1}, q: {entre: [0.1, 0.9], pas: 0.1}, a: {entre: [0.1, 0.9], pas: 0.1}}
+      calculs: {a1: "a*(1 - p) + (1 - a)*q"}
+    enonce: 'Une chaîne de Markov à deux états A et B a pour probabilités de transition $P(A \to B) = [[p]]$ et $P(B \to A) = [[q]]$. Initialement, $P(A) = [[a]]$. Calculer la probabilité d''être en A après une transition.'
+    solution: '[[a1]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Distribution suivante : $\pi_1 = \pi_0 P$.'
+      etapes:
+      - 'On reste en A avec la probabilité $1 - [[p]] = [[1 - p]]$ ; on vient de B avec la probabilité $[[q]]$.'
+      - '$[[a]] \times [[1 - p]] + [[1 - a]] \times [[q]] = [[a1]]$.'
+      resultat: '[[a1]]'

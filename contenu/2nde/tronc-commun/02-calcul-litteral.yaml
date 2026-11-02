@@ -135,6 +135,22 @@ competences:
           erreurs_frequentes:
           - Oublier les parenthèses et écrire $- x^2 - 1$ au lieu de $- x^2 + 1$.
           resultat: 3x^2 - 12x + 10
+      - code: 2NDE-DEV-V1
+        difficulte: 2
+        type: expression
+        gabarit:
+          parametres: {a: {entre: [1, 5]}, b: {entre: [-7, 7], sauf: [0]}, c: {entre: [1, 5]}, d: {entre: [-7, 7], sauf: [0]}}
+          conditions: ["a*d + b*c != 0"]
+        enonce: 'Développer et réduire $([[a:coef]]x [[b:+]])([[c:coef]]x [[d:+]])$.'
+        solution: '[[a*c]]x^2 [[a*d + b*c:+]]x [[b*d:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Double distributivité : chaque terme du premier facteur multiplie chaque terme du second.'
+          etapes:
+          - '$[[a:coef]]x \times [[c:coef]]x = [[a*c:coef]]x^2$ et $[[a:coef]]x \times ([[d]]) = [[a*d]]x$.'
+          - '$[[b]] \times [[c:coef]]x = [[b*c]]x$ et $[[b]] \times ([[d]]) = [[b*d]]$.'
+          - 'On réduit : $[[a*c:coef]]x^2 [[a*d + b*c:+]]x [[b*d:+]]$.'
+          resultat: '[[a*c]]x^2 [[a*d + b*c:+]]x [[b*d:+]]'
 
   - code: 2NDE-EQ1
     libelle: Résoudre une équation du premier degré
@@ -241,6 +257,39 @@ competences:
           - $12 + 0{,}05x = 20$, soit $0{,}05x = 8$.
           - $x = \dfrac{8}{0{,}05} = 160$ SMS.
           resultat: '160'
+      - code: 2NDE-EQ1-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [2, 9]}, x: {entre: [-8, 8], sauf: [0]}, b: {entre: [-9, 9], sauf: [0]}}
+          calculs: {c: "a*x + b"}
+        enonce: 'Résoudre $[[a]]x [[b:+]] = [[c]]$.'
+        solution: '[[x]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Isoler $x$ : on retire la constante, puis on divise par le coefficient.'
+          etapes:
+          - 'On ajoute $[[-b]]$ aux deux membres : $[[a]]x = [[c - b]]$.'
+          - 'On divise par $[[a]]$ : $x = \dfrac{[[c - b]]}{[[a]]} = [[x]]$.'
+          - 'Vérification : $[[a]] \times ([[x]]) [[b:+]] = [[c]]$.'
+          resultat: '[[x]]'
+      - code: 2NDE-EQ1-V2
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [2, 9]}, c: {entre: [-6, 9]}, b: {entre: [-9, 9]}, x: {entre: [-6, 6]}}
+          calculs: {d: "(a - c)*x + b"}
+          conditions: ["a != c", "c != 0"]
+        enonce: 'Résoudre $[[a]]x [[b:+]] = [[c:coef]]x [[d:+]]$.'
+        solution: '[[x]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Regrouper les termes en $x$ d''un côté et les constantes de l''autre.'
+          etapes:
+          - 'On retire $[[c:coef]]x$ aux deux membres : $[[a - c:coef]]x [[b:+]] = [[d]]$.'
+          - 'On retire $[[b]]$ : $[[a - c:coef]]x = [[d - b]]$.'
+          - '$x = \dfrac{[[d - b]]}{[[a - c]]} = [[x]]$.'
+          resultat: '[[x]]'
 
   - code: 2NDE-EQQUOT
     libelle: Résoudre une équation quotient
@@ -337,3 +386,20 @@ competences:
           - $x^2 - 4 = 0$ pour $x = 2$ ou $x = -2$.
           - '$2$ est une valeur interdite : il reste $-2$.'
           resultat: B
+      - code: 2NDE-EQQUOT-V1
+        difficulte: 4
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6]}, b: {entre: [-6, 6]}, k: {entre: [2, 5]}}
+          calculs: {x: "(k*b - a)/(1 - k)"}
+          conditions: ["a != b", "x + b != 0"]
+        enonce: 'Résoudre $\dfrac{x [[a:+]]}{x [[b:+]]} = [[k]]$ (réponse exacte).'
+        solution: '[[x]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Valeur interdite, produit en croix, puis équation du premier degré.'
+          etapes:
+          - 'Valeur interdite : $x = [[-b]]$.'
+          - 'Pour $x \neq [[-b]]$ : $x [[a:+]] = [[k]](x [[b:+]])$, soit $x [[a:+]] = [[k]]x [[k*b:+]]$.'
+          - '$[[1 - k]]x = [[k*b - a]]$, donc $x = [[x:frac]]$, qui n''est pas la valeur interdite.'
+          resultat: '[[x]]'

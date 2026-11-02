@@ -96,6 +96,38 @@ competences:
           etapes:
           - $f'(x) = 2x - 4 = 0$ donne $x = 2$.
           resultat: 2
+      - code: 1RE-DER-NB-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, b: {entre: [-6, 6]}, c: {entre: [-9, 9]}, t: {entre: [-3, 3]}}
+          calculs: {d: "2*a*t + b"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. Calculer $f''([[t]])$.'
+        solution: '[[d]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Dériver, puis remplacer $x$ par la valeur.'
+          etapes:
+          - '$f''(x) = [[2*a]]x [[b:+]]$.'
+          - '$f''([[t]]) = [[2*a]] \times ([[t]]) [[b:+]] = [[d]]$.'
+          resultat: '[[d]]'
+      - code: 1RE-DER-NB-V2
+        difficulte: 4
+        type: expression
+        gabarit:
+          parametres: {a: {entre: [-2, 3], sauf: [0]}, b: {entre: [-5, 5]}, t: {entre: [-2, 3]}}
+          calculs: {m: "2*a*t + b", y0: "a*t*t + b*t", p: "a*t*t + b*t - (2*a*t + b)*t"}
+          conditions: ["m != 0"]
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x$. Donner l''équation réduite de la tangente à sa courbe au point d''abscisse $[[t]]$ (réponse : l''expression de $y$).'
+        solution: '[[m]]x [[p:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Tangente : $y = f''(a)(x - a) + f(a)$.'
+          etapes:
+          - '$f([[t]]) = [[y0]]$ et $f''(x) = [[2*a]]x [[b:+]]$, donc $f''([[t]]) = [[m]]$.'
+          - '$y = [[m]](x [[-t:+]]) [[y0:+]]$.'
+          - 'En développant : $y = [[m:coef]]x [[p:+]]$.'
+          resultat: '[[m]]x [[p:+]]'
 
   - code: 1RE-DER-CALC
     libelle: Calculer une fonction dérivée
@@ -195,6 +227,21 @@ competences:
           etapes:
           - $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
           resultat: 1/sqrt(2x + 3)
+      - code: 1RE-DER-CALC-V1
+        difficulte: 2
+        type: expression
+        gabarit:
+          parametres: {a: {entre: [-4, 5], sauf: [0]}, b: {entre: [-6, 6], sauf: [0]}, c: {entre: [-9, 9]}, d: {entre: [-9, 9]}}
+        enonce: 'Dériver $f(x) = [[a:coef]]x^3 [[b:+]]x^2 [[c:+]]x [[d:+]]$.'
+        solution: '[[3*a]]x^2 [[2*b:+]]x [[c:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$(x^n)'' = nx^{n-1}$, et la dérivée d''une somme est la somme des dérivées.'
+          etapes:
+          - '$([[a:coef]]x^3)'' = [[3*a]]x^2$ et $([[b:coef]]x^2)'' = [[2*b]]x$.'
+          - '$([[c]]x)'' = [[c]]$ et la constante a une dérivée nulle.'
+          - '$f''(x) = [[3*a]]x^2 [[2*b:+]]x [[c:+]]$.'
+          resultat: '[[3*a]]x^2 [[2*b:+]]x [[c:+]]'
 
   - code: 1RE-DER-LOCAL
     libelle: Utiliser l'approximation affine et étudier la dérivabilité en un point

@@ -95,6 +95,22 @@ competences:
       - $72 = 2^3 \times 3^2$.
       - $(3 + 1)(2 + 1) = 12$.
       resultat: '12'
+  - code: TLE-ME-DIV-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {b: {entre: [3, 15]}, q: {entre: [5, 40]}, r: {entre: [0, 14]}}
+      calculs: {a: "b*q + r"}
+      conditions: ["r < b"]
+    enonce: 'Quel est le reste de la division euclidienne de $[[a]]$ par $[[b]]$ ?'
+    solution: '[[r]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: '$a = bq + r$ avec $0 \leqslant r < b$.'
+      etapes:
+      - '$[[a]] = [[b]] \times [[q]] + [[r]]$.'
+      - 'Comme $0 \leqslant [[r]] < [[b]]$, le reste est $[[r]]$.'
+      resultat: '[[r]]'
 - code: TLE-ME-CONG
   libelle: Calculer avec les congruences
   attendus: [TLE-EXP-2019-ARITH-03, TLE-EXP-2019-ARITH-13]
@@ -184,3 +200,18 @@ competences:
       - $5^2 = 25 \equiv -1 \pmod{13}$, donc $5^4 \equiv 1$.
       - $5^{100} = (5^4)^{25} \equiv 1$.
       resultat: '1'
+  - code: TLE-ME-CONG-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [2, 9]}, n: {entre: [3, 7]}, m: {entre: [5, 13]}}
+      calculs: {r: "(a**n) % m"}
+    enonce: 'Quel est le reste de la division de $[[a]]^{[[n]]}$ par $[[m]]$ ?'
+    solution: '[[r]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Calculer les puissances successives modulo $[[m]]$.'
+      etapes:
+      - '$[[a]]^{[[n]]} = [[a**n]]$.'
+      - '$[[a**n]] = [[m]] \times [[(a**n) // m]] + [[r]]$, donc $[[a]]^{[[n]]} \equiv [[r]] \; [ [[m]] ]$.'
+      resultat: '[[r]]'

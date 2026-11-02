@@ -93,3 +93,18 @@ competences:
       etapes:
       - $\dbinom{4}{1} \times 0{,}1 \times 0{,}9^3 = 4 \times 0{,}1 \times 0{,}729 = 0{,}2916$.
       resultat: '0.2916'
+  - code: TLE-TEC-BINOM-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {n: {entre: [5, 30]}, p: {entre: [0.05, 0.6], pas: 0.05}}
+      calculs: {e: "n*p"}
+    enonce: '$X$ suit la loi binomiale de paramètres $n = [[n]]$ et $p = [[p]]$. Calculer $E(X)$.'
+    solution: '[[e]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Espérance de la loi binomiale : $E(X) = np$.'
+      etapes:
+      - '$E(X) = [[n]] \times [[p]]$.'
+      - '$E(X) = [[e]]$.'
+      resultat: '[[e]]'

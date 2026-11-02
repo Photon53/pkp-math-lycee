@@ -136,13 +136,31 @@ describe("professeur", () => {
 });
 
 describe("contenu pédagogique structuré", () => {
-  it("affiche la correction détaillée après la réponse, repliée par défaut", async () => {
+  it("corrige en deux temps : méthode et résultat d'abord, étapes repliées", async () => {
     const { Correction } = await import("../ui/Pedagogie.jsx");
-    render(<Correction correction={{ methode: "Produit nul.", etapes: ["$x - 2 = 0$ donne $x = 2$."], resultat: "2" }} />);
-    const resume = screen.getByText("Voir la correction détaillée");
-    expect(resume.closest("details")).not.toHaveAttribute("open");
-    await userEvent.click(resume);
+    render(<Correction correction={{ methode: "Produit nul.", etapes: ["Le facteur s'annule pour 2."], resultat: "2" }} />);
     expect(screen.getByText(/Produit nul/)).toBeVisible();
+    const detail = screen.getByText("Voir le détail de la correction");
+    expect(detail.closest("details")).not.toHaveAttribute("open");
+    await userEvent.click(detail);
+    expect(screen.getByText(/Le facteur s'annule/)).toBeVisible();
+  });
+
+  it("renvoie vers le cours et vers la fiche méthode citée par la correction", async () => {
+    const { Correction } = await import("../ui/Pedagogie.jsx");
+    const voir = vi.fn();
+    render(
+      <Correction
+        correction={{ methode: "Utiliser le discriminant", etapes: ["$\\Delta = 1$."] }}
+        references={{ competence: "Second degré", methodes: ["Factoriser", "Utiliser le discriminant"], onVoir: voir }}
+      />,
+    );
+    await userEvent.click(screen.getByText("Voir le détail de la correction"));
+    await userEvent.click(screen.getByRole("button", { name: /la méthode « Utiliser le discriminant »/ }));
+    expect(voir).toHaveBeenLastCalledWith("methode-2");
+    expect(screen.queryByRole("button", { name: /Factoriser/ })).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: /le cours « Second degré »/ }));
+    expect(voir).toHaveBeenLastCalledWith("lecon-cours");
   });
 
   it("affiche méthodes, exemple résolu et erreurs fréquentes dans la leçon", async () => {

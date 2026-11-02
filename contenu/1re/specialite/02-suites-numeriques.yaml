@@ -114,6 +114,21 @@ competences:
           - 'Vérification : $(n^2 + 1) + 2n + 1 = (n + 1)^2 + 1$, la formule se transmet d''un rang au suivant.'
           - $u_{10} = 100 + 1 = 101$.
           resultat: '101'
+      - code: 1RE-SUI-TERME-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {u: {entre: [-10, 20]}, r: {entre: [-6, 9], sauf: [0]}, n: {entre: [5, 30]}}
+          calculs: {v: "u + n*r"}
+        enonce: '$(u_n)$ est arithmétique de premier terme $u_0 = [[u]]$ et de raison $[[r]]$. Calculer $u_{[[n]]}$.'
+        solution: '[[v]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Terme général d''une suite arithmétique : $u_n = u_0 + nr$.'
+          etapes:
+          - '$u_{[[n]]} = [[u]] + [[n]] \times ([[r]])$.'
+          - '$u_{[[n]]} = [[v]]$.'
+          resultat: '[[v]]'
 
   - code: 1RE-SUI-MOD
     libelle: Modéliser une situation par une suite
@@ -229,6 +244,21 @@ competences:
           erreurs_frequentes:
           - 'Prendre $u_{10}$ comme dernier terme : 10 années vont de $u_0$ à $u_9$.'
           resultat: '390'
+      - code: 1RE-SUI-MOD-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {u: {entre: [1, 6]}, q: {parmi: [2, 3, -2]}, n: {entre: [3, 7]}}
+          calculs: {v: "u*q**n"}
+        enonce: '$(v_n)$ est géométrique de premier terme $v_0 = [[u]]$ et de raison $[[q]]$. Calculer $v_{[[n]]}$.'
+        solution: '[[v]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Terme général d''une suite géométrique : $v_n = v_0 \times q^n$.'
+          etapes:
+          - '$v_{[[n]]} = [[u]] \times ([[q]])^{[[n]]}$.'
+          - '$([[q]])^{[[n]]} = [[q**n]]$, donc $v_{[[n]]} = [[v]]$.'
+          resultat: '[[v]]'
 
   - code: 1RE-SUI-VAR
     libelle: Étudier le sens de variation d'une suite
@@ -435,3 +465,18 @@ competences:
           - Suite arithmétique $:$ $u_1 = 5$, raison $0{,}5$, $u_{12} = 5 + 11 \times 0{,}5 = 10{,}5$.
           - $S = 12 \times \dfrac{5 + 10{,}5}{2} = 93$.
           resultat: 93
+      - code: 1RE-SUI-SOMME-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {u: {entre: [1, 15]}, r: {entre: [1, 6]}, n: {entre: [8, 25]}}
+          calculs: {d: "u + (n - 1)*r", s: "n*(u + u + (n - 1)*r)/2"}
+        enonce: 'Calculer la somme des $[[n]]$ premiers termes de la suite arithmétique de premier terme $[[u]]$ et de raison $[[r]]$.'
+        solution: '[[s]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Somme = nombre de termes × (premier + dernier) ÷ 2.'
+          etapes:
+          - 'Dernier terme : $[[u]] + [[n - 1]] \times [[r]] = [[d]]$.'
+          - 'Somme : $[[n]] \times \dfrac{[[u]] + [[d]]}{2} = [[s]]$.'
+          resultat: '[[s]]'

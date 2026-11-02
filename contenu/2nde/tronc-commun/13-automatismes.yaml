@@ -190,6 +190,21 @@ competences:
           - $1$ h $48$ min $= 1 + \dfrac{48}{60} = 1{,}8$ h.
           - $\dfrac{45}{1{,}8} = 25$ km/h.
           resultat: 25
+      - code: 2NDE-AUTO-UNITES-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {v: {entre: [5, 40]}}
+          calculs: {k: "v*3.6"}
+        enonce: 'Convertir $[[k]]$ km/h en m/s.'
+        solution: '[[v]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Pour passer des km/h aux m/s, on divise par $3{,}6$.'
+          etapes:
+          - '$[[k]]$ km/h $= \dfrac{[[k*1000]] \text{ m}}{3\,600 \text{ s}}$.'
+          - '$= [[v]]$ m/s.'
+          resultat: '[[v]]'
 
   - code: 2NDE-AUTO-LITT
     libelle: Calcul littéral élémentaire et formules
@@ -552,6 +567,21 @@ competences:
           - Après $:$ hauteur $\sqrt{25 - 16} = 3$ m.
           - Le haut descend de $1$ m.
           resultat: 1
+      - code: 2NDE-AUTO-TRIANGLE-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {k: {entre: [1, 4]}, i: {parmi: [0, 1, 2]}}
+          calculs: {a: "k*(3*(i == 0) + 5*(i == 1) + 8*(i == 2))", b: "k*(4*(i == 0) + 12*(i == 1) + 15*(i == 2))", c: "k*(5*(i == 0) + 13*(i == 1) + 17*(i == 2))"}
+        enonce: 'Un triangle est rectangle ; les côtés de l''angle droit mesurent $[[a]]$ cm et $[[b]]$ cm. Calculer la longueur de l''hypoténuse.'
+        solution: '[[c]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Théorème de Pythagore.'
+          etapes:
+          - '$[[a]]^2 + [[b]]^2 = [[a*a]] + [[b*b]] = [[c*c]]$.'
+          - 'Hypoténuse : $\sqrt{[[c*c]]} = [[c]]$ cm.'
+          resultat: '[[c]]'
 
   - code: 2NDE-AUTO-GRAPH
     libelle: Lire et commenter des graphiques usuels

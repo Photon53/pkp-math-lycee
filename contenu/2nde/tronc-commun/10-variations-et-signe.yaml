@@ -99,6 +99,21 @@ competences:
           - $f$ est décroissante (coefficient $-1$).
           - 'Maximum en $x = -1$ : $f(-1) = 1 + 4 = 5$.'
           resultat: 5
+      - code: 2NDE-AFF-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {m: {entre: [-5, 5], sauf: [0]}, p: {entre: [-8, 8]}, x1: {entre: [-4, 0]}, x2: {entre: [1, 5]}}
+          calculs: {y1: "m*x1 + p", y2: "m*x2 + p"}
+        enonce: 'La fonction affine $f$ vérifie $f([[x1]]) = [[y1]]$ et $f([[x2]]) = [[y2]]$. Quel est son coefficient directeur ?'
+        solution: '[[m]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Taux d''accroissement d''une fonction affine.'
+          etapes:
+          - '$m = \dfrac{f([[x2]]) - f([[x1]])}{[[x2]] - ([[x1]])} = \dfrac{[[y2 - y1]]}{[[x2 - x1]]}$.'
+          - '$m = [[m]]$.'
+          resultat: '[[m]]'
 
   - code: 2NDE-SIGNE
     libelle: Étudier le signe d'un produit ou d'un quotient
@@ -205,6 +220,21 @@ competences:
           resultat: B
           erreurs_frequentes:
           - Diviser par $x$ et trouver seulement $x \geq 2$ (réponse C).
+      - code: 2NDE-SIGNE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6], sauf: [0]}, b: {entre: [-9, 9], sauf: [0]}}
+          calculs: {r: "-b/a"}
+        enonce: 'En quelle valeur de $x$ l''expression $[[a]]x [[b:+]]$ change-t-elle de signe ? (Réponse exacte.)'
+        solution: '[[r]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Une expression affine change de signe là où elle s''annule.'
+          etapes:
+          - '$[[a]]x [[b:+]] = 0 \iff x = \dfrac{[[-b]]}{[[a]]}$.'
+          - 'Soit $x = [[r:frac]]$.'
+          resultat: '[[r]]'
 
   - code: 2NDE-VARIA
     libelle: Décrire les variations et les extremums d'une fonction

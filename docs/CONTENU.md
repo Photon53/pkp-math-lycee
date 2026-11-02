@@ -195,6 +195,36 @@ de ne plus servir aux élèves que les questions validées.
 - `$…$` dans le texte, `$$…$$` pour une formule centrée. `\$` pour un vrai symbole dollar.
 - Décimales à la française dans une formule : `$0{,}9$`.
 
+### Questions à valeurs variables (gabarits)
+
+Une question peut tirer de nouveaux nombres à chaque fois qu'elle est posée : l'élève ne revoit pas
+le même exercice en boucle, et après une erreur il peut « refaire avec d'autres nombres ».
+
+```yaml
+      - code: 2NDE-EQ1-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [2, 9]}, x: {entre: [-8, 8], sauf: [0]}, b: {entre: [-9, 9], sauf: [0]}}
+          calculs: {c: "a*x + b"}          # valeurs déduites, calculées en fractions exactes
+          conditions: ["c != 0"]           # tirage recommencé tant qu'une condition est fausse
+        enonce: 'Résoudre $[[a]]x [[b:+]] = [[c]]$.'
+        solution: '[[x]]'
+        correction:
+          etapes:
+          - 'On ajoute $[[-b]]$ aux deux membres : $[[a]]x = [[c - b]]$.'
+          - '$x = \dfrac{[[c - b]]}{[[a]]} = [[x]]$.'
+          resultat: '[[x]]'
+```
+
+- `parametres` : `entre: [min, max]` (avec `pas`, 1 par défaut) ou `parmi: [liste]`, et `sauf: [valeurs exclues]`.
+- Les textes citent les valeurs entre **doubles crochets** (les accolades restent au LaTeX) :
+  `[[a]]` (valeur, fraction `5/4` comprise), `[[b:+]]` (terme signé « + 3 » / « - 3 »),
+  `[[a:coef]]` (rien pour 1, « - » pour -1), `[[f:frac]]` (fraction en LaTeX), et toute expression : `[[c - b]]`.
+- Expressions permises : `+ - * / ** % //`, comparaisons, `and`, `or`, `not`, `abs`, `min`, `max`, `pgcd`.
+- **Toujours mettre `solution` et `resultat` entre apostrophes** (un texte qui commence par `[` serait lu comme une liste).
+- La vérification fait 50 tirages par gabarit : chacun doit donner une question et une correction valides.
+
 ### Types de questions et syntaxe des solutions
 
 | Type | Correction | Solution (exemples) | L'élève peut écrire |

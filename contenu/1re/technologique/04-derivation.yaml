@@ -91,24 +91,88 @@ competences:
       - $\dfrac{2{,}01^2 - 4}{0{,}01} = \dfrac{0{,}0401}{0{,}01} = 4{,}01$.
       - On retrouve presque $f'(2) = 4$.
       resultat: '4.01'
+  - code: 1RE-TEC-DERIV-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-2, 3], sauf: [0]}, b: {entre: [-5, 5]}, c: {entre: [-6, 6]}, t: {entre: [-3, 3]}}
+      calculs: {d: "3*a*t*t + 2*b*t + c"}
+    enonce: 'Soit $f(x) = [[a:coef]]x^3 [[b:+]]x^2 [[c:+]]x$. Calculer le nombre dérivé $f''([[t]])$.'
+    solution: '[[d]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Dériver le polynôme, puis remplacer $x$.'
+      etapes:
+      - '$f''(x) = [[3*a]]x^2 [[2*b:+]]x [[c:+]]$.'
+      - '$f''([[t]]) = [[3*a*t*t]] [[2*b*t:+]] [[c:+]] = [[d]]$.'
+      resultat: '[[d]]'
 - code: 1RE-TEC-VARIA
   libelle: Étudier les variations et les extremums avec la dérivée
   attendus: [1RE-TEC-2026-DER-07, 1RE-TEC-2026-DER-12]
+  cours_couvre: [1RE-TEC-2026-DER-07, 1RE-TEC-2026-DER-12]
   objectifs:
   - Déduire les variations du signe de la dérivée.
   - Trouver un extremum dans un problème.
   prerequis:
   - 1RE-TEC-DERIV
   resume: |
-    - $f' > 0$ sur un intervalle : $f$ croissante ; $f' < 0$ : décroissante.
-    - Un extremum se trouve là où $f'$ s'annule en changeant de signe.
+    - $f$ est **croissante** sur un intervalle $I$ si, quand $x$ augmente dans $I$, $f(x)$ augmente (ou reste égal) ; **décroissante** si $f(x)$ diminue.
+    - Lien avec la dérivée : $f'(x) > 0$ sur $I$ ⇒ $f$ croissante sur $I$ ; $f'(x) < 0$ sur $I$ ⇒ $f$ décroissante sur $I$.
+    - On résume les variations dans un **tableau de variations** : signe de $f'$, puis flèches.
+    - Un **extremum** (maximum ou minimum) est atteint là où $f'$ s'annule **en changeant de signe**.
   cours: |
-    ## Tableau de variations
-    $f(x) = x^2 - 8x + 3$ : $f'(x) = 2x - 8$, négatif avant $4$, positif après.
-    $f$ décroît puis croît : minimum $f(4) = -13$.
+    ## 1. Fonction croissante, fonction décroissante
 
-    ## Optimisation
-    Bénéfice $B(x) = -x^3 + 3x^2 + 9x$ sur $[0 ; 5]$ : $B'(x) = -3(x - 3)(x + 1)$, positif sur $[0 ; 3[$, négatif ensuite. Bénéfice maximal $B(3) = 27$.
+    **Définition.** Soit $f$ une fonction définie sur un intervalle $I$.
+    - $f$ est **croissante** sur $I$ si, pour tous nombres $a$ et $b$ de $I$ : $a < b \Rightarrow f(a) \leqslant f(b)$. La courbe « monte » quand on la parcourt de gauche à droite.
+    - $f$ est **décroissante** sur $I$ si, pour tous $a$ et $b$ de $I$ : $a < b \Rightarrow f(a) \geqslant f(b)$. La courbe « descend ».
+    - On dit **strictement** croissante (ou décroissante) quand les inégalités sont strictes.
+
+    *Exemple.* Le prix d'une course de taxi $f(x) = 1{,}5x + 4$ est croissant : plus la distance $x$ est grande, plus on paie.
+
+    ## 2. Taux de variation et sens de variation
+
+    Entre deux valeurs $a < b$, le taux de variation $\dfrac{f(b) - f(a)}{b - a}$ est positif si $f$ a augmenté, négatif si elle a diminué. La dérivée $f'(a)$ est le taux de variation « instantané » en $a$ : c'est la pente de la tangente.
+
+    ## 3. Signe de la dérivée et variations
+
+    > **Propriété.** Soit $f$ dérivable sur un intervalle $I$.
+    > - Si $f'(x) > 0$ pour tout $x$ de $I$ (sauf peut-être en quelques points isolés), alors $f$ est strictement croissante sur $I$.
+    > - Si $f'(x) < 0$ pour tout $x$ de $I$, alors $f$ est strictement décroissante sur $I$.
+    > - Si $f'(x) = 0$ pour tout $x$ de $I$, alors $f$ est constante sur $I$.
+
+    Interprétation : une tangente de pente positive « monte », une tangente de pente négative « descend ».
+
+    ## 4. Tableau de variations
+
+    Pour étudier les variations d'une fonction polynôme de degré 2 ou 3 :
+    1. calculer $f'(x)$ ;
+    2. étudier le signe de $f'(x)$ (forme factorisée, ou signe de $ax + b$) ;
+    3. dresser le tableau : une ligne pour le signe de $f'(x)$, une ligne de flèches pour $f$ ;
+    4. calculer les valeurs de $f$ aux bornes et aux points où $f'$ s'annule.
+
+    *Exemple rédigé.* $f(x) = x^2 - 8x + 3$ sur $[0 ; 10]$.
+    - $f'(x) = 2x - 8$, qui s'annule en $x = 4$, est négatif sur $[0 ; 4[$ et positif sur $]4 ; 10]$.
+    - $f$ est donc décroissante sur $[0 ; 4]$ puis croissante sur $[4 ; 10]$.
+    - $f(0) = 3$, $f(4) = 16 - 32 + 3 = -13$, $f(10) = 100 - 80 + 3 = 23$.
+
+    | $x$ | $0$ | | $4$ | | $10$ |
+    |:-:|:-:|:-:|:-:|:-:|:-:|
+    | signe de $f'(x)$ | | $-$ | $0$ | $+$ | |
+    | variations de $f$ | $3$ | ↘ | $-13$ | ↗ | $23$ |
+
+    ## 5. Extremums
+
+    **Définition.** $f(c)$ est le **maximum** de $f$ sur $I$ si $f(x) \leqslant f(c)$ pour tout $x$ de $I$ ; c'est le **minimum** si $f(x) \geqslant f(c)$.
+
+    > **Propriété.** Si $f'$ s'annule en $c$ **en changeant de signe**, alors $f$ admet un extremum en $c$ : un maximum si $f'$ passe de $+$ à $-$, un minimum si $f'$ passe de $-$ à $+$.
+
+    *Exemple (optimisation).* Bénéfice $B(x) = -x^3 + 3x^2 + 9x$ (en milliers d'euros) pour $x$ centaines d'objets, $x \in [0 ; 5]$.
+    $B'(x) = -3x^2 + 6x + 9 = -3(x - 3)(x + 1)$ : positif sur $[0 ; 3[$, négatif sur $]3 ; 5]$. Le bénéfice est maximal pour $x = 3$, et vaut $B(3) = -27 + 27 + 27 = 27$ milliers d'euros.
+
+    ## 6. Erreurs fréquentes
+    - Confondre le signe de $f$ et le signe de $f'$ : une fonction négative peut être croissante.
+    - Oublier les bornes de l'intervalle : un extremum peut être atteint en une borne.
   methodes:
   - titre: Trouver un extremum
     etapes:

@@ -94,6 +94,21 @@ competences:
       etapes:
       - '$P(M) = 0{,}19$ mais $P_V(M) = 0{,}1$ : la vaccination change la probabilité d''être malade.'
       resultat: B
+  - code: 1RE-TEC-PCOND-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [0.2, 0.8], pas: 0.1}, b: {entre: [0.1, 0.9], pas: 0.1}}
+      calculs: {p: "a*b"}
+    enonce: 'Dans une entreprise, $[[a*100]]\,\%$ des salariés sont des femmes, et $[[b*100]]\,\%$ d''entre elles sont cadres. On choisit un salarié au hasard. Quelle est la probabilité que ce soit une femme cadre ?'
+    solution: '[[p]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Probabilité d''un chemin de l''arbre.'
+      etapes:
+      - '$P(F) = [[a]]$ et $P_F(C) = [[b]]$.'
+      - '$P(F \cap C) = [[a]] \times [[b]] = [[p]]$.'
+      resultat: '[[p]]'
 
 - code: 1RE-TEC-BERN
   libelle: Répéter des épreuves de Bernoulli indépendantes

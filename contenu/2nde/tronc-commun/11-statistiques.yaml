@@ -97,6 +97,21 @@ competences:
           resultat: 54/5
           erreurs_frequentes:
           - Répondre $11$, la moyenne des deux moyennes, sans tenir compte des effectifs.
+      - code: 2NDE-MOY-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [4, 20]}, b: {entre: [4, 20]}, c: {entre: [4, 20]}, d: {entre: [4, 20]}, e: {entre: [4, 20]}}
+          calculs: {m: "(a + b + c + d + e)/5"}
+        enonce: 'Calculer la moyenne de la série $[[a]]$ ; $[[b]]$ ; $[[c]]$ ; $[[d]]$ ; $[[e]]$.'
+        solution: '[[m]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Moyenne = somme des valeurs ÷ nombre de valeurs.'
+          etapes:
+          - 'Somme : $[[a + b + c + d + e]]$.'
+          - 'Moyenne : $\dfrac{[[a + b + c + d + e]]}{5} = [[m]]$.'
+          resultat: '[[m]]'
 
   - code: 2NDE-DISP
     libelle: Mesurer la dispersion d'une série

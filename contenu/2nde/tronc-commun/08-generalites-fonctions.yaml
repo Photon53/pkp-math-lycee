@@ -95,6 +95,21 @@ competences:
           - '$\dfrac{x - 1}{x + 2} = 2$ avec $x \neq -2$ : $x - 1 = 2(x + 2)$.'
           - $x - 1 = 2x + 4$, donc $x = -5$, qui est bien différent de $-2$.
           resultat: -5
+      - code: 2NDE-IMG-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, b: {entre: [-6, 6]}, c: {entre: [-9, 9]}, t: {entre: [-4, 4]}}
+          calculs: {v: "a*t*t + b*t + c"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. Calculer $f([[t]])$.'
+        solution: '[[v]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Remplacer $x$ par la valeur, avec des parenthèses.'
+          etapes:
+          - '$f([[t]]) = [[a]] \times ([[t]])^2 [[b:+]] \times ([[t]]) [[c:+]]$.'
+          - '$= [[a*t*t]] [[b*t:+]] [[c:+]] = [[v]]$.'
+          resultat: '[[v]]'
 
   - code: 2NDE-COURBE
     libelle: Exploiter la courbe représentative d'une fonction

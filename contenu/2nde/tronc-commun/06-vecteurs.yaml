@@ -101,6 +101,21 @@ competences:
           - $I\left(\dfrac{-2 + 4}{2} ; \dfrac{3 + 7}{2}\right) = (1 ; 5)$.
           - $OI = \sqrt{1^2 + 5^2} = \sqrt{26}$.
           resultat: sqrt(26)
+      - code: 2NDE-VEC-COORD-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {xa: {entre: [-5, 5]}, ya: {entre: [-5, 5]}, k: {entre: [1, 3]}, i: {parmi: [0, 1, 2]}}
+          calculs: {dx: "k*(3*(i == 0) + 5*(i == 1) + 8*(i == 2))", dy: "k*(4*(i == 0) + 12*(i == 1) + 15*(i == 2))", L: "k*(5*(i == 0) + 13*(i == 1) + 17*(i == 2))", xb: "xa + dx", yb: "ya + dy"}
+        enonce: 'Dans un repère orthonormé, $A([[xa]] ; [[ya]])$ et $B([[xb]] ; [[yb]])$. Calculer la longueur $AB$.'
+        solution: '[[L]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Coordonnées du vecteur, puis formule de la norme.'
+          etapes:
+          - '$\overrightarrow{AB}([[xb]] - ([[xa]]) ; [[yb]] - ([[ya]]))$, soit $\overrightarrow{AB}([[dx]] ; [[dy]])$.'
+          - '$AB = \sqrt{[[dx]]^2 + [[dy]]^2} = \sqrt{[[L*L]]} = [[L]]$.'
+          resultat: '[[L]]'
 
   - code: 2NDE-VEC-COL
     libelle: Étudier la colinéarité de deux vecteurs
@@ -196,6 +211,21 @@ competences:
           - $\det = 2(k - 2) - (-1) \times 4 = 2k - 4 + 4 = 2k$.
           - $2k = 0$ donne $k = 0$.
           resultat: 0
+      - code: 2NDE-VEC-COL-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6], sauf: [0]}, b: {entre: [-6, 6], sauf: [0]}, k: {entre: [-3, 4], sauf: [0, 1]}}
+          calculs: {c: "k*a", y: "k*b"}
+        enonce: 'Pour quelle valeur de $y$ les vecteurs $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; y)$ sont-ils colinéaires ?'
+        solution: '[[y]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Deux vecteurs sont colinéaires si et seulement si leur déterminant est nul.'
+          etapes:
+          - '$\det(\vec{u}, \vec{v}) = [[a]] \times y - [[b]] \times ([[c]]) = [[a]]y [[-b*c:+]]$.'
+          - '$[[a]]y [[-b*c:+]] = 0 \iff y = \dfrac{[[b*c]]}{[[a]]} = [[y]]$.'
+          resultat: '[[y]]'
 
   - code: 2NDE-VEC-GEO
     libelle: Construire et additionner des vecteurs

@@ -96,6 +96,21 @@ competences:
           - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$.
           - $= 4 + 2 + 9 = 15$.
           resultat: 15
+      - code: 1RE-PS-CALC-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6]}, b: {entre: [-6, 6]}, c: {entre: [-6, 6]}, d: {entre: [-6, 6]}}
+          calculs: {p: "a*c + b*d"}
+        enonce: 'Dans une base orthonormée, $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; [[d]])$. Calculer $\vec{u} \cdot \vec{v}$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'En base orthonormée : $\vec{u} \cdot \vec{v} = xx'' + yy''$.'
+          etapes:
+          - '$\vec{u} \cdot \vec{v} = [[a]] \times ([[c]]) + [[b]] \times ([[d]])$.'
+          - '$= [[a*c]] [[b*d:+]] = [[p]]$.'
+          resultat: '[[p]]'
 
   - code: 1RE-PS-APP
     libelle: Utiliser le produit scalaire (orthogonalité, angles, longueurs)
@@ -187,6 +202,21 @@ competences:
           - $49 = 25 + 64 - 2 \times 5 \times 8 \cos\theta$, soit $80\cos\theta = 40$.
           - $\cos\theta = \dfrac{1}{2}$, donc $\theta = 60°$.
           resultat: 60
+      - code: 1RE-PS-APP-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-5, 5], sauf: [0]}, b: {entre: [-5, 5], sauf: [0]}, c: {entre: [-5, 5], sauf: [0]}}
+          calculs: {y: "-a*c/b"}
+        enonce: 'Pour quelle valeur de $y$ les vecteurs $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; y)$ sont-ils orthogonaux ? (Réponse exacte.)'
+        solution: '[[y]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Orthogonaux $\iff$ produit scalaire nul.'
+          etapes:
+          - '$\vec{u} \cdot \vec{v} = [[a]] \times ([[c]]) + [[b]]y = [[a*c]] [[b:+]]y$.'
+          - '$[[a*c]] [[b:+]]y = 0 \iff y = [[y:frac]]$.'
+          resultat: '[[y]]'
 
   - code: 1RE-PS-MAMB
     libelle: Utiliser le produit scalaire MA·MB

@@ -58,7 +58,7 @@ class TestClasses:
         par_prenom = {e["prenom"]: e for e in eleves}
         assert list(par_prenom) == ["Inès", "Lina", "Yanis"]
         assert par_prenom["Lina"] == {
-            "id": 1, "prenom": "Lina", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
+            "id": 1, "prenom": "Lina", "identifiant": "lina-demo", "a_un_code": True, "nb_reponses": 5, "taux_reussite": 0.6,
             "competences_maitrisees": 0, "competences_total": len(competences_de("2nde", "tronc-commun")),
             "classes_liees": [],
         }

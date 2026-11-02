@@ -91,6 +91,21 @@ competences:
       - $1 + i\sqrt{3} = 2e^{i\pi/3}$.
       - $(1 + i\sqrt{3})^6 = 2^6 e^{2i\pi} = 64$.
       resultat: '64'
+  - code: TLE-ME-CPLX-TRIG-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {k: {entre: [1, 4]}, i: {parmi: [0, 1, 2]}, s1: {parmi: [-1, 1]}, s2: {parmi: [-1, 1]}}
+      calculs: {a: "s1*k*(3*(i == 0) + 5*(i == 1) + 8*(i == 2))", b: "s2*k*(4*(i == 0) + 12*(i == 1) + 15*(i == 2))", m: "k*(5*(i == 0) + 13*(i == 1) + 17*(i == 2))"}
+    enonce: 'Calculer le module de $z = [[a]] [[b:+]]i$.'
+    solution: '[[m]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: '$|a + ib| = \sqrt{a^2 + b^2}$.'
+      etapes:
+      - '$|z|^2 = ([[a]])^2 + ([[b]])^2 = [[a*a + b*b]]$.'
+      - '$|z| = \sqrt{[[a*a + b*b]]} = [[m]]$.'
+      resultat: '[[m]]'
 - code: TLE-ME-CPLX-GEOM
   libelle: Résoudre des problèmes de géométrie avec les complexes
   attendus: [TLE-EXP-2019-GEOM-01, TLE-EXP-2019-GEOM-03]

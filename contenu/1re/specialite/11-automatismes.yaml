@@ -94,6 +94,21 @@ competences:
           - $\dfrac{1}{1{,}25} = 0{,}8$.
           - $0{,}8 - 1 = -0{,}2$, soit $-20\,\%$.
           resultat: -20
+      - code: 1RE-AUTO-EVO-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {t: {parmi: [10, 20, 25, 50, -10, -20, -50]}, v: {entre: [2, 40]}}
+          calculs: {f: "v*10*(1 + t/100)", i: "v*10"}
+        enonce: 'Après une évolution de $[[t]]\,\%$, un prix vaut $[[f]]$ €. Quel était le prix initial (en €) ?'
+        solution: '[[i]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Valeur initiale = valeur finale ÷ coefficient multiplicateur.'
+          etapes:
+          - 'Coefficient : $1 + \dfrac{[[t]]}{100} = [[1 + t/100]]$.'
+          - '$\dfrac{[[f]]}{[[1 + t/100]]} = [[i]]$.'
+          resultat: '[[i]]'
 
   - code: 1RE-AUTO-CALC
     libelle: Automatismes de calcul algébrique et de signe

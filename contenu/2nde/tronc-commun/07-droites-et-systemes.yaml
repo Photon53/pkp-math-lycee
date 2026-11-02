@@ -103,6 +103,22 @@ competences:
           - $4x - 2y + 3 = 0$ donne $y = 2x + \dfrac{3}{2}$.
           - 'Même coefficient directeur $2$, ordonnées à l''origine différentes ($1$ et $\dfrac{3}{2}$) : strictement parallèles.'
           resultat: B
+      - code: 2NDE-DROITE-V1
+        difficulte: 3
+        type: expression
+        gabarit:
+          parametres: {m: {entre: [-4, 4], sauf: [0]}, p: {entre: [-6, 6]}, x1: {entre: [-3, 0]}, x2: {entre: [1, 4]}}
+          calculs: {y1: "m*x1 + p", y2: "m*x2 + p"}
+        enonce: 'Déterminer l''équation réduite de la droite passant par $A([[x1]] ; [[y1]])$ et $B([[x2]] ; [[y2]])$ (réponse : l''expression de $y$ en fonction de $x$).'
+        solution: '[[m]]x [[p:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Coefficient directeur, puis ordonnée à l''origine avec un point.'
+          etapes:
+          - '$m = \dfrac{[[y2]] - ([[y1]])}{[[x2]] - ([[x1]])} = \dfrac{[[y2 - y1]]}{[[x2 - x1]]} = [[m]]$.'
+          - '$A$ est sur la droite : $[[y1]] = [[m]] \times ([[x1]]) + p$, donc $p = [[p]]$.'
+          - 'Équation : $y = [[m:coef]]x [[p:+]]$.'
+          resultat: '[[m]]x [[p:+]]'
 
   - code: 2NDE-SYST
     libelle: Résoudre un système de deux équations à deux inconnues
@@ -202,6 +218,23 @@ competences:
           - $c = 6{,}5 - 4s$, donc $3(6{,}5 - 4s) + 2s = 9{,}5$, soit $19{,}5 - 10s = 9{,}5$ et $s = 1$.
           - $c = 6{,}5 - 4 = 2{,}5$ €.
           resultat: 5/2
+      - code: 2NDE-SYST-V1
+        difficulte: 4
+        type: numerique
+        gabarit:
+          parametres: {x: {entre: [-5, 5]}, y: {entre: [-5, 5]}, a: {entre: [1, 4]}, b: {entre: [1, 4]}, c: {entre: [1, 4]}, d: {entre: [-4, -1]}}
+          calculs: {e: "a*x + b*y", f: "c*x + d*y"}
+          conditions: ["a*d - b*c != 0"]
+        enonce: 'Résoudre le système $[[a:coef]]x + [[b:coef]]y = [[e]]$ et $[[c:coef]]x [[d:+]]y = [[f]]$. Donner la valeur de $x$.'
+        solution: '[[x]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Combinaison : éliminer $y$ en multipliant les équations.'
+          etapes:
+          - 'On multiplie la première par $[[-d]]$ et la seconde par $[[b]]$, puis on ajoute : $([[-a*d]] + [[b*c]])x = [[-d*e]] + [[b*f]]$.'
+          - 'Soit $[[b*c - a*d]]x = [[b*f - d*e]]$, donc $x = [[x]]$.'
+          - 'En remplaçant, on trouve $y = [[y]]$.'
+          resultat: '[[x]]'
 
   - code: 2NDE-DROITE-CART
     libelle: Utiliser un vecteur directeur et une équation cartésienne

@@ -100,6 +100,21 @@ competences:
           - 'Somme $7$ : $(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)$, soit $6$ issues.'
           - $\dfrac{6}{36} = \dfrac{1}{6}$.
           resultat: 1/6
+      - code: 2NDE-PROBA-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {r: {entre: [1, 9]}, v: {entre: [1, 9]}, j: {entre: [0, 6]}}
+          calculs: {p: "r/(r + v + j)"}
+        enonce: 'Une urne contient $[[r]]$ boules rouges, $[[v]]$ vertes et $[[j]]$ jaunes. On tire une boule au hasard. Quelle est la probabilité qu''elle soit rouge ?'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Équiprobabilité : nombre de cas favorables ÷ nombre de cas possibles.'
+          etapes:
+          - 'Nombre total de boules : $[[r + v + j]]$.'
+          - '$P = \dfrac{[[r]]}{[[r + v + j]]} = [[p:frac]]$.'
+          resultat: '[[p]]'
 
   - code: 2NDE-ECH
     libelle: Utiliser la fluctuation d'échantillonnage
@@ -321,6 +336,21 @@ competences:
           resultat: 9/28
           erreurs_frequentes:
           - 'Diviser par $900$ : on obtiendrait la part des tests positifs parmi les non malades.'
+      - code: 2NDE-PCOND-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {nm: {entre: [20, 120], pas: 10}, tp: {entre: [5, 95], pas: 5}}
+          calculs: {vp: "nm*tp/100", p: "tp/100"}
+        enonce: 'Parmi $[[nm]]$ personnes malades, $[[vp]]$ ont un test positif. On note $M$ « être malade » et $T$ « avoir un test positif ». Calculer $P_M(T)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est $M$ : on se restreint aux personnes malades.'
+          etapes:
+          - '$P_M(T) = \dfrac{[[vp]]}{[[nm]]}$.'
+          - '$P_M(T) = [[p]]$.'
+          resultat: '[[p]]'
 
   - code: 2NDE-ARBRE
     libelle: Construire et exploiter un arbre pondéré
@@ -461,3 +491,18 @@ competences:
           resultat: 7/100
           erreurs_frequentes:
           - 'Utiliser $0{,}7$ deux fois : le $70\,\%$ de l''énoncé concerne les instrumentistes, pas les autres élèves.'
+      - code: 2NDE-ARBRE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [0.1, 0.9], pas: 0.1}, b: {entre: [0.05, 0.95], pas: 0.05}}
+          calculs: {p: "a*b"}
+        enonce: 'Dans un arbre pondéré, $P(A) = [[a]]$ et $P_A(B) = [[b]]$. Calculer $P(A \cap B)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Probabilité d''un chemin : produit des probabilités des branches.'
+          etapes:
+          - '$P(A \cap B) = P(A) \times P_A(B)$.'
+          - '$= [[a]] \times [[b]] = [[p]]$.'
+          resultat: '[[p]]'

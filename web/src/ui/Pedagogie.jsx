@@ -35,8 +35,8 @@ export function Methodes({ methodes }) {
   return (
     <section aria-labelledby="titre-methodes">
       <h3 id="titre-methodes">Méthodes</h3>
-      {methodes.map((m) => (
-        <div key={m.titre} className="encadre methode">
+      {methodes.map((m, i) => (
+        <div key={m.titre} id={`methode-${i + 1}`} className="encadre methode">
           <h4>Comment {m.titre.charAt(0).toLowerCase() + m.titre.slice(1)}</h4>
           {m.quand && (
             <p className="doux">
@@ -80,23 +80,34 @@ export function ErreursFrequentes({ erreurs }) {
   );
 }
 
-/** Correction détaillée d'une question, affichée après la réponse de l'élève. */
-export function Correction({ correction }) {
+/** Méthode de la leçon citée par la correction (titre contenu dans le texte, ou l'inverse), sinon la première. */
+export function methodeCitee(texte, methodes) {
+  if (!methodes?.length) return null;
+  const t = (texte ?? "").toLowerCase();
+  const i = methodes.findIndex((m) => t && (t.includes(m.toLowerCase()) || m.toLowerCase().includes(t)));
+  return i >= 0 ? { titre: methodes[i], ancre: `methode-${i + 1}` } : null;
+}
+
+/** Correction en deux temps : la méthode et le résultat d'abord, le détail sur demande, avec des renvois
+ * vers le cours et la fiche méthode de la leçon (`references` : { competence, methodes, onVoir(ancre) }). */
+export function Correction({ correction, references }) {
   if (!correction) return null;
+  const citee = methodeCitee(correction.methode, references?.methodes);
   return (
-    <details className="correction">
-      <summary>Voir la correction détaillée</summary>
+    <div className="correction-resumee">
       {correction.methode && (
         <p>
           <strong>Méthode :</strong> <Maths texte={correction.methode} enLigne />
         </p>
       )}
-      <Etapes etapes={correction.etapes} />
       {correction.resultat && (
         <p>
           <strong>Résultat :</strong> <Maths texte={correction.resultat} enLigne />
         </p>
       )}
+      <details className="correction">
+        <summary>Voir le détail de la correction</summary>
+        <Etapes etapes={correction.etapes} />
       {correction.erreurs_frequentes?.length > 0 && (
         <div className="encadre attention">
           <strong>Erreurs fréquentes</strong>
@@ -109,6 +120,23 @@ export function Correction({ correction }) {
           </ul>
         </div>
       )}
-    </details>
+      {references?.onVoir && (
+        <p className="renvois">
+          <strong>Pour revoir :</strong>{" "}
+          <button className="lien" onClick={() => references.onVoir("lecon-cours")}>
+            le cours « {references.competence} »
+          </button>
+          {(citee ? [citee] : (references.methodes ?? []).map((titre, i) => ({ titre, ancre: `methode-${i + 1}` }))).map((m) => (
+            <span key={m.ancre}>
+              {" · "}
+              <button className="lien" onClick={() => references.onVoir(m.ancre)}>
+                la méthode « {m.titre} »
+              </button>
+            </span>
+          ))}
+        </p>
+      )}
+      </details>
+    </div>
   );
 }

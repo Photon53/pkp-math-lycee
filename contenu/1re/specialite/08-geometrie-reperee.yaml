@@ -190,6 +190,22 @@ competences:
           - 'Centre : milieu de $[AB]$, $(3 ; 4)$.'
           - $AB^2 = 16 + 16 = 32$, donc $r^2 = \dfrac{32}{4} = 8$.
           resultat: 8
+      - code: 1RE-CERCLE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-5, 5]}, b: {entre: [-5, 5]}, r: {entre: [1, 7]}}
+          calculs: {c: "a*a + b*b - r*r"}
+        enonce: 'Le cercle $\mathcal{C}$ a pour équation $x^2 + y^2 [[-2*a:+]]x [[-2*b:+]]y [[c:+]] = 0$. Quel est son rayon ?'
+        solution: '[[r]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Compléter les carrés pour retrouver $(x - a)^2 + (y - b)^2 = r^2$.'
+          etapes:
+          - '$x^2 [[-2*a:+]]x = (x [[-a:+]])^2 - [[a*a]]$ et $y^2 [[-2*b:+]]y = (y [[-b:+]])^2 - [[b*b]]$.'
+          - '$(x [[-a:+]])^2 + (y [[-b:+]])^2 = [[a*a + b*b - c]]$.'
+          - 'Rayon : $\sqrt{[[r*r]]} = [[r]]$.'
+          resultat: '[[r]]'
 
   - code: 1RE-PROJ
     libelle: Déterminer un projeté orthogonal et étudier une configuration en repère

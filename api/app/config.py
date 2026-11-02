@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     # Clé de signature des jetons. Générer : python -c "import secrets; print(secrets.token_urlsafe(48))"
     secret_key: str = CLE_DEV
     duree_jeton_eleve_h: int = 12
+    # « Rester connecté » sur l'appareil personnel de l'élève (travail à la maison).
+    duree_jeton_eleve_longue_j: int = 30
     duree_jeton_enseignant_h: int = 8
     # Espace administrateur : session courte (cahier des charges V2, EA2.4).
     duree_jeton_admin_min: int = 30

@@ -191,6 +191,21 @@ competences:
           - Sur $]0 ; 6[$, $V'$ s'annule en $x = 2$, positive avant et négative après.
           - Le volume est maximal pour $x = 2$ cm (il vaut alors $128$ cm³).
           resultat: 2
+      - code: 1RE-EXTR-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, h: {entre: [-6, 6]}, c: {entre: [-9, 9]}}
+          calculs: {b: "-2*a*h"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. En quelle valeur de $x$ la fonction $f$ atteint-elle son extremum ?'
+        solution: '[[h]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'L''extremum est atteint là où la dérivée s''annule en changeant de signe.'
+          etapes:
+          - '$f''(x) = [[2*a]]x [[b:+]]$.'
+          - '$f''(x) = 0 \iff x = \dfrac{[[-b]]}{[[2*a]]} = [[h]]$.'
+          resultat: '[[h]]'
 
   - code: 1RE-PARITE
     libelle: Reconnaître une fonction paire ou impaire

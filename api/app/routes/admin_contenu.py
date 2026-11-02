@@ -393,7 +393,8 @@ def modifier_question(question_id: int, corps: QuestionEdition, admin: AdminCour
             "Cette question a déjà reçu des réponses : son énoncé, son type, sa solution et sa compétence ne changent plus. "
             "Archivez-la et créez-en une nouvelle.",
         )
-    if not _solution_lisible(corps.type, corps.solution):
+    # Question à valeurs variables : sa solution cite des paramètres ([[x]]), vérifiée par `contenu verifier`.
+    if q.gabarit is None and not _solution_lisible(corps.type, corps.solution):
         raise HTTPException(422, "Solution illisible par le moteur de correction.")
     avant = journal.instantane(q, CHAMPS_QUESTION)
     for cle, valeur in valeurs.items():

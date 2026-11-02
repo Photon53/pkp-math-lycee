@@ -147,6 +147,9 @@ class Eleve(Base):
     # Empreinte du code personnel distribué par l'enseignant (audit A-07, décision D1).
     # Vide tant que l'enseignant n'a pas généré de code : l'élève ne peut pas se connecter.
     code_hash: Mapped[str | None] = mapped_column(String(255))
+    # Identifiant de connexion (« ines-k7m4 ») : avec le code personnel, il suffit pour se connecter,
+    # sans prénom ni code classe à saisir. Attribué avec le code personnel.
+    identifiant: Mapped[str | None] = mapped_column(String(40), unique=True)
     # Même élève inscrit dans plusieurs classes (spécialité, mise à niveau, excellence…) : ses inscriptions
     # partagent ce numéro (l'id de la première), et il passe de l'une à l'autre sans ressaisir de code.
     groupe_id: Mapped[int | None] = mapped_column(Integer, index=True)
@@ -264,6 +267,8 @@ class Question(Base):
     # Correction détaillée {methode, etapes, resultat, erreurs_frequentes}, montrée après la réponse (E0.3).
     correction: Mapped[dict | None] = mapped_column(JSON)
     competences_secondaires: Mapped[list | None] = mapped_column(JSON)
+    # Valeurs variables {parametres, calculs, conditions} : énoncé, solution et correction citent [[…]].
+    gabarit: Mapped[dict | None] = mapped_column(JSON)
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
     modifiee_admin_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
@@ -281,6 +286,8 @@ class Seance(Base):
     # et la durée de réponse est mesurée côté serveur.
     question_courante_id: Mapped[int | None] = mapped_column(ForeignKey("question.id", ondelete="RESTRICT"))
     question_servie_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Valeurs tirées pour la question courante, si elle est à valeurs variables.
+    tirage_courant: Mapped[dict | None] = mapped_column(JSON)
 
     eleve: Mapped[Eleve] = relationship(back_populates="seances")
     question_courante: Mapped["Question | None"] = relationship()
@@ -305,6 +312,8 @@ class Reponse(Base):
     correcte: Mapped[bool] = mapped_column(Boolean)
     duree_s: Mapped[float] = mapped_column(Float)
     repondu_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+    # Valeurs de l'exercice tel qu'il a été posé (question à valeurs variables) : l'historique le remontre.
+    tirage: Mapped[dict | None] = mapped_column(JSON)
 
     seance: Mapped[Seance] = relationship(back_populates="reponses")
     question: Mapped[Question] = relationship()

@@ -89,6 +89,21 @@ competences:
       - $\dfrac{1}{0{,}7} = \dfrac{10}{7}$, donc une hausse de $\dfrac{10}{7} - 1 = \dfrac{3}{7}$.
       - Soit $\dfrac{300}{7}\,\% \approx 42{,}9\,\%$.
       resultat: 300/7
+  - code: TLE-TEC-INDICE-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {v0: {entre: [20, 80], pas: 5}, t: {parmi: [5, 10, 12, 15, 20, 25, 30, 40, -10, -20]}}
+      calculs: {v1: "v0*(1 + t/100)", i: "100 + t"}
+    enonce: 'Une grandeur passe de $[[v0]]$ à $[[v1]]$. Quel est l''indice de la seconde valeur, base 100 pour la première ?'
+    solution: '[[i]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Indice = $\dfrac{\text{valeur}}{\text{valeur de base}} \times 100$.'
+      etapes:
+      - '$\dfrac{[[v1]]}{[[v0]]} = [[v1/v0]]$.'
+      - 'Indice : $[[v1/v0]] \times 100 = [[i]]$.'
+      resultat: '[[i]]'
 
 - code: TLE-TEC-AUTO-EVO
   libelle: Automatismes sur les évolutions en pourcentage

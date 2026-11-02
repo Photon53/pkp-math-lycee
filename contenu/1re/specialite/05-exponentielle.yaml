@@ -93,6 +93,21 @@ competences:
           - $x^2 - 3 = 2x$, soit $x^2 - 2x - 3 = (x - 3)(x + 1) = 0$.
           - Solutions $-1$ et $3$ ; la plus grande est $3$.
           resultat: 3
+      - code: 1RE-EXP-ALG-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {m: {entre: [-6, 9]}, n: {entre: [-6, 9]}, p: {entre: [-5, 6]}}
+          calculs: {k: "m + n - p"}
+        enonce: 'On écrit $\dfrac{e^{[[m]]} \times e^{[[n]]}}{e^{[[p]]}}$ sous la forme $e^k$. Donner $k$.'
+        solution: '[[k]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$e^a \times e^b = e^{a+b}$ et $\dfrac{e^a}{e^b} = e^{a-b}$.'
+          etapes:
+          - '$e^{[[m]]} \times e^{[[n]]} = e^{[[m + n]]}$.'
+          - '$\dfrac{e^{[[m + n]]}}{e^{[[p]]}} = e^{[[k]]}$.'
+          resultat: '[[k]]'
 
   - code: 1RE-EXP-ETU
     libelle: Dériver et étudier des fonctions avec l'exponentielle

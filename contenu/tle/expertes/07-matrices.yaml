@@ -89,6 +89,21 @@ competences:
       etapes:
       - $ad - bc = 1$ ; $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.
       resultat: '2'
+  - code: TLE-ME-MAT-CALC-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-4, 5]}, b: {entre: [-4, 5]}, c: {entre: [-4, 5]}, d: {entre: [-4, 5]}, e: {entre: [-4, 5]}, f: {entre: [-4, 5]}}
+      calculs: {p: "a*e + b*f"}
+    enonce: 'Soit $A = \begin{pmatrix} [[a]] & [[b]] \\ [[c]] & [[d]] \end{pmatrix}$ et $X = \begin{pmatrix} [[e]] \\ [[f]] \end{pmatrix}$. Calculer le premier coefficient de $AX$.'
+    solution: '[[p]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Ligne de $A$ fois colonne de $X$.'
+      etapes:
+      - 'Première ligne de $A$ : $([[a]] \;\; [[b]])$.'
+      - '$[[a]] \times ([[e]]) + [[b]] \times ([[f]]) = [[p]]$.'
+      resultat: '[[p]]'
 - code: TLE-ME-MAT-SYS
   libelle: Résoudre un système linéaire avec une matrice inverse
   attendus: [TLE-EXP-2019-GRAPHMAT-04]

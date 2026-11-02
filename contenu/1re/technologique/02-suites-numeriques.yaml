@@ -93,6 +93,21 @@ competences:
       - $u(n) = 1\,000 \times 1{,}5^n$.
       - $u(5) \approx 7\,594$ et $u(6) \approx 11\,391$.
       resultat: '6'
+  - code: 1RE-TEC-SUITES-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {u: {entre: [50, 500], pas: 10}, r: {entre: [-20, 40], sauf: [0]}, n: {entre: [3, 15]}}
+      calculs: {v: "u + n*r"}
+    enonce: 'Une suite arithmétique a pour premier terme $u_0 = [[u]]$ et pour raison $[[r]]$. Calculer $u_{[[n]]}$.'
+    solution: '[[v]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: '$u_n = u_0 + n \times r$.'
+      etapes:
+      - '$u_{[[n]]} = [[u]] + [[n]] \times ([[r]])$.'
+      - '$= [[v]]$.'
+      resultat: '[[v]]'
 
 - code: 1RE-TEC-SUI-GRAPH
   libelle: Représenter une suite et automatiser ses calculs

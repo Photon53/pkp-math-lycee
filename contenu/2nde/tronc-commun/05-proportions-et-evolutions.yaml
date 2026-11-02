@@ -96,6 +96,21 @@ competences:
           etapes:
           - $30 + 50 - 10 = 70$.
           resultat: 70
+      - code: 2NDE-PROP-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {t: {parmi: [5, 10, 12, 15, 20, 25, 30, 35, 40, 45, 60, 75]}, n: {entre: [2, 40], pas: 1}}
+          calculs: {N: "n*20", r: "t*n*20/100"}
+        enonce: 'Dans un lycée de $[[N]]$ élèves, $[[t]]\,\%$ sont internes. Combien d''élèves sont internes ?'
+        solution: '[[r]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Appliquer une proportion : partie = proportion × tout.'
+          etapes:
+          - '$[[t]]\,\% = [[t/100]]$.'
+          - '$[[t/100]] \times [[N]] = [[r]]$.'
+          resultat: '[[r]]'
 
   - code: 2NDE-EVO
     libelle: Calculer des évolutions et des taux
@@ -199,3 +214,19 @@ competences:
           - $(1 + t)^2 = 1{,}21$ avec $1 + t > 0$.
           - $1 + t = 1{,}1$, donc une hausse de $10\,\%$.
           resultat: 10
+      - code: 2NDE-EVO-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {t1: {parmi: [10, 20, 25, 50]}, t2: {parmi: [-10, -20, -25, 10, 20]}}
+          calculs: {g: "((1 + t1/100)*(1 + t2/100) - 1)*100"}
+        enonce: 'Un prix augmente de $[[t1]]\,\%$, puis évolue de $[[t2]]\,\%$. Quel est le taux d''évolution global, en pourcentage ?'
+        solution: '[[g]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Évolutions successives : on multiplie les coefficients multiplicateurs.'
+          etapes:
+          - 'Coefficients : $[[1 + t1/100]]$ et $[[1 + t2/100]]$.'
+          - 'Coefficient global : $[[1 + t1/100]] \times [[1 + t2/100]] = [[(1 + t1/100)*(1 + t2/100)]]$.'
+          - 'Taux global : $([[(1 + t1/100)*(1 + t2/100)]] - 1) \times 100 = [[g]]\,\%$.'
+          resultat: '[[g]]'

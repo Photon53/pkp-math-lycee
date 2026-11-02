@@ -92,6 +92,21 @@ competences:
       etapes:
       - $1{,}1^3 = 1{,}331$, soit $+33{,}1\,\%$.
       resultat: '33.1'
+  - code: 1RE-TEC-EVO-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {v: {entre: [2, 30]}, t: {parmi: [5, 10, 15, 20, 25, 30, -10, -20, -25]}}
+      calculs: {i: "v*20", f: "v*20*(1 + t/100)"}
+    enonce: 'Un article coûte $[[i]]$ €. Son prix évolue de $[[t]]\,\%$. Quel est son nouveau prix (en €) ?'
+    solution: '[[f]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Valeur finale = valeur initiale × coefficient multiplicateur.'
+      etapes:
+      - 'Coefficient : $1 + \dfrac{[[t]]}{100} = [[1 + t/100]]$.'
+      - '$[[i]] \times [[1 + t/100]] = [[f]]$.'
+      resultat: '[[f]]'
 - code: 1RE-TEC-CALC
   libelle: Résoudre une équation produit nul et étudier un signe
   attendus: [1RE-TEC-2026-AUTO-05, 1RE-TEC-2026-AUTO-06, 1RE-TEC-2026-AUTO-07]

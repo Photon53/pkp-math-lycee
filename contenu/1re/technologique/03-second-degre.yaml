@@ -95,6 +95,22 @@ competences:
       etapes:
       - $\dfrac{f(3) - f(1)}{3 - 1} = \dfrac{9 - 1}{2} = 4$.
       resultat: '4'
+  - code: 1RE-TEC-POLY2-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-3, 3], sauf: [0]}, r: {entre: [-6, 6]}, s: {entre: [-6, 6]}}
+      calculs: {h: "(r + s)/2"}
+      conditions: ["r != s"]
+    enonce: 'Soit $f(x) = [[a:coef]](x [[-r:+]])(x [[-s:+]])$. Quelle est l''abscisse du sommet de sa parabole ?'
+    solution: '[[h]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Le sommet est sur l''axe de symétrie, au milieu des deux racines.'
+      etapes:
+      - 'Racines : $[[r]]$ et $[[s]]$.'
+      - 'Abscisse du sommet : $\dfrac{[[r]] + ([[s]])}{2} = [[h]]$.'
+      resultat: '[[h]]'
 
 - code: 1RE-TEC-FONC
   libelle: Modéliser par une fonction et utiliser le taux de variation
@@ -189,3 +205,18 @@ competences:
         etapes:
         - $\dfrac{-5 - 7}{6 - 2} = \dfrac{-12}{4} = -3$.
         resultat: -3
+    - code: 1RE-TEC-FONC-V1
+      difficulte: 3
+      type: numerique
+      gabarit:
+        parametres: {a: {entre: [-3, 3], sauf: [0]}, b: {entre: [-5, 5]}, x1: {entre: [-3, 1]}, x2: {entre: [2, 5]}}
+        calculs: {t: "a*(x1 + x2) + b"}
+      enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x$. Calculer le taux de variation de $f$ entre $[[x1]]$ et $[[x2]]$.'
+      solution: '[[t]]'
+      auteur: Brouillon IA (Claude)
+      correction:
+        methode: 'Taux de variation : $\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$.'
+        etapes:
+        - '$f([[x1]]) = [[a*x1*x1 + b*x1]]$ et $f([[x2]]) = [[a*x2*x2 + b*x2]]$.'
+        - '$\dfrac{[[a*x2*x2 + b*x2]] - ([[a*x1*x1 + b*x1]])}{[[x2]] - ([[x1]])} = \dfrac{[[a*x2*x2 + b*x2 - a*x1*x1 - b*x1]]}{[[x2 - x1]]} = [[t]]$.'
+        resultat: '[[t]]'

@@ -1,3 +1,4 @@
+import shutil
 import time
 from pathlib import Path
 
@@ -69,12 +70,33 @@ def config_alembic(url: str) -> Config:
     return config
 
 
+@pytest.fixture(scope="session")
+def bases_modeles(tmp_path_factory) -> tuple[Path, Path]:
+    """Préparées une seule fois : une base migrée, et la même chargée avec la banque et la démo.
+
+    Migrer et importer toute la banque (plus de 1 000 questions) prenait près de 10 s par test :
+    chaque test reçoit désormais une copie de fichier, qui prend quelques millisecondes.
+    """
+    dossier = tmp_path_factory.mktemp("modeles")
+    migree, demo = dossier / "migree.db", dossier / "demo.db"
+    command.upgrade(config_alembic(f"sqlite:///{migree}"), "head")
+    shutil.copyfile(migree, demo)
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr(security, "_N", 2**8)  # comme `scrypt_rapide`, qui ne s'applique qu'aux tests
+        moteur = creer_moteur(f"sqlite:///{demo}")
+        with sessionmaker(bind=moteur, expire_on_commit=False)() as s:
+            charger_demo(s)
+        moteur.dispose()
+    return migree, demo
+
+
 @pytest.fixture
-def db_url(tmp_path) -> str:
-    """Base SQLite vierge, migrée jusqu'à la dernière version."""
-    url = f"sqlite:///{tmp_path / 'test.db'}"
-    command.upgrade(config_alembic(url), "head")
-    return url
+def db_url(tmp_path, bases_modeles, request) -> str:
+    """Base SQLite migrée jusqu'à la dernière version ; avec les données de démo si le test utilise `client`."""
+    migree, demo = bases_modeles
+    fichier = tmp_path / "test.db"
+    shutil.copyfile(demo if "client" in request.fixturenames else migree, fichier)
+    return f"sqlite:///{fichier}"
 
 
 @pytest.fixture
@@ -92,9 +114,7 @@ def session(fabrique) -> Session:
 
 @pytest.fixture
 def client(fabrique):
-    """Client HTTP sur une base migrée et chargée avec les données de démo."""
-    with fabrique() as s:
-        charger_demo(s)
+    """Client HTTP sur une base migrée et chargée avec les données de démo (copie de `bases_modeles`)."""
 
     def _session():
         with fabrique() as s:

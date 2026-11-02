@@ -1,3 +1,4 @@
+import QRCode from "qrcode";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
@@ -64,6 +65,21 @@ export default function Classes({ jeton, onExpire }) {
     if (!ok) return;
     try {
       setCodesAffiches([await appeler(`/enseignants/eleves/${eleve.id}/code`, { methode: "POST" })]);
+      setMessage(null);
+      await chargerEleves(classeId);
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function cartesDeLaClasse() {
+    const ok = window.confirm(
+      "Imprimer les cartes de toute la classe ?\n\nChaque élève reçoit un nouveau code personnel : les anciens codes ne fonctionneront plus " +
+        "et les sessions en cours seront fermées. Les identifiants ne changent pas.",
+    );
+    if (!ok) return;
+    try {
+      setCodesAffiches(await appeler(`/enseignants/classes/${classeId}/cartes`, { methode: "POST" }));
       setMessage(null);
       await chargerEleves(classeId);
     } catch {
@@ -263,7 +279,11 @@ export default function Classes({ jeton, onExpire }) {
             Classe <code>{classe.code}</code>
           </h2>
           <p className="doux">
-            Chaque élève se connecte avec son prénom, ce code classe et son <strong>code personnel</strong>.
+            Chaque élève se connecte avec son <strong>identifiant</strong> et son <strong>code personnel</strong>, imprimés sur sa
+            carte avec un QR code (ou, sans carte, avec son prénom, ce code classe et son code personnel).{" "}
+            <button className="lien" onClick={cartesDeLaClasse} disabled={!eleves?.length}>
+              Imprimer les cartes de toute la classe
+            </button>
           </p>
           {codesAffiches && (
             <FicheCodes classe={classe.code} codes={codesAffiches} onFermer={() => setCodesAffiches(null)} />
@@ -301,6 +321,11 @@ export default function Classes({ jeton, onExpire }) {
                         <td>
                           {e.prenom}
                           {!e.a_un_code && <span className="pastille archivee">sans code</span>}
+                          {e.identifiant && (
+                            <span className="doux petit" style={{ display: "block" }}>
+                              <code>{e.identifiant}</code>
+                            </span>
+                          )}
                           {e.classes_liees?.length > 0 && (
                             <span className="doux petit" style={{ display: "block" }}>
                               aussi : {e.classes_liees.join(", ")}
@@ -483,46 +508,76 @@ function ChapitresProposes({ classe, appeler }) {
   );
 }
 
-/** Codes en clair : affichés une seule fois (stockés hachés). Imprimables pour être distribués. */
+/** Codes en clair : affichés une seule fois (stockés hachés). Imprimés sous forme de cartes à découper :
+ * identifiant + code personnel + QR code qui connecte l'élève directement depuis son téléphone. */
 function FicheCodes({ classe, codes, onFermer }) {
+  const [qr, setQr] = useState({}); // identifiant → SVG du QR code
+
+  useEffect(() => {
+    let actif = true;
+    Promise.all(
+      codes
+        .filter((c) => c.identifiant)
+        .map(async (c) => [c.identifiant, await QRCode.toString(lienCarte(c), { type: "svg", margin: 1, width: 110 })]),
+    ).then((paires) => actif && setQr(Object.fromEntries(paires)), () => {});
+    return () => {
+      actif = false;
+    };
+  }, [codes]);
+
   return (
     <div className="fiche-codes" role="region" aria-label="Codes personnels à distribuer">
-      <h3>Codes à distribuer — classe {classe}</h3>
+      <h3>Cartes de connexion — classe {classe}</h3>
       <p className="aide">
-        Ces codes ne seront plus affichés : imprimez-les ou notez-les maintenant. Un code perdu se remplace par « Nouveau code ».
+        Ces codes ne seront plus affichés : imprimez les cartes maintenant. Un code perdu se remplace par « Nouveau code » ;
+        l'identifiant, lui, ne change pas. À la maison, l'élève scanne son QR code ou saisit son identifiant et son code.
       </p>
       {codes.length === 0 ? (
         <p className="doux">Aucun nouveau code.</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Élève</th>
-              <th>Code personnel</th>
-            </tr>
-          </thead>
-          <tbody>
-            {codes.map((c) => (
-              <tr key={c.prenom}>
-                <td>{c.prenom}</td>
-                <td>
-                  <code className="code-personnel">{c.code}</code>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="cartes-eleves">
+          {codes.map((c) => (
+            <li key={c.id ?? c.prenom} className="carte-eleve">
+              <div>
+                <strong>{c.prenom}</strong>
+                <span className="doux petit">Classe {classe}</span>
+                {c.identifiant && (
+                  <span>
+                    Identifiant : <code className="identifiant-eleve">{c.identifiant}</code>
+                  </span>
+                )}
+                <span>
+                  Code personnel : <code className="code-personnel">{c.code}</code>
+                </span>
+                <span className="doux petit">{window.location.origin}/eleve</span>
+              </div>
+              {qr[c.identifiant] && (
+                <span
+                  className="qr-eleve"
+                  role="img"
+                  aria-label={`QR code de connexion de ${c.prenom}`}
+                  dangerouslySetInnerHTML={{ __html: qr[c.identifiant] }}
+                />
+              )}
+            </li>
+          ))}
+        </ul>
       )}
       <div className="actions">
         <button onClick={() => window.print()} disabled={codes.length === 0}>
-          Imprimer
+          Imprimer les cartes
         </button>
         <button className="secondaire" onClick={onFermer}>
-          J'ai noté les codes
+          J'ai imprimé les cartes
         </button>
       </div>
     </div>
   );
+}
+
+/** Lien encodé dans le QR code : le code est dans le fragment (#), jamais envoyé au serveur. */
+export function lienCarte({ identifiant, code }) {
+  return `${window.location.origin}/eleve#carte=${identifiant}.${code}`;
 }
 
 /** Le même élève dans vos autres classes (spécialité, mise à niveau, excellence…) : un seul code, bascule libre. */

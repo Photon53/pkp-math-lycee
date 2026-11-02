@@ -90,3 +90,18 @@ competences:
       etapes:
       - $0{,}8x + 12 = 20$, soit $0{,}8x = 8$, donc $x = 10$.
       resultat: '10'
+  - code: 1RE-TEC-STAT2-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {y1: {entre: [10, 40]}, y2: {entre: [10, 40]}, y3: {entre: [10, 40]}, y4: {entre: [10, 40]}}
+      calculs: {m: "(y1 + y2 + y3 + y4)/4"}
+    enonce: 'Une série à deux variables est $(1 ; [[y1]])$, $(2 ; [[y2]])$, $(3 ; [[y3]])$, $(4 ; [[y4]])$. Quelle est l''ordonnée du point moyen ?'
+    solution: '[[m]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Le point moyen a pour coordonnées les moyennes des $x_i$ et des $y_i$.'
+      etapes:
+      - 'Somme des $y_i$ : $[[y1 + y2 + y3 + y4]]$.'
+      - '$\bar y = \dfrac{[[y1 + y2 + y3 + y4]]}{4} = [[m]]$.'
+      resultat: '[[m]]'

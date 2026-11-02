@@ -97,6 +97,22 @@ competences:
       - On cherche $\mathrm{PPCM}(12, 18)$.
       - '$12 = 2^2 \times 3$, $18 = 2 \times 3^2$ : $\mathrm{PPCM} = 2^2 \times 3^2 = 36$.'
       resultat: '36'
+  - code: TLE-ME-PGCD-CALC-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {d: {entre: [2, 15]}, x: {entre: [2, 20]}, y: {entre: [2, 20]}}
+      calculs: {a: "d*x", b: "d*y", g: "pgcd(d*x, d*y)"}
+      conditions: ["x != y"]
+    enonce: 'Calculer $\text{PGCD}([[a]] ; [[b]])$.'
+    solution: '[[g]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Algorithme d''Euclide, ou décomposition en facteurs premiers.'
+      etapes:
+      - 'On remplace le couple par (diviseur, reste) jusqu''à un reste nul, en partant de $([[max(a, b)]] ; [[min(a, b)]])$.'
+      - 'Le dernier reste non nul est $[[g]]$.'
+      resultat: '[[g]]'
 - code: TLE-ME-BEZOUT
   libelle: Utiliser les théorèmes de Bézout et de Gauss
   attendus: [TLE-EXP-2019-ARITH-05, TLE-EXP-2019-ARITH-06, TLE-EXP-2019-ARITH-07, TLE-EXP-2019-ARITH-15, TLE-EXP-2019-ARITH-16]

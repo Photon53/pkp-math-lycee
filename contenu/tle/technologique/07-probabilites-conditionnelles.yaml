@@ -89,3 +89,18 @@ competences:
       etapes:
       - $0{,}5 \times 0{,}01 + 0{,}3 \times 0{,}02 + 0{,}2 \times 0{,}03 = 0{,}005 + 0{,}006 + 0{,}006 = 0{,}017$.
       resultat: '0.017'
+  - code: TLE-TEC-PROBA-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [0.2, 0.8], pas: 0.1}, b: {entre: [0.1, 0.9], pas: 0.1}, c: {entre: [0.1, 0.9], pas: 0.1}}
+      calculs: {p: "a*b + (1 - a)*c"}
+    enonce: '$[[a*100]]\,\%$ des pièces viennent de l''usine A, les autres de l''usine B. $[[b*100]]\,\%$ des pièces de A et $[[c*100]]\,\%$ de celles de B sont conformes. Quelle est la probabilité qu''une pièce prise au hasard soit conforme ?'
+    solution: '[[p]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Formule des probabilités totales.'
+      etapes:
+      - '$P(C) = P(A) P_A(C) + P(B) P_B(C)$.'
+      - '$= [[a]] \times [[b]] + [[1 - a]] \times [[c]] = [[p]]$.'
+      resultat: '[[p]]'

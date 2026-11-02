@@ -13,7 +13,7 @@ Compte administrateur de démo (local uniquement, sans second facteur hors produ
     mot de passe : le même que l'enseignant de démo
 
 Codes personnels des élèves de démo (local uniquement) : voir CODES_DEMO ci-dessous,
-par exemple Lina / 2NDE-A-DEMO / PKP222.
+par exemple Lina / 2NDE-A-DEMO / PKP222, ou, avec l'identifiant de connexion, lina-demo / PKP222.
 """
 
 import os
@@ -28,13 +28,18 @@ from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
 from app.referentiel import Role, parcours_par_defaut
-from app.security import hacher_code_eleve, hacher_mot_de_passe
+from app.security import generer_identifiant, hacher_code_eleve, hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
 EMAIL_ADMIN_DEMO = "admin@pkp.test"
 
 # Codes fixes pour pouvoir tester en local ; en vrai, l'enseignant les génère (aléatoires).
 CODES_DEMO = {"Lina": "PKP222", "Yanis": "PKP333", "Inès": "PKP444", "Hugo": "PKP555", "Emma": "PKP666"}
+
+
+def identifiant_demo(prenom: str) -> str:
+    """Identifiant de connexion des élèves de démo : « lina-demo », « ines-demo »…"""
+    return generer_identifiant(prenom).rsplit("-", 1)[0] + "-demo"
 
 CLASSES = [
     ("2NDE-A-DEMO", Niveau.SECONDE, ["Lina", "Yanis", "Inès"]),
@@ -81,7 +86,9 @@ def charger_demo(session: Session) -> bool:
         session.add(classe)
         classe.chapitres_proposes = chapitres_du_programme(session, classe)
         for prenom in prenoms:
-            eleves[prenom] = models.Eleve(prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]))
+            eleves[prenom] = models.Eleve(
+                prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]), identifiant=identifiant_demo(prenom)
+            )
             session.add(eleves[prenom])
     session.flush()
 

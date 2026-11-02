@@ -58,7 +58,7 @@ describe("lien entre exercices, cours et historique", () => {
 
     expect(screen.getByRole("tab", { name: "S'entraîner" })).toHaveAttribute("aria-selected", "true");
     expect(screen.getByText("Pas tout à fait.")).toBeVisible(); // le résultat et la correction sont toujours là
-    expect(screen.getByText("Voir la correction détaillée")).toBeInTheDocument();
+    expect(screen.getByText("Voir le détail de la correction")).toBeInTheDocument();
     expect(appels.filter((a) => a.cle === "GET /seances/3/question")).toHaveLength(1); // pas de nouvelle question
   });
 
@@ -94,7 +94,7 @@ describe("lien entre exercices, cours et historique", () => {
     const [faute] = screen.getAllByRole("listitem");
     expect(within(faute).getByText("À revoir")).toBeInTheDocument();
     expect(within(faute).getByText(/Réponse attendue/)).toBeInTheDocument();
-    expect(within(faute).getByText("Voir la correction détaillée")).toBeInTheDocument();
+    expect(within(faute).getByText("Voir le détail de la correction")).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("checkbox", { name: "Seulement mes erreurs" }));
     expect(await screen.findAllByText("À revoir")).toHaveLength(1);

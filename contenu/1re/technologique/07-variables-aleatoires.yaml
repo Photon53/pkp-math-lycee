@@ -92,6 +92,21 @@ competences:
       etapes:
       - $\dfrac{G}{8} - 2 = 0$, donc $G = 16$.
       resultat: '16'
+  - code: 1RE-TEC-VA-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {g: {entre: [2, 20]}, p: {entre: [0.1, 0.5], pas: 0.05}, m: {entre: [1, 5]}}
+      calculs: {e: "g*p - m"}
+    enonce: 'À un jeu, on mise $[[m]]$ € ; on gagne $[[g]]$ € avec la probabilité $[[p]]$, rien sinon. Quelle est l''espérance du gain net (en €) ?'
+    solution: '[[e]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Gain net $X$ : $[[g - m]]$ avec la probabilité $[[p]]$, $[[-m]]$ sinon.'
+      etapes:
+      - '$E(X) = [[g - m]] \times [[p]] + ([[-m]]) \times [[1 - p]]$.'
+      - '$E(X) = [[(g - m)*p]] [[-m*(1 - p):+]] = [[e]]$.'
+      resultat: '[[e]]'
 
 - code: 1RE-TEC-SIMUL
   libelle: Simuler des échantillons d'une loi de Bernoulli

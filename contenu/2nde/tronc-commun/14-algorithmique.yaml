@@ -214,6 +214,22 @@ competences:
           - $1\,000 \times 1{,}05^8 \approx 1\,477$ et $1\,000 \times 1{,}05^9 \approx 1\,551$.
           - Le capital dépasse $1\,500$ € pour la première fois après $9$ ans.
           resultat: 9
+      - code: 2NDE-PY-BOUCLE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {n: {entre: [3, 12]}, d: {entre: [0, 3]}}
+          calculs: {s: "n*(n - 1)/2 + d*n"}
+        enonce: 'On exécute `s = 0`, puis `for i in range([[n]]): s = s + i + [[d]]`. Que vaut `s` à la fin ?'
+        solution: '[[s]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Accumulateur : on additionne la valeur ajoutée à chaque tour.'
+          etapes:
+          - '`i` prend les valeurs $0$ à $[[n - 1]]$ : leur somme vaut $[[n*(n - 1)/2]]$.'
+          - 'On ajoute aussi $[[d]]$ à chacun des $[[n]]$ tours : $[[d*n]]$.'
+          - 'Total : $[[s]]$.'
+          resultat: '[[s]]'
 
   - code: 2NDE-PY-FONC
     libelle: Écrire et utiliser des fonctions en Python

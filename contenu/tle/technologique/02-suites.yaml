@@ -91,6 +91,21 @@ competences:
       - 'Dernier versement : $50 + 11 \times 10 = 160$ €.'
       - $12 \times \dfrac{50 + 160}{2} = 1\,260$ €.
       resultat: '1260'
+  - code: TLE-TEC-ARITH-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {u: {entre: [100, 900], pas: 50}, r: {entre: [10, 80], pas: 5}, n: {entre: [6, 20]}}
+      calculs: {d: "u + (n - 1)*r", s: "n*(2*u + (n - 1)*r)/2"}
+    enonce: 'Un salarié gagne $[[u]]$ € de prime la première année, puis $[[r]]$ € de plus chaque année. Quel est le total des primes perçues en $[[n]]$ ans (en €) ?'
+    solution: '[[s]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Somme de termes consécutifs d''une suite arithmétique.'
+      etapes:
+      - 'Prime de la dernière année : $[[u]] + [[n - 1]] \times [[r]] = [[d]]$.'
+      - 'Total : $[[n]] \times \dfrac{[[u]] + [[d]]}{2} = [[s]]$.'
+      resultat: '[[s]]'
 - code: TLE-TEC-GEOM
   libelle: Calculer termes et sommes d'une suite géométrique
   attendus: [TLE-TEC-2026-ANA-02, TLE-TEC-2026-AUTO-09]
@@ -174,3 +189,18 @@ competences:
       etapes:
       - $1{,}03^n > 1{,}2$ ; $1{,}03^6 \approx 1{,}194$ et $1{,}03^7 \approx 1{,}230$.
       resultat: '7'
+  - code: TLE-TEC-GEOM-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {u: {entre: [1, 9]}, q: {parmi: [2, 3]}, n: {entre: [3, 6]}}
+      calculs: {s: "u*(q**n - 1)/(q - 1)"}
+    enonce: 'Calculer la somme des $[[n]]$ premiers termes de la suite géométrique de premier terme $[[u]]$ et de raison $[[q]]$.'
+    solution: '[[s]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Somme : premier terme $\times \dfrac{1 - q^n}{1 - q}$.'
+      etapes:
+      - '$S = [[u]] \times \dfrac{1 - [[q]]^{[[n]]}}{1 - [[q]]} = [[u]] \times \dfrac{[[1 - q**n]]}{[[1 - q]]}$.'
+      - '$S = [[s]]$.'
+      resultat: '[[s]]'
