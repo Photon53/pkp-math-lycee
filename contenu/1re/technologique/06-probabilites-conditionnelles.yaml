@@ -51,6 +51,59 @@ competences:
     - La somme des branches issues d'un même nœud vaut $1$.
     - Probabilité d'un chemin : **produit** des probabilités, $P(A \cap B) = P(A) \times P_A(B)$.
 
+    ### Méthode : construire l'arbre à partir d'un énoncé
+
+    *Énoncé.* Dans un lycée, $60\,\%$ des élèves sont demi-pensionnaires ($D$). Parmi eux, $25\,\%$ font du sport en club ($S$) ; parmi les autres, $40\,\%$.
+
+    1. **Nommer** les évènements : $D$ « être demi-pensionnaire », $S$ « faire du sport en club ».
+    2. **Premier niveau** : le critère dont on connaît la répartition dans tout le lycée : $P(D) = 0{,}6$, donc $P(\bar D) = 0{,}4$.
+    3. **Second niveau** : le mot **parmi** donne une probabilité conditionnelle : $P_D(S) = 0{,}25$ et $P_{\bar D}(S) = 0{,}4$ ; on complète avec la règle des nœuds : $P_D(\bar S) = 0{,}75$, $P_{\bar D}(\bar S) = 0{,}6$.
+    4. **Au bout de chaque chemin**, on écrit le produit des branches, puis on vérifie que la somme vaut $1$.
+
+    <svg viewBox="0 0 640 280" width="640" role="img" aria-label="Arbre pondéré : demi-pension et sport" style="max-width:100%;height:auto" font-family="inherit" font-size="17" fill="currentColor">
+    <line x1="38" y1="140" x2="174" y2="70" stroke="currentColor" stroke-width="1.6"/>
+    <text x="95" y="97" font-weight="bold">0,6</text>
+    <text x="182" y="76">D</text>
+    <line x1="208" y1="70" x2="344" y2="30" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="42" font-weight="bold">0,25</text>
+    <text x="352" y="36">S</text>
+    <text x="400" y="36" font-style="italic">P(D ∩ S) = 0,6 × 0,25 = 0,15</text>
+    <line x1="208" y1="70" x2="344" y2="110" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="110" font-weight="bold">0,75</text>
+    <text x="352" y="116">S̄</text>
+    <text x="400" y="116" font-style="italic">P(D ∩ S̄) = 0,6 × 0,75 = 0,45</text>
+    <line x1="38" y1="140" x2="174" y2="210" stroke="currentColor" stroke-width="1.6"/>
+    <text x="95" y="195" font-weight="bold">0,4</text>
+    <text x="182" y="216">D̄</text>
+    <line x1="208" y1="210" x2="344" y2="170" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="182" font-weight="bold">0,4</text>
+    <text x="352" y="176">S</text>
+    <text x="400" y="176" font-style="italic">P(D̄ ∩ S) = 0,4 × 0,4 = 0,16</text>
+    <line x1="208" y1="210" x2="344" y2="250" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="250" font-weight="bold">0,6</text>
+    <text x="352" y="256">S̄</text>
+    <text x="400" y="256" font-style="italic">P(D̄ ∩ S̄) = 0,4 × 0,6 = 0,24</text>
+    </svg>
+
+    Contrôle : $0{,}15 + 0{,}45 + 0{,}16 + 0{,}24 = 1$.
+
+    ### Construire un tableau
+
+    On range les probabilités des chemins dans un **tableau croisé** : les cases contiennent les intersections, les totaux donnent $P(D)$, $P(\bar D)$, $P(S)$, $P(\bar S)$.
+
+    | | $S$ | $\bar S$ | Total |
+    |---|---|---|---|
+    | $D$ | $0{,}15$ | $0{,}45$ | $0{,}6$ |
+    | $\bar D$ | $0{,}16$ | $0{,}24$ | $0{,}4$ |
+    | Total | $0{,}31$ | $0{,}69$ | $1$ |
+
+    Avec $1\,000$ élèves, on obtient le **tableau d'effectifs** en multipliant par $1\,000$ : $150$, $450$, $160$, $240$ élèves.
+
+    > **Méthode : passer de l'un à l'autre.**
+    > - **Arbre → tableau** : chaque case est la probabilité d'un chemin ; les totaux s'obtiennent par addition.
+    > - **Tableau → arbre** : premier niveau = totaux des lignes ; une branche du second niveau = **case ÷ total de sa ligne**, par exemple $P_D(S) = \dfrac{0{,}15}{0{,}6} = 0{,}25$.
+    > - Pour $P_S(D)$, on divise par le total de la **colonne** $S$ : $\dfrac{0{,}15}{0{,}31} \approx 0{,}48$.
+
     ## 3. Formule des probabilités totales
 
     > **Propriété.** $P(B) = P(A \cap B) + P(\bar A \cap B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$ : on **additionne** les chemins qui mènent à $B$.
