@@ -1,0 +1,95 @@
+{
+  "level": "4e",
+  "school_year": "2026-2027",
+  "program": "cycle4-2020",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Langages",
+    "École et société",
+    "Voyages et migrations",
+    "Rencontres avec d'autres cultures"
+  ],
+  "objectives": [
+    {
+      "code": "4E-01",
+      "activity": "Interaction orale",
+      "observable": "Présenter ses habitudes et poser des questions sur celles d'autrui",
+      "theme": "École et société",
+      "language_support": "Questions au présent simple et adverbes de fréquence"
+    },
+    {
+      "code": "4E-02",
+      "activity": "Expression orale",
+      "observable": "Exprimer ses goûts, préférences et justifier brièvement",
+      "theme": "Langages",
+      "language_support": "like, prefer, because"
+    },
+    {
+      "code": "4E-03",
+      "activity": "Compréhension orale",
+      "observable": "Repérer horaires, activités et opinions dans un dialogue court",
+      "theme": "École et société",
+      "language_support": "Mots-clés et contexte"
+    },
+    {
+      "code": "4E-04",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un court témoignage et en relever les informations essentielles",
+      "theme": "Rencontres avec d'autres cultures",
+      "language_support": "Repérage d'informations"
+    },
+    {
+      "code": "4E-05",
+      "activity": "Expression écrite",
+      "observable": "Rédiger un paragraphe organisé sur son quotidien",
+      "theme": "École et société",
+      "language_support": "Connecteurs simples"
+    },
+    {
+      "code": "4E-06",
+      "activity": "Interaction orale",
+      "observable": "Demander et donner des indications pour se déplacer",
+      "theme": "Voyages et migrations",
+      "language_support": "Directions et impératif"
+    },
+    {
+      "code": "4E-07",
+      "activity": "Compréhension écrite",
+      "observable": "Comparer deux modes de vie présentés dans des documents courts",
+      "theme": "Rencontres avec d'autres cultures",
+      "language_support": "Comparatifs"
+    },
+    {
+      "code": "4E-08",
+      "activity": "Expression orale",
+      "observable": "Raconter une expérience passée de manière intelligible",
+      "theme": "Voyages et migrations",
+      "language_support": "Prétérit"
+    },
+    {
+      "code": "4E-09",
+      "activity": "Médiation",
+      "observable": "Reformuler une information simple pour aider un pair",
+      "theme": "Langages",
+      "language_support": "Paraphrase simple"
+    },
+    {
+      "code": "4E-10",
+      "activity": "Phonologie",
+      "observable": "Rendre son discours compréhensible grâce à l'accentuation et l'intonation",
+      "theme": "Langages",
+      "language_support": "Accent de mot et questions"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Éduscol, programmes LVE collège 2026-2027",
+      "url": "https://eduscol.education.gouv.fr/4758/ressources-d-accompagnement-pour-les-langues-vivantes-etrangeres-et-regionales-au-college"
+    },
+    {
+      "title": "Ministère, programmes collège",
+      "url": "https://www.education.gouv.fr/les-programmes-du-college-470408"
+    }
+  ],
+  "note": "Objectifs opérationnels PKP, non reproduction exhaustive des attendus officiels. Validation par enseignant référent requise."
+}
