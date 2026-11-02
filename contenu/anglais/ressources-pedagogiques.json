@@ -1,0 +1,330 @@
+{
+  "4E-01": {
+    "hook": "AFTER SCHOOL: WHAT'S YOUR STYLE?",
+    "visual": [
+      "FOOTBALL",
+      "BOOKS",
+      "MUSIC",
+      "GAMES"
+    ],
+    "vocab": [
+      [
+        "usually",
+        "d'habitude"
+      ],
+      [
+        "sometimes",
+        "parfois"
+      ],
+      [
+        "never",
+        "jamais"
+      ],
+      [
+        "often",
+        "souvent"
+      ],
+      [
+        "after school",
+        "après les cours"
+      ],
+      [
+        "free time",
+        "temps libre"
+      ],
+      [
+        "to practise",
+        "s'entraîner"
+      ],
+      [
+        "to relax",
+        "se détendre"
+      ],
+      [
+        "to prefer",
+        "préférer"
+      ],
+      [
+        "to read",
+        "lire"
+      ]
+    ],
+    "model": "Alex: I usually play football after school. I sometimes read in the evening.\nSam: I often read after school. I never play football on weekdays.\nAlex: What do you like doing?\nSam: I like drawing because it helps me relax.",
+    "listening": {
+      "title": "Free time — British Council A2",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a2-listening/free-time",
+      "questions": [
+        "What sport does Tyrone want to try?",
+        "How old is he?",
+        "On which two weekdays is the training?"
+      ],
+      "answers": [
+        "Water polo",
+        "15",
+        "Tuesday and Thursday"
+      ],
+      "fallback": "Alex: I usually play football after school. I sometimes read in the evening. Sam: I often read after school. I never play football on weekdays."
+    },
+    "practice": [
+      "Circle the adverb: I usually read / I read usually.",
+      "Complete: She ___ (play) tennis on Mondays.",
+      "Ask your partner: How often do you read? Write the answer.",
+      "Write two sentences about a hobby you like and one reason."
+    ],
+    "practice_answers": [
+      "I usually read",
+      "plays",
+      "Réponse personnelle",
+      "Réponse personnelle"
+    ],
+    "mission": "Interview a partner about three after-school activities. Report two similarities or differences.",
+    "memory": "Without looking, write five frequency or hobby words; check, correct, and reuse two in sentences."
+  },
+  "4E-02": {
+    "hook": "ONE SATURDAY. TWO FRIENDS. ONE PLAN!",
+    "visual": [
+      "CINEMA",
+      "PARK",
+      "MUSEUM",
+      "SPORT"
+    ],
+    "vocab": [
+      [
+        "to suggest",
+        "proposer"
+      ],
+      [
+        "to agree",
+        "être d'accord"
+      ],
+      [
+        "to prefer",
+        "préférer"
+      ],
+      [
+        "instead",
+        "à la place"
+      ],
+      [
+        "free time",
+        "temps libre"
+      ],
+      [
+        "to meet up",
+        "se retrouver"
+      ],
+      [
+        "to go bowling",
+        "aller au bowling"
+      ],
+      [
+        "how about…?",
+        "et si… ?"
+      ],
+      [
+        "sounds great",
+        "super idée"
+      ],
+      [
+        "because",
+        "parce que"
+      ]
+    ],
+    "model": "Mia: What shall we do on Saturday?\nLeo: We could visit the park.\nMia: I'd rather go to the cinema because it's raining.\nLeo: How about visiting the museum?\nMia: That sounds great! Let's meet at two.",
+    "listening": {
+      "title": "Making plans — British Council A2",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/speaking/a2-speaking/making-plans",
+      "questions": [
+        "What are the friends planning?",
+        "Which activity do they finally choose?",
+        "When do they plan to meet?"
+      ],
+      "answers": [
+        "A birthday celebration",
+        "Bowling",
+        "Saturday at three o'clock"
+      ],
+      "fallback": "Mia: What shall we do on Saturday? Leo: We could visit the park. Mia: I'd rather go to the cinema because it's raining. Leo: How about visiting the museum? Mia: That sounds great! Let's meet at two."
+    },
+    "practice": [
+      "Complete: We could ___ (visit) the park.",
+      "Complete: How about ___ (go) to the cinema?",
+      "Write a polite refusal and an alternative suggestion.",
+      "With a partner, agree on two activities and one meeting time."
+    ],
+    "practice_answers": [
+      "visit",
+      "going",
+      "Réponse possible: I'd rather visit the museum. How about Saturday?",
+      "Réponse personnelle"
+    ],
+    "mission": "In pairs, plan a Saturday with a budget and weather constraint. Make suggestions, justify a preference and agree on a plan.",
+    "memory": "Recall five expressions for suggesting, agreeing or preferring. Use three in a short dialogue."
+  },
+  "3E-01": {
+    "hook": "MAKE YOUR SCHOOL BETTER!",
+    "visual": [
+      "GARDEN",
+      "READING",
+      "RECYCLING",
+      "SPORT"
+    ],
+    "vocab": [
+      [
+        "project",
+        "projet"
+      ],
+      [
+        "aim",
+        "objectif"
+      ],
+      [
+        "benefit",
+        "avantage"
+      ],
+      [
+        "to improve",
+        "améliorer"
+      ],
+      [
+        "to organise",
+        "organiser"
+      ],
+      [
+        "to create",
+        "créer"
+      ],
+      [
+        "first",
+        "d'abord"
+      ],
+      [
+        "then",
+        "ensuite"
+      ],
+      [
+        "finally",
+        "enfin"
+      ],
+      [
+        "because",
+        "parce que"
+      ],
+      [
+        "we could",
+        "nous pourrions"
+      ]
+    ],
+    "model": "Our project is a school garden. Our aim is to grow vegetables and make our school greener. First, we will ask the science teacher for help. Then, we will plant tomatoes and herbs in the schoolyard. We could also share what we grow with other classes. We want to do this because it will help students learn about nature and work together. Finally, we will show our garden to other classes. Thank you.",
+    "listening": {
+      "title": "PKP original model — volunteer reads aloud",
+      "url": "",
+      "questions": [
+        "What is the main aim?",
+        "Name two planned actions.",
+        "Why could this project help students?"
+      ],
+      "answers": [
+        "Grow vegetables and make school greener",
+        "Ask the science teacher; plant tomatoes and herbs",
+        "Learn about nature and work together"
+      ],
+      "fallback": "Our project is a school garden. Our aim is to grow vegetables and make our school greener. First, we will ask the science teacher for help. Then, we will plant tomatoes and herbs in the schoolyard. We want to do this because it will help students learn about nature."
+    },
+    "practice": [
+      "Underline the aim in the model.",
+      "Find two actions and one benefit.",
+      "Complete: Our aim is ___ (make) our school greener.",
+      "Write one sentence using because to justify your project."
+    ],
+    "practice_answers": [
+      "Our aim is to grow vegetables and make our school greener.",
+      "Ask science teacher; plant tomatoes and herbs; benefit: learn about nature and work together.",
+      "to make",
+      "Réponse personnelle"
+    ],
+    "mission": "Pitch your school improvement project to a group. Explain the aim, two actions, a benefit and answer one question.",
+    "memory": "Close the page: recall aim, action, benefit, first and because; use them in a mini-pitch."
+  },
+  "3E-02": {
+    "hook": "CAN YOU DEFEND YOUR IDEA?",
+    "visual": [
+      "DEBATE",
+      "IDEAS",
+      "TEAM",
+      "SOLUTION"
+    ],
+    "vocab": [
+      [
+        "to defend",
+        "défendre"
+      ],
+      [
+        "argument",
+        "argument"
+      ],
+      [
+        "objection",
+        "objection"
+      ],
+      [
+        "solution",
+        "solution"
+      ],
+      [
+        "however",
+        "cependant"
+      ],
+      [
+        "although",
+        "bien que"
+      ],
+      [
+        "realistic",
+        "réaliste"
+      ],
+      [
+        "to convince",
+        "convaincre"
+      ],
+      [
+        "in my opinion",
+        "à mon avis"
+      ],
+      [
+        "for example",
+        "par exemple"
+      ]
+    ],
+    "model": "Our school should start a reading club. It could help students discover new books. Some people might say that students are too busy. However, we could meet only once a month. This solution is practical because it does not take much time. What do you think?",
+    "listening": {
+      "title": "PKP original model — volunteer reads aloud",
+      "url": "",
+      "questions": [
+        "What is the proposal?",
+        "What is the objection?",
+        "How does the speaker answer it?"
+      ],
+      "answers": [
+        "Start a reading club",
+        "Students are too busy",
+        "Meet only once a month"
+      ],
+      "fallback": "Our school should start a reading club. It could help students discover new books. Some people might say that students are too busy. However, we could meet only once a month."
+    },
+    "practice": [
+      "Underline the main proposal.",
+      "Circle the objection and box the response.",
+      "Complete: We should ___ (create) a club.",
+      "Write one objection and a respectful reply using however."
+    ],
+    "practice_answers": [
+      "Our school should start a reading club.",
+      "Objection: students too busy; reply: meet once a month.",
+      "create",
+      "Réponse personnelle"
+    ],
+    "mission": "Defend a school project with two reasons and respond politely to one objection from another group.",
+    "memory": "Without looking, recall five argument words; make a sentence with however and one with because."
+  }
+}
