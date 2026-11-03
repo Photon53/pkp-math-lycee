@@ -5,6 +5,7 @@ import { useApi } from "../enseignant/useApi.js";
 import { Maths, formulesInvalides } from "../maths.jsx";
 import { Modale, Pagination, Vide, exporterCsv, pourcentage } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { avecDomaine } from "./BandeauAdmin.jsx";
 
 const STATUTS = {
   "a-valider": ["À valider", ""],
@@ -20,7 +21,7 @@ const VIDE = {
 const FORMES = { "": "Seule la valeur compte", developpee: "Développée", reduite: "Développée et réduite", factorisee: "Factorisée" };
 
 /** Banque d'exercices : filtres, édition testée par le moteur, validation, archivage (EA3.15 à EA3.19). */
-export default function Exercices({ jeton, onExpire }) {
+export default function Exercices({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [filtres, setFiltres] = useState(() => ({
     niveau: "", type: "", statut: "", archivees: false,
@@ -34,8 +35,9 @@ export default function Exercices({ jeton, onExpire }) {
   const charger = useCallback(() => {
     const params = new URLSearchParams({ page: String(page), archivees: String(filtres.archivees) });
     for (const cle of ["niveau", "type", "statut", "q"]) if (filtres[cle]) params.set(cle, filtres[cle]);
+    if (domaine) params.set("domaine", domaine);
     return appeler(`/admin/questions?${params}`).then(setDonnees, () => {});
-  }, [appeler, filtres, page]);
+  }, [appeler, filtres, page, domaine]);
 
   useEffect(() => {
     const minuterie = setTimeout(charger, 250);

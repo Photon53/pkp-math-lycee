@@ -4,13 +4,14 @@ import { useApi } from "../enseignant/useApi.js";
 import { Modale, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import { BadgesHabilitations, DOMAINES_PAR_DEFAUT, GrilleQualifications, depuisGrille, versGrille } from "./Qualifications.jsx";
+import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 /** Comptes de l'équipe (professeurs, validateurs, administrateurs) : création, qualifications par matière,
  * désactivation, transfert, suppression (EA3.1 à EA3.6, CDC V2 EA.5 à EA.7). */
-export default function Professeurs({ jeton, onExpire }) {
+export default function Professeurs({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [liste, setListe] = useState(null);
-  const [recherche, setRecherche] = useState("");
+  const [recherche, setRecherche] = useState(() => parametre("q"));
   const [fenetre, setFenetre] = useState(null); // { genre: "edition" | "secret" | "transfert" | "suppression", prof, ... }
   const [message, setMessage] = useState(null);
   const [domaines, setDomaines] = useState(DOMAINES_PAR_DEFAUT);
@@ -20,8 +21,12 @@ export default function Professeurs({ jeton, onExpire }) {
   }, [appeler]);
 
   const charger = useCallback(
-    () => appeler(`/admin/enseignants${recherche ? `?q=${encodeURIComponent(recherche)}` : ""}`).then(setListe, () => {}),
-    [appeler, recherche],
+    () =>
+      appeler(avecDomaine(`/admin/enseignants${recherche ? `?q=${encodeURIComponent(recherche)}` : ""}`, domaine)).then(
+        setListe,
+        () => {},
+      ),
+    [appeler, recherche, domaine],
   );
 
   useEffect(() => {

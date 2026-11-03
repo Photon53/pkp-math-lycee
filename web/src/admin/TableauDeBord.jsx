@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Lien } from "../navigation.js";
-import { exporterCsv, formaterDate, pourcentage } from "../ui/Cadre.jsx";
+import { Vide, exporterCsv, formaterDate, pourcentage } from "../ui/Cadre.jsx";
 import { Barres, Courbe } from "../ui/Graphiques.jsx";
 import Icone from "../ui/Icone.jsx";
+import { libelleDomaine } from "./BandeauAdmin.jsx";
 
 const PERIODES = [
   [7, "7 jours"],
@@ -16,7 +17,7 @@ const NOMS_NIVEAUX = { "2nde": "Seconde", "1re": "Première", Tle: "Terminale" }
 const ORDRE_NIVEAUX = Object.keys(NOMS_NIVEAUX);
 
 /** Statistiques globales du site, uniquement agrégées (EA3.20). */
-export default function TableauDeBord({ jeton, onExpire }) {
+export default function TableauDeBord({ jeton, onExpire, domaine = "", domaines = [] }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [periode, setPeriode] = useState(30);
   const [stats, setStats] = useState(null);
@@ -26,6 +27,18 @@ export default function TableauDeBord({ jeton, onExpire }) {
     appeler(`/admin/statistiques?periode=${periode}`).then(setStats, () => {});
   }, [appeler, periode]);
 
+
+  // Les indicateurs portent aujourd'hui sur les séances de maths (classes de Maths lycée).
+  if (domaine && domaine !== "maths-lycee") {
+    return (
+      <section className="carte">
+        <Vide icone="tableau">
+          Le tableau de bord couvre Maths lycée pour l'instant. Les indicateurs de {libelleDomaine(domaines, domaine)} arriveront
+          avec les tableaux de bord par domaine (lot C). Choisissez « Tous les domaines » ou « Maths lycée » en haut de page.
+        </Vide>
+      </section>
+    );
+  }
   return (
     <>
       <div className="actions" style={{ marginTop: 0, marginBottom: 16, justifyContent: "space-between" }}>

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../api.js";
 import { Erreur } from "../composants.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import AnglaisAdmin from "./AnglaisAdmin.jsx";
+import BandeauAdmin, { libelleDomaine } from "./BandeauAdmin.jsx";
 import Configuration from "./Configuration.jsx";
 import Contenu from "./Contenu.jsx";
 import Eleves from "./Eleves.jsx";
@@ -13,23 +14,35 @@ import Familles from "./Familles.jsx";
 import Journal from "./Journal.jsx";
 import Professeurs from "./Professeurs.jsx";
 import RessourcesAdmin from "./RessourcesAdmin.jsx";
+import { DOMAINES_PAR_DEFAUT } from "./Qualifications.jsx";
 import TableauDeBord from "./TableauDeBord.jsx";
 
 const CLE_COMPTE = "pkp.admin";
+const CLE_DOMAINE = "pkp.admin.domaine";
 
 // Quatre espaces (CDC V2, § 6.1) : piloter, gérer les comptes, produire le contenu, configurer.
+// `permission` : chaque page n'apparaît qu'aux comptes qui l'ont (EX.7, EA.3) ; l'API la revérifie.
 const PAGES = [
-  { groupe: "Pilotage", vers: "/admin", libelle: "Tableau de bord", icone: "tableau", Page: TableauDeBord },
-  { groupe: "Pilotage", vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal },
-  { groupe: "Comptes", vers: "/admin/professeurs", libelle: "Équipe", icone: "professeurs", Page: Professeurs },
-  { groupe: "Comptes", vers: "/admin/familles", libelle: "Familles", icone: "eleve", Page: Familles },
-  { groupe: "Comptes", vers: "/admin/eleves", libelle: "Élèves et classes", icone: "classes", Page: Eleves },
-  { groupe: "Pédagogie", vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu },
-  { groupe: "Pédagogie", vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices },
-  { groupe: "Pédagogie", vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin },
-  { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin },
-  { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration },
+  { groupe: "Pilotage", vers: "/admin", libelle: "Tableau de bord", icone: "tableau", Page: TableauDeBord, permission: "pilotage.global" },
+  { groupe: "Pilotage", vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal, permission: "pilotage.global" },
+  { groupe: "Comptes", vers: "/admin/professeurs", libelle: "Équipe", icone: "professeurs", Page: Professeurs, permission: "comptes.gerer" },
+  { groupe: "Comptes", vers: "/admin/familles", libelle: "Familles", icone: "eleve", Page: Familles, permission: "parents.gerer" },
+  { groupe: "Comptes", vers: "/admin/eleves", libelle: "Élèves et classes", icone: "classes", Page: Eleves, permission: "comptes.gerer" },
+  { groupe: "Pédagogie", vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu, permission: "contenu.modifier", matiere: "maths" },
+  { groupe: "Pédagogie", vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices, permission: "contenu.modifier", matiere: "maths" },
+  { groupe: "Pédagogie", vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin, permission: "contenu.modifier", matiere: "maths" },
+  { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
+  { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration, permission: "configuration" },
 ];
+
+/** Page propre à une matière (cours de maths, PKP Anglais) consultée avec un domaine d'une autre matière. */
+function horsMatiere(page, domaine, domaines) {
+  const choisi = domaines.find((d) => d.code === domaine);
+  return Boolean(page.matiere && choisi && choisi.matiere !== page.matiere);
+}
+
+/** Pages permises : toutes tant que /admin/moi n'a pas répondu (l'API refuse de toute façon ce qui n'est pas permis). */
+export const pagesPermises = (permissions) => (permissions ? PAGES.filter((p) => permissions.includes(p.permission)) : PAGES);
 
 /** Espace administrateur (module 1) : session de 30 minutes, second facteur en production. */
 export default function EspaceAdmin({ chemin = "/admin" }) {
@@ -46,17 +59,38 @@ export default function EspaceAdmin({ chemin = "/admin" }) {
     setCompte(null);
   }
 
-  if (!compte || compte.expire_le < Date.now()) return <ConnexionAdmin onConnexion={connecter} expiree={!!compte} />;
+  // Domaine choisi : mémorisé pour la session de l'onglet, il filtre toutes les listes (recette 5 du lot A).
+  const [domaine, setDomaine] = useState(() => lire(CLE_DOMAINE) ?? "");
+  const [domaines, setDomaines] = useState(DOMAINES_PAR_DEFAUT);
+  const [permissions, setPermissions] = useState(null);
+  // Incrémenté à chaque résultat de recherche ouvert : la page se recharge avec le filtre de son adresse.
+  const [ouverture, setOuverture] = useState(0);
+  const valide = compte && compte.expire_le >= Date.now();
+  const jeton = valide ? compte.jeton : null;
 
-  const page = PAGES.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
+  useEffect(() => {
+    if (!jeton) return;
+    const erreur = (err) => err.status === 401 && deconnecter();
+    api("/admin/moi", { jeton }).then((m) => setPermissions(m.permissions ?? null), erreur);
+    api("/admin/domaines", { jeton }).then(setDomaines, erreur);
+  }, [jeton]);
+
+  function choisirDomaine(code) {
+    ecrire(CLE_DOMAINE, code || null);
+    setDomaine(code);
+  }
+
+  if (!valide) return <ConnexionAdmin onConnexion={connecter} expiree={!!compte} />;
+
+  const liens = pagesPermises(permissions);
+  const page = liens.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
     (a, b) => b.vers.length - a.vers.length,
-  )[0] ?? PAGES[0];
-  const { Page } = page;
+  )[0] ?? liens[0];
 
   return (
     <CadreApplication
       espace="Administration"
-      liens={PAGES}
+      liens={liens}
       cheminActif={chemin}
       pied={
         <>
@@ -70,8 +104,37 @@ export default function EspaceAdmin({ chemin = "/admin" }) {
         </>
       }
     >
-      <EntetePage titre={page.libelle} fil={`Administration · ${page.groupe}`} />
-      <Page jeton={compte.jeton} onExpire={deconnecter} chemin={chemin} />
+      <BandeauAdmin
+        jeton={compte.jeton}
+        onExpire={deconnecter}
+        domaines={domaines}
+        domaine={domaine}
+        onDomaine={choisirDomaine}
+        onOuvrir={() => setOuverture((n) => n + 1)}
+      />
+      {page ? (
+        <>
+          <EntetePage titre={page.libelle} fil={`Administration · ${page.groupe}`} />
+          {horsMatiere(page, domaine, domaines) && (
+            <p className="info note-domaine">
+              <span>
+                Cet écran gère le contenu {page.matiere === "maths" ? "de mathématiques" : "d'anglais"} :{" "}
+                {libelleDomaine(domaines, domaine)} n'y a rien. Choisissez « Tous les domaines » pour tout revoir.
+              </span>
+            </p>
+          )}
+          <page.Page
+            key={`${page.vers}:${ouverture}`}
+            jeton={compte.jeton}
+            onExpire={deconnecter}
+            chemin={chemin}
+            domaine={domaine}
+            domaines={domaines}
+          />
+        </>
+      ) : (
+        <p className="doux">Votre compte n'a accès à aucun espace de l'administration.</p>
+      )}
     </CadreApplication>
   );
 }

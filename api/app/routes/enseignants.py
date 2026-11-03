@@ -160,7 +160,10 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
         code = f"{prefixe}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
         if not session.scalar(select(models.Classe).where(models.Classe.code == code)):
             break
-    classe = models.Classe(code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant)
+    classe = models.Classe(
+        code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant,
+        domaine_code=permissions.DOMAINE_CLASSES,
+    )
     session.add(classe)
     # Par défaut, tout le programme est ouvert ; l'enseignant ferme ce qu'il ne veut pas encore proposer.
     classe.chapitres_proposes = chapitres_du_programme(session, classe)

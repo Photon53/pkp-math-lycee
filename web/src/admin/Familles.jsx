@@ -3,14 +3,15 @@ import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 const nomEnfant = (e) => `${e.prenom} (${e.classe})`;
 
 /** Familles (CDC V2, EA.8 à EA.12) : recherche par e-mail ou par classe — jamais de liste complète —,
  * création, rattachement et détachement des enfants, historique, mot de passe oublié, suppression. */
-export default function Familles({ jeton, onExpire }) {
+export default function Familles({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
-  const [recherche, setRecherche] = useState("");
+  const [recherche, setRecherche] = useState(() => parametre("q"));
   const [classeId, setClasseId] = useState("");
   const [classes, setClasses] = useState([]);
   const [page, setPage] = useState(1);
@@ -19,8 +20,8 @@ export default function Familles({ jeton, onExpire }) {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    appeler("/admin/classes").then(setClasses, () => {});
-  }, [appeler]);
+    appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
+  }, [appeler, domaine]);
 
   const filtre = recherche.trim().length >= 3 || classeId !== "";
   const charger = useCallback(() => {
@@ -28,8 +29,9 @@ export default function Familles({ jeton, onExpire }) {
     const params = new URLSearchParams({ page: String(page) });
     if (recherche.trim()) params.set("q", recherche.trim());
     if (classeId !== "") params.set("classe_id", classeId);
+    if (domaine) params.set("domaine", domaine);
     return appeler(`/admin/parents?${params}`).then(setResultats, () => {});
-  }, [appeler, filtre, page, recherche, classeId]);
+  }, [appeler, filtre, page, recherche, classeId, domaine]);
 
   useEffect(() => {
     const minuterie = setTimeout(charger, 250);
@@ -298,6 +300,15 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
     if (r) onSecret(famille.email, r.mot_de_passe_provisoire);
   }
 
+  // Droit d'accès et de portabilité (RGPD, EA.12) : l'export est journalisé par l'API.
+  async function exporter() {
+    const donnees = await agir(appeler(`/admin/parents/${id}/export`));
+    if (!donnees) return;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(donnees, null, 2)], { type: "application/json" }));
+    Object.assign(document.createElement("a"), { href: url, download: `pkp-famille-${id}.json` }).click();
+    URL.revokeObjectURL(url);
+  }
+
   async function supprimer() {
     const r = await agir(
       appeler(`/admin/parents/${id}?${new URLSearchParams({ confirmation })}`, { methode: "DELETE" }).then(() => true),
@@ -362,6 +373,9 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
           <div className="actions">
             <button className="secondaire" onClick={reinitialiser}>
               <Icone nom="cle" taille={16} /> Nouveau mot de passe
+            </button>
+            <button className="secondaire" onClick={exporter}>
+              Exporter ses données
             </button>
           </div>
           <details>

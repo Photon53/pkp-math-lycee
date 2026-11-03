@@ -1,6 +1,6 @@
 # Cahier des charges — PKP Éducation V2
 
-**Statut :** version 2.3 de cadrage, à valider · **Date :** 3 novembre 2026 (historique en § 17)
+**Statut :** version 2.4 de cadrage, à valider · **Date :** 3 novembre 2026 (historique en § 17)
 **Objet :** préparer PKP à devenir un service payant, multi-matières et multi-rôles, en s'appuyant sur ce qui
 existe déjà. Ce document fusionne le cahier des charges commercial du 30 octobre (v1.1) et la proposition
 d'architecture « PKP Éducation V2.0 » du 3 novembre, confrontés au code. Il fixe le périmètre, l'ordre des lots,
@@ -97,8 +97,9 @@ et **public** (ouvert aux élèves et à la vente).
 - **EX.2** Les tables racines du contenu et des groupes reçoivent une colonne `domaine_id` : `chapitre`,
   `seance_anglais`, `classe`, `groupe_anglais`. La migration la remplit d'après l'existant (maths → Maths lycée,
   anglais → Anglais collège). Les contraintes `niveau IN ('4e', '3e')` de l'anglais sont remplacées par un contrôle sur
-  les niveaux du domaine. *(Reporté à l'ouverture du premier nouveau domaine : tant que les classes sont toutes en
-  Maths lycée et les groupes en Anglais collège, le domaine en est déduit — `app.permissions.DOMAINE_CLASSES`.)*
+  les niveaux du domaine. *(Fait : migration 0024, colonne `domaine_code` ; la colonne `niveau` de l'anglais passe à
+  4 caractères pour accueillir « 2nde » ; les nouvelles classes et les nouveaux groupes reçoivent le domaine de leur
+  espace, Maths lycée ou Anglais collège.)*
 - **EX.3** On **ne fusionne pas** les tables des maths et de l'anglais : leurs contenus sont de nature différente
   (question à valeurs variables d'un côté, séance chronométrée avec supports audio de l'autre). La bibliothèque
   unifiée est une **vue commune** (§ 3.3), pas une table unique.
@@ -298,7 +299,8 @@ lycée, Français collège, Français lycée) qui filtre tout ce qui s'affiche :
 - **EA.3** Chaque espace n'apparaît qu'aux comptes qui ont la permission correspondante (EX.7) ; l'API refuse de toute
   façon les appels non autorisés.
 - **EA.4** La refonte est activée par un réglage (`PKP_ADMIN_V2`) : l'ancienne navigation reste disponible jusqu'à la
-  recette.
+  recette. *(Sans objet : la nouvelle navigation a été recettée puis fusionnée le 3 novembre 2026, pull request n° 12 ;
+  l'ancienne a été retirée, il n'y a plus rien à basculer.)*
 
 ### 6.2 Comptes de l'équipe
 
@@ -332,7 +334,7 @@ lycée, Français collège, Français lycée) qui filtre tout ce qui s'affiche :
 5. Le sélecteur de domaine filtre toutes les listes de l'admin.
 6. Connexion élève, cartes QR, séances adaptatives et PDF anglais fonctionnent comme avant (suite de non-régression).
 
-### 6.5 Avancement (branche `feat/lot-a-admin-roles`, 03/11/2026)
+### 6.5 Avancement (au 03/11/2026)
 
 | Exigence | État |
 |---|---|
@@ -340,12 +342,20 @@ lycée, Français collège, Français lycée) qui filtre tout ce qui s'affiche :
 | EX.8 | Fait : migration 0023 des cases historiques, admins actuels validateurs de Maths lycée |
 | EB.0 (avancé du lot B) | Fait : la validation des questions de maths et des séances d'anglais exige la qualification |
 | EA.5 à EA.7 | Fait : grille de qualifications, journal des habilitations, dernier admin protégé |
-| EA.8 à EA.12 | Fait, sauf l'export des données d'un parent (EA.12) |
+| EA.8 à EA.12 | Fait, y compris l'export JSON des données d'un parent, journalisé (EA.12) |
 | Navigation en quatre espaces | Fait (Pilotage, Comptes, Pédagogie, Configuration) |
-| EX.2, EA.1 (recherche globale), EA.2 (filtre par domaine), EA.3, EA.4, sélecteur de domaine (recette 5) | À faire |
+| EX.2 | Fait : migration 0024, domaine enregistré sur classes, chapitres, groupes et séances d'anglais ; contrôle des niveaux par domaine |
+| EA.1 | Fait : recherche globale dans le bandeau de l'admin (équipe, familles dès 3 caractères, élèves, classes, chapitres, exercices, groupes, élèves et séances d'anglais) ; chaque résultat ouvre sa page déjà filtrée |
+| EA.2, recette 5 | Fait : sélecteur de domaine permanent, mémorisé pour la session ; il filtre l'équipe, les élèves, les classes, les familles, les cours, les exercices, les ressources et PKP Anglais. Le journal n'est pas filtré (il le dit) ; le tableau de bord couvre Maths lycée jusqu'au lot C (il le dit) |
+| EX.7, EA.3 | Fait : table des permissions dans `app/permissions.py` (`permissions_de`, `exiger`) ; `/admin/moi` les expose et l'admin n'affiche que les espaces permis |
+| EA.4 | Sans objet (voir l'exigence) |
+| Validateur non enseignant | Fait : un validateur d'anglais qui n'enseigne pas l'anglais accède à la seule page Validation de PKP Anglais |
 
-Recette : cas 1, 2, 3, 4 et 6 couverts par `api/tests/test_lot_a_habilitations.py` et la suite existante ; cas 5 à
-faire avec le sélecteur de domaine.
+Recette : cas 1 à 6 couverts par `api/tests/test_lot_a_habilitations.py`, `api/tests/test_lot_a_domaines.py`,
+`web/src/tests/lot-a-domaines.test.jsx` et la suite existante. **Le lot A est terminé.**
+
+Restent pour les lots suivants : appeler `exiger(permission, domaine)` route par route à mesure que des comptes non
+administrateurs entrent dans l'admin (validateurs de maths, lot B) ; tableaux de bord par domaine (lot C).
 
 ---
 
@@ -695,3 +705,4 @@ Ordre conseillé : **D8** et **D5** (elles bloquent la vente), puis **D1**, **D7
 | 2.1 | 03/11/2026 | Fusion avec la proposition « PKP Éducation V2.0 » du 3 novembre. État des lieux refait sur `origin/main` `75adc1a` (branches déjà fusionnées, parents, versions des leçons, validation anglais, TOTP, E1.0 corrigée). Ajout de l'architecture cible (six domaines, habilitations avec périmètre, bibliothèque et validation unifiées, données d'activité) et des lots A (administration et rôles), B (validation unifiée), C (pilotage) et D (nouveaux domaines). La base devient la référence après import (remplace « contenu uniquement en YAML »). L'admin web est dans le périmètre (remplace E1.20). Migrations à partir de 0023. Compte unique écarté (D11). Décisions D7, D11 à D14. Règle « préparer la vente sans l'annoncer » |
 | 2.2 | 03/11/2026 | Validateurs qualifiés par matière (EX.9-bis) : une, deux matières ou plus, par cycle et éventuellement par niveau ; le rôle admin ne donne plus le droit de valider ; contenu sans validateur habilité laissé `soumis` ; migration des admins actuels en validateurs de Maths lycée (EX.8) ; grille de qualifications dans l'écran des comptes (EA.5) ; contrôle serveur EB.0, file de relecture filtrée (EB.3), recette 2-bis |
 | 2.3 | 03/11/2026 | Premier incrément du lot A réalisé (§ 6.5). Le rôle admin reste sur `enseignant.role` (EX.6) ; EX.2 reporté ; familles cherchées par e-mail ou par classe, sans liste complète (EA.8) |
+| 2.4 | 03/11/2026 | Lot A terminé (§ 6.5) : domaine enregistré (EX.2, migration 0024), sélecteur de domaine et recherche globale (EA.1, EA.2, recette 5), table des permissions (EX.7, EA.3), export des données d'un parent (EA.12), accès des validateurs non enseignants à la validation d'anglais ; EA.4 sans objet |

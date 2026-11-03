@@ -146,6 +146,10 @@ class Classe(Base):
     # Spécialité suivie : seuls les chapitres de ce parcours sont proposés aux élèves.
     parcours: Mapped[Parcours] = mapped_column(_enum(Parcours, "parcours"), server_default=Parcours.SPECIALITE.value)
     enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
+    # Domaine pédagogique (CDC V2, EX.2) : filtre de l'admin, ouverture au public, droits de validation.
+    domaine_code: Mapped[str] = mapped_column(
+        ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="maths-lycee", server_default="maths-lycee"
+    )
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="classes")
     chapitres_proposes: Mapped[list["Chapitre"]] = relationship(secondary=chapitres_de_classe)
@@ -202,19 +206,23 @@ class Parent(Base):
     enfants: Mapped[list[Eleve]] = relationship(secondary=enfants_de_parent, back_populates="parents")
 
 
-NIVEAUX_ANGLAIS = ("4e", "3e")
+# Ordre d'affichage des niveaux d'anglais ; ceux qui sont ouverts sont les niveaux du domaine (EX.2).
+NIVEAUX_ANGLAIS = ("6e", "5e", "4e", "3e", "2nde", "1re", "Tle")
 
 
 class GroupeAnglais(Base):
     """Groupe PKP Anglais (collège) : séparé des classes de maths, sans parcours ni chapitres (CDC anglais V1.8)."""
 
     __tablename__ = "groupe_anglais"
-    __table_args__ = (CheckConstraint("niveau IN ('4e', '3e')", name="ck_groupe_anglais_niveau"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nom: Mapped[str] = mapped_column(String(60))
-    niveau: Mapped[str] = mapped_column(String(2))
+    niveau: Mapped[str] = mapped_column(String(4))
     enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
+    # Domaine pédagogique (CDC V2, EX.2) : filtre de l'admin, ouverture au public, droits de validation.
+    domaine_code: Mapped[str] = mapped_column(
+        ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="anglais-college", server_default="anglais-college"
+    )
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="groupes_anglais")
@@ -254,11 +262,14 @@ class SeanceAnglais(Base):
     """
 
     __tablename__ = "seance_anglais"
-    __table_args__ = (CheckConstraint("niveau IN ('4e', '3e')", name="ck_seance_anglais_niveau"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     code: Mapped[str] = mapped_column(String(10), unique=True)
-    niveau: Mapped[str] = mapped_column(String(2))
+    niveau: Mapped[str] = mapped_column(String(4))
+    # Domaine pédagogique (CDC V2, EX.2) : filtre de l'admin, ouverture au public, droits de validation.
+    domaine_code: Mapped[str] = mapped_column(
+        ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="anglais-college", server_default="anglais-college"
+    )
 
     versions: Mapped[list["SeanceAnglaisVersion"]] = relationship(
         back_populates="seance", cascade="all, delete-orphan", passive_deletes=True,
@@ -337,6 +348,10 @@ class Chapitre(Base):
     ordre: Mapped[int] = mapped_column(Integer)
     # Masqué par un administrateur : plus proposé aux classes, l'historique reste lisible.
     masque: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Domaine pédagogique (CDC V2, EX.2) : filtre de l'admin, ouverture au public, droits de validation.
+    domaine_code: Mapped[str] = mapped_column(
+        ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="maths-lycee", server_default="maths-lycee"
+    )
 
     competences: Mapped[list["Competence"]] = relationship(back_populates="chapitre")
 

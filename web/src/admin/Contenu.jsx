@@ -7,29 +7,33 @@ import { naviguer } from "../navigation.js";
 import { Modale, formaterDate } from "../ui/Cadre.jsx";
 import { LIBELLES_PARCOURS, PARCOURS_PAR_NIVEAU, libelleNiveauParcours, trierChapitres } from "../parcours.js";
 import Icone from "../ui/Icone.jsx";
+import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 /**
  * Arborescence niveau › chapitre › compétence et éditeur de leçon (EA3.11 à EA3.14).
  * L'adresse /admin/cours/<id de compétence> ouvre l'éditeur.
  */
-export default function Contenu({ jeton, onExpire, chemin }) {
+export default function Contenu({ jeton, onExpire, chemin, domaine = "" }) {
   const competenceId = Number(chemin.split("/")[3]) || null;
   return competenceId ? (
     <EditeurLecon jeton={jeton} onExpire={onExpire} competenceId={competenceId} />
   ) : (
-    <Arbre jeton={jeton} onExpire={onExpire} />
+    <Arbre jeton={jeton} onExpire={onExpire} domaine={domaine} />
   );
 }
 
-function Arbre({ jeton, onExpire }) {
+function Arbre({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
-  const [niveau, setNiveau] = useState("2nde");
+  const [niveau, setNiveau] = useState(() => (["2nde", "1re", "Tle"].includes(parametre("niveau")) ? parametre("niveau") : "2nde"));
   const [parcours, setParcours] = useState("");
   const [chapitres, setChapitres] = useState(null);
   const [fenetre, setFenetre] = useState(null);
   const [glisse, setGlisse] = useState(null);
 
-  const charger = useCallback(() => appeler(`/admin/contenu?niveau=${niveau}`).then(setChapitres, () => {}), [appeler, niveau]);
+  const charger = useCallback(
+    () => appeler(avecDomaine(`/admin/contenu?niveau=${niveau}`, domaine)).then(setChapitres, () => {}),
+    [appeler, niveau, domaine],
+  );
   useEffect(() => {
     setChapitres(null);
     charger();

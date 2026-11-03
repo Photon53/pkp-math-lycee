@@ -3,10 +3,10 @@ import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Pagination, Vide, formaterDate } from "../ui/Cadre.jsx";
 
-const OBJETS = ["enseignant", "eleve", "chapitre", "competence", "lecon", "question", "ressource", "domaine", "groupe_anglais", "eleve_anglais", "seance_anglais"];
+const OBJETS = ["enseignant", "parent", "eleve", "chapitre", "competence", "lecon", "question", "ressource", "domaine", "groupe_anglais", "eleve_anglais", "seance_anglais"];
 
 /** Journal des actions d'administration, en lecture seule (EA3.23). */
-export default function Journal({ jeton, onExpire }) {
+export default function Journal({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [objet, setObjet] = useState("");
   const [page, setPage] = useState(1);
@@ -21,6 +21,7 @@ export default function Journal({ jeton, onExpire }) {
 
   return (
     <section className="carte">
+      {domaine && <p className="aide note-domaine">Le journal recense les actions de tous les domaines : il n'est pas filtré.</p>}
       <div className="filtres">
         <div style={{ maxWidth: 260 }}>
           <label htmlFor="j-objet">Objet</label>

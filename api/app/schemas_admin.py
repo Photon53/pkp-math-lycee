@@ -72,6 +72,8 @@ class EnseignantAdmin(BaseModel):
     nb_eleves_anglais: int = 0
     derniere_connexion: datetime | None
     habilitations: list[HabilitationVue] = []
+    # Permissions du compte (EX.7) : l'admin n'affiche que les espaces permis (EA.3).
+    permissions: list[str] = []
 
 
 class EnseignantEdition(BaseModel):
@@ -226,6 +228,7 @@ class ClasseAdmin(BaseModel):
     code: str
     niveau: Niveau
     parcours: Parcours
+    domaine_code: str
     enseignant_id: int
     enseignant: str
     nb_eleves: int
@@ -528,3 +531,12 @@ class SeanceAnglaisEdition(BaseModel):
     contenu: dict
     cahier: dict
     quiz: list[dict] = []
+
+
+class ResultatRecherche(BaseModel):
+    """Une ligne de la recherche globale (EA.1) : ce qui a été trouvé et la page qui le gère."""
+
+    type: str
+    libelle: str
+    detail: str | None = None
+    vers: str

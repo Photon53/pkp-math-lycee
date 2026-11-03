@@ -5,7 +5,7 @@ import { createElement, useEffect, useState } from "react";
 const EVENEMENT = "pkp:navigation";
 
 export function naviguer(chemin) {
-  if (chemin === window.location.pathname) return;
+  if (chemin === window.location.pathname + window.location.search) return;
   window.history.pushState(null, "", chemin);
   window.dispatchEvent(new Event(EVENEMENT));
   window.scrollTo?.(0, 0);

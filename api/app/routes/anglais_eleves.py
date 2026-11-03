@@ -76,11 +76,14 @@ def moi(eleve: EleveAnglaisCourant) -> EleveAnglaisInfo:
 def _publiee(session: SessionDB, eleve: models.EleveAnglais, code: str) -> models.SeanceAnglaisVersion:
     """Version validée d'une séance du niveau de l'élève ; sinon 404 (rien ne trahit un brouillon).
     Domaine fermé au public : 403, sans rien supprimer (EX.4)."""
-    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_GROUPES_ANGLAIS)
+    groupe = eleve.groupe
+    refus = permissions.refus_domaine_ferme(session, groupe.domaine_code)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     seance = anglais_contenu.par_code(session, code)
-    version = seance and seance.niveau == eleve.groupe.niveau and seance.publiee
+    version = (
+        seance and seance.domaine_code == groupe.domaine_code and seance.niveau == groupe.niveau and seance.publiee
+    )
     if not version:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Séance introuvable.")
     return version
