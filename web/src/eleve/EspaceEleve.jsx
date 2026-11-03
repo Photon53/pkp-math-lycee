@@ -11,7 +11,9 @@ import Progression from "./Progression.jsx";
 const CLE_COMPTE = "pkp.eleve";
 
 export default function EspaceEleve() {
-  const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
+  // Carte scannée (ou saisie sur la mauvaise page) : c'est peut-être un autre élève sur le même appareil,
+  // elle passe avant la session déjà ouverte.
+  const [compte, setCompte] = useState(() => (lireCarte() ? null : lire(CLE_COMPTE)));
   const [onglet, setOnglet] = useState("exercice");
   const [leconOuverte, setLeconOuverte] = useState(null);
   const [ancreLecon, setAncreLecon] = useState(null); // section à montrer : « lecon-cours », « methode-2 »…

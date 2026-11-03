@@ -15,7 +15,9 @@ const NIVEAUX_I_CAN = [
 
 /** Espace élève PKP Anglais : séances validées de son niveau, quiz corrigé tout de suite, « I can ». */
 export default function EspaceEleveAnglais() {
-  const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
+  // Carte scannée (ou saisie sur la mauvaise page) : c'est peut-être un autre élève sur le même appareil,
+  // elle passe avant la session déjà ouverte.
+  const [compte, setCompte] = useState(() => (lireCarte() ? null : lire(CLE_COMPTE)));
 
   function connecter(nouveau, durable) {
     ecrire(CLE_COMPTE, nouveau, { durable });
