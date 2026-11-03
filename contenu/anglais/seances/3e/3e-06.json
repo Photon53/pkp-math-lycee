@@ -1,0 +1,101 @@
+{
+  "code": "3E-06",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Two teens, two points of view",
+  "objective": "Comparer des points de vue dans deux documents courts",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: agree or disagree?",
+      "duration_minutes": 10,
+      "student_instruction": "Stand on the agree or disagree side: School uniforms are a good idea. Give one reason.",
+      "facilitator_instruction": "Débat éclair en ligne de positionnement ; noter au tableau I agree / I disagree / I partly agree."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Important people",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to speakers talking about people who matter to them. Compare how two of them see their relationship.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Faire comparer « avant / maintenant » et les points de vue des locuteurs B, C et D."
+    },
+    {
+      "order": 3,
+      "title": "Reading: Mia and Léo",
+      "duration_minutes": 15,
+      "student_instruction": "Read the two texts. Find each argument and the point they both accept.",
+      "facilitator_instruction": "Tableau à deux colonnes pour / contre ; repérer les marqueurs moreover, however, I disagree with."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : classer des arguments ; B : comparer avec both, unlike, whereas ; C : synthèse nuancée et position personnelle."
+    },
+    {
+      "order": 5,
+      "title": "Write and react",
+      "duration_minutes": 20,
+      "student_instruction": "Write three sentences: both..., unlike..., I agree with... because... Read them to your group and react.",
+      "facilitator_instruction": "Observer la reformulation des points de vue (pas de recopie) et le respect des avis contraires."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence with whereas comparing Mia and Léo.",
+      "facilitator_instruction": "Ramasser ; vérifier la structure de comparaison."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Sort the arguments into FOR uniforms and AGAINST uniforms: nobody judges your clothes / it saves time / clothes show your personality / some students judge others' clothes.",
+      "facilitator_correction": "FOR : nobody judges your clothes ; it saves time. AGAINST : clothes show your personality. Point commun : some students judge others' clothes."
+    },
+    {
+      "track": "B",
+      "student_content": "Write five sentences comparing Mia and Léo with both, unlike, whereas, however and I agree with.",
+      "facilitator_correction": "Exemple : Mia likes uniforms whereas Léo prefers his own clothes. Unlike Mia, Léo doesn't wear a uniform. Both think some students judge others' clothes."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 120-word synthesis of the two points of view, then give your own opinion with a concession (Even if..., I still think...).",
+      "facilitator_correction": "Production libre ; critères : synthèse fidèle des deux documents, comparaison explicite, opinion nuancée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève relève les arguments de chaque document",
+      "L'élève compare explicitement les points de vue",
+      "L'élève exprime son accord ou désaccord avec une raison"
+    ]
+  },
+  "common_errors": [
+    "I am agree",
+    "Confusion whereas / because",
+    "Résumé d'un seul document"
+  ],
+  "source_objectives": [
+    "3E-06"
+  ],
+  "theme": "Rencontres avec d'autres cultures",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

@@ -150,8 +150,8 @@ export default function GroupesAnglais({ jeton, onExpire }) {
             Groupe {groupe.nom} · {groupe.niveau}
           </h2>
           <p className="doux">
-            {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances 4e et 3e</a> ({groupe.niveau.toUpperCase()}-01,{" "}
-            {groupe.niveau.toUpperCase()}-02).
+            {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances 4e et 3e</a> ({groupe.niveau.toUpperCase()}-01 à{" "}
+            {groupe.niveau.toUpperCase()}-10).
           </p>
           {groupe.eleves.length > 0 && (
             <ul className="liste-eleves-anglais">

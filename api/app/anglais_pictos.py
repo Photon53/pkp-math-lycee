@@ -215,10 +215,156 @@ def _globe():
     ]
 
 
+def _horloge():
+    g = [Circle(30, 30, 23, fillColor=BLANC, strokeColor=ENCRE, strokeWidth=2.5)]
+    for k in range(12):
+        a = k * pi / 6
+        g.append(Line(30 + 18 * cos(a), 30 + 18 * sin(a), 30 + 21 * cos(a), 30 + 21 * sin(a), strokeColor=ENCRE, strokeWidth=1.5))
+    g += [_trait([30, 30, 30, 45], ENCRE, 3), _trait([30, 30, 40, 24], ROUGE, 3), Circle(30, 30, 2, fillColor=ENCRE, strokeColor=ENCRE)]
+    return g
+
+
+def _train():
+    return [
+        Rect(8, 14, 44, 36, rx=8, ry=8, fillColor=BLEU, strokeColor=ENCRE, strokeWidth=2),
+        Rect(13, 32, 15, 12, rx=2, ry=2, fillColor=BLEU_CLAIR, strokeColor=ENCRE, strokeWidth=1.5),
+        Rect(32, 32, 15, 12, rx=2, ry=2, fillColor=BLEU_CLAIR, strokeColor=ENCRE, strokeWidth=1.5),
+        Circle(17, 21, 3, fillColor=JAUNE, strokeColor=JAUNE),
+        Circle(43, 21, 3, fillColor=JAUNE, strokeColor=JAUNE),
+        _trait([14, 14, 8, 4]), _trait([46, 14, 52, 4]),
+    ]
+
+
+def _maison():
+    return [
+        Rect(12, 6, 36, 28, fillColor=BLANC, strokeColor=ENCRE, strokeWidth=2),
+        Polygon([6, 33, 54, 33, 30, 54], fillColor=ROUGE, strokeColor=ENCRE, strokeWidth=2),
+        Rect(25, 6, 10, 16, fillColor=BRUN, strokeColor=ENCRE, strokeWidth=1.5),
+        Rect(15, 20, 7, 7, fillColor=BLEU_CLAIR, strokeColor=ENCRE, strokeWidth=1.2),
+        Rect(38, 20, 7, 7, fillColor=BLEU_CLAIR, strokeColor=ENCRE, strokeWidth=1.2),
+    ]
+
+
+def _panneau():
+    return [
+        Rect(27, 4, 6, 50, fillColor=BRUN, strokeColor=BRUN),
+        Polygon([10, 38, 44, 38, 52, 44, 44, 50, 10, 50], fillColor=VERT, strokeColor=ENCRE, strokeWidth=2),
+        Polygon([50, 20, 16, 20, 8, 26, 16, 32, 50, 32], fillColor=ORANGE, strokeColor=ENCRE, strokeWidth=2),
+    ]
+
+
+def _avion():
+    return [
+        Polygon([6, 28, 50, 28, 56, 31, 50, 34, 6, 34], fillColor=BLANC, strokeColor=ENCRE, strokeWidth=2),
+        Polygon([24, 34, 34, 34, 22, 54, 16, 54], fillColor=BLEU, strokeColor=ENCRE, strokeWidth=1.5),
+        Polygon([24, 28, 34, 28, 22, 8, 16, 8], fillColor=BLEU, strokeColor=ENCRE, strokeWidth=1.5),
+        Polygon([6, 34, 12, 34, 6, 44], fillColor=ROUGE, strokeColor=ENCRE, strokeWidth=1.5),
+    ]
+
+
+def _soleil():
+    g = [Circle(30, 30, 12, fillColor=JAUNE, strokeColor=ORANGE, strokeWidth=2)]
+    for k in range(8):
+        a = k * pi / 4
+        g.append(Line(30 + 17 * cos(a), 30 + 17 * sin(a), 30 + 25 * cos(a), 30 + 25 * sin(a), strokeColor=ORANGE, strokeWidth=3, strokeLineCap=1))
+    return g
+
+
+def _pluie():
+    return [
+        Circle(20, 36, 10, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR),
+        Circle(33, 41, 13, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR),
+        Circle(44, 34, 9, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR),
+        Rect(12, 26, 40, 10, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR),
+        *[_trait([x, 20, x - 4, 10], BLEU, 3) for x in (20, 31, 42)],
+    ]
+
+
+def _assiette():
+    return [
+        Circle(30, 30, 20, fillColor=BLANC, strokeColor=ENCRE, strokeWidth=2),
+        Circle(30, 30, 13, fillColor=BLANC, strokeColor=BLEU_CLAIR, strokeWidth=1.5),
+        _trait([4, 12, 4, 48], ENCRE, 3), _trait([56, 12, 56, 48], ENCRE, 3),
+        Polygon([53, 32, 59, 32, 59, 48, 53, 48], fillColor=ENCRE, strokeColor=ENCRE),
+    ]
+
+
+def _micro():
+    return [
+        Rect(22, 26, 16, 28, rx=8, ry=8, fillColor=VIOLET, strokeColor=ENCRE, strokeWidth=2),
+        _trait([16, 34, 16, 30, 22, 20, 38, 20, 44, 30, 44, 34], ENCRE, 2.5),
+        Line(30, 20, 30, 8, strokeColor=ENCRE, strokeWidth=2.5),
+        Line(20, 7, 40, 7, strokeColor=ENCRE, strokeWidth=2.5),
+    ]
+
+
+def _valise():
+    return [
+        Rect(8, 8, 44, 34, rx=4, ry=4, fillColor=ORANGE, strokeColor=ENCRE, strokeWidth=2),
+        _trait([22, 42, 22, 50, 38, 50, 38, 42], ENCRE, 3),
+        Line(18, 8, 18, 42, strokeColor=BRUN, strokeWidth=2),
+        Line(42, 8, 42, 42, strokeColor=BRUN, strokeWidth=2),
+    ]
+
+
+def _calendrier():
+    g = [
+        Rect(8, 6, 44, 42, rx=3, ry=3, fillColor=BLANC, strokeColor=ENCRE, strokeWidth=2),
+        Rect(8, 38, 44, 10, fillColor=ROUGE, strokeColor=ENCRE, strokeWidth=2),
+        _trait([18, 44, 18, 54], ENCRE, 3), _trait([42, 44, 42, 54], ENCRE, 3),
+    ]
+    g += [Rect(13 + 9 * i, 12 + 9 * j, 6, 6, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR) for i in range(4) for j in range(3)]
+    return g
+
+
+def _loupe():
+    return [
+        Circle(24, 36, 16, fillColor=BLEU_CLAIR, strokeColor=ENCRE, strokeWidth=3),
+        _trait([36, 24, 52, 8], BRUN, 6),
+    ]
+
+
+def _coeur():
+    return [
+        Circle(21, 38, 11, fillColor=ROUGE, strokeColor=ROUGE),
+        Circle(39, 38, 11, fillColor=ROUGE, strokeColor=ROUGE),
+        Polygon([10.5, 35, 49.5, 35, 30, 8], fillColor=ROUGE, strokeColor=ROUGE),
+    ]
+
+
+def _gateau():
+    return [
+        Rect(10, 6, 40, 16, fillColor=ROUGE, strokeColor=ENCRE, strokeWidth=2),
+        Rect(14, 22, 32, 12, fillColor=JAUNE, strokeColor=ENCRE, strokeWidth=2),
+        *[Rect(x, 34, 3, 10, fillColor=BLEU, strokeColor=BLEU) for x in (20, 28.5, 37)],
+        *[Ellipse(x + 1.5, 48, 2, 3.5, fillColor=ORANGE, strokeColor=ORANGE) for x in (20, 28.5, 37)],
+    ]
+
+
+def _haltere():
+    return [
+        Rect(14, 27, 32, 6, fillColor=ENCRE, strokeColor=ENCRE),
+        Rect(6, 16, 9, 28, rx=2, ry=2, fillColor=BLEU, strokeColor=ENCRE, strokeWidth=1.5),
+        Rect(45, 16, 9, 28, rx=2, ry=2, fillColor=BLEU, strokeColor=ENCRE, strokeWidth=1.5),
+    ]
+
+
+def _telephone():
+    return [
+        Rect(17, 4, 26, 52, rx=5, ry=5, fillColor=ENCRE, strokeColor=ENCRE),
+        Rect(20, 12, 20, 36, fillColor=BLEU_CLAIR, strokeColor=BLEU_CLAIR),
+        Circle(30, 8, 2, fillColor=BLANC, strokeColor=BLANC),
+    ]
+
+
 PICTOS = {
     "ballon": _ballon, "livre": _livre, "musique": _musique, "manette": _manette, "cinema": _cinema,
     "arbre": _arbre, "musee": _musee, "bowling": _bowling, "plante": _plante, "recyclage": _recyclage,
     "bulles": _bulles, "ampoule": _ampoule, "equipe": _equipe, "valide": _valide,
+    "horloge": _horloge, "train": _train, "maison": _maison, "panneau": _panneau, "avion": _avion,
+    "soleil": _soleil, "pluie": _pluie, "assiette": _assiette, "micro": _micro, "valise": _valise,
+    "calendrier": _calendrier, "loupe": _loupe, "coeur": _coeur, "gateau": _gateau, "haltere": _haltere,
+    "telephone": _telephone,
     # Icônes des rubriques du cahier.
     "casque": _casque, "crayon": _crayon, "cible": _cible, "etoile": _etoile, "globe": _globe,
 }

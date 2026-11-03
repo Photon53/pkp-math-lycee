@@ -42,6 +42,18 @@ def test_chaque_seance_listee_s_ouvre_et_produit_ses_pdf(client):
             assert pdf.content.startswith(b"%PDF")
 
 
+def test_chaque_objectif_du_referentiel_a_sa_seance():
+    """Le programme 4e et 3e est couvert : chaque objectif du référentiel a une séance au catalogue, dans l'ordre."""
+    import json
+
+    from app.routes.anglais import CONTENU, SEANCES
+
+    for niveau in ("4e", "3e"):
+        referentiel = json.loads((CONTENU.parent / "referentiels" / niveau / "2026-2027.json").read_text(encoding="utf-8"))
+        objectifs = [o["code"] for o in referentiel["objectives"]]
+        assert objectifs == [code for code, (n, _) in SEANCES.items() if n == niveau]
+
+
 def test_chaque_fichier_de_seance_est_au_catalogue():
     """Une séance déposée dans contenu/anglais/seances mais oubliée dans SEANCES n'apparaîtrait jamais."""
     from app.routes.anglais import CONTENU, SEANCES
@@ -185,6 +197,6 @@ def test_l_administrateur_voit_et_gere_les_groupes_d_anglais(client):
 def test_l_administrateur_consulte_les_seances_d_anglais(client):
     admin = connecter_admin(client)
     seances = client.get("/admin/anglais/seances", headers=admin).json()
-    assert {s["code"] for s in seances} == {"4E-01", "4E-02", "3E-01", "3E-02"}
+    assert len(seances) == 20 and {s["code"] for s in seances} >= {"4E-01", "4E-10", "3E-01", "3E-10"}
     r = client.get("/admin/anglais/seances/3E-01/pdf/animateur", headers=admin)
     assert r.status_code == 200 and r.content.startswith(b"%PDF")

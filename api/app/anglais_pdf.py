@@ -139,8 +139,11 @@ def produire_pdf(seance: dict, public: str) -> bytes:
 
     def section(rubrique, titre, *contenu, numerote=True):
         # Le bandeau ne reste jamais seul en bas de page.
+        # Un KeepTogether imbriqué annonce une hauteur démesurée pour forcer sa propre coupure : on le déplie,
+        # sinon la rubrique partait toujours à la page suivante en laissant une demi-page vide.
+        premier = list(contenu[0]._content) if contenu and isinstance(contenu[0], KeepTogether) else list(contenu[:1])
         story.append(Spacer(1, 5))
-        story.append(KeepTogether([bandeau(rubrique, titre, numerote), Spacer(1, 4), *contenu[:1]]))
+        story.append(KeepTogether([bandeau(rubrique, titre, numerote), Spacer(1, 4), *premier]))
         story.extend(contenu[1:])
 
     def encadre(elements, fond, bord, titre=None, largeur=LARGEUR):
@@ -184,7 +187,7 @@ def produire_pdf(seance: dict, public: str) -> bytes:
         return elements
 
     def ressource_en_ligne(res, consigne):
-        media = {"audio": "Audio", "video": "Video"}.get(res.get("media"), "Online")
+        media = {"audio": "Audio", "video": "Video", "text": "Text"}.get(res.get("media"), "Online")
         texte = [
             Paragraph(f"<b>{escape(res['title'])}</b>", styles["PKPText"]),
             Paragraph(f"{escape(media)} · {escape(res.get('level', ''))} · {escape(res.get('source', ''))}", styles["PKPSmall"]),

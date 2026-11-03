@@ -1,0 +1,101 @@
+{
+  "code": "4E-04",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "One teen, two cultures",
+  "objective": "Lire un court témoignage et en relever les informations essentielles",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: where are you from?",
+      "duration_minutes": 10,
+      "student_instruction": "Name three countries and one language spoken there. Share with a partner.",
+      "facilitator_instruction": "Faire émerger pays, nationalités et langues ; écrire au tableau come from / live in / speak."
+    },
+    {
+      "order": 2,
+      "title": "Watch: Talking about your family",
+      "duration_minutes": 15,
+      "student_instruction": "Watch Sam and Jack. Answer the three questions about Sam's half-brother.",
+      "facilitator_instruction": "Montrer la vidéo British Council (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Faire repérer lieux, âge et fréquence des visites : transition vers la lecture d'un témoignage."
+    },
+    {
+      "order": 3,
+      "title": "Reading: Lucía's testimony",
+      "duration_minutes": 15,
+      "student_instruction": "Read Lucía's text. Underline who, where, when and one feeling.",
+      "facilitator_instruction": "Lecture silencieuse puis surlignage par couleur (personnes, lieux, moments, sentiments). Vérifier la stratégie : repérer avant de comprendre chaque mot."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : vrai/faux avec justification guidée ; B : questions ouvertes ; C : comparer avec sa propre vie. Ne pas traduire le texte : renvoyer au mot-clé."
+    },
+    {
+      "order": 5,
+      "title": "ID card and short presentation",
+      "duration_minutes": 20,
+      "student_instruction": "Fill in an ID card for Lucía (or a partner's text) and present her in three sentences.",
+      "facilitator_instruction": "Binômes ; observer l'usage de he/she + -s et la sélection des informations essentielles."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one thing Lucía loves and one thing she misses.",
+      "facilitator_instruction": "Ramasser et repérer les réponses qui recopient sans sélectionner."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "True or false? Correct the false sentences with words from the text. (1) Lucía lives in Mexico. (2) She speaks Spanish at home. (3) She visits Mexico every winter.",
+      "facilitator_correction": "(1) False: she lives in Manchester. (2) True. (3) False: she visits Mexico every summer."
+    },
+    {
+      "track": "B",
+      "student_content": "Answer in full sentences: Where does Lucía's family come from? What does she do on Sundays? Who is her best friend? How does she feel about her two cultures?",
+      "facilitator_correction": "Her family comes from Mexico. They eat tacos on Sundays. Her best friend is a girl from Poland. She loves her life in two cultures but she misses her grandparents."
+    },
+    {
+      "track": "C",
+      "student_content": "Compare Lucía's life with yours in 6-8 sentences: languages, family traditions, friends, holidays. Use both, but and whereas.",
+      "facilitator_correction": "Production libre ; critères : informations du texte exactes, comparaison explicite, connecteurs variés."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève relève lieu, langue et fréquence dans le texte",
+      "L'élève distingue information et sentiment",
+      "L'élève résume le témoignage en trois phrases"
+    ]
+  },
+  "common_errors": [
+    "Recopier une phrase entière au lieu de l'information",
+    "She live au lieu de she lives",
+    "Confusion come from / live in"
+  ],
+  "source_objectives": [
+    "4E-04"
+  ],
+  "theme": "Rencontres avec d'autres cultures",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

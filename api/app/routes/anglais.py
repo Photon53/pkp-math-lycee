@@ -19,7 +19,29 @@ router = APIRouter(prefix="/anglais", tags=["anglais"])
 # Résolution indépendante du répertoire de lancement du processus.
 CONTENU = Path(__file__).resolve().parents[3] / "contenu" / "anglais" / "seances"
 # Les clés reprennent le champ "code" des fichiers : c'est lui que /seances renvoie au front.
-SEANCES = {"4E-01": ("4e", "4e-01-pilote.json"), "4E-02": ("4e", "4e-02-pilote.json"), "3E-01": ("3e", "3e-01-pilote.json"), "3E-02": ("3e", "3e-02-pilote.json")}
+# Progression complète : un objectif du référentiel = une séance (10 en 4e, 10 en 3e).
+SEANCES = {
+    "4E-01": ("4e", "4e-01-pilote.json"),
+    "4E-02": ("4e", "4e-02-pilote.json"),
+    "4E-03": ("4e", "4e-03.json"),
+    "4E-04": ("4e", "4e-04.json"),
+    "4E-05": ("4e", "4e-05.json"),
+    "4E-06": ("4e", "4e-06.json"),
+    "4E-07": ("4e", "4e-07.json"),
+    "4E-08": ("4e", "4e-08.json"),
+    "4E-09": ("4e", "4e-09.json"),
+    "4E-10": ("4e", "4e-10.json"),
+    "3E-01": ("3e", "3e-01-pilote.json"),
+    "3E-02": ("3e", "3e-02-pilote.json"),
+    "3E-03": ("3e", "3e-03.json"),
+    "3E-04": ("3e", "3e-04.json"),
+    "3E-05": ("3e", "3e-05.json"),
+    "3E-06": ("3e", "3e-06.json"),
+    "3E-07": ("3e", "3e-07.json"),
+    "3E-08": ("3e", "3e-08.json"),
+    "3E-09": ("3e", "3e-09.json"),
+    "3E-10": ("3e", "3e-10.json"),
+}
 
 
 def _seance(code: str):

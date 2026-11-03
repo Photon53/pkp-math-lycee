@@ -1,0 +1,101 @@
+{
+  "code": "3E-08",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "It happened... and it changed everything",
+  "objective": "Relater une expérience et ses conséquences",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: a memorable day",
+      "duration_minutes": 10,
+      "student_instruction": "Think of a memorable day. Tell a partner where you were and what happened, in two sentences.",
+      "facilitator_instruction": "Faire émerger des récits courts ; noter les formes passées produites."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Difficult situations",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to three difficult situations. For each one, note what happened and the consequences.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Grille événement / conséquence / réaction ; aborder les situations avec tact (perte d'un animal)."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: past simple and past continuous",
+      "duration_minutes": 15,
+      "student_instruction": "Contrast background actions (was walking) and events (saw). Link with so, as a result, since then.",
+      "facilitator_instruction": "Frise temporelle au tableau ; while + past continuous, when + past simple."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : formes à compléter ; B : récit à partir d'une trame ; C : récit avec conséquences et leçon tirée."
+    },
+    {
+      "order": 5,
+      "title": "Storytelling circle",
+      "duration_minutes": 20,
+      "student_instruction": "Tell your group about an experience (real or imagined) in one to two minutes. Listeners ask one follow-up question.",
+      "facilitator_instruction": "Groupes de 4 ; laisser le choix d'un récit inventé pour préserver l'intimité ; observer la cohérence chronologique et causale."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence with while and one with as a result.",
+      "facilitator_instruction": "Ramasser ; vérifier past continuous / past simple."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete: I ___ (walk) to school when I ___ (see) an accident. While we ___ (wait), it ___ (start) to rain. I missed the bus, ___ I was late.",
+      "facilitator_correction": "was walking / saw ; were waiting / started ; so."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a 100-word story using this plan: background (was / were + -ing), the event, two consequences, how you felt.",
+      "facilitator_correction": "Exemple : Last year I was walking to school when an old man fell. I called for help. As a result, the ambulance came quickly. Since then, I have taken a first-aid course."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 150-word story about an experience that changed you (a trip, a move, a problem). Include consequences and what you learnt.",
+      "facilitator_correction": "Production libre ; critères : alternance des temps du passé, lien cause / conséquence, réflexion personnelle."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève emploie past simple et past continuous de façon pertinente",
+      "L'élève exprime au moins une conséquence",
+      "L'élève répond à une question sur son récit"
+    ]
+  },
+  "common_errors": [
+    "Past continuous pour une action brève",
+    "Oubli de was / were",
+    "Absence de lien logique entre les événements"
+  ],
+  "source_objectives": [
+    "3E-08"
+  ],
+  "theme": "Voyages et migrations",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

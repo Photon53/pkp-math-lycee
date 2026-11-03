@@ -1,0 +1,101 @@
+{
+  "code": "4E-07",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "City life or seaside life?",
+  "objective": "Comparer deux modes de vie présentés dans des documents courts",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: city or countryside?",
+      "duration_minutes": 10,
+      "student_instruction": "Vote: city, seaside or countryside? Give one reason.",
+      "facilitator_instruction": "Recueillir les raisons ; introduire quelques adjectifs (busy, quiet, expensive, exciting)."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Weather forecast",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to the weather forecast. Note the weather and temperature in each region, then compare.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Faire comparer les régions (warmer than, the best weather) : premier contact avec le comparatif."
+    },
+    {
+      "order": 3,
+      "title": "Reading: Zoe and Kai",
+      "duration_minutes": 15,
+      "student_instruction": "Read the two texts. Find three differences and one similarity.",
+      "facilitator_instruction": "Lecture en deux colonnes ; repérer les adjectifs au comparatif dans les textes."
+    },
+    {
+      "order": 4,
+      "title": "Language focus and differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Learn the comparative rules, then do your A, B or C sheet.",
+      "facilitator_instruction": "-er than / more ... than / better, worse / as ... as. A : à trous ; B : phrases à partir du tableau ; C : paragraphe argumenté."
+    },
+    {
+      "order": 5,
+      "title": "Group presentation: Venn diagram",
+      "duration_minutes": 20,
+      "student_instruction": "In groups, compare two lifestyles in a Venn diagram and present three differences and one similarity.",
+      "facilitator_instruction": "Groupes de 3-4 ; chaque élève présente au moins une phrase comparative."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one comparison between your town and London.",
+      "facilitator_instruction": "Ramasser ; vérifier -er than / more than."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete with the comparative: London is ___ (busy) than Newquay. Kai's school is ___ (small) than Zoe's. A flat in London is ___ (expensive) than a house in Cornwall. Life in Newquay is ___ (quiet).",
+      "facilitator_correction": "busier ; smaller ; more expensive ; quieter."
+    },
+    {
+      "track": "B",
+      "student_content": "Use the table (size, transport, prices, free time) to write five sentences comparing Zoe's and Kai's lives.",
+      "facilitator_correction": "Exemple : London is bigger than Newquay. Zoe takes the Tube whereas Kai walks. London is more expensive. Kai has more time for surfing."
+    },
+    {
+      "track": "C",
+      "student_content": "Which life would you choose, Zoe's or Kai's? Write 8-10 sentences with at least four comparatives and one 'as ... as'.",
+      "facilitator_correction": "Production libre ; critères : comparatifs corrects (dont irréguliers), justification, nuance."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève relève des différences dans deux documents",
+      "L'élève forme correctement des comparatifs",
+      "L'élève justifie une préférence"
+    ]
+  },
+  "common_errors": [
+    "more big au lieu de bigger",
+    "Oubli de than",
+    "busyer au lieu de busier"
+  ],
+  "source_objectives": [
+    "4E-07"
+  ],
+  "theme": "Rencontres avec d'autres cultures",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

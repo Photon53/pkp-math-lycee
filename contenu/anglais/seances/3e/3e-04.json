@@ -1,0 +1,101 @@
+{
+  "code": "3E-04",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Write a proposal for your school",
+  "objective": "Rédiger une proposition structurée et relue",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: one thing to change",
+      "duration_minutes": 10,
+      "student_instruction": "If you could change one thing at school, what would it be? Share and vote.",
+      "facilitator_instruction": "Recueillir les idées ; en choisir deux comme exemples de propositions pour la suite."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Organising your time",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to Peter explain the Pomodoro Technique. Note the steps of the method.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Les étapes de la méthode serviront d'exemple de « steps » dans la proposition."
+    },
+    {
+      "order": 3,
+      "title": "Reading the model proposal",
+      "duration_minutes": 15,
+      "student_instruction": "Read the model. Find the aim, the steps, the benefit, the problem and the conclusion.",
+      "facilitator_instruction": "Repérage en couleurs de la structure ; montrer les connecteurs Firstly, Secondly, In addition, However, To sum up."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated writing",
+      "duration_minutes": 25,
+      "student_instruction": "Write your first draft with your A, B or C sheet.",
+      "facilitator_instruction": "A : trame guidée ; B : 120 mots avec plan ; C : 150 mots avec objection anticipée. Encourager le brouillon avant la mise au propre."
+    },
+    {
+      "order": 5,
+      "title": "Proofreading workshop",
+      "duration_minutes": 20,
+      "student_instruction": "Swap drafts. Use the checklist and make three corrections. Then improve your own text.",
+      "facilitator_instruction": "Checklist : structure, connecteurs, -s, temps, majuscules ; chaque relecteur écrit un compliment et deux suggestions."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write the title and the aim of your final proposal.",
+      "facilitator_instruction": "Ramasser ; vérifier la clarté de l'objectif."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the proposal frame: Our proposal: a ___ club. The aim is to ___. Firstly, ___. Secondly, ___. It will help students because ___. To sum up, ___.",
+      "facilitator_correction": "Réponses libres ; vérifier la présence d'un objectif, de deux étapes, d'un bénéfice justifié et d'une conclusion."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a 120-word proposal for a school project (club, event or change) with a title, an aim, three steps, a benefit and a conclusion.",
+      "facilitator_correction": "Exemple : We propose to set up a homework club. Firstly, it will open on Tuesdays and Thursdays. Secondly, older students will help younger ones... To sum up, it will help everyone feel more organised."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 150-word proposal. Add one possible objection (cost, time, safety) and your answer to it with However and so.",
+      "facilitator_correction": "Production libre ; critères : structure complète, objection et réponse argumentée, langue relue et corrigée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève organise sa proposition (objectif, étapes, bénéfice, conclusion)",
+      "L'élève utilise des connecteurs de structuration",
+      "L'élève corrige son texte après relecture"
+    ]
+  },
+  "common_errors": [
+    "Absence de conclusion",
+    "will + verbe en -s (will helps)",
+    "Pas de relecture des accords"
+  ],
+  "source_objectives": [
+    "3E-04"
+  ],
+  "theme": "Langages",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

@@ -1,0 +1,101 @@
+{
+  "code": "3E-10",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Speak clearly: pace, pauses and stress",
+  "objective": "Parler avec débit, pauses et intonation favorisant l'intelligibilité",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: too fast, too slow",
+      "duration_minutes": 10,
+      "student_instruction": "Read the same sentence very fast, very slowly, then at a good pace. Which one is the clearest?",
+      "facilitator_instruction": "Démonstration puis essai en binômes ; faire verbaliser ce qui aide l'auditeur."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Amazing facts",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to two friends sharing amazing facts. Note the numbers and how the speaker says them.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours en ralentissant sur les nombres. Repérer pauses et accents."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: chunks and pauses",
+      "duration_minutes": 15,
+      "student_instruction": "Split sentences into chunks of 3 to 6 words, mark pauses (/) and stress one key word per chunk.",
+      "facilitator_instruction": "Modéliser au tableau ; lecture chorale du texte modèle avec pauses marquées."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet and rehearse with a partner.",
+      "facilitator_instruction": "A : texte pré-découpé ; B : découper et marquer seul ; C : préparer et chronométrer un mini-exposé."
+    },
+    {
+      "order": 5,
+      "title": "Amazing fact presentations",
+      "duration_minutes": 20,
+      "student_instruction": "Present a 45-second amazing fact. The group gives feedback on pace, pauses and stress.",
+      "facilitator_instruction": "Grille : débit, pauses, mots accentués, contact visuel ; deux retours positifs et un conseil par présentation."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence with its pauses (/) and stressed words in capitals.",
+      "facilitator_instruction": "Ramasser ; repérer les découpages pertinents."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Read the model text with the pauses already marked (/). Underline one key word in each chunk, then read it to a partner twice.",
+      "facilitator_correction": "Exemple : Did you KNOW / that your BODY / is HOME / to millions of BACTERIA? Mots-clés variables si cohérents."
+    },
+    {
+      "track": "B",
+      "student_content": "Mark the pauses (/) and the key words in this text, then read it in about 20 seconds: Most bacteria in your body are helpful because they help you digest food and protect you from illness.",
+      "facilitator_correction": "Most BACTERIA in your body / are HELPFUL / because they help you DIGEST food / and PROTECT you / from ILLNESS."
+    },
+    {
+      "track": "C",
+      "student_content": "Prepare a 45-second presentation of an amazing fact. Mark chunks, pauses and key words, time yourself and record one version to improve.",
+      "facilitator_correction": "Production libre ; critères : débit adapté (environ 120 à 150 mots par minute), pauses logiques, accentuation des mots-clés et des nombres."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève parle à un débit permettant la compréhension",
+      "L'élève marque des pauses aux bons endroits",
+      "L'élève accentue les mots-clés et les nombres"
+    ]
+  },
+  "common_errors": [
+    "Débit trop rapide par stress",
+    "Pauses au milieu d'un groupe de mots",
+    "Nombres prononcés trop vite"
+  ],
+  "source_objectives": [
+    "3E-10"
+  ],
+  "theme": "Langages",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

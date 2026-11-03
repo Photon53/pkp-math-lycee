@@ -1,0 +1,101 @@
+{
+  "code": "4E-10",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "Say it right: stress and intonation",
+  "objective": "Rendre son discours compréhensible grâce à l'accentuation et l'intonation",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: clap the syllables",
+      "duration_minutes": 10,
+      "student_instruction": "Clap the syllables of five words: brilliant, exciting, annoying, interesting, boring. Which syllable is strong?",
+      "facilitator_instruction": "Faire frapper les syllabes et marquer la syllabe accentuée au tableau ; éviter l'accent final « à la française »."
+    },
+    {
+      "order": 2,
+      "title": "Watch: Giving your opinion",
+      "duration_minutes": 15,
+      "student_instruction": "Watch Jack and Gemma talk about films. Answer the questions and notice which words they stress.",
+      "facilitator_instruction": "Montrer la vidéo British Council (QR code) ; sans réseau, lire le script de secours en exagérant les accents. Repérer les adjectifs accentués et l'intonation des questions."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: stress and intonation",
+      "duration_minutes": 15,
+      "student_instruction": "Practise: word stress, rising yes/no questions, falling wh- questions.",
+      "facilitator_instruction": "Gestes de la main (monte / descend) ; faire répéter en chœur puis individuellement."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet, then read your sentences to a partner.",
+      "facilitator_instruction": "A : souligner les syllabes accentuées ; B : marquer l'intonation de questions ; C : écrire et jouer une critique de film."
+    },
+    {
+      "order": 5,
+      "title": "Perform a film review",
+      "duration_minutes": 20,
+      "student_instruction": "In pairs, perform a 6-line film review dialogue. Your partner checks stress and intonation.",
+      "facilitator_instruction": "Fiche d'observation simple (3 adjectifs, 2 questions) ; enregistrer si possible pour réécoute."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one adjective with its stressed syllable in capitals.",
+      "facilitator_instruction": "Ramasser ; noter les mots à retravailler."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Underline the stressed syllable: brilliant - exciting - annoying - interesting - boring - amazing.",
+      "facilitator_correction": "BRIL-liant ; ex-CI-ting ; an-NOY-ing ; IN-teresting ; BOR-ing ; a-MA-zing."
+    },
+    {
+      "track": "B",
+      "student_content": "Mark each question with up or down, then read them aloud: Was it good? / What did you see? / Did you like it? / Who was in it?",
+      "facilitator_correction": "Was it good? up ; What did you see? down ; Did you like it? up ; Who was in it? down."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 6-line dialogue reviewing a film, with three adjectives in capitals for stress, two yes/no questions and one wh- question. Perform it.",
+      "facilitator_correction": "Production libre ; critères : accent de mot correct, intonation montante / descendante adaptée, ton expressif."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève place correctement l'accent de mot",
+      "L'élève adapte l'intonation au type de question",
+      "L'élève est compris par un camarade sans répétition"
+    ]
+  },
+  "common_errors": [
+    "Accent sur la dernière syllabe (inte-res-TING)",
+    "Intonation montante sur toutes les questions",
+    "Débit monotone"
+  ],
+  "source_objectives": [
+    "4E-10"
+  ],
+  "theme": "Langages",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

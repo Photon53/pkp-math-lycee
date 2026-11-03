@@ -1,0 +1,101 @@
+{
+  "code": "3E-09",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Explain it to the group: celebrations",
+  "objective": "Synthétiser pour un groupe les idées d'un document accessible",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: celebrations we know",
+      "duration_minutes": 10,
+      "student_instruction": "Name celebrations from different countries. What do people do?",
+      "facilitator_instruction": "Recueillir fêtes et traditions ; carte du monde au tableau."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Celebrations",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to five speakers. For three of them, note the celebration, when and what people do.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Prise de notes qui, quoi, où, quand : base de la synthèse."
+    },
+    {
+      "order": 3,
+      "title": "Reading and synthesis model",
+      "duration_minutes": 15,
+      "student_instruction": "Read the Diwali text. Find who, what, where and when, then read the model summary aloud.",
+      "facilitator_instruction": "Montrer la sélection d'informations : ce qu'on garde, ce qu'on enlève ; formules This text is about..., According to..., In short..."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : grille de synthèse guidée ; B : synthèse de 60 mots ; C : synthèse croisée de deux documents."
+    },
+    {
+      "order": 5,
+      "title": "Jigsaw: four documents, one group",
+      "duration_minutes": 20,
+      "student_instruction": "Each student reads a different short document (Carnival, Diwali, Thanksgiving, Burns Night) and presents a 45-second synthesis. The group finds two things in common.",
+      "facilitator_instruction": "Groupes de 4 ; chronométrer ; vérifier que les auditeurs peuvent répondre à une question sur chaque fête."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write a one-sentence summary of one celebration with In short.",
+      "facilitator_instruction": "Ramasser ; vérifier concision et exactitude."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the synthesis grid for the Diwali text: Who? ___ What? ___ Where? ___ When? ___ One key detail: ___. Then say it in three sentences.",
+      "facilitator_correction": "Who : Hindus, Sikhs and Jains ; What : festival of lights ; Where : India and around the world, e.g. Leicester ; When : October or November ; detail : people light lamps and share sweets."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a 60-word synthesis of one celebration from the listening for a classmate who was absent. Start with This celebration is about...",
+      "facilitator_correction": "Exemple : This celebration is the Notting Hill Carnival in London. It takes place every August. People wear costumes and dance to steel bands. In short, it celebrates Caribbean culture, but watch out for pickpockets."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 100-word synthesis comparing two celebrations (from the listening and the Diwali text): what they celebrate, how, and one common point.",
+      "facilitator_correction": "Production libre ; critères : informations exactes, sélection pertinente, comparaison et conclusion."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève sélectionne les informations essentielles",
+      "L'élève reformule sans recopier",
+      "L'élève présente une synthèse compréhensible pour le groupe"
+    ]
+  },
+  "common_errors": [
+    "Lecture du document au lieu d'une synthèse",
+    "Détails secondaires conservés",
+    "Absence de phrase d'introduction"
+  ],
+  "source_objectives": [
+    "3E-09"
+  ],
+  "theme": "Rencontres avec d'autres cultures",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

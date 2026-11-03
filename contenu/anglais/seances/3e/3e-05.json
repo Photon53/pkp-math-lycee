@@ -1,0 +1,101 @@
+{
+  "code": "3E-05",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Listen smart: arguments and intentions",
+  "objective": "Identifier arguments et intentions dans une présentation courte",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: your best study tip",
+      "duration_minutes": 10,
+      "student_instruction": "Share your best tip for exams with a partner. Is it advice, a warning or information?",
+      "facilitator_instruction": "Introduire to advise / to warn / to inform / to persuade à partir des exemples des élèves."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Advice for exams",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to the teacher's talk. Take notes with key words and symbols.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Première écoute : intention générale ; seconde : arguments et raisons."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: notes and intentions",
+      "duration_minutes": 15,
+      "student_instruction": "Learn note-taking symbols and the language of advice, reasons and warnings.",
+      "facilitator_instruction": "Symboles (+, ->, x, =) ; should / don't / try to ; because / so ; distinguer argument et exemple."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet with the model talk.",
+      "facilitator_instruction": "A : grille à compléter ; B : notes libres puis reformulation ; C : analyse de l'intention et de l'efficacité des arguments."
+    },
+    {
+      "order": 5,
+      "title": "Talk and report",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to a classmate's one-minute advice talk. Note the intention, three arguments and one example, then report back.",
+      "facilitator_instruction": "Groupes de 3 ; un orateur, deux preneurs de notes ; comparer les notes avant de restituer."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write the intention of today's talk and its strongest argument.",
+      "facilitator_instruction": "Ramasser ; vérifier la distinction argument / intention."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the notes grid for Mr Hall's talk: intention (inform / warn / persuade?), argument 1: ___, argument 2: ___, advice: ___.",
+      "facilitator_correction": "Intention : to persuade ; argument 1 : teenagers need about nine hours of sleep ; argument 2 : sleep helps memory ; advice : switch off your phone one hour before bed."
+    },
+    {
+      "track": "B",
+      "student_content": "Take notes on the exam talk with symbols. Then write four sentences reporting the teacher's advice (She advises... / She says that...).",
+      "facilitator_correction": "Exemple : She advises us to eat apples. She says we should take a five-minute break every half hour. She warns us not to drink cola."
+    },
+    {
+      "track": "C",
+      "student_content": "Which argument in the exam talk is the most convincing? Explain in 100 words, and suggest one argument the teacher forgot.",
+      "facilitator_correction": "Production libre ; critères : argument identifié, justification, argument nouveau pertinent."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève identifie l'intention du locuteur",
+      "L'élève relève au moins deux arguments",
+      "L'élève prend des notes exploitables"
+    ]
+  },
+  "common_errors": [
+    "Notes trop longues (phrases recopiées)",
+    "Confusion argument / exemple",
+    "Contresens sur don't (conseil négatif)"
+  ],
+  "source_objectives": [
+    "3E-05"
+  ],
+  "theme": "Langages",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

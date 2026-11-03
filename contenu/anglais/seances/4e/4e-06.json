@@ -1,0 +1,101 @@
+{
+  "code": "4E-06",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "Finding your way in town",
+  "objective": "Demander et donner des indications pour se déplacer",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: places in town",
+      "duration_minutes": 10,
+      "student_instruction": "List six places in a town in two minutes. Compare with a partner.",
+      "facilitator_instruction": "Faire émerger station, library, museum, hospital... ; les afficher sur un plan simple au tableau."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Giving directions",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to four people giving directions. Follow the route on the map and find each building.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire deux fois le script de secours. Les élèves suivent du doigt sur le plan du cahier ou un plan dessiné au tableau."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: imperative and prepositions",
+      "duration_minutes": 15,
+      "student_instruction": "Practise: go straight on, turn left, take the second right; next to, opposite, between.",
+      "facilitator_instruction": "Impératif (verbe sans sujet), négation Don't ; gestes associés à chaque expression pour mémoriser."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet with the town map.",
+      "facilitator_instruction": "A : relier expressions et flèches ; B : écrire un itinéraire ; C : itinéraire avec contrainte (route fermée) et alternative."
+    },
+    {
+      "order": 5,
+      "title": "Pair game: secret destination",
+      "duration_minutes": 20,
+      "student_instruction": "A chooses a secret place and gives directions; B follows and names the place. Swap three times.",
+      "facilitator_instruction": "Binômes avec le même plan ; observer la politesse (Excuse me, Thank you) et la précision des indications."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write directions from the classroom to the canteen in two sentences.",
+      "facilitator_instruction": "Ramasser ; vérifier l'impératif et une préposition de lieu."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Match: go straight on / turn left / turn right / next to / opposite with the arrows and pictures. Then complete: ___ straight on and ___ left at the traffic lights.",
+      "facilitator_correction": "Go straight on and turn left at the traffic lights."
+    },
+    {
+      "track": "B",
+      "student_content": "Look at the map. Write directions from the station to the museum and from the museum to the library. Use three different expressions.",
+      "facilitator_correction": "Exemple : Go straight on, turn left at the traffic lights, take the second right. The museum is opposite the park."
+    },
+    {
+      "track": "C",
+      "student_content": "The main street is closed today. Write two routes to the hospital: the usual one and an alternative. Explain which one is faster and why.",
+      "facilitator_correction": "Production libre ; critères : impératif correct, prépositions précises, comparaison des deux itinéraires."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève demande poliment son chemin",
+      "L'élève donne un itinéraire compréhensible avec l'impératif",
+      "L'élève situe un lieu avec une préposition"
+    ]
+  },
+  "common_errors": [
+    "You turn left au lieu de Turn left",
+    "Confusion in front of / opposite",
+    "Oubli de the dans take the first left"
+  ],
+  "source_objectives": [
+    "4E-06"
+  ],
+  "theme": "Voyages et migrations",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

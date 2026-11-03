@@ -20,7 +20,7 @@ export async function telecharger(code, publicCible, jeton, base = "/anglais") {
   setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
 
-const MEDIAS = { audio: "Audio", video: "Vidéo" };
+const MEDIAS = { audio: "Audio", video: "Vidéo", text: "Texte" };
 
 /** Liens ouverts dans un nouvel onglet, sans lecteur intégré : aucun traceur tiers dans l'application. */
 function LienRessource({ ressource }) {
@@ -176,13 +176,13 @@ export default function SeancesAnglais({ jeton, onExpire }) {
   }
 
   return <section>
-    <p className="doux">Séances pilotes 4e et 3e · 90 minutes · contenus en attente de validation pédagogique.</p>
+    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · contenus en attente de validation pédagogique.</p>
     {chargement && <p>Chargement des séances…</p>}
     {erreur && <p role="alert" className="erreur">{erreur}</p>}
     {liste.length > 0 && <div className="carte">
       <label htmlFor="anglais-seance">Séance</label>
       <select id="anglais-seance" value={code} onChange={(e) => setCode(e.target.value)}>
-        {liste.map((item) => <option key={item.code} value={item.code}>{item.niveau} · {item.titre}</option>)}
+        {liste.map((item) => <option key={item.code} value={item.code}>{item.code} · {item.titre}</option>)}
       </select>
     </div>}
     {seance && <>

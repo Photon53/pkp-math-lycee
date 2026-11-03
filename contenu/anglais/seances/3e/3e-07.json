@@ -1,0 +1,101 @@
+{
+  "code": "3E-07",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Great idea... or not? Pros and cons",
+  "objective": "Discuter des avantages et limites d'une initiative",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: rate the idea",
+      "duration_minutes": 10,
+      "student_instruction": "Rate three school initiatives from 1 to 5: a car-free day, no phones at lunch, a school garden. Explain one rating.",
+      "facilitator_instruction": "Recueillir les notes ; faire émerger advantage / drawback."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Sports centres",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to Maya and Bill. Note two advantages and one drawback of each sports centre.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Grille avantages / limites pour chaque centre."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: should, could, might",
+      "duration_minutes": 15,
+      "student_instruction": "Use should for advice, could for possibilities and might for weaker possibilities.",
+      "facilitator_instruction": "Modaux + base verbale, sans to ; prononciation sans l. Faire reformuler les idées du warm-up."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet about a car-free day.",
+      "facilitator_instruction": "A : trier avantages et limites ; B : phrases avec modaux ; C : recommandation argumentée."
+    },
+    {
+      "order": 5,
+      "title": "Group discussion",
+      "duration_minutes": 20,
+      "student_instruction": "Groups of four: two defend the advantages, two explain the limits, then the group agrees on a recommendation.",
+      "facilitator_instruction": "Rôles imposés puis consensus ; observer tours de parole, modaux et formules d'accord / désaccord."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write your group's recommendation with should.",
+      "facilitator_instruction": "Ramasser ; vérifier modal + base verbale."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Sort into advantages or limits of a car-free day: less pollution / difficult for students who live far away / more space to play / buses might be full / people walk more.",
+      "facilitator_correction": "Avantages : less pollution, more space to play, people walk more. Limites : difficult for students who live far away, buses might be full."
+    },
+    {
+      "track": "B",
+      "student_content": "Write six sentences about a car-free day: two with should, two with could, two with might.",
+      "facilitator_correction": "Exemple : We should organise a bike bus. It could reduce pollution. Some parents might be angry."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 120-word recommendation to the head teacher about one initiative: two advantages, two limits, a solution to one limit and a final recommendation.",
+      "facilitator_correction": "Production libre ; critères : équilibre avantages / limites, modaux justes, recommandation claire."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève formule des avantages et des limites",
+      "L'élève utilise should, could, might à bon escient",
+      "L'élève participe à la décision commune"
+    ]
+  },
+  "common_errors": [
+    "should to + verbe",
+    "Confusion could / might",
+    "Liste d'idées sans échange avec le groupe"
+  ],
+  "source_objectives": [
+    "3E-07"
+  ],
+  "theme": "École et société",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

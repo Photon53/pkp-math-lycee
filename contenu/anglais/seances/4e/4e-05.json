@@ -1,0 +1,101 @@
+{
+  "code": "4E-05",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "My week in one paragraph",
+  "objective": "Rédiger un paragraphe organisé sur son quotidien",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: my busiest day",
+      "duration_minutes": 10,
+      "student_instruction": "Tell a partner your busiest day of the week and three things you do.",
+      "facilitator_instruction": "Réactiver routines et jours ; noter au tableau les verbes de routine utiles pour l'écrit."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Using colours to do homework",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to a student explain her homework system. Note the order of her steps.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Faire repérer comment elle organise son explication : c'est le modèle d'organisation du paragraphe."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: linking words",
+      "duration_minutes": 15,
+      "student_instruction": "Sort the linking words: order, addition, contrast, reason.",
+      "facilitator_instruction": "first/then/after that/finally ; and/also ; but ; because. Montrer la structure phrase d'introduction - développement - conclusion."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated writing",
+      "duration_minutes": 25,
+      "student_instruction": "Write your paragraph with your A, B or C sheet.",
+      "facilitator_instruction": "A : paragraphe à trous guidé ; B : plan puis 70 mots ; C : 100 mots avec opinion et contraste. Corriger au crayon en signalant, sans réécrire."
+    },
+    {
+      "order": 5,
+      "title": "Peer review with colours",
+      "duration_minutes": 20,
+      "student_instruction": "Swap paragraphs. Colour the linking words and check: topic sentence, order, conclusion.",
+      "facilitator_instruction": "Fournir une grille de relecture ; observer la qualité des remarques entre pairs. Chaque élève améliore deux phrases."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write your best sentence with two linking words.",
+      "facilitator_instruction": "Ramasser ; repérer les connecteurs maîtrisés."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the paragraph with First, Then, After that, Finally, because: My Mondays are busy. ___, I get up at seven. ___, I go to school by bus. ___, I do my homework. ___, I watch a series ___ I like relaxing.",
+      "facilitator_correction": "First, Then, After that, Finally, because."
+    },
+    {
+      "track": "B",
+      "student_content": "Make a plan (topic sentence, three activities, conclusion), then write a 70-word paragraph about your week with four linking words.",
+      "facilitator_correction": "Exemple : My week is busy but fun. First, I go to school by bus. Then I do my homework. After that, I play basketball on Wednesdays because I love team sports. Finally, I relax at the weekend."
+    },
+    {
+      "track": "C",
+      "student_content": "Write 100 words about your ideal week compared with your real week. Use but, whereas, because and a conclusion.",
+      "facilitator_correction": "Production libre ; critères : organisation claire, connecteurs variés et justes, conclusion personnelle."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève écrit une phrase d'introduction",
+      "L'élève utilise au moins quatre connecteurs justes",
+      "L'élève termine par une conclusion"
+    ]
+  },
+  "common_errors": [
+    "Liste de phrases sans connecteur",
+    "Then répété à chaque phrase",
+    "Oubli de la majuscule après le point"
+  ],
+  "source_objectives": [
+    "4E-05"
+  ],
+  "theme": "École et société",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

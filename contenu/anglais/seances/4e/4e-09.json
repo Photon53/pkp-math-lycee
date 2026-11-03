@@ -1,0 +1,101 @@
+{
+  "code": "4E-09",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "Help a friend: say it simply",
+  "objective": "Reformuler une information simple pour aider un pair",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: guess the word",
+      "duration_minutes": 10,
+      "student_instruction": "Explain a word without saying it (It's a kind of..., you use it to...). Your partner guesses.",
+      "facilitator_instruction": "Jeu de type Taboo avec des mots du quotidien ; noter au tableau les tournures de paraphrase utilisées."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Eating out",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to Jamie and Sally at a restaurant. Note what they order.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Demander ensuite d'expliquer simplement starter et main course à un camarade."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: paraphrase",
+      "duration_minutes": 15,
+      "student_instruction": "Learn: It means..., It's a kind of..., It's like..., In other words..., Do you understand?",
+      "facilitator_instruction": "Insister sur la simplicité : phrases courtes, mots connus, vérification de la compréhension."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet with the restaurant menu.",
+      "facilitator_instruction": "A : associer mots et définitions simples ; B : expliquer cinq plats ; C : reformuler une consigne compliquée pour un élève nouveau."
+    },
+    {
+      "order": 5,
+      "title": "Mediation in threes",
+      "duration_minutes": 20,
+      "student_instruction": "A reads a notice or menu, B doesn't understand, C helps with simple English. Rotate roles.",
+      "facilitator_instruction": "Groupes de 3 ; observer la reformulation (pas de traduction mot à mot) et la vérification de la compréhension."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Explain one difficult word from today in one simple sentence.",
+      "facilitator_instruction": "Ramasser ; valoriser les paraphrases claires."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Match the words and the simple explanations: starter / main course / dessert / menu - (a) the sweet dish at the end (b) the list of food (c) the first dish (d) the big dish.",
+      "facilitator_correction": "starter = c ; main course = d ; dessert = a ; menu = b."
+    },
+    {
+      "track": "B",
+      "student_content": "Your friend doesn't understand the menu. Explain five items in simple English: French onion soup, tomato salad, Thai chicken, mineral water, fresh orange juice.",
+      "facilitator_correction": "Exemple : French onion soup is a hot soup made with onions. Thai chicken is a kind of spicy chicken with rice."
+    },
+    {
+      "track": "C",
+      "student_content": "Rewrite this school notice for a new student who is learning English: 'Students are reminded that the library will be closed for refurbishment until further notice.'",
+      "facilitator_correction": "Exemple : The library is closed now because they are repairing it. We don't know when it will open again."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève reformule avec des mots simples",
+      "L'élève vérifie la compréhension de son pair",
+      "L'élève transmet l'information sans la déformer"
+    ]
+  },
+  "common_errors": [
+    "Traduction mot à mot",
+    "Phrase trop longue pour être comprise",
+    "Oubli de vérifier : Do you understand?"
+  ],
+  "source_objectives": [
+    "4E-09"
+  ],
+  "theme": "Langages",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

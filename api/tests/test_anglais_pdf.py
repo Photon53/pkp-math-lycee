@@ -10,10 +10,8 @@ from pkp_anglais.seances import generer_pack_animateur, generer_pack_eleve
 from app.anglais_pdf import charger_ressources, produire_pdf, verifier_ressources
 
 ROOT = Path(__file__).resolve().parents[2] / "contenu" / "anglais" / "seances"
-CASES = [
-    ("4e", "4e-01-pilote.json"), ("4e", "4e-02-pilote.json"),
-    ("3e", "3e-01-pilote.json"), ("3e", "3e-02-pilote.json"),
-]
+# Toutes les séances déposées : une nouvelle séance est contrôlée sans modifier ce fichier.
+CASES = sorted((f.parent.name, f.name) for f in ROOT.glob("*/*.json"))
 
 
 def _lire(pdf: bytes) -> tuple[str, list[str]]:
@@ -40,7 +38,7 @@ def test_cahiers_complets(niveau, filename):
             assert len(pypdf.PdfReader(io.BytesIO(pdf)).pages) <= 4
 
 
-@pytest.mark.parametrize("code", ["4E-01", "4E-02", "3E-01", "3E-02"])
+@pytest.mark.parametrize("code", sorted(charger_ressources()))
 def test_ressources_completes_et_liens_verifies(code):
     r = charger_ressources()[code]
     assert verifier_ressources(r) == []
