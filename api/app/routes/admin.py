@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import journal, limitation, ressources, statistiques
+from app import anglais_contenu, journal, limitation, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -20,6 +20,7 @@ from app.routes import anglais
 from app.routes.enseignants import _attribuer_code, verifier_identifiants
 from app.schemas import CodeEleve, ConnexionEnseignant
 from app.schemas_admin import (
+    SeanceAnglaisEdition,
     TAILLE_PAGE,
     Activation,
     ClasseAdmin,
@@ -48,7 +49,7 @@ from app.security import (
 
 router = APIRouter(prefix="/admin", tags=["administration"])
 
-CHAMPS_ENSEIGNANT = ("nom", "email", "role", "enseigne_maths", "enseigne_anglais", "actif")
+CHAMPS_ENSEIGNANT = ("nom", "email", "role", "enseigne_maths", "enseigne_anglais", "referent_anglais", "actif")
 
 
 # --- Connexion ----------------------------------------------------------------------
@@ -94,7 +95,8 @@ def _vue_enseignant(session: SessionDB, e: models.Enseignant) -> EnseignantAdmin
     )
     return EnseignantAdmin(
         id=e.id, nom=e.nom, email=e.email, role=e.role, enseigne_maths=e.enseigne_maths,
-        enseigne_anglais=e.enseigne_anglais, actif=e.actif, mdp_provisoire=e.mdp_provisoire,
+        enseigne_anglais=e.enseigne_anglais, referent_anglais=e.referent_anglais, actif=e.actif,
+        mdp_provisoire=e.mdp_provisoire,
         totp_configure=e.totp_secret is not None, nb_classes=len(e.classes), nb_eleves=nb_eleves,
         nb_groupes_anglais=len(e.groupes_anglais), nb_eleves_anglais=sum(len(g.eleves) for g in e.groupes_anglais),
         derniere_connexion=e.derniere_connexion,
@@ -130,7 +132,7 @@ def creer_enseignant(corps: EnseignantEdition, admin: AdminCourant, session: Ses
     e = models.Enseignant(
         nom=corps.nom.strip(), email=corps.email, role=corps.role,
         enseigne_maths=corps.enseigne_maths, enseigne_anglais=corps.enseigne_anglais,
-        mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
+        referent_anglais=corps.referent_anglais, mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
     )
     session.add(e)
     session.flush()
@@ -150,6 +152,7 @@ def modifier_enseignant(
     avant = journal.instantane(e, CHAMPS_ENSEIGNANT)
     e.nom, e.email, e.role = corps.nom.strip(), corps.email, corps.role
     e.enseigne_maths, e.enseigne_anglais = corps.enseigne_maths, corps.enseigne_anglais
+    e.referent_anglais = corps.referent_anglais
     journal.noter(session, admin, "modifier", "enseignant", e.id, avant, journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.commit()
     return _vue_enseignant(session, e)
@@ -399,14 +402,66 @@ def supprimer_eleve_anglais(eleve_id: int, admin: AdminCourant, session: Session
 
 
 @router.get("/anglais/seances")
-def seances_anglais(admin: AdminCourant):
-    """Catalogue des séances, pour contrôler ce que reçoivent les professeurs d'anglais."""
-    return anglais.lister_seances(admin)
+def seances_anglais(_: AdminCourant, session: SessionDB):
+    """Catalogue : version courante de chaque séance, son statut et la version publiée."""
+    return [anglais_contenu.resume(s) for s in anglais_contenu.toutes(session)]
+
+
+@router.get("/anglais/seances/{code}")
+def seance_anglais(code: str, _: AdminCourant, session: SessionDB):
+    """Version courante telle qu'elle s'édite (séance, cahier, QCM de grammaire) et son historique."""
+    seance = anglais.seance_ou_404(session, code)
+    c = seance.courante
+    vocabulaire = anglais_contenu.quiz_complet(c)[: -len(c.quiz) or None]
+    return {**anglais_contenu.resume(seance), "contenu": c.contenu, "cahier": c.cahier, "quiz": c.quiz,
+            "quiz_vocabulaire": vocabulaire, "historique": anglais_contenu.historique(seance)}
+
+
+@router.put("/anglais/seances/{code}")
+def modifier_seance_anglais(code: str, corps: SeanceAnglaisEdition, admin: AdminCourant, session: SessionDB):
+    """Enregistre en brouillon ; une version validée reste publiée jusqu'à la validation de la suivante."""
+    seance = anglais.seance_ou_404(session, code)
+    erreurs = anglais_contenu.verifier_version(code, corps.contenu, corps.cahier, corps.quiz)
+    if erreurs:
+        raise HTTPException(422, "Contenu incomplet : " + " ; ".join(erreurs))
+    avant = {"code": code, "version": seance.courante.numero, "statut": seance.courante.statut}
+    version = anglais_contenu.enregistrer(seance, admin, corps.contenu, corps.cahier, corps.quiz)
+    session.flush()
+    journal.noter(session, admin, "modifier", "seance_anglais", seance.id, avant,
+                  {"code": code, "version": version.numero, "statut": version.statut})
+    session.commit()
+    return seance_anglais(code, admin, session)
+
+
+@router.post("/anglais/seances/{code}/soumettre")
+def soumettre_seance_anglais(code: str, admin: AdminCourant, session: SessionDB):
+    """Brouillon, ou version refusée puis corrigée : envoyée aux référents."""
+    seance = anglais.seance_ou_404(session, code)
+    courante = seance.courante
+    if courante.statut not in ("brouillon", "refuse"):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Seul un brouillon ou une version refusée peut être soumis.")
+    avant = {"code": code, "version": courante.numero, "statut": courante.statut}
+    courante.statut = "soumis"
+    journal.noter(session, admin, "soumettre", "seance_anglais", seance.id, avant,
+                  {"code": code, "version": courante.numero, "statut": "soumis"})
+    session.commit()
+    return anglais_contenu.resume(seance)
+
+
+@router.post("/anglais/seances/{code}/valider")
+def valider_seance_anglais(code: str, admin: AdminCourant, session: SessionDB):
+    return anglais.decider(anglais.seance_ou_404(session, code), admin, session, None)
+
+
+@router.post("/anglais/seances/{code}/refuser")
+def refuser_seance_anglais(code: str, corps: anglais.Refus, admin: AdminCourant, session: SessionDB):
+    return anglais.decider(anglais.seance_ou_404(session, code), admin, session, corps.motif)
 
 
 @router.get("/anglais/seances/{code}/pdf/{public}")
-def pdf_seance_anglais(code: str, public: str, admin: AdminCourant):
-    return anglais.telecharger_pdf(code, public, admin)
+def pdf_seance_anglais(code: str, public: str, _: AdminCourant, session: SessionDB):
+    """PDF de la version courante, avec la mention NON VALIDÉ tant qu'elle n'est pas validée."""
+    return anglais.reponse_pdf(anglais.seance_ou_404(session, code).courante, code, public)
 
 
 # --- Journal et statistiques ---------------------------------------------------------------

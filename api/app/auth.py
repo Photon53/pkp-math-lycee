@@ -13,6 +13,8 @@ from app.referentiel import Role
 from app.security import lire_jeton, version_mot_de_passe
 
 ELEVE, ENSEIGNANT, ADMIN = "eleve", "enseignant", "admin"
+# Jeton distinct : un élève d'anglais n'ouvre jamais l'espace de maths, et inversement.
+ELEVE_ANGLAIS = "eleve_anglais"
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -38,6 +40,20 @@ def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Elev
         or eleve.code_hash is None
         or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
         or not eleve.classe.enseignant.actif
+    ):
+        raise _non_authentifie()
+    return eleve
+
+
+def eleve_anglais_courant(identifiants: Identifiants, session: SessionDB) -> models.EleveAnglais:
+    lu = identifiants and lire_jeton(identifiants.credentials, ELEVE_ANGLAIS)
+    eleve = lu and session.get(models.EleveAnglais, lu[0])
+    # Mêmes refus que l'élève de maths : supprimé, code régénéré depuis l'émission, professeur désactivé.
+    if (
+        not eleve
+        or eleve.code_hash is None
+        or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
+        or not eleve.groupe.enseignant.actif
     ):
         raise _non_authentifie()
     return eleve
@@ -93,6 +109,7 @@ def admin_courant(identifiants: Identifiants, session: SessionDB) -> models.Ense
 
 
 EleveCourant = Annotated[models.Eleve, Depends(eleve_courant)]
+EleveAnglaisCourant = Annotated[models.EleveAnglais, Depends(eleve_anglais_courant)]
 EnseignantCourant = Annotated[models.Enseignant, Depends(enseignant_courant)]
 EnseignantAnglais = Annotated[models.Enseignant, Depends(enseignant_anglais)]
 EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authentifie)]

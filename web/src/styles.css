@@ -486,8 +486,23 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .anglais-encadre.prononciation { background: var(--ok-doux); }
 .anglais-encadre ul, .anglais-encadre p { margin: 4px 0; }
 .anglais-texte { white-space: pre-wrap; }
-.liste-eleves-anglais { list-style: none; padding: 0; margin: 8px 0 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px 16px; }
+.liste-eleves-anglais { list-style: none; padding: 0; margin: 8px 0 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 6px 16px; }
 .liste-eleves-anglais li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--bordure); border-radius: 8px; }
+.liste-eleves-anglais .actions-ligne { display: flex; gap: 10px; margin-left: auto; }
+.bandeau-non-valide { margin: 0 0 12px; padding: 8px 12px; border-radius: var(--rayon-petit); background: var(--ko-doux); color: var(--texte); border-left: 4px solid var(--ko); }
+.statut-anglais { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: var(--t-xs); font-weight: 600; background: var(--surface-2); border: 1px solid var(--bordure); }
+.statut-anglais.valide { background: var(--ok-doux); border-color: var(--ok); }
+.statut-anglais.soumis { background: var(--alerte-doux); border-color: var(--alerte); }
+.statut-anglais.refuse { background: var(--ko-doux); border-color: var(--ko); }
+.quiz-anglais { list-style: none; padding: 0; display: grid; gap: 12px; }
+.quiz-anglais fieldset { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 10px 12px; margin: 0; }
+.quiz-anglais legend { font-weight: 600; padding: 0 4px; }
+.quiz-anglais label { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-weight: normal; }
+.quiz-anglais .juste { border-color: var(--ok); background: var(--ok-doux); }
+.quiz-anglais .faux { border-color: var(--ko); background: var(--ko-doux); }
+.editeur-anglais fieldset { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 10px 12px; margin: 0 0 12px; }
+.editeur-anglais legend { font-weight: 600; padding: 0 4px; }
+.editeur-anglais .ligne-edition { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 6px; margin-bottom: 6px; }
 .anglais-bulles { display: grid; gap: 6px; margin: 8px 0; }
 .anglais-bulles .bulle { margin: 0; padding: 8px 12px; border-radius: var(--rayon-petit); border: 1px solid var(--bordure); max-width: 80%; }
 .anglais-bulles .gauche { background: var(--surface-2); justify-self: start; }

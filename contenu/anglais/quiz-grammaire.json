@@ -1,0 +1,82 @@
+{
+  "4E-01": [
+    {"question": "Choose the correct sentence.", "choix": ["She play football on Saturdays.", "She plays football on Saturdays.", "She playing football on Saturdays."], "reponse": 1, "explication": "Avec he / she / it, le présent simple prend un -s : she plays."},
+    {"question": "Where does the frequency word go? \"I ___ late.\"", "choix": ["am often", "often am", "often"], "reponse": 0, "explication": "Après be, le mot de fréquence se place après le verbe : I am often late."}
+  ],
+  "4E-02": [
+    {"question": "Complete: \"How about ___ to the cinema?\"", "choix": ["go", "to go", "going"], "reponse": 2, "explication": "How about / What about + verbe en -ing."},
+    {"question": "Complete: \"Let's ___ a picnic!\"", "choix": ["have", "having", "to have"], "reponse": 0, "explication": "Let's + verbe sans to."}
+  ],
+  "3E-01": [
+    {"question": "Choose the word for a possibility: \"We ___ sell vegetables.\"", "choix": ["will", "could", "are"], "reponse": 1, "explication": "could + verbe exprime une possibilité ; will exprime une décision."},
+    {"question": "Complete: \"Our aim is ___ a garden.\"", "choix": ["create", "to create", "creating of"], "reponse": 1, "explication": "Our aim is + to + verbe."}
+  ],
+  "3E-02": [
+    {"question": "Choose the best way to answer an objection.", "choix": ["No, you are wrong.", "I see what you mean, but it is cheap.", "Yes."], "reponse": 1, "explication": "On accepte d'abord l'idée, puis on oppose son argument avec but / however."},
+    {"question": "Complete: \"___ it is expensive, it is useful.\"", "choix": ["Although", "Because", "So"], "reponse": 0, "explication": "Although + idée opposée, puis votre réponse."}
+  ],
+  "4E-03": [
+    {"question": "10:15 is...", "choix": ["a quarter to ten", "a quarter past ten", "half past ten"], "reponse": 1, "explication": "15 minutes après l'heure = a quarter past."},
+    {"question": "Complete: \"What time ___ the train leave?\"", "choix": ["do", "does", "is"], "reponse": 1, "explication": "Question au présent simple avec it : does + verbe."}
+  ],
+  "4E-04": [
+    {"question": "Which question asks about a place?", "choix": ["Who?", "When?", "Where?"], "reponse": 2, "explication": "Where = où (un lieu)."},
+    {"question": "\"Every Monday\" answers which question?", "choix": ["How often?", "Who?", "What?"], "reponse": 0, "explication": "How often = à quelle fréquence."}
+  ],
+  "4E-05": [
+    {"question": "Which word shows a contrast?", "choix": ["also", "but", "then"], "reponse": 1, "explication": "but introduit une opposition."},
+    {"question": "Which word starts the last step?", "choix": ["First", "Finally", "Then"], "reponse": 1, "explication": "Finally annonce la dernière étape."}
+  ],
+  "4E-06": [
+    {"question": "Choose the correct direction.", "choix": ["You turn left, please.", "Turn left.", "Turning left."], "reponse": 1, "explication": "L'impératif s'emploie sans sujet : Turn left."},
+    {"question": "Negative imperative: \"___ cross here!\"", "choix": ["Not", "Don't", "No"], "reponse": 1, "explication": "Don't + verbe."}
+  ],
+  "4E-07": [
+    {"question": "Complete: \"London is ___ than Oxford.\"", "choix": ["more big", "bigger", "biggest"], "reponse": 1, "explication": "Adjectif court : big - bigger than."},
+    {"question": "Complete: \"This film is ___ than the book.\"", "choix": ["gooder", "better", "more good"], "reponse": 1, "explication": "good est irrégulier : better."}
+  ],
+  "4E-08": [
+    {"question": "Past simple of \"go\":", "choix": ["goed", "went", "gone"], "reponse": 1, "explication": "go est irrégulier : went."},
+    {"question": "Choose the correct negative.", "choix": ["I didn't visited the museum.", "I didn't visit the museum.", "I not visited the museum."], "reponse": 1, "explication": "didn't + verbe à la base, sans -ed."}
+  ],
+  "4E-09": [
+    {"question": "You don't know the word \"spatula\". You say:", "choix": ["It's a kind of tool. You use it to cook.", "Spatula is spatula.", "I don't know."], "reponse": 0, "explication": "Paraphraser : It's a kind of... / You use it to..."},
+    {"question": "Complete: \"It's ___ a big sandwich.\"", "choix": ["like", "as", "than"], "reponse": 0, "explication": "It's like... = ça ressemble à..."}
+  ],
+  "4E-10": [
+    {"question": "Where is the stress in \"exciting\"?", "choix": ["EX-ci-ting", "ex-CI-ting", "ex-ci-TING"], "reponse": 1, "explication": "On accentue la deuxième syllabe : ex-CI-ting."},
+    {"question": "\"Was it good?\" Your voice goes...", "choix": ["up at the end", "down at the end", "flat"], "reponse": 0, "explication": "Une question fermée (yes/no) monte à la fin."}
+  ],
+  "3E-03": [
+    {"question": "Which word gives an example?", "choix": ["because", "for instance", "that's why"], "reponse": 1, "explication": "for instance = par exemple."},
+    {"question": "A strong opinion always has...", "choix": ["a reason", "a question", "a title"], "reponse": 0, "explication": "Point + reason + example."}
+  ],
+  "3E-04": [
+    {"question": "Which phrase states the aim of a proposal?", "choix": ["To sum up", "The aim is to...", "Secondly"], "reponse": 1, "explication": "The aim is to... présente l'objectif."},
+    {"question": "Which phrase starts the conclusion?", "choix": ["In addition", "Firstly", "To sum up"], "reponse": 2, "explication": "To sum up = pour conclure."}
+  ],
+  "3E-05": [
+    {"question": "\"You should wear a helmet.\" The intention is to...", "choix": ["advise", "inform", "complain"], "reponse": 0, "explication": "should exprime un conseil."},
+    {"question": "\"Danger! Don't touch!\" The intention is to...", "choix": ["persuade", "warn", "inform"], "reponse": 1, "explication": "Un avertissement : to warn."}
+  ],
+  "3E-06": [
+    {"question": "Choose a polite way to disagree.", "choix": ["I don't think so.", "Shut up.", "You're stupid."], "reponse": 0, "explication": "I don't think so / I disagree with..."},
+    {"question": "Complete: \"___ Tom, Lisa likes sport.\"", "choix": ["Unlike", "Both", "Whereas"], "reponse": 0, "explication": "Unlike + nom = contrairement à."}
+  ],
+  "3E-07": [
+    {"question": "Which word gives advice?", "choix": ["might", "should", "could"], "reponse": 1, "explication": "should = conseil."},
+    {"question": "\"It ___ be too expensive.\" (weak possibility)", "choix": ["should", "might", "must"], "reponse": 1, "explication": "might = possibilité faible."}
+  ],
+  "3E-08": [
+    {"question": "Complete: \"I ___ texting when the bus arrived.\"", "choix": ["were", "was", "am"], "reponse": 1, "explication": "Past continuous : I was + -ing."},
+    {"question": "Complete: \"While I was walking, someone ___ my phone.\"", "choix": ["was stealing", "stole", "steals"], "reponse": 1, "explication": "L'événement court est au past simple : stole."}
+  ],
+  "3E-09": [
+    {"question": "Which phrase introduces a document?", "choix": ["This document is about...", "In short...", "Whereas..."], "reponse": 0, "explication": "This document is about... présente le sujet."},
+    {"question": "Which phrase concludes a summary?", "choix": ["According to the text", "In short", "The first point is"], "reponse": 1, "explication": "In short = en bref."}
+  ],
+  "3E-10": [
+    {"question": "A good chunk has...", "choix": ["3 to 6 words", "1 word", "20 words"], "reponse": 0, "explication": "On découpe en groupes de 3 à 6 mots."},
+    {"question": "When you read numbers aloud, you...", "choix": ["speed up", "slow down", "whisper"], "reponse": 1, "explication": "On ralentit pour les nombres."}
+  ]
+}

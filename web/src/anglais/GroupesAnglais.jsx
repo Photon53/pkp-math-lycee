@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
+import { FicheCodes } from "../enseignant/Classes.jsx";
 import { useApi } from "../enseignant/useApi.js";
 
 const NIVEAUX = ["4e", "3e"];
 const ignorer = () => {};
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
+const I_CAN = { non_observe: "—", avec_aide: "avec aide", en_cours: "en cours", autonome: "autonome" };
 
 /** Groupes PKP Anglais par niveau (4e, 3e) et leurs élèves : séparés des classes de maths. */
 export default function GroupesAnglais({ jeton, onExpire }) {
@@ -15,6 +17,9 @@ export default function GroupesAnglais({ jeton, onExpire }) {
   const [niveau, setNiveau] = useState("4e");
   const [prenomsSaisis, setPrenomsSaisis] = useState("");
   const [message, setMessage] = useState(null);
+  // Codes montrés une seule fois, juste après leur création : le serveur n'en garde que l'empreinte.
+  const [codes, setCodes] = useState(null);
+  const [progression, setProgression] = useState(null);
 
   const charger = useCallback(() => appeler("/anglais/groupes").then(setGroupes, ignorer), [appeler]);
 
@@ -28,6 +33,27 @@ export default function GroupesAnglais({ jeton, onExpire }) {
     setGroupeId(id);
     setPrenomsSaisis("");
     setMessage(null);
+    setCodes(null);
+    setProgression(null);
+  }
+
+  async function genererCodes(chemin, confirmation) {
+    if (confirmation && !window.confirm(confirmation)) return;
+    try {
+      const r = await appeler(chemin, { methode: "POST" });
+      setCodes(Array.isArray(r) ? r : [r]);
+      await charger();
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
+  async function voirProgression() {
+    try {
+      setProgression(await appeler(`/anglais/groupes/${groupeId}/progression`));
+    } catch {
+      // erreur déjà affichée
+    }
   }
 
   async function creer(e) {
@@ -49,6 +75,7 @@ export default function GroupesAnglais({ jeton, onExpire }) {
       const r = await appeler(`/anglais/groupes/${groupeId}/eleves`, { methode: "POST", corps: { prenoms } });
       setPrenomsSaisis("");
       setMessage(r.deja_presents.length ? `Déjà inscrit(s), ignoré(s) : ${r.deja_presents.join(", ")}.` : null);
+      setCodes(r.crees);
       await charger();
     } catch {
       // erreur déjà affichée (prénom invalide, groupe complet)
@@ -153,18 +180,72 @@ export default function GroupesAnglais({ jeton, onExpire }) {
             {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances 4e et 3e</a> ({groupe.niveau.toUpperCase()}-01 à{" "}
             {groupe.niveau.toUpperCase()}-10).
           </p>
+          {codes && (
+            <FicheCodes
+              classe={groupe.nom}
+              intitule={`Anglais ${groupe.niveau} · ${groupe.nom}`}
+              chemin="/anglais/eleve"
+              codes={codes}
+              onFermer={() => setCodes(null)}
+            />
+          )}
           {groupe.eleves.length > 0 && (
             <ul className="liste-eleves-anglais">
               {groupe.eleves.map((e) => (
                 <li key={e.id}>
                   <span>{e.prenom}</span>
-                  <button className="lien" onClick={() => retirer(e)} aria-label={`Retirer ${e.prenom}`}>
-                    Retirer
-                  </button>
+                  <span className="doux petit">
+                    {e.identifiant ? <code className="identifiant-eleve">{e.identifiant}</code> : "sans code"}
+                  </span>
+                  <span className="actions-ligne">
+                    <button
+                      className="lien"
+                      onClick={() =>
+                        genererCodes(
+                          `/anglais/groupes/${groupeId}/eleves/${e.id}/code`,
+                          e.a_un_code && `Nouveau code pour ${e.prenom} ?\n\nL'ancien code ne fonctionnera plus.`,
+                        )
+                      }
+                      aria-label={`Nouveau code pour ${e.prenom}`}
+                    >
+                      Nouveau code
+                    </button>
+                    <button className="lien" onClick={() => retirer(e)} aria-label={`Retirer ${e.prenom}`}>
+                      Retirer
+                    </button>
+                  </span>
                 </li>
               ))}
             </ul>
           )}
+          {groupe.eleves.length > 0 && (
+            <div className="actions">
+              {groupe.eleves.some((e) => !e.a_un_code) && (
+                <button className="secondaire" onClick={() => genererCodes(`/anglais/groupes/${groupeId}/codes`)}>
+                  Créer les codes manquants
+                </button>
+              )}
+              <button
+                className="secondaire"
+                onClick={() =>
+                  genererCodes(
+                    `/anglais/groupes/${groupeId}/codes?tous=true`,
+                    "Réimprimer les cartes de tout le groupe ?\n\nChaque élève reçoit un nouveau code ; les anciens ne fonctionnent plus.",
+                  )
+                }
+              >
+                Réimprimer toutes les cartes
+              </button>
+              <button className="secondaire" onClick={voirProgression}>
+                Voir la progression
+              </button>
+            </div>
+          )}
+          <p className="aide">
+            Chaque élève se connecte sur <strong>{window.location.origin}/anglais/eleve</strong> avec son identifiant et son
+            code personnel (ou en scannant le QR code de sa carte). Il n'y voit que les séances validées de son niveau.
+          </p>
+          {progression && <TableProgression lignes={progression} />}
           <form onSubmit={inscrire}>
             <label htmlFor="prenoms-anglais">Inscrire des élèves (un prénom par ligne)</label>
             <textarea
@@ -195,5 +276,50 @@ export default function GroupesAnglais({ jeton, onExpire }) {
         </section>
       )}
     </>
+  );
+}
+
+/** Meilleur score au quiz et auto-évaluation « I can », séance par séance. */
+function TableProgression({ lignes }) {
+  const codes = [...new Set(lignes.flatMap((l) => Object.keys(l.seances)))].sort();
+  if (codes.length === 0) return <p className="doux">Aucun élève n'a encore fait de quiz.</p>;
+  return (
+    <div className="tableau-defilant">
+      <table>
+        <caption className="visuellement-cache">Progression du groupe</caption>
+        <thead>
+          <tr>
+            <th>Élève</th>
+            {codes.map((c) => (
+              <th key={c}>{c}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {lignes.map((l) => (
+            <tr key={l.id}>
+              <td>{l.prenom}</td>
+              {codes.map((c) => {
+                const p = l.seances[c];
+                return (
+                  <td key={c}>
+                    {p ? (
+                      <>
+                        {p.score}/{p.total}
+                        {p.i_can.length > 0 && (
+                          <span className="doux petit"> · I can : {p.i_can.map((n) => I_CAN[n]).join(", ")}</span>
+                        )}
+                      </>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

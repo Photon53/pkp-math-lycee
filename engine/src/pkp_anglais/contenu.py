@@ -6,7 +6,11 @@ from .seances import Etape, Fiche, Seance, verifier_seance
 
 
 def charger_seance(chemin: str | Path) -> Seance:
-    data = json.loads(Path(chemin).read_text(encoding="utf-8"))
+    return seance_depuis_dict(json.loads(Path(chemin).read_text(encoding="utf-8")))
+
+
+def seance_depuis_dict(data: dict) -> Seance:
+    """Séance au format des fichiers JSON (aussi stockée telle quelle en base) ; refusée si incomplète."""
     seance = Seance(
         code=data["code"],
         niveau=data["level"],

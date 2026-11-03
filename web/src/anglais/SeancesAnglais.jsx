@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
 
-/** Télécharge un cahier PDF ; l'espace admin passe sa propre route (`/admin/anglais`). */
-export async function telecharger(code, publicCible, jeton, base = "/anglais") {
-  const reponse = await fetch(`/api${base}/seances/${encodeURIComponent(code)}/pdf/${publicCible}`, {
+/** Télécharge un cahier PDF ; l'espace admin et la validation passent leur propre route. */
+export async function telecharger(code, publicCible, jeton, base = "/anglais/seances") {
+  const reponse = await fetch(`/api${base}/${encodeURIComponent(code)}/pdf/${publicCible}`, {
     headers: { Authorization: `Bearer ${jeton}` },
   });
   if (!reponse.ok) {
     const data = await reponse.json().catch(() => null);
     throw new Error(data?.detail || "Impossible de générer le PDF.");
   }
+  // Le serveur nomme le fichier (suffixe « NON-VALIDE » tant que la séance n'est pas validée).
+  const nom = /filename="([^"]+)"/.exec(reponse.headers?.get?.("Content-Disposition") ?? "")?.[1];
   const url = URL.createObjectURL(await reponse.blob());
   const lien = document.createElement("a");
   lien.href = url;
-  lien.download = `pkp-anglais-${code}-${publicCible}.pdf`;
+  lien.download = nom ?? `pkp-anglais-${code}-${publicCible}.pdf`;
   document.body.appendChild(lien);
   lien.click();
   lien.remove();
@@ -23,7 +25,7 @@ export async function telecharger(code, publicCible, jeton, base = "/anglais") {
 const MEDIAS = { audio: "Audio", video: "Vidéo", text: "Texte" };
 
 /** Liens ouverts dans un nouvel onglet, sans lecteur intégré : aucun traceur tiers dans l'application. */
-function LienRessource({ ressource }) {
+export function LienRessource({ ressource }) {
   return <p>
     <a href={ressource.url} target="_blank" rel="noopener noreferrer"><strong>{ressource.title}</strong></a>{" "}
     <span className="doux">· {MEDIAS[ressource.media] ?? "En ligne"} · {ressource.level} · {ressource.source} · vérifié le {ressource.verified_on}</span>
@@ -31,7 +33,7 @@ function LienRessource({ ressource }) {
 }
 
 /** Dialogue « Nom: réplique » en bulles alternées, comme dans le cahier ; un texte suivi reste un paragraphe. */
-function Bulles({ texte }) {
+export function Bulles({ texte }) {
   const repliques = texte.split("\n").map((ligne) => ligne.split(/:(.*)/s));
   if (repliques.length < 2 || repliques.some((r) => r.length < 2 || r[0].length > 15)) {
     return <p className="anglais-texte">{texte}</p>;
@@ -46,7 +48,7 @@ function Bulles({ texte }) {
   </div>;
 }
 
-function Rubrique({ numero, titre, children }) {
+export function Rubrique({ numero, titre, children }) {
   return <article className="carte anglais-rubrique">
     <h3>{numero ? `${numero}. ` : ""}{titre}</h3>
     {children}
@@ -57,8 +59,9 @@ function Reponse({ children }) {
   return <details className="correction"><summary>Réponse</summary>{children}</details>;
 }
 
-/** Le cours tel qu'il est imprimé dans le cahier élève, rubrique par rubrique, avec les réponses repliées. */
-function Cahier({ cahier, fiches }) {
+/** Le cours tel qu'il est imprimé dans le cahier élève, rubrique par rubrique, avec les réponses repliées.
+ * Côté élève, le serveur n'envoie pas les réponses : elles ne sont simplement pas affichées. */
+export function Cahier({ cahier, fiches }) {
   const ecoute = cahier.listening;
   return <>
     <Rubrique numero={1} titre="Get curious - Choose your idea">
@@ -86,7 +89,7 @@ function Cahier({ cahier, fiches }) {
     <Rubrique numero={4} titre="Listen and watch">
       <LienRessource ressource={ecoute} />
       <p className="doux">À ouvrir et tester avant la séance (téléphone ou ordinateur avec haut-parleur). Le cahier élève contient le QR code.</p>
-      <ol>{ecoute.questions.map((q, i) => <li key={i}>{q}<Reponse><p>{ecoute.answers[i]}</p></Reponse></li>)}</ol>
+      <ol>{ecoute.questions.map((q, i) => <li key={i}>{q}{ecoute.answers && <Reponse><p>{ecoute.answers[i]}</p></Reponse>}</li>)}</ol>
       <details className="correction"><summary>Script de secours (sans réseau, à lire deux fois)</summary>
         <Bulles texte={ecoute.fallback} />
       </details>
@@ -99,7 +102,7 @@ function Cahier({ cahier, fiches }) {
     </Rubrique>
 
     <Rubrique numero={6} titre="Practise - Try it yourself">
-      <ol>{cahier.practice.map((q, i) => <li key={i}>{q}<Reponse><p>{cahier.practice_answers[i]}</p></Reponse></li>)}</ol>
+      <ol>{cahier.practice.map((q, i) => <li key={i}>{q}{cahier.practice_answers && <Reponse><p>{cahier.practice_answers[i]}</p></Reponse>}</li>)}</ol>
     </Rubrique>
 
     <Rubrique numero={7} titre="Choose your challenge - A / B / C">
@@ -107,7 +110,7 @@ function Cahier({ cahier, fiches }) {
         <h4>Track {fiche.parcours}</h4>
         <p style={{ whiteSpace: "pre-wrap" }}>{fiche.enonce}</p>
         {fiche.parcours === "A" && <p className="anglais-encadre"><strong>Need help? Start with:</strong> {cahier.starters.join("  /  ")}</p>}
-        <details className="correction"><summary>Corrigé / critères</summary><p style={{ whiteSpace: "pre-wrap" }}>{fiche.corrige}</p></details>
+        {fiche.corrige && <details className="correction"><summary>Corrigé / critères</summary><p style={{ whiteSpace: "pre-wrap" }}>{fiche.corrige}</p></details>}
       </div>)}
     </Rubrique>
 
@@ -115,7 +118,7 @@ function Cahier({ cahier, fiches }) {
 
     <Rubrique numero={9} titre="Check yourself - I can...">
       <ul>{cahier.can_do.map((c) => <li key={c}>{c}</li>)}</ul>
-      <p className="doux">Dans le cahier, l'élève coche : Not yet / Almost / Yes!</p>
+      {fiches[0]?.corrige && <p className="doux">Dans le cahier, l'élève coche : Not yet / Almost / Yes!</p>}
     </Rubrique>
 
     <Rubrique numero={10} titre="Remember for next time"><p>{cahier.memory}</p></Rubrique>
@@ -176,17 +179,21 @@ export default function SeancesAnglais({ jeton, onExpire }) {
   }
 
   return <section>
-    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · contenus en attente de validation pédagogique.</p>
+    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · une séance non validée par un référent reste utilisable par les professeurs, avec la mention NON VALIDÉ, mais n'est pas ouverte aux élèves.</p>
     {chargement && <p>Chargement des séances…</p>}
     {erreur && <p role="alert" className="erreur">{erreur}</p>}
     {liste.length > 0 && <div className="carte">
       <label htmlFor="anglais-seance">Séance</label>
       <select id="anglais-seance" value={code} onChange={(e) => setCode(e.target.value)}>
-        {liste.map((item) => <option key={item.code} value={item.code}>{item.code} · {item.titre}</option>)}
+        {liste.map((item) => <option key={item.code} value={item.code}>{item.code} · {item.titre}{item.validee ? "" : " · NON VALIDÉ"}</option>)}
       </select>
     </div>}
     {seance && <>
       <div className="carte">
+        {!seance.validee && <p className="bandeau-non-valide" role="note">
+          <strong>NON VALIDÉ</strong> · version {seance.version} en attente de validation par un référent : usage personnel
+          uniquement, les élèves ne la voient pas. Les PDF portent la même mention.
+        </p>}
         <h2>{seance.titre}</h2>
         {seance.cahier && <p className="anglais-accroche">{seance.cahier.hook}</p>}
         <p><strong>Objectif :</strong> {seance.objectif}</p>

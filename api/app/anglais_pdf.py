@@ -83,14 +83,16 @@ def _case(taille=11):
     return d
 
 
-def produire_pdf(seance: dict, public: str) -> bytes:
+def produire_pdf(seance: dict, public: str, cahier: dict | None = None, validee: bool = False) -> bytes:
+    """Cahier élève ou pack animateur ; sans version validée, chaque page porte la mention NON VALIDÉ."""
     if public not in ("eleve", "animateur"):
         raise ValueError("Public inconnu")
     code = seance.get("code", "")
-    ressources = charger_ressources()
-    if code not in ressources:
+    if cahier is None:
+        cahier = charger_ressources().get(code)
+    if cahier is None:
         raise ValueError("Ressources pédagogiques manquantes pour " + code)
-    r = ressources[code]
+    r = cahier
     erreurs = verifier_ressources(r)
     if erreurs:
         raise ValueError("Pack incomplet : " + "; ".join(erreurs))
@@ -307,7 +309,8 @@ def produire_pdf(seance: dict, public: str) -> bytes:
         section("can_do", "Observation: quick grid",
                 para("For each student: task / organisation / language / interaction: 1-4 or NO (not observed)."), numerote=False)
         section("remember", "Validation",
-                para("BROUILLON - Validation par un professeur d'anglais obligatoire avant diffusion au bénévole. "
+                para("Version validée par un professeur référent. Vérifier que chaque lien fonctionne encore." if validee else
+                     "NON VALIDÉ - Validation par un professeur référent obligatoire avant diffusion au bénévole. "
                      "Vérifier aussi que chaque lien fonctionne encore."), numerote=False)
 
     def footer(canvas, document):
@@ -316,8 +319,16 @@ def produire_pdf(seance: dict, public: str) -> bytes:
         canvas.line(1.65 * cm, 1.35 * cm, 19.35 * cm, 1.35 * cm)
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(NAVY)
-        canvas.drawString(1.65 * cm, 1.05 * cm, "PKP ANGLAIS | " + code + " | Brouillon - validation professeur requise")
+        etat = "Version validée" if validee else "NON VALIDÉ - usage personnel uniquement"
+        canvas.drawString(1.65 * cm, 1.05 * cm, "PKP ANGLAIS | " + code + " | " + etat)
         canvas.drawRightString(19.35 * cm, 1.05 * cm, str(document.page))
+        if not validee:
+            # Filigrane en diagonale (CDC anglais V1.8) : visible sans masquer le contenu.
+            canvas.setFont("Helvetica-Bold", 64)
+            canvas.setFillColor(colors.Color(0.85, 0.1, 0.1, alpha=0.12))
+            canvas.translate(10.5 * cm, 14.85 * cm)
+            canvas.rotate(45)
+            canvas.drawCentredString(0, 0, "NON VALIDÉ")
         canvas.restoreState()
 
     doc.build(story, onFirstPage=footer, onLaterPages=footer)

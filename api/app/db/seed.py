@@ -23,7 +23,7 @@ from pkp_engine import Niveau, corriger
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import contenu
+from app import anglais_contenu, contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
@@ -59,6 +59,7 @@ SEANCES = [
 def charger_demo(session: Session) -> bool:
     """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà."""
     contenu.importer(session, contenu.charger())
+    anglais_contenu.importer_seances(session)  # soumises à validation : aucun élève ne les voit encore
     mot_de_passe = os.environ.get("PKP_DEMO_MOT_DE_PASSE", "demo-pkp-2026")
 
     # Ajouté à part : une base de démo antérieure à la V2 reçoit aussi son administrateur.
@@ -76,6 +77,7 @@ def charger_demo(session: Session) -> bool:
         session.add(
             models.Enseignant(
                 nom="Professeur d'anglais Démo", email=EMAIL_ANGLAIS_DEMO, enseigne_maths=False, enseigne_anglais=True,
+                referent_anglais=True,
                 mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
             )
         )

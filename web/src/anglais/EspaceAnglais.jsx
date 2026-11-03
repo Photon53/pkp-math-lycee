@@ -5,12 +5,15 @@ import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import GroupesAnglais from "./GroupesAnglais.jsx";
 import SeancesAnglais from "./SeancesAnglais.jsx";
+import ValidationAnglais from "./ValidationAnglais.jsx";
 
 const MARQUE = "Anglais";
 const PAGES = [
   { vers: "/anglais", libelle: "Séances 4e et 3e", icone: "cours" },
   { vers: "/anglais/groupes", libelle: "Mes groupes", icone: "classes" },
 ];
+// Ouverte aux référents cochés par un administrateur (l'API le revérifie à chaque requête).
+const VALIDATION = { vers: "/anglais/validation", libelle: "Validation", icone: "bouclier" };
 
 /** Espace PKP Anglais : séparé de l'espace professeur de maths, ouvert aux comptes dont la discipline anglais est cochée. */
 export default function EspaceAnglais({ chemin = "/anglais" }) {
@@ -53,13 +56,14 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
     );
   }
 
-  const page = PAGES.find((p) => p.vers !== "/anglais" && (chemin === p.vers || chemin.startsWith(`${p.vers}/`))) ?? PAGES[0];
+  const pages = compte.referent_anglais ? [...PAGES, VALIDATION] : PAGES;
+  const page = pages.find((p) => p.vers !== "/anglais" && (chemin === p.vers || chemin.startsWith(`${p.vers}/`))) ?? PAGES[0];
 
   return (
     <CadreApplication
       espace="PKP Anglais"
       marque={MARQUE}
-      liens={PAGES}
+      liens={pages}
       cheminActif={chemin}
       pied={
         <>
@@ -78,6 +82,8 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
       <EntetePage titre={page.libelle} fil="PKP Anglais" />
       {page.vers === "/anglais/groupes" ? (
         <GroupesAnglais jeton={compte.jeton} onExpire={deconnecter} />
+      ) : page.vers === "/anglais/validation" ? (
+        <ValidationAnglais jeton={compte.jeton} onExpire={deconnecter} />
       ) : (
         <SeancesAnglais jeton={compte.jeton} onExpire={deconnecter} />
       )}

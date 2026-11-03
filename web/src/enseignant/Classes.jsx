@@ -510,7 +510,8 @@ function ChapitresProposes({ classe, appeler }) {
 
 /** Codes en clair : affichés une seule fois (stockés hachés). Imprimés sous forme de cartes à découper :
  * identifiant + code personnel + QR code qui connecte l'élève directement depuis son téléphone. */
-function FicheCodes({ classe, codes, onFermer }) {
+/** Cartes à imprimer ; PKP Anglais passe son propre intitulé et sa page de connexion (`/anglais/eleve`). */
+export function FicheCodes({ classe, codes, onFermer, intitule = `Classe ${classe}`, chemin = "/eleve" }) {
   const [qr, setQr] = useState({}); // identifiant → SVG du QR code
 
   useEffect(() => {
@@ -518,16 +519,16 @@ function FicheCodes({ classe, codes, onFermer }) {
     Promise.all(
       codes
         .filter((c) => c.identifiant)
-        .map(async (c) => [c.identifiant, await QRCode.toString(lienCarte(c), { type: "svg", margin: 1, width: 110 })]),
+        .map(async (c) => [c.identifiant, await QRCode.toString(lienCarte(c, chemin), { type: "svg", margin: 1, width: 110 })]),
     ).then((paires) => actif && setQr(Object.fromEntries(paires)), () => {});
     return () => {
       actif = false;
     };
-  }, [codes]);
+  }, [codes, chemin]);
 
   return (
     <div className="fiche-codes" role="region" aria-label="Codes personnels à distribuer">
-      <h3>Cartes de connexion — classe {classe}</h3>
+      <h3>Cartes de connexion — {intitule}</h3>
       <p className="aide">
         Ces codes ne seront plus affichés : imprimez les cartes maintenant. Un code perdu se remplace par « Nouveau code » ;
         l'identifiant, lui, ne change pas. À la maison, l'élève scanne son QR code ou saisit son identifiant et son code.
@@ -540,7 +541,7 @@ function FicheCodes({ classe, codes, onFermer }) {
             <li key={c.id ?? c.prenom} className="carte-eleve">
               <div>
                 <strong>{c.prenom}</strong>
-                <span className="doux petit">Classe {classe}</span>
+                <span className="doux petit">{intitule}</span>
                 {c.identifiant && (
                   <span>
                     Identifiant : <code className="identifiant-eleve">{c.identifiant}</code>
@@ -549,7 +550,7 @@ function FicheCodes({ classe, codes, onFermer }) {
                 <span>
                   Code personnel : <code className="code-personnel">{c.code}</code>
                 </span>
-                <span className="doux petit">{window.location.origin}/eleve</span>
+                <span className="doux petit">{window.location.origin}{chemin}</span>
               </div>
               {qr[c.identifiant] && (
                 <span
@@ -576,8 +577,8 @@ function FicheCodes({ classe, codes, onFermer }) {
 }
 
 /** Lien encodé dans le QR code : le code est dans le fragment (#), jamais envoyé au serveur. */
-export function lienCarte({ identifiant, code }) {
-  return `${window.location.origin}/eleve#carte=${identifiant}.${code}`;
+export function lienCarte({ identifiant, code }, chemin = "/eleve") {
+  return `${window.location.origin}${chemin}#carte=${identifiant}.${code}`;
 }
 
 /** Le même élève dans vos autres classes (spécialité, mise à niveau, excellence…) : un seul code, bascule libre. */

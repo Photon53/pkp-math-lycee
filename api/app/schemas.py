@@ -361,6 +361,8 @@ class JetonEnseignant(BaseModel):
     # Espaces ouverts au compte ; l'API les revérifie à chaque requête.
     enseigne_maths: bool = True
     enseigne_anglais: bool = False
+    # Référent : ouvre la page de validation des séances PKP Anglais.
+    referent_anglais: bool = False
 
 
 class ChangementMotDePasse(BaseModel):

@@ -97,6 +97,7 @@ export default function Professeurs({ jeton, onExpire }) {
                       {p.role === "admin" && <span className="badge accent">Admin</span>}{" "}
                       {p.enseigne_maths && <span className="badge neutre">Maths</span>}{" "}
                       {p.enseigne_anglais && <span className="badge neutre">Anglais</span>}{" "}
+                      {p.referent_anglais && <span className="badge accent">Référent anglais</span>}{" "}
                       {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}{" "}
                       {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
                     </td>
@@ -211,6 +212,7 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
   const [role, setRole] = useState(prof?.role ?? "enseignant");
   const [maths, setMaths] = useState(prof?.enseigne_maths ?? true);
   const [anglais, setAnglais] = useState(prof?.enseigne_anglais ?? false);
+  const [referent, setReferent] = useState(prof?.referent_anglais ?? false);
   const [erreur, setErreur] = useState(null);
 
   async function soumettre(e) {
@@ -221,7 +223,7 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
       return;
     }
     try {
-      const corps = { nom, email, role, enseigne_maths: maths, enseigne_anglais: anglais };
+      const corps = { nom, email, role, enseigne_maths: maths, enseigne_anglais: anglais, referent_anglais: anglais && referent };
       if (prof) {
         await appeler(`/admin/enseignants/${prof.id}`, { methode: "POST", corps });
         onModifie();
@@ -253,6 +255,12 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
           <label className="case">
             <input type="checkbox" checked={anglais} onChange={(e) => setAnglais(e.target.checked)} /> Anglais (espace PKP Anglais)
           </label>
+          {anglais && (
+            <label className="case">
+              <input type="checkbox" checked={referent} onChange={(e) => setReferent(e.target.checked)} /> Référent anglais : valide les
+              séances écrites par d'autres
+            </label>
+          )}
         </fieldset>
         {!prof && <p className="aide">Un mot de passe provisoire sera affiché une seule fois après la création.</p>}
         <Erreur message={erreur} />

@@ -10,6 +10,7 @@ import { Logo } from "./ui/Icone.jsx";
 const EspaceAdmin = lazy(() => import("./admin/EspaceAdmin.jsx"));
 // Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
 const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
+const EspaceEleveAnglais = lazy(() => import("./anglais/EspaceEleveAnglais.jsx"));
 
 export default function App() {
   const chemin = useChemin();
@@ -23,7 +24,9 @@ export default function App() {
     );
   }
   if (chemin === "/enseignant" || chemin.startsWith("/enseignant/")) return <EspaceEnseignant chemin={chemin} />;
-  if (chemin === "/anglais" || chemin.startsWith("/anglais/")) {
+  // Élève d'anglais : avant l'espace professeur /anglais, dont il partage le préfixe.
+  const eleveAnglais = chemin === "/anglais/eleve" || chemin.startsWith("/anglais/eleve/");
+  if (!eleveAnglais && (chemin === "/anglais" || chemin.startsWith("/anglais/"))) {
     return (
       <Suspense fallback={<p className="doux page">Chargement…</p>}>
         <EspaceAnglais chemin={chemin} />
@@ -40,10 +43,28 @@ export default function App() {
         <Logo />
         <nav aria-label="Espaces">
           {!methode && <a href="/methode">La méthode PKP</a>}
-          {eleve ? <a href="/enseignant">Espace professeur</a> : <a href="/eleve">Espace élève</a>}
+          {eleveAnglais ? (
+            <a href="/anglais">Espace professeur</a>
+          ) : eleve ? (
+            <a href="/enseignant">Espace professeur</a>
+          ) : (
+            <a href="/eleve">Espace élève</a>
+          )}
         </nav>
       </header>
-      <main>{eleve ? <EspaceEleve /> : methode ? <Methode /> : <Accueil />}</main>
+      <main>
+        {eleveAnglais ? (
+          <Suspense fallback={<p className="doux">Chargement…</p>}>
+            <EspaceEleveAnglais />
+          </Suspense>
+        ) : eleve ? (
+          <EspaceEleve />
+        ) : methode ? (
+          <Methode />
+        ) : (
+          <Accueil />
+        )}
+      </main>
       <footer className="pied">
         <span>© {new Date().getFullYear()} PKP Math Lycée</span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>

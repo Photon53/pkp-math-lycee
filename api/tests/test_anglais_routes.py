@@ -46,20 +46,20 @@ def test_chaque_objectif_du_referentiel_a_sa_seance():
     """Le programme 4e et 3e est couvert : chaque objectif du référentiel a une séance au catalogue, dans l'ordre."""
     import json
 
-    from app.routes.anglais import CONTENU, SEANCES
+    from app.anglais_contenu import CONTENU, FICHIERS
 
     for niveau in ("4e", "3e"):
-        referentiel = json.loads((CONTENU.parent / "referentiels" / niveau / "2026-2027.json").read_text(encoding="utf-8"))
+        referentiel = json.loads((CONTENU / "referentiels" / niveau / "2026-2027.json").read_text(encoding="utf-8"))
         objectifs = [o["code"] for o in referentiel["objectives"]]
-        assert objectifs == [code for code, (n, _) in SEANCES.items() if n == niveau]
+        assert objectifs == [code for code, f in FICHIERS.items() if f.startswith(niveau)]
 
 
 def test_chaque_fichier_de_seance_est_au_catalogue():
-    """Une séance déposée dans contenu/anglais/seances mais oubliée dans SEANCES n'apparaîtrait jamais."""
-    from app.routes.anglais import CONTENU, SEANCES
+    """Une séance déposée dans contenu/anglais/seances mais oubliée dans FICHIERS ne serait jamais importée."""
+    from app.anglais_contenu import CONTENU, FICHIERS
 
-    deposes = {(f.parent.name, f.name) for f in CONTENU.glob("*/*.json")}
-    assert deposes == set(SEANCES.values())
+    deposes = {f"{f.parent.name}/{f.name}" for f in (CONTENU / "seances").glob("*/*.json")}
+    assert deposes == set(FICHIERS.values())
 
 
 def test_code_ou_pack_inconnu(client):

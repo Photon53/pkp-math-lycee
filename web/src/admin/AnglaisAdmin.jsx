@@ -1,12 +1,12 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { telecharger } from "../anglais/SeancesAnglais.jsx";
 import { Erreur, Onglets } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Vide } from "../ui/Cadre.jsx";
+import SeancesAnglaisAdmin from "./SeancesAnglaisAdmin.jsx";
 
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
 
-/** PKP Anglais côté administrateur : groupes 4e/3e de tous les professeurs d'anglais, et catalogue des séances. */
+/** PKP Anglais côté administrateur : groupes 4e/3e de tous les professeurs d'anglais, édition et validation des séances. */
 export default function AnglaisAdmin({ jeton, onExpire }) {
   const [onglet, setOnglet] = useState("groupes");
   return (
@@ -16,10 +16,10 @@ export default function AnglaisAdmin({ jeton, onExpire }) {
         onChange={setOnglet}
         options={[
           ["groupes", "Groupes et élèves"],
-          ["seances", "Séances"],
+          ["seances", "Séances et validation"],
         ]}
       />
-      {onglet === "groupes" ? <Groupes jeton={jeton} onExpire={onExpire} /> : <Seances jeton={jeton} onExpire={onExpire} />}
+      {onglet === "groupes" ? <Groupes jeton={jeton} onExpire={onExpire} /> : <SeancesAnglaisAdmin jeton={jeton} onExpire={onExpire} />}
     </>
   );
 }
@@ -179,77 +179,5 @@ function TransfertGroupe({ groupe, autres, onFermer, onValider }) {
         </>
       )}
     </Modale>
-  );
-}
-
-function Seances({ jeton, onExpire }) {
-  const { appeler, erreur, setErreur } = useApi(jeton, onExpire);
-  const [seances, setSeances] = useState(null);
-  const [encours, setEncours] = useState("");
-
-  useEffect(() => {
-    appeler("/admin/anglais/seances").then(setSeances, () => {});
-  }, [appeler]);
-
-  async function pdf(code, publicCible) {
-    setErreur(null);
-    setEncours(`${code}-${publicCible}`);
-    try {
-      await telecharger(code, publicCible, jeton, "/admin/anglais");
-    } catch (err) {
-      setErreur(err.message);
-    } finally {
-      setEncours("");
-    }
-  }
-
-  return (
-    <section className="carte">
-      <p className="doux">Séances proposées aux professeurs d'anglais. Le contenu se modifie dans le dépôt (contenu/anglais), puis est relu par un enseignant.</p>
-      <Erreur message={erreur} />
-      {seances === null && <p className="doux">Chargement…</p>}
-      {seances?.length > 0 && (
-        <div className="tableau-defilant">
-          <table>
-            <thead>
-              <tr>
-                <th>Code</th>
-                <th>Niveau</th>
-                <th>Titre</th>
-                <th>Objectif</th>
-                <th className="nombre">Cahiers PDF</th>
-              </tr>
-            </thead>
-            <tbody>
-              {seances.map((s) => (
-                <tr key={s.code}>
-                  <td>
-                    <code>{s.code}</code>
-                  </td>
-                  <td>{s.niveau}</td>
-                  <td>{s.titre}</td>
-                  <td>{s.objectif}</td>
-                  <td className="nombre">
-                    <div className="actions">
-                      {[["eleve", "Élève"], ["animateur", "Animateur"]].map(([publicCible, libelle]) => (
-                        <button
-                          key={publicCible}
-                          className="secondaire petit"
-                          disabled={!!encours}
-                          onClick={() => pdf(s.code, publicCible)}
-                          aria-label={`PDF ${libelle.toLowerCase()} ${s.code}`}
-                        >
-                          {encours === `${s.code}-${publicCible}` ? "…" : libelle}
-                        </button>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
   );
 }

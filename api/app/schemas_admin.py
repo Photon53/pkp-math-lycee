@@ -48,6 +48,7 @@ class EnseignantAdmin(BaseModel):
     role: Role
     enseigne_maths: bool
     enseigne_anglais: bool
+    referent_anglais: bool = False
     actif: bool
     mdp_provisoire: bool
     totp_configure: bool
@@ -64,6 +65,8 @@ class EnseignantEdition(BaseModel):
     role: Role = Role.ENSEIGNANT
     enseigne_maths: bool = True
     enseigne_anglais: bool = False
+    # Référent : valide les séances PKP Anglais des autres auteurs.
+    referent_anglais: bool = False
 
     @field_validator("email")
     @classmethod
@@ -74,6 +77,8 @@ class EnseignantEdition(BaseModel):
     def _une_discipline(self) -> "EnseignantEdition":
         if not (self.enseigne_maths or self.enseigne_anglais):
             raise ValueError("Cochez au moins une discipline.")
+        if self.referent_anglais and not self.enseigne_anglais:
+            raise ValueError("Un référent anglais doit enseigner l'anglais.")
         return self
 
 
@@ -409,3 +414,11 @@ class Statistiques(BaseModel):
     ressources_liens: int
     ressources_pdf: int
     ressources_consultees: list[RessourceTop]
+
+
+class SeanceAnglaisEdition(BaseModel):
+    """Version complète d'une séance PKP Anglais : fichier de séance, cahier et QCM de grammaire."""
+
+    contenu: dict
+    cahier: dict
+    quiz: list[dict] = []
