@@ -10,6 +10,7 @@ from pkp_engine import Question, gabarits
 
 from app.db import models
 from app.db.conversions import question_vers_domaine
+from app.referentiel import StatutValidation
 
 
 def nouveau_tirage(question: models.Question) -> dict[str, str] | None:
@@ -42,4 +43,5 @@ def publique(question: models.Question, tirage: dict | None) -> dict:
         "type": question.type,
         "difficulte": question.difficulte,
         "variable": question.gabarit is not None,
+        "en_relecture": question.statut_validation != StatutValidation.VALIDEE,
     }

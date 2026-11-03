@@ -146,6 +146,20 @@ describe("séance d'exercices", () => {
     expect(screen.queryByText("Pas tout à fait.")).not.toBeInTheDocument();
   });
 
+  it("signale une question en relecture et une réponse juste mais pas sous la forme demandée", async () => {
+    const remarque = "Ta réponse a la bonne valeur, mais elle n'est pas sous forme développée.";
+    fausseApi({
+      "POST /seances": { status: 201, json: { id: 3 } },
+      "GET /seances/3/question": { json: { ...QUESTION, en_relecture: true } },
+      "POST /seances/3/reponses": { json: { correcte: false, solution: "x^2 + 6x + 9", maitrise: 0.2, maitrisee: false, remarque } },
+    });
+    render(<Exercice jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    expect(await screen.findByText("En relecture")).toBeInTheDocument();
+    await userEvent.type(screen.getByLabelText("Ta réponse"), "(x+3)^2{Enter}");
+    expect(await screen.findByText(remarque)).toBeInTheDocument();
+  });
+
   it("ne propose pas de variante pour un exercice à valeurs fixes", async () => {
     fausseApi({
       "POST /seances": { status: 201, json: { id: 3 } },

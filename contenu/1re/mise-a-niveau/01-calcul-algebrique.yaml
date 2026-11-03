@@ -46,6 +46,7 @@ competences:
   - code: 1RE-MAN-ALGEBRE-01
     difficulte: 1
     type: expression
+    forme: developpee
     enonce: Développer $(x - 4)(x + 4)$.
     solution: x^2 - 16
     auteur: Brouillon IA (Claude)

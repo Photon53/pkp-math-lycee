@@ -260,6 +260,7 @@ competences:
   - code: TLE-TEC-AUTO-ALG-05
     difficulte: 5
     type: expression
+    forme: reduite
     enonce: 'Développer et réduire $(2x + 3)^2$.'
     solution: 4x^2 + 12x + 9
     auteur: Brouillon IA (Claude)
@@ -507,6 +508,7 @@ competences:
   - code: TLE-TEC-AUTO-DROITE-03
     difficulte: 3
     type: expression
+    forme: reduite
     enonce: 'Donner l''équation réduite de la droite passant par $A(1 ; 3)$ et $B(4 ; 9)$, sous la forme $y = \ldots$'
     solution: 2x + 1
     auteur: Brouillon IA (Claude)

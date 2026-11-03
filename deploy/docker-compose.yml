@@ -7,6 +7,7 @@ x-api-env: &api-env
   PKP_SECRET_KEY: ${PKP_SECRET_KEY:?définir PKP_SECRET_KEY dans .env}
   PKP_CORS_ORIGINS: '["https://${PKP_DOMAINE}"]'
   PKP_RETENTION_JOURS: ${PKP_RETENTION_JOURS:-365}
+  PKP_SERVIR_QUESTIONS_NON_VALIDEES: ${PKP_SERVIR_QUESTIONS_NON_VALIDEES:?définir PKP_SERVIR_QUESTIONS_NON_VALIDEES dans .env (true ou false)}
   # PDF des ressources : hors de la racine web, servis par l'API après contrôle des droits.
   PKP_DOSSIER_FICHIERS: /data/fichiers
 

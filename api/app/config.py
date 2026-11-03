@@ -40,7 +40,8 @@ class Settings(BaseSettings):
     connexion_max_par_ip: int = 300  # toutes tentatives confondues
 
     # Banque de questions : servir aussi les questions pas encore validées par un enseignant.
-    # À passer à False dès que la validation pédagogique de la banque est faite.
+    # Même à True, une compétence qui a au moins une question validée ne sert plus que celles-là.
+    # En production, le choix doit être explicite (PKP_SERVIR_QUESTIONS_NON_VALIDEES dans .env).
     servir_questions_non_validees: bool = True
 
     # RGPD : un élève sans activité depuis ce délai est supprimé par la purge.
@@ -67,6 +68,11 @@ class Settings(BaseSettings):
             problemes.append("PKP_CORS_ORIGINS ne doit contenir que le domaine public du site.")
         if self.database_url.startswith("sqlite"):
             problemes.append("PKP_DATABASE_URL doit pointer vers PostgreSQL en production.")
+        if "servir_questions_non_validees" not in self.model_fields_set:
+            problemes.append(
+                "PKP_SERVIR_QUESTIONS_NON_VALIDEES doit être choisie explicitement : true pendant la relecture "
+                "de la banque (les élèves voient des questions non relues), false ensuite."
+            )
         if problemes:
             raise ValueError("Configuration de production invalide :\n- " + "\n- ".join(problemes))
         return self

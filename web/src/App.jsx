@@ -1,12 +1,13 @@
 import { Suspense, lazy } from "react";
 import Accueil from "./Accueil.jsx";
-import EspaceEleve from "./eleve/EspaceEleve.jsx";
-import EspaceEnseignant from "./enseignant/EspaceEnseignant.jsx";
-import Methode from "./Methode.jsx";
 import { useChemin } from "./navigation.js";
 import { Logo } from "./ui/Icone.jsx";
 
-// L'espace administrateur n'est chargé que par ceux qui l'ouvrent : les élèves ne le téléchargent pas.
+// Chaque espace n'est chargé que par ceux qui l'ouvrent : la page d'accueil reste légère sur téléphone,
+// les élèves ne téléchargent ni l'espace professeur (QR codes) ni l'administration.
+const EspaceEleve = lazy(() => import("./eleve/EspaceEleve.jsx"));
+const Methode = lazy(() => import("./Methode.jsx"));
+const EspaceEnseignant = lazy(() => import("./enseignant/EspaceEnseignant.jsx"));
 const EspaceAdmin = lazy(() => import("./admin/EspaceAdmin.jsx"));
 // Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
 const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
@@ -23,7 +24,13 @@ export default function App() {
       </Suspense>
     );
   }
-  if (chemin === "/enseignant" || chemin.startsWith("/enseignant/")) return <EspaceEnseignant chemin={chemin} />;
+  if (chemin === "/enseignant" || chemin.startsWith("/enseignant/")) {
+    return (
+      <Suspense fallback={<p className="doux page">Chargement…</p>}>
+        <EspaceEnseignant chemin={chemin} />
+      </Suspense>
+    );
+  }
   // Élève d'anglais : avant l'espace professeur /anglais, dont il partage le préfixe.
   const eleveAnglais = chemin === "/anglais/eleve" || chemin.startsWith("/anglais/eleve/");
   if (!eleveAnglais && (chemin === "/anglais" || chemin.startsWith("/anglais/"))) {
@@ -58,9 +65,13 @@ export default function App() {
             <EspaceEleveAnglais />
           </Suspense>
         ) : eleve ? (
-          <EspaceEleve />
+          <Suspense fallback={<p className="doux">Chargement…</p>}>
+            <EspaceEleve />
+          </Suspense>
         ) : methode ? (
-          <Methode />
+          <Suspense fallback={<p className="doux">Chargement…</p>}>
+            <Methode />
+          </Suspense>
         ) : (
           <Accueil />
         )}

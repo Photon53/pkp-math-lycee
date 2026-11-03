@@ -29,7 +29,7 @@ from typing import Annotated
 import pkp_engine
 import yaml
 from pkp_engine import gabarits
-from pkp_engine import ExpressionInvalide, Niveau, TypeQuestion
+from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -110,6 +110,8 @@ class QuestionYaml(_Strict):
     enonce: Annotated[str, Field(min_length=1, max_length=2000)]
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     archivee: bool = False
+    # « Développer », « Factoriser », « Réduire » : forme d'écriture exigée en plus de la valeur.
+    forme: Forme | None = None
     # Exercice à valeurs variables : énoncé, solution et correction citent les paramètres entre [[…]].
     gabarit: GabaritYaml | None = None
     # Auteur de la question : la personne qui la valide doit être une autre personne (règle E0.2).
@@ -123,6 +125,12 @@ class QuestionYaml(_Strict):
     licence_source: Annotated[str, Field(max_length=100)] | None = None
     adaptation: Adaptation = Adaptation.ORIGINALE
     validation: ValidationYaml = ValidationYaml()
+
+    @model_validator(mode="after")
+    def _forme_pour_les_expressions(self):
+        if self.forme is not None and self.type is not TypeQuestion.EXPRESSION:
+            raise ValueError("`forme` ne concerne que les questions de type « expression »")
+        return self
 
     @model_validator(mode="after")
     def _registre_coherent(self):
@@ -252,7 +260,7 @@ def _verifier_question(q: QuestionYaml) -> str | None:
         if not re.search(rf"(?<![A-Za-z]){re.escape(q.solution)}\)", q.enonce):
             return f"solution « {q.solution} » absente des choix de l'énoncé (attendu « {q.solution}) … »)"
         return None
-    domaine = pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte)
+    domaine = pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme)
     try:
         if not pkp_engine.corriger(domaine, q.solution):
             return f"le moteur n'accepte pas sa propre solution « {q.solution} »"
@@ -285,11 +293,11 @@ def _verifier_correction(q: QuestionYaml) -> list[str]:
         erreurs.append("correction.resultat obligatoire pour une réponse numérique ou une expression")
         return erreurs
     try:
-        equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte), c.resultat)
+        equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme), c.resultat)
     except ExpressionInvalide:
         equivalents = False
     if not equivalents:
-        erreurs.append(f"correction.resultat « {c.resultat} » non équivalent à la solution « {q.solution} » selon le moteur")
+        erreurs.append(f"correction.resultat « {c.resultat} » non équivalent à la solution « {q.solution} » (ou pas sous la forme demandée) selon le moteur")
     return erreurs
 
 
@@ -588,6 +596,7 @@ def _importer_question(
         "solution": q.solution,
         "difficulte": q.difficulte,
         "archivee": q.archivee,
+        "forme": q.forme,
         "source": q.source,
         "source_url": q.source_url,
         "licence_source": q.licence_source,

@@ -7,7 +7,7 @@ modifiée ici porte `modifiee_admin_le` ; l'import YAML ne l'écrase plus sans `
 from datetime import UTC, date, datetime
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import ExpressionInvalide, Niveau, TypeQuestion, corriger
+from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, verifier
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
@@ -47,7 +47,7 @@ from app.schemas_admin import (
 router = APIRouter(prefix="/admin", tags=["administration"])
 
 CHAMPS_QUESTION = (
-    "competence_id", "enonce", "type", "solution", "difficulte", "source", "source_url", "licence_source",
+    "competence_id", "enonce", "type", "solution", "difficulte", "forme", "source", "source_url", "licence_source",
     "adaptation", "auteur", "archivee", "statut_validation", "valide_par", "valide_le",
 )
 # Le fond d'une question déjà répondue ne change pas : les statistiques resteraient fausses (EA3.18).
@@ -285,7 +285,7 @@ def _vue_question(q: models.Question, n: int | None, c: int | None) -> QuestionA
     return QuestionAdmin(
         id=q.id, code=q.code, competence_id=q.competence_id, competence=q.competence.libelle,
         chapitre=q.competence.chapitre.titre, niveau=q.competence.chapitre.niveau, enonce=q.enonce, type=q.type,
-        solution=q.solution, difficulte=q.difficulte, archivee=q.archivee, source=q.source, source_url=q.source_url,
+        solution=q.solution, difficulte=q.difficulte, archivee=q.archivee, forme=q.forme, source=q.source, source_url=q.source_url,
         licence_source=q.licence_source, adaptation=q.adaptation, statut_validation=q.statut_validation,
         valide_par=q.valide_par, valide_le=q.valide_le, auteur=q.auteur, nb_reponses=n or 0,
         taux_reussite=(c or 0) / n if n else None,
@@ -351,28 +351,40 @@ def _vue_question_seule(session: SessionDB, q: models.Question) -> QuestionAdmin
     return _vue_question(q, *(ligne or (0, 0)))
 
 
-def _solution_lisible(type_: TypeQuestion, solution: str, reponse: str | None = None) -> bool:
-    question = models.Question(id=0, competence_id=0, enonce="", type=type_, solution=solution, difficulte=1, archivee=False)
+def _verdict(type_: TypeQuestion, solution: str, reponse: str | None = None, forme: Forme | None = None) -> Verdict | None:
+    """Verdict du moteur ; None si la solution elle-même est illisible."""
+    question = models.Question(
+        id=0, competence_id=0, enonce="", type=type_, solution=solution, difficulte=1, archivee=False, forme=forme
+    )
     try:
-        return corriger(question_vers_domaine(question), solution if reponse is None else reponse)
+        return verifier(question_vers_domaine(question), solution if reponse is None else reponse)
     except ExpressionInvalide:
-        return False
+        return None
+
+
+def _solution_lisible(type_: TypeQuestion, solution: str, forme: Forme | None = None) -> bool:
+    """La solution est lisible et respecte elle-même la forme demandée."""
+    if forme is not None and type_ is not TypeQuestion.EXPRESSION:
+        raise HTTPException(422, "Une forme imposée ne concerne que les questions de type « expression ».")
+    return _verdict(type_, solution, forme=forme) is Verdict.JUSTE
 
 
 @router.post("/questions/tester", response_model=ResultatEssai)
 def tester(corps: EssaiReponse, _: AdminCourant) -> ResultatEssai:
     """Le moteur accepte-t-il cette réponse pour cette solution ? (bouton « Tester », EA3.16)"""
+    verdict = _verdict(corps.type, corps.solution, corps.reponse, corps.forme)
     return ResultatEssai(
-        correcte=_solution_lisible(corps.type, corps.solution, corps.reponse),
-        solution_lisible=_solution_lisible(corps.type, corps.solution),
+        correcte=verdict is Verdict.JUSTE,
+        solution_lisible=_verdict(corps.type, corps.solution, forme=corps.forme) is Verdict.JUSTE,
+        forme_non_respectee=verdict is Verdict.FORME,
     )
 
 
 @router.post("/questions", response_model=QuestionAdmin, status_code=status.HTTP_201_CREATED)
 def creer_question(corps: QuestionEdition, admin: AdminCourant, session: SessionDB) -> QuestionAdmin:
     _competence(session, corps.competence_id)
-    if not _solution_lisible(corps.type, corps.solution):
-        raise HTTPException(422, "Solution illisible par le moteur de correction.")
+    if not _solution_lisible(corps.type, corps.solution, corps.forme):
+        raise HTTPException(422, "Solution illisible par le moteur de correction, ou pas sous la forme demandée.")
     q = models.Question(**corps.model_dump(exclude={"auteur"}), auteur=corps.auteur or admin.nom, modifiee_admin_le=_maintenant())
     session.add(q)
     session.flush()
@@ -394,8 +406,8 @@ def modifier_question(question_id: int, corps: QuestionEdition, admin: AdminCour
             "Archivez-la et créez-en une nouvelle.",
         )
     # Question à valeurs variables : sa solution cite des paramètres ([[x]]), vérifiée par `contenu verifier`.
-    if q.gabarit is None and not _solution_lisible(corps.type, corps.solution):
-        raise HTTPException(422, "Solution illisible par le moteur de correction.")
+    if q.gabarit is None and not _solution_lisible(corps.type, corps.solution, corps.forme):
+        raise HTTPException(422, "Solution illisible par le moteur de correction, ou pas sous la forme demandée.")
     avant = journal.instantane(q, CHAMPS_QUESTION)
     for cle, valeur in valeurs.items():
         setattr(q, cle, valeur)

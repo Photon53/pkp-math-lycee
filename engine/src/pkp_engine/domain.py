@@ -16,6 +16,14 @@ class TypeQuestion(str, Enum):
     EXPRESSION = "expression"
 
 
+class Forme(str, Enum):
+    """Forme d'écriture exigée pour une question de type expression (voir `formes`)."""
+
+    DEVELOPPEE = "developpee"
+    FACTORISEE = "factorisee"
+    REDUITE = "reduite"
+
+
 @dataclass(frozen=True)
 class Question:
     id: int
@@ -25,6 +33,7 @@ class Question:
     solution: str
     difficulte: int  # 1 (facile) à 5 (difficile)
     archivee: bool = False
+    forme: Forme | None = None  # None : seule la valeur compte
 
 
 @dataclass(frozen=True)

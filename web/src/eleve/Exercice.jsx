@@ -290,6 +290,11 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
         <div className="meta">
           <span className="badge">{LIBELLES_TYPE[question.type]}</span>
           <Difficulte niveau={question.difficulte} />
+          {question.en_relecture && (
+            <span className="badge alerte" title="Cette question n'a pas encore été relue par un professeur : en cas de doute, signale-la à ton professeur.">
+              En relecture
+            </span>
+          )}
         </div>
         <p className="enonce">
           <Maths enLigne texte={intitule} />
@@ -338,6 +343,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
       {repondue && (
         <article className={`carte resultat ${resultat.correcte ? "ok" : "ko"}`} role="status">
           <p className="verdict">{resultat.correcte ? "Bonne réponse !" : "Pas tout à fait."}</p>
+          {resultat.remarque && <p className="avertissement">{resultat.remarque}</p>}
           {!resultat.correcte && (
             <p>
               Réponse attendue : <code>{resultat.solution}</code>

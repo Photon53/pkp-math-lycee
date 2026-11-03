@@ -18,6 +18,14 @@
 		reverse_proxy api:8000
 	}
 
+	# Fichiers du front : leur nom contient l'empreinte de leur contenu (Vite), ils ne changent jamais.
+	# Le téléphone les garde un an au lieu de les redemander à chaque visite.
+	@empreintes path /assets/*
+	header @empreintes Cache-Control "public, max-age=31536000, immutable"
+	# index.html (et les routes du front) : toujours revalidé, pour obtenir la nouvelle version après une mise à jour.
+	@pages not path /assets/* /api/*
+	header @pages Cache-Control "no-cache"
+
 	handle {
 		root * /srv
 		try_files {path} /index.html

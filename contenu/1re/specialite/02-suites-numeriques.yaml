@@ -419,6 +419,7 @@ competences:
       - code: 1RE-SUI-VAR-02
         difficulte: 3
         type: expression
+        forme: reduite
         enonce: 'La suite $(u_n)$ est définie par $u_n = n^2 + n$. Exprimer $u_{n+1} - u_n$ en fonction de $n$, sous forme simplifiée.'
         solution: 2n + 2
         auteur: Brouillon IA (Claude)

@@ -9,14 +9,15 @@ from datetime import UTC, datetime
 from functools import cache
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import calculer_maitrise, choisir_prochaine_question, corriger, est_maitrisee
+from pkp_engine import Question, Verdict, calculer_maitrise, choisir_prochaine_question, est_maitrisee, verifier
+from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
 from sqlalchemy import select
 
 from app import exemplaires, inscriptions, limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
-from app.db.conversions import historique_eleve, question_vers_domaine
+from app.db.conversions import historique_eleve
 from app.progression import (
     filtre_validation,
     avancement_competence,
@@ -24,6 +25,7 @@ from app.progression import (
     ids_ouverts,
     nb_questions_servables,
     progression_eleve,
+    validees_en_priorite,
 )
 from app.schemas import (
     AvancementCompetence,
@@ -253,10 +255,17 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
     if seance.question_courante is not None:
         return exemplaires.publique(seance.question_courante, seance.tirage_courant)
 
-    candidates = {
-        q.id: q
-        for q in session.scalars(
-            select(models.Question)
+    # Seulement les colonnes utiles au choix : charger chaque question entière (correction, gabarit…)
+    # coûterait plus cher que tout le reste de la requête. La question choisie est lue ensuite.
+    questions = list(
+        session.execute(
+            select(
+                models.Question.id,
+                models.Question.competence_id,
+                models.Question.type,
+                models.Question.difficulte,
+                models.Question.statut_validation,
+            )
             .join(models.Competence)
             .join(models.Chapitre)
             .where(
@@ -269,15 +278,17 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
                 *([models.Question.difficulte <= seance.difficulte_max] if seance.difficulte_max else []),
             )
         )
-    }
+    )
+    if settings.servir_questions_non_validees:
+        questions = validees_en_priorite(questions)
+    historique = historique_eleve(session, eleve.id, {q.competence_id for q in questions})
     choix = choisir_prochaine_question(
-        [question_vers_domaine(q) for q in candidates.values()], historique_eleve(session, eleve.id)
+        [Question(q.id, q.competence_id, "", q.type, "", q.difficulte) for q in questions], historique
     )
     if choix is None:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    question = candidates[choix.id]
-    return _servir(session, seance, question)
+    return _servir(session, seance, session.get(models.Question, choix.id))
 
 
 def _servir(session: SessionDB, seance: models.Seance, question: models.Question) -> dict:
@@ -314,7 +325,8 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
 
     maintenant = _maintenant()
     tirage = seance.tirage_courant
-    correcte = corriger(exemplaires.domaine(question, tirage), corps.reponse_donnee)
+    verdict = verifier(exemplaires.domaine(question, tirage), corps.reponse_donnee)
+    correcte = verdict is Verdict.JUSTE
     session.add(
         models.Reponse(
             seance=seance,
@@ -331,7 +343,7 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
     seance.tirage_courant = None
     session.commit()
 
-    historique = historique_eleve(session, eleve.id)
+    historique = historique_eleve(session, eleve.id, [question.competence_id])
     return ResultatReponse(
         correcte=correcte,
         solution=exemplaires.solution(question, tirage),
@@ -342,4 +354,9 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
         rappel=question.competence.lecon.resume if question.competence.lecon else None,
         maitrise=calculer_maitrise(historique, question.competence_id),
         maitrisee=est_maitrisee(historique, question.competence_id),
+        remarque=(
+            f"Ta réponse a la bonne valeur, mais elle n'est pas sous forme {LIBELLES_FORMES[question.forme]}."
+            if verdict is Verdict.FORME
+            else None
+        ),
     )

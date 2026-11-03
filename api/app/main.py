@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,6 +14,11 @@ app = FastAPI(
     redoc_url=None,
     openapi_url=None if settings.production else "/openapi.json",
 )
+
+if settings.production and settings.servir_questions_non_validees:
+    logging.getLogger("uvicorn.error").warning(
+        "PKP_SERVIR_QUESTIONS_NON_VALIDEES=true : les compétences sans question validée servent des questions non relues."
+    )
 
 app.add_middleware(
     CORSMiddleware,

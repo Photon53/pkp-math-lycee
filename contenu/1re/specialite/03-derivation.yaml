@@ -114,6 +114,7 @@ competences:
       - code: 1RE-DER-NB-04
         difficulte: 4
         type: expression
+        forme: reduite
         enonce: 'Donner l''équation réduite $y = \dots$ de la tangente à la courbe de $f(x) = x^2$ au point d''abscisse 1. Écrire seulement l''expression en $x$.'
         solution: 2x - 1
         auteur: Brouillon IA (Claude)
@@ -153,6 +154,7 @@ competences:
       - code: 1RE-DER-NB-V2
         difficulte: 4
         type: expression
+        forme: reduite
         gabarit:
           parametres: {a: {entre: [-2, 3], sauf: [0]}, b: {entre: [-5, 5]}, t: {entre: [-2, 3]}}
           calculs: {m: "2*a*t + b", y0: "a*t*t + b*t", p: "a*t*t + b*t - (2*a*t + b)*t"}
