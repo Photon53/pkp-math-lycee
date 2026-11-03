@@ -61,7 +61,7 @@ export function Monogramme({ taille = 32 }) {
   );
 }
 
-export function Logo({ vers = "/", marque = "Math Lycée" }) {
+export function Logo({ vers = "/", marque = "Éducation" }) {
   return (
     <a className="logo" href={vers}>
       <Monogramme />

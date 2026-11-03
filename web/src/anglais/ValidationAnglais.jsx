@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
+import { formaterDate } from "../ui/Cadre.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Cahier, telecharger } from "./SeancesAnglais.jsx";
 
@@ -15,7 +16,7 @@ export function StatutSeance({ statut }) {
   return <span className={`statut-anglais ${statut}`}>{STATUTS[statut] ?? statut}</span>;
 }
 
-const date = (iso) => (iso ? new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" }) : "");
+const date = (iso) => (iso ? formaterDate(iso, { heure: true }) : "");
 
 /** Versions successives d'une séance : qui l'a écrite, qui l'a validée ou refusée, et pourquoi. */
 export function Historique({ versions }) {
@@ -207,7 +208,7 @@ export default function ValidationAnglais({ jeton, onExpire }) {
               </button>
             </div>
             <Decision
-              interdit={choisie.est_auteur && "Vous êtes l'auteur de cette version : un autre référent doit la valider."}
+              interdit={choisie.est_auteur && "Vous êtes l'auteur de cette version : un autre validateur doit la valider."}
               onValider={() => decider("valider", undefined, `${choisie.code} validée : elle est ouverte aux élèves.`)}
               onRefuser={(motif) => decider("refuser", { motif }, `${choisie.code} refusée, motif transmis à l'auteur.`)}
             />

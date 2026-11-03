@@ -47,8 +47,9 @@ const DOMAINES = [
 describe("PKP Anglais", () => {
   it("l'accueil mène à un espace dédié", () => {
     render(<Accueil />);
-    expect(screen.getByRole("link", { name: /^PKP Anglais/ })).toHaveAttribute("href", "/anglais");
-    expect(screen.getByRole("link", { name: /Élève PKP Anglais/ })).toHaveAttribute("href", "/anglais/eleve");
+    expect(screen.getByRole("link", { name: /^Professeur — Anglais/ })).toHaveAttribute("href", "/anglais");
+    expect(screen.getByRole("link", { name: /^Élève — Anglais/ })).toHaveAttribute("href", "/anglais/eleve");
+    expect(screen.getByRole("link", { name: /^Parent/ })).toHaveAttribute("href", "/parent");
   });
 
   it("l'espace professeur de maths n'a plus d'onglet anglais", () => {

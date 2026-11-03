@@ -179,7 +179,7 @@ export default function SeancesAnglais({ jeton, onExpire }) {
   }
 
   return <section>
-    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · une séance non validée par un référent reste utilisable par les professeurs, avec la mention NON VALIDÉ, mais n'est pas ouverte aux élèves.</p>
+    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · une séance non validée par un validateur reste utilisable par les professeurs, avec la mention NON VALIDÉ, mais n'est pas ouverte aux élèves.</p>
     {chargement && <p>Chargement des séances…</p>}
     {erreur && <p role="alert" className="erreur">{erreur}</p>}
     {liste.length > 0 && <div className="carte">
@@ -191,7 +191,7 @@ export default function SeancesAnglais({ jeton, onExpire }) {
     {seance && <>
       <div className="carte">
         {!seance.validee && <p className="bandeau-non-valide" role="note">
-          <strong>NON VALIDÉ</strong> · version {seance.version} en attente de validation par un référent : usage personnel
+          <strong>NON VALIDÉ</strong> · version {seance.version} en attente de validation par un validateur : usage personnel
           uniquement, les élèves ne la voient pas. Les PDF portent la même mention.
         </p>}
         <h2>{seance.titre}</h2>

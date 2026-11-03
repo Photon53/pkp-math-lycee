@@ -51,7 +51,7 @@ export default function SeancesAnglaisAdmin({ jeton, onExpire }) {
   return (
     <section className="carte">
       <p className="doux">
-        Chaque séance a une version courante et, une fois validée par un référent, une version publiée : seule celle-ci est ouverte
+        Chaque séance a une version courante et, une fois validée par un validateur, une version publiée : seule celle-ci est ouverte
         aux élèves. Modifier une séance validée crée une nouvelle version en brouillon ; l'ancienne reste publiée jusqu'à la
         validation de la nouvelle. L'auteur d'une version ne peut pas la valider.
       </p>
@@ -206,7 +206,7 @@ function EditeurSeance({ code, appeler, erreur, onPdf, onRetour }) {
             Enregistrer
           </button>
           {["brouillon", "refuse"].includes(seance.statut) && (
-            <button className="secondaire" disabled={modifie} onClick={() => action("soumettre", undefined, "Soumise aux référents.")}>
+            <button className="secondaire" disabled={modifie} onClick={() => action("soumettre", undefined, "Soumise aux validateurs.")}>
               Soumettre pour validation
             </button>
           )}

@@ -4,6 +4,7 @@ import { Erreur } from "../composants.jsx";
 import { lireCarte } from "../eleve/EspaceEleve.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { Cahier } from "./SeancesAnglais.jsx";
+import { AutresEspaces, RepereEleve } from "../ui/Cadre.jsx";
 
 const CLE_COMPTE = "pkp.eleve.anglais";
 const NIVEAUX_I_CAN = [
@@ -69,7 +70,8 @@ function ConnexionEleveAnglais({ onConnexion }) {
 
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
-      <h1>PKP Anglais</h1>
+      <RepereEleve matiere="Anglais" />
+      <h1>Connexion élève</h1>
       <p className="doux">Entre l'identifiant et le code personnel de ta carte d'anglais, ou scanne son QR code.</p>
       <label htmlFor="identifiant-anglais">Identifiant</label>
       <input
@@ -105,6 +107,7 @@ function ConnexionEleveAnglais({ onConnexion }) {
           {envoi ? "Connexion…" : "Let's go!"}
         </button>
       </div>
+      <AutresEspaces professeur="/anglais" />
     </form>
   );
 }
