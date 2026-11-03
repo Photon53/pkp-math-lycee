@@ -8,6 +8,8 @@ Internet ──443──▶ Caddy (web) ──▶ /api/* ──▶ API FastAPI �
 
 Seul Caddy est exposé. Il obtient seul le certificat HTTPS (Let's Encrypt).
 
+Une fois le site installé : fiches d'exploitation et de maintenance dans [exploitation/](exploitation/README.md).
+
 ## Prérequis
 
 - Un serveur Linux (2 Go de RAM suffisent) hébergé dans l'UE, avec Docker et Docker Compose.
