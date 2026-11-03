@@ -246,6 +246,7 @@ competences:
       - code: 1RE-AUTO-CALC-02
         difficulte: 2
         type: expression
+        forme: reduite
         enonce: 'Développer et réduire $(x - 4)^2$.'
         solution: x^2 - 8x + 16
         auteur: Brouillon IA (Claude)
@@ -256,6 +257,7 @@ competences:
       - code: 1RE-AUTO-CALC-03
         difficulte: 3
         type: expression
+        forme: factorisee
         enonce: 'Factoriser $9x^2 - 25$.'
         solution: (3x - 5)(3x + 5)
         auteur: Brouillon IA (Claude)
@@ -368,6 +370,7 @@ competences:
       - code: 1RE-AUTO-GRAPH-02
         difficulte: 2
         type: expression
+        forme: reduite
         enonce: 'Une droite passe par $(0 ; 3)$ et $(2 ; -1)$. Donner son équation réduite sous la forme $y = \ldots$'
         solution: -2x + 3
         auteur: Brouillon IA (Claude)

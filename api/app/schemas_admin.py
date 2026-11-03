@@ -3,7 +3,7 @@
 from datetime import date, datetime
 from typing import Annotated
 
-from pkp_engine import Niveau, TypeQuestion
+from pkp_engine import Forme, Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import Adaptation, Parcours, Role, StatutValidation
@@ -248,6 +248,7 @@ class QuestionAdmin(BaseModel):
     solution: str
     difficulte: int
     archivee: bool
+    forme: Forme | None = None
     source: str
     source_url: str | None
     licence_source: str | None
@@ -271,6 +272,8 @@ class QuestionEdition(BaseModel):
     type: TypeQuestion
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     difficulte: Annotated[int, Field(ge=1, le=5)]
+    # « Développer », « Factoriser »… : forme exigée en plus de la valeur (questions de type expression).
+    forme: Forme | None = None
     source: Annotated[str, Field(min_length=1, max_length=200)] = "PKP Math"
     source_url: Annotated[str | None, Field(max_length=500)] = None
     licence_source: Annotated[str | None, Field(max_length=100)] = None
@@ -282,11 +285,14 @@ class EssaiReponse(BaseModel):
     type: TypeQuestion
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     reponse: Annotated[str, Field(min_length=1, max_length=200)]
+    forme: Forme | None = None
 
 
 class ResultatEssai(BaseModel):
     correcte: bool
     solution_lisible: bool
+    # Valeur juste mais pas sous la forme demandée.
+    forme_non_respectee: bool = False
 
 
 class Validation(BaseModel):

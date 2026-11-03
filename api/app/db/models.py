@@ -8,7 +8,7 @@ Règles portées par le schéma :
 
 from datetime import UTC, date, datetime
 
-from pkp_engine import Niveau, TypeQuestion
+from pkp_engine import Forme, Niveau, TypeQuestion
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
@@ -375,6 +375,8 @@ class Question(Base):
     solution: Mapped[str] = mapped_column(String(200))
     difficulte: Mapped[int] = mapped_column(Integer)
     archivee: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Forme d'écriture exigée (« Développer », « Factoriser »…) ; vide : seule la valeur compte.
+    forme: Mapped[Forme | None] = mapped_column(_enum(Forme, "forme"))
     # Registre des sources : d'où vient la question et à quelles conditions on peut l'utiliser.
     source: Mapped[str] = mapped_column(String(200), default=SOURCE_PKP, server_default=SOURCE_PKP)
     source_url: Mapped[str | None] = mapped_column(String(500))

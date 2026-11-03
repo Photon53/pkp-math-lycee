@@ -75,6 +75,7 @@ competences:
   - code: TLE-MAN-DERIVATION-04
     difficulte: 4
     type: expression
+    forme: reduite
     enonce: Donner l'équation réduite $y = \dots$ de la tangente à la courbe de $f(x) = x^2$ au point d'abscisse 3 (expression en $x$).
     solution: 6x - 9
     auteur: Brouillon IA (Claude)

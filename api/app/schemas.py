@@ -172,6 +172,8 @@ class QuestionPublique(_Modele):
     difficulte: int
     # Valeurs variables : chaque service tire de nouveaux nombres ; « refaire » propose une variante.
     variable: bool = False
+    # Question pas encore validée par un enseignant : l'élève est prévenu qu'elle peut contenir une erreur.
+    en_relecture: bool = False
 
 
 class DemandeVariante(BaseModel):
@@ -287,6 +289,8 @@ class ResultatReponse(BaseModel):
     rappel: str | None = None  # résumé « L'essentiel » de la leçon
     maitrise: float = Field(description="Maîtrise de la compétence après cette réponse, entre 0 et 1.")
     maitrisee: bool
+    # Réponse juste en valeur mais pas sous la forme demandée (« Développer », « Factoriser »…).
+    remarque: str | None = None
 
 
 class ReponseHistorique(BaseModel):

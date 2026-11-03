@@ -116,6 +116,7 @@ competences:
       - code: 2NDE-DROITE-04
         difficulte: 4
         type: expression
+        forme: reduite
         enonce: 'Déterminer l''équation réduite $y = \dots$ de la droite passant par $A(2 ; 1)$ et $B(4 ; 5)$. Écrire seulement l''expression en $x$.'
         solution: 2x - 3
         auteur: Brouillon IA (Claude)
@@ -139,6 +140,7 @@ competences:
       - code: 2NDE-DROITE-V1
         difficulte: 3
         type: expression
+        forme: reduite
         gabarit:
           parametres: {m: {entre: [-4, 4], sauf: [0]}, p: {entre: [-6, 6]}, x1: {entre: [-3, 0]}, x2: {entre: [1, 4]}}
           calculs: {y1: "m*x1 + p", y2: "m*x2 + p"}
@@ -395,6 +397,7 @@ competences:
       - code: 2NDE-DROITE-CART-03
         difficulte: 3
         type: expression
+        forme: reduite
         enonce: 'La droite $d$ a pour équation $3x + 2y - 6 = 0$. Donner son équation réduite sous la forme $y = \ldots$'
         solution: -3x/2 + 3
         auteur: Brouillon IA (Claude)

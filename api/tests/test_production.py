@@ -12,6 +12,7 @@ PROD_VALIDE = {
     "secret_key": "x" * 48,
     "database_url": "postgresql+psycopg://pkp:mdp@db:5432/pkp",
     "cors_origins": ["https://maths.lycee.fr"],
+    "servir_questions_non_validees": False,
 }
 
 
@@ -39,6 +40,19 @@ class TestConfiguration:
     def test_production_refuse_une_configuration_dangereuse(self, champ, valeur, message):
         with pytest.raises(ValueError, match=message):
             config(**{**PROD_VALIDE, champ: valeur})
+
+    def test_production_exige_un_choix_explicite_pour_les_questions_non_validees(self):
+        sans_choix = {k: v for k, v in PROD_VALIDE.items() if k != "servir_questions_non_validees"}
+        with pytest.raises(ValueError, match="PKP_SERVIR_QUESTIONS_NON_VALIDEES"):
+            config(**sans_choix)
+        assert config(**{**PROD_VALIDE, "servir_questions_non_validees": True}).servir_questions_non_validees
+
+    def test_valeur_vide_transmise_par_compose_n_est_pas_un_choix(self, monkeypatch):
+        monkeypatch.setenv("PKP_SERVIR_QUESTIONS_NON_VALIDEES", "")
+        sans_choix = {k: v for k, v in PROD_VALIDE.items() if k != "servir_questions_non_validees"}
+        with pytest.raises(ValueError, match="PKP_SERVIR_QUESTIONS_NON_VALIDEES"):
+            config(**sans_choix)
+        assert config().servir_questions_non_validees  # en développement, la valeur par défaut s'applique
 
     def test_lu_depuis_l_environnement(self, monkeypatch):
         monkeypatch.setenv("PKP_ENVIRONNEMENT", "production")

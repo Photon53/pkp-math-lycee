@@ -267,6 +267,7 @@ competences:
   - code: 1RE-TEC-CALC-04
     difficulte: 4
     type: expression
+    forme: developpee
     enonce: Développer $(x - 3)(x + 3)$.
     solution: x^2 - 9
     auteur: Brouillon IA (Claude)
@@ -376,6 +377,7 @@ competences:
     - code: 1RE-TEC-GRAPH-03
       difficulte: 3
       type: expression
+      forme: reduite
       enonce: 'Une droite coupe l''axe des ordonnées en $(0 ; 4)$ et passe par $(2 ; 1)$. Donner son équation réduite sous la forme $y = \ldots$'
       solution: -3x/2 + 4
       auteur: Brouillon IA (Claude)

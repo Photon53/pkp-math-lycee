@@ -170,7 +170,7 @@ class TestParcours:
     def test_question_publique_sans_solution(self, client):
         h = connecter_eleve(client)
         q = client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).json()
-        assert set(q) == {"id", "competence_id", "enonce", "type", "difficulte", "variable"}
+        assert set(q) == {"id", "competence_id", "enonce", "type", "difficulte", "variable", "en_relecture"}
 
     def test_redemander_renvoie_la_meme_question(self, client):
         h = connecter_eleve(client)

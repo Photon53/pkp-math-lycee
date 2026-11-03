@@ -64,6 +64,7 @@ competences:
   - code: 1RE-MAN-FONCTIONS-03
     difficulte: 3
     type: expression
+    forme: reduite
     enonce: Donner l'équation réduite $y = \dots$ de la droite passant par $A(1 ; 2)$ et $B(3 ; 8)$ (écrire l'expression en $x$).
     solution: 3x - 1
     auteur: Brouillon IA (Claude)

@@ -91,6 +91,7 @@ competences:
       - code: 2NDE-DEV-01
         difficulte: 2
         type: expression
+        forme: developpee
         enonce: Développer (x + 3)².
         solution: x^2 + 6x + 9
         auteur: Brouillon IA (Claude)
@@ -105,6 +106,7 @@ competences:
       - code: 2NDE-DEV-02
         difficulte: 2
         type: expression
+        forme: developpee
         enonce: Développer (a + b)(a − b).
         solution: a^2 - b^2
         auteur: Brouillon IA (Claude)
@@ -116,6 +118,7 @@ competences:
       - code: 2NDE-DEV-03
         difficulte: 3
         type: expression
+        forme: developpee
         enonce: Développer (2x − 1)(x + 4).
         solution: 2x^2 + 7x - 4
         auteur: Brouillon IA (Claude)
@@ -128,6 +131,7 @@ competences:
       - code: 2NDE-DEV-04
         difficulte: 4
         type: expression
+        forme: developpee
         enonce: 'Développer $(x + 3)^3$. Indication : $(x + 3)^3 = (x + 3)^2 (x + 3)$.'
         solution: x^3 + 9x^2 + 27x + 27
         source: STACK
@@ -145,6 +149,7 @@ competences:
       - code: 2NDE-DEV-05
         difficulte: 1
         type: expression
+        forme: developpee
         enonce: Développer $3(x + 4)$.
         solution: 3x + 12
         auteur: Brouillon IA (Claude)
@@ -156,6 +161,7 @@ competences:
       - code: 2NDE-DEV-06
         difficulte: 5
         type: expression
+        forme: reduite
         enonce: Développer et réduire $(2x - 3)^2 - (x + 1)(x - 1)$.
         solution: 3x^2 - 12x + 10
         auteur: Brouillon IA (Claude)
@@ -171,6 +177,7 @@ competences:
       - code: 2NDE-DEV-V1
         difficulte: 2
         type: expression
+        forme: reduite
         gabarit:
           parametres: {a: {entre: [1, 5]}, b: {entre: [-7, 7], sauf: [0]}, c: {entre: [1, 5]}, d: {entre: [-7, 7], sauf: [0]}}
           conditions: ["a*d + b*c != 0"]

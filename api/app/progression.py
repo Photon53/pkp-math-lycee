@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 
 from pkp_engine import calculer_maitrise, est_maitrisee
 from sqlalchemy import func, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, contains_eager
 
 from app import exemplaires, inscriptions
 from app.db import models
@@ -53,15 +53,43 @@ def filtre_validation() -> tuple:
     return (*masque, models.Question.statut_validation == StatutValidation.VALIDEE)
 
 
+def validees_en_priorite(session: Session, questions: list) -> list:
+    """Une compétence qui a au moins une question validée (non archivée, quelle que soit sa difficulté)
+    ne sert plus que ses questions validées : la banque passe aux questions relues compétence par
+    compétence, au rythme de la validation. Le filtre de difficulté d'une séance ne change pas la règle.
+    `questions` : objets ou lignes portant `competence_id` et `statut_validation`."""
+    validees = set(
+        session.scalars(
+            select(models.Question.competence_id).distinct().where(
+                models.Question.competence_id.in_({q.competence_id for q in questions}),
+                models.Question.archivee.is_(False),
+                models.Question.statut_validation == StatutValidation.VALIDEE,
+            )
+        )
+    )
+    return [q for q in questions if q.competence_id not in validees or q.statut_validation == StatutValidation.VALIDEE]
+
+
 def nb_questions_servables(session: Session, chapitre_ids: list[int]) -> dict[int, int]:
-    """Nombre de questions qu'un élève peut recevoir, par chapitre."""
+    """Nombre de questions qu'un élève peut recevoir, par chapitre (même règle que `validees_en_priorite`)."""
     lignes = session.execute(
-        select(models.Competence.chapitre_id, func.count(models.Question.id))
+        select(
+            models.Competence.chapitre_id,
+            models.Competence.id,
+            models.Question.statut_validation == StatutValidation.VALIDEE,
+            func.count(models.Question.id),
+        )
         .join(models.Question, models.Question.competence_id == models.Competence.id)
         .where(models.Competence.chapitre_id.in_(chapitre_ids), models.Question.archivee.is_(False), *filtre_validation())
-        .group_by(models.Competence.chapitre_id)
+        .group_by(models.Competence.chapitre_id, models.Competence.id, models.Question.statut_validation)
     )
-    return dict(lignes.all())
+    par_competence: dict[tuple[int, int], Counter] = {}
+    for chapitre_id, competence_id, validee, nb in lignes:
+        par_competence.setdefault((chapitre_id, competence_id), Counter())[bool(validee)] += nb
+    total: Counter = Counter()
+    for (chapitre_id, _), nb in par_competence.items():
+        total[chapitre_id] += nb[True] or nb[False]
+    return dict(total)
 
 
 def competences_du_niveau(session: Session, eleve: models.Eleve) -> list[models.Competence]:
@@ -72,6 +100,8 @@ def competences_du_niveau(session: Session, eleve: models.Eleve) -> list[models.
             .join(models.Chapitre)
             .where(models.Chapitre.id.in_(ids_ouverts(eleve.classe)), models.Competence.masque.is_(False))
             .order_by(models.Chapitre.ordre, models.Competence.ordre)
+            # Le chapitre est déjà joint : pas une requête de plus par compétence pour lire son titre.
+            .options(contains_eager(models.Competence.chapitre))
         )
     )
 

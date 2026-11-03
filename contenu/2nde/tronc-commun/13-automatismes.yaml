@@ -353,6 +353,7 @@ competences:
       - code: 2NDE-AUTO-LITT-01
         difficulte: 1
         type: expression
+        forme: developpee
         enonce: 'Supprimer les parenthèses : $-(x - 7)$.'
         solution: 7 - x
         auteur: Brouillon IA (Claude)
