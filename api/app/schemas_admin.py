@@ -53,6 +53,8 @@ class EnseignantAdmin(BaseModel):
     totp_configure: bool
     nb_classes: int
     nb_eleves: int
+    nb_groupes_anglais: int = 0
+    nb_eleves_anglais: int = 0
     derniere_connexion: datetime | None
 
 
@@ -123,6 +125,23 @@ class ClasseAdmin(BaseModel):
     enseignant: str
     nb_eleves: int
     nb_chapitres_ouverts: int
+
+
+# --- PKP Anglais ------------------------------------------------------------------
+
+
+class EleveAnglaisAdmin(BaseModel):
+    id: int
+    prenom: str
+
+
+class GroupeAnglaisAdmin(BaseModel):
+    id: int
+    nom: str
+    niveau: str
+    enseignant_id: int
+    enseignant: str
+    eleves: list[EleveAnglaisAdmin]
 
 
 # --- Cours ------------------------------------------------------------------------

@@ -100,8 +100,14 @@ export default function Professeurs({ jeton, onExpire }) {
                       {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}{" "}
                       {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
                     </td>
-                    <td className="nombre">{p.nb_classes}</td>
-                    <td className="nombre">{p.nb_eleves}</td>
+                    <td className="nombre">
+                      {p.nb_classes}
+                      {p.nb_groupes_anglais > 0 && <div className="doux">+ {p.nb_groupes_anglais} gr. anglais</div>}
+                    </td>
+                    <td className="nombre">
+                      {p.nb_eleves}
+                      {p.nb_eleves_anglais > 0 && <div className="doux">+ {p.nb_eleves_anglais} en anglais</div>}
+                    </td>
                     <td>{formaterDate(p.derniere_connexion, { heure: true })}</td>
                     <td className="nombre">
                       <div className="actions">
@@ -114,7 +120,11 @@ export default function Professeurs({ jeton, onExpire }) {
                         <button className="icone" onClick={() => basculer(p)} aria-label={`${p.actif ? "Désactiver" : "Réactiver"} ${p.nom}`} title={p.actif ? "Désactiver" : "Réactiver"}>
                           <Icone nom={p.actif ? "oeilBarre" : "oeil"} />
                         </button>
-                        {p.nb_classes > 0 ? (
+                        {p.nb_groupes_anglais > 0 && p.nb_classes === 0 ? (
+                          <a className="bouton secondaire petit" href="/admin/anglais">
+                            Groupes d'anglais
+                          </a>
+                        ) : p.nb_classes > 0 ? (
                           <button className="secondaire petit" onClick={() => setFenetre({ genre: "transfert", prof: p })}>
                             Transférer
                           </button>

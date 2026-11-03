@@ -16,6 +16,7 @@ from app.config import settings
 from app.db import models
 from app.progression import export_eleve
 from app.referentiel import Role
+from app.routes import anglais
 from app.routes.enseignants import _attribuer_code, verifier_identifiants
 from app.schemas import CodeEleve, ConnexionEnseignant
 from app.schemas_admin import (
@@ -24,11 +25,13 @@ from app.schemas_admin import (
     ClasseAdmin,
     ConnexionAdmin,
     Deplacement,
+    EleveAnglaisAdmin,
     EleveAdmin,
     EnseignantAdmin,
     EnseignantCree,
     EnseignantEdition,
     EntreeJournal,
+    GroupeAnglaisAdmin,
     JetonAdmin,
     PageEleves,
     PageJournal,
@@ -93,6 +96,7 @@ def _vue_enseignant(session: SessionDB, e: models.Enseignant) -> EnseignantAdmin
         id=e.id, nom=e.nom, email=e.email, role=e.role, enseigne_maths=e.enseigne_maths,
         enseigne_anglais=e.enseigne_anglais, actif=e.actif, mdp_provisoire=e.mdp_provisoire,
         totp_configure=e.totp_secret is not None, nb_classes=len(e.classes), nb_eleves=nb_eleves,
+        nb_groupes_anglais=len(e.groupes_anglais), nb_eleves_anglais=sum(len(g.eleves) for g in e.groupes_anglais),
         derniere_connexion=e.derniere_connexion,
     )
 
@@ -204,7 +208,7 @@ def supprimer_enseignant(enseignant_id: int, confirmation: str, admin: AdminCour
     if e.classes:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des classes : transférez-les d'abord.")
     if e.groupes_anglais:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des groupes d'anglais : il doit d'abord les supprimer.")
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des groupes d'anglais : transférez-les d'abord.")
     fichiers = [r.fichier for r in session.scalars(select(models.Ressource).where(models.Ressource.auteur_id == e.id))]
     journal.noter(session, admin, "supprimer", "enseignant", e.id, avant=journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.delete(e)
@@ -328,6 +332,81 @@ def classes(_: AdminCourant, session: SessionDB, enseignant_id: int | None = Non
         )
         for c in session.scalars(requete)
     ]
+
+
+# --- PKP Anglais : groupes et séances ---------------------------------------------------
+# Les groupes d'anglais (4e, 3e) sont séparés des classes de maths : vues et actions dédiées.
+
+
+def _vue_groupe(g: models.GroupeAnglais) -> GroupeAnglaisAdmin:
+    return GroupeAnglaisAdmin(
+        id=g.id, nom=g.nom, niveau=g.niveau, enseignant_id=g.enseignant_id, enseignant=g.enseignant.nom,
+        eleves=[EleveAnglaisAdmin(id=e.id, prenom=e.prenom) for e in sorted(g.eleves, key=lambda e: e.prenom.lower())],
+    )
+
+
+def _groupe_anglais(session: SessionDB, groupe_id: int) -> models.GroupeAnglais:
+    g = session.get(models.GroupeAnglais, groupe_id)
+    if g is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Groupe introuvable.")
+    return g
+
+
+@router.get("/anglais/groupes", response_model=list[GroupeAnglaisAdmin])
+def groupes_anglais(_: AdminCourant, session: SessionDB) -> list[GroupeAnglaisAdmin]:
+    groupes = session.scalars(select(models.GroupeAnglais))
+    return [_vue_groupe(g) for g in sorted(
+        groupes, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.enseignant.nom.lower(), g.nom.lower())
+    )]
+
+
+@router.post("/anglais/groupes/{groupe_id}/transfert", response_model=GroupeAnglaisAdmin)
+def transferer_groupe_anglais(groupe_id: int, corps: Transfert, admin: AdminCourant, session: SessionDB) -> GroupeAnglaisAdmin:
+    """Remplacement en cours d'année : le groupe et ses élèves passent à un autre professeur d'anglais."""
+    groupe, vers = _groupe_anglais(session, groupe_id), _enseignant(session, corps.vers_enseignant_id)
+    if vers.id == groupe.enseignant_id:
+        raise HTTPException(422, "Choisissez un autre professeur.")
+    if not vers.enseigne_anglais:
+        raise HTTPException(422, "Ce professeur n'enseigne pas l'anglais.")
+    if any(g.nom.lower() == groupe.nom.lower() for g in vers.groupes_anglais):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a déjà un groupe de ce nom.")
+    journal.noter(session, admin, "transferer", "groupe_anglais", groupe.id, {"enseignant": groupe.enseignant_id}, {"enseignant": vers.id})
+    groupe.enseignant = vers
+    session.commit()
+    return _vue_groupe(groupe)
+
+
+@router.delete("/anglais/groupes/{groupe_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_groupe_anglais(groupe_id: int, admin: AdminCourant, session: SessionDB) -> Response:
+    groupe = _groupe_anglais(session, groupe_id)
+    journal.noter(session, admin, "supprimer", "groupe_anglais", groupe.id,
+                  avant={"nom": groupe.nom, "niveau": groupe.niveau, "eleves": len(groupe.eleves)})
+    session.delete(groupe)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.delete("/anglais/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_eleve_anglais(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
+    """Droit à l'effacement (RGPD) : le prénom est supprimé, l'action est journalisée."""
+    eleve = session.get(models.EleveAnglais, eleve_id)
+    if eleve is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
+    journal.noter(session, admin, "supprimer", "eleve_anglais", eleve.id, avant={"prenom": eleve.prenom, "groupe": eleve.groupe.nom})
+    session.delete(eleve)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/anglais/seances")
+def seances_anglais(admin: AdminCourant):
+    """Catalogue des séances, pour contrôler ce que reçoivent les professeurs d'anglais."""
+    return anglais.lister_seances(admin)
+
+
+@router.get("/anglais/seances/{code}/pdf/{public}")
+def pdf_seance_anglais(code: str, public: str, admin: AdminCourant):
+    return anglais.telecharger_pdf(code, public, admin)
 
 
 # --- Journal et statistiques ---------------------------------------------------------------

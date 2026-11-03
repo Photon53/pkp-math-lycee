@@ -142,3 +142,49 @@ def test_un_professeur_avec_des_groupes_n_est_pas_supprime(client):
     prof = next(e for e in client.get("/admin/enseignants", headers=admin).json() if e["email"] == EMAIL_ANGLAIS_DEMO)
     r = client.delete(f"/admin/enseignants/{prof['id']}", headers=admin, params={"confirmation": EMAIL_ANGLAIS_DEMO})
     assert r.status_code == 409 and "groupes d'anglais" in r.json()["detail"]
+
+
+def _prof(client, admin, email):
+    return next(e for e in client.get("/admin/enseignants", headers=admin).json() if e["email"] == email)
+
+
+def test_l_administrateur_voit_et_gere_les_groupes_d_anglais(client):
+    h = connecter_anglais(client)
+    gid = client.post("/anglais/groupes", headers=h, json={"nom": "4e A", "niveau": "4e"}).json()["id"]
+    client.post(f"/anglais/groupes/{gid}/eleves", headers=h, json={"prenoms": ["Lina", "Yanis"]})
+    admin = connecter_admin(client)
+    assert client.get("/admin/anglais/groupes", headers=h).status_code == 401  # jeton professeur refusé
+
+    groupes = client.get("/admin/anglais/groupes", headers=admin).json()
+    assert [(g["nom"], g["niveau"], [e["prenom"] for e in g["eleves"]]) for g in groupes] == [("4e A", "4e", ["Lina", "Yanis"])]
+    prof = _prof(client, admin, EMAIL_ANGLAIS_DEMO)
+    assert (prof["nb_groupes_anglais"], prof["nb_eleves_anglais"]) == (1, 2)
+
+    # Transfert : seulement vers un professeur d'anglais.
+    demo = _prof(client, admin, "demo@pkp.test")
+    r = client.post(f"/admin/anglais/groupes/{gid}/transfert", headers=admin, json={"vers_enseignant_id": demo["id"]})
+    assert r.status_code == 422 and "anglais" in r.json()["detail"]
+    corps = {"nom": demo["nom"], "email": demo["email"], "enseigne_maths": True, "enseigne_anglais": True}
+    client.post(f"/admin/enseignants/{demo['id']}", headers=admin, json=corps)
+    r = client.post(f"/admin/anglais/groupes/{gid}/transfert", headers=admin, json={"vers_enseignant_id": demo["id"]})
+    assert r.status_code == 200 and r.json()["enseignant_id"] == demo["id"]
+    assert client.get("/anglais/groupes", headers=h).json() == []
+    assert [g["nom"] for g in client.get("/anglais/groupes", headers=connecter_enseignant(client)).json()] == ["4e A"]
+
+    # Effacement d'un élève puis du groupe, journalisés.
+    lina = r.json()["eleves"][0]
+    assert client.delete(f"/admin/anglais/eleves/{lina['id']}", headers=admin).status_code == 204
+    assert client.delete(f"/admin/anglais/groupes/{gid}", headers=admin).status_code == 204
+    assert client.get("/admin/anglais/groupes", headers=admin).json() == []
+    journal = client.get("/admin/journal", headers=admin).json()["elements"]
+    assert {(j["action"], j["objet"]) for j in journal} >= {
+        ("transferer", "groupe_anglais"), ("supprimer", "eleve_anglais"), ("supprimer", "groupe_anglais"),
+    }
+
+
+def test_l_administrateur_consulte_les_seances_d_anglais(client):
+    admin = connecter_admin(client)
+    seances = client.get("/admin/anglais/seances", headers=admin).json()
+    assert {s["code"] for s in seances} == {"4E-01", "4E-02", "3E-01", "3E-02"}
+    r = client.get("/admin/anglais/seances/3E-01/pdf/animateur", headers=admin)
+    assert r.status_code == 200 and r.content.startswith(b"%PDF")

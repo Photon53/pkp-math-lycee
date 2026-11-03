@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import Accueil from "../Accueil.jsx";
+import AnglaisAdmin from "../admin/AnglaisAdmin.jsx";
 import Professeurs from "../admin/Professeurs.jsx";
 import EspaceAnglais from "../anglais/EspaceAnglais.jsx";
 import EspaceEnseignant from "../enseignant/EspaceEnseignant.jsx";
@@ -170,5 +171,34 @@ describe("PKP Anglais", () => {
     expect(screen.getByRole("button", { name: /4e B/ })).toHaveTextContent("2 élèves");
     expect(appels.find((a) => a.cle === "POST /anglais/groupes").corps).toEqual({ nom: "4e B", niveau: "4e" });
     expect(appels.find((a) => a.cle === "POST /anglais/groupes/2/eleves").corps).toEqual({ prenoms: ["Lina", "Yanis"] });
+  });
+
+  it("l'administrateur voit les groupes d'anglais et transfère un groupe à un professeur d'anglais", async () => {
+    let groupes = [{ id: 3, nom: "4e A", niveau: "4e", enseignant_id: 5, enseignant: "Mrs Smith", eleves: [{ id: 7, prenom: "Lina" }] }];
+    const profs = [
+      { id: 5, nom: "Mrs Smith", email: "s@x.fr", actif: true, enseigne_maths: false, enseigne_anglais: true },
+      { id: 6, nom: "M. Maths", email: "m@x.fr", actif: true, enseigne_maths: true, enseigne_anglais: false },
+      { id: 8, nom: "Mr Brown", email: "b@x.fr", actif: true, enseigne_maths: false, enseigne_anglais: true },
+    ];
+    const appels = fausseApi({
+      "GET /admin/anglais/groupes": () => ({ json: groupes }),
+      "GET /admin/enseignants": { json: profs },
+      "POST /admin/anglais/groupes/3/transfert": () => {
+        groupes = [{ ...groupes[0], enseignant_id: 8, enseignant: "Mr Brown" }];
+        return { json: groupes[0] };
+      },
+    });
+    render(<AnglaisAdmin jeton="j" onExpire={vi.fn()} />);
+    expect(await screen.findByRole("cell", { name: "Mrs Smith" })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "1 élève" }));
+    expect(screen.getByRole("button", { name: "Supprimer Lina" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Transférer" }));
+    const fenetre = screen.getByRole("dialog");
+    // Seuls les autres professeurs d'anglais sont proposés.
+    expect(within(fenetre).getAllByRole("option").map((o) => o.textContent)).toEqual(["Mr Brown (b@x.fr)"]);
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Transférer" }));
+    expect(await screen.findByRole("cell", { name: "Mr Brown" })).toBeInTheDocument();
+    expect(appels.find((a) => a.cle === "POST /admin/anglais/groupes/3/transfert").corps).toEqual({ vers_enseignant_id: 8 });
   });
 });

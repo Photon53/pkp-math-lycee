@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
 
-async function telecharger(code, publicCible, jeton) {
-  const reponse = await fetch(`/api/anglais/seances/${encodeURIComponent(code)}/pdf/${publicCible}`, {
+/** Télécharge un cahier PDF ; l'espace admin passe sa propre route (`/admin/anglais`). */
+export async function telecharger(code, publicCible, jeton, base = "/anglais") {
+  const reponse = await fetch(`/api${base}/seances/${encodeURIComponent(code)}/pdf/${publicCible}`, {
     headers: { Authorization: `Bearer ${jeton}` },
   });
   if (!reponse.ok) {

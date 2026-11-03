@@ -3,7 +3,7 @@ import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Pagination, Vide, formaterDate } from "../ui/Cadre.jsx";
 
-const OBJETS = ["enseignant", "eleve", "chapitre", "competence", "lecon", "question", "ressource", "domaine"];
+const OBJETS = ["enseignant", "eleve", "chapitre", "competence", "lecon", "question", "ressource", "domaine", "groupe_anglais", "eleve_anglais"];
 
 /** Journal des actions d'administration, en lecture seule (EA3.23). */
 export default function Journal({ jeton, onExpire }) {
