@@ -1,12 +1,13 @@
 """Contrats d'API de l'espace administrateur (cahier des charges V2, module 1)."""
 
 from datetime import date, datetime
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pkp_engine import Forme, Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import Adaptation, Parcours, Role, StatutValidation
+from app.schemas import ParentCreation
 
 TAILLE_PAGE = 50
 
@@ -41,6 +42,19 @@ class JetonAdmin(BaseModel):
 # --- Professeurs ------------------------------------------------------------------
 
 
+class HabilitationEntree(BaseModel):
+    """Professeur ou validateur d'un domaine ; niveau vide = tout le domaine (CDC V2, EX.6 et EX.9-bis)."""
+
+    role: Literal["professeur", "validateur"]
+    domaine: Annotated[str, Field(min_length=1, max_length=30)]
+    niveau: Annotated[str | None, Field(max_length=4)] = None
+
+
+class HabilitationVue(HabilitationEntree):
+    libelle: str
+    accordee_le: datetime | None = None
+
+
 class EnseignantAdmin(BaseModel):
     id: int
     nom: str
@@ -57,6 +71,7 @@ class EnseignantAdmin(BaseModel):
     nb_groupes_anglais: int = 0
     nb_eleves_anglais: int = 0
     derniere_connexion: datetime | None
+    habilitations: list[HabilitationVue] = []
 
 
 class EnseignantEdition(BaseModel):
@@ -67,6 +82,8 @@ class EnseignantEdition(BaseModel):
     enseigne_anglais: bool = False
     # Référent : valide les séances PKP Anglais des autres auteurs.
     referent_anglais: bool = False
+    # Fournies : elles remplacent les cases ci-dessus, qui en sont alors déduites.
+    habilitations: Annotated[list[HabilitationEntree] | None, Field(max_length=40)] = None
 
     @field_validator("email")
     @classmethod
@@ -75,6 +92,10 @@ class EnseignantEdition(BaseModel):
 
     @model_validator(mode="after")
     def _une_discipline(self) -> "EnseignantEdition":
+        if self.habilitations is not None:
+            if not self.habilitations:
+                raise ValueError("Donnez au moins une habilitation (professeur ou validateur d'un domaine).")
+            return self
         if not (self.enseigne_maths or self.enseigne_anglais):
             raise ValueError("Cochez au moins une discipline.")
         if self.referent_anglais and not self.enseigne_anglais:
@@ -91,6 +112,85 @@ class EnseignantCree(BaseModel):
 
 class Activation(BaseModel):
     actif: bool
+
+
+# --- Domaines pédagogiques ----------------------------------------------------------
+
+
+class DomaineAdmin(BaseModel):
+    code: str
+    matiere: str
+    cycle: str
+    libelle: str
+    niveaux: list[str]
+    actif: bool
+    public: bool
+    nb_professeurs: int
+    nb_validateurs: int
+
+
+class DomaineEdition(BaseModel):
+    actif: bool
+    public: bool
+
+    @model_validator(mode="after")
+    def _public_si_actif(self) -> "DomaineEdition":
+        if self.public and not self.actif:
+            raise ValueError("Un domaine ouvert aux élèves doit d'abord être activé.")
+        return self
+
+
+# --- Familles (comptes parents) -----------------------------------------------------
+
+
+class EnfantRattache(BaseModel):
+    id: int
+    prenom: str
+    classe: str
+    niveau: Niveau
+    enseignant: str
+
+
+class FamilleAdmin(BaseModel):
+    id: int
+    email: str
+    mdp_provisoire: bool
+    cree_le: datetime
+    derniere_connexion: datetime | None
+    enfants: list[EnfantRattache]
+
+
+class PageFamilles(BaseModel):
+    total: int
+    elements: list[FamilleAdmin]
+
+
+class EntreeRattachement(BaseModel):
+    le: datetime
+    action: Literal["ajout", "retrait"]
+    par: str
+    enfant: str
+
+
+class FamilleDetail(FamilleAdmin):
+    historique: list[EntreeRattachement]
+
+
+class FamilleCreee(BaseModel):
+    """Le mot de passe provisoire n'est donné qu'à la création du compte."""
+
+    famille: FamilleDetail
+    mot_de_passe_provisoire: str | None = None
+
+
+class RattachementEnfant(BaseModel):
+    eleve_id: int
+
+
+class FamilleCreation(ParentCreation):
+    """Même contrôle de l'adresse que lorsqu'un professeur crée le compte."""
+
+    eleve_id: int
 
 
 class Transfert(BaseModel):

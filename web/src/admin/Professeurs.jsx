@@ -3,14 +3,21 @@ import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { BadgesHabilitations, DOMAINES_PAR_DEFAUT, GrilleQualifications, depuisGrille, versGrille } from "./Qualifications.jsx";
 
-/** Comptes professeurs : création, modification, désactivation, transfert, suppression (EA3.1 à EA3.6). */
+/** Comptes de l'équipe (professeurs, validateurs, administrateurs) : création, qualifications par matière,
+ * désactivation, transfert, suppression (EA3.1 à EA3.6, CDC V2 EA.5 à EA.7). */
 export default function Professeurs({ jeton, onExpire }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [liste, setListe] = useState(null);
   const [recherche, setRecherche] = useState("");
   const [fenetre, setFenetre] = useState(null); // { genre: "edition" | "secret" | "transfert" | "suppression", prof, ... }
   const [message, setMessage] = useState(null);
+  const [domaines, setDomaines] = useState(DOMAINES_PAR_DEFAUT);
+
+  useEffect(() => {
+    appeler("/admin/domaines").then(setDomaines, () => {});
+  }, [appeler]);
 
   const charger = useCallback(
     () => appeler(`/admin/enseignants${recherche ? `?q=${encodeURIComponent(recherche)}` : ""}`).then(setListe, () => {}),
@@ -59,7 +66,7 @@ export default function Professeurs({ jeton, onExpire }) {
               CSV
             </button>
             <button onClick={() => setFenetre({ genre: "edition", prof: null })}>
-              <Icone nom="plus" taille={18} /> Nouveau professeur
+              <Icone nom="plus" taille={18} /> Nouveau compte
             </button>
           </div>
         </div>
@@ -95,9 +102,7 @@ export default function Professeurs({ jeton, onExpire }) {
                     </td>
                     <td>
                       {p.role === "admin" && <span className="badge accent">Admin</span>}{" "}
-                      {p.enseigne_maths && <span className="badge neutre">Maths</span>}{" "}
-                      {p.enseigne_anglais && <span className="badge neutre">Anglais</span>}{" "}
-                      {p.referent_anglais && <span className="badge accent">Référent anglais</span>}{" "}
+                      <BadgesHabilitations habilitations={p.habilitations} />{" "}
                       {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}{" "}
                       {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
                     </td>
@@ -147,6 +152,7 @@ export default function Professeurs({ jeton, onExpire }) {
       {fenetre?.genre === "edition" && (
         <Edition
           prof={fenetre.prof}
+          domaines={domaines}
           appeler={appeler}
           onFermer={() => setFenetre(null)}
           onCree={(r) => {
@@ -206,24 +212,24 @@ export default function Professeurs({ jeton, onExpire }) {
   );
 }
 
-function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
+function Edition({ prof, domaines, appeler, onFermer, onCree, onModifie }) {
   const [nom, setNom] = useState(prof?.nom ?? "");
   const [email, setEmail] = useState(prof?.email ?? "");
   const [role, setRole] = useState(prof?.role ?? "enseignant");
-  const [maths, setMaths] = useState(prof?.enseigne_maths ?? true);
-  const [anglais, setAnglais] = useState(prof?.enseigne_anglais ?? false);
-  const [referent, setReferent] = useState(prof?.referent_anglais ?? false);
+  // Nouveau compte : professeur de Maths lycée, comme avant.
+  const [grille, setGrille] = useState(() => versGrille(prof?.habilitations ?? [{ role: "professeur", domaine: "maths-lycee", niveau: null }]));
   const [erreur, setErreur] = useState(null);
 
   async function soumettre(e) {
     e.preventDefault();
     setErreur(null);
-    if (!maths && !anglais) {
-      setErreur("Cochez au moins une discipline.");
+    const habilitations = depuisGrille(grille);
+    if (!habilitations.length) {
+      setErreur("Cochez au moins une qualification.");
       return;
     }
     try {
-      const corps = { nom, email, role, enseigne_maths: maths, enseigne_anglais: anglais, referent_anglais: anglais && referent };
+      const corps = { nom, email, role, habilitations };
       if (prof) {
         await appeler(`/admin/enseignants/${prof.id}`, { methode: "POST", corps });
         onModifie();
@@ -236,7 +242,7 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
   }
 
   return (
-    <Modale titre={prof ? `Modifier ${prof.nom}` : "Nouveau professeur"} onFermer={onFermer}>
+    <Modale titre={prof ? `Modifier ${prof.nom}` : "Nouveau compte"} onFermer={onFermer} large>
       <form onSubmit={soumettre}>
         <label htmlFor="e-nom">Nom affiché</label>
         <input id="e-nom" maxLength={100} required value={nom} onChange={(e) => setNom(e.target.value)} placeholder="ex. Mme Martin" />
@@ -244,24 +250,10 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
         <input id="e-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <label htmlFor="e-role">Rôle</label>
         <select id="e-role" value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="enseignant">Professeur</option>
-          <option value="admin">Administrateur (et professeur)</option>
+          <option value="enseignant">Membre de l'équipe</option>
+          <option value="admin">Administrateur</option>
         </select>
-        <fieldset className="choix-chapitres">
-          <legend>Disciplines</legend>
-          <label className="case">
-            <input type="checkbox" checked={maths} onChange={(e) => setMaths(e.target.checked)} /> Mathématiques (espace professeur)
-          </label>
-          <label className="case">
-            <input type="checkbox" checked={anglais} onChange={(e) => setAnglais(e.target.checked)} /> Anglais (espace PKP Anglais)
-          </label>
-          {anglais && (
-            <label className="case">
-              <input type="checkbox" checked={referent} onChange={(e) => setReferent(e.target.checked)} /> Référent anglais : valide les
-              séances écrites par d'autres
-            </label>
-          )}
-        </fieldset>
+        <GrilleQualifications domaines={domaines} valeur={grille} onChange={setGrille} />
         {!prof && <p className="aide">Un mot de passe provisoire sera affiché une seule fois après la création.</p>}
         <Erreur message={erreur} />
         <div className="actions">

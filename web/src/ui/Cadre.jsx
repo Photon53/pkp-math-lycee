@@ -1,11 +1,12 @@
 // Mises en page de la charte : application à navigation latérale (professeur, administrateur),
 // en-tête de page, fenêtre modale, état vide.
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Lien } from "../navigation.js";
 import Icone, { Monogramme } from "./Icone.jsx";
 
 /**
- * `liens` : [{ vers, libelle, icone }] ; `cheminActif` : l'entrée dont le chemin préfixe celui-ci est active.
+ * `liens` : [{ vers, libelle, icone, groupe? }] ; `cheminActif` : l'entrée dont le chemin préfixe celui-ci est active.
+ * `groupe` : titre affiché au-dessus du premier lien de chaque groupe.
  * `pied` : contenu du bas de la navigation (compte, déconnexion). `marque` : « Math Lycée » ou « Anglais ».
  */
 export function CadreApplication({ espace, liens, cheminActif, pied, marque = "Math Lycée", children }) {
@@ -26,11 +27,14 @@ export function CadreApplication({ espace, liens, cheminActif, pied, marque = "M
           </span>
         </a>
         <div className="espace">{espace}</div>
-        {liens.map((l) => (
-          <Lien key={l.vers} vers={l.vers} actif={l === actif}>
-            <Icone nom={l.icone} />
-            {l.libelle}
-          </Lien>
+        {liens.map((l, i) => (
+          <Fragment key={l.vers}>
+            {l.groupe && l.groupe !== liens[i - 1]?.groupe && <div className="groupe-nav">{l.groupe}</div>}
+            <Lien vers={l.vers} actif={l === actif}>
+              <Icone nom={l.icone} />
+              {l.libelle}
+            </Lien>
+          </Fragment>
         ))}
         <div className="bas">{pied}</div>
       </nav>

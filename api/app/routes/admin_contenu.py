@@ -11,7 +11,7 @@ from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict,
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
-from app import journal, ressources
+from app import journal, permissions, ressources
 from app.auth import AdminCourant, SessionDB
 from app.contenu import TIRAGES_VERIFIES
 from app.contenu import _dollars_equilibres as dollars_equilibres
@@ -427,8 +427,12 @@ def modifier_question(question_id: int, corps: QuestionEdition, admin: AdminCour
 
 @router.post("/questions/{question_id}/validation", response_model=QuestionAdmin)
 def valider(question_id: int, corps: Validation, admin: AdminCourant, session: SessionDB) -> QuestionAdmin:
-    """Le relecteur est l'administrateur connecté ; il ne peut pas être l'auteur (règle E0.2)."""
+    """Le relecteur est l'administrateur connecté, validateur qualifié de Maths lycée pour ce niveau (EX.9-bis) ;
+    il ne peut pas être l'auteur (règle E0.2)."""
     q = _question(session, question_id)
+    refus = permissions.refus_validation(admin, permissions.MATHS_LYCEE, q.competence.chapitre.niveau.value)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     if corps.statut == StatutValidation.VALIDEE and q.auteur and q.auteur.strip().lower() == admin.nom.strip().lower():
         raise HTTPException(422, "Vous êtes l'auteur de cette question : un autre professeur doit la valider.")
     avant = journal.instantane(q, ("statut_validation", "valide_par", "valide_le"))

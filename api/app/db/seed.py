@@ -23,7 +23,7 @@ from pkp_engine import Niveau, corriger
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import anglais_contenu, contenu
+from app import anglais_contenu, contenu, permissions
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
@@ -64,23 +64,28 @@ def charger_demo(session: Session) -> bool:
 
     # Ajouté à part : une base de démo antérieure à la V2 reçoit aussi son administrateur.
     if not session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ADMIN_DEMO)):
-        session.add(
-            models.Enseignant(
-                nom="Administrateur Démo", email=EMAIL_ADMIN_DEMO, role=Role.ADMIN,
-                mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
-            )
+        admin = models.Enseignant(
+            nom="Administrateur Démo", email=EMAIL_ADMIN_DEMO, role=Role.ADMIN,
+            mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
         )
+        session.add(admin)
+        # Comme la migration 0023 pour les administrateurs existants : professeur et validateur de Maths lycée.
+        permissions.appliquer(session, admin, [
+            permissions.Portee(permissions.PROFESSEUR, permissions.MATHS_LYCEE),
+            permissions.Portee(permissions.VALIDATEUR, permissions.MATHS_LYCEE),
+        ], None)
         session.commit()
 
     # Professeur d'anglais seul : n'a accès qu'à l'espace /anglais (ajouté à part, comme l'administrateur).
     if not session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO)):
-        session.add(
-            models.Enseignant(
-                nom="Professeur d'anglais Démo", email=EMAIL_ANGLAIS_DEMO, enseigne_maths=False, enseigne_anglais=True,
-                referent_anglais=True,
-                mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
-            )
+        anglais = models.Enseignant(
+            nom="Professeur d'anglais Démo", email=EMAIL_ANGLAIS_DEMO, mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
         )
+        session.add(anglais)
+        permissions.appliquer(session, anglais, [
+            permissions.Portee(permissions.PROFESSEUR, permissions.ANGLAIS_COLLEGE),
+            permissions.Portee(permissions.VALIDATEUR, permissions.ANGLAIS_COLLEGE),
+        ], None)
         session.commit()
 
     if session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_DEMO)):
@@ -92,6 +97,7 @@ def charger_demo(session: Session) -> bool:
         mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
     )
     session.add(enseignant)
+    permissions.appliquer(session, enseignant, [permissions.Portee(permissions.PROFESSEUR, permissions.MATHS_LYCEE)], None)
 
     eleves: dict[str, models.Eleve] = {}
     for code, niveau, prenoms in CLASSES:

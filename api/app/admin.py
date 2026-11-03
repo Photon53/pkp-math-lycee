@@ -20,6 +20,7 @@ import sys
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import permissions
 from app.db import models
 from app.referentiel import Role
 from app.security import generer_secret_totp, hacher_mot_de_passe, uri_totp
@@ -48,6 +49,8 @@ def creer_enseignant(session: Session, email: str, nom: str, mot_de_passe: str, 
         role=Role.ADMIN if admin else Role.ENSEIGNANT,
     )
     session.add(enseignant)
+    # Professeur de Maths lycée, comme avant ; les autres qualifications se donnent dans l'administration.
+    permissions.appliquer(session, enseignant, [permissions.Portee(permissions.PROFESSEUR, permissions.MATHS_LYCEE)], None)
     session.commit()
     return enseignant
 

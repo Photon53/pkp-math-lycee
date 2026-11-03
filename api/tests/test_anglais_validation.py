@@ -153,11 +153,11 @@ def test_l_administrateur_edite_et_un_autre_valide(client):
     assert r.status_code == 200
     assert (r.json()["version"], r.json()["statut"], r.json()["version_publiee"]) == (2, "brouillon", 1)
     assert client.get("/anglais/seances/4E-02", headers=h).json()["titre"] != "Weekend plans (révisé)"
-    assert client.post("/admin/anglais/seances/4E-02/valider", headers=admin).status_code == 409  # pas encore soumise
     assert client.post("/admin/anglais/seances/4E-02/soumettre", headers=admin).json()["statut"] == "soumis"
-    # L'auteur ne valide pas son propre contenu ; un référent le refuse avec un motif, puis le valide.
+    # Administrateur sans qualification d'Anglais collège : il ne valide pas (EX.9-bis), même ce qu'il n'a pas écrit.
     r = client.post("/admin/anglais/seances/4E-02/valider", headers=admin)
-    assert r.status_code == 409 and "propre contenu" in r.json()["detail"]
+    assert r.status_code == 403 and "validateur pour Anglais collège" in r.json()["detail"]
+    # Un référent le refuse avec un motif, puis le valide.
     r = client.post("/anglais/validation/4E-02/refuser", headers=h, json={"motif": "Titre en français"})
     assert r.json()["statut"] == "refuse" and r.json()["motif_refus"] == "Titre en français"
     client.put("/admin/anglais/seances/4E-02", headers=admin, json={"contenu": nouveau, "cahier": cahier, "quiz": quiz})

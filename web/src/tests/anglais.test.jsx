@@ -38,6 +38,12 @@ function connecte(disciplines) {
   sessionStorage.setItem("pkp.enseignant", JSON.stringify({ jeton: "j", nom: "Mme Smith", role: "enseignant", mdp_provisoire: false, ...disciplines }));
 }
 
+const DOMAINES = [
+  { code: "maths-lycee", matiere: "maths", cycle: "lycee", libelle: "Maths lycée", niveaux: ["2nde", "1re", "Tle"], actif: true, public: true },
+  { code: "anglais-college", matiere: "anglais", cycle: "college", libelle: "Anglais collège", niveaux: ["6e", "5e", "4e", "3e"], actif: true, public: true },
+  { code: "francais-lycee", matiere: "francais", cycle: "lycee", libelle: "Français lycée", niveaux: ["2nde", "1re"], actif: false, public: false },
+];
+
 describe("PKP Anglais", () => {
   it("l'accueil mène à un espace dédié", () => {
     render(<Accueil />);
@@ -116,9 +122,10 @@ describe("PKP Anglais", () => {
     expect(screen.getByText("plays").closest("details")).not.toHaveAttribute("open");
   });
 
-  it("l'administrateur coche les disciplines d'un nouveau professeur", async () => {
+  it("l'administrateur coche les qualifications d'un nouveau compte, matière par matière", async () => {
     let liste = [];
     const appels = fausseApi({
+      "GET /admin/domaines": { json: DOMAINES },
       "GET /admin/enseignants": () => ({ json: liste }),
       "POST /admin/enseignants": (corps) => {
         const enseignant = { id: 9, ...corps, actif: true, mdp_provisoire: true, totp_configure: false, nb_classes: 0, nb_eleves: 0, derniere_connexion: null };
@@ -127,18 +134,26 @@ describe("PKP Anglais", () => {
       },
     });
     render(<Professeurs jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(await screen.findByRole("button", { name: /Nouveau professeur/ }));
+    await userEvent.click(await screen.findByRole("button", { name: /Nouveau compte/ }));
     const fenetre = screen.getByRole("dialog");
     await userEvent.type(within(fenetre).getByLabelText("Nom affiché"), "Mrs Smith");
     await userEvent.type(within(fenetre).getByLabelText("E-mail"), "smith@college.fr");
-    await userEvent.click(within(fenetre).getByLabelText(/Mathématiques/));
+    // Domaine non activé : sa case est grisée.
+    expect(within(fenetre).getByLabelText("Valide — Français lycée")).toBeDisabled();
+    await userEvent.click(within(fenetre).getByLabelText("Enseigne — Maths lycée"));
     await userEvent.click(within(fenetre).getByRole("button", { name: "Créer le compte" }));
-    expect(within(fenetre).getByText("Cochez au moins une discipline.")).toBeInTheDocument();
-    await userEvent.click(within(fenetre).getByLabelText(/Anglais/));
+    expect(within(fenetre).getByText("Cochez au moins une qualification.")).toBeInTheDocument();
+    await userEvent.click(within(fenetre).getByLabelText("Enseigne — Anglais collège"));
+    await userEvent.click(within(fenetre).getByLabelText("Valide — Anglais collège"));
+    // Validation restreinte à la 3e.
+    await userEvent.click(within(within(fenetre).getByRole("group", { name: "Niveaux validés en Anglais collège" })).getByLabelText("3e"));
     await userEvent.click(within(fenetre).getByRole("button", { name: "Créer le compte" }));
     expect(await screen.findByText("Abc23defGhk45mnP")).toBeInTheDocument();
     const creation = appels.find((a) => a.cle === "POST /admin/enseignants");
-    expect(creation.corps).toMatchObject({ enseigne_maths: false, enseigne_anglais: true });
+    expect(creation.corps.habilitations).toEqual([
+      { role: "professeur", domaine: "anglais-college", niveau: null },
+      { role: "validateur", domaine: "anglais-college", niveau: "3e" },
+    ]);
   });
 
   it("le professeur d'anglais crée un groupe de 4e et y inscrit ses élèves", async () => {

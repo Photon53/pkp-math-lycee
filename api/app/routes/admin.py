@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import anglais_contenu, journal, limitation, parents, ressources, statistiques
+from app import anglais_contenu, journal, limitation, parents, permissions, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -26,16 +26,27 @@ from app.schemas_admin import (
     ClasseAdmin,
     ConnexionAdmin,
     Deplacement,
+    DomaineAdmin,
+    DomaineEdition,
     EleveAnglaisAdmin,
     EleveAdmin,
     EnseignantAdmin,
     EnseignantCree,
     EnseignantEdition,
+    EnfantRattache,
     EntreeJournal,
+    EntreeRattachement,
+    FamilleAdmin,
+    FamilleCreation,
+    FamilleCreee,
+    FamilleDetail,
     GroupeAnglaisAdmin,
+    HabilitationVue,
     JetonAdmin,
     PageEleves,
+    PageFamilles,
     PageJournal,
+    RattachementEnfant,
     Statistiques,
     Transfert,
 )
@@ -50,6 +61,13 @@ from app.security import (
 router = APIRouter(prefix="/admin", tags=["administration"])
 
 CHAMPS_ENSEIGNANT = ("nom", "email", "role", "enseigne_maths", "enseigne_anglais", "referent_anglais", "actif")
+
+
+def _instantane(e: models.Enseignant) -> dict:
+    """Pour le journal : les champs du compte et ses habilitations (« validateur maths-lycee 1re »)."""
+    return journal.instantane(e, CHAMPS_ENSEIGNANT) | {
+        "habilitations": [" ".join(filter(None, p)) for p in permissions.portees(e)]
+    }
 
 
 # --- Connexion ----------------------------------------------------------------------
@@ -100,7 +118,37 @@ def _vue_enseignant(session: SessionDB, e: models.Enseignant) -> EnseignantAdmin
         totp_configure=e.totp_secret is not None, nb_classes=len(e.classes), nb_eleves=nb_eleves,
         nb_groupes_anglais=len(e.groupes_anglais), nb_eleves_anglais=sum(len(g.eleves) for g in e.groupes_anglais),
         derniere_connexion=e.derniere_connexion,
+        habilitations=[
+            HabilitationVue(role=h.role, domaine=h.domaine_code, niveau=h.niveau,
+                            libelle=permissions.LIBELLES.get(h.domaine_code, h.domaine_code), accordee_le=h.accordee_le)
+            for h in e.habilitations
+        ],
     )
+
+
+def _habiliter(session: SessionDB, e: models.Enseignant, corps: EnseignantEdition, admin: models.Enseignant) -> None:
+    """Habilitations envoyées, sinon déduites des anciennes cases à cocher ; 422 si une portée est refusée."""
+    if corps.habilitations is not None:
+        voulues = [permissions.Portee(h.role, h.domaine, h.niveau) for h in corps.habilitations]
+    else:
+        voulues = permissions.depuis_cases(
+            permissions.portees(e), enseigne_maths=corps.enseigne_maths, enseigne_anglais=corps.enseigne_anglais,
+            referent_anglais=corps.referent_anglais,
+        )
+    try:
+        permissions.appliquer(session, e, voulues, admin)
+    except permissions.HabilitationRefusee as erreur:
+        raise HTTPException(422, str(erreur)) from None
+
+
+def _garder_un_admin(session: SessionDB, e: models.Enseignant) -> None:
+    """EA.7 : le dernier administrateur actif ne perd ni son rôle ni l'accès."""
+    autres = session.scalar(
+        select(func.count(models.Enseignant.id))
+        .where(models.Enseignant.role == Role.ADMIN, models.Enseignant.actif, models.Enseignant.id != e.id)
+    )
+    if not autres:
+        raise HTTPException(422, "C'est le dernier administrateur actif : nommez-en un autre d'abord.")
 
 
 def _enseignant(session: SessionDB, enseignant_id: int) -> models.Enseignant:
@@ -131,12 +179,13 @@ def creer_enseignant(corps: EnseignantEdition, admin: AdminCourant, session: Ses
     provisoire = generer_mot_de_passe_provisoire()
     e = models.Enseignant(
         nom=corps.nom.strip(), email=corps.email, role=corps.role,
-        enseigne_maths=corps.enseigne_maths, enseigne_anglais=corps.enseigne_anglais,
-        referent_anglais=corps.referent_anglais, mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
+        enseigne_maths=False, enseigne_anglais=False, referent_anglais=False,
+        mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
     )
     session.add(e)
+    _habiliter(session, e, corps, admin)
     session.flush()
-    journal.noter(session, admin, "creer", "enseignant", e.id, apres=journal.instantane(e, CHAMPS_ENSEIGNANT))
+    journal.noter(session, admin, "creer", "enseignant", e.id, apres=_instantane(e))
     session.commit()
     return EnseignantCree(enseignant=_vue_enseignant(session, e), mot_de_passe_provisoire=provisoire)
 
@@ -148,12 +197,13 @@ def modifier_enseignant(
     e = _enseignant(session, enseignant_id)
     if e.id == admin.id and corps.role != Role.ADMIN:
         raise HTTPException(422, "Vous ne pouvez pas retirer votre propre rôle d'administrateur.")
+    if e.role == Role.ADMIN and corps.role != Role.ADMIN and e.actif:
+        _garder_un_admin(session, e)
     _email_libre(session, corps.email, sauf_id=e.id)
-    avant = journal.instantane(e, CHAMPS_ENSEIGNANT)
+    avant = _instantane(e)
     e.nom, e.email, e.role = corps.nom.strip(), corps.email, corps.role
-    e.enseigne_maths, e.enseigne_anglais = corps.enseigne_maths, corps.enseigne_anglais
-    e.referent_anglais = corps.referent_anglais
-    journal.noter(session, admin, "modifier", "enseignant", e.id, avant, journal.instantane(e, CHAMPS_ENSEIGNANT))
+    _habiliter(session, e, corps, admin)
+    journal.noter(session, admin, "modifier", "enseignant", e.id, avant, _instantane(e))
     session.commit()
     return _vue_enseignant(session, e)
 
@@ -174,6 +224,8 @@ def activer(enseignant_id: int, corps: Activation, admin: AdminCourant, session:
     e = _enseignant(session, enseignant_id)
     if e.id == admin.id and not corps.actif:
         raise HTTPException(422, "Vous ne pouvez pas désactiver votre propre compte.")
+    if e.role == Role.ADMIN and e.actif and not corps.actif:
+        _garder_un_admin(session, e)
     avant = journal.instantane(e, ("actif",))
     e.actif = corps.actif
     journal.noter(session, admin, "activer" if corps.actif else "desactiver", "enseignant", e.id, avant, {"actif": e.actif})
@@ -324,30 +376,126 @@ def exporter(eleve_id: int, admin: AdminCourant, session: SessionDB) -> JSONResp
     return export_eleve(session, eleve)
 
 
-# --- Comptes parents ----------------------------------------------------------------
+# --- Familles (comptes parents) ------------------------------------------------------
+# Pas de liste complète des familles : on cherche par e-mail (3 caractères au moins) ou par classe.
 
 
-@router.get("/parents", response_model=list[ParentVue])
-def parents_par_email(_: AdminCourant, session: SessionDB, q: str) -> list[ParentVue]:
-    """Recherche par e-mail (au moins 3 caractères) : pas de liste complète des familles."""
-    if len(q.strip()) < 3:
-        raise HTTPException(422, "Saisissez au moins 3 caractères de l'adresse e-mail.")
-    trouves = session.scalars(
-        select(models.Parent).where(models.Parent.email.like(f"%{q.strip().lower()}%")).order_by(models.Parent.email).limit(20)
+def _par(admin: models.Enseignant) -> str:
+    return f"Administrateur : {admin.nom}"
+
+
+def _famille(p: models.Parent) -> FamilleAdmin:
+    return FamilleAdmin(
+        id=p.id, email=p.email, mdp_provisoire=p.mdp_provisoire, cree_le=p.cree_le, derniere_connexion=p.derniere_connexion,
+        enfants=[
+            EnfantRattache(id=e.id, prenom=e.prenom, classe=e.classe.code, niveau=e.classe.niveau, enseignant=e.classe.enseignant.nom)
+            for e in sorted(p.enfants, key=lambda e: (e.prenom, e.classe.code))
+        ],
     )
-    return [parents.vue(p) for p in trouves]
+
+
+def _detail_famille(session: SessionDB, p: models.Parent) -> FamilleDetail:
+    historique = session.scalars(
+        select(models.RattachementParent)
+        .where(models.RattachementParent.parent_id == p.id)
+        .order_by(models.RattachementParent.le.desc(), models.RattachementParent.id.desc())
+    )
+    return FamilleDetail(
+        **_famille(p).model_dump(),
+        historique=[
+            EntreeRattachement(le=r.le, action=r.action, par=r.par, enfant=f"{r.eleve.prenom} ({r.eleve.classe.code})")
+            for r in historique
+        ],
+    )
+
+
+def _parent(session: SessionDB, parent_id: int) -> models.Parent:
+    parent = session.get(models.Parent, parent_id)
+    if parent is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    return parent
+
+
+@router.get("/parents", response_model=PageFamilles)
+def familles(
+    _: AdminCourant, session: SessionDB, q: str | None = None, classe_id: int | None = None, page: int = 1
+) -> PageFamilles:
+    """Recherche par e-mail (au moins 3 caractères) ou par classe d'un enfant."""
+    q = (q or "").strip().lower()
+    if len(q) < 3 and classe_id is None:
+        raise HTTPException(422, "Saisissez au moins 3 caractères de l'adresse e-mail, ou choisissez une classe.")
+    filtres = []
+    if q:
+        filtres.append(models.Parent.email.like(f"%{q}%"))
+    if classe_id is not None:
+        filtres.append(models.Parent.enfants.any(models.Eleve.classe_id == classe_id))
+    total = session.scalar(select(func.count(models.Parent.id)).where(*filtres))
+    trouves = session.scalars(
+        select(models.Parent).where(*filtres).order_by(models.Parent.email)
+        .offset((max(page, 1) - 1) * TAILLE_PAGE).limit(TAILLE_PAGE)
+    )
+    return PageFamilles(total=total, elements=[_famille(p) for p in trouves])
+
+
+@router.get("/parents/{parent_id}", response_model=FamilleDetail)
+def famille(parent_id: int, _: AdminCourant, session: SessionDB) -> FamilleDetail:
+    return _detail_famille(session, _parent(session, parent_id))
+
+
+@router.post("/parents", response_model=FamilleCreee, status_code=status.HTTP_201_CREATED)
+def creer_famille(corps: FamilleCreation, admin: AdminCourant, session: SessionDB) -> FamilleCreee:
+    """Crée le compte parent rattaché à un premier enfant, ou rattache cet enfant à un compte existant."""
+    eleve = _eleve(session, corps.eleve_id)
+    parent, provisoire = parents.rattacher(session, eleve, corps.email, _par(admin))
+    journal.noter(session, admin, "rattacher", "parent", parent.id, apres={"eleve": eleve.id, "cree": provisoire is not None})
+    session.commit()
+    return FamilleCreee(famille=_detail_famille(session, parent), mot_de_passe_provisoire=provisoire)
+
+
+@router.post("/parents/{parent_id}/enfants", response_model=FamilleDetail)
+def rattacher_enfant(parent_id: int, corps: RattachementEnfant, admin: AdminCourant, session: SessionDB) -> FamilleDetail:
+    parent, eleve = _parent(session, parent_id), _eleve(session, corps.eleve_id)
+    if eleve in parent.enfants:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Cet enfant est déjà rattaché à ce parent.")
+    parents.rattacher(session, eleve, parent.email, _par(admin))
+    journal.noter(session, admin, "rattacher", "parent", parent.id, apres={"eleve": eleve.id})
+    session.commit()
+    return _detail_famille(session, parent)
+
+
+@router.delete("/parents/{parent_id}/enfants/{eleve_id}", response_model=FamilleDetail | None)
+def detacher_enfant(parent_id: int, eleve_id: int, admin: AdminCourant, session: SessionDB) -> FamilleDetail | None:
+    """Effet immédiat ; sans plus aucun enfant, le compte parent est supprimé (réponse vide)."""
+    parent = _parent(session, parent_id)
+    eleve = next((e for e in parent.enfants if e.id == eleve_id), None)
+    if eleve is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Cet enfant n'est pas rattaché à ce parent.")
+    journal.noter(session, admin, "detacher", "parent", parent_id, avant={"eleve": eleve_id})
+    reste = parents.detacher(session, eleve, parent, _par(admin))
+    session.commit()
+    return _detail_famille(session, session.get(models.Parent, parent_id)) if reste else None
 
 
 @router.post("/parents/{parent_id}/reinitialiser", response_model=ParentCree)
 def reinitialiser_parent(parent_id: int, admin: AdminCourant, session: SessionDB) -> ParentCree:
     """Nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées."""
-    parent = session.get(models.Parent, parent_id)
-    if parent is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    parent = _parent(session, parent_id)
     provisoire = parents.reinitialiser(parent)
     journal.noter(session, admin, "reinitialiser-mot-de-passe", "parent", parent.id)
     session.commit()
     return ParentCree(parent=parents.vue(parent), mot_de_passe_provisoire=provisoire)
+
+
+@router.delete("/parents/{parent_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_famille(parent_id: int, confirmation: str, admin: AdminCourant, session: SessionDB) -> Response:
+    """À la demande du parent (RGPD), après saisie de son e-mail : les enfants ne sont pas touchés (EA.12)."""
+    parent = _parent(session, parent_id)
+    if confirmation.strip().lower() != parent.email:
+        raise HTTPException(422, "Saisissez l'adresse e-mail du compte pour confirmer.")
+    journal.noter(session, admin, "supprimer", "parent", parent.id, avant={"enfants": [e.id for e in parent.enfants]})
+    session.delete(parent)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.get("/classes", response_model=list[ClasseAdmin])
@@ -489,6 +637,52 @@ def refuser_seance_anglais(code: str, corps: anglais.Refus, admin: AdminCourant,
 def pdf_seance_anglais(code: str, public: str, _: AdminCourant, session: SessionDB):
     """PDF de la version courante, avec la mention NON VALIDÉ tant qu'elle n'est pas validée."""
     return anglais.reponse_pdf(anglais.seance_ou_404(session, code).courante, code, public)
+
+
+# --- Domaines pédagogiques (configuration) ------------------------------------------------
+
+
+def _vues_domaines(session: SessionDB) -> list[DomaineAdmin]:
+    comptes = {
+        (domaine, role): nombre
+        for domaine, role, nombre in session.execute(
+            select(models.Habilitation.domaine_code, models.Habilitation.role,
+                   func.count(func.distinct(models.Habilitation.enseignant_id)))
+            .group_by(models.Habilitation.domaine_code, models.Habilitation.role)
+        )
+    }
+    return [
+        DomaineAdmin(
+            code=d.code, matiere=d.matiere, cycle=d.cycle, libelle=d.libelle, niveaux=d.niveaux, actif=d.actif, public=d.public,
+            nb_professeurs=comptes.get((d.code, permissions.PROFESSEUR), 0),
+            nb_validateurs=comptes.get((d.code, permissions.VALIDATEUR), 0),
+        )
+        for d in session.scalars(select(models.DomainePedagogique).order_by(models.DomainePedagogique.ordre))
+    ]
+
+
+@router.get("/domaines", response_model=list[DomaineAdmin])
+def domaines(_: AdminCourant, session: SessionDB) -> list[DomaineAdmin]:
+    return _vues_domaines(session)
+
+
+@router.post("/domaines/{code}", response_model=list[DomaineAdmin])
+def regler_domaine(code: str, corps: DomaineEdition, admin: AdminCourant, session: SessionDB) -> list[DomaineAdmin]:
+    """Fermer au public bloque les nouvelles séances sans rien supprimer (EX.4) ; désactiver exige qu'aucun
+    compte n'y soit plus habilité."""
+    d = session.get(models.DomainePedagogique, code)
+    if d is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Domaine introuvable.")
+    if d.actif and not corps.actif:
+        habilites = session.scalar(select(func.count(models.Habilitation.id)).where(models.Habilitation.domaine_code == code))
+        if habilites:
+            raise HTTPException(status.HTTP_409_CONFLICT,
+                                f"{habilites} habilitation(s) portent sur {d.libelle} : retirez-les avant de le désactiver.")
+    avant = {"code": code, "actif": d.actif, "public": d.public}
+    d.actif, d.public = corps.actif, corps.public
+    journal.noter(session, admin, "regler", "domaine", None, avant, {"code": code, **corps.model_dump()})
+    session.commit()
+    return _vues_domaines(session)
 
 
 # --- Journal et statistiques ---------------------------------------------------------------

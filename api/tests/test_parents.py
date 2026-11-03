@@ -106,7 +106,7 @@ class TestConnexion:
     def test_reinitialisation_par_un_administrateur_journalisee(self, client, session):
         connecter_parent(client)
         admin = connecter_admin(client)
-        trouves = client.get("/admin/parents", headers=admin, params={"q": "lina@"}).json()
+        trouves = client.get("/admin/parents", headers=admin, params={"q": "lina@"}).json()["elements"]
         assert [p["email"] for p in trouves] == [EMAIL]
         r = client.post(f"/admin/parents/{trouves[0]['id']}/reinitialiser", headers=admin)
         assert r.status_code == 200 and r.json()["mot_de_passe_provisoire"]

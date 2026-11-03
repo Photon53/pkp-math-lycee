@@ -35,8 +35,8 @@ def enfants(session: Session, parent: models.Parent) -> list[models.Eleve]:
     return sorted(vus.values(), key=lambda e: (e.prenom, e.classe.code))
 
 
-def rattacher(session: Session, eleve: models.Eleve, email: str) -> tuple[models.Parent, str | None]:
-    """Rattache le parent `email` à l'élève, en créant son compte au besoin.
+def rattacher(session: Session, eleve: models.Eleve, email: str, par: str) -> tuple[models.Parent, str | None]:
+    """Rattache le parent `email` à l'élève, en créant son compte au besoin ; `par` entre dans l'historique.
     Renvoie le mot de passe provisoire en clair, seulement si le compte vient d'être créé."""
     parent = session.scalar(select(models.Parent).where(models.Parent.email == email))
     provisoire = None
@@ -46,8 +46,20 @@ def rattacher(session: Session, eleve: models.Eleve, email: str) -> tuple[models
         session.add(parent)
     if eleve not in parent.enfants:
         parent.enfants.append(eleve)
+        session.flush()
+        session.add(models.RattachementParent(parent_id=parent.id, eleve_id=eleve.id, action="ajout", par=par))
     session.flush()
     return parent, provisoire
+
+
+def detacher(session: Session, eleve: models.Eleve, parent: models.Parent, par: str) -> bool:
+    """Retire le lien ; effet immédiat, le parent est revérifié à chaque requête. Renvoie False si le compte
+    parent, sans plus aucun enfant, a été supprimé (avec son historique)."""
+    eleve.parents.remove(parent)
+    session.add(models.RattachementParent(parent_id=parent.id, eleve_id=eleve.id, action="retrait", par=par))
+    parent_id = parent.id
+    supprimer_orphelins(session)
+    return session.get(models.Parent, parent_id) is not None
 
 
 def reinitialiser(parent: models.Parent) -> str:

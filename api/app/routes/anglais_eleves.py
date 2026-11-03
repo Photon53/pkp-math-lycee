@@ -9,7 +9,7 @@ from fastapi import APIRouter, HTTPException, Request, status
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from app import anglais_contenu, limitation
+from app import anglais_contenu, limitation, permissions
 from app.auth import ELEVE_ANGLAIS, EleveAnglaisCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -74,7 +74,11 @@ def moi(eleve: EleveAnglaisCourant) -> EleveAnglaisInfo:
 
 
 def _publiee(session: SessionDB, eleve: models.EleveAnglais, code: str) -> models.SeanceAnglaisVersion:
-    """Version validée d'une séance du niveau de l'élève ; sinon 404 (rien ne trahit un brouillon)."""
+    """Version validée d'une séance du niveau de l'élève ; sinon 404 (rien ne trahit un brouillon).
+    Domaine fermé au public : 403, sans rien supprimer (EX.4)."""
+    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_GROUPES_ANGLAIS)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     seance = anglais_contenu.par_code(session, code)
     version = seance and seance.niveau == eleve.groupe.niveau and seance.publiee
     if not version:
