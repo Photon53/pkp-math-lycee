@@ -102,6 +102,17 @@ describe("connexion par carte (identifiant + code)", () => {
     expect(window.location.hash).toBe("");
     localStorage.clear();
   });
+
+  it("la carte scannée passe avant la session d'un autre élève sur le même appareil", async () => {
+    sessionStorage.setItem("pkp.eleve", JSON.stringify({ jeton: "ancien", eleve: { ...REPONSE.json.eleve, prenom: "Yanis" } }));
+    window.history.replaceState(null, "", "/eleve#carte=lina-demo.PKP222");
+    const appels = fausseApi({ "POST /eleves/connexion/identifiant": REPONSE });
+    render(<EspaceEleve />);
+    expect(await screen.findByText("Lina")).toBeInTheDocument();
+    expect(screen.queryByText("Yanis")).not.toBeInTheDocument();
+    expect(appels[0].cle).toBe("POST /eleves/connexion/identifiant");
+    localStorage.clear();
+  });
 });
 
 describe("séance d'exercices", () => {

@@ -83,6 +83,20 @@ Classes, élèves et réponses sont conservés. L'espace élève passe de `/` à
 | Premier administrateur | `docker compose exec api python -m app.admin creer --email … --nom "Équipe PKP" --admin`, puis `docker compose exec api python -m app.admin totp --email …` (second facteur obligatoire en production) |
 | Contrôle des liens | Automatique chaque semaine (service `purge`) ; à la demande : `docker compose exec api python -m app.ressources verifier-liens` |
 
+### Disque plein
+
+Chaque mise à jour reconstruit les images Docker : sans nettoyage, le disque de la VM se remplit
+(images et cache de compilation, journaux, anciennes sauvegardes de la base). Sur la VM :
+
+```bash
+bash deploy/nettoyer-disque.sh --simulation   # ce qui occupe le disque, sans rien supprimer
+bash deploy/nettoyer-disque.sh                # nettoie ; demande confirmation avant les sauvegardes
+```
+
+Le script garde les 3 sauvegardes de base les plus récentes (`--garder-sauvegardes <n>`) et toutes les copies
+de `.env`. Il ne supprime jamais les volumes Docker (base, PDF, certificats). Si Docker ou PKP se sont arrêtés
+faute de place, il les relance. S'il reste moins de 3 Go libres, il indique comment agrandir le disque.
+
 Sauvegardes : les chiffrer, les stocker hors du serveur, les conserver au plus la durée de
 conservation RGPD, et **tester une restauration** au moins une fois par an.
 
