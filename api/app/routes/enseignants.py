@@ -26,7 +26,7 @@ from app.progression import (
     progression_eleve,
     resume_eleve,
 )
-from app import inscriptions
+from app import inscriptions, parents
 from app.referentiel import ABREVIATIONS_PARCOURS
 from app.schemas import (
     ChangementMotDePasse,
@@ -43,6 +43,9 @@ from app.schemas import (
     LienCreation,
     LiensEleve,
     PageHistorique,
+    ParentCree,
+    ParentCreation,
+    ParentVue,
     ProgressionCompetence,
     QuestionEnseignant,
     ResultatCreationEleves,
@@ -61,6 +64,8 @@ from app.security import (
 
 router = APIRouter(prefix="/enseignants", tags=["enseignant"])
 
+# Deux responsables légaux, plus une marge (famille recomposée) : au-delà, c'est sans doute une erreur.
+MAX_PARENTS_PAR_ELEVE = 4
 PREFIXES_CODE = {Niveau.SECONDE: "2NDE", Niveau.PREMIERE: "1RE", Niveau.TERMINALE: "TLE"}
 # Sans 0/O ni 1/I/L : le code est recopié à la main par des élèves.
 
@@ -328,6 +333,59 @@ def delier_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionD
     return _liens(session, eleve)
 
 
+# --- Comptes parents -------------------------------------------------------------
+# Le professeur crée le compte (e-mail + mot de passe provisoire, remis en main propre ou par la
+# messagerie de l'établissement) ; aucun courriel n'est envoyé par PKP.
+
+
+def _parents_vus(eleve: models.Eleve, enseignant: models.Enseignant) -> list[ParentVue]:
+    return [parents.vue(p, enseignant.id) for p in sorted(eleve.parents, key=lambda p: p.email)]
+
+
+@router.get("/eleves/{eleve_id}/parents", response_model=list[ParentVue])
+def parents_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[ParentVue]:
+    return _parents_vus(_mon_eleve(session, eleve_id, enseignant), enseignant)
+
+
+@router.post("/eleves/{eleve_id}/parents", response_model=ParentCree, status_code=status.HTTP_201_CREATED)
+def rattacher_parent(
+    eleve_id: int, corps: ParentCreation, enseignant: EnseignantCourant, session: SessionDB
+) -> ParentCree:
+    """Crée le compte du parent (ou rattache un compte existant, pour un autre enfant) à cet élève.
+    Le mot de passe provisoire n'est renvoyé qu'à la création : le parent le changera à sa première connexion."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    if len(eleve.parents) >= MAX_PARENTS_PAR_ELEVE and corps.email not in {p.email for p in eleve.parents}:
+        raise HTTPException(422, f"Au plus {MAX_PARENTS_PAR_ELEVE} comptes parents par élève.")
+    parent, provisoire = parents.rattacher(session, eleve, corps.email)
+    session.commit()
+    return ParentCree(parent=parents.vue(parent, enseignant.id), mot_de_passe_provisoire=provisoire)
+
+
+@router.delete("/eleves/{eleve_id}/parents/{parent_id}", response_model=list[ParentVue])
+def detacher_parent(eleve_id: int, parent_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[ParentVue]:
+    """Le parent ne suit plus cet élève ; son compte est supprimé s'il ne suit plus aucun enfant."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    parent = next((p for p in eleve.parents if p.id == parent_id), None)
+    if parent is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    eleve.parents.remove(parent)
+    parents.supprimer_orphelins(session)
+    session.commit()
+    return _parents_vus(session.get(models.Eleve, eleve_id), enseignant)
+
+
+@router.post("/parents/{parent_id}/mot-de-passe", response_model=ParentCree)
+def reinitialiser_parent(parent_id: int, enseignant: EnseignantCourant, session: SessionDB) -> ParentCree:
+    """Mot de passe oublié : nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées.
+    Réservé aux professeurs d'un de ses enfants."""
+    parent = session.get(models.Parent, parent_id)
+    if parent is None or not any(e.classe.enseignant_id == enseignant.id for e in parent.enfants):
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    provisoire = parents.reinitialiser(parent)
+    session.commit()
+    return ParentCree(parent=parents.vue(parent, enseignant.id), mot_de_passe_provisoire=provisoire)
+
+
 @router.get("/eleves/{eleve_id}/progression", response_model=list[ProgressionCompetence])
 def progression(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[ProgressionCompetence]:
     return progression_eleve(session, _mon_eleve(session, eleve_id, enseignant))
@@ -354,6 +412,7 @@ def supprimer_classe(classe_id: int, enseignant: EnseignantCourant, session: Ses
     for eleve in classe.eleves:
         inscriptions.delier(session, eleve)  # leurs autres parcours restent, sans ce lien
     session.delete(classe)
+    parents.supprimer_orphelins(session)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -364,6 +423,7 @@ def supprimer_eleve(eleve_id: int, enseignant: EnseignantCourant, session: Sessi
     eleve = _mon_eleve(session, eleve_id, enseignant)
     inscriptions.delier(session, eleve)
     session.delete(eleve)
+    parents.supprimer_orphelins(session)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 

@@ -41,7 +41,8 @@ function connecte(disciplines) {
 describe("PKP Anglais", () => {
   it("l'accueil mène à un espace dédié", () => {
     render(<Accueil />);
-    expect(screen.getByRole("link", { name: /PKP Anglais/ })).toHaveAttribute("href", "/anglais");
+    expect(screen.getByRole("link", { name: /^PKP Anglais/ })).toHaveAttribute("href", "/anglais");
+    expect(screen.getByRole("link", { name: /Élève PKP Anglais/ })).toHaveAttribute("href", "/anglais/eleve");
   });
 
   it("l'espace professeur de maths n'a plus d'onglet anglais", () => {

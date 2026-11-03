@@ -190,6 +190,13 @@ export function ConnexionEleve({ onConnexion }) {
     try {
       onConnexion(await api(chemin, { methode: "POST", corps }), durable);
     } catch (err) {
+      if (err.status === 409 && corps.identifiant) {
+        // Carte PKP Anglais saisie ici : même connexion directe que son QR code, sur la page élève d'anglais.
+        const id = corps.identifiant.trim().toLowerCase();
+        const codeCarte = corps.code_personnel.toUpperCase().replace(/[\s-]/g, "");
+        window.location.assign(`/anglais/eleve#carte=${id}.${codeCarte}`);
+        return;
+      }
       setErreur(
         err.status === 401
           ? `${err.message} Vérifie ${mode === "identifiant" ? "ta carte" : "avec ton professeur"}.`

@@ -83,6 +83,28 @@ def normaliser_code(code: str) -> str:
     return "".join(c for c in code.upper() if c not in " -")
 
 
+# Code choisi par un parent pour son enfant : plus long qu'un code tiré au hasard, car un code choisi
+# est plus facile à deviner. Lettres et chiffres, sans distinction de casse (comme les codes générés).
+LONGUEUR_CODE_CHOISI_MIN, LONGUEUR_CODE_CHOISI_MAX = 8, 16
+
+
+def probleme_code_choisi(code: str, interdits: tuple[str, ...] = ()) -> str | None:
+    """Message d'erreur si le code (déjà normalisé) ne respecte pas les règles, sinon None."""
+    if not LONGUEUR_CODE_CHOISI_MIN <= len(code) <= LONGUEUR_CODE_CHOISI_MAX:
+        return f"Le code doit compter de {LONGUEUR_CODE_CHOISI_MIN} à {LONGUEUR_CODE_CHOISI_MAX} caractères."
+    if not re.fullmatch(r"[A-Z0-9]+", code):
+        return "Le code ne peut contenir que des lettres (sans accent) et des chiffres."
+    if not re.search(r"[A-Z]", code) or not re.search(r"[0-9]", code):
+        return "Le code doit contenir au moins une lettre et un chiffre."
+    if len(set(code)) < 4:
+        return "Le code doit contenir au moins 4 caractères différents."
+    if code in "0123456789" or code in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" or "12345678" in code or "AZERTY" in code:
+        return "Ce code est trop facile à deviner."
+    if any(mot and mot in code for mot in interdits):
+        return "Le code ne doit pas contenir le prénom ni l'identifiant de l'élève."
+    return None
+
+
 def hacher_code_eleve(code: str) -> str:
     return _hacher(normaliser_code(code), _N_CODE)
 

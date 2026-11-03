@@ -4,6 +4,7 @@ import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
+import ParentsEleve from "./ParentsEleve.jsx";
 import { useApi } from "./useApi.js";
 
 export { LIBELLES_PARCOURS };
@@ -24,6 +25,7 @@ export default function Classes({ jeton, onExpire }) {
   const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
   // Autres parcours d'un élève : { eleveId, liees, suggestions } (GET /enseignants/eleves/{id}/liens).
   const [liens, setLiens] = useState(null);
+  const [parentsDe, setParentsDe] = useState(null); // id de l'élève dont on gère les comptes parents
 
   const chargerClasses = useCallback(() => appeler("/enseignants/classes").then(setClasses, ignorer), [appeler]);
   const chargerEleves = useCallback(
@@ -349,6 +351,14 @@ export default function Classes({ jeton, onExpire }) {
                           >
                             Parcours
                           </button>
+                          <button
+                            className="lien petit"
+                            aria-expanded={parentsDe === e.id}
+                            onClick={() => setParentsDe(parentsDe === e.id ? null : e.id)}
+                            aria-label={`Comptes parents de ${e.prenom}`}
+                          >
+                            Parents
+                          </button>
                           <button className="lien petit" onClick={() => nouveauCode(e)} aria-label={`Nouveau code pour ${e.prenom}`}>
                             Nouveau code
                           </button>
@@ -364,6 +374,13 @@ export default function Classes({ jeton, onExpire }) {
                         <tr className="detail">
                           <td colSpan={5}>
                             <ParcoursLies eleve={e} liens={liens} onRelier={relier} onDelier={delier} />
+                          </td>
+                        </tr>
+                      )}
+                      {parentsDe === e.id && (
+                        <tr className="detail">
+                          <td colSpan={5}>
+                            <ParentsEleve eleve={e} appeler={appeler} />
                           </td>
                         </tr>
                       )}

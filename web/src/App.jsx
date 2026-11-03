@@ -9,6 +9,7 @@ const EspaceEleve = lazy(() => import("./eleve/EspaceEleve.jsx"));
 const Methode = lazy(() => import("./Methode.jsx"));
 const EspaceEnseignant = lazy(() => import("./enseignant/EspaceEnseignant.jsx"));
 const EspaceAdmin = lazy(() => import("./admin/EspaceAdmin.jsx"));
+const EspaceParent = lazy(() => import("./parent/EspaceParent.jsx"));
 // Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
 const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
 const EspaceEleveAnglais = lazy(() => import("./anglais/EspaceEleveAnglais.jsx"));
@@ -28,6 +29,13 @@ export default function App() {
     return (
       <Suspense fallback={<p className="doux page">Chargement…</p>}>
         <EspaceEnseignant chemin={chemin} />
+      </Suspense>
+    );
+  }
+  if (chemin === "/parent" || chemin.startsWith("/parent/")) {
+    return (
+      <Suspense fallback={<p className="doux page">Chargement…</p>}>
+        <EspaceParent />
       </Suspense>
     );
   }

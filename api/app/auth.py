@@ -15,6 +15,7 @@ from app.security import lire_jeton, version_mot_de_passe
 ELEVE, ENSEIGNANT, ADMIN = "eleve", "enseignant", "admin"
 # Jeton distinct : un élève d'anglais n'ouvre jamais l'espace de maths, et inversement.
 ELEVE_ANGLAIS = "eleve_anglais"
+PARENT = "parent"
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -108,9 +109,32 @@ def admin_courant(identifiants: Identifiants, session: SessionDB) -> models.Ense
     return admin
 
 
+def _parent(identifiants: Identifiants, session: Session) -> models.Parent:
+    lu = identifiants and lire_jeton(identifiants.credentials, PARENT)
+    parent = lu and session.get(models.Parent, lu[0])
+    # Refusé si : compte supprimé (plus d'enfant rattaché) ou mot de passe changé / réinitialisé depuis l'émission.
+    if not parent or not hmac.compare_digest(lu[1], version_mot_de_passe(parent.mot_de_passe_hash)):
+        raise _non_authentifie()
+    return parent
+
+
+def parent_authentifie(identifiants: Identifiants, session: SessionDB) -> models.Parent:
+    """Connecté, même avec un mot de passe provisoire : seul le changement de mot de passe l'accepte."""
+    return _parent(identifiants, session)
+
+
+def parent_courant(identifiants: Identifiants, session: SessionDB) -> models.Parent:
+    parent = _parent(identifiants, session)
+    if parent.mdp_provisoire:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Choisissez d'abord un nouveau mot de passe.")
+    return parent
+
+
 EleveCourant = Annotated[models.Eleve, Depends(eleve_courant)]
 EleveAnglaisCourant = Annotated[models.EleveAnglais, Depends(eleve_anglais_courant)]
 EnseignantCourant = Annotated[models.Enseignant, Depends(enseignant_courant)]
 EnseignantAnglais = Annotated[models.Enseignant, Depends(enseignant_anglais)]
 EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authentifie)]
 AdminCourant = Annotated[models.Enseignant, Depends(admin_courant)]
+ParentCourant = Annotated[models.Parent, Depends(parent_courant)]
+ParentAuthentifie = Annotated[models.Parent, Depends(parent_authentifie)]
