@@ -297,6 +297,7 @@ fieldset.choix-chapitres label.case { margin: 6px 0; }
 }
 .app-nav a:hover, .app-nav button.nav:hover:not(:disabled) { background: rgb(255 255 255 / 10%); color: inherit; }
 .app-nav a[aria-current="page"] { background: rgb(255 255 255 / 16%); font-weight: 600; }
+.app-nav .groupe-nav { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; padding: 12px 10px 2px; }
 .app-nav .bas { margin-top: auto; border-top: 1px solid rgb(255 255 255 / 15%); padding-top: 12px; }
 .app-nav .compte { font-size: var(--t-s); padding: 4px 10px 8px; opacity: 0.9; overflow-wrap: anywhere; }
 @media (prefers-color-scheme: dark) {
@@ -507,3 +508,13 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .anglais-bulles .bulle { margin: 0; padding: 8px 12px; border-radius: var(--rayon-petit); border: 1px solid var(--bordure); max-width: 80%; }
 .anglais-bulles .gauche { background: var(--surface-2); justify-self: start; }
 .anglais-bulles .droite { background: var(--accent-doux); justify-self: end; }
+
+/* --- Administration V2 : qualifications, familles ------------------------------------------ */
+
+th.centre, td.centre { text-align: center; }
+.grille-qualifications th[scope="row"] { text-align: left; font-weight: 600; }
+.grille-qualifications input[type="checkbox"] { width: auto; }
+.niveaux-valides { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 6px 0; }
+.niveaux-valides label.case { margin: 0; align-self: center; }
+.liste-choix, .liste-simple { list-style: none; padding: 0; margin: 8px 0; }
+.liste-choix li, .liste-simple li { padding: 4px 0; border-bottom: 1px solid var(--bordure); }

@@ -51,6 +51,7 @@ describe("administration", () => {
   it("affiche une seule fois le mot de passe provisoire d'un nouveau professeur", async () => {
     let liste = [];
     fausseApi({
+      "GET /admin/domaines": { json: [] },
       "GET /admin/enseignants": () => ({ json: liste }),
       "POST /admin/enseignants": (corps) => {
         const enseignant = { id: 9, ...corps, actif: true, mdp_provisoire: true, totp_configure: false, nb_classes: 0, nb_eleves: 0, derniere_connexion: null };
@@ -59,7 +60,7 @@ describe("administration", () => {
       },
     });
     render(<Professeurs jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(await screen.findByRole("button", { name: /Nouveau professeur/ }));
+    await userEvent.click(await screen.findByRole("button", { name: /Nouveau compte/ }));
     const fenetre = screen.getByRole("dialog");
     await userEvent.type(within(fenetre).getByLabelText("Nom affiché"), "Mme Martin");
     await userEvent.type(within(fenetre).getByLabelText("E-mail"), "martin@lycee.fr");

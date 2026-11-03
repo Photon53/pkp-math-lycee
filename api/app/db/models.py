@@ -130,6 +130,11 @@ class Enseignant(Base):
 
     classes: Mapped[list["Classe"]] = relationship(back_populates="enseignant")
     groupes_anglais: Mapped[list["GroupeAnglais"]] = relationship(back_populates="enseignant")
+    # Domaines où il enseigne et où il valide ; les cases ci-dessus en sont déduites (`app.permissions`).
+    habilitations: Mapped[list["Habilitation"]] = relationship(
+        foreign_keys="Habilitation.enseignant_id", back_populates="enseignant",
+        cascade="all, delete-orphan", passive_deletes=True, order_by="Habilitation.id",
+    )
 
 
 class Classe(Base):
@@ -564,6 +569,66 @@ class DomaineInterdit(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     domaine: Mapped[str] = mapped_column(String(253), unique=True)
+
+
+class DomainePedagogique(Base):
+    """Matière × cycle (Maths lycée, Anglais collège…) : les six domaines existent, chacun s'ouvre à son rythme.
+
+    `actif` : visible de l'équipe pour produire le contenu ; `public` : ouvert aux élèves (CDC V2, EX.1 à EX.4).
+    """
+
+    __tablename__ = "domaine_pedagogique"
+
+    code: Mapped[str] = mapped_column(String(30), primary_key=True)
+    matiere: Mapped[str] = mapped_column(String(20))
+    cycle: Mapped[str] = mapped_column(String(10))
+    libelle: Mapped[str] = mapped_column(String(60))
+    niveaux: Mapped[list] = mapped_column(JSON)
+    ordre: Mapped[int] = mapped_column(Integer)
+    actif: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    public: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+
+
+class Habilitation(Base):
+    """Ce qu'un membre de l'équipe peut faire dans un domaine : y enseigner, ou y valider le contenu.
+
+    Un validateur est qualifié matière par matière (CDC V2, EX.9-bis) ; niveau vide = tout le domaine.
+    Le rôle d'administrateur reste porté par `enseignant.role` et ne donne pas le droit de valider.
+    """
+
+    __tablename__ = "habilitation"
+    __table_args__ = (CheckConstraint("role IN ('professeur', 'validateur')", name="ck_habilitation_role"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="CASCADE"), index=True)
+    role: Mapped[str] = mapped_column(String(12))
+    domaine_code: Mapped[str] = mapped_column(ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"))
+    niveau: Mapped[str | None] = mapped_column(String(4))
+    accordee_par_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    accordee_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+
+    enseignant: Mapped[Enseignant] = relationship(foreign_keys=[enseignant_id], back_populates="habilitations")
+
+
+
+class RattachementParent(Base):
+    """Historique des liens parent-enfant : qui a rattaché ou détaché, et quand (CDC V2, EA.11).
+
+    Supprimé avec le compte parent ou l'élève : l'historique ne survit pas à l'effacement des données.
+    """
+
+    __tablename__ = "rattachement_parent"
+    __table_args__ = (CheckConstraint("action IN ('ajout', 'retrait')", name="ck_rattachement_parent_action"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("parent.id", ondelete="CASCADE"), index=True)
+    eleve_id: Mapped[int] = mapped_column(ForeignKey("eleve.id", ondelete="CASCADE"), index=True)
+    action: Mapped[str] = mapped_column(String(10))
+    # « Administrateur : Nom » ou « Professeur : Nom » : lisible même si le compte est supprimé ensuite.
+    par: Mapped[str] = mapped_column(String(120))
+    le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+
+    eleve: Mapped[Eleve] = relationship()
 
 
 class SuppressionInterdite(RuntimeError):

@@ -5,9 +5,11 @@ import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import AnglaisAdmin from "./AnglaisAdmin.jsx";
+import Configuration from "./Configuration.jsx";
 import Contenu from "./Contenu.jsx";
 import Eleves from "./Eleves.jsx";
 import Exercices from "./Exercices.jsx";
+import Familles from "./Familles.jsx";
 import Journal from "./Journal.jsx";
 import Professeurs from "./Professeurs.jsx";
 import RessourcesAdmin from "./RessourcesAdmin.jsx";
@@ -15,15 +17,18 @@ import TableauDeBord from "./TableauDeBord.jsx";
 
 const CLE_COMPTE = "pkp.admin";
 
+// Quatre espaces (CDC V2, § 6.1) : piloter, gérer les comptes, produire le contenu, configurer.
 const PAGES = [
-  { vers: "/admin", libelle: "Tableau de bord", icone: "tableau", Page: TableauDeBord },
-  { vers: "/admin/professeurs", libelle: "Professeurs", icone: "professeurs", Page: Professeurs },
-  { vers: "/admin/eleves", libelle: "Élèves et classes", icone: "classes", Page: Eleves },
-  { vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu },
-  { vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices },
-  { vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin },
-  { vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin },
-  { vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal },
+  { groupe: "Pilotage", vers: "/admin", libelle: "Tableau de bord", icone: "tableau", Page: TableauDeBord },
+  { groupe: "Pilotage", vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal },
+  { groupe: "Comptes", vers: "/admin/professeurs", libelle: "Équipe", icone: "professeurs", Page: Professeurs },
+  { groupe: "Comptes", vers: "/admin/familles", libelle: "Familles", icone: "eleve", Page: Familles },
+  { groupe: "Comptes", vers: "/admin/eleves", libelle: "Élèves et classes", icone: "classes", Page: Eleves },
+  { groupe: "Pédagogie", vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu },
+  { groupe: "Pédagogie", vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices },
+  { groupe: "Pédagogie", vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin },
+  { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin },
+  { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration },
 ];
 
 /** Espace administrateur (module 1) : session de 30 minutes, second facteur en production. */
@@ -65,7 +70,7 @@ export default function EspaceAdmin({ chemin = "/admin" }) {
         </>
       }
     >
-      <EntetePage titre={page.libelle} fil="Administration" />
+      <EntetePage titre={page.libelle} fil={`Administration · ${page.groupe}`} />
       <Page jeton={compte.jeton} onExpire={deconnecter} chemin={chemin} />
     </CadreApplication>
   );

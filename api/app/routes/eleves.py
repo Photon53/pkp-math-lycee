@@ -13,7 +13,7 @@ from pkp_engine import Question, Verdict, calculer_maitrise, choisir_prochaine_q
 from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
 from sqlalchemy import select
 
-from app import exemplaires, inscriptions, limitation
+from app import exemplaires, inscriptions, limitation, permissions
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -215,6 +215,9 @@ def mon_avancement(competence_id: int, eleve: EleveCourant, session: SessionDB) 
 @router.post("/seances", response_model=SeanceInfo, status_code=status.HTTP_201_CREATED)
 def demarrer_seance(eleve: EleveCourant, session: SessionDB, corps: SeanceCreation | None = None) -> models.Seance:
     """Démarre une séance sur les chapitres choisis (tous les chapitres ouverts si aucun choix)."""
+    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_CLASSES)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     ouverts = {c.id: c for c in eleve.classe.chapitres_proposes if not c.masque}
     if not ouverts:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ton professeur n'a pas encore ouvert de chapitre.")

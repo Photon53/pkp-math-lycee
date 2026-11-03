@@ -26,7 +26,7 @@ from app.progression import (
     progression_eleve,
     resume_eleve,
 )
-from app import inscriptions, parents
+from app import inscriptions, parents, permissions
 from app.referentiel import ABREVIATIONS_PARCOURS
 from app.schemas import (
     ChangementMotDePasse,
@@ -152,6 +152,9 @@ def mes_classes(enseignant: EnseignantCourant, session: SessionDB) -> list[Class
 
 @router.post("/classes", response_model=ClasseResume, status_code=status.HTTP_201_CREATED)
 def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: SessionDB) -> ClasseResume:
+    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_CLASSES)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     while True:
         prefixe = f"{PREFIXES_CODE[corps.niveau]}-{ABREVIATIONS_PARCOURS[corps.parcours]}"
         code = f"{prefixe}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
@@ -356,7 +359,7 @@ def rattacher_parent(
     eleve = _mon_eleve(session, eleve_id, enseignant)
     if len(eleve.parents) >= MAX_PARENTS_PAR_ELEVE and corps.email not in {p.email for p in eleve.parents}:
         raise HTTPException(422, f"Au plus {MAX_PARENTS_PAR_ELEVE} comptes parents par élève.")
-    parent, provisoire = parents.rattacher(session, eleve, corps.email)
+    parent, provisoire = parents.rattacher(session, eleve, corps.email, f"Professeur : {enseignant.nom}")
     session.commit()
     return ParentCree(parent=parents.vue(parent, enseignant.id), mot_de_passe_provisoire=provisoire)
 
@@ -368,8 +371,7 @@ def detacher_parent(eleve_id: int, parent_id: int, enseignant: EnseignantCourant
     parent = next((p for p in eleve.parents if p.id == parent_id), None)
     if parent is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
-    eleve.parents.remove(parent)
-    parents.supprimer_orphelins(session)
+    parents.detacher(session, eleve, parent, f"Professeur : {enseignant.nom}")
     session.commit()
     return _parents_vus(session.get(models.Eleve, eleve_id), enseignant)
 

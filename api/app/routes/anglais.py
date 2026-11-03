@@ -9,10 +9,10 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import anglais_contenu, journal
+from app import anglais_contenu, journal, permissions
 from app.anglais_pdf import produire_pdf
 from app.anglais_pictos import image_svg
-from app.auth import EnseignantAnglais, SessionDB
+from app.auth import EnseignantAnglais, EnseignantAuthentifie, SessionDB
 from app.db import models
 from app.schemas import CreationEleves
 from app.security import generer_code_eleve, generer_identifiant, hacher_code_eleve
@@ -88,9 +88,12 @@ def telecharger_pdf(code: str, public: str, _: EnseignantAnglais, session: Sessi
 # --- Validation par un professeur référent ------------------------------------
 # Le référent est coché par un administrateur ; il ne valide jamais son propre contenu (CDC anglais V1.8).
 
-def referent(enseignant: EnseignantAnglais) -> models.Enseignant:
-    if not enseignant.referent_anglais:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs référents d'anglais.")
+def referent(enseignant: EnseignantAuthentifie) -> models.Enseignant:
+    """Validateur d'Anglais collège, qu'il y enseigne ou non : la qualification suffit (EX.9-bis)."""
+    if enseignant.mdp_provisoire:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Choisissez d'abord un nouveau mot de passe.")
+    if permissions.ANGLAIS_COLLEGE not in permissions.domaines_valides(enseignant):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux validateurs d'Anglais collège.")
     return enseignant
 
 
@@ -112,6 +115,9 @@ class Refus(BaseModel):
 def decider(seance: models.SeanceAnglais, qui: models.Enseignant, session: Session, motif: str | None) -> dict:
     """Valide (sans motif) ou refuse la version soumise ; la décision est journalisée."""
     courante = seance.courante
+    refus = permissions.refus_validation(qui, permissions.ANGLAIS_COLLEGE, seance.niveau)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     probleme = anglais_contenu.peut_decider(courante, qui)
     if probleme:
         raise HTTPException(status.HTTP_409_CONFLICT, probleme)
@@ -131,7 +137,8 @@ def a_valider(qui: Referent, session: SessionDB):
     """Séances soumises, en signalant celles que ce référent a écrites (il ne peut pas les valider)."""
     return [
         {**anglais_contenu.resume(s), "est_auteur": s.courante.auteur_id == qui.id}
-        for s in anglais_contenu.toutes(session) if s.courante.statut == "soumis"
+        for s in anglais_contenu.toutes(session)
+        if s.courante.statut == "soumis" and permissions.peut_valider(qui, permissions.ANGLAIS_COLLEGE, s.niveau)
     ]
 
 
@@ -256,6 +263,9 @@ def mes_groupes(enseignant: EnseignantAnglais) -> list[GroupeResume]:
 def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
     if any(g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
+    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_GROUPES_ANGLAIS)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant)
     session.add(groupe)
     session.commit()

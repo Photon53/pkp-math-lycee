@@ -15,12 +15,10 @@ export default function Eleves({ jeton, onExpire }) {
         options={[
           ["eleves", "Élèves"],
           ["classes", "Classes"],
-          ["parents", "Parents"],
         ]}
       />
       {onglet === "eleves" && <ListeEleves jeton={jeton} onExpire={onExpire} />}
       {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} />}
-      {onglet === "parents" && <ParentsAdmin jeton={jeton} onExpire={onExpire} />}
     </>
   );
 }
@@ -257,84 +255,6 @@ function ListeClasses({ jeton, onExpire }) {
                   <td>{c.enseignant}</td>
                   <td className="nombre">{c.nb_eleves}</td>
                   <td className="nombre">{c.nb_chapitres_ouverts}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
-  );
-}
-
-/** Comptes parents : recherche par e-mail (pas de liste complète des familles) et mot de passe oublié. */
-function ParentsAdmin({ jeton, onExpire }) {
-  const { appeler, erreur } = useApi(jeton, onExpire);
-  const [recherche, setRecherche] = useState("");
-  const [trouves, setTrouves] = useState(null);
-  const [provisoire, setProvisoire] = useState(null);
-
-  async function chercher(e) {
-    e.preventDefault();
-    setProvisoire(null);
-    appeler(`/admin/parents?${new URLSearchParams({ q: recherche.trim() })}`).then(setTrouves, () => {});
-  }
-
-  async function reinitialiser(p) {
-    if (!window.confirm(`Donner un nouveau mot de passe provisoire à ${p.email} ?
-
-L'ancien ne fonctionnera plus.`)) return;
-    try {
-      const r = await appeler(`/admin/parents/${p.id}/reinitialiser`, { methode: "POST" });
-      setProvisoire({ email: p.email, mot_de_passe: r.mot_de_passe_provisoire });
-    } catch {
-      // erreur affichée ci-dessous
-    }
-  }
-
-  return (
-    <section className="carte">
-      <form onSubmit={chercher}>
-        <label htmlFor="recherche-parent">E-mail du parent (au moins 3 caractères)</label>
-        <input id="recherche-parent" value={recherche} onChange={(e) => setRecherche(e.target.value)} minLength={3} required />
-        <div className="actions">
-          <button type="submit" className="secondaire">
-            Rechercher
-          </button>
-        </div>
-      </form>
-      <Erreur message={erreur} />
-      {provisoire && (
-        <p className="succes" role="status">
-          Mot de passe provisoire de <strong>{provisoire.email}</strong> : <code>{provisoire.mot_de_passe}</code> — il ne sera
-          plus affiché.
-        </p>
-      )}
-      {trouves && trouves.length === 0 && <Vide>Aucun compte parent trouvé.</Vide>}
-      {trouves?.length > 0 && (
-        <div className="tableau-defilant">
-          <table>
-            <thead>
-              <tr>
-                <th>E-mail</th>
-                <th>Enfants suivis</th>
-                <th>Dernière connexion</th>
-                <th>
-                  <span className="visuellement-cache">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {trouves.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.email}</td>
-                  <td>{p.enfants.join(", ")}</td>
-                  <td>{p.mdp_provisoire ? "provisoire" : formaterDate(p.derniere_connexion)}</td>
-                  <td className="nombre">
-                    <button className="lien petit" onClick={() => reinitialiser(p)}>
-                      Nouveau mot de passe
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
