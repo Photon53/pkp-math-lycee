@@ -79,7 +79,7 @@ function Contenu({ stats }) {
         </section>
 
         <section className="carte">
-          <TitreCarte titre="Réussite par chapitre" csv={() => exporterCsv("reussite-par-chapitre.csv", stats.reussite_par_chapitre)} />
+          <TitreCarte titre="Réussite par chapitre · Maths lycée" csv={() => exporterCsv("reussite-par-chapitre.csv", stats.reussite_par_chapitre)} />
           {chapitres.length === 0 ? (
             <p className="doux">Pas encore assez d'élèves pour publier un taux (5 élèves au moins par chapitre).</p>
           ) : (
@@ -97,7 +97,7 @@ function Contenu({ stats }) {
         </section>
 
         <section className="carte">
-          <TitreCarte titre="Couverture du contenu" csv={() => exporterCsv("couverture.csv", stats.couverture)} />
+          <TitreCarte titre="Couverture du contenu · Maths lycée" csv={() => exporterCsv("couverture.csv", stats.couverture)} />
           <Barres
             empilees
             elements={[...stats.couverture].sort((a, b) => ORDRE_NIVEAUX.indexOf(a.niveau) - ORDRE_NIVEAUX.indexOf(b.niveau)).map((c) => ({
@@ -122,7 +122,7 @@ function Contenu({ stats }) {
         </section>
 
         <section className="carte">
-          <TitreCarte titre="Questions les plus difficiles" csv={() => exporterCsv("questions-difficiles.csv", stats.questions_difficiles)} />
+          <TitreCarte titre="Questions les plus difficiles · Maths lycée" csv={() => exporterCsv("questions-difficiles.csv", stats.questions_difficiles)} />
           {stats.questions_difficiles.length === 0 ? (
             <p className="doux">Aucune question n'a encore reçu 30 réponses sur la période.</p>
           ) : (

@@ -63,6 +63,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
   return (
     <CadreApplication
       espace="Espace professeur"
+      marque="Maths"
       liens={PAGES}
       cheminActif={chemin}
       pied={
@@ -100,6 +101,7 @@ export function PageSimple({ marque, children }) {
         <Logo marque={marque} />
         <nav aria-label="Espaces">
           <a href="/eleve">Espace élève</a>
+          <a href="/parent">Espace parent</a>
         </nav>
       </header>
       <main>{children}</main>

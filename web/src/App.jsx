@@ -63,7 +63,11 @@ export default function App() {
           ) : eleve ? (
             <a href="/enseignant">Espace professeur</a>
           ) : (
-            <a href="/eleve">Espace élève</a>
+            <>
+              <a href="/eleve">Espace élève</a>
+              <a href="/parent">Espace parent</a>
+              <a href="/enseignant">Espace professeur</a>
+            </>
           )}
         </nav>
       </header>
@@ -85,7 +89,7 @@ export default function App() {
         )}
       </main>
       <footer className="pied">
-        <span>© {new Date().getFullYear()} PKP Math Lycée</span>
+        <span>© {new Date().getFullYear()} PKP Éducation</span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>
       </footer>
     </div>

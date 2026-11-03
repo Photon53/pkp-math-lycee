@@ -7,9 +7,9 @@ import Icone, { Monogramme } from "./Icone.jsx";
 /**
  * `liens` : [{ vers, libelle, icone, groupe? }] ; `cheminActif` : l'entrée dont le chemin préfixe celui-ci est active.
  * `groupe` : titre affiché au-dessus du premier lien de chaque groupe.
- * `pied` : contenu du bas de la navigation (compte, déconnexion). `marque` : « Math Lycée » ou « Anglais ».
+ * `pied` : contenu du bas de la navigation (compte, déconnexion). `marque` : « Éducation » (par défaut), « Maths » ou « Anglais ».
  */
-export function CadreApplication({ espace, liens, cheminActif, pied, marque = "Math Lycée", children }) {
+export function CadreApplication({ espace, liens, cheminActif, pied, marque = "Éducation", children }) {
   const [ouverte, setOuverte] = useState(false);
   const actif = liens
     .filter((l) => cheminActif === l.vers || cheminActif.startsWith(`${l.vers}/`))
@@ -127,9 +127,31 @@ export function exporterCsv(nom, lignes) {
   URL.revokeObjectURL(url);
 }
 
+// L'API enregistre les heures en UTC ; sous SQLite elles reviennent sans fuseau (« 2026-11-03T19:50:11 »),
+// que le navigateur lirait comme une heure locale (1 à 2 h d'écart en France). Sans fuseau = UTC.
+export const versDate = (iso) => new Date(/T\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/.test(iso) ? `${iso}Z` : iso);
+
 export const formaterDate = (iso, { heure = false } = {}) =>
   iso
-    ? new Date(iso).toLocaleString("fr-FR", heure ? { dateStyle: "short", timeStyle: "short" } : { dateStyle: "medium" })
+    ? versDate(iso).toLocaleString("fr-FR", heure ? { dateStyle: "short", timeStyle: "short" } : { dateStyle: "medium" })
     : "—";
 
 export const pourcentage = (v) => (v == null ? "—" : `${Math.round(v * 100)} %`);
+
+/**
+ * Repère des pages de connexion élève : dit clairement que la page est celle de l'élève
+ * (et non du parent ou du professeur) et renvoie les adultes vers leur espace.
+ */
+export function RepereEleve({ matiere }) {
+  return <span className="badge accent">Espace élève · {matiere}</span>;
+}
+
+export function AutresEspaces({ professeur = "/enseignant" }) {
+  return (
+    <p className="aide autres-espaces">
+      Ces codes sont ceux de l'<strong>élève</strong>, donnés par son professeur.
+      <br />
+      Vous êtes parent ? <a href="/parent">Espace parent</a> · Vous êtes professeur ? <a href={professeur}>Espace professeur</a>
+    </p>
+  );
+}

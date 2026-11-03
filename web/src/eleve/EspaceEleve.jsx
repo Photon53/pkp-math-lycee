@@ -3,6 +3,7 @@ import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
 import { libelleNiveauParcours } from "../parcours.js";
 import { ecrire, lire } from "../stockage.js";
+import { AutresEspaces, RepereEleve } from "../ui/Cadre.jsx";
 import Cours from "./Cours.jsx";
 import Exercice, { CLE_BILAN, CLE_CIBLE, CLE_SEANCE } from "./Exercice.jsx";
 import Historique from "./Historique.jsx";
@@ -240,7 +241,8 @@ export function ConnexionEleve({ onConnexion }) {
 
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
-      <h1>Bienvenue</h1>
+      <RepereEleve matiere="Maths" />
+      <h1>Connexion élève</h1>
       {mode === "identifiant" ? (
         <>
           <p className="doux">Entre l'identifiant et le code personnel inscrits sur ta carte, ou scanne son QR code.</p>
@@ -312,6 +314,7 @@ export function ConnexionEleve({ onConnexion }) {
         )}
       </p>
       <p className="aide">Seuls ton prénom et ta classe sont enregistrés.</p>
+      <AutresEspaces />
     </form>
   );
 }
