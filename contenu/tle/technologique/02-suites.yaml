@@ -7,22 +7,73 @@ chapitre:
 competences:
 - code: TLE-TEC-ARITH
   libelle: Calculer termes et sommes d'une suite arithmétique
+  attendus: [TLE-TEC-2026-ANA-01, TLE-TEC-2026-ANA-03, TLE-TEC-2026-ANA-04, TLE-TEC-2026-ANA-05, TLE-TEC-2026-ANA-06, TLE-TEC-2026-ANA-07]
   objectifs:
   - Exprimer le terme de rang n d'une suite arithmétique.
   - Calculer la somme de ses premiers termes.
   prerequis:
   - 1RE-TEC-SUITES
+  cours_couvre: [TLE-TEC-2026-ANA-01, TLE-TEC-2026-ANA-03, TLE-TEC-2026-ANA-04, TLE-TEC-2026-ANA-05, TLE-TEC-2026-ANA-06, TLE-TEC-2026-ANA-07]
   resume: |
-    - $u_n = u_0 + nr$ ; moyenne arithmétique de $a$ et $b$ : $\dfrac{a + b}{2}$.
-    - Somme de termes consécutifs : $\text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}$.
-    - $1 + 2 + \dots + n = \dfrac{n(n + 1)}{2}$.
+    - Suite arithmétique de raison $r$ : $u_{n+1} = u_n + r$ ; $u_n = u_0 + nr$ et $u_n = u_p + (n - p)r$.
+    - $a$, $b$, $c$ sont consécutifs dans une suite arithmétique si et seulement si $b = \dfrac{a + c}{2}$ (moyenne arithmétique).
+    - $1 + 2 + \dots + n = \displaystyle\sum_{k=1}^{n} k = \dfrac{n(n + 1)}{2}$.
+    - Somme de termes consécutifs : $(\text{nombre de termes}) \times \dfrac{\text{premier} + \text{dernier}}{2}$ ; de $u_0$ à $u_{n-1}$ il y a $n$ termes.
   cours: |
-    ## Somme des termes
-    $u_0 = 5$, $r = 3$ : les 10 premiers termes vont de $u_0 = 5$ à $u_9 = 32$.
-    $$S = 10 \times \frac{5 + 32}{2} = 185.$$
+    ## 1. Définition
 
-    ## Somme des entiers
-    $1 + 2 + \dots + 100 = \dfrac{100 \times 101}{2} = 5\,050$.
+    **Définition.** Une suite $(u_n)$ est **arithmétique** s'il existe un réel $r$, appelé **raison**, tel que pour tout entier $n$ : $u_{n+1} = u_n + r$.
+
+    On passe d'un terme au suivant en **ajoutant** toujours le même nombre. Une suite arithmétique modélise une évolution par **augmentation (ou diminution) constante** : $+150$ habitants par an, $-2$ € par mois…
+
+    **Déterminer la raison** : $r = u_{n+1} - u_n$. Par exemple, un loyer qui augmente de $12$ € chaque année forme une suite arithmétique de raison $12$.
+
+    ## 2. Terme général
+
+    > **Propriété.** Si $(u_n)$ est arithmétique de raison $r$, alors pour tous entiers $n$ et $p$ : $$u_n = u_0 + nr \qquad \text{et} \qquad u_n = u_p + (n - p)r.$$
+
+    **Justification.** Pour aller de $u_0$ à $u_n$, on ajoute $n$ fois la raison. Si la suite commence à $u_1$ : $u_n = u_1 + (n - 1)r$.
+
+    ## 3. Moyenne arithmétique et termes consécutifs
+
+    **Définition.** La moyenne arithmétique de $a$ et $c$ est $\dfrac{a + c}{2}$.
+
+    > **Propriété.** Trois nombres $a$, $b$, $c$ sont trois termes consécutifs d'une suite arithmétique si et seulement si $b - a = c - b$, c'est-à-dire $b = \dfrac{a + c}{2}$.
+
+    Exemple : $7$, $11$, $15$ conviennent ($11 - 7 = 15 - 11 = 4$) ; $7$, $11$, $16$ ne conviennent pas ($4 \neq 5$).
+
+    ## 4. Sommes de termes
+
+    **Notation $\Sigma$.** $\displaystyle\sum_{k=0}^{n} u_k = u_0 + u_1 + \dots + u_n$ : on additionne les $u_k$ pour $k$ allant de $0$ à $n$, soit $n + 1$ termes.
+
+    > **Propriété.** Pour tout entier $n \geqslant 1$ : $$1 + 2 + \dots + n = \sum_{k=1}^{n} k = \frac{n(n + 1)}{2}.$$
+
+    **Démonstration.** Notons $S$ cette somme et écrivons-la dans les deux sens :
+    $$S = 1 + 2 + \dots + n, \qquad S = n + (n - 1) + \dots + 1.$$
+    En additionnant terme à terme, chaque colonne vaut $n + 1$ et il y a $n$ colonnes : $2S = n(n + 1)$, d'où le résultat.
+
+    > **Propriété.** La somme de termes consécutifs d'une suite arithmétique vaut $$S = (\text{nombre de termes}) \times \frac{\text{premier terme} + \text{dernier terme}}{2}.$$
+
+    Le **nombre de termes** de $u_p$ à $u_n$ est $n - p + 1$.
+
+    ## 5. Reconnaitre une somme
+
+    On calcule une somme quand la question porte sur un **cumul** : total épargné, distance totale parcourue, production totale sur plusieurs années. On calcule un terme quand elle porte sur **une** période : l'épargne du 12ᵉ mois.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** Une salle de spectacle compte $20$ sièges au premier rang et chaque rang a $2$ sièges de plus que le précédent. Il y a $25$ rangs. Combien de sièges au dernier rang ? Au total ?
+
+    **Résolution.**
+    1. Le nombre de sièges du rang $n$ est $u_n = 20 + (n - 1) \times 2$ (suite arithmétique de raison $2$, de premier terme $u_1 = 20$).
+    2. Dernier rang : $u_{25} = 20 + 24 \times 2 = 68$.
+    3. Total : $25$ termes, donc $S = 25 \times \dfrac{20 + 68}{2} = 25 \times 44 = 1\,100$ sièges.
+
+    ## 7. Erreurs fréquentes
+
+    - Se tromper d'un dans le nombre de termes : de $u_0$ à $u_{10}$ il y a $11$ termes.
+    - Écrire $u_n = u_1 + nr$ quand la suite commence à $u_1$.
+    - Confondre le terme du rang $n$ (une période) et la somme (le cumul).
   methodes:
   - titre: Calculer une somme de termes arithmétiques
     etapes:
@@ -66,7 +117,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{100 \times 101}{2} = 5\,050$.
+      - 'On reconnait la somme des entiers de $1$ à $n$ avec $n = 100$ : $\dfrac{n(n + 1)}{2}$.'
+      - '$\dfrac{100 \times 101}{2} = \dfrac{10\,100}{2} = 5\,050$.'
       resultat: '5050'
   - code: TLE-TEC-ARITH-04
     difficulte: 4
@@ -90,24 +142,88 @@ competences:
       - 'Dernier versement : $50 + 11 \times 10 = 160$ €.'
       - $12 \times \dfrac{50 + 160}{2} = 1\,260$ €.
       resultat: '1260'
+  - code: TLE-TEC-ARITH-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {u: {entre: [100, 900], pas: 50}, r: {entre: [10, 80], pas: 5}, n: {entre: [6, 20]}}
+      calculs: {d: "u + (n - 1)*r", s: "n*(2*u + (n - 1)*r)/2"}
+    enonce: 'Un salarié gagne $[[u]]$ € de prime la première année, puis $[[r]]$ € de plus chaque année. Quel est le total des primes perçues en $[[n]]$ ans (en €) ?'
+    solution: '[[s]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Somme de termes consécutifs d''une suite arithmétique.'
+      etapes:
+      - 'Prime de la dernière année : $[[u]] + [[n - 1]] \times [[r]] = [[d]]$.'
+      - 'Total : $[[n]] \times \dfrac{[[u]] + [[d]]}{2} = [[s]]$.'
+      resultat: '[[s]]'
 - code: TLE-TEC-GEOM
   libelle: Calculer termes et sommes d'une suite géométrique
+  attendus: [TLE-TEC-2026-ANA-02, TLE-TEC-2026-AUTO-09]
   objectifs:
   - Exprimer le terme de rang n d'une suite géométrique.
   - Calculer la somme de ses premiers termes et résoudre un problème de seuil.
   prerequis:
   - TLE-TEC-ARITH
+  cours_couvre: [TLE-TEC-2026-ANA-02, TLE-TEC-2026-AUTO-09]
   resume: |
-    - $u_n = u_0 \times q^n$ ; moyenne géométrique de $a, b > 0$ : $\sqrt{ab}$.
-    - $1 + q + \dots + q^{n} = \dfrac{1 - q^{n+1}}{1 - q}$ ($q \neq 1$).
-    - Somme de $n$ termes depuis $u_0$ : $u_0 \times \dfrac{1 - q^n}{1 - q}$.
+    - Suite géométrique de raison $q > 0$ : $u_{n+1} = q \times u_n$ ; $u_n = u_0 \times q^n$.
+    - Une évolution de taux constant $t$ se modélise par une suite géométrique de raison $q = 1 + t$.
+    - $a$, $b$, $c$ positifs sont consécutifs dans une suite géométrique si et seulement si $b^2 = ac$, c'est-à-dire $b = \sqrt{ac}$ (moyenne géométrique).
+    - Pour $q \neq 1$ : $1 + q + \dots + q^n = \dfrac{1 - q^{n+1}}{1 - q}$ ; somme de termes consécutifs : $\text{premier} \times \dfrac{1 - q^{\text{nombre de termes}}}{1 - q}$.
   cours: |
-    ## Somme des termes
-    $1 + 2 + 4 + \dots + 2^9 = \dfrac{1 - 2^{10}}{1 - 2} = 1\,023$.
-    Dix versements de $100 \times 1{,}1^k$ ($k = 0$ à $9$) : $100 \times \dfrac{1{,}1^{10} - 1}{0{,}1} = 1\,000 \times (1{,}1^{10} - 1)$.
+    ## 1. Définition et reconnaissance
 
-    ## Seuil
-    $5\,000 \times 1{,}03^n > 6\,000 \iff 1{,}03^n > 1{,}2$ : $1{,}03^6 \approx 1{,}194$ et $1{,}03^7 \approx 1{,}230$, donc $n = 7$.
+    **Définition.** Une suite $(u_n)$ à termes strictement positifs est **géométrique** s'il existe un réel $q > 0$, appelé **raison**, tel que pour tout entier $n$ : $u_{n+1} = q \times u_n$.
+
+    On passe d'un terme au suivant en **multipliant** toujours par le même nombre.
+
+    > **Propriété (modélisation).** Une grandeur qui évolue chaque période d'un même taux $t$ (en écriture décimale) se modélise par une suite géométrique de raison $q = 1 + t$.
+
+    Exemples : une population qui augmente de $2\,\%$ par an donne $q = 1{,}02$ ; une valeur qui perd $15\,\%$ par an donne $q = 0{,}85$. Un capital placé à **intérêts composés** est le cas typique.
+
+    **Vérifier qu'une suite est géométrique** : on calcule les quotients $\dfrac{u_{n+1}}{u_n}$ ; ils doivent être tous égaux.
+
+    ## 2. Terme général
+
+    > **Propriété.** Si $(u_n)$ est géométrique de raison $q$, alors $u_n = u_0 \times q^n$ et, plus généralement, $u_n = u_p \times q^{n - p}$.
+
+    Sens de variation : si $q > 1$ la suite est croissante, si $0 < q < 1$ elle est décroissante, si $q = 1$ elle est constante.
+
+    ## 3. Moyenne géométrique
+
+    **Définition.** La moyenne géométrique de deux nombres positifs $a$ et $c$ est $\sqrt{ac}$.
+
+    > **Propriété.** Trois nombres strictement positifs $a$, $b$, $c$ sont des termes consécutifs d'une suite géométrique si et seulement si $\dfrac{b}{a} = \dfrac{c}{b}$, c'est-à-dire $b^2 = ac$, ou $b = \sqrt{ac}$.
+
+    Exemple : $4$, $6$, $9$ conviennent car $6^2 = 36 = 4 \times 9$.
+
+    ## 4. Somme de termes
+
+    > **Propriété.** Pour $q \neq 1$ et tout entier $n$ : $$\sum_{k=0}^{n} q^k = 1 + q + q^2 + \dots + q^n = \frac{1 - q^{n+1}}{1 - q}.$$
+
+    **Démonstration.** Notons $S = 1 + q + \dots + q^n$. Alors $qS = q + q^2 + \dots + q^{n+1}$. En soustrayant, tous les termes intermédiaires disparaissent : $S - qS = 1 - q^{n+1}$, soit $S(1 - q) = 1 - q^{n+1}$. On divise par $1 - q \neq 0$.
+
+    > **Conséquence.** La somme de termes consécutifs d'une suite géométrique de raison $q \neq 1$ vaut $$S = \text{premier terme} \times \frac{1 - q^{\text{nombre de termes}}}{1 - q}.$$
+
+    Ainsi $u_0 + u_1 + \dots + u_{n-1} = u_0 \times \dfrac{1 - q^n}{1 - q}$ ($n$ termes).
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Une entreprise produit $2\,000$ pièces la première année, puis sa production augmente de $5\,\%$ par an. Production de la 6ᵉ année ? Production totale sur 6 ans ?
+
+    **Résolution.**
+    1. Augmentation de $5\,\%$ par an : suite géométrique de raison $1{,}05$ et de premier terme $u_1 = 2\,000$, donc $u_n = 2\,000 \times 1{,}05^{n-1}$.
+    2. 6ᵉ année : $u_6 = 2\,000 \times 1{,}05^5 \approx 2\,553$ pièces.
+    3. Total sur 6 ans ($6$ termes) : $2\,000 \times \dfrac{1 - 1{,}05^6}{1 - 1{,}05} \approx 13\,604$ pièces.
+
+    **Problème de seuil.** Pour savoir quand la production annuelle dépasse $3\,000$, on cherche le premier $n$ tel que $2\,000 \times 1{,}05^{n-1} > 3\,000$ : la calculatrice (table de valeurs) donne $n = 10$ ($1{,}05^9 \approx 1{,}551$ alors que $1{,}05^8 \approx 1{,}477$). Le logarithme décimal permet aussi de le résoudre par le calcul.
+
+    ## 6. Erreurs fréquentes
+
+    - Utiliser la formule de somme arithmétique pour une suite géométrique.
+    - Prendre $q = t$ au lieu de $q = 1 + t$ : une hausse de $3\,\%$ donne $q = 1{,}03$, pas $0{,}03$.
+    - Se tromper d'exposant : de $u_1$ à $u_n$ il y a $n$ termes, et $u_n = u_1 \times q^{n-1}$.
   methodes:
   - titre: Calculer une somme géométrique
     etapes:
@@ -150,7 +266,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{1 - 2^{10}}{1 - 2} = 1\,024 - 1 = 1\,023$.
+      - 'Ce sont les termes $2^0, 2^1, \dots, 2^9$ d''une suite géométrique de premier terme $1$ et de raison $2$ : il y a $10$ termes.'
+      - 'Somme : $1 \times \dfrac{1 - 2^{10}}{1 - 2} = \dfrac{1 - 1\,024}{-1}$.'
+      - '$= 1\,024 - 1 = 1\,023$.'
       resultat: '1023'
   - code: TLE-TEC-GEOM-04
     difficulte: 4
@@ -160,7 +278,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $100 \times \dfrac{1 - 1{,}1^{10}}{1 - 1{,}1} = 100 \times \dfrac{1{,}1^{10} - 1}{0{,}1} = 1\,000 \times (1{,}1^{10} - 1)$.
+      - 'Les 10 premiers termes vont de $u_0$ à $u_9$ : somme $= u_0 \times \dfrac{1 - q^{10}}{1 - q}$ avec $u_0 = 100$ et $q = 1{,}1$.'
+      - '$100 \times \dfrac{1 - 1{,}1^{10}}{1 - 1{,}1} = 100 \times \dfrac{1{,}1^{10} - 1}{0{,}1}$ (on change le signe du numérateur et du dénominateur).'
+      - '$= 1\,000 \times (1{,}1^{10} - 1)$, environ $1\,593{,}7$.'
       resultat: 1000*(1.1^10 - 1)
   - code: TLE-TEC-GEOM-05
     difficulte: 5
@@ -170,5 +290,23 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1{,}03^n > 1{,}2$ ; $1{,}03^6 \approx 1{,}194$ et $1{,}03^7 \approx 1{,}230$.
+      - 'Intérêts composés à $3\,\%$ : au bout de $n$ années le capital vaut $C_n = 5\,000 \times 1{,}03^n$ (suite géométrique de raison $1{,}03$).'
+      - '$C_n > 6\,000 \iff 1{,}03^n > \dfrac{6\,000}{5\,000} = 1{,}2$.'
+      - 'À la calculatrice : $1{,}03^6 \approx 1{,}194 < 1{,}2$ et $1{,}03^7 \approx 1{,}230 > 1{,}2$.'
+      - 'Le capital dépasse $6\,000$ € pour la première fois au bout de $7$ ans.'
       resultat: '7'
+  - code: TLE-TEC-GEOM-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {u: {entre: [1, 9]}, q: {parmi: [2, 3]}, n: {entre: [3, 6]}}
+      calculs: {s: "u*(q**n - 1)/(q - 1)"}
+    enonce: 'Calculer la somme des $[[n]]$ premiers termes de la suite géométrique de premier terme $[[u]]$ et de raison $[[q]]$.'
+    solution: '[[s]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Somme : premier terme $\times \dfrac{1 - q^n}{1 - q}$.'
+      etapes:
+      - '$S = [[u]] \times \dfrac{1 - [[q]]^{[[n]]}}{1 - [[q]]} = [[u]] \times \dfrac{[[1 - q**n]]}{[[1 - q]]}$.'
+      - '$S = [[s]]$.'
+      resultat: '[[s]]'

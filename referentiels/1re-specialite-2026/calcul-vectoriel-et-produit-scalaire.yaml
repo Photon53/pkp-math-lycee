@@ -1,0 +1,20 @@
+# Partie « Géométrie », rubrique « Calcul vectoriel et produit scalaire » (page 9 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: PS
+  titre: Calcul vectoriel et produit scalaire
+  partie: Géométrie
+
+attendus:
+  - {code: 1RE-SPE-2026-PS-01, type: contenu, page: 9, texte: "Produit scalaire à partir de la projection orthogonale et de la formule avec le cosinus. Caractérisation de l’orthogonalité."}
+  - {code: 1RE-SPE-2026-PS-02, type: contenu, page: 9, texte: "Bilinéarité, symétrie. En base orthonormée, expression du produit scalaire et de la norme, critère d’orthogonalité. Expression des coordonnées dans une base orthonormée en termes de produits scalaires avec les vecteurs de la base."}
+  - {code: 1RE-SPE-2026-PS-03, type: contenu, page: 9, texte: "Développement de ‖u⃗ + v⃗‖² et ‖u⃗ − v⃗‖². Formule d’Al-Kashi."}
+  - {code: 1RE-SPE-2026-PS-04, type: contenu, page: 9, texte: "Transformation de l’expression MA⃗ ⋅ MB⃗."}
+  - {code: 1RE-SPE-2026-PS-05, type: capacite, page: 9, texte: "Utiliser le produit scalaire pour démontrer une orthogonalité, pour calculer un angle, une longueur dans le plan."}
+  - {code: 1RE-SPE-2026-PS-06, type: capacite, page: 9, texte: "En vue de la résolution d’un problème, calculer le produit scalaire de deux vecteurs en choisissant une méthode adaptée (en utilisant la projection orthogonale, à l’aide des coordonnées, à l’aide des normes et d’un angle, à l’aide de normes)."}
+  - {code: 1RE-SPE-2026-PS-07, type: capacite, page: 9, texte: "Utiliser le produit scalaire pour résoudre un problème géométrique."}
+  - {code: 1RE-SPE-2026-PS-08, type: demonstration, page: 9, texte: "Formule d’Al-Kashi (démonstration avec le produit scalaire)."}
+  - {code: 1RE-SPE-2026-PS-09, type: demonstration, page: 9, texte: "Ensemble des points M tels que MA⃗ ⋅ MB⃗ = 0 (démonstration avec le produit scalaire)."}
+  - {code: 1RE-SPE-2026-PS-10, type: approfondissement, page: 9, texte: "Loi des sinus."}
+  - {code: 1RE-SPE-2026-PS-11, type: approfondissement, page: 9, texte: "Concourance des hauteurs d’un triangle."}
+  - {code: 1RE-SPE-2026-PS-12, type: approfondissement, page: 9, texte: "Les médianes d’un triangle concourent au centre de gravité."}

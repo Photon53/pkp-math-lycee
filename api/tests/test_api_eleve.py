@@ -28,7 +28,8 @@ class TestConnexion:
         r = client.post("/eleves/connexion", json=corps_connexion("Lina"))
         assert r.status_code == 200
         assert r.json()["eleve"] == {
-            "id": 1, "prenom": "Lina", "code_classe": "2NDE-A-DEMO", "niveau": "2nde", "parcours": "tronc-commun",
+            "id": 1, "prenom": "Lina", "identifiant": "lina-demo", "code_classe": "2NDE-A-DEMO", "niveau": "2nde",
+            "parcours": "tronc-commun",
         }
 
     @pytest.mark.parametrize(
@@ -92,11 +93,84 @@ class TestAuthentification:
         assert client.get("/eleves/moi", headers=connecter_eleve(client, "Hugo", "1RE-B-DEMO")).json()["niveau"] == "1re"
 
 
+class TestConnexionIdentifiant:
+    """Identifiant + code personnel (carte de l'élève), avec « rester connecté » pour la maison."""
+
+    def _jeton(self, client, identifiant="lina-demo", code="PKP222", rester_connecte=False):
+        return client.post(
+            "/eleves/connexion/identifiant",
+            json={"identifiant": identifiant, "code_personnel": code, "rester_connecte": rester_connecte},
+        )
+
+    def test_connexion(self, client):
+        r = self._jeton(client)
+        assert r.status_code == 200
+        assert r.json()["eleve"]["prenom"] == "Lina" and r.json()["eleve"]["code_classe"] == "2NDE-A-DEMO"
+        assert client.get("/eleves/moi", headers=entete(r.json()["jeton"])).status_code == 200
+
+    def test_saisie_normalisee(self, client):
+        assert self._jeton(client, "  LINA-Demo ", "pkp 222").status_code == 200
+
+    @pytest.mark.parametrize(("identifiant", "code"), [("lina-demo", "PKP333"), ("inconnu-zzzz", "PKP222")])
+    def test_echec_avec_un_message_unique(self, client, identifiant, code):
+        r = self._jeton(client, identifiant, code)
+        assert r.status_code == 401
+        assert r.json()["detail"] == "Identifiant ou code personnel incorrect."
+
+    def test_rester_connecte_allonge_la_session(self, client):
+        from app.security import lire_jeton
+
+        def expiration(jeton):
+            import base64
+
+            charge = jeton.split(".")[0]
+            return int(base64.urlsafe_b64decode(charge + "=" * (-len(charge) % 4)).decode().split(":")[2])
+
+        courte = expiration(self._jeton(client).json()["jeton"])
+        longue = self._jeton(client, rester_connecte=True).json()["jeton"]
+        assert lire_jeton(longue, "eleve") is not None
+        assert expiration(longue) - courte > 20 * 24 * 3600
+
+    def test_nouveau_code_invalide_la_session_longue(self, client):
+        jeton = self._jeton(client, rester_connecte=True).json()["jeton"]
+        client.post("/enseignants/eleves/1/code", headers=connecter_enseignant(client))
+        assert client.get("/eleves/moi", headers=entete(jeton)).status_code == 401
+
+    def test_identifiant_attribue_a_l_inscription(self, client):
+        h = connecter_enseignant(client)
+        classe_id = client.get("/enseignants/classes", headers=h).json()[0]["id"]
+        crees = client.post(f"/enseignants/classes/{classe_id}/eleves", headers=h, json={"prenoms": ["Éloïse", "Noé"]}).json()["crees"]
+        identifiants = [c["identifiant"] for c in crees]
+        assert identifiants[0].startswith("eloise-") and identifiants[1].startswith("noe-")
+        r = self._jeton(client, identifiants[0], crees[0]["code"])
+        assert r.json()["eleve"]["prenom"] == "Éloïse"
+
+    def test_cartes_de_toute_la_classe(self, client):
+        h = connecter_enseignant(client)
+        classe = next(c for c in client.get("/enseignants/classes", headers=h).json() if c["code"] == "2NDE-A-DEMO")
+        cartes = client.post(f"/enseignants/classes/{classe['id']}/cartes", headers=h).json()
+        assert [c["prenom"] for c in cartes] == sorted(c["prenom"] for c in cartes) and len(cartes) >= 2
+        lina = next(c for c in cartes if c["prenom"] == "Lina")
+        assert lina["identifiant"] == "lina-demo" and lina["code"] != "PKP222"
+        assert self._jeton(client, "lina-demo", "PKP222").status_code == 401  # ancien code invalidé
+        assert self._jeton(client, "lina-demo", lina["code"]).status_code == 200
+
+    def test_cartes_d_une_autre_classe_refusees(self, client):
+        h = connecter_enseignant(client)
+        assert client.post("/enseignants/classes/9999/cartes", headers=h).status_code == 404
+
+    def test_l_identifiant_ne_change_pas_avec_le_code(self, client):
+        h = connecter_enseignant(client)
+        nouveau = client.post("/enseignants/eleves/1/code", headers=h).json()
+        assert nouveau["identifiant"] == "lina-demo"
+        assert self._jeton(client, "lina-demo", nouveau["code"]).status_code == 200
+
+
 class TestParcours:
     def test_question_publique_sans_solution(self, client):
         h = connecter_eleve(client)
         q = client.get(f"/seances/{nouvelle_seance(client, h)}/question", headers=h).json()
-        assert set(q) == {"id", "competence_id", "enonce", "type", "difficulte"}
+        assert set(q) == {"id", "competence_id", "enonce", "type", "difficulte", "variable", "en_relecture"}
 
     def test_redemander_renvoie_la_meme_question(self, client):
         h = connecter_eleve(client)
@@ -116,6 +190,9 @@ class TestParcours:
         assert corps["solution"] == sol[q["id"]]
         assert corps["maitrise"] == pytest.approx(0.5)
         assert corps["maitrisee"] is False
+        # Renvois de la correction : la compétence et les titres de ses fiches méthode.
+        assert corps["competence_id"] == q["competence_id"]
+        assert isinstance(corps["methodes"], list) and all(isinstance(t, str) for t in corps["methodes"])
 
     def test_mauvaise_reponse_revele_la_solution(self, client):
         h = connecter_eleve(client, "Inès")
@@ -187,6 +264,6 @@ class TestParcours:
         h = connecter_eleve(client)
         progression = {p["code"]: p for p in client.get("/eleves/moi/progression", headers=h).json()}
         assert list(progression) == competences_de("2nde", "tronc-commun")  # ordre du programme
-        assert list(progression)[:5] == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-DEV", "2NDE-EQ1"]
+        assert list(progression)[:5] == ["2NDE-FRAC", "2NDE-PUIS", "2NDE-RAC", "2NDE-ENSEMBLES", "2NDE-ENCADR"]
         assert progression["2NDE-FRAC"]["nb_reponses"] == 2
         assert progression["2NDE-PUIS"] == {**progression["2NDE-PUIS"], "nb_reponses": 0, "maitrise": 0.0, "maitrisee": False}

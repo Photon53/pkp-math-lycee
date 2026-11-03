@@ -1,0 +1,46 @@
+# Partie transversale « Automatismes » (pages 5 et 6 du PDF). Textes recopiés du BO.
+# Ces automatismes doivent aussi être entretenus en première (référentiel 1RE-SPE-2026, partie AUTO).
+# Les identités du calcul littéral élémentaire (formules sur plusieurs lignes dans le PDF) sont réécrites en ligne.
+theme:
+  code: AUTO
+  titre: Automatismes
+  partie: Transversale
+
+attendus:
+  # Calcul numérique et algébrique
+  - {code: 2NDE-2026-AUTO-01, type: automatisme, page: 5, texte: "Comparer deux nombres directement ou par calcul : de leur différence ; s’ils sont strictement positifs, de leur quotient."}
+  - {code: 2NDE-2026-AUTO-02, type: automatisme, page: 5, texte: "Effectuer des opérations et des comparaisons entre des fractions simples."}
+  - {code: 2NDE-2026-AUTO-03, type: automatisme, page: 5, texte: "Effectuer des opérations sur les puissances."}
+  - {code: 2NDE-2026-AUTO-04, type: automatisme, page: 5, texte: "Passer d’une écriture d’un nombre à une autre (décimale, fractionnaire, pourcentage)."}
+  - {code: 2NDE-2026-AUTO-05, type: automatisme, page: 5, texte: "Estimer un ordre de grandeur."}
+  - {code: 2NDE-2026-AUTO-06, type: automatisme, page: 5, texte: "S’assurer de la vraisemblance, de la cohérence d’un résultat."}
+  - {code: 2NDE-2026-AUTO-07, type: automatisme, page: 5, texte: "Effectuer des conversions d’unités : longueurs, aires, volumes, contenances, durées, vitesses, masses."}
+  - {code: 2NDE-2026-AUTO-08, type: automatisme, page: 5, texte: "Effectuer un calcul littéral élémentaire : expressions additives : –(a + b) = –a – b, –(a – b) = b – a ; expressions multiplicatives : x = 1 × x, x/1 = x, (–1) × a = –a, 0 × a = 0, 0/a = 0, a/a = 1, 1/(1/a) = a, (a/b)/(c/d) = (a/b) × (d/c), etc."}
+  - {code: 2NDE-2026-AUTO-09, type: automatisme, page: 5, texte: "Développer, factoriser, réduire une expression algébrique simple : identités (factorisation et développement) : (a + b)², (a – b)², (a + b)(a – b) ; factorisation de ax² + bx, ax + bx."}
+  - {code: 2NDE-2026-AUTO-10, type: automatisme, page: 5, texte: "Résoudre une équation du type : x² = a, ax + b = cx + d ou a/x = b ou une inéquation du premier degré."}
+  - {code: 2NDE-2026-AUTO-11, type: automatisme, page: 5, texte: "Isoler une variable dans une égalité qui en comporte plusieurs, sur des exemples internes aux mathématiques ou issus des autres disciplines."}
+  - {code: 2NDE-2026-AUTO-12, type: automatisme, page: 5, texte: "Effectuer une application numérique d’une formule (notamment pour les formules utilisées dans les autres disciplines)."}
+  # Proportions et pourcentages
+  - {code: 2NDE-2026-AUTO-13, type: automatisme, page: 6, texte: "Calculer, appliquer, exprimer une proportion sous différentes formes (décimale, fractionnaire, pourcentage)."}
+  - {code: 2NDE-2026-AUTO-14, type: automatisme, page: 6, texte: "Utiliser une proportion pour calculer une partie connaissant le tout, ou le tout connaissant une partie."}
+  # Évolutions et variations
+  - {code: 2NDE-2026-AUTO-15, type: automatisme, page: 6, texte: "Passer d’une formulation additive (« augmenter de 5 % », respectivement « diminuer de 5 % ») à une formulation multiplicative (« multiplier par 1,05 », respectivement « multiplier par 0,95 »)."}
+  # Fonctions et représentations
+  - {code: 2NDE-2026-AUTO-16, type: automatisme, page: 6, texte: "Déterminer graphiquement des images et des antécédents."}
+  - {code: 2NDE-2026-AUTO-17, type: automatisme, page: 6, texte: "Exploiter une équation de courbe (appartenance d’un point, calcul de coordonnées)."}
+  - {code: 2NDE-2026-AUTO-18, type: automatisme, page: 6, texte: "Reconnaitre l’expression d’une fonction linéaire, d’une fonction affine, savoir que leur représentation graphique est une droite."}
+  # Géométrie
+  - {code: 2NDE-2026-AUTO-19, type: automatisme, page: 6, texte: "Sur une droite graduée, repérer ou placer un point dont l’abscisse est un nombre relatif."}
+  - {code: 2NDE-2026-AUTO-20, type: automatisme, page: 6, texte: "Dans le plan muni d’un repère orthogonal, lire les coordonnées d’un point donné, placer un point de coordonnées données."}
+  - {code: 2NDE-2026-AUTO-21, type: automatisme, page: 6, texte: "Calculer des périmètres (polygone et cercle), aires (rectangle, triangle et disque) et des volumes (pavé droit, prisme, cylindre, pyramide, cône et boule)."}
+  - {code: 2NDE-2026-AUTO-22, type: automatisme, page: 6, texte: "Application simple du théorème de Pythagore, du théorème de Thalès."}
+  - {code: 2NDE-2026-AUTO-23, type: automatisme, page: 6, texte: "Connaitre et utiliser les lignes trigonométriques dans le triangle rectangle : cosinus, sinus, tangente."}
+  # Statistiques
+  - {code: 2NDE-2026-AUTO-24, type: automatisme, page: 6, texte: "Lire et commenter des graphiques usuels : diagramme en barres ; diagramme circulaire, semi-circulaire ; courbe, nuage de points (diagramme cartésien)."}
+  - {code: 2NDE-2026-AUTO-25, type: automatisme, page: 6, texte: "Calculer et interpréter des indicateurs statistiques (moyenne, médiane, quartiles) pour une série statistique (selon la façon dont elle est présentée : données brutes, données regroupées par classes, représentations graphiques)."}
+  - {code: 2NDE-2026-AUTO-26, type: automatisme, page: 6, texte: "Comparer des distributions à l’aide de boites à moustaches."}
+  # Probabilités
+  - {code: 2NDE-2026-AUTO-27, type: automatisme, page: 6, texte: "Savoir qu’une probabilité est un nombre entre 0 et 1."}
+  - {code: 2NDE-2026-AUTO-28, type: automatisme, page: 6, texte: "Savoir calculer la probabilité de l’évènement contraire."}
+  - {code: 2NDE-2026-AUTO-29, type: automatisme, page: 6, texte: "Calculer la probabilité d’un évènement comme somme des probabilités des issues qui le composent."}
+  - {code: 2NDE-2026-AUTO-30, type: automatisme, page: 6, texte: "Utiliser la relation P(A) = Card(A)/Card(Ω) dans le cas de l’équiprobabilité."}

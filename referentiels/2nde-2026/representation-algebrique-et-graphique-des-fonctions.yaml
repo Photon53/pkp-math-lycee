@@ -1,0 +1,20 @@
+# Partie « Fonctions », rubrique « Représentation algébrique et graphique des fonctions » (page 10 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: FREP
+  titre: Représentation algébrique et graphique des fonctions
+  partie: Fonctions
+
+attendus:
+  - {code: 2NDE-2026-FREP-01, type: contenu, page: 10, texte: "Fonction à valeurs réelles définie sur un intervalle ou une réunion finie d’intervalles de ℝ."}
+  - {code: 2NDE-2026-FREP-02, type: contenu, page: 10, texte: "Recherche de domaine d’étude (ensemble de définition)."}
+  - {code: 2NDE-2026-FREP-03, type: contenu, page: 10, texte: "Courbe représentative : la courbe d’équation y = ƒ(x) est l’ensemble des points du plan dont les coordonnées (x, y) vérifient y = ƒ(x)."}
+  - {code: 2NDE-2026-FREP-04, type: contenu, page: 10, texte: "Signe d’une fonction affine et des fonctions de référence."}
+  - {code: 2NDE-2026-FREP-05, type: contenu, page: 10, texte: "Tableau de signes pour une fonction produit ou quotient."}
+  - {code: 2NDE-2026-FREP-06, type: capacite, page: 10, texte: "Exploiter l’équation y = ƒ(x) d’une courbe : appartenance, calcul de coordonnées."}
+  - {code: 2NDE-2026-FREP-07, type: capacite, page: 10, texte: "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines ou de la vie courante ou citoyenne."}
+  - {code: 2NDE-2026-FREP-08, type: capacite, page: 10, texte: "Fonctions valeur absolue, carré, inverse : définitions et courbes représentatives."}
+  - {code: 2NDE-2026-FREP-09, type: capacite, page: 10, texte: "Résoudre une équation ou une inéquation du type ƒ(x) = k, ƒ(x) < k, en choisissant une méthode adaptée : graphique, algébrique, logicielle."}
+  - {code: 2NDE-2026-FREP-10, type: capacite, page: 10, texte: "Résoudre une équation ou une inéquation de la forme ƒ(x) = 0, ƒ(x) > 0 à l’aide d’un tableau de signes, lorsque ƒ est un produit ou un quotient."}
+  - {code: 2NDE-2026-FREP-11, type: capacite, page: 11, texte: "Résoudre, graphiquement ou à l’aide d’un outil numérique, une équation ou inéquation du type ƒ(x) = g(x), ƒ(x) < g(x)."}
+  - {code: 2NDE-2026-FREP-12, type: capacite, page: 11, texte: "Pour les fonctions affines, valeur absolue, carré, inverse, racine carrée et cube, résoudre graphiquement ou algébriquement une équation ou une inéquation du type ƒ(x) = k, ƒ(x) < k."}

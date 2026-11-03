@@ -10,25 +10,29 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import journal, limitation, ressources, statistiques
+from app import anglais_contenu, journal, limitation, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, SessionDB
 from app.config import settings
 from app.db import models
 from app.progression import export_eleve
 from app.referentiel import Role
+from app.routes import anglais
 from app.routes.enseignants import _attribuer_code, verifier_identifiants
 from app.schemas import CodeEleve, ConnexionEnseignant
 from app.schemas_admin import (
+    SeanceAnglaisEdition,
     TAILLE_PAGE,
     Activation,
     ClasseAdmin,
     ConnexionAdmin,
     Deplacement,
+    EleveAnglaisAdmin,
     EleveAdmin,
     EnseignantAdmin,
     EnseignantCree,
     EnseignantEdition,
     EntreeJournal,
+    GroupeAnglaisAdmin,
     JetonAdmin,
     PageEleves,
     PageJournal,
@@ -45,7 +49,7 @@ from app.security import (
 
 router = APIRouter(prefix="/admin", tags=["administration"])
 
-CHAMPS_ENSEIGNANT = ("nom", "email", "role", "actif")
+CHAMPS_ENSEIGNANT = ("nom", "email", "role", "enseigne_maths", "enseigne_anglais", "referent_anglais", "actif")
 
 
 # --- Connexion ----------------------------------------------------------------------
@@ -90,8 +94,11 @@ def _vue_enseignant(session: SessionDB, e: models.Enseignant) -> EnseignantAdmin
         select(func.count(models.Eleve.id)).join(models.Classe).where(models.Classe.enseignant_id == e.id)
     )
     return EnseignantAdmin(
-        id=e.id, nom=e.nom, email=e.email, role=e.role, actif=e.actif, mdp_provisoire=e.mdp_provisoire,
+        id=e.id, nom=e.nom, email=e.email, role=e.role, enseigne_maths=e.enseigne_maths,
+        enseigne_anglais=e.enseigne_anglais, referent_anglais=e.referent_anglais, actif=e.actif,
+        mdp_provisoire=e.mdp_provisoire,
         totp_configure=e.totp_secret is not None, nb_classes=len(e.classes), nb_eleves=nb_eleves,
+        nb_groupes_anglais=len(e.groupes_anglais), nb_eleves_anglais=sum(len(g.eleves) for g in e.groupes_anglais),
         derniere_connexion=e.derniere_connexion,
     )
 
@@ -124,7 +131,8 @@ def creer_enseignant(corps: EnseignantEdition, admin: AdminCourant, session: Ses
     provisoire = generer_mot_de_passe_provisoire()
     e = models.Enseignant(
         nom=corps.nom.strip(), email=corps.email, role=corps.role,
-        mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
+        enseigne_maths=corps.enseigne_maths, enseigne_anglais=corps.enseigne_anglais,
+        referent_anglais=corps.referent_anglais, mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True,
     )
     session.add(e)
     session.flush()
@@ -143,6 +151,8 @@ def modifier_enseignant(
     _email_libre(session, corps.email, sauf_id=e.id)
     avant = journal.instantane(e, CHAMPS_ENSEIGNANT)
     e.nom, e.email, e.role = corps.nom.strip(), corps.email, corps.role
+    e.enseigne_maths, e.enseigne_anglais = corps.enseigne_maths, corps.enseigne_anglais
+    e.referent_anglais = corps.referent_anglais
     journal.noter(session, admin, "modifier", "enseignant", e.id, avant, journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.commit()
     return _vue_enseignant(session, e)
@@ -177,6 +187,9 @@ def transferer_classes(enseignant_id: int, corps: Transfert, admin: AdminCourant
     de, vers = _enseignant(session, enseignant_id), _enseignant(session, corps.vers_enseignant_id)
     if de.id == vers.id:
         raise HTTPException(422, "Choisissez un autre professeur.")
+    # Les classes sont celles de l'espace maths : un professeur d'anglais seul ne pourrait pas les ouvrir.
+    if not vers.enseigne_maths:
+        raise HTTPException(422, "Ce professeur n'enseigne pas les mathématiques.")
     codes = [c.code for c in de.classes]
     for classe in list(de.classes):
         classe.enseignant = vers
@@ -197,6 +210,8 @@ def supprimer_enseignant(enseignant_id: int, confirmation: str, admin: AdminCour
         raise HTTPException(422, "Saisissez l'adresse e-mail du compte pour confirmer.")
     if e.classes:
         raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des classes : transférez-les d'abord.")
+    if e.groupes_anglais:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a encore des groupes d'anglais : transférez-les d'abord.")
     fichiers = [r.fichier for r in session.scalars(select(models.Ressource).where(models.Ressource.auteur_id == e.id))]
     journal.noter(session, admin, "supprimer", "enseignant", e.id, avant=journal.instantane(e, CHAMPS_ENSEIGNANT))
     session.delete(e)
@@ -320,6 +335,133 @@ def classes(_: AdminCourant, session: SessionDB, enseignant_id: int | None = Non
         )
         for c in session.scalars(requete)
     ]
+
+
+# --- PKP Anglais : groupes et séances ---------------------------------------------------
+# Les groupes d'anglais (4e, 3e) sont séparés des classes de maths : vues et actions dédiées.
+
+
+def _vue_groupe(g: models.GroupeAnglais) -> GroupeAnglaisAdmin:
+    return GroupeAnglaisAdmin(
+        id=g.id, nom=g.nom, niveau=g.niveau, enseignant_id=g.enseignant_id, enseignant=g.enseignant.nom,
+        eleves=[EleveAnglaisAdmin(id=e.id, prenom=e.prenom) for e in sorted(g.eleves, key=lambda e: e.prenom.lower())],
+    )
+
+
+def _groupe_anglais(session: SessionDB, groupe_id: int) -> models.GroupeAnglais:
+    g = session.get(models.GroupeAnglais, groupe_id)
+    if g is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Groupe introuvable.")
+    return g
+
+
+@router.get("/anglais/groupes", response_model=list[GroupeAnglaisAdmin])
+def groupes_anglais(_: AdminCourant, session: SessionDB) -> list[GroupeAnglaisAdmin]:
+    groupes = session.scalars(select(models.GroupeAnglais))
+    return [_vue_groupe(g) for g in sorted(
+        groupes, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.enseignant.nom.lower(), g.nom.lower())
+    )]
+
+
+@router.post("/anglais/groupes/{groupe_id}/transfert", response_model=GroupeAnglaisAdmin)
+def transferer_groupe_anglais(groupe_id: int, corps: Transfert, admin: AdminCourant, session: SessionDB) -> GroupeAnglaisAdmin:
+    """Remplacement en cours d'année : le groupe et ses élèves passent à un autre professeur d'anglais."""
+    groupe, vers = _groupe_anglais(session, groupe_id), _enseignant(session, corps.vers_enseignant_id)
+    if vers.id == groupe.enseignant_id:
+        raise HTTPException(422, "Choisissez un autre professeur.")
+    if not vers.enseigne_anglais:
+        raise HTTPException(422, "Ce professeur n'enseigne pas l'anglais.")
+    if any(g.nom.lower() == groupe.nom.lower() for g in vers.groupes_anglais):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a déjà un groupe de ce nom.")
+    journal.noter(session, admin, "transferer", "groupe_anglais", groupe.id, {"enseignant": groupe.enseignant_id}, {"enseignant": vers.id})
+    groupe.enseignant = vers
+    session.commit()
+    return _vue_groupe(groupe)
+
+
+@router.delete("/anglais/groupes/{groupe_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_groupe_anglais(groupe_id: int, admin: AdminCourant, session: SessionDB) -> Response:
+    groupe = _groupe_anglais(session, groupe_id)
+    journal.noter(session, admin, "supprimer", "groupe_anglais", groupe.id,
+                  avant={"nom": groupe.nom, "niveau": groupe.niveau, "eleves": len(groupe.eleves)})
+    session.delete(groupe)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.delete("/anglais/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_eleve_anglais(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
+    """Droit à l'effacement (RGPD) : le prénom est supprimé, l'action est journalisée."""
+    eleve = session.get(models.EleveAnglais, eleve_id)
+    if eleve is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
+    journal.noter(session, admin, "supprimer", "eleve_anglais", eleve.id, avant={"prenom": eleve.prenom, "groupe": eleve.groupe.nom})
+    session.delete(eleve)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/anglais/seances")
+def seances_anglais(_: AdminCourant, session: SessionDB):
+    """Catalogue : version courante de chaque séance, son statut et la version publiée."""
+    return [anglais_contenu.resume(s) for s in anglais_contenu.toutes(session)]
+
+
+@router.get("/anglais/seances/{code}")
+def seance_anglais(code: str, _: AdminCourant, session: SessionDB):
+    """Version courante telle qu'elle s'édite (séance, cahier, QCM de grammaire) et son historique."""
+    seance = anglais.seance_ou_404(session, code)
+    c = seance.courante
+    vocabulaire = anglais_contenu.quiz_complet(c)[: -len(c.quiz) or None]
+    return {**anglais_contenu.resume(seance), "contenu": c.contenu, "cahier": c.cahier, "quiz": c.quiz,
+            "quiz_vocabulaire": vocabulaire, "historique": anglais_contenu.historique(seance)}
+
+
+@router.put("/anglais/seances/{code}")
+def modifier_seance_anglais(code: str, corps: SeanceAnglaisEdition, admin: AdminCourant, session: SessionDB):
+    """Enregistre en brouillon ; une version validée reste publiée jusqu'à la validation de la suivante."""
+    seance = anglais.seance_ou_404(session, code)
+    erreurs = anglais_contenu.verifier_version(code, corps.contenu, corps.cahier, corps.quiz)
+    if erreurs:
+        raise HTTPException(422, "Contenu incomplet : " + " ; ".join(erreurs))
+    avant = {"code": code, "version": seance.courante.numero, "statut": seance.courante.statut}
+    version = anglais_contenu.enregistrer(seance, admin, corps.contenu, corps.cahier, corps.quiz)
+    session.flush()
+    journal.noter(session, admin, "modifier", "seance_anglais", seance.id, avant,
+                  {"code": code, "version": version.numero, "statut": version.statut})
+    session.commit()
+    return seance_anglais(code, admin, session)
+
+
+@router.post("/anglais/seances/{code}/soumettre")
+def soumettre_seance_anglais(code: str, admin: AdminCourant, session: SessionDB):
+    """Brouillon, ou version refusée puis corrigée : envoyée aux référents."""
+    seance = anglais.seance_ou_404(session, code)
+    courante = seance.courante
+    if courante.statut not in ("brouillon", "refuse"):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Seul un brouillon ou une version refusée peut être soumis.")
+    avant = {"code": code, "version": courante.numero, "statut": courante.statut}
+    courante.statut = "soumis"
+    journal.noter(session, admin, "soumettre", "seance_anglais", seance.id, avant,
+                  {"code": code, "version": courante.numero, "statut": "soumis"})
+    session.commit()
+    return anglais_contenu.resume(seance)
+
+
+@router.post("/anglais/seances/{code}/valider")
+def valider_seance_anglais(code: str, admin: AdminCourant, session: SessionDB):
+    return anglais.decider(anglais.seance_ou_404(session, code), admin, session, None)
+
+
+@router.post("/anglais/seances/{code}/refuser")
+def refuser_seance_anglais(code: str, corps: anglais.Refus, admin: AdminCourant, session: SessionDB):
+    return anglais.decider(anglais.seance_ou_404(session, code), admin, session, corps.motif)
+
+
+@router.get("/anglais/seances/{code}/pdf/{public}")
+def pdf_seance_anglais(code: str, public: str, _: AdminCourant, session: SessionDB):
+    """PDF de la version courante, avec la mention NON VALIDÉ tant qu'elle n'est pas validée."""
+    return anglais.reponse_pdf(anglais.seance_ou_404(session, code).courante, code, public)
 
 
 # --- Journal et statistiques ---------------------------------------------------------------

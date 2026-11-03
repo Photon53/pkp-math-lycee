@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 2NDE-AFF
     libelle: Étudier une fonction affine
+    attendus: [2NDE-2026-AUTO-18, 2NDE-2026-FREP-04, 2NDE-2026-FVAR-03, 2NDE-2026-FVAR-04, 2NDE-2026-FVAR-08, 2NDE-2026-FVAR-12]
+    cours_couvre: [2NDE-2026-AUTO-18, 2NDE-2026-FREP-04, 2NDE-2026-FVAR-03, 2NDE-2026-FVAR-04, 2NDE-2026-FVAR-08, 2NDE-2026-FVAR-12]
     objectifs:
     - Déterminer le sens de variation et le signe d'une fonction affine.
     - Retrouver une fonction affine à partir de deux valeurs.
@@ -26,23 +28,60 @@ competences:
     - erreur: Prendre $p$ pour le coefficient directeur.
       explication: Dans $mx + p$, c'est $m$ (le coefficient de $x$) qui donne le sens de variation.
     resume: |
-      - $f(x) = mx + p$ est croissante si $m > 0$, décroissante si $m < 0$, constante si $m = 0$.
-      - Si $m \neq 0$, $f$ s'annule en $x_0 = -\dfrac{p}{m}$ et a le signe de $m$ à droite de $x_0$.
-      - $m = \dfrac{f(b) - f(a)}{b - a}$ (taux d'accroissement constant).
-      - Sur un intervalle fermé, le maximum d'une fonction affine est atteint à une borne.
+      - Fonction affine : $f(x) = mx + p$ ; linéaire si $p = 0$ ; sa courbe est une **droite**.
+      - $m$ est le taux d'accroissement : $\dfrac{f(b) - f(a)}{b - a} = m$ ; $p = f(0)$ est l'ordonnée à l'origine.
+      - $m > 0$ : $f$ croissante ; $m < 0$ : $f$ décroissante ; $m = 0$ : $f$ constante.
+      - Si $m \neq 0$, $f$ s'annule en $x_0 = -\dfrac{p}{m}$ et prend le signe de $m$ **à droite** de $x_0$, le signe contraire à gauche.
     cours: |
-      ## Sens de variation
-      $f(x) = -2x + 5$ : $m = -2 < 0$, $f$ est décroissante sur $\mathbb{R}$.
+      ## 1. Définitions
+      > **Définition.** Une fonction $f$ définie sur $\mathbb{R}$ est **affine** s'il existe deux réels $m$ et $p$ tels que, pour tout $x$, $f(x) = mx + p$.
+      > - Si $p = 0$, $f(x) = mx$ : $f$ est **linéaire** (situation de proportionnalité).
+      > - Si $m = 0$, $f(x) = p$ : $f$ est **constante**.
 
-      ## Signe
-      $-2x + 4 = 0 \iff x = 2$. Comme $m < 0$ : $-2x + 4 > 0$ pour $x < 2$ et $-2x + 4 < 0$ pour $x > 2$.
+      > **Propriété.** La courbe représentative d'une fonction affine est une **droite**, d'équation $y = mx + p$ ; celle d'une fonction linéaire passe par l'origine.
 
-      | $x$ | $-\infty$ | | $2$ | | $+\infty$ |
+      Exemples : $f(x) = -3x + 2$ est affine ; $g(x) = \dfrac{x}{4}$ est linéaire ; $h(x) = x^2 + 1$ et $k(x) = \dfrac{2}{x}$ ne sont pas affines.
+
+      ## 2. Interprétation de $m$ et $p$
+      > **Propriété.** Pour tous réels $a \neq b$ : $\dfrac{f(b) - f(a)}{b - a} = m$. Le coefficient $m$ est le **taux d'accroissement** de $f$ : les accroissements de $f(x)$ sont proportionnels à ceux de $x$. Et $p = f(0)$ est l'**ordonnée à l'origine**.
+
+      **Justification.** $f(b) - f(a) = (mb + p) - (ma + p) = m(b - a)$.
+
+      **Exemple.** Si $f$ est affine avec $f(1) = 5$ et $f(4) = -1$, alors $m = \dfrac{-1 - 5}{4 - 1} = -2$ et $p = f(1) - m \times 1 = 5 + 2 = 7$ : $f(x) = -2x + 7$.
+
+      ## 3. Variations
+      > **Propriété.** Si $m > 0$, $f$ est strictement croissante sur $\mathbb{R}$ ; si $m < 0$, elle est strictement décroissante ; si $m = 0$, elle est constante.
+
+      **Démonstration (exigible).** Soit $a < b$. D'après ce qui précède, $f(b) - f(a) = m(b - a)$ avec $b - a > 0$. Ce nombre est donc du signe de $m$ : si $m > 0$, $f(a) < f(b)$ (croissante) ; si $m < 0$, $f(a) > f(b)$ (décroissante) ; si $m = 0$, $f(a) = f(b)$ (constante).
+
+      ## 4. Signe d'une fonction affine
+      > **Propriété.** Si $m \neq 0$, $f(x) = mx + p$ s'annule en $x_0 = -\dfrac{p}{m}$. Elle est du **signe de $m$** pour $x > x_0$ et du signe contraire pour $x < x_0$.
+
+      | $x$ | $-\infty$ |  | $x_0$ |  | $+\infty$ |
       |---|---|---|---|---|---|
-      | $-2x + 4$ | | $+$ | $0$ | $-$ | |
+      | signe de $mx + p$ |  | signe de $-m$ | $0$ | signe de $m$ |  |
 
-      ## Retrouver $f$
-      $f(1) = 3$ et $f(4) = 9$ : $m = \dfrac{9 - 3}{4 - 1} = 2$, puis $3 = 2 + p$, donc $f(x) = 2x + 1$.
+      **Lien avec la droite.** Si $m > 0$, la droite monte : elle est sous l'axe des abscisses avant $x_0$ et au-dessus après. Si $m < 0$, c'est l'inverse.
+
+      ### Méthode : étudier une fonction affine
+      1. Identifier $m$ et $p$.
+      2. Donner le sens de variation selon le signe de $m$.
+      3. Résoudre $mx + p = 0$ pour trouver $x_0$, puis dresser le tableau de signes.
+
+      **Exemple complet.** $f(x) = -2x + 6$.
+      - $m = -2 < 0$ : $f$ est strictement décroissante sur $\mathbb{R}$ ; $p = 6$ : la droite coupe l'axe des ordonnées en $(0 ; 6)$.
+      - $-2x + 6 = 0 \iff x = 3$.
+      - $f(x) > 0$ pour $x < 3$ et $f(x) < 0$ pour $x > 3$ (signe de $m$, négatif, à droite de $3$).
+
+      ## 5. Signe des fonctions de référence
+      - $x^2 \geqslant 0$ et $|x| \geqslant 0$ pour tout $x$, avec égalité seulement en $0$.
+      - $\dfrac{1}{x}$ et $x^3$ sont du signe de $x$ ; $\sqrt{x} \geqslant 0$ sur $[0 ; +\infty[$.
+
+      ## 6. Erreurs fréquentes
+      - Confondre $m$ et $p$ dans $f(x) = p + mx$ : $m$ est le coefficient de $x$.
+      - Croire que $f(x) = 3x^2 + 1$ est affine.
+      - Placer le signe de $m$ à **gauche** de $x_0$ dans le tableau de signes.
+      - Calculer le taux d'accroissement avec les différences dans un ordre incohérent.
     questions:
       - code: 2NDE-AFF-01
         difficulte: 1
@@ -72,7 +111,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$-2x + 4$ s''annule en $2$ ; le coefficient $-2$ est négatif : l''expression est négative après $2$.'
+          - 'On cherche où l''expression s''annule : $-2x + 4 = 0 \iff x = 2$.'
+          - 'Le coefficient de $x$ est $m = -2 < 0$ : la fonction affine $x \mapsto -2x + 4$ est décroissante, et elle prend le signe de $m$ à droite de $2$.'
+          - 'Donc, pour $x > 2$, $-2x + 4 < 0$ : réponse B. Contrôle avec $x = 3$ : $-6 + 4 = -2 < 0$.'
           resultat: B
       - code: 2NDE-AFF-04
         difficulte: 4
@@ -98,9 +139,26 @@ competences:
           - $f$ est décroissante (coefficient $-1$).
           - 'Maximum en $x = -1$ : $f(-1) = 1 + 4 = 5$.'
           resultat: 5
+      - code: 2NDE-AFF-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {m: {entre: [-5, 5], sauf: [0]}, p: {entre: [-8, 8]}, x1: {entre: [-4, 0]}, x2: {entre: [1, 5]}}
+          calculs: {y1: "m*x1 + p", y2: "m*x2 + p"}
+        enonce: 'La fonction affine $f$ vérifie $f([[x1]]) = [[y1]]$ et $f([[x2]]) = [[y2]]$. Quel est son coefficient directeur ?'
+        solution: '[[m]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Taux d''accroissement d''une fonction affine.'
+          etapes:
+          - '$m = \dfrac{f([[x2]]) - f([[x1]])}{[[x2]] - ([[x1]])} = \dfrac{[[y2 - y1]]}{[[x2 - x1]]}$.'
+          - '$m = [[m]]$.'
+          resultat: '[[m]]'
 
   - code: 2NDE-SIGNE
     libelle: Étudier le signe d'un produit ou d'un quotient
+    attendus: [2NDE-2026-ALG-06, 2NDE-2026-ALG-07, 2NDE-2026-FREP-05, 2NDE-2026-FREP-10]
+    cours_couvre: [2NDE-2026-ALG-06, 2NDE-2026-ALG-07, 2NDE-2026-FREP-05, 2NDE-2026-FREP-10]
     objectifs:
     - Étudier le signe d'un produit ou d'un quotient avec un tableau de signes.
     - Résoudre une inéquation produit ou quotient.
@@ -125,26 +183,53 @@ competences:
     - erreur: Diviser par $x$ pour résoudre $x^2 \geq 2x$.
       explication: 'Le signe de $x$ est inconnu : on factorise $x(x - 2) \geq 0$ et on fait un tableau de signes.'
     resume: |
-      - On étudie le signe de chaque facteur, puis on applique la règle des signes dans un **tableau de signes**.
-      - Une valeur qui annule un dénominateur est **interdite** (double barre dans le tableau).
-      - Pour résoudre $A(x) \ge B(x)$, on étudie le signe de $A(x) - B(x)$ après factorisation.
+      - Un produit est nul si et seulement si l'un au moins de ses facteurs est nul : $A(x)B(x) = 0 \iff A(x) = 0$ ou $B(x) = 0$.
+      - Règle des signes : un produit ou un quotient est positif si ses deux facteurs ont le même signe, négatif sinon.
+      - Tableau de signes : une ligne par facteur, une ligne pour le résultat ; double barre aux valeurs interdites d'un quotient.
+      - Pour résoudre $f(x) > 0$, on factorise $f(x)$, on dresse le tableau de signes et on lit les intervalles.
     cours: |
-      ## Tableau de signes d'un produit
-      Pour $(x - 3)(x + 1)$ : $x - 3$ s'annule en $3$, $x + 1$ en $-1$.
+      ## 1. Équation produit nul
+      > **Propriété.** Un produit de facteurs est nul si et seulement si l'un au moins de ses facteurs est nul : $A(x) \times B(x) = 0 \iff A(x) = 0$ ou $B(x) = 0$.
 
-      | $x$ | $-\infty$ | | $-1$ | | $3$ | | $+\infty$ |
+      **Exemple.** $(2x - 5)(x + 3) = 0 \iff 2x - 5 = 0$ ou $x + 3 = 0 \iff x = \dfrac{5}{2}$ ou $x = -3$. Donc $S = \left\{-3 ; \dfrac{5}{2}\right\}$.
+
+      Pour se ramener à un produit nul, on **factorise** : $x^2 = 5x \iff x^2 - 5x = 0 \iff x(x - 5) = 0$, donc $S = \{0 ; 5\}$. Diviser par $x$ ferait perdre la solution $0$.
+
+      ## 2. Signe d'un produit ou d'un quotient
+      > **Propriété (règle des signes).** Le produit (ou le quotient) de deux nombres de même signe est positif ; de deux nombres de signes contraires, il est négatif.
+
+      On étudie le signe de chaque facteur (souvent affine), puis on les combine dans un **tableau de signes**.
+
+      ### Méthode : dresser un tableau de signes
+      1. Écrire l'expression sous forme d'un produit ou d'un quotient de facteurs simples.
+      2. Trouver la valeur qui annule chaque facteur et les ranger dans l'ordre croissant sur la première ligne.
+      3. Une ligne par facteur : signe de $mx + p$ (signe de $m$ à droite de la racine), avec un $0$ sous la racine.
+      4. Dernière ligne : appliquer la règle des signes colonne par colonne. Pour un quotient, mettre une **double barre** sous la valeur qui annule le dénominateur (valeur interdite).
+
+      **Exemple complet.** Résoudre $\dfrac{x + 1}{2 - x} \geqslant 0$.
+      - Valeur interdite : $2 - x = 0 \iff x = 2$. Le numérateur s'annule en $x = -1$.
+      - $x + 1$ : $m = 1 > 0$, négatif avant $-1$, positif après. $2 - x$ : $m = -1 < 0$, positif avant $2$, négatif après.
+
+      | $x$ | $-\infty$ |  | $-1$ |  | $2$ |  | $+\infty$ |
       |---|---|---|---|---|---|---|---|
-      | $x + 1$ | | $-$ | $0$ | $+$ | | $+$ | |
-      | $x - 3$ | | $-$ | | $-$ | $0$ | $+$ | |
-      | produit | | $+$ | $0$ | $-$ | $0$ | $+$ | |
+      | $x + 1$ |  | $-$ | $0$ | $+$ |  | $+$ |  |
+      | $2 - x$ |  | $+$ |  | $+$ | $0$ | $-$ |  |
+      | quotient |  | $-$ | $0$ | $+$ | ‖ | $-$ |  |
 
-      Donc $(x - 3)(x + 1) \ge 0 \iff x \in ]-\infty ; -1] \cup [3 ; +\infty[$.
+      - Le quotient est positif ou nul sur $[-1 ; 2[$ : on inclut $-1$ (il annule le quotient) mais on exclut $2$ (valeur interdite). $S = [-1 ; 2[$.
 
-      ## Quotient
-      $\dfrac{2x - 4}{x + 1} < 0 \iff x \in ]-1 ; 2[$ ($-1$ est interdite).
+      ## 3. Résoudre $f(x) = 0$ ou $f(x) > 0$
+      1. Tout passer dans un membre pour comparer à $0$.
+      2. Factoriser (facteur commun, identité remarquable) ou réduire au même dénominateur.
+      3. Dresser le tableau de signes, puis lire les intervalles où le signe convient.
 
-      ## Se ramener à un produit
-      $x^2 \ge 2x \iff x^2 - 2x \ge 0 \iff x(x - 2) \ge 0$. Ne jamais diviser par $x$ sans connaître son signe !
+      Exemple : $x^2 < 4 \iff x^2 - 4 < 0 \iff (x - 2)(x + 2) < 0$ ; le tableau donne $S = ]-2 ; 2[$.
+
+      ## 4. Erreurs fréquentes
+      - « Simplifier » par un facteur qui contient $x$ dans une équation : on perd des solutions.
+      - Oublier la double barre et inclure une valeur interdite dans les solutions.
+      - Mettre le signe de $m$ à gauche de la racine d'un facteur affine.
+      - Développer au lieu de factoriser : le signe d'une somme ne se lit pas directement.
     questions:
       - code: 2NDE-SIGNE-01
         difficulte: 1
@@ -203,3 +288,282 @@ competences:
           resultat: B
           erreurs_frequentes:
           - Diviser par $x$ et trouver seulement $x \geq 2$ (réponse C).
+      - code: 2NDE-SIGNE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6], sauf: [0]}, b: {entre: [-9, 9], sauf: [0]}}
+          calculs: {r: "-b/a"}
+        enonce: 'En quelle valeur de $x$ l''expression $[[a]]x [[b:+]]$ change-t-elle de signe ? (Réponse exacte.)'
+        solution: '[[r]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Une expression affine change de signe là où elle s''annule.'
+          etapes:
+          - '$[[a]]x [[b:+]] = 0 \iff x = \dfrac{[[-b]]}{[[a]]}$.'
+          - 'Soit $x = [[r:frac]]$.'
+          resultat: '[[r]]'
+
+  - code: 2NDE-VARIA
+    libelle: Décrire les variations et les extremums d'une fonction
+    attendus: [2NDE-2026-FVAR-01, 2NDE-2026-FVAR-02, 2NDE-2026-FVAR-07, 2NDE-2026-FVAR-13]
+    cours_couvre: [2NDE-2026-FVAR-01, 2NDE-2026-FVAR-02, 2NDE-2026-FVAR-07, 2NDE-2026-FVAR-13]
+    objectifs:
+    - Définir une fonction croissante, décroissante, monotone sur un intervalle.
+    - Dresser un tableau de variations et lire un maximum ou un minimum.
+    - Comparer $x$ et $x^2$ selon la position de $x$ par rapport à $1$.
+    prerequis:
+    - 2NDE-COURBE
+    methodes:
+    - titre: Dresser un tableau de variations à partir d'une courbe
+      quand: On dispose de la courbe d'une fonction sur un intervalle.
+      etapes:
+      - Repérer les abscisses où la courbe change de sens.
+      - Noter sur la première ligne ces abscisses et les bornes de l'intervalle.
+      - Indiquer par des flèches les intervalles où la fonction monte ou descend, et les images aux extrémités des flèches.
+      exemple:
+        enonce: Une courbe sur $[-2 ; 4]$ descend de $f(-2) = 3$ à $f(1) = -1$, puis monte jusqu'à $f(4) = 5$.
+        resolution:
+        - $f$ est décroissante sur $[-2 ; 1]$ et croissante sur $[1 ; 4]$.
+        - Le minimum est $-1$, atteint en $x = 1$ ; le maximum est $5$, atteint en $x = 4$.
+        resultat: minimum $-1$, maximum $5$
+    erreurs_frequentes:
+    - erreur: Donner l'abscisse quand on demande la valeur d'un maximum.
+      explication: Le maximum est une valeur de $f$ (une ordonnée) ; il est atteint en une valeur de $x$.
+    - erreur: Croire que $x^2 > x$ pour tout réel $x$.
+      explication: Pour $0 < x < 1$, $x^2 < x$ (par exemple $0{,}5^2 = 0{,}25$).
+    resume: |
+      - $f$ est **croissante** sur $I$ si, pour $a < b$ dans $I$, $f(a) \leqslant f(b)$ ; **décroissante** si $f(a) \geqslant f(b)$ ; **monotone** si elle est l'un ou l'autre.
+      - Le tableau de variations résume les intervalles de monotonie et les valeurs aux bornes.
+      - $M$ est le **maximum** de $f$ sur $I$ si $f(x) \leqslant M$ pour tout $x$ de $I$ et si $M$ est atteint ; de même pour le minimum.
+      - Pour $x \geqslant 0$ : $x^2 \leqslant x$ sur $[0 ; 1]$ et $x^2 \geqslant x$ sur $[1 ; +\infty[$.
+      - Calculatrice, tableur, logiciel ou Python permettent de conjecturer les variations.
+    cours: |
+      ## 1. Sens de variation
+      Soit $f$ une fonction définie sur un intervalle $I$.
+
+      > **Définitions.**
+      > - $f$ est **croissante** sur $I$ si, pour tous $a$ et $b$ de $I$ tels que $a < b$, on a $f(a) \leqslant f(b)$.
+      > - $f$ est **décroissante** sur $I$ si, pour tous $a < b$ dans $I$, on a $f(a) \geqslant f(b)$.
+      > - Avec des inégalités strictes, on parle de fonction **strictement** croissante ou décroissante.
+      > - $f$ est **monotone** sur $I$ si elle est croissante sur $I$ ou décroissante sur $I$.
+
+      Une fonction croissante **conserve** l'ordre ; une fonction décroissante l'**inverse**.
+
+      ## 2. Tableau de variations
+      Le **tableau de variations** indique sur chaque intervalle le sens de variation par une flèche (montante ou descendante) et les images aux bornes.
+
+      **Exemple.** Une fonction $f$ définie sur $[-2 ; 5]$ croît de $f(-2) = 1$ à $f(1) = 4$, puis décroît jusqu'à $f(5) = -3$. On écrit : $x$ : $-2$, $1$, $5$ ; flèche montante de $1$ à $4$, puis descendante de $4$ à $-3$.
+
+      ## 3. Extremums
+      > **Définitions.** Soit $f$ définie sur $I$ et $a \in I$.
+      > - $f(a)$ est le **maximum** de $f$ sur $I$ si, pour tout $x \in I$, $f(x) \leqslant f(a)$.
+      > - $f(a)$ est le **minimum** de $f$ sur $I$ si, pour tout $x \in I$, $f(x) \geqslant f(a)$.
+      > - Un **extremum** est un maximum ou un minimum.
+
+      Dans l'exemple ci-dessus, le maximum de $f$ sur $[-2 ; 5]$ est $4$, atteint en $x = 1$ ; le minimum est $-3$, atteint en $x = 5$ (on compare $f(-2) = 1$ et $f(5) = -3$).
+
+      ### Méthode : lire et exploiter un tableau de variations
+      1. Repérer les intervalles où la flèche monte ou descend.
+      2. Le maximum est la plus grande des valeurs au sommet des flèches (y compris aux bornes) ; le minimum, la plus petite.
+      3. Pour comparer deux images $f(a)$ et $f(b)$, vérifier que $a$ et $b$ sont dans un même intervalle de monotonie, puis appliquer la conservation ou l'inversion de l'ordre.
+
+      ## 4. Position relative des courbes $y = x$ et $y = x^2$ pour $x \geqslant 0$
+      > **Propriété.** Pour $x \in [0 ; 1]$, $x^2 \leqslant x$ : la parabole est sous la droite. Pour $x \in [1 ; +\infty[$, $x^2 \geqslant x$ : la parabole est au-dessus. Les courbes se coupent aux points $(0 ; 0)$ et $(1 ; 1)$.
+
+      **Démonstration (exigible).** On étudie le signe de la différence $x^2 - x = x(x - 1)$ pour $x \geqslant 0$.
+      - Si $0 \leqslant x \leqslant 1$ : $x \geqslant 0$ et $x - 1 \leqslant 0$, donc $x(x - 1) \leqslant 0$, soit $x^2 \leqslant x$.
+      - Si $x \geqslant 1$ : $x \geqslant 0$ et $x - 1 \geqslant 0$, donc $x(x - 1) \geqslant 0$, soit $x^2 \geqslant x$.
+      - L'égalité a lieu seulement pour $x = 0$ et $x = 1$.
+
+      ## 5. Utiliser un outil numérique
+      Pour une fonction donnée par une formule, on peut **conjecturer** ses variations :
+      - avec la calculatrice ou un logiciel de géométrie dynamique, en traçant la courbe et en repérant où elle monte ou descend ;
+      - avec un tableur ou un tableau de valeurs, en observant si les valeurs augmentent ou diminuent quand $x$ augmente (avec un pas assez petit) ;
+      - avec Python, par exemple en calculant `f(x)` pour `x` allant de $a$ à $b$ avec un petit pas et en repérant le plus grand ou le plus petit résultat.
+
+      **Exemple complet.** $f(x) = x^2 - 6x + 5$ sur $[0 ; 6]$. Un tableau de valeurs de pas $1$ donne $5, 0, -3, -4, -3, 0, 5$ : on conjecture que $f$ décroît sur $[0 ; 3]$ puis croît sur $[3 ; 6]$, avec un minimum $-4$ en $x = 3$. On le prouve en écrivant $f(x) = (x - 3)^2 - 4 \geqslant -4$, avec égalité pour $x = 3$. Une conjecture obtenue par un outil numérique doit être justifiée.
+
+      ## 6. Erreurs fréquentes
+      - Dire qu'une fonction est croissante parce que $f(b) > f(a)$ pour **deux** valeurs seulement.
+      - Confondre le maximum (une valeur de $f(x)$) et l'endroit où il est atteint (une valeur de $x$).
+      - Oublier de comparer les valeurs aux bornes pour trouver un extremum.
+      - Tirer une conclusion définitive d'un tableau de valeurs dont le pas est trop grand.
+    questions:
+      - code: 2NDE-VARIA-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Une fonction $f$ vérifie $f(1) = 4$ et $f(3) = 2$. Peut-elle être croissante sur $[1 ; 3]$ ? A) Oui  B) Non'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $1 < 3$ mais $f(1) > f(3)$ $:$ l'ordre n'est pas conservé.
+          resultat: B
+      - code: 2NDE-VARIA-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Sur $[-2 ; 4]$, $f$ décroît de $f(-2) = 3$ à $f(1) = -1$, puis croît jusqu''à $f(4) = 5$. Quel est le minimum de $f$ sur $[-2 ; 4]$ ?'
+        solution: -1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Le minimum est atteint au changement de sens, en $x = 1$ $:$ il vaut $-1$.
+          resultat: -1
+      - code: 2NDE-VARIA-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Avec les mêmes données ($f(-2) = 3$, minimum $f(1) = -1$, puis $f(4) = 5$), quel est le maximum de $f$ sur $[-2 ; 4]$ ?'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - On compare les valeurs aux bornes $:$ $f(-2) = 3$ et $f(4) = 5$.
+          - Le maximum est $5$.
+          resultat: 5
+      - code: 2NDE-VARIA-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Pour $x = 0{,}7$, comment se comparent $x$ et $x^2$ ? A) $x^2 < x$  B) $x^2 > x$  C) $x^2 = x$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $x^2 - x = x(x - 1)$ avec $x > 0$ et $x - 1 < 0$ $:$ produit négatif.
+          - Vérification $:$ $0{,}49 < 0{,}7$.
+          resultat: A
+      - code: 2NDE-VARIA-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Une fonction est croissante sur $[0 ; 2]$ et décroissante sur $[2 ; 5]$, avec $f(0) = 1$, $f(2) = 6$ et $f(5) = 0$. Combien de solutions l''équation $f(x) = 3$ a-t-elle sur $[0 ; 5]$ ? A) $1$  B) $2$  C) $3$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Sur $[0 ; 2]$, $f$ passe de $1$ à $6$ $:$ elle prend une fois la valeur $3$.
+          - Sur $[2 ; 5]$, $f$ passe de $6$ à $0$ $:$ elle la prend encore une fois.
+          resultat: B
+
+  - code: 2NDE-OPTIM
+    libelle: Modéliser par une fonction et optimiser
+    attendus: [2NDE-2026-FREP-07, 2NDE-2026-FVAR-09]
+    cours_couvre: [2NDE-2026-FREP-07, 2NDE-2026-FVAR-09]
+    objectifs:
+    - Traduire une situation par une fonction en précisant la variable et son domaine.
+    - Déterminer une valeur optimale (maximum ou minimum) graphiquement ou algébriquement.
+    prerequis:
+    - 2NDE-VARIA
+    - 2NDE-CARRE
+    methodes:
+    - titre: Résoudre un problème d'optimisation
+      quand: On cherche la valeur d'une grandeur qui rend une autre maximale ou minimale.
+      etapes:
+      - Choisir la variable $x$ et préciser les valeurs possibles.
+      - Exprimer la grandeur à optimiser en fonction de $x$.
+      - Étudier les variations (forme canonique, tableau de valeurs, graphique) et conclure.
+      exemple:
+        enonce: Un rectangle a un périmètre de $20$ cm. Quelle largeur rend son aire maximale ?
+        resolution:
+        - Largeur $x$, longueur $10 - x$, avec $0 < x < 10$.
+        - $A(x) = x(10 - x) = 25 - (x - 5)^2$.
+        - $A(x) \leqslant 25$, avec égalité pour $x = 5$.
+        resultat: $x = 5$ cm (un carré), aire $25$ cm²
+    erreurs_frequentes:
+    - erreur: Oublier le domaine de la variable.
+      explication: Une longueur est positive ; une quantité produite ne dépasse pas une capacité donnée.
+    resume: |
+      - Modéliser : choisir la variable $x$ (et son domaine), puis exprimer la grandeur étudiée par une fonction $f(x)$.
+      - Optimiser : chercher le maximum ou le minimum de $f$ sur son domaine.
+      - Outils : tableau de variations, lecture graphique, ou une forme du type $a - (x - \alpha)^2$ qui montre directement l'extremum.
+      - On conclut en revenant au contexte, avec l'unité.
+    cours: |
+      ## 1. Modéliser une situation par une fonction
+      De nombreuses situations (géométrie, physique, économie, vie courante) font intervenir une grandeur qui **dépend** d'une autre.
+
+      ### Méthode : modéliser
+      1. Choisir la variable $x$, dire ce qu'elle représente et préciser son unité.
+      2. Déterminer le **domaine** des valeurs possibles de $x$ (une longueur est positive, un nombre d'objets est entier, une dimension ne dépasse pas une longueur donnée…).
+      3. Exprimer la grandeur étudiée en fonction de $x$ à l'aide des formules utiles (aire, prix, distance…).
+
+      **Exemples de modèles.** Prix d'une course de taxi : $f(x) = 2{,}5 + 1{,}2x$ pour $x$ km (fonction affine). Aire d'un carré de côté $x$ : $x^2$. Temps de trajet pour $120$ km à la vitesse $v$ : $\dfrac{120}{v}$ (fonction inverse multipliée par $120$).
+
+      ## 2. Optimiser
+      **Optimiser**, c'est chercher la valeur de $x$ qui rend une grandeur **maximale** (aire, bénéfice) ou **minimale** (coût, distance).
+
+      > **Propriété utile.** Pour tout réel $x$, $(x - \alpha)^2 \geqslant 0$. Donc $f(x) = \beta - (x - \alpha)^2$ vérifie $f(x) \leqslant \beta$, avec égalité pour $x = \alpha$ : le maximum de $f$ est $\beta$, atteint en $\alpha$. De même, $\beta + (x - \alpha)^2$ a pour minimum $\beta$, atteint en $\alpha$.
+
+      ### Méthode : résoudre un problème d'optimisation
+      1. Modéliser par une fonction $f$ sur un domaine $D$.
+      2. Étudier les variations de $f$ (forme adaptée, tableau de valeurs, courbe à la calculatrice) pour conjecturer l'extremum.
+      3. Le justifier (par exemple avec un carré positif ou l'étude du signe de $f(x) - \beta$).
+      4. Répondre à la question posée dans le contexte, avec l'unité.
+
+      **Exemple complet.** Avec $20$ m de clôture, on veut délimiter un enclos rectangulaire d'aire maximale. On note $x$ la largeur en mètres.
+      - La longueur vaut $\dfrac{20 - 2x}{2} = 10 - x$, et il faut $0 < x < 10$.
+      - L'aire est $A(x) = x(10 - x) = 10x - x^2$.
+      - On remarque que $25 - (x - 5)^2 = 25 - x^2 + 10x - 25 = 10x - x^2$, donc $A(x) = 25 - (x - 5)^2$.
+      - Comme $(x - 5)^2 \geqslant 0$, $A(x) \leqslant 25$, avec égalité pour $x = 5$.
+      - Conclusion : l'aire est maximale, égale à $25$ m², pour un enclos carré de $5$ m de côté.
+
+      ## 3. Erreurs fréquentes
+      - Oublier le domaine de la variable et proposer une solution impossible (longueur négative).
+      - Donner la valeur de $x$ quand on demande la valeur maximale de la grandeur, ou l'inverse.
+      - Se contenter d'une lecture graphique approchée sans justification.
+      - Oublier l'unité dans la conclusion.
+    questions:
+      - code: 2NDE-OPTIM-01
+        difficulte: 1
+        type: expression
+        enonce: 'Un rectangle a un périmètre de $20$ cm et une largeur de $x$ cm. Exprimer sa longueur en fonction de $x$.'
+        solution: 10 - x
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Demi-périmètre $:$ $10$, donc longueur $= 10 - x$.
+          resultat: 10 - x
+      - code: 2NDE-OPTIM-02
+        difficulte: 2
+        type: expression
+        enonce: 'Avec la même situation, exprimer l''aire du rectangle en fonction de $x$.'
+        solution: x(10 - x)
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $A(x) = x(10 - x) = 10x - x^2$.
+          resultat: x(10 - x)
+      - code: 2NDE-OPTIM-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On a $A(x) = 25 - (x - 5)^2$. Quelle est la valeur maximale de $A(x)$ ?'
+        solution: 25
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Un carré est toujours positif ou nul : pour tout réel $x$, $(x - 5)^2 \geqslant 0$.'
+          - 'En retranchant ce nombre positif à $25$, on obtient un résultat au plus égal à $25$ : $A(x) = 25 - (x - 5)^2 \leqslant 25$.'
+          - 'La valeur $25$ est atteinte : pour $x = 5$, $(x - 5)^2 = 0$ et $A(5) = 25$.'
+          - 'La valeur maximale de $A(x)$ est donc $25$, atteinte en $x = 5$.'
+          resultat: 25
+      - code: 2NDE-OPTIM-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un enclos rectangulaire est fermé par $40$ m de grillage. Quelle est l''aire maximale (en m²) qu''il peut avoir ?'
+        solution: 100
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $A(x) = x(20 - x) = 100 - (x - 10)^2$.
+          - Maximum $100$ m² pour $x = 10$ m.
+          resultat: 100
+      - code: 2NDE-OPTIM-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un enclos rectangulaire est adossé à un mur : seuls trois côtés sont grillagés, avec $40$ m de grillage. On note $x$ la longueur de chacun des deux côtés perpendiculaires au mur. Pour quelle valeur de $x$ l''aire est-elle maximale ?'
+        solution: 10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Côté parallèle au mur $:$ $40 - 2x$ ; aire $A(x) = x(40 - 2x) = 40x - 2x^2$.
+          - $A(x) = 200 - 2(x - 10)^2$.
+          - Maximum $200$ m² pour $x = 10$ m.
+          resultat: 10

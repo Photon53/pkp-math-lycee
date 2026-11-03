@@ -145,6 +145,16 @@ echo "Nouvelle version : $(git -C "$DOSSIER" log --oneline -1)"
 ls "$DOSSIER"/api/migrations/versions/0008_*.py >/dev/null 2>&1 \
   || echec "La branche $BRANCHE ne contient pas la V2 (migration 0008 absente) : pousser la V2 sur GitHub."
 
+# Choix désormais explicite (l'API refuse de démarrer sans) : on garde le comportement d'avant.
+if ! grep -qE '^PKP_SERVIR_QUESTIONS_NON_VALIDEES=' .env; then
+  {
+    echo
+    echo "# Questions non validées : true pendant la relecture de la banque, false ensuite."
+    echo "PKP_SERVIR_QUESTIONS_NON_VALIDEES=true"
+  } >> .env
+  alerte "PKP_SERVIR_QUESTIONS_NON_VALIDEES=true ajouté à .env : passer à false quand la banque est relue."
+fi
+
 etape "Reconstruction et redémarrage (plusieurs minutes : compilation du front et tests)"
 dc up -d --build --remove-orphans
 

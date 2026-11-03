@@ -95,11 +95,20 @@ export default function Professeurs({ jeton, onExpire }) {
                     </td>
                     <td>
                       {p.role === "admin" && <span className="badge accent">Admin</span>}{" "}
+                      {p.enseigne_maths && <span className="badge neutre">Maths</span>}{" "}
+                      {p.enseigne_anglais && <span className="badge neutre">Anglais</span>}{" "}
+                      {p.referent_anglais && <span className="badge accent">Référent anglais</span>}{" "}
                       {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}{" "}
                       {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
                     </td>
-                    <td className="nombre">{p.nb_classes}</td>
-                    <td className="nombre">{p.nb_eleves}</td>
+                    <td className="nombre">
+                      {p.nb_classes}
+                      {p.nb_groupes_anglais > 0 && <div className="doux">+ {p.nb_groupes_anglais} gr. anglais</div>}
+                    </td>
+                    <td className="nombre">
+                      {p.nb_eleves}
+                      {p.nb_eleves_anglais > 0 && <div className="doux">+ {p.nb_eleves_anglais} en anglais</div>}
+                    </td>
                     <td>{formaterDate(p.derniere_connexion, { heure: true })}</td>
                     <td className="nombre">
                       <div className="actions">
@@ -112,7 +121,11 @@ export default function Professeurs({ jeton, onExpire }) {
                         <button className="icone" onClick={() => basculer(p)} aria-label={`${p.actif ? "Désactiver" : "Réactiver"} ${p.nom}`} title={p.actif ? "Désactiver" : "Réactiver"}>
                           <Icone nom={p.actif ? "oeilBarre" : "oeil"} />
                         </button>
-                        {p.nb_classes > 0 ? (
+                        {p.nb_groupes_anglais > 0 && p.nb_classes === 0 ? (
+                          <a className="bouton secondaire petit" href="/admin/anglais">
+                            Groupes d'anglais
+                          </a>
+                        ) : p.nb_classes > 0 ? (
                           <button className="secondaire petit" onClick={() => setFenetre({ genre: "transfert", prof: p })}>
                             Transférer
                           </button>
@@ -165,7 +178,7 @@ export default function Professeurs({ jeton, onExpire }) {
       {fenetre?.genre === "transfert" && (
         <Transfert
           prof={fenetre.prof}
-          autres={(liste ?? []).filter((p) => p.id !== fenetre.prof.id && p.actif)}
+          autres={(liste ?? []).filter((p) => p.id !== fenetre.prof.id && p.actif && p.enseigne_maths)}
           onFermer={() => setFenetre(null)}
           onValider={async (versId) => {
             const ok = await action(
@@ -197,13 +210,20 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
   const [nom, setNom] = useState(prof?.nom ?? "");
   const [email, setEmail] = useState(prof?.email ?? "");
   const [role, setRole] = useState(prof?.role ?? "enseignant");
+  const [maths, setMaths] = useState(prof?.enseigne_maths ?? true);
+  const [anglais, setAnglais] = useState(prof?.enseigne_anglais ?? false);
+  const [referent, setReferent] = useState(prof?.referent_anglais ?? false);
   const [erreur, setErreur] = useState(null);
 
   async function soumettre(e) {
     e.preventDefault();
     setErreur(null);
+    if (!maths && !anglais) {
+      setErreur("Cochez au moins une discipline.");
+      return;
+    }
     try {
-      const corps = { nom, email, role };
+      const corps = { nom, email, role, enseigne_maths: maths, enseigne_anglais: anglais, referent_anglais: anglais && referent };
       if (prof) {
         await appeler(`/admin/enseignants/${prof.id}`, { methode: "POST", corps });
         onModifie();
@@ -227,6 +247,21 @@ function Edition({ prof, appeler, onFermer, onCree, onModifie }) {
           <option value="enseignant">Professeur</option>
           <option value="admin">Administrateur (et professeur)</option>
         </select>
+        <fieldset className="choix-chapitres">
+          <legend>Disciplines</legend>
+          <label className="case">
+            <input type="checkbox" checked={maths} onChange={(e) => setMaths(e.target.checked)} /> Mathématiques (espace professeur)
+          </label>
+          <label className="case">
+            <input type="checkbox" checked={anglais} onChange={(e) => setAnglais(e.target.checked)} /> Anglais (espace PKP Anglais)
+          </label>
+          {anglais && (
+            <label className="case">
+              <input type="checkbox" checked={referent} onChange={(e) => setReferent(e.target.checked)} /> Référent anglais : valide les
+              séances écrites par d'autres
+            </label>
+          )}
+        </fieldset>
         {!prof && <p className="aide">Un mot de passe provisoire sera affiché une seule fois après la création.</p>}
         <Erreur message={erreur} />
         <div className="actions">

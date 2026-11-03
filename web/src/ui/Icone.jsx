@@ -61,12 +61,12 @@ export function Monogramme({ taille = 32 }) {
   );
 }
 
-export function Logo({ vers = "/" }) {
+export function Logo({ vers = "/", marque = "Math Lycée" }) {
   return (
     <a className="logo" href={vers}>
       <Monogramme />
       <span>
-        PKP <em>Math Lycée</em>
+        PKP <em>{marque}</em>
       </span>
     </a>
   );

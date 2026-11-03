@@ -1,0 +1,101 @@
+{
+  "code": "3E-03",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "My choice, my reasons",
+  "objective": "Justifier un choix et donner son opinion avec exemples",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: this or that?",
+      "duration_minutes": 10,
+      "student_instruction": "Choose quickly: book or film? Series or game? Say one reason each time.",
+      "facilitator_instruction": "Questions rapides en chaîne ; noter au tableau les justifications courtes à enrichir."
+    },
+    {
+      "order": 2,
+      "title": "Listening: My favourite film",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to five teenagers. For three of them, note the film, one reason and one example.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Grille film / raison / exemple : c'est la structure attendue en production."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: the PRE chain",
+      "duration_minutes": 15,
+      "student_instruction": "Build Point - Reason - Example chains with because, that's why, for example, such as.",
+      "facilitator_instruction": "Montrer qu'un avis sans raison ni exemple ne convainc pas ; faire enrichir deux phrases du warm-up."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : chaînes PRE à compléter ; B : critique courte de 80 mots ; C : comparer deux choix et trancher avec nuance."
+    },
+    {
+      "order": 5,
+      "title": "One-minute presentations",
+      "duration_minutes": 20,
+      "student_instruction": "Present your favourite film, book or game in one minute. The group votes for the best-justified choice.",
+      "facilitator_instruction": "Groupes de 4 ; grille : opinion claire, deux raisons, un exemple précis ; valoriser la variété des connecteurs."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one PRE chain about today's lesson.",
+      "facilitator_instruction": "Ramasser ; repérer qui donne un exemple précis."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the chains: (1) I love this series ___ the characters are funny. ___, Max always makes silly jokes. (2) I don't like horror films ___ they scare me. ___ I never watch them at night.",
+      "facilitator_correction": "(1) because ; For example. (2) because ; That's why."
+    },
+    {
+      "track": "B",
+      "student_content": "Write an 80-word review of a film or book you love: one opinion, two reasons, one precise example, one recommendation.",
+      "facilitator_correction": "Exemple : In my opinion, Wonder is the best book about school life because it shows how kindness changes everything. For example, Jack becomes Auggie's friend... That's why I recommend it."
+    },
+    {
+      "track": "C",
+      "student_content": "Compare two films or books you like. Which one would you recommend to the class? Write 120 words with at least two examples and one concession (although, even if).",
+      "facilitator_correction": "Production libre ; critères : choix tranché, justifications et exemples précis, concession correctement employée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève exprime une opinion claire",
+      "L'élève donne au moins deux raisons",
+      "L'élève illustre par un exemple précis"
+    ]
+  },
+  "common_errors": [
+    "Opinion sans justification",
+    "For example suivi d'une idée générale",
+    "I am agree"
+  ],
+  "source_objectives": [
+    "3E-03"
+  ],
+  "theme": "École et société",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

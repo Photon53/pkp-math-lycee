@@ -4,6 +4,7 @@ import { Erreur } from "../composants.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
+import AnglaisAdmin from "./AnglaisAdmin.jsx";
 import Contenu from "./Contenu.jsx";
 import Eleves from "./Eleves.jsx";
 import Exercices from "./Exercices.jsx";
@@ -21,6 +22,7 @@ const PAGES = [
   { vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu },
   { vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices },
   { vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin },
+  { vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin },
   { vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal },
 ];
 

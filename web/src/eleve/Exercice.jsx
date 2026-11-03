@@ -85,6 +85,19 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     }
   }
 
+  /** Même exercice, autres nombres : surtout utile après une erreur, pour refaire tout de suite. */
+  async function refaireAvecDAutresNombres() {
+    try {
+      const q = await appeler(`/seances/${seanceId}/variante`, { methode: "POST", corps: { question_id: question.id } });
+      setResultat(null);
+      setSaisie("");
+      setQuestion(q);
+      setEtape("question");
+    } catch (err) {
+      if (err.status !== 401) setErreur(err.message);
+    }
+  }
+
   useEffect(() => {
     if (seanceId) chargerQuestion(seanceId);
     // Uniquement au montage : reprise d'une séance mémorisée.
@@ -277,6 +290,11 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
         <div className="meta">
           <span className="badge">{LIBELLES_TYPE[question.type]}</span>
           <Difficulte niveau={question.difficulte} />
+          {question.en_relecture && (
+            <span className="badge alerte" title="Cette question n'a pas encore été relue par un professeur : en cas de doute, signale-la à ton professeur.">
+              En relecture
+            </span>
+          )}
         </div>
         <p className="enonce">
           <Maths enLigne texte={intitule} />
@@ -325,12 +343,22 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
       {repondue && (
         <article className={`carte resultat ${resultat.correcte ? "ok" : "ko"}`} role="status">
           <p className="verdict">{resultat.correcte ? "Bonne réponse !" : "Pas tout à fait."}</p>
+          {resultat.remarque && <p className="avertissement">{resultat.remarque}</p>}
           {!resultat.correcte && (
             <p>
               Réponse attendue : <code>{resultat.solution}</code>
             </p>
           )}
-          <Correction correction={resultat.correction} />
+          <Correction
+            correction={resultat.correction}
+            references={
+              onVoirCours && {
+                competence: resultat.competence,
+                methodes: resultat.methodes,
+                onVoir: (ancre) => onVoirCours(question.competence_id, { ancre }),
+              }
+            }
+          />
           {!resultat.correction && resultat.rappel && (
             <details className="correction" open={!resultat.correcte}>
               <summary>Partie du cours à utiliser : {resultat.competence}</summary>
@@ -344,9 +372,24 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
           )}
           <BarreMaitrise valeur={resultat.maitrise} maitrisee={resultat.maitrisee} libelle="Maîtrise de cette compétence" />
           <div className="actions">
-            <button autoFocus onClick={() => chargerQuestion(seanceId)} disabled={envoi}>
+            {question.variable && !resultat.correcte && (
+              <button autoFocus onClick={refaireAvecDAutresNombres} disabled={envoi}>
+                Refaire avec d'autres nombres
+              </button>
+            )}
+            <button
+              autoFocus={!(question.variable && !resultat.correcte)}
+              className={question.variable && !resultat.correcte ? "secondaire" : undefined}
+              onClick={() => chargerQuestion(seanceId)}
+              disabled={envoi}
+            >
               Question suivante
             </button>
+            {question.variable && resultat.correcte && (
+              <button className="secondaire" onClick={refaireAvecDAutresNombres} disabled={envoi}>
+                Encore un, avec d'autres nombres
+              </button>
+            )}
             {onVoirCours && (
               <button className="secondaire" onClick={() => onVoirCours(question.competence_id)}>
                 Revoir le cours

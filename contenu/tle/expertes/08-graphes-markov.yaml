@@ -7,25 +7,67 @@ chapitre:
 competences:
 - code: TLE-ME-GRAPHE
   libelle: Utiliser le vocabulaire des graphes et la matrice d'adjacence
+  attendus: [TLE-EXP-2019-GRAPHMAT-01, TLE-EXP-2019-GRAPHMAT-02, TLE-EXP-2019-GRAPHMAT-11, TLE-EXP-2019-GRAPHMAT-16]
   objectifs:
   - Calculer degrés et nombre d'arêtes, reconnaitre une chaîne eulérienne.
   - Compter des chemins à l'aide des puissances de la matrice d'adjacence.
   prerequis:
   - TLE-ME-MAT-CALC
+  cours_couvre: [TLE-EXP-2019-GRAPHMAT-01, TLE-EXP-2019-GRAPHMAT-02, TLE-EXP-2019-GRAPHMAT-11, TLE-EXP-2019-GRAPHMAT-16]
   resume: |
-    - Somme des degrés $= 2 \times$ nombre d'arêtes.
-    - Graphe connexe : chaîne eulérienne si 0 ou 2 sommets de degré impair, cycle eulérien si 0.
-    - Le coefficient $(i, j)$ de $M^k$ compte les chemins de longueur $k$ de $i$ à $j$.
+    - Un graphe est formé de sommets reliés par des arêtes ; l'ordre est le nombre de sommets, le degré d'un sommet le nombre d'arêtes qui en partent.
+    - La somme des degrés vaut **deux fois** le nombre d'arêtes ; le graphe complet à $n$ sommets a $\dfrac{n(n - 1)}{2}$ arêtes.
+    - Une chaîne est une suite d'arêtes consécutives ; sa longueur est son nombre d'arêtes ; un graphe est connexe si deux sommets quelconques sont reliés par une chaîne.
+    - Le coefficient $(i, j)$ de $M^n$ ($M$ matrice d'adjacence) est le nombre de chemins de longueur $n$ de $i$ à $j$.
   cours: |
-    ## Degrés
-    Chaque arête compte deux fois dans la somme des degrés. Le graphe complet à 4 sommets a $\dfrac{4 \times 3}{2} = 6$ arêtes.
+    ## 1. Vocabulaire
 
-    ## Eulérien (théorème d'Euler)
-    Pour un graphe connexe : aucun sommet de degré impair donne un cycle eulérien ; exactement deux donnent une chaîne eulérienne (qui relie ces deux sommets).
+    **Définitions.**
+    - Un **graphe** (non orienté) est formé de **sommets** et d'**arêtes** reliant deux sommets. L'**ordre** du graphe est son nombre de sommets.
+    - Deux sommets reliés par une arête sont **adjacents**. Le **degré** d'un sommet est le nombre d'arêtes dont il est une extrémité.
+    - Le **graphe complet** $K_n$ a $n$ sommets tous adjacents deux à deux.
+    - Une **chaîne** est une suite de sommets dont deux consécutifs sont adjacents ; sa **longueur** est son nombre d'arêtes. Une chaîne fermée est un **cycle**.
+    - Un graphe est **connexe** si deux sommets quelconques sont reliés par au moins une chaîne.
+    - Dans un graphe **orienté**, les arêtes (arcs) ont un sens ; on parle de **chemins**.
 
-    ## Matrice d'adjacence
-    Triangle $ABC$ : $M = \begin{pmatrix} 0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 0 \end{pmatrix}$.
-    $M^2$ a $2$ sur la diagonale : deux chemins de longueur 2 de $A$ à $A$ ($A\!-\!B\!-\!A$ et $A\!-\!C\!-\!A$).
+    > **Propriété.** La somme des degrés des sommets est égale à deux fois le nombre d'arêtes.
+
+    **Démonstration.** Chaque arête a deux extrémités : elle est comptée exactement deux fois dans la somme des degrés.
+
+    **Conséquence.** $K_n$ : chaque sommet a pour degré $n - 1$, donc la somme des degrés est $n(n - 1)$ et le nombre d'arêtes est $\dfrac{n(n - 1)}{2}$.
+
+    ## 2. Modéliser par un graphe
+
+    Sommets : les objets (villes, personnes, tâches) ; arêtes : la relation étudiée (route, amitié, incompatibilité). Les questions deviennent : degré (nombre de liaisons), connexité (tout est-il relié ?), chaînes (itinéraires).
+
+    **Chaîne eulérienne.** Une chaîne qui passe une et une seule fois par chaque arête. Un graphe connexe en possède une si et seulement s'il a $0$ ou $2$ sommets de degré impair ; c'est un **cycle** eulérien s'il en a $0$.
+
+    ## 3. Matrice d'adjacence
+
+    **Définition.** Les sommets étant numérotés de $1$ à $p$, la **matrice d'adjacence** est la matrice $M$ d'ordre $p$ dont le coefficient $m_{ij}$ vaut $1$ si $i$ et $j$ sont reliés, $0$ sinon. Pour un graphe non orienté, elle est **symétrique**.
+
+    > **Théorème.** Pour tout entier $n \geqslant 1$, le coefficient $(i, j)$ de $M^n$ est égal au nombre de chemins de longueur $n$ allant du sommet $i$ au sommet $j$.
+
+    **Démonstration par récurrence sur $n$.**
+    - Pour $n = 1$ : un chemin de longueur $1$ de $i$ à $j$ est une arête, et il y en a $m_{ij}$.
+    - Supposons la propriété vraie au rang $n$. Un chemin de longueur $n + 1$ de $i$ à $j$ est un chemin de longueur $n$ de $i$ à un sommet $k$, suivi d'une arête de $k$ à $j$. Pour chaque $k$, il y en a $(M^n)_{ik} \times m_{kj}$. Au total : $\displaystyle\sum_{k=1}^{p} (M^n)_{ik}\,m_{kj} = (M^n \times M)_{ij} = (M^{n+1})_{ij}$.
+    - La propriété est vraie pour tout $n \geqslant 1$.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Graphe de sommets $A$, $B$, $C$, $D$ et d'arêtes $AB$, $AC$, $BC$, $CD$. Donner les degrés, la matrice d'adjacence, et le nombre de chemins de longueur $3$ de $A$ à $A$.
+
+    **Résolution.**
+    1. Degrés : $A : 2$, $B : 2$, $C : 3$, $D : 1$ ; somme $8 = 2 \times 4$ arêtes. Le graphe est connexe.
+    2. Dans l'ordre $A, B, C, D$ : $M = \begin{pmatrix} 0 & 1 & 1 & 0 \\ 1 & 0 & 1 & 0 \\ 1 & 1 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{pmatrix}$.
+    3. Première ligne de $M^2$ : $(2 \;\; 1 \;\; 1 \;\; 1)$ (par exemple $(M^2)_{AA} = 2$, le degré de $A$).
+    4. $(M^3)_{AA} = \sum_k (M^2)_{Ak}\,m_{kA} = 2 \times 0 + 1 \times 1 + 1 \times 1 + 1 \times 0 = 2$ : ce sont $A - B - C - A$ et $A - C - B - A$.
+
+    ## 5. Erreurs fréquentes
+
+    - Oublier de diviser par $2$ en comptant les arêtes à partir des degrés.
+    - Confondre longueur d'une chaîne (nombre d'arêtes) et nombre de sommets.
+    - Lire $M^n$ dans le mauvais sens pour un graphe orienté : $(M^n)_{ij}$ compte les chemins **de $i$ vers $j$**.
   methodes:
   - titre: Compter les chemins de longueur k
     etapes:
@@ -69,7 +111,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'Exactement deux sommets de degré impair (les deux de degré 3) : chaîne eulérienne entre eux, pas de cycle.'
+      - 'Un graphe connexe a une chaîne eulérienne si et seulement s''il a $0$ ou $2$ sommets de degré impair ; un cycle eulérien si et seulement s''il en a $0$.'
+      - 'Les degrés $2, 2, 3, 3, 2$ comportent exactement deux sommets de degré impair (les deux de degré $3$).'
+      - 'Il y a donc une chaîne eulérienne, d''un sommet de degré $3$ à l''autre, mais pas de cycle eulérien (réponse A).'
       resultat: A
   - code: TLE-ME-GRAPHE-04
     difficulte: 4
@@ -79,7 +123,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'On part vers l''un des deux autres sommets et on revient : $A\!-\!B\!-\!A$ et $A\!-\!C\!-\!A$.'
+      - 'Un chemin de longueur $2$ de $A$ à $A$ passe par un sommet intermédiaire adjacent à $A$ : ici $B$ ou $C$.'
+      - 'On obtient $A - B - A$ et $A - C - A$.'
+      - 'Contrôle matriciel : le coefficient diagonal de $M^2$ est le degré du sommet, soit $2$.'
       resultat: '2'
   - code: TLE-ME-GRAPHE-05
     difficulte: 5
@@ -94,23 +140,68 @@ competences:
       resultat: '3'
 - code: TLE-ME-MARKOV
   libelle: Étudier une chaîne de Markov à deux états
+  attendus: [TLE-EXP-2019-GRAPHMAT-07, TLE-EXP-2019-GRAPHMAT-08, TLE-EXP-2019-GRAPHMAT-09, TLE-EXP-2019-GRAPHMAT-10, TLE-EXP-2019-GRAPHMAT-13, TLE-EXP-2019-GRAPHMAT-17]
   objectifs:
   - Utiliser une matrice de transition pour calculer une distribution.
   - Déterminer la distribution invariante.
   prerequis:
   - TLE-ME-GRAPHE
+  cours_couvre: [TLE-EXP-2019-GRAPHMAT-07, TLE-EXP-2019-GRAPHMAT-08, TLE-EXP-2019-GRAPHMAT-09, TLE-EXP-2019-GRAPHMAT-10, TLE-EXP-2019-GRAPHMAT-13, TLE-EXP-2019-GRAPHMAT-17]
   resume: |
-    - Matrice de transition $P$ : coefficient $(i, j)$ = probabilité de passer de $i$ à $j$ ; chaque ligne a pour somme $1$.
-    - Distribution après $n$ étapes : $\pi_{n+1} = \pi_n P$, donc $\pi_n = \pi_0 P^n$.
-    - Distribution invariante : $\pi = \pi P$.
+    - Matrice de transition $P$ : $p_{ij}$ est la probabilité de passer de l'état $i$ à l'état $j$ ; chaque **ligne** a pour somme $1$.
+    - Distribution (matrice **ligne**) : $\pi_{n+1} = \pi_nP$, donc $\pi_n = \pi_0P^n$.
+    - Le coefficient $(i, j)$ de $P^n$ est la probabilité de passer de $i$ à $j$ en $n$ transitions.
+    - Distribution invariante : $\pi = \pi P$ avec des coefficients positifs de somme $1$ ; à deux états, avec $a = P(1 \to 2)$ et $b = P(2 \to 1)$ non tous deux nuls, $\pi = \left(\dfrac{b}{a + b} \;\; \dfrac{a}{a + b}\right)$.
   cours: |
-    ## Exemple
-    Un client fidèle reste fidèle avec la probabilité $0{,}9$ ; un client perdu revient avec la probabilité $0{,}4$.
-    $$P = \begin{pmatrix} 0{,}9 & 0{,}1 \\ 0{,}4 & 0{,}6 \end{pmatrix}.$$
-    Départ $\pi_0 = (1 \;\; 0)$ : $\pi_1 = (0{,}9 \;\; 0{,}1)$, $\pi_2 = (0{,}85 \;\; 0{,}15)$.
+    ## 1. Chaîne de Markov
 
-    ## Distribution invariante
-    $\pi = (a \;\; 1 - a)$ avec $a = 0{,}9a + 0{,}4(1 - a)$, soit $a = 0{,}8$ : à long terme, $80\,\%$ des clients sont fidèles.
+    On observe un système qui, à chaque étape $n$, est dans l'un des états $1, 2$ (ou $1, 2, 3$). On note $X_n$ l'état à l'étape $n$.
+
+    **Définition.** $(X_n)$ est une **chaîne de Markov** (homogène) si la probabilité de passer de l'état $i$ à l'état $j$ ne dépend que de $i$ et $j$, et ni de $n$ ni des états antérieurs : $$p_{ij} = P_{X_n = i}(X_{n+1} = j).$$
+
+    **Graphe pondéré associé.** Un sommet par état ; un arc de $i$ vers $j$ pondéré par $p_{ij}$ (on peut omettre les arcs de poids $0$). La somme des poids des arcs **sortant** d'un sommet vaut $1$.
+
+    **Matrice de transition.** $P = (p_{ij})$. Chaque ligne est une loi de probabilité : coefficients positifs de somme $1$.
+
+    Exemple à deux états : $P(1 \to 2) = 0{,}3$ et $P(2 \to 1) = 0{,}2$ donnent $P = \begin{pmatrix} 0{,}7 & 0{,}3 \\ 0{,}2 & 0{,}8 \end{pmatrix}$ et le graphe : $1 \to 1$ ($0{,}7$), $1 \to 2$ ($0{,}3$), $2 \to 1$ ($0{,}2$), $2 \to 2$ ($0{,}8$).
+
+    ## 2. Distributions
+
+    **Définition.** La **distribution** à l'étape $n$ est la matrice ligne $\pi_n = \big(P(X_n = 1) \;\; P(X_n = 2)\big)$ ; $\pi_0$ est la **distribution initiale**.
+
+    > **Théorème.** Pour tout $n$ : $\pi_{n+1} = \pi_nP$, et donc $\pi_n = \pi_0P^n$.
+
+    **Démonstration.** Les événements $\{X_n = 1\}$ et $\{X_n = 2\}$ forment une partition. Par la formule des probabilités totales : $P(X_{n+1} = j) = P(X_n = 1)\,p_{1j} + P(X_n = 2)\,p_{2j}$, qui est exactement le coefficient $j$ de $\pi_nP$. Une récurrence donne ensuite $\pi_n = \pi_0P^n$.
+
+    > **Théorème.** Le coefficient $(i, j)$ de $P^n$ est la probabilité de passer de l'état $i$ à l'état $j$ en $n$ transitions.
+
+    **Démonstration.** En partant de l'état $i$, la distribution initiale est la ligne $\pi_0$ qui a un $1$ en position $i$ et des $0$ ailleurs. Alors $\pi_n = \pi_0P^n$ est la ligne $i$ de $P^n$, et son coefficient $j$ est $P(X_n = j)$.
+
+    ## 3. Distribution invariante
+
+    **Définition.** Une distribution $\pi$ (coefficients positifs de somme $1$) est **invariante** si $\pi P = \pi$ : si la chaîne suit cette loi à une étape, elle la suit à toutes les suivantes.
+
+    **Méthode (deux états).** On pose $\pi = (x \;\; y)$ et on résout $\pi P = \pi$ avec $x + y = 1$. Avec $a = p_{12}$ et $b = p_{21}$ (non tous deux nuls), on trouve $\pi = \left(\dfrac{b}{a + b} \;\; \dfrac{a}{a + b}\right)$.
+
+    Pour une chaîne à deux états avec $0 < a < 1$ et $0 < b < 1$, on admet que $\pi_n$ converge vers cette distribution invariante, quelle que soit la distribution initiale.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Avec $P = \begin{pmatrix} 0{,}7 & 0{,}3 \\ 0{,}2 & 0{,}8 \end{pmatrix}$ et $\pi_0 = (1 \;\; 0)$, calculer $\pi_1$, $\pi_2$ et la distribution invariante.
+
+    **Résolution.**
+    1. $\pi_1 = \pi_0P = (0{,}7 \;\; 0{,}3)$ : la première ligne de $P$.
+    2. $\pi_2 = \pi_1P = (0{,}7 \times 0{,}7 + 0{,}3 \times 0{,}2 \;\;\; 0{,}7 \times 0{,}3 + 0{,}3 \times 0{,}8) = (0{,}55 \;\; 0{,}45)$.
+    3. Invariante : $(x \;\; y)P = (x \;\; y)$ donne $0{,}7x + 0{,}2y = x$, soit $0{,}3x = 0{,}2y$ ; avec $x + y = 1$ : $x = 0{,}4$ et $y = 0{,}6$.
+    4. Contrôle : $0{,}4 \times 0{,}7 + 0{,}6 \times 0{,}2 = 0{,}4$. À long terme, le système est dans l'état $1$ avec une probabilité proche de $0{,}4$.
+
+    **Trois états.** Même démarche avec une matrice $3 \times 3$ : la calculatrice donne $P^n$, et l'on résout $\pi P = \pi$ avec $x + y + z = 1$.
+
+    ## 5. Erreurs fréquentes
+
+    - Calculer $P\pi_n$ au lieu de $\pi_nP$ : la distribution est une **ligne**, multipliée à droite par $P$.
+    - Écrire une matrice dont ce sont les colonnes (et non les lignes) qui ont pour somme $1$.
+    - Oublier la condition $x + y = 1$ en cherchant la distribution invariante.
   methodes:
   - titre: Trouver la distribution invariante d'une chaîne à deux états
     etapes:
@@ -154,7 +245,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$\pi_2 = (0{,}9 \;\; 0{,}1)P$ : première coordonnée $0{,}9 \times 0{,}9 + 0{,}1 \times 0{,}4 = 0{,}85$.'
+      - 'On part de l''état 1 : $\pi_0 = (1 \;\; 0)$, donc $\pi_1 = \pi_0P = (0{,}9 \;\; 0{,}1)$.'
+      - '$\pi_2 = \pi_1P$ : première coordonnée $0{,}9 \times 0{,}9 + 0{,}1 \times 0{,}4$.'
+      - '$= 0{,}81 + 0{,}04 = 0{,}85$ (c''est aussi le coefficient $(1, 1)$ de $P^2$).'
       resultat: '0.85'
   - code: TLE-ME-MARKOV-04
     difficulte: 4
@@ -178,3 +271,18 @@ competences:
       - $a = 0{,}5a + 0{,}2(1 - a) = 0{,}3a + 0{,}2$.
       - $0{,}7a = 0{,}2$, donc $a = \dfrac{2}{7}$.
       resultat: 2/7
+  - code: TLE-ME-MARKOV-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {p: {entre: [0.1, 0.9], pas: 0.1}, q: {entre: [0.1, 0.9], pas: 0.1}, a: {entre: [0.1, 0.9], pas: 0.1}}
+      calculs: {a1: "a*(1 - p) + (1 - a)*q"}
+    enonce: 'Une chaîne de Markov à deux états A et B a pour probabilités de transition $P(A \to B) = [[p]]$ et $P(B \to A) = [[q]]$. Initialement, $P(A) = [[a]]$. Calculer la probabilité d''être en A après une transition.'
+    solution: '[[a1]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Distribution suivante : $\pi_1 = \pi_0 P$.'
+      etapes:
+      - 'On reste en A avec la probabilité $1 - [[p]] = [[1 - p]]$ ; on vient de B avec la probabilité $[[q]]$.'
+      - '$[[a]] \times [[1 - p]] + [[1 - a]] \times [[q]] = [[a1]]$.'
+      resultat: '[[a1]]'

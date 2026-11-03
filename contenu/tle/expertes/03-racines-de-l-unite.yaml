@@ -7,26 +7,72 @@ chapitre:
 competences:
 - code: TLE-ME-RACINES
   libelle: Utiliser les racines n-ièmes de l'unité
+  attendus: [TLE-EXP-2019-CPLX-13, TLE-EXP-2019-GEOM-02, TLE-EXP-2019-GEOM-04, TLE-EXP-2019-GEOM-05]
   objectifs:
   - Déterminer les racines $n$-ièmes de l'unité et leurs propriétés.
   - Factoriser un polynôme à l'aide d'une racine connue.
   prerequis:
   - TLE-ME-CPLX-TRIG
   - TLE-ME-CPLX-EQ
+  cours_couvre: [TLE-EXP-2019-CPLX-13, TLE-EXP-2019-GEOM-02, TLE-EXP-2019-GEOM-04, TLE-EXP-2019-GEOM-05]
   resume: |
-    - Les solutions de $z^n = 1$ sont les $n$ nombres $e^{2ik\pi/n}$, $k = 0, \dots, n - 1$.
-    - Leurs points forment un polygone régulier inscrit dans le cercle unité.
-    - Pour $n \geq 2$, leur **somme est nulle**.
+    - $\mathbb{U}$ : complexes de module $1$, de la forme $e^{i\theta}$ ; stable par produit et inverse, et $\dfrac{1}{z} = \bar z$ pour $z \in \mathbb{U}$.
+    - $\mathbb{U}_n = \{z : z^n = 1\} = \left\{e^{2ik\pi/n},\ k = 0, 1, \dots, n - 1\right\}$ : exactement $n$ racines $n$-ièmes de l'unité.
+    - Leurs images sont les sommets d'un polygone régulier à $n$ côtés inscrit dans le cercle unité, dont un sommet est le point d'affixe $1$.
+    - $\mathbb{U}_2 = \{1, -1\}$, $\mathbb{U}_3 = \{1, j, j^2\}$ avec $j = e^{2i\pi/3}$ et $1 + j + j^2 = 0$, $\mathbb{U}_4 = \{1, i, -1, -i\}$.
   cours: |
-    ## Racines n-ièmes
-    $z^4 = 1$ : $1$, $i$, $-1$, $-i$ (un carré).
-    $z^3 = 1$ : $1$, $j = e^{2i\pi/3}$, $j^2 = \bar j$ (un triangle équilatéral), et $1 + j + j^2 = 0$.
+    ## 1. L'ensemble $\mathbb{U}$
 
-    ## Pourquoi la somme est nulle
-    $1 + \omega + \dots + \omega^{n-1} = \dfrac{1 - \omega^n}{1 - \omega} = 0$ pour $\omega = e^{2i\pi/n} \neq 1$.
+    **Définition.** $\mathbb{U}$ est l'ensemble des nombres complexes de module $1$. Ses images forment le **cercle unité** (centre $O$, rayon $1$). Tout $z \in \mathbb{U}$ s'écrit $z = e^{i\theta}$.
 
-    ## Factorisation
-    $z^3 + 8 = (z + 2)(z^2 - 2z + 4)$, et $z^2 - 2z + 4 = 0$ donne $z = 1 \pm i\sqrt{3}$.
+    > **Propriété.** $\mathbb{U}$ est stable par produit et par passage à l'inverse : si $z, z' \in \mathbb{U}$, alors $zz' \in \mathbb{U}$ et $\dfrac{1}{z} \in \mathbb{U}$. De plus, pour $z \in \mathbb{U}$, $\dfrac{1}{z} = \bar z$.
+
+    **Démonstration.** $|zz'| = |z||z'| = 1 \times 1 = 1$ et $\left|\dfrac{1}{z}\right| = \dfrac{1}{|z|} = 1$. Enfin $z\bar z = |z|^2 = 1$ donne $\bar z = \dfrac{1}{z}$.
+
+    ## 2. Racines $n$-ièmes de l'unité
+
+    **Définition.** Pour $n \geqslant 1$, une **racine $n$-ième de l'unité** est un complexe $z$ tel que $z^n = 1$. Leur ensemble est noté $\mathbb{U}_n$.
+
+    > **Théorème.** $\mathbb{U}_n = \left\{e^{\frac{2ik\pi}{n}},\ k \in \{0, 1, \dots, n - 1\}\right\}$. Il y a exactement $n$ racines $n$-ièmes de l'unité.
+
+    **Démonstration.**
+    - Si $z^n = 1$, alors $z \neq 0$ et $|z|^n = |z^n| = 1$ ; comme $|z| > 0$, $|z| = 1$ et l'on peut écrire $z = e^{i\theta}$.
+    - $z^n = e^{in\theta} = 1 = e^{i0}$ équivaut à $n\theta \equiv 0 \pmod{2\pi}$, c'est-à-dire $\theta = \dfrac{2k\pi}{n}$ avec $k \in \mathbb{Z}$.
+    - Réciproquement, $\left(e^{2ik\pi/n}\right)^n = e^{2ik\pi} = 1$.
+    - Les valeurs $k = 0, 1, \dots, n - 1$ donnent des arguments distincts dans $[0 ; 2\pi[$, donc $n$ nombres distincts ; un autre $k$ redonne l'un d'eux, car $e^{2i(k + n)\pi/n} = e^{2ik\pi/n}$. (C'est cohérent avec le fait qu'un polynôme de degré $n$ a au plus $n$ racines.)
+
+    En notant $\omega = e^{2i\pi/n}$, les racines $n$-ièmes de l'unité sont $1, \omega, \omega^2, \dots, \omega^{n-1}$.
+
+    ## 3. Représentation géométrique et cas particuliers
+
+    > **Propriété.** Pour $n \geqslant 3$, les images des racines $n$-ièmes de l'unité sont les sommets d'un **polygone régulier** à $n$ côtés inscrit dans le cercle unité, dont l'un des sommets est le point d'affixe $1$.
+
+    En effet, on passe d'un sommet au suivant en multipliant par $\omega$, c'est-à-dire par une rotation de centre $O$ et d'angle $\dfrac{2\pi}{n}$.
+
+    - $n = 2$ : $\mathbb{U}_2 = \{1, -1\}$.
+    - $n = 3$ : $\mathbb{U}_3 = \{1, j, j^2\}$ avec $j = e^{2i\pi/3} = -\dfrac{1}{2} + i\dfrac{\sqrt{3}}{2}$ et $j^2 = \bar j$ ; triangle équilatéral. Comme $z^3 - 1 = (z - 1)(z^2 + z + 1)$, on a $1 + j + j^2 = 0$.
+    - $n = 4$ : $\mathbb{U}_4 = \{1, i, -1, -i\}$ ; carré.
+
+    **Somme des racines** (pour $n \geqslant 2$) : $1 + \omega + \dots + \omega^{n-1} = \dfrac{1 - \omega^n}{1 - \omega} = 0$, car $\omega \neq 1$ et $\omega^n = 1$.
+
+    ## 4. Méthode : polygones réguliers
+
+    Pour étudier un polygone régulier, on le place de façon que son centre soit l'origine et un sommet sur l'axe réel : ses sommets ont pour affixes $R\omega^k$. Distances et angles se calculent alors avec modules et arguments.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Déterminer $\mathbb{U}_6$ et montrer que ses images forment un hexagone régulier de côté $1$.
+
+    **Résolution.**
+    1. $\omega = e^{2i\pi/6} = e^{i\pi/3} = \dfrac{1}{2} + i\dfrac{\sqrt{3}}{2}$, et $\mathbb{U}_6 = \{1, \omega, \omega^2, \omega^3, \omega^4, \omega^5\} = \left\{1, \dfrac{1}{2} \pm i\dfrac{\sqrt{3}}{2}, -\dfrac{1}{2} \pm i\dfrac{\sqrt{3}}{2}, -1\right\}$.
+    2. Deux sommets consécutifs $M_k(\omega^k)$ et $M_{k+1}(\omega^{k+1})$ : $M_k M_{k+1} = |\omega^{k+1} - \omega^k| = |\omega^k|\,|\omega - 1| = |\omega - 1|$.
+    3. $\omega - 1 = -\dfrac{1}{2} + i\dfrac{\sqrt{3}}{2}$, de module $\sqrt{\dfrac{1}{4} + \dfrac{3}{4}} = 1$. Tous les côtés valent $1$ et les sommets sont sur le cercle unité : l'hexagone est régulier de côté $1$.
+
+    ## 6. Erreurs fréquentes
+
+    - Ne trouver que les racines réelles $1$ et $-1$ : $z^n = 1$ a $n$ solutions complexes.
+    - Prendre $k$ de $0$ à $n$ : on compte alors deux fois la racine $1$.
+    - Oublier que $|z| = 1$ découle de $z^n = 1$ : c'est la première étape de la démonstration.
   methodes:
   - titre: Factoriser un polynôme dont on connait une racine
     etapes:
@@ -70,7 +116,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'Avec $\omega = e^{2i\pi/5}$ : $1 + \omega + \dots + \omega^4 = \dfrac{1 - \omega^5}{1 - \omega} = 0$.'
+      - 'Les racines 5-ièmes de l''unité sont $1, \omega, \omega^2, \omega^3, \omega^4$ avec $\omega = e^{2i\pi/5} \neq 1$.'
+      - 'C''est une somme géométrique de raison $\omega \neq 1$ : $1 + \omega + \dots + \omega^4 = \dfrac{1 - \omega^5}{1 - \omega}$.'
+      - 'Or $\omega^5 = e^{2i\pi} = 1$, donc la somme vaut $0$.'
       resultat: '0'
   - code: TLE-ME-RACINES-04
     difficulte: 4
@@ -80,7 +128,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1 \times e^{2i\pi/3} \times e^{4i\pi/3} = e^{2i\pi} = 1$.
+      - 'Les racines cubiques de l''unité sont $1$, $e^{2i\pi/3}$ et $e^{4i\pi/3}$.'
+      - 'En forme exponentielle, on additionne les arguments : $1 \times e^{2i\pi/3} \times e^{4i\pi/3} = e^{i(2\pi/3 + 4\pi/3)} = e^{2i\pi}$.'
+      - '$e^{2i\pi} = 1$.'
       resultat: '1'
   - code: TLE-ME-RACINES-05
     difficulte: 5

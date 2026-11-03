@@ -1,0 +1,35 @@
+# Partie « Analyse » (pages 7 à 9 du PDF) : suites, fonctions exponentielles, logarithme décimal, fonction inverse.
+# Textes recopiés du BO ; les formules sur plusieurs lignes dans le PDF sont réécrites en ligne, et les
+# « Situations algorithmiques » sont saisies comme capacités.
+theme:
+  code: ANA
+  titre: Suites, exponentielles, logarithme décimal et fonction inverse
+  partie: Analyse
+
+attendus:
+  # Suites numériques
+  - {code: TLE-TEC-2026-ANA-01, type: contenu, page: 7, texte: "Suites arithmétiques : moyenne arithmétique de deux nombres ; expression en fonction de n du terme de rang n ; somme des n premiers termes d’une suite arithmétique ; notation Σ."}
+  - {code: TLE-TEC-2026-ANA-02, type: contenu, page: 7, texte: "Suites géométriques à termes positifs : moyenne géométrique de deux nombres positifs ; expression en fonction de n du terme de rang n ; somme des n premiers termes d’une suite géométrique ; notation Σ."}
+  - {code: TLE-TEC-2026-ANA-03, type: capacite, page: 7, texte: "Prouver que trois nombres sont (ou ne sont pas) les termes consécutifs d’une suite arithmétique ou géométrique."}
+  - {code: TLE-TEC-2026-ANA-04, type: capacite, page: 7, texte: "Déterminer la raison d’une suite arithmétique ou géométrique modélisant une évolution."}
+  - {code: TLE-TEC-2026-ANA-05, type: capacite, page: 7, texte: "Exprimer en fonction de n le terme général d’une suite arithmétique ou géométrique."}
+  - {code: TLE-TEC-2026-ANA-06, type: capacite, page: 7, texte: "Calculer la somme des n premiers termes d’une suite arithmétique ou géométrique."}
+  - {code: TLE-TEC-2026-ANA-07, type: capacite, page: 7, texte: "Reconnaitre une situation relevant du calcul d’une somme de termes consécutifs d’une suite arithmétique ou géométrique."}
+  - {code: TLE-TEC-2026-ANA-08, type: capacite, page: 8, texte: "Écrire en langage Python une fonction qui calcule la somme des n premiers carrés, des n premiers cubes ou des n premiers inverses ; établir le lien entre l’écriture de la somme à l’aide du symbole Σ et les composantes de l’algorithme (initialisation, sortie de boucle, accumulateur, compteur) (situation algorithmique)."}
+  # Fonctions exponentielles
+  - {code: TLE-TEC-2026-ANA-09, type: contenu, page: 8, texte: "Définition de la fonction x ↦ aˣ pour x positif comme prolongement à des valeurs non entières positives de la suite géométrique (aⁿ)ₙ∈ℕ ; extension à ℝ₋ en posant a⁻ˣ = 1/aˣ."}
+  - {code: TLE-TEC-2026-ANA-10, type: contenu, page: 8, texte: "Sens de variation selon les valeurs de a. Allure de la courbe représentative selon les valeurs de a."}
+  - {code: TLE-TEC-2026-ANA-11, type: contenu, page: 8, texte: "Propriétés algébriques : a^(x+y) = aˣaʸ ; a^(x−y) = aˣ/aʸ ; a^(nx) = (aˣ)ⁿ pour n entier relatif."}
+  - {code: TLE-TEC-2026-ANA-12, type: contenu, page: 8, texte: "Cas particulier de l’exposant 1/n pour calculer un taux d’évolution moyen équivalent à n évolutions successives."}
+  - {code: TLE-TEC-2026-ANA-13, type: capacite, page: 8, texte: "Connaitre et utiliser le sens de variation des fonctions de la forme x ↦ k aˣ, selon le signe de k et les valeurs de a."}
+  - {code: TLE-TEC-2026-ANA-14, type: capacite, page: 8, texte: "Connaitre les propriétés algébriques des fonctions exponentielles et les utiliser pour transformer des écritures numériques ou littérales."}
+  - {code: TLE-TEC-2026-ANA-15, type: capacite, page: 8, texte: "Calculer le taux d’évolution moyen équivalent à des évolutions successives."}
+  - {code: TLE-TEC-2026-ANA-16, type: capacite, page: 8, texte: "Intercaler entre deux points déjà construits un troisième point ayant pour abscisse (respectivement pour ordonnée) la moyenne arithmétique (respectivement géométrique) des abscisses (respectivement des ordonnées) des deux points initiaux (situation algorithmique)."}
+  # Fonction logarithme décimal
+  - {code: TLE-TEC-2026-ANA-17, type: contenu, page: 8, texte: "Définition du logarithme décimal de b pour b > 0 comme l’unique solution de l’équation 10ˣ = b ; notation log. Sens de variation."}
+  - {code: TLE-TEC-2026-ANA-18, type: contenu, page: 8, texte: "Propriétés algébriques : log(ab) = log(a) + log(b), log(aⁿ) = n log(a) et log(a/b) = log(a) − log(b), pour n entier naturel, a et b réels strictement positifs."}
+  - {code: TLE-TEC-2026-ANA-19, type: capacite, page: 9, texte: "Utiliser le logarithme décimal pour résoudre une équation du type aˣ = b ou xᵃ = b d’inconnue x réelle, une inéquation du type aˣ < b ou xᵃ < b d’inconnue x réelle ou du type aⁿ < b d’inconnue n entier naturel."}
+  - {code: TLE-TEC-2026-ANA-20, type: capacite, page: 9, texte: "Utiliser les propriétés algébriques de la fonction logarithme décimal pour transformer des expressions numériques ou littérales."}
+  # Fonction inverse
+  - {code: TLE-TEC-2026-ANA-21, type: contenu, page: 9, texte: "Comportement de la fonction inverse aux bornes de son ensemble de définition. Dérivée et sens de variation. Courbe représentative ; asymptotes."}
+  - {code: TLE-TEC-2026-ANA-22, type: capacite, page: 9, texte: "Étudier et représenter des fonctions obtenues par combinaisons linéaires de la fonction inverse et de fonctions polynomiales de degré au maximum 3."}

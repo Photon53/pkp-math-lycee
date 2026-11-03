@@ -7,24 +7,73 @@ chapitre:
 competences:
 - code: TLE-TEC-EXPA
   libelle: Utiliser les fonctions exponentielles de base a
+  attendus: [TLE-TEC-2026-ANA-09, TLE-TEC-2026-ANA-10, TLE-TEC-2026-ANA-11, TLE-TEC-2026-ANA-12, TLE-TEC-2026-ANA-13, TLE-TEC-2026-ANA-14, TLE-TEC-2026-ANA-15]
   objectifs:
   - Connaitre le sens de variation de x ↦ a^x et ses propriétés algébriques.
   - Calculer un taux moyen et une proportion au bout d'une fraction de période.
   prerequis:
   - TLE-TEC-GEOM
+  cours_couvre: [TLE-TEC-2026-ANA-09, TLE-TEC-2026-ANA-10, TLE-TEC-2026-ANA-11, TLE-TEC-2026-ANA-12, TLE-TEC-2026-ANA-13, TLE-TEC-2026-ANA-14, TLE-TEC-2026-ANA-15]
   resume: |
-    - $x \mapsto a^x$ ($a > 0$) est croissante si $a > 1$, décroissante si $0 < a < 1$.
-    - $a^{x + y} = a^xa^y$, $a^{x - y} = \dfrac{a^x}{a^y}$, $(a^x)^y = a^{xy}$.
-    - $a^{\frac{1}{n}}$ est le nombre positif dont la puissance $n$-ième vaut $a$.
+    - Pour $a > 0$, $x \mapsto a^x$ prolonge la suite $(a^n)$ à tous les réels ; $a^x > 0$, $a^0 = 1$, $a^{-x} = \dfrac{1}{a^x}$.
+    - Si $a > 1$, $x \mapsto a^x$ est croissante ; si $0 < a < 1$, elle est décroissante. Pour $k < 0$, $k a^x$ a le sens de variation contraire.
+    - $a^{x+y} = a^x a^y$, $a^{x-y} = \dfrac{a^x}{a^y}$, $a^{nx} = (a^x)^n$.
+    - Taux moyen équivalent à $n$ évolutions de coefficient global $C$ : $t_m = C^{\frac{1}{n}} - 1$.
   cours: |
-    ## Propriétés
-    $8^{\frac{1}{3}} = 2$ car $2^3 = 8$ ; $2^{1{,}5} \times 2^{0{,}5} = 2^2 = 4$.
+    ## 1. Définition
 
-    ## Taux moyen
-    Multiplication par $1{,}44$ en 2 ans : $1{,}44^{\frac{1}{2}} = 1{,}2$, soit $+20\,\%$ par an en moyenne.
+    Soit $a$ un réel strictement positif. La suite géométrique $(a^n)$ n'est définie que pour $n$ entier. On la **prolonge** à tous les réels positifs : par exemple $a^{\frac{1}{2}}$ est le nombre positif dont le carré vaut $a$, c'est-à-dire $\sqrt{a}$, et plus généralement $a^{\frac{1}{n}}$ est le nombre positif dont la puissance $n$-ième vaut $a$.
 
-    ## Décroissance radioactive
-    Demi-vie $T$ : proportion restante $0{,}5^{\frac{t}{T}}$. Pour le carbone 14 ($T = 5\,730$ ans), après $11\,460$ ans : $0{,}5^2 = \dfrac{1}{4}$.
+    **Définition.** La fonction $x \mapsto a^x$ est la **fonction exponentielle de base $a$**. Pour $x$ positif, on pose $a^{-x} = \dfrac{1}{a^x}$, ce qui la définit sur $\mathbb{R}$.
+
+    > **Propriété.** Pour tout réel $x$ : $a^x > 0$ ; de plus $a^0 = 1$ et $a^1 = a$.
+
+    Exemples : $8^{\frac{1}{3}} = 2$ car $2^3 = 8$ ; $4^{-\frac{1}{2}} = \dfrac{1}{\sqrt{4}} = \dfrac{1}{2}$.
+
+    ## 2. Sens de variation et allure
+
+    > **Propriété.**
+    > - Si $a > 1$, la fonction $x \mapsto a^x$ est strictement croissante sur $\mathbb{R}$.
+    > - Si $0 < a < 1$, elle est strictement décroissante sur $\mathbb{R}$.
+    > - Si $a = 1$, elle est constante égale à $1$.
+
+    Toutes les courbes passent par le point $(0 ; 1)$ et restent au-dessus de l'axe des abscisses. Pour $a > 1$, la courbe « s'envole » vers la droite et se rapproche de l'axe des abscisses vers la gauche ; pour $0 < a < 1$, c'est l'inverse. Plus $a$ est éloigné de $1$, plus la courbe est « raide ».
+
+    > **Propriété (fonctions $x \mapsto k a^x$).** Si $k > 0$, $x \mapsto k a^x$ a le même sens de variation que $x \mapsto a^x$ ; si $k < 0$, elle a le sens de variation contraire.
+
+    Exemple : $f(x) = -3 \times 0{,}8^x$ ; $0{,}8^x$ est décroissante et $k = -3 < 0$, donc $f$ est croissante.
+
+    ## 3. Propriétés algébriques
+
+    > **Propriété.** Pour $a > 0$, $x$ et $y$ réels et $n$ entier relatif :
+    > $$a^{x+y} = a^x \times a^y, \qquad a^{x-y} = \frac{a^x}{a^y}, \qquad a^{nx} = (a^x)^n.$$
+
+    Elles prolongent les règles déjà connues sur les puissances entières. Exemples : $5^{1{,}2} \times 5^{0{,}8} = 5^2 = 25$ ; $\dfrac{3^{2{,}5}}{3^{0{,}5}} = 3^2 = 9$ ; $(2^{0{,}5})^4 = 2^2 = 4$.
+
+    ## 4. Taux d'évolution moyen
+
+    > **Propriété.** Si $n$ évolutions successives ont pour coefficient multiplicateur global $C$, le **coefficient moyen** $c_m$ est l'unique réel positif tel que $c_m^n = C$, c'est-à-dire $$c_m = C^{\frac{1}{n}}, \qquad t_m = C^{\frac{1}{n}} - 1.$$
+
+    Le taux moyen est le taux constant qui, appliqué $n$ fois, produit la même évolution globale.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Le chiffre d'affaires d'une entreprise a augmenté de $30\,\%$ en 4 ans. Quel est le taux d'évolution annuel moyen ?
+
+    **Résolution.**
+    1. Coefficient global : $C = 1{,}3$.
+    2. Coefficient annuel moyen : $c_m = 1{,}3^{\frac{1}{4}} \approx 1{,}0678$ (à la calculatrice : `1.3^(1/4)`).
+    3. Taux moyen : $t_m \approx 0{,}0678$, soit environ $+6{,}78\,\%$ par an, et non $\dfrac{30}{4} = 7{,}5\,\%$.
+
+    Vérification : $1{,}0678^4 \approx 1{,}300$.
+
+    **Proportion au bout d'une fraction de période.** Une grandeur divisée par 2 tous les $10$ ans est multipliée par $0{,}5^{\frac{t}{10}}$ au bout de $t$ années : au bout de $15$ ans, $0{,}5^{1{,}5} \approx 0{,}354$.
+
+    ## 6. Erreurs fréquentes
+
+    - Écrire $a^x \times a^y = a^{xy}$ : on **additionne** les exposants.
+    - Calculer un taux moyen en divisant le taux global par le nombre de périodes.
+    - Oublier que $a^x$ n'est jamais négatif ni nul.
   methodes:
   - titre: Calculer un taux annuel moyen
     etapes:
@@ -67,7 +116,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $2^{1{,}5 + 0{,}5} = 2^2 = 4$.
+      - 'Même base $2$ : on utilise $a^x \times a^y = a^{x+y}$.'
+      - '$2^{1{,}5} \times 2^{0{,}5} = 2^{1{,}5 + 0{,}5} = 2^2$.'
+      - '$2^2 = 4$.'
       resultat: '4'
   - code: TLE-TEC-EXPA-04
     difficulte: 4
@@ -77,7 +128,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1{,}44^{\frac{1}{2}} = 1{,}2$, soit $+20\,\%$ par an.
+      - 'Sur deux ans, le coefficient multiplicateur global est $C = 1{,}44$.'
+      - 'Le coefficient annuel moyen $c$ vérifie $c^2 = 1{,}44$, donc $c = 1{,}44^{\frac{1}{2}} = 1{,}2$.'
+      - '$c = 1 + t$ donne $t = 0{,}2$ : $+20\,\%$ par an en moyenne.'
       resultat: '20'
   - code: TLE-TEC-EXPA-05
     difficulte: 5
@@ -87,5 +140,7 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$\dfrac{11\,460}{5\,730} = 2$ demi-vies : $0{,}5^2 = \dfrac{1}{4}$.'
+      - 'Chaque demi-vie multiplie le nombre d''atomes par $0{,}5$ : au bout de $t$ années, il reste la proportion $0{,}5^{\frac{t}{5\,730}}$.'
+      - 'Ici $\dfrac{11\,460}{5\,730} = 2$ : deux demi-vies se sont écoulées.'
+      - '$0{,}5^2 = \dfrac{1}{4}$ : il reste un quart des atomes initiaux.'
       resultat: 1/4

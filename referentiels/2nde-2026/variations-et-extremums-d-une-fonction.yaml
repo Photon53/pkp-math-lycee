@@ -1,0 +1,23 @@
+# Partie « Fonctions », rubrique « Variations et extrémums d’une fonction » (page 11 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: FVAR
+  titre: Variations et extrémums d’une fonction
+  partie: Fonctions
+
+attendus:
+  - {code: 2NDE-2026-FVAR-01, type: contenu, page: 11, texte: "Croissance, décroissance, monotonie d’une fonction définie sur un intervalle. Tableau de variations."}
+  - {code: 2NDE-2026-FVAR-02, type: contenu, page: 11, texte: "Maximum, minimum d’une fonction sur un intervalle."}
+  - {code: 2NDE-2026-FVAR-03, type: contenu, page: 11, texte: "Pour une fonction affine donnée par ƒ(x) = mx + p, interprétation de m comme taux d’accroissement et de p comme ordonnée à l’origine."}
+  - {code: 2NDE-2026-FVAR-04, type: contenu, page: 11, texte: "Variations d’une fonction affine selon le signe du coefficient directeur."}
+  - {code: 2NDE-2026-FVAR-05, type: capacite, page: 11, texte: "Relier représentation graphique et tableau de variations."}
+  - {code: 2NDE-2026-FVAR-06, type: capacite, page: 11, texte: "Déterminer graphiquement les extrémums d’une fonction sur un intervalle."}
+  - {code: 2NDE-2026-FVAR-07, type: capacite, page: 11, texte: "Exploiter un logiciel de géométrie dynamique ou de calcul formel, la calculatrice ou Python pour décrire les variations d’une fonction donnée par une formule."}
+  - {code: 2NDE-2026-FVAR-08, type: capacite, page: 11, texte: "Pour une fonction affine, relier sens de variation, signe de la fonction et droite représentative."}
+  - {code: 2NDE-2026-FVAR-09, type: capacite, page: 11, texte: "Traiter de problèmes d’optimisation."}
+  - {code: 2NDE-2026-FVAR-10, type: capacite, page: 11, texte: "Fonctions valeur absolue, carré : signe et variations."}
+  - {code: 2NDE-2026-FVAR-11, type: capacite, page: 11, texte: "Pour deux nombres a et b donnés et une fonction de référence ƒ, comparer ƒ (a) et ƒ (b) numériquement ou graphiquement."}
+  - {code: 2NDE-2026-FVAR-12, type: demonstration, page: 11, texte: "Variations des fonctions affines."}
+  - {code: 2NDE-2026-FVAR-13, type: demonstration, page: 11, texte: "Position relative des courbes d’équation y = x, y = x², pour x ⩾ 0."}
+  - {code: 2NDE-2026-FVAR-14, type: demonstration, page: 11, texte: "Variations des fonctions carré, inverse."}
+  - {code: 2NDE-2026-FVAR-15, type: approfondissement, page: 11, texte: "Relier les courbes représentatives de la fonction racine carrée et de la fonction carré sur ℝ+."}

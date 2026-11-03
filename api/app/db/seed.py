@@ -13,7 +13,7 @@ Compte administrateur de démo (local uniquement, sans second facteur hors produ
     mot de passe : le même que l'enseignant de démo
 
 Codes personnels des élèves de démo (local uniquement) : voir CODES_DEMO ci-dessous,
-par exemple Lina / 2NDE-A-DEMO / PKP222.
+par exemple Lina / 2NDE-A-DEMO / PKP222, ou, avec l'identifiant de connexion, lina-demo / PKP222.
 """
 
 import os
@@ -23,18 +23,24 @@ from pkp_engine import Niveau, corriger
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import contenu
+from app import anglais_contenu, contenu
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
 from app.referentiel import Role, parcours_par_defaut
-from app.security import hacher_code_eleve, hacher_mot_de_passe
+from app.security import generer_identifiant, hacher_code_eleve, hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
 EMAIL_ADMIN_DEMO = "admin@pkp.test"
+EMAIL_ANGLAIS_DEMO = "anglais@pkp.test"
 
 # Codes fixes pour pouvoir tester en local ; en vrai, l'enseignant les génère (aléatoires).
 CODES_DEMO = {"Lina": "PKP222", "Yanis": "PKP333", "Inès": "PKP444", "Hugo": "PKP555", "Emma": "PKP666"}
+
+
+def identifiant_demo(prenom: str) -> str:
+    """Identifiant de connexion des élèves de démo : « lina-demo », « ines-demo »…"""
+    return generer_identifiant(prenom).rsplit("-", 1)[0] + "-demo"
 
 CLASSES = [
     ("2NDE-A-DEMO", Niveau.SECONDE, ["Lina", "Yanis", "Inès"]),
@@ -53,6 +59,7 @@ SEANCES = [
 def charger_demo(session: Session) -> bool:
     """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà."""
     contenu.importer(session, contenu.charger())
+    anglais_contenu.importer_seances(session)  # soumises à validation : aucun élève ne les voit encore
     mot_de_passe = os.environ.get("PKP_DEMO_MOT_DE_PASSE", "demo-pkp-2026")
 
     # Ajouté à part : une base de démo antérieure à la V2 reçoit aussi son administrateur.
@@ -60,6 +67,17 @@ def charger_demo(session: Session) -> bool:
         session.add(
             models.Enseignant(
                 nom="Administrateur Démo", email=EMAIL_ADMIN_DEMO, role=Role.ADMIN,
+                mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
+            )
+        )
+        session.commit()
+
+    # Professeur d'anglais seul : n'a accès qu'à l'espace /anglais (ajouté à part, comme l'administrateur).
+    if not session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO)):
+        session.add(
+            models.Enseignant(
+                nom="Professeur d'anglais Démo", email=EMAIL_ANGLAIS_DEMO, enseigne_maths=False, enseigne_anglais=True,
+                referent_anglais=True,
                 mot_de_passe_hash=hacher_mot_de_passe(mot_de_passe),
             )
         )
@@ -81,7 +99,9 @@ def charger_demo(session: Session) -> bool:
         session.add(classe)
         classe.chapitres_proposes = chapitres_du_programme(session, classe)
         for prenom in prenoms:
-            eleves[prenom] = models.Eleve(prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]))
+            eleves[prenom] = models.Eleve(
+                prenom=prenom, classe=classe, code_hash=hacher_code_eleve(CODES_DEMO[prenom]), identifiant=identifiant_demo(prenom)
+            )
             session.add(eleves[prenom])
     session.flush()
 

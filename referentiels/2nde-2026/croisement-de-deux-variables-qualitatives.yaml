@@ -1,0 +1,12 @@
+# Partie « Statistiques et probabilités », rubrique « Croisement de deux variables qualitatives » (page 12 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: CROISE
+  titre: Croisement de deux variables qualitatives
+  partie: Statistiques et probabilités
+
+attendus:
+  - {code: 2NDE-2026-CROISE-01, type: contenu, page: 12, texte: "Tableau croisé d’effectifs."}
+  - {code: 2NDE-2026-CROISE-02, type: contenu, page: 12, texte: "Fréquence conditionnelle, fréquence marginale."}
+  - {code: 2NDE-2026-CROISE-03, type: capacite, page: 12, texte: "Calculer des fréquences conditionnelles et des fréquences marginales."}
+  - {code: 2NDE-2026-CROISE-04, type: capacite, page: 12, texte: "Compléter un tableau croisé par des raisonnements sur les effectifs ou en utilisant des fréquences conditionnelles."}

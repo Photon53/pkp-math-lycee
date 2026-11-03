@@ -1,0 +1,15 @@
+# Partie « Analyse », rubrique « Variations et courbes représentatives des fonctions » (page 8 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: VAR
+  titre: Variations et courbes représentatives des fonctions
+  partie: Analyse
+
+attendus:
+  - {code: 1RE-SPE-2026-VAR-01, type: contenu, page: 8, texte: "Représentation algébrique et graphique de fonctions paires, impaires. Traduction géométrique."}
+  - {code: 1RE-SPE-2026-VAR-02, type: contenu, page: 8, texte: "Lien entre le sens de variation d’une fonction dérivable sur un intervalle et signe de sa fonction dérivée ; caractérisation des fonctions constantes."}
+  - {code: 1RE-SPE-2026-VAR-03, type: contenu, page: 8, texte: "Nombre dérivé en un extrémum, tangente à la courbe représentative."}
+  - {code: 1RE-SPE-2026-VAR-04, type: capacite, page: 8, texte: "Étudier les variations d’une fonction. Déterminer les extrémums."}
+  - {code: 1RE-SPE-2026-VAR-05, type: capacite, page: 8, texte: "Résoudre un problème d’optimisation."}
+  - {code: 1RE-SPE-2026-VAR-06, type: capacite, page: 8, texte: "Exploiter les variations d’une fonction pour établir une inégalité. Étudier la position relative de deux courbes représentatives."}
+  - {code: 1RE-SPE-2026-VAR-07, type: capacite, page: 8, texte: "Étudier, en lien avec la dérivation, une fonction polynôme du second degré : variations, extrémum, allure selon le signe du coefficient de x²."}

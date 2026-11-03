@@ -7,26 +7,63 @@ chapitre:
 competences:
 - code: TLE-ME-DIV
   libelle: Utiliser la divisibilité et la division euclidienne
+  attendus: [TLE-EXP-2019-ARITH-01, TLE-EXP-2019-ARITH-02, TLE-EXP-2019-ARITH-11]
   objectifs:
   - Effectuer une division euclidienne, y compris d'un entier négatif.
   - Utiliser les propriétés de la divisibilité.
   prerequis:
   - 2NDE-MULT
   - 2NDE-PREM
+  cours_couvre: [TLE-EXP-2019-ARITH-01, TLE-EXP-2019-ARITH-02, TLE-EXP-2019-ARITH-11]
   resume: |
-    - $a = bq + r$ avec $0 \leq r < b$ : $q$ quotient, $r$ reste (toujours positif).
-    - Si $d$ divise $a$ et $b$, il divise toute combinaison $au + bv$.
-    - Nombre de diviseurs de $p_1^{a_1} \cdots p_k^{a_k}$ : $(a_1 + 1) \cdots (a_k + 1)$.
+    - $a$ divise $b$ ($a \mid b$) s'il existe un entier $k$ tel que $b = ka$.
+    - Si $a \mid b$ et $a \mid c$, alors $a \mid bu + cv$ pour tous entiers $u$, $v$ (en particulier $a \mid b - c$).
+    - Division euclidienne de $a \in \mathbb{Z}$ par $b \in \mathbb{N}^*$ : $a = bq + r$ avec $0 \leqslant r < b$, $q$ et $r$ uniques ; le reste n'est **jamais négatif**.
+    - Pour trouver les diviseurs de $n$, on teste les entiers $d \leqslant \sqrt{n}$ et on les associe deux à deux ($d$ et $\dfrac{n}{d}$).
   cours: |
-    ## Division euclidienne
-    $100 = 7 \times 14 + 2$ : reste $2$.
-    Pour un négatif : $-17 = 5 \times (-4) + 3$ (et non $5 \times (-3) - 2$, car le reste doit être positif).
+    ## 1. Divisibilité dans $\mathbb{Z}$
 
-    ## Combinaisons
-    Si $n + 3$ divise $n + 10$, il divise $(n + 10) - (n + 3) = 7$, donc $n + 3 \in \{1 ; 7\}$.
+    **Définition.** Soient $a$ et $b$ des entiers relatifs. On dit que $a$ **divise** $b$ (noté $a \mid b$), ou que $b$ est un **multiple** de $a$, s'il existe un entier relatif $k$ tel que $b = ka$.
 
-    ## Nombre de diviseurs
-    $72 = 2^3 \times 3^2$ a $(3 + 1)(2 + 1) = 12$ diviseurs positifs.
+    Exemples : $7 \mid 91$ car $91 = 13 \times 7$ ; $-4 \mid 12$ ; tout entier divise $0$ ; $1$ et $-1$ divisent tout entier. Si $a$ divise $b$, alors $-a$ aussi : on se limite souvent aux diviseurs positifs.
+
+    > **Propriétés.** Pour tous entiers $a$, $b$, $c$ :
+    > - **transitivité** : si $a \mid b$ et $b \mid c$, alors $a \mid c$ ;
+    > - **combinaisons linéaires** : si $a \mid b$ et $a \mid c$, alors $a \mid bu + cv$ pour tous entiers $u$, $v$ ;
+    > - si $a \mid b$ avec $b \neq 0$, alors $|a| \leqslant |b|$ : un entier non nul a un nombre fini de diviseurs.
+
+    **Démonstration (combinaisons linéaires).** $b = ka$ et $c = k'a$ donnent $bu + cv = (ku + k'v)a$, avec $ku + k'v$ entier.
+
+    ## 2. Division euclidienne
+
+    > **Théorème.** Pour tout $a \in \mathbb{Z}$ et tout $b \in \mathbb{N}^*$, il existe un unique couple d'entiers $(q ; r)$ tel que $$a = bq + r \qquad \text{et} \qquad 0 \leqslant r < b.$$ $q$ est le **quotient**, $r$ le **reste**.
+
+    **Idée de la démonstration.** Existence : $q$ est le plus grand entier tel que $bq \leqslant a$ ; alors $r = a - bq$ vérifie $0 \leqslant r < b$. Unicité : si $bq + r = bq' + r'$, alors $b(q - q') = r' - r$ est un multiple de $b$ compris strictement entre $-b$ et $b$, donc nul.
+
+    > **Propriété.** $b$ divise $a$ si et seulement si le reste de la division euclidienne de $a$ par $b$ est nul.
+
+    **Entier négatif.** Pour $-23$ divisé par $6$ : $6 \times (-4) = -24 \leqslant -23$, donc $-23 = 6 \times (-4) + 1$ ; le reste est $1$ (et non $-5$).
+
+    ## 3. Déterminer les diviseurs d'un entier
+
+    **Méthode.** Si $d \times d' = n$ avec $d \leqslant d'$, alors $d \leqslant \sqrt{n}$. On teste donc les entiers $d$ de $1$ à $\sqrt{n}$ et, pour chaque diviseur trouvé, on note aussi $\dfrac{n}{d}$.
+
+    Exemple : diviseurs positifs de $60$ ($\sqrt{60} \approx 7{,}7$) : $1 \times 60$, $2 \times 30$, $3 \times 20$, $4 \times 15$, $5 \times 12$, $6 \times 10$ ; soit $12$ diviseurs.
+
+    ## 4. Méthode : « $n + a$ divise une expression en $n$ »
+
+    On fait apparaitre une combinaison linéaire qui élimine $n$.
+
+    **Exemple complet.** Trouver les entiers naturels $n$ tels que $n + 2$ divise $3n + 11$.
+    1. $n + 2$ divise $n + 2$, donc il divise $3n + 11 - 3(n + 2) = 5$.
+    2. Les diviseurs positifs de $5$ sont $1$ et $5$ ; comme $n + 2 \geqslant 2$, il faut $n + 2 = 5$, soit $n = 3$.
+    3. Réciproque : pour $n = 3$, $n + 2 = 5$ divise $3 \times 3 + 11 = 20$. La seule solution est $n = 3$.
+
+    ## 5. Erreurs fréquentes
+
+    - Donner un reste négatif : le reste vérifie toujours $0 \leqslant r < b$.
+    - Oublier la vérification réciproque après une condition nécessaire.
+    - Confondre « $a$ divise $b$ » et « $a$ divisé par $b$ ».
   methodes:
   - titre: Résoudre « a(n) divise b(n) »
     etapes:
@@ -70,7 +107,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $-17 = 5 \times (-4) + 3$, avec $0 \leq 3 < 5$.
+      - 'On cherche $q$ et $r$ entiers avec $-17 = 5q + r$ et $0 \leqslant r < 5$ : le reste doit être positif.'
+      - '$q = -3$ ne convient pas ($5 \times (-3) = -15 > -17$) ; on prend $q = -4$ : $5 \times (-4) = -20 \leqslant -17$.'
+      - '$-17 = 5 \times (-4) + 3$ avec $0 \leqslant 3 < 5$ : le reste est $3$.'
       resultat: '3'
   - code: TLE-ME-DIV-04
     difficulte: 4
@@ -94,27 +133,82 @@ competences:
       - $72 = 2^3 \times 3^2$.
       - $(3 + 1)(2 + 1) = 12$.
       resultat: '12'
+  - code: TLE-ME-DIV-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {b: {entre: [3, 15]}, q: {entre: [5, 40]}, r: {entre: [0, 14]}}
+      calculs: {a: "b*q + r"}
+      conditions: ["r < b"]
+    enonce: 'Quel est le reste de la division euclidienne de $[[a]]$ par $[[b]]$ ?'
+    solution: '[[r]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: '$a = bq + r$ avec $0 \leqslant r < b$.'
+      etapes:
+      - '$[[a]] = [[b]] \times [[q]] + [[r]]$.'
+      - 'Comme $0 \leqslant [[r]] < [[b]]$, le reste est $[[r]]$.'
+      resultat: '[[r]]'
 - code: TLE-ME-CONG
   libelle: Calculer avec les congruences
+  attendus: [TLE-EXP-2019-ARITH-03, TLE-EXP-2019-ARITH-13]
   objectifs:
   - Utiliser les congruences pour trouver un reste.
   - Résoudre une équation de congruence simple.
   prerequis:
   - TLE-ME-DIV
+  cours_couvre: [TLE-EXP-2019-ARITH-03, TLE-EXP-2019-ARITH-13]
   resume: |
-    - $a \equiv b \pmod n$ : $a$ et $b$ ont le même reste dans la division par $n$.
-    - Les congruences se **multiplient** et s'élèvent à une **puissance**.
-    - Chercher une puissance qui vaut $1$ modulo $n$ pour simplifier $a^k$.
+    - $a \equiv b \pmod n$ signifie $n \mid a - b$, c'est-à-dire que $a$ et $b$ ont le même reste dans la division par $n$.
+    - Les congruences sont compatibles avec $+$, $-$, $\times$ et les puissances : si $a \equiv b$ et $c \equiv d \pmod n$, alors $ac \equiv bd$ et $a^k \equiv b^k \pmod n$.
+    - On **ne divise pas** une congruence : $2 \times 3 \equiv 2 \times 0 \pmod 6$ mais $3 \not\equiv 0 \pmod 6$.
+    - Reste d'une grande puissance : chercher une petite puissance congrue à $1$ (ou $-1$), puis utiliser la division euclidienne de l'exposant.
   cours: |
-    ## Définition
-    $23 \equiv 3 \pmod 5$ car $23 = 5 \times 4 + 3$.
+    ## 1. Définition
 
-    ## Puissances
-    $2^3 = 8 \equiv 1 \pmod 7$, donc $2^{10} = (2^3)^3 \times 2 \equiv 2 \pmod 7$.
-    Dernier chiffre de $3^k$ : $3, 9, 7, 1$ puis le cycle recommence (période 4).
+    **Définition.** Soit $n \geqslant 2$ un entier. Deux entiers $a$ et $b$ sont **congrus modulo $n$**, noté $a \equiv b \pmod n$ (ou $a \equiv b\ [n]$), si $n$ divise $a - b$.
 
-    ## Équations
-    $3x \equiv 2 \pmod 7$ : on teste $x = 0, \dots, 6$ ; $3 \times 3 = 9 \equiv 2$, donc $x \equiv 3 \pmod 7$.
+    > **Propriété.** $a \equiv b \pmod n$ si et seulement si $a$ et $b$ ont le même reste dans la division euclidienne par $n$. En particulier, tout entier est congru à son reste : si $a = nq + r$ avec $0 \leqslant r < n$, alors $a \equiv r \pmod n$.
+
+    Exemples : $23 \equiv 3 \pmod 5$ ; $-1 \equiv 6 \pmod 7$ ; $a \equiv 0 \pmod n \iff n \mid a$.
+
+    ## 2. Compatibilité avec les opérations
+
+    > **Théorème.** Si $a \equiv b \pmod n$ et $c \equiv d \pmod n$, alors :
+    > $$a + c \equiv b + d, \qquad a - c \equiv b - d, \qquad ac \equiv bd, \qquad a^k \equiv b^k \pmod n \ (k \in \mathbb{N}).$$
+
+    **Démonstration (produit).** On écrit $a = b + kn$ et $c = d + k'n$. Alors $ac = bd + (bk' + dk + kk'n)n$, donc $n \mid ac - bd$. Pour les puissances, on applique le produit $k$ fois (récurrence).
+
+    **Attention.** On ne peut pas « simplifier » une congruence par un facteur commun : $2 \times 3 \equiv 2 \times 0 \pmod 6$ alors que $3 \not\equiv 0 \pmod 6$. (On verra avec le théorème de Gauss quand c'est possible.)
+
+    ## 3. Méthodes
+
+    **Reste d'une grande puissance.**
+    1. Calculer les premières puissances modulo $n$ jusqu'à trouver $a^m \equiv 1$ (ou $-1$).
+    2. Écrire la division euclidienne de l'exposant : $N = mq + r$.
+    3. $a^N = (a^m)^q \times a^r \equiv 1^q \times a^r \equiv a^r \pmod n$.
+
+    **Table de congruences.** Pour résoudre $ax \equiv b \pmod n$ ou étudier une expression selon les valeurs de $x$, on teste les $n$ restes possibles $0, 1, \dots, n - 1$. Exemple : $5x \equiv 3 \pmod 7$ ; $5 \times 2 = 10 \equiv 3$, donc $x \equiv 2 \pmod 7$.
+
+    **Tests de divisibilité.** Comme $10 \equiv 1 \pmod 9$, on a $10^k \equiv 1 \pmod 9$ et un entier est congru modulo $9$ (donc aussi modulo $3$) à la somme de ses chiffres. Comme $10 \equiv -1 \pmod{11}$, un entier est congru modulo $11$ à la somme alternée de ses chiffres (en partant des unités).
+
+    **Chiffrement.** Les congruences servent à coder des messages : par exemple le code de César remplace la lettre de rang $x$ par celle de rang $y \equiv x + 3 \pmod{26}$.
+
+    ## 4. Exemple complet
+
+    **Énoncé.** Quel est le reste de $7^{2026}$ dans la division par $5$ ? Montrer ensuite qu'un carré est toujours congru à $0$ ou $1$ modulo $4$.
+
+    **Résolution.**
+    1. $7 \equiv 2 \pmod 5$, donc $7^{2026} \equiv 2^{2026} \pmod 5$.
+    2. $2^2 = 4$, $2^3 = 8 \equiv 3$, $2^4 = 16 \equiv 1 \pmod 5$.
+    3. $2026 = 4 \times 506 + 2$, donc $2^{2026} = (2^4)^{506} \times 2^2 \equiv 1 \times 4 \pmod 5$. Le reste est $4$.
+    4. Modulo $4$, $n$ est congru à $0$, $1$, $2$ ou $3$, donc $n^2$ à $0$, $1$, $4 \equiv 0$ ou $9 \equiv 1$. Conséquence : une somme de deux carrés n'est jamais congrue à $3$ modulo $4$.
+
+    ## 5. Erreurs fréquentes
+
+    - Diviser une congruence comme une égalité.
+    - Réduire l'**exposant** modulo $n$ : $2^{7} \not\equiv 2^{2} \pmod 5$ en général ; c'est la période des puissances qui compte.
+    - Donner un reste hors de $\{0, \dots, n - 1\}$.
   methodes:
   - titre: Calculer le reste d'une grande puissance
     etapes:
@@ -169,7 +263,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$3 \times 3 = 9 = 7 + 2$ : $x = 3$.'
+      - 'Modulo $7$, il suffit de tester les valeurs $x = 0, 1, \dots, 6$.'
+      - '$3x$ vaut alors $0, 3, 6, 9, 12, 15, 18$, de restes $0, 3, 6, 2, 5, 1, 4$ modulo $7$.'
+      - 'Seul $x = 3$ donne le reste $2$ : $3 \times 3 = 9 = 7 + 2$.'
       resultat: '3'
   - code: TLE-ME-CONG-05
     difficulte: 5
@@ -182,3 +278,18 @@ competences:
       - $5^2 = 25 \equiv -1 \pmod{13}$, donc $5^4 \equiv 1$.
       - $5^{100} = (5^4)^{25} \equiv 1$.
       resultat: '1'
+  - code: TLE-ME-CONG-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [2, 9]}, n: {entre: [3, 7]}, m: {entre: [5, 13]}}
+      calculs: {r: "(a**n) % m"}
+    enonce: 'Quel est le reste de la division de $[[a]]^{[[n]]}$ par $[[m]]$ ?'
+    solution: '[[r]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Calculer les puissances successives modulo $[[m]]$.'
+      etapes:
+      - '$[[a]]^{[[n]]} = [[a**n]]$.'
+      - '$[[a**n]] = [[m]] \times [[(a**n) // m]] + [[r]]$, donc $[[a]]^{[[n]]} \equiv [[r]] \; [ [[m]] ]$.'
+      resultat: '[[r]]'

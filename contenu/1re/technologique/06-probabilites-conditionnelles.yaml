@@ -7,28 +7,13 @@ chapitre:
 competences:
 - code: 1RE-TEC-PCOND
   libelle: Calculer des probabilités conditionnelles (tableau, arbre)
+  attendus: [1RE-TEC-2026-AUTO-16, 1RE-TEC-2026-AUTO-17, 1RE-TEC-2026-SP-07, 1RE-TEC-2026-SP-08, 1RE-TEC-2026-SP-09, 1RE-TEC-2026-SP-10]
+  cours_couvre: [1RE-TEC-2026-AUTO-16, 1RE-TEC-2026-AUTO-17, 1RE-TEC-2026-SP-07, 1RE-TEC-2026-SP-08, 1RE-TEC-2026-SP-09, 1RE-TEC-2026-SP-10]
   objectifs:
   - Calculer une probabilité conditionnelle avec un tableau croisé ou un arbre.
   - Utiliser la formule des probabilités totales et l'indépendance.
   prerequis:
   - 2NDE-PROBA
-  resume: |
-    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
-    - Probabilités totales : $P(B) = P(A \cap B) + P(\bar A \cap B)$.
-    - $A$ et $B$ indépendants : $P_A(B) = P(B)$.
-  cours: |
-    ## Tableau croisé
-    | | Malades | Non malades | Total |
-    |---|:-:|:-:|:-:|
-    | Vaccinés | 4 | 36 | 40 |
-    | Non vaccinés | 15 | 45 | 60 |
-    | Total | 19 | 81 | 100 |
-
-    - $P(M) = 0{,}19$ ; $P_V(M) = \dfrac{4}{40} = 0{,}1$ ; $P_M(V) = \dfrac{4}{19}$.
-    - $P_V(M) \neq P(M)$ : être vacciné et être malade ne sont pas indépendants.
-
-    ## Arbre
-    $P(A) = 0{,}6$, $P_A(B) = 0{,}3$, $P_{\bar A}(B) = 0{,}5$ : $P(B) = 0{,}18 + 0{,}2 = 0{,}38$.
   methodes:
   - titre: Lire une probabilité conditionnelle dans un tableau
     etapes:
@@ -42,6 +27,107 @@ competences:
   erreurs_frequentes:
   - erreur: Confondre $P_V(M)$ et $P_M(V)$.
     explication: La condition change le total par lequel on divise.
+  resume: |
+    - $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$ : probabilité de $B$ **sachant** $A$ ; à distinguer de $P(A \cap B)$ et de $P_B(A)$.
+    - Arbre pondéré : on **multiplie** le long d'un chemin, $P(A \cap B) = P(A) \times P_A(B)$.
+    - **Probabilités totales** : $P(B) = P(A \cap B) + P(\bar A \cap B)$, somme des chemins menant à $B$.
+    - $A$ et $B$ **indépendants** $\iff P(A \cap B) = P(A) \times P(B) \iff P_A(B) = P(B)$ (si $P(A) \neq 0$).
+  cours: |
+    ## 1. Probabilité conditionnelle
+
+    > **Définition.** Soient $A$ et $B$ deux évènements avec $P(A) \neq 0$. La probabilité de $B$ **sachant** $A$ est $$P_A(B) = \frac{P(A \cap B)}{P(A)}.$$
+
+    Dans un **tableau croisé d'effectifs**, $P_A(B)$ se calcule en se restreignant à la ligne (ou colonne) $A$ : $P_A(B) = \dfrac{\text{effectif de } A \cap B}{\text{effectif de } A}$.
+
+    **Trois probabilités à ne pas confondre.**
+    - $P(A \cap B)$ : « $A$ et $B$ » parmi **toute** la population.
+    - $P_A(B)$ : proportion de $B$ **parmi les $A$**.
+    - $P_B(A)$ : proportion de $A$ **parmi les $B$**.
+
+    ## 2. Arbre pondéré
+
+    - Premier niveau : $A$ et $\bar A$, avec $P(A)$ et $P(\bar A) = 1 - P(A)$.
+    - Second niveau : probabilités **conditionnelles** $P_A(B)$, $P_A(\bar B)$, $P_{\bar A}(B)$, $P_{\bar A}(\bar B)$.
+    - La somme des branches issues d'un même nœud vaut $1$.
+    - Probabilité d'un chemin : **produit** des probabilités, $P(A \cap B) = P(A) \times P_A(B)$.
+
+    ### Méthode : construire l'arbre à partir d'un énoncé
+
+    *Énoncé.* Dans un lycée, $60\,\%$ des élèves sont demi-pensionnaires ($D$). Parmi eux, $25\,\%$ font du sport en club ($S$) ; parmi les autres, $40\,\%$.
+
+    1. **Nommer** les évènements : $D$ « être demi-pensionnaire », $S$ « faire du sport en club ».
+    2. **Premier niveau** : le critère dont on connaît la répartition dans tout le lycée : $P(D) = 0{,}6$, donc $P(\bar D) = 0{,}4$.
+    3. **Second niveau** : le mot **parmi** donne une probabilité conditionnelle : $P_D(S) = 0{,}25$ et $P_{\bar D}(S) = 0{,}4$ ; on complète avec la règle des nœuds : $P_D(\bar S) = 0{,}75$, $P_{\bar D}(\bar S) = 0{,}6$.
+    4. **Au bout de chaque chemin**, on écrit le produit des branches, puis on vérifie que la somme vaut $1$.
+
+    <svg viewBox="0 0 640 280" width="640" role="img" aria-label="Arbre pondéré : demi-pension et sport" style="max-width:100%;height:auto" font-family="inherit" font-size="17" fill="currentColor">
+    <line x1="38" y1="140" x2="174" y2="70" stroke="currentColor" stroke-width="1.6"/>
+    <text x="95" y="97" font-weight="bold">0,6</text>
+    <text x="182" y="76">D</text>
+    <line x1="208" y1="70" x2="344" y2="30" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="42" font-weight="bold">0,25</text>
+    <text x="352" y="36">S</text>
+    <text x="400" y="36" font-style="italic">P(D ∩ S) = 0,6 × 0,25 = 0,15</text>
+    <line x1="208" y1="70" x2="344" y2="110" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="110" font-weight="bold">0,75</text>
+    <text x="352" y="116">S̄</text>
+    <text x="400" y="116" font-style="italic">P(D ∩ S̄) = 0,6 × 0,75 = 0,45</text>
+    <line x1="38" y1="140" x2="174" y2="210" stroke="currentColor" stroke-width="1.6"/>
+    <text x="95" y="195" font-weight="bold">0,4</text>
+    <text x="182" y="216">D̄</text>
+    <line x1="208" y1="210" x2="344" y2="170" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="182" font-weight="bold">0,4</text>
+    <text x="352" y="176">S</text>
+    <text x="400" y="176" font-style="italic">P(D̄ ∩ S) = 0,4 × 0,4 = 0,16</text>
+    <line x1="208" y1="210" x2="344" y2="250" stroke="currentColor" stroke-width="1.6"/>
+    <text x="269" y="250" font-weight="bold">0,6</text>
+    <text x="352" y="256">S̄</text>
+    <text x="400" y="256" font-style="italic">P(D̄ ∩ S̄) = 0,4 × 0,6 = 0,24</text>
+    </svg>
+
+    Contrôle : $0{,}15 + 0{,}45 + 0{,}16 + 0{,}24 = 1$.
+
+    ### Construire un tableau
+
+    On range les probabilités des chemins dans un **tableau croisé** : les cases contiennent les intersections, les totaux donnent $P(D)$, $P(\bar D)$, $P(S)$, $P(\bar S)$.
+
+    | | $S$ | $\bar S$ | Total |
+    |---|---|---|---|
+    | $D$ | $0{,}15$ | $0{,}45$ | $0{,}6$ |
+    | $\bar D$ | $0{,}16$ | $0{,}24$ | $0{,}4$ |
+    | Total | $0{,}31$ | $0{,}69$ | $1$ |
+
+    Avec $1\,000$ élèves, on obtient le **tableau d'effectifs** en multipliant par $1\,000$ : $150$, $450$, $160$, $240$ élèves.
+
+    > **Méthode : passer de l'un à l'autre.**
+    > - **Arbre → tableau** : chaque case est la probabilité d'un chemin ; les totaux s'obtiennent par addition.
+    > - **Tableau → arbre** : premier niveau = totaux des lignes ; une branche du second niveau = **case ÷ total de sa ligne**, par exemple $P_D(S) = \dfrac{0{,}15}{0{,}6} = 0{,}25$.
+    > - Pour $P_S(D)$, on divise par le total de la **colonne** $S$ : $\dfrac{0{,}15}{0{,}31} \approx 0{,}48$.
+
+    ## 3. Formule des probabilités totales
+
+    > **Propriété.** $P(B) = P(A \cap B) + P(\bar A \cap B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$ : on **additionne** les chemins qui mènent à $B$.
+
+    ## 4. Indépendance
+
+    > **Définition.** Deux évènements $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$. Lorsque $P(A) \neq 0$, cela équivaut à $P_A(B) = P(B)$ : savoir que $A$ est réalisé ne change pas la probabilité de $B$.
+
+    **Méthode.** Calculer les deux membres ($P(A \cap B)$ et $P(A) \times P(B)$, ou $P_A(B)$ et $P(B)$) et comparer.
+
+    ## 5. Exemple complet
+
+    Dans un lycée, $60\,\%$ des élèves sont demi-pensionnaires ($D$). Parmi eux, $25\,\%$ font du sport en club ($S$) ; parmi les autres, $40\,\%$.
+    - Arbre : $P(D) = 0{,}6$, $P_D(S) = 0{,}25$ ; $P(\bar D) = 0{,}4$, $P_{\bar D}(S) = 0{,}4$.
+    - $P(D \cap S) = 0{,}6 \times 0{,}25 = 0{,}15$ ; $P(\bar D \cap S) = 0{,}4 \times 0{,}4 = 0{,}16$.
+    - Probabilités totales : $P(S) = 0{,}15 + 0{,}16 = 0{,}31$.
+    - Sachant qu'un élève fait du sport, probabilité qu'il soit demi-pensionnaire : $P_S(D) = \dfrac{0{,}15}{0{,}31} \approx 0{,}48$.
+    - Indépendance ? $P_D(S) = 0{,}25 \neq P(S) = 0{,}31$ : $D$ et $S$ ne sont pas indépendants.
+
+    ## 6. Erreurs fréquentes
+
+    - Diviser par l'effectif total au lieu de l'effectif de la condition.
+    - Confondre $P_A(B)$ et $P_B(A)$.
+    - Confondre « indépendants » et « incompatibles » ($A \cap B = \varnothing$).
   questions:
   - code: 1RE-TEC-PCOND-01
     difficulte: 1
@@ -71,7 +157,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$19$ malades, dont $4$ vaccinés : $\dfrac{4}{19}$.'
+      - 'On se restreint aux malades : $4 + 15 = 19$ personnes.'
+      - 'Parmi ces $19$ malades, $4$ sont vaccinés.'
+      - '$P_M(V) = \dfrac{4}{19}$ (à ne pas confondre avec $P_V(M) = \dfrac{4}{40}$).'
       resultat: 4/19
   - code: 1RE-TEC-PCOND-04
     difficulte: 4
@@ -81,7 +169,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $0{,}6 \times 0{,}3 + 0{,}4 \times 0{,}5 = 0{,}18 + 0{,}2 = 0{,}38$.
+      - '$P(\bar A) = 1 - 0{,}6 = 0{,}4$ ; deux chemins de l''arbre mènent à $B$.'
+      - 'Chemins : $P(A \cap B) = 0{,}6 \times 0{,}3 = 0{,}18$ et $P(\bar A \cap B) = 0{,}4 \times 0{,}5 = 0{,}2$.'
+      - 'Probabilités totales : $P(B) = 0{,}18 + 0{,}2 = 0{,}38$.'
       resultat: '0.38'
   - code: 1RE-TEC-PCOND-05
     difficulte: 5
@@ -91,5 +181,144 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$P(M) = 0{,}19$ mais $P_V(M) = 0{,}1$ : la vaccination change la probabilité d''être malade.'
+      - '$V$ et $M$ sont indépendants si et seulement si $P_V(M) = P(M)$.'
+      - '$P(M) = \dfrac{4 + 15}{100} = 0{,}19$ et $P_V(M) = \dfrac{4}{40} = 0{,}1$.'
+      - '$0{,}1 \neq 0{,}19$ : les évènements ne sont pas indépendants (réponse B).'
       resultat: B
+  - code: 1RE-TEC-PCOND-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [0.2, 0.8], pas: 0.1}, b: {entre: [0.1, 0.9], pas: 0.1}}
+      calculs: {p: "a*b"}
+    enonce: 'Dans une entreprise, $[[a*100]]\,\%$ des salariés sont des femmes, et $[[b*100]]\,\%$ d''entre elles sont cadres. On choisit un salarié au hasard. Quelle est la probabilité que ce soit une femme cadre ?'
+    solution: '[[p]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Probabilité d''un chemin de l''arbre.'
+      etapes:
+      - '$P(F) = [[a]]$ et $P_F(C) = [[b]]$.'
+      - '$P(F \cap C) = [[a]] \times [[b]] = [[p]]$.'
+      resultat: '[[p]]'
+
+- code: 1RE-TEC-BERN
+  libelle: Répéter des épreuves de Bernoulli indépendantes
+  attendus: [1RE-TEC-2026-SP-11, 1RE-TEC-2026-SP-12]
+  cours_couvre: [1RE-TEC-2026-SP-11, 1RE-TEC-2026-SP-12]
+  objectifs:
+  - Représenter par un arbre la répétition de $n \leqslant 4$ épreuves de Bernoulli identiques et indépendantes.
+  - Calculer la probabilité d'un nombre donné de succès.
+  prerequis:
+  - 1RE-TEC-PCOND
+  methodes:
+  - titre: Utiliser l'arbre d'une répétition d'épreuves
+    quand: La même épreuve à deux issues est répétée de façon indépendante.
+    etapes:
+    - Chaque branche porte $p$ (succès) ou $1 - p$ (échec).
+    - Probabilité d'un chemin $:$ produit des probabilités de ses branches.
+    - Additionner les probabilités des chemins qui réalisent l'évènement.
+    exemple:
+      enonce: Deux tirages indépendants, succès de probabilité $0{,}3$. Probabilité d'un seul succès ?
+      resolution:
+      - Chemins SE et ES, chacun de probabilité $0{,}3 \times 0{,}7 = 0{,}21$.
+      resultat: $0{,}42$
+  erreurs_frequentes:
+  - erreur: Ne compter qu'un chemin pour « un succès sur deux ».
+    explication: Le succès peut avoir lieu au premier ou au second tirage $:$ deux chemins.
+  resume: |
+    - **Épreuve de Bernoulli** : deux issues, succès (probabilité $p$) et échec (probabilité $1 - p$).
+    - On répète $n$ fois ($n \leqslant 4$) la même épreuve, de façon **indépendante** : arbre à $2^n$ chemins.
+    - Probabilité d'un chemin : **produit** des probabilités ; un chemin à $k$ succès vaut $p^k(1 - p)^{n - k}$.
+    - « Au moins un succès » : $1 - (1 - p)^n$ (évènement contraire).
+  cours: |
+    ## 1. Épreuve de Bernoulli
+
+    > **Définition.** Une **épreuve de Bernoulli** de paramètre $p$ est une expérience aléatoire à deux issues : **succès** $S$, de probabilité $p$, et **échec** $\bar S$, de probabilité $1 - p$.
+
+    *Exemples.* Une pièce donne pile ($p = 0{,}5$) ; un client achète l'article proposé ($p = 0{,}2$) ; une pièce produite est défectueuse ($p = 0{,}05$).
+
+    ## 2. Répétition d'épreuves identiques et indépendantes
+
+    On répète $n$ fois la même épreuve, et le résultat de chaque épreuve n'influence pas les autres (tirages **avec remise**, lancers successifs, clients différents…).
+
+    > **Propriété.**
+    > - On représente la situation par un **arbre** : à chaque niveau, une branche $S$ (probabilité $p$) et une branche $\bar S$ (probabilité $1 - p$).
+    > - La probabilité d'un chemin est le **produit** des probabilités de ses branches.
+    > - La probabilité d'un évènement est la **somme** des probabilités des chemins qui le réalisent.
+
+    Avec $n$ répétitions, l'arbre a $2^n$ chemins : $4$ pour $n = 2$, $8$ pour $n = 3$, $16$ pour $n = 4$.
+
+    ## 3. Méthode
+
+    1. Préciser le succès, $p$, et $n$ ; justifier « identiques et indépendantes ».
+    2. Construire l'arbre.
+    3. Repérer les chemins qui réalisent l'évènement, calculer leur probabilité et les additionner.
+    4. Pour « au moins un succès », passer par l'évènement contraire « aucun succès ».
+
+    ## 4. Exemple complet
+
+    Un QCM comporte $3$ questions ; pour chacune, un élève répond au hasard parmi $4$ propositions dont une seule est juste ($p = 0{,}25$).
+    - *Trois bonnes réponses :* $0{,}25^3 = 0{,}015625$.
+    - *Aucune bonne réponse :* $0{,}75^3 = 0{,}421875$.
+    - *Exactement une bonne réponse :* trois chemins ($S\bar S\bar S$, $\bar SS\bar S$, $\bar S\bar SS$), chacun de probabilité $0{,}25 \times 0{,}75^2 = 0{,}140625$ : total $0{,}421875$.
+    - *Au moins une bonne réponse :* $1 - 0{,}421875 = 0{,}578125 \approx 0{,}58$.
+
+    ## 5. Erreurs fréquentes
+
+    - Ne compter qu'un seul chemin pour « exactement une » réussite.
+    - Additionner les probabilités le long d'un chemin au lieu de les multiplier.
+    - Utiliser ce modèle pour des tirages **sans remise** (les épreuves ne sont plus indépendantes).
+  questions:
+    - code: 1RE-TEC-BERN-01
+      difficulte: 1
+      type: numerique
+      enonce: 'On répète deux fois une épreuve de Bernoulli de paramètre $0{,}3$, de façon indépendante. Quelle est la probabilité de deux succès ?'
+      solution: 0.09
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}3 \times 0{,}3 = 0{,}09$.
+        resultat: 0.09
+    - code: 1RE-TEC-BERN-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Même situation (deux épreuves de paramètre $0{,}3$). Quelle est la probabilité d''aucun succès ?'
+      solution: 0.49
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}7 \times 0{,}7 = 0{,}49$.
+        resultat: 0.49
+    - code: 1RE-TEC-BERN-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Même situation (deux épreuves de paramètre $0{,}3$). Quelle est la probabilité d''exactement un succès ?'
+      solution: 0.42
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Deux chemins (SE et ES), chacun de probabilité $0{,}21$.
+        - $2 \times 0{,}21 = 0{,}42$.
+        resultat: 0.42
+    - code: 1RE-TEC-BERN-04
+      difficulte: 4
+      type: numerique
+      enonce: 'Une machine produit une pièce défectueuse avec la probabilité $0{,}2$. On prélève trois pièces de façon indépendante. Quelle est la probabilité qu''au moins une soit défectueuse ?'
+      solution: 0.488
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Contraire $:$ aucune pièce défectueuse, de probabilité $0{,}8^3 = 0{,}512$.
+        - $1 - 0{,}512 = 0{,}488$.
+        resultat: 0.488
+    - code: 1RE-TEC-BERN-05
+      difficulte: 5
+      type: numerique
+      enonce: 'On lance quatre fois une pièce équilibrée. Quelle est la probabilité d''obtenir exactement trois piles ?'
+      solution: 1/4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Chemins à trois piles $:$ FPPP, PFPP, PPFP, PPPF, soit $4$ chemins.
+        - Chacun a la probabilité $\dfrac{1}{16}$ $:$ total $\dfrac{4}{16} = \dfrac{1}{4}$.
+        resultat: 1/4

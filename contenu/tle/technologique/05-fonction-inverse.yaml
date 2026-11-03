@@ -7,23 +7,79 @@ chapitre:
 competences:
 - code: TLE-TEC-INV
   libelle: Étudier la fonction inverse et l'utiliser dans un problème
+  attendus: [TLE-TEC-2026-ANA-21, TLE-TEC-2026-ANA-22]
   objectifs:
   - Connaitre la dérivée, les variations et les asymptotes de la fonction inverse.
   - Étudier une fonction de la forme ax + b + c/x.
   prerequis:
   - 1RE-TEC-VARIA
+  cours_couvre: [TLE-TEC-2026-ANA-21, TLE-TEC-2026-ANA-22]
   resume: |
-    - $f(x) = \dfrac{1}{x}$ sur $\mathbb{R}^*$ : $f'(x) = -\dfrac{1}{x^2} < 0$, décroissante sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$.
-    - $\dfrac{1}{x} \to 0$ en $\pm\infty$ (asymptote $y = 0$) ; asymptote verticale $x = 0$.
-    - $\left(\dfrac{k}{x}\right)' = -\dfrac{k}{x^2}$.
+    - $f(x) = \dfrac{1}{x}$ est définie sur $\mathbb{R}^* = ]-\infty ; 0[ \cup ]0 ; +\infty[$.
+    - $\dfrac{1}{x} \to 0$ en $+\infty$ et en $-\infty$ ; $\dfrac{1}{x} \to +\infty$ quand $x \to 0^+$, $\to -\infty$ quand $x \to 0^-$ : asymptotes $y = 0$ et $x = 0$.
+    - $f'(x) = -\dfrac{1}{x^2} < 0$ : $f$ est décroissante sur $]-\infty ; 0[$ **et** sur $]0 ; +\infty[$ (pas sur $\mathbb{R}^*$).
+    - $\left(\dfrac{k}{x}\right)' = -\dfrac{k}{x^2}$ ; pour étudier $P(x) + \dfrac{k}{x}$, on dérive, on réduit au même dénominateur $x^2$ et on étudie le signe du numérateur.
   cours: |
-    ## Comportement
-    | $x$ | $-\infty$ | | $0$ | | $+\infty$ |
-    |---|---|---|---|---|---|
-    | $\dfrac{1}{x}$ | $0$ | décroît vers $-\infty$ | ‖ | décroît de $+\infty$ vers $0$ | |
+    ## 1. Définition
 
-    ## Coût moyen
-    $C_M(x) = x + \dfrac{100}{x}$ pour $x > 0$ : $C_M'(x) = 1 - \dfrac{100}{x^2} = \dfrac{x^2 - 100}{x^2}$, nul en $x = 10$. Minimum $C_M(10) = 20$.
+    **Définition.** La **fonction inverse** est la fonction $f : x \mapsto \dfrac{1}{x}$, définie sur $\mathbb{R}^* = ]-\infty ; 0[ \cup ]0 ; +\infty[$ (on ne divise pas par $0$).
+
+    $f(x)$ a le même signe que $x$ : négatif sur $]-\infty ; 0[$, positif sur $]0 ; +\infty[$.
+
+    ## 2. Comportement aux bornes
+
+    > **Propriété.**
+    > - Quand $x$ tend vers $+\infty$ ou vers $-\infty$, $\dfrac{1}{x}$ tend vers $0$.
+    > - Quand $x$ tend vers $0$ en restant positif ($x \to 0^+$), $\dfrac{1}{x}$ tend vers $+\infty$ ; quand $x \to 0^-$, $\dfrac{1}{x}$ tend vers $-\infty$.
+
+    Exemples numériques : $\dfrac{1}{1\,000} = 0{,}001$ ; $\dfrac{1}{0{,}001} = 1\,000$ ; $\dfrac{1}{-0{,}001} = -1\,000$.
+
+    **Asymptotes.** La courbe se rapproche de l'axe des abscisses aux infinis : la droite d'équation $y = 0$ est **asymptote horizontale**. Elle « monte » ou « descend » le long de l'axe des ordonnées près de $0$ : la droite d'équation $x = 0$ est **asymptote verticale**.
+
+    ## 3. Dérivée et sens de variation
+
+    > **Propriété.** La fonction inverse est dérivable sur $]-\infty ; 0[$ et sur $]0 ; +\infty[$, et $$f'(x) = -\frac{1}{x^2}.$$
+
+    **Justification.** Pour $a \neq 0$ et $h$ petit non nul, le taux d'accroissement vaut
+    $$\frac{\frac{1}{a + h} - \frac{1}{a}}{h} = \frac{a - (a + h)}{h\,a(a + h)} = \frac{-1}{a(a + h)},$$
+    qui se rapproche de $-\dfrac{1}{a^2}$ quand $h$ tend vers $0$.
+
+    Comme $x^2 > 0$, on a $f'(x) < 0$ :
+
+    | $x$ | $-\infty$ | | $0$ | | $+\infty$ |
+    |:-:|:-:|:-:|:-:|:-:|:-:|
+    | $f'(x)$ | | $-$ | ‖ | $-$ | |
+    | $f$ | $0$ | décroît vers $-\infty$ | ‖ | décroît de $+\infty$ vers $0$ | |
+
+    La fonction inverse est décroissante sur **chacun** des deux intervalles, mais pas sur $\mathbb{R}^*$ : $-1 < 1$ et pourtant $\dfrac{1}{-1} < \dfrac{1}{1}$.
+
+    **Courbe.** C'est une **hyperbole** à deux branches, symétrique par rapport à l'origine, passant par $(1 ; 1)$, $(2 ; 0{,}5)$, $(0{,}5 ; 2)$ et leurs symétriques.
+
+    ## 4. Fonctions combinant inverse et polynômes
+
+    > **Propriété.** Pour un réel $k$, $\left(\dfrac{k}{x}\right)' = k \times \left(-\dfrac{1}{x^2}\right) = -\dfrac{k}{x^2}$. La dérivée d'une somme est la somme des dérivées.
+
+    **Méthode : étudier $g(x) = P(x) + \dfrac{k}{x}$** ($P$ polynôme de degré au plus $3$).
+    1. Dériver : $g'(x) = P'(x) - \dfrac{k}{x^2}$.
+    2. Réduire au même dénominateur : $g'(x) = \dfrac{x^2 P'(x) - k}{x^2}$ ; comme $x^2 > 0$, $g'(x)$ a le signe du numérateur.
+    3. Étudier ce signe, dresser le tableau de variations, calculer les extremums.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Pour $x$ centaines d'objets fabriqués ($x > 0$), le coût moyen est $C_M(x) = 0{,}5x + 2 + \dfrac{50}{x}$ (en euros). Étudier ses variations et trouver le coût moyen minimal.
+
+    **Résolution.**
+    1. $C_M'(x) = 0{,}5 - \dfrac{50}{x^2} = \dfrac{0{,}5x^2 - 50}{x^2} = \dfrac{0{,}5(x^2 - 100)}{x^2}$.
+    2. Pour $x > 0$ : $x^2 - 100 < 0$ si $x < 10$, $> 0$ si $x > 10$. Donc $C_M$ est décroissante sur $]0 ; 10]$ et croissante sur $[10 ; +\infty[$.
+    3. Minimum : $C_M(10) = 5 + 2 + 5 = 12$ €, atteint pour $1\,000$ objets.
+
+    Autre exemple avec un polynôme de degré 2 : $h(x) = x^2 + \dfrac{16}{x}$ sur $]0 ; +\infty[$ ; $h'(x) = 2x - \dfrac{16}{x^2} = \dfrac{2(x^3 - 8)}{x^2}$, qui s'annule en $x = 2$ ; minimum $h(2) = 4 + 8 = 12$.
+
+    ## 6. Erreurs fréquentes
+
+    - Dire que la fonction inverse est décroissante sur $\mathbb{R}$ ou sur $\mathbb{R}^*$.
+    - Écrire $\left(\dfrac{1}{x}\right)' = \dfrac{1}{x^2}$ : il manque le signe $-$.
+    - Oublier la valeur interdite $0$ dans le tableau de variations (double barre).
   methodes:
   - titre: Trouver le minimum d'une fonction ax + c/x
     etapes:
@@ -67,7 +123,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - Sa dérivée $-\dfrac{1}{x^2}$ est négative.
+      - 'Sur $]0 ; +\infty[$, la dérivée de la fonction inverse est $f''(x) = -\dfrac{1}{x^2}$.'
+      - 'Un carré non nul est strictement positif, donc $-\dfrac{1}{x^2} < 0$ pour tout $x > 0$.'
+      - 'Dérivée strictement négative : la fonction inverse est décroissante sur cet intervalle (réponse A).'
       resultat: A
   - code: TLE-TEC-INV-04
     difficulte: 4
@@ -77,7 +135,10 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $(3x)' = 3$ et $\left(\dfrac{2}{x}\right)' = -\dfrac{2}{x^2}$.
+      - 'La dérivée d''une somme est la somme des dérivées : on dérive $3x$ et $\dfrac{2}{x}$ séparément.'
+      - '$(3x)'' = 3$.'
+      - '$\dfrac{2}{x} = 2 \times \dfrac{1}{x}$, donc sa dérivée est $2 \times \left(-\dfrac{1}{x^2}\right) = -\dfrac{2}{x^2}$.'
+      - 'Finalement $f''(x) = 3 - \dfrac{2}{x^2}$.'
       resultat: 3 - 2/x^2
   - code: TLE-TEC-INV-05
     difficulte: 5

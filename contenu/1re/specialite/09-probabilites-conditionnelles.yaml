@@ -9,6 +9,8 @@ chapitre:
 competences:
   - code: 1RE-COND
     libelle: Calculer une probabilité conditionnelle
+    attendus: [1RE-SPE-2026-AUTO-16, 1RE-SPE-2026-AUTO-17, 1RE-SPE-2026-PCOND-01, 1RE-SPE-2026-PCOND-06]
+    cours_couvre: [1RE-SPE-2026-PCOND-01, 1RE-SPE-2026-PCOND-06, 1RE-SPE-2026-AUTO-16, 1RE-SPE-2026-AUTO-17]
     objectifs:
       - >-
         Identifier l'univers de référence : sur qui, ou sur quoi, porte la probabilité demandée.
@@ -18,22 +20,52 @@ competences:
         Reconnaitre et utiliser l'indépendance de deux évènements.
     resume: |
       - Si $P(A) \neq 0$ : $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, donc $P(A \cap B) = P(A) \times P_A(B)$.
+      - **Arbre pondéré** : premier niveau $P(A)$, $P(\bar A)$ ; second niveau les probabilités **conditionnelles** ; les branches d'un même nœud ont une somme égale à $1$.
       - Sur un arbre, on **multiplie** les probabilités le long d'un chemin.
-      - $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$.
+      - $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$, c'est-à-dire si $P_A(B) = P(B)$.
     cours: |
-      ## Définition
-      $P(A) = 0{,}4$ et $P(A \cap B) = 0{,}12$ : $P_A(B) = \dfrac{0{,}12}{0{,}4} = 0{,}3$.
+      ## 1. Probabilité conditionnelle
 
-      ## Tableau croisé
-      Dans un lycée de $200$ élèves dont $120$ filles, $30$ filles sont gauchères.
-      La probabilité qu'une élève choisie parmi les filles soit gauchère est $\dfrac{30}{120} = \dfrac{1}{4}$ : on se restreint à la ligne « filles ».
+      **Définition.** Soit $A$ un évènement de probabilité non nulle. La probabilité de $B$ **sachant** $A$ est
+      $$P_A(B) = \frac{P(A \cap B)}{P(A)}.$$
+      C'est la probabilité de $B$ quand on sait que $A$ est réalisé : on se restreint aux issues de $A$.
 
-      ## Indépendance
-      Si $A$ et $B$ sont indépendants, $P(A \cap B) = P(A)P(B)$ et $P_A(B) = P(B)$.
-      Avec $P(A) = 0{,}5$, $P(B) = 0{,}4$ : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+      *Avec un tableau croisé.* Dans un lycée de $200$ élèves dont $120$ filles, $30$ filles sont gauchères. On choisit un élève au hasard. Sachant que c'est une fille, la probabilité qu'il soit gaucher est $\dfrac{30}{120} = \dfrac{1}{4}$ : on se restreint à la ligne « filles ».
 
-      ## Erreur fréquente
-      Confondre $P_A(B)$ et $P_B(A)$ : ce ne sont pas les mêmes « univers de référence ».
+      Ne pas confondre $P(A \cap B)$ (les deux à la fois, sur toute la population), $P_A(B)$ (parmi les $A$) et $P_B(A)$ (parmi les $B$).
+
+      ## 2. Construire un arbre pondéré
+
+      Un arbre pondéré représente une expérience en deux étapes. **Méthode :**
+      1. **Premier niveau** : on part d'un point (la racine) et on trace une branche par issue de la première étape, par exemple $A$ et $\bar A$ ; on écrit sur chaque branche sa probabilité $P(A)$ et $P(\bar A) = 1 - P(A)$.
+      2. **Second niveau** : au bout de chaque branche, on trace les branches de la seconde étape ($B$ et $\bar B$). Leurs pondérations sont des probabilités **conditionnelles** : depuis $A$, on écrit $P_A(B)$ et $P_A(\bar B)$ ; depuis $\bar A$, on écrit $P_{\bar A}(B)$ et $P_{\bar A}(\bar B)$.
+      3. **Contrôle** : les branches issues d'un même nœud ont une somme égale à $1$.
+      4. **Chemins** : chaque chemin de la racine à une extrémité correspond à une intersection, par exemple $A \cap B$.
+
+      *Exemple.* $40\,\%$ des élèves font du sport ($S$) ; parmi eux, $30\,\%$ sont gauchers ($G$) ; parmi les autres, $10\,\%$ sont gauchers.
+      - Premier niveau : $P(S) = 0{,}4$ et $P(\bar S) = 0{,}6$.
+      - Depuis $S$ : $P_S(G) = 0{,}3$ et $P_S(\bar G) = 0{,}7$. Depuis $\bar S$ : $P_{\bar S}(G) = 0{,}1$ et $P_{\bar S}(\bar G) = 0{,}9$.
+
+      ## 3. Règles de calcul sur un arbre
+
+      > **Propriété (chemin).** La probabilité d'un chemin est le **produit** des probabilités de ses branches : $P(A \cap B) = P(A) \times P_A(B)$.
+
+      Dans l'exemple : $P(S \cap G) = 0{,}4 \times 0{,}3 = 0{,}12$ et $P(\bar S \cap G) = 0{,}6 \times 0{,}1 = 0{,}06$.
+
+      > **Propriété (évènement).** La probabilité d'un évènement est la **somme** des probabilités des chemins qui y mènent (formule des probabilités totales, voir la compétence suivante) : $P(G) = 0{,}12 + 0{,}06 = 0{,}18$.
+
+      ## 4. Indépendance
+
+      **Définition.** $A$ et $B$ sont **indépendants** si $P(A \cap B) = P(A) \times P(B)$. Lorsque $P(A) \neq 0$, cela équivaut à $P_A(B) = P(B)$ : savoir que $A$ est réalisé ne change pas la probabilité de $B$.
+
+      *Exemple.* $P(A) = 0{,}5$, $P(B) = 0{,}4$ et $P(A \cap B) = 0{,}2 = 0{,}5 \times 0{,}4$ : $A$ et $B$ sont indépendants. Alors $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+
+      *Contre-exemple.* Dans l'arbre ci-dessus, $P_S(G) = 0{,}3$ mais $P(G) = 0{,}18$ : être sportif et être gaucher ne sont pas indépendants.
+
+      ## 5. Erreurs fréquentes
+      - Confondre $P_A(B)$ et $P_B(A)$ : ce ne sont pas les mêmes « univers de référence ».
+      - Écrire sur une branche du second niveau $P(B)$ au lieu de $P_A(B)$.
+      - Additionner les probabilités le long d'un chemin au lieu de les multiplier.
     methodes:
       - titre: Calculer une probabilité conditionnelle à partir d'effectifs
         quand: >-
@@ -159,28 +191,14 @@ competences:
 
   - code: 1RE-TOTALES
     libelle: Utiliser un arbre et la formule des probabilités totales
+    attendus: [1RE-SPE-2026-PCOND-02, 1RE-SPE-2026-PCOND-03, 1RE-SPE-2026-PCOND-05, 1RE-SPE-2026-PCOND-07]
+    cours_couvre: [1RE-SPE-2026-PCOND-02, 1RE-SPE-2026-PCOND-03, 1RE-SPE-2026-PCOND-05, 1RE-SPE-2026-PCOND-07]
     objectifs:
       - >-
         Construire un arbre pondéré à partir d'un énoncé.
       - >-
         Calculer une probabilité totale, puis « inverser » un conditionnement.
     prerequis: [1RE-COND]
-    resume: |
-      - Si $A$ et $\bar A$ partitionnent l'univers : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$.
-      - Pour « inverser » un conditionnement : $P_B(A) = \dfrac{P(A \cap B)}{P(B)}$.
-      - Tirages **sans remise** : les probabilités des branches changent d'un tirage à l'autre.
-    cours: |
-      ## Probabilités totales
-      $P(A) = 0{,}3$, $P_A(B) = 0{,}2$, $P_{\bar A}(B) = 0{,}5$ :
-      $$P(B) = 0{,}3 \times 0{,}2 + 0{,}7 \times 0{,}5 = 0{,}06 + 0{,}35 = 0{,}41$$
-
-      ## Test de dépistage
-      Une maladie touche $2\,\%$ d'une population. Le test est positif chez $95\,\%$ des malades et chez $10\,\%$ des personnes saines.
-      $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
-      $P_T(M) = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117} \approx 0{,}16$ : un test positif est loin d'être une certitude !
-
-      ## Sans remise
-      Urne de $3$ rouges et $2$ bleues, deux tirages sans remise : $P(RR) = \dfrac{3}{5} \times \dfrac{2}{4} = \dfrac{3}{10}$.
     methodes:
       - titre: Utiliser un arbre pondéré et la formule des probabilités totales
         quand: >-
@@ -216,6 +234,148 @@ competences:
           Garder les mêmes probabilités au second tirage sans remise.
         explication: >-
           Après un premier tirage sans remise, l'urne contient une boule de moins : les probabilités du second niveau changent.
+    resume: |
+      - **Arbre pondéré** : 1er niveau $A$, $\bar A$ avec $P(A)$, $P(\bar A)$ ; 2nd niveau $B$, $\bar B$ avec les probabilités **conditionnelles** $P_A(B)$… ; les branches d'un même nœud ont pour somme $1$.
+      - **Tableau de probabilités** : chaque case contient $P(A \cap B)$, les marges $P(A)$, $P(B)$… ; on passe de l'arbre au tableau en multipliant le long des chemins, et inversement en divisant une case par le total de sa ligne.
+      - **Probabilités totales** ($A_1, \ldots, A_n$ partition de l'univers) : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$ : on **additionne** les chemins qui mènent à $B$.
+      - Pour « inverser » un conditionnement : $P_B(A) = \dfrac{P(A \cap B)}{P(B)}$.
+      - Deux épreuves **indépendantes** : les mêmes probabilités sur toutes les branches du second niveau ; le tableau a pour cases les produits $P(\text{ligne}) \times P(\text{colonne})$.
+    cours: |
+      ## 1. Construire un arbre pondéré
+
+      Un **arbre pondéré** représente une expérience en deux étapes (ou une population partagée selon deux critères). Il se lit de gauche à droite.
+
+      > **Règles de construction.**
+      > - **Premier niveau** : depuis la racine, une branche par issue de la première étape, par exemple $A$ et $\bar A$, avec leurs probabilités $P(A)$ et $P(\bar A)$.
+      > - **Second niveau** : depuis chaque nœud, une branche par issue de la seconde étape ; la branche qui va de $A$ vers $B$ porte la probabilité **conditionnelle** $P_A(B)$ (et non $P(B)$ ni $P(A \cap B)$).
+      > - **Règle des nœuds** : la somme des probabilités des branches issues d'un même nœud vaut $1$.
+      > - **Règle du chemin** : la probabilité au bout d'un chemin est le **produit** des probabilités de ses branches : $P(A \cap B) = P(A) \times P_A(B)$.
+
+      ### Méthode : de l'énoncé à l'arbre
+
+      1. **Nommer** les évènements avec des lettres : $B$ « l'élève prend le bus », $R$ « il arrive en retard ».
+      2. **Repérer la première étape** : c'est le critère dont l'énoncé donne la répartition dans toute la population (« $40\,\%$ des élèves prennent le bus »).
+      3. **Traduire chaque pourcentage** : « $40\,\%$ des élèves » donne $P(B) = 0{,}4$ ; « **parmi** eux, $25\,\%$ arrivent en retard » donne $P_B(R) = 0{,}25$ ; « parmi les autres, $5\,\%$ » donne $P_{\bar B}(R) = 0{,}05$. Le mot **parmi** signale une probabilité conditionnelle.
+      4. **Compléter** avec la règle des nœuds : $P(\bar B) = 0{,}6$, $P_B(\bar R) = 0{,}75$, $P_{\bar B}(\bar R) = 0{,}95$.
+      5. **Écrire au bout de chaque chemin** sa probabilité (règle du chemin) et vérifier que leur somme vaut $1$.
+
+      *L'arbre obtenu :*
+
+      <svg viewBox="0 0 640 280" width="640" role="img" aria-label="Arbre pondéré : bus et retard" style="max-width:100%;height:auto" font-family="inherit" font-size="17" fill="currentColor">
+      <line x1="38" y1="140" x2="174" y2="70" stroke="currentColor" stroke-width="1.6"/>
+      <text x="95" y="97" font-weight="bold">0,4</text>
+      <text x="182" y="76">B</text>
+      <line x1="208" y1="70" x2="344" y2="30" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="42" font-weight="bold">0,25</text>
+      <text x="352" y="36">R</text>
+      <text x="400" y="36" font-style="italic">P(B ∩ R) = 0,4 × 0,25 = 0,1</text>
+      <line x1="208" y1="70" x2="344" y2="110" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="110" font-weight="bold">0,75</text>
+      <text x="352" y="116">R̄</text>
+      <text x="400" y="116" font-style="italic">P(B ∩ R̄) = 0,4 × 0,75 = 0,3</text>
+      <line x1="38" y1="140" x2="174" y2="210" stroke="currentColor" stroke-width="1.6"/>
+      <text x="95" y="195" font-weight="bold">0,6</text>
+      <text x="182" y="216">B̄</text>
+      <line x1="208" y1="210" x2="344" y2="170" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="182" font-weight="bold">0,05</text>
+      <text x="352" y="176">R</text>
+      <text x="400" y="176" font-style="italic">P(B̄ ∩ R) = 0,6 × 0,05 = 0,03</text>
+      <line x1="208" y1="210" x2="344" y2="250" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="250" font-weight="bold">0,95</text>
+      <text x="352" y="256">R̄</text>
+      <text x="400" y="256" font-style="italic">P(B̄ ∩ R̄) = 0,6 × 0,95 = 0,57</text>
+      </svg>
+
+      Contrôle : $0{,}1 + 0{,}3 + 0{,}03 + 0{,}57 = 1$.
+
+      ## 2. Construire un tableau
+
+      Un **tableau croisé** présente les mêmes informations selon deux critères : en lignes $B$, $\bar B$, en colonnes $R$, $\bar R$.
+
+      **Tableau de probabilités.** Chaque case contient la probabilité d'une intersection ; les totaux (marges) donnent $P(B)$, $P(\bar B)$, $P(R)$, $P(\bar R)$ ; le total général vaut $1$.
+
+      | | $R$ | $\bar R$ | Total |
+      |---|---|---|---|
+      | $B$ | $0{,}1$ | $0{,}3$ | $0{,}4$ |
+      | $\bar B$ | $0{,}03$ | $0{,}57$ | $0{,}6$ |
+      | Total | $0{,}13$ | $0{,}87$ | $1$ |
+
+      **Tableau d'effectifs.** On imagine une population de $1\,000$ élèves et on multiplie chaque probabilité par $1\,000$ : $100$ élèves prennent le bus et arrivent en retard, $300$ prennent le bus et sont à l'heure, $30$ et $570$ pour les autres. Ce tableau est souvent plus parlant.
+
+      > **Méthode : passer de l'un à l'autre.**
+      > - **Arbre → tableau** : chaque case est la probabilité d'un chemin ($P(B \cap R) = 0{,}4 \times 0{,}25$) ; on complète les totaux par des sommes.
+      > - **Tableau → arbre** : le premier niveau vient des totaux de lignes ($P(B) = 0{,}4$) ; une branche du second niveau est **une case divisée par le total de sa ligne** : $P_B(R) = \dfrac{0{,}1}{0{,}4} = 0{,}25$.
+      > - On peut aussi construire l'arbre « dans l'autre sens » (premier niveau $R$, $\bar R$) à partir des totaux de colonnes : $P_R(B) = \dfrac{0{,}1}{0{,}13} = \dfrac{10}{13} \approx 0{,}77$.
+
+      ## 3. Partition de l'univers et probabilités totales
+
+      **Définition.** Des évènements $A_1, A_2, \ldots, A_n$ forment une **partition** de l'univers $\Omega$ s'ils sont de probabilités non nulles, deux à deux incompatibles, et si leur réunion est $\Omega$. Le cas le plus courant : $A$ et $\bar A$.
+
+      > **Propriété.** Si $A_1, \ldots, A_n$ forment une partition de $\Omega$, alors pour tout évènement $B$ :
+      > $$P(B) = P(A_1 \cap B) + \cdots + P(A_n \cap B) = P(A_1)P_{A_1}(B) + \cdots + P(A_n)P_{A_n}(B).$$
+      > Avec la partition $(A, \bar A)$ : $P(B) = P(A)P_A(B) + P(\bar A)P_{\bar A}(B)$.
+
+      Sur l'arbre, cela revient à **additionner les probabilités de tous les chemins** qui aboutissent à $B$ ; dans le tableau, c'est le total de la colonne $B$.
+
+      *Exemple.* Dans l'arbre du bus, deux chemins mènent à $R$ : $P(R) = 0{,}4 \times 0{,}25 + 0{,}6 \times 0{,}05 = 0{,}1 + 0{,}03 = 0{,}13$, soit $13\,\%$ d'élèves en retard.
+
+      ## 4. Inverser un conditionnement
+
+      On connaît souvent $P_A(B)$ et on cherche $P_B(A)$. On calcule $P(A \cap B)$ avec l'arbre, $P(B)$ avec la formule des probabilités totales, puis
+      $$P_B(A) = \frac{P(A \cap B)}{P(B)}.$$
+
+      *Test de dépistage.* Une maladie touche $2\,\%$ d'une population. Le test est positif chez $95\,\%$ des malades et chez $10\,\%$ des personnes saines.
+      - Arbre : $P(M) = 0{,}02$, $P_M(T) = 0{,}95$ ; $P(\bar M) = 0{,}98$, $P_{\bar M}(T) = 0{,}1$.
+      - $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
+      - $P_T(M) = \dfrac{0{,}019}{0{,}117} = \dfrac{19}{117} \approx 0{,}16$ : un test positif est loin d'être une certitude !
+
+      ## 5. Succession de deux épreuves indépendantes
+
+      **Épreuves indépendantes.** Si le résultat de la première épreuve n'influence pas la seconde, les branches du second niveau portent **les mêmes probabilités** quel que soit le premier résultat.
+
+      *Exemple.* Une urne contient $2$ boules rouges et $3$ bleues. On tire une boule, on la **remet**, puis on en tire une seconde. $R_1$ : « la première est rouge », $R_2$ : « la seconde est rouge ».
+
+      <svg viewBox="0 0 640 280" width="640" role="img" aria-label="Arbre pondéré : deux tirages avec remise" style="max-width:100%;height:auto" font-family="inherit" font-size="17" fill="currentColor">
+      <line x1="38" y1="140" x2="174" y2="70" stroke="currentColor" stroke-width="1.6"/>
+      <text x="95" y="97" font-weight="bold">0,4</text>
+      <text x="182" y="76">R₁</text>
+      <line x1="208" y1="70" x2="344" y2="30" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="42" font-weight="bold">0,4</text>
+      <text x="352" y="36">R₂</text>
+      <text x="400" y="36" font-style="italic">P(R₁ ∩ R₂) = 0,16</text>
+      <line x1="208" y1="70" x2="344" y2="110" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="110" font-weight="bold">0,6</text>
+      <text x="352" y="116">B₂</text>
+      <text x="400" y="116" font-style="italic">P(R₁ ∩ B₂) = 0,24</text>
+      <line x1="38" y1="140" x2="174" y2="210" stroke="currentColor" stroke-width="1.6"/>
+      <text x="95" y="195" font-weight="bold">0,6</text>
+      <text x="182" y="216">B₁</text>
+      <line x1="208" y1="210" x2="344" y2="170" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="182" font-weight="bold">0,4</text>
+      <text x="352" y="176">R₂</text>
+      <text x="400" y="176" font-style="italic">P(B₁ ∩ R₂) = 0,24</text>
+      <line x1="208" y1="210" x2="344" y2="250" stroke="currentColor" stroke-width="1.6"/>
+      <text x="269" y="250" font-weight="bold">0,6</text>
+      <text x="352" y="256">B₂</text>
+      <text x="400" y="256" font-style="italic">P(B₁ ∩ B₂) = 0,36</text>
+      </svg>
+
+      On peut aussi représenter la situation par un **tableau à double entrée** : la première épreuve en lignes, la seconde en colonnes, et dans chaque case le **produit** des probabilités.
+
+      | Tirage 1 / tirage 2 | $R_2$ ($0{,}4$) | $B_2$ ($0{,}6$) |
+      |---|---|---|
+      | $R_1$ ($0{,}4$) | $0{,}16$ | $0{,}24$ |
+      | $B_1$ ($0{,}6$) | $0{,}24$ | $0{,}36$ |
+
+      Probabilité de tirer deux boules de la même couleur : $0{,}16 + 0{,}36 = 0{,}52$.
+
+      **Tirages sans remise.** Les épreuves ne sont plus indépendantes : les probabilités du second niveau changent selon le premier tirage. Avec la même urne : $P(R_1 \cap R_2) = \dfrac{2}{5} \times \dfrac{1}{4} = \dfrac{1}{10}$ (il ne reste qu'une rouge sur $4$ boules).
+
+      ## 6. Erreurs fréquentes
+      - Écrire $P(B)$ ou $P(A \cap B)$ sur une branche du second niveau au lieu de $P_A(B)$.
+      - Oublier un chemin dans la formule des probabilités totales.
+      - Dans un tableau, diviser par le total général au lieu du total de la ligne pour obtenir une probabilité conditionnelle.
+      - Diviser par $P(A)$ au lieu de $P(B)$ pour calculer $P_B(A)$.
     questions:
       - code: 1RE-TOTALES-01
         difficulte: 1
@@ -316,3 +476,224 @@ competences:
           erreurs_frequentes:
             - >-
               Répondre $0{,}95$ : c'est $P_M(T)$, la probabilité d'être positif sachant qu'on est malade, pas l'inverse.
+      - code: 1RE-TOTALES-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [0.1, 0.9], pas: 0.1}, b: {entre: [0.05, 0.95], pas: 0.05}, c: {entre: [0.05, 0.95], pas: 0.05}}
+          calculs: {p: "a*b + (1 - a)*c"}
+        enonce: 'On sait que $P(A) = [[a]]$, $P_A(B) = [[b]]$ et $P_{\bar A}(B) = [[c]]$. Calculer $P(B)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Formule des probabilités totales avec la partition $(A, \bar A)$.'
+          etapes:
+          - '$P(B) = P(A) P_A(B) + P(\bar A) P_{\bar A}(B)$.'
+          - '$= [[a]] \times [[b]] + [[1 - a]] \times [[c]] = [[a*b]] + [[(1 - a)*c]] = [[p]]$.'
+          resultat: '[[p]]'
+
+  - code: 1RE-BERNOULLI
+    libelle: Répéter des épreuves de Bernoulli indépendantes (n ⩽ 4)
+    attendus: [1RE-SPE-2026-PCOND-04, 1RE-SPE-2026-PCOND-08]
+    cours_couvre: [1RE-SPE-2026-PCOND-04, 1RE-SPE-2026-PCOND-08]
+    objectifs:
+    - Représenter par un arbre la répétition de $n \leqslant 4$ épreuves de Bernoulli identiques et indépendantes.
+    - Calculer la probabilité d'un nombre donné de succès en comptant les chemins.
+    prerequis:
+    - 1RE-TOTALES
+    methodes:
+    - titre: Probabilité de $k$ succès en $n$ épreuves
+      quand: On répète $n \leqslant 4$ fois la même épreuve à deux issues, de façon indépendante.
+      etapes:
+      - Construire l'arbre (ou l'imaginer) $:$ chaque chemin est une suite de $n$ succès ou échecs.
+      - Un chemin à $k$ succès a la probabilité $p^k(1 - p)^{n - k}$.
+      - Compter les chemins à $k$ succès et multiplier.
+      exemple:
+        enonce: Trois tirs indépendants réussis chacun avec la probabilité $0{,}6$. Probabilité de deux réussites exactement ?
+        resolution:
+        - Chemins $:$ SSE, SES, ESS, soit $3$ chemins.
+        - Chacun a la probabilité $0{,}6^2 \times 0{,}4 = 0{,}144$.
+        resultat: $3 \times 0{,}144 = 0{,}432$
+    erreurs_frequentes:
+    - erreur: Oublier de compter tous les ordres possibles des succès.
+      explication: « Deux succès sur trois » correspond à trois chemins (SSE, SES, ESS), pas à un seul.
+    resume: |
+      - **Épreuve de Bernoulli** : deux issues, succès $S$ (probabilité $p$) et échec $\bar S$ (probabilité $1 - p$).
+      - Répéter $n$ fois ($n \leqslant 4$) une même épreuve de Bernoulli de façon **indépendante** : arbre à $2^n$ chemins.
+      - Probabilité d'un chemin : produit des probabilités ; un chemin à $k$ succès a pour probabilité $p^k(1 - p)^{n - k}$.
+      - $P(\text{au moins un succès}) = 1 - (1 - p)^n$.
+    cours: |
+      ## 1. Épreuve de Bernoulli
+
+      > **Définition.** Une **épreuve de Bernoulli** est une expérience aléatoire à deux issues : le **succès** $S$, de probabilité $p$, et l'**échec** $\bar S$, de probabilité $1 - p$. Le réel $p$ est le **paramètre** de l'épreuve.
+
+      *Exemples.* Lancer un dé et noter si l'on obtient $6$ ($p = \dfrac{1}{6}$) ; tirer un article et regarder s'il est défectueux ($p = 0{,}03$).
+
+      ## 2. Répétition d'épreuves indépendantes et identiques
+
+      On répète $n$ fois **la même** épreuve de Bernoulli, les répétitions étant **indépendantes** (le résultat d'une épreuve n'influence pas les autres : tirages avec remise, lancers successifs…).
+
+      > **Propriété.** On représente la situation par un arbre à $n$ niveaux. Sur chaque nœud, les branches portent $p$ (vers $S$) et $1 - p$ (vers $\bar S$).
+      > - La probabilité d'une issue (un chemin) est le **produit** des probabilités rencontrées.
+      > - Un chemin comportant $k$ succès et $n - k$ échecs a pour probabilité $p^k(1 - p)^{n - k}$.
+      > - La probabilité d'un évènement est la **somme** des probabilités des chemins qui le réalisent.
+
+      ### Construire l'arbre
+
+      1. Depuis la racine, tracer deux branches : $S$ avec la probabilité $p$, $\bar S$ avec la probabilité $1 - p$.
+      2. Depuis **chaque** nœud obtenu, recommencer à l'identique : les épreuves étant identiques et indépendantes, on retrouve $p$ et $1 - p$ sur toutes les branches de tous les niveaux.
+      3. Répéter jusqu'au niveau $n$ : l'arbre a alors $2^n$ chemins ($8$ pour $n = 3$).
+      4. Au bout de chaque chemin, écrire la suite des résultats et sa probabilité (produit des branches).
+
+      *Arbre pour trois tirs, avec $p = 0{,}7$ (situation de l'exemple ci-dessous) :*
+
+      <svg viewBox="0 0 660 282" width="660" role="img" aria-label="Arbre de trois tirs indépendants, succès de probabilité 0,7" style="max-width:100%;height:auto" font-family="inherit" font-size="16" fill="currentColor">
+      <line x1="30" y1="139" x2="130" y2="71" stroke="currentColor" stroke-width="1.5"/>
+      <text x="74" y="99" font-size="14" font-weight="bold">0,7</text>
+      <text x="136" y="76">S</text>
+      <line x1="30" y1="139" x2="130" y2="207" stroke="currentColor" stroke-width="1.5"/>
+      <text x="74" y="190" font-size="14" font-weight="bold">0,3</text>
+      <text x="136" y="212">S̄</text>
+      <line x1="158" y1="71" x2="250" y2="37" stroke="currentColor" stroke-width="1.5"/>
+      <text x="194" y="48" font-size="14" font-weight="bold">0,7</text>
+      <text x="256" y="42">S</text>
+      <line x1="158" y1="71" x2="250" y2="105" stroke="currentColor" stroke-width="1.5"/>
+      <text x="194" y="105" font-size="14" font-weight="bold">0,3</text>
+      <text x="256" y="110">S̄</text>
+      <line x1="158" y1="207" x2="250" y2="173" stroke="currentColor" stroke-width="1.5"/>
+      <text x="194" y="184" font-size="14" font-weight="bold">0,7</text>
+      <text x="256" y="178">S</text>
+      <line x1="158" y1="207" x2="250" y2="241" stroke="currentColor" stroke-width="1.5"/>
+      <text x="194" y="241" font-size="14" font-weight="bold">0,3</text>
+      <text x="256" y="246">S̄</text>
+      <line x1="278" y1="37" x2="370" y2="20" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="22" font-size="14" font-weight="bold">0,7</text>
+      <text x="376" y="25">S</text>
+      <line x1="278" y1="37" x2="370" y2="54" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="62" font-size="14" font-weight="bold">0,3</text>
+      <text x="376" y="59">S̄</text>
+      <line x1="278" y1="105" x2="370" y2="88" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="90" font-size="14" font-weight="bold">0,7</text>
+      <text x="376" y="93">S</text>
+      <line x1="278" y1="105" x2="370" y2="122" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="130" font-size="14" font-weight="bold">0,3</text>
+      <text x="376" y="127">S̄</text>
+      <line x1="278" y1="173" x2="370" y2="156" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="158" font-size="14" font-weight="bold">0,7</text>
+      <text x="376" y="161">S</text>
+      <line x1="278" y1="173" x2="370" y2="190" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="198" font-size="14" font-weight="bold">0,3</text>
+      <text x="376" y="195">S̄</text>
+      <line x1="278" y1="241" x2="370" y2="224" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="226" font-size="14" font-weight="bold">0,7</text>
+      <text x="376" y="229">S</text>
+      <line x1="278" y1="241" x2="370" y2="258" stroke="currentColor" stroke-width="1.5"/>
+      <text x="314" y="266" font-size="14" font-weight="bold">0,3</text>
+      <text x="376" y="263">S̄</text>
+      <text x="424" y="25" font-style="italic">S S S : 0,7 × 0,7 × 0,7 = 0,343</text>
+      <text x="424" y="59" font-style="italic">S S S̄ : 0,7 × 0,7 × 0,3 = 0,147</text>
+      <text x="424" y="93" font-style="italic">S S̄ S : 0,7 × 0,3 × 0,7 = 0,147</text>
+      <text x="424" y="127" font-style="italic">S S̄ S̄ : 0,7 × 0,3 × 0,3 = 0,063</text>
+      <text x="424" y="161" font-style="italic">S̄ S S : 0,3 × 0,7 × 0,7 = 0,147</text>
+      <text x="424" y="195" font-style="italic">S̄ S S̄ : 0,3 × 0,7 × 0,3 = 0,063</text>
+      <text x="424" y="229" font-style="italic">S̄ S̄ S : 0,3 × 0,3 × 0,7 = 0,063</text>
+      <text x="424" y="263" font-style="italic">S̄ S̄ S̄ : 0,3 × 0,3 × 0,3 = 0,027</text>
+      </svg>
+
+      On lit directement sur l'arbre que les trois chemins à deux succès ($SS\bar S$, $S\bar SS$, $\bar SSS$) ont la même probabilité $0{,}147$.
+
+      ## 3. Méthode : calculer une probabilité
+
+      1. Identifier l'épreuve, le succès, $p$ et le nombre $n$ de répétitions ; justifier l'indépendance.
+      2. Dessiner l'arbre (au plus $16$ chemins pour $n = 4$).
+      3. Repérer les chemins qui réalisent l'évènement et les compter.
+      4. Additionner leurs probabilités (tous les chemins à $k$ succès ont la même probabilité).
+      5. Penser à l'évènement contraire pour « au moins un ».
+
+      ## 4. Exemple complet
+
+      Un tireur atteint sa cible avec la probabilité $0{,}7$. Il tire $3$ fois, de façon indépendante.
+      - *Trois succès :* $P(SSS) = 0{,}7^3 = 0{,}343$.
+      - *Exactement deux succès :* trois chemins $SS\bar S$, $S\bar SS$, $\bar SSS$, chacun de probabilité $0{,}7^2 \times 0{,}3 = 0{,}147$. Total : $3 \times 0{,}147 = 0{,}441$.
+      - *Au moins un succès :* contraire de « trois échecs » : $1 - 0{,}3^3 = 1 - 0{,}027 = 0{,}973$.
+      Contrôle : $P(0) + P(1) + P(2) + P(3) = 0{,}027 + 0{,}189 + 0{,}441 + 0{,}343 = 1$.
+
+      ## 5. Nombre de chemins
+
+      Pour $n = 4$, le nombre de chemins avec $k$ succès est : $1$ ($k = 0$), $4$ ($k = 1$), $6$ ($k = 2$), $4$ ($k = 3$), $1$ ($k = 4$) ; au total $16 = 2^4$. On les retrouve en dénombrant les places possibles des succès.
+
+      ## 6. Erreurs fréquentes
+
+      - Oublier de multiplier par le nombre de chemins (« exactement deux succès » n'est pas un seul chemin).
+      - Appliquer ce modèle à des tirages **sans remise** : les épreuves ne sont alors ni identiques ni indépendantes.
+      - Calculer « au moins un » en additionnant beaucoup de chemins au lieu d'utiliser l'évènement contraire.
+    questions:
+      - code: 1RE-BERNOULLI-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On lance trois fois une pièce équilibrée. Combien l''arbre de probabilités a-t-il de chemins ?'
+        solution: 8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Deux issues à chaque lancer $:$ $2^3 = 8$ chemins.
+          resultat: 8
+      - code: 1RE-BERNOULLI-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un tireur réussit chaque tir avec la probabilité $0{,}6$, de façon indépendante. Quelle est la probabilité qu''il réussisse ses trois tirs ?'
+        solution: 0.216
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $0{,}6^3 = 0{,}216$.
+          resultat: 0.216
+      - code: 1RE-BERNOULLI-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Avec le même tireur, quelle est la probabilité qu''il réussisse exactement deux tirs sur trois ?'
+        solution: 0.432
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Trois chemins (SSE, SES, ESS), chacun de probabilité $0{,}6^2 \times 0{,}4 = 0{,}144$.
+          - $3 \times 0{,}144 = 0{,}432$.
+          resultat: 0.432
+      - code: 1RE-BERNOULLI-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un dé équilibré est lancé quatre fois. Quelle est la probabilité d''obtenir au moins un six ? (Réponse sous forme de fraction.)'
+        solution: 671/1296
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Contraire $:$ aucun six, de probabilité $\left(\dfrac{5}{6}\right)^4 = \dfrac{625}{1\,296}$.
+          - $1 - \dfrac{625}{1\,296} = \dfrac{671}{1\,296}$.
+          resultat: 671/1296
+      - code: 1RE-BERNOULLI-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On lance quatre fois une pièce équilibrée. Quelle est la probabilité d''obtenir exactement deux piles ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Chemins à deux piles $:$ PPFF, PFPF, PFFP, FPPF, FPFP, FFPP, soit $6$ chemins.
+          - Chacun a la probabilité $\left(\dfrac{1}{2}\right)^4 = \dfrac{1}{16}$.
+          - $\dfrac{6}{16} = \dfrac{3}{8}$.
+          resultat: 3/8
+      - code: 1RE-BERNOULLI-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {p: {entre: [0.1, 0.9], pas: 0.1}, n: {entre: [2, 4]}}
+          calculs: {q: "1 - (1 - p)**n"}
+        enonce: 'On répète $[[n]]$ fois, de façon indépendante, une épreuve de succès de probabilité $[[p]]$. Quelle est la probabilité d''obtenir au moins un succès ?'
+        solution: '[[q]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Passer par le contraire : aucun succès.'
+          etapes:
+          - 'Aucun succès : $[[1 - p]]^{[[n]]} = [[(1 - p)**n]]$.'
+          - 'Au moins un succès : $1 - [[(1 - p)**n]] = [[q]]$.'
+          resultat: '[[q]]'

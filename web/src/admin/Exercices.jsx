@@ -13,9 +13,11 @@ const STATUTS = {
 };
 
 const VIDE = {
-  competence_id: "", enonce: "", type: "numerique", solution: "", difficulte: 2,
+  competence_id: "", enonce: "", type: "numerique", solution: "", difficulte: 2, forme: "",
   source: "PKP Math", source_url: "", licence_source: "", adaptation: "originale", auteur: "",
 };
+
+const FORMES = { "": "Seule la valeur compte", developpee: "Développée", reduite: "Développée et réduite", factorisee: "Factorisée" };
 
 /** Banque d'exercices : filtres, édition testée par le moteur, validation, archivage (EA3.15 à EA3.19). */
 export default function Exercices({ jeton, onExpire }) {
@@ -228,6 +230,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
     competence_id: String(initiale.competence_id || competences[0]?.id || ""),
   }));
   const [essai, setEssai] = useState("");
+  const formeExigee = v.type === "expression" && v.forme ? v.forme : null;
   const [resultatEssai, setResultatEssai] = useState(null);
   const [erreur, setErreur] = useState(null);
   const repondue = initiale.nb_reponses > 0;
@@ -238,7 +241,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
     setResultatEssai(null);
     try {
       setResultatEssai(
-        await appeler("/admin/questions/tester", { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || v.solution } }),
+        await appeler("/admin/questions/tester", { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || v.solution, forme: formeExigee } }),
       );
     } catch (err) {
       setErreur(err.message);
@@ -250,7 +253,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
     setErreur(null);
     const corps = {
       competence_id: Number(v.competence_id), enonce: v.enonce, type: v.type, solution: v.solution,
-      difficulte: Number(v.difficulte), source: v.source || "PKP Math", source_url: v.source_url || null,
+      difficulte: Number(v.difficulte), forme: formeExigee, source: v.source || "PKP Math", source_url: v.source_url || null,
       licence_source: v.licence_source || null, adaptation: v.adaptation, auteur: v.auteur || null,
     };
     try {
@@ -266,7 +269,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
       <form onSubmit={soumettre}>
         {repondue && (
           <p className="avertissement">
-            Déjà {initiale.nb_reponses} réponse(s) : l'énoncé, le type, la solution et la compétence ne changent plus. Pour les
+            Déjà {initiale.nb_reponses} réponse(s) : l'énoncé, le type, la solution, la forme exigée et la compétence ne changent plus. Pour les
             modifier, archivez cette question et créez-en une nouvelle.
           </p>
         )}
@@ -312,6 +315,19 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
             <input id="q-difficulte" type="number" min={1} max={5} required {...champ("difficulte")} />
           </div>
         </div>
+        {v.type === "expression" && (
+          <>
+            <label htmlFor="q-forme">Forme exigée</label>
+            <select id="q-forme" disabled={repondue} {...champ("forme")}>
+              {Object.entries(FORMES).map(([k, l]) => (
+                <option key={k} value={k}>
+                  {l}
+                </option>
+              ))}
+            </select>
+            <p className="aide">« Développer », « Factoriser », « équation réduite » : recopier l'énoncé ne suffit pas.</p>
+          </>
+        )}
 
         <fieldset className="choix-chapitres">
           <legend>Tester ma réponse</legend>
@@ -327,10 +343,12 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
           {resultatEssai && (
             <p className={resultatEssai.solution_lisible && resultatEssai.correcte ? "succes" : "erreur"} role="status">
               {!resultatEssai.solution_lisible
-                ? "La solution est illisible par le moteur : aucun élève ne pourrait réussir."
+                ? "La solution est illisible par le moteur, ou pas sous la forme exigée : aucun élève ne pourrait réussir."
                 : resultatEssai.correcte
                   ? "Réponse acceptée par le moteur."
-                  : "Réponse refusée par le moteur."}
+                  : resultatEssai.forme_non_respectee
+                    ? "Bonne valeur, mais pas sous la forme exigée : réponse refusée."
+                    : "Réponse refusée par le moteur."}
             </p>
           )}
         </fieldset>

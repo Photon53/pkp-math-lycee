@@ -1,8 +1,9 @@
 """Chapitres proposés par l'enseignant à sa classe, choisis par l'élève pour sa séance."""
 
-from tests.conftest import connecter_eleve, connecter_enseignant
+from tests.conftest import connecter_eleve, connecter_enseignant, nb_chapitres_de
 
-CLASSE = "1RE-B-DEMO"  # 1re spécialité : 10 chapitres, du second degré aux variables aléatoires
+CLASSE = "1RE-B-DEMO"  # 1re spécialité : du second degré aux automatismes et à l'algorithmique
+NB_CHAPITRES = nb_chapitres_de("1re", "specialite")
 
 
 def _classe_id(client, h, code=CLASSE):
@@ -18,7 +19,7 @@ class TestCoteEnseignant:
         h = connecter_enseignant(client)
         programme = _programme(client, h, _classe_id(client, h))
         assert [c["code"] for c in programme][:2] == ["1RE-SECOND-DEGRE", "1RE-SUITES"]
-        assert [c["ordre"] for c in programme] == list(range(1, 11))
+        assert [c["ordre"] for c in programme] == list(range(1, NB_CHAPITRES + 1))
         assert all(c["propose"] for c in programme)
         assert all(c["nb_questions"] > 0 and c["nb_competences"] > 0 for c in programme)
 
@@ -63,7 +64,7 @@ class TestCoteEleve:
     def test_voit_les_chapitres_ouverts(self, client):
         h = connecter_eleve(client, "Hugo", CLASSE)
         chapitres = client.get("/eleves/moi/chapitres", headers=h).json()
-        assert len(chapitres) == 10 and chapitres[0]["code"] == "1RE-SECOND-DEGRE"
+        assert len(chapitres) == NB_CHAPITRES and chapitres[0]["code"] == "1RE-SECOND-DEGRE"
         assert all(c["nb_questions"] > 0 for c in chapitres)
 
     def test_chapitre_ferme_disparait_du_cours_et_de_la_progression(self, client):
@@ -92,7 +93,7 @@ class TestCoteEleve:
     def test_sans_choix_tous_les_chapitres_ouverts(self, client):
         h = connecter_eleve(client, "Hugo", CLASSE)
         r = client.post("/seances", headers=h)
-        assert len(r.json()["chapitres"]) == 10
+        assert len(r.json()["chapitres"]) == NB_CHAPITRES
 
     def test_chapitre_non_propose_refuse(self, client):
         h = connecter_eleve(client, "Hugo", CLASSE)

@@ -1,0 +1,98 @@
+{
+  "code": "3E-01",
+  "level": "3e",
+  "school_year": "2026-2027",
+  "title": "Presenting a project",
+  "objective": "Présenter un projet concret, justifier des choix et répondre à des questions",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "fiches imprimées",
+    "chronomètre"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up",
+      "duration_minutes": 10,
+      "student_instruction": "Think of one project that could improve your school. Share one idea.",
+      "facilitator_instruction": "Proposer des exemples neutres: reading club, school garden, recycling campaign."
+    },
+    {
+      "order": 2,
+      "title": "Reading a model pitch",
+      "duration_minutes": 15,
+      "student_instruction": "Read the short pitch. Underline the aim, two actions and the expected result.",
+      "facilitator_instruction": "Texte modèle du cahier (projet de jardin scolaire). Avant la lecture, montrer la vidéo British Council « Turning plastic waste into art » (QR code du cahier) comme exemple de projet réel ; sans réseau, lire le script de secours du guide. Faire repérer l'objectif, deux actions et le bénéfice."
+    },
+    {
+      "order": 3,
+      "title": "Language toolkit",
+      "duration_minutes": 15,
+      "student_instruction": "Match: Our aim is / First / We could / Because / Finally to their functions.",
+      "facilitator_instruction": "Repérer objectif, organisation, proposition, justification et conclusion; pratiquer will / could / should en contexte."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated planning",
+      "duration_minutes": 25,
+      "student_instruction": "Prepare your A, B or C project sheet. Use the planning grid.",
+      "facilitator_instruction": "A: phrases à compléter; B: projet en 5 points; C: contraintes et objections à anticiper."
+    },
+    {
+      "order": 5,
+      "title": "Pitch and questions",
+      "duration_minutes": 20,
+      "student_instruction": "Present your project to a small group. Ask and answer at least one question.",
+      "facilitator_instruction": "Groupes de 3; tours de parole; évaluer structure, clarté et interaction, sans surcorriger."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one improvement you would make to your project pitch.",
+      "facilitator_instruction": "Recueillir les pistes d'amélioration."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete: Our project is ___. We want to ___. First, we will ___. Then, we will ___. It will help because ___.",
+      "facilitator_correction": "Réponses libres; vérifier présence d'un objectif, de deux actions et d'une justification compréhensible."
+    },
+    {
+      "track": "B",
+      "student_content": "Create a 60–90 second pitch with: aim, audience, two actions, benefit and conclusion. Prepare two questions.",
+      "facilitator_correction": "Exemple: Our project is a school garden. We want to make our school greener. First, we will choose a place. Then, we will plant flowers. It could help students learn about nature. Thank you for listening."
+    },
+    {
+      "track": "C",
+      "student_content": "Prepare a 90-second pitch. Add two possible difficulties, a solution for each and one answer to a critical question.",
+      "facilitator_correction": "Réponse ouverte; critères: faisabilité, justifications, structure, interaction et solutions adaptées."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève présente un objectif et deux actions",
+      "L'élève justifie au moins un choix",
+      "L'élève répond à une question"
+    ]
+  },
+  "common_errors": [
+    "Liste d'idées sans plan",
+    "Confusion will/could",
+    "Justification absente"
+  ],
+  "source_objectives": [
+    "3E-01"
+  ],
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

@@ -26,20 +26,59 @@ competences:
     - erreur: Oublier le côté (0⁺ ou 0⁻) pour une limite de 1/x en 0.
       explication: En 0⁺, 1/x tend vers +∞ ; en 0⁻, vers −∞.
     resume: |
-      - Formes indéterminées : $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
+      - Limites usuelles en $+\infty$ : $x^n \to +\infty$, $\sqrt{x} \to +\infty$, $\dfrac{1}{x^n} \to 0$, $e^x \to +\infty$, $\ln x \to +\infty$ ; en $-\infty$ : $e^x \to 0$.
+      - Opérations : somme, produit, quotient suivent les tableaux du cours ; **4 formes indéterminées** : $\infty - \infty$, $0 \times \infty$, $\dfrac{\infty}{\infty}$, $\dfrac{0}{0}$.
       - En $\pm\infty$, un polynôme ou un quotient de polynômes : on **factorise par le terme de plus haut degré**.
       - Pour $\sqrt{\dots} - \dots$, on multiplie par l'**expression conjuguée**.
       - $\lim\limits_{x \to 0^+} \dfrac{1}{x} = +\infty$ et $\lim\limits_{x \to 0^-} \dfrac{1}{x} = -\infty$.
     cours: |
-      ## Quotient de polynômes
+      ## 1. Limites des fonctions de référence
+
+      | $f(x)$ | en $+\infty$ | en $-\infty$ | en $0$ |
+      |---|:-:|:-:|:-:|
+      | $x^n$ ($n \geqslant 1$) | $+\infty$ | $+\infty$ si $n$ pair, $-\infty$ si $n$ impair | $0$ |
+      | $\dfrac{1}{x^n}$ ($n \geqslant 1$) | $0$ | $0$ | $0^+$ : $+\infty$ ; $0^-$ : $+\infty$ si $n$ pair, $-\infty$ si $n$ impair |
+      | $\sqrt{x}$ | $+\infty$ | — | $0$ |
+      | $e^x$ | $+\infty$ | $0$ | $1$ |
+      | $\ln x$ | $+\infty$ | — | $0^+$ : $-\infty$ |
+
+      ## 2. Opérations sur les limites
+
+      Dans les tableaux, $\ell$ et $\ell'$ sont des réels ; « FI » signale une **forme indéterminée** : on ne peut pas conclure directement, il faut transformer l'écriture.
+
+      **Somme** $f + g$ :
+
+      | $\lim f$ \ $\lim g$ | $\ell'$ | $+\infty$ | $-\infty$ |
+      |:-:|:-:|:-:|:-:|
+      | $\ell$ | $\ell + \ell'$ | $+\infty$ | $-\infty$ |
+      | $+\infty$ | $+\infty$ | $+\infty$ | **FI** |
+      | $-\infty$ | $-\infty$ | **FI** | $-\infty$ |
+
+      **Produit** $f \times g$ : $\ell \times \ell'$ si les deux limites sont finies ; si l'une est infinie et l'autre non nulle, le produit est infini avec la **règle des signes** ; $0 \times \infty$ est une **FI**.
+
+      **Quotient** $\dfrac{f}{g}$ :
+      - $\dfrac{\ell}{\ell'}$ si $\ell' \neq 0$ ;
+      - $\dfrac{\ell}{\pm\infty} = 0$ ;
+      - $\dfrac{\pm\infty}{\ell'}$ est infini (règle des signes) si $\ell' \neq 0$ ;
+      - $\dfrac{\ell}{0}$ avec $\ell \neq 0$ : infini, le signe dépend du signe de $\ell$ et de celui du dénominateur au voisinage ($0^+$ ou $0^-$) ;
+      - $\dfrac{\infty}{\infty}$ et $\dfrac{0}{0}$ sont des **FI**.
+
+      ## 3. Lever une indétermination
+
+      **Polynômes et quotients de polynômes en $\pm\infty$** : on factorise par le terme de plus haut degré.
       $$\frac{3x^2 + 1}{x^2 - 2} = \frac{x^2\left(3 + \frac{1}{x^2}\right)}{x^2\left(1 - \frac{2}{x^2}\right)} \xrightarrow[x \to +\infty]{} 3$$
-      De même $\dfrac{2x + 1}{x^2 + 1} \to 0$ (degré du numérateur plus petit).
+      Règle pratique : en $\pm\infty$, un quotient de polynômes a la même limite que le quotient de ses termes de plus haut degré ; ainsi $\dfrac{2x + 1}{x^2 + 1} \to 0$.
 
-      ## Expression conjuguée
-      $$\sqrt{x^2 + x} - x = \frac{x}{\sqrt{x^2 + x} + x} = \frac{1}{\sqrt{1 + \frac{1}{x}} + 1} \xrightarrow[x \to +\infty]{} \frac{1}{2}$$
+      **Racines : expression conjuguée.**
+      $$\sqrt{x^2 + x} - x = \frac{(\sqrt{x^2 + x} - x)(\sqrt{x^2 + x} + x)}{\sqrt{x^2 + x} + x} = \frac{x}{\sqrt{x^2 + x} + x} = \frac{1}{\sqrt{1 + \frac{1}{x}} + 1} \xrightarrow[x \to +\infty]{} \frac{1}{2}$$
 
-      ## Erreur fréquente
-      Conclure « $\infty - \infty = 0$ » : c'est une forme indéterminée, il faut transformer l'écriture.
+      **Limite en un réel où le dénominateur s'annule** : on étudie le signe du dénominateur de chaque côté. Par exemple $\lim\limits_{x \to 2^+} \dfrac{1}{x - 2} = +\infty$ et $\lim\limits_{x \to 2^-} \dfrac{1}{x - 2} = -\infty$.
+
+      ## 4. Croissances comparées (rappel)
+      $\lim\limits_{x \to +\infty} \dfrac{e^x}{x^n} = +\infty$, $\lim\limits_{x \to -\infty} x^n e^x = 0$, $\lim\limits_{x \to +\infty} \dfrac{\ln x}{x} = 0$, $\lim\limits_{x \to 0^+} x \ln x = 0$ : l'exponentielle « l'emporte » sur les puissances, qui l'emportent sur le logarithme.
+
+      ## 5. Erreur fréquente
+      Conclure « $\infty - \infty = 0$ » ou « $\dfrac{\infty}{\infty} = 1$ » : ce sont des formes indéterminées, il faut transformer l'écriture.
     questions:
       - code: TLE-LIMF-OP-01
         difficulte: 1

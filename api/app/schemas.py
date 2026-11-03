@@ -57,9 +57,18 @@ class ConnexionEleve(BaseModel):
         return v.strip().upper()
 
 
+class ConnexionIdentifiant(BaseModel):
+    """Connexion simplifiée : identifiant + code personnel, sans prénom ni code classe."""
+
+    identifiant: Annotated[str, Field(min_length=3, max_length=40)]
+    code_personnel: Annotated[str, Field(min_length=1, max_length=20)]
+    rester_connecte: bool = False  # appareil personnel : session de plusieurs semaines
+
+
 class EleveInfo(BaseModel):
     id: int
     prenom: str
+    identifiant: str | None = None
     code_classe: str
     niveau: Niveau
     parcours: Parcours
@@ -161,6 +170,14 @@ class QuestionPublique(_Modele):
     enonce: str
     type: TypeQuestion
     difficulte: int
+    # Valeurs variables : chaque service tire de nouveaux nombres ; « refaire » propose une variante.
+    variable: bool = False
+    # Question pas encore validée par un enseignant : l'élève est prévenu qu'elle peut contenir une erreur.
+    en_relecture: bool = False
+
+
+class DemandeVariante(BaseModel):
+    question_id: int
 
 
 class CompetenceCours(BaseModel):
@@ -266,9 +283,14 @@ class ResultatReponse(BaseModel):
     correction: dict | None = None
     # Partie du cours à revoir : toujours fournie, pour les questions qui n'ont pas encore de correction détaillée.
     competence: str | None = None
+    competence_id: int | None = None
+    # Titres des méthodes de la leçon, dans l'ordre : la correction renvoie l'élève vers la bonne fiche.
+    methodes: list[str] = []
     rappel: str | None = None  # résumé « L'essentiel » de la leçon
     maitrise: float = Field(description="Maîtrise de la compétence après cette réponse, entre 0 et 1.")
     maitrisee: bool
+    # Réponse juste en valeur mais pas sous la forme demandée (« Développer », « Factoriser »…).
+    remarque: str | None = None
 
 
 class ReponseHistorique(BaseModel):
@@ -340,6 +362,11 @@ class JetonEnseignant(BaseModel):
     role: Role = Role.ENSEIGNANT
     # Vrai : l'interface demande un nouveau mot de passe avant tout le reste.
     mdp_provisoire: bool = False
+    # Espaces ouverts au compte ; l'API les revérifie à chaque requête.
+    enseigne_maths: bool = True
+    enseigne_anglais: bool = False
+    # Référent : ouvre la page de validation des séances PKP Anglais.
+    referent_anglais: bool = False
 
 
 class ChangementMotDePasse(BaseModel):
@@ -390,6 +417,7 @@ class ClasseResume(BaseModel):
 class EleveResume(BaseModel):
     id: int
     prenom: str
+    identifiant: str | None = None
     a_un_code: bool
     nb_reponses: int
     taux_reussite: float | None
@@ -418,6 +446,7 @@ class CodeEleve(BaseModel):
     id: int
     prenom: str
     code: str
+    identifiant: str | None = None
 
 
 class ResultatCreationEleves(BaseModel):

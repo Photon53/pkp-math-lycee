@@ -7,24 +7,13 @@ chapitre:
 competences:
 - code: 1RE-TEC-DERIV
   libelle: Calculer un nombre dérivé, une dérivée et une tangente
+  attendus: [1RE-TEC-2026-DER-01, 1RE-TEC-2026-DER-02, 1RE-TEC-2026-DER-03, 1RE-TEC-2026-DER-04, 1RE-TEC-2026-DER-05, 1RE-TEC-2026-DER-06, 1RE-TEC-2026-DER-08, 1RE-TEC-2026-DER-09, 1RE-TEC-2026-DER-10, 1RE-TEC-2026-DER-11]
+  cours_couvre: [1RE-TEC-2026-DER-01, 1RE-TEC-2026-DER-02, 1RE-TEC-2026-DER-03, 1RE-TEC-2026-DER-04, 1RE-TEC-2026-DER-05, 1RE-TEC-2026-DER-06, 1RE-TEC-2026-DER-08, 1RE-TEC-2026-DER-09, 1RE-TEC-2026-DER-10, 1RE-TEC-2026-DER-11]
   objectifs:
   - Calculer la dérivée d'un polynôme de degré au plus 3.
   - Écrire l'équation d'une tangente.
   prerequis:
   - 1RE-TEC-POLY2
-  resume: |
-    - Le nombre dérivé $f'(a)$ est la limite du taux de variation entre $a$ et $a + h$ : c'est la pente de la tangente.
-    - $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(kf)' = kf'$, $(f + g)' = f' + g'$.
-    - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
-  cours: |
-    ## Du taux de variation au nombre dérivé
-    Pour $f(x) = x^2$ en $2$ : $\dfrac{(2 + h)^2 - 4}{h} = 4 + h$, qui tend vers $4$ : $f'(2) = 4$.
-
-    ## Dérivées
-    $f(x) = 2x^3 - 5x^2 + x - 7$ donne $f'(x) = 6x^2 - 10x + 1$.
-
-    ## Tangente
-    $f(x) = x^3$ en $1$ : $f(1) = 1$, $f'(1) = 3$, donc $y = 3(x - 1) + 1 = 3x - 2$.
   methodes:
   - titre: Écrire l'équation d'une tangente
     etapes:
@@ -38,6 +27,58 @@ competences:
   erreurs_frequentes:
   - erreur: Dériver une constante en elle-même.
     explication: La dérivée d'une constante est 0.
+  resume: |
+    - Le **nombre dérivé** $f'(a)$ est la limite du taux de variation entre $a$ et $a + h$ quand $h$ tend vers $0$ : c'est la **pente de la tangente** en $a$.
+    - $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(x)' = 1$, $(k)' = 0$ ; $(f + g)' = f' + g'$ et $(kf)' = kf'$.
+    - Polynôme de degré au plus 3 : on dérive terme à terme, par exemple $(2x^3 - 5x^2 + x - 7)' = 6x^2 - 10x + 1$.
+    - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
+  cours: |
+    ## 1. Sécantes et taux de variation en un point
+
+    Soit $f$ une fonction et $A(a ; f(a))$ un point de sa courbe. Pour $h \neq 0$, la **sécante** passant par $A$ et $M(a + h ; f(a + h))$ a pour pente le **taux de variation**
+    $$\frac{f(a + h) - f(a)}{h}.$$
+
+    ## 2. Nombre dérivé et tangente
+
+    > **Définition.** Quand $h$ se rapproche de $0$, le point $M$ se rapproche de $A$ ; si le taux de variation se rapproche d'un nombre, ce nombre est le **nombre dérivé** de $f$ en $a$, noté $f'(a)$. La **tangente** en $A$ est la position limite des sécantes $(AM)$ : c'est la droite passant par $A$ de coefficient directeur $f'(a)$.
+
+    *Exemple.* $f(x) = x^2$ en $a = 2$ : $\dfrac{(2 + h)^2 - 4}{h} = \dfrac{4h + h^2}{h} = 4 + h$, qui se rapproche de $4$. Donc $f'(2) = 4$.
+
+    **Interprétation.** $f'(a)$ est le coefficient directeur de la tangente : $f'(a) > 0$, la courbe monte en $A$ ; $f'(a) < 0$, elle descend ; $f'(a) = 0$, tangente horizontale.
+
+    **Construire la tangente.** Depuis $A$, avancer de $1$ unité horizontalement et monter de $f'(a)$ (descendre si $f'(a)$ est négatif) : on obtient un second point de la tangente.
+
+    ## 3. Équation réduite de la tangente
+
+    > **Propriété.** La tangente à la courbe de $f$ au point d'abscisse $a$ a pour équation $$y = f'(a)(x - a) + f(a).$$
+
+    ## 4. Fonction dérivée
+
+    > **Propriété.** La fonction dérivée $f'$ associe à chaque $x$ le nombre dérivé $f'(x)$.
+    >
+    > | $f(x)$ | $k$ | $x$ | $x^2$ | $x^3$ |
+    > |---|---|---|---|---|
+    > | $f'(x)$ | $0$ | $1$ | $2x$ | $3x^2$ |
+    >
+    > Pour deux fonctions $u$, $v$ et un réel $k$ : $(u + v)' = u' + v'$ et $(ku)' = ku'$.
+
+    **Conséquence.** Pour un polynôme de degré au plus 3 : $(ax^3 + bx^2 + cx + d)' = 3ax^2 + 2bx + c$.
+
+    ## 5. Exemple complet
+
+    $f(x) = x^3 - 3x^2 + 2$. Équation de la tangente au point d'abscisse $1$.
+    - $f'(x) = 3x^2 - 6x$.
+    - $f(1) = 1 - 3 + 2 = 0$ et $f'(1) = 3 - 6 = -3$.
+    - $y = -3(x - 1) + 0$, soit $y = -3x + 3$.
+    - Interprétation : la courbe descend au point d'abscisse $1$, avec une pente de $-3$.
+
+    *Autre exemple.* $g(x) = -0{,}5x^2 + 4x$ : $g'(x) = -x + 4$, nul en $x = 4$ : la tangente au point d'abscisse $4$ est horizontale.
+
+    ## 6. Erreurs fréquentes
+
+    - Dériver $x^3$ en $3x$ : c'est $3x^2$.
+    - Oublier que la dérivée d'une constante est nulle : $(x^2 + 5)' = 2x$.
+    - Écrire la tangente $y = f'(a)x + f(a)$ en oubliant le décalage $(x - a)$.
   questions:
   - code: 1RE-TEC-DERIV-01
     difficulte: 1
@@ -67,7 +108,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $f'(x) = 2x$, donc $f'(3) = 6$.
+      - 'La dérivée de $x \mapsto x^2$ est $x \mapsto 2x$.'
+      - '$f''(3) = 2 \times 3$.'
+      - '$f''(3) = 6$ : c''est la pente de la tangente au point d''abscisse $3$.'
       resultat: '6'
   - code: 1RE-TEC-DERIV-04
     difficulte: 4
@@ -77,7 +120,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$f(1) = 1$ et $f''(1) = 3$ : $y = 3(x - 1) + 1 = 3x - 2$.'
+      - '$f(1) = 1^3 = 1$ ; $f''(x) = 3x^2$ donc $f''(1) = 3$.'
+      - 'Tangente en $a = 1$ : $y = f''(1)(x - 1) + f(1) = 3(x - 1) + 1$.'
+      - '$y = 3x - 2$ : $m = 3$ et $p = -2$.'
       resultat: '-2'
   - code: 1RE-TEC-DERIV-05
     difficulte: 5
@@ -90,23 +135,88 @@ competences:
       - $\dfrac{2{,}01^2 - 4}{0{,}01} = \dfrac{0{,}0401}{0{,}01} = 4{,}01$.
       - On retrouve presque $f'(2) = 4$.
       resultat: '4.01'
+  - code: 1RE-TEC-DERIV-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-2, 3], sauf: [0]}, b: {entre: [-5, 5]}, c: {entre: [-6, 6]}, t: {entre: [-3, 3]}}
+      calculs: {d: "3*a*t*t + 2*b*t + c"}
+    enonce: 'Soit $f(x) = [[a:coef]]x^3 [[b:+]]x^2 [[c:+]]x$. Calculer le nombre dérivé $f''([[t]])$.'
+    solution: '[[d]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Dériver le polynôme, puis remplacer $x$.'
+      etapes:
+      - '$f''(x) = [[3*a]]x^2 [[2*b:+]]x [[c:+]]$.'
+      - '$f''([[t]]) = [[3*a*t*t]] [[2*b*t:+]] [[c:+]] = [[d]]$.'
+      resultat: '[[d]]'
 - code: 1RE-TEC-VARIA
   libelle: Étudier les variations et les extremums avec la dérivée
+  attendus: [1RE-TEC-2026-DER-07, 1RE-TEC-2026-DER-12]
+  cours_couvre: [1RE-TEC-2026-DER-07, 1RE-TEC-2026-DER-12]
   objectifs:
   - Déduire les variations du signe de la dérivée.
   - Trouver un extremum dans un problème.
   prerequis:
   - 1RE-TEC-DERIV
   resume: |
-    - $f' > 0$ sur un intervalle : $f$ croissante ; $f' < 0$ : décroissante.
-    - Un extremum se trouve là où $f'$ s'annule en changeant de signe.
+    - $f$ est **croissante** sur un intervalle $I$ si, quand $x$ augmente dans $I$, $f(x)$ augmente (ou reste égal) ; **décroissante** si $f(x)$ diminue.
+    - Lien avec la dérivée : $f'(x) > 0$ sur $I$ ⇒ $f$ croissante sur $I$ ; $f'(x) < 0$ sur $I$ ⇒ $f$ décroissante sur $I$.
+    - On résume les variations dans un **tableau de variations** : signe de $f'$, puis flèches.
+    - Un **extremum** (maximum ou minimum) est atteint là où $f'$ s'annule **en changeant de signe**.
   cours: |
-    ## Tableau de variations
-    $f(x) = x^2 - 8x + 3$ : $f'(x) = 2x - 8$, négatif avant $4$, positif après.
-    $f$ décroît puis croît : minimum $f(4) = -13$.
+    ## 1. Fonction croissante, fonction décroissante
 
-    ## Optimisation
-    Bénéfice $B(x) = -x^3 + 3x^2 + 9x$ sur $[0 ; 5]$ : $B'(x) = -3(x - 3)(x + 1)$, positif sur $[0 ; 3[$, négatif ensuite. Bénéfice maximal $B(3) = 27$.
+    **Définition.** Soit $f$ une fonction définie sur un intervalle $I$.
+    - $f$ est **croissante** sur $I$ si, pour tous nombres $a$ et $b$ de $I$ : $a < b \Rightarrow f(a) \leqslant f(b)$. La courbe « monte » quand on la parcourt de gauche à droite.
+    - $f$ est **décroissante** sur $I$ si, pour tous $a$ et $b$ de $I$ : $a < b \Rightarrow f(a) \geqslant f(b)$. La courbe « descend ».
+    - On dit **strictement** croissante (ou décroissante) quand les inégalités sont strictes.
+
+    *Exemple.* Le prix d'une course de taxi $f(x) = 1{,}5x + 4$ est croissant : plus la distance $x$ est grande, plus on paie.
+
+    ## 2. Taux de variation et sens de variation
+
+    Entre deux valeurs $a < b$, le taux de variation $\dfrac{f(b) - f(a)}{b - a}$ est positif si $f$ a augmenté, négatif si elle a diminué. La dérivée $f'(a)$ est le taux de variation « instantané » en $a$ : c'est la pente de la tangente.
+
+    ## 3. Signe de la dérivée et variations
+
+    > **Propriété.** Soit $f$ dérivable sur un intervalle $I$.
+    > - Si $f'(x) > 0$ pour tout $x$ de $I$ (sauf peut-être en quelques points isolés), alors $f$ est strictement croissante sur $I$.
+    > - Si $f'(x) < 0$ pour tout $x$ de $I$, alors $f$ est strictement décroissante sur $I$.
+    > - Si $f'(x) = 0$ pour tout $x$ de $I$, alors $f$ est constante sur $I$.
+
+    Interprétation : une tangente de pente positive « monte », une tangente de pente négative « descend ».
+
+    ## 4. Tableau de variations
+
+    Pour étudier les variations d'une fonction polynôme de degré 2 ou 3 :
+    1. calculer $f'(x)$ ;
+    2. étudier le signe de $f'(x)$ (forme factorisée, ou signe de $ax + b$) ;
+    3. dresser le tableau : une ligne pour le signe de $f'(x)$, une ligne de flèches pour $f$ ;
+    4. calculer les valeurs de $f$ aux bornes et aux points où $f'$ s'annule.
+
+    *Exemple rédigé.* $f(x) = x^2 - 8x + 3$ sur $[0 ; 10]$.
+    - $f'(x) = 2x - 8$, qui s'annule en $x = 4$, est négatif sur $[0 ; 4[$ et positif sur $]4 ; 10]$.
+    - $f$ est donc décroissante sur $[0 ; 4]$ puis croissante sur $[4 ; 10]$.
+    - $f(0) = 3$, $f(4) = 16 - 32 + 3 = -13$, $f(10) = 100 - 80 + 3 = 23$.
+
+    | $x$ | $0$ | | $4$ | | $10$ |
+    |:-:|:-:|:-:|:-:|:-:|:-:|
+    | signe de $f'(x)$ | | $-$ | $0$ | $+$ | |
+    | variations de $f$ | $3$ | ↘ | $-13$ | ↗ | $23$ |
+
+    ## 5. Extremums
+
+    **Définition.** $f(c)$ est le **maximum** de $f$ sur $I$ si $f(x) \leqslant f(c)$ pour tout $x$ de $I$ ; c'est le **minimum** si $f(x) \geqslant f(c)$.
+
+    > **Propriété.** Si $f'$ s'annule en $c$ **en changeant de signe**, alors $f$ admet un extremum en $c$ : un maximum si $f'$ passe de $+$ à $-$, un minimum si $f'$ passe de $-$ à $+$.
+
+    *Exemple (optimisation).* Bénéfice $B(x) = -x^3 + 3x^2 + 9x$ (en milliers d'euros) pour $x$ centaines d'objets, $x \in [0 ; 5]$.
+    $B'(x) = -3x^2 + 6x + 9 = -3(x - 3)(x + 1)$ : positif sur $[0 ; 3[$, négatif sur $]3 ; 5]$. Le bénéfice est maximal pour $x = 3$, et vaut $B(3) = -27 + 27 + 27 = 27$ milliers d'euros.
+
+    ## 6. Erreurs fréquentes
+    - Confondre le signe de $f$ et le signe de $f'$ : une fonction négative peut être croissante.
+    - Oublier les bornes de l'intervalle : un extremum peut être atteint en une borne.
   methodes:
   - titre: Trouver un extremum
     etapes:
@@ -150,7 +260,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$f$ décroît puis croît, minimum en $4$ : $f(4) = 16 - 32 + 3 = -13$.'
+      - '$f''(x) = 2x - 8$, qui s''annule en $x = 4$.'
+      - '$f''(x) < 0$ pour $x < 4$ et $f''(x) > 0$ pour $x > 4$ : $f$ décroît puis croît, son minimum est atteint en $4$.'
+      - '$f(4) = 16 - 32 + 3 = -13$.'
       resultat: '-13'
   - code: 1RE-TEC-VARIA-04
     difficulte: 4

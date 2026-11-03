@@ -1,6 +1,6 @@
 import pytest
 
-from pkp_engine import ExpressionInvalide, Question, TypeQuestion, corriger
+from pkp_engine import ExpressionInvalide, Forme, Question, TypeQuestion, Verdict, corriger, verifier
 
 
 def q(type_: TypeQuestion, solution: str) -> Question:
@@ -90,3 +90,79 @@ class TestExpression:
 
     def test_puissance_enorme_ne_plante_pas(self):
         assert not corriger(q(TypeQuestion.EXPRESSION, "x"), "9^9^9^9")
+
+
+class TestRobustesse:
+    def test_expression_construite_pour_s_annuler_aux_points_fixes(self):
+        """Contre-exemple de l'audit : nulle aux 8 points fixes, mais pas identiquement nulle."""
+        piege = "(x-0.53)(x-1.71)(x+2.37)(x-3.13)(x+0.71)(x-2.93)(x-0.137)(x+1.29)"
+        assert not corriger(q(TypeQuestion.EXPRESSION, "0"), piege)
+
+    @pytest.mark.parametrize(
+        ("solution", "saisie"),
+        [("x", "x^2/x"), ("x+1", "(x^2-1)/(x-1)"), ("1", "x/x"), ("x-2", "(x^2-4)/(x+2)")],
+    )
+    def test_valeur_interdite_entiere_detectee(self, solution, saisie):
+        assert not corriger(q(TypeQuestion.EXPRESSION, solution), saisie)
+
+    @pytest.mark.parametrize(("solution", "saisie"), [("1/x", "x^(-1)"), ("ln(x)", "ln(x)"), ("1/(x-1)", "1/(x-1)")])
+    def test_memes_valeurs_interdites_acceptees(self, solution, saisie):
+        assert corriger(q(TypeQuestion.EXPRESSION, solution), saisie)
+
+
+def qf(solution: str, forme: Forme) -> Question:
+    return Question(1, 1, "énoncé", TypeQuestion.EXPRESSION, solution, 2, forme=forme)
+
+
+class TestForme:
+    @pytest.mark.parametrize("saisie", ["x^2 + 6x + 9", "9 + 6x + x²", "x*x + 6*x + 9", "x^2+3x+3x+9"])
+    def test_developpee_acceptee(self, saisie):
+        assert verifier(qf("x^2 + 6x + 9", Forme.DEVELOPPEE), saisie) is Verdict.JUSTE
+
+    @pytest.mark.parametrize("saisie", ["(x+3)^2", "(x+3)(x+3)", "x(x+6) + 9"])
+    def test_non_developpee_signalee(self, saisie):
+        assert verifier(qf("x^2 + 6x + 9", Forme.DEVELOPPEE), saisie) is Verdict.FORME
+
+    def test_reduite_exige_des_termes_regroupes(self):
+        question = qf("x^2 + 6x + 9", Forme.REDUITE)
+        assert verifier(question, "x^2 + 6x + 9") is Verdict.JUSTE
+        assert verifier(question, "x^2 + 3x + 3x + 9") is Verdict.FORME
+        assert verifier(question, "x^2 + 6x + 4 + 5") is Verdict.FORME
+
+    @pytest.mark.parametrize("saisie", ["(3x-5)(3x+5)", "(3x+5)(3x-5)", "-(5-3x)(3x+5)", "9(x-5/3)(x+5/3)"])
+    def test_factorisee_acceptee(self, saisie):
+        assert verifier(qf("(3x-5)(3x+5)", Forme.FACTORISEE), saisie) is Verdict.JUSTE
+
+    def test_non_factorisee_signalee(self):
+        assert verifier(qf("(3x-5)(3x+5)", Forme.FACTORISEE), "9x^2 - 25") is Verdict.FORME
+
+    def test_valeur_fausse_reste_fausse(self):
+        assert verifier(qf("(3x-5)(3x+5)", Forme.FACTORISEE), "(3x-5)(3x-5)") is Verdict.FAUX
+
+    def test_corriger_exige_la_forme(self):
+        assert not corriger(qf("x^2 + 6x + 9", Forme.DEVELOPPEE), "(x+3)^2")
+
+    def test_sans_forme_seule_la_valeur_compte(self):
+        assert corriger(q(TypeQuestion.EXPRESSION, "x^2 + 6x + 9"), "(x+3)^2")
+
+    @pytest.mark.parametrize("saisie", ["1(9x^2-25)", "(9x^2-25)/1", "-1(25-9x^2)", "(9x^2-25)^1"])
+    def test_facteur_trivial_n_est_pas_une_factorisation(self, saisie):
+        assert verifier(qf("(3x-5)(3x+5)", Forme.FACTORISEE), saisie) is Verdict.FORME
+
+    @pytest.mark.parametrize(("solution", "saisie"), [("3(x+2)", "3(x+2)"), ("(x+1)^2", "(x+1)^2"), ("(x+2)/3", "(x+2)/3")])
+    def test_nombre_fois_somme_et_puissance_acceptes(self, solution, saisie):
+        assert verifier(qf(solution, Forme.FACTORISEE), saisie) is Verdict.JUSTE
+
+    @pytest.mark.parametrize("saisie", ["x^2+(3+3)x+9", "x^2+2*3x+9", "x^2+6x+3^2"])
+    def test_coefficients_non_calcules_ne_sont_pas_reduits(self, saisie):
+        assert verifier(qf("x^2 + 6x + 9", Forme.REDUITE), saisie) is Verdict.FORME
+
+    @pytest.mark.parametrize("saisie", ["-3x/2 + 4", "-1.5x + 4", "4 - 3/2x"])
+    def test_coefficient_fractionnaire_reduit(self, saisie):
+        assert verifier(qf("-3x/2 + 4", Forme.REDUITE), saisie) is Verdict.JUSTE
+
+
+class TestReproductibilite:
+    def test_meme_reponse_meme_verdict(self):
+        question = q(TypeQuestion.EXPRESSION, "x^2 + 6x + 9")
+        assert len({verifier(question, "(x+3)^2") for _ in range(20)}) == 1

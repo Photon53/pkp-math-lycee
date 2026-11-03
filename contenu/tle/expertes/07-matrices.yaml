@@ -7,22 +7,75 @@ chapitre:
 competences:
 - code: TLE-ME-MAT-CALC
   libelle: Calculer avec des matrices
+  attendus: [TLE-EXP-2019-GRAPHMAT-03, TLE-EXP-2019-GRAPHMAT-05, TLE-EXP-2019-GRAPHMAT-12, TLE-EXP-2019-GRAPHMAT-14]
   objectifs:
   - Additionner et multiplier des matrices.
   - Calculer des puissances et l'inverse d'une matrice carrée d'ordre 2.
+  cours_couvre: [TLE-EXP-2019-GRAPHMAT-03, TLE-EXP-2019-GRAPHMAT-05, TLE-EXP-2019-GRAPHMAT-12, TLE-EXP-2019-GRAPHMAT-14]
   resume: |
-    - Coefficient $(i, j)$ du produit $AB$ : ligne $i$ de $A$ « fois » colonne $j$ de $B$.
-    - En général $AB \neq BA$.
-    - $M = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ est inversible si $ad - bc \neq 0$, et $M^{-1} = \dfrac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$.
+    - Produit $AB$ (si $A$ a autant de colonnes que $B$ a de lignes) : le coefficient $(i, j)$ est « ligne $i$ de $A$ » $\times$ « colonne $j$ de $B$ ».
+    - En général $AB \neq BA$ ; le produit est associatif et distributif, et $AI_n = I_nA = A$.
+    - $A^n = A \times A \times \dots \times A$ ($n$ facteurs) ; on conjecture souvent la forme de $A^n$ puis on la prouve par récurrence.
+    - $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ est inversible si et seulement si $ad - bc \neq 0$, et alors $A^{-1} = \dfrac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$.
   cours: |
-    ## Produit
-    $$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}.$$
+    ## 1. Définitions
 
-    ## Puissances
-    $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ : on conjecture (et on démontre par récurrence) $A^n = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.
+    **Définition.** Une **matrice** de taille $n \times p$ est un tableau de nombres réels à $n$ lignes et $p$ colonnes. Le coefficient situé ligne $i$, colonne $j$ est noté $a_{ij}$.
 
-    ## Inverse
-    $M = \begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix}$ : $ad - bc = 1$, donc $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.
+    - Matrice **carrée** d'ordre $n$ : $n$ lignes et $n$ colonnes.
+    - Matrice **ligne** ($1 \times p$) et matrice **colonne** ($n \times 1$).
+    - Matrice **identité** $I_n$ : carrée, des $1$ sur la diagonale et des $0$ ailleurs. Matrice **nulle** : tous les coefficients nuls.
+    - Matrice **diagonale** : coefficients nuls hors de la diagonale.
+
+    ## 2. Opérations
+
+    - **Somme** de deux matrices de même taille : on additionne coefficient par coefficient.
+    - **Produit par un réel** $k$ : on multiplie chaque coefficient par $k$.
+    - **Produit** $AB$ : défini si le nombre de colonnes de $A$ est égal au nombre de lignes de $B$. Si $A$ est $n \times p$ et $B$ est $p \times q$, $AB$ est $n \times q$ et $$(AB)_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{ip}b_{pj}.$$
+
+    Exemple : $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\begin{pmatrix} 5 \\ 6 \end{pmatrix} = \begin{pmatrix} 1 \times 5 + 2 \times 6 \\ 3 \times 5 + 4 \times 6 \end{pmatrix} = \begin{pmatrix} 17 \\ 39 \end{pmatrix}$.
+
+    > **Propriétés.** Le produit est **associatif** ($(AB)C = A(BC)$), **distributif** sur l'addition, et $AI_n = I_nA = A$. Il n'est **pas commutatif** : avec $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ et $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$, $AB = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}$ mais $BA = \begin{pmatrix} 3 & 4 \\ 1 & 2 \end{pmatrix}$.
+
+    ## 3. Puissances d'une matrice carrée
+
+    **Définition.** $A^0 = I_n$ et $A^{k+1} = A^k \times A$.
+
+    Exemples :
+    - Matrice diagonale : $\begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}^n = \begin{pmatrix} 2^n & 0 \\ 0 & 3^n \end{pmatrix}$.
+    - $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ : $B^2 = I_2$, donc $B^n = I_2$ si $n$ est pair et $B^n = B$ si $n$ est impair.
+    - Ordre 3 : $N = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}$, $N^2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$ et $N^3 = 0$ : toutes les puissances suivantes sont nulles.
+
+    **Méthode.** Calculer $A^2$, $A^3$, conjecturer la forme de $A^n$, puis la démontrer par récurrence. La calculatrice donne les puissances numériques.
+
+    ## 4. Inverse d'une matrice carrée
+
+    **Définition.** Une matrice carrée $A$ d'ordre $n$ est **inversible** s'il existe $B$ telle que $AB = BA = I_n$. $B$ est alors unique, notée $A^{-1}$.
+
+    > **Propriété (ordre 2).** $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ est inversible si et seulement si $ad - bc \neq 0$, et alors $$A^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}.$$
+
+    **Justification.** $\begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix} = \begin{pmatrix} ad - bc & 0 \\ 0 & ad - bc \end{pmatrix} = (ad - bc)I_2$ ; si $ad - bc \neq 0$, on divise par ce nombre. (Si $ad - bc = 0$, on montre que $A$ n'est pas inversible.)
+
+    Pour l'ordre 3, on utilise la calculatrice, ou on **vérifie** qu'une matrice proposée $B$ vérifie $AB = I_3$.
+
+    ## 5. Modéliser par une matrice
+
+    Un tableau de données à double entrée est une matrice. Exemple : un magasin vend des quantités $Q = \begin{pmatrix} 10 & 4 \\ 6 & 8 \end{pmatrix}$ de deux produits (colonnes) sur deux jours (lignes), aux prix $P = \begin{pmatrix} 3 \\ 5 \end{pmatrix}$ : le produit $QP = \begin{pmatrix} 50 \\ 58 \end{pmatrix}$ donne la recette de chaque jour.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** Montrer que $A = \begin{pmatrix} 3 & 1 \\ 4 & 2 \end{pmatrix}$ est inversible et calculer $A^{-1}$.
+
+    **Résolution.**
+    1. $ad - bc = 3 \times 2 - 1 \times 4 = 2 \neq 0$ : $A$ est inversible.
+    2. $A^{-1} = \dfrac{1}{2}\begin{pmatrix} 2 & -1 \\ -4 & 3 \end{pmatrix} = \begin{pmatrix} 1 & -\frac{1}{2} \\ -2 & \frac{3}{2} \end{pmatrix}$.
+    3. Contrôle : $AA^{-1} = \begin{pmatrix} 3 - 2 & -\frac{3}{2} + \frac{3}{2} \\ 4 - 4 & -2 + 3 \end{pmatrix} = I_2$.
+
+    ## 7. Erreurs fréquentes
+
+    - Multiplier les matrices coefficient par coefficient.
+    - Écrire $AB = BA$ sans vérification.
+    - Oublier de diviser par $ad - bc$, ou d'échanger $a$ et $d$.
   methodes:
   - titre: Inverser une matrice d'ordre 2
     etapes:
@@ -66,7 +119,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1 \times 4 - 2 \times 3 = -2$.
+      - 'Pour $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$, on lit $a = 1$, $b = 2$, $c = 3$, $d = 4$.'
+      - '$ad - bc = 1 \times 4 - 2 \times 3 = 4 - 6 = -2$.'
+      - 'Ce nombre est non nul : $A$ est inversible.'
       resultat: '-2'
   - code: TLE-ME-MAT-CALC-04
     difficulte: 4
@@ -76,7 +131,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$A^2 = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$, $A^3 = \begin{pmatrix} 1 & 3 \\ 0 & 1 \end{pmatrix}$ : $A^n = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.'
+      - '$A^2 = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$, puis $A^3 = A^2A = \begin{pmatrix} 1 & 3 \\ 0 & 1 \end{pmatrix}$.'
+      - 'On conjecture $A^n = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$, et c''est héréditaire : $\begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & n + 1 \\ 0 & 1 \end{pmatrix}$.'
+      - 'Pour $n = 10$, le coefficient en ligne 1, colonne 2 vaut $10$.'
       resultat: '10'
   - code: TLE-ME-MAT-CALC-05
     difficulte: 5
@@ -86,25 +143,84 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $ad - bc = 1$ ; $M^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.
+      - '$ad - bc = 2 \times 1 - 1 \times 1 = 1 \neq 0$ : $M$ est inversible.'
+      - '$M^{-1} = \dfrac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}$.'
+      - 'Le coefficient en ligne 2, colonne 2 vaut $2$ (contrôle : $MM^{-1} = I_2$).'
       resultat: '2'
+  - code: TLE-ME-MAT-CALC-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-4, 5]}, b: {entre: [-4, 5]}, c: {entre: [-4, 5]}, d: {entre: [-4, 5]}, e: {entre: [-4, 5]}, f: {entre: [-4, 5]}}
+      calculs: {p: "a*e + b*f"}
+    enonce: 'Soit $A = \begin{pmatrix} [[a]] & [[b]] \\ [[c]] & [[d]] \end{pmatrix}$ et $X = \begin{pmatrix} [[e]] \\ [[f]] \end{pmatrix}$. Calculer le premier coefficient de $AX$.'
+    solution: '[[p]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Ligne de $A$ fois colonne de $X$.'
+      etapes:
+      - 'Première ligne de $A$ : $([[a]] \;\; [[b]])$.'
+      - '$[[a]] \times ([[e]]) + [[b]] \times ([[f]]) = [[p]]$.'
+      resultat: '[[p]]'
 - code: TLE-ME-MAT-SYS
   libelle: Résoudre un système linéaire avec une matrice inverse
+  attendus: [TLE-EXP-2019-GRAPHMAT-04]
   objectifs:
   - Écrire un système sous la forme MX = B.
   - Le résoudre avec l'inverse de M.
   prerequis:
   - TLE-ME-MAT-CALC
   - 2NDE-SYST
+  cours_couvre: [TLE-EXP-2019-GRAPHMAT-04]
   resume: |
-    - Le système $\begin{cases} ax + by = e \\ cx + dy = f \end{cases}$ s'écrit $MX = B$.
-    - Si $M$ est inversible : $X = M^{-1}B$.
+    - Un système linéaire de $n$ équations à $n$ inconnues s'écrit $MX = B$ ($M$ coefficients, $X$ inconnues, $B$ seconds membres).
+    - Si $M$ est inversible, la solution est unique : $X = M^{-1}B$ (on multiplie **à gauche** par $M^{-1}$).
+    - Une transformation du plan $(x ; y) \mapsto (ax + by ; cx + dy)$ se représente par la matrice $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$.
+    - Une suite récurrente linéaire se représente par $U_{n+1} = AU_n$, un graphe par sa matrice d'adjacence.
   cours: |
-    ## Écriture matricielle
-    $\begin{cases} 3x + y = 4 \\ 5x + 2y = 7 \end{cases}$ s'écrit $\begin{pmatrix} 3 & 1 \\ 5 & 2 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 4 \\ 7 \end{pmatrix}$.
+    ## 1. Écriture matricielle d'un système
 
-    ## Résolution
-    $ad - bc = 1$ : $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$ et $X = M^{-1}B = \begin{pmatrix} 8 - 7 \\ -20 + 21 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+    Le système $\begin{cases} 2x + y = 5 \\ x - y = 1 \end{cases}$ s'écrit $MX = B$ avec $$M = \begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}, \qquad X = \begin{pmatrix} x \\ y \end{pmatrix}, \qquad B = \begin{pmatrix} 5 \\ 1 \end{pmatrix}.$$
+
+    Chaque **ligne** de $M$ contient les coefficients d'une équation ; chaque **colonne** correspond à une inconnue.
+
+    ## 2. Résolution avec la matrice inverse
+
+    > **Propriété.** Si $M$ est inversible, le système $MX = B$ a une unique solution : $$X = M^{-1}B.$$
+
+    **Démonstration.** Si $MX = B$, en multipliant à gauche par $M^{-1}$ : $M^{-1}MX = M^{-1}B$, soit $I_nX = X = M^{-1}B$. Réciproquement, $M(M^{-1}B) = (MM^{-1})B = B$.
+
+    L'ordre compte : on calcule $M^{-1}B$ (matrice $n \times n$ fois colonne), et non $BM^{-1}$, qui n'est pas défini.
+
+    ## 3. Autres représentations matricielles
+
+    - **Transformations du plan.** L'image de $(x ; y)$ par la transformation de matrice $T$ a pour coordonnées $T\begin{pmatrix} x \\ y \end{pmatrix}$. Rotation de centre $O$ d'angle $\theta$ : $\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$ ; symétrie par rapport à l'axe des abscisses : $\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$ ; homothétie de centre $O$ et de rapport $k$ : $kI_2$. Enchaîner deux transformations revient à multiplier leurs matrices.
+    - **Suites récurrentes.** Deux suites liées par $u_{n+1} = au_n + bv_n$ et $v_{n+1} = cu_n + dv_n$ vérifient $U_{n+1} = AU_n$ avec $U_n = \begin{pmatrix} u_n \\ v_n \end{pmatrix}$ et $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$.
+    - **Graphes.** Un graphe se représente par sa matrice d'adjacence (voir le chapitre sur les graphes).
+
+    ## 4. Méthode
+
+    1. Écrire $M$, $X$, $B$ en respectant l'ordre des inconnues.
+    2. Vérifier que $M$ est inversible ($ad - bc \neq 0$ à l'ordre 2 ; calculatrice à l'ordre 3).
+    3. Calculer $X = M^{-1}B$, puis vérifier dans le système.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Résoudre $\begin{cases} 3x + 2y = 7 \\ x + y = 3 \end{cases}$ à l'aide d'une matrice.
+
+    **Résolution.**
+    1. $M = \begin{pmatrix} 3 & 2 \\ 1 & 1 \end{pmatrix}$, $B = \begin{pmatrix} 7 \\ 3 \end{pmatrix}$.
+    2. $ad - bc = 3 - 2 = 1 \neq 0$, donc $M^{-1} = \begin{pmatrix} 1 & -2 \\ -1 & 3 \end{pmatrix}$.
+    3. $X = M^{-1}B = \begin{pmatrix} 7 - 6 \\ -7 + 9 \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}$ : $x = 1$, $y = 2$.
+    4. Vérification : $3 + 4 = 7$ et $1 + 2 = 3$.
+
+    **Ordre 3.** Pour trois équations à trois inconnues, la démarche est identique ; la calculatrice fournit $M^{-1}$ et le produit $M^{-1}B$.
+
+    ## 6. Erreurs fréquentes
+
+    - Calculer $BM^{-1}$ au lieu de $M^{-1}B$.
+    - Mélanger l'ordre des inconnues d'une ligne à l'autre de $M$.
+    - Oublier de vérifier que $M$ est inversible.
   methodes:
   - titre: Résoudre MX = B
     etapes:
@@ -148,7 +264,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1 \times 1 + 2 \times 1 = 3$.
+      - 'Le premier coefficient de $MX$ est le produit de la **première ligne** de $M$ par la colonne $X$.'
+      - '$1 \times 1 + 2 \times 1 = 3$.'
       resultat: '3'
   - code: TLE-ME-MAT-SYS-04
     difficulte: 4
@@ -158,7 +275,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $ad - bc = 6 - 5 = 1$ ; $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$.
+      - '$ad - bc = 3 \times 2 - 1 \times 5 = 1 \neq 0$ : $M$ est inversible.'
+      - '$M^{-1} = \dfrac{1}{1}\begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$ : on échange $a$ et $d$, on change le signe de $b$ et de $c$.'
+      - 'Le coefficient en ligne 1, colonne 1 vaut $2$.'
       resultat: '2'
   - code: TLE-ME-MAT-SYS-05
     difficulte: 5
@@ -171,3 +290,139 @@ competences:
       - $M^{-1} = \begin{pmatrix} 2 & -1 \\ -5 & 3 \end{pmatrix}$.
       - $y = -5 \times 4 + 3 \times 7 = 1$ (et $x = 2 \times 4 - 7 = 1$).
       resultat: '1'
+
+- code: TLE-ME-MAT-SUITE
+  libelle: Étudier une suite de matrices Uₙ₊₁ = AUₙ + C
+  attendus: [TLE-EXP-2019-GRAPHMAT-06, TLE-EXP-2019-GRAPHMAT-15]
+  objectifs:
+  - Traduire deux suites récurrentes couplées par une relation matricielle.
+  - Exprimer $U_n$ en fonction de $n$ à l'aide des puissances d'une matrice, éventuellement après un changement de suite.
+  prerequis:
+  - TLE-ME-MAT-CALC
+  - TLE-ME-MAT-SYS
+  methodes:
+  - titre: Résoudre $U_{n+1} = AU_n + C$
+    quand: La matrice $I - A$ est inversible.
+    etapes:
+    - Chercher la matrice constante $L$ telle que $L = AL + C$ $:$ $L = (I - A)^{-1}C$.
+    - Poser $V_n = U_n - L$ $:$ alors $V_{n+1} = AV_n$, donc $V_n = A^n V_0$.
+    - Conclure $:$ $U_n = A^n(U_0 - L) + L$.
+    exemple:
+      enonce: $u_{n+1} = 0{,}5u_n + 2$ vu comme une matrice $1 \times 1$.
+      resolution:
+      - $L = 0{,}5L + 2$ donne $L = 4$.
+      - $u_n = 0{,}5^n(u_0 - 4) + 4$.
+      resultat: $u_n = 4 + 0{,}5^n(u_0 - 4)$
+  erreurs_frequentes:
+  - erreur: Écrire $U_n = A^n U_0 + nC$.
+    explication: La constante $C$ est elle aussi multipliée par $A$ à chaque étape ; il faut passer par la suite $V_n = U_n - L$.
+  cours_couvre: [TLE-EXP-2019-GRAPHMAT-06, TLE-EXP-2019-GRAPHMAT-15]
+  resume: |
+    - Si $U_{n+1} = AU_n$ pour tout $n$, alors $U_n = A^nU_0$.
+    - Pour $U_{n+1} = AU_n + C$ : chercher $L$ tel que $L = AL + C$ (si $I - A$ est inversible, $L = (I - A)^{-1}C$).
+    - $V_n = U_n - L$ vérifie $V_{n+1} = AV_n$, donc $U_n = A^n(U_0 - L) + L$.
+    - Si $A^n$ tend vers la matrice nulle, $U_n$ tend vers $L$.
+  cours: |
+    ## 1. Suites de matrices colonnes
+
+    Deux suites couplées $\begin{cases} u_{n+1} = au_n + bv_n + c_1 \\ v_{n+1} = cu_n + dv_n + c_2 \end{cases}$ s'écrivent
+    $$U_{n+1} = AU_n + C, \qquad U_n = \begin{pmatrix} u_n \\ v_n \end{pmatrix}, \quad A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}, \quad C = \begin{pmatrix} c_1 \\ c_2 \end{pmatrix}.$$
+
+    ## 2. Cas $U_{n+1} = AU_n$
+
+    > **Propriété.** Si $U_{n+1} = AU_n$ pour tout $n \in \mathbb{N}$, alors $U_n = A^nU_0$ pour tout $n$.
+
+    **Démonstration par récurrence.** $U_0 = I U_0 = A^0U_0$. Si $U_n = A^nU_0$, alors $U_{n+1} = AU_n = A \times A^nU_0 = A^{n+1}U_0$.
+
+    ## 3. Cas $U_{n+1} = AU_n + C$
+
+    > **Propriété.** S'il existe une matrice colonne $L$ telle que $L = AL + C$, alors la suite $V_n = U_n - L$ vérifie $V_{n+1} = AV_n$, et $$U_n = A^n(U_0 - L) + L.$$
+
+    **Démonstration.** $V_{n+1} = U_{n+1} - L = (AU_n + C) - (AL + C) = A(U_n - L) = AV_n$. Donc $V_n = A^nV_0$, puis $U_n = V_n + L$.
+
+    **Trouver $L$** : $L = AL + C \iff (I - A)L = C$ ; si $I - A$ est inversible, $L = (I - A)^{-1}C$. On peut aussi résoudre directement le système.
+
+    **Limite.** Si tous les coefficients de $A^n$ tendent vers $0$, alors $U_n$ tend vers $L$ : $L$ est l'**état stable**.
+
+    ## 4. Utiliser le calcul matriciel pour résoudre des problèmes
+
+    Selon la situation, on traduit en matrices et on utilise :
+    - l'**inverse** pour résoudre un système (prix inconnus, mélanges…) ;
+    - les **puissances** pour une suite récurrente linéaire (populations, stocks, migrations) ;
+    - les puissances de la **matrice d'adjacence** pour compter des chemins dans un graphe ;
+    - les puissances de la **matrice de transition** pour une chaîne de Markov.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** $a_{n+1} = 0{,}5a_n + 0{,}5b_n + 1$ et $b_{n+1} = 0{,}5b_n + 2$, avec $a_0 = b_0 = 0$. Exprimer $a_n$ et $b_n$ en fonction de $n$ et donner leurs limites.
+
+    **Résolution.**
+    1. $U_{n+1} = AU_n + C$ avec $A = \begin{pmatrix} 0{,}5 & 0{,}5 \\ 0 & 0{,}5 \end{pmatrix}$ et $C = \begin{pmatrix} 1 \\ 2 \end{pmatrix}$.
+    2. $L = \begin{pmatrix} x \\ y \end{pmatrix}$ avec $L = AL + C$ : $y = 0{,}5y + 2$ donne $y = 4$, puis $x = 0{,}5x + 2 + 1$ donne $x = 6$. Donc $L = \begin{pmatrix} 6 \\ 4 \end{pmatrix}$.
+    3. $A = 0{,}5\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$, et par récurrence $A^n = 0{,}5^n\begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.
+    4. $U_0 - L = \begin{pmatrix} -6 \\ -4 \end{pmatrix}$, donc $U_n = 0{,}5^n\begin{pmatrix} -6 - 4n \\ -4 \end{pmatrix} + \begin{pmatrix} 6 \\ 4 \end{pmatrix}$ : $a_n = 6 - (6 + 4n) \times 0{,}5^n$ et $b_n = 4 - 4 \times 0{,}5^n$.
+    5. $0{,}5^n \to 0$ et $n \times 0{,}5^n \to 0$ (croissances comparées) : $a_n \to 6$ et $b_n \to 4$.
+
+    Contrôle : $a_1 = 1$ et $b_1 = 2$, et la formule donne $a_1 = 6 - 10 \times 0{,}5 = 1$, $b_1 = 4 - 2 = 2$.
+
+    ## 6. Erreurs fréquentes
+
+    - Écrire $U_n = A^nU_0 + nC$ : faux dès que $A \neq I$.
+    - Calculer $U_0A$ au lieu de $AU_0$ (le produit d'une colonne par une matrice carrée n'est pas défini).
+    - Oublier d'ajouter $L$ à la fin.
+  questions:
+    - code: TLE-ME-MAT-SUITE-01
+      difficulte: 1
+      type: numerique
+      enonce: 'On a $U_{n+1} = AU_n$ avec $A = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$ et $U_0 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$. Quelle est la seconde coordonnée de $U_2$ ?'
+      solution: 9
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $U_2 = A^2 U_0$ et $A^2 = \begin{pmatrix} 4 & 0 \\ 0 & 9 \end{pmatrix}$.
+        resultat: 9
+    - code: TLE-ME-MAT-SUITE-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Avec $A = \begin{pmatrix} 0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8 \end{pmatrix}$ et $U_0 = \begin{pmatrix} 1\,000 \\ 500 \end{pmatrix}$, calculer la première coordonnée de $U_1 = AU_0$.'
+      solution: 1000
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}9 \times 1\,000 + 0{,}2 \times 500 = 900 + 100 = 1\,000$.
+        resultat: 1000
+    - code: TLE-ME-MAT-SUITE-03
+      difficulte: 3
+      type: numerique
+      enonce: 'La suite $(u_n)$ vérifie $u_{n+1} = 0{,}5u_n + 2$. Quelle est la valeur $L$ telle que $L = 0{,}5L + 2$ ?'
+      solution: 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'On résout l''équation du premier degré $L = 0{,}5L + 2$.'
+        - '$L - 0{,}5L = 2$, soit $0{,}5L = 2$.'
+        - '$L = 4$ : c''est la valeur fixe de la relation de récurrence.'
+        resultat: 4
+    - code: TLE-ME-MAT-SUITE-04
+      difficulte: 4
+      type: qcm
+      enonce: 'On a $U_{n+1} = AU_n + C$ et une matrice $L$ vérifiant $L = AL + C$. On pose $V_n = U_n - L$. Quelle relation vérifie $(V_n)$ ? A) $V_{n+1} = AV_n$  B) $V_{n+1} = AV_n + C$  C) $V_{n+1} = V_n + C$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - '$V_{n+1} = U_{n+1} - L$, avec $U_{n+1} = AU_n + C$ et $L = AL + C$.'
+        - '$V_{n+1} = (AU_n + C) - (AL + C) = AU_n - AL$.'
+        - '$= A(U_n - L) = AV_n$ : la suite $(V_n)$ vérifie $V_{n+1} = AV_n$ (réponse A), d''où $V_n = A^nV_0$.'
+        resultat: A
+    - code: TLE-ME-MAT-SUITE-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Avec $A = \begin{pmatrix} 0{,}5 & 0 \\ 0 & 0{,}5 \end{pmatrix}$, $C = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$, $U_{n+1} = AU_n + C$ et $U_0 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$, vers quelle valeur tend la première coordonnée de $U_n$ ?'
+      solution: 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $L = (I - A)^{-1}C = 2C$, soit $L = \begin{pmatrix} 4 \\ 2 \end{pmatrix}$.
+        - $U_n = A^n(U_0 - L) + L$ et $A^n$ tend vers la matrice nulle $:$ $U_n$ tend vers $L$.
+        resultat: 4

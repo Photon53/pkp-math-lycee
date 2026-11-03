@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 1RE-PS-CALC
     libelle: Calculer un produit scalaire
+    attendus: [1RE-SPE-2026-PS-01, 1RE-SPE-2026-PS-02, 1RE-SPE-2026-PS-06]
+    cours_couvre: [1RE-SPE-2026-PS-01, 1RE-SPE-2026-PS-02, 1RE-SPE-2026-PS-06]
     objectifs:
     - Calculer un produit scalaire par les coordonnées, les normes et l'angle, ou une projection.
     methodes:
@@ -25,22 +27,66 @@ competences:
     - erreur: Calculer $xy' + x'y$ comme pour un déterminant.
       explication: 'Le produit scalaire multiplie abscisse par abscisse et ordonnée par ordonnée : $xx'' + yy''$.'
     resume: |
-      - En repère orthonormé : $\vec u \cdot \vec v = xx' + yy'$.
-      - Avec les normes et l'angle : $\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v)$.
-      - Par projection : $\overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH}$ où $H$ est le projeté orthogonal de $C$ sur $(AB)$.
-      - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$ et $\vec u \cdot \vec u = \|\vec u\|^2$.
+      - **Projection** : $\vec u \cdot \vec v = \overrightarrow{AB} \cdot \overrightarrow{AC} = AB \times AH$ si $H$ (projeté de $C$ sur $(AB)$) est du côté de $B$, $-AB \times AH$ sinon.
+      - **Cosinus** : $\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v)$.
+      - **Coordonnées** (base orthonormée) : $\vec u(x ; y) \cdot \vec v(x' ; y') = xx' + yy'$ et $\|\vec u\|^2 = x^2 + y^2$.
+      - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$ ; le produit scalaire est symétrique et bilinéaire.
     cours: |
-      ## Avec les coordonnées
-      $\vec u(2 ; 3)$ et $\vec v(4 ; -1)$ : $\vec u \cdot \vec v = 2 \times 4 + 3 \times (-1) = 5$.
+      ## 1. Définition par la projection orthogonale
 
-      ## Avec l'angle
-      $\|\vec u\| = 3$, $\|\vec v\| = 4$, angle $\dfrac{\pi}{3}$ : $\vec u \cdot \vec v = 3 \times 4 \times \dfrac{1}{2} = 6$.
+      Soient $\vec u = \overrightarrow{AB}$ et $\vec v = \overrightarrow{AC}$ avec $\vec u \neq \vec 0$, et $H$ le projeté orthogonal de $C$ sur la droite $(AB)$.
 
-      ## Par projection
-      Dans un carré $ABCD$ de côté $2$, le projeté de $C$ sur $(AB)$ est $B$ : $\overrightarrow{AB} \cdot \overrightarrow{AC} = AB^2 = 4$.
+      > **Définition.** Le **produit scalaire** de $\vec u$ et $\vec v$ est le réel
+      > - $\vec u \cdot \vec v = AB \times AH$ si $\overrightarrow{AB}$ et $\overrightarrow{AH}$ sont de même sens ;
+      > - $\vec u \cdot \vec v = -AB \times AH$ s'ils sont de sens contraires.
+      > Si $\vec u = \vec 0$ ou $\vec v = \vec 0$, $\vec u \cdot \vec v = 0$.
 
-      ## Identités
-      Si $\|\vec u\| = 2$, $\|\vec v\| = 3$ et $\vec u \cdot \vec v = 1$ : $\|\vec u + \vec v\|^2 = 4 + 2 + 9 = 15$.
+      ## 2. Formule avec le cosinus
+
+      > **Propriété.** Si $\vec u$ et $\vec v$ sont non nuls : $$\vec u \cdot \vec v = \|\vec u\| \times \|\vec v\| \times \cos(\vec u, \vec v).$$
+
+      *Justification.* Dans le triangle $AHC$ rectangle en $H$, $AH = AC \times |\cos \widehat{BAC}|$ ; le signe du cosinus correspond au sens de $\overrightarrow{AH}$.
+
+      En particulier $\vec u \cdot \vec u = \|\vec u\|^2$ (noté $\vec u^2$).
+
+      ## 3. Orthogonalité
+
+      > **Propriété.** $\vec u$ et $\vec v$ sont **orthogonaux** si et seulement si $\vec u \cdot \vec v = 0$.
+
+      (Par convention, $\vec 0$ est orthogonal à tout vecteur.) En effet, pour des vecteurs non nuls, $\cos(\vec u, \vec v) = 0 \iff (\vec u, \vec v) = \pm\dfrac{\pi}{2}$.
+
+      ## 4. Propriétés algébriques
+
+      > **Propriété.** Pour tous vecteurs $\vec u$, $\vec v$, $\vec w$ et tout réel $k$ :
+      > - symétrie : $\vec u \cdot \vec v = \vec v \cdot \vec u$ ;
+      > - bilinéarité : $\vec u \cdot (\vec v + \vec w) = \vec u \cdot \vec v + \vec u \cdot \vec w$ et $(k\vec u) \cdot \vec v = k(\vec u \cdot \vec v)$.
+
+      ## 5. Expression en base orthonormée
+
+      > **Propriété.** Dans une base orthonormée $(\vec i, \vec j)$, si $\vec u(x ; y)$ et $\vec v(x' ; y')$ :
+      > $$\vec u \cdot \vec v = xx' + yy', \qquad \|\vec u\| = \sqrt{x^2 + y^2}, \qquad \vec u \perp \vec v \iff xx' + yy' = 0.$$
+      > De plus, les coordonnées de $\vec u$ sont $x = \vec u \cdot \vec i$ et $y = \vec u \cdot \vec j$.
+
+      *Démonstration.* $\vec u \cdot \vec v = (x\vec i + y\vec j) \cdot (x'\vec i + y'\vec j) = xx'\,\vec i^2 + (xy' + yx')\,\vec i \cdot \vec j + yy'\,\vec j^2$, avec $\vec i^2 = \vec j^2 = 1$ et $\vec i \cdot \vec j = 0$.
+
+      ## 6. Méthode : choisir la bonne formule
+
+      | On connaît… | On utilise… |
+      |---|---|
+      | une figure avec angles droits | la projection |
+      | deux longueurs et l'angle entre les vecteurs | le cosinus |
+      | des coordonnées dans un repère orthonormé | $xx' + yy'$ |
+      | seulement des longueurs | la formule avec les normes (cours suivant) |
+
+      *Exemple complet.* $ABC$ avec $AB = 4$, $AC = 3$ et $\widehat{BAC} = 60°$ : $\overrightarrow{AB} \cdot \overrightarrow{AC} = 4 \times 3 \times \cos 60° = 6$.
+      Dans un repère orthonormé, $\vec u(2 ; -3)$ et $\vec v(6 ; 4)$ : $\vec u \cdot \vec v = 12 - 12 = 0$, les vecteurs sont orthogonaux.
+      Carré $ABCD$ de côté $5$ : le projeté de $C$ sur $(AB)$ est $B$, donc $\overrightarrow{AB} \cdot \overrightarrow{AC} = AB \times AB = 25$.
+
+      ## 7. Erreurs fréquentes
+
+      - Oublier le signe moins quand le projeté est « de l'autre côté ».
+      - Écrire $\vec u \cdot \vec v = xy' + x'y$ (mélange des coordonnées).
+      - Utiliser $xx' + yy'$ dans un repère qui n'est pas orthonormé.
     questions:
       - code: 1RE-PS-CALC-01
         difficulte: 1
@@ -70,7 +116,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\vec u \cdot \vec u = \|\vec u\|^2 = 9 + 16 = 25$.
+          - 'Le produit scalaire d''un vecteur par lui-même est le carré de sa norme : $\vec u \cdot \vec u = \|\vec u\|^2$.'
+          - 'En repère orthonormé, $\vec u(x ; y) \cdot \vec u(x ; y) = x^2 + y^2$.'
+          - '$\vec u \cdot \vec u = 3^2 + 4^2 = 9 + 16 = 25$.'
           resultat: 25
       - code: 1RE-PS-CALC-04
         difficulte: 4
@@ -95,9 +143,26 @@ competences:
           - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$.
           - $= 4 + 2 + 9 = 15$.
           resultat: 15
+      - code: 1RE-PS-CALC-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6]}, b: {entre: [-6, 6]}, c: {entre: [-6, 6]}, d: {entre: [-6, 6]}}
+          calculs: {p: "a*c + b*d"}
+        enonce: 'Dans une base orthonormée, $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; [[d]])$. Calculer $\vec{u} \cdot \vec{v}$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'En base orthonormée : $\vec{u} \cdot \vec{v} = xx'' + yy''$.'
+          etapes:
+          - '$\vec{u} \cdot \vec{v} = [[a]] \times ([[c]]) + [[b]] \times ([[d]])$.'
+          - '$= [[a*c]] [[b*d:+]] = [[p]]$.'
+          resultat: '[[p]]'
 
   - code: 1RE-PS-APP
     libelle: Utiliser le produit scalaire (orthogonalité, angles, longueurs)
+    attendus: [1RE-SPE-2026-PS-03, 1RE-SPE-2026-PS-05, 1RE-SPE-2026-PS-07, 1RE-SPE-2026-PS-08]
+    cours_couvre: [1RE-SPE-2026-PS-03, 1RE-SPE-2026-PS-05, 1RE-SPE-2026-PS-07, 1RE-SPE-2026-PS-08]
     objectifs:
     - Démontrer une orthogonalité, calculer un angle ou une longueur (Al-Kashi).
     prerequis:
@@ -117,19 +182,53 @@ competences:
     - erreur: Oublier le terme $-2bc\cos\widehat{A}$ (on retrouve alors Pythagore).
       explication: Pythagore n'est que le cas particulier de l'angle droit, où le cosinus vaut 0.
     resume: |
-      - $\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$.
-      - $\cos(\vec u, \vec v) = \dfrac{\vec u \cdot \vec v}{\|\vec u\| \times \|\vec v\|}$.
-      - Formule d'Al-Kashi : $BC^2 = AB^2 + AC^2 - 2\,AB \times AC \times \cos\widehat{A}$.
+      - $\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2$ et $\|\vec u - \vec v\|^2 = \|\vec u\|^2 - 2\,\vec u \cdot \vec v + \|\vec v\|^2$.
+      - D'où $\vec u \cdot \vec v = \dfrac{1}{2}\left(\|\vec u + \vec v\|^2 - \|\vec u\|^2 - \|\vec v\|^2\right)$ : produit scalaire avec les seules normes.
+      - **Al-Kashi** : $BC^2 = AB^2 + AC^2 - 2\,AB \times AC \times \cos\widehat{A}$.
+      - Le produit scalaire sert à prouver une orthogonalité, calculer un angle ($\cos\theta = \dfrac{\vec u \cdot \vec v}{\|\vec u\|\|\vec v\|}$) ou une longueur.
     cours: |
-      ## Orthogonalité
-      $\vec u(2 ; -1)$ et $\vec v(1 ; 2)$ : $2 - 2 = 0$, ils sont orthogonaux.
-      $\vec u(m ; 3) \perp \vec v(2 ; -4) \iff 2m - 12 = 0 \iff m = 6$.
+      ## 1. Développement du carré d'une norme
 
-      ## Al-Kashi
-      $AB = 3$, $AC = 5$, $\widehat{A} = 60°$ : $BC^2 = 9 + 25 - 2 \times 3 \times 5 \times \dfrac{1}{2} = 19$, donc $BC = \sqrt{19}$.
+      > **Propriété.** Pour tous vecteurs $\vec u$ et $\vec v$ :
+      > $$\|\vec u + \vec v\|^2 = \|\vec u\|^2 + 2\,\vec u \cdot \vec v + \|\vec v\|^2, \qquad \|\vec u - \vec v\|^2 = \|\vec u\|^2 - 2\,\vec u \cdot \vec v + \|\vec v\|^2.$$
 
-      ## Retrouver un angle
-      Triangle de côtés $5$, $7$, $8$ : l'angle opposé au côté $7$ vérifie $\cos\alpha = \dfrac{25 + 64 - 49}{2 \times 5 \times 8} = \dfrac{1}{2}$, donc $\alpha = 60°$.
+      *Démonstration.* Par bilinéarité et symétrie : $(\vec u + \vec v) \cdot (\vec u + \vec v) = \vec u \cdot \vec u + \vec u \cdot \vec v + \vec v \cdot \vec u + \vec v \cdot \vec v$.
+
+      **Conséquence (formules de polarisation).**
+      $$\vec u \cdot \vec v = \frac{1}{2}\left(\|\vec u + \vec v\|^2 - \|\vec u\|^2 - \|\vec v\|^2\right) = \frac{1}{2}\left(\|\vec u\|^2 + \|\vec v\|^2 - \|\vec u - \vec v\|^2\right).$$
+      Avec $\vec u = \overrightarrow{AB}$ et $\vec v = \overrightarrow{AC}$ : $\overrightarrow{AB} \cdot \overrightarrow{AC} = \dfrac{1}{2}(AB^2 + AC^2 - BC^2)$.
+
+      ## 2. Formule d'Al-Kashi
+
+      > **Théorème.** Dans un triangle $ABC$, avec $a = BC$, $b = AC$, $c = AB$ :
+      > $$a^2 = b^2 + c^2 - 2bc\cos\widehat{A}.$$
+
+      **Démonstration (exigible).** $\overrightarrow{BC} = \overrightarrow{AC} - \overrightarrow{AB}$, donc
+      $$BC^2 = \|\overrightarrow{AC} - \overrightarrow{AB}\|^2 = AC^2 - 2\,\overrightarrow{AC} \cdot \overrightarrow{AB} + AB^2 = b^2 + c^2 - 2bc\cos\widehat{A}.$$
+
+      Si $\widehat{A} = 90°$, $\cos\widehat{A} = 0$ : on retrouve le théorème de Pythagore.
+
+      ## 3. Méthodes
+
+      **Calculer une longueur.** On connaît deux côtés et l'angle compris : Al-Kashi donne le troisième côté.
+
+      **Calculer un angle.** On connaît les trois côtés : $\cos\widehat{A} = \dfrac{b^2 + c^2 - a^2}{2bc}$. Ou, avec des coordonnées : $\cos(\vec u, \vec v) = \dfrac{\vec u \cdot \vec v}{\|\vec u\| \times \|\vec v\|}$.
+
+      **Démontrer une orthogonalité.** Montrer que le produit scalaire des deux vecteurs est nul (avec des coordonnées ou en décomposant les vecteurs par la relation de Chasles).
+
+      ## 4. Exemple complet
+
+      Triangle $ABC$ avec $AB = 5$, $AC = 8$ et $\widehat{BAC} = 60°$.
+      - Longueur $BC$ : $BC^2 = 8^2 + 5^2 - 2 \times 8 \times 5 \times \dfrac{1}{2} = 64 + 25 - 40 = 49$, donc $BC = 7$.
+      - Angle $\widehat{ABC}$ : $\cos\widehat{B} = \dfrac{AB^2 + BC^2 - AC^2}{2 \times AB \times BC} = \dfrac{25 + 49 - 64}{70} = \dfrac{1}{7}$, donc $\widehat{B} \approx 81{,}8°$.
+
+      *Orthogonalité avec des coordonnées.* $A(1 ; 2)$, $B(4 ; 3)$, $C(0 ; 5)$ : $\overrightarrow{AB}(3 ; 1)$, $\overrightarrow{AC}(-1 ; 3)$, $\overrightarrow{AB} \cdot \overrightarrow{AC} = -3 + 3 = 0$. Le triangle est rectangle en $A$.
+
+      ## 5. Erreurs fréquentes
+
+      - Utiliser l'angle qui n'est pas **compris** entre les deux côtés connus.
+      - Oublier le facteur $2$ dans $2bc\cos\widehat{A}$.
+      - Calculatrice en radians alors que l'angle est en degrés.
     questions:
       - code: 1RE-PS-APP-01
         difficulte: 1
@@ -185,3 +284,139 @@ competences:
           - $49 = 25 + 64 - 2 \times 5 \times 8 \cos\theta$, soit $80\cos\theta = 40$.
           - $\cos\theta = \dfrac{1}{2}$, donc $\theta = 60°$.
           resultat: 60
+      - code: 1RE-PS-APP-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-5, 5], sauf: [0]}, b: {entre: [-5, 5], sauf: [0]}, c: {entre: [-5, 5], sauf: [0]}}
+          calculs: {y: "-a*c/b"}
+        enonce: 'Pour quelle valeur de $y$ les vecteurs $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; y)$ sont-ils orthogonaux ? (Réponse exacte.)'
+        solution: '[[y]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Orthogonaux $\iff$ produit scalaire nul.'
+          etapes:
+          - '$\vec{u} \cdot \vec{v} = [[a]] \times ([[c]]) + [[b]]y = [[a*c]] [[b:+]]y$.'
+          - '$[[a*c]] [[b:+]]y = 0 \iff y = [[y:frac]]$.'
+          resultat: '[[y]]'
+
+  - code: 1RE-PS-MAMB
+    libelle: Utiliser le produit scalaire MA·MB
+    attendus: [1RE-SPE-2026-PS-04, 1RE-SPE-2026-PS-09]
+    cours_couvre: [1RE-SPE-2026-PS-04, 1RE-SPE-2026-PS-09]
+    objectifs:
+    - Transformer $\overrightarrow{MA} \cdot \overrightarrow{MB}$ à l'aide du milieu $I$ de $[AB]$.
+    - Reconnaître le cercle de diamètre $[AB]$ comme l'ensemble des points $M$ tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$.
+    prerequis:
+    - 1RE-PS-CALC
+    methodes:
+    - titre: Transformer $\overrightarrow{MA} \cdot \overrightarrow{MB}$
+      quand: Un problème fait intervenir deux points fixes $A$ et $B$ et un point variable $M$.
+      etapes:
+      - Introduire le milieu $I$ de $[AB]$ $:$ $\overrightarrow{MA} = \overrightarrow{MI} + \overrightarrow{IA}$, $\overrightarrow{MB} = \overrightarrow{MI} - \overrightarrow{IA}$.
+      - Développer $:$ $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - IA^2 = MI^2 - \dfrac{AB^2}{4}$.
+      exemple:
+        enonce: $AB = 6$ et $MI = 5$. Calculer $\overrightarrow{MA} \cdot \overrightarrow{MB}$.
+        resolution:
+        - $IA = 3$.
+        - $\overrightarrow{MA} \cdot \overrightarrow{MB} = 25 - 9 = 16$.
+        resultat: $16$
+    erreurs_frequentes:
+    - erreur: Oublier que $\overrightarrow{IB} = -\overrightarrow{IA}$.
+      explication: $I$ est le milieu de $[AB]$, donc les vecteurs $\overrightarrow{IA}$ et $\overrightarrow{IB}$ sont opposés.
+    resume: |
+      - Si $I$ est le milieu de $[AB]$ : $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - \dfrac{AB^2}{4}$.
+      - L'ensemble des points $M$ tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ est le **cercle de diamètre $[AB]$**.
+      - Équivalent : $M$ est sur le cercle de diamètre $[AB]$ ($M \neq A, B$) $\iff$ $AMB$ est rectangle en $M$.
+      - $\overrightarrow{MA} \cdot \overrightarrow{MB} = k$ : cercle de centre $I$ si $k + \dfrac{AB^2}{4} > 0$.
+    cours: |
+      ## 1. Transformation de $\overrightarrow{MA} \cdot \overrightarrow{MB}$
+
+      > **Propriété.** Soient $A$, $B$ deux points et $I$ le milieu de $[AB]$. Pour tout point $M$ :
+      > $$\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - IA^2 = MI^2 - \frac{AB^2}{4}.$$
+
+      **Démonstration.** Par la relation de Chasles, $\overrightarrow{MA} = \overrightarrow{MI} + \overrightarrow{IA}$ et $\overrightarrow{MB} = \overrightarrow{MI} + \overrightarrow{IB} = \overrightarrow{MI} - \overrightarrow{IA}$ (car $I$ est le milieu). Donc
+      $$\overrightarrow{MA} \cdot \overrightarrow{MB} = (\overrightarrow{MI} + \overrightarrow{IA}) \cdot (\overrightarrow{MI} - \overrightarrow{IA}) = MI^2 - IA^2.$$
+
+      ## 2. Ensemble des points $M$ tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$
+
+      > **Théorème.** L'ensemble des points $M$ du plan tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ est le **cercle de diamètre $[AB]$**.
+
+      **Démonstration (exigible).** D'après la propriété précédente,
+      $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0 \iff MI^2 = IA^2 \iff MI = IA = \dfrac{AB}{2}$ (des distances sont positives).
+      C'est exactement la définition du cercle de centre $I$ et de rayon $\dfrac{AB}{2}$, c'est-à-dire du cercle de diamètre $[AB]$.
+
+      **Interprétation.** Pour $M \neq A$ et $M \neq B$, $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ signifie que $(MA) \perp (MB)$ : on retrouve que **$AMB$ est rectangle en $M$ si et seulement si $M$ est sur le cercle de diamètre $[AB]$**.
+
+      ## 3. Méthode : équation du cercle de diamètre $[AB]$
+
+      Dans un repère orthonormé, $M(x ; y)$ appartient au cercle de diamètre $[AB]$ si et seulement si $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$, soit
+      $$(x_A - x)(x_B - x) + (y_A - y)(y_B - y) = 0.$$
+
+      *Exemple complet.* $A(-1 ; 2)$ et $B(3 ; 4)$. $(x + 1)(x - 3) + (y - 2)(y - 4) = 0$, soit $x^2 - 2x - 3 + y^2 - 6y + 8 = 0$, c'est-à-dire $x^2 + y^2 - 2x - 6y + 5 = 0$.
+      Contrôle : centre $I(1 ; 3)$, milieu de $[AB]$ ; $(x - 1)^2 + (y - 3)^2 = 1 + 9 - 5 = 5$ et $\dfrac{AB^2}{4} = \dfrac{16 + 4}{4} = 5$. ✓
+
+      ## 4. Généralisation : $\overrightarrow{MA} \cdot \overrightarrow{MB} = k$
+
+      $MI^2 = k + \dfrac{AB^2}{4}$ : si ce nombre est strictement positif, l'ensemble est le cercle de centre $I$ de rayon $\sqrt{k + \dfrac{AB^2}{4}}$ ; s'il est nul, c'est le point $I$ ; s'il est négatif, l'ensemble est vide.
+
+      ## 5. Erreurs fréquentes
+
+      - Répondre « la médiatrice de $[AB]$ » : c'est l'ensemble des points tels que $MA = MB$.
+      - Oublier que $A$ et $B$ eux-mêmes appartiennent à l'ensemble (un vecteur nul est orthogonal à tout vecteur).
+      - Prendre $AB$ comme rayon au lieu de $\dfrac{AB}{2}$.
+    questions:
+      - code: 1RE-PS-MAMB-01
+        difficulte: 1
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 6$ et $MI = 5$. Calculer $\overrightarrow{MA} \cdot \overrightarrow{MB}$.'
+        solution: 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $MI^2 - \dfrac{AB^2}{4} = 25 - 9 = 16$.
+          resultat: 16
+      - code: 1RE-PS-MAMB-02
+        difficulte: 2
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 10$. Pour quelle distance $MI$ a-t-on $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ ?'
+        solution: 5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $MI^2 - 25 = 0$, donc $MI = 5$.
+          resultat: 5
+      - code: 1RE-PS-MAMB-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel est l''ensemble des points $M$ du plan tels que $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ ? A) La médiatrice de $[AB]$  B) Le cercle de diamètre $[AB]$  C) La droite $(AB)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Avec $I$ milieu de $[AB]$ : $\overrightarrow{MA} \cdot \overrightarrow{MB} = (\overrightarrow{MI} + \overrightarrow{IA}) \cdot (\overrightarrow{MI} - \overrightarrow{IA}) = MI^2 - IA^2$.'
+          - '$\overrightarrow{MA} \cdot \overrightarrow{MB} = 0 \iff MI^2 = IA^2 \iff MI = \dfrac{AB}{2}$.'
+          - 'Les points $M$ sont à la distance $\dfrac{AB}{2}$ de $I$ : c''est le cercle de diamètre $[AB]$ (réponse B).'
+          resultat: B
+      - code: 1RE-PS-MAMB-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un repère orthonormé, $A(1 ; 2)$, $B(5 ; 2)$ et $M(3 ; y)$ avec $y > 2$. Pour quelle valeur de $y$ le triangle $AMB$ est-il rectangle en $M$ ?'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MA}(-2 ; 2 - y)$, $\overrightarrow{MB}(2 ; 2 - y)$.
+          - $\overrightarrow{MA} \cdot \overrightarrow{MB} = -4 + (2 - y)^2 = 0$, donc $(y - 2)^2 = 4$ et $y = 4$.
+          resultat: 4
+      - code: 1RE-PS-MAMB-05
+        difficulte: 5
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ avec $AB = 4$. Quelle est la valeur minimale de $\overrightarrow{MA} \cdot \overrightarrow{MB}$ quand $M$ parcourt le plan ?'
+        solution: -4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MA} \cdot \overrightarrow{MB} = MI^2 - 4$.
+          - Minimum quand $MI = 0$, c'est-à-dire $M = I$ $:$ valeur $-4$.
+          resultat: -4

@@ -139,9 +139,9 @@ describe("codes personnels des élèves", () => {
     const fiche = await screen.findByRole("region", { name: "Codes personnels à distribuer" });
     expect(within(fiche).getByText("K7M4QP")).toBeInTheDocument();
     expect(screen.getByText("Déjà inscrit(s), ignoré(s) : Lina.")).toBeInTheDocument();
-    await userEvent.click(within(fiche).getByRole("button", { name: "Imprimer" }));
+    await userEvent.click(within(fiche).getByRole("button", { name: "Imprimer les cartes" }));
     expect(imprimer).toHaveBeenCalled();
-    await userEvent.click(within(fiche).getByRole("button", { name: "J'ai noté les codes" }));
+    await userEvent.click(within(fiche).getByRole("button", { name: "J'ai imprimé les cartes" }));
     expect(screen.queryByText("K7M4QP")).not.toBeInTheDocument();
   });
 

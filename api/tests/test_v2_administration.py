@@ -203,7 +203,9 @@ class TestExercicesAdmin:
     def test_creer_avec_solution_testee(self, client):
         h = connecter_admin(client)
         essai = {"type": "expression", "solution": "x^2 - 4x + 4", "reponse": "(x-2)^2"}
-        assert client.post("/admin/questions/tester", headers=h, json=essai).json() == {"correcte": True, "solution_lisible": True}
+        assert client.post("/admin/questions/tester", headers=h, json=essai).json() == {
+            "correcte": True, "solution_lisible": True, "forme_non_respectee": False
+        }
         corps = {"competence_id": 3, "enonce": "Développer $(x-2)^2$.", "type": "expression", "solution": "x^2 - 4x + 4", "difficulte": 2}
         q = client.post("/admin/questions", headers=h, json=corps).json()
         assert (q["auteur"], q["statut_validation"]) == ("Administrateur Démo", "a-valider")
@@ -258,8 +260,12 @@ class TestCoursProfesseur:
         assert all(ch["ouvert_dans"] == [] for ch in sommaire if ch["parcours"] != "tronc-commun")
 
     def test_recherche(self, client):
-        sommaire = client.get("/enseignants/cours?q=fraction", headers=connecter_enseignant(client)).json()
-        assert sommaire and len(sommaire) < 10
+        entetes = connecter_enseignant(client)
+        tous = client.get("/enseignants/cours", headers=entetes).json()
+        sommaire = client.get("/enseignants/cours?q=fraction", headers=entetes).json()
+        # Suit le contenu : la recherche trouve des chapitres, mais pas toute la banque.
+        assert sommaire and len(sommaire) < len(tous)
+        assert client.get("/enseignants/cours?q=terme-introuvable", headers=entetes).json() == []
 
     def test_exercices_avec_solutions_sous_le_cours(self, client):
         questions = client.get("/enseignants/cours/1/questions", headers=connecter_enseignant(client)).json()

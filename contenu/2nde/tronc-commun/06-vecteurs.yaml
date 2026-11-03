@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 2NDE-VEC-COORD
     libelle: Calculer avec les coordonnées de vecteurs
+    attendus: [2NDE-2026-VEC-05, 2NDE-2026-VEC-06, 2NDE-2026-VEC-10, 2NDE-2026-VEC-11, 2NDE-2026-VEC-12]
+    cours_couvre: [2NDE-2026-VEC-05, 2NDE-2026-VEC-06, 2NDE-2026-VEC-10, 2NDE-2026-VEC-11, 2NDE-2026-VEC-12]
     objectifs:
     - Calculer les coordonnées d'un vecteur, d'un milieu, et une distance dans un repère orthonormé.
     methodes:
@@ -26,23 +28,50 @@ competences:
     - erreur: Calculer $x_A - x_B$ au lieu de $x_B - x_A$.
       explication: 'On fait toujours « arrivée moins départ » : $\overrightarrow{AB}$ va de $A$ vers $B$.'
     resume: |
-      - $\overrightarrow{AB}\begin{pmatrix} x_B - x_A \\ y_B - y_A \end{pmatrix}$ et $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}$ (repère orthonormé).
-      - Somme et produit par un réel : on calcule coordonnée par coordonnée.
+      - Dans une base $(\vec\imath, \vec\jmath)$ : $\vec u(x ; y)$ signifie $\vec u = x\vec\imath + y\vec\jmath$.
+      - $\overrightarrow{AB}(x_B - x_A ; y_B - y_A)$.
+      - $\vec u + \vec v$ a pour coordonnées $(x + x' ; y + y')$ et $k\vec u$ a pour coordonnées $(kx ; ky)$.
+      - En base orthonormée : $\|\vec u\| = \sqrt{x^2 + y^2}$ et $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}$.
       - Milieu de $[AB]$ : $\left(\dfrac{x_A + x_B}{2} ; \dfrac{y_A + y_B}{2}\right)$.
-      - $ABCD$ parallélogramme $\iff \overrightarrow{AB} = \overrightarrow{DC}$.
     cours: |
-      ## Coordonnées d'un vecteur
-      Pour $A(1 ; 2)$ et $B(4 ; 6)$ : $\overrightarrow{AB}\begin{pmatrix} 3 \\ 4 \end{pmatrix}$ et $AB = \sqrt{3^2 + 4^2} = 5$.
+      ## 1. Base et coordonnées
+      Deux vecteurs non colinéaires $\vec\imath$ et $\vec\jmath$ forment une **base** du plan. La base est **orthonormée** si $\vec\imath$ et $\vec\jmath$ ont des directions perpendiculaires et une norme égale à $1$. Avec une origine $O$, on obtient un **repère** $(O ; \vec\imath, \vec\jmath)$.
 
-      ## Opérations
-      Si $\vec u\begin{pmatrix} 2 \\ -1 \end{pmatrix}$ et $\vec v\begin{pmatrix} -3 \\ 4 \end{pmatrix}$, alors $2\vec u + \vec v\begin{pmatrix} 1 \\ 2 \end{pmatrix}$.
+      > **Définition.** Tout vecteur $\vec u$ s'écrit de façon unique $\vec u = x\vec\imath + y\vec\jmath$ ; le couple $(x ; y)$ est formé des **coordonnées** de $\vec u$. On note $\vec u(x ; y)$ ou $\vec u \begin{pmatrix} x \\ y \end{pmatrix}$.
 
-      ## Parallélogramme
-      $ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$.
-      On en déduit les coordonnées du quatrième sommet : $D = C - \overrightarrow{AB}$ coordonnée par coordonnée.
+      **Lire ou tracer un vecteur.** $\vec u(3 ; -2)$ se représente en partant d'un point quelconque, en avançant de $3$ unités horizontalement puis de $2$ unités vers le bas. Inversement, on lit le déplacement horizontal puis le déplacement vertical entre l'origine et l'extrémité d'un représentant.
 
-      ## Erreur fréquente
-      Calculer $x_A - x_B$ au lieu de $x_B - x_A$ : on fait toujours « arrivée moins départ ».
+      ## 2. Coordonnées de $\overrightarrow{AB}$
+      > **Propriété.** Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$, alors $\overrightarrow{AB}(x_B - x_A ; y_B - y_A)$.
+
+      On retient « extrémité moins origine ». Exemple : $A(1 ; 4)$ et $B(-2 ; 5)$ donnent $\overrightarrow{AB}(-3 ; 1)$.
+
+      ## 3. Opérations
+      > **Propriété.** Si $\vec u(x ; y)$, $\vec v(x' ; y')$ et $k$ réel : $\vec u + \vec v(x + x' ; y + y')$ et $k\vec u(kx ; ky)$.
+
+      Deux vecteurs sont égaux si et seulement s'ils ont les mêmes coordonnées.
+
+      ## 4. Norme, distance et milieu (repère orthonormé)
+      > **Propriété.** Dans une base orthonormée, $\|\vec u\| = \sqrt{x^2 + y^2}$. Par conséquent $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}$.
+
+      **Justification.** Le vecteur $x\vec\imath + y\vec\jmath$ est l'hypoténuse d'un triangle rectangle dont les côtés de l'angle droit mesurent $|x|$ et $|y|$ : on applique le théorème de Pythagore.
+
+      > **Propriété.** Le milieu $I$ de $[AB]$ a pour coordonnées $\left(\dfrac{x_A + x_B}{2} ; \dfrac{y_A + y_B}{2}\right)$.
+
+      ### Méthode : démontrer la nature d'un quadrilatère avec des coordonnées
+      1. Parallélogramme : vérifier que $\overrightarrow{AB} = \overrightarrow{DC}$ (mêmes coordonnées), ou que les diagonales ont le même milieu.
+      2. Losange ou rectangle : ajouter l'égalité de deux côtés consécutifs ou des diagonales, calculées avec la formule de distance.
+
+      **Exemple complet.** $A(1 ; 1)$, $B(5 ; 2)$, $C(6 ; 6)$, $D(2 ; 5)$ dans un repère orthonormé.
+      - $\overrightarrow{AB}(4 ; 1)$ et $\overrightarrow{DC}(6 - 2 ; 6 - 5) = (4 ; 1)$ : $\overrightarrow{AB} = \overrightarrow{DC}$, donc $ABCD$ est un parallélogramme.
+      - $AB = \sqrt{4^2 + 1^2} = \sqrt{17}$ et $AD = \sqrt{1^2 + 4^2} = \sqrt{17}$ : deux côtés consécutifs égaux, c'est un losange.
+      - Centre : milieu de $[AC]$, soit $\left(\dfrac{1 + 6}{2} ; \dfrac{1 + 6}{2}\right) = (3{,}5 ; 3{,}5)$.
+
+      ## 5. Erreurs fréquentes
+      - Calculer « origine moins extrémité » : $\overrightarrow{AB}$ a pour coordonnées $(x_B - x_A ; y_B - y_A)$.
+      - Utiliser la formule de la distance dans un repère qui n'est pas orthonormé.
+      - Oublier les parenthèses autour d'un nombre négatif élevé au carré : $(-3)^2 = 9$.
+      - Confondre le milieu (somme divisée par $2$) et les coordonnées de $\overrightarrow{AB}$ (différence).
     questions:
       - code: 2NDE-VEC-COORD-01
         difficulte: 1
@@ -73,7 +102,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $2\vec u(4 ; -2)$, donc $2\vec u + \vec v(4 - 3 ; -2 + 4) = (1 ; 2)$.
+          - 'Produit par un réel : on multiplie chaque coordonnée par $2$, donc $2\vec u(2 \times 2 ; 2 \times (-1)) = (4 ; -2)$.'
+          - 'Somme : on additionne les coordonnées une à une, $2\vec u + \vec v(4 + (-3) ; -2 + 4)$.'
+          - 'D''où $2\vec u + \vec v(1 ; 2)$ : son ordonnée est $2$.'
           resultat: 2
       - code: 2NDE-VEC-COORD-04
         difficulte: 4
@@ -100,9 +131,26 @@ competences:
           - $I\left(\dfrac{-2 + 4}{2} ; \dfrac{3 + 7}{2}\right) = (1 ; 5)$.
           - $OI = \sqrt{1^2 + 5^2} = \sqrt{26}$.
           resultat: sqrt(26)
+      - code: 2NDE-VEC-COORD-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {xa: {entre: [-5, 5]}, ya: {entre: [-5, 5]}, k: {entre: [1, 3]}, i: {parmi: [0, 1, 2]}}
+          calculs: {dx: "k*(3*(i == 0) + 5*(i == 1) + 8*(i == 2))", dy: "k*(4*(i == 0) + 12*(i == 1) + 15*(i == 2))", L: "k*(5*(i == 0) + 13*(i == 1) + 17*(i == 2))", xb: "xa + dx", yb: "ya + dy"}
+        enonce: 'Dans un repère orthonormé, $A([[xa]] ; [[ya]])$ et $B([[xb]] ; [[yb]])$. Calculer la longueur $AB$.'
+        solution: '[[L]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Coordonnées du vecteur, puis formule de la norme.'
+          etapes:
+          - '$\overrightarrow{AB}([[xb]] - ([[xa]]) ; [[yb]] - ([[ya]]))$, soit $\overrightarrow{AB}([[dx]] ; [[dy]])$.'
+          - '$AB = \sqrt{[[dx]]^2 + [[dy]]^2} = \sqrt{[[L*L]]} = [[L]]$.'
+          resultat: '[[L]]'
 
   - code: 2NDE-VEC-COL
     libelle: Étudier la colinéarité de deux vecteurs
+    attendus: [2NDE-2026-VEC-03, 2NDE-2026-VEC-07, 2NDE-2026-VEC-13, 2NDE-2026-VEC-16]
+    cours_couvre: [2NDE-2026-VEC-03, 2NDE-2026-VEC-07, 2NDE-2026-VEC-13, 2NDE-2026-VEC-16]
     objectifs:
     - Tester la colinéarité de deux vecteurs avec le déterminant.
     - En déduire un alignement ou un parallélisme.
@@ -123,20 +171,50 @@ competences:
     - erreur: Calculer $xx' - yy'$ au lieu de $xy' - x'y$.
       explication: 'On multiplie « en croix » : abscisse de l''un par ordonnée de l''autre.'
     resume: |
-      - $\det(\vec u, \vec v) = xy' - x'y$ pour $\vec u(x ; y)$ et $\vec v(x' ; y')$.
-      - $\vec u$ et $\vec v$ colinéaires $\iff \det(\vec u, \vec v) = 0$.
+      - $\vec u$ et $\vec v$ sont **colinéaires** si l'un est un multiple de l'autre : $\vec v = k\vec u$ (ou $\vec u = \vec 0$).
+      - Déterminant en base orthonormée : $\det(\vec u, \vec v) = xy' - x'y$.
+      - $\vec u$ et $\vec v$ colinéaires $\iff \det(\vec u, \vec v) = 0 \iff$ coordonnées proportionnelles.
       - $A$, $B$, $C$ alignés $\iff \overrightarrow{AB}$ et $\overrightarrow{AC}$ colinéaires.
       - $(AB) \parallel (CD) \iff \overrightarrow{AB}$ et $\overrightarrow{CD}$ colinéaires.
     cours: |
-      ## Déterminant
-      $$\det(\vec u, \vec v) = \begin{vmatrix} x & x' \\ y & y' \end{vmatrix} = xy' - x'y$$
-      Pour $\vec u(2 ; -3)$ et $\vec v(-4 ; 6)$ : $2 \times 6 - (-4) \times (-3) = 12 - 12 = 0$ : colinéaires ($\vec v = -2\vec u$).
+      ## 1. Colinéarité
+      > **Définition.** Deux vecteurs $\vec u$ et $\vec v$ sont **colinéaires** s'il existe un réel $k$ tel que $\vec v = k\vec u$, ou si $\vec u = \vec 0$. Deux vecteurs non nuls colinéaires ont la même direction.
 
-      ## Alignement
-      $A(0 ; 1)$, $B(2 ; 5)$, $C(3 ; 7)$ : $\overrightarrow{AB}(2 ; 4)$ et $\overrightarrow{AC}(3 ; 6)$, déterminant $2 \times 6 - 3 \times 4 = 0$ : les points sont alignés.
+      Le vecteur nul est colinéaire à tout vecteur.
 
-      ## Trouver un paramètre
-      $\vec u(m ; 2)$ et $\vec v(6 ; 4)$ colinéaires $\iff 4m - 12 = 0 \iff m = 3$.
+      ## 2. Déterminant de deux vecteurs
+      > **Définition.** Dans une base orthonormée, le **déterminant** de $\vec u(x ; y)$ et $\vec v(x' ; y')$ est $\det(\vec u, \vec v) = \begin{vmatrix} x & x' \\ y & y' \end{vmatrix} = xy' - x'y$.
+
+      Exemple : $\det\big(\vec u(2 ; 3), \vec v(4 ; 1)\big) = 2 \times 1 - 4 \times 3 = -10$.
+
+      > **Propriété (caractérisations de la colinéarité).** Soit $\vec u(x ; y)$ et $\vec v(x' ; y')$ deux vecteurs non nuls. Les trois propositions suivantes sont équivalentes :
+      > 1. $\vec u$ et $\vec v$ sont colinéaires ;
+      > 2. $\det(\vec u, \vec v) = 0$ ;
+      > 3. les coordonnées sont proportionnelles : il existe $k$ tel que $x' = kx$ et $y' = ky$.
+
+      **Démonstration (exigible).**
+      - (1) ⇒ (3) : si $\vec v = k\vec u$, alors $(x' ; y') = (kx ; ky)$ par la règle des coordonnées.
+      - (3) ⇒ (2) : si $x' = kx$ et $y' = ky$, alors $xy' - x'y = x(ky) - (kx)y = 0$.
+      - (2) ⇒ (1) : supposons $xy' = x'y$. Comme $\vec u \neq \vec 0$, on a $x \neq 0$ ou $y \neq 0$. Si $x \neq 0$, posons $k = \dfrac{x'}{x}$ : alors $x' = kx$ et $y' = \dfrac{x'y}{x} = ky$, donc $\vec v = k\vec u$. Si $x = 0$, alors $y \neq 0$ et l'égalité $0 = x'y$ donne $x' = 0$ ; avec $k = \dfrac{y'}{y}$, on obtient encore $\vec v = k\vec u$.
+
+      ## 3. Applications : alignement et parallélisme
+      > **Propriété.** Les points $A$, $B$, $C$ sont alignés si et seulement si $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires. Les droites $(AB)$ et $(CD)$ sont parallèles si et seulement si $\overrightarrow{AB}$ et $\overrightarrow{CD}$ sont colinéaires.
+
+      ### Méthode
+      1. Calculer les coordonnées des deux vecteurs utiles.
+      2. Calculer leur déterminant $xy' - x'y$.
+      3. Conclure : déterminant nul, colinéaires (alignés ou parallèles) ; déterminant non nul, non colinéaires.
+
+      **Exemple complet.** $A(-1 ; 2)$, $B(3 ; 4)$, $C(9 ; 7)$. Les points sont-ils alignés ?
+      - $\overrightarrow{AB}(4 ; 2)$ et $\overrightarrow{AC}(10 ; 5)$.
+      - $\det(\overrightarrow{AB}, \overrightarrow{AC}) = 4 \times 5 - 10 \times 2 = 0$.
+      - Les vecteurs sont colinéaires (on a d'ailleurs $\overrightarrow{AC} = 2{,}5\,\overrightarrow{AB}$) : $A$, $B$, $C$ sont alignés.
+
+      ## 4. Erreurs fréquentes
+      - Se tromper dans le « produit en croix » : c'est $xy' - x'y$, et non $xx' - yy'$.
+      - Conclure au parallélisme de deux droites confondues : si de plus un point de l'une est sur l'autre, les droites sont confondues.
+      - Oublier que deux vecteurs colinéaires peuvent être de sens contraires ($k < 0$).
+      - Écrire « $\vec u = k\vec v$ » avec deux valeurs de $k$ différentes pour $x$ et $y$ : il faut le **même** coefficient.
     questions:
       - code: 2NDE-VEC-COL-01
         difficulte: 1
@@ -194,3 +272,269 @@ competences:
           - $\det = 2(k - 2) - (-1) \times 4 = 2k - 4 + 4 = 2k$.
           - $2k = 0$ donne $k = 0$.
           resultat: 0
+      - code: 2NDE-VEC-COL-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-6, 6], sauf: [0]}, b: {entre: [-6, 6], sauf: [0]}, k: {entre: [-3, 4], sauf: [0, 1]}}
+          calculs: {c: "k*a", y: "k*b"}
+        enonce: 'Pour quelle valeur de $y$ les vecteurs $\vec{u}([[a]] ; [[b]])$ et $\vec{v}([[c]] ; y)$ sont-ils colinéaires ?'
+        solution: '[[y]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Deux vecteurs sont colinéaires si et seulement si leur déterminant est nul.'
+          etapes:
+          - '$\det(\vec{u}, \vec{v}) = [[a]] \times y - [[b]] \times ([[c]]) = [[a]]y [[-b*c:+]]$.'
+          - '$[[a]]y [[-b*c:+]] = 0 \iff y = \dfrac{[[b*c]]}{[[a]]} = [[y]]$.'
+          resultat: '[[y]]'
+
+  - code: 2NDE-VEC-GEO
+    libelle: Construire et additionner des vecteurs
+    attendus: [2NDE-2026-VEC-01, 2NDE-2026-VEC-02, 2NDE-2026-VEC-04, 2NDE-2026-VEC-08, 2NDE-2026-VEC-09]
+    cours_couvre: [2NDE-2026-VEC-01, 2NDE-2026-VEC-02, 2NDE-2026-VEC-04, 2NDE-2026-VEC-08, 2NDE-2026-VEC-09]
+    objectifs:
+    - Reconnaître deux vecteurs égaux et utiliser des représentants.
+    - Additionner des vecteurs (relation de Chasles, règle du parallélogramme).
+    - Caractériser le milieu d'un segment par une égalité vectorielle.
+    methodes:
+    - titre: Simplifier une somme avec la relation de Chasles
+      quand: Une somme de vecteurs s'écrit avec des points.
+      etapes:
+      - Réordonner les vecteurs pour que l'extrémité de l'un soit l'origine du suivant.
+      - Appliquer $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$ de proche en proche.
+      exemple:
+        enonce: Simplifier $\overrightarrow{CD} + \overrightarrow{AC}$.
+        resolution:
+        - $\overrightarrow{AC} + \overrightarrow{CD}$.
+        - $= \overrightarrow{AD}$.
+        resultat: $\overrightarrow{AD}$
+    erreurs_frequentes:
+    - erreur: Écrire $\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{BC}$.
+      explication: La relation de Chasles exige que l'extrémité du premier vecteur soit l'origine du second.
+    - erreur: Confondre $\overrightarrow{AB}$ et $\overrightarrow{BA}$.
+      explication: $\overrightarrow{BA} = -\overrightarrow{AB}$ $:$ même direction, même longueur, sens contraire.
+    resume: |
+      - $\overrightarrow{AB} = \overrightarrow{CD}$ si et seulement si $ABDC$ est un parallélogramme (éventuellement aplati).
+      - Relation de Chasles : $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$.
+      - Règle du parallélogramme : $\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{AD}$ où $ABDC$ est un parallélogramme.
+      - $I$ est le milieu de $[AB]$ si et seulement si $\overrightarrow{AI} = \overrightarrow{IB}$.
+      - Avec deux vecteurs non colinéaires $\vec u$ et $\vec v$, tout vecteur s'écrit $a\vec u + b\vec v$.
+    cours: |
+      ## 1. Vecteurs et représentants
+      La **translation** qui transforme $A$ en $B$ est associée au **vecteur** $\overrightarrow{AB}$, caractérisé par :
+      - sa **direction** (celle de la droite $(AB)$) ;
+      - son **sens** (de $A$ vers $B$) ;
+      - sa **norme** (la longueur $AB$), notée $\|\overrightarrow{AB}\|$.
+
+      > **Définition.** $\overrightarrow{AB} = \overrightarrow{CD}$ lorsque ces deux vecteurs ont même direction, même sens et même norme. Cela équivaut à : $ABDC$ est un parallélogramme (éventuellement aplati).
+
+      Tous les couples de points $(C ; D)$ tels que $\overrightarrow{CD} = \overrightarrow{AB}$ sont des **représentants** d'un même vecteur, que l'on note souvent $\vec u$. Pour tout point $M$, il existe un unique point $N$ tel que $\overrightarrow{MN} = \vec u$.
+
+      Le **vecteur nul** $\vec 0 = \overrightarrow{AA}$ a une norme nulle. Le vecteur **opposé** de $\overrightarrow{AB}$ est $\overrightarrow{BA} = -\overrightarrow{AB}$.
+
+      ## 2. Somme de deux vecteurs
+      > **Propriété (relation de Chasles).** Pour tous points $A$, $B$, $C$ : $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$.
+
+      > **Propriété (règle du parallélogramme).** $\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{AD}$, où $D$ est le point tel que $ABDC$ est un parallélogramme.
+
+      ### Méthode : construire $\vec u + \vec v$
+      - **Bout à bout** : tracer un représentant de $\vec u$ d'origine $A$, d'extrémité $B$, puis un représentant de $\vec v$ d'origine $B$, d'extrémité $C$. Alors $\vec u + \vec v = \overrightarrow{AC}$.
+      - **Même origine** : tracer $\vec u = \overrightarrow{AB}$ et $\vec v = \overrightarrow{AC}$ depuis le même point $A$, compléter le parallélogramme $ABDC$ ; la diagonale $\overrightarrow{AD}$ représente la somme.
+
+      La différence $\vec u - \vec v$ est la somme $\vec u + (-\vec v)$.
+
+      ## 3. Produit par un réel et combinaisons
+      Pour un réel $k$ et $\vec u \neq \vec 0$, le vecteur $k\vec u$ a la même direction que $\vec u$, le même sens si $k > 0$, le sens contraire si $k < 0$, et pour norme $|k| \times \|\vec u\|$.
+
+      > **Propriété.** Si $\vec u$ et $\vec v$ ne sont pas colinéaires, tout vecteur $\vec w$ du plan s'écrit de manière unique $\vec w = a\vec u + b\vec v$, avec $a$ et $b$ réels.
+
+      ## 4. Milieu d'un segment
+      > **Propriété.** $I$ est le milieu de $[AB]$ si et seulement si $\overrightarrow{AI} = \overrightarrow{IB}$, ou encore $\overrightarrow{AB} = 2\overrightarrow{AI}$, ou encore $\overrightarrow{IA} + \overrightarrow{IB} = \vec 0$.
+
+      **Exemple complet.** $ABCD$ est un parallélogramme de centre $O$. On pose $\vec u = \overrightarrow{AB}$ et $\vec v = \overrightarrow{AD}$. Exprimer $\overrightarrow{AC}$, $\overrightarrow{BD}$ et $\overrightarrow{AO}$.
+      - Règle du parallélogramme : $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD} = \vec u + \vec v$.
+      - Chasles : $\overrightarrow{BD} = \overrightarrow{BA} + \overrightarrow{AD} = -\vec u + \vec v$.
+      - $O$ est le milieu de $[AC]$ : $\overrightarrow{AO} = \dfrac{1}{2}\overrightarrow{AC} = \dfrac{1}{2}\vec u + \dfrac{1}{2}\vec v$.
+
+      ## 5. Erreurs fréquentes
+      - Écrire $\overrightarrow{AB} = \overrightarrow{CD}$ et en déduire que $ABCD$ est un parallélogramme : c'est $ABDC$ (attention à l'ordre des lettres).
+      - Appliquer Chasles sans que les lettres « se suivent » : $\overrightarrow{AB} + \overrightarrow{CB}$ n'est pas $\overrightarrow{AC}$ en général.
+      - Confondre le vecteur $\overrightarrow{AB}$ et la longueur $AB$.
+      - Oublier que $\overrightarrow{BA} = -\overrightarrow{AB}$ en réordonnant une somme.
+    questions:
+      - code: 2NDE-VEC-GEO-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Simplifier $\overrightarrow{MN} + \overrightarrow{NP}$. A) $\overrightarrow{MP}$  B) $\overrightarrow{PM}$  C) $\overrightarrow{NM}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Relation de Chasles $:$ $\overrightarrow{MN} + \overrightarrow{NP} = \overrightarrow{MP}$.
+          resultat: A
+      - code: 2NDE-VEC-GEO-02
+        difficulte: 2
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{KL} = \overrightarrow{PQ}$. Quel quadrilatère est un parallélogramme ? A) $KLPQ$  B) $KLQP$  C) $KQLP$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{KL} = \overrightarrow{PQ}$ équivaut à $KLQP$ parallélogramme (on « tourne » $K \to L \to Q \to P$).
+          resultat: B
+      - code: 2NDE-VEC-GEO-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Simplifier $\overrightarrow{RS} + \overrightarrow{TR} + \overrightarrow{ST}$. A) $\overrightarrow{RT}$  B) $\vec{0}$  C) $2\overrightarrow{RS}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On réordonne la somme pour que les lettres s''enchaînent : $\overrightarrow{TR} + \overrightarrow{RS} + \overrightarrow{ST}$ (une somme de vecteurs ne dépend pas de l''ordre).'
+          - 'Relation de Chasles : $\overrightarrow{TR} + \overrightarrow{RS} = \overrightarrow{TS}$.'
+          - 'Puis $\overrightarrow{TS} + \overrightarrow{ST} = \overrightarrow{TT} = \vec{0}$ : réponse B.'
+          resultat: B
+      - code: 2NDE-VEC-GEO-04
+        difficulte: 4
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{IM} + \overrightarrow{IN} = \vec{0}$. Que peut-on dire du point $I$ ? A) $I$ est le milieu de $[MN]$  B) $M$ est le milieu de $[IN]$  C) $I$, $M$, $N$ forment un triangle rectangle'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{IM} = -\overrightarrow{IN} = \overrightarrow{NI}$ $:$ donc $\overrightarrow{NI} = \overrightarrow{IM}$.
+          - $I$ est le milieu de $[MN]$.
+          resultat: A
+      - code: 2NDE-VEC-GEO-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Dans un parallélogramme $PQRS$, on note $\vec{u} = \overrightarrow{PQ}$ et $\vec{v} = \overrightarrow{PS}$. Exprimer $\overrightarrow{QS}$. A) $\vec{u} + \vec{v}$  B) $\vec{v} - \vec{u}$  C) $\vec{u} - \vec{v}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On décompose $\overrightarrow{QS}$ en passant par le point $P$ (relation de Chasles) : $\overrightarrow{QS} = \overrightarrow{QP} + \overrightarrow{PS}$.'
+          - '$\overrightarrow{QP}$ est l''opposé de $\overrightarrow{PQ}$, donc $\overrightarrow{QP} = -\vec{u}$ ; et $\overrightarrow{PS} = \vec{v}$.'
+          - 'Donc $\overrightarrow{QS} = -\vec{u} + \vec{v} = \vec{v} - \vec{u}$ : réponse B.'
+          resultat: B
+
+  - code: 2NDE-VEC-PB
+    libelle: Résoudre un problème de géométrie avec les vecteurs
+    attendus: [2NDE-2026-VEC-14, 2NDE-2026-VEC-15]
+    cours_couvre: [2NDE-2026-VEC-14, 2NDE-2026-VEC-15]
+    objectifs:
+    - Choisir entre une méthode vectorielle, repérée ou géométrique.
+    - Démontrer un alignement, un parallélisme ou un milieu.
+    prerequis:
+    - 2NDE-VEC-GEO
+    - 2NDE-VEC-COL
+    - 2NDE-VEC-COORD
+    methodes:
+    - titre: Démontrer un alignement avec des vecteurs
+      quand: On doit montrer que trois points $A$, $B$, $C$ sont alignés.
+      etapes:
+      - Exprimer $\overrightarrow{AB}$ et $\overrightarrow{AC}$ (par Chasles ou par coordonnées).
+      - Montrer qu'ils sont colinéaires (un multiple de l'autre, ou déterminant nul).
+      exemple:
+        enonce: $A(1 ; 2)$, $B(3 ; 5)$, $C(7 ; 11)$ sont-ils alignés ?
+        resolution:
+        - $\overrightarrow{AB}(2 ; 3)$ et $\overrightarrow{AC}(6 ; 9)$.
+        - $\overrightarrow{AC} = 3\overrightarrow{AB}$.
+        resultat: Oui, les points sont alignés.
+    erreurs_frequentes:
+    - erreur: Conclure à un alignement à partir d'une figure.
+      explication: Une figure illustre, elle ne démontre pas $:$ il faut un calcul.
+    resume: |
+      - Une même question de géométrie peut se traiter avec des vecteurs sans repère, avec des coordonnées, ou par une méthode géométrique.
+      - Sans repère : relation de Chasles et décomposition de chaque vecteur selon deux vecteurs non colinéaires.
+      - Avec repère : coordonnées, puis déterminant (alignement, parallélisme), distances, milieux.
+      - On choisit la méthode qui rend les calculs les plus courts, et on conclut par une phrase.
+    cours: |
+      ## 1. Trois approches possibles
+      | Approche | Outils | Quand l'utiliser |
+      |---|---|---|
+      | Vectorielle, sans repère | Chasles, règle du parallélogramme, $k\vec u$ | les points sont définis par des égalités vectorielles |
+      | Repérée | coordonnées, déterminant, distance, milieu | les points ont des coordonnées, ou on peut choisir un repère adapté |
+      | Géométrique | Thalès, droite des milieux, parallélogramme | la figure contient des configurations connues |
+
+      > **Principe.** Pour montrer un **alignement** ou un **parallélisme**, on montre que deux vecteurs sont colinéaires ; pour montrer qu'un point est un **milieu**, on montre une égalité de vecteurs ou de coordonnées.
+
+      ## 2. Méthode vectorielle sans repère
+      1. Choisir deux vecteurs de base non colinéaires, souvent liés à la figure (par exemple $\vec u = \overrightarrow{AB}$ et $\vec v = \overrightarrow{AC}$).
+      2. Exprimer chaque vecteur utile en fonction de $\vec u$ et $\vec v$ avec la relation de Chasles.
+      3. Comparer les expressions obtenues (colinéarité, égalité).
+
+      **Exemple complet.** $ABC$ est un triangle. On définit $D$ par $\overrightarrow{AD} = 3\overrightarrow{AB}$ et $E$ par $\overrightarrow{AE} = 3\overrightarrow{AC}$. Montrer que $(BC)$ et $(DE)$ sont parallèles.
+      - $\overrightarrow{DE} = \overrightarrow{DA} + \overrightarrow{AE} = -3\overrightarrow{AB} + 3\overrightarrow{AC}$.
+      - $\overrightarrow{BC} = \overrightarrow{BA} + \overrightarrow{AC} = -\overrightarrow{AB} + \overrightarrow{AC}$.
+      - Donc $\overrightarrow{DE} = 3\overrightarrow{BC}$ : les vecteurs sont colinéaires et $(DE) \parallel (BC)$. De plus $DE = 3BC$.
+
+      ## 3. Méthode repérée
+      Si la figure n'a pas de coordonnées, on peut choisir un repère adapté : par exemple, pour un carré $ABCD$ de côté $1$, le repère $(A ; \overrightarrow{AB}, \overrightarrow{AD})$ est orthonormé et donne $A(0 ; 0)$, $B(1 ; 0)$, $C(1 ; 1)$, $D(0 ; 1)$.
+
+      **Exemple.** Dans ce carré, $I$ est le milieu de $[AB]$ et $J$ le point de $[BC]$ tel que $BJ = \dfrac{1}{2}$. Avec $I\left(\dfrac{1}{2} ; 0\right)$ et $J\left(1 ; \dfrac{1}{2}\right)$ : $\overrightarrow{IJ}\left(\dfrac{1}{2} ; \dfrac{1}{2}\right)$ et $\overrightarrow{AC}(1 ; 1)$, donc $\overrightarrow{AC} = 2\overrightarrow{IJ}$ et $(IJ) \parallel (AC)$.
+
+      ## 4. Méthode géométrique
+      Le même résultat découle du théorème de la droite des milieux : dans le triangle $ABC$, $I$ et $J$ sont les milieux de $[AB]$ et $[BC]$, donc $(IJ) \parallel (AC)$. Comparer les méthodes aide à choisir la plus rapide.
+
+      ## 5. Erreurs fréquentes
+      - Mélanger vecteurs et longueurs : $\overrightarrow{DE} = 3\overrightarrow{BC}$ donne $DE = 3BC$, mais $DE = 3BC$ seul ne prouve pas le parallélisme.
+      - Choisir deux vecteurs de base colinéaires : la décomposition n'est alors plus possible.
+      - Utiliser une formule de distance dans un repère non orthonormé.
+      - Oublier de conclure par une phrase qui répond à la question posée.
+    questions:
+      - code: 2NDE-VEC-PB-01
+        difficulte: 1
+        type: qcm
+        enonce: 'On sait que $\overrightarrow{AC} = 4\overrightarrow{AB}$. Que peut-on conclure ? A) $A$, $B$, $C$ sont alignés  B) $ABC$ est un triangle rectangle  C) $B$ est le milieu de $[AC]$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires et ont l'origine $A$ en commun.
+          resultat: A
+      - code: 2NDE-VEC-PB-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Les points $A(1 ; 2)$, $B(3 ; 5)$ et $C(7 ; y)$ sont alignés. Calculer $y$.'
+        solution: 11
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{AB}(2 ; 3)$ et $\overrightarrow{AC}(6 ; y - 2)$.
+          - Colinéarité $:$ $2(y - 2) - 3 \times 6 = 0$, donc $y = 11$.
+          resultat: 11
+      - code: 2NDE-VEC-PB-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Dans le repère $(O ; \vec{\imath}, \vec{\jmath})$, $M(1 ; 1)$, $N(4 ; 2)$, $P(0 ; 3)$ et $Q(6 ; 5)$. Les droites $(MN)$ et $(PQ)$ sont-elles parallèles ? A) Oui  B) Non'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{MN}(3 ; 1)$ et $\overrightarrow{PQ}(6 ; 2) = 2\overrightarrow{MN}$.
+          - Les vecteurs sont colinéaires $:$ les droites sont parallèles.
+          resultat: A
+      - code: 2NDE-VEC-PB-04
+        difficulte: 4
+        type: qcm
+        enonce: '$ABCD$ est un parallélogramme et $E$ est défini par $\overrightarrow{BE} = \overrightarrow{AB}$. Que peut-on dire du quadrilatère $BECD$ ? A) C''est un parallélogramme  B) C''est un trapèze non parallélogramme  C) On ne peut rien dire'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\overrightarrow{BE} = \overrightarrow{AB} = \overrightarrow{DC}$.
+          - $\overrightarrow{BE} = \overrightarrow{DC}$ signifie que $BECD$ est un parallélogramme.
+          resultat: A
+      - code: 2NDE-VEC-PB-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans le repère $(A ; \overrightarrow{AB}, \overrightarrow{AD})$ d''un parallélogramme $ABCD$, $I$ est le milieu de $[AB]$ et $E$ vérifie $\overrightarrow{DE} = 2\overrightarrow{DI}$. Quelle est l''abscisse de $E$ ?'
+        solution: 1
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $D(0 ; 1)$ et $I(\tfrac{1}{2} ; 0)$, donc $\overrightarrow{DI}(\tfrac{1}{2} ; -1)$.
+          - $E = D + 2\overrightarrow{DI}$ a pour coordonnées $(1 ; -1)$.
+          - Comme $B(1 ; 0)$ et $C(1 ; 1)$, les points $B$, $C$, $E$ sont alignés.
+          resultat: 1

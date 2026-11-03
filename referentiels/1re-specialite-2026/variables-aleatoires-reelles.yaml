@@ -1,0 +1,19 @@
+# Partie « Probabilités et statistiques », rubrique « Variables aléatoires réelles » (page 10 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: VA
+  titre: Variables aléatoires réelles
+  partie: Probabilités et statistiques
+
+attendus:
+  - {code: 1RE-SPE-2026-VA-01, type: contenu, page: 10, texte: "Variable aléatoire réelle : modélisation du résultat numérique d’une expérience aléatoire ; formalisation comme fonction définie sur l’univers et à valeurs réelles."}
+  - {code: 1RE-SPE-2026-VA-02, type: contenu, page: 10, texte: "Loi d’une variable aléatoire."}
+  - {code: 1RE-SPE-2026-VA-03, type: contenu, page: 10, texte: "Espérance, variance, écart type d’une variable aléatoire."}
+  - {code: 1RE-SPE-2026-VA-04, type: contenu, page: 10, texte: "Linéarité de l’espérance."}
+  - {code: 1RE-SPE-2026-VA-05, type: contenu, page: 11, texte: "Formule de König-Huygens."}
+  - {code: 1RE-SPE-2026-VA-06, type: capacite, page: 11, texte: "Interpréter en situation et utiliser les notations {X = a}, {X ⩽ a}, P(X = a), P(X ⩽ a). Passer du registre de la langue naturelle au registre symbolique et inversement."}
+  - {code: 1RE-SPE-2026-VA-07, type: capacite, page: 11, texte: "Modéliser une situation à l’aide d’une variable aléatoire."}
+  - {code: 1RE-SPE-2026-VA-08, type: capacite, page: 11, texte: "Déterminer la loi de probabilité d’une variable aléatoire."}
+  - {code: 1RE-SPE-2026-VA-09, type: capacite, page: 11, texte: "Calculer une espérance, une variance, un écart type."}
+  - {code: 1RE-SPE-2026-VA-10, type: capacite, page: 11, texte: "Utiliser la notion d’espérance dans une résolution de problème (mise pour un jeu équitable, etc.)."}
+  - {code: 1RE-SPE-2026-VA-11, type: approfondissement, page: 11, texte: "Pour X variable aléatoire, étude de la fonction du second degré x ↦ E((X – x)²)."}

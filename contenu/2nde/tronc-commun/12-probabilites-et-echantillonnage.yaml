@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 2NDE-PROBA
     libelle: Calculer des probabilités
+    attendus: [2NDE-2026-AUTO-27, 2NDE-2026-AUTO-28, 2NDE-2026-AUTO-29, 2NDE-2026-AUTO-30]
+    cours_couvre: [2NDE-2026-AUTO-27, 2NDE-2026-AUTO-28, 2NDE-2026-AUTO-29, 2NDE-2026-AUTO-30]
     objectifs:
     - Calculer des probabilités en situation d'équiprobabilité.
     - Utiliser l'évènement contraire et la formule de la réunion.
@@ -28,22 +30,53 @@ competences:
     - erreur: Additionner $P(A)$ et $P(B)$ quand $A$ et $B$ peuvent arriver ensemble.
       explication: '$P(A \cup B) = P(A) + P(B) - P(A \cap B)$ : on retire ce qui est compté deux fois.'
     resume: |
-      - En situation d'équiprobabilité : $P(A) = \dfrac{\text{nombre d'issues favorables}}{\text{nombre total d'issues}}$.
+      - Une probabilité est un nombre compris entre $0$ et $1$ ; la somme des probabilités de toutes les issues vaut $1$.
+      - La probabilité d'un événement est la somme des probabilités des issues qui le composent.
+      - Équiprobabilité : $P(A) = \dfrac{\text{Card}(A)}{\text{Card}(\Omega)} = \dfrac{\text{nombre d'issues favorables}}{\text{nombre d'issues possibles}}$.
       - Événement contraire : $P(\bar A) = 1 - P(A)$.
-      - Réunion : $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
-      - Pour deux épreuves, un tableau à double entrée ou un arbre liste toutes les issues.
+      - $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
     cours: |
-      ## Équiprobabilité
-      Avec un dé équilibré, $P(\text{« 5 ou 6 »}) = \dfrac{2}{6} = \dfrac{1}{3}$.
+      ## 1. Vocabulaire
+      - Une **expérience aléatoire** a plusieurs résultats possibles, appelés **issues**, et on ne peut pas prévoir lequel se produira.
+      - L'**univers** $\Omega$ est l'ensemble de toutes les issues.
+      - Un **événement** est une partie de $\Omega$. Un événement **élémentaire** contient une seule issue.
+      - $A \cap B$ (« $A$ et $B$ ») contient les issues communes ; $A \cup B$ (« $A$ ou $B$ ») celles qui sont dans l'un au moins ; $\bar A$ (« contraire de $A$ ») celles qui ne sont pas dans $A$.
 
-      ## Contraire
-      « Au moins une face » avec deux pièces : le contraire est « deux piles », de probabilité $\dfrac{1}{4}$, donc $P = 1 - \dfrac{1}{4} = \dfrac{3}{4}$.
+      ## 2. Loi de probabilité
+      > **Définition.** Définir une **loi de probabilité** sur $\Omega = \{x_1, \dots, x_n\}$, c'est associer à chaque issue $x_i$ un nombre $p_i$ tel que $0 \leqslant p_i \leqslant 1$ et $p_1 + p_2 + \dots + p_n = 1$.
 
-      ## Réunion
-      $P(A) = 0{,}5$, $P(B) = 0{,}4$, $P(A \cap B) = 0{,}2$ : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+      > **Propriété.** La probabilité d'un événement $A$ est la somme des probabilités des issues qui le composent. En particulier $P(\varnothing) = 0$, $P(\Omega) = 1$ et, pour tout événement $A$, $0 \leqslant P(A) \leqslant 1$.
 
-      ## Deux dés
-      Le tableau $6 \times 6$ a $36$ cases équiprobables ; la somme $7$ apparaît $6$ fois : probabilité $\dfrac{1}{6}$.
+      **Exemple.** Un dé truqué donne les probabilités $P(1) = P(2) = P(3) = P(4) = P(5) = 0{,}15$ et $P(6) = 0{,}25$. La probabilité d'obtenir un nombre pair est $P(2) + P(4) + P(6) = 0{,}15 + 0{,}15 + 0{,}25 = 0{,}55$.
+
+      ## 3. Équiprobabilité
+      > **Propriété.** Si toutes les issues ont la même probabilité (situation d'**équiprobabilité**), chacune a pour probabilité $\dfrac{1}{\text{Card}(\Omega)}$ et, pour tout événement $A$ : $P(A) = \dfrac{\text{Card}(A)}{\text{Card}(\Omega)}$.
+
+      Les expressions « au hasard », « dé équilibré », « pièce bien équilibrée » indiquent une situation d'équiprobabilité.
+
+      ## 4. Événement contraire et réunion
+      > **Propriété.** $P(\bar A) = 1 - P(A)$.
+
+      > **Propriété.** $P(A \cup B) = P(A) + P(B) - P(A \cap B)$. Si $A$ et $B$ sont **incompatibles** ($A \cap B = \varnothing$), $P(A \cup B) = P(A) + P(B)$.
+
+      En effet, en additionnant $P(A)$ et $P(B)$, les issues de $A \cap B$ sont comptées deux fois.
+
+      ### Méthode : calculer une probabilité
+      1. Décrire l'univers et vérifier s'il y a équiprobabilité.
+      2. Décrire l'événement par ses issues, ou par son contraire si c'est plus simple (« au moins un… »).
+      3. Appliquer la formule adaptée : somme des issues, $\dfrac{\text{Card}(A)}{\text{Card}(\Omega)}$, contraire ou réunion.
+
+      **Exemple complet.** On tire au hasard une carte dans un jeu de $32$ cartes. $C$ : « la carte est un cœur » ; $R$ : « la carte est un roi ».
+      - Équiprobabilité : $P(C) = \dfrac{8}{32} = \dfrac{1}{4}$ et $P(R) = \dfrac{4}{32} = \dfrac{1}{8}$.
+      - $C \cap R$ est « roi de cœur » : $P(C \cap R) = \dfrac{1}{32}$.
+      - $P(C \cup R) = \dfrac{8}{32} + \dfrac{4}{32} - \dfrac{1}{32} = \dfrac{11}{32}$.
+      - $P(\bar C) = 1 - \dfrac{1}{4} = \dfrac{3}{4}$.
+
+      ## 5. Erreurs fréquentes
+      - Trouver une probabilité négative ou supérieure à $1$ : c'est le signe d'une erreur de calcul.
+      - Utiliser $\dfrac{\text{Card}(A)}{\text{Card}(\Omega)}$ sans équiprobabilité (dé truqué, somme de deux dés).
+      - Oublier de retirer $P(A \cap B)$ pour calculer $P(A \cup B)$.
+      - Confondre « contraire » et « incompatible ».
     questions:
       - code: 2NDE-PROBA-01
         difficulte: 1
@@ -73,7 +106,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.
+          - 'En additionnant $P(A)$ et $P(B)$, les issues de $A \cap B$ sont comptées deux fois : on utilise $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.'
+          - 'On remplace : $P(A \cup B) = 0{,}5 + 0{,}4 - 0{,}2$.'
+          - '$P(A \cup B) = 0{,}7 = \dfrac{7}{10}$, qui est bien compris entre $0$ et $1$.'
           resultat: 7/10
       - code: 2NDE-PROBA-04
         difficulte: 4
@@ -99,9 +134,26 @@ competences:
           - 'Somme $7$ : $(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)$, soit $6$ issues.'
           - $\dfrac{6}{36} = \dfrac{1}{6}$.
           resultat: 1/6
+      - code: 2NDE-PROBA-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {r: {entre: [1, 9]}, v: {entre: [1, 9]}, j: {entre: [0, 6]}}
+          calculs: {p: "r/(r + v + j)"}
+        enonce: 'Une urne contient $[[r]]$ boules rouges, $[[v]]$ vertes et $[[j]]$ jaunes. On tire une boule au hasard. Quelle est la probabilité qu''elle soit rouge ?'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Équiprobabilité : nombre de cas favorables ÷ nombre de cas possibles.'
+          etapes:
+          - 'Nombre total de boules : $[[r + v + j]]$.'
+          - '$P = \dfrac{[[r]]}{[[r + v + j]]} = [[p:frac]]$.'
+          resultat: '[[p]]'
 
   - code: 2NDE-ECH
     libelle: Utiliser la fluctuation d'échantillonnage
+    attendus: [2NDE-2026-PROBA-01, 2NDE-2026-PROBA-04]
+    cours_couvre: [2NDE-2026-PROBA-01, 2NDE-2026-PROBA-04]
     objectifs:
     - Calculer une fréquence et utiliser l'intervalle de fluctuation au seuil de 95 %.
     prerequis:
@@ -122,21 +174,56 @@ competences:
     - erreur: Croire qu'un échantillon plus grand élargit l'intervalle.
       explication: 'L''amplitude vaut 2/√n : elle diminue quand n augmente.'
     resume: |
-      - La fréquence observée d'un caractère dans un échantillon varie d'un échantillon à l'autre : c'est la **fluctuation**.
-      - Pour un échantillon de taille $n$ et une proportion $p$, environ $95\,\%$ des fréquences observées sont dans $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$.
-      - Plus $n$ est grand, plus l'intervalle est étroit.
+      - Un **échantillon** de taille $n$ est formé des résultats de $n$ répétitions indépendantes d'une même expérience.
+      - La fréquence observée varie d'un échantillon à l'autre : c'est la **fluctuation d'échantillonnage**.
+      - Loi des grands nombres : lorsque $n$ est grand, sauf exception, la fréquence observée est proche de la probabilité.
+      - Pour $n$ grand, la fréquence est dans $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$ dans au moins $95\,\%$ des cas environ.
     cours: |
-      ## Fréquence observée
-      $18$ succès sur $60$ essais : $f = \dfrac{18}{60} = 0{,}3$.
+      ## 1. Échantillon et fluctuation
+      Une expérience aléatoire a une issue « succès » de probabilité $p$. La répéter $n$ fois de manière indépendante fournit un **échantillon de taille $n$**. On note $f$ la **fréquence observée** des succès : $f = \dfrac{\text{nombre de succès}}{n}$.
 
-      ## Intervalle de fluctuation
-      Pour $n = 400$ : $\dfrac{1}{\sqrt{400}} = 0{,}05$. Avec $p = 0{,}5$, l'intervalle est $[0{,}45 ; 0{,}55]$.
+      Deux échantillons de même taille donnent en général des fréquences différentes : c'est la **fluctuation d'échantillonnage**. Par exemple, en lançant $20$ fois une pièce équilibrée, on peut obtenir $8$, $11$ ou $13$ fois « pile ».
 
-      ## Influence de la taille
-      Si $n$ est multiplié par $4$, $\sqrt n$ est multiplié par $2$ : l'amplitude $\dfrac{2}{\sqrt n}$ est divisée par $2$.
+      ## 2. Loi des grands nombres
+      > **Propriété (loi des grands nombres, version vulgarisée).** Lorsque $n$ est grand, sauf exception, la fréquence observée est proche de la probabilité $p$.
 
-      ## Prise de décision
-      Si la fréquence observée sort de l'intervalle, on peut mettre en doute (au risque de $5\,\%$) la valeur annoncée de $p$.
+      Plus la taille de l'échantillon est grande, plus les fréquences observées se resserrent autour de $p$. C'est ce qui permet d'**estimer** une probabilité inconnue par une fréquence calculée sur un grand échantillon.
+
+      > **Propriété (admise).** Pour $n$ assez grand, dans environ $95\,\%$ des échantillons de taille $n$ (et souvent plus), la fréquence observée appartient à l'intervalle $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$.
+
+      La largeur de cet intervalle, $\dfrac{2}{\sqrt n}$, diminue quand $n$ augmente : multiplier $n$ par $4$ la divise par $2$, multiplier $n$ par $100$ la divise par $10$.
+
+      ## 3. Observer la loi des grands nombres par simulation
+      On simule l'expérience un grand nombre de fois avec un tableur ou Python et on observe l'évolution de la fréquence.
+
+      ```python
+      from random import random
+
+      def frequence(n, p):
+          succes = 0
+          for i in range(n):
+              if random() < p:
+                  succes = succes + 1
+          return succes / n
+      ```
+
+      `random()` renvoie un nombre aléatoire de $[0 ; 1[$ ; la condition `random() < p` est vraie avec la probabilité $p$. En appelant `frequence(n, 0.3)` pour $n = 10$, $100$, $1\,000$, $10\,000$, on observe des résultats de plus en plus proches de $0{,}3$. Au tableur, la formule `=SI(ALEA()<0,3;1;0)` recopiée vers le bas joue le même rôle.
+
+      ### Méthode : interpréter une fréquence observée
+      1. Calculer la fréquence $f$ observée et l'amplitude $\dfrac{1}{\sqrt n}$.
+      2. Si la probabilité $p$ est connue, regarder si $f$ est dans $\left[p - \dfrac{1}{\sqrt n} ; p + \dfrac{1}{\sqrt n}\right]$.
+      3. Conclure prudemment : un écart très important rend l'hypothèse sur $p$ peu crédible, sans la réfuter avec certitude.
+
+      **Exemple complet.** On lance $400$ fois un dé censé être équilibré et on obtient $100$ fois le $6$.
+      - $f = \dfrac{100}{400} = 0{,}25$ ; $p = \dfrac{1}{6} \approx 0{,}167$ ; $\dfrac{1}{\sqrt{400}} = 0{,}05$.
+      - L'intervalle est environ $[0{,}117 ; 0{,}217]$ et $0{,}25$ n'y appartient pas.
+      - Un tel écart se produit rarement avec un dé équilibré : on peut douter de l'équilibre du dé.
+
+      ## 4. Erreurs fréquentes
+      - Penser qu'après une série de « pile », « face » devient plus probable : les lancers sont indépendants.
+      - Croire que la fréquence est **égale** à la probabilité pour un grand échantillon : elle en est seulement **proche**.
+      - Conclure à partir d'un petit échantillon.
+      - Oublier que l'intervalle ne contient la fréquence que dans environ $95\,\%$ des cas.
     questions:
       - code: 2NDE-ECH-01
         difficulte: 1
@@ -166,7 +253,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$\dfrac{1}{\sqrt{4n}} = \dfrac{1}{2\sqrt{n}}$ : l''amplitude est divisée par $2$.'
+          - 'L''amplitude de l''intervalle est $\dfrac{2}{\sqrt n}$ : elle dépend de la racine carrée de la taille $n$.'
+          - 'Pour une taille $4n$ : $\sqrt{4n} = \sqrt{4} \times \sqrt{n} = 2\sqrt{n}$, donc $\dfrac{2}{\sqrt{4n}} = \dfrac{2}{2\sqrt{n}} = \dfrac{1}{2} \times \dfrac{2}{\sqrt n}$.'
+          - 'L''amplitude est divisée par $2$, et non par $4$ : réponse A.'
           resultat: A
       - code: 2NDE-ECH-04
         difficulte: 4
@@ -176,7 +265,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $\sqrt{n} = \dfrac{1}{0{,}02} = 50$, donc $n = 2\,500$.
+          - 'On résout $\dfrac{1}{\sqrt n} = 0{,}02$ : en passant à l''inverse, $\sqrt{n} = \dfrac{1}{0{,}02}$.'
+          - '$\dfrac{1}{0{,}02} = \dfrac{100}{2} = 50$, donc $\sqrt{n} = 50$.'
+          - 'Les deux membres sont positifs ; en élevant au carré : $n = 50^2 = 2\,500$.'
           resultat: 2500
       - code: 2NDE-ECH-05
         difficulte: 5
@@ -189,3 +280,349 @@ competences:
           - '$\dfrac{1}{\sqrt{100}} = 0{,}1$ : intervalle $[0{,}4 ; 0{,}6]$.'
           - 'Fréquence observée : $0{,}62$, hors de l''intervalle.'
           resultat: B
+
+  - code: 2NDE-PCOND
+    libelle: Calculer une probabilité conditionnelle
+    attendus: [2NDE-2026-PROBA-02, 2NDE-2026-PROBA-06, 2NDE-2026-PROBA-09]
+    cours_couvre: [2NDE-2026-PROBA-02, 2NDE-2026-PROBA-06, 2NDE-2026-PROBA-09]
+    objectifs:
+    - Calculer $P_A(B)$ à partir d'un tableau croisé d'effectifs, en tirant un individu au hasard.
+    - Utiliser la définition $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+    - Distinguer $P_A(B)$ et $P_B(A)$, notamment pour les faux positifs d'un test.
+    prerequis:
+    - 2NDE-CROISE
+    - 2NDE-PROBA
+    methodes:
+    - titre: Calculer une probabilité conditionnelle avec un tableau croisé
+      quand: On tire au hasard un individu d'une population décrite par un tableau croisé.
+      etapes:
+      - Repérer l'évènement « sachant » (la condition) et lire son effectif dans la marge.
+      - Lire l'effectif de la case qui réalise les deux évènements.
+      - Diviser l'effectif de la case par l'effectif de la condition.
+      exemple:
+        enonce: 'Sur $1\,000$ personnes, $140$ ont un test positif, dont $95$ sont malades. On tire une personne au hasard. Calculer $P_T(M)$.'
+        resolution:
+        - 'Condition : « le test est positif », effectif $140$.'
+        - 'Case « malade et test positif » : $95$.'
+        - $P_T(M) = \dfrac{95}{140} = \dfrac{19}{28}$.
+        resultat: $\dfrac{19}{28} \approx 0{,}68$
+    erreurs_frequentes:
+    - erreur: Confondre $P_A(B)$ et $P_B(A)$.
+      explication: 'Dans $P_A(B)$, l''évènement en indice est la condition : c''est lui qui fournit le dénominateur.'
+    - erreur: Confondre $P_A(B)$ et $P(A \cap B)$.
+      explication: '$P(A \cap B)$ se calcule sur toute la population, $P_A(B)$ seulement parmi les individus qui réalisent $A$.'
+    resume: |
+      - Pour $P(A) \neq 0$ : $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, probabilité de $B$ **sachant** $A$.
+      - Avec un tableau croisé d'effectifs et un tirage au hasard : $P_A(B) = \dfrac{\text{effectif de } A \cap B}{\text{effectif de } A}$.
+      - $P(A \cap B) = P(A) \times P_A(B)$.
+      - $P_A(B)$ et $P_B(A)$ sont en général différents (tests médicaux, faux positifs).
+    cours: |
+      ## 1. Définition
+      > **Définition.** Soit $A$ un événement de probabilité non nulle. La **probabilité de $B$ sachant $A$** est $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$.
+
+      Savoir que $A$ est réalisé **restreint l'univers** à $A$ : on mesure la part de $B$ à l'intérieur de $A$.
+
+      > **Conséquence.** $P(A \cap B) = P(A) \times P_A(B)$.
+
+      ## 2. À partir d'un tableau croisé d'effectifs
+      Quand on choisit un individu **au hasard** dans une population (équiprobabilité), les probabilités conditionnelles se calculent comme des fréquences conditionnelles :
+
+      > **Propriété.** $P_A(B) = \dfrac{\text{effectif de } A \cap B}{\text{effectif de } A}$.
+
+      **Exemple complet.** Un test de dépistage est appliqué à $1\,000$ personnes.
+
+      |  | Malade ($M$) | Non malade | Total |
+      |---|---|---|---|
+      | Test positif ($T$) | $48$ | $72$ | $120$ |
+      | Test négatif | $2$ | $878$ | $880$ |
+      | Total | $50$ | $950$ | $1\,000$ |
+
+      On choisit une personne au hasard.
+      - $P_M(T) = \dfrac{48}{50} = 0{,}96$ : un malade a $96\,\%$ de chances d'être détecté.
+      - $P_T(M) = \dfrac{48}{120} = 0{,}4$ : une personne testée positive n'a que $40\,\%$ de chances d'être malade.
+      - Par la définition : $P(T \cap M) = \dfrac{48}{1\,000}$ et $P(T) = \dfrac{120}{1\,000}$, donc $P_T(M) = \dfrac{0{,}048}{0{,}12} = 0{,}4$ : on retrouve le même résultat.
+
+      ## 3. Ne pas confondre $P_A(B)$ et $P_B(A)$
+      Dans l'exemple, le test semble très fiable ($P_M(T) = 0{,}96$), mais beaucoup de positifs sont des **faux positifs** ($72$ sur $120$), car la maladie est rare : les $72$ faux positifs, qui ne représentent qu'environ $7{,}6\,\%$ des $950$ personnes saines, sont plus nombreux que les $48$ malades détectés.
+
+      ### Méthode : identifier la probabilité demandée
+      1. Repérer la **condition** dans la phrase : « sachant que… », « parmi les… », « si la personne est… ». C'est l'événement qui se met en indice.
+      2. Écrire la probabilité avec la bonne notation, par exemple $P_T(M)$.
+      3. Calculer : effectif de l'intersection divisé par l'effectif de la condition, ou $\dfrac{P(A \cap B)}{P(A)}$.
+
+      ## 4. Erreurs fréquentes
+      - Diviser par l'effectif total au lieu de l'effectif de la condition.
+      - Confondre $P_A(B)$ (sachant $A$) et $P(A \cap B)$ ($A$ et $B$).
+      - Confondre $P_M(T)$ (fiabilité du test chez les malades) et $P_T(M)$ (probabilité d'être malade quand le test est positif).
+      - Calculer $P_A(B)$ quand $P(A) = 0$ : ce n'est pas défini.
+    questions:
+      - code: 2NDE-PCOND-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On teste $1\,000$ personnes ; $100$ sont malades. On tire une personne au hasard. Quelle est la probabilité qu''elle soit malade ?'
+        solution: 1/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Équiprobabilité : $P(M) = \dfrac{100}{1\,000} = 0{,}1$.'
+          resultat: 1/10
+      - code: 2NDE-PCOND-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Parmi $100$ personnes malades, $95$ ont un test positif. On note $M$ « être malade » et $T$ « avoir un test positif ». Calculer $P_M(T)$.'
+        solution: 19/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est $M$ : on se restreint aux $100$ malades.'
+          etapes:
+          - $P_M(T) = \dfrac{95}{100} = 0{,}95$.
+          resultat: 19/20
+      - code: 2NDE-PCOND-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On sait que $P(R) = 0{,}4$ et $P(R \cap S) = 0{,}1$. Calculer $P_R(S)$.'
+        solution: 1/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Définition de la probabilité conditionnelle.
+          etapes:
+          - '$P_R(S)$ est la probabilité de $S$ sachant $R$ : par définition, $P_R(S) = \dfrac{P(R \cap S)}{P(R)}$, avec $P(R) \neq 0$.'
+          - 'On remplace : $P_R(S) = \dfrac{0{,}1}{0{,}4}$.'
+          - '$\dfrac{0{,}1}{0{,}4} = \dfrac{1}{4} = 0{,}25$.'
+          resultat: 1/4
+      - code: 2NDE-PCOND-04
+        difficulte: 3
+        type: qcm
+        enonce: 'On note $M$ « la personne est malade » et $T$ « son test est positif ». La probabilité qu''une personne malade ait un test positif se note : A) $P_T(M)$  B) $P_M(T)$  C) $P(M \cap T)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On sait que la personne est malade : la condition est $M$, placée en indice.'
+          - 'On cherche la probabilité que le test soit positif : $P_M(T)$.'
+          resultat: B
+      - code: 2NDE-PCOND-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Sur $1\,000$ personnes testées, $140$ ont un test positif ; parmi elles, $95$ sont malades. On tire au hasard une personne dont le test est positif. Quelle est la probabilité qu''elle soit malade ? (Réponse sous forme de fraction.)'
+        solution: 19/28
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est « test positif » : on se restreint aux $140$ tests positifs.'
+          etapes:
+          - 'On note $T$ : « le test est positif » et $M$ : « la personne est malade ». La personne est choisie parmi les tests positifs : on cherche $P_T(M)$.'
+          - 'La condition restreint l''univers aux $140$ personnes testées positives : c''est le dénominateur.'
+          - 'Parmi elles, $95$ sont malades : $P_T(M) = \dfrac{95}{140}$.'
+          - 'On simplifie par $5$ : $P_T(M) = \dfrac{19}{28} \approx 0{,}68$.'
+          resultat: 19/28
+          erreurs_frequentes:
+          - 'Répondre $\dfrac{95}{100}$ : c''est $P_M(T)$, la probabilité qu''un malade soit détecté.'
+      - code: 2NDE-PCOND-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un test est appliqué à $1\,000$ personnes : $100$ sont malades, dont $95$ ont un test positif, et $45$ des $900$ personnes non malades ont aussi un test positif. Parmi les personnes dont le test est positif, quelle est la proportion de faux positifs (personnes non malades) ? (Réponse sous forme de fraction.)'
+        solution: 9/28
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compléter le tableau croisé, puis se restreindre aux tests positifs.
+          etapes:
+          - 'Tests positifs : $95 + 45 = 140$.'
+          - 'Faux positifs parmi eux : $45$.'
+          - $\dfrac{45}{140} = \dfrac{9}{28} \approx 0{,}32$.
+          resultat: 9/28
+          erreurs_frequentes:
+          - 'Diviser par $900$ : on obtiendrait la part des tests positifs parmi les non malades.'
+      - code: 2NDE-PCOND-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {nm: {entre: [20, 120], pas: 10}, tp: {entre: [5, 95], pas: 5}}
+          calculs: {vp: "nm*tp/100", p: "tp/100"}
+        enonce: 'Parmi $[[nm]]$ personnes malades, $[[vp]]$ ont un test positif. On note $M$ « être malade » et $T$ « avoir un test positif ». Calculer $P_M(T)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'La condition est $M$ : on se restreint aux personnes malades.'
+          etapes:
+          - '$P_M(T) = \dfrac{[[vp]]}{[[nm]]}$.'
+          - '$P_M(T) = [[p]]$.'
+          resultat: '[[p]]'
+
+  - code: 2NDE-ARBRE
+    libelle: Construire et exploiter un arbre pondéré
+    attendus: [2NDE-2026-PROBA-03, 2NDE-2026-PROBA-05, 2NDE-2026-PROBA-07, 2NDE-2026-PROBA-08]
+    cours_couvre: [2NDE-2026-PROBA-03, 2NDE-2026-PROBA-05, 2NDE-2026-PROBA-07, 2NDE-2026-PROBA-08]
+    objectifs:
+    - Traduire un énoncé en arbre pondéré, et inversement.
+    - Interpréter chaque pondération comme une probabilité ou une probabilité conditionnelle.
+    - Calculer la probabilité d'un chemin en multipliant les probabilités de ses branches.
+    prerequis:
+    - 2NDE-PCOND
+    methodes:
+    - titre: Construire un arbre pondéré à partir d'un énoncé
+      quand: L'énoncé donne une répartition, puis des pourcentages « parmi » chaque groupe.
+      etapes:
+      - 'Premier niveau : l''évènement de départ et son contraire, avec leurs probabilités.'
+      - 'Second niveau : sur chaque branche, l''évènement étudié et son contraire, avec les probabilités conditionnelles.'
+      - Vérifier que les branches issues d'un même nœud ont une somme égale à $1$.
+      exemple:
+        enonce: '$60\,\%$ des pièces viennent de la machine $M$, les autres d''une seconde machine. $5\,\%$ des pièces de $M$ sont rebutées. Pondérations ?'
+        resolution:
+        - 'Premier niveau : $P(M) = 0{,}6$ et $P(\bar M) = 0{,}4$.'
+        - 'Second niveau depuis $M$ : $P_M(R) = 0{,}05$ et $P_M(\bar R) = 0{,}95$.'
+        resultat: 'Chaque nœud a des branches de somme $1$.'
+    - titre: Calculer la probabilité d'un chemin
+      quand: On cherche la probabilité que deux évènements soient réalisés à la fois.
+      etapes:
+      - Repérer le chemin de l'arbre qui mène aux deux évènements.
+      - Multiplier les probabilités des branches de ce chemin.
+      exemple:
+        enonce: 'Avec $P(M) = 0{,}6$ et $P_M(R) = 0{,}05$, calculer $P(M \cap R)$.'
+        resolution:
+        - 'Chemin $M$ puis $R$.'
+        - $P(M \cap R) = P(M) \times P_M(R) = 0{,}6 \times 0{,}05 = 0{,}03$.
+        resultat: $0{,}03$
+    erreurs_frequentes:
+    - erreur: Écrire sur la seconde branche $P(R)$ au lieu de $P_M(R)$.
+      explication: 'Une branche du second niveau part d''un évènement déjà réalisé : sa pondération est une probabilité conditionnelle.'
+    - erreur: Additionner les probabilités d'un chemin au lieu de les multiplier.
+      explication: 'Le long d''un chemin, on multiplie : $P(M \cap R) = P(M) \times P_M(R)$.'
+    resume: |
+      - Dans un arbre pondéré, les branches du premier niveau portent $P(A)$, $P(\bar A)$ ; celles du second niveau des probabilités **conditionnelles** comme $P_A(B)$.
+      - La somme des probabilités des branches issues d'un même nœud vaut $1$.
+      - Probabilité d'un chemin : produit des probabilités de ses branches, $P(A \cap B) = P(A) \times P_A(B)$.
+      - Probabilité d'un événement : somme des probabilités des chemins qui y mènent, $P(B) = P(A \cap B) + P(\bar A \cap B)$.
+    cours: |
+      ## 1. Construire un arbre pondéré
+      Un **arbre pondéré** représente une expérience en plusieurs étapes. Sur chaque branche, on écrit une probabilité.
+      - Au **premier niveau**, les branches partant de la racine portent les probabilités des événements de la première étape, par exemple $P(A)$ et $P(\bar A)$.
+      - Au **second niveau**, une branche qui part de $A$ et va vers $B$ porte la probabilité conditionnelle $P_A(B)$.
+
+      ### Méthode : traduire un énoncé en arbre
+      1. Nommer les événements avec des lettres et repérer la première étape (souvent la population d'origine).
+      2. Traduire chaque pourcentage : « $30\,\%$ des pièces viennent de $A$ » donne $P(A) = 0{,}3$ ; « parmi les pièces de $A$, $4\,\%$ sont défectueuses » donne $P_A(D) = 0{,}04$.
+      3. Compléter avec la règle des nœuds : la somme des probabilités issues d'un même nœud vaut $1$.
+
+      Inversement, on doit savoir lire une branche en langue naturelle : $P_{\bar A}(D) = 0{,}02$ signifie « $2\,\%$ des pièces qui ne viennent pas de $A$ sont défectueuses ».
+
+      ## 2. Règles de calcul
+      > **Propriété (règle du chemin).** La probabilité de l'événement correspondant à un chemin est le **produit** des probabilités inscrites sur ses branches : $P(A \cap B) = P(A) \times P_A(B)$.
+
+      Cette règle est exactement la définition de la probabilité conditionnelle, $P_A(B) = \dfrac{P(A \cap B)}{P(A)}$, écrite sous forme de produit.
+
+      > **Propriété (probabilités totales).** La probabilité d'un événement est la **somme** des probabilités des chemins qui y conduisent : $P(B) = P(A \cap B) + P(\bar A \cap B)$.
+
+      **Exemple complet.** Une usine a deux machines : $A$ fabrique $30\,\%$ des pièces, $B$ les autres. $4\,\%$ des pièces de $A$ et $2\,\%$ des pièces de $B$ sont défectueuses ($D$). On choisit une pièce au hasard.
+      - Arbre : $P(A) = 0{,}3$, $P(B) = 0{,}7$ ; $P_A(D) = 0{,}04$, $P_A(\bar D) = 0{,}96$ ; $P_B(D) = 0{,}02$, $P_B(\bar D) = 0{,}98$.
+      - Chemin $A$ puis $D$ : $P(A \cap D) = 0{,}3 \times 0{,}04 = 0{,}012$.
+      - Chemin $B$ puis $D$ : $P(B \cap D) = 0{,}7 \times 0{,}02 = 0{,}014$.
+      - $P(D) = 0{,}012 + 0{,}014 = 0{,}026$ : $2{,}6\,\%$ des pièces sont défectueuses.
+      - Sachant que la pièce est défectueuse, elle vient de $A$ avec la probabilité $P_D(A) = \dfrac{P(A \cap D)}{P(D)} = \dfrac{0{,}012}{0{,}026} = \dfrac{6}{13} \approx 0{,}46$.
+
+      ## 3. Arbre ou tableau ?
+      On peut passer d'un arbre à un tableau croisé en imaginant une population de $1\,000$ individus : dans l'exemple, $300$ pièces de $A$ dont $12$ défectueuses, $700$ de $B$ dont $14$ défectueuses. Le tableau permet de lire facilement $P_D(A) = \dfrac{12}{26}$.
+
+      ## 4. Erreurs fréquentes
+      - Écrire $P(A \cap D)$ au lieu de $P_A(D)$ sur une branche du second niveau.
+      - Additionner les probabilités le long d'un chemin au lieu de les multiplier.
+      - Oublier un chemin dans le calcul de $P(D)$.
+      - Lire $P_D(A)$ directement sur l'arbre : il faut le calculer avec la définition.
+    questions:
+      - code: 2NDE-ARBRE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Dans un arbre pondéré, la branche allant vers $M$ porte la probabilité $0{,}6$. Quelle probabilité porte la branche allant vers $\bar M$ ?'
+        solution: 2/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Les branches issues d''un même nœud ont une somme égale à $1$ : $1 - 0{,}6 = 0{,}4$.'
+          resultat: 2/5
+      - code: 2NDE-ARBRE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans un arbre pondéré, on lit $P_M(R) = 0{,}05$. Quelle probabilité porte la branche allant de $M$ vers $\bar R$ ?'
+        solution: 19/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $P_M(\bar R) = 1 - P_M(R) = 1 - 0{,}05 = 0{,}95$.
+          resultat: 19/20
+      - code: 2NDE-ARBRE-03
+        difficulte: 3
+        type: numerique
+        enonce: '$60\,\%$ des pièces d''une usine sont fabriquées par la machine $M$, et $5\,\%$ des pièces de cette machine sont rebutées. On choisit une pièce au hasard. Quelle est la probabilité qu''elle vienne de $M$ et soit rebutée ?'
+        solution: 3/100
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Probabilité d'un chemin.
+          etapes:
+          - 'On note $M$ : « la pièce vient de la machine $M$ » et $R$ : « la pièce est rebutée ». Dans l''arbre : $P(M) = 0{,}6$ et, sur la branche de $M$ vers $R$, $P_M(R) = 0{,}05$.'
+          - 'L''événement « vient de $M$ et est rebutée » est $M \cap R$ : il correspond au chemin $M$ puis $R$.'
+          - 'Règle du chemin : $P(M \cap R) = P(M) \times P_M(R) = 0{,}6 \times 0{,}05 = 0{,}03 = \dfrac{3}{100}$.'
+          resultat: 3/100
+      - code: 2NDE-ARBRE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Dans l''arbre pondéré de l''usine, la branche allant de $M$ vers $R$ porte la probabilité $0{,}05$. Cette probabilité est : A) $P(R)$  B) $P(M \cap R)$  C) $P_M(R)$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Cette branche part du nœud $M$ : on sait déjà que la pièce vient de $M$.'
+          - 'Sa pondération est la probabilité conditionnelle $P_M(R)$.'
+          resultat: C
+      - code: 2NDE-ARBRE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans une usine, $40\,\%$ des pièces sont fabriquées par une seconde machine, et $10\,\%$ des pièces de cette machine sont rebutées. On choisit une pièce au hasard. Quelle est la probabilité qu''elle vienne de la seconde machine et soit rebutée ?'
+        solution: 1/25
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Probabilité d'un chemin.
+          etapes:
+          - 'Chemin $\bar M$ puis $R$ : $P(\bar M) = 0{,}4$ et $P_{\bar M}(R) = 0{,}1$.'
+          - $P(\bar M \cap R) = 0{,}4 \times 0{,}1 = 0{,}04$.
+          resultat: 1/25
+      - code: 2NDE-ARBRE-06
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un lycée, $30\,\%$ des élèves jouent d''un instrument, et $12\,\%$ des élèves jouent d''un instrument et chantent à la chorale. On choisit au hasard un élève qui joue d''un instrument. Quelle est la probabilité qu''il chante à la chorale ?'
+        solution: 2/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remonter du chemin à la pondération de la branche.
+          etapes:
+          - 'On note $I$ « jouer d''un instrument » et $K$ « chanter à la chorale » : $P(I) = 0{,}3$ et $P(I \cap K) = 0{,}12$.'
+          - $P_I(K) = \dfrac{P(I \cap K)}{P(I)} = \dfrac{0{,}12}{0{,}3} = 0{,}4$.
+          resultat: 2/5
+      - code: 2NDE-ARBRE-07
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un lycée, $30\,\%$ des élèves jouent d''un instrument. Parmi eux, $70\,\%$ chantent à la chorale ; parmi les autres élèves, $10\,\%$ chantent à la chorale. On choisit un élève au hasard. Quelle est la probabilité qu''il ne joue d''aucun instrument et chante à la chorale ?'
+        solution: 7/100
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Construire l'arbre, puis suivre le bon chemin.
+          etapes:
+          - 'Premier niveau : $P(I) = 0{,}3$ et $P(\bar I) = 0{,}7$.'
+          - 'Depuis $\bar I$ : $P_{\bar I}(K) = 0{,}1$.'
+          - $P(\bar I \cap K) = 0{,}7 \times 0{,}1 = 0{,}07$.
+          resultat: 7/100
+          erreurs_frequentes:
+          - 'Utiliser $0{,}7$ deux fois : le $70\,\%$ de l''énoncé concerne les instrumentistes, pas les autres élèves.'
+      - code: 2NDE-ARBRE-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [0.1, 0.9], pas: 0.1}, b: {entre: [0.05, 0.95], pas: 0.05}}
+          calculs: {p: "a*b"}
+        enonce: 'Dans un arbre pondéré, $P(A) = [[a]]$ et $P_A(B) = [[b]]$. Calculer $P(A \cap B)$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Probabilité d''un chemin : produit des probabilités des branches.'
+          etapes:
+          - '$P(A \cap B) = P(A) \times P_A(B)$.'
+          - '$= [[a]] \times [[b]] = [[p]]$.'
+          resultat: '[[p]]'

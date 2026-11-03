@@ -1,0 +1,17 @@
+# Partie « Nombres complexes », rubrique « Utilisation des nombres complexes en géométrie » (page 8 du PDF).
+# Textes recopiés du BO ; la fraction (c − a)/(b − a) est réécrite en ligne.
+theme:
+  code: GEOM
+  titre: Utilisation des nombres complexes en géométrie
+  partie: Nombres complexes
+
+attendus:
+  - {code: TLE-EXP-2019-GEOM-01, type: contenu, page: 8, texte: "Interprétation géométrique du module et d’un argument de (c − a)/(b − a)."}
+  - {code: TLE-EXP-2019-GEOM-02, type: contenu, page: 8, texte: "Racines n-ièmes de l’unité. Description de l’ensemble 𝕌ₙ des racines n-ièmes de l’unité. Représentation géométrique. Cas particuliers : n = 2, 3, 4."}
+  - {code: TLE-EXP-2019-GEOM-03, type: capacite, page: 8, texte: "Dans le cadre de la résolution de problème, utiliser les nombres complexes pour étudier des configurations du plan : démontrer un alignement, une orthogonalité, calculer des longueurs, des angles, déterminer des ensembles de points."}
+  - {code: TLE-EXP-2019-GEOM-04, type: capacite, page: 8, texte: "Utiliser les racines de l’unité dans l’étude de configurations liées aux polygones réguliers."}
+  - {code: TLE-EXP-2019-GEOM-05, type: demonstration, page: 8, texte: "Détermination de l’ensemble 𝕌ₙ."}
+  - {code: TLE-EXP-2019-GEOM-06, type: approfondissement, page: 8, texte: "Lignes trigonométriques de 2π/5, construction du pentagone régulier à la règle et au compas."}
+  - {code: TLE-EXP-2019-GEOM-07, type: approfondissement, page: 8, texte: "Somme des racines n-ièmes de l’unité."}
+  - {code: TLE-EXP-2019-GEOM-08, type: approfondissement, page: 8, texte: "Racines n-ièmes d’un nombre complexe."}
+  - {code: TLE-EXP-2019-GEOM-09, type: approfondissement, page: 8, texte: "Transformation de Fourier discrète."}

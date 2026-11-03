@@ -1,0 +1,542 @@
+# Automatismes de terminale technologique 2026 (partie transversale, entraînement régulier sans calculatrice).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: TLE-TEC-AUTOMATISMES
+  niveau: Tle
+  parcours: technologique
+  ordre: 9
+  titre: Automatismes
+
+competences:
+- code: TLE-TEC-AUTO-NOMB
+  libelle: Automatismes de calcul numérique
+  attendus: [TLE-TEC-2026-AUTO-10, TLE-TEC-2026-AUTO-11, TLE-TEC-2026-AUTO-12, TLE-TEC-2026-AUTO-13, TLE-TEC-2026-AUTO-14]
+  objectifs:
+  - Calculer avec des fractions et des puissances, passer d'une écriture à une autre (dont l'écriture scientifique).
+  - Estimer un ordre de grandeur et convertir des unités.
+  methodes:
+  - titre: Écrire un nombre en notation scientifique
+    quand: Le nombre est très grand ou très petit.
+    etapes:
+    - Placer la virgule après le premier chiffre non nul $:$ on obtient $a$ avec $1 \leqslant a < 10$.
+    - Compter de combien de rangs la virgule s'est déplacée $:$ c'est l'exposant $n$ (positif si le nombre est grand, négatif s'il est petit).
+    exemple:
+      enonce: Écrire $0{,}00042$ en notation scientifique.
+      resolution:
+      - $a = 4{,}2$ ; la virgule s'est déplacée de $4$ rangs vers la droite.
+      resultat: $4{,}2 \times 10^{-4}$
+  erreurs_frequentes:
+  - erreur: Écrire $10^2 \times 10^3 = 10^6$.
+    explication: On ajoute les exposants $:$ $10^2 \times 10^3 = 10^5$.
+  cours_couvre: [TLE-TEC-2026-AUTO-10, TLE-TEC-2026-AUTO-11, TLE-TEC-2026-AUTO-12, TLE-TEC-2026-AUTO-13, TLE-TEC-2026-AUTO-14]
+  resume: |
+    - Fractions : même dénominateur pour additionner ; $\dfrac{a}{b} \times \dfrac{c}{d} = \dfrac{ac}{bd}$ ; diviser, c'est multiplier par l'inverse.
+    - Puissances : $a^n \times a^m = a^{n+m}$, $\dfrac{a^n}{a^m} = a^{n-m}$, $(a^n)^m = a^{nm}$, $a^{-n} = \dfrac{1}{a^n}$.
+    - Écriture scientifique : $a \times 10^n$ avec $1 \leqslant a < 10$ et $n$ entier relatif.
+    - Ordre de grandeur : arrondir chaque nombre à une valeur simple, puis calculer. Vitesses : km/h $\div 3{,}6$ = m/s.
+  cours: |
+    ## 1. Fractions
+
+    > **Règles.** Pour $b, d$ non nuls :
+    > $$\frac{a}{b} + \frac{c}{b} = \frac{a + c}{b}, \qquad \frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}, \qquad \frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \times \frac{d}{c} \ (c \neq 0).$$
+
+    Pour additionner deux fractions de dénominateurs différents, on les met d'abord au **même dénominateur** : $\dfrac{2}{3} + \dfrac{1}{4} = \dfrac{8}{12} + \dfrac{3}{12} = \dfrac{11}{12}$.
+
+    **Comparer** : on réduit au même dénominateur (ou on compare les écritures décimales) : $\dfrac{3}{5} = \dfrac{9}{15}$ et $\dfrac{2}{3} = \dfrac{10}{15}$, donc $\dfrac{3}{5} < \dfrac{2}{3}$.
+
+    ## 2. Puissances
+
+    > **Règles.** Pour $a$ non nul et $n$, $m$ entiers relatifs :
+    > $$a^n \times a^m = a^{n+m}, \qquad \frac{a^n}{a^m} = a^{n-m}, \qquad (a^n)^m = a^{n \times m}, \qquad a^{-n} = \frac{1}{a^n}, \qquad a^0 = 1.$$
+    > Et $(ab)^n = a^n b^n$.
+
+    Exemples : $10^5 \times 10^{-2} = 10^3$ ; $\dfrac{10^3}{10^2} = 10$ ; $(2^3)^2 = 2^6 = 64$.
+
+    ## 3. Écritures d'un nombre
+
+    Un même nombre peut s'écrire sous forme **décimale** ($0{,}75$), **fractionnaire** ($\dfrac{3}{4}$), en **pourcentage** ($75\,\%$) ou en **écriture scientifique**.
+
+    **Définition.** L'écriture scientifique d'un nombre non nul est $a \times 10^n$ où $1 \leqslant a < 10$ (au signe près) et $n$ est un entier relatif.
+
+    **Méthode.** On place la virgule après le premier chiffre non nul ; $n$ est le nombre de rangs dont on a déplacé la virgule, **positif** pour un grand nombre, **négatif** pour un nombre inférieur à $1$. Ainsi $35\,200 = 3{,}52 \times 10^4$ et $0{,}0061 = 6{,}1 \times 10^{-3}$.
+
+    ## 4. Ordre de grandeur
+
+    Pour estimer un résultat (et contrôler un calcul de calculatrice), on remplace chaque nombre par une valeur proche et simple, puis on calcule : $\dfrac{612 \times 0{,}98}{2{,}1} \approx \dfrac{600 \times 1}{2} = 300$.
+
+    ## 5. Conversions d'unités
+
+    - Longueurs : $1$ km $= 1\,000$ m ; $1$ m $= 100$ cm. Aires : $1$ m² $= 10\,000$ cm². Volumes : $1$ m³ $= 1\,000$ L, $1$ L $= 1$ dm³.
+    - Durées : $1$ h $= 60$ min $= 3\,600$ s ; $1{,}5$ h $= 1$ h $30$ min (et non $1$ h $50$).
+    - Vitesses : $1$ km/h $= \dfrac{1\,000 \text{ m}}{3\,600 \text{ s}} = \dfrac{1}{3{,}6}$ m/s ; pour passer des km/h aux m/s on **divise par $3{,}6$**.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** La lumière parcourt environ $3 \times 10^8$ m/s. Combien de temps met-elle pour parcourir les $1{,}5 \times 10^{11}$ m qui séparent la Terre du Soleil ?
+
+    **Résolution.** $t = \dfrac{d}{v} = \dfrac{1{,}5 \times 10^{11}}{3 \times 10^8} = 0{,}5 \times 10^3 = 500$ s, soit $500 \div 60 \approx 8{,}3$ min, environ $8$ min $20$ s.
+
+    ## 7. Erreurs fréquentes
+
+    - Écrire $10^2 \times 10^3 = 10^6$ : on **additionne** les exposants ($10^5$).
+    - Additionner numérateurs et dénominateurs : $\dfrac{1}{2} + \dfrac{1}{3} \neq \dfrac{2}{5}$.
+    - Écrire $42 \times 10^{-5}$ comme écriture scientifique : il faut $1 \leqslant a < 10$.
+  questions:
+  - code: TLE-TEC-AUTO-NOMB-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Calculer $\dfrac{2}{3} + \dfrac{1}{4}$.'
+    solution: 11/12
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $\dfrac{8}{12} + \dfrac{3}{12} = \dfrac{11}{12}$.
+      resultat: 11/12
+  - code: TLE-TEC-AUTO-NOMB-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Calculer $\dfrac{10^5 \times 10^{-2}}{10^2}$.'
+    solution: 10
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $10^{5 - 2 - 2} = 10^1 = 10$.
+      resultat: 10
+  - code: TLE-TEC-AUTO-NOMB-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quelle est l''écriture scientifique de $0{,}00042$ ? A) $4{,}2 \times 10^{-4}$  B) $42 \times 10^{-5}$  C) $4{,}2 \times 10^{4}$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Écriture scientifique : $a \times 10^n$ avec $1 \leqslant a < 10$ et $n$ entier relatif.'
+      - 'Pour obtenir $a = 4{,}2$, on déplace la virgule de $4$ rangs vers la droite ; le nombre de départ est inférieur à $1$, donc l''exposant est négatif : $n = -4$.'
+      - '$0{,}00042 = 4{,}2 \times 10^{-4}$ (réponse A ; B n''est pas une écriture scientifique car $42 \geqslant 10$).'
+      resultat: A
+  - code: TLE-TEC-AUTO-NOMB-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Quel est l''ordre de grandeur de $\dfrac{4\,980}{0{,}49}$ ? A) $1\,000$  B) $10\,000$  C) $100\,000$'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'On arrondit chaque nombre à une valeur simple : $4\,980 \approx 5\,000$ et $0{,}49 \approx 0{,}5$.'
+      - 'Diviser par $0{,}5$ revient à multiplier par $2$ : $\dfrac{5\,000}{0{,}5} = 10\,000$.'
+      - 'L''ordre de grandeur est $10\,000$ (réponse B).'
+      resultat: B
+  - code: TLE-TEC-AUTO-NOMB-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Convertir $54$ km/h en m/s.'
+    solution: 15
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '$54$ km/h signifie $54$ km parcourus en $1$ h, soit $54\,000$ m en $3\,600$ s.'
+      - '$\dfrac{54\,000}{3\,600} = 15$ m/s.'
+      - 'Raccourci : diviser une vitesse en km/h par $3{,}6$ la donne en m/s ($54 \div 3{,}6 = 15$).'
+      resultat: 15
+
+- code: TLE-TEC-AUTO-ALG
+  libelle: Automatismes de calcul algébrique
+  attendus: [TLE-TEC-2026-AUTO-15, TLE-TEC-2026-AUTO-16, TLE-TEC-2026-AUTO-17, TLE-TEC-2026-AUTO-18, TLE-TEC-2026-AUTO-19]
+  objectifs:
+  - Résoudre une équation ou inéquation du premier degré, une équation $x^2 = a$.
+  - Donner un signe, isoler une variable, appliquer une formule, développer et factoriser.
+  methodes:
+  - titre: Résoudre une inéquation du premier degré
+    quand: L'inéquation s'écrit $ax + b < c$.
+    etapes:
+    - Isoler $ax$ en ajoutant ou soustrayant le même nombre aux deux membres.
+    - Diviser par $a$ en changeant le sens si $a < 0$.
+    exemple:
+      enonce: Résoudre $-2x + 7 > 1$.
+      resolution:
+      - $-2x > -6$.
+      - On divise par $-2 < 0$ $:$ $x < 3$.
+      resultat: $]-\infty ; 3[$
+  erreurs_frequentes:
+  - erreur: Oublier une solution de $x^2 = a$.
+    explication: Pour $a > 0$, $x^2 = a$ a deux solutions $:$ $\sqrt{a}$ et $-\sqrt{a}$.
+  cours_couvre: [TLE-TEC-2026-AUTO-15, TLE-TEC-2026-AUTO-16, TLE-TEC-2026-AUTO-17, TLE-TEC-2026-AUTO-18, TLE-TEC-2026-AUTO-19]
+  resume: |
+    - Équation ou inéquation du premier degré : on isole $x$ ; en multipliant ou divisant par un **négatif**, on **change le sens** de l'inégalité.
+    - $x^2 = a$ : deux solutions $\pm\sqrt{a}$ si $a > 0$, une seule ($0$) si $a = 0$, aucune si $a < 0$.
+    - $ax + b$ ($a \neq 0$) s'annule en $-\dfrac{b}{a}$ et a le signe de $a$ à droite de cette valeur ; un produit se traite avec un tableau de signes.
+    - Identités : $(a + b)^2 = a^2 + 2ab + b^2$, $(a - b)^2 = a^2 - 2ab + b^2$, $(a + b)(a - b) = a^2 - b^2$.
+  cours: |
+    ## 1. Équations et inéquations du premier degré
+
+    On transforme l'égalité en ajoutant ou soustrayant le même nombre aux deux membres, puis en les divisant par le même nombre non nul : $3x - 4 = 11 \iff 3x = 15 \iff x = 5$.
+
+    > **Propriété.** Dans une inéquation, ajouter un nombre aux deux membres conserve le sens ; multiplier ou diviser par un nombre **positif** conserve le sens ; par un nombre **négatif**, le sens **change**.
+
+    Exemple : $-2x + 7 > 1 \iff -2x > -6 \iff x < 3$ ; solutions $]-\infty ; 3[$.
+
+    ## 2. Équation $x^2 = a$
+
+    > **Propriété.** Si $a > 0$, l'équation $x^2 = a$ a deux solutions $\sqrt{a}$ et $-\sqrt{a}$ ; si $a = 0$, la seule solution est $0$ ; si $a < 0$, elle n'a pas de solution réelle (un carré est positif).
+
+    ## 3. Signe d'une expression
+
+    > **Propriété.** Pour $a \neq 0$, $ax + b$ s'annule en $x_0 = -\dfrac{b}{a}$ ; il est du **signe de $a$** pour $x > x_0$ et du signe contraire pour $x < x_0$.
+
+    **Expression factorisée du second degré** $a(x - x_1)(x - x_2)$ avec $x_1 < x_2$ : on fait un tableau de signes, ligne par ligne, puis on applique la règle des signes. Résultat : signe de $a$ à l'extérieur des racines, signe contraire entre les racines.
+
+    | $x$ | $-\infty$ | | $x_1$ | | $x_2$ | | $+\infty$ |
+    |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+    | $a(x - x_1)(x - x_2)$ | | signe de $a$ | $0$ | signe de $-a$ | $0$ | signe de $a$ | |
+
+    ## 4. Isoler une variable et appliquer une formule
+
+    Pour isoler une lettre dans une formule à plusieurs variables, on la traite comme l'inconnue et les autres comme des nombres. Exemples : $v = \dfrac{d}{t} \iff d = vt \iff t = \dfrac{d}{v}$ ; $U = RI \iff R = \dfrac{U}{I}$ ; $E_c = \dfrac{1}{2}mv^2 \iff m = \dfrac{2E_c}{v^2}$.
+
+    **Application numérique** : on remplace chaque lettre par sa valeur **dans l'unité de la formule**, puis on calcule et on donne l'unité du résultat.
+
+    ## 5. Développer, factoriser, réduire
+
+    > **Identités remarquables.** $(a + b)^2 = a^2 + 2ab + b^2$, $(a - b)^2 = a^2 - 2ab + b^2$, $(a + b)(a - b) = a^2 - b^2$.
+
+    - **Développer** : distribuer, $k(a + b) = ka + kb$ et $(a + b)(c + d) = ac + ad + bc + bd$, puis **réduire** (regrouper les termes semblables).
+    - **Factoriser** : repérer un facteur commun, $6x^2 - 9x = 3x(2x - 3)$, ou une identité, $x^2 - 25 = (x - 5)(x + 5)$.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** Le prix $P$ (en €) d'une location est $P = 35 + 0{,}4k$, où $k$ est le nombre de kilomètres. Pour quelles distances le prix reste-t-il inférieur à $95$ € ?
+
+    **Résolution.** $35 + 0{,}4k < 95 \iff 0{,}4k < 60 \iff k < \dfrac{60}{0{,}4} = 150$ (on divise par $0{,}4 > 0$, le sens est conservé). Il faut parcourir moins de $150$ km.
+
+    ## 7. Erreurs fréquentes
+
+    - Oublier la solution négative de $x^2 = a$.
+    - Ne pas changer le sens d'une inégalité en divisant par un nombre négatif.
+    - Écrire $(a + b)^2 = a^2 + b^2$ : il manque le double produit $2ab$.
+  questions:
+  - code: TLE-TEC-AUTO-ALG-01
+    difficulte: 1
+    type: numerique
+    enonce: 'Résoudre $3x - 4 = 11$.'
+    solution: 5
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $3x = 15$, donc $x = 5$.
+      resultat: 5
+  - code: TLE-TEC-AUTO-ALG-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Quel est l''ensemble des solutions de $-2x + 7 > 1$ ? A) $]-\infty ; 3[$  B) $]3 ; +\infty[$  C) $]-\infty ; -3[$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $-2x > -6$ ; diviser par $-2$ change le sens $:$ $x < 3$.
+      resultat: A
+  - code: TLE-TEC-AUTO-ALG-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quelles sont les solutions de $x^2 = 49$ ? A) $7$ seulement  B) $7$ et $-7$  C) $24{,}5$'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Pour $a > 0$, l''équation $x^2 = a$ a deux solutions : $\sqrt{a}$ et $-\sqrt{a}$.'
+      - 'Ici $\sqrt{49} = 7$ : les solutions sont $7$ et $-7$, car $(-7)^2 = 49$ aussi (réponse B).'
+      resultat: B
+  - code: TLE-TEC-AUTO-ALG-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Avec la formule $P = UI$, calculer l''intensité $I$ (en A) pour une puissance $P = 1\,150$ W et une tension $U = 230$ V.'
+    solution: 5
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'On isole $I$ dans $P = UI$ en divisant les deux membres par $U \neq 0$ : $I = \dfrac{P}{U}$.'
+      - 'Application numérique : $I = \dfrac{1\,150}{230}$.'
+      - '$I = 5$ A (contrôle : $230 \times 5 = 1\,150$).'
+      resultat: 5
+  - code: TLE-TEC-AUTO-ALG-05
+    difficulte: 5
+    type: expression
+    forme: reduite
+    enonce: 'Développer et réduire $(2x + 3)^2$.'
+    solution: 4x^2 + 12x + 9
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Identité remarquable $(a + b)^2 = a^2 + 2ab + b^2$ avec $a = 2x$ et $b = 3$.'
+      - '$(2x)^2 = 4x^2$, $2 \times 2x \times 3 = 12x$ et $3^2 = 9$.'
+      - '$(2x + 3)^2 = 4x^2 + 12x + 9$.'
+      resultat: 4x^2 + 12x + 9
+
+- code: TLE-TEC-AUTO-FONC
+  libelle: Lectures graphiques et représentations de données
+  attendus: [TLE-TEC-2026-AUTO-22, TLE-TEC-2026-AUTO-23, TLE-TEC-2026-AUTO-24, TLE-TEC-2026-AUTO-25, TLE-TEC-2026-AUTO-26, TLE-TEC-2026-AUTO-31, TLE-TEC-2026-AUTO-32]
+  objectifs:
+  - Lire images, antécédents, solutions d'équations et d'inéquations, signe et variations sur une courbe.
+  - Déterminer mentalement le signe d'une expression factorisée du second degré.
+  - Lire un graphique de données et passer du graphique aux données.
+  methodes:
+  - titre: Signe d'une expression du second degré par image mentale
+    quand: L'expression s'écrit $a(x - x_1)(x - x_2)$.
+    etapes:
+    - Les racines $x_1$ et $x_2$ sont les points où la parabole coupe l'axe des abscisses.
+    - Si $a > 0$, la parabole est « tournée vers le haut » $:$ négative entre les racines ; si $a < 0$, positive entre les racines.
+    exemple:
+      enonce: Signe de $-2(x - 1)(x - 3)$.
+      resolution:
+      - Racines $1$ et $3$, $a = -2 < 0$ $:$ parabole tournée vers le bas.
+      resultat: positive sur $]1 ; 3[$, négative ailleurs
+  erreurs_frequentes:
+  - erreur: Confondre image et antécédent.
+    explication: L'image de $2$ se lit en ordonnée au-dessus de $x = 2$ ; les antécédents de $2$ se lisent en abscisse, à la hauteur $y = 2$.
+  cours_couvre: [TLE-TEC-2026-AUTO-22, TLE-TEC-2026-AUTO-23, TLE-TEC-2026-AUTO-24, TLE-TEC-2026-AUTO-25, TLE-TEC-2026-AUTO-26, TLE-TEC-2026-AUTO-31, TLE-TEC-2026-AUTO-32]
+  resume: |
+    - L'**image** de $a$ se lit sur l'axe des ordonnées au-dessus de $a$ ; les **antécédents** de $k$ sont les abscisses des points de la courbe d'ordonnée $k$.
+    - $f(x) = k$ : abscisses des points d'intersection avec la droite $y = k$ ; $f(x) < k$ : abscisses des points situés **sous** cette droite.
+    - $M(x_M ; y_M)$ est sur la courbe de $f$ si et seulement si $f(x_M) = y_M$.
+    - $a(x - x_1)(x - x_2)$ : parabole tournée vers le haut si $a > 0$ (négative entre les racines), vers le bas si $a < 0$ (positive entre les racines).
+  cours: |
+    ## 1. Images et antécédents
+
+    La courbe $\mathcal{C}_f$ d'une fonction $f$ est l'ensemble des points $(x ; f(x))$.
+
+    - **Image** de $a$ : on part de $a$ sur l'axe des abscisses, on monte (ou descend) jusqu'à la courbe et on lit l'ordonnée. Il y a **une seule** image.
+    - **Antécédents** de $k$ : on trace la droite horizontale $y = k$ et on lit les abscisses des points d'intersection. Il peut y en avoir zéro, un ou plusieurs.
+
+    ## 2. Résolution graphique
+
+    > **Méthode.**
+    > - Les solutions de $f(x) = k$ sont les abscisses des points de $\mathcal{C}_f$ d'ordonnée $k$.
+    > - Les solutions de $f(x) < k$ sont les abscisses des points de $\mathcal{C}_f$ situés **strictement sous** la droite $y = k$ (au-dessus pour $f(x) > k$).
+    > - Les solutions de $f(x) = g(x)$ sont les abscisses des points d'intersection des deux courbes.
+
+    Les solutions d'une inéquation s'écrivent en **intervalles** ; on fait attention aux crochets (point compris ou non).
+
+    ## 3. Signe et variations par lecture graphique
+
+    - $f(x) > 0$ là où la courbe est **au-dessus** de l'axe des abscisses, $f(x) < 0$ là où elle est en dessous ; les points d'intersection avec l'axe donnent les zéros. On résume dans un **tableau de signes**.
+    - $f$ est croissante là où la courbe « monte » de gauche à droite, décroissante là où elle « descend » ; on résume dans un **tableau de variations** avec les valeurs des extremums.
+
+    ## 4. Image mentale d'une parabole
+
+    > **Propriété.** La courbe de $x \mapsto a(x - x_1)(x - x_2)$ est une parabole qui coupe l'axe des abscisses en $x_1$ et $x_2$. Si $a > 0$, elle est tournée vers le haut : l'expression est **négative entre les racines** et positive à l'extérieur. Si $a < 0$, c'est l'inverse.
+
+    Exemple : $3(x + 2)(x - 1)$ est négatif sur $]-2 ; 1[$ et positif sur $]-\infty ; -2[ \cup ]1 ; +\infty[$.
+
+    ## 5. Exploiter une équation de courbe
+
+    > **Propriété.** Le point $M(x_M ; y_M)$ appartient à $\mathcal{C}_f$ si et seulement si $f(x_M) = y_M$.
+
+    On calcule donc l'image de l'abscisse et on la compare à l'ordonnée. Pour trouver les points d'abscisse donnée, on calcule l'image ; pour trouver les points d'ordonnée donnée, on résout une équation.
+
+    ## 6. Lire des représentations de données
+
+    Avant toute lecture : repérer l'**origine**, les **unités** et la **graduation** de chaque axe, et la légende.
+    - **Diagramme en barres** : la hauteur d'une barre donne l'effectif (ou la fréquence) d'une valeur.
+    - **Histogramme** : pour des classes de même amplitude, la hauteur est proportionnelle à l'effectif ; en général, c'est l'**aire** du rectangle qui l'est.
+    - **Diagramme circulaire** : l'angle d'un secteur est proportionnel à l'effectif ($360°$ pour l'effectif total).
+    - **Diagramme en boîte** : il montre minimum, $Q_1$, médiane, $Q_3$ et maximum ; environ un quart des valeurs dans chaque partie.
+
+    **Du graphique aux données et inversement** : on lit les valeurs pour retrouver le tableau, ou on calcule hauteurs et angles pour construire le graphique (angle $= \dfrac{\text{effectif}}{\text{total}} \times 360°$).
+
+    ## 7. Exemple complet
+
+    **Énoncé.** Soit $f(x) = x^2 - 4x + 3 = (x - 1)(x - 3)$. Le point $A(4 ; 3)$ est-il sur la courbe ? Résoudre $f(x) < 0$.
+
+    **Résolution.** $f(4) = 16 - 16 + 3 = 3$ : $A$ est sur la courbe. Coefficient $1 > 0$ : parabole vers le haut, négative entre les racines $1$ et $3$. Donc $f(x) < 0 \iff x \in ]1 ; 3[$.
+
+    ## 8. Erreurs fréquentes
+
+    - Confondre image (lue sur l'axe des ordonnées) et antécédent (lu sur l'axe des abscisses).
+    - Lire un graphique sans regarder l'unité de graduation.
+    - Inclure les bornes dans les solutions d'une inéquation stricte.
+  questions:
+  - code: TLE-TEC-AUTO-FONC-01
+    difficulte: 1
+    type: numerique
+    enonce: 'La courbe d''une fonction $f$ passe par le point $(2 ; 5)$. Que vaut $f(2)$ ?'
+    solution: 5
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - L'ordonnée du point d'abscisse $2$ est $5$.
+      resultat: 5
+  - code: TLE-TEC-AUTO-FONC-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Le point $K(3 ; 4)$ appartient-il à la courbe de $f(x) = x^2 - 5$ ? A) Oui  B) Non'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f(3) = 9 - 5 = 4$.
+      resultat: A
+  - code: TLE-TEC-AUTO-FONC-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Sur quel ensemble l''expression $-2(x - 1)(x - 3)$ est-elle positive ? A) $[1 ; 3]$  B) $]-\infty ; 1] \cup [3 ; +\infty[$  C) $[-3 ; -1]$'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Les racines de $-2(x - 1)(x - 3)$ sont $1$ et $3$.'
+      - 'Image mentale : le coefficient $-2$ est négatif, la parabole est tournée vers le bas, donc au-dessus de l''axe des abscisses entre les racines.'
+      - 'L''expression est positive sur $[1 ; 3]$ (réponse A). Contrôle : en $x = 2$, $-2 \times 1 \times (-1) = 2 > 0$.'
+      resultat: A
+  - code: TLE-TEC-AUTO-FONC-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Le tableau de variations de $f$ indique : croissante de $f(0) = -1$ à $f(2) = 4$, puis décroissante jusqu''à $f(5) = 2$. Combien de solutions l''équation $f(x) = 3$ a-t-elle sur $[0 ; 5]$ ? A) $1$  B) $2$  C) $0$'
+    solution: B
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Sur $[0 ; 2]$, $f$ passe de $-1$ à $4$ $:$ une solution.
+      - Sur $[2 ; 5]$, $f$ passe de $4$ à $2$ $:$ elle passe par $3$ une fois.
+      resultat: B
+  - code: TLE-TEC-AUTO-FONC-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Un diagramme en barres indique les effectifs suivants : note $10$ pour $6$ élèves, note $14$ pour $10$ élèves, note $18$ pour $4$ élèves. Quelle est la moyenne des notes ?'
+    solution: 13.6
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Effectif total : $6 + 10 + 4 = 20$ élèves.'
+      - 'Moyenne pondérée par les effectifs : $\dfrac{6 \times 10 + 10 \times 14 + 4 \times 18}{20} = \dfrac{60 + 140 + 72}{20}$.'
+      - '$\dfrac{272}{20} = 13{,}6$.'
+      resultat: 13.6
+
+- code: TLE-TEC-AUTO-DROITE
+  libelle: Droites, dérivées et tangentes
+  attendus: [TLE-TEC-2026-AUTO-20, TLE-TEC-2026-AUTO-21, TLE-TEC-2026-AUTO-27, TLE-TEC-2026-AUTO-28, TLE-TEC-2026-AUTO-29, TLE-TEC-2026-AUTO-30]
+  objectifs:
+  - Tracer une droite, lire et calculer son équation réduite.
+  - Dériver un polynôme de degré au plus $3$ et calculer la pente d'une tangente.
+  methodes:
+  - titre: Pente de la tangente en un point
+    quand: On connaît l'expression de $f$ et l'abscisse $a$ du point.
+    etapes:
+    - Dériver $f$.
+    - Calculer $f'(a)$ $:$ c'est le coefficient directeur de la tangente en $a$.
+    exemple:
+      enonce: $f(x) = x^3 - 2x$ en $a = 1$.
+      resolution:
+      - $f'(x) = 3x^2 - 2$.
+      - $f'(1) = 1$.
+      resultat: pente $1$
+  erreurs_frequentes:
+  - erreur: Écrire que la dérivée de $x^3$ est $3x^3$.
+    explication: $(x^n)' = nx^{n - 1}$ $:$ la dérivée de $x^3$ est $3x^2$.
+  cours_couvre: [TLE-TEC-2026-AUTO-20, TLE-TEC-2026-AUTO-21, TLE-TEC-2026-AUTO-27, TLE-TEC-2026-AUTO-28, TLE-TEC-2026-AUTO-29, TLE-TEC-2026-AUTO-30]
+  resume: |
+    - Équation réduite d'une droite non verticale : $y = mx + p$, $m$ coefficient directeur, $p$ ordonnée à l'origine.
+    - Par deux points : $m = \dfrac{y_B - y_A}{x_B - x_A}$, puis $p = y_A - m x_A$.
+    - $(x^n)' = n x^{n-1}$, $(k)' = 0$ : on dérive un polynôme terme à terme.
+    - Coefficient directeur de la tangente en $a$ : $f'(a)$ ; tangente : $y = f'(a)(x - a) + f(a)$.
+  cours: |
+    ## 1. Équation réduite d'une droite
+
+    **Définition.** Toute droite non parallèle à l'axe des ordonnées a une équation de la forme $y = mx + p$, appelée **équation réduite**. Le réel $m$ est le **coefficient directeur**, le réel $p$ l'**ordonnée à l'origine**.
+
+    - $p$ est l'ordonnée du point d'intersection avec l'axe des ordonnées, le point $(0 ; p)$.
+    - $m$ est la variation de $y$ quand $x$ augmente de $1$ : si $m > 0$ la droite « monte », si $m < 0$ elle « descend », si $m = 0$ elle est horizontale.
+
+    ## 2. Tracer une droite
+
+    - **Par son équation** : on calcule deux points, par exemple pour $x = 0$ et $x = 3$. Pour $y = -2x + 5$ : $(0 ; 5)$ et $(3 ; -1)$.
+    - **Par un point et son coefficient directeur** : depuis le point, on avance de $1$ vers la droite et on monte de $m$ (ou on descend si $m < 0$).
+
+    ## 3. Lire et calculer l'équation réduite
+
+    **Lecture graphique.** On lit $p$ sur l'axe des ordonnées ; pour $m$, on choisit deux points de la droite bien placés sur le quadrillage et on calcule $\dfrac{\text{déplacement vertical}}{\text{déplacement horizontal}}$.
+
+    > **Propriété.** Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$ sont deux points d'une droite non verticale ($x_A \neq x_B$) : $$m = \frac{y_B - y_A}{x_B - x_A}, \qquad p = y_A - m x_A.$$
+
+    ## 4. Dérivée d'un polynôme de degré au plus 3
+
+    > **Propriété.** $(k)' = 0$, $(x)' = 1$, $(x^2)' = 2x$, $(x^3)' = 3x^2$ ; $(ku)' = ku'$ et $(u + v)' = u' + v'$.
+
+    On dérive donc terme à terme : $f(x) = 2x^3 - 5x^2 + x - 7$ donne $f'(x) = 6x^2 - 10x + 1$.
+
+    ## 5. Tangente à une courbe
+
+    > **Propriété.** Le coefficient directeur de la tangente à la courbe de $f$ au point d'abscisse $a$ est le **nombre dérivé** $f'(a)$. Une équation de cette tangente est $$y = f'(a)(x - a) + f(a).$$
+
+    **Lecture graphique** du coefficient directeur d'une tangente : on choisit deux points de la **tangente** (pas de la courbe) et on calcule $\dfrac{\Delta y}{\Delta x}$. Une tangente horizontale a un coefficient directeur nul : $f'(a) = 0$.
+
+    ## 6. Exemple complet
+
+    **Énoncé.** Soit $f(x) = x^3 - 3x + 1$. Déterminer l'équation de la tangente au point d'abscisse $2$.
+
+    **Résolution.**
+    1. $f'(x) = 3x^2 - 3$, donc $f'(2) = 12 - 3 = 9$ : coefficient directeur $9$.
+    2. $f(2) = 8 - 6 + 1 = 3$ : la tangente passe par $(2 ; 3)$.
+    3. $y = 9(x - 2) + 3 = 9x - 15$.
+
+    Contrôle : le point $(2 ; 3)$ vérifie bien $9 \times 2 - 15 = 3$.
+
+    ## 7. Erreurs fréquentes
+
+    - Écrire que la dérivée de $x^3$ est $3x^3$ : l'exposant diminue de $1$ ($3x^2$).
+    - Inverser numérateur et dénominateur dans $\dfrac{y_B - y_A}{x_B - x_A}$.
+    - Lire le coefficient directeur de la tangente avec deux points de la **courbe**.
+  questions:
+  - code: TLE-TEC-AUTO-DROITE-01
+    difficulte: 1
+    type: expression
+    enonce: 'Dériver $f(x) = 2x^3 - 5x^2 + x - 7$.'
+    solution: 6x^2 - 10x + 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $2 \times 3x^2 - 5 \times 2x + 1 = 6x^2 - 10x + 1$.
+      resultat: 6x^2 - 10x + 1
+  - code: TLE-TEC-AUTO-DROITE-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Soit $f(x) = x^3 - 2x$. Quel est le coefficient directeur de la tangente à la courbe de $f$ au point d''abscisse $1$ ?'
+    solution: 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - $f'(x) = 3x^2 - 2$, donc $f'(1) = 1$.
+      resultat: 1
+  - code: TLE-TEC-AUTO-DROITE-03
+    difficulte: 3
+    type: expression
+    forme: reduite
+    enonce: 'Donner l''équation réduite de la droite passant par $A(1 ; 3)$ et $B(4 ; 9)$, sous la forme $y = \ldots$'
+    solution: 2x + 1
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Coefficient directeur : $m = \dfrac{y_B - y_A}{x_B - x_A} = \dfrac{9 - 3}{4 - 1} = \dfrac{6}{3} = 2$.'
+      - 'Ordonnée à l''origine : $A$ est sur la droite, donc $3 = 2 \times 1 + p$, d''où $p = 1$.'
+      - 'Équation réduite : $y = 2x + 1$ (contrôle avec $B$ : $2 \times 4 + 1 = 9$).'
+      resultat: 2x + 1
+  - code: TLE-TEC-AUTO-DROITE-04
+    difficulte: 4
+    type: numerique
+    enonce: 'Sur un graphique, la tangente à une courbe passe par les points $(1 ; 2)$ et $(3 ; -2)$. Quel est son coefficient directeur ?'
+    solution: -2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'Le coefficient directeur d''une droite passant par deux points est $\dfrac{\Delta y}{\Delta x} = \dfrac{y_2 - y_1}{x_2 - x_1}$.'
+      - '$\dfrac{-2 - 2}{3 - 1} = \dfrac{-4}{2} = -2$ : la tangente descend de $2$ quand $x$ augmente de $1$.'
+      resultat: -2
+  - code: TLE-TEC-AUTO-DROITE-05
+    difficulte: 5
+    type: numerique
+    enonce: 'Soit $f(x) = x^2 - 6x + 1$. En quelle abscisse la tangente à la courbe de $f$ est-elle horizontale ?'
+    solution: 3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Tangente horizontale $:$ $f'(x) = 0$.
+      - $2x - 6 = 0$, donc $x = 3$.
+      resultat: 3

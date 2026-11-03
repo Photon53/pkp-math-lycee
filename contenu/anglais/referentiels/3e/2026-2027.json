@@ -1,0 +1,95 @@
+{
+  "level": "3e",
+  "school_year": "2026-2027",
+  "program": "cycle4-2020",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Langages",
+    "École et société",
+    "Voyages et migrations",
+    "Rencontres avec d'autres cultures"
+  ],
+  "objectives": [
+    {
+      "code": "3E-01",
+      "activity": "Expression orale",
+      "observable": "Présenter un projet en suivant un plan compréhensible",
+      "theme": "École et société",
+      "language_support": "Introduction, étapes, conclusion"
+    },
+    {
+      "code": "3E-02",
+      "activity": "Interaction orale",
+      "observable": "Répondre à des questions et demander une clarification",
+      "theme": "Langages",
+      "language_support": "Could you repeat?"
+    },
+    {
+      "code": "3E-03",
+      "activity": "Expression orale",
+      "observable": "Justifier un choix et donner son opinion avec exemples",
+      "theme": "École et société",
+      "language_support": "because, for example"
+    },
+    {
+      "code": "3E-04",
+      "activity": "Expression écrite",
+      "observable": "Rédiger une proposition structurée et relue",
+      "theme": "Langages",
+      "language_support": "Connecteurs et relecture"
+    },
+    {
+      "code": "3E-05",
+      "activity": "Compréhension orale",
+      "observable": "Identifier arguments et intentions dans une présentation courte",
+      "theme": "Langages",
+      "language_support": "Prise de notes"
+    },
+    {
+      "code": "3E-06",
+      "activity": "Compréhension écrite",
+      "observable": "Comparer des points de vue dans deux documents courts",
+      "theme": "Rencontres avec d'autres cultures",
+      "language_support": "Accord et désaccord"
+    },
+    {
+      "code": "3E-07",
+      "activity": "Interaction orale",
+      "observable": "Discuter des avantages et limites d'une initiative",
+      "theme": "École et société",
+      "language_support": "should, could, might"
+    },
+    {
+      "code": "3E-08",
+      "activity": "Expression orale",
+      "observable": "Relater une expérience et ses conséquences",
+      "theme": "Voyages et migrations",
+      "language_support": "Temps du passé"
+    },
+    {
+      "code": "3E-09",
+      "activity": "Médiation",
+      "observable": "Synthétiser pour un groupe les idées d'un document accessible",
+      "theme": "Rencontres avec d'autres cultures",
+      "language_support": "Synthèse courte"
+    },
+    {
+      "code": "3E-10",
+      "activity": "Phonologie",
+      "observable": "Parler avec débit, pauses et intonation favorisant l'intelligibilité",
+      "theme": "Langages",
+      "language_support": "Pauses et accentuation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Éduscol, programmes LVE collège 2026-2027",
+      "url": "https://eduscol.education.gouv.fr/4758/ressources-d-accompagnement-pour-les-langues-vivantes-etrangeres-et-regionales-au-college"
+    },
+    {
+      "title": "Ministère, programmes collège",
+      "url": "https://www.education.gouv.fr/les-programmes-du-college-470408"
+    }
+  ],
+  "note": "Objectifs opérationnels PKP, non reproduction exhaustive des attendus officiels. Validation par enseignant référent requise."
+}

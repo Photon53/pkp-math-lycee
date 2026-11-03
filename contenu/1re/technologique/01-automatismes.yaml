@@ -7,26 +7,13 @@ chapitre:
 competences:
 - code: 1RE-TEC-EVO
   libelle: Calculer des évolutions en pourcentage
+  attendus: [1RE-TEC-2026-AUTO-01, 1RE-TEC-2026-AUTO-02, 1RE-TEC-2026-AUTO-03, 1RE-TEC-2026-AUTO-04]
+  cours_couvre: [1RE-TEC-2026-AUTO-01, 1RE-TEC-2026-AUTO-02, 1RE-TEC-2026-AUTO-03, 1RE-TEC-2026-AUTO-04]
   objectifs:
   - Appliquer un taux d'évolution pour obtenir une valeur finale ou initiale.
   - Calculer des évolutions successives et une évolution réciproque.
   prerequis:
   - 2NDE-EVO
-  resume: |
-    - Évolution de $t\,\%$ : multiplier par $CM = 1 + \dfrac{t}{100}$.
-    - Valeur initiale : diviser la valeur finale par $CM$.
-    - Évolutions successives : multiplier les coefficients ; réciproque : $\dfrac{1}{CM}$.
-  cours: |
-    ## Valeur finale, valeur initiale
-    - $120$ € baissés de $25\,\%$ : $120 \times 0{,}75 = 90$ €.
-    - Un prix de $330$ € après une hausse de $10\,\%$ valait $\dfrac{330}{1{,}1} = 300$ €.
-
-    ## Évolutions successives
-    $+20\,\%$ puis $-20\,\%$ : $1{,}2 \times 0{,}8 = 0{,}96$, soit $-4\,\%$.
-    Trois hausses de $10\,\%$ : $1{,}1^3 = 1{,}331$, soit $+33{,}1\,\%$.
-
-    ## Évolution réciproque
-    Pour annuler $+25\,\%$ ($CM = 1{,}25$) : $\dfrac{1}{1{,}25} = 0{,}8$, soit $-20\,\%$.
   methodes:
   - titre: Retrouver une valeur initiale
     etapes:
@@ -40,6 +27,61 @@ competences:
   erreurs_frequentes:
   - erreur: Retirer le pourcentage à la valeur finale pour retrouver la valeur initiale.
     explication: '$330 - 10\,\% \times 330 = 297 \neq 300$ : il faut diviser par $1{,}1$.'
+  resume: |
+    - Évolution de $t\,\%$ : **coefficient multiplicateur** $CM = 1 + \dfrac{t}{100}$ (hausse : $t > 0$ ; baisse : $t < 0$) ; $V_f = CM \times V_i$.
+    - **Taux d'évolution** de $V_i$ à $V_f$ : $t = \dfrac{V_f - V_i}{V_i}$, à écrire en pourcentage.
+    - **Évolutions successives** : on **multiplie** les coefficients ; les pourcentages ne s'additionnent pas.
+    - **Évolution réciproque** : coefficient $\dfrac{1}{CM}$.
+  cours: |
+    ## 1. Coefficient multiplicateur
+
+    > **Propriété.** Augmenter une quantité de $t\,\%$ revient à la multiplier par $1 + \dfrac{t}{100}$ ; la diminuer de $t\,\%$ revient à la multiplier par $1 - \dfrac{t}{100}$. Ce nombre est le **coefficient multiplicateur** $CM$ :
+    > $$V_f = CM \times V_i.$$
+
+    | Évolution | $+5\,\%$ | $+100\,\%$ | $-20\,\%$ | $-3\,\%$ |
+    |---|---|---|---|---|
+    | $CM$ | $1{,}05$ | $2$ | $0{,}8$ | $0{,}97$ |
+
+    $CM > 1$ : hausse ; $0 < CM < 1$ : baisse.
+
+    ## 2. Calculer une valeur finale ou initiale
+
+    - **Valeur finale** : $V_f = V_i \times CM$.
+    - **Valeur initiale** : $V_i = \dfrac{V_f}{CM}$ (on **divise**, on ne retire pas le pourcentage de la valeur finale).
+
+    *Exemple complet.* Après une hausse de $8\,\%$, une facture s'élève à $54$ €. Montant avant la hausse : $V_i = \dfrac{54}{1{,}08} = 50$ €. Contrôle : $50 \times 1{,}08 = 54$.
+
+    ## 3. Taux d'évolution
+
+    > **Définition.** Le **taux d'évolution** de $V_i$ à $V_f$ ($V_i \neq 0$) est $t = \dfrac{V_f - V_i}{V_i} = \dfrac{V_f}{V_i} - 1$. On l'exprime souvent en pourcentage.
+
+    *Exemple.* Un abonnement passe de $40$ € à $46$ € : $t = \dfrac{6}{40} = 0{,}15$, soit $+15\,\%$.
+
+    ## 4. Évolutions successives
+
+    > **Propriété.** Si une quantité subit des évolutions de coefficients $CM_1$, $CM_2$, …, $CM_n$, le coefficient global est le **produit** $CM = CM_1 \times CM_2 \times \cdots \times CM_n$. Le taux global est $CM - 1$.
+
+    *Exemple.* $+10\,\%$ puis $-10\,\%$ : $1{,}1 \times 0{,}9 = 0{,}99$, soit $-1\,\%$ (et non $0\,\%$). Trois hausses de $5\,\%$ : $1{,}05^3 \approx 1{,}158$, soit environ $+15{,}8\,\%$.
+
+    ## 5. Évolution réciproque
+
+    > **Propriété.** L'évolution qui ramène $V_f$ à $V_i$ a pour coefficient $\dfrac{1}{CM}$ ; son taux est $\dfrac{1}{CM} - 1$.
+
+    *Exemple.* Après une hausse de $25\,\%$ ($CM = 1{,}25$), il faut une baisse de coefficient $\dfrac{1}{1{,}25} = 0{,}8$, soit $-20\,\%$, pour revenir au point de départ.
+
+    ## 6. Méthode
+
+    1. Traduire chaque pourcentage en coefficient multiplicateur.
+    2. Combiner : multiplier (successives), inverser (réciproque), diviser (valeur initiale).
+    3. Revenir au pourcentage : $t = CM - 1$, puis vérifier l'ordre de grandeur.
+
+    *Exemple complet.* Le chiffre d'affaires d'un magasin baisse de $15\,\%$ en janvier puis augmente de $10\,\%$ en février. Coefficient global : $0{,}85 \times 1{,}1 = 0{,}935$, soit une baisse globale de $6{,}5\,\%$. Pour compenser la seule baisse de janvier, il aurait fallu une hausse de $\dfrac{1}{0{,}85} - 1 \approx 17{,}6\,\%$.
+
+    ## 7. Erreurs fréquentes
+
+    - Additionner des pourcentages successifs.
+    - Croire qu'une baisse de $t\,\%$ compense une hausse de $t\,\%$.
+    - Pour retrouver un prix avant remise, retirer le pourcentage du prix final au lieu de diviser par $CM$.
   questions:
   - code: 1RE-TEC-EVO-01
     difficulte: 1
@@ -69,7 +111,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1{,}2 \times 0{,}8 = 0{,}96$, soit $-4\,\%$.
+      - 'Coefficients multiplicateurs : hausse de $20\,\%$ : $1{,}2$ ; baisse de $20\,\%$ : $0{,}8$.'
+      - 'Évolutions successives : on multiplie les coefficients, $1{,}2 \times 0{,}8 = 0{,}96$.'
+      - '$0{,}96 - 1 = -0{,}04$ : le taux global est $-4\,\%$ (et non $0\,\%$).'
       resultat: '-4'
   - code: 1RE-TEC-EVO-04
     difficulte: 4
@@ -79,7 +123,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{1}{1{,}25} = 0{,}8$, soit $-20\,\%$.
+      - 'Une hausse de $25\,\%$ a pour coefficient multiplicateur $1{,}25$.'
+      - 'L''évolution réciproque a pour coefficient $\dfrac{1}{1{,}25} = 0{,}8$.'
+      - '$0{,}8 - 1 = -0{,}2$ : il faut une baisse de $20\,\%$, d''où $-20$.'
       resultat: '-20'
   - code: 1RE-TEC-EVO-05
     difficulte: 5
@@ -89,31 +135,35 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $1{,}1^3 = 1{,}331$, soit $+33{,}1\,\%$.
+      - 'Une hausse de $10\,\%$ a pour coefficient multiplicateur $1{,}1$.'
+      - 'Trois hausses successives : coefficient global $1{,}1 \times 1{,}1 \times 1{,}1 = 1{,}1^3 = 1{,}331$.'
+      - '$1{,}331 - 1 = 0{,}331$ : le taux global est $+33{,}1\,\%$ (et non $30\,\%$).'
       resultat: '33.1'
+  - code: 1RE-TEC-EVO-V1
+    difficulte: 2
+    type: numerique
+    gabarit:
+      parametres: {v: {entre: [2, 30]}, t: {parmi: [5, 10, 15, 20, 25, 30, -10, -20, -25]}}
+      calculs: {i: "v*20", f: "v*20*(1 + t/100)"}
+    enonce: 'Un article coûte $[[i]]$ €. Son prix évolue de $[[t]]\,\%$. Quel est son nouveau prix (en €) ?'
+    solution: '[[f]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Valeur finale = valeur initiale × coefficient multiplicateur.'
+      etapes:
+      - 'Coefficient : $1 + \dfrac{[[t]]}{100} = [[1 + t/100]]$.'
+      - '$[[i]] \times [[1 + t/100]] = [[f]]$.'
+      resultat: '[[f]]'
 - code: 1RE-TEC-CALC
   libelle: Résoudre une équation produit nul et étudier un signe
+  attendus: [1RE-TEC-2026-AUTO-05, 1RE-TEC-2026-AUTO-06, 1RE-TEC-2026-AUTO-07]
+  cours_couvre: [1RE-TEC-2026-AUTO-05, 1RE-TEC-2026-AUTO-06, 1RE-TEC-2026-AUTO-07]
   objectifs:
   - Résoudre une équation produit nul.
   - Déterminer le signe d'une expression du premier degré ou d'un produit factorisé.
   prerequis:
   - 2NDE-SIGNE
   - 2NDE-DEV
-  resume: |
-    - $A \times B = 0 \iff A = 0$ ou $B = 0$.
-    - $ax + b$ est du signe de $a$ à droite de sa racine $-\dfrac{b}{a}$.
-    - $a(x - x_1)(x - x_2)$ est du signe de $-a$ entre les racines, du signe de $a$ à l'extérieur.
-  cours: |
-    ## Produit nul
-    $(x - 3)(x + 2) = 0 \iff x = 3$ ou $x = -2$.
-
-    ## Signe d'une expression du premier degré
-    $-2x + 4$ s'annule en $2$ ; le coefficient $-2$ est négatif, donc l'expression est positive avant $2$ et négative après.
-
-    ## Signe d'un produit
-    | $x$ | | $1$ | | $4$ | |
-    |---|---|---|---|---|---|
-    | $(x - 1)(x - 4)$ | $+$ | $0$ | $-$ | $0$ | $+$ |
   methodes:
   - titre: Étudier le signe d'un produit factorisé
     etapes:
@@ -128,6 +178,59 @@ competences:
   erreurs_frequentes:
   - erreur: Développer avant de résoudre une équation produit nul.
     explication: La forme factorisée permet de conclure directement.
+  resume: |
+    - **Produit nul** : $A \times B = 0 \iff A = 0$ ou $B = 0$.
+    - $mx + p$ ($m \neq 0$) s'annule en $-\dfrac{p}{m}$ ; il est du signe de $m$ **après** cette valeur, du signe contraire avant.
+    - $a(x - x_1)(x - x_2)$ est du signe de $a$ à l'extérieur des racines, du signe de $-a$ entre elles.
+    - Identités : $(a + b)^2 = a^2 + 2ab + b^2$, $(a - b)^2 = a^2 - 2ab + b^2$, $(a - b)(a + b) = a^2 - b^2$.
+  cours: |
+    ## 1. Développer, factoriser, réduire
+
+    - **Développer** : transformer un produit en somme, avec la distributivité $k(a + b) = ka + kb$ et $(a + b)(c + d) = ac + ad + bc + bd$.
+    - **Factoriser** : transformer une somme en produit, en repérant un **facteur commun** ou une **identité remarquable**.
+    - **Réduire** : regrouper les termes de même nature ($x^2$, $x$, constantes).
+
+    > **Identités remarquables.** Pour tous réels $a$ et $b$ :
+    > $$(a + b)^2 = a^2 + 2ab + b^2, \qquad (a - b)^2 = a^2 - 2ab + b^2, \qquad (a - b)(a + b) = a^2 - b^2.$$
+
+    *Exemples.* $(2x - 3)^2 = 4x^2 - 12x + 9$ ; $x^2 - 16 = (x - 4)(x + 4)$ ; $(x + 1)(2x - 5) + 3(x + 1) = (x + 1)(2x - 2) = 2(x + 1)(x - 1)$.
+
+    ## 2. Équation produit nul
+
+    > **Propriété.** Un produit de facteurs est nul si et seulement si l'un au moins de ses facteurs est nul : $A \times B = 0 \iff A = 0$ ou $B = 0$.
+
+    **Méthode.** Tout ramener dans un membre ($\ldots = 0$), **factoriser**, puis annuler chaque facteur.
+    *Exemple.* $x^2 = 5x \iff x^2 - 5x = 0 \iff x(x - 5) = 0 \iff x = 0$ ou $x = 5$. (Diviser par $x$ ferait perdre la solution $0$.)
+
+    ## 3. Signe d'une expression du premier degré
+
+    > **Propriété.** Pour $m \neq 0$, $mx + p$ s'annule en $x_0 = -\dfrac{p}{m}$ ; il est du **signe de $m$ à droite** de $x_0$ et du signe contraire à gauche.
+
+    | $x$ | $-\infty$ | | $x_0$ | | $+\infty$ |
+    |---|---|---|---|---|---|
+    | $mx + p$ | | signe de $-m$ | $0$ | signe de $m$ | |
+
+    ## 4. Signe d'un produit de deux facteurs du premier degré
+
+    On fait un **tableau de signes** : une ligne par facteur, puis la règle des signes. Pour $a(x - x_1)(x - x_2)$ avec $x_1 < x_2$ : signe de $a$ à l'extérieur de $[x_1 ; x_2]$, signe de $-a$ à l'intérieur.
+
+    *Exemple complet.* Étudier le signe de $(x - 2)(5 - x)$.
+    - $x - 2$ s'annule en $2$ ; coefficient $1 > 0$ : négatif avant $2$, positif après.
+    - $5 - x$ s'annule en $5$ ; coefficient $-1 < 0$ : positif avant $5$, négatif après.
+
+    | $x$ | $-\infty$ | | $2$ | | $5$ | | $+\infty$ |
+    |---|---|---|---|---|---|---|---|
+    | $x - 2$ | | $-$ | $0$ | $+$ | | $+$ | |
+    | $5 - x$ | | $+$ | | $+$ | $0$ | $-$ | |
+    | produit | | $-$ | $0$ | $+$ | $0$ | $-$ | |
+
+    L'expression est positive sur $[2 ; 5]$ et négative ailleurs.
+
+    ## 5. Erreurs fréquentes
+
+    - $(a + b)^2 = a^2 + b^2$ : on oublie le double produit $2ab$.
+    - Diviser une inégalité par un nombre négatif sans changer son sens.
+    - Simplifier une équation par une expression qui peut être nulle.
   questions:
   - code: 1RE-TEC-CALC-01
     difficulte: 1
@@ -157,17 +260,22 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'Elle s''annule en $2$ et son coefficient $-2$ est négatif : négative après $2$.'
+      - '$-2x + 4 = 0 \iff x = 2$ : l''expression s''annule en $2$.'
+      - 'Le coefficient de $x$ est $-2 < 0$ : l''expression est positive avant $2$ et négative après.'
+      - 'Pour $x > 2$, $-2x + 4$ est négative (réponse A). Vérification : en $x = 3$, $-6 + 4 = -2$.'
       resultat: A
   - code: 1RE-TEC-CALC-04
     difficulte: 4
     type: expression
+    forme: developpee
     enonce: Développer $(x - 3)(x + 3)$.
     solution: x^2 - 9
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$(a - b)(a + b) = a^2 - b^2$ : $x^2 - 9$.'
+      - 'On reconnaît $(a - b)(a + b)$ avec $a = x$ et $b = 3$.'
+      - 'Identité remarquable : $(a - b)(a + b) = a^2 - b^2$.'
+      - '$(x - 3)(x + 3) = x^2 - 9$.'
       resultat: x^2 - 9
   - code: 1RE-TEC-CALC-05
     difficulte: 5
@@ -177,5 +285,254 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - 'Entre les racines, $x - 1 > 0$ et $x - 4 < 0$ : le produit est négatif.'
+      - 'Les racines sont $1$ et $4$ ; on étudie le signe de chaque facteur sur $]1 ; 4[$.'
+      - 'Pour $1 < x < 4$ : $x - 1 > 0$ et $x - 4 < 0$.'
+      - 'Un produit d''un positif par un négatif est négatif (réponse A).'
       resultat: A
+
+- code: 1RE-TEC-GRAPH
+  libelle: Lectures graphiques de fonctions et de droites
+  attendus: [1RE-TEC-2026-AUTO-08, 1RE-TEC-2026-AUTO-09, 1RE-TEC-2026-AUTO-10, 1RE-TEC-2026-AUTO-11, 1RE-TEC-2026-AUTO-12]
+  cours_couvre: [1RE-TEC-2026-AUTO-08, 1RE-TEC-2026-AUTO-09, 1RE-TEC-2026-AUTO-10, 1RE-TEC-2026-AUTO-11, 1RE-TEC-2026-AUTO-12]
+  objectifs:
+  - Résoudre graphiquement une équation ou une inéquation, lire un signe ou des variations.
+  - Tracer une droite, lire son équation réduite, calculer un coefficient directeur.
+  methodes:
+  - titre: Calculer un coefficient directeur
+    quand: On connaît deux points $A$ et $B$ d'une droite non verticale.
+    etapes:
+    - Calculer la variation des ordonnées $y_B - y_A$ et celle des abscisses $x_B - x_A$.
+    - Diviser $:$ $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+    exemple:
+      enonce: $A(2 ; 1)$ et $B(6 ; 9)$.
+      resolution:
+      - $m = \dfrac{9 - 1}{6 - 2} = \dfrac{8}{4}$.
+      resultat: $m = 2$
+  erreurs_frequentes:
+  - erreur: Inverser numérateur et dénominateur.
+    explication: Le coefficient directeur est « vertical sur horizontal » $:$ $\dfrac{\Delta y}{\Delta x}$.
+  resume: |
+    - Solutions de $f(x) = k$ : **abscisses** des points d'intersection de la courbe avec la droite horizontale $y = k$.
+    - $f(x) < k$ : abscisses des points de la courbe situés **strictement au-dessous** de cette droite.
+    - Signe de $f$ : position de la courbe par rapport à l'axe des abscisses ; variations : la courbe monte ou descend.
+    - Droite $y = mx + p$ : $p$ ordonnée à l'origine, $m = \dfrac{y_B - y_A}{x_B - x_A}$ coefficient directeur.
+  cours: |
+    ## 1. Résoudre graphiquement une équation ou une inéquation
+
+    > **Méthode.** Soit $\mathcal{C}_f$ la courbe de $f$ et $k$ un réel.
+    > - Les solutions de $f(x) = k$ sont les **abscisses** des points d'intersection de $\mathcal{C}_f$ avec la droite d'équation $y = k$.
+    > - Les solutions de $f(x) < k$ (resp. $f(x) > k$) sont les abscisses des points de $\mathcal{C}_f$ situés strictement au-dessous (resp. au-dessus) de cette droite.
+    > - De même, $f(x) = g(x)$ : abscisses des points d'intersection de $\mathcal{C}_f$ et $\mathcal{C}_g$.
+
+    On donne les solutions sous forme d'intervalles ; les bornes sont incluses pour $\leqslant$, exclues pour $<$.
+
+    ## 2. Signe et variations lus sur un graphique
+
+    - $f(x) > 0$ là où la courbe est **au-dessus** de l'axe des abscisses, $f(x) < 0$ là où elle est au-dessous ; elle coupe l'axe aux points où $f(x) = 0$.
+    - $f$ est croissante sur un intervalle si la courbe « monte » quand on la parcourt de gauche à droite, décroissante si elle « descend ». On résume dans un **tableau de variations** avec les extrémums.
+
+    ## 3. Droites : équation réduite et coefficient directeur
+
+    > **Propriété.** Toute droite non parallèle à l'axe des ordonnées a une équation réduite $y = mx + p$ :
+    > - $p$ est l'**ordonnée à l'origine** (la droite passe par $(0 ; p)$) ;
+    > - $m$ est le **coefficient directeur** : quand $x$ augmente de $1$, $y$ varie de $m$. Si $A$ et $B$ sont deux points de la droite, $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+
+    **Tracer** $y = mx + p$ : placer $(0 ; p)$, puis avancer de $1$ et monter de $m$ (ou avancer de $3$ et monter de $3m$, pour plus de précision).
+    **Lire** l'équation : lire $p$ sur l'axe des ordonnées, puis $m$ avec deux points à coordonnées entières.
+
+    ## 4. Exemple complet
+
+    La courbe d'une fonction $f$ sur $[0 ; 8]$ part de $(0 ; 1)$, monte jusqu'à $(3 ; 5)$ puis redescend jusqu'à $(8 ; 0)$ ; elle coupe la droite $y = 3$ en $x = 1$ et $x = 6$.
+    - $f(x) = 3$ : $S = \{1 ; 6\}$ ; $f(x) > 3$ : $S = ]1 ; 6[$ ; $f(x) \leqslant 3$ : $S = [0 ; 1] \cup [6 ; 8]$.
+    - Variations : croissante sur $[0 ; 3]$, décroissante sur $[3 ; 8]$ ; maximum $5$ atteint en $3$.
+    - Signe : $f(x) > 0$ sur $[0 ; 8[$ et $f(8) = 0$.
+    - La droite passant par $A(2 ; 1)$ et $B(6 ; 7)$ : $m = \dfrac{7 - 1}{6 - 2} = 1{,}5$, puis $1 = 1{,}5 \times 2 + p$, donc $p = -2$ : $y = 1{,}5x - 2$.
+
+    ## 5. Erreurs fréquentes
+
+    - Donner des **ordonnées** au lieu des abscisses comme solutions.
+    - Ne pas faire attention aux bornes (incluses ou exclues) et aux unités des axes.
+    - Calculer $\dfrac{x_B - x_A}{y_B - y_A}$ : c'est la variation de $y$ au **numérateur**.
+  questions:
+    - code: 1RE-TEC-GRAPH-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Quelle est l''ordonnée à l''origine de la droite d''équation $y = 2x - 1$ ?'
+      solution: -1
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Pour $x = 0$, $y = -1$.
+        resultat: -1
+    - code: 1RE-TEC-GRAPH-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Calculer le coefficient directeur de la droite passant par $A(2 ; 1)$ et $B(6 ; 9)$.'
+      solution: 2
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $m = \dfrac{9 - 1}{6 - 2} = 2$.
+        resultat: 2
+    - code: 1RE-TEC-GRAPH-03
+      difficulte: 3
+      type: expression
+      forme: reduite
+      enonce: 'Une droite coupe l''axe des ordonnées en $(0 ; 4)$ et passe par $(2 ; 1)$. Donner son équation réduite sous la forme $y = \ldots$'
+      solution: -3x/2 + 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'La droite coupe l''axe des ordonnées en $(0 ; 4)$ : son ordonnée à l''origine est $p = 4$.'
+        - 'Coefficient directeur : $m = \dfrac{y_B - y_A}{x_B - x_A} = \dfrac{1 - 4}{2 - 0} = -\dfrac{3}{2}$.'
+        - 'Équation réduite : $y = -\dfrac{3}{2}x + 4$.'
+        resultat: -3x/2 + 4
+    - code: 1RE-TEC-GRAPH-04
+      difficulte: 4
+      type: qcm
+      enonce: 'La courbe d''une fonction $f$ coupe la droite $y = 3$ aux abscisses $1$ et $5$ ; elle est au-dessus de cette droite entre ces abscisses. Quelles sont les solutions de $f(x) > 3$ ? A) $]1 ; 5[$  B) $]-\infty ; 1[ \cup ]5 ; +\infty[$  C) $\{1 ; 5\}$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'Résoudre $f(x) > 3$ revient à chercher les abscisses des points de la courbe strictement au-dessus de la droite $y = 3$.'
+        - 'Les points d''abscisses $1$ et $5$ sont sur la droite : ils sont exclus (inégalité stricte).'
+        - 'La courbe est au-dessus entre ces abscisses : $S = ]1 ; 5[$ (réponse A).'
+        resultat: A
+    - code: 1RE-TEC-GRAPH-05
+      difficulte: 5
+      type: qcm
+      enonce: 'Une fonction est croissante sur $[0 ; 4]$ puis décroissante sur $[4 ; 9]$, avec $f(0) = -2$, $f(4) = 6$ et $f(9) = 1$. Sur quel intervalle $f$ peut-elle être négative ? A) Seulement sur une partie de $[0 ; 4]$  B) Seulement sur une partie de $[4 ; 9]$  C) Sur aucun intervalle'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Sur $[4 ; 9]$, $f$ décroît de $6$ à $1$ $:$ elle reste positive.
+        - Sur $[0 ; 4]$, elle part de $-2$ $:$ elle est négative au début de l'intervalle.
+        resultat: A
+
+- code: 1RE-TEC-STAT
+  libelle: Lire des représentations de données et calculer des indicateurs
+  attendus: [1RE-TEC-2026-AUTO-13, 1RE-TEC-2026-AUTO-14, 1RE-TEC-2026-AUTO-15]
+  cours_couvre: [1RE-TEC-2026-AUTO-13, 1RE-TEC-2026-AUTO-14, 1RE-TEC-2026-AUTO-15]
+  objectifs:
+  - Lire diagrammes en barres, circulaires, histogrammes et diagrammes en boîte.
+  - Calculer et interpréter moyenne, médiane, quartiles.
+  methodes:
+  - titre: Calculer une moyenne à partir d'un diagramme en barres
+    quand: Le diagramme donne l'effectif de chaque valeur.
+    etapes:
+    - Relever chaque valeur et son effectif (hauteur de la barre).
+    - Calculer $\dfrac{\sum n_i x_i}{N}$.
+    exemple:
+      enonce: Valeurs $1$, $2$, $3$ d'effectifs $4$, $5$, $1$.
+      resolution:
+      - $\dfrac{4 + 10 + 3}{10}$.
+      resultat: $1{,}7$
+  erreurs_frequentes:
+  - erreur: Faire la moyenne des valeurs sans tenir compte des effectifs.
+    explication: Chaque valeur compte autant de fois que son effectif.
+  resume: |
+    - Avant de lire un graphique : repérer l'**origine**, les **unités** et l'échelle de chaque axe, la légende.
+    - **Moyenne** pondérée : $\bar x = \dfrac{n_1x_1 + \cdots + n_px_p}{N}$, avec $N$ l'effectif total.
+    - **Médiane** : partage la série ordonnée en deux moitiés ; **quartiles** $Q_1$, $Q_3$ : au moins $25\,\%$ (resp. $75\,\%$) des valeurs leur sont inférieures ou égales.
+    - Dispersion : **étendue** $= \max - \min$, **écart interquartile** $= Q_3 - Q_1$, **écart type**.
+  cours: |
+    ## 1. Lire une représentation graphique
+
+    > **Méthode.** Avant toute lecture : identifier ce que représente chaque axe, son **origine** (elle n'est pas toujours $0$), son **unité** et son **échelle** ; lire la légende et le titre.
+
+    - **Diagramme en barres** : la hauteur de chaque barre est l'effectif (ou la fréquence) d'une valeur.
+    - **Diagramme circulaire** : l'angle d'un secteur est proportionnel à la fréquence : $\text{angle} = f \times 360°$.
+    - **Histogramme** : données regroupées en classes ; pour des classes de même amplitude, la hauteur est proportionnelle à l'effectif.
+    - **Diagramme en boîte** : il indique min, $Q_1$, médiane, $Q_3$, max ; chaque « quart » contient environ $25\,\%$ des valeurs.
+
+    Passer **des données au graphique** : calculer fréquences ou angles, choisir une échelle. Passer **du graphique aux données** : relire les hauteurs ou les angles et reconstituer le tableau d'effectifs.
+
+    ## 2. Indicateurs de position
+
+    > **Définitions.** Pour une série de valeurs $x_1, \ldots, x_p$ d'effectifs $n_1, \ldots, n_p$ et d'effectif total $N$ :
+    > - **moyenne** : $\bar x = \dfrac{n_1x_1 + n_2x_2 + \cdots + n_px_p}{N}$ ;
+    > - **médiane** : valeur qui partage la série **ordonnée** en deux groupes de même effectif (si $N$ est pair, moyenne des deux valeurs centrales) ;
+    > - **premier quartile** $Q_1$ : plus petite valeur de la série telle qu'au moins $25\,\%$ des valeurs lui soient inférieures ou égales ; **troisième quartile** $Q_3$ : même définition avec $75\,\%$.
+
+    ## 3. Indicateurs de dispersion
+
+    - **Étendue** : $\max - \min$ (sensible aux valeurs extrêmes).
+    - **Écart interquartile** : $Q_3 - Q_1$ (largeur de la boîte, contient environ la moitié centrale des valeurs).
+    - **Écart type** $\sigma$ : mesure l'écart moyen à la moyenne (calculatrice ou tableur) ; il s'utilise avec la moyenne.
+
+    ## 4. Exemple complet
+
+    Nombre de livres lus pendant l'été par $25$ élèves :
+
+    | Livres | $0$ | $1$ | $2$ | $3$ | $5$ |
+    |---|---|---|---|---|---|
+    | Effectif | $4$ | $8$ | $7$ | $4$ | $2$ |
+
+    - Moyenne : $\dfrac{0 + 8 + 14 + 12 + 10}{25} = \dfrac{44}{25} = 1{,}76$ livre.
+    - Médiane : $N = 25$, 13e valeur ; effectifs cumulés $4$, $12$, $19$… : la 13e valeur vaut $2$.
+    - $Q_1$ : $25\,\%$ de $25$ donne $6{,}25$, donc 7e valeur : $1$ ; $Q_3$ : $75\,\%$ de $25$ donne $18{,}75$, donc 19e valeur : $2$. Écart interquartile : $1$.
+    - Diagramme en barres : la barre « $1$ livre » est la plus haute ; en fréquence, elle représente $\dfrac{8}{25} = 32\,\%$ des élèves.
+
+    ## 5. Erreurs fréquentes
+
+    - Calculer la médiane sans avoir **ordonné** la série.
+    - Faire la moyenne des valeurs sans tenir compte des effectifs.
+    - Lire une hauteur sans regarder l'échelle de l'axe (axe qui ne commence pas à $0$).
+  questions:
+    - code: 1RE-TEC-STAT-01
+      difficulte: 1
+      type: numerique
+      enonce: 'Calculer la moyenne de la série $10$ ; $12$ ; $14$ ; $16$.'
+      solution: 13
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{52}{4} = 13$.
+        resultat: 13
+    - code: 1RE-TEC-STAT-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Dans un diagramme circulaire de $200$ personnes, un secteur représente $30\,\%$. Combien de personnes représente-t-il ?'
+      solution: 60
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $0{,}3 \times 200 = 60$.
+        resultat: 60
+    - code: 1RE-TEC-STAT-03
+      difficulte: 3
+      type: numerique
+      enonce: 'Un diagramme en barres indique : $4$ familles ont $1$ enfant, $5$ familles ont $2$ enfants et $1$ famille a $3$ enfants. Calculer le nombre moyen d''enfants par famille.'
+      solution: 1.7
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'Effectif total : $4 + 5 + 1 = 10$ familles.'
+        - 'Nombre total d''enfants : $4 \times 1 + 5 \times 2 + 1 \times 3 = 4 + 10 + 3 = 17$.'
+        - 'Moyenne : $\dfrac{17}{10} = 1{,}7$ enfant par famille.'
+        resultat: 1.7
+    - code: 1RE-TEC-STAT-04
+      difficulte: 4
+      type: numerique
+      enonce: 'Avec les mêmes données ($4$ familles à $1$ enfant, $5$ à $2$ enfants, $1$ à $3$ enfants), quelle est la médiane du nombre d''enfants ?'
+      solution: 2
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'On range les $10$ valeurs : $1, 1, 1, 1, 2, 2, 2, 2, 2, 3$.'
+        - 'L''effectif est pair : la médiane est la moyenne des 5e et 6e valeurs.'
+        - 'Ces deux valeurs valent $2$ : la médiane est $2$.'
+        resultat: 2
+    - code: 1RE-TEC-STAT-05
+      difficulte: 5
+      type: qcm
+      enonce: 'Les salaires d''une entreprise ont une moyenne de $3\,200$ € et une médiane de $2\,100$ €. Quelle interprétation est correcte ? A) Quelques salaires très élevés tirent la moyenne vers le haut  B) La moitié des salariés gagne plus de $3\,200$ €  C) La moyenne et la médiane sont forcément égales'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - La moitié des salariés gagne au plus $2\,100$ €.
+        - La moyenne, bien plus élevée, est sensible aux valeurs extrêmes $:$ quelques hauts salaires la font monter.
+        resultat: A

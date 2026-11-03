@@ -32,6 +32,7 @@ class Ligne:
     attendu: Attendu
     competences: list[str] = field(default_factory=list)
     enseigne: bool = False
+    explique: bool = False  # déclaré dans `cours_couvre` d'une compétence : le cours l'explique vraiment
     questions: int = 0
     validees: int = 0
     corrigees: int = 0
@@ -58,6 +59,7 @@ def couverture(referentiels: Referentiels, fichiers: list[tuple[object, FichierC
                     continue
                 ligne.competences.append(c.code)
                 ligne.enseigne |= c.cours is not None or bool(c.methodes)
+                ligne.explique |= code in c.cours_couvre
                 for q in c.questions:
                     if q.archivee:
                         continue
@@ -103,6 +105,8 @@ def en_markdown(referentiels: Referentiels, fichiers, programme: str, jour: date
         f"validés : {_pourcentage(compte[VALIDE], len(obligatoires))} · absents : {compte[ABSENT]}.",
         f"- Légende : {' · '.join(f'{s} {nom}' for nom, s in SYMBOLES.items())}. "
         f"« Évalué » = cours ou méthode, au moins {SEUIL_QUESTIONS} questions sur {SEUIL_DIFFICULTES} difficultés.",
+        f"- Obligatoires **expliqués dans un cours complet** (colonne Cours, champ `cours_couvre`) : "
+        f"**{_pourcentage(sum(l.explique for l in obligatoires), len(obligatoires))}**.",
         "",
         "La couverture ne porte que sur les thèmes déjà saisis dans `referentiels/` : un thème non saisi n'apparait pas.",
         "",
@@ -112,14 +116,14 @@ def en_markdown(referentiels: Referentiels, fichiers, programme: str, jour: date
         sortie += [
             f"## {du_theme[0].theme.titre} ({du_theme[0].theme.partie})",
             "",
-            "| | Attendu | Type | Compétences PKP | Questions (validées) | Difficultés | Corrigées |",
-            "|:-:|---|---|---|:-:|:-:|:-:|",
+            "| | Attendu | Type | Compétences PKP | Cours | Questions (validées) | Difficultés | Corrigées |",
+            "|:-:|---|---|---|:-:|:-:|:-:|:-:|",
         ]
         for l in du_theme:
             texte = l.attendu.texte.replace("|", "\\|")
             sortie.append(
                 f"| {SYMBOLES[l.statut]} | `{l.attendu.code}` {texte} | {l.attendu.type.value} | "
-                f"{', '.join(f'`{c}`' for c in l.competences) or '—'} | {l.questions} ({l.validees}) | "
+                f"{', '.join(f'`{c}`' for c in l.competences) or '—'} | {'✓' if l.explique else '·'} | {l.questions} ({l.validees}) | "
                 f"{''.join(map(str, sorted(l.difficultes))) or '—'} | {l.corrigees} |"
             )
         sortie.append("")
@@ -146,6 +150,10 @@ def ecarts(referentiels: Referentiels, fichiers, programme: str) -> str:
             for l in concernes:
                 detail = f"{l.questions} question(s), {l.validees} validée(s)" if l.competences else "à créer"
                 sortie.append(f"  - {l.attendu.code} [{l.attendu.type.value}] {l.attendu.texte[:90]} — {detail}")
+    sans_cours = [l for l in lignes if l.attendu.obligatoire and l.competences and not l.explique]
+    if sans_cours:
+        sortie.append(f"\n· pas encore expliqués dans un cours complet ({len(sans_cours)}) : "
+                      f"{', '.join(l.attendu.code for l in sans_cours)}")
     facultatifs = [l for l in lignes if not l.attendu.obligatoire and l.statut == ABSENT]
     if facultatifs:
         sortie.append(f"\nApprofondissements non traités (facultatifs) : {', '.join(l.attendu.code for l in facultatifs)}")

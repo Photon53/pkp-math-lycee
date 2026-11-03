@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 1RE-VAR
     libelle: Déduire les variations du signe de la dérivée
+    attendus: [1RE-SPE-2026-VAR-02, 1RE-SPE-2026-VAR-04, 1RE-SPE-2026-VAR-07]
+    cours_couvre: [1RE-SPE-2026-VAR-02, 1RE-SPE-2026-VAR-04, 1RE-SPE-2026-VAR-07]
     objectifs:
     - Déduire les variations d'une fonction du signe de sa dérivée.
     prerequis:
@@ -28,23 +30,57 @@ competences:
     - erreur: Étudier le signe de $f$ au lieu de celui de $f'$.
       explication: Le signe de la dérivée donne le sens de variation ; le signe de f dit seulement si la courbe est au-dessus de l'axe.
     resume: |
-      - Si $f' > 0$ sur un intervalle (sauf en des points isolés), $f$ y est strictement croissante.
-      - Si $f' < 0$, $f$ est strictement décroissante.
-      - Méthode : calculer $f'$, la factoriser, dresser le tableau de signes de $f'$ puis le tableau de variations de $f$.
+      - Sur un intervalle $I$ : $f' \geqslant 0$ ⟹ $f$ croissante ; $f' \leqslant 0$ ⟹ $f$ décroissante ; $f' = 0$ ⟺ $f$ constante.
+      - Méthode : calculer $f'$, la **factoriser**, étudier son **signe**, dresser le **tableau de variations**.
+      - Second degré $ax^2 + bx + c$ : $f'(x) = 2ax + b$ s'annule en $-\dfrac{b}{2a}$ ; si $a > 0$, minimum ; si $a < 0$, maximum.
+      - Les extrémums se lisent dans le tableau de variations (changement de sens).
     cours: |
-      ## Exemple polynôme
-      $f(x) = x^3 - 3x$ : $f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)$.
+      ## 1. Lien entre signe de la dérivée et variations
 
-      | $x$ | $-\infty$ | | $-1$ | | $1$ | | $+\infty$ |
+      > **Théorème (admis).** Soit $f$ dérivable sur un intervalle $I$.
+      > - Si $f'(x) \geqslant 0$ pour tout $x \in I$, alors $f$ est croissante sur $I$.
+      > - Si $f'(x) \leqslant 0$ pour tout $x \in I$, alors $f$ est décroissante sur $I$.
+      > - $f$ est constante sur $I$ si et seulement si $f'(x) = 0$ pour tout $x \in I$.
+      > Si $f' > 0$ sur $I$ sauf éventuellement en des points isolés où elle s'annule, $f$ est strictement croissante.
+
+      Réciproquement, si $f$ est croissante sur $I$, alors $f' \geqslant 0$ sur $I$ (une pente de sécante est positive, donc sa limite aussi).
+
+      L'hypothèse « intervalle » est indispensable : $x \mapsto -\dfrac{1}{x}$ a une dérivée positive sur $\mathbb{R}^*$ mais n'est pas croissante sur $\mathbb{R}^*$ ($-1 < 1$ mais $f(-1) = 1 > f(1) = -1$).
+
+      ## 2. Méthode : étudier les variations d'une fonction
+
+      1. Préciser l'ensemble de dérivabilité.
+      2. Calculer $f'(x)$ et l'écrire sous une forme dont on sait étudier le signe (produit, quotient, trinôme).
+      3. Étudier le signe de $f'(x)$ (tableau de signes).
+      4. Dresser le tableau de variations, compléter avec les valeurs de $f$ aux bornes et aux points où $f'$ s'annule.
+
+      ## 3. Exemple complet
+
+      $f(x) = x^3 - 3x^2 - 9x + 1$ sur $\mathbb{R}$.
+      - $f'(x) = 3x^2 - 6x - 9 = 3(x^2 - 2x - 3) = 3(x + 1)(x - 3)$.
+      - Trinôme de coefficient $3 > 0$ : $f'(x) > 0$ sur $]-\infty ; -1[$ et $]3 ; +\infty[$, $f'(x) < 0$ sur $]-1 ; 3[$.
+      - $f(-1) = -1 - 3 + 9 + 1 = 6$ et $f(3) = 27 - 27 - 27 + 1 = -26$.
+
+      | $x$ | $-\infty$ | | $-1$ | | $3$ | | $+\infty$ |
       |---|---|---|---|---|---|---|---|
       | $f'(x)$ | | $+$ | $0$ | $-$ | $0$ | $+$ | |
-      | $f$ | | ↗ | $2$ | ↘ | $-2$ | ↗ | |
+      | $f$ | | ↗ | $6$ | ↘ | $-26$ | ↗ | |
 
-      ## Exemple quotient
-      $f(x) = \dfrac{2x - 1}{x + 1}$ sur $]-1 ; +\infty[$ : $f'(x) = \dfrac{3}{(x + 1)^2} > 0$, donc $f$ est croissante.
+      $f$ admet un maximum local $6$ en $-1$ et un minimum local $-26$ en $3$.
 
-      ## Second degré
-      $x^2 - 6x + 1$ a pour dérivée $2x - 6$, négative pour $x < 3$ : décroissante sur $]-\infty ; 3]$.
+      ## 4. Fonctions polynômes du second degré
+
+      > **Propriété.** Pour $f(x) = ax^2 + bx + c$ ($a \neq 0$) : $f'(x) = 2ax + b$, qui s'annule en $\alpha = -\dfrac{b}{2a}$.
+      > - Si $a > 0$ : $f' < 0$ avant $\alpha$, $f' > 0$ après ; $f$ décroît puis croît, **minimum** $f(\alpha)$ ; parabole « tournée vers le haut ».
+      > - Si $a < 0$ : $f$ croît puis décroît, **maximum** $f(\alpha)$ ; parabole « tournée vers le bas ».
+
+      *Exemple.* $f(x) = -2x^2 + 8x - 5$ : $f'(x) = -4x + 8$, nul en $2$ ; $a < 0$, maximum $f(2) = 3$.
+
+      ## 5. Erreurs fréquentes
+
+      - Donner le tableau de signes de $f$ au lieu de celui de $f'$.
+      - Conclure sur des intervalles non séparés : on étudie chaque intervalle de l'ensemble de définition.
+      - Oublier les flèches et les valeurs aux extrémités dans le tableau.
     questions:
       - code: 1RE-VAR-01
         difficulte: 1
@@ -74,7 +110,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)$, négative sur $[-1 ; 1]$.
+          - '$f''(x) = 3x^2 - 3 = 3(x^2 - 1) = 3(x - 1)(x + 1)$.'
+          - 'Ce trinôme de coefficient $3 > 0$ est négatif entre ses racines $-1$ et $1$, positif à l''extérieur.'
+          - 'Donc $f$ est décroissante sur $[-1 ; 1]$ et croissante après $1$ : $b = 1$.'
           resultat: 1
       - code: 1RE-VAR-04
         difficulte: 4
@@ -84,7 +122,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$f''(x) = 3x^2 + 3 > 0$ pour tout $x$ : $f$ est croissante sur $\mathbb{R}$.'
+          - '$f''(x) = 3x^2 + 3$.'
+          - 'Pour tout réel $x$, $x^2 \geqslant 0$ donc $3x^2 + 3 \geqslant 3 > 0$.'
+          - 'La dérivée est strictement positive sur $\mathbb{R}$ : $f$ est croissante sur $\mathbb{R}$ (réponse A).'
           resultat: A
       - code: 1RE-VAR-05
         difficulte: 5
@@ -94,11 +134,15 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $f'(x) = \dfrac{2(x + 1) - (2x - 1)}{(x + 1)^2} = \dfrac{3}{(x + 1)^2} > 0$.
+          - '$f = \dfrac{u}{v}$ avec $u(x) = 2x - 1$, $u''(x) = 2$, $v(x) = x + 1$, $v''(x) = 1$, et $v(x) \neq 0$ sur $]-1 ; +\infty[$.'
+          - '$f''(x) = \dfrac{u''v - uv''}{v^2} = \dfrac{2(x + 1) - (2x - 1)}{(x + 1)^2} = \dfrac{3}{(x + 1)^2}$.'
+          - 'Le numérateur $3$ et le carré $(x + 1)^2$ sont strictement positifs : $f'' > 0$, donc $f$ est croissante (réponse A).'
           resultat: A
 
   - code: 1RE-EXTR
     libelle: Déterminer un extremum et résoudre un problème d'optimisation
+    attendus: [1RE-SPE-2026-VAR-03, 1RE-SPE-2026-VAR-05, 1RE-SPE-2026-VAR-06]
+    cours_couvre: [1RE-SPE-2026-VAR-03, 1RE-SPE-2026-VAR-05, 1RE-SPE-2026-VAR-06]
     objectifs:
     - Déterminer un extremum et résoudre un problème d'optimisation.
     prerequis:
@@ -119,19 +163,51 @@ competences:
     - erreur: Donner la valeur de $x$ au lieu de la valeur maximale demandée.
       explication: 'Lire la question : « pour quelle valeur » demande x, « quel est le maximum » demande f(x).'
     resume: |
-      - Si $f'$ s'annule en $a$ **en changeant de signe**, $f$ admet un extremum local en $a$.
-      - Sur un intervalle fermé, on compare les extremums locaux et les valeurs aux bornes.
-      - Optimisation : exprimer la grandeur à optimiser en fonction d'une variable, préciser son intervalle, étudier les variations.
+      - Si $f$ est dérivable sur un intervalle **ouvert** et admet un extrémum local en $a$, alors $f'(a) = 0$ : la tangente est **horizontale**.
+      - Réciproque fausse ($x^3$ en $0$) : il faut que $f'$ **change de signe** en $a$.
+      - **Optimisation** : modéliser par une fonction, étudier ses variations, lire l'extremum.
+      - **Inégalité** $f(x) \geqslant g(x)$ : étudier $d = f - g$, montrer que son minimum est positif ; le signe de $d$ donne la position relative des courbes.
     cours: |
-      ## Extremum
-      $f(x) = x^2 - 4x + 7$ : $f'(x) = 2x - 4$ s'annule en $2$ en passant de négatif à positif ; minimum $f(2) = 3$.
+      ## 1. Extrémums
 
-      ## Sur un intervalle fermé
-      $f(x) = x^3 - 3x$ sur $[0 ; 3]$ : décroissante sur $[0 ; 1]$, croissante sur $[1 ; 3]$ ; minimum $f(1) = -2$.
+      **Définition.** $f$ admet un **maximum local** en $a$ s'il existe un intervalle ouvert $J$ contenant $a$ tel que $f(x) \leqslant f(a)$ pour tout $x \in J$ (même définition pour un **minimum local** avec $\geqslant$). Un extrémum est un maximum ou un minimum.
 
-      ## Optimisation
-      Rectangle de périmètre $20$ : si un côté vaut $x$, l'autre vaut $10 - x$ et l'aire est $A(x) = x(10 - x)$ sur $[0 ; 10]$.
-      $A'(x) = 10 - 2x$ s'annule en $5$ : l'aire maximale est $25$ (le carré).
+      > **Propriété.** Si $f$ est dérivable sur un intervalle ouvert $I$ et admet un extrémum local en $a \in I$, alors $f'(a) = 0$ : la tangente en $a$ est horizontale.
+
+      > **Propriété (condition suffisante).** Si $f'$ s'annule en $a$ **en changeant de signe**, alors $f$ admet un extrémum local en $a$ : un maximum si $f'$ passe de $+$ à $-$, un minimum si $f'$ passe de $-$ à $+$.
+
+      *Contre-exemple de la réciproque.* $f(x) = x^3$ : $f'(0) = 0$ mais $f'(x) = 3x^2 \geqslant 0$ ne change pas de signe ; $f$ est croissante, pas d'extrémum en $0$.
+
+      ## 2. Optimisation
+
+      > **Méthode.**
+      > 1. Choisir la variable $x$ et préciser son intervalle (contraintes du problème).
+      > 2. Exprimer la grandeur à optimiser comme une fonction $f(x)$.
+      > 3. Étudier les variations de $f$ (dérivée, signe, tableau).
+      > 4. Lire l'extremum et **répondre à la question posée** avec une phrase et une unité.
+
+      *Exemple complet.* Avec une plaque carrée de $12$ cm de côté, on découpe un carré de côté $x$ à chaque coin et on replie : on obtient une boîte sans couvercle. Volume maximal ?
+      - $x \in ]0 ; 6[$ et $V(x) = x(12 - 2x)^2 = 4x^3 - 48x^2 + 144x$.
+      - $V'(x) = 12x^2 - 96x + 144 = 12(x^2 - 8x + 12) = 12(x - 2)(x - 6)$.
+      - Sur $]0 ; 6[$ : $x - 6 < 0$, donc $V'(x) > 0$ sur $]0 ; 2[$ et $V'(x) < 0$ sur $]2 ; 6[$.
+      - $V$ est maximal pour $x = 2$ : $V(2) = 2 \times 8^2 = 128$ cm³.
+
+      ## 3. Établir une inégalité
+
+      > **Méthode.** Pour montrer $f(x) \geqslant g(x)$ sur $I$ : on pose $d(x) = f(x) - g(x)$, on étudie les variations de $d$ et on montre que son minimum sur $I$ est positif ou nul.
+
+      *Exemple.* Montrer que pour tout $x > 0$, $x + \dfrac{1}{x} \geqslant 2$. Soit $d(x) = x + \dfrac{1}{x} - 2$ ; $d'(x) = 1 - \dfrac{1}{x^2} = \dfrac{(x - 1)(x + 1)}{x^2}$, négatif sur $]0 ; 1[$, positif sur $]1 ; +\infty[$. Minimum $d(1) = 0$, donc $d(x) \geqslant 0$.
+
+      ## 4. Position relative de deux courbes
+
+      $\mathcal{C}_f$ est **au-dessus** de $\mathcal{C}_g$ sur $I$ si et seulement si $f(x) - g(x) \geqslant 0$ sur $I$. Les points d'intersection correspondent à $f(x) - g(x) = 0$.
+      *Exemple.* $f(x) = x^2$ et la tangente en $1$, $y = 2x - 1$ : $x^2 - (2x - 1) = (x - 1)^2 \geqslant 0$. La parabole est au-dessus de sa tangente, qu'elle touche en $(1 ; 1)$.
+
+      ## 5. Erreurs fréquentes
+
+      - Conclure à un extrémum dès que $f'(a) = 0$ sans vérifier le changement de signe.
+      - Oublier les bornes de l'intervalle d'étude : l'extremum peut y être atteint.
+      - Répondre $x = 2$ quand on demande le volume maximal ($128$ cm³).
     questions:
       - code: 1RE-EXTR-01
         difficulte: 1
@@ -189,3 +265,148 @@ competences:
           - Sur $]0 ; 6[$, $V'$ s'annule en $x = 2$, positive avant et négative après.
           - Le volume est maximal pour $x = 2$ cm (il vaut alors $128$ cm³).
           resultat: 2
+      - code: 1RE-EXTR-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, h: {entre: [-6, 6]}, c: {entre: [-9, 9]}}
+          calculs: {b: "-2*a*h"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. En quelle valeur de $x$ la fonction $f$ atteint-elle son extremum ?'
+        solution: '[[h]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'L''extremum est atteint là où la dérivée s''annule en changeant de signe.'
+          etapes:
+          - '$f''(x) = [[2*a]]x [[b:+]]$.'
+          - '$f''(x) = 0 \iff x = \dfrac{[[-b]]}{[[2*a]]} = [[h]]$.'
+          resultat: '[[h]]'
+
+  - code: 1RE-PARITE
+    libelle: Reconnaître une fonction paire ou impaire
+    attendus: [1RE-SPE-2026-VAR-01]
+    cours_couvre: [1RE-SPE-2026-VAR-01]
+    objectifs:
+    - Démontrer algébriquement qu'une fonction est paire ou impaire.
+    - Interpréter la parité par une symétrie de la courbe.
+    methodes:
+    - titre: Étudier la parité d'une fonction
+      quand: La fonction est définie sur un ensemble symétrique par rapport à $0$.
+      etapes:
+      - Vérifier que l'ensemble de définition est symétrique par rapport à $0$.
+      - Calculer $f(-x)$ et le comparer à $f(x)$ et à $-f(x)$.
+      exemple:
+        enonce: Parité de $f(x) = x^3 - 4x$.
+        resolution:
+        - $f(-x) = -x^3 + 4x = -(x^3 - 4x) = -f(x)$.
+        resultat: $f$ est impaire.
+    erreurs_frequentes:
+    - erreur: Croire qu'une fonction qui n'est pas paire est impaire.
+      explication: $x \mapsto x^2 + x$ n'est ni paire ni impaire.
+    resume: |
+      - $f$ définie sur un ensemble $D$ **symétrique par rapport à $0$** est **paire** si $f(-x) = f(x)$, **impaire** si $f(-x) = -f(x)$, pour tout $x \in D$.
+      - Paire : courbe symétrique par rapport à l'**axe des ordonnées**. Impaire : courbe symétrique par rapport à l'**origine**.
+      - Exemples : $x^2$, $|x|$, $\cos$ sont paires ; $x^3$, $\dfrac{1}{x}$, $\sin$ sont impaires ; $x^2 + x$ n'est ni l'une ni l'autre.
+      - Si $f$ est impaire et définie en $0$, alors $f(0) = 0$.
+    cours: |
+      ## 1. Définitions
+
+      On considère une fonction $f$ dont l'ensemble de définition $D$ est **symétrique par rapport à $0$** : pour tout $x \in D$, $-x \in D$ (par exemple $\mathbb{R}$, $[-3 ; 3]$, $\mathbb{R}^*$).
+
+      > **Définition.**
+      > - $f$ est **paire** si pour tout $x \in D$, $f(-x) = f(x)$.
+      > - $f$ est **impaire** si pour tout $x \in D$, $f(-x) = -f(x)$.
+
+      ## 2. Traduction géométrique
+
+      > **Propriété.** Dans un repère orthogonal :
+      > - $f$ est paire si et seulement si sa courbe est **symétrique par rapport à l'axe des ordonnées** ;
+      > - $f$ est impaire si et seulement si sa courbe est **symétrique par rapport à l'origine** $O$.
+
+      *Justification.* Les points $M(x ; f(x))$ et $M'(-x ; f(x))$ sont symétriques par rapport à l'axe $(Oy)$ ; les points $M(x ; f(x))$ et $M'(-x ; -f(x))$ sont symétriques par rapport à $O$.
+
+      **Conséquence.** On peut étudier une fonction paire ou impaire sur $D \cap [0 ; +\infty[$ et compléter par symétrie. Une fonction paire a des variations « inversées » de part et d'autre de $0$ ; une fonction impaire a les mêmes variations de part et d'autre de $0$.
+
+      ## 3. Méthode : étudier la parité
+
+      1. Vérifier que $D$ est symétrique par rapport à $0$ (sinon, $f$ n'est ni paire ni impaire).
+      2. Calculer $f(-x)$ en remplaçant **chaque** $x$ par $(-x)$, avec des parenthèses.
+      3. Comparer à $f(x)$ et à $-f(x)$.
+      4. Pour prouver que $f$ n'est **ni paire ni impaire**, un **contre-exemple** numérique suffit.
+
+      *Exemple complet 1.* $f(x) = \dfrac{x}{x^2 + 1}$ sur $\mathbb{R}$ : $f(-x) = \dfrac{-x}{(-x)^2 + 1} = -\dfrac{x}{x^2 + 1} = -f(x)$. $f$ est impaire.
+
+      *Exemple 2.* $g(x) = x^4 - 3x^2 + 2$ : $g(-x) = x^4 - 3x^2 + 2 = g(x)$. $g$ est paire.
+
+      *Exemple 3.* $h(x) = x^2 + x$ : $h(1) = 2$ et $h(-1) = 0$. Comme $h(-1) \neq h(1)$, $h$ n'est pas paire ; comme $h(-1) \neq -h(1)$, elle n'est pas impaire.
+
+      ## 4. Propriétés utiles
+
+      > **Propriété.** Si $f$ est impaire et définie en $0$, alors $f(0) = 0$.
+
+      *Preuve.* $f(-0) = -f(0)$ donne $f(0) = -f(0)$, donc $f(0) = 0$.
+
+      - Fonctions puissances : $x^n$ est paire si $n$ est pair, impaire si $n$ est impair.
+      - Somme de deux fonctions paires : paire ; produit de deux fonctions impaires : paire.
+
+      ## 5. Erreurs fréquentes
+
+      - Écrire $-x^2$ pour $(-x)^2$ : $(-x)^2 = x^2$.
+      - Vérifier l'égalité pour une seule valeur et conclure que $f$ est paire : un exemple ne prouve pas une propriété « pour tout $x$ » (seul un contre-exemple prouve qu'elle est fausse).
+      - Oublier la condition sur l'ensemble de définition : $\sqrt x$ n'est ni paire ni impaire.
+    questions:
+      - code: 1RE-PARITE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'La fonction $f(x) = x^4 + 1$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-x) = (-x)^4 + 1 = x^4 + 1 = f(x)$.
+          resultat: A
+      - code: 1RE-PARITE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'La fonction $f(x) = x^3 - 4x$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(-x) = -x^3 + 4x = -f(x)$.
+          resultat: B
+      - code: 1RE-PARITE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'La fonction $f(x) = x^2 + x$ est : A) paire  B) impaire  C) ni paire ni impaire'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'L''ensemble de définition $\mathbb{R}$ est symétrique par rapport à $0$ ; on compare $f(-x)$ avec $f(x)$ et $-f(x)$.'
+          - '$f(-x) = (-x)^2 + (-x) = x^2 - x$, qui n''est égal ni à $f(x) = x^2 + x$ ni à $-f(x) = -x^2 - x$ pour tout $x$.'
+          - 'Contre-exemple : $f(1) = 2$ et $f(-1) = 0$, donc $f(-1) \neq f(1)$ et $f(-1) \neq -f(1)$ : ni paire ni impaire (réponse C).'
+          resultat: C
+      - code: 1RE-PARITE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une fonction $f$ est impaire et $f(3) = -7$. Calculer $f(-3)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$f$ impaire signifie : pour tout $x$, $f(-x) = -f(x)$.'
+          - 'Avec $x = 3$ : $f(-3) = -f(3) = -(-7)$.'
+          - 'Donc $f(-3) = 7$.'
+          resultat: 7
+      - code: 1RE-PARITE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une fonction $f$ définie sur $\mathbb{R}$ est impaire. Calculer $f(0)$.'
+        solution: 0
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$f$ est impaire et définie en $0$ : pour $x = 0$, $f(-0) = -f(0)$.'
+          - 'Comme $-0 = 0$, cela donne $f(0) = -f(0)$, soit $2f(0) = 0$.'
+          - 'Donc $f(0) = 0$ : la courbe d''une fonction impaire définie en $0$ passe par l''origine.'
+          resultat: 0

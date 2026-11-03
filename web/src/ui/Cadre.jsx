@@ -6,9 +6,9 @@ import Icone, { Monogramme } from "./Icone.jsx";
 
 /**
  * `liens` : [{ vers, libelle, icone }] ; `cheminActif` : l'entrée dont le chemin préfixe celui-ci est active.
- * `pied` : contenu du bas de la navigation (compte, déconnexion).
+ * `pied` : contenu du bas de la navigation (compte, déconnexion). `marque` : « Math Lycée » ou « Anglais ».
  */
-export function CadreApplication({ espace, liens, cheminActif, pied, children }) {
+export function CadreApplication({ espace, liens, cheminActif, pied, marque = "Math Lycée", children }) {
   const [ouverte, setOuverte] = useState(false);
   const actif = liens
     .filter((l) => cheminActif === l.vers || cheminActif.startsWith(`${l.vers}/`))
@@ -22,7 +22,7 @@ export function CadreApplication({ espace, liens, cheminActif, pied, children })
         <a className="logo" href="/">
           <Monogramme taille={28} />
           <span>
-            PKP <em>Math Lycée</em>
+            PKP <em>{marque}</em>
           </span>
         </a>
         <div className="espace">{espace}</div>

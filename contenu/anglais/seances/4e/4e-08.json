@@ -1,0 +1,101 @@
+{
+  "code": "4E-08",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "My trip: what happened?",
+  "objective": "Raconter une expérience passée de manière intelligible",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: last holidays",
+      "duration_minutes": 10,
+      "student_instruction": "Tell a partner three things you did last holidays (I went..., I saw...).",
+      "facilitator_instruction": "Faire émerger des verbes au prétérit ; les classer en réguliers / irréguliers au tableau."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Tour of London",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to the bus tour. Note three places and what went wrong.",
+      "facilitator_instruction": "Faire écouter l'audio British Council (QR code) ; sans réseau, lire le script de secours. Après correction, faire raconter la visite au passé : what happened?"
+    },
+    {
+      "order": 3,
+      "title": "Language focus: past simple",
+      "duration_minutes": 15,
+      "student_instruction": "Make the past: regular -ed and irregular verbs. Ask Did you...? questions.",
+      "facilitator_instruction": "Formes affirmative, négative (didn't + base verbale), interrogative ; prononciation de -ed."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet.",
+      "facilitator_instruction": "A : verbes à conjuguer dans un récit ; B : récit à partir d'images ; C : récit avec problème, solution et sentiment."
+    },
+    {
+      "order": 5,
+      "title": "Storytelling in pairs",
+      "duration_minutes": 20,
+      "student_instruction": "Tell your partner about a real or imaginary trip (6-8 sentences). Your partner asks two Did you...? questions.",
+      "facilitator_instruction": "Observer la chronologie (first, then, in the end) et l'intelligibilité ; faire changer de binôme une fois."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write two sentences about your trip: one positive, one negative.",
+      "facilitator_instruction": "Ramasser ; repérer les erreurs récurrentes sur didn't + verbe."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Put the verbs in the past: Last summer I ___ (go) to London. We ___ (visit) the Tower. It ___ (rain) and we ___ (not have) umbrellas. We ___ (have) a hot chocolate.",
+      "facilitator_correction": "went ; visited ; rained ; didn't have ; had."
+    },
+    {
+      "track": "B",
+      "student_content": "Look at the four pictures (bus, rain, café, photo) and tell the story of the day in six sentences with first, then, after that, in the end.",
+      "facilitator_correction": "Exemple : First, we took a bus tour. Then it started to rain. After that, we ran into a café. In the end, we took funny photos."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a story of 10 sentences about a trip where something went wrong. Include a problem, a solution, your feelings and one Did you...? question for the reader.",
+      "facilitator_correction": "Production libre ; critères : prétérit maîtrisé (réguliers et irréguliers), chronologie, sentiments exprimés."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève emploie le prétérit de façon compréhensible",
+      "L'élève organise son récit dans le temps",
+      "L'élève pose une question au passé"
+    ]
+  },
+  "common_errors": [
+    "didn't went au lieu de didn't go",
+    "goed au lieu de went",
+    "Prononciation de -ed toujours en /ed/"
+  ],
+  "source_objectives": [
+    "4E-08"
+  ],
+  "theme": "Voyages et migrations",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

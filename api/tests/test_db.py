@@ -22,7 +22,7 @@ def compter(session, modele) -> int:
 
 class TestDonneesDeDemo:
     def test_contenu(self, demo):
-        assert compter(demo, models.Enseignant) == 2  # enseignant + administrateur de démo
+        assert compter(demo, models.Enseignant) == 3  # enseignant, administrateur et professeur d'anglais de démo
         assert compter(demo, models.Classe) == 3
         assert compter(demo, models.Eleve) == 5
         assert compter(demo, models.Chapitre) == NB_CHAPITRES
@@ -36,9 +36,13 @@ class TestDonneesDeDemo:
         assert compter(demo, models.Question) == NB_QUESTIONS
 
     def test_chaque_solution_est_acceptee_par_le_moteur(self, demo):
-        """Garde-fou qualité : une solution illisible lèverait ExpressionInvalide."""
+        """Garde-fou qualité : une solution illisible lèverait ExpressionInvalide.
+        Question à valeurs variables : on vérifie un exemplaire tiré au hasard."""
+        from app import exemplaires
+
         for q in demo.scalars(select(models.Question)):
-            assert pkp_engine.corriger(question_vers_domaine(q), q.solution), q.enonce
+            exemplaire = exemplaires.domaine(q, exemplaires.nouveau_tirage(q))
+            assert pkp_engine.corriger(exemplaire, exemplaire.solution), q.enonce
 
     def test_reponses_corrigees_par_le_moteur(self, demo):
         lina = demo.scalar(select(models.Eleve).where(models.Eleve.prenom == "Lina"))

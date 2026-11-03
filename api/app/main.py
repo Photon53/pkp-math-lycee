@@ -1,8 +1,10 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routes import admin, admin_contenu, cours, eleves, enseignants, enseignants_contenu, health, ressources
+from app.routes import admin, admin_contenu, cours, eleves, enseignants, enseignants_contenu, health, ressources, anglais, anglais_eleves
 
 # En production, la documentation interactive n'est pas exposée publiquement.
 app = FastAPI(
@@ -12,6 +14,11 @@ app = FastAPI(
     redoc_url=None,
     openapi_url=None if settings.production else "/openapi.json",
 )
+
+if settings.production and settings.servir_questions_non_validees:
+    logging.getLogger("uvicorn.error").warning(
+        "PKP_SERVIR_QUESTIONS_NON_VALIDEES=true : les compétences sans question validée servent des questions non relues."
+    )
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,3 +35,5 @@ app.include_router(enseignants_contenu.router)
 app.include_router(ressources.router)
 app.include_router(admin.router)
 app.include_router(admin_contenu.router)
+app.include_router(anglais_eleves.router)
+app.include_router(anglais.router)

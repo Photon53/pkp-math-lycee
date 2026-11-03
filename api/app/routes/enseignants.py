@@ -12,6 +12,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from pkp_engine import Niveau
 from sqlalchemy import func, select
+from sqlalchemy.orm import object_session
 
 from app import limitation
 from app.auth import ENSEIGNANT, EnseignantAuthentifie, EnseignantCourant, SessionDB
@@ -51,6 +52,7 @@ from app.security import (
     creer_jeton,
     doit_rehacher,
     generer_code_eleve,
+    generer_identifiant,
     hacher_code_eleve,
     hacher_mot_de_passe,
     verifier_mot_de_passe,
@@ -102,6 +104,9 @@ def _jeton(enseignant: models.Enseignant) -> JetonEnseignant:
         nom=enseignant.nom,
         role=enseignant.role,
         mdp_provisoire=enseignant.mdp_provisoire,
+        enseigne_maths=enseignant.enseigne_maths,
+        enseigne_anglais=enseignant.enseigne_anglais,
+        referent_anglais=enseignant.referent_anglais,
     )
 
 
@@ -216,10 +221,23 @@ def proposer_chapitres(
 # pour que l'enseignant l'imprime ou le recopie. Perdu : on en génère un nouveau.
 
 
+def _attribuer_identifiant(eleve: models.Eleve) -> None:
+    """Identifiant de connexion, unique sur toute la plateforme ; attribué une fois pour toutes."""
+    if eleve.identifiant:
+        return
+    session = object_session(eleve)
+    identifiant = generer_identifiant(eleve.prenom)
+    while session.scalar(select(models.Eleve.id).where(models.Eleve.identifiant == identifiant)) is not None:
+        identifiant = generer_identifiant(eleve.prenom)
+    eleve.identifiant = identifiant
+    session.flush()  # deux élèves créés ensemble ne tirent pas le même identifiant
+
+
 def _attribuer_code(eleve: models.Eleve) -> CodeEleve:
     code = generer_code_eleve()
     eleve.code_hash = hacher_code_eleve(code)  # invalide aussi les jetons émis avec l'ancien code
-    return CodeEleve(id=eleve.id, prenom=eleve.prenom, code=code)
+    _attribuer_identifiant(eleve)
+    return CodeEleve(id=eleve.id, prenom=eleve.prenom, code=code, identifiant=eleve.identifiant)
 
 
 @router.post("/classes/{classe_id}/eleves", response_model=ResultatCreationEleves, status_code=status.HTTP_201_CREATED)
@@ -244,6 +262,20 @@ def generer_codes_manquants(classe_id: int, enseignant: EnseignantCourant, sessi
     codes = [_attribuer_code(e) for e in sorted(classe.eleves, key=lambda e: e.prenom) if e.code_hash is None]
     session.commit()
     return codes
+
+
+@router.post("/classes/{classe_id}/cartes", response_model=list[CodeEleve])
+def cartes_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[CodeEleve]:
+    """Cartes de connexion de toute la classe : un nouveau code par élève (les anciens cessent de
+    fonctionner), identifiant inchangé. Sert au passage à la connexion par carte et aux réimpressions."""
+    classe = _ma_classe(session, classe_id, enseignant)
+    cartes = []
+    for eleve in sorted(classe.eleves, key=lambda e: e.prenom):
+        cartes.append(_attribuer_code(eleve))
+        for autre in inscriptions.liees(session, eleve):
+            autre.code_hash = eleve.code_hash  # un seul code pour toutes les inscriptions du même élève
+    session.commit()
+    return cartes
 
 
 @router.post("/eleves/{eleve_id}/code", response_model=CodeEleve)

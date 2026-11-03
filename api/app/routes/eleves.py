@@ -9,14 +9,15 @@ from datetime import UTC, datetime
 from functools import cache
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import calculer_maitrise, choisir_prochaine_question, corriger, est_maitrisee
+from pkp_engine import Question, Verdict, calculer_maitrise, choisir_prochaine_question, est_maitrisee, verifier
+from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
 from sqlalchemy import select
 
-from app import inscriptions, limitation
+from app import exemplaires, inscriptions, limitation
 from app.auth import ELEVE, EleveCourant, SessionDB
 from app.config import settings
 from app.db import models
-from app.db.conversions import historique_eleve, question_vers_domaine
+from app.db.conversions import historique_eleve
 from app.progression import (
     filtre_validation,
     avancement_competence,
@@ -24,11 +25,14 @@ from app.progression import (
     ids_ouverts,
     nb_questions_servables,
     progression_eleve,
+    validees_en_priorite,
 )
 from app.schemas import (
     AvancementCompetence,
     ChapitreOuvert,
     ConnexionEleve,
+    ConnexionIdentifiant,
+    DemandeVariante,
     PageHistorique,
     EleveInfo,
     InscriptionLiee,
@@ -44,6 +48,7 @@ from app.security import (
     creer_jeton,
     generer_code_eleve,
     hacher_code_eleve,
+    normaliser_identifiant,
     verifier_code_eleve,
     version_mot_de_passe,
 )
@@ -64,6 +69,7 @@ def _info(eleve: models.Eleve) -> EleveInfo:
     return EleveInfo(
         id=eleve.id,
         prenom=eleve.prenom,
+        identifiant=eleve.identifiant,
         code_classe=eleve.classe.code,
         niveau=eleve.classe.niveau,
         parcours=eleve.classe.parcours,
@@ -71,6 +77,7 @@ def _info(eleve: models.Eleve) -> EleveInfo:
 
 
 ECHEC_CONNEXION = "Prénom, code classe ou code personnel incorrect."
+ECHEC_IDENTIFIANT = "Identifiant ou code personnel incorrect."
 
 
 @cache
@@ -109,6 +116,34 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
     version = version_mot_de_passe(eleve.code_hash)
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
+
+
+@router.post("/eleves/connexion/identifiant", response_model=JetonEleve)
+def connexion_identifiant(corps: ConnexionIdentifiant, request: Request, session: SessionDB) -> JetonEleve:
+    """Identifiant + code personnel, tous deux imprimés sur la carte de l'élève (ou lus dans son QR code).
+
+    « Rester connecté » allonge la session pour l'appareil personnel de l'élève. Mêmes protections que
+    la connexion par prénom : un seul message d'échec, durée constante, limitation des essais.
+    """
+    ip = limitation.adresse_ip(request)
+    identifiant = normaliser_identifiant(corps.identifiant)
+    compte = f"eleve-id:{identifiant}"
+    limitation.verifier((limitation.par_ip, ip), (limitation.codes_inconnus, ip), (limitation.echecs_code_eleve, compte))
+    limitation.par_ip.enregistrer(ip)
+
+    eleve = session.scalar(select(models.Eleve).where(models.Eleve.identifiant == identifiant))
+    empreinte = eleve.code_hash if eleve and eleve.code_hash else _code_leurre()  # même durée dans tous les cas
+    if not verifier_code_eleve(corps.code_personnel, empreinte) or not (eleve and eleve.code_hash):
+        if eleve is None:
+            limitation.codes_inconnus.enregistrer(ip)  # freine la recherche d'identifiants
+        limitation.echecs_code_eleve.enregistrer(compte)
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_IDENTIFIANT)
+    limitation.echecs_code_eleve.effacer(compte)
+    if not eleve.classe.enseignant.actif:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
+    duree_h = settings.duree_jeton_eleve_longue_j * 24 if corps.rester_connecte else settings.duree_jeton_eleve_h
+    version = version_mot_de_passe(eleve.code_hash)
+    return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, duree_h, version), eleve=_info(eleve))
 
 
 @router.get("/eleves/moi", response_model=EleveInfo)
@@ -218,12 +253,22 @@ def terminer_seance(seance_id: int, eleve: EleveCourant, session: SessionDB) -> 
 def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
     seance = _seance_ouverte(session, seance_id, eleve)
     if seance.question_courante is not None:
-        return seance.question_courante
+        return exemplaires.publique(seance.question_courante, seance.tirage_courant)
 
-    candidates = {
-        q.id: q
-        for q in session.scalars(
-            select(models.Question)
+    # Les colonnes de la question du moteur, sans charger chaque objet entier (correction, gabarit…) :
+    # ce serait plus cher que tout le reste de la requête. La question choisie est lue ensuite.
+    questions = list(
+        session.execute(
+            select(
+                models.Question.id,
+                models.Question.competence_id,
+                models.Question.enonce,
+                models.Question.type,
+                models.Question.solution,
+                models.Question.difficulte,
+                models.Question.forme,
+                models.Question.statut_validation,
+            )
             .join(models.Competence)
             .join(models.Chapitre)
             .where(
@@ -236,18 +281,43 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
                 *([models.Question.difficulte <= seance.difficulte_max] if seance.difficulte_max else []),
             )
         )
-    }
+    )
+    if settings.servir_questions_non_validees:
+        questions = validees_en_priorite(session, questions)
+    historique = historique_eleve(session, eleve.id, {q.competence_id for q in questions})
     choix = choisir_prochaine_question(
-        [question_vers_domaine(q) for q in candidates.values()], historique_eleve(session, eleve.id)
+        [Question(q.id, q.competence_id, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme) for q in questions],
+        historique,
     )
     if choix is None:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    question = candidates[choix.id]
+    return _servir(session, seance, session.get(models.Question, choix.id))
+
+
+def _servir(session: SessionDB, seance: models.Seance, question: models.Question) -> dict:
+    """Pose la question : pour une question à valeurs variables, de nouveaux nombres à chaque fois."""
     seance.question_courante = question
+    seance.tirage_courant = exemplaires.nouveau_tirage(question)
     seance.question_servie_le = _maintenant()
     session.commit()
-    return question
+    return exemplaires.publique(question, seance.tirage_courant)
+
+
+@router.post("/seances/{seance_id}/variante", response_model=QuestionPublique)
+def refaire_avec_d_autres_nombres(seance_id: int, corps: DemandeVariante, eleve: EleveCourant, session: SessionDB):
+    """Après une réponse, le même exercice avec d'autres nombres : seulement pour la question qui vient
+    d'être corrigée dans cette séance, et seulement si elle est à valeurs variables."""
+    seance = _seance_ouverte(session, seance_id, eleve)
+    derniere = session.scalar(
+        select(models.Reponse).where(models.Reponse.seance_id == seance.id).order_by(models.Reponse.id.desc()).limit(1)
+    )
+    question = derniere.question if derniere else None
+    if seance.question_courante is not None or question is None or question.id != corps.question_id:
+        raise HTTPException(status.HTTP_409_CONFLICT, "On ne peut refaire que l'exercice qui vient d'être corrigé.")
+    if question.gabarit is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Cet exercice n'a pas de variante : ses valeurs sont fixes.")
+    return _servir(session, seance, question)
 
 
 @router.post("/seances/{seance_id}/reponses", response_model=ResultatReponse)
@@ -258,7 +328,9 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
         raise HTTPException(status.HTTP_409_CONFLICT, "Cette question n'est pas la question en cours.")
 
     maintenant = _maintenant()
-    correcte = corriger(question_vers_domaine(question), corps.reponse_donnee)
+    tirage = seance.tirage_courant
+    verdict = verifier(exemplaires.domaine(question, tirage), corps.reponse_donnee)
+    correcte = verdict is Verdict.JUSTE
     session.add(
         models.Reponse(
             seance=seance,
@@ -267,19 +339,28 @@ def repondre(seance_id: int, corps: SoumissionReponse, eleve: EleveCourant, sess
             correcte=correcte,
             duree_s=(maintenant - _utc(seance.question_servie_le)).total_seconds(),
             repondu_le=maintenant,
+            tirage=tirage,
         )
     )
     seance.question_courante = None
     seance.question_servie_le = None
+    seance.tirage_courant = None
     session.commit()
 
-    historique = historique_eleve(session, eleve.id)
+    historique = historique_eleve(session, eleve.id, [question.competence_id])
     return ResultatReponse(
         correcte=correcte,
-        solution=question.solution,
-        correction=question.correction,
+        solution=exemplaires.solution(question, tirage),
+        correction=exemplaires.correction(question, tirage),
         competence=question.competence.libelle,
+        competence_id=question.competence_id,
+        methodes=[m["titre"] for m in question.competence.methodes or []],
         rappel=question.competence.lecon.resume if question.competence.lecon else None,
         maitrise=calculer_maitrise(historique, question.competence_id),
         maitrisee=est_maitrisee(historique, question.competence_id),
+        remarque=(
+            f"Ta réponse a la bonne valeur, mais elle n'est pas sous forme {LIBELLES_FORMES[question.forme]}."
+            if verdict is Verdict.FORME
+            else None
+        ),
     )

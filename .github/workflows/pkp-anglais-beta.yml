@@ -1,0 +1,41 @@
+name: PKP Anglais BETA - validation technique
+
+on:
+  push:
+    branches: [PKP-Anglais]
+  workflow_dispatch:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install engine and API
+        run: |
+          python -m pip install -e './engine[dev]'
+          python -m pip install -e './api[dev]'
+      - name: Engine tests
+        run: python -m pytest engine/tests -q
+      - name: API tests
+        run: python -m pytest api/tests -q
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install frontend
+        working-directory: web
+        run: npm ci
+      - name: Build
+        working-directory: web
+        run: npm run build
+      - name: Tests
+        working-directory: web
+        run: npm test -- --run

@@ -1,0 +1,46 @@
+# Partie transversale « Automatismes » (pages 6 et 7 du PDF). Textes recopiés du BO.
+# Le BO signale en italique les automatismes propres à la classe terminale : l'italique est perdu à l'extraction,
+# tous les tirets sont donc saisis (ceux de seconde et de première sont à entretenir).
+theme:
+  code: AUTO
+  titre: Automatismes
+  partie: Transversale
+
+attendus:
+  # Proportions et pourcentages
+  - {code: TLE-TEC-2026-AUTO-01, type: automatisme, page: 6, texte: "Calculer, appliquer, exprimer une proportion sous différentes formes (décimale, fractionnaire, pourcentage)."}
+  - {code: TLE-TEC-2026-AUTO-02, type: automatisme, page: 6, texte: "Calculer la proportion d’une proportion."}
+  # Évolutions et variations
+  - {code: TLE-TEC-2026-AUTO-03, type: automatisme, page: 6, texte: "Passer d’une formulation additive (« augmenter de 5 % », respectivement « diminuer de 5 % ») à une formulation multiplicative (« multiplier par 1,05 », respectivement « multiplier par 0,95 »)."}
+  - {code: TLE-TEC-2026-AUTO-04, type: automatisme, page: 6, texte: "Appliquer un taux d’évolution pour calculer une valeur finale ou initiale."}
+  - {code: TLE-TEC-2026-AUTO-05, type: automatisme, page: 6, texte: "Calculer un taux d’évolution, l’exprimer en pourcentage."}
+  - {code: TLE-TEC-2026-AUTO-06, type: automatisme, page: 6, texte: "Interpréter un indice de base 100. calculer un indice ; calculer le taux d’évolution entre deux valeurs."}
+  - {code: TLE-TEC-2026-AUTO-07, type: automatisme, page: 6, texte: "Calculer le taux d’évolution équivalent à plusieurs évolutions successives."}
+  - {code: TLE-TEC-2026-AUTO-08, type: automatisme, page: 6, texte: "Calculer un taux d’évolution réciproque."}
+  - {code: TLE-TEC-2026-AUTO-09, type: automatisme, page: 6, texte: "Reconnaitre une situation contextualisée se modélisant par une suite géométrique dont on identifie la raison."}
+  # Calcul numérique et algébrique
+  - {code: TLE-TEC-2026-AUTO-10, type: automatisme, page: 7, texte: "Effectuer des opérations et des comparaisons entre des fractions simples."}
+  - {code: TLE-TEC-2026-AUTO-11, type: automatisme, page: 7, texte: "Effectuer des opérations sur les puissances."}
+  - {code: TLE-TEC-2026-AUTO-12, type: automatisme, page: 7, texte: "Passer d’une écriture d’un nombre à une autre (décimale, fractionnaire, scientifique)."}
+  - {code: TLE-TEC-2026-AUTO-13, type: automatisme, page: 7, texte: "Estimer un ordre de grandeur."}
+  - {code: TLE-TEC-2026-AUTO-14, type: automatisme, page: 7, texte: "Effectuer des conversions d’unités."}
+  - {code: TLE-TEC-2026-AUTO-15, type: automatisme, page: 7, texte: "Résoudre une équation ou une inéquation du premier degré, une équation du type : x² = a."}
+  - {code: TLE-TEC-2026-AUTO-16, type: automatisme, page: 7, texte: "Déterminer le signe d’une expression du premier degré, d’une expression factorisée du second degré."}
+  - {code: TLE-TEC-2026-AUTO-17, type: automatisme, page: 7, texte: "Isoler une variable dans une égalité ou une inégalité qui en comporte plusieurs sur des exemples internes aux mathématiques ou issus des autres disciplines."}
+  - {code: TLE-TEC-2026-AUTO-18, type: automatisme, page: 7, texte: "Effectuer une application numérique d’une formule (notamment pour les formules utilisées dans les autres disciplines)."}
+  - {code: TLE-TEC-2026-AUTO-19, type: automatisme, page: 7, texte: "Développer, factoriser, réduire une expression algébrique simple."}
+  - {code: TLE-TEC-2026-AUTO-20, type: automatisme, page: 7, texte: "Calculer la dérivée d’une fonction polynomiale de degré inférieur ou égal à 3."}
+  - {code: TLE-TEC-2026-AUTO-21, type: automatisme, page: 7, texte: "Calculer le coefficient directeur de la tangente en un point à une courbe à l’aide de la dérivée."}
+  # Fonctions et représentations
+  - {code: TLE-TEC-2026-AUTO-22, type: automatisme, page: 7, texte: "Déterminer graphiquement des images et des antécédents."}
+  - {code: TLE-TEC-2026-AUTO-23, type: automatisme, page: 7, texte: "Résoudre graphiquement une équation, une inéquation du type : ƒ(x) = k, ƒ(x) < k, etc."}
+  - {code: TLE-TEC-2026-AUTO-24, type: automatisme, page: 7, texte: "Déterminer le signe d’une expression factorisée du second degré à l’aide d’une image mentale de la courbe représentative de la fonction correspondante."}
+  - {code: TLE-TEC-2026-AUTO-25, type: automatisme, page: 7, texte: "Déterminer graphiquement le signe d’une fonction ou son tableau de variations."}
+  - {code: TLE-TEC-2026-AUTO-26, type: automatisme, page: 7, texte: "Exploiter une équation de courbe (appartenance d’un point, calcul de coordonnées)."}
+  - {code: TLE-TEC-2026-AUTO-27, type: automatisme, page: 7, texte: "Tracer une droite donnée par son équation réduite ou par un point et son coefficient directeur."}
+  - {code: TLE-TEC-2026-AUTO-28, type: automatisme, page: 7, texte: "Lire graphiquement l’équation réduite d’une droite."}
+  - {code: TLE-TEC-2026-AUTO-29, type: automatisme, page: 7, texte: "Déterminer l’équation réduite d’une droite à partir des coordonnées de deux de ses points."}
+  - {code: TLE-TEC-2026-AUTO-30, type: automatisme, page: 7, texte: "Déterminer graphiquement le coefficient directeur d’une tangente à une courbe."}
+  # Représentations graphiques de données chiffrées
+  - {code: TLE-TEC-2026-AUTO-31, type: automatisme, page: 7, texte: "Lire un graphique, un histogramme, un diagramme en barres ou circulaire, un diagramme en boite ou toute autre représentation (repérer l’origine du repère, les unités de graduations ou les échelles, etc.)."}
+  - {code: TLE-TEC-2026-AUTO-32, type: automatisme, page: 7, texte: "Passer du graphique aux données et vice versa."}

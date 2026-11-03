@@ -1,0 +1,30 @@
+# Partie « Nombres complexes », rubriques « Nombres complexes et trigonométrie » et « Équations polynomiales » (page 7 du PDF).
+# Textes recopiés du BO ; les formules d'Euler et de Moivre sont réécrites en ligne (θ perdu à l'extraction du PDF).
+theme:
+  code: TRIGPOLY
+  titre: Nombres complexes, trigonométrie et équations polynomiales
+  partie: Nombres complexes
+
+attendus:
+  # Nombres complexes et trigonométrie
+  - {code: TLE-EXP-2019-TRIGPOLY-01, type: contenu, page: 7, texte: "Formules d’addition et de duplication à partir du produit scalaire."}
+  - {code: TLE-EXP-2019-TRIGPOLY-02, type: contenu, page: 7, texte: "Exponentielle imaginaire, notation e^(iθ). Relation fonctionnelle. Forme exponentielle d’un nombre complexe."}
+  - {code: TLE-EXP-2019-TRIGPOLY-03, type: contenu, page: 7, texte: "Formules d'Euler : cos(θ) = (e^(iθ) + e^(−iθ))/2, sin(θ) = (e^(iθ) − e^(−iθ))/(2i)."}
+  - {code: TLE-EXP-2019-TRIGPOLY-04, type: contenu, page: 7, texte: "Formule de Moivre : cos(nθ) + i sin(nθ) = (cos(θ) + i sin(θ))ⁿ."}
+  - {code: TLE-EXP-2019-TRIGPOLY-05, type: capacite, page: 7, texte: "Passer de la forme algébrique d’un nombre complexe à sa forme trigonométrique ou exponentielle et inversement."}
+  - {code: TLE-EXP-2019-TRIGPOLY-06, type: capacite, page: 7, texte: "Effectuer des calculs sur des nombres complexes en choisissant une forme adaptée, en particulier dans le cadre de la résolution de problèmes."}
+  - {code: TLE-EXP-2019-TRIGPOLY-07, type: capacite, page: 7, texte: "Utiliser les formules d’Euler et de Moivre pour transformer des expressions trigonométriques, dans des contextes divers (intégration, suites, etc.), calculer des puissances de nombres complexes."}
+  - {code: TLE-EXP-2019-TRIGPOLY-08, type: demonstration, page: 7, texte: "Démonstration d’une des formules d’addition."}
+  # Équations polynomiales
+  - {code: TLE-EXP-2019-TRIGPOLY-09, type: contenu, page: 7, texte: "Solutions complexes d’une équation du second degré à coefficients réels."}
+  - {code: TLE-EXP-2019-TRIGPOLY-10, type: contenu, page: 7, texte: "Factorisation de zⁿ − aⁿ par z − a."}
+  - {code: TLE-EXP-2019-TRIGPOLY-11, type: contenu, page: 7, texte: "Si P est un polynôme et P(a) = 0, factorisation de P par z − a."}
+  - {code: TLE-EXP-2019-TRIGPOLY-12, type: contenu, page: 7, texte: "Un polynôme de degré n admet au plus n racines."}
+  - {code: TLE-EXP-2019-TRIGPOLY-13, type: capacite, page: 7, texte: "Résoudre une équation polynomiale de degré 2 à coefficients réels."}
+  - {code: TLE-EXP-2019-TRIGPOLY-14, type: capacite, page: 7, texte: "Résoudre une équation de degré 3 à coefficients réels dont une racine est connue."}
+  - {code: TLE-EXP-2019-TRIGPOLY-15, type: capacite, page: 7, texte: "Factoriser un polynôme dont une racine est connue."}
+  - {code: TLE-EXP-2019-TRIGPOLY-16, type: demonstration, page: 7, texte: "Factorisation de zⁿ − aⁿ par z − a. Factorisation de P(z) par z − a si P(a) = 0."}
+  - {code: TLE-EXP-2019-TRIGPOLY-17, type: demonstration, page: 7, texte: "Le nombre de solutions d’une équation polynomiale est inférieur ou égal à son degré."}
+  - {code: TLE-EXP-2019-TRIGPOLY-18, type: approfondissement, page: 7, texte: "Racines carrées d’un nombre complexe, équation du second degré à coefficients complexes."}
+  - {code: TLE-EXP-2019-TRIGPOLY-19, type: approfondissement, page: 7, texte: "Formules de Viète."}
+  - {code: TLE-EXP-2019-TRIGPOLY-20, type: approfondissement, page: 7, texte: "Résolution par radicaux de l’équation de degré 3."}

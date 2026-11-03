@@ -44,3 +44,10 @@
   fichier: bo-2026-14-tle-technologique-515420.pdf
   sha256: df8f8b860960adfed1c9dbbf069f99f091e96f5b901d10dfcb4cbdeacaab67aa
   obtenu_le: 2026-10-31
+- code: bo-2019-8-tle-expertes
+  titre: Programme de l'enseignement optionnel de mathématiques expertes de la classe terminale de la voie générale
+  bulletin: BO spécial n° 8 du 25 juillet 2019
+  fichier: bo-2019-8-tle-expertes-1158825.pdf
+  sha256: c491ac1ccb63dbce86f59767d6826f4d13afb3efa782ed1176621aa691329ebd
+  url: https://cache.media.education.gouv.fr/file/SPE8_MENJ_25_7_2019/82/5/spe264_annexe_1158825.pdf
+  obtenu_le: 2026-11-01

@@ -1,0 +1,101 @@
+{
+  "code": "4E-03",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "At the station: times, plans and opinions",
+  "objective": "Repérer horaires, activités et opinions dans un dialogue court",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: what time is it?",
+      "duration_minutes": 10,
+      "student_instruction": "Say three times of your day in English (I get up at...). Your partner writes them in numbers.",
+      "facilitator_instruction": "Réactiver l'heure (o'clock, half past, quarter past/to) ; noter au tableau les erreurs fréquentes sur -teen / -ty."
+    },
+    {
+      "order": 2,
+      "title": "Listening: Trains and travel",
+      "duration_minutes": 15,
+      "student_instruction": "Listen to the station conversations twice. Note platforms, times and one problem.",
+      "facilitator_instruction": "Faire écouter l'audio British Council « Trains and travel » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute globale (lieu, situation), seconde écoute ciblée : quais, horaires, problème du billet."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: telling the time",
+      "duration_minutes": 15,
+      "student_instruction": "Write the times in words. Ask and answer: What time does the train leave?",
+      "facilitator_instruction": "Présent simple des horaires (The train leaves at...) ; at + heure ; opposition fifteen/fifty. Faire répéter la question en chaîne."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 25,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : grille à cocher avec banque d'horaires ; B : prise de notes libre puis questions ; C : repérer opinions et justifications. Aider à réécouter un passage plutôt que donner la réponse."
+    },
+    {
+      "order": 5,
+      "title": "Pair task: the class trip timetable",
+      "duration_minutes": 20,
+      "student_instruction": "Student A reads a trip timetable, student B notes times, platforms and one opinion. Then swap.",
+      "facilitator_instruction": "Distribuer deux mini-emplois du temps différents. Observer la précision des horaires et l'expression d'une opinion (I think... because...)."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one time you heard and one opinion about train trips.",
+      "facilitator_instruction": "Ramasser les tickets ; repérer qui confond encore les nombres en -teen et -ty."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Listen and tick the right answer. The Cambridge train leaves from platform 2 / 3. The Manchester train leaves at 12:30 / 13:30. Harry's ticket says 4:20 / 4:30. Then write one time in words.",
+      "facilitator_correction": "Platform 3 ; 12:30 ; 4:20. Exemple : half past twelve."
+    },
+    {
+      "track": "B",
+      "student_content": "Take notes in a grid (destination / time / platform / problem) for three conversations. Then write two questions you could ask at a station.",
+      "facilitator_correction": "Cambridge / 10:15 / platform 3 ; Manchester / 12:30 / platform 2 ; London / 4:20, the train is late. Questions : What time does the train leave? Which platform is it?"
+    },
+    {
+      "track": "C",
+      "student_content": "Listen and note each traveller's problem and feeling. Write a short paragraph: which traveller had the worst day and why?",
+      "facilitator_correction": "Production libre ; attendus : le billet pour Oxford dans un train pour Liverpool, la course de Harry et Angel ; justification avec because."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève repère au moins deux horaires exacts",
+      "L'élève identifie un quai ou une destination",
+      "L'élève restitue une opinion entendue ou exprimée"
+    ]
+  },
+  "common_errors": [
+    "Confusion fifteen / fifty",
+    "Oubli de -s : the train leave",
+    "at oublié devant l'heure"
+  ],
+  "source_objectives": [
+    "4E-03"
+  ],
+  "theme": "École et société - sortie scolaire",
+  "license": "Contenu original PKP, revue pédagogique nécessaire"
+}

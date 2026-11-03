@@ -1,0 +1,302 @@
+# Parties transversales « Vocabulaire ensembliste et logique » et « Algorithmique et programmation »
+# du programme de première technologique 2026 (sauf série STD2A pour l'algorithmique).
+# Rédaction : brouillon IA, à relire par un professeur de mathématiques avant toute validation.
+chapitre:
+  code: 1RE-TEC-LOGALGO
+  niveau: 1re
+  parcours: technologique
+  ordre: 8
+  titre: Logique, algorithmique et programmation
+
+competences:
+- code: 1RE-TEC-LOGIQUE
+  libelle: Raisonner avec les connecteurs, les conditions et les contre-exemples
+  attendus: [1RE-TEC-2026-TRANS-01, 1RE-TEC-2026-TRANS-02, 1RE-TEC-2026-TRANS-03, 1RE-TEC-2026-TRANS-04, 1RE-TEC-2026-TRANS-05]
+  cours_couvre: [1RE-TEC-2026-TRANS-01, 1RE-TEC-2026-TRANS-02, 1RE-TEC-2026-TRANS-03, 1RE-TEC-2026-TRANS-04, 1RE-TEC-2026-TRANS-05]
+  objectifs:
+  - Utiliser correctement « et », « ou », et distinguer une identité d'une équation.
+  - Infirmer une proposition par un contre-exemple, distinguer une proposition de sa réciproque et de sa contraposée.
+  - Employer « condition nécessaire », « condition suffisante », « équivalence ».
+  methodes:
+  - titre: Reconnaître une condition nécessaire ou suffisante
+    quand: Une implication « si P, alors Q » est vraie.
+    etapes:
+    - P est une condition suffisante pour Q $:$ il suffit que P soit vraie pour que Q le soit.
+    - Q est une condition nécessaire pour P $:$ sans Q, P est impossible.
+    exemple:
+      enonce: « Si un nombre est multiple de $10$, alors il est pair. »
+      resolution:
+      - Être multiple de $10$ suffit pour être pair.
+      - Être pair est nécessaire pour être multiple de $10$, mais ne suffit pas ($4$ est pair).
+      resultat: condition suffisante / condition nécessaire
+  erreurs_frequentes:
+  - erreur: Confondre une identité et une équation.
+    explication: $(x + 1)^2 = x^2 + 2x + 1$ est vraie pour tout $x$ (identité) ; $x^2 = 4$ n'est vraie que pour certaines valeurs (équation).
+  resume: |
+    - « $P$ **et** $Q$ » est vraie quand les deux le sont ; « $P$ **ou** $Q$ » quand au moins l'une l'est (ou inclusif).
+    - Égalité : **identité** (vraie pour toutes les valeurs) ou **équation** (on cherche les valeurs qui la rendent vraie) ; lettre : variable, inconnue, paramètre…
+    - Un **contre-exemple** suffit à prouver qu'une proposition « pour tout » est fausse.
+    - « Si $P$ alors $Q$ » : **réciproque** « si $Q$ alors $P$ », **contraposée** « si non $Q$ alors non $P$ » (de même valeur de vérité) ; $P$ est une condition **suffisante** pour $Q$, $Q$ une condition **nécessaire** pour $P$.
+  cours: |
+    ## 1. Connecteurs « et », « ou »
+
+    > **Définition.**
+    > - « $P$ et $Q$ » est vraie lorsque $P$ et $Q$ sont **toutes les deux** vraies.
+    > - « $P$ ou $Q$ » est vraie lorsque **au moins une** des deux est vraie (le « ou » mathématique est inclusif).
+
+    *Exemples.* « $x > 2$ et $x < 5$ » : $x \in ]2 ; 5[$. « $x < 0$ ou $x > 3$ » : $x \in ]-\infty ; 0[ \cup ]3 ; +\infty[$.
+    La négation de « $P$ et $Q$ » est « non $P$ ou non $Q$ » ; celle de « $P$ ou $Q$ » est « non $P$ et non $Q$ ».
+
+    ## 2. Statut d'une égalité et des lettres
+
+    - **Identité** : égalité vraie pour toutes les valeurs des lettres, comme $(x + 1)^2 = x^2 + 2x + 1$ ; la lettre est une **variable**.
+    - **Équation** : égalité dont on cherche les valeurs qui la rendent vraie, comme $2x + 1 = 7$ ; la lettre est une **inconnue**.
+    - **Formule** : relation entre grandeurs, comme $d = v \times t$.
+    - **Paramètre** : lettre fixée mais quelconque, comme $m$ et $p$ dans $y = mx + p$.
+    - **Indéterminée** : lettre d'une expression que l'on manipule formellement (un polynôme en $x$).
+
+    ## 3. Contre-exemple
+
+    > **Propriété.** Pour montrer qu'une proposition « pour tout $x$, … » est **fausse**, il suffit d'exhiber **un** cas où elle est fausse : un **contre-exemple**.
+
+    *Exemple.* « Pour tout réel $x$, $x^2 \geqslant x$ » est fausse : pour $x = 0{,}5$, $x^2 = 0{,}25 < 0{,}5$.
+    À l'inverse, des exemples, même nombreux, ne prouvent pas qu'une proposition universelle est vraie.
+
+    ## 4. Implication, réciproque, contraposée
+
+    Pour l'implication « si $P$, alors $Q$ » ($P \Rightarrow Q$) :
+    - la **réciproque** est « si $Q$, alors $P$ » : elle peut être fausse alors que l'implication est vraie ;
+    - la **contraposée** est « si non $Q$, alors non $P$ » : elle est **toujours** vraie quand l'implication est vraie (et réciproquement).
+
+    *Exemple.* « Si un nombre est multiple de $6$, alors il est pair » est vraie.
+    - Réciproque : « s'il est pair, il est multiple de $6$ » : fausse ($4$ est un contre-exemple).
+    - Contraposée : « s'il n'est pas pair, il n'est pas multiple de $6$ » : vraie.
+
+    ## 5. Condition nécessaire, condition suffisante, équivalence
+
+    > **Définition.** Si $P \Rightarrow Q$ est vraie :
+    > - $P$ est une **condition suffisante** pour $Q$ (il suffit que $P$ soit vraie pour que $Q$ le soit) ;
+    > - $Q$ est une **condition nécessaire** pour $P$ (il faut que $Q$ soit vraie pour que $P$ le soit).
+    > Si $P \Rightarrow Q$ et $Q \Rightarrow P$ sont vraies, $P$ et $Q$ sont **équivalentes** : $P \iff Q$ (« si et seulement si »).
+
+    *Exemple.* « Être multiple de $6$ » est suffisant pour « être pair », mais pas nécessaire. « $x^2 = 9$ » est nécessaire pour « $x = 3$ », pas suffisant. « $2x = 6$ » et « $x = 3$ » sont équivalentes.
+
+    ## 6. Erreurs fréquentes
+
+    - Utiliser la réciproque d'un théorème comme si elle était automatiquement vraie.
+    - Confondre réciproque et contraposée.
+    - Croire qu'un exemple prouve une propriété générale.
+  questions:
+  - code: 1RE-TEC-LOGIQUE-01
+    difficulte: 1
+    type: qcm
+    enonce: 'L''égalité $(x + 1)^2 = x^2 + 2x + 1$ est : A) une identité, vraie pour tout $x$  B) une équation, vraie pour certaines valeurs de $x$  C) toujours fausse'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Le développement d'une identité remarquable est vrai pour tout réel $x$.
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-02
+    difficulte: 2
+    type: numerique
+    enonce: 'On affirme : « pour tout entier $n$, $2n + 1$ est un nombre premier ». Donner le plus petit entier $n \geqslant 1$ qui est un contre-exemple.'
+    solution: 4
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Pour $n = 1, 2, 3$, on obtient $3$, $5$, $7$, qui sont premiers.
+      - Pour $n = 4$, $2 \times 4 + 1 = 9 = 3 \times 3$ n'est pas premier.
+      resultat: 4
+  - code: 1RE-TEC-LOGIQUE-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quelle est la réciproque de « si un triangle est équilatéral, alors il est isocèle » ? A) « si un triangle est isocèle, alors il est équilatéral »  B) « si un triangle n''est pas isocèle, il n''est pas équilatéral »  C) « un triangle est équilatéral et isocèle »'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - 'L''implication « si $P$ alors $Q$ » a pour hypothèse $P$ : « équilatéral » et pour conclusion $Q$ : « isocèle ».'
+      - 'La réciproque est « si $Q$ alors $P$ » : on échange hypothèse et conclusion.'
+      - 'Réponse A ; la réciproque est fausse ici (un triangle isocèle non équilatéral est un contre-exemple), et B est la contraposée.'
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-04
+    difficulte: 4
+    type: qcm
+    enonce: 'Pour qu''un nombre entier soit multiple de $10$, être pair est : A) une condition nécessaire mais pas suffisante  B) une condition suffisante mais pas nécessaire  C) une condition nécessaire et suffisante'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Tout multiple de $10$ est pair $:$ la condition est nécessaire.
+      - $4$ est pair sans être multiple de $10$ $:$ elle n'est pas suffisante.
+      resultat: A
+  - code: 1RE-TEC-LOGIQUE-05
+    difficulte: 5
+    type: qcm
+    enonce: 'Un client a droit à une réduction s''il est étudiant ou s''il a moins de $18$ ans. Lequel n''y a pas droit ? A) Un étudiant de $22$ ans  B) Un lycéen de $16$ ans  C) Un salarié de $30$ ans'
+    solution: C
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - « ou » est vrai dès qu'une des conditions est remplie.
+      - Le salarié de $30$ ans ne remplit aucune des deux conditions.
+      resultat: C
+
+- code: 1RE-TEC-ALGO
+  libelle: Programmer avec compteurs, accumulateurs, fonctions et listes
+  attendus: [1RE-TEC-2026-TRANS-06, 1RE-TEC-2026-TRANS-07, 1RE-TEC-2026-TRANS-08, 1RE-TEC-2026-TRANS-09, 1RE-TEC-2026-TRANS-10, 1RE-TEC-2026-TRANS-11, 1RE-TEC-2026-TRANS-12, 1RE-TEC-2026-TRANS-13, 1RE-TEC-2026-TRANS-14, 1RE-TEC-2026-TRANS-15]
+  cours_couvre: [1RE-TEC-2026-TRANS-06, 1RE-TEC-2026-TRANS-07, 1RE-TEC-2026-TRANS-08, 1RE-TEC-2026-TRANS-09, 1RE-TEC-2026-TRANS-10, 1RE-TEC-2026-TRANS-11, 1RE-TEC-2026-TRANS-12, 1RE-TEC-2026-TRANS-13, 1RE-TEC-2026-TRANS-14, 1RE-TEC-2026-TRANS-15]
+  objectifs:
+  - Utiliser un compteur et un accumulateur dans une boucle.
+  - Structurer un programme en fonctions et identifier leurs entrées et sorties.
+  - Générer et parcourir une liste, sélectionner des données et construire un tableau croisé.
+  methodes:
+  - titre: Compteur ou accumulateur ?
+    quand: Une boucle doit produire un résultat global.
+    etapes:
+    - Compteur $:$ on ajoute $1$ chaque fois qu'une condition est remplie (`c = c + 1`).
+    - Accumulateur $:$ on ajoute (ou multiplie) une valeur à chaque tour (`s = s + x`).
+    - Initialiser avant la boucle $:$ $0$ pour une somme ou un compteur, $1$ pour un produit.
+    exemple:
+      enonce: 'Combien de valeurs de `[12, 5, 18, 9, 15]` dépassent $10$ ?'
+      resolution:
+      - '`c = 0`, puis `for x in L: if x > 10: c = c + 1`.'
+      - $12$, $18$ et $15$ dépassent $10$.
+      resultat: $3$
+  erreurs_frequentes:
+  - erreur: Initialiser un accumulateur de produit à $0$.
+    explication: Le produit resterait toujours nul $:$ on initialise un produit à $1$.
+  resume: |
+    - `random() < p` simule une épreuve de Bernoulli de paramètre $p$.
+    - **Compteur** : `c = c + 1` quand une condition est vérifiée ; **accumulateur** : `s = s + x` (somme) ou `p = p * x` (produit), initialisé à $0$ ou à $1$.
+    - Une **fonction** `def nom(entrees):` … `return sortie` structure un programme ; on identifie ses entrées et sa sortie.
+    - Listes : générer (extension, `append`, compréhension), manipuler par indices, itérer avec `for x in L` ; traiter des données réelles et faire un **tableau croisé**.
+  cours: |
+    ## 1. Simuler une loi de Bernoulli
+
+    ```python
+    from random import random
+    def bernoulli(p):
+        return 1 if random() < p else 0
+    ```
+    `random()` renvoie un nombre au hasard dans $[0 ; 1[$ ; il est inférieur à $p$ avec la probabilité $p$.
+
+    ## 2. Compteur et accumulateur
+
+    > **Compteur.** Variable initialisée à $0$ et augmentée de $1$ chaque fois qu'un évènement se produit : `c = c + 1`.
+    > **Accumulateur.** Variable qui cumule des valeurs : initialisée à $0$ pour une **somme** (`s = s + x`), à $1$ pour un **produit** (`p = p * x`).
+
+    ```python
+    s = 0
+    for k in range(1, 11):
+        s = s + k          # s vaut 55 : 1 + 2 + ... + 10
+    p = 1
+    for k in range(5):
+        p = p * 1.02       # p vaut 1.02**5 : coefficient de 5 hausses de 2 %
+    ```
+
+    ## 3. Fonctions : entrées et sorties
+
+    ```python
+    def prix_ttc(prix_ht, taux):
+        return prix_ht * (1 + taux / 100)
+    ```
+    Les **entrées** (paramètres) sont `prix_ht` et `taux` ; la **sortie** est la valeur renvoyée par `return`. `prix_ttc(50, 20)` renvoie `60.0`. Découper un programme en fonctions courtes le rend plus lisible et réutilisable.
+
+    ## 4. Listes
+
+    - **Générer** : en extension `L = [3, 8, 5]` ; par ajouts successifs `L.append(x)` dans une boucle ; en compréhension `[2 * k for k in range(5)]` donne `[0, 2, 4, 6, 8]`.
+    - **Manipuler** : `L[0]` est le premier élément (indices à partir de $0$), `L[-1]` le dernier, `len(L)` la longueur ; `L[1] = 7` remplace, `L.remove(5)` supprime la valeur $5$, `L.pop(0)` supprime l'élément d'indice $0$.
+    - **Itérer** : `for x in L:` parcourt les éléments ; `for i in range(len(L)):` parcourt les indices.
+
+    ## 5. Traiter des données réelles
+
+    Un fichier de données (CSV) contient une ligne par individu. On le lit, on range chaque colonne dans une liste, puis on calcule des indicateurs (effectifs, moyennes, extremums) avec des compteurs et accumulateurs.
+
+    **Tableau croisé.** À partir de deux critères (par exemple « filière » et « option »), on compte les individus pour chaque couple de valeurs :
+    ```python
+    eleves = [("STMG", "sport"), ("STI2D", "théâtre"), ("STMG", "théâtre"), ("STMG", "sport")]
+    tableau = {}
+    for filiere, option in eleves:
+        cle = (filiere, option)
+        tableau[cle] = tableau.get(cle, 0) + 1
+    # {("STMG", "sport"): 2, ("STI2D", "théâtre"): 1, ("STMG", "théâtre"): 1}
+    ```
+    Au tableur, on obtient le même résultat avec un tableau croisé dynamique ou `NB.SI.ENS`.
+
+    ## 6. Exemple complet
+
+    Températures relevées sur une semaine : `T = [12, 15, 9, 14, 18, 11, 13]`. Nombre de jours au-dessus de $12$ °C et moyenne ?
+    ```python
+    def analyse(T):
+        compteur = 0
+        somme = 0
+        for t in T:
+            somme = somme + t
+            if t > 12:
+                compteur = compteur + 1
+        return compteur, somme / len(T)
+    ```
+    `analyse(T)` renvoie `(4, 13.142...)` : $4$ jours au-dessus de $12$ °C, moyenne $\dfrac{92}{7} \approx 13{,}1$ °C.
+
+    ## 7. Erreurs fréquentes
+
+    - Initialiser un accumulateur de produit à $0$ : le produit reste nul.
+    - Placer l'initialisation à l'intérieur de la boucle : le compteur repart de zéro à chaque tour.
+    - Oublier `return` : la fonction ne renvoie rien (`None`).
+  questions:
+  - code: 1RE-TEC-ALGO-01
+    difficulte: 1
+    type: numerique
+    enonce: 'On exécute `p = 1`, puis `for k in range(1, 5): p = p * 2`. Que vaut `p` à la fin ?'
+    solution: 16
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - La boucle fait $4$ tours $:$ $p = 2^4 = 16$.
+      resultat: 16
+  - code: 1RE-TEC-ALGO-02
+    difficulte: 2
+    type: numerique
+    enonce: 'Avec `L = [12, 5, 18, 9, 15]`, on exécute `c = 0`, puis `for x in L: if x > 10: c = c + 1`. Que vaut `c` ?'
+    solution: 3
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Les valeurs $12$, $18$, $15$ dépassent $10$.
+      resultat: 3
+  - code: 1RE-TEC-ALGO-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Avec `L = [12, 5, 18, 9, 15]`, que renvoie `sum(L) / len(L)` ?'
+    solution: 11.8
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - '`sum(L)` additionne les éléments : $12 + 5 + 18 + 9 + 15 = 59$.'
+      - '`len(L)` compte les éléments : $5$.'
+      - '`sum(L) / len(L)` est la moyenne : $\dfrac{59}{5} = 11{,}8$.'
+      resultat: 11.8
+  - code: 1RE-TEC-ALGO-04
+    difficulte: 4
+    type: qcm
+    enonce: 'On définit `def tirage(p): return 1 if random() < p else 0`. Quelles sont l''entrée et la sortie de cette fonction ? A) Entrée $:$ la probabilité `p` ; sortie $:$ $1$ (succès) ou $0$ (échec)  B) Entrée $:$ un nombre aléatoire ; sortie $:$ la probabilité `p`  C) Aucune entrée ; sortie $:$ une liste'
+    solution: A
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - Le paramètre `p` est l'entrée ; la fonction renvoie $1$ avec la probabilité `p`, $0$ sinon.
+      - Elle simule une épreuve de Bernoulli de paramètre `p`.
+      resultat: A
+  - code: 1RE-TEC-ALGO-05
+    difficulte: 5
+    type: numerique
+    enonce: 'On a deux listes de même longueur : `sexe = ["F", "G", "F", "F", "G", "G"]` et `sport = [1, 1, 0, 1, 0, 1]` (1 : pratique un sport). Combien d''individus sont des filles pratiquant un sport ?'
+    solution: 2
+    auteur: Brouillon IA (Claude)
+    correction:
+      etapes:
+      - On parcourt les indices $0$ à $5$ et on compte ceux où `sexe[i] == "F"` et `sport[i] == 1`.
+      - Indices $0$ et $3$ $:$ $2$ individus.
+      resultat: 2

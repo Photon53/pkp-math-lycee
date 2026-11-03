@@ -8,7 +8,7 @@ Règles portées par le schéma :
 
 from datetime import UTC, date, datetime
 
-from pkp_engine import Niveau, TypeQuestion
+from pkp_engine import Forme, Niveau, TypeQuestion
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
@@ -107,6 +107,9 @@ class Enseignant(Base):
     mot_de_passe_hash: Mapped[str] = mapped_column(String(255))
     # Un administrateur est aussi enseignant : il change d'espace par le menu (cahier des charges V2, § 2).
     role: Mapped[Role] = mapped_column(_enum(Role, "role"), default=Role.ENSEIGNANT, server_default=Role.ENSEIGNANT.value)
+    # Disciplines cochées par un administrateur : chacune ouvre son espace (maths : /enseignant, anglais : /anglais).
+    enseigne_maths: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
+    enseigne_anglais: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
     # Désactivé : ni lui ni ses élèves ne peuvent se connecter ; aucune donnée n'est supprimée.
     actif: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
     derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
@@ -114,8 +117,11 @@ class Enseignant(Base):
     mdp_provisoire: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
     # Secret TOTP (RFC 6238) du second facteur, obligatoire pour l'espace administrateur en production.
     totp_secret: Mapped[str | None] = mapped_column(String(64))
+    # Coché par un administrateur : valide les séances PKP Anglais (jamais les siennes).
+    referent_anglais: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
 
     classes: Mapped[list["Classe"]] = relationship(back_populates="enseignant")
+    groupes_anglais: Mapped[list["GroupeAnglais"]] = relationship(back_populates="enseignant")
 
 
 class Classe(Base):
@@ -147,6 +153,9 @@ class Eleve(Base):
     # Empreinte du code personnel distribué par l'enseignant (audit A-07, décision D1).
     # Vide tant que l'enseignant n'a pas généré de code : l'élève ne peut pas se connecter.
     code_hash: Mapped[str | None] = mapped_column(String(255))
+    # Identifiant de connexion (« ines-k7m4 ») : avec le code personnel, il suffit pour se connecter,
+    # sans prénom ni code classe à saisir. Attribué avec le code personnel.
+    identifiant: Mapped[str | None] = mapped_column(String(40), unique=True)
     # Même élève inscrit dans plusieurs classes (spécialité, mise à niveau, excellence…) : ses inscriptions
     # partagent ce numéro (l'id de la première), et il passe de l'une à l'autre sans ressaisir de code.
     groupe_id: Mapped[int | None] = mapped_column(Integer, index=True)
@@ -155,6 +164,128 @@ class Eleve(Base):
     seances: Mapped[list["Seance"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )
+
+
+NIVEAUX_ANGLAIS = ("4e", "3e")
+
+
+class GroupeAnglais(Base):
+    """Groupe PKP Anglais (collège) : séparé des classes de maths, sans parcours ni chapitres (CDC anglais V1.8)."""
+
+    __tablename__ = "groupe_anglais"
+    __table_args__ = (CheckConstraint("niveau IN ('4e', '3e')", name="ck_groupe_anglais_niveau"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nom: Mapped[str] = mapped_column(String(60))
+    niveau: Mapped[str] = mapped_column(String(2))
+    enseignant_id: Mapped[int] = mapped_column(ForeignKey("enseignant.id", ondelete="RESTRICT"), index=True)
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+
+    enseignant: Mapped[Enseignant] = relationship(back_populates="groupes_anglais")
+    eleves: Mapped[list["EleveAnglais"]] = relationship(
+        back_populates="groupe", cascade="all, delete-orphan", passive_deletes=True
+    )
+
+
+class EleveAnglais(Base):
+    """Élève d'un groupe d'anglais : un prénom, rien d'autre."""
+
+    __tablename__ = "eleve_anglais"
+    __table_args__ = (UniqueConstraint("prenom", "groupe_id", name="uq_eleve_anglais_prenom_groupe"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    prenom: Mapped[str] = mapped_column(String(50))
+    groupe_id: Mapped[int] = mapped_column(ForeignKey("groupe_anglais.id", ondelete="CASCADE"), index=True)
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    # Identifiant (« lina-k7m4 ») et empreinte du code personnel, attribués par le professeur :
+    # même mécanisme que les élèves de maths. Régénérer le code déconnecte l'élève.
+    identifiant: Mapped[str | None] = mapped_column(String(40), unique=True)
+    code_hash: Mapped[str | None] = mapped_column(String(255))
+
+    groupe: Mapped[GroupeAnglais] = relationship(back_populates="eleves")
+    progression: Mapped[list["ProgressionAnglais"]] = relationship(
+        back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
+    )
+
+
+STATUTS_SEANCE_ANGLAIS = ("brouillon", "soumis", "valide", "refuse", "archive")
+
+
+class SeanceAnglais(Base):
+    """Séance PKP Anglais : son contenu vit dans ses versions (CDC anglais V1.8, validation).
+
+    Version courante = la dernière ; version publiée = la dernière validée, seule ouverte aux élèves.
+    """
+
+    __tablename__ = "seance_anglais"
+    __table_args__ = (CheckConstraint("niveau IN ('4e', '3e')", name="ck_seance_anglais_niveau"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code: Mapped[str] = mapped_column(String(10), unique=True)
+    niveau: Mapped[str] = mapped_column(String(2))
+
+    versions: Mapped[list["SeanceAnglaisVersion"]] = relationship(
+        back_populates="seance", cascade="all, delete-orphan", passive_deletes=True,
+        order_by="SeanceAnglaisVersion.numero",
+    )
+
+    @property
+    def courante(self) -> "SeanceAnglaisVersion":
+        return self.versions[-1]
+
+    @property
+    def publiee(self) -> "SeanceAnglaisVersion | None":
+        return next((v for v in reversed(self.versions) if v.statut == "valide"), None)
+
+
+class SeanceAnglaisVersion(Base):
+    """Une version d'une séance : déroulé, cahier et quiz, avec son circuit de validation."""
+
+    __tablename__ = "seance_anglais_version"
+    __table_args__ = (
+        UniqueConstraint("seance_id", "numero", name="uq_seance_anglais_version_numero"),
+        CheckConstraint(
+            "statut IN ('brouillon', 'soumis', 'valide', 'refuse', 'archive')", name="ck_seance_anglais_version_statut"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    seance_id: Mapped[int] = mapped_column(ForeignKey("seance_anglais.id", ondelete="CASCADE"), index=True)
+    numero: Mapped[int] = mapped_column(Integer)
+    # Fichier de séance (étapes, fiches A/B/C, corrigés), cahier de l'élève et QCM de grammaire.
+    contenu: Mapped[dict] = mapped_column(JSON)
+    cahier: Mapped[dict] = mapped_column(JSON)
+    quiz: Mapped[list] = mapped_column(JSON)
+    statut: Mapped[str] = mapped_column(String(10), default="brouillon")
+    # Auteur vide = contenu importé du dépôt : tout référent peut alors le valider.
+    auteur_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    validateur_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    decide_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    motif_refus: Mapped[str | None] = mapped_column(Text)
+
+    seance: Mapped[SeanceAnglais] = relationship(back_populates="versions")
+    auteur: Mapped["Enseignant | None"] = relationship(foreign_keys=[auteur_id])
+    validateur: Mapped["Enseignant | None"] = relationship(foreign_keys=[validateur_id])
+
+
+class ProgressionAnglais(Base):
+    """Résultat d'un élève sur une séance : meilleur score au quiz et auto-évaluation « I can »."""
+
+    __tablename__ = "progression_anglais"
+    __table_args__ = (UniqueConstraint("eleve_id", "code", name="uq_progression_anglais_eleve_code"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    eleve_id: Mapped[int] = mapped_column(ForeignKey("eleve_anglais.id", ondelete="CASCADE"), index=True)
+    code: Mapped[str] = mapped_column(String(10))
+    meilleur_score: Mapped[int] = mapped_column(Integer, default=0)
+    total: Mapped[int] = mapped_column(Integer, default=0)
+    tentatives: Mapped[int] = mapped_column(Integer, default=0)
+    # Un niveau par phrase « I can » : non_observe, avec_aide, en_cours, autonome.
+    i_can: Mapped[list] = mapped_column(JSON, default=list)
+    maj_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, onupdate=_maintenant)
+
+    eleve: Mapped[EleveAnglais] = relationship(back_populates="progression")
 
 
 class Chapitre(Base):
@@ -244,6 +375,8 @@ class Question(Base):
     solution: Mapped[str] = mapped_column(String(200))
     difficulte: Mapped[int] = mapped_column(Integer)
     archivee: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    # Forme d'écriture exigée (« Développer », « Factoriser »…) ; vide : seule la valeur compte.
+    forme: Mapped[Forme | None] = mapped_column(_enum(Forme, "forme"))
     # Registre des sources : d'où vient la question et à quelles conditions on peut l'utiliser.
     source: Mapped[str] = mapped_column(String(200), default=SOURCE_PKP, server_default=SOURCE_PKP)
     source_url: Mapped[str | None] = mapped_column(String(500))
@@ -264,6 +397,8 @@ class Question(Base):
     # Correction détaillée {methode, etapes, resultat, erreurs_frequentes}, montrée après la réponse (E0.3).
     correction: Mapped[dict | None] = mapped_column(JSON)
     competences_secondaires: Mapped[list | None] = mapped_column(JSON)
+    # Valeurs variables {parametres, calculs, conditions} : énoncé, solution et correction citent [[…]].
+    gabarit: Mapped[dict | None] = mapped_column(JSON)
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
     modifiee_admin_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
@@ -281,6 +416,8 @@ class Seance(Base):
     # et la durée de réponse est mesurée côté serveur.
     question_courante_id: Mapped[int | None] = mapped_column(ForeignKey("question.id", ondelete="RESTRICT"))
     question_servie_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Valeurs tirées pour la question courante, si elle est à valeurs variables.
+    tirage_courant: Mapped[dict | None] = mapped_column(JSON)
 
     eleve: Mapped[Eleve] = relationship(back_populates="seances")
     question_courante: Mapped["Question | None"] = relationship()
@@ -305,6 +442,8 @@ class Reponse(Base):
     correcte: Mapped[bool] = mapped_column(Boolean)
     duree_s: Mapped[float] = mapped_column(Float)
     repondu_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+    # Valeurs de l'exercice tel qu'il a été posé (question à valeurs variables) : l'historique le remontre.
+    tirage: Mapped[dict | None] = mapped_column(JSON)
 
     seance: Mapped[Seance] = relationship(back_populates="reponses")
     question: Mapped[Question] = relationship()

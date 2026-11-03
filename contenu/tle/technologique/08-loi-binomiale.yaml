@@ -7,26 +7,89 @@ chapitre:
 competences:
 - code: TLE-TEC-BINOM
   libelle: Utiliser la loi binomiale et son espérance
+  attendus: [TLE-TEC-2026-SP-10, TLE-TEC-2026-SP-11, TLE-TEC-2026-SP-12, TLE-TEC-2026-SP-13, TLE-TEC-2026-SP-14, TLE-TEC-2026-SP-15]
   objectifs:
   - Utiliser les coefficients binomiaux et le triangle de Pascal.
   - Calculer des probabilités et l'espérance d'une loi binomiale.
   prerequis:
   - 1RE-TEC-VA
+  cours_couvre: [TLE-TEC-2026-SP-10, TLE-TEC-2026-SP-11, TLE-TEC-2026-SP-12, TLE-TEC-2026-SP-13, TLE-TEC-2026-SP-14, TLE-TEC-2026-SP-15]
   resume: |
-    - $X \sim \mathcal B(n ; p)$ compte les succès de $n$ épreuves de Bernoulli identiques et indépendantes.
-    - $P(X = k) = \dbinom{n}{k}p^k(1 - p)^{n - k}$ ; $E(X) = np$.
-    - $\dbinom{n}{1} = n$ ; les coefficients se lisent dans le triangle de Pascal.
+    - Espérance d'une variable aléatoire discrète : $E(X) = \sum x_i p_i$, valeur moyenne sur un grand nombre de répétitions.
+    - $n$ épreuves de Bernoulli identiques et indépendantes, de succès de probabilité $p$ : le nombre $X$ de succès suit $\mathcal B(n ; p)$.
+    - $P(X = k) = \dbinom{n}{k} p^k (1 - p)^{n - k}$, où $\dbinom{n}{k}$ (triangle de Pascal) compte les chemins à $k$ succès.
+    - $P(X = 0) = (1 - p)^n$, $P(X = n) = p^n$, $P(X \geqslant 1) = 1 - (1 - p)^n$ et $E(X) = np$.
   cours: |
-    ## Triangle de Pascal
-    | $n$ | coefficients |
-    |---|---|
-    | 4 | 1 4 6 4 1 |
-    | 5 | 1 5 10 10 5 1 |
-    | 6 | 1 6 15 20 15 6 1 |
+    ## 1. Espérance d'une variable aléatoire
 
-    ## Exemple
-    $X \sim \mathcal B(4 ; 0{,}1)$ : $P(X = 1) = 4 \times 0{,}1 \times 0{,}9^3 = 0{,}2916$.
-    $X \sim \mathcal B(20 ; 0{,}15)$ : $E(X) = 3$ succès en moyenne.
+    **Définition.** Une variable aléatoire $X$ prend les valeurs $x_1, \dots, x_r$ avec les probabilités $p_1, \dots, p_r$ (de somme $1$). Son **espérance** est
+    $$E(X) = \sum_{i=1}^{r} x_i p_i = x_1 p_1 + \dots + x_r p_r.$$
+
+    **Interprétation.** Sur un très grand nombre de répétitions, la moyenne des valeurs obtenues est proche de $E(X)$. Dans un jeu, $E(X) > 0$ signifie un gain moyen positif.
+
+    Exemple : un jeu fait gagner $10$ € avec probabilité $0{,}2$, $2$ € avec probabilité $0{,}3$, et fait perdre $4$ € sinon. $E(X) = 10 \times 0{,}2 + 2 \times 0{,}3 - 4 \times 0{,}5 = 0{,}6$ : on gagne en moyenne $0{,}60$ € par partie.
+
+    ## 2. Schéma de Bernoulli et loi binomiale
+
+    **Définitions.**
+    - Une **épreuve de Bernoulli** a deux issues : succès (probabilité $p$) et échec (probabilité $1 - p$).
+    - Un **schéma de Bernoulli** est la répétition de $n$ épreuves de Bernoulli **identiques et indépendantes**.
+    - Le nombre $X$ de succès suit la **loi binomiale** de paramètres $n$ et $p$, notée $\mathcal B(n ; p)$.
+
+    **Reconnaitre une loi binomiale** : vérifier qu'on répète $n$ fois la même épreuve à deux issues, de façon indépendante (tirages avec remise, ou population très grande), et que $X$ compte les succès. Identifier alors $n$ et $p$.
+
+    ## 3. Coefficients binomiaux et triangle de Pascal
+
+    **Définition.** $\dbinom{n}{k}$ est le nombre de chemins de l'arbre du schéma de Bernoulli qui comportent exactement $k$ succès.
+
+    > **Propriété.** $\dbinom{n}{0} = \dbinom{n}{n} = 1$, $\dbinom{n}{1} = n$, et pour $1 \leqslant k \leqslant n - 1$ : $$\binom{n}{k} = \binom{n - 1}{k - 1} + \binom{n - 1}{k}.$$
+
+    **Justification.** Un chemin à $k$ succès en $n$ épreuves se termine soit par un succès (et les $n - 1$ premières épreuves comptent $k - 1$ succès), soit par un échec (et elles en comptent $k$).
+
+    Cette relation construit le **triangle de Pascal** : chaque nombre est la somme des deux nombres situés au-dessus.
+
+    ```
+    n = 0 : 1
+    n = 1 : 1  1
+    n = 2 : 1  2  1
+    n = 3 : 1  3  3  1
+    n = 4 : 1  4  6  4  1
+    n = 5 : 1  5 10 10  5  1
+    n = 6 : 1  6 15 20 15  6  1
+    n = 7 : 1  7 21 35 35 21  7  1
+    n = 8 : 1  8 28 56 70 56 28  8  1
+    ```
+
+    On lit $\dbinom{n}{k}$ sur la ligne $n$, en position $k$ (on commence à compter à $0$) : $\dbinom{6}{3} = 20$.
+
+    ## 4. Probabilités et espérance
+
+    > **Propriété.** Si $X \sim \mathcal B(n ; p)$, pour $0 \leqslant k \leqslant n$ : $$P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}.$$
+
+    Sur l'arbre, l'événement $\{X = k\}$ regroupe les $\dbinom{n}{k}$ chemins à $k$ succès, qui ont tous la probabilité $p^k (1 - p)^{n - k}$.
+
+    Cas particuliers :
+    - $P(X = 0) = (1 - p)^n$ (que des échecs) et $P(X = n) = p^n$ (que des succès) ;
+    - $P(X = 1) = n p (1 - p)^{n - 1}$ et $P(X = n - 1) = n p^{n - 1}(1 - p)$ ;
+    - $P(X \geqslant 1) = 1 - P(X = 0) = 1 - (1 - p)^n$.
+
+    > **Propriété.** Si $X \sim \mathcal B(n ; p)$, alors $E(X) = np$.
+
+    ## 5. Exemple complet
+
+    **Énoncé.** Un QCM comporte $5$ questions à $4$ choix. Un élève répond au hasard. $X$ est le nombre de bonnes réponses. Loi de $X$ ? $P(X = 0)$, $P(X \geqslant 1)$, $P(X = 2)$, $E(X)$ ?
+
+    **Résolution.**
+    1. Chaque question est une épreuve de Bernoulli (succès : bonne réponse, $p = 0{,}25$) ; les réponses sont indépendantes et identiques : $X \sim \mathcal B(5 ; 0{,}25)$.
+    2. $P(X = 0) = 0{,}75^5 \approx 0{,}237$ ; $P(X \geqslant 1) = 1 - 0{,}75^5 \approx 0{,}763$.
+    3. $P(X = 2) = \dbinom{5}{2} \times 0{,}25^2 \times 0{,}75^3 = 10 \times 0{,}0625 \times 0{,}421875 \approx 0{,}264$.
+    4. $E(X) = 5 \times 0{,}25 = 1{,}25$ : en moyenne, $1{,}25$ bonne réponse.
+
+    ## 6. Erreurs fréquentes
+
+    - Oublier le facteur $(1 - p)^{n - k}$ ou le coefficient $\dbinom{n}{k}$.
+    - Appliquer la loi binomiale à des tirages **sans remise** dans une petite population : les épreuves ne sont plus indépendantes.
+    - Calculer $P(X \geqslant 1)$ en additionnant beaucoup de termes au lieu de passer par l'événement contraire.
   methodes:
   - titre: Justifier une loi binomiale
     etapes:
@@ -70,7 +133,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $0{,}5^3 = \dfrac{1}{8}$.
+      - '$P(X = k) = \dbinom{n}{k} p^k (1 - p)^{n - k}$ avec $n = 3$, $p = 0{,}5$ et $k = 3$.'
+      - '$\dbinom{3}{3} = 1$ : un seul chemin de l''arbre comporte 3 succès, et $(1 - p)^0 = 1$.'
+      - '$P(X = 3) = 0{,}5^3 = \dfrac{1}{8}$.'
       resultat: 1/8
   - code: TLE-TEC-BINOM-04
     difficulte: 4
@@ -80,7 +145,8 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $np = 20 \times 0{,}15 = 3$.
+      - 'Pour une variable $X$ de loi $\mathcal B(n ; p)$, l''espérance vaut $E(X) = np$.'
+      - '$E(X) = 20 \times 0{,}15 = 3$ : en moyenne, 3 succès sur 20 épreuves.'
       resultat: '3'
   - code: TLE-TEC-BINOM-05
     difficulte: 5
@@ -90,5 +156,22 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dbinom{4}{1} \times 0{,}1 \times 0{,}9^3 = 4 \times 0{,}1 \times 0{,}729 = 0{,}2916$.
+      - '$P(X = 1) = \dbinom{4}{1} \times 0{,}1^1 \times 0{,}9^3$ : un succès et trois échecs.'
+      - '$\dbinom{4}{1} = 4$ (le succès peut avoir lieu à l''une des 4 épreuves) et $0{,}9^3 = 0{,}729$.'
+      - '$P(X = 1) = 4 \times 0{,}1 \times 0{,}729 = 0{,}2916$.'
       resultat: '0.2916'
+  - code: TLE-TEC-BINOM-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {n: {entre: [5, 30]}, p: {entre: [0.05, 0.6], pas: 0.05}}
+      calculs: {e: "n*p"}
+    enonce: '$X$ suit la loi binomiale de paramètres $n = [[n]]$ et $p = [[p]]$. Calculer $E(X)$.'
+    solution: '[[e]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Espérance de la loi binomiale : $E(X) = np$.'
+      etapes:
+      - '$E(X) = [[n]] \times [[p]]$.'
+      - '$E(X) = [[e]]$.'
+      resultat: '[[e]]'

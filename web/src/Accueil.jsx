@@ -36,6 +36,11 @@ export default function Accueil() {
           <strong>Je suis professeur</strong>
           <span className="doux">Mes classes, le suivi de mes élèves, les cours et les ressources.</span>
         </a>
+        <a href="/anglais">
+          <Icone nom="cours" taille={32} />
+          <strong>PKP Anglais</strong>
+          <span className="doux">Professeurs d'anglais : séances de 90 minutes pour la 4e et la 3e, packs PDF élève et animateur.</span>
+        </a>
       </div>
 
       <p className="accroche">Comprendre aujourd'hui, réussir demain !</p>

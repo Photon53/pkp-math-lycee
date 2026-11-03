@@ -43,6 +43,7 @@ competences:
   - code: 2NDE-MAN-EQUATIONS-01
     difficulte: 1
     type: expression
+    forme: developpee
     enonce: Développer $4(2x - 3)$.
     solution: 8x - 12
     auteur: Brouillon IA (Claude)
@@ -63,6 +64,7 @@ competences:
   - code: 2NDE-MAN-EQUATIONS-03
     difficulte: 3
     type: expression
+    forme: developpee
     enonce: Développer $(x + 5)^2$.
     solution: x^2 + 10x + 25
     auteur: Brouillon IA (Claude)

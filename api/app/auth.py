@@ -13,6 +13,8 @@ from app.referentiel import Role
 from app.security import lire_jeton, version_mot_de_passe
 
 ELEVE, ENSEIGNANT, ADMIN = "eleve", "enseignant", "admin"
+# Jeton distinct : un élève d'anglais n'ouvre jamais l'espace de maths, et inversement.
+ELEVE_ANGLAIS = "eleve_anglais"
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -43,6 +45,20 @@ def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Elev
     return eleve
 
 
+def eleve_anglais_courant(identifiants: Identifiants, session: SessionDB) -> models.EleveAnglais:
+    lu = identifiants and lire_jeton(identifiants.credentials, ELEVE_ANGLAIS)
+    eleve = lu and session.get(models.EleveAnglais, lu[0])
+    # Mêmes refus que l'élève de maths : supprimé, code régénéré depuis l'émission, professeur désactivé.
+    if (
+        not eleve
+        or eleve.code_hash is None
+        or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
+        or not eleve.groupe.enseignant.actif
+    ):
+        raise _non_authentifie()
+    return eleve
+
+
 def _compte(identifiants: Identifiants, session: Session, role_jeton: str) -> models.Enseignant:
     lu = identifiants and lire_jeton(identifiants.credentials, role_jeton)
     enseignant = lu and session.get(models.Enseignant, lu[0])
@@ -61,10 +77,26 @@ def enseignant_authentifie(identifiants: Identifiants, session: SessionDB) -> mo
     return _compte(identifiants, session, ENSEIGNANT)
 
 
-def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+def _enseignant_pret(identifiants: Identifiants, session: Session) -> models.Enseignant:
     enseignant = _compte(identifiants, session, ENSEIGNANT)
     if enseignant.mdp_provisoire:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Choisissez d'abord un nouveau mot de passe.")
+    return enseignant
+
+
+def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+    """Espace professeur de mathématiques : la discipline est revérifiée en base à chaque requête."""
+    enseignant = _enseignant_pret(identifiants, session)
+    if not enseignant.enseigne_maths:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs de mathématiques.")
+    return enseignant
+
+
+def enseignant_anglais(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+    """Espace PKP Anglais : séances, déroulés et corrigés réservés aux professeurs d'anglais."""
+    enseignant = _enseignant_pret(identifiants, session)
+    if not enseignant.enseigne_anglais:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs d'anglais.")
     return enseignant
 
 
@@ -77,6 +109,8 @@ def admin_courant(identifiants: Identifiants, session: SessionDB) -> models.Ense
 
 
 EleveCourant = Annotated[models.Eleve, Depends(eleve_courant)]
+EleveAnglaisCourant = Annotated[models.EleveAnglais, Depends(eleve_anglais_courant)]
 EnseignantCourant = Annotated[models.Enseignant, Depends(enseignant_courant)]
+EnseignantAnglais = Annotated[models.Enseignant, Depends(enseignant_anglais)]
 EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authentifie)]
 AdminCourant = Annotated[models.Enseignant, Depends(admin_courant)]

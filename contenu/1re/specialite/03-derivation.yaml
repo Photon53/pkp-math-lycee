@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 1RE-DER-NB
     libelle: Utiliser le nombre dérivé et la tangente
+    attendus: [1RE-SPE-2026-DER-01, 1RE-SPE-2026-DER-02, 1RE-SPE-2026-DER-03, 1RE-SPE-2026-DER-10, 1RE-SPE-2026-DER-11, 1RE-SPE-2026-DER-12, 1RE-SPE-2026-DER-13, 1RE-SPE-2026-DER-16]
+    cours_couvre: [1RE-SPE-2026-DER-01, 1RE-SPE-2026-DER-02, 1RE-SPE-2026-DER-03, 1RE-SPE-2026-DER-10, 1RE-SPE-2026-DER-11, 1RE-SPE-2026-DER-12, 1RE-SPE-2026-DER-13, 1RE-SPE-2026-DER-16]
     objectifs:
     - Interpréter le nombre dérivé comme pente de la tangente.
     - Écrire l'équation d'une tangente.
@@ -26,21 +28,55 @@ competences:
     - erreur: Écrire $y = f'(a)x + f(a)$ en oubliant le décalage $(x - a)$.
       explication: 'La tangente passe par le point $(a ; f(a))$ : on vérifie en remplaçant $x$ par $a$.'
     resume: |
-      - Taux d'accroissement entre $a$ et $a + h$ : $\dfrac{f(a + h) - f(a)}{h}$.
-      - $f'(a)$ est la limite de ce taux quand $h$ tend vers $0$ : c'est la pente de la tangente en $a$.
-      - Tangente en $a$ : $y = f'(a)(x - a) + f(a)$.
-      - Tangente horizontale $\iff f'(a) = 0$.
+      - **Taux de variation** de $f$ entre $a$ et $a + h$ ($h \neq 0$) : $\dfrac{f(a + h) - f(a)}{h}$, pente de la sécante.
+      - $f$ est **dérivable** en $a$ si ce taux tend vers un réel quand $h$ tend vers $0$ ; cette limite est le **nombre dérivé** $f'(a)$.
+      - $f'(a)$ est la **pente de la tangente** en $A(a ; f(a))$ : $y = f(a) + f'(a)(x - a)$.
+      - En contexte, $f'(a)$ est une vitesse instantanée, un coût marginal… Tangente horizontale $\iff f'(a) = 0$.
     cours: |
-      ## Taux d'accroissement
-      Pour $f(x) = x^2$ et $a = 1$ : $\dfrac{(1 + h)^2 - 1}{h} = \dfrac{2h + h^2}{h} = 2 + h$.
-      Quand $h$ tend vers $0$, ce taux tend vers $2$ : $f'(1) = 2$.
+      ## 1. Taux de variation et sécante
 
-      ## Équation de la tangente
-      $$T_a : y = f'(a)(x - a) + f(a)$$
-      Pour $f(x) = x^2$ en $a = 1$ : $y = 2(x - 1) + 1 = 2x - 1$.
+      **Définition.** Soit $f$ une fonction définie sur un intervalle $I$, $a \in I$ et $h \neq 0$ tel que $a + h \in I$. Le **taux de variation** de $f$ entre $a$ et $a + h$ est
+      $$\tau(h) = \frac{f(a + h) - f(a)}{h}.$$
+      C'est le coefficient directeur (la **pente**) de la **sécante** $(AM)$, avec $A(a ; f(a))$ et $M(a + h ; f(a + h))$.
 
-      ## Lecture
-      Si la tangente en $2$ a pour équation $y = 3x - 1$, alors $f'(2) = 3$ (coefficient directeur) et $f(2) = 5$.
+      *Exemple.* $f(x) = x^2$, $a = 3$ : $\tau(h) = \dfrac{(3 + h)^2 - 9}{h} = \dfrac{6h + h^2}{h} = 6 + h$.
+
+      ## 2. Nombre dérivé
+
+      > **Définition.** $f$ est **dérivable en $a$** si $\tau(h)$ tend vers un nombre réel $\ell$ quand $h$ tend vers $0$. Ce réel est le **nombre dérivé** de $f$ en $a$, noté $f'(a)$ :
+      > $$f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}.$$
+
+      Dans l'exemple, $6 + h$ tend vers $6$ : $f'(3) = 6$.
+
+      ## 3. Tangente
+
+      Quand $h$ tend vers $0$, le point $M$ se rapproche de $A$ et les sécantes $(AM)$ « tendent » vers une droite limite : la **tangente** à la courbe en $A$.
+
+      > **Définition et propriété.** Si $f$ est dérivable en $a$, la tangente à $\mathcal{C}_f$ au point d'abscisse $a$ est la droite passant par $A(a ; f(a))$ de coefficient directeur $f'(a)$. Son équation est
+      > $$y = f(a) + f'(a)(x - a).$$
+
+      **Démonstration (exigible).** La tangente a pour coefficient directeur $f'(a)$, donc une équation de la forme $y = f'(a)x + p$. Elle passe par $A$ : $f(a) = f'(a)a + p$, d'où $p = f(a) - f'(a)a$. Ainsi $y = f'(a)x + f(a) - f'(a)a = f(a) + f'(a)(x - a)$.
+
+      ## 4. Méthodes
+
+      **Déterminer l'équation d'une tangente.** Calculer $f(a)$, puis $f'(a)$, remplacer dans $y = f(a) + f'(a)(x - a)$, développer.
+      *Exemple complet.* $f(x) = x^2$ en $a = 3$ : $f(3) = 9$, $f'(3) = 6$ ; $y = 9 + 6(x - 3) = 6x - 9$.
+
+      **Lire graphiquement $f'(a)$.** Sur la tangente tracée, choisir deux points bien lisibles et calculer $\dfrac{\Delta y}{\Delta x}$.
+
+      **Construire la tangente connaissant $f'(a)$.** Partir de $A(a ; f(a))$, avancer de $1$ en abscisse et monter de $f'(a)$ en ordonnée (descendre si $f'(a) < 0$) : on obtient un second point de la tangente.
+
+      ## 5. Interprétations en contexte
+
+      - Si $d(t)$ est une distance parcourue à l'instant $t$, le taux de variation est une **vitesse moyenne** et $d'(t_0)$ la **vitesse instantanée**.
+      - Si $C(q)$ est le coût de production de $q$ objets, $C'(q)$ est le **coût marginal** : il approche le coût de production d'un objet supplémentaire.
+      - $f'(a) > 0$ : la courbe « monte » au voisinage de $a$ ; $f'(a) = 0$ : tangente horizontale.
+
+      ## 6. Erreurs fréquentes
+
+      - Écrire $y = f'(a)x + f(a)$ : on oublie le décalage $(x - a)$. Vérifier que la tangente passe par $A$.
+      - Confondre $f(a)$ (ordonnée du point) et $f'(a)$ (pente).
+      - Simplifier par $h$ avant d'avoir développé le numérateur.
     questions:
       - code: 1RE-DER-NB-01
         difficulte: 1
@@ -71,11 +107,14 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - 'Le coefficient directeur de la tangente en $2$ est $f''(2)$ : ici $3$.'
+          - 'Le nombre dérivé $f''(2)$ est le coefficient directeur (la pente) de la tangente à la courbe au point d''abscisse $2$.'
+          - 'L''équation réduite $y = 3x - 1$ est de la forme $y = mx + p$ avec $m = 3$.'
+          - 'Donc $f''(2) = 3$.'
           resultat: 3
       - code: 1RE-DER-NB-04
         difficulte: 4
         type: expression
+        forme: reduite
         enonce: 'Donner l''équation réduite $y = \dots$ de la tangente à la courbe de $f(x) = x^2$ au point d''abscisse 1. Écrire seulement l''expression en $x$.'
         solution: 2x - 1
         auteur: Brouillon IA (Claude)
@@ -93,11 +132,48 @@ competences:
         correction:
           methode: Une tangente horizontale a un coefficient directeur nul.
           etapes:
-          - $f'(x) = 2x - 4 = 0$ donne $x = 2$.
+          - 'Une tangente horizontale a une pente nulle : on cherche $x$ tel que $f''(x) = 0$.'
+          - '$f''(x) = 2x - 4$.'
+          - '$2x - 4 = 0 \iff x = 2$ : la tangente est horizontale au point d''abscisse $2$.'
           resultat: 2
+      - code: 1RE-DER-NB-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, b: {entre: [-6, 6]}, c: {entre: [-9, 9]}, t: {entre: [-3, 3]}}
+          calculs: {d: "2*a*t + b"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. Calculer $f''([[t]])$.'
+        solution: '[[d]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Dériver, puis remplacer $x$ par la valeur.'
+          etapes:
+          - '$f''(x) = [[2*a]]x [[b:+]]$.'
+          - '$f''([[t]]) = [[2*a]] \times ([[t]]) [[b:+]] = [[d]]$.'
+          resultat: '[[d]]'
+      - code: 1RE-DER-NB-V2
+        difficulte: 4
+        type: expression
+        forme: reduite
+        gabarit:
+          parametres: {a: {entre: [-2, 3], sauf: [0]}, b: {entre: [-5, 5]}, t: {entre: [-2, 3]}}
+          calculs: {m: "2*a*t + b", y0: "a*t*t + b*t", p: "a*t*t + b*t - (2*a*t + b)*t"}
+          conditions: ["m != 0"]
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x$. Donner l''équation réduite de la tangente à sa courbe au point d''abscisse $[[t]]$ (réponse : l''expression de $y$).'
+        solution: '[[m]]x [[p:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Tangente : $y = f''(a)(x - a) + f(a)$.'
+          etapes:
+          - '$f([[t]]) = [[y0]]$ et $f''(x) = [[2*a]]x [[b:+]]$, donc $f''([[t]]) = [[m]]$.'
+          - '$y = [[m]](x [[-t:+]]) [[y0:+]]$.'
+          - 'En développant : $y = [[m:coef]]x [[p:+]]$.'
+          resultat: '[[m]]x [[p:+]]'
 
   - code: 1RE-DER-CALC
     libelle: Calculer une fonction dérivée
+    attendus: [1RE-SPE-2026-DER-05, 1RE-SPE-2026-DER-06, 1RE-SPE-2026-DER-07, 1RE-SPE-2026-DER-08, 1RE-SPE-2026-DER-15, 1RE-SPE-2026-DER-18, 1RE-SPE-2026-DER-19]
+    cours_couvre: [1RE-SPE-2026-DER-05, 1RE-SPE-2026-DER-06, 1RE-SPE-2026-DER-07, 1RE-SPE-2026-DER-08, 1RE-SPE-2026-DER-15, 1RE-SPE-2026-DER-18, 1RE-SPE-2026-DER-19]
     objectifs:
     - Calculer la dérivée d'une somme, d'un produit, d'un quotient et de x ↦ g(ax + b).
     prerequis:
@@ -120,25 +196,63 @@ competences:
     - erreur: Inverser le numérateur de la formule du quotient.
       explication: 'C''est $u''v - uv''$ dans cet ordre : l''inverser change le signe du résultat.'
     resume: |
-      - $(x^n)' = nx^{n-1}$ ; $\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$ ; $(\sqrt x)' = \dfrac{1}{2\sqrt x}$.
-      - $(u + v)' = u' + v'$ ; $(ku)' = ku'$.
-      - $(uv)' = u'v + uv'$ ; $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$.
-      - $\big(g(ax + b)\big)' = a\,g'(ax + b)$.
+      - Dérivées usuelles : $(k)' = 0$, $(x)' = 1$, $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(x^n)' = nx^{n-1}$ ($n \in \mathbb{Z}$), $\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$, $(\sqrt x)' = \dfrac{1}{2\sqrt x}$ ($x > 0$).
+      - $(u + v)' = u' + v'$, $(ku)' = ku'$, $(uv)' = u'v + uv'$.
+      - $\left(\dfrac{1}{v}\right)' = -\dfrac{v'}{v^2}$ et $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$ là où $v \neq 0$.
+      - $(g(ax + b))' = a\,g'(ax + b)$.
     cours: |
-      ## Polynômes
-      $(3x^2 - 5x + 2)' = 6x - 5$.
+      ## 1. Fonction dérivée
 
-      ## Produit
-      $f(x) = (2x + 1)(x - 3)$ : $u' = 2$, $v' = 1$, donc $f'(x) = 2(x - 3) + (2x + 1) = 4x - 5$.
+      **Définition.** $f$ est **dérivable sur un intervalle $I$** si elle est dérivable en tout réel $a$ de $I$. La fonction $x \mapsto f'(x)$ est alors la **fonction dérivée** de $f$, notée $f'$.
 
-      ## Quotient
-      $f(x) = \dfrac{x + 1}{x - 2}$ : $f'(x) = \dfrac{1 \times (x - 2) - (x + 1) \times 1}{(x - 2)^2} = \dfrac{-3}{(x - 2)^2}$.
+      ## 2. Dérivées des fonctions de référence
 
-      ## Composée affine
-      $f(x) = \sqrt{2x + 3}$ : $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
+      > **Propriété.**
+      >
+      > | $f(x)$ | $f'(x)$ | Dérivable sur |
+      > |---|---|---|
+      > | $k$ (constante) | $0$ | $\mathbb{R}$ |
+      > | $mx + p$ | $m$ | $\mathbb{R}$ |
+      > | $x^2$ | $2x$ | $\mathbb{R}$ |
+      > | $x^3$ | $3x^2$ | $\mathbb{R}$ |
+      > | $x^n$ ($n \in \mathbb{Z}$, $n \neq 0$) | $nx^{n-1}$ | $\mathbb{R}$ si $n > 0$, $\mathbb{R}^*$ si $n < 0$ |
+      > | $\dfrac{1}{x}$ | $-\dfrac{1}{x^2}$ | $]-\infty ; 0[$ et $]0 ; +\infty[$ |
+      > | $\sqrt x$ | $\dfrac{1}{2\sqrt x}$ | $]0 ; +\infty[$ |
 
-      ## Erreur fréquente
-      $(uv)' \neq u'v'$ : la dérivée d'un produit n'est pas le produit des dérivées.
+      **Démonstration (carré, exigible).** $\dfrac{(a + h)^2 - a^2}{h} = \dfrac{2ah + h^2}{h} = 2a + h$, qui tend vers $2a$ : $f'(a) = 2a$.
+
+      **Démonstration (inverse, exigible).** Pour $a \neq 0$ et $h$ petit avec $a + h \neq 0$ :
+      $$\frac{\frac{1}{a + h} - \frac{1}{a}}{h} = \frac{a - (a + h)}{h\,a(a + h)} = \frac{-1}{a(a + h)},$$
+      qui tend vers $-\dfrac{1}{a^2}$.
+
+      ## 3. Opérations
+
+      > **Propriété.** Si $u$ et $v$ sont dérivables sur $I$ et $k$ est un réel :
+      > - $(u + v)' = u' + v'$ et $(ku)' = ku'$ ;
+      > - $(uv)' = u'v + uv'$ ;
+      > - si $v$ ne s'annule pas sur $I$ : $\left(\dfrac{1}{v}\right)' = -\dfrac{v'}{v^2}$ et $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$ ;
+      > - $x \mapsto g(ax + b)$ a pour dérivée $x \mapsto a\,g'(ax + b)$.
+
+      **Démonstration du produit (exigible).** Le taux de variation de $uv$ en $a$ s'écrit
+      $$\frac{u(a + h)v(a + h) - u(a)v(a)}{h} = \frac{u(a + h) - u(a)}{h}\,v(a + h) + u(a)\,\frac{v(a + h) - v(a)}{h}.$$
+      Quand $h$ tend vers $0$, le premier quotient tend vers $u'(a)$, $v(a + h)$ tend vers $v(a)$ ($v$ dérivable donc continue, admis) et le second quotient vers $v'(a)$ : $(uv)'(a) = u'(a)v(a) + u(a)v'(a)$.
+
+      ## 4. Méthode : calculer une dérivée
+
+      1. Reconnaître la **structure** de l'expression : somme, produit, quotient, $g(ax + b)$.
+      2. Nommer $u$, $v$, calculer $u'$, $v'$ à part.
+      3. Appliquer la formule, puis **simplifier** (factoriser si l'on veut étudier un signe).
+
+      *Exemple complet.* $f(x) = \dfrac{x^2}{x - 1}$ sur $]1 ; +\infty[$. $u = x^2$, $u' = 2x$, $v = x - 1$, $v' = 1$.
+      $$f'(x) = \frac{2x(x - 1) - x^2}{(x - 1)^2} = \frac{x^2 - 2x}{(x - 1)^2} = \frac{x(x - 2)}{(x - 1)^2}.$$
+
+      *Autres exemples.* $(5x^4 - 3x + 2)' = 20x^3 - 3$ ; $\left(\dfrac{1}{x^3}\right)' = (x^{-3})' = -3x^{-4} = -\dfrac{3}{x^4}$ ; $((2x - 1)^3)' = 2 \times 3(2x - 1)^2 = 6(2x - 1)^2$.
+
+      ## 5. Erreurs fréquentes
+
+      - Écrire $(uv)' = u'v'$ : faux, par exemple $(x \cdot x)' = 2x$ et non $1$.
+      - Inverser le numérateur du quotient : c'est $u'v - uv'$, dans cet ordre.
+      - Oublier le facteur $a$ dans $(g(ax + b))'$.
     questions:
       - code: 1RE-DER-CALC-01
         difficulte: 1
@@ -169,7 +283,9 @@ competences:
         correction:
           methode: $(uv)' = u'v + uv'$ (ou développer d'abord).
           etapes:
-          - $f'(x) = 2(x - 3) + (2x + 1) \times 1 = 4x - 5$.
+          - '$f = uv$ avec $u(x) = 2x + 1$, $u''(x) = 2$, $v(x) = x - 3$, $v''(x) = 1$.'
+          - 'Formule du produit : $f'' = u''v + uv''$, donc $f''(x) = 2(x - 3) + (2x + 1) \times 1$.'
+          - 'On développe et on réduit : $f''(x) = 2x - 6 + 2x + 1 = 4x - 5$.'
           resultat: 4x - 5
       - code: 1RE-DER-CALC-04
         difficulte: 4
@@ -191,5 +307,146 @@ competences:
         correction:
           methode: $(g(ax + b))' = a\,g'(ax + b)$ avec $g = \sqrt{\phantom{x}}$, $g'(t) = \dfrac{1}{2\sqrt{t}}$.
           etapes:
-          - $f'(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.
+          - '$f(x) = \sqrt{u(x)}$ avec $u(x) = 2x + 3$ : c''est la composée de $x \mapsto 2x + 3$ et de la racine carrée, de la forme $g(ax + b)$ avec $g(t) = \sqrt t$, $a = 2$.'
+          - '$(g(ax + b))'' = a\,g''(ax + b)$ et $g''(t) = \dfrac{1}{2\sqrt t}$ pour $t > 0$ (ici $2x + 3 > 0$).'
+          - '$f''(x) = 2 \times \dfrac{1}{2\sqrt{2x + 3}} = \dfrac{1}{\sqrt{2x + 3}}$.'
           resultat: 1/sqrt(2x + 3)
+      - code: 1RE-DER-CALC-V1
+        difficulte: 2
+        type: expression
+        gabarit:
+          parametres: {a: {entre: [-4, 5], sauf: [0]}, b: {entre: [-6, 6], sauf: [0]}, c: {entre: [-9, 9]}, d: {entre: [-9, 9]}}
+        enonce: 'Dériver $f(x) = [[a:coef]]x^3 [[b:+]]x^2 [[c:+]]x [[d:+]]$.'
+        solution: '[[3*a]]x^2 [[2*b:+]]x [[c:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$(x^n)'' = nx^{n-1}$, et la dérivée d''une somme est la somme des dérivées.'
+          etapes:
+          - '$([[a:coef]]x^3)'' = [[3*a]]x^2$ et $([[b:coef]]x^2)'' = [[2*b]]x$.'
+          - '$([[c]]x)'' = [[c]]$ et la constante a une dérivée nulle.'
+          - '$f''(x) = [[3*a]]x^2 [[2*b:+]]x [[c:+]]$.'
+          resultat: '[[3*a]]x^2 [[2*b:+]]x [[c:+]]'
+
+  - code: 1RE-DER-LOCAL
+    libelle: Utiliser l'approximation affine et étudier la dérivabilité en un point
+    attendus: [1RE-SPE-2026-DER-04, 1RE-SPE-2026-DER-09, 1RE-SPE-2026-DER-14, 1RE-SPE-2026-DER-17]
+    cours_couvre: [1RE-SPE-2026-DER-04, 1RE-SPE-2026-DER-09, 1RE-SPE-2026-DER-14, 1RE-SPE-2026-DER-17]
+    objectifs:
+    - Approcher $f(a + h)$ par $f(a) + f'(a)h$ pour $h$ proche de $0$.
+    - Montrer qu'une fonction n'est pas dérivable en un point (racine carrée, valeur absolue en $0$).
+    prerequis:
+    - 1RE-DER-NB
+    methodes:
+    - titre: Calculer une valeur approchée avec la tangente
+      quand: On veut une valeur approchée de $f(a + h)$ avec $h$ petit.
+      etapes:
+      - Calculer $f(a)$ et $f'(a)$.
+      - Écrire $f(a + h) \approx f(a) + f'(a)h$.
+      exemple:
+        enonce: Valeur approchée de $\sqrt{4{,}1}$.
+        resolution:
+        - $f(x) = \sqrt{x}$, $a = 4$, $h = 0{,}1$ ; $f(4) = 2$, $f'(4) = \dfrac{1}{2\sqrt{4}} = \dfrac{1}{4}$.
+        - $\sqrt{4{,}1} \approx 2 + \dfrac{1}{4} \times 0{,}1 = 2{,}025$.
+        resultat: $2{,}025$ (valeur exacte $\approx 2{,}0248$)
+    erreurs_frequentes:
+    - erreur: Croire qu'une fonction définie en $a$ est forcément dérivable en $a$.
+      explication: $x \mapsto \sqrt{x}$ est définie en $0$ mais son taux de variation $\dfrac{1}{\sqrt{h}}$ n'a pas de limite finie.
+    resume: |
+      - **Fonction affine tangente** en $a$ : $x \mapsto f(a) + f'(a)(x - a)$ ; près de $a$, la courbe et la tangente se confondent presque.
+      - **Approximation** : pour $h$ proche de $0$, $f(a + h) \approx f(a) + f'(a)h$.
+      - La racine carrée n'est **pas dérivable en $0$** : son taux de variation $\dfrac{1}{\sqrt h}$ tend vers $+\infty$ (tangente verticale).
+      - La valeur absolue n'est **pas dérivable en $0$** : taux $1$ à droite, $-1$ à gauche.
+    cours: |
+      ## 1. Approximation affine
+
+      Près du point $A(a ; f(a))$, la courbe d'une fonction dérivable est très proche de sa tangente.
+
+      > **Définition.** La **fonction affine tangente** à $f$ en $a$ est $x \mapsto f(a) + f'(a)(x - a)$.
+
+      > **Propriété.** Pour $h$ proche de $0$ : $$f(a + h) \approx f(a) + f'(a)\,h.$$
+
+      Justification : $\dfrac{f(a + h) - f(a)}{h}$ est proche de $f'(a)$ quand $h$ est petit, donc $f(a + h) - f(a) \approx f'(a)h$. L'erreur commise est d'autant plus petite que $h$ est petit (elle est « négligeable devant $h$ »).
+
+      ## 2. Méthode : calculer une valeur approchée de $f(a + h)$
+
+      1. Choisir $a$ proche du nombre voulu, où $f(a)$ et $f'(a)$ se calculent facilement.
+      2. Calculer $f(a)$ et $f'(a)$.
+      3. Appliquer $f(a + h) \approx f(a) + f'(a)h$.
+
+      *Exemple complet.* Valeur approchée de $\sqrt{4{,}1}$. On prend $f(x) = \sqrt x$, $a = 4$, $h = 0{,}1$.
+      $f(4) = 2$, $f'(x) = \dfrac{1}{2\sqrt x}$ donc $f'(4) = \dfrac{1}{4}$.
+      $\sqrt{4{,}1} \approx 2 + \dfrac{1}{4} \times 0{,}1 = 2{,}025$ (la calculatrice donne $2{,}0248\ldots$).
+
+      *Autre exemple.* $(1 + h)^3 \approx 1 + 3h$ pour $h$ petit : $1{,}02^3 \approx 1{,}06$ (valeur exacte $1{,}061208$).
+
+      ## 3. Une fonction peut ne pas être dérivable
+
+      > **Propriété (exigible).** La fonction racine carrée est définie en $0$ mais n'est **pas dérivable en $0$**.
+
+      **Démonstration.** Pour $h > 0$ : $\dfrac{\sqrt{0 + h} - \sqrt 0}{h} = \dfrac{\sqrt h}{h} = \dfrac{1}{\sqrt h}$. Quand $h$ tend vers $0$, $\sqrt h$ tend vers $0$ et $\dfrac{1}{\sqrt h}$ devient aussi grand qu'on veut : le taux ne tend pas vers un réel. La courbe admet en l'origine une tangente **verticale**.
+
+      > **Propriété.** La fonction valeur absolue $x \mapsto |x|$ n'est **pas dérivable en $0$**.
+
+      **Démonstration.** $\dfrac{|0 + h| - |0|}{h} = \dfrac{|h|}{h}$ vaut $1$ si $h > 0$ et $-1$ si $h < 0$. Le taux n'a pas de limite unique quand $h$ tend vers $0$. Graphiquement, la courbe forme un « angle » en $0$ : deux demi-tangentes de pentes $1$ et $-1$.
+
+      En revanche $|x|$ est dérivable sur $]0 ; +\infty[$ (dérivée $1$) et sur $]-\infty ; 0[$ (dérivée $-1$).
+
+      ## 4. Erreurs fréquentes
+
+      - Utiliser l'approximation avec $h$ grand : $\sqrt{9} \approx 2 + \dfrac{5}{4}$ (avec $a = 4$, $h = 5$) donne $3{,}25$ au lieu de $3$.
+      - Croire qu'une fonction définie en un point y est forcément dérivable.
+      - Oublier de multiplier $f'(a)$ par $h$.
+    questions:
+      - code: 1RE-DER-LOCAL-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $f(2) = 5$ et $f''(2) = 3$. Donner l''approximation affine de $f(2{,}1)$.'
+        solution: 5.3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(2 + 0{,}1) \approx 5 + 3 \times 0{,}1 = 5{,}3$.
+          resultat: 5.3
+      - code: 1RE-DER-LOCAL-02
+        difficulte: 2
+        type: numerique
+        enonce: 'À l''aide de l''approximation $(1 + h)^2 \approx 1 + 2h$, donner une valeur approchée de $1{,}01^2$.'
+        solution: 1.02
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $h = 0{,}01$ $:$ $1 + 2 \times 0{,}01 = 1{,}02$.
+          resultat: 1.02
+      - code: 1RE-DER-LOCAL-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Donner l''approximation affine de $\sqrt{4{,}1}$ obtenue avec la tangente à la courbe de $x \mapsto \sqrt{x}$ en $4$.'
+        solution: 2.025
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $f(4) = 2$ et $f'(4) = \dfrac{1}{2\sqrt{4}} = \dfrac{1}{4}$.
+          - $\sqrt{4{,}1} \approx 2 + \dfrac{0{,}1}{4} = 2{,}025$.
+          resultat: 2.025
+      - code: 1RE-DER-LOCAL-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Pour $h > 0$, le taux de variation de $x \mapsto \sqrt{x}$ entre $0$ et $h$ vaut $\dfrac{1}{\sqrt{h}}$. Que peut-on en conclure ? A) La fonction racine est dérivable en $0$, de nombre dérivé $0$  B) La fonction racine n''est pas dérivable en $0$  C) La fonction racine n''est pas définie en $0$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Quand $h$ tend vers $0$, $\dfrac{1}{\sqrt{h}}$ devient infiniment grand $:$ pas de limite finie.
+          - La fonction est définie en $0$ mais n'y est pas dérivable (tangente verticale).
+          resultat: B
+      - code: 1RE-DER-LOCAL-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Pourquoi la fonction valeur absolue n''est-elle pas dérivable en $0$ ? A) Parce que $|0| = 0$  B) Parce que le taux $\dfrac{|h|}{h}$ vaut $1$ pour $h > 0$ et $-1$ pour $h < 0$  C) Parce qu''elle n''est pas définie pour $x < 0$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - À droite, le taux tend vers $1$ ; à gauche, vers $-1$.
+          - Il n'y a pas de limite unique $:$ pas de nombre dérivé en $0$.
+          resultat: B

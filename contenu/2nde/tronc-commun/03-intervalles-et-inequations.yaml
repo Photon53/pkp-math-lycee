@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 2NDE-INT
     libelle: Utiliser les intervalles et la valeur absolue
+    attendus: [2NDE-2026-REELS-02, 2NDE-2026-REELS-03, 2NDE-2026-REELS-04, 2NDE-2026-REELS-08]
+    cours_couvre: [2NDE-2026-REELS-02, 2NDE-2026-REELS-03, 2NDE-2026-REELS-04, 2NDE-2026-REELS-08]
     objectifs:
     - Traduire une inégalité par un intervalle, et inversement.
     - Utiliser la valeur absolue comme une distance.
@@ -27,31 +29,61 @@ competences:
     - erreur: Confondre crochet ouvert et fermé.
       explication: « $<$ » exclut la borne (crochet tourné vers l'extérieur), « $\leq$ » l'inclut.
     resume: |
-      - $[a ; b]$ : $a \le x \le b$ ; $]a ; b[$ : $a < x < b$ ; le crochet tourné vers l'extérieur exclut la borne.
-      - $[a ; +\infty[$ : $x \ge a$ ; l'infini est toujours exclu.
-      - $I \cap J$ : les réels dans $I$ **et** dans $J$ ; $I \cup J$ : dans $I$ **ou** dans $J$.
-      - $|x - a| \le r \iff a - r \le x \le a + r$ (distance de $x$ à $a$ au plus $r$).
+      - $[a ; b]$ : réels $x$ tels que $a \leqslant x \leqslant b$ ; le crochet tourné vers l'extérieur, comme dans $]a ; b]$, exclut la borne.
+      - Du côté de $+\infty$ ou $-\infty$, le crochet est toujours ouvert : $[a ; +\infty[$, $]-\infty ; a]$.
+      - $|a|$ est la distance de $a$ à $0$ ; $|a - b|$ est la distance entre $a$ et $b$.
+      - $|x - a| \leqslant r \iff x \in [a - r ; a + r]$ (avec $r \geqslant 0$).
+      - Intersection $\cap$ : nombres dans les deux ensembles ; réunion $\cup$ : nombres dans l'un au moins.
     cours: |
-      ## Intervalles
-      Un intervalle est l'ensemble des réels compris entre deux bornes.
+      ## 1. Intervalles de $\mathbb{R}$
+      Soit $a$ et $b$ deux réels avec $a < b$.
 
-      | Inégalité | Intervalle |
-      |---|---|
-      | $a \le x \le b$ | $[a ; b]$ |
-      | $a < x \le b$ | $]a ; b]$ |
-      | $x > a$ | $]a ; +\infty[$ |
-      | $x \le b$ | $]-\infty ; b]$ |
+      | Intervalle | Réels $x$ tels que | Représentation |
+      |---|---|---|
+      | $[a ; b]$ | $a \leqslant x \leqslant b$ | segment, bornes incluses |
+      | $]a ; b[$ | $a < x < b$ | bornes exclues |
+      | $[a ; b[$ | $a \leqslant x < b$ | $a$ inclus, $b$ exclu |
+      | $[a ; +\infty[$ | $x \geqslant a$ | demi-droite vers la droite |
+      | $]-\infty ; b[$ | $x < b$ | demi-droite vers la gauche |
 
-      ## Intersection et réunion
-      $[1 ; 6] \cap [4 ; 9] = [4 ; 6]$ et $[1 ; 6] \cup [4 ; 9] = [1 ; 9]$.
-      Une représentation sur une droite graduée évite les erreurs.
+      Sur la droite numérique, un crochet tourné vers l'intervalle signifie que la borne est **incluse**, tourné vers l'extérieur qu'elle est **exclue**. Les symboles $+\infty$ et $-\infty$ ne sont pas des nombres : le crochet y est toujours ouvert. On note $\mathbb{R} = ]-\infty ; +\infty[$.
 
-      ## Valeur absolue
-      $|x - a|$ est la **distance** entre $x$ et $a$. Ainsi $|x - 3| \le 2$ signifie que $x$ est à distance au plus $2$ de $3$ :
-      $$|x - 3| \le 2 \iff 1 \le x \le 5 \iff x \in [1 ; 5]$$
+      ### Méthode : savoir si un nombre appartient à un intervalle
+      1. Traduire l'intervalle par une double inégalité.
+      2. Comparer le nombre aux bornes, en faisant attention aux bornes exclues.
 
-      ## Erreur fréquente
-      Écrire $[5 ; 2]$ : la plus petite borne s'écrit toujours à gauche.
+      Exemple : $\sqrt{5} \approx 2{,}236$, donc $\sqrt{5} \in [2 ; 3[$ ; mais $3 \notin [2 ; 3[$.
+
+      ## 2. Intersection et réunion
+      - L'**intersection** $I \cap J$ contient les réels qui sont **à la fois** dans $I$ et dans $J$.
+      - La **réunion** $I \cup J$ contient les réels qui sont dans $I$ **ou** dans $J$ (ou dans les deux).
+
+      **Exemple.** Avec $I = [-2 ; 5[$ et $J = [1 ; 8]$ : $I \cap J = [1 ; 5[$ et $I \cup J = [-2 ; 8]$. Sur un dessin, on trace les deux intervalles l'un au-dessus de l'autre et on lit la partie commune.
+
+      ## 3. Valeur absolue et distance
+      > **Définition.** La **valeur absolue** d'un réel $a$, notée $|a|$, est la distance entre le point d'abscisse $a$ et l'origine sur la droite numérique : $|a| = a$ si $a \geqslant 0$ et $|a| = -a$ si $a < 0$.
+
+      > **Propriété.** La distance entre deux réels $a$ et $b$ est $|a - b| = |b - a|$.
+
+      Exemples : $|-7| = 7$ ; la distance entre $-3$ et $4$ est $|4 - (-3)| = 7$.
+
+      ## 4. Inéquation $|x - a| \leqslant r$
+      > **Propriété.** Soit $r \geqslant 0$. $|x - a| \leqslant r \iff a - r \leqslant x \leqslant a + r \iff x \in [a - r ; a + r]$.
+
+      En effet, $|x - a| \leqslant r$ signifie que la distance entre $x$ et $a$ est au plus $r$ : $x$ est dans l'intervalle de **centre** $a$ et de **rayon** $r$.
+
+      **Exemple complet.** Résoudre $|x + 1| \leqslant 3$.
+      - On écrit $|x + 1| = |x - (-1)|$ : distance entre $x$ et $-1$.
+      - Centre $a = -1$, rayon $r = 3$ : $-1 - 3 \leqslant x \leqslant -1 + 3$.
+      - $S = [-4 ; 2]$.
+
+      Inversement, l'intervalle $[2 ; 10]$ a pour centre $\dfrac{2 + 10}{2} = 6$ et pour rayon $\dfrac{10 - 2}{2} = 4$ : c'est l'ensemble des $x$ tels que $|x - 6| \leqslant 4$.
+
+      ## 5. Erreurs fréquentes
+      - Fermer un crochet en $+\infty$ : $[3 ; +\infty]$ n'a pas de sens.
+      - Confondre intersection et réunion.
+      - Lire $|x + 1|$ comme la distance entre $x$ et $1$ : c'est la distance entre $x$ et $-1$.
+      - Écrire un intervalle avec les bornes dans le mauvais ordre, comme $[5 ; 2]$.
     questions:
       - code: 2NDE-INT-01
         difficulte: 1
@@ -83,7 +115,9 @@ competences:
         correction:
           methode: L'intersection contient les nombres qui sont dans les deux intervalles à la fois.
           etapes:
-          - Les nombres à la fois entre $1$ et $6$ et entre $4$ et $9$ sont entre $4$ et $6$.
+          - 'On traduit chaque intervalle : $x \in [1 ; 6]$ signifie $1 \leqslant x \leqslant 6$, et $x \in [4 ; 9]$ signifie $4 \leqslant x \leqslant 9$.'
+          - 'L''intersection contient les nombres qui vérifient les deux conditions : il faut $x \geqslant 1$ et $x \geqslant 4$, donc $x \geqslant 4$ ; il faut $x \leqslant 6$ et $x \leqslant 9$, donc $x \leqslant 6$.'
+          - 'D''où $[1 ; 6] \cap [4 ; 9] = [4 ; 6]$ : réponse B. L''intervalle $[1 ; 9]$ est la réunion, pas l''intersection.'
           resultat: B
       - code: 2NDE-INT-04
         difficulte: 4
@@ -94,7 +128,9 @@ competences:
         correction:
           methode: $|x - a| \leq r$ équivaut à $x \in [a - r ; a + r]$.
           etapes:
-          - '$a = 3$, $r = 2$ : $x \in [1 ; 5]$.'
+          - '$|x - 3|$ est la distance entre $x$ et $3$ sur la droite numérique.'
+          - '$|x - 3| \leqslant 2$ signifie que $x$ est à une distance au plus $2$ de $3$ : $3 - 2 \leqslant x \leqslant 3 + 2$.'
+          - 'L''ensemble des solutions est $[1 ; 5]$ : intervalle de centre $3$ et de rayon $2$, donc $b = 5$.'
           resultat: 5
       - code: 2NDE-INT-05
         difficulte: 5
@@ -111,6 +147,8 @@ competences:
 
   - code: 2NDE-INEQ1
     libelle: Résoudre une inéquation du premier degré
+    attendus: [2NDE-2026-ALG-03, 2NDE-2026-ALG-05, 2NDE-2026-ALG-13]
+    cours_couvre: [2NDE-2026-ALG-03, 2NDE-2026-ALG-05, 2NDE-2026-ALG-13]
     objectifs:
     - Résoudre une inéquation du premier degré et écrire ses solutions avec un intervalle.
     prerequis:
@@ -132,23 +170,54 @@ competences:
     - erreur: Garder le sens de l'inégalité en divisant par un nombre négatif.
       explication: 'Multiplier ou diviser par un négatif inverse l''ordre : $2 < 3$ mais $-2 > -3$.'
     resume: |
-      - On peut ajouter ou soustraire un même nombre aux deux membres.
-      - Multiplier ou diviser par un nombre **positif** conserve le sens de l'inégalité.
-      - Multiplier ou diviser par un nombre **négatif** **change** le sens.
-      - On donne l'ensemble des solutions sous forme d'intervalle.
+      - Ajouter un même nombre aux deux membres conserve le sens d'une inégalité.
+      - Multiplier par un nombre **strictement positif** conserve le sens ; par un nombre **strictement négatif**, on **change** le sens.
+      - On peut additionner membre à membre deux inégalités de même sens.
+      - Si $a > 0$ : $ax + b > 0 \iff x > -\dfrac{b}{a}$ ; si $a < 0$ : $ax + b > 0 \iff x < -\dfrac{b}{a}$.
+      - L'ensemble des solutions s'écrit sous forme d'intervalle.
     cours: |
-      ## Méthode
-      On isole $x$ comme pour une équation, en surveillant le sens de l'inégalité.
+      ## 1. Règles sur les inégalités
+      > **Propriété.** Soit $a$, $b$ et $c$ des réels avec $a < b$.
+      > - $a + c < b + c$ (ajouter un même nombre conserve l'ordre) ;
+      > - si $c > 0$ : $ac < bc$ (multiplier par un positif conserve l'ordre) ;
+      > - si $c < 0$ : $ac > bc$ (multiplier par un négatif **inverse** l'ordre).
 
-      ## Exemple
-      $$-2x + 3 \le 9 \iff -2x \le 6 \iff x \ge -3$$
-      On a divisé par $-2 < 0$ : le sens change. Solutions : $[-3 ; +\infty[$.
+      **Justification.** $(b + c) - (a + c) = b - a > 0$. De même, $bc - ac = (b - a)c$ est du signe de $c$, car $b - a > 0$.
 
-      ## Avec des fractions
-      On multiplie d'abord par le dénominateur commun (positif) pour se ramener à des entiers.
+      **Lien avec les fonctions affines.** La fonction $x \mapsto cx$ est croissante si $c > 0$ et décroissante si $c < 0$ : une fonction croissante conserve l'ordre, une fonction décroissante l'inverse.
 
-      ## Mise en équation
-      Comparer deux tarifs revient à résoudre une inéquation : le tarif A est moins cher que le tarif B lorsque $\text{prix}_A < \text{prix}_B$.
+      > **Propriété (somme d'inégalités).** Si $a < b$ et $c < d$, alors $a + c < b + d$.
+
+      En effet $a + c < b + c$ et $b + c < b + d$. Attention : on ne peut **pas** soustraire ni multiplier membre à membre sans précaution.
+
+      ## 2. Inéquations du premier degré
+      Une **inéquation** est une inégalité contenant une inconnue ; la **résoudre**, c'est trouver l'ensemble de ses solutions, souvent un intervalle.
+
+      > **Propriété.** Soit $a \neq 0$ et $b$ réels. Si $a > 0$, l'ensemble des solutions de $ax + b > 0$ est $\left]-\dfrac{b}{a} ; +\infty\right[$ ; si $a < 0$, c'est $\left]-\infty ; -\dfrac{b}{a}\right[$.
+
+      ### Méthode : résoudre $ax + b \geqslant cx + d$
+      1. Regrouper les termes en $x$ dans un membre et les constantes dans l'autre (le sens ne change pas).
+      2. Réduire pour obtenir $kx \geqslant m$.
+      3. Diviser par $k$ : garder le sens si $k > 0$, le **changer** si $k < 0$.
+      4. Écrire l'ensemble des solutions sous forme d'intervalle, en choisissant bien les crochets.
+
+      **Exemple complet.** Résoudre $3 - 4x \geqslant x + 13$.
+      - On soustrait $x$ et $3$ : $-5x \geqslant 10$.
+      - On divise par $-5 < 0$, donc on change le sens : $x \leqslant -2$.
+      - $S = ]-\infty ; -2]$. Contrôle avec $x = -3$ : $3 + 12 = 15 \geqslant 10$, c'est vrai.
+
+      ## 3. Modéliser un problème par une inéquation
+      1. Choisir l'inconnue et préciser ce qu'elle représente (et son unité).
+      2. Traduire la phrase de l'énoncé (« au moins », « ne dépasse pas »…) par une inégalité.
+      3. Résoudre, puis interpréter dans le contexte (par exemple garder les entiers si l'inconnue est un nombre d'objets).
+
+      **Exemple.** Un abonnement coûte $12$ € par mois plus $0{,}5$ € par trajet ; sans abonnement, le trajet coûte $2$ €. On note $n$ le nombre de trajets dans le mois. L'abonnement est avantageux si $12 + 0{,}5n < 2n$, soit $12 < 1{,}5n$, donc $n > 8$ : à partir de $9$ trajets.
+
+      ## 4. Erreurs fréquentes
+      - Oublier de changer le sens en divisant par un nombre négatif.
+      - Changer le sens en **soustrayant** un nombre : seule la multiplication ou la division par un négatif change le sens.
+      - Se tromper de crochet : avec $\geqslant$ ou $\leqslant$, la borne est incluse.
+      - Soustraire membre à membre deux inégalités.
     questions:
       - code: 2NDE-INEQ1-01
         difficulte: 1

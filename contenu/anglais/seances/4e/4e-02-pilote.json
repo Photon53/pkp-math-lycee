@@ -1,0 +1,138 @@
+{
+  "code": "4E-02",
+  "level": "4e",
+  "school_year": "2026-2027",
+  "title": "Planning a weekend together",
+  "objective": "Proposer une activité, exprimer une préférence, négocier un programme et justifier un choix.",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "fiches imprimées",
+    "tableau",
+    "chronomètre"
+  ],
+  "model_text": "A: What shall we do on Saturday? B: We could visit the park. A: I'd rather go to the cinema because it's raining. B: How about the museum? A: That's a good idea! Let's meet at two.",
+  "language_toolkit": [
+    "We could + verb",
+    "How about + -ing?",
+    "I'd rather + verb",
+    "Let's + verb",
+    "because"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Diagnostic en binômes",
+      "duration_minutes": 8,
+      "student_instruction": "Suggest one activity for Saturday and answer your partner.",
+      "facilitator_instruction": "Observer l'aisance sans interrompre."
+    },
+    {
+      "order": 2,
+      "title": "Comprendre un dialogue modèle",
+      "duration_minutes": 12,
+      "student_instruction": "Read the dialogue. Underline two suggestions and circle the final agreement.",
+      "facilitator_instruction": "Lire le dialogue à deux voix; faire repérer suggestion et accord."
+    },
+    {
+      "order": 3,
+      "title": "Structures utiles",
+      "duration_minutes": 12,
+      "student_instruction": "Match each expression with suggest, prefer, agree or disagree.",
+      "facilitator_instruction": "Modéliser could + base verbale et How about + -ing."
+    },
+    {
+      "order": 4,
+      "title": "Entraînement A/B/C",
+      "duration_minutes": 20,
+      "student_instruction": "Complete the activity for your track.",
+      "facilitator_instruction": "Distribuer les trois niveaux; proposer aides à la demande."
+    },
+    {
+      "order": 5,
+      "title": "Préparation en binômes",
+      "duration_minutes": 13,
+      "student_instruction": "Plan a weekend with a partner; agree on two activities.",
+      "facilitator_instruction": "Exiger deux propositions, une préférence et une justification."
+    },
+    {
+      "order": 6,
+      "title": "Jeux de rôle simultanés",
+      "duration_minutes": 17,
+      "student_instruction": "Act out your conversation, then change one constraint.",
+      "facilitator_instruction": "Observer plusieurs binômes; recueillir une trace courte pour les autres."
+    },
+    {
+      "order": 7,
+      "title": "Retour collectif",
+      "duration_minutes": 5,
+      "student_instruction": "Correct the three most common errors.",
+      "facilitator_instruction": "Anonymiser les erreurs et reformuler."
+    },
+    {
+      "order": 8,
+      "title": "Exit ticket",
+      "duration_minutes": 3,
+      "student_instruction": "Write one suggestion and one polite response.",
+      "facilitator_instruction": "Collecter la trace de fin."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete: We could ___ (visit) the park. How about ___ (go) swimming? I'd rather ___ (watch) a film. Then use the dialogue frame to agree on one activity.",
+      "facilitator_correction": "visit; going; watch. Accepter plusieurs activités si cohérentes."
+    },
+    {
+      "track": "B",
+      "student_content": "With a partner, plan two Saturday activities. Make three suggestions, express one preference and give a reason. Write a six-line dialogue.",
+      "facilitator_correction": "Réponse ouverte; vérifier propositions, préférence, justification et accord final."
+    },
+    {
+      "track": "C",
+      "student_content": "Plan a weekend for two friends with different budgets and weather preferences. Negotiate two activities, offer an alternative and justify your final decision.",
+      "facilitator_correction": "Réponse ouverte; vérifier négociation, contraintes prises en compte, reformulations et accord."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "Propose au moins une activité intelligible",
+      "Exprime une préférence et une raison",
+      "Réagit à une proposition",
+      "Conclut un accord"
+    ]
+  },
+  "common_errors": [
+    {
+      "error": "We could to go",
+      "remediation": "Après could, utiliser la base verbale sans to."
+    },
+    {
+      "error": "How about go",
+      "remediation": "How about + forme en -ing."
+    },
+    {
+      "error": "I prefer go",
+      "remediation": "I prefer to go / I prefer going."
+    },
+    {
+      "error": "Réponse sans justification",
+      "remediation": "Ajouter because + proposition."
+    },
+    {
+      "error": "Dialogue sans accord final",
+      "remediation": "Terminer par Let's… / OK, let's…"
+    }
+  ],
+  "source_objectives": [
+    "4E-02"
+  ],
+  "license": "Contenu original PKP, validation humaine obligatoire avant remise au bénévole"
+}

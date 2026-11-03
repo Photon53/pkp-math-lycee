@@ -7,28 +7,14 @@ chapitre:
 competences:
 - code: 1RE-TEC-POLY2
   libelle: Exploiter la forme factorisée d'un polynôme du second degré
+  attendus: [1RE-TEC-2026-ANA-13, 1RE-TEC-2026-ANA-14, 1RE-TEC-2026-ANA-18, 1RE-TEC-2026-ANA-19, 1RE-TEC-2026-ANA-20, 1RE-TEC-2026-ANA-21, 1RE-TEC-2026-ANA-22]
+  cours_couvre: [1RE-TEC-2026-ANA-13, 1RE-TEC-2026-ANA-14, 1RE-TEC-2026-ANA-18, 1RE-TEC-2026-ANA-19, 1RE-TEC-2026-ANA-20, 1RE-TEC-2026-ANA-21, 1RE-TEC-2026-ANA-22]
   objectifs:
   - Lire racines, axe de symétrie et sommet à partir de la forme factorisée.
   - Calculer un taux de variation.
   prerequis:
   - 2NDE-CARRE
   - 1RE-TEC-CALC
-  resume: |
-    - $f(x) = a(x - x_1)(x - x_2)$ : racines $x_1$, $x_2$, axe $x = \dfrac{x_1 + x_2}{2}$.
-    - Sommet : point de la courbe sur l'axe de symétrie.
-    - Taux de variation entre $a$ et $b$ : $\dfrac{f(b) - f(a)}{b - a}$.
-  cours: |
-    ## Exemple
-    $f(x) = 3(x - 1)(x - 5)$ :
-    - racines $1$ et $5$ ;
-    - axe de symétrie $x = 3$ ;
-    - sommet $(3 ; f(3)) = (3 ; -12)$ ; comme $a = 3 > 0$, c'est un minimum.
-
-    ## Signe
-    $-(x - 2)(x - 6)$ : $a = -1 < 0$, l'expression est positive entre les racines $2$ et $6$.
-
-    ## Taux de variation
-    Pour $f(x) = x^2$ entre $1$ et $3$ : $\dfrac{9 - 1}{3 - 1} = 4$.
   methodes:
   - titre: Trouver le sommet à partir de la forme factorisée
     etapes:
@@ -43,6 +29,59 @@ competences:
   erreurs_frequentes:
   - erreur: Lire la racine $2$ dans $(x + 2)$.
     explication: $x + 2 = 0$ donne $x = -2$.
+  resume: |
+    - Courbe de $x \mapsto ax^2 + bx + c$ : une **parabole**, « vers le haut » si $a > 0$, « vers le bas » si $a < 0$.
+    - Elle a un **axe de symétrie** vertical qui passe par le **sommet** ; on le trouve avec deux points de même ordonnée (par exemple en résolvant $f(x) = c$).
+    - Forme factorisée $a(x - x_1)(x - x_2)$ : racines $x_1$ et $x_2$ ; signe de $a$ à l'extérieur des racines, de $-a$ entre elles.
+    - Si $x_1$ est une racine connue, on factorise $ax^2 + bx + c = a(x - x_1)(x - x_2)$ en cherchant $x_2$.
+  cours: |
+    ## 1. Paraboles de référence
+
+    > **Propriété.** La courbe d'une fonction polynôme de degré 2, $f(x) = ax^2 + bx + c$ avec $a \neq 0$, est une **parabole**.
+    > - Si $a > 0$, elle est « tournée vers le haut » : $f$ décroît puis croît, le sommet est un minimum.
+    > - Si $a < 0$, elle est « tournée vers le bas » : $f$ croît puis décroît, le sommet est un maximum.
+
+    | Expression | Sommet | Axe de symétrie | Racines |
+    |---|---|---|---|
+    | $ax^2$ | $(0 ; 0)$ | $x = 0$ | $0$ |
+    | $ax^2 + b$ | $(0 ; b)$ | $x = 0$ | selon le signe de $-\dfrac{b}{a}$ |
+    | $a(x - x_1)(x - x_2)$ | abscisse $\dfrac{x_1 + x_2}{2}$ | $x = \dfrac{x_1 + x_2}{2}$ | $x_1$ et $x_2$ |
+
+    ## 2. Axe de symétrie et sommet
+
+    La parabole est symétrique par rapport à une droite verticale passant par son sommet : deux points de même ordonnée sont symétriques par rapport à cet axe, qui passe par le **milieu** de leurs abscisses.
+
+    > **Méthode (sans formule).** Pour $f(x) = ax^2 + bx + c$ : on résout $f(x) = c$, c'est-à-dire $ax^2 + bx = 0$, soit $x(ax + b) = 0$ : $x = 0$ ou $x = -\dfrac{b}{a}$. L'axe passe par le milieu de ces deux valeurs ; l'ordonnée du sommet s'obtient en calculant $f$ en cette abscisse.
+
+    *Exemple.* $f(x) = 2x^2 - 8x + 1$ : $f(x) = 1 \iff 2x(x - 4) = 0 \iff x = 0$ ou $x = 4$. Axe : $x = 2$ ; sommet $(2 ; f(2)) = (2 ; -7)$ ; $a = 2 > 0$ : minimum $-7$.
+
+    ## 3. Racines et forme factorisée
+
+    **Vérifier qu'un nombre est racine.** $x_1$ est racine de $f$ si $f(x_1) = 0$ : on remplace et on calcule.
+
+    **Factoriser connaissant une racine.** Si $x_1$ est racine de $ax^2 + bx + c$, alors $f(x) = a(x - x_1)(x - x_2)$. On trouve $x_2$ en développant et en identifiant, ou grâce à la symétrie (les racines sont symétriques par rapport à l'axe).
+
+    *Exemple.* $f(x) = x^2 - 2x - 8$ : $f(4) = 16 - 8 - 8 = 0$, donc $4$ est racine. $f(x) = (x - 4)(x - x_2)$ et le terme constant donne $-4 \times (-x_2) = -8$, soit $x_2 = -2$. Donc $f(x) = (x - 4)(x + 2)$.
+
+    ## 4. Signe d'une forme factorisée
+
+    > **Propriété.** $a(x - x_1)(x - x_2)$ avec $x_1 < x_2$ est du signe de $a$ sur $]-\infty ; x_1[$ et sur $]x_2 ; +\infty[$, du signe de $-a$ sur $]x_1 ; x_2[$, nul en $x_1$ et $x_2$.
+
+    On le retrouve avec un tableau de signes des deux facteurs.
+
+    ## 5. Exemple complet
+
+    $f(x) = -2(x - 1)(x - 5)$.
+    - Racines : $1$ et $5$ ; $a = -2 < 0$ : parabole tournée vers le bas.
+    - Axe : $x = \dfrac{1 + 5}{2} = 3$ ; sommet : $f(3) = -2 \times 2 \times (-2) = 8$ ; maximum $8$ atteint en $3$.
+    - Variations : croissante sur $]-\infty ; 3]$, décroissante sur $[3 ; +\infty[$.
+    - Signe : $f(x) > 0$ sur $]1 ; 5[$, $f(x) < 0$ sur $]-\infty ; 1[ \cup ]5 ; +\infty[$.
+
+    ## 6. Erreurs fréquentes
+
+    - Lire la racine de $(x + 2)$ comme $2$ : c'est $-2$.
+    - Oublier le coefficient $a$ dans la forme factorisée, ou ignorer son signe.
+    - Placer l'axe de symétrie ailleurs qu'au milieu des racines.
   questions:
   - code: 1RE-TEC-POLY2-01
     difficulte: 1
@@ -72,7 +111,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - Axe $x = 3$ ; $f(3) = 3 \times 2 \times (-2) = -12$.
+      - 'Les racines sont $1$ et $5$ ; par symétrie, l''axe de la parabole passe par leur milieu : $x = \dfrac{1 + 5}{2} = 3$.'
+      - 'Le sommet a pour abscisse $3$ ; son ordonnée est $f(3) = 3(3 - 1)(3 - 5)$.'
+      - '$f(3) = 3 \times 2 \times (-2) = -12$.'
       resultat: '-12'
   - code: 1RE-TEC-POLY2-04
     difficulte: 4
@@ -82,7 +123,9 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - '$a = -1 < 0$ : signe de $-a$, donc positif, entre les racines.'
+      - 'Les racines sont $2$ et $6$ et le coefficient de $x^2$ est $a = -1 < 0$.'
+      - 'La forme factorisée $a(x - x_1)(x - x_2)$ est du signe de $a$ à l''extérieur des racines et du signe opposé entre elles.'
+      - 'Donc $-(x - 2)(x - 6)$ est positive sur $[2 ; 6]$ (réponse A). Vérification : en $x = 4$, $-(2)(-2) = 4 > 0$.'
       resultat: A
   - code: 1RE-TEC-POLY2-05
     difficulte: 5
@@ -92,5 +135,174 @@ competences:
     auteur: Brouillon IA (Claude)
     correction:
       etapes:
-      - $\dfrac{f(3) - f(1)}{3 - 1} = \dfrac{9 - 1}{2} = 4$.
+      - 'Taux de variation entre $a$ et $b$ : $\dfrac{f(b) - f(a)}{b - a}$.'
+      - '$f(1) = 1$ et $f(3) = 9$.'
+      - '$\dfrac{9 - 1}{3 - 1} = \dfrac{8}{2} = 4$.'
       resultat: '4'
+  - code: 1RE-TEC-POLY2-V1
+    difficulte: 3
+    type: numerique
+    gabarit:
+      parametres: {a: {entre: [-3, 3], sauf: [0]}, r: {entre: [-6, 6]}, s: {entre: [-6, 6]}}
+      calculs: {h: "(r + s)/2"}
+      conditions: ["r != s"]
+    enonce: 'Soit $f(x) = [[a:coef]](x [[-r:+]])(x [[-s:+]])$. Quelle est l''abscisse du sommet de sa parabole ?'
+    solution: '[[h]]'
+    auteur: Brouillon IA (Claude)
+    correction:
+      methode: 'Le sommet est sur l''axe de symétrie, au milieu des deux racines.'
+      etapes:
+      - 'Racines : $[[r]]$ et $[[s]]$.'
+      - 'Abscisse du sommet : $\dfrac{[[r]] + ([[s]])}{2} = [[h]]$.'
+      resultat: '[[h]]'
+
+- code: 1RE-TEC-FONC
+  libelle: Modéliser par une fonction et utiliser le taux de variation
+  attendus: [1RE-TEC-2026-ANA-11, 1RE-TEC-2026-ANA-12, 1RE-TEC-2026-ANA-15, 1RE-TEC-2026-ANA-16, 1RE-TEC-2026-ANA-17, 1RE-TEC-2026-ANA-23]
+  cours_couvre: [1RE-TEC-2026-ANA-11, 1RE-TEC-2026-ANA-12, 1RE-TEC-2026-ANA-15, 1RE-TEC-2026-ANA-16, 1RE-TEC-2026-ANA-17, 1RE-TEC-2026-ANA-23]
+  objectifs:
+  - Modéliser la dépendance entre deux grandeurs par une fonction.
+  - Calculer et interpréter un taux de variation comme la pente d'une sécante.
+  - Résoudre graphiquement ou par balayage une équation $f(x) = k$.
+  methodes:
+  - titre: Calculer un taux de variation
+    quand: On compare l'évolution d'une grandeur entre deux valeurs de la variable.
+    etapes:
+    - Calculer $f(a)$ et $f(b)$.
+    - Taux de variation $:$ $\dfrac{f(b) - f(a)}{b - a}$.
+    - L'interpréter comme la pente de la droite passant par les points d'abscisses $a$ et $b$.
+    exemple:
+      enonce: $f(x) = x^2$ entre $1$ et $3$.
+      resolution:
+      - $f(1) = 1$ et $f(3) = 9$.
+      - $\dfrac{9 - 1}{3 - 1} = 4$.
+      resultat: $4$
+  erreurs_frequentes:
+  - erreur: Diviser par $f(b) - f(a)$ au lieu de $b - a$.
+    explication: Le taux mesure la variation de $f$ par unité de la variable $x$.
+  resume: |
+    - Une fonction se donne par une **expression** $f(x)$ ou une **courbe** ; on note $y = f(x)$ ou $x \mapsto f(x)$.
+    - **Taux de variation** entre $x_1$ et $x_2$ : $\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$ ; c'est la **pente de la sécante**.
+    - Taux positif sur tout intervalle : fonction croissante ; négatif : décroissante.
+    - $f(x) = k$ se résout graphiquement (intersection avec $y = k$) ou par **balayage** pour obtenir une valeur approchée.
+  cours: |
+    ## 1. Modes de représentation
+
+    Une **fonction** $f$ associe à chaque nombre $x$ de son ensemble de définition un unique nombre $f(x)$, son **image**. Notations : $x \mapsto f(x)$, ou $y = f(x)$ quand $y$ est une grandeur qui dépend de $x$.
+    - **Expression littérale** : $f(x) = 0{,}5x^2 + 3$.
+    - **Représentation graphique** : l'ensemble des points $(x ; f(x))$.
+    - **Tableau de valeurs** (calculatrice, tableur).
+
+    *Modéliser.* Un taxi facture $4$ € de prise en charge et $1{,}20$ € par km : le prix pour $x$ km est $P(x) = 1{,}2x + 4$.
+
+    ## 2. Taux de variation
+
+    > **Définition.** Le **taux de variation** de $f$ entre $x_1$ et $x_2$ ($x_1 \neq x_2$) est $$\frac{f(x_2) - f(x_1)}{x_2 - x_1}.$$
+    > Graphiquement, c'est le **coefficient directeur (pente) de la sécante** passant par les points $A(x_1 ; f(x_1))$ et $B(x_2 ; f(x_2))$.
+
+    En contexte, c'est une **variation moyenne** par unité : une vitesse moyenne (km/h), une hausse moyenne de température par minute…
+
+    > **Propriété.** Une fonction est **croissante** sur un intervalle si tous ses taux de variation entre deux nombres de cet intervalle sont positifs, **décroissante** s'ils sont tous négatifs. Elle est **monotone** si elle est croissante ou décroissante.
+
+    ## 3. Résolution graphique
+
+    - $f(x) = k$ : abscisses des points d'intersection de la courbe avec la droite horizontale $y = k$.
+    - $f(x) > k$ (resp. $< k$) : abscisses des points de la courbe au-dessus (resp. au-dessous) de cette droite.
+
+    ## 4. Balayage
+
+    > **Méthode.** Pour approcher une solution de $f(x) = k$ quand $f$ est monotone sur un intervalle : on calcule $f(x)$ pour des valeurs de $x$ espacées d'un **pas** (1, puis $0{,}1$, puis $0{,}01$…) jusqu'à trouver deux valeurs consécutives qui encadrent $k$.
+
+    ```python
+    def balayage(pas):
+        x = 0
+        while x**2 < 7:
+            x = x + pas
+        return x - pas, x
+    ```
+    `balayage(0.1)` renvoie environ $(2{,}6 ; 2{,}7)$ : $2{,}6^2 = 6{,}76 < 7 < 7{,}29 = 2{,}7^2$, donc la solution positive de $x^2 = 7$ est entre $2{,}6$ et $2{,}7$.
+
+    ## 5. Exemple complet
+
+    La distance parcourue par un cycliste est $d(t) = 0{,}25t^2 + 10t$ (en km, $t$ en heures, $0 \leqslant t \leqslant 4$).
+    - Taux de variation entre $t = 0$ et $t = 2$ : $\dfrac{d(2) - d(0)}{2} = \dfrac{21 - 0}{2} = 10{,}5$ km/h (vitesse moyenne).
+    - Entre $t = 2$ et $t = 4$ : $\dfrac{44 - 21}{2} = 11{,}5$ km/h : le cycliste accélère.
+    - Les taux sont positifs : $d$ est croissante. Quand a-t-il parcouru $30$ km ? Par balayage : $d(2{,}7) \approx 28{,}8$ et $d(2{,}8) = 29{,}96$, $d(2{,}9) \approx 31{,}1$ : entre $2{,}8$ h et $2{,}9$ h.
+
+    ## 6. Erreurs fréquentes
+
+    - Inverser numérateur et dénominateur dans le taux de variation.
+    - Donner une valeur de $f(x)$ au lieu de $x$ comme solution d'une équation.
+    - Arrêter le balayage trop tôt, ou encadrer $k$ au lieu d'encadrer $x$.
+  questions:
+    - code: 1RE-TEC-FONC-01
+      difficulte: 1
+      type: expression
+      enonce: 'Un taxi facture $4$ € de prise en charge et $1{,}5$ € par km. Exprimer le prix $f(x)$ d''une course de $x$ km.'
+      solution: 1.5x + 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - Partie fixe $4$, partie proportionnelle $1{,}5x$.
+        resultat: 1.5x + 4
+    - code: 1RE-TEC-FONC-02
+      difficulte: 2
+      type: numerique
+      enonce: 'Calculer le taux de variation de $f(x) = x^2$ entre $1$ et $3$.'
+      solution: 4
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - $\dfrac{9 - 1}{3 - 1} = 4$.
+        resultat: 4
+    - code: 1RE-TEC-FONC-03
+      difficulte: 3
+      type: numerique
+      enonce: 'La température d''un four passe de $20$ °C à $200$ °C en $12$ minutes. Quel est son taux de variation moyen, en °C par minute ?'
+      solution: 15
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'Taux de variation moyen : $\dfrac{\text{variation de température}}{\text{durée}}$.'
+        - 'Variation : $200 - 20 = 180$ °C, en $12$ minutes.'
+        - '$\dfrac{180}{12} = 15$ °C par minute.'
+        resultat: 15
+    - code: 1RE-TEC-FONC-04
+      difficulte: 4
+      type: qcm
+      enonce: 'On résout $x^2 = 5$ par balayage avec un pas de $0{,}1$ : $2{,}2^2 = 4{,}84$ et $2{,}3^2 = 5{,}29$. Quel encadrement de la solution positive obtient-on ? A) $2{,}2 < x < 2{,}3$  B) $2{,}3 < x < 2{,}4$  C) $4{,}84 < x < 5{,}29$'
+      solution: A
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'La fonction $x \mapsto x^2$ est croissante sur $[0 ; +\infty[$ : on cherche entre quelles valeurs du balayage on dépasse $5$.'
+        - '$2{,}2^2 = 4{,}84 < 5$ et $2{,}3^2 = 5{,}29 > 5$.'
+        - 'La solution positive est donc comprise entre $2{,}2$ et $2{,}3$ (réponse A ; l''encadrement porte sur $x$, pas sur $x^2$).'
+        resultat: A
+    - code: 1RE-TEC-FONC-05
+      difficulte: 5
+      type: numerique
+      enonce: 'Deux points d''une courbe ont pour coordonnées $(2 ; 7)$ et $(6 ; -5)$. Quelle est la pente de la sécante qui les relie ?'
+      solution: -3
+      auteur: Brouillon IA (Claude)
+      correction:
+        etapes:
+        - 'Pente de la sécante passant par $(x_A ; y_A)$ et $(x_B ; y_B)$ : $\dfrac{y_B - y_A}{x_B - x_A}$.'
+        - '$\dfrac{-5 - 7}{6 - 2} = \dfrac{-12}{4}$.'
+        - 'La pente vaut $-3$ : la courbe « descend » en moyenne entre ces deux points.'
+        resultat: -3
+    - code: 1RE-TEC-FONC-V1
+      difficulte: 3
+      type: numerique
+      gabarit:
+        parametres: {a: {entre: [-3, 3], sauf: [0]}, b: {entre: [-5, 5]}, x1: {entre: [-3, 1]}, x2: {entre: [2, 5]}}
+        calculs: {t: "a*(x1 + x2) + b"}
+      enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x$. Calculer le taux de variation de $f$ entre $[[x1]]$ et $[[x2]]$.'
+      solution: '[[t]]'
+      auteur: Brouillon IA (Claude)
+      correction:
+        methode: 'Taux de variation : $\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$.'
+        etapes:
+        - '$f([[x1]]) = [[a*x1*x1 + b*x1]]$ et $f([[x2]]) = [[a*x2*x2 + b*x2]]$.'
+        - '$\dfrac{[[a*x2*x2 + b*x2]] - ([[a*x1*x1 + b*x1]])}{[[x2]] - ([[x1]])} = \dfrac{[[a*x2*x2 + b*x2 - a*x1*x1 - b*x1]]}{[[x2 - x1]]} = [[t]]$.'
+        resultat: '[[t]]'

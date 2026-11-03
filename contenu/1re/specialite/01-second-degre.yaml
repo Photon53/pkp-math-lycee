@@ -12,6 +12,7 @@ competences:
   - code: 1RE-SD-FACTO-SIGNE
     libelle: Exploiter la forme factorisée (racines, signe, somme et produit)
     attendus: [1RE-SPE-2026-SD-01, 1RE-SPE-2026-SD-03, 1RE-SPE-2026-SD-04]
+    cours_couvre: [1RE-SPE-2026-SD-01, 1RE-SPE-2026-SD-03, 1RE-SPE-2026-SD-04]
     objectifs:
       - >-
         Lire les racines d'une fonction polynôme du second degré donnée sous la forme $a(x - x_1)(x - x_2)$.
@@ -20,37 +21,6 @@ competences:
       - >-
         Déterminer une fonction du second degré connaissant ses deux racines et un point de sa courbe.
     prerequis: [2NDE-SIGNE, 2NDE-EQ1]
-    resume: |
-      - Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, les racines de $f$ sont $x_1$ et $x_2$.
-      - $f(x)$ est **du signe de $a$ à l'extérieur des racines**, du signe contraire entre les racines.
-      - Somme des racines : $x_1 + x_2 = -\dfrac{b}{a}$ ; produit : $x_1 x_2 = \dfrac{c}{a}$.
-      - Les fonctions qui s'annulent en $x_1$ et $x_2$ sont les $x \mapsto a(x - x_1)(x - x_2)$, $a \neq 0$.
-    cours: |
-      ## Racines d'une forme factorisée
-      Une **racine** de $f$ est un nombre $x$ tel que $f(x) = 0$.
-      Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, un produit est nul si et seulement si l'un de ses facteurs est nul :
-      les racines sont $x_1$ et $x_2$.
-
-      $$f(x) = 3(x - 2)(x + 5) \quad\text{a pour racines}\quad 2 \text{ et } -5$$
-
-      ## Signe
-      En développant, $a(x - x_1)(x - x_2) = ax^2 - a(x_1 + x_2)x + a x_1 x_2$.
-      Avec $x_1 < x_2$, le tableau de signes des deux facteurs donne :
-
-      | $x$ | $-\infty$ … $x_1$ | $x_1$ … $x_2$ | $x_2$ … $+\infty$ |
-      |---|:-:|:-:|:-:|
-      | $f(x)$ | signe de $a$ | signe de $-a$ | signe de $a$ |
-
-      **À retenir :** « signe de $a$ à l'extérieur des racines ».
-
-      ## Somme et produit des racines
-      En identifiant avec $ax^2 + bx + c$ : $b = -a(x_1 + x_2)$ et $c = a x_1 x_2$, donc
-      $$x_1 + x_2 = -\frac{b}{a} \qquad x_1 x_2 = \frac{c}{a}$$
-
-      ## Fonctions s'annulant en deux nombres donnés
-      Les fonctions polynômes du second degré qui s'annulent en $x_1$ et $x_2$ (distincts) sont exactement
-      les fonctions $x \mapsto a(x - x_1)(x - x_2)$ avec $a \neq 0$. Une condition de plus (un point de la courbe)
-      permet de trouver $a$.
     methodes:
       - titre: Étudier le signe d'une forme factorisée
         quand: >-
@@ -106,6 +76,68 @@ competences:
           Oublier le signe de $a$ dans le tableau de signes.
         explication: >-
           Avec $a < 0$, tout le tableau s'inverse : $f$ est alors positif entre les racines.
+    resume: |
+      - Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, les **racines** de $f$ sont $x_1$ et $x_2$ (produit nul).
+      - **Somme et produit** des racines : $x_1 + x_2 = -\dfrac{b}{a}$ et $x_1 x_2 = \dfrac{c}{a}$ pour $f(x) = ax^2 + bx + c$.
+      - **Signe** : $a(x - x_1)(x - x_2)$ est du signe de $a$ à l'extérieur des racines, du signe de $-a$ entre elles.
+      - Les fonctions du second degré qui s'annulent en $x_1$ et $x_2$ sont les $x \mapsto a(x - x_1)(x - x_2)$, $a \neq 0$.
+    cours: |
+      ## 1. Forme factorisée et racines
+
+      **Définition.** Une fonction polynôme du second degré est une fonction $f$ définie sur $\mathbb{R}$ par $f(x) = ax^2 + bx + c$ avec $a \neq 0$. Une **racine** de $f$ est un réel $x_0$ tel que $f(x_0) = 0$.
+
+      Lorsque $f$ s'écrit $f(x) = a(x - x_1)(x - x_2)$ (forme **factorisée**), on lit directement ses racines.
+
+      > **Propriété.** Si $f(x) = a(x - x_1)(x - x_2)$ avec $a \neq 0$, alors $f(x) = 0 \iff x = x_1$ ou $x = x_2$.
+
+      *Justification.* Un produit est nul si et seulement si l'un de ses facteurs est nul, et $a \neq 0$.
+
+      ## 2. Somme et produit des racines
+
+      En développant $a(x - x_1)(x - x_2) = ax^2 - a(x_1 + x_2)x + ax_1x_2$ et en identifiant avec $ax^2 + bx + c$ :
+
+      > **Propriété.** Si $f(x) = ax^2 + bx + c$ a deux racines $x_1$ et $x_2$ (éventuellement égales), alors
+      > $$x_1 + x_2 = -\frac{b}{a} \qquad \text{et} \qquad x_1 x_2 = \frac{c}{a}.$$
+
+      *Utilisation.* Connaissant une racine, on trouve l'autre : pour $2x^2 - 7x + 3$, $x_1 = 3$ est racine ($18 - 21 + 3 = 0$) et $x_1x_2 = \dfrac{3}{2}$ donne $x_2 = \dfrac{1}{2}$.
+
+      ## 3. Polynômes s'annulant en deux réels donnés
+
+      > **Propriété.** Soient $x_1 \neq x_2$ deux réels. Les fonctions polynômes du second degré qui s'annulent en $x_1$ et en $x_2$ sont exactement les fonctions $x \mapsto a(x - x_1)(x - x_2)$ avec $a \neq 0$.
+
+      Pour déterminer $a$, on utilise une information supplémentaire (un point de la courbe, l'ordonnée à l'origine…).
+
+      *Exemple.* La parabole coupe l'axe des abscisses en $-1$ et $3$ et passe par $(0 ; 6)$ : $f(x) = a(x + 1)(x - 3)$ et $f(0) = -3a = 6$, donc $a = -2$ et $f(x) = -2(x + 1)(x - 3)$.
+
+      ## 4. Signe d'une forme factorisée
+
+      On dresse un tableau de signes : chaque facteur du premier degré change de signe en sa racine.
+
+      > **Propriété.** Pour $x_1 < x_2$, $f(x) = a(x - x_1)(x - x_2)$ est
+      > - du signe de $a$ sur $]-\infty ; x_1[$ et sur $]x_2 ; +\infty[$ ;
+      > - du signe de $-a$ sur $]x_1 ; x_2[$ ;
+      > - nul en $x_1$ et $x_2$.
+
+      *Exemple complet.* Signe de $f(x) = -3(x - 1)(x + 2)$. Racines : $-2$ et $1$ ; $a = -3 < 0$.
+
+      | $x$ | $-\infty$ | | $-2$ | | $1$ | | $+\infty$ |
+      |---|---|---|---|---|---|---|---|
+      | $f(x)$ | | $-$ | $0$ | $+$ | $0$ | $-$ | |
+
+      Donc $f(x) > 0 \iff x \in ]-2 ; 1[$.
+
+      ## 5. Méthode : étudier le signe d'un trinôme factorisé
+
+      1. Lire les racines $x_1$, $x_2$ et le signe de $a$.
+      2. Placer les racines dans l'ordre croissant.
+      3. Appliquer la règle « signe de $a$ à l'extérieur, de $-a$ entre les racines », ou faire un tableau avec chaque facteur.
+      4. Vérifier avec une valeur test (par exemple $x = 0$).
+
+      ## 6. Erreurs fréquentes
+
+      - Lire la racine de $(x + 2)$ comme $2$ : c'est $-2$.
+      - Oublier le coefficient $a$ (en particulier son signe) dans le tableau de signes.
+      - Écrire $f(x) = (x - x_1)(x - x_2)$ sans chercher $a$ : il existe une infinité de paraboles passant par deux points de l'axe.
     questions:
       - code: 1RE-SD-FACTO-SIGNE-01
         difficulte: 1
@@ -268,38 +300,32 @@ competences:
           resultat: 14
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-SD-FACTO-SIGNE-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-4, 4], sauf: [0]}, r: {entre: [-7, 7]}, s: {entre: [-7, 7]}}
+          calculs: {p: "r*s"}
+          conditions: ["r != s"]
+        enonce: 'Soit $f(x) = [[a:coef]](x [[-r:+]])(x [[-s:+]])$. Calculer le produit des racines de $f$.'
+        solution: '[[p]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Lire les racines sur la forme factorisée.'
+          etapes:
+          - 'Les racines sont $[[r]]$ et $[[s]]$ (chaque facteur s''annule).'
+          - 'Produit : $[[r]] \times ([[s]]) = [[p]]$.'
+          resultat: '[[p]]'
   - code: 1RE-SD-CANON
     libelle: Déterminer et utiliser la forme canonique
     attendus: [1RE-SPE-2026-SD-02]
+    cours_couvre: [1RE-SPE-2026-SD-02]
     objectifs:
       - >-
         Obtenir la forme canonique par complétion du carré, dans des cas simples.
       - >-
         En déduire le sommet de la parabole et l'extremum de la fonction.
     prerequis: [2NDE-DEV, 2NDE-CARRE]
-    resume: |
-      - Forme canonique : $f(x) = a(x - \alpha)^2 + \beta$, avec $\alpha = -\dfrac{b}{2a}$ et $\beta = f(\alpha)$.
-      - Complétion du carré : $x^2 + 2kx = (x + k)^2 - k^2$.
-      - Le sommet de la parabole est $S(\alpha ; \beta)$.
-      - Si $a > 0$, $\beta$ est le **minimum** de $f$ ; si $a < 0$, c'est son **maximum**, atteint en $\alpha$.
-    cours: |
-      ## Forme canonique
-      Toute fonction polynôme du second degré $f(x) = ax^2 + bx + c$ ($a \neq 0$) peut s'écrire
-      $$f(x) = a(x - \alpha)^2 + \beta$$
-      C'est la **forme canonique**. On a $\alpha = -\dfrac{b}{2a}$ et $\beta = f(\alpha)$.
-
-      ## Complétion du carré
-      L'identité $x^2 + 2kx = (x + k)^2 - k^2$ permet d'obtenir la forme canonique :
-      $$x^2 + 6x + 1 = (x + 3)^2 - 9 + 1 = (x + 3)^2 - 8$$
-      Si $a \neq 1$, on factorise d'abord par $a$ les termes en $x^2$ et en $x$ :
-      $$2x^2 - 12x + 11 = 2(x^2 - 6x) + 11 = 2\big[(x - 3)^2 - 9\big] + 11 = 2(x - 3)^2 - 7$$
-
-      ## Sommet et extremum
-      Un carré est toujours positif : $(x - \alpha)^2 \geq 0$, nul seulement pour $x = \alpha$.
-      - si $a > 0$, $f(x) \geq \beta$ : $\beta$ est le minimum de $f$, atteint en $\alpha$ ;
-      - si $a < 0$, $f(x) \leq \beta$ : $\beta$ est le maximum de $f$, atteint en $\alpha$.
-
-      La courbe est une **parabole** de sommet $S(\alpha ; \beta)$ et d'axe de symétrie la droite $x = \alpha$.
     methodes:
       - titre: Écrire la forme canonique par complétion du carré
         quand: >-
@@ -332,6 +358,53 @@ competences:
           Lire $\alpha = 2$ dans $(x + 2)^2$.
         explication: >-
           $(x + 2)^2 = (x - (-2))^2$ : ici $\alpha = -2$.
+    resume: |
+      - Toute fonction $f(x) = ax^2 + bx + c$ ($a \neq 0$) s'écrit sous **forme canonique** $f(x) = a(x - \alpha)^2 + \beta$.
+      - $\alpha = -\dfrac{b}{2a}$ et $\beta = f(\alpha)$ ; le **sommet** de la parabole est $S(\alpha ; \beta)$ et l'axe de symétrie est $x = \alpha$.
+      - Si $a > 0$ : $f$ décroissante puis croissante, minimum $\beta$ ; si $a < 0$ : croissante puis décroissante, maximum $\beta$.
+      - $\beta = -\dfrac{\Delta}{4a}$ avec $\Delta = b^2 - 4ac$ (discriminant).
+    cours: |
+      ## 1. Forme canonique
+
+      > **Propriété.** Pour tout trinôme $f(x) = ax^2 + bx + c$ avec $a \neq 0$, il existe un unique couple $(\alpha ; \beta)$ tel que pour tout réel $x$ :
+      > $$f(x) = a(x - \alpha)^2 + \beta, \qquad \alpha = -\frac{b}{2a}, \qquad \beta = f(\alpha) = -\frac{\Delta}{4a}$$
+      > où $\Delta = b^2 - 4ac$ est le **discriminant**.
+
+      **Démonstration.** On factorise par $a$ puis on fait apparaître le début d'un carré :
+      $$f(x) = a\left(x^2 + \frac{b}{a}x\right) + c = a\left[\left(x + \frac{b}{2a}\right)^2 - \frac{b^2}{4a^2}\right] + c = a\left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a}.$$
+
+      ## 2. Méthode : mettre sous forme canonique
+
+      1. Calculer $\alpha = -\dfrac{b}{2a}$.
+      2. Calculer $\beta = f(\alpha)$ (plus simple que la formule avec $\Delta$).
+      3. Écrire $f(x) = a(x - \alpha)^2 + \beta$ et vérifier en développant.
+
+      *Exemple complet.* $f(x) = 2x^2 - 12x + 7$. $\alpha = -\dfrac{-12}{4} = 3$ ; $\beta = f(3) = 18 - 36 + 7 = -11$. Donc $f(x) = 2(x - 3)^2 - 11$.
+      Vérification : $2(x^2 - 6x + 9) - 11 = 2x^2 - 12x + 7$.
+
+      *Autre méthode (complétion du carré)* : $x^2 + 6x + 1 = (x + 3)^2 - 9 + 1 = (x + 3)^2 - 8$.
+
+      ## 3. Sommet, axe de symétrie, variations
+
+      La courbe de $f$ est une **parabole** de sommet $S(\alpha ; \beta)$ ; elle est symétrique par rapport à la droite d'équation $x = \alpha$.
+
+      > **Propriété.**
+      > - Si $a > 0$, $f$ est décroissante sur $]-\infty ; \alpha]$ et croissante sur $[\alpha ; +\infty[$ : $\beta$ est le **minimum** de $f$.
+      > - Si $a < 0$, $f$ est croissante sur $]-\infty ; \alpha]$ et décroissante sur $[\alpha ; +\infty[$ : $\beta$ est le **maximum** de $f$.
+
+      *Justification pour $a > 0$.* $(x - \alpha)^2 \geqslant 0$, donc $f(x) \geqslant \beta = f(\alpha)$ pour tout $x$.
+
+      ## 4. Ce que la forme canonique permet de faire
+
+      - Lire l'extremum et le sommet (optimisation).
+      - Résoudre $f(x) = 0$ : $(x - \alpha)^2 = -\dfrac{\beta}{a}$, qui a des solutions seulement si $-\dfrac{\beta}{a} \geqslant 0$, c'est-à-dire $\Delta \geqslant 0$.
+      - Factoriser par l'identité $A^2 - B^2$ : $2(x - 3)^2 - 18 = 2[(x - 3)^2 - 9] = 2(x - 6)x$.
+
+      ## 5. Erreurs fréquentes
+
+      - Se tromper de signe : $(x + 3)^2$ correspond à $\alpha = -3$, pas à $3$.
+      - Oublier de factoriser par $a$ avant de compléter le carré.
+      - Confondre $\beta$ (ordonnée du sommet) et $c$ (ordonnée à l'origine).
     questions:
       - code: 1RE-SD-CANON-01
         difficulte: 1
@@ -484,9 +557,26 @@ competences:
           resultat: 25
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-SD-CANON-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 3], sauf: [0]}, h: {entre: [-5, 5]}, k: {entre: [-9, 9]}}
+          calculs: {b: "-2*a*h", c: "a*h*h + k"}
+        enonce: 'Soit $f(x) = [[a:coef]]x^2 [[b:+]]x [[c:+]]$. Quel est l''extremum de $f$ (ordonnée du sommet de la parabole) ?'
+        solution: '[[k]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Abscisse du sommet $\alpha = -\dfrac{b}{2a}$, puis $\beta = f(\alpha)$.'
+          etapes:
+          - '$\alpha = -\dfrac{[[b]]}{2 \times ([[a]])} = [[h]]$.'
+          - '$\beta = f([[h]]) = [[a]] \times ([[h]])^2 [[b:+]] \times ([[h]]) [[c:+]] = [[k]]$.'
+          - 'Forme canonique : $f(x) = [[a:coef]](x [[-h:+]])^2 [[k:+]]$.'
+          resultat: '[[k]]'
   - code: 1RE-DISC
     libelle: Résoudre une équation du second degré avec le discriminant
     attendus: [1RE-SPE-2026-SD-02, 1RE-SPE-2026-SD-07]
+    cours_couvre: [1RE-SPE-2026-SD-02, 1RE-SPE-2026-SD-07]
     objectifs:
       - >-
         Calculer le discriminant et en déduire le nombre de solutions.
@@ -495,37 +585,6 @@ competences:
       - >-
         Connaitre la démonstration des formules de résolution.
     prerequis: [1RE-SD-CANON]
-    resume: |
-      Pour $ax^2 + bx + c$ avec $a \neq 0$, on calcule $\Delta = b^2 - 4ac$.
-      - $\Delta > 0$ : deux racines $x_{1,2} = \dfrac{-b \pm \sqrt{\Delta}}{2a}$
-      - $\Delta = 0$ : une racine double $x_0 = -\dfrac{b}{2a}$
-      - $\Delta < 0$ : aucune racine réelle
-    cours: |
-      ## Le discriminant
-      Le nombre $\Delta = b^2 - 4ac$ détermine le nombre de solutions réelles de $ax^2 + bx + c = 0$.
-
-      | Signe de $\Delta$ | Solutions | Factorisation |
-      |---|---|---|
-      | $\Delta > 0$ | $x_1 = \dfrac{-b - \sqrt{\Delta}}{2a}$ et $x_2 = \dfrac{-b + \sqrt{\Delta}}{2a}$ | $a(x - x_1)(x - x_2)$ |
-      | $\Delta = 0$ | $x_0 = -\dfrac{b}{2a}$ | $a(x - x_0)^2$ |
-      | $\Delta < 0$ | aucune | impossible dans $\mathbb{R}$ |
-
-      ## Exemple
-      Pour $2x^2 - 3x - 2 = 0$ : $\Delta = (-3)^2 - 4 \times 2 \times (-2) = 9 + 16 = 25$.
-      Donc $x_1 = \dfrac{3 - 5}{4} = -\dfrac{1}{2}$ et $x_2 = \dfrac{3 + 5}{4} = 2$.
-
-      ## Démonstration (exigible)
-      On part de la forme canonique : pour $a \neq 0$,
-      $$ax^2 + bx + c = a\left[\left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a^2}\right] = a\left[\left(x + \frac{b}{2a}\right)^2 - \frac{\Delta}{4a^2}\right]$$
-      - Si $\Delta < 0$, le crochet est la somme d'un carré et d'un nombre strictement positif : il ne s'annule jamais.
-      - Si $\Delta = 0$, l'équation équivaut à $\left(x + \frac{b}{2a}\right)^2 = 0$, d'où $x_0 = -\frac{b}{2a}$.
-      - Si $\Delta > 0$, on reconnait une différence de deux carrés :
-        $\left(x + \frac{b}{2a}\right)^2 - \left(\frac{\sqrt{\Delta}}{2a}\right)^2 = \left(x + \frac{b - \sqrt{\Delta}}{2a}\right)\left(x + \frac{b + \sqrt{\Delta}}{2a}\right)$,
-        qui s'annule en $x_1$ et $x_2$.
-
-      ## Signe de $ax^2 + bx + c$
-      Si $\Delta > 0$, le polynôme est du signe de $a$ à l'extérieur des racines.
-      Si $\Delta \leq 0$, il est du signe de $a$ partout (et s'annule en $x_0$ si $\Delta = 0$).
     methodes:
       - titre: Résoudre une équation du second degré
         quand: >-
@@ -558,6 +617,61 @@ competences:
           Diviser seulement $\sqrt{\Delta}$ par $2a$.
         explication: >-
           Toute la somme $-b \pm \sqrt{\Delta}$ est divisée par $2a$.
+    resume: |
+      - Discriminant de $ax^2 + bx + c$ : $\Delta = b^2 - 4ac$.
+      - $\Delta > 0$ : deux racines $x_{1,2} = \dfrac{-b \pm \sqrt\Delta}{2a}$ et $f(x) = a(x - x_1)(x - x_2)$.
+      - $\Delta = 0$ : une racine double $x_0 = -\dfrac{b}{2a}$ et $f(x) = a(x - x_0)^2$ ; $\Delta < 0$ : aucune racine réelle, pas de factorisation.
+      - Signe : $f(x)$ est du signe de $a$, sauf entre les racines (quand $\Delta > 0$).
+    cours: |
+      ## 1. Discriminant
+
+      **Définition.** Le **discriminant** du trinôme $f(x) = ax^2 + bx + c$ ($a \neq 0$) est le réel $\Delta = b^2 - 4ac$.
+
+      D'après la forme canonique : $f(x) = a\left[\left(x + \dfrac{b}{2a}\right)^2 - \dfrac{\Delta}{4a^2}\right]$.
+
+      ## 2. Résolution de $ax^2 + bx + c = 0$
+
+      > **Théorème.**
+      > - Si $\Delta > 0$, l'équation a deux solutions distinctes $x_1 = \dfrac{-b - \sqrt\Delta}{2a}$ et $x_2 = \dfrac{-b + \sqrt\Delta}{2a}$.
+      > - Si $\Delta = 0$, elle a une unique solution (racine double) $x_0 = -\dfrac{b}{2a}$.
+      > - Si $\Delta < 0$, elle n'a pas de solution réelle.
+
+      **Démonstration (exigible).** Comme $a \neq 0$, $f(x) = 0 \iff \left(x + \dfrac{b}{2a}\right)^2 = \dfrac{\Delta}{4a^2}$.
+      - Si $\Delta < 0$, le membre de droite est strictement négatif alors qu'un carré est positif : pas de solution.
+      - Si $\Delta = 0$, l'équation devient $\left(x + \dfrac{b}{2a}\right)^2 = 0$, donc $x = -\dfrac{b}{2a}$.
+      - Si $\Delta > 0$, $\dfrac{\Delta}{4a^2} = \left(\dfrac{\sqrt\Delta}{2a}\right)^2$ et $A^2 = B^2 \iff A = B$ ou $A = -B$ : $x + \dfrac{b}{2a} = \pm\dfrac{\sqrt\Delta}{2a}$, d'où $x = \dfrac{-b \pm \sqrt\Delta}{2a}$.
+
+      ## 3. Factorisation
+
+      > **Propriété.** Si $\Delta > 0$ : $f(x) = a(x - x_1)(x - x_2)$. Si $\Delta = 0$ : $f(x) = a(x - x_0)^2$. Si $\Delta < 0$ : $f$ ne se factorise pas en produit de facteurs du premier degré.
+
+      ## 4. Signe du trinôme
+
+      > **Propriété.**
+      > - $\Delta > 0$ : $f(x)$ est du signe de $a$ à l'extérieur des racines, du signe de $-a$ entre elles.
+      > - $\Delta = 0$ : $f(x)$ est du signe de $a$ et s'annule seulement en $x_0$.
+      > - $\Delta < 0$ : $f(x)$ est du signe de $a$ pour tout réel $x$.
+
+      Graphiquement : la parabole coupe l'axe des abscisses en deux points, le touche en un point, ou ne le rencontre pas.
+
+      ## 5. Exemple complet
+
+      Résoudre $2x^2 - x - 6 \leqslant 0$.
+      - $\Delta = (-1)^2 - 4 \times 2 \times (-6) = 1 + 48 = 49 = 7^2$.
+      - $x_1 = \dfrac{1 - 7}{4} = -\dfrac{3}{2}$, $x_2 = \dfrac{1 + 7}{4} = 2$ ; $2x^2 - x - 6 = 2\left(x + \dfrac{3}{2}\right)(x - 2)$.
+      - $a = 2 > 0$ : le trinôme est négatif ou nul entre les racines. $S = \left[-\dfrac{3}{2} ; 2\right]$.
+
+      ## 6. Méthode
+
+      1. Écrire l'équation ou l'inéquation sous la forme $ax^2 + bx + c \ \square\ 0$ (tout d'un côté).
+      2. Identifier $a$, $b$, $c$ **avec leurs signes**, calculer $\Delta$.
+      3. Conclure sur les racines, puis sur le signe avec la règle du signe de $a$.
+
+      ## 7. Erreurs fréquentes
+
+      - Écrire $-b^2$ au lieu de $b^2$ : si $b = -3$, $b^2 = 9$.
+      - Diviser seulement $\sqrt\Delta$ par $2a$ : c'est tout le numérateur $-b \pm \sqrt\Delta$ qui est divisé.
+      - Chercher $\Delta$ quand une factorisation évidente existe ($x^2 - 4x = x(x - 4)$).
     questions:
       - code: 1RE-DISC-01
         difficulte: 1
@@ -683,40 +797,47 @@ competences:
           resultat: 7
 
   # ---------------------------------------------------------------------------------------------
+      - code: 1RE-DISC-V1
+        difficulte: 2
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [-3, 4], sauf: [0]}, b: {entre: [-9, 9]}, c: {entre: [-9, 9]}}
+          calculs: {d: "b*b - 4*a*c"}
+        enonce: 'Calculer le discriminant de $[[a:coef]]x^2 [[b:+]]x [[c:+]]$.'
+        solution: '[[d]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Discriminant : $\Delta = b^2 - 4ac$.'
+          etapes:
+          - '$a = [[a]]$, $b = [[b]]$, $c = [[c]]$.'
+          - '$\Delta = ([[b]])^2 - 4 \times ([[a]]) \times ([[c]]) = [[b*b]] [[-4*a*c:+]] = [[d]]$.'
+          resultat: '[[d]]'
+      - code: 1RE-DISC-V2
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {a: {entre: [1, 3]}, r: {entre: [-6, 6]}, s: {entre: [-6, 6]}}
+          calculs: {b: "-a*(r + s)", c: "a*r*s", g: "max(r, s)"}
+          conditions: ["r != s"]
+        enonce: 'Résoudre $[[a:coef]]x^2 [[b:+]]x [[c:+]] = 0$ et donner la plus grande solution.'
+        solution: '[[g]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Discriminant, puis formule des racines.'
+          etapes:
+          - '$\Delta = ([[b]])^2 - 4 \times [[a]] \times ([[c]]) = [[b*b - 4*a*c]] > 0$ : deux solutions.'
+          - '$x = \dfrac{[[-b]] \pm \sqrt{[[b*b - 4*a*c]]}}{[[2*a]]}$, soit $x = [[min(r, s)]]$ ou $x = [[g]]$.'
+          - 'Vérification : $[[a:coef]]x^2 [[b:+]]x [[c:+]] = [[a:coef]](x [[-r:+]])(x [[-s:+]])$.'
+          resultat: '[[g]]'
   - code: 1RE-SD-FACTO
     libelle: Factoriser en diversifiant les stratégies
     attendus: [1RE-SPE-2026-SD-05, 1RE-SPE-2026-SD-08]
+    cours_couvre: [1RE-SPE-2026-SD-05, 1RE-SPE-2026-SD-08]
     objectifs:
       - >-
         Choisir la stratégie de factorisation la plus rapide : racine évidente, somme et produit,
         identité remarquable, formules générales.
     prerequis: [2NDE-DEV, 1RE-DISC]
-    resume: |
-      - **Racine évidente** : tester $0$, $1$, $-1$, $2$… ; l'autre racine vient du produit $x_1 x_2 = \dfrac{c}{a}$.
-      - **Somme et produit** : si $x_1 + x_2 = -\dfrac{b}{a}$ et $x_1 x_2 = \dfrac{c}{a}$ sont simples, chercher les racines de tête.
-      - **Identités remarquables** : $a^2 - b^2 = (a - b)(a + b)$, $a^2 \pm 2ab + b^2 = (a \pm b)^2$.
-      - Sinon, **discriminant** : $ax^2 + bx + c = a(x - x_1)(x - x_2)$.
-    cours: |
-      ## Pourquoi plusieurs stratégies ?
-      Les formules du discriminant marchent toujours, mais elles sont longues. Dans beaucoup de cas,
-      une factorisation directe est plus rapide et évite les erreurs de calcul.
-
-      ## Racine évidente
-      Si $x_1$ est une racine, le produit des racines vaut $\dfrac{c}{a}$, donc $x_2 = \dfrac{c}{a x_1}$ (si $x_1 \neq 0$).
-      Exemple : $1$ annule $x^2 + 4x - 5$, et $x_1 x_2 = -5$, donc $x_2 = -5$ et
-      $$x^2 + 4x - 5 = (x - 1)(x + 5)$$
-
-      ## Somme et produit
-      Pour $x^2 - 7x + 12$ : on cherche deux nombres de somme $7$ et de produit $12$, ce sont $3$ et $4$ :
-      $$x^2 - 7x + 12 = (x - 3)(x - 4)$$
-
-      ## Cas particuliers
-      - $c = 0$ : $ax^2 + bx = x(ax + b)$, racine apparente $0$.
-      - $b = 0$ : $x^2 - k^2 = (x - k)(x + k)$ ; $x^2 + k^2$ ne se factorise pas.
-      - Carré parfait : $4x^2 - 12x + 9 = (2x - 3)^2$.
-
-      ## N'oublier ni le coefficient $a$ ni la vérification
-      $2x^2 + 2x - 12 = 2(x^2 + x - 6) = 2(x - 2)(x + 3)$. On vérifie en redéveloppant.
     methodes:
       - titre: Factoriser grâce à une racine évidente
         quand: >-
@@ -749,6 +870,53 @@ competences:
           Factoriser $x^2 + 9$ en $(x - 3)(x + 3)$.
         explication: >-
           $(x - 3)(x + 3) = x^2 - 9$. Une somme de deux carrés ne se factorise pas dans $\mathbb{R}$.
+    resume: |
+      - **Racine évidente** : tester $0$, $1$, $-1$, $2$… ; si $x_1$ est racine, l'autre vient de $x_1x_2 = \dfrac{c}{a}$.
+      - **Somme et produit** : chercher deux nombres de somme $-\dfrac{b}{a}$ et de produit $\dfrac{c}{a}$.
+      - **Identités remarquables** : $a^2 \pm 2ab + b^2 = (a \pm b)^2$, $a^2 - b^2 = (a - b)(a + b)$.
+      - Sinon : **discriminant**. Un polynôme de degré 3 de racine $r$ s'écrit $(x - r)(ax^2 + \beta x + \gamma)$.
+    cours: |
+      ## 1. Pourquoi factoriser ?
+
+      La forme factorisée $a(x - x_1)(x - x_2)$ donne immédiatement les racines et le signe. Plusieurs stratégies existent ; on choisit **la plus rapide**, le discriminant restant la méthode de secours.
+
+      ## 2. Stratégie 1 : facteur commun et identités remarquables
+
+      - $c = 0$ : $ax^2 + bx = x(ax + b)$. Exemple : $3x^2 - 6x = 3x(x - 2)$.
+      - $b = 0$ : différence de carrés. $4x^2 - 9 = (2x - 3)(2x + 3)$.
+      - Carré parfait : $x^2 - 10x + 25 = (x - 5)^2$.
+
+      ## 3. Stratégie 2 : racine évidente
+
+      > **Propriété.** Si $x_1$ est une racine de $f(x) = ax^2 + bx + c$, l'autre racine $x_2$ vérifie $x_1x_2 = \dfrac{c}{a}$ (et $x_1 + x_2 = -\dfrac{b}{a}$).
+
+      - Si $a + b + c = 0$, alors $1$ est racine et $x_2 = \dfrac{c}{a}$.
+      - Si $a - b + c = 0$, alors $-1$ est racine et $x_2 = -\dfrac{c}{a}$.
+
+      *Exemple.* $3x^2 + 2x - 5$ : $3 + 2 - 5 = 0$, donc $1$ est racine et $x_2 = -\dfrac{5}{3}$. Ainsi $3x^2 + 2x - 5 = 3(x - 1)\left(x + \dfrac{5}{3}\right) = (x - 1)(3x + 5)$.
+
+      ## 4. Stratégie 3 : somme et produit
+
+      Pour $x^2 + bx + c$ (avec $a = 1$), on cherche deux nombres de somme $-b$ et de produit $c$.
+      *Exemple.* $x^2 - 7x + 12$ : somme $7$, produit $12$ : $3$ et $4$. Donc $x^2 - 7x + 12 = (x - 3)(x - 4)$.
+
+      ## 5. Stratégie 4 : formules générales
+
+      Si rien n'est évident : $\Delta = b^2 - 4ac$ ; si $\Delta > 0$, $f(x) = a(x - x_1)(x - x_2)$ avec $x_{1,2} = \dfrac{-b \pm \sqrt\Delta}{2a}$ ; si $\Delta < 0$, pas de factorisation.
+
+      ## 6. Approfondissement : polynôme du troisième degré
+
+      > **Propriété.** Si $P(x) = ax^3 + bx^2 + cx + d$ admet une racine $r$, il existe des réels $\beta$, $\gamma$ tels que $P(x) = (x - r)(ax^2 + \beta x + \gamma)$.
+
+      *Exemple complet.* $P(x) = x^3 - 2x^2 - 5x + 6$. $P(1) = 1 - 2 - 5 + 6 = 0$, donc $P(x) = (x - 1)(x^2 + \beta x + \gamma)$.
+      En développant : $x^3 + (\beta - 1)x^2 + (\gamma - \beta)x - \gamma$. Par identification : $\beta - 1 = -2$, $-\gamma = 6$, donc $\beta = -1$, $\gamma = -6$.
+      $x^2 - x - 6 = (x - 3)(x + 2)$ (somme $1$, produit $-6$). Finalement $P(x) = (x - 1)(x - 3)(x + 2)$ et l'équation $P(x) = 0$ a pour solutions $-2$, $1$ et $3$.
+
+      ## 7. Erreurs fréquentes
+
+      - Oublier le coefficient $a$ : $2x^2 - 6x + 4 = 2(x - 1)(x - 2)$, et non $(x - 1)(x - 2)$.
+      - Écrire $(x + x_1)$ au lieu de $(x - x_1)$.
+      - Vérifier la factorisation en développant : c'est rapide et évite bien des erreurs.
     questions:
       - code: 1RE-SD-FACTO-01
         difficulte: 1
@@ -907,31 +1075,13 @@ competences:
   - code: 1RE-SD-PROBLEME
     libelle: Choisir une forme adaptée pour résoudre un problème
     attendus: [1RE-SPE-2026-SD-06]
+    cours_couvre: [1RE-SPE-2026-SD-06]
     objectifs:
       - >-
         Choisir entre forme développée, canonique et factorisée selon la question posée.
       - >-
         Résoudre un problème d'optimisation modélisé par une fonction du second degré.
     prerequis: [1RE-SD-CANON, 1RE-SD-FACTO-SIGNE]
-    resume: |
-      | Question posée | Forme la plus adaptée |
-      |---|---|
-      | Image de $0$, équation $f(x) = c$ | développée $ax^2 + bx + c$ |
-      | Extremum, sommet, équation $f(x) = k$ | canonique $a(x - \alpha)^2 + \beta$ |
-      | Racines, signe, inéquation $f(x) \geq 0$ | factorisée $a(x - x_1)(x - x_2)$ |
-    cours: |
-      ## Trois écritures d'une même fonction
-      Exemple : $f(x) = 2x^2 - 4x - 6 = 2(x - 1)^2 - 8 = 2(x + 1)(x - 3)$.
-      On vérifie l'égalité en développant chaque forme.
-
-      ## Choisir la bonne forme
-      - **Forme développée** : $f(0) = -6$ se lit immédiatement ; $f(x) = -6$ donne $2x^2 - 4x = 0$.
-      - **Forme canonique** : le minimum vaut $-8$, atteint en $1$ ; $f(x) = 10$ donne $(x - 1)^2 = 9$.
-      - **Forme factorisée** : racines $-1$ et $3$ ; $f(x) \leq 0$ sur $[-1 ; 3]$.
-
-      ## Problèmes d'optimisation
-      On exprime la grandeur à optimiser en fonction d'une variable, on précise l'intervalle des valeurs possibles,
-      puis on cherche le sommet de la parabole avec la forme canonique (ou $\alpha = -\frac{b}{2a}$).
     methodes:
       - titre: Résoudre un problème d'optimisation
         etapes:
@@ -963,6 +1113,52 @@ competences:
           Donner l'abscisse du sommet au lieu de la valeur maximale demandée.
         explication: >-
           Le maximum est $\beta = f(\alpha)$ ; $\alpha$ est la valeur de la variable qui le donne.
+    resume: |
+      - **Forme développée** $ax^2 + bx + c$ : image de $0$, calcul de $\Delta$, dérivée.
+      - **Forme canonique** $a(x - \alpha)^2 + \beta$ : sommet, extremum, variations, optimisation.
+      - **Forme factorisée** $a(x - x_1)(x - x_2)$ : racines, signe, inéquations.
+      - On vérifie que les formes sont égales en développant, puis on choisit celle qui répond à la question.
+    cours: |
+      ## 1. Trois écritures d'une même fonction
+
+      Une même fonction polynôme du second degré peut s'écrire de trois façons. Exemple :
+      $$f(x) = x^2 - 6x + 5 = (x - 3)^2 - 4 = (x - 1)(x - 5).$$
+
+      | Forme | Écriture | Ce qu'on lit directement |
+      |---|---|---|
+      | développée | $ax^2 + bx + c$ | $f(0) = c$, coefficients pour $\Delta$ ou $f'$ |
+      | canonique | $a(x - \alpha)^2 + \beta$ | sommet $S(\alpha ; \beta)$, extremum, variations |
+      | factorisée | $a(x - x_1)(x - x_2)$ | racines, signe |
+
+      ## 2. Choisir la bonne forme
+
+      > **Méthode.**
+      > - Résoudre $f(x) = 0$ ou étudier le signe de $f$ : **forme factorisée**.
+      > - Trouver un maximum, un minimum, les variations : **forme canonique**.
+      > - Calculer $f(0)$ ou résoudre $f(x) = c$ : **forme développée** ($ax^2 + bx = 0$ se factorise par $x$).
+      > - Résoudre $f(x) = \beta$ : forme canonique, $(x - \alpha)^2 = 0$.
+
+      ## 3. Exemple complet : un problème d'optimisation
+
+      Une entreprise réalise un bénéfice (en milliers d'euros) $B(q) = -2q^2 + 40q - 150$ pour $q$ centaines d'objets, $q \in [0 ; 20]$.
+      On admet que $B(q) = -2(q - 10)^2 + 50 = -2(q - 5)(q - 15)$.
+
+      1. *Bénéfice maximal* : forme canonique. $-2(q - 10)^2 \leqslant 0$ donc $B(q) \leqslant 50$, avec égalité pour $q = 10$. Maximum : $50$ milliers d'euros pour $1\,000$ objets.
+      2. *Production rentable* ($B(q) > 0$) : forme factorisée. Racines $5$ et $15$, $a = -2 < 0$ : $B(q) > 0 \iff q \in ]5 ; 15[$.
+      3. *Perte sans production* : forme développée. $B(0) = -150$.
+
+      ## 4. Passer d'une forme à l'autre
+
+      - Développée → canonique : $\alpha = -\dfrac{b}{2a}$, $\beta = f(\alpha)$.
+      - Développée → factorisée : racine évidente, somme et produit ou discriminant.
+      - Canonique → factorisée : identité $A^2 - B^2$ quand $\beta$ et $a$ sont de signes contraires.
+      - Dans tous les cas, **vérifier en développant**.
+
+      ## 5. Erreurs fréquentes
+
+      - S'acharner avec $\Delta$ alors que la forme factorisée est donnée dans l'énoncé.
+      - Donner l'abscisse $\alpha$ quand on demande la valeur maximale $\beta$ (ou l'inverse).
+      - Oublier l'intervalle d'étude imposé par le contexte (une quantité est positive).
     questions:
       - code: 1RE-SD-PROBLEME-01
         difficulte: 1

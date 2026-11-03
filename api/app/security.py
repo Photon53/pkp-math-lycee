@@ -1,15 +1,18 @@
 """Hachage des mots de passe enseignant et jetons d'accès signés.
 
-Les élèves n'ont pas de mot de passe : ils se connectent avec prénom + code classe.
+Les élèves n'ont pas de mot de passe : ils se connectent avec leur identifiant (ou prénom + code classe)
+et le code personnel distribué par l'enseignant.
 Bibliothèque standard uniquement (scrypt, HMAC-SHA256).
 """
 
 import base64
 import hashlib
 import hmac
+import re
 import secrets
 import threading
 import time
+import unicodedata
 
 from app.config import settings
 
@@ -58,6 +61,21 @@ _N_CODE = 2**12
 
 def generer_code_eleve() -> str:
     return "".join(secrets.choice(ALPHABET_CODE) for _ in range(LONGUEUR_CODE_ELEVE))
+
+
+# Identifiant de connexion de l'élève : prénom sans accent + 4 caractères, par ex. « ines-k7m4 ».
+# Il n'est pas secret (affiché à l'enseignant, imprimé sur la carte) : c'est le code personnel qui protège.
+ALPHABET_IDENTIFIANT = "23456789abcdefghjkmnpqrstuvwxyz"
+
+
+def generer_identifiant(prenom: str) -> str:
+    base = unicodedata.normalize("NFKD", prenom).encode("ascii", "ignore").decode().lower()
+    base = re.sub(r"[^a-z]+", "", base)[:20] or "eleve"
+    return f"{base}-{''.join(secrets.choice(ALPHABET_IDENTIFIANT) for _ in range(4))}"
+
+
+def normaliser_identifiant(identifiant: str) -> str:
+    return identifiant.strip().lower()
 
 
 def normaliser_code(code: str) -> str:

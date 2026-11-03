@@ -3,8 +3,8 @@
 from datetime import date, datetime
 from typing import Annotated
 
-from pkp_engine import Niveau, TypeQuestion
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pkp_engine import Forme, Niveau, TypeQuestion
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import Adaptation, Parcours, Role, StatutValidation
 
@@ -46,11 +46,16 @@ class EnseignantAdmin(BaseModel):
     nom: str
     email: str
     role: Role
+    enseigne_maths: bool
+    enseigne_anglais: bool
+    referent_anglais: bool = False
     actif: bool
     mdp_provisoire: bool
     totp_configure: bool
     nb_classes: int
     nb_eleves: int
+    nb_groupes_anglais: int = 0
+    nb_eleves_anglais: int = 0
     derniere_connexion: datetime | None
 
 
@@ -58,11 +63,23 @@ class EnseignantEdition(BaseModel):
     nom: Annotated[str, Field(min_length=1, max_length=100)]
     email: Annotated[str, Field(min_length=3, max_length=254)]
     role: Role = Role.ENSEIGNANT
+    enseigne_maths: bool = True
+    enseigne_anglais: bool = False
+    # Référent : valide les séances PKP Anglais des autres auteurs.
+    referent_anglais: bool = False
 
     @field_validator("email")
     @classmethod
     def _valider_email(cls, v: str) -> str:
         return _email(v)
+
+    @model_validator(mode="after")
+    def _une_discipline(self) -> "EnseignantEdition":
+        if not (self.enseigne_maths or self.enseigne_anglais):
+            raise ValueError("Cochez au moins une discipline.")
+        if self.referent_anglais and not self.enseigne_anglais:
+            raise ValueError("Un référent anglais doit enseigner l'anglais.")
+        return self
 
 
 class EnseignantCree(BaseModel):
@@ -113,6 +130,23 @@ class ClasseAdmin(BaseModel):
     enseignant: str
     nb_eleves: int
     nb_chapitres_ouverts: int
+
+
+# --- PKP Anglais ------------------------------------------------------------------
+
+
+class EleveAnglaisAdmin(BaseModel):
+    id: int
+    prenom: str
+
+
+class GroupeAnglaisAdmin(BaseModel):
+    id: int
+    nom: str
+    niveau: str
+    enseignant_id: int
+    enseignant: str
+    eleves: list[EleveAnglaisAdmin]
 
 
 # --- Cours ------------------------------------------------------------------------
@@ -214,6 +248,7 @@ class QuestionAdmin(BaseModel):
     solution: str
     difficulte: int
     archivee: bool
+    forme: Forme | None = None
     source: str
     source_url: str | None
     licence_source: str | None
@@ -237,6 +272,8 @@ class QuestionEdition(BaseModel):
     type: TypeQuestion
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     difficulte: Annotated[int, Field(ge=1, le=5)]
+    # « Développer », « Factoriser »… : forme exigée en plus de la valeur (questions de type expression).
+    forme: Forme | None = None
     source: Annotated[str, Field(min_length=1, max_length=200)] = "PKP Math"
     source_url: Annotated[str | None, Field(max_length=500)] = None
     licence_source: Annotated[str | None, Field(max_length=100)] = None
@@ -248,11 +285,14 @@ class EssaiReponse(BaseModel):
     type: TypeQuestion
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     reponse: Annotated[str, Field(min_length=1, max_length=200)]
+    forme: Forme | None = None
 
 
 class ResultatEssai(BaseModel):
     correcte: bool
     solution_lisible: bool
+    # Valeur juste mais pas sous la forme demandée.
+    forme_non_respectee: bool = False
 
 
 class Validation(BaseModel):
@@ -380,3 +420,11 @@ class Statistiques(BaseModel):
     ressources_liens: int
     ressources_pdf: int
     ressources_consultees: list[RessourceTop]
+
+
+class SeanceAnglaisEdition(BaseModel):
+    """Version complète d'une séance PKP Anglais : fichier de séance, cahier et QCM de grammaire."""
+
+    contenu: dict
+    cahier: dict
+    quiz: list[dict] = []

@@ -7,6 +7,7 @@ Usage, depuis `api/` :
     python -m app.contenu verifier              # contrôle tous les fichiers, sans base
     python -m app.contenu matrice               # docs/matrices/MATRICE-<programme>.md (couverture du BO)
     python -m app.contenu ecarts                # attendus officiels absents ou incomplets
+    python -m app.contenu corrections           # corrections trop courtes, à détailler
     python -m app.contenu importer --simulation # montre ce qui changerait
     python -m app.contenu importer              # applique
 
@@ -17,6 +18,7 @@ Règles de l'import (idempotent : le relancer ne change rien) :
 """
 
 import argparse
+import random
 import re
 import sys
 from dataclasses import dataclass, field
@@ -26,7 +28,8 @@ from typing import Annotated
 
 import pkp_engine
 import yaml
-from pkp_engine import ExpressionInvalide, Niveau, TypeQuestion
+from pkp_engine import gabarits
+from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -88,6 +91,18 @@ class CorrectionYaml(_Strict):
         return str(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
 
 
+class GabaritYaml(_Strict):
+    """Valeurs variables d'une question : à chaque service, de nouveaux nombres (voir pkp_engine.gabarits)."""
+
+    parametres: Annotated[dict[str, dict], Field(min_length=1)]
+    calculs: dict[str, str] = {}
+    conditions: list[str] = []
+
+
+# Tirages essayés par la vérification : chacun doit donner une question et une correction valides.
+TIRAGES_VERIFIES = 50
+
+
 class QuestionYaml(_Strict):
     code: Code
     difficulte: Annotated[int, Field(ge=1, le=5)]
@@ -95,6 +110,10 @@ class QuestionYaml(_Strict):
     enonce: Annotated[str, Field(min_length=1, max_length=2000)]
     solution: Annotated[str, Field(min_length=1, max_length=200)]
     archivee: bool = False
+    # « Développer », « Factoriser », « Réduire » : forme d'écriture exigée en plus de la valeur.
+    forme: Forme | None = None
+    # Exercice à valeurs variables : énoncé, solution et correction citent les paramètres entre [[…]].
+    gabarit: GabaritYaml | None = None
     # Auteur de la question : la personne qui la valide doit être une autre personne (règle E0.2).
     auteur: Annotated[str, Field(min_length=1, max_length=100)] | None = None
     correction: CorrectionYaml | None = None
@@ -106,6 +125,12 @@ class QuestionYaml(_Strict):
     licence_source: Annotated[str, Field(max_length=100)] | None = None
     adaptation: Adaptation = Adaptation.ORIGINALE
     validation: ValidationYaml = ValidationYaml()
+
+    @model_validator(mode="after")
+    def _forme_pour_les_expressions(self):
+        if self.forme is not None and self.type is not TypeQuestion.EXPRESSION:
+            raise ValueError("`forme` ne concerne que les questions de type « expression »")
+        return self
 
     @model_validator(mode="after")
     def _registre_coherent(self):
@@ -161,6 +186,9 @@ class CompetenceYaml(_Strict):
     libelle: Annotated[str, Field(min_length=1, max_length=200)]
     # Attendus officiels couverts (codes des référentiels, voir app/programmes.py).
     attendus: list[str] = []
+    # Attendus que le cours EXPLIQUE (définitions, propriétés, démonstrations, méthodes rédigées), relus :
+    # la matrice sépare « expliqué dans un cours » de « évalué par des questions ».
+    cours_couvre: list[str] = []
     objectifs: list[Texte] = []
     prerequis: list[Code] = []  # codes d'autres compétences, à revoir en cas de difficulté
     cours: str | None = None
@@ -232,7 +260,7 @@ def _verifier_question(q: QuestionYaml) -> str | None:
         if not re.search(rf"(?<![A-Za-z]){re.escape(q.solution)}\)", q.enonce):
             return f"solution « {q.solution} » absente des choix de l'énoncé (attendu « {q.solution}) … »)"
         return None
-    domaine = pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte)
+    domaine = pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme)
     try:
         if not pkp_engine.corriger(domaine, q.solution):
             return f"le moteur n'accepte pas sa propre solution « {q.solution} »"
@@ -265,12 +293,43 @@ def _verifier_correction(q: QuestionYaml) -> list[str]:
         erreurs.append("correction.resultat obligatoire pour une réponse numérique ou une expression")
         return erreurs
     try:
-        equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte), c.resultat)
+        equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme), c.resultat)
     except ExpressionInvalide:
         equivalents = False
     if not equivalents:
-        erreurs.append(f"correction.resultat « {c.resultat} » non équivalent à la solution « {q.solution} » selon le moteur")
+        erreurs.append(f"correction.resultat « {c.resultat} » non équivalent à la solution « {q.solution} » (ou pas sous la forme demandée) selon le moteur")
     return erreurs
+
+
+def instancier(q: QuestionYaml, tirage: dict[str, str]) -> QuestionYaml:
+    """La question telle que l'élève la voit pour un tirage donné (énoncé, solution, correction remplis)."""
+    correction = gabarits.remplir_correction(q.correction.model_dump(exclude_none=True), tirage) if q.correction else None
+    return q.model_copy(
+        update={
+            "enonce": gabarits.remplir(q.enonce, tirage),
+            "solution": gabarits.remplir(q.solution, tirage),
+            "correction": CorrectionYaml(**correction) if correction else None,
+            "gabarit": None,
+        }
+    )
+
+
+def _verifier_gabarit(q: QuestionYaml) -> list[str]:
+    """Chaque tirage (graine fixe : résultat reproductible) doit donner une question valide."""
+    rng = random.Random(q.code)
+    for _ in range(TIRAGES_VERIFIES):
+        try:
+            tirage = gabarits.tirer(q.gabarit.model_dump(), rng)
+            exemplaire = instancier(q, tirage)
+        except (gabarits.GabaritInvalide, ZeroDivisionError) as exc:
+            return [f"gabarit : {exc}"]
+        textes = [exemplaire.enonce, exemplaire.solution, *(exemplaire.correction.etapes if exemplaire.correction else [])]
+        if any("[[" in t or "]]" in t for t in textes):
+            return [f"gabarit : marque [[…]] mal fermée (tirage {tirage})"]
+        problemes = [p for p in [_verifier_question(exemplaire)] if p] + _verifier_correction(exemplaire)
+        if problemes:
+            return [f"{p} (tirage {tirage})" for p in problemes]
+    return []
 
 
 def _verifier_liens(fichiers, dossier: Path, codes_attendus: set[str] | None, erreurs: list[str]) -> None:
@@ -283,6 +342,11 @@ def _verifier_liens(fichiers, dossier: Path, codes_attendus: set[str] | None, er
                 for a in c.attendus:
                     if a not in codes_attendus:
                         erreurs.append(f"{nom} : {c.code} : attendu « {a} » absent des référentiels")
+            for a in c.cours_couvre:
+                if a not in c.attendus:
+                    erreurs.append(f"{nom} : {c.code} : cours_couvre « {a} » doit aussi figurer dans `attendus`")
+            if c.cours_couvre and not c.cours:
+                erreurs.append(f"{nom} : {c.code} : cours_couvre sans `cours`")
             for p in c.prerequis:
                 if p == c.code or p not in competences:
                     erreurs.append(f"{nom} : {c.code} : prérequis « {p} » inconnu (code de compétence attendu)")
@@ -330,6 +394,9 @@ def charger(
                     erreurs.append(f"{nom} : {q.code} : le code doit commencer par « {c.code}- »")
                 if not _dollars_equilibres(q.enonce):
                     erreurs.append(f"{nom} : {q.code} : nombre impair de « $ » dans l'énoncé")
+                if q.gabarit is not None:
+                    erreurs.extend(f"{nom} : {q.code} : {p}" for p in _verifier_gabarit(q))
+                    continue
                 if probleme := _verifier_question(q):
                     erreurs.append(f"{nom} : {q.code} : {probleme}")
                 erreurs.extend(f"{nom} : {q.code} : {p}" for p in _verifier_correction(q))
@@ -529,6 +596,7 @@ def _importer_question(
         "solution": q.solution,
         "difficulte": q.difficulte,
         "archivee": q.archivee,
+        "forme": q.forme,
         "source": q.source,
         "source_url": q.source_url,
         "licence_source": q.licence_source,
@@ -539,6 +607,7 @@ def _importer_question(
         "auteur": q.auteur,
         "correction": q.correction.model_dump(exclude_none=True) if q.correction else None,
         "competences_secondaires": list(q.competences_secondaires),
+        "gabarit": q.gabarit.model_dump() if q.gabarit else None,
     }
     if question is None:
         session.add(models.Question(**valeurs))
@@ -615,9 +684,28 @@ def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
     return "\n".join(lignes) + "\n"
 
 
+# Une correction de difficulté 3 ou plus doit montrer le raisonnement, pas seulement le résultat
+# (retours des classes, novembre 2026) : la commande `corrections` liste celles à détailler.
+DIFFICULTE_CORRECTION_DETAILLEE = 3
+ETAPES_MIN = 2
+
+
+def corrections_courtes(fichiers) -> list[tuple[str, int]]:
+    """(code, nombre d'étapes) des questions actives dont la correction est trop courte pour leur difficulté."""
+    return [
+        (q.code, len(q.correction.etapes) if q.correction else 0)
+        for _, f in fichiers
+        for c in f.competences
+        for q in c.questions
+        if not q.archivee
+        and q.difficulte >= DIFFICULTE_CORRECTION_DETAILLEE
+        and (q.correction is None or len(q.correction.etapes) < ETAPES_MIN)
+    ]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Contenu pédagogique PKP Math Lycée")
-    parser.add_argument("commande", choices=["verifier", "importer", "inventaire", "matrice", "ecarts"])
+    parser.add_argument("commande", choices=["verifier", "importer", "inventaire", "matrice", "ecarts", "corrections"])
     parser.add_argument("--programme", help="matrice, ecarts : code du programme (défaut : tous)")
     parser.add_argument("--dossier", type=Path, default=DOSSIER_PAR_DEFAUT)
     parser.add_argument("--simulation", action="store_true", help="importer : montre les changements sans les appliquer")
@@ -635,6 +723,13 @@ def main() -> None:
         sys.exit(str(exc))
     nb_questions = sum(len(c.questions) for _, f in fichiers for c in f.competences)
     print(f"Contenu valide : {len(fichiers)} chapitre(s), {nb_questions} question(s).")
+    if args.commande == "corrections":
+        courtes = corrections_courtes(fichiers)
+        for code, etapes in courtes:
+            print(f"{code} : {etapes} étape(s)")
+        print(f"{len(courtes)} correction(s) à détailler (difficulté {DIFFICULTE_CORRECTION_DETAILLEE} ou plus, "
+              f"moins de {ETAPES_MIN} étapes).")
+        return
     if args.commande == "inventaire":
         args.sortie.write_text(inventaire(fichiers), encoding="utf-8")
         print(f"Inventaire écrit dans {args.sortie}")

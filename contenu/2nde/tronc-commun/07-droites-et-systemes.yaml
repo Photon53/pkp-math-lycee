@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 2NDE-DROITE
     libelle: Déterminer et utiliser l'équation réduite d'une droite
+    attendus: [2NDE-2026-DROITE-02, 2NDE-2026-DROITE-03, 2NDE-2026-DROITE-04, 2NDE-2026-DROITE-05]
+    cours_couvre: [2NDE-2026-DROITE-02, 2NDE-2026-DROITE-03, 2NDE-2026-DROITE-04, 2NDE-2026-DROITE-05]
     objectifs:
     - Lire et déterminer l'équation réduite d'une droite.
     - Reconnaitre des droites parallèles.
@@ -30,23 +32,55 @@ competences:
     - erreur: 'Inverser le quotient : $\dfrac{x_B - x_A}{y_B - y_A}$.'
       explication: 'Le coefficient directeur mesure la variation de $y$ quand $x$ augmente de $1$ : $\Delta y$ au numérateur.'
     resume: |
-      - Une droite non parallèle à l'axe des ordonnées a une équation réduite $y = mx + p$.
-      - $m$ : coefficient directeur, $m = \dfrac{y_B - y_A}{x_B - x_A}$ ; $p$ : ordonnée à l'origine.
-      - Une droite parallèle à l'axe des ordonnées a une équation $x = c$.
-      - Deux droites sont parallèles si et seulement si elles ont le même coefficient directeur.
+      - Une droite non parallèle à l'axe des ordonnées a une **équation réduite** $y = mx + p$ ; une droite parallèle à cet axe a une équation $x = c$.
+      - $m$ est la **pente** (coefficient directeur), $p$ l'**ordonnée à l'origine**.
+      - Pente de $(AB)$ avec $x_A \neq x_B$ : $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+      - Le vecteur $\vec u(1 ; m)$ dirige la droite $y = mx + p$ ; un vecteur directeur $(a ; b)$ avec $a \neq 0$ donne la pente $\dfrac{b}{a}$.
     cours: |
-      ## Coefficient directeur
-      Pour $A(1 ; 2)$ et $B(3 ; 8)$ : $m = \dfrac{8 - 2}{3 - 1} = 3$.
+      ## 1. Équations de droites
+      Dans un repère, une droite est l'ensemble des points $M(x ; y)$ dont les coordonnées vérifient une équation.
 
-      ## Ordonnée à l'origine
-      La droite passe par $A$ : $2 = 3 \times 1 + p$, donc $p = -1$ et $(AB) : y = 3x - 1$.
+      > **Propriété.** Toute droite $d$ admet une équation **cartésienne** $ax + by + c = 0$, avec $(a ; b) \neq (0 ; 0)$.
+      > - Si $d$ n'est pas parallèle à l'axe des ordonnées, elle a une unique **équation réduite** $y = mx + p$.
+      > - Si $d$ est parallèle à l'axe des ordonnées, elle a une équation de la forme $x = c$.
 
-      ## Équation cartésienne
-      Toute droite a une équation $ax + by + c = 0$. Si $b \neq 0$, on retrouve l'équation réduite en isolant $y$ :
-      $4x - 2y + 3 = 0 \iff y = 2x + \dfrac{3}{2}$.
+      Passer de la forme cartésienne à la forme réduite : si $b \neq 0$, on isole $y$. Exemple : $3x - 2y + 4 = 0 \iff 2y = 3x + 4 \iff y = 1{,}5x + 2$.
 
-      ## Positions relatives
-      Même $m$ et même $p$ : confondues ; même $m$, $p$ différents : parallèles ; $m$ différents : sécantes.
+      ## 2. Pente et ordonnée à l'origine
+      Dans $y = mx + p$ :
+      - $p$ est l'**ordonnée à l'origine** : la droite coupe l'axe des ordonnées au point $(0 ; p)$ ;
+      - $m$ est la **pente** ou **coefficient directeur** : quand $x$ augmente de $1$, $y$ varie de $m$.
+
+      > **Propriété.** Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$ sont deux points distincts d'une droite non parallèle à l'axe des ordonnées ($x_A \neq x_B$), sa pente est $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+
+      **Lecture graphique.** On part d'un point de la droite, on avance de $1$ unité horizontalement (ou de $k$ unités), et on lit de combien on monte (pente positive) ou on descend (pente négative), en divisant par $k$ si besoin.
+
+      ## 3. Vecteur directeur
+      Un **vecteur directeur** d'une droite $d$ est un vecteur non nul $\overrightarrow{AB}$ où $A$ et $B$ sont deux points de $d$.
+
+      > **Propriété.** La droite d'équation $y = mx + p$ admet pour vecteur directeur $\vec u(1 ; m)$. Inversement, si $\vec u(a ; b)$ avec $a \neq 0$ dirige une droite, sa pente est $m = \dfrac{b}{a}$.
+
+      ## 4. Méthodes pour déterminer une équation réduite
+      ### À partir de deux points
+      1. Calculer la pente $m = \dfrac{y_B - y_A}{x_B - x_A}$.
+      2. Remplacer $x$ et $y$ par les coordonnées d'un des points dans $y = mx + p$ pour trouver $p$.
+
+      **Exemple complet.** Équation de $(AB)$ avec $A(1 ; 3)$ et $B(4 ; -3)$.
+      - $m = \dfrac{-3 - 3}{4 - 1} = \dfrac{-6}{3} = -2$.
+      - $A$ est sur la droite : $3 = -2 \times 1 + p$, donc $p = 5$.
+      - $(AB) : y = -2x + 5$. Contrôle avec $B$ : $-2 \times 4 + 5 = -3$.
+
+      ### À partir d'un point et de la pente
+      Avec $m$ connu, on calcule $p = y_A - m x_A$. Exemple : pente $\dfrac{1}{2}$ passant par $C(4 ; 1)$ donne $p = 1 - 2 = -1$, soit $y = \dfrac{1}{2}x - 1$.
+
+      ### À partir d'un point et d'un vecteur directeur
+      Avec $\vec u(a ; b)$ et $a \neq 0$, on prend $m = \dfrac{b}{a}$ puis on procède comme ci-dessus. Si $a = 0$, la droite est parallèle à l'axe des ordonnées, d'équation $x = x_A$.
+
+      ## 5. Erreurs fréquentes
+      - Inverser le quotient : la pente est $\dfrac{\Delta y}{\Delta x}$, pas $\dfrac{\Delta x}{\Delta y}$.
+      - Mélanger les points : $\dfrac{y_B - y_A}{x_A - x_B}$ donne l'opposé de la pente.
+      - Chercher une équation réduite pour une droite verticale : elle n'en a pas, son équation est $x = c$.
+      - Oublier de vérifier l'équation avec le second point.
     questions:
       - code: 2NDE-DROITE-01
         difficulte: 1
@@ -82,6 +116,7 @@ competences:
       - code: 2NDE-DROITE-04
         difficulte: 4
         type: expression
+        forme: reduite
         enonce: 'Déterminer l''équation réduite $y = \dots$ de la droite passant par $A(2 ; 1)$ et $B(4 ; 5)$. Écrire seulement l''expression en $x$.'
         solution: 2x - 3
         auteur: Brouillon IA (Claude)
@@ -102,9 +137,28 @@ competences:
           - $4x - 2y + 3 = 0$ donne $y = 2x + \dfrac{3}{2}$.
           - 'Même coefficient directeur $2$, ordonnées à l''origine différentes ($1$ et $\dfrac{3}{2}$) : strictement parallèles.'
           resultat: B
+      - code: 2NDE-DROITE-V1
+        difficulte: 3
+        type: expression
+        forme: reduite
+        gabarit:
+          parametres: {m: {entre: [-4, 4], sauf: [0]}, p: {entre: [-6, 6]}, x1: {entre: [-3, 0]}, x2: {entre: [1, 4]}}
+          calculs: {y1: "m*x1 + p", y2: "m*x2 + p"}
+        enonce: 'Déterminer l''équation réduite de la droite passant par $A([[x1]] ; [[y1]])$ et $B([[x2]] ; [[y2]])$ (réponse : l''expression de $y$ en fonction de $x$).'
+        solution: '[[m]]x [[p:+]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Coefficient directeur, puis ordonnée à l''origine avec un point.'
+          etapes:
+          - '$m = \dfrac{[[y2]] - ([[y1]])}{[[x2]] - ([[x1]])} = \dfrac{[[y2 - y1]]}{[[x2 - x1]]} = [[m]]$.'
+          - '$A$ est sur la droite : $[[y1]] = [[m]] \times ([[x1]]) + p$, donc $p = [[p]]$.'
+          - 'Équation : $y = [[m:coef]]x [[p:+]]$.'
+          resultat: '[[m]]x [[p:+]]'
 
   - code: 2NDE-SYST
     libelle: Résoudre un système de deux équations à deux inconnues
+    attendus: [2NDE-2026-DROITE-08, 2NDE-2026-DROITE-09]
+    cours_couvre: [2NDE-2026-DROITE-08, 2NDE-2026-DROITE-09]
     objectifs:
     - Résoudre un système de deux équations linéaires à deux inconnues.
     - Modéliser un problème par un système.
@@ -126,20 +180,50 @@ competences:
     - erreur: Ne multiplier qu'un seul membre d'une équation.
       explication: On multiplie tous les termes, des deux côtés de l'égalité.
     resume: |
-      - **Substitution** : on isole une inconnue dans une équation et on la remplace dans l'autre.
-      - **Combinaison** : on multiplie les équations pour éliminer une inconnue en les additionnant.
-      - Un système peut avoir une solution, aucune (droites parallèles) ou une infinité (droites confondues).
+      - Deux droites d'équations réduites $y = mx + p$ et $y = m'x + p'$ sont **parallèles** si et seulement si $m = m'$ ; sinon elles sont **sécantes**.
+      - Le point d'intersection a des coordonnées qui vérifient les deux équations : c'est la solution d'un système.
+      - Avec deux équations réduites, on résout $mx + p = m'x + p'$ pour trouver $x$, puis on calcule $y$.
+      - Méthodes de résolution : substitution ou combinaison linéaire.
     cours: |
-      ## Par combinaison
-      $$\begin{cases} 2x + y = 7 \\ x - y = 2 \end{cases}$$
-      En additionnant : $3x = 9$, donc $x = 3$, puis $y = 7 - 2 \times 3 = 1$.
+      ## 1. Position relative de deux droites
+      > **Propriété.** Soit $d : y = mx + p$ et $d' : y = m'x + p'$.
+      > - Si $m = m'$, les droites sont **parallèles** (confondues si de plus $p = p'$).
+      > - Si $m \neq m'$, les droites sont **sécantes** en un unique point.
 
-      ## Interprétation graphique
-      Chaque équation est celle d'une droite ; la solution est le point d'intersection.
-      $\begin{cases} x + 2y = 3 \\ 2x + 4y = 5 \end{cases}$ : la deuxième ligne donnerait $x + 2y = 2{,}5$, incompatible avec la première : aucune solution (droites parallèles).
+      Plus généralement, deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. Pour $ax + by + c = 0$ et $a'x + b'y + c' = 0$, les vecteurs directeurs $(-b ; a)$ et $(-b' ; a')$ sont colinéaires si et seulement si $ab' - a'b = 0$.
 
-      ## Mise en équation
-      On choisit les inconnues (par exemple $c$ = prix d'un cahier, $s$ = prix d'un stylo), on traduit l'énoncé en deux équations, on résout et on vérifie.
+      ## 2. Système de deux équations à deux inconnues
+      Un **système linéaire** de deux équations à deux inconnues s'écrit $\begin{cases} ax + by = c \\ a'x + b'y = c' \end{cases}$. Une solution est un couple $(x ; y)$ qui vérifie les **deux** équations.
+
+      Chaque équation est celle d'une droite : résoudre le système, c'est chercher les points communs aux deux droites.
+      - Droites sécantes : une seule solution.
+      - Droites parallèles distinctes : aucune solution.
+      - Droites confondues : une infinité de solutions.
+
+      ## 3. Méthodes de résolution
+      ### Par substitution
+      1. Isoler une inconnue dans une équation (de préférence celle dont le coefficient vaut $1$ ou $-1$).
+      2. Remplacer cette expression dans l'autre équation et résoudre l'équation à une inconnue obtenue.
+      3. Calculer l'autre inconnue, puis vérifier dans les deux équations.
+
+      **Exemple complet (intersection de deux droites).** $d : y = 2x - 1$ et $d' : y = -x + 5$.
+      - Les pentes $2$ et $-1$ sont différentes : les droites sont sécantes.
+      - Au point d'intersection, les ordonnées sont égales : $2x - 1 = -x + 5$, donc $3x = 6$ et $x = 2$.
+      - $y = 2 \times 2 - 1 = 3$. Contrôle dans $d'$ : $-2 + 5 = 3$. Le point d'intersection est $(2 ; 3)$.
+
+      ### Par combinaison linéaire
+      On multiplie les équations par des nombres choisis pour que, en les additionnant, une inconnue disparaisse.
+
+      **Exemple.** $\begin{cases} 3x + 2y = 7 \\ 5x - 2y = 9 \end{cases}$ : en additionnant, $8x = 16$, donc $x = 2$ ; puis $3 \times 2 + 2y = 7$, donc $y = \dfrac{1}{2}$. Solution : $\left(2 ; \dfrac{1}{2}\right)$.
+
+      ## 4. Mise en équation d'un problème
+      Deux inconnues et deux informations donnent un système. Exemple : $3$ cahiers et $2$ stylos coûtent $9{,}50$ € ; $1$ cahier et $4$ stylos coûtent $7{,}50$ €. Avec $c$ et $s$ les prix : $3c + 2s = 9{,}5$ et $c + 4s = 7{,}5$. La substitution $c = 7{,}5 - 4s$ donne $22{,}5 - 12s + 2s = 9{,}5$, donc $s = 1{,}3$ et $c = 2{,}3$.
+
+      ## 5. Erreurs fréquentes
+      - Ne calculer que $x$ et oublier $y$ : la solution est un **couple**.
+      - Conclure « parallèles » parce que les ordonnées à l'origine sont égales : ce sont les **pentes** qu'il faut comparer.
+      - Faire une erreur de signe en substituant une expression sans parenthèses.
+      - Ne pas vérifier la solution dans les deux équations.
     questions:
       - code: 2NDE-SYST-01
         difficulte: 1
@@ -200,3 +284,149 @@ competences:
           - $c = 6{,}5 - 4s$, donc $3(6{,}5 - 4s) + 2s = 9{,}5$, soit $19{,}5 - 10s = 9{,}5$ et $s = 1$.
           - $c = 6{,}5 - 4 = 2{,}5$ €.
           resultat: 5/2
+      - code: 2NDE-SYST-V1
+        difficulte: 4
+        type: numerique
+        gabarit:
+          parametres: {x: {entre: [-5, 5]}, y: {entre: [-5, 5]}, a: {entre: [1, 4]}, b: {entre: [1, 4]}, c: {entre: [1, 4]}, d: {entre: [-4, -1]}}
+          calculs: {e: "a*x + b*y", f: "c*x + d*y"}
+          conditions: ["a*d - b*c != 0"]
+        enonce: 'Résoudre le système $[[a:coef]]x + [[b:coef]]y = [[e]]$ et $[[c:coef]]x [[d:+]]y = [[f]]$. Donner la valeur de $x$.'
+        solution: '[[x]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Combinaison : éliminer $y$ en multipliant les équations.'
+          etapes:
+          - 'On multiplie la première par $[[-d]]$ et la seconde par $[[b]]$, puis on ajoute : $([[-a*d]] + [[b*c]])x = [[-d*e]] + [[b*f]]$.'
+          - 'Soit $[[b*c - a*d]]x = [[b*f - d*e]]$, donc $x = [[x]]$.'
+          - 'En remplaçant, on trouve $y = [[y]]$.'
+          resultat: '[[x]]'
+
+  - code: 2NDE-DROITE-CART
+    libelle: Utiliser un vecteur directeur et une équation cartésienne
+    attendus: [2NDE-2026-DROITE-01, 2NDE-2026-DROITE-06, 2NDE-2026-DROITE-07, 2NDE-2026-DROITE-10]
+    cours_couvre: [2NDE-2026-DROITE-01, 2NDE-2026-DROITE-06, 2NDE-2026-DROITE-07, 2NDE-2026-DROITE-10]
+    objectifs:
+    - Lire un vecteur directeur dans une équation cartésienne $ax + by + c = 0$.
+    - Déterminer une équation cartésienne avec un point et un vecteur directeur.
+    - Tracer une droite et établir un alignement.
+    prerequis:
+    - 2NDE-DROITE
+    - 2NDE-VEC-COL
+    methodes:
+    - titre: Équation cartésienne avec un point et un vecteur directeur
+      quand: On connaît $A(x_A ; y_A)$ et un vecteur directeur $\vec{u}(-b ; a)$.
+      etapes:
+      - Écrire que $M(x ; y)$ est sur la droite si et seulement si $\overrightarrow{AM}$ et $\vec{u}$ sont colinéaires.
+      - Traduire par le déterminant $:$ $(x - x_A) \times u_y - (y - y_A) \times u_x = 0$.
+      - Développer et réduire.
+      exemple:
+        enonce: Droite passant par $A(1 ; 2)$ de vecteur directeur $\vec{u}(3 ; 1)$.
+        resolution:
+        - $\overrightarrow{AM}(x - 1 ; y - 2)$.
+        - $(x - 1) \times 1 - (y - 2) \times 3 = 0$.
+        resultat: $x - 3y + 5 = 0$
+    erreurs_frequentes:
+    - erreur: Lire $(a ; b)$ comme vecteur directeur de $ax + by + c = 0$.
+      explication: Un vecteur directeur est $(-b ; a)$ ; le vecteur $(a ; b)$ est orthogonal à la droite.
+    resume: |
+      - Un vecteur directeur de $d$ est un vecteur non nul $\overrightarrow{AB}$ avec $A$ et $B$ sur $d$.
+      - $M(x ; y) \in d \iff \overrightarrow{AM}$ et $\vec u$ colinéaires $\iff \det(\overrightarrow{AM}, \vec u) = 0$.
+      - Toute droite a une équation $ax + by + c = 0$ ; le vecteur $\vec u(-b ; a)$ la dirige.
+      - Pour tracer une droite, on place deux de ses points.
+      - $A$, $B$, $C$ alignés $\iff \det(\overrightarrow{AB}, \overrightarrow{AC}) = 0$.
+    cours: |
+      ## 1. Vecteur directeur
+      > **Définition.** Un **vecteur directeur** d'une droite $d$ est un vecteur non nul $\vec u$ tel qu'il existe deux points $A$ et $B$ de $d$ avec $\vec u = \overrightarrow{AB}$.
+
+      Une droite est déterminée par un point et un vecteur directeur. Tout vecteur non nul colinéaire à un vecteur directeur est aussi un vecteur directeur.
+
+      ## 2. Forme générale d'une équation de droite
+      > **Propriété.** Dans un repère, toute droite admet une équation de la forme $ax + by + c = 0$ avec $(a ; b) \neq (0 ; 0)$, et le vecteur $\vec u(-b ; a)$ en est un vecteur directeur. Réciproquement, l'ensemble des points vérifiant une telle équation est une droite.
+
+      **Démonstration (exigible, avec le déterminant).** Soit $d$ la droite passant par $A(x_A ; y_A)$ et de vecteur directeur $\vec u(\alpha ; \beta)$, non nul. Un point $M(x ; y)$ appartient à $d$ si et seulement si $\overrightarrow{AM}(x - x_A ; y - y_A)$ et $\vec u$ sont colinéaires, c'est-à-dire si et seulement si $\det(\overrightarrow{AM}, \vec u) = 0$ :
+      $(x - x_A)\beta - \alpha(y - y_A) = 0 \iff \beta x - \alpha y + (\alpha y_A - \beta x_A) = 0$.
+      En posant $a = \beta$, $b = -\alpha$ et $c = \alpha y_A - \beta x_A$, on obtient une équation $ax + by + c = 0$, avec $(a ; b) \neq (0 ; 0)$ car $\vec u \neq \vec 0$. Et $(-b ; a) = (\alpha ; \beta)$ est bien un vecteur directeur.
+
+      Une droite a une infinité d'équations cartésiennes, toutes proportionnelles : $2x - y + 3 = 0$ et $-4x + 2y - 6 = 0$ décrivent la même droite.
+
+      ### Méthode : équation cartésienne avec un point et un vecteur directeur
+      1. Écrire $\overrightarrow{AM}(x - x_A ; y - y_A)$ pour un point $M(x ; y)$ quelconque.
+      2. Écrire la condition $\det(\overrightarrow{AM}, \vec u) = 0$ et développer.
+
+      **Exemple complet.** Droite passant par $A(2 ; -1)$ et dirigée par $\vec u(3 ; 4)$.
+      - $\overrightarrow{AM}(x - 2 ; y + 1)$.
+      - $\det(\overrightarrow{AM}, \vec u) = 4(x - 2) - 3(y + 1) = 4x - 3y - 11$.
+      - Équation : $4x - 3y - 11 = 0$. Contrôle : $4 \times 2 - 3 \times (-1) - 11 = 0$.
+
+      ## 3. Tracer une droite
+      - Avec une équation réduite $y = mx + p$ : placer $(0 ; p)$, puis se déplacer de $1$ vers la droite et de $m$ verticalement.
+      - Avec une équation cartésienne : chercher deux points simples, par exemple ceux d'abscisse $0$ et d'ordonnée $0$. Pour $2x + 3y - 6 = 0$ : $(0 ; 2)$ et $(3 ; 0)$.
+
+      ## 4. Points alignés
+      Trois points $A$, $B$, $C$ sont alignés si et seulement si $\det(\overrightarrow{AB}, \overrightarrow{AC}) = 0$. On peut aussi déterminer une équation de $(AB)$ et tester si $C$ la vérifie.
+
+      Exemple : $A(0 ; 1)$, $B(2 ; 5)$, $C(3 ; 8)$ : $\overrightarrow{AB}(2 ; 4)$, $\overrightarrow{AC}(3 ; 7)$, $\det = 2 \times 7 - 3 \times 4 = 2 \neq 0$ : les points ne sont pas alignés.
+
+      ## 5. Erreurs fréquentes
+      - Prendre $(a ; b)$ comme vecteur directeur de $ax + by + c = 0$ : c'est $(-b ; a)$.
+      - Croire qu'une droite n'a qu'une seule équation cartésienne.
+      - Pour tester un point, remplacer $x$ et $y$ dans le mauvais ordre.
+      - Oublier qu'une droite verticale a une équation cartésienne (avec $b = 0$) mais pas d'équation réduite.
+    questions:
+      - code: 2NDE-DROITE-CART-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel vecteur dirige la droite d''équation $2x - y + 1 = 0$ ? A) $\vec{u}(2 ; -1)$  B) $\vec{u}(1 ; 2)$  C) $\vec{u}(-1 ; 1)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $a = 2$, $b = -1$ $:$ un vecteur directeur est $(-b ; a) = (1 ; 2)$.
+          resultat: B
+      - code: 2NDE-DROITE-CART-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Le point $K(1 ; 3)$ appartient-il à la droite d''équation $2x - y + 1 = 0$ ? A) Oui  B) Non'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2 \times 1 - 3 + 1 = 0$ $:$ les coordonnées vérifient l'équation.
+          resultat: A
+      - code: 2NDE-DROITE-CART-03
+        difficulte: 3
+        type: expression
+        forme: reduite
+        enonce: 'La droite $d$ a pour équation $3x + 2y - 6 = 0$. Donner son équation réduite sous la forme $y = \ldots$'
+        solution: -3x/2 + 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $2y = -3x + 6$.
+          - $y = -\dfrac{3}{2}x + 3$.
+          resultat: -3x/2 + 3
+      - code: 2NDE-DROITE-CART-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle est une équation cartésienne de la droite passant par $M(1 ; 2)$ et de vecteur directeur $\vec{u}(3 ; 1)$ ? A) $x - 3y + 5 = 0$  B) $3x + y - 5 = 0$  C) $x + 3y - 7 = 0$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Pour $P(x ; y)$ $:$ $\det(\overrightarrow{MP}, \vec{u}) = (x - 1) \times 1 - (y - 2) \times 3 = 0$.
+          - $x - 3y + 5 = 0$ ; on vérifie que $M$ convient $:$ $1 - 6 + 5 = 0$.
+          resultat: A
+      - code: 2NDE-DROITE-CART-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La droite d''équation $ax + 2y - 8 = 0$ passe par le point $P(2 ; 1)$. Calculer $a$.'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Un point appartient à une droite si et seulement si ses coordonnées vérifient l''équation de la droite.'
+          - 'On remplace $x$ par $2$ et $y$ par $1$ : $a \times 2 + 2 \times 1 - 8 = 0$, soit $2a - 6 = 0$.'
+          - 'Donc $2a = 6$ et $a = 3$.'
+          - 'Contrôle : la droite $3x + 2y - 8 = 0$ contient bien $P$, car $3 \times 2 + 2 \times 1 - 8 = 0$.'
+          resultat: 3

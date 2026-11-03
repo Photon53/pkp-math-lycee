@@ -8,6 +8,8 @@ chapitre:
 competences:
   - code: 1RE-LOI
     libelle: Déterminer une loi de probabilité et une espérance
+    attendus: [1RE-SPE-2026-VA-01, 1RE-SPE-2026-VA-02, 1RE-SPE-2026-VA-06, 1RE-SPE-2026-VA-07, 1RE-SPE-2026-VA-08, 1RE-SPE-2026-VA-10]
+    cours_couvre: [1RE-SPE-2026-VA-01, 1RE-SPE-2026-VA-02, 1RE-SPE-2026-VA-06, 1RE-SPE-2026-VA-07, 1RE-SPE-2026-VA-08, 1RE-SPE-2026-VA-10]
     objectifs:
     - Déterminer une loi de probabilité et calculer une espérance.
     - Utiliser la linéarité de l'espérance.
@@ -27,24 +29,62 @@ competences:
     - erreur: Oublier de retirer la mise des gains.
       explication: Le gain algébrique est ce qu'on reçoit moins ce qu'on a payé, y compris quand on perd.
     resume: |
-      - La loi de $X$ donne chaque valeur $x_i$ et sa probabilité $p_i$, avec $\sum p_i = 1$.
-      - Espérance : $E(X) = \sum p_i x_i$ (moyenne à long terme).
-      - Linéarité : $E(aX + b) = aE(X) + b$.
-      - Un jeu est **équitable** lorsque l'espérance du gain algébrique est nulle.
+      - Une **variable aléatoire** $X$ associe un nombre réel à chaque issue d'une expérience aléatoire.
+      - **Loi de $X$** : les valeurs $x_i$ prises par $X$ et les probabilités $p_i = P(X = x_i)$, avec $\sum p_i = 1$.
+      - $\{X = a\}$, $\{X \leqslant a\}$ sont des évènements ; $P(X \leqslant a)$ est la somme des $P(X = x_i)$ pour $x_i \leqslant a$.
+      - **Espérance** : $E(X) = \sum x_i p_i$, valeur moyenne sur un grand nombre de répétitions ; un jeu est **équitable** si l'espérance du gain est nulle.
     cours: |
-      ## Loi et espérance
-      | $x_i$ | $0$ | $10$ | $20$ |
+      ## 1. Variable aléatoire
+
+      > **Définition.** Soit $\Omega$ l'univers (fini) d'une expérience aléatoire. Une **variable aléatoire réelle** $X$ est une fonction définie sur $\Omega$ et à valeurs dans $\mathbb{R}$ : elle associe un nombre à chaque issue.
+
+      *Exemple.* On lance deux pièces ; $X$ est le nombre de « pile ». $\Omega = \{PP, PF, FP, FF\}$ et $X(PP) = 2$, $X(PF) = X(FP) = 1$, $X(FF) = 0$.
+
+      ## 2. Notations
+
+      - $\{X = a\}$ est l'évènement « $X$ prend la valeur $a$ » : l'ensemble des issues $\omega$ telles que $X(\omega) = a$.
+      - $\{X \leqslant a\}$ : « $X$ prend une valeur inférieure ou égale à $a$ » ; de même $\{X > a\}$, $\{a \leqslant X \leqslant b\}$.
+      - Leurs probabilités se notent $P(X = a)$, $P(X \leqslant a)$…
+
+      *Traduction.* « Obtenir au moins un pile » s'écrit $\{X \geqslant 1\}$ ; « au plus un pile » s'écrit $\{X \leqslant 1\}$.
+
+      ## 3. Loi de probabilité
+
+      > **Définition.** La **loi** de $X$ est la donnée des valeurs $x_1, \ldots, x_n$ prises par $X$ et des probabilités $p_i = P(X = x_i)$. On a $p_1 + \cdots + p_n = 1$.
+
+      On la présente dans un tableau. Pour les deux pièces :
+
+      | $x_i$ | $0$ | $1$ | $2$ |
       |---|---|---|---|
-      | $P(X = x_i)$ | $0{,}5$ | $0{,}3$ | $0{,}2$ |
+      | $P(X = x_i)$ | $\dfrac{1}{4}$ | $\dfrac{1}{2}$ | $\dfrac{1}{4}$ |
 
-      $E(X) = 0 \times 0{,}5 + 10 \times 0{,}3 + 20 \times 0{,}2 = 7$.
+      $P(X \geqslant 1) = \dfrac{1}{2} + \dfrac{1}{4} = \dfrac{3}{4}$, ou $1 - P(X = 0)$.
 
-      ## Gain algébrique
-      On mise $2$ € et on lance un dé : on reçoit $10$ € si l'on obtient $6$. Le gain $G$ (gain reçu moins mise) vaut $8$ avec probabilité $\dfrac{1}{6}$ et $-2$ avec probabilité $\dfrac{5}{6}$.
-      $E(G) = \dfrac{8}{6} - \dfrac{10}{6} = -\dfrac{1}{3}$ : le jeu est défavorable au joueur.
+      ## 4. Espérance
 
-      ## Jeu équitable
-      Avec une mise $m$ : $E(G) = \dfrac{10}{6} - m = 0 \iff m = \dfrac{5}{3}$.
+      > **Définition.** L'**espérance** de $X$ est $$E(X) = x_1p_1 + x_2p_2 + \cdots + x_np_n = \sum_{i=1}^{n} x_ip_i.$$
+
+      C'est la **moyenne** des valeurs de $X$ pondérées par leurs probabilités : sur un très grand nombre de répétitions, la moyenne des valeurs observées est proche de $E(X)$.
+
+      > **Propriété (linéarité).** Pour tous réels $a$ et $b$ : $E(aX + b) = aE(X) + b$.
+
+      ## 5. Méthode et exemple complet
+
+      > **Méthode.** 1) Définir $X$ en mots. 2) Lister ses valeurs possibles. 3) Calculer chaque $P(X = x_i)$ (arbre, tableau, dénombrement). 4) Vérifier que la somme vaut $1$. 5) Calculer $E(X)$ et l'interpréter.
+
+      *Jeu.* On mise $2$ € puis on lance un dé : on reçoit $10$ € si l'on obtient $6$, $3$ € si l'on obtient $4$ ou $5$, rien sinon. Soit $G$ le gain algébrique (gain reçu moins la mise).
+
+      | $g_i$ | $-2$ | $1$ | $8$ |
+      |---|---|---|---|
+      | $P(G = g_i)$ | $\dfrac{3}{6}$ | $\dfrac{2}{6}$ | $\dfrac{1}{6}$ |
+
+      $E(G) = \dfrac{-6 + 2 + 8}{6} = \dfrac{4}{6} = \dfrac{2}{3} \approx 0{,}67$ € : en moyenne le joueur gagne environ $0{,}67$ € par partie, le jeu lui est favorable. Le jeu serait **équitable** avec une mise $m$ telle que l'espérance soit nulle : $\dfrac{10 + 2 \times 3}{6} - m = 0$, soit $m = \dfrac{8}{3} \approx 2{,}67$ €.
+
+      ## 6. Erreurs fréquentes
+
+      - Oublier la mise dans le gain algébrique.
+      - Une loi dont la somme des probabilités ne vaut pas $1$ : il manque une valeur.
+      - Confondre $P(X < a)$ et $P(X \leqslant a)$.
     questions:
       - code: 1RE-LOI-01
         difficulte: 1
@@ -75,7 +115,9 @@ competences:
         correction:
           methode: Linéarité de l'espérance.
           etapes:
-          - $E(2X + 3) = 2E(X) + 3 = 11$.
+          - 'Linéarité de l''espérance : $E(aX + b) = aE(X) + b$.'
+          - 'Avec $a = 2$ et $b = 3$ : $E(2X + 3) = 2 \times 4 + 3$.'
+          - '$E(2X + 3) = 11$.'
           resultat: 11
       - code: 1RE-LOI-04
         difficulte: 4
@@ -100,9 +142,27 @@ competences:
           - $E = \dfrac{10}{6} - m = 0$.
           - $m = \dfrac{10}{6} = \dfrac{5}{3}$ €.
           resultat: 5/3
+      - code: 1RE-LOI-V1
+        difficulte: 3
+        type: numerique
+        gabarit:
+          parametres: {x1: {entre: [-5, 0]}, x2: {entre: [1, 10]}, x3: {entre: [11, 30]}, p1: {entre: [0.1, 0.5], pas: 0.1}, p2: {entre: [0.1, 0.4], pas: 0.1}}
+          calculs: {p3: "1 - p1 - p2", e: "x1*p1 + x2*p2 + x3*(1 - p1 - p2)"}
+          conditions: ["p3 > 0"]
+        enonce: '$X$ prend les valeurs $[[x1]]$, $[[x2]]$, $[[x3]]$ avec les probabilités $[[p1]]$, $[[p2]]$, $[[p3]]$. Calculer $E(X)$.'
+        solution: '[[e]]'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$E(X) = \sum x_i p_i$.'
+          etapes:
+          - '$E(X) = [[x1]] \times [[p1]] + [[x2]] \times [[p2]] + [[x3]] \times [[p3]]$.'
+          - '$= [[x1*p1]] + [[x2*p2]] + [[x3*p3]] = [[e]]$.'
+          resultat: '[[e]]'
 
   - code: 1RE-VARIANCE
     libelle: Calculer une variance et un écart type
+    attendus: [1RE-SPE-2026-VA-03, 1RE-SPE-2026-VA-05, 1RE-SPE-2026-VA-09]
+    cours_couvre: [1RE-SPE-2026-VA-03, 1RE-SPE-2026-VA-05, 1RE-SPE-2026-VA-09]
     objectifs:
     - Calculer variance et écart type ; connaitre l'effet d'une transformation affine.
     prerequis:
@@ -122,20 +182,57 @@ competences:
     - erreur: Écrire $V(aX) = aV(X)$.
       explication: 'La variance est quadratique : $V(aX + b) = a^2 V(X)$.'
     resume: |
-      - $V(X) = \sum p_i (x_i - E(X))^2 = E(X^2) - E(X)^2$.
-      - Écart type : $\sigma(X) = \sqrt{V(X)}$, il mesure la dispersion autour de l'espérance.
-      - $V(aX + b) = a^2 V(X)$ et $\sigma(aX + b) = |a|\,\sigma(X)$.
+      - **Variance** : $V(X) = \sum p_i\,(x_i - E(X))^2$, moyenne des carrés des écarts à l'espérance ; $V(X) \geqslant 0$.
+      - **Écart type** : $\sigma(X) = \sqrt{V(X)}$, dans l'unité de $X$ ; il mesure la dispersion autour de $E(X)$.
+      - **König-Huygens** : $V(X) = E(X^2) - E(X)^2$ avec $E(X^2) = \sum p_i x_i^2$.
+      - $V(aX + b) = a^2V(X)$ et $\sigma(aX + b) = |a|\,\sigma(X)$.
     cours: |
-      ## Calcul
-      $X$ vaut $0$ ou $4$ avec probabilité $\dfrac{1}{2}$ chacun : $E(X) = 2$ et
-      $$V(X) = \frac{1}{2}(0 - 2)^2 + \frac{1}{2}(4 - 2)^2 = 4$$
-      donc $\sigma(X) = 2$.
+      ## 1. Variance et écart type
 
-      ## Formule de König-Huygens
-      $X$ uniforme sur $\{1 ; 2 ; 3\}$ : $E(X) = 2$, $E(X^2) = \dfrac{1 + 4 + 9}{3} = \dfrac{14}{3}$, $V(X) = \dfrac{14}{3} - 4 = \dfrac{2}{3}$.
+      Soit $X$ une variable aléatoire de loi $(x_i ; p_i)_{1 \leqslant i \leqslant n}$ et d'espérance $\mu = E(X)$.
 
-      ## Transformation affine
-      Si $V(X) = 2$, alors $V(3X) = 9 \times 2 = 18$ : le facteur est **au carré**.
+      > **Définition.**
+      > $$V(X) = \sum_{i=1}^{n} p_i\,(x_i - \mu)^2 \qquad \text{et} \qquad \sigma(X) = \sqrt{V(X)}.$$
+
+      La variance est l'espérance du carré de l'écart à la moyenne : $V(X) = E\left((X - \mu)^2\right)$. Elle est positive et ne s'annule que si $X$ est constante. L'**écart type** $\sigma$ s'exprime dans la même unité que $X$ : plus il est grand, plus les valeurs sont dispersées autour de l'espérance.
+
+      ## 2. Formule de König-Huygens
+
+      > **Propriété.** $V(X) = E(X^2) - E(X)^2$, où $E(X^2) = \sum p_i\,x_i^2$.
+
+      **Démonstration.** $\sum p_i(x_i - \mu)^2 = \sum p_ix_i^2 - 2\mu\sum p_ix_i + \mu^2\sum p_i = E(X^2) - 2\mu \times \mu + \mu^2 \times 1 = E(X^2) - \mu^2$.
+
+      Cette formule est souvent plus rapide quand $E(X)$ n'est pas entier.
+
+      ## 3. Effet d'une transformation affine
+
+      > **Propriété.** Pour tous réels $a$ et $b$ : $V(aX + b) = a^2\,V(X)$ et $\sigma(aX + b) = |a|\,\sigma(X)$.
+
+      *Justification.* $aX + b$ a pour espérance $a\mu + b$ ; ses écarts à l'espérance valent $a(x_i - \mu)$, dont les carrés valent $a^2(x_i - \mu)^2$. Ajouter $b$ décale toutes les valeurs sans changer leur dispersion.
+
+      ## 4. Méthode et exemple complet
+
+      > **Méthode.** 1) Calculer $E(X)$. 2) Calculer $E(X^2) = \sum p_ix_i^2$ (ou les écarts au carré). 3) $V(X) = E(X^2) - E(X)^2$. 4) $\sigma(X) = \sqrt{V(X)}$, puis interpréter.
+
+      *Exemple.* Deux jeux ont des gains $X$ et $Y$ (en €) :
+
+      | $x_i$ | $-1$ | $2$ | $5$ |
+      |---|---|---|---|
+      | $P(X = x_i)$ | $0{,}5$ | $0{,}3$ | $0{,}2$ |
+
+      | $y_i$ | $-10$ | $20$ |
+      |---|---|---|
+      | $P(Y = y_i)$ | $0{,}6$ | $0{,}4$ |
+
+      - $E(X) = -0{,}5 + 0{,}6 + 1 = 1{,}1$ ; $E(X^2) = 0{,}5 + 1{,}2 + 5 = 6{,}7$ ; $V(X) = 6{,}7 - 1{,}21 = 5{,}49$ ; $\sigma(X) \approx 2{,}34$.
+      - $E(Y) = -6 + 8 = 2$ ; $E(Y^2) = 60 + 160 = 220$ ; $V(Y) = 220 - 4 = 216$ ; $\sigma(Y) \approx 14{,}7$.
+      Le jeu $Y$ rapporte un peu plus en moyenne mais il est beaucoup plus **risqué** (écart type bien plus grand).
+
+      ## 5. Erreurs fréquentes
+
+      - Écrire $V(X) = E(X^2) - E(X)$ en oubliant le carré.
+      - Écrire $V(2X) = 2V(X)$ : c'est $4V(X)$.
+      - Donner la variance quand on demande l'écart type (ou l'inverse).
     questions:
       - code: 1RE-VARIANCE-01
         difficulte: 1
@@ -165,7 +262,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - '$E(X) = 2$ ; écarts $\pm 2$ : $V(X) = \dfrac{4 + 4}{2} = 4$.'
+          - '$E(X) = 0 \times \dfrac{1}{2} + 4 \times \dfrac{1}{2} = 2$.'
+          - '$V(X) = \dfrac{1}{2}(0 - 2)^2 + \dfrac{1}{2}(4 - 2)^2 = \dfrac{4}{2} + \dfrac{4}{2}$.'
+          - '$V(X) = 4$ (et l''écart type vaut $2$).'
           resultat: 4
       - code: 1RE-VARIANCE-04
         difficulte: 4
@@ -175,7 +274,9 @@ competences:
         auteur: Brouillon IA (Claude)
         correction:
           etapes:
-          - $V(3X) = 3^2 \times V(X) = 18$.
+          - 'Propriété : $V(aX) = a^2V(X)$ (une variance s''exprime dans l''unité au carré).'
+          - '$V(3X) = 3^2 \times V(X) = 9 \times 2$.'
+          - '$V(3X) = 18$.'
           resultat: 18
       - code: 1RE-VARIANCE-05
         difficulte: 5
@@ -188,3 +289,123 @@ competences:
           - $E(X) = 2$ et $E(X^2) = \dfrac{1 + 4 + 9}{3} = \dfrac{14}{3}$.
           - $V(X) = \dfrac{14}{3} - 4 = \dfrac{2}{3}$.
           resultat: 2/3
+
+  - code: 1RE-VA-LIN
+    libelle: Utiliser la linéarité de l'espérance
+    attendus: [1RE-SPE-2026-VA-04]
+    cours_couvre: [1RE-SPE-2026-VA-04]
+    objectifs:
+    - Calculer $E(aX + b)$ à partir de $E(X)$.
+    - Interpréter un changement d'unité ou une transformation affine d'un gain.
+    prerequis:
+    - 1RE-LOI
+    methodes:
+    - titre: Calculer l'espérance d'un gain transformé
+      quand: Le gain $Y$ s'obtient à partir de $X$ par $Y = aX + b$.
+      etapes:
+      - Calculer (ou lire) $E(X)$.
+      - Appliquer $E(aX + b) = aE(X) + b$, sans recalculer la loi de $Y$.
+      exemple:
+        enonce: $E(X) = 2{,}5$ et $Y = 4X - 3$. Calculer $E(Y)$.
+        resolution:
+        - $E(Y) = 4 \times 2{,}5 - 3$.
+        resultat: $7$
+    erreurs_frequentes:
+    - erreur: Écrire $E(aX + b) = aE(X)$.
+      explication: La constante $b$ s'ajoute $:$ $E(aX + b) = aE(X) + b$.
+    - erreur: Appliquer la même règle à la variance.
+      explication: $V(aX + b) = a^2 V(X)$ $:$ la constante $b$ disparaît et $a$ est élevé au carré.
+    resume: |
+      - **Linéarité** : $E(aX + b) = aE(X) + b$ pour tous réels $a$, $b$.
+      - $E(X + Y) = E(X) + E(Y)$ pour deux variables aléatoires définies sur le même univers.
+      - Changement d'unité ou de tarif : on transforme l'espérance par la même formule affine.
+      - La variance, elle, n'est pas linéaire : $V(aX + b) = a^2V(X)$.
+    cours: |
+      ## 1. Linéarité de l'espérance
+
+      > **Propriété.** Soit $X$ une variable aléatoire et $a$, $b$ deux réels. Alors $$E(aX + b) = aE(X) + b.$$
+
+      **Démonstration.** $aX + b$ prend les valeurs $ax_i + b$ avec les probabilités $p_i$, donc
+      $$E(aX + b) = \sum p_i(ax_i + b) = a\sum p_ix_i + b\sum p_i = aE(X) + b,$$
+      car $\sum p_i = 1$.
+
+      > **Propriété (admise).** Si $X$ et $Y$ sont deux variables aléatoires définies sur le même univers, $E(X + Y) = E(X) + E(Y)$.
+
+      ## 2. Méthode : utiliser la linéarité
+
+      Quand une nouvelle variable s'exprime comme $Y = aX + b$, **inutile** de recalculer sa loi : $E(Y) = aE(X) + b$.
+
+      *Exemples.*
+      - **Changement d'unité.** Une température $X$ en °C a pour espérance $15$ ; en °F, $F = 1{,}8X + 32$ a pour espérance $1{,}8 \times 15 + 32 = 59$.
+      - **Gain d'un jeu.** On reçoit $5$ € par point obtenu au dé et on paie $20$ € pour jouer : gain $G = 5X - 20$ avec $E(X) = 3{,}5$, donc $E(G) = 17{,}5 - 20 = -2{,}5$ €.
+      - **Somme de deux dés.** $S = X_1 + X_2$ : $E(S) = 3{,}5 + 3{,}5 = 7$, sans dresser la loi de $S$.
+
+      ## 3. Exemple complet
+
+      Un commerçant vend chaque jour $X$ gâteaux, avec $E(X) = 40$. Chaque gâteau rapporte $2{,}50$ € et les frais fixes sont de $30$ € par jour.
+      - Bénéfice : $B = 2{,}5X - 30$.
+      - $E(B) = 2{,}5 \times 40 - 30 = 70$ € : sur un grand nombre de jours, le bénéfice moyen est de $70$ € par jour.
+      - S'il augmente le prix de $10\,\%$ sans changer les ventes : $B' = 2{,}75X - 30$, $E(B') = 80$ €.
+      - Si $V(X) = 25$, alors $V(B) = 2{,}5^2 \times 25 = 156{,}25$ et $\sigma(B) = 12{,}5$ € (les frais fixes ne changent pas la dispersion).
+
+      ## 4. Erreurs fréquentes
+
+      - Oublier la constante : $E(2X + 3) = 2E(X) + 3$, et non $2E(X)$.
+      - Appliquer la linéarité à la variance : $V(2X + 3) = 4V(X)$, ni $2V(X) + 3$ ni $2V(X)$.
+      - Croire que $E(X^2) = E(X)^2$ : c'est faux en général (la différence est la variance).
+    questions:
+      - code: 1RE-VA-LIN-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On sait que $E(X) = 5$. Calculer $E(X + 2)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $E(X + 2) = 5 + 2 = 7$.
+          resultat: 7
+      - code: 1RE-VA-LIN-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On sait que $E(X) = 2{,}5$. Calculer $E(4X - 3)$.'
+        solution: 7
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $4 \times 2{,}5 - 3 = 7$.
+          resultat: 7
+      - code: 1RE-VA-LIN-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une température $X$ en degrés Celsius a pour espérance $20$. La température en degrés Fahrenheit est $F = 1{,}8X + 32$. Calculer $E(F)$.'
+        solution: 68
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - '$F = 1{,}8X + 32$ est de la forme $aX + b$ avec $a = 1{,}8$ et $b = 32$.'
+          - 'Linéarité : $E(F) = 1{,}8\,E(X) + 32 = 1{,}8 \times 20 + 32$.'
+          - '$E(F) = 36 + 32 = 68$ °F.'
+          resultat: 68
+      - code: 1RE-VA-LIN-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On sait que $V(X) = 3$. Calculer $V(2X + 5)$.'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Propriété : $V(aX + b) = a^2V(X)$ ; ajouter une constante décale les valeurs sans changer leur dispersion.'
+          - '$V(2X + 5) = 2^2 \times V(X) = 4 \times 3$.'
+          - '$V(2X + 5) = 12$.'
+          resultat: 12
+      - code: 1RE-VA-LIN-05
+        difficulte: 5
+        type: numerique
+        enonce: 'À un jeu, le nombre de points $X$ a pour espérance $1{,}5$. Chaque point rapporte $2$ € et la mise est de $m$ €. Pour quelle mise $m$ le jeu est-il équitable ?'
+        solution: 3
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - Gain $G = 2X - m$, d'espérance $2 \times 1{,}5 - m = 3 - m$.
+          - Jeu équitable $:$ $E(G) = 0$, soit $m = 3$.
+          resultat: 3

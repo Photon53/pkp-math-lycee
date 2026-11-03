@@ -1,0 +1,26 @@
+# Partie « Algèbre », rubrique « Suites numériques, modèles discrets » (page 6 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: SUI
+  titre: Suites numériques, modèles discrets
+  partie: Algèbre
+
+attendus:
+  - {code: 1RE-SPE-2026-SUI-01, type: contenu, page: 6, texte: "Exemples de modes de génération d’une suite : explicite uₙ = ƒ(n), par une relation de récurrence uₙ₊₁ = ƒ(uₙ), par un algorithme, par des motifs géométriques."}
+  - {code: 1RE-SPE-2026-SUI-02, type: contenu, page: 6, texte: "Notations : u(n), uₙ, (u(n)), (uₙ)."}
+  - {code: 1RE-SPE-2026-SUI-03, type: contenu, page: 6, texte: "Suites arithmétiques : exemples, définition, calcul du terme général. Lien avec l’étude d’évolutions successives à accroissements constants. Lien avec les fonctions affines. Calcul de 1 + 2 + … + n."}
+  - {code: 1RE-SPE-2026-SUI-04, type: contenu, page: 6, texte: "Suites géométriques : exemples, définition, calcul du terme général. Lien avec l’étude d’évolutions successives à taux constant. Lien avec la fonction exponentielle. Calcul de 1 + q + … + qⁿ."}
+  - {code: 1RE-SPE-2026-SUI-05, type: contenu, page: 6, texte: "Sens de variation d’une suite."}
+  - {code: 1RE-SPE-2026-SUI-06, type: contenu, page: 6, texte: "Sur des exemples, introduction intuitive de la notion de limite, finie ou infinie, ou l’absence de limite d’une suite."}
+  - {code: 1RE-SPE-2026-SUI-07, type: capacite, page: 6, texte: "Dans le cadre de l’étude d’une suite, utiliser le registre de la langue naturelle, le registre algébrique, le registre graphique, et passer de l’un à l’autre."}
+  - {code: 1RE-SPE-2026-SUI-08, type: capacite, page: 6, texte: "Proposer, modéliser une situation permettant de générer une suite de nombres. Déterminer une relation explicite ou une relation de récurrence pour une suite définie par un motif géométrique, par une question de dénombrement."}
+  - {code: 1RE-SPE-2026-SUI-09, type: capacite, page: 6, texte: "Calculer des termes d’une suite définie explicitement, par récurrence ou par un algorithme."}
+  - {code: 1RE-SPE-2026-SUI-10, type: capacite, page: 6, texte: "Pour une suite arithmétique ou géométrique, calculer le terme général, la somme de termes consécutifs, déterminer le sens de variation."}
+  - {code: 1RE-SPE-2026-SUI-11, type: capacite, page: 6, texte: "Modéliser un phénomène discret à croissance linéaire par une suite arithmétique, un phénomène discret à croissance exponentielle par une suite géométrique."}
+  - {code: 1RE-SPE-2026-SUI-12, type: capacite, page: 6, texte: "Conjecturer, dans des cas simples, la limite éventuelle d’une suite."}
+  - {code: 1RE-SPE-2026-SUI-13, type: demonstration, page: 6, texte: "Calcul du terme général d’une suite arithmétique, d’une suite géométrique."}
+  - {code: 1RE-SPE-2026-SUI-14, type: demonstration, page: 6, texte: "Calcul de 1 + 2 + … + n."}
+  - {code: 1RE-SPE-2026-SUI-15, type: demonstration, page: 6, texte: "Calcul de 1 + q + … + qⁿ."}
+  - {code: 1RE-SPE-2026-SUI-16, type: approfondissement, page: 6, texte: "Tour de Hanoï."}
+  - {code: 1RE-SPE-2026-SUI-17, type: approfondissement, page: 6, texte: "Somme des n premiers carrés, des n premiers cubes."}
+  - {code: 1RE-SPE-2026-SUI-18, type: approfondissement, page: 6, texte: "Remboursement d’un emprunt par annuités constantes."}
