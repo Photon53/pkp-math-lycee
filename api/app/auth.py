@@ -138,3 +138,17 @@ EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authenti
 AdminCourant = Annotated[models.Enseignant, Depends(admin_courant)]
 ParentCourant = Annotated[models.Parent, Depends(parent_courant)]
 ParentAuthentifie = Annotated[models.Parent, Depends(parent_authentifie)]
+
+
+def filtre_domaine(domaine: str | None = None) -> str | None:
+    """Filtre `?domaine=` des listes de l'admin (CDC V2, EA.2 et recette 5) : vide = tous les domaines."""
+    from app import permissions
+
+    if not domaine:
+        return None
+    if domaine not in permissions.LIBELLES:
+        raise HTTPException(422, f"Domaine inconnu : {domaine}.")
+    return domaine
+
+
+FiltreDomaine = Annotated[str | None, Depends(filtre_domaine)]

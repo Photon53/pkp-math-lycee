@@ -12,10 +12,11 @@ const PAGES = [
   { vers: "/anglais", libelle: "Séances 4e et 3e", icone: "cours" },
   { vers: "/anglais/groupes", libelle: "Mes groupes", icone: "classes" },
 ];
-// Ouverte aux référents cochés par un administrateur (l'API le revérifie à chaque requête).
+// Ouverte aux validateurs qualifiés en anglais, qu'ils y enseignent ou non (EX.9-bis) ; l'API le revérifie.
 const VALIDATION = { vers: "/anglais/validation", libelle: "Validation", icone: "bouclier" };
 
-/** Espace PKP Anglais : séparé de l'espace professeur de maths, ouvert aux comptes dont la discipline anglais est cochée. */
+/** Espace PKP Anglais : séparé de l'espace professeur de maths, ouvert aux professeurs d'anglais et, pour la seule
+ * page Validation, aux validateurs d'anglais qui n'y enseignent pas. */
 export default function EspaceAnglais({ chemin = "/anglais" }) {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
 
@@ -43,7 +44,7 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
       </PageSimple>
     );
   }
-  if (!compte.enseigne_anglais) {
+  if (!compte.enseigne_anglais && !compte.referent_anglais) {
     return (
       <PageSimple marque={MARQUE}>
         <AccesReserve
@@ -56,8 +57,9 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
     );
   }
 
-  const pages = compte.referent_anglais ? [...PAGES, VALIDATION] : PAGES;
-  const page = pages.find((p) => p.vers !== "/anglais" && (chemin === p.vers || chemin.startsWith(`${p.vers}/`))) ?? PAGES[0];
+  const pages = compte.enseigne_anglais ? (compte.referent_anglais ? [...PAGES, VALIDATION] : PAGES) : [VALIDATION];
+  const page =
+    pages.find((p) => p.vers !== "/anglais" && (chemin === p.vers || chemin.startsWith(`${p.vers}/`))) ?? pages[0];
 
   return (
     <CadreApplication

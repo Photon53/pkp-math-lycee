@@ -5,13 +5,14 @@ production) ; le rôle est revérifié en base à chaque requête. Chaque écrit
 """
 
 from datetime import UTC, datetime
+from urllib.parse import urlencode
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
 from app import anglais_contenu, journal, limitation, parents, permissions, ressources, statistiques
-from app.auth import ADMIN, AdminCourant, SessionDB
+from app.auth import ADMIN, AdminCourant, FiltreDomaine, SessionDB
 from app.config import settings
 from app.db import models
 from app.progression import export_eleve
@@ -20,6 +21,7 @@ from app.routes import anglais
 from app.routes.enseignants import _attribuer_code, verifier_identifiants
 from app.schemas import CodeEleve, ConnexionEnseignant, ParentCree, ParentVue
 from app.schemas_admin import (
+    ResultatRecherche,
     SeanceAnglaisEdition,
     TAILLE_PAGE,
     Activation,
@@ -101,7 +103,9 @@ def connexion(corps: ConnexionAdmin, request: Request, session: SessionDB) -> Je
 
 @router.get("/moi", response_model=EnseignantAdmin)
 def moi(admin: AdminCourant, session: SessionDB) -> EnseignantAdmin:
-    return _vue_enseignant(session, admin)
+    vue = _vue_enseignant(session, admin)
+    vue.permissions = sorted(permissions.permissions_de(admin))
+    return vue
 
 
 # --- Professeurs -------------------------------------------------------------------------
@@ -165,8 +169,12 @@ def _email_libre(session: SessionDB, email: str, sauf_id: int | None = None) -> 
 
 
 @router.get("/enseignants", response_model=list[EnseignantAdmin])
-def enseignants(admin: AdminCourant, session: SessionDB, q: str | None = None) -> list[EnseignantAdmin]:
+def enseignants(
+    admin: AdminCourant, session: SessionDB, domaine: FiltreDomaine, q: str | None = None
+) -> list[EnseignantAdmin]:
     requete = select(models.Enseignant).order_by(models.Enseignant.nom)
+    if domaine:
+        requete = requete.where(models.Enseignant.habilitations.any(models.Habilitation.domaine_code == domaine))
     if q:
         motif = f"%{q.strip().lower()}%"
         requete = requete.where(or_(func.lower(models.Enseignant.nom).like(motif), models.Enseignant.email.like(motif)))
@@ -287,6 +295,7 @@ def _eleve(session: SessionDB, eleve_id: int) -> models.Eleve:
 def eleves(
     _: AdminCourant,
     session: SessionDB,
+    domaine: FiltreDomaine,
     q: str | None = None,
     classe_id: int | None = None,
     enseignant_id: int | None = None,
@@ -308,6 +317,8 @@ def eleves(
         filtres.append(models.Eleve.classe_id == classe_id)
     if enseignant_id is not None:
         filtres.append(models.Classe.enseignant_id == enseignant_id)
+    if domaine:
+        filtres.append(models.Classe.domaine_code == domaine)
     base = select(models.Eleve).join(models.Classe).where(*filtres)
     total = session.scalar(select(func.count()).select_from(base.subquery()))
     lignes = session.execute(
@@ -354,7 +365,7 @@ def deplacer(eleve_id: int, corps: Deplacement, admin: AdminCourant, session: Se
     eleve.classe = cible
     journal.noter(session, admin, "deplacer", "eleve", eleve.id, avant, {"classe": cible.code})
     session.commit()
-    return eleves(admin, session, classe_id=cible.id, q=eleve.prenom).elements[0]
+    return eleves(admin, session, None, classe_id=cible.id, q=eleve.prenom).elements[0]
 
 
 @router.delete("/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -418,7 +429,8 @@ def _parent(session: SessionDB, parent_id: int) -> models.Parent:
 
 @router.get("/parents", response_model=PageFamilles)
 def familles(
-    _: AdminCourant, session: SessionDB, q: str | None = None, classe_id: int | None = None, page: int = 1
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, q: str | None = None, classe_id: int | None = None,
+    page: int = 1,
 ) -> PageFamilles:
     """Recherche par e-mail (au moins 3 caractères) ou par classe d'un enfant."""
     q = (q or "").strip().lower()
@@ -429,6 +441,8 @@ def familles(
         filtres.append(models.Parent.email.like(f"%{q}%"))
     if classe_id is not None:
         filtres.append(models.Parent.enfants.any(models.Eleve.classe_id == classe_id))
+    if domaine:
+        filtres.append(models.Parent.enfants.any(models.Eleve.classe.has(models.Classe.domaine_code == domaine)))
     total = session.scalar(select(func.count(models.Parent.id)).where(*filtres))
     trouves = session.scalars(
         select(models.Parent).where(*filtres).order_by(models.Parent.email)
@@ -476,6 +490,42 @@ def detacher_enfant(parent_id: int, eleve_id: int, admin: AdminCourant, session:
     return _detail_famille(session, session.get(models.Parent, parent_id)) if reste else None
 
 
+def _iso(d: datetime | None) -> str | None:
+    return d.isoformat() if d else None
+
+
+@router.get("/parents/{parent_id}/export")
+def exporter_famille(parent_id: int, admin: AdminCourant, session: SessionDB) -> JSONResponse:
+    """Données d'un compte parent (RGPD, EA.12) : compte, enfants rattachés, historique des rattachements.
+
+    Les résultats des enfants n'y figurent pas : ils relèvent de l'export de chaque élève. Accès journalisé.
+    """
+    p = _parent(session, parent_id)
+    historique = session.scalars(
+        select(models.RattachementParent)
+        .where(models.RattachementParent.parent_id == p.id)
+        .order_by(models.RattachementParent.le, models.RattachementParent.id)
+    )
+    donnees = {
+        "exporte_le": datetime.now(UTC).isoformat(),
+        "parent": {
+            "email": p.email, "cree_le": _iso(p.cree_le), "derniere_connexion": _iso(p.derniere_connexion),
+            "mot_de_passe_provisoire": p.mdp_provisoire,
+        },
+        "enfants": [
+            {"prenom": e.prenom, "classe": e.classe.code, "niveau": e.classe.niveau.value}
+            for e in sorted(p.enfants, key=lambda e: (e.prenom, e.classe.code))
+        ],
+        "historique_des_rattachements": [
+            {"le": _iso(r.le), "action": r.action, "par": r.par, "enfant": f"{r.eleve.prenom} ({r.eleve.classe.code})"}
+            for r in historique
+        ],
+    }
+    journal.noter(session, admin, "exporter", "parent", p.id)
+    session.commit()
+    return JSONResponse(donnees, headers={"Content-Disposition": f'attachment; filename="pkp-famille-{p.id}.json"'})
+
+
 @router.post("/parents/{parent_id}/reinitialiser", response_model=ParentCree)
 def reinitialiser_parent(parent_id: int, admin: AdminCourant, session: SessionDB) -> ParentCree:
     """Nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées."""
@@ -499,13 +549,18 @@ def supprimer_famille(parent_id: int, confirmation: str, admin: AdminCourant, se
 
 
 @router.get("/classes", response_model=list[ClasseAdmin])
-def classes(_: AdminCourant, session: SessionDB, enseignant_id: int | None = None) -> list[ClasseAdmin]:
+def classes(
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, enseignant_id: int | None = None
+) -> list[ClasseAdmin]:
     requete = select(models.Classe).order_by(models.Classe.code)
+    if domaine:
+        requete = requete.where(models.Classe.domaine_code == domaine)
     if enseignant_id is not None:
         requete = requete.where(models.Classe.enseignant_id == enseignant_id)
     return [
         ClasseAdmin(
-            id=c.id, code=c.code, niveau=c.niveau, parcours=c.parcours, enseignant_id=c.enseignant_id,
+            id=c.id, code=c.code, niveau=c.niveau, parcours=c.parcours, domaine_code=c.domaine_code,
+            enseignant_id=c.enseignant_id,
             enseignant=c.enseignant.nom, nb_eleves=len(c.eleves), nb_chapitres_ouverts=len(c.chapitres_proposes),
         )
         for c in session.scalars(requete)
@@ -531,8 +586,11 @@ def _groupe_anglais(session: SessionDB, groupe_id: int) -> models.GroupeAnglais:
 
 
 @router.get("/anglais/groupes", response_model=list[GroupeAnglaisAdmin])
-def groupes_anglais(_: AdminCourant, session: SessionDB) -> list[GroupeAnglaisAdmin]:
-    groupes = session.scalars(select(models.GroupeAnglais))
+def groupes_anglais(_: AdminCourant, session: SessionDB, domaine: FiltreDomaine) -> list[GroupeAnglaisAdmin]:
+    requete = select(models.GroupeAnglais)
+    if domaine:
+        requete = requete.where(models.GroupeAnglais.domaine_code == domaine)
+    groupes = session.scalars(requete)
     return [_vue_groupe(g) for g in sorted(
         groupes, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.enseignant.nom.lower(), g.nom.lower())
     )]
@@ -577,9 +635,9 @@ def supprimer_eleve_anglais(eleve_id: int, admin: AdminCourant, session: Session
 
 
 @router.get("/anglais/seances")
-def seances_anglais(_: AdminCourant, session: SessionDB):
+def seances_anglais(_: AdminCourant, session: SessionDB, domaine: FiltreDomaine):
     """Catalogue : version courante de chaque séance, son statut et la version publiée."""
-    return [anglais_contenu.resume(s) for s in anglais_contenu.toutes(session)]
+    return [anglais_contenu.resume(s) for s in anglais_contenu.toutes(session) if not domaine or s.domaine_code == domaine]
 
 
 @router.get("/anglais/seances/{code}")
@@ -729,3 +787,114 @@ def lire_statistiques(_: AdminCourant, session: SessionDB, periode: int = 30) ->
     if periode not in statistiques.PERIODES:
         raise HTTPException(422, f"Période possible : {', '.join(map(str, statistiques.PERIODES))} jours.")
     return statistiques.calculer(session, periode, maintenant=datetime.now(UTC))
+
+
+# --- Recherche globale (CDC V2, EA.1) ------------------------------------------------------------------
+
+PAR_TYPE = 5  # quelques résultats par type : la page ouverte affiche ensuite la liste complète
+
+
+def _vers(page: str, **params) -> str:
+    return f"/admin/{page}?{urlencode(params)}" if params else f"/admin/{page}"
+
+
+@router.get("/recherche", response_model=list[ResultatRecherche])
+def recherche(_: AdminCourant, session: SessionDB, domaine: FiltreDomaine, q: str = "") -> list[ResultatRecherche]:
+    """Comptes, familles, élèves, classes, groupes et contenus dont le nom, l'e-mail, le code ou le titre contient `q`.
+
+    Les familles ne sortent qu'à partir de 3 caractères de leur e-mail, comme dans leur écran (EA.8).
+    """
+    q = " ".join(q.split()).lower()
+    if len(q) < 2:
+        raise HTTPException(422, "Saisissez au moins 2 caractères.")
+    motif = f"%{q}%"
+    maths = domaine is None or permissions.MATIERES.get(domaine) == "maths"
+    anglais = domaine is None or permissions.MATIERES.get(domaine) == "anglais"
+    trouves: list[ResultatRecherche] = []
+
+    requete = select(models.Enseignant).where(
+        or_(func.lower(models.Enseignant.nom).like(motif), func.lower(models.Enseignant.email).like(motif))
+    )
+    if domaine:
+        requete = requete.where(models.Enseignant.habilitations.any(models.Habilitation.domaine_code == domaine))
+    for e in session.scalars(requete.order_by(models.Enseignant.nom).limit(PAR_TYPE)):
+        trouves.append(ResultatRecherche(type="Équipe", libelle=e.nom, detail=e.email, vers=_vers("professeurs", q=e.email)))
+
+    if len(q) >= 3:
+        requete = select(models.Parent).where(models.Parent.email.like(motif))
+        if domaine:
+            requete = requete.where(
+                models.Parent.enfants.any(models.Eleve.classe.has(models.Classe.domaine_code == domaine))
+            )
+        for p in session.scalars(requete.order_by(models.Parent.email).limit(PAR_TYPE)):
+            enfants = ", ".join(sorted(e.prenom for e in p.enfants)) or "aucun enfant rattaché"
+            trouves.append(ResultatRecherche(type="Famille", libelle=p.email, detail=enfants, vers=_vers("familles", q=p.email)))
+
+    if maths:
+        filtre_classe = [models.Classe.domaine_code == domaine] if domaine else []
+        requete = (
+            select(models.Eleve).join(models.Classe)
+            .where(or_(func.lower(models.Eleve.prenom).like(motif), func.lower(models.Eleve.identifiant).like(motif)))
+            .where(*filtre_classe)
+        )
+        for e in session.scalars(requete.order_by(models.Eleve.prenom).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Élève", libelle=e.prenom, detail=f"{e.classe.code} · {e.classe.enseignant.nom}",
+                vers=_vers("eleves", q=e.prenom),
+            ))
+        requete = select(models.Classe).where(func.lower(models.Classe.code).like(motif)).where(*filtre_classe)
+        for c in session.scalars(requete.order_by(models.Classe.code).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Classe", libelle=c.code, detail=f"{c.enseignant.nom} · {len(c.eleves)} élève(s)",
+                vers=_vers("eleves", onglet="classes"),
+            ))
+        filtre_chapitre = [models.Chapitre.domaine_code == domaine] if domaine else []
+        requete = select(models.Chapitre).where(
+            or_(func.lower(models.Chapitre.titre).like(motif), func.lower(models.Chapitre.code).like(motif))
+        ).where(*filtre_chapitre)
+        for ch in session.scalars(requete.order_by(models.Chapitre.niveau, models.Chapitre.ordre).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Chapitre", libelle=ch.titre, detail=f"{ch.code} · {ch.niveau.value}",
+                vers=_vers("cours", niveau=ch.niveau.value),
+            ))
+        requete = (
+            select(models.Question).join(models.Competence).join(models.Chapitre)
+            .where(func.lower(models.Question.code).like(motif), models.Question.archivee.is_(False))
+            .where(*filtre_chapitre)
+        )
+        for qu in session.scalars(requete.order_by(models.Question.code).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Exercice", libelle=qu.code, detail=qu.competence.chapitre.titre, vers=_vers("exercices", q=qu.code),
+            ))
+
+    if anglais:
+        requete = select(models.GroupeAnglais).where(func.lower(models.GroupeAnglais.nom).like(motif))
+        if domaine:
+            requete = requete.where(models.GroupeAnglais.domaine_code == domaine)
+        for g in session.scalars(requete.order_by(models.GroupeAnglais.nom).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Groupe d'anglais", libelle=g.nom, detail=f"{g.niveau} · {g.enseignant.nom}", vers=_vers("anglais"),
+            ))
+        requete = (
+            select(models.EleveAnglais).join(models.GroupeAnglais)
+            .where(or_(
+                func.lower(models.EleveAnglais.prenom).like(motif), func.lower(models.EleveAnglais.identifiant).like(motif)
+            ))
+        )
+        if domaine:
+            requete = requete.where(models.GroupeAnglais.domaine_code == domaine)
+        for e in session.scalars(requete.order_by(models.EleveAnglais.prenom).limit(PAR_TYPE)):
+            trouves.append(ResultatRecherche(
+                type="Élève d'anglais", libelle=e.prenom, detail=e.groupe.nom, vers=_vers("anglais"),
+            ))
+        seances = [
+            s for s in anglais_contenu.toutes(session)
+            if (not domaine or s.domaine_code == domaine)
+            and (q in s.code.lower() or q in s.courante.contenu["title"].lower())
+        ]
+        for s in seances[:PAR_TYPE]:
+            trouves.append(ResultatRecherche(
+                type="Séance d'anglais", libelle=f"{s.code} · {s.courante.contenu['title']}", detail=s.niveau,
+                vers=_vers("anglais", onglet="seances"),
+            ))
+    return trouves

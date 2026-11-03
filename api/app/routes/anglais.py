@@ -1,5 +1,5 @@
 """Séances PKP Anglais, génération PDF, groupes d'élèves et validation, réservés aux professeurs d'anglais."""
-from typing import Annotated, Literal
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import Response
@@ -92,8 +92,8 @@ def referent(enseignant: EnseignantAuthentifie) -> models.Enseignant:
     """Validateur d'Anglais collège, qu'il y enseigne ou non : la qualification suffit (EX.9-bis)."""
     if enseignant.mdp_provisoire:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Choisissez d'abord un nouveau mot de passe.")
-    if permissions.ANGLAIS_COLLEGE not in permissions.domaines_valides(enseignant):
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux validateurs d'Anglais collège.")
+    if not any(permissions.MATIERES.get(d) == "anglais" for d in permissions.domaines_valides(enseignant)):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux validateurs d'anglais.")
     return enseignant
 
 
@@ -115,7 +115,7 @@ class Refus(BaseModel):
 def decider(seance: models.SeanceAnglais, qui: models.Enseignant, session: Session, motif: str | None) -> dict:
     """Valide (sans motif) ou refuse la version soumise ; la décision est journalisée."""
     courante = seance.courante
-    refus = permissions.refus_validation(qui, permissions.ANGLAIS_COLLEGE, seance.niveau)
+    refus = permissions.refus_validation(qui, seance.domaine_code, seance.niveau)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     probleme = anglais_contenu.peut_decider(courante, qui)
@@ -138,7 +138,7 @@ def a_valider(qui: Referent, session: SessionDB):
     return [
         {**anglais_contenu.resume(s), "est_auteur": s.courante.auteur_id == qui.id}
         for s in anglais_contenu.toutes(session)
-        if s.courante.statut == "soumis" and permissions.peut_valider(qui, permissions.ANGLAIS_COLLEGE, s.niveau)
+        if s.courante.statut == "soumis" and permissions.peut_valider(qui, s.domaine_code, s.niveau)
     ]
 
 
@@ -171,7 +171,7 @@ ELEVES_PAR_GROUPE = 30  # le CDC recommande 8 à 10 élèves ; la limite évite 
 
 class GroupeCreation(BaseModel):
     nom: Annotated[str, Field(max_length=60)]
-    niveau: Literal["4e", "3e"]
+    niveau: Annotated[str, Field(max_length=4)]
 
     @field_validator("nom")
     @classmethod
@@ -263,10 +263,14 @@ def mes_groupes(enseignant: EnseignantAnglais) -> list[GroupeResume]:
 def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
     if any(g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
-    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_GROUPES_ANGLAIS)
+    domaine = permissions.DOMAINE_GROUPES_ANGLAIS
+    refus = permissions.refus_domaine_ferme(session, domaine)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
-    groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant)
+    refus = permissions.refus_niveau(session, domaine, corps.niveau)
+    if refus:
+        raise HTTPException(422, refus)
+    groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant, domaine_code=domaine)
     session.add(groupe)
     session.commit()
     return _resume(groupe)

@@ -13,6 +13,7 @@ from typing import NamedTuple
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.referentiel import Role
 
 PROFESSEUR, VALIDATEUR = "professeur", "validateur"
 ROLES = (PROFESSEUR, VALIDATEUR)
@@ -42,9 +43,19 @@ DOMAINES = (
     Domaine("francais-lycee", "francais", "lycee", "Français lycée", ["2nde", "1re"], False, False),
 )
 LIBELLES = {d.code: d.libelle for d in DOMAINES}
+MATIERES = {d.code: d.matiere for d in DOMAINES}
 
-# Domaine de chaque espace existant : les classes de maths sont au lycée, les groupes d'anglais au collège.
+# Domaine donné aux nouvelles classes et aux nouveaux groupes par les espaces actuels ; chaque classe, chapitre,
+# groupe et séance d'anglais porte ensuite son domaine (colonne `domaine_code`, EX.2).
 DOMAINE_CLASSES, DOMAINE_GROUPES_ANGLAIS = MATHS_LYCEE, ANGLAIS_COLLEGE
+
+
+def refus_niveau(session: Session, domaine: str, niveau: str) -> str | None:
+    """Le niveau doit être l'un de ceux du domaine (remplace les contraintes `niveau IN (...)` de l'anglais)."""
+    d = session.get(models.DomainePedagogique, domaine)
+    if d is not None and niveau in d.niveaux:
+        return None
+    return f"Le niveau {niveau} ne fait pas partie de {LIBELLES.get(domaine, domaine)}."
 
 # Case historique ↔ habilitation qui la remplace.
 CASES = {
@@ -143,3 +154,37 @@ def refus_domaine_ferme(session: Session, domaine: str) -> str | None:
     if d is not None and d.public:
         return None
     return f"{LIBELLES.get(domaine, domaine)} est fermé pour le moment : aucune nouvelle séance n'est possible."
+
+
+# --- Permissions (CDC V2, EX.7) ------------------------------------------------------------------
+# Table de correspondance dans le code, pas un moteur configurable en base. L'admin a toutes les permissions
+# sauf `contenu.valider`, qui vient d'une habilitation de validateur, domaine par domaine (EX.9-bis).
+
+PERMISSIONS = (
+    "contenu.lire", "contenu.modifier", "contenu.soumettre", "contenu.valider", "contenu.publier",
+    "comptes.gerer", "parents.gerer", "pilotage.global", "pilotage.domaine", "configuration",
+)
+PAR_ROLE = {
+    PROFESSEUR: ("contenu.lire", "contenu.soumettre", "pilotage.domaine"),
+    VALIDATEUR: ("contenu.lire", "contenu.valider", "contenu.publier"),
+}
+
+
+def permissions_de(enseignant: models.Enseignant, domaine: str | None = None) -> set[str]:
+    """Permissions d'un compte, dans un domaine donné ou dans au moins un domaine (`domaine` vide)."""
+    accordees: set[str] = set()
+    if enseignant.role == Role.ADMIN:
+        accordees.update(p for p in PERMISSIONS if p != "contenu.valider")
+    for h in enseignant.habilitations:
+        if domaine is None or h.domaine_code == domaine:
+            accordees.update(PAR_ROLE[h.role])
+    return accordees
+
+
+def exiger(enseignant: models.Enseignant, permission: str, domaine: str | None = None) -> str | None:
+    """Refus lisible si la permission manque, sinon None ; chaque route lève ensuite son 403."""
+    if permission not in PERMISSIONS:
+        raise ValueError(f"Permission inconnue : {permission}")
+    if permission in permissions_de(enseignant, domaine):
+        return None
+    return "Vous n'avez pas la permission nécessaire pour cette action."

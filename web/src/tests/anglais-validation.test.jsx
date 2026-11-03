@@ -107,6 +107,16 @@ describe("PKP Anglais : élèves, codes et validation", () => {
     expect(screen.getByText("Aucune séance en attente de validation.")).toBeInTheDocument();
   });
 
+  it("un validateur d'anglais qui n'enseigne pas l'anglais accède à la seule page Validation", async () => {
+    connecte({ enseigne_anglais: false, referent_anglais: true });
+    fausseApi({ "GET /anglais/validation": { json: [] } });
+    render(<EspaceAnglais chemin="/anglais" />);
+    expect(await screen.findByText("Aucune séance en attente de validation.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Validation/ })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Mes groupes/ })).not.toBeInTheDocument();
+    expect(screen.queryByText("Espace réservé aux professeurs d'anglais")).not.toBeInTheDocument();
+  });
+
   it("sans la case référent, pas de page Validation", async () => {
     connecte({});
     fausseApi({ "GET /anglais/seances": { json: [] } });

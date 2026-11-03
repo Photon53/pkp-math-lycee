@@ -215,7 +215,7 @@ def mon_avancement(competence_id: int, eleve: EleveCourant, session: SessionDB) 
 @router.post("/seances", response_model=SeanceInfo, status_code=status.HTTP_201_CREATED)
 def demarrer_seance(eleve: EleveCourant, session: SessionDB, corps: SeanceCreation | None = None) -> models.Seance:
     """Démarre une séance sur les chapitres choisis (tous les chapitres ouverts si aucun choix)."""
-    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_CLASSES)
+    refus = permissions.refus_domaine_ferme(session, eleve.classe.domaine_code)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     ouverts = {c.id: c for c in eleve.classe.chapitres_proposes if not c.masque}

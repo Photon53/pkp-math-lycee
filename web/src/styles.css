@@ -536,3 +536,21 @@ th.centre, td.centre { text-align: center; }
 .niveaux-valides label.case { margin: 0; align-self: center; }
 .liste-choix, .liste-simple { list-style: none; padding: 0; margin: 8px 0; }
 .liste-choix li, .liste-simple li { padding: 4px 0; border-bottom: 1px solid var(--bordure); }
+
+/* --- Bandeau de l'admin : domaine et recherche globale (CDC V2, EA.1, EA.2) ----------------- */
+.bandeau-admin { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: flex-end; margin-bottom: 16px; }
+.bandeau-admin label { margin-top: 0; }
+.bandeau-domaine { flex: 1 1 200px; max-width: 280px; }
+.bandeau-recherche { flex: 3 1 260px; position: relative; }
+.resultats-recherche {
+  position: absolute; z-index: 30; top: calc(100% + 4px); left: 0; right: 0; max-height: 60vh; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--bordure-forte); border-radius: var(--rayon-petit); box-shadow: var(--ombre); padding: 4px;
+}
+.resultats-recherche p { margin: 8px; }
+.resultats-recherche .resultat {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-start; gap: 2px 8px; width: 100%;
+  background: none; border: none; color: var(--texte); font-weight: 400; padding: 8px; text-align: left;
+}
+.resultats-recherche .resultat:hover:not(:disabled), .resultats-recherche .resultat:focus-visible { background: var(--action-doux); color: var(--texte); }
+.note-domaine { margin: 0 0 12px; }
+@media (max-width: 560px) { .bandeau-domaine { max-width: none; } }

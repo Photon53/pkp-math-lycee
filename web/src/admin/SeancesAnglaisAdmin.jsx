@@ -3,18 +3,22 @@ import { telecharger } from "../anglais/SeancesAnglais.jsx";
 import { Decision, Historique, StatutSeance } from "../anglais/ValidationAnglais.jsx";
 import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
+import { avecDomaine } from "./BandeauAdmin.jsx";
 
 const lignes = (texte) => texte.split("\n").map((l) => l.trim()).filter(Boolean);
 const QCM_VIDE = { question: "", choix: ["", "", ""], reponse: 0, explication: "" };
 
 /** Catalogue des séances PKP Anglais : statut, version publiée, édition et circuit de validation. */
-export default function SeancesAnglaisAdmin({ jeton, onExpire }) {
+export default function SeancesAnglaisAdmin({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur, setErreur } = useApi(jeton, onExpire);
   const [seances, setSeances] = useState(null);
   const [code, setCode] = useState(null);
   const [encours, setEncours] = useState("");
 
-  const charger = useCallback(() => appeler("/admin/anglais/seances").then(setSeances, () => {}), [appeler]);
+  const charger = useCallback(
+    () => appeler(avecDomaine("/admin/anglais/seances", domaine)).then(setSeances, () => {}),
+    [appeler, domaine],
+  );
 
   useEffect(() => {
     charger();

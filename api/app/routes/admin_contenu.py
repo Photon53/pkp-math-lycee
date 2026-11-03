@@ -12,7 +12,7 @@ from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
 from app import journal, permissions, ressources
-from app.auth import AdminCourant, SessionDB
+from app.auth import AdminCourant, FiltreDomaine, SessionDB
 from app.contenu import TIRAGES_VERIFIES
 from app.contenu import _dollars_equilibres as dollars_equilibres
 from app.db import models
@@ -64,7 +64,9 @@ def _maintenant() -> datetime:
 
 
 @router.get("/contenu", response_model=list[ChapitreArbre])
-def arbre(_: AdminCourant, session: SessionDB, niveau: Niveau | None = None) -> list[ChapitreArbre]:
+def arbre(
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, niveau: Niveau | None = None
+) -> list[ChapitreArbre]:
     nb_questions = dict(
         session.execute(
             select(models.Question.competence_id, func.count())
@@ -79,6 +81,8 @@ def arbre(_: AdminCourant, session: SessionDB, niveau: Niveau | None = None) -> 
     )
     if niveau is not None:
         requete = requete.where(models.Chapitre.niveau == niveau)
+    if domaine:
+        requete = requete.where(models.Chapitre.domaine_code == domaine)
     return [
         ChapitreArbre(
             id=ch.id, code=ch.code, niveau=ch.niveau, parcours=ch.parcours, titre=ch.titre, ordre=ch.ordre, masque=ch.masque,
@@ -298,6 +302,7 @@ def _vue_question(q: models.Question, n: int | None, c: int | None) -> QuestionA
 def questions(
     _: AdminCourant,
     session: SessionDB,
+    domaine: FiltreDomaine,
     niveau: Niveau | None = None,
     chapitre_id: int | None = None,
     competence_id: int | None = None,
@@ -311,6 +316,8 @@ def questions(
     filtres = [] if archivees else [models.Question.archivee.is_(False)]
     if niveau is not None:
         filtres.append(models.Chapitre.niveau == niveau)
+    if domaine:
+        filtres.append(models.Chapitre.domaine_code == domaine)
     if chapitre_id is not None:
         filtres.append(models.Chapitre.id == chapitre_id)
     if competence_id is not None:
@@ -430,7 +437,7 @@ def valider(question_id: int, corps: Validation, admin: AdminCourant, session: S
     """Le relecteur est l'administrateur connecté, validateur qualifié de Maths lycée pour ce niveau (EX.9-bis) ;
     il ne peut pas être l'auteur (règle E0.2)."""
     q = _question(session, question_id)
-    refus = permissions.refus_validation(admin, permissions.MATHS_LYCEE, q.competence.chapitre.niveau.value)
+    refus = permissions.refus_validation(admin, q.competence.chapitre.domaine_code, q.competence.chapitre.niveau.value)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     if corps.statut == StatutValidation.VALIDEE and q.auteur and q.auteur.strip().lower() == admin.nom.strip().lower():
@@ -470,9 +477,16 @@ def _ressource(session: SessionDB, ressource_id: int) -> models.Ressource:
 
 @router.get("/ressources", response_model=list[RessourceDetail])
 def lister_ressources(
-    _: AdminCourant, session: SessionDB, portee: PorteeRessource | None = None, masquees: bool | None = None
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, portee: PorteeRessource | None = None,
+    masquees: bool | None = None,
 ) -> list[RessourceDetail]:
     requete = select(models.Ressource).order_by(models.Ressource.cree_le.desc())
+    if domaine:
+        du_domaine = models.Chapitre.domaine_code == domaine
+        requete = requete.where(or_(
+            models.Ressource.chapitre.has(du_domaine),
+            models.Ressource.competence.has(models.Competence.chapitre.has(du_domaine)),
+        ))
     if portee is not None:
         requete = requete.where(models.Ressource.portee == portee)
     if masquees is not None:

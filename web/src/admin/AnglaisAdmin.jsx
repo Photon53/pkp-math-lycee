@@ -3,12 +3,13 @@ import { Erreur, Onglets } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Vide } from "../ui/Cadre.jsx";
 import SeancesAnglaisAdmin from "./SeancesAnglaisAdmin.jsx";
+import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
 
 /** PKP Anglais côté administrateur : groupes 4e/3e de tous les professeurs d'anglais, édition et validation des séances. */
-export default function AnglaisAdmin({ jeton, onExpire }) {
-  const [onglet, setOnglet] = useState("groupes");
+export default function AnglaisAdmin({ jeton, onExpire, domaine = "" }) {
+  const [onglet, setOnglet] = useState(() => (parametre("onglet") === "seances" ? "seances" : "groupes"));
   return (
     <>
       <Onglets
@@ -19,12 +20,16 @@ export default function AnglaisAdmin({ jeton, onExpire }) {
           ["seances", "Séances et validation"],
         ]}
       />
-      {onglet === "groupes" ? <Groupes jeton={jeton} onExpire={onExpire} /> : <SeancesAnglaisAdmin jeton={jeton} onExpire={onExpire} />}
+      {onglet === "groupes" ? (
+        <Groupes jeton={jeton} onExpire={onExpire} domaine={domaine} />
+      ) : (
+        <SeancesAnglaisAdmin jeton={jeton} onExpire={onExpire} domaine={domaine} />
+      )}
     </>
   );
 }
 
-function Groupes({ jeton, onExpire }) {
+function Groupes({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [groupes, setGroupes] = useState(null);
   const [profs, setProfs] = useState([]);
@@ -32,7 +37,10 @@ function Groupes({ jeton, onExpire }) {
   const [transfert, setTransfert] = useState(null);
   const [message, setMessage] = useState(null);
 
-  const charger = useCallback(() => appeler("/admin/anglais/groupes").then(setGroupes, () => {}), [appeler]);
+  const charger = useCallback(
+    () => appeler(avecDomaine("/admin/anglais/groupes", domaine)).then(setGroupes, () => {}),
+    [appeler, domaine],
+  );
 
   useEffect(() => {
     charger();

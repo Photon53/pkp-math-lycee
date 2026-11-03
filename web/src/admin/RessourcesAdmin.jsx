@@ -5,9 +5,10 @@ import { useApi } from "../enseignant/useApi.js";
 import { Modale, Vide, formaterDate } from "../ui/Cadre.jsx";
 import FormulaireRessource from "../ui/FormulaireRessource.jsx";
 import Icone from "../ui/Icone.jsx";
+import { avecDomaine } from "./BandeauAdmin.jsx";
 
 /** Ressources communes, modération des ressources des professeurs, domaines interdits (EA5.1 à EA5.10). */
-export default function RessourcesAdmin({ jeton, onExpire }) {
+export default function RessourcesAdmin({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur, setErreur } = useApi(jeton, onExpire);
   const [onglet, setOnglet] = useState("communes");
   const [liste, setListe] = useState(null);
@@ -18,8 +19,11 @@ export default function RessourcesAdmin({ jeton, onExpire }) {
   const charger = useCallback(() => {
     if (onglet === "domaines") return Promise.resolve();
     setListe(null);
-    return appeler(`/admin/ressources?portee=${onglet === "communes" ? "commune" : "classe"}`).then(setListe, () => {});
-  }, [appeler, onglet]);
+    return appeler(avecDomaine(`/admin/ressources?portee=${onglet === "communes" ? "commune" : "classe"}`, domaine)).then(
+      setListe,
+      () => {},
+    );
+  }, [appeler, onglet, domaine]);
 
   useEffect(() => {
     charger();

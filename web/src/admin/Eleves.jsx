@@ -3,10 +3,11 @@ import { Erreur, Onglets } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 /** Vue transverse des élèves et des classes (EA3.7 à EA3.10). L'administrateur ne crée pas d'élève. */
-export default function Eleves({ jeton, onExpire }) {
-  const [onglet, setOnglet] = useState("eleves");
+export default function Eleves({ jeton, onExpire, domaine = "" }) {
+  const [onglet, setOnglet] = useState(() => (parametre("onglet") === "classes" ? "classes" : "eleves"));
   return (
     <>
       <Onglets
@@ -17,15 +18,15 @@ export default function Eleves({ jeton, onExpire }) {
           ["classes", "Classes"],
         ]}
       />
-      {onglet === "eleves" && <ListeEleves jeton={jeton} onExpire={onExpire} />}
-      {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} />}
+      {onglet === "eleves" && <ListeEleves jeton={jeton} onExpire={onExpire} domaine={domaine} />}
+      {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} domaine={domaine} />}
     </>
   );
 }
 
-function ListeEleves({ jeton, onExpire }) {
+function ListeEleves({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
-  const [recherche, setRecherche] = useState("");
+  const [recherche, setRecherche] = useState(() => parametre("q"));
   const [page, setPage] = useState(1);
   const [donnees, setDonnees] = useState(null);
   const [classes, setClasses] = useState([]);
@@ -36,8 +37,9 @@ function ListeEleves({ jeton, onExpire }) {
   const charger = useCallback(() => {
     const params = new URLSearchParams({ page: String(page) });
     if (recherche.trim()) params.set("q", recherche.trim());
+    if (domaine) params.set("domaine", domaine);
     return appeler(`/admin/eleves?${params}`).then(setDonnees, () => {});
-  }, [appeler, page, recherche]);
+  }, [appeler, page, recherche, domaine]);
 
   useEffect(() => {
     const minuterie = setTimeout(charger, 250);
@@ -45,8 +47,8 @@ function ListeEleves({ jeton, onExpire }) {
   }, [charger]);
 
   useEffect(() => {
-    appeler("/admin/classes").then(setClasses, () => {});
-  }, [appeler]);
+    appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
+  }, [appeler, domaine]);
 
   async function regenerer(e) {
     if (!window.confirm(`Nouveau code pour ${e.prenom} (${e.classe}) ? L'ancien cesse de fonctionner.`)) return;
@@ -219,12 +221,12 @@ function Deplacement({ eleve, classes, onFermer, onValider }) {
   );
 }
 
-function ListeClasses({ jeton, onExpire }) {
+function ListeClasses({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [classes, setClasses] = useState(null);
   useEffect(() => {
-    appeler("/admin/classes").then(setClasses, () => {});
-  }, [appeler]);
+    appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
+  }, [appeler, domaine]);
 
   return (
     <section className="carte">
