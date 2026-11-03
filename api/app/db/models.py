@@ -97,6 +97,14 @@ competences_de_seance = Table(
     Column("competence_id", ForeignKey("competence.id", ondelete="RESTRICT"), primary_key=True),
 )
 
+# Comptes parents : chaque parent suit un ou plusieurs enfants (inscriptions élève).
+enfants_de_parent = Table(
+    "parent_eleve",
+    Base.metadata,
+    Column("parent_id", ForeignKey("parent.id", ondelete="CASCADE"), primary_key=True),
+    Column("eleve_id", ForeignKey("eleve.id", ondelete="CASCADE"), primary_key=True, index=True),
+)
+
 
 class Enseignant(Base):
     __tablename__ = "enseignant"
@@ -164,6 +172,29 @@ class Eleve(Base):
     seances: Mapped[list["Seance"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )
+    parents: Mapped[list["Parent"]] = relationship(
+        secondary=enfants_de_parent, back_populates="enfants", passive_deletes=True
+    )
+
+
+class Parent(Base):
+    """Compte parent, créé par le professeur d'un de ses enfants (e-mail + mot de passe provisoire).
+
+    Le parent suit le travail de ses enfants et choisit leur code personnel. Sans enfant rattaché,
+    le compte n'a plus de raison d'être : il est supprimé (voir `app.parents.supprimer_orphelins`).
+    """
+
+    __tablename__ = "parent"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(String(254), unique=True)
+    mot_de_passe_hash: Mapped[str] = mapped_column(String(255))
+    # Donné par le professeur ou un administrateur : à changer avant tout autre usage.
+    mdp_provisoire: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    enfants: Mapped[list[Eleve]] = relationship(secondary=enfants_de_parent, back_populates="parents")
 
 
 NIVEAUX_ANGLAIS = ("4e", "3e")

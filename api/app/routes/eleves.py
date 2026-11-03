@@ -118,6 +118,14 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
 
 
+CARTE_ANGLAIS = "Cette carte est une carte PKP Anglais : connecte-toi sur la page élève de PKP Anglais."
+
+
+def _carte_anglais(session: SessionDB, identifiant: str, code: str) -> bool:
+    eleve = session.scalar(select(models.EleveAnglais).where(models.EleveAnglais.identifiant == identifiant))
+    return bool(eleve and eleve.code_hash and verifier_code_eleve(code, eleve.code_hash))
+
+
 @router.post("/eleves/connexion/identifiant", response_model=JetonEleve)
 def connexion_identifiant(corps: ConnexionIdentifiant, request: Request, session: SessionDB) -> JetonEleve:
     """Identifiant + code personnel, tous deux imprimés sur la carte de l'élève (ou lus dans son QR code).
@@ -134,6 +142,10 @@ def connexion_identifiant(corps: ConnexionIdentifiant, request: Request, session
     eleve = session.scalar(select(models.Eleve).where(models.Eleve.identifiant == identifiant))
     empreinte = eleve.code_hash if eleve and eleve.code_hash else _code_leurre()  # même durée dans tous les cas
     if not verifier_code_eleve(corps.code_personnel, empreinte) or not (eleve and eleve.code_hash):
+        if eleve is None and _carte_anglais(session, identifiant, corps.code_personnel):
+            # Carte PKP Anglais saisie sur la page de maths : on indique la bonne page (seulement avec le bon code,
+            # pour ne rien révéler à qui essaie des identifiants).
+            raise HTTPException(status.HTTP_409_CONFLICT, CARTE_ANGLAIS)
         if eleve is None:
             limitation.codes_inconnus.enregistrer(ip)  # freine la recherche d'identifiants
         limitation.echecs_code_eleve.enregistrer(compte)

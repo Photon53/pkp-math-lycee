@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import anglais_contenu, journal, limitation, ressources, statistiques
+from app import anglais_contenu, journal, limitation, parents, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -18,7 +18,7 @@ from app.progression import export_eleve
 from app.referentiel import Role
 from app.routes import anglais
 from app.routes.enseignants import _attribuer_code, verifier_identifiants
-from app.schemas import CodeEleve, ConnexionEnseignant
+from app.schemas import CodeEleve, ConnexionEnseignant, ParentCree, ParentVue
 from app.schemas_admin import (
     SeanceAnglaisEdition,
     TAILLE_PAGE,
@@ -310,6 +310,7 @@ def supprimer_eleve(eleve_id: int, admin: AdminCourant, session: SessionDB) -> R
     eleve = _eleve(session, eleve_id)
     journal.noter(session, admin, "supprimer", "eleve", eleve.id, avant={"prenom": eleve.prenom, "classe": eleve.classe.code})
     session.delete(eleve)
+    parents.supprimer_orphelins(session)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -321,6 +322,32 @@ def exporter(eleve_id: int, admin: AdminCourant, session: SessionDB) -> JSONResp
     journal.noter(session, admin, "exporter", "eleve", eleve.id)
     session.commit()
     return export_eleve(session, eleve)
+
+
+# --- Comptes parents ----------------------------------------------------------------
+
+
+@router.get("/parents", response_model=list[ParentVue])
+def parents_par_email(_: AdminCourant, session: SessionDB, q: str) -> list[ParentVue]:
+    """Recherche par e-mail (au moins 3 caractères) : pas de liste complète des familles."""
+    if len(q.strip()) < 3:
+        raise HTTPException(422, "Saisissez au moins 3 caractères de l'adresse e-mail.")
+    trouves = session.scalars(
+        select(models.Parent).where(models.Parent.email.like(f"%{q.strip().lower()}%")).order_by(models.Parent.email).limit(20)
+    )
+    return [parents.vue(p) for p in trouves]
+
+
+@router.post("/parents/{parent_id}/reinitialiser", response_model=ParentCree)
+def reinitialiser_parent(parent_id: int, admin: AdminCourant, session: SessionDB) -> ParentCree:
+    """Nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées."""
+    parent = session.get(models.Parent, parent_id)
+    if parent is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    provisoire = parents.reinitialiser(parent)
+    journal.noter(session, admin, "reinitialiser-mot-de-passe", "parent", parent.id)
+    session.commit()
+    return ParentCree(parent=parents.vue(parent), mot_de_passe_provisoire=provisoire)
 
 
 @router.get("/classes", response_model=list[ClasseAdmin])

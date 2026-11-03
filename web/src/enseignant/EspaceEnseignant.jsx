@@ -130,7 +130,7 @@ export function AccesReserve({ titre, compte, autreEspace, onDeconnexion }) {
   );
 }
 
-export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexion }) {
+export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexion, chemin = "/enseignants/connexion", children }) {
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState(null);
@@ -141,7 +141,7 @@ export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexio
     setErreur(null);
     setEnvoi(true);
     try {
-      onConnexion(await api("/enseignants/connexion", { methode: "POST", corps: { email, mot_de_passe: motDePasse } }));
+      onConnexion(await api(chemin, { methode: "POST", corps: { email, mot_de_passe: motDePasse } }));
     } catch (err) {
       setErreur(err.message);
       setMotDePasse("");
@@ -153,6 +153,7 @@ export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexio
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
       <h1>{titre}</h1>
+      {children}
       <label htmlFor="email">Email</label>
       <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required />
       <label htmlFor="mdp">Mot de passe</label>
@@ -175,7 +176,7 @@ export function ConnexionEnseignant({ titre = "Connexion professeur", onConnexio
 }
 
 /** Mot de passe provisoire donné par un administrateur : à remplacer avant tout le reste (EA3.2). */
-export function NouveauMotDePasse({ compte, onChange, onAnnuler, retour = "/enseignant" }) {
+export function NouveauMotDePasse({ compte, onChange, onAnnuler, retour = "/enseignant", chemin = "/enseignants/mot-de-passe" }) {
   const [actuel, setActuel] = useState("");
   const [nouveau, setNouveau] = useState("");
   const [confirmation, setConfirmation] = useState("");
@@ -186,7 +187,7 @@ export function NouveauMotDePasse({ compte, onChange, onAnnuler, retour = "/ense
     if (nouveau !== confirmation) return setErreur("Les deux saisies diffèrent.");
     setErreur(null);
     try {
-      onChange(await api("/enseignants/mot-de-passe", { methode: "POST", jeton: compte.jeton, corps: { actuel, nouveau } }));
+      onChange(await api(chemin, { methode: "POST", jeton: compte.jeton, corps: { actuel, nouveau } }));
       naviguer(retour);
     } catch (err) {
       if (err.status === 401 && err.message.startsWith("Authentification")) onAnnuler();
@@ -197,7 +198,7 @@ export function NouveauMotDePasse({ compte, onChange, onAnnuler, retour = "/ense
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
       <h1>Choisissez votre mot de passe</h1>
-      <p className="doux">Bienvenue {compte.nom}. Votre mot de passe actuel est provisoire : remplacez-le pour continuer.</p>
+      <p className="doux">Bienvenue {compte.nom ?? compte.email}. Votre mot de passe actuel est provisoire : remplacez-le pour continuer.</p>
       <label htmlFor="actuel">Mot de passe provisoire</label>
       <input id="actuel" type="password" value={actuel} onChange={(e) => setActuel(e.target.value)} autoComplete="current-password" required />
       <label htmlFor="nouveau">Nouveau mot de passe</label>

@@ -1,5 +1,7 @@
 """Purge RGPD : supprime les élèves sans activité depuis `PKP_RETENTION_JOURS`.
 
+Les comptes parents qui ne suivent plus aucun enfant sont supprimés en même temps.
+
 Activité = début de la dernière séance, ou date de création si l'élève n'a
 jamais commencé de séance. Séances et réponses partent en cascade.
 
@@ -15,7 +17,7 @@ from datetime import UTC, datetime, timedelta
 from sqlalchemy import DateTime, func, select
 from sqlalchemy.orm import Session
 
-from app import inscriptions
+from app import inscriptions, parents
 from app.config import settings
 from app.db import models
 
@@ -61,6 +63,8 @@ def purger(
             a_supprimer = session.get(models.Eleve, eleve.id)
             inscriptions.delier(session, a_supprimer)  # le numéro de groupe reste celui d'un élève existant
             session.delete(a_supprimer)
+        # Les comptes parents qui ne suivent plus aucun enfant partent avec le dernier.
+        parents.supprimer_orphelins(session)
         session.commit()
     return inactifs
 

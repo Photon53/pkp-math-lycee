@@ -107,6 +107,23 @@ et la durée est mesurée par le serveur, pas déclarée par le navigateur.
 
 Cloisonnement : un enseignant ne voit que ses classes et leurs élèves ; sinon 404.
 
+### Parents
+Le professeur crée le compte d'un parent depuis la fiche de l'élève (bouton « Parents ») : e-mail et mot de passe
+provisoire affiché une seule fois, à transmettre par l'établissement (PKP n'envoie aucun courriel). Le parent
+remplace ce mot de passe à sa première connexion sur `/parent`. Un même compte peut suivre plusieurs enfants.
+
+| Route | Rôle |
+|-------|------|
+| `GET/POST /enseignants/eleves/{id}/parents` | Comptes parents de l'élève ; création (ou rattachement d'un compte existant, sans nouveau mot de passe), 4 au plus |
+| `DELETE /enseignants/eleves/{id}/parents/{parent_id}` | Le parent ne suit plus l'élève ; compte supprimé s'il ne suit plus personne |
+| `POST /enseignants/parents/{id}/mot-de-passe` | Mot de passe oublié : nouveau mot de passe provisoire (professeur d'un de ses enfants) |
+| `GET /admin/parents?q=`, `POST /admin/parents/{id}/reinitialiser` | Recherche par e-mail et réinitialisation par un administrateur (journalisée) |
+| `POST /parents/connexion`, `POST /parents/mot-de-passe` | Connexion (jeton « parent », 12 h) et changement de mot de passe |
+| `GET /parents/enfants` | Enfants suivis (et leurs inscriptions reliées), tant que le professeur est actif |
+| `GET /parents/enfants/{id}` | Tableau de bord : synthèse, activité et temps de travail sur 14 jours, chapitres ouverts, progression par compétence |
+| `GET /parents/enfants/{id}/historique` | Historique des réponses avec corrections |
+| `PUT /parents/enfants/{id}/code` | Code personnel choisi par le parent (8 à 16 lettres et chiffres) ; vaut pour les inscriptions reliées, ferme les sessions de l'enfant |
+
 ### Chapitres proposés et choisis
 L'enseignant **ouvre** des chapitres du programme de sa classe ; l'élève **choisit**, parmi eux, ceux qu'il travaille
 dans une séance. Le cours, la progression et les tirages du moteur sont limités aux chapitres ouverts (et, en séance,

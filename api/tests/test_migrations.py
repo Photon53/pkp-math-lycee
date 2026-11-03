@@ -11,7 +11,7 @@ TABLES = {
     "lecon_version", "journal_admin", "seance_competence", "ressource", "ressource_classe", "ressource_consultation", "domaine_interdit",
     "enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse",
     "classe_chapitre", "seance_chapitre", "groupe_anglais", "eleve_anglais",
-    "seance_anglais", "seance_anglais_version", "progression_anglais",
+    "seance_anglais", "seance_anglais_version", "progression_anglais", "parent", "parent_eleve",
 }
 
 

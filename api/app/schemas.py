@@ -487,3 +487,88 @@ class QuestionEnseignant(_Modele):
     adaptation: Adaptation
     statut_validation: StatutValidation
     correction: dict | None = None
+
+
+# --- Parents --------------------------------------------------------------------
+
+_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+class ParentCreation(BaseModel):
+    """E-mail du parent, saisi par le professeur ; le mot de passe provisoire est généré."""
+
+    email: Annotated[str, Field(min_length=5, max_length=254)]
+
+    @field_validator("email")
+    @classmethod
+    def _email(cls, v: str) -> str:
+        v = v.strip().lower()
+        if not _EMAIL.match(v):
+            raise ValueError("Adresse e-mail invalide.")
+        return v
+
+
+class ParentVue(BaseModel):
+    id: int
+    email: str
+    mdp_provisoire: bool
+    derniere_connexion: datetime | None
+    enfants: list[str]  # « Lina (2NDE-A-DEMO) »
+
+
+class ParentCree(BaseModel):
+    parent: ParentVue
+    # Absent quand le compte existait déjà (autre enfant) : le parent garde son mot de passe.
+    mot_de_passe_provisoire: str | None = None
+
+
+class JetonParent(BaseModel):
+    jeton: str
+    email: str
+    # Vrai : l'interface demande un nouveau mot de passe avant tout le reste.
+    mdp_provisoire: bool
+
+
+class EnfantResume(BaseModel):
+    id: int
+    prenom: str
+    identifiant: str | None
+    code_classe: str
+    niveau: Niveau
+    parcours: Parcours
+    a_un_code: bool
+    nb_reponses: int
+    taux_reussite: float | None
+    competences_maitrisees: int
+    competences_total: int
+    derniere_activite: datetime | None
+    minutes_7_jours: float
+
+
+class JourActivite(BaseModel):
+    jour: str  # AAAA-MM-JJ
+    nb_reponses: int
+    minutes: float
+
+
+class ChapitreSuivi(BaseModel):
+    titre: str
+    competences_total: int
+    competences_maitrisees: int
+
+
+class TableauEnfant(BaseModel):
+    enfant: EnfantResume
+    activite: list[JourActivite]  # les 14 derniers jours, du plus ancien au plus récent
+    minutes_30_jours: float
+    seances_30_jours: int
+    chapitres: list[ChapitreSuivi]
+    progression: list[ProgressionCompetence]
+
+
+class CodeChoisi(BaseModel):
+    code: Annotated[str, Field(min_length=1, max_length=20)]
+
+
+class CodeEnfantModifie(BaseModel):
+    identifiant: str
