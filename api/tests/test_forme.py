@@ -67,3 +67,25 @@ class TestAdministration:
                  "difficulte": 2, "forme": "factorisee"}
         q = client.post("/admin/questions", headers=connecter_admin(client), json=corps).json()
         assert q["forme"] == "factorisee"
+
+
+def corps_edition(q: models.Question, **modifs) -> dict:
+    return {"competence_id": q.competence_id, "enonce": q.enonce, "type": q.type.value, "solution": q.solution,
+            "difficulte": q.difficulte, "forme": q.forme.value if q.forme else None, **modifs}
+
+
+class TestEditionProtegee:
+    def test_forme_verifiee_sur_les_exemplaires_d_une_question_variable(self, client, session):
+        from sqlalchemy import select
+        q = session.scalar(select(models.Question).where(models.Question.code == "2NDE-DEV-V1"))
+        h = connecter_admin(client)
+        assert client.post(f"/admin/questions/{q.id}", headers=h, json=corps_edition(q, forme="factorisee")).status_code == 422
+        assert client.post(f"/admin/questions/{q.id}", headers=h, json=corps_edition(q)).status_code == 200
+
+    def test_forme_figee_apres_des_reponses(self, client, session):
+        h = connecter_eleve(client)
+        c = competence_ouverte(client, session, h)
+        q = seule_question_developper(session, c)
+        repondre(client, h, c.id, "x^2 + 6x + 9")
+        r = client.post(f"/admin/questions/{q.id}", headers=connecter_admin(client), json=corps_edition(q, forme="reduite"))
+        assert r.status_code == 409

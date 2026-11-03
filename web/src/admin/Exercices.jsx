@@ -269,7 +269,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
       <form onSubmit={soumettre}>
         {repondue && (
           <p className="avertissement">
-            Déjà {initiale.nb_reponses} réponse(s) : l'énoncé, le type, la solution et la compétence ne changent plus. Pour les
+            Déjà {initiale.nb_reponses} réponse(s) : l'énoncé, le type, la solution, la forme exigée et la compétence ne changent plus. Pour les
             modifier, archivez cette question et créez-en une nouvelle.
           </p>
         )}
@@ -318,7 +318,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
         {v.type === "expression" && (
           <>
             <label htmlFor="q-forme">Forme exigée</label>
-            <select id="q-forme" {...champ("forme")}>
+            <select id="q-forme" disabled={repondue} {...champ("forme")}>
               {Object.entries(FORMES).map(([k, l]) => (
                 <option key={k} value={k}>
                   {l}

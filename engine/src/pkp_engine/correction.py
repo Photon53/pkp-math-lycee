@@ -5,8 +5,9 @@
 - Expression : équivalence mathématique, vérifiée en évaluant les deux
   expressions en plusieurs points (`x(x+1)` = `x^2 + x`). Les deux doivent
   aussi avoir le même domaine de définition sur ces points (`2ln(x)` ≠ `ln(x²)`).
-  Aux points fixes s'ajoutent des points tirés au hasard à chaque correction (une
-  expression construite pour s'annuler aux points fixes ne passe donc pas) et des
+  Aux points fixes s'ajoutent des points pseudo-aléatoires tirés à partir de la solution
+  et de la saisie (une expression construite pour s'annuler aux points fixes ne passe
+  donc pas, et une même réponse reçoit toujours le même verdict) et des
   entiers proches de 0, où se cachent les valeurs interdites (`x²/x` ≠ `x` en 0).
   Si la question exige une forme (`Question.forme`), elle est contrôlée ensuite :
   recopier `(x+3)²` ne répond pas à « Développer (x+3)² » (voir `formes`).
@@ -32,8 +33,6 @@ POINTS_TEST = (0.53, 1.71, -2.37, 3.13, -0.71, 2.93, 0.137, -1.29)
 POINTS_DOMAINE = (0.0, 1.0, -1.0, 2.0, -2.0, 3.0, -3.0)
 NB_POINTS_ALEATOIRES = 8
 POINTS_VALIDES_MIN = 4
-
-_hasard = random.Random()
 
 
 class Verdict(str, Enum):
@@ -67,7 +66,7 @@ def verifier(question: Question, reponse_donnee: str) -> Verdict:
         except HorsDomaine:
             return Verdict.FAUX
 
-    if not _equivalentes(reponse, solution):
+    if not _equivalentes(reponse, solution, graine=f"{question.solution}|{reponse_donnee}"):
         return Verdict.FAUX
     if question.forme is not None and not formes.respecte(reponse, question.forme):
         return Verdict.FORME
@@ -86,7 +85,7 @@ def _proches(a: float, b: float) -> bool:
     return math.isclose(a, b, rel_tol=TOLERANCE_RELATIVE, abs_tol=TOLERANCE_ABSOLUE)
 
 
-def _equivalentes(reponse, solution) -> bool:
+def _equivalentes(reponse, solution, graine: str = "") -> bool:
     noms = sorted(variables(reponse) | variables(solution))
     if not noms:
         try:
@@ -95,7 +94,7 @@ def _equivalentes(reponse, solution) -> bool:
             return False
 
     points_valides = 0
-    for valeurs in _points(noms):
+    for valeurs in _points(noms, graine):
         a, b = _evaluer_ou_none(reponse, valeurs), _evaluer_ou_none(solution, valeurs)
         if a is None and b is None:
             continue
@@ -107,13 +106,15 @@ def _equivalentes(reponse, solution) -> bool:
     return points_valides >= POINTS_VALIDES_MIN
 
 
-def _points(noms: list[str]) -> list[dict[str, float]]:
-    """Points fixes, entiers proches de 0 et points aléatoires ; chaque variable reçoit
-    une valeur différente au même point."""
+def _points(noms: list[str], graine: str) -> list[dict[str, float]]:
+    """Points fixes, entiers proches de 0 et points pseudo-aléatoires (reproductibles : une
+    graine texte donne toujours le même tirage) ; chaque variable reçoit une valeur différente
+    au même point."""
+    hasard = random.Random(graine)
     series = (
         POINTS_TEST,
         POINTS_DOMAINE,
-        tuple(_hasard.choice((-1, 1)) * _hasard.uniform(0.2, 3.4) for _ in range(NB_POINTS_ALEATOIRES)),
+        tuple(hasard.choice((-1, 1)) * hasard.uniform(0.2, 3.4) for _ in range(NB_POINTS_ALEATOIRES)),
     )
     return [
         {nom: serie[(k + 3 * j) % len(serie)] for j, nom in enumerate(noms)}

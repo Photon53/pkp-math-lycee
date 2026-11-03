@@ -55,6 +55,14 @@ class Settings(BaseSettings):
     def totp_requis(self) -> bool:
         return self.production or self.totp_admin_obligatoire
 
+    @model_validator(mode="before")
+    @classmethod
+    def _choix_vide_non_fait(cls, valeurs):
+        """docker-compose transmet une valeur vide quand .env ne la définit pas : ce n'est pas un choix."""
+        if isinstance(valeurs, dict) and valeurs.get("servir_questions_non_validees") == "":
+            valeurs = {k: v for k, v in valeurs.items() if k != "servir_questions_non_validees"}
+        return valeurs
+
     @model_validator(mode="after")
     def _verifier_production(self) -> "Settings":
         """En production, l'API refuse de démarrer avec une configuration dangereuse

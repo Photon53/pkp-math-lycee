@@ -5,8 +5,10 @@ ou « Réduire », la forme compte aussi : recopier l'énoncé `(x+3)²` n'est p
 
 Les règles portent sur l'arbre analysé (`expressions.analyser`) :
 - développée : une somme de monômes, sans produit ni puissance d'une somme ;
-- réduite : développée, et chaque monôme (même partie littérale) n'apparaît qu'une fois ;
-- factorisée : un produit, un quotient ou une puissance au premier niveau, pas une somme.
+- réduite : développée, chaque monôme (même partie littérale) n'apparaît qu'une fois et son
+  coefficient est calculé (`(3+3)x` ou `2·3x` ne sont pas réduits ; `3x/2` l'est) ;
+- factorisée : un produit d'au moins deux facteurs contenant la variable, une puissance d'une
+  somme, ou un nombre autre que ±1 fois une somme ; `1(9x²-25)` ou `(9x²-25)/1` ne comptent pas.
 
 Une sous-expression sans variable (`sqrt(2)`, `1/3`, `(2+3)`) compte comme un nombre.
 """
@@ -15,7 +17,7 @@ import ast
 from collections import Counter
 
 from pkp_engine.domain import Forme
-from pkp_engine.expressions import CONSTANTES, FONCTIONS
+from pkp_engine.expressions import CONSTANTES, FONCTIONS, HorsDomaine, evaluer
 
 
 LIBELLES = {
@@ -31,14 +33,73 @@ def respecte(arbre: ast.Expression, forme: Forme) -> bool:
         case Forme.DEVELOPPEE:
             return all(_partie_litterale(t) is not None for t in _termes(corps))
         case Forme.REDUITE:
-            parties = [_partie_litterale(t) for t in _termes(corps)]
-            if any(p is None for p in parties):
+            termes = _termes(corps)
+            parties = [_partie_litterale(t) for t in termes]
+            if any(p is None for p in parties) or not all(_coefficient_calcule(t) for t in termes):
                 return False
             return all(n == 1 for n in Counter(parties).values())
         case Forme.FACTORISEE:
-            while isinstance(corps, ast.UnaryOp):
-                corps = corps.operand
-            return not (isinstance(corps, ast.BinOp) and isinstance(corps.op, (ast.Add, ast.Sub)))
+            return _factorisee(corps)
+
+
+def _facteurs(noeud: ast.AST, numerateur: bool = True) -> list[tuple[ast.AST, bool]]:
+    """Facteurs d'un produit ou d'un quotient, avec leur place (numérateur ou dénominateur) ;
+    les signes ne comptent pas."""
+    match noeud:
+        case ast.UnaryOp(operand=o):
+            return _facteurs(o, numerateur)
+        case ast.BinOp(op=ast.Mult(), left=g, right=d):
+            return _facteurs(g, numerateur) + _facteurs(d, numerateur)
+        case ast.BinOp(op=ast.Div(), left=g, right=d):
+            return _facteurs(g, numerateur) + _facteurs(d, not numerateur)
+    return [(noeud, numerateur)]
+
+
+def _est_somme(noeud: ast.AST) -> bool:
+    while isinstance(noeud, ast.UnaryOp):
+        noeud = noeud.operand
+    return isinstance(noeud, ast.BinOp) and isinstance(noeud.op, (ast.Add, ast.Sub))
+
+
+def _factorisee(corps: ast.AST) -> bool:
+    facteurs = _facteurs(corps)
+    litteraux = [f for f, _ in facteurs if not _sans_variable(f)]
+    if len(litteraux) != 1:
+        return True  # au moins deux facteurs avec la variable, ou un nombre
+    seul = litteraux[0]
+    if isinstance(seul, ast.BinOp) and isinstance(seul.op, ast.Pow) and _est_somme(seul.left):
+        exposant = _nombre(seul.right)
+        if exposant is not None and exposant >= 2:
+            return True  # (x+1)²
+        seul = seul.left
+    if not _est_somme(seul):
+        return True  # un monôme est déjà sous forme factorisée
+    # Une somme multipliée par un nombre : factorisée seulement si ce nombre n'est pas ±1.
+    coefficient = 1.0
+    for f, numerateur in facteurs:
+        if _sans_variable(f):
+            try:
+                v = evaluer(ast.Expression(body=f), {})
+            except HorsDomaine:
+                return False
+            coefficient = coefficient * v if numerateur else coefficient / v
+    return abs(abs(coefficient) - 1) > 1e-12
+
+
+def _coefficient_calcule(terme: ast.AST) -> bool:
+    """Au plus un nombre au numérateur et un au dénominateur, chacun déjà calculé."""
+    constantes = [(f, n) for f, n in _facteurs(terme) if _sans_variable(f)]
+    if sum(n for _, n in constantes) > 1 or sum(not n for _, n in constantes) > 1:
+        return False
+    return all(_nombre_simple(f) for f, _ in constantes)
+
+
+def _nombre_simple(noeud: ast.AST) -> bool:
+    """`3`, `pi`, `sqrt(2)` : pas une opération entre nombres restée à calculer (`3+3`, `2^3`)."""
+    for n in ast.walk(noeud):
+        if isinstance(n, ast.BinOp) and not (isinstance(n.op, ast.Pow) and isinstance(n.left, ast.Name)):
+            return False
+    return True
 
 
 def _termes(noeud: ast.AST) -> list[ast.AST]:

@@ -7,12 +7,13 @@ modifiée ici porte `modifiee_admin_le` ; l'import YAML ne l'écrase plus sans `
 from datetime import UTC, date, datetime
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, verifier
+from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, gabarits, verifier
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
 from app import journal, ressources
 from app.auth import AdminCourant, SessionDB
+from app.contenu import TIRAGES_VERIFIES
 from app.contenu import _dollars_equilibres as dollars_equilibres
 from app.db import models
 from app.db.conversions import question_vers_domaine
@@ -51,7 +52,8 @@ CHAMPS_QUESTION = (
     "adaptation", "auteur", "archivee", "statut_validation", "valide_par", "valide_le",
 )
 # Le fond d'une question déjà répondue ne change pas : les statistiques resteraient fausses (EA3.18).
-CHAMPS_DE_FOND = ("enonce", "type", "solution", "competence_id")
+# La forme exigée en fait partie : elle change ce qui est compté juste.
+CHAMPS_DE_FOND = ("enonce", "type", "solution", "forme", "competence_id")
 
 
 def _maintenant() -> datetime:
@@ -402,11 +404,17 @@ def modifier_question(question_id: int, corps: QuestionEdition, admin: AdminCour
     if deja_repondue and any(valeurs[c] != getattr(q, c) for c in CHAMPS_DE_FOND):
         raise HTTPException(
             status.HTTP_409_CONFLICT,
-            "Cette question a déjà reçu des réponses : son énoncé, son type, sa solution et sa compétence ne changent plus. "
+            "Cette question a déjà reçu des réponses : son énoncé, son type, sa solution, sa forme exigée et sa compétence "
+            "ne changent plus. "
             "Archivez-la et créez-en une nouvelle.",
         )
-    # Question à valeurs variables : sa solution cite des paramètres ([[x]]), vérifiée par `contenu verifier`.
-    if q.gabarit is None and not _solution_lisible(corps.type, corps.solution, corps.forme):
+    # Question à valeurs variables : sa solution cite des paramètres ([[x]]) ; on vérifie des exemplaires tirés.
+    solutions = (
+        [corps.solution]
+        if q.gabarit is None
+        else [gabarits.remplir(corps.solution, gabarits.tirer(q.gabarit)) for _ in range(TIRAGES_VERIFIES)]
+    )
+    if not all(_solution_lisible(corps.type, solution, corps.forme) for solution in solutions):
         raise HTTPException(422, "Solution illisible par le moteur de correction, ou pas sous la forme demandée.")
     avant = journal.instantane(q, CHAMPS_QUESTION)
     for cle, valeur in valeurs.items():

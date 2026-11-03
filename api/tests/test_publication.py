@@ -84,3 +84,18 @@ class TestQuestionsValideesSeulement:
         validee = next(q for q in c.questions if not q.archivee)
         valider(session, validee)
         assert {q["id"] for q in questions_servies(client, h, c.id, 3)} == {validee.id}
+
+
+class TestPrioriteEtNiveaux:
+    def test_le_filtre_de_niveaux_ne_reouvre_pas_les_questions_non_validees(self, client, session):
+        """La compétence a une question validée (niveau 1) : une séance « niveaux 2 à 5 » ne sert pas
+        pour autant ses questions non validées."""
+        h = connecter_eleve(client)
+        c = competence_ouverte(client, session, h)
+        actives = [q for q in c.questions if not q.archivee]
+        actives[0].difficulte = 1
+        for q in actives[1:]:
+            q.difficulte = 3
+        valider(session, actives[0])
+        s = client.post("/seances", headers=h, json={"competence_ids": [c.id], "difficulte_min": 2, "difficulte_max": 5})
+        assert client.get(f"/seances/{s.json()['id']}/question", headers=h).status_code == 204

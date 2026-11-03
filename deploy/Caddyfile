@@ -19,12 +19,24 @@
 	}
 
 	# Fichiers du front : leur nom contient l'empreinte de leur contenu (Vite), ils ne changent jamais.
-	# Le téléphone les garde un an au lieu de les redemander à chaque visite.
-	@empreintes path /assets/*
+	# Le téléphone les garde un an au lieu de les redemander à chaque visite (seulement s'ils existent).
+	@empreintes {
+		path /assets/*
+		file {
+			root /srv
+		}
+	}
 	header @empreintes Cache-Control "public, max-age=31536000, immutable"
 	# index.html (et les routes du front) : toujours revalidé, pour obtenir la nouvelle version après une mise à jour.
 	@pages not path /assets/* /api/*
 	header @pages Cache-Control "no-cache"
+
+	# Un ancien fichier disparu après une mise à jour : 404, jamais index.html à sa place
+	# (le front recharge alors la page, voir web/src/miseAJour.js).
+	handle /assets/* {
+		root * /srv
+		file_server
+	}
 
 	handle {
 		root * /srv

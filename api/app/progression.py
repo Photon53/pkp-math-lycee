@@ -53,11 +53,20 @@ def filtre_validation() -> tuple:
     return (*masque, models.Question.statut_validation == StatutValidation.VALIDEE)
 
 
-def validees_en_priorite(questions: list) -> list:
-    """Une compétence qui a au moins une question validée ne sert plus que celles-là : la banque
-    passe aux questions relues compétence par compétence, au rythme de la validation.
+def validees_en_priorite(session: Session, questions: list) -> list:
+    """Une compétence qui a au moins une question validée (non archivée, quelle que soit sa difficulté)
+    ne sert plus que ses questions validées : la banque passe aux questions relues compétence par
+    compétence, au rythme de la validation. Le filtre de difficulté d'une séance ne change pas la règle.
     `questions` : objets ou lignes portant `competence_id` et `statut_validation`."""
-    validees = {q.competence_id for q in questions if q.statut_validation == StatutValidation.VALIDEE}
+    validees = set(
+        session.scalars(
+            select(models.Question.competence_id).distinct().where(
+                models.Question.competence_id.in_({q.competence_id for q in questions}),
+                models.Question.archivee.is_(False),
+                models.Question.statut_validation == StatutValidation.VALIDEE,
+            )
+        )
+    )
     return [q for q in questions if q.competence_id not in validees or q.statut_validation == StatutValidation.VALIDEE]
 
 

@@ -144,3 +144,25 @@ class TestForme:
 
     def test_sans_forme_seule_la_valeur_compte(self):
         assert corriger(q(TypeQuestion.EXPRESSION, "x^2 + 6x + 9"), "(x+3)^2")
+
+    @pytest.mark.parametrize("saisie", ["1(9x^2-25)", "(9x^2-25)/1", "-1(25-9x^2)", "(9x^2-25)^1"])
+    def test_facteur_trivial_n_est_pas_une_factorisation(self, saisie):
+        assert verifier(qf("(3x-5)(3x+5)", Forme.FACTORISEE), saisie) is Verdict.FORME
+
+    @pytest.mark.parametrize(("solution", "saisie"), [("3(x+2)", "3(x+2)"), ("(x+1)^2", "(x+1)^2"), ("(x+2)/3", "(x+2)/3")])
+    def test_nombre_fois_somme_et_puissance_acceptes(self, solution, saisie):
+        assert verifier(qf(solution, Forme.FACTORISEE), saisie) is Verdict.JUSTE
+
+    @pytest.mark.parametrize("saisie", ["x^2+(3+3)x+9", "x^2+2*3x+9", "x^2+6x+3^2"])
+    def test_coefficients_non_calcules_ne_sont_pas_reduits(self, saisie):
+        assert verifier(qf("x^2 + 6x + 9", Forme.REDUITE), saisie) is Verdict.FORME
+
+    @pytest.mark.parametrize("saisie", ["-3x/2 + 4", "-1.5x + 4", "4 - 3/2x"])
+    def test_coefficient_fractionnaire_reduit(self, saisie):
+        assert verifier(qf("-3x/2 + 4", Forme.REDUITE), saisie) is Verdict.JUSTE
+
+
+class TestReproductibilite:
+    def test_meme_reponse_meme_verdict(self):
+        question = q(TypeQuestion.EXPRESSION, "x^2 + 6x + 9")
+        assert len({verifier(question, "(x+3)^2") for _ in range(20)}) == 1

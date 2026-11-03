@@ -59,8 +59,17 @@ class Mesures:
 
 
 def eleve(url: str, prenom: str, code: str, classe: str, nb_questions: int, pause: float, m: Mesures, depart: threading.Barrier):
+    depart.wait()  # toute la classe se connecte au même moment, comme en début de cours
+    t = time.perf_counter()
+    try:
+        _travailler(url, prenom, code, classe, nb_questions, pause, m)
+    except httpx.HTTPError as exc:
+        # Connexion coupée, délai dépassé… : comptée comme une erreur, pas un fil qui meurt en silence.
+        m.noter("reseau", t, None, f"{type(exc).__name__} : {exc}")
+
+
+def _travailler(url: str, prenom: str, code: str, classe: str, nb_questions: int, pause: float, m: Mesures):
     with httpx.Client(base_url=url, timeout=30) as c:
-        depart.wait()  # toute la classe se connecte au même moment, comme en début de cours
         t = time.perf_counter()
         r = c.post("/eleves/connexion", json={"prenom": prenom, "code_classe": classe, "code_personnel": code})
         m.noter("connexion", t, r)

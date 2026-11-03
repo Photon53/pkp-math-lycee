@@ -47,6 +47,13 @@ class TestConfiguration:
             config(**sans_choix)
         assert config(**{**PROD_VALIDE, "servir_questions_non_validees": True}).servir_questions_non_validees
 
+    def test_valeur_vide_transmise_par_compose_n_est_pas_un_choix(self, monkeypatch):
+        monkeypatch.setenv("PKP_SERVIR_QUESTIONS_NON_VALIDEES", "")
+        sans_choix = {k: v for k, v in PROD_VALIDE.items() if k != "servir_questions_non_validees"}
+        with pytest.raises(ValueError, match="PKP_SERVIR_QUESTIONS_NON_VALIDEES"):
+            config(**sans_choix)
+        assert config().servir_questions_non_validees  # en développement, la valeur par défaut s'applique
+
     def test_lu_depuis_l_environnement(self, monkeypatch):
         monkeypatch.setenv("PKP_ENVIRONNEMENT", "production")
         with pytest.raises(ValueError):

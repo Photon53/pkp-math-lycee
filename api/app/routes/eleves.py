@@ -255,15 +255,18 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
     if seance.question_courante is not None:
         return exemplaires.publique(seance.question_courante, seance.tirage_courant)
 
-    # Seulement les colonnes utiles au choix : charger chaque question entière (correction, gabarit…)
-    # coûterait plus cher que tout le reste de la requête. La question choisie est lue ensuite.
+    # Les colonnes de la question du moteur, sans charger chaque objet entier (correction, gabarit…) :
+    # ce serait plus cher que tout le reste de la requête. La question choisie est lue ensuite.
     questions = list(
         session.execute(
             select(
                 models.Question.id,
                 models.Question.competence_id,
+                models.Question.enonce,
                 models.Question.type,
+                models.Question.solution,
                 models.Question.difficulte,
+                models.Question.forme,
                 models.Question.statut_validation,
             )
             .join(models.Competence)
@@ -280,10 +283,11 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
         )
     )
     if settings.servir_questions_non_validees:
-        questions = validees_en_priorite(questions)
+        questions = validees_en_priorite(session, questions)
     historique = historique_eleve(session, eleve.id, {q.competence_id for q in questions})
     choix = choisir_prochaine_question(
-        [Question(q.id, q.competence_id, "", q.type, "", q.difficulte) for q in questions], historique
+        [Question(q.id, q.competence_id, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme) for q in questions],
+        historique,
     )
     if choix is None:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
