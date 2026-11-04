@@ -31,12 +31,26 @@ describe("familles", () => {
     expect(appels.some((a) => a.cle === "DELETE /admin/parents/7/enfants/2")).toBe(true);
   });
 
-  it("ne demande rien au serveur sans filtre : pas de liste complète des familles", async () => {
-    const appels = fausseApi({ "GET /admin/classes": { json: [] } });
+  it("affiche les familles sans recherche et corrige l'e-mail du parent", async () => {
+    const appels = fausseApi({
+      "GET /admin/classes": { json: [] },
+      "GET /admin/parents?page=1": { json: { total: 1, elements: [famille([])] } },
+      "GET /admin/parents/7": { json: famille([]) },
+      "GET /admin/parents/7/famille": { json: [] },
+      "GET /admin/anglais/groupes": { json: [] },
+      "PATCH /admin/parents/7": (corps) => ({ json: { id: 7, email: corps.email, mdp_provisoire: false, derniere_connexion: null, enfants: [] } }),
+    });
     render(<Familles jeton="j" onExpire={vi.fn()} />);
-    await userEvent.type(screen.getByLabelText(/E-mail du parent/), "pa");
-    await new Promise((r) => setTimeout(r, 300));
-    expect(appels.some((a) => a.cle.startsWith("GET /admin/parents"))).toBe(false);
+    expect(await screen.findByText("parent@exemple.fr")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Gérer" }));
+    const fenetre = screen.getByRole("dialog");
+    await userEvent.click(await within(fenetre).findByRole("button", { name: "Modifier" }));
+    const champ = within(fenetre).getByLabelText("Nouvelle adresse e-mail");
+    await userEvent.clear(champ);
+    await userEvent.type(champ, "nouveau@exemple.fr");
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Enregistrer" }));
+    expect((await within(fenetre).findAllByText("nouveau@exemple.fr")).length).toBeGreaterThan(0);
+    expect(appels.find((a) => a.cle === "PATCH /admin/parents/7").corps).toEqual({ email: "nouveau@exemple.fr" });
   });
 });
 

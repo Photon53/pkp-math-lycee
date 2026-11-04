@@ -54,7 +54,8 @@ def test_le_professeur_inscrit_l_enfant_dans_plusieurs_parcours_de_son_niveau(cl
     # Recherche par prénom, limitée au niveau de la classe.
     trouves = client.get(f"/enseignants/classes/{classes['excellence']}/enfants?q=in", headers=prof).json()
     assert [t["identifiant"] for t in trouves] == [ines["identifiant"]]
-    assert client.get(f"/enseignants/classes/{classes['excellence']}/enfants?q=n", headers=prof).status_code == 422
+    # Sans saisie : les enfants du niveau de la classe (Noé, en 4e, n'y est pas).
+    assert [t["identifiant"] for t in client.get(f"/enseignants/classes/{classes['excellence']}/enfants", headers=prof).json()] == [ines["identifiant"]]
     for cid in classes.values():
         r = client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
         assert r.json() == {"ajoutes": ["Inès Martin"], "refus": []}
@@ -171,3 +172,129 @@ def test_ancienne_carte_eleve_par_la_connexion_unique(client):
     assert r.status_code == 200 and r.json()["type"] == "eleve"
     assert client.get("/eleves/moi", headers=entete(r.json()["jeton"])).json()["prenom"] == "Zoé"
     assert client.post("/enfants/connexion", json={"identifiant": "inconnu-zzzz", "code_personnel": "ABCDEF"}).status_code == 401
+
+
+def test_l_administrateur_gere_une_classe(client, session):
+    """Élèves (ajout, retrait), chapitres ouverts, changement de professeur, suppression confirmée par le code."""
+    admin = connecter_admin(client)
+    ines = next(c for c in _famille(client, admin)["cartes"] if c["prenom"] == "Inès")
+    prof = session.scalar(select(models.Enseignant).where(models.Enseignant.email == "demo@pkp.test"))
+    remplacant = models.Enseignant(nom="Mme Remplaçante", email="remplacante@x.test", mot_de_passe_hash="x", enseigne_maths=True)
+    session.add(remplacant)
+    session.commit()
+    classe = client.post("/admin/classes", headers=admin,
+                         json={"niveau": "2nde", "parcours": "excellence", "enseignant_id": prof.id}).json()
+    cid = classe["id"]
+
+    # Recherche limitée au niveau de la classe, puis ajout.
+    assert [t["identifiant"] for t in client.get(f"/admin/classes/{cid}/enfants?q=in", headers=admin).json()] == [ines["identifiant"]]
+    assert client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]}).json()["ajoutes"] == ["Inès Martin"]
+    eleves = client.get(f"/admin/classes/{cid}/eleves", headers=admin).json()
+    assert [(e["prenom"], e["identifiant"]) for e in eleves] == [("Inès", ines["identifiant"])]
+
+    # Chapitres : on n'en garde qu'un ; un chapitre d'un autre programme est refusé.
+    programme = client.get(f"/admin/classes/{cid}/chapitres", headers=admin).json()
+    assert programme and all(c["propose"] for c in programme)
+    r = client.put(f"/admin/classes/{cid}/chapitres", headers=admin, json={"chapitre_ids": [programme[0]["id"]]})
+    assert [c["propose"] for c in r.json()].count(True) == 1
+    autre = session.scalar(select(models.Chapitre).where(models.Chapitre.niveau != "2nde"))
+    assert client.put(f"/admin/classes/{cid}/chapitres", headers=admin, json={"chapitre_ids": [autre.id]}).status_code == 422
+
+    # Changement de professeur : la classe et ses élèves suivent ; un professeur d'anglais seul est refusé.
+    r = client.patch(f"/admin/classes/{cid}", headers=admin, json={"enseignant_id": remplacant.id})
+    assert r.json()["enseignant"] == "Mme Remplaçante" and r.json()["nb_eleves"] == 1
+    anglais = session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO))
+    if not anglais.enseigne_maths:
+        assert client.patch(f"/admin/classes/{cid}", headers=admin, json={"enseignant_id": anglais.id}).status_code == 422
+
+    # Retrait d'un élève : l'enfant garde sa carte et sa famille.
+    client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]})
+    eleve_id = client.get(f"/admin/classes/{cid}/eleves", headers=admin).json()[0]["id"]
+    assert client.delete(f"/admin/eleves/{eleve_id}", headers=admin).status_code == 204
+    assert client.get(f"/admin/classes/{cid}/eleves", headers=admin).json() == []
+    assert _carte(client, ines)["type"] == "enfant"
+
+    # Suppression : seulement avec le code de la classe.
+    client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]})
+    assert client.delete(f"/admin/classes/{cid}?confirmation=MAUVAIS", headers=admin).status_code == 422
+    assert client.delete(f"/admin/classes/{cid}?confirmation={classe['code'].lower()}", headers=admin).status_code == 204
+    assert client.get(f"/admin/classes/{cid}", headers=admin).status_code == 404
+    assert session.get(models.Enfant, ines["id"]) is not None
+    # Un professeur ne passe pas par ces routes.
+    assert client.get(f"/admin/classes/{programme[0]['id']}", headers=connecter_enseignant(client)).status_code in (401, 403)
+
+
+def test_l_administrateur_voit_les_enfants_inscrits_nulle_part(client, session):
+    admin = connecter_admin(client)
+    cartes = _famille(client, admin)["cartes"]
+    ines = next(c for c in cartes if c["prenom"] == "Inès")
+    prof = connecter_enseignant(client)
+    cid = client.post("/enseignants/classes", headers=prof, json={"niveau": "2nde", "parcours": "tronc-commun"}).json()["id"]
+    client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
+
+    tous = {e["prenom"] for e in client.get("/admin/enfants", headers=admin).json()}
+    assert {"Inès", "Noé"} <= tous
+    sans = client.get("/admin/enfants?sans_classe=true", headers=admin).json()
+    assert "Noé" in {e["prenom"] for e in sans} and "Inès" not in {e["prenom"] for e in sans}
+    assert [e["prenom"] for e in client.get("/admin/enfants?sans_classe=true&niveau=4e", headers=admin).json()] == ["Noé"]
+
+
+def test_l_administrateur_retrouve_et_modifie_la_famille_qu_il_a_creee(client, session):
+    """Règle : qui crée une donnée peut la retrouver et la modifier."""
+    admin = connecter_admin(client)
+    f = _famille(client, admin)
+    # Visible sans recherche, et quel que soit le domaine choisi tant qu'aucun enfant n'est inscrit.
+    for params in ({}, {"domaine": "maths-lycee"}, {"domaine": "anglais-college"}):
+        emails = [p["email"] for p in client.get("/admin/parents", headers=admin, params=params).json()["elements"]]
+        assert "famille@x.test" in emails, params
+    # E-mail du parent corrigé (journalisé) ; une adresse déjà prise est refusée.
+    r = client.patch(f"/admin/parents/{f['parent_id']}", headers=admin, json={"email": "Famille.Martin@x.test"})
+    assert r.status_code == 200 and r.json()["email"] == "famille.martin@x.test"
+    _famille(client, admin, email="autre@x.test", enfants=[{"prenom": "Léa", "niveau": "6e"}])
+    assert client.patch(f"/admin/parents/{f['parent_id']}", headers=admin, json={"email": "autre@x.test"}).status_code == 409
+    # Prénom de l'enfant corrigé : le nom affiché suit dans sa classe.
+    ines = next(c for c in f["cartes"] if c["prenom"] == "Inès")
+    prof = connecter_enseignant(client)
+    cid = client.post("/enseignants/classes", headers=prof, json={"niveau": "2nde", "parcours": "tronc-commun"}).json()["id"]
+    client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
+    r = client.patch(f"/admin/enfants/{ines['id']}", headers=admin, json={"prenom": "Inés"})
+    assert r.status_code == 200 and r.json()["prenom"] == "Inés"
+    assert [e["prenom"] for e in client.get(f"/enseignants/classes/{cid}/eleves", headers=prof).json()] == ["Inés"]
+
+
+def test_le_professeur_corrige_ce_qu_il_a_cree(client, session):
+    prof = connecter_enseignant(client)
+    cid = client.post("/enseignants/classes", headers=prof, json={"niveau": "2nde", "parcours": "tronc-commun"}).json()["id"]
+    client.post(f"/enseignants/classes/{cid}/eleves", headers=prof, json={"prenoms": ["Jule", "Paul"]})
+    eleves = {e["prenom"]: e["id"] for e in client.get(f"/enseignants/classes/{cid}/eleves", headers=prof).json()}
+    r = client.patch(f"/enseignants/eleves/{eleves['Jule']}", headers=prof, json={"prenom": "Jules"})
+    assert r.status_code == 200 and r.json()["prenom"] == "Jules"
+    assert client.patch(f"/enseignants/eleves/{eleves['Paul']}", headers=prof, json={"prenom": "Jules"}).status_code == 409
+
+    # Groupe d'anglais : le professeur renomme son groupe et corrige un prénom.
+    anglais = connecter_enseignant(client, EMAIL_ANGLAIS_DEMO)
+    g = client.post("/anglais/groupes", headers=anglais, json={"nom": "Groupe A", "niveau": "4e"}).json()
+    client.post(f"/anglais/groupes/{g['id']}/eleves", headers=anglais, json={"prenoms": ["Zoe"]})
+    r = client.patch(f"/anglais/groupes/{g['id']}", headers=anglais, json={"nom": "Les Explorateurs"})
+    assert r.status_code == 200 and r.json()["nom"] == "Les Explorateurs"
+    eid = r.json()["eleves"][0]["id"]
+    r = client.patch(f"/anglais/groupes/{g['id']}/eleves/{eid}", headers=anglais, json={"prenom": "Zoé"})
+    assert r.status_code == 200 and r.json()["prenom"] == "Zoé"
+
+
+def test_le_professeur_ne_renomme_pas_l_eleve_d_un_collegue(client, session):
+    """Inès suit aussi les cours d'une collègue : la correction de son prénom revient à l'administrateur."""
+    admin = connecter_admin(client)
+    ines = next(c for c in _famille(client, admin)["cartes"] if c["prenom"] == "Inès")
+    collegue = models.Enseignant(nom="Mme Collègue", email="collegue@x.test", mot_de_passe_hash="x", enseigne_maths=True)
+    session.add(collegue)
+    session.commit()
+    autre = client.post("/admin/classes", headers=admin,
+                        json={"niveau": "2nde", "parcours": "excellence", "enseignant_id": collegue.id}).json()["id"]
+    client.post(f"/admin/classes/{autre}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]})
+    prof = connecter_enseignant(client)
+    cid = client.post("/enseignants/classes", headers=prof, json={"niveau": "2nde", "parcours": "tronc-commun"}).json()["id"]
+    client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
+    eid = client.get(f"/enseignants/classes/{cid}/eleves", headers=prof).json()[0]["id"]
+    r = client.patch(f"/enseignants/eleves/{eid}", headers=prof, json={"prenom": "Agnès"})
+    assert r.status_code == 403 and "administrateur" in r.json()["detail"]

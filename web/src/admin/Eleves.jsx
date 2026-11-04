@@ -5,22 +5,29 @@ import { Modale, Pagination, Vide, exporterCsv, formaterDate } from "../ui/Cadre
 import Icone from "../ui/Icone.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
+import { GererClasse, ListeEnfants, parcoursCourt } from "./GestionClasses.jsx";
 
 /** Vue transverse des élèves et des classes (EA3.7 à EA3.10). Les élèves sont créés avec leur famille
  * (écran Familles) ; ici, l'administrateur crée des classes pour les professeurs. */
 export default function Eleves({ jeton, onExpire, domaine = "" }) {
-  const [onglet, setOnglet] = useState(() => (parametre("onglet") === "classes" ? "classes" : "eleves"));
+  // Un résultat de la recherche globale (`?q=prénom`) vise une inscription en classe.
+  const [onglet, setOnglet] = useState(() =>
+    ["classes", "inscriptions"].includes(parametre("onglet")) ? parametre("onglet") : parametre("q") ? "inscriptions" : "enfants",
+  );
+  const { appeler, erreur } = useApi(jeton, onExpire);
   return (
     <>
       <Onglets
         valeur={onglet}
         onChange={setOnglet}
         options={[
-          ["eleves", "Élèves"],
+          ["enfants", "Enfants des familles"],
+          ["inscriptions", "Inscriptions en classe"],
           ["classes", "Classes"],
         ]}
       />
-      {onglet === "eleves" && <ListeEleves jeton={jeton} onExpire={onExpire} domaine={domaine} />}
+      {onglet === "enfants" && <ListeEnfants appeler={appeler} erreur={erreur} />}
+      {onglet === "inscriptions" && <ListeEleves jeton={jeton} onExpire={onExpire} domaine={domaine} />}
       {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} domaine={domaine} />}
     </>
   );
@@ -227,8 +234,16 @@ function ListeClasses({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [classes, setClasses] = useState(null);
   const [nouvelle, setNouvelle] = useState(false);
+  const [geree, setGeree] = useState(null);
   const [message, setMessage] = useState(null);
   const charger = useCallback(() => appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {}), [appeler, domaine]);
+  const apresModification = useCallback(
+    (texte) => {
+      if (texte) setMessage(texte);
+      charger();
+    },
+    [charger],
+  );
   useEffect(() => {
     charger();
   }, [charger]);
@@ -247,11 +262,12 @@ function ListeClasses({ jeton, onExpire, domaine }) {
           onFermer={() => setNouvelle(false)}
           onCreee={(c) => {
             setNouvelle(false);
-            setMessage(`Classe ${c.code} créée. Ajoutez-y les élèves depuis l'écran Familles, ou laissez le professeur le faire.`);
+            setMessage(`Classe ${c.code} créée. Ajoutez-y les élèves avec « Gérer », ou laissez le professeur le faire.`);
             charger();
           }}
         />
       )}
+      {geree && <GererClasse classe={geree} appeler={appeler} onFermer={() => setGeree(null)} onChange={apresModification} />}
       <Erreur message={erreur} />
       {classes === null && <p className="doux">Chargement…</p>}
       {classes?.length === 0 && <Vide icone="classes">Aucune classe.</Vide>}
@@ -266,6 +282,9 @@ function ListeClasses({ jeton, onExpire, domaine }) {
                 <th>Professeur</th>
                 <th className="nombre">Élèves</th>
                 <th className="nombre">Chapitres ouverts</th>
+                <th>
+                  <span className="visuellement-cache">Actions</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -275,10 +294,15 @@ function ListeClasses({ jeton, onExpire, domaine }) {
                     <code>{c.code}</code>
                   </td>
                   <td>{c.niveau}</td>
-                  <td>{c.parcours}</td>
+                  <td>{parcoursCourt(c.parcours)}</td>
                   <td>{c.enseignant}</td>
                   <td className="nombre">{c.nb_eleves}</td>
                   <td className="nombre">{c.nb_chapitres_ouverts}</td>
+                  <td className="nombre">
+                    <button className="secondaire petit" onClick={() => setGeree(c)} aria-label={`Gérer la classe ${c.code}`}>
+                      Gérer
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

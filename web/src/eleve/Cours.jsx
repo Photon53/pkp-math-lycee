@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api, ouvrirLien, ouvrirPdf } from "../api.js";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
@@ -114,7 +114,14 @@ export default function Cours({
                 ) : (
                   <span className="doux">{c.libelle} (cours à venir)</span>
                 )}
-                {enseignant && <span className="doux petit">{c.nb_questions} exercice(s)</span>}
+                {enseignant &&
+                  (c.nb_questions > 0 && c.a_une_lecon ? (
+                    <button className="lien petit" onClick={() => onChoisir(c.id, "exercices")}>
+                      Voir les {c.nb_questions} exercice(s)
+                    </button>
+                  ) : (
+                    <span className="doux petit">{c.nb_questions} exercice(s)</span>
+                  ))}
               </li>
             ))}
           </ul>
@@ -249,9 +256,15 @@ export function Ressources({ ressources, jeton }) {
   );
 }
 
+/** Ouvert d'emblée : le professeur voit les exercices sous le cours ; « Voir les exercices » y mène directement. */
 function ExercicesDeLaCompetence({ base, competenceId, jeton }) {
   const [questions, setQuestions] = useState(null);
-  const [ouvert, setOuvert] = useState(false);
+  const [ouvert, setOuvert] = useState(true);
+  const zone = useRef(null);
+
+  useEffect(() => {
+    if (window.location.hash === "#exercices" && questions) zone.current?.scrollIntoView?.({ block: "start" });
+  }, [questions]);
 
   useEffect(() => {
     if (!ouvert || questions) return;
@@ -259,7 +272,7 @@ function ExercicesDeLaCompetence({ base, competenceId, jeton }) {
   }, [ouvert, questions, base, competenceId, jeton]);
 
   return (
-    <details className="ressources" onToggle={(e) => setOuvert(e.currentTarget.open)}>
+    <details className="ressources" id="exercices" ref={zone} open={ouvert} onToggle={(e) => setOuvert(e.currentTarget.open)}>
       <summary>
         <strong>Exercices de cette compétence, avec solutions</strong>
       </summary>

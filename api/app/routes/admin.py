@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import anglais_contenu, journal, limitation, parents, permissions, ressources, statistiques
+from app import anglais_contenu, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, FiltreDomaine, SessionDB
 from app.config import settings
 from app.db import models
@@ -372,6 +372,7 @@ def deplacer(eleve_id: int, corps: Deplacement, admin: AdminCourant, session: Se
 def supprimer_eleve(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
     eleve = _eleve(session, eleve_id)
     journal.noter(session, admin, "supprimer", "eleve", eleve.id, avant={"prenom": eleve.prenom, "classe": eleve.classe.code})
+    inscriptions.delier(session, eleve)  # ses autres parcours restent ; un enfant de famille garde sa carte
     session.delete(eleve)
     parents.supprimer_orphelins(session)
     session.commit()
@@ -433,10 +434,11 @@ def familles(
     _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, q: str | None = None, classe_id: int | None = None,
     page: int = 1,
 ) -> PageFamilles:
-    """Recherche par e-mail (au moins 3 caractères) ou par classe d'un enfant."""
+    """Comptes parents, les plus récents d'abord ; filtres facultatifs : e-mail, classe d'un enfant, domaine.
+
+    Une famille dont aucun enfant n'est encore inscrit reste visible quel que soit le domaine choisi :
+    l'administrateur qui l'a créée doit la retrouver pour la compléter."""
     q = (q or "").strip().lower()
-    if len(q) < 3 and classe_id is None:
-        raise HTTPException(422, "Saisissez au moins 3 caractères de l'adresse e-mail, ou choisissez une classe.")
     filtres = []
     if q:
         filtres.append(models.Parent.email.like(f"%{q}%"))
@@ -446,10 +448,20 @@ def familles(
             | models.Parent.famille.any(models.Enfant.inscriptions.any(models.Eleve.classe_id == classe_id))
         )
     if domaine:
-        filtres.append(models.Parent.enfants.any(models.Eleve.classe.has(models.Classe.domaine_code == domaine)))
+        dans_le_domaine = models.Eleve.classe.has(models.Classe.domaine_code == domaine)
+        filtres.append(
+            models.Parent.enfants.any(dans_le_domaine)
+            | models.Parent.famille.any(
+                models.Enfant.inscriptions.any(dans_le_domaine)
+                | models.Enfant.inscriptions_anglais.any(
+                    models.EleveAnglais.groupe.has(models.GroupeAnglais.domaine_code == domaine)
+                )
+                | (~models.Enfant.inscriptions.any() & ~models.Enfant.inscriptions_anglais.any())
+            )
+        )
     total = session.scalar(select(func.count(models.Parent.id)).where(*filtres))
     trouves = session.scalars(
-        select(models.Parent).where(*filtres).order_by(models.Parent.email)
+        select(models.Parent).where(*filtres).order_by(models.Parent.cree_le.desc(), models.Parent.id.desc())
         .offset((max(page, 1) - 1) * TAILLE_PAGE).limit(TAILLE_PAGE)
     )
     return PageFamilles(total=total, elements=[_famille(p) for p in trouves])

@@ -24,15 +24,13 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
     appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
   }, [appeler, domaine]);
 
-  const filtre = recherche.trim().length >= 3 || classeId !== "";
   const charger = useCallback(() => {
-    if (!filtre) return Promise.resolve(setResultats(null));
     const params = new URLSearchParams({ page: String(page) });
     if (recherche.trim()) params.set("q", recherche.trim());
     if (classeId !== "") params.set("classe_id", classeId);
     if (domaine) params.set("domaine", domaine);
     return appeler(`/admin/parents?${params}`).then(setResultats, () => {});
-  }, [appeler, filtre, page, recherche, classeId, domaine]);
+  }, [appeler, page, recherche, classeId, domaine]);
 
   useEffect(() => {
     const minuterie = setTimeout(charger, 250);
@@ -48,7 +46,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
       <section className="carte">
         <div className="filtres">
           <div style={{ flexGrow: 3 }}>
-            <label htmlFor="f-recherche">E-mail du parent (au moins 3 caractères)</label>
+            <label htmlFor="f-recherche">E-mail du parent</label>
             <input
               id="f-recherche"
               type="search"
@@ -86,7 +84,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
             </button>
           </div>
         </div>
-        <p className="aide">Pas de liste complète des familles : cherchez un parent par son e-mail, ou par la classe d'un enfant.</p>
+        <p className="aide">Les familles les plus récentes en premier ; filtrez par e-mail ou par la classe d'un enfant.</p>
         {message && (
           <p className="succes" role="status">
             {message}
@@ -195,6 +193,45 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
         </Modale>
       )}
     </>
+  );
+}
+
+/** Correction de l'adresse e-mail du compte (c'est l'identifiant de connexion du parent). */
+function EmailDuParent({ famille, appeler, onModifie, onErreur }) {
+  const [edition, setEdition] = useState(null);
+
+  async function enregistrer(e) {
+    e.preventDefault();
+    onErreur(null);
+    try {
+      const r = await appeler(`/admin/parents/${famille.id}`, { methode: "PATCH", corps: { email: edition } });
+      onModifie(r.email);
+      setEdition(null);
+    } catch (err) {
+      onErreur(err.message);
+    }
+  }
+
+  if (edition === null)
+    return (
+      <p>
+        E-mail de connexion : <strong>{famille.email}</strong>{" "}
+        <button type="button" className="lien petit" onClick={() => setEdition(famille.email)}>
+          Modifier
+        </button>
+      </p>
+    );
+  return (
+    <form onSubmit={enregistrer} className="ligne-champs">
+      <label>
+        Nouvelle adresse e-mail
+        <input type="email" required value={edition} onChange={(e) => setEdition(e.target.value)} />
+      </label>
+      <div className="actions">
+        <button type="button" className="secondaire" onClick={() => setEdition(null)}>Annuler</button>
+        <button type="submit">Enregistrer</button>
+      </div>
+    </form>
   );
 }
 
@@ -346,6 +383,12 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
         <p className="doux">Chargement…</p>
       ) : (
         <>
+          <EmailDuParent
+            famille={famille}
+            appeler={appeler}
+            onModifie={(email) => setFamille({ ...famille, email })}
+            onErreur={setErreur}
+          />
           <p className="doux">
             Compte créé le {formaterDate(famille.cree_le)} ·{" "}
             {famille.mdp_provisoire ? "mot de passe provisoire" : `dernière connexion : ${formaterDate(famille.derniere_connexion, { heure: true })}`}

@@ -152,6 +152,18 @@ export default function Classes({ jeton, onExpire }) {
     }
   }
 
+  async function renommer(eleve) {
+    const prenom = window.prompt(`Corriger le prénom de ${eleve.prenom} :`, eleve.prenom);
+    if (!prenom?.trim() || prenom.trim() === eleve.prenom) return;
+    try {
+      const r = await appeler(`/enseignants/eleves/${eleve.id}`, { methode: "PATCH", corps: { prenom: prenom.trim() } });
+      setMessage(`Prénom corrigé : ${r.prenom}.`);
+      await chargerEleves(classeId);
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
   async function supprimer(eleve) {
     const ok = window.confirm(
       `Supprimer définitivement ${eleve.prenom} et tout son historique (séances, réponses) ?\n\nCette action est irréversible.`,
@@ -355,6 +367,9 @@ export default function Classes({ jeton, onExpire }) {
                             aria-label={`Comptes parents de ${e.prenom}`}
                           >
                             Parents
+                          </button>
+                          <button className="lien petit" onClick={() => renommer(e)} aria-label={`Corriger le prénom de ${e.prenom}`}>
+                            Renommer
                           </button>
                           <button className="lien petit" onClick={() => nouveauCode(e)} aria-label={`Nouveau code pour ${e.prenom}`}>
                             Nouveau code

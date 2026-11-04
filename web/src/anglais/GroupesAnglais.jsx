@@ -84,6 +84,29 @@ export default function GroupesAnglais({ jeton, onExpire }) {
     }
   }
 
+  async function renommerGroupe() {
+    const nouveau = window.prompt("Nouveau nom du groupe :", groupe.nom);
+    if (!nouveau?.trim() || nouveau.trim() === groupe.nom) return;
+    try {
+      await appeler(`/anglais/groupes/${groupeId}`, { methode: "PATCH", corps: { nom: nouveau.trim() } });
+      setMessage(`Groupe renommé : ${nouveau.trim()}.`);
+      await charger();
+    } catch {
+      // erreur déjà affichée (nom en double, par exemple)
+    }
+  }
+
+  async function renommerEleve(eleve) {
+    const prenom = window.prompt(`Corriger le prénom de ${eleve.prenom} :`, eleve.prenom);
+    if (!prenom?.trim() || prenom.trim() === eleve.prenom) return;
+    try {
+      await appeler(`/anglais/groupes/${groupeId}/eleves/${eleve.id}`, { methode: "PATCH", corps: { prenom: prenom.trim() } });
+      await charger();
+    } catch {
+      // erreur déjà affichée
+    }
+  }
+
   async function supprimer() {
     const ok = window.confirm(
       `Supprimer le groupe « ${groupe.nom} » ?\n\nSes ${pluriel(groupe.eleves.length)} seront supprimés définitivement.`,
@@ -165,9 +188,14 @@ export default function GroupesAnglais({ jeton, onExpire }) {
 
       {groupe && (
         <section className="carte">
-          <h2>
-            Groupe {groupe.nom} · {groupe.niveau}
-          </h2>
+          <div className="barre-session">
+            <h2>
+              Groupe {groupe.nom} · {groupe.niveau}
+            </h2>
+            <button className="lien petit" onClick={renommerGroupe}>
+              Renommer le groupe
+            </button>
+          </div>
           <p className="doux">
             {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances 4e et 3e</a> ({groupe.niveau.toUpperCase()}-01 à{" "}
             {groupe.niveau.toUpperCase()}-10).
@@ -201,6 +229,9 @@ export default function GroupesAnglais({ jeton, onExpire }) {
                       aria-label={`Nouveau code pour ${e.prenom}`}
                     >
                       Nouveau code
+                    </button>
+                    <button className="lien" onClick={() => renommerEleve(e)} aria-label={`Corriger le prénom de ${e.prenom}`}>
+                      Renommer
                     </button>
                     <button className="lien" onClick={() => retirer(e)} aria-label={`Retirer ${e.prenom}`}>
                       Retirer

@@ -29,6 +29,7 @@ from app.progression import (
 from app import enfants, inscriptions, parents, permissions
 from app.referentiel import ABREVIATIONS_PARCOURS, domaine_maths
 from app.schemas import (
+    EleveRenommage,
     ChangementMotDePasse,
     ChapitreProgramme,
     ChoixChapitres,
@@ -297,6 +298,20 @@ def cartes_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: 
             autre.code_hash = eleve.code_hash  # un seul code pour toutes les inscriptions du même élève
     session.commit()
     return cartes
+
+
+@router.patch("/eleves/{eleve_id}", response_model=EleveResume)
+def renommer_eleve(eleve_id: int, corps: EleveRenommage, enseignant: EnseignantCourant, session: SessionDB) -> EleveResume:
+    """Correction du prénom d'un élève que le professeur a inscrit (faute de frappe…)."""
+    eleve = _mon_eleve(session, eleve_id, enseignant)
+    try:
+        enfants.renommer_inscription(eleve, corps.prenom, enseignant.id)
+    except enfants.RenommageRefuse as e:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, str(e)) from e
+    except enfants.InscriptionImpossible as e:
+        raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from e
+    session.commit()
+    return resume_eleve(session, eleve)
 
 
 @router.post("/eleves/{eleve_id}/code", response_model=CodeEleve)
