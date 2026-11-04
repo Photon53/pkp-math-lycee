@@ -32,6 +32,7 @@ from app.schemas import (
     EnfantSaisi,
     NouvelleCarte,
     ParentCreation,
+    ParentVue,
     ProgressionAnglaisEnfant,
     ResultatAjoutEnfants,
     SuiviEnfant,
@@ -137,6 +138,22 @@ def rattacher_enfant(parent_id: int, enfant_id: int, admin: AdminCourant, sessio
     return [enfants.decrire(e) for e in sorted(parent.famille, key=lambda e: e.prenom)]
 
 
+class ParentModification(ParentCreation):
+    """Correction de l'adresse e-mail du compte (identifiant de connexion du parent)."""
+
+
+@router.patch("/admin/parents/{parent_id}", response_model=ParentVue)
+def modifier_parent(parent_id: int, corps: ParentModification, admin: AdminCourant, session: SessionDB) -> ParentVue:
+    parent = _parent(session, parent_id)
+    if corps.email != parent.email:
+        if session.scalar(select(models.Parent.id).where(models.Parent.email == corps.email)):
+            raise HTTPException(status.HTTP_409_CONFLICT, "Un autre compte parent utilise déjà cette adresse.")
+        journal.noter(session, admin, "modifier", "parent", parent.id, avant={"email": parent.email}, apres={"email": corps.email})
+        parent.email = corps.email
+        session.commit()
+    return parents.vue(parent)
+
+
 @router.get("/admin/enfants", response_model=list[EnfantFamille])
 def rechercher_enfants(
     _: AdminCourant, session: SessionDB, q: str = "", niveau: Niveau | None = None, sans_classe: bool = False
@@ -156,10 +173,12 @@ def modifier_enfant(enfant_id: int, corps: EnfantModification, admin: AdminCoura
     le professeur les retire quand il le souhaite."""
     enfant = _enfant(session, enfant_id)
     avant = {"prenom": enfant.prenom, "nom": enfant.nom, "niveau": enfant.niveau.value}
-    for champ in ("prenom", "nom", "niveau"):
-        valeur = getattr(corps, champ)
-        if valeur is not None:
-            setattr(enfant, champ, valeur)
+    try:
+        enfants.renommer(enfant, corps.prenom, corps.nom)
+    except enfants.InscriptionImpossible as e:
+        raise HTTPException(422, str(e)) from e
+    if corps.niveau is not None:
+        enfant.niveau = corps.niveau
     journal.noter(session, admin, "modifier", "enfant", enfant.id, avant=avant,
                   apres={"prenom": enfant.prenom, "nom": enfant.nom, "niveau": enfant.niveau.value})
     session.commit()

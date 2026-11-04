@@ -426,6 +426,15 @@ class EleveResume(BaseModel):
     classes_liees: list[str] = []  # codes des autres classes du même élève
 
 
+class EleveRenommage(BaseModel):
+    prenom: str
+
+    @field_validator("prenom")
+    @classmethod
+    def _prenom(cls, v: str) -> str:
+        return valider_prenom(v)
+
+
 class CreationEleves(BaseModel):
     """Prénoms à inscrire dans une classe (un par ligne côté interface)."""
 

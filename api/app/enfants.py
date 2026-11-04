@@ -70,6 +70,43 @@ def _nom_dans(enfant: models.Enfant, pris: set[str]) -> str:
     )
 
 
+def renommer(enfant: models.Enfant, prenom: str | None = None, nom: str | None = None) -> None:
+    """Corrige le prénom ou le nom, et le nom affiché dans chacune de ses classes et chacun de ses groupes
+    (avec l'initiale si un homonyme y est déjà). Un homonyme impossible à distinguer bloque la correction."""
+    if prenom is not None:
+        enfant.prenom = prenom
+    if nom is not None:
+        enfant.nom = nom
+    for inscription in enfant.inscriptions:
+        inscription.prenom = _nom_dans(enfant, {e.prenom for e in inscription.classe.eleves if e is not inscription})
+    for inscription in enfant.inscriptions_anglais:
+        inscription.prenom = _nom_dans(enfant, {e.prenom for e in inscription.groupe.eleves if e is not inscription})
+
+
+class RenommageRefuse(PermissionError):
+    pass
+
+
+def renommer_inscription(inscription: models.Eleve | models.EleveAnglais, prenom: str, enseignant_id: int) -> None:
+    """Le professeur corrige le prénom d'un de ses élèves. Si l'élève suit aussi les cours d'un autre
+    professeur, la correction revient à l'administrateur (elle changerait le nom affiché chez ce collègue)."""
+    enfant = inscription.enfant
+    if enfant is None:
+        voisins = inscription.classe.eleves if isinstance(inscription, models.Eleve) else inscription.groupe.eleves
+        if any(e is not inscription and e.prenom.casefold() == prenom.casefold() for e in voisins):
+            raise InscriptionImpossible(f"Un élève s'appelle déjà « {prenom} » ici.")
+        inscription.prenom = prenom
+        return
+    autres = [e for e in enfant.inscriptions if e.classe.enseignant_id != enseignant_id] + [
+        e for e in enfant.inscriptions_anglais if e.groupe.enseignant_id != enseignant_id
+    ]
+    if autres:
+        raise RenommageRefuse(
+            f"{enfant.prenom} suit aussi les cours d'un autre professeur : demandez la correction à l'administrateur."
+        )
+    renommer(enfant, prenom=prenom)
+
+
 def inscrire_maths(session: Session, enfant: models.Enfant, classe: models.Classe) -> models.Eleve:
     if classe.niveau != enfant.niveau:
         raise InscriptionImpossible(

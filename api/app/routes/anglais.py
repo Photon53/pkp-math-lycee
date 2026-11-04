@@ -14,7 +14,7 @@ from app.anglais_pdf import produire_pdf
 from app.anglais_pictos import image_svg
 from app.auth import EnseignantAnglais, EnseignantAuthentifie, SessionDB
 from app.db import models
-from app.schemas import CreationEleves
+from app.schemas import CreationEleves, EleveRenommage
 from app.security import generer_code_eleve, hacher_code_eleve
 
 router = APIRouter(prefix="/anglais", tags=["anglais"])
@@ -169,9 +169,8 @@ def refuser_seance(code: str, corps: Refus, qui: Referent, session: SessionDB):
 ELEVES_PAR_GROUPE = 30  # le CDC recommande 8 à 10 élèves ; la limite évite seulement les saisies aberrantes
 
 
-class GroupeCreation(BaseModel):
+class GroupeRenommage(BaseModel):
     nom: Annotated[str, Field(max_length=60)]
-    niveau: Annotated[str, Field(max_length=4)]
 
     @field_validator("nom")
     @classmethod
@@ -180,6 +179,10 @@ class GroupeCreation(BaseModel):
         if not v:
             raise ValueError("Donnez un nom au groupe.")
         return v
+
+
+class GroupeCreation(GroupeRenommage):
+    niveau: Annotated[str, Field(max_length=4)]
 
 
 class EleveAnglaisResume(BaseModel):
@@ -276,6 +279,33 @@ def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: 
     session.add(groupe)
     session.commit()
     return _resume(groupe)
+
+
+@router.patch("/groupes/{groupe_id}", response_model=GroupeResume)
+def renommer_groupe(groupe_id: int, corps: GroupeRenommage, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
+    groupe = _mon_groupe(session, groupe_id, enseignant)
+    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
+    groupe.nom = corps.nom
+    session.commit()
+    return _resume(groupe)
+
+
+@router.patch("/groupes/{groupe_id}/eleves/{eleve_id}", response_model=EleveAnglaisResume)
+def renommer_eleve(
+    groupe_id: int, eleve_id: int, corps: EleveRenommage, enseignant: EnseignantAnglais, session: SessionDB
+) -> EleveAnglaisResume:
+    from app import enfants
+
+    eleve = _mon_eleve(session, _mon_groupe(session, groupe_id, enseignant), eleve_id)
+    try:
+        enfants.renommer_inscription(eleve, corps.prenom, enseignant.id)
+    except enfants.RenommageRefuse as e:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, str(e)) from e
+    except enfants.InscriptionImpossible as e:
+        raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from e
+    session.commit()
+    return EleveAnglaisResume(id=eleve.id, prenom=eleve.prenom, identifiant=eleve.identifiant, a_un_code=eleve.code_hash is not None)
 
 
 @router.post("/groupes/{groupe_id}/eleves", response_model=ResultatInscription, status_code=status.HTTP_201_CREATED)

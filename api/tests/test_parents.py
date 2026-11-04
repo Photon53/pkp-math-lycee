@@ -112,8 +112,10 @@ class TestConnexion:
         assert r.status_code == 200 and r.json()["mot_de_passe_provisoire"]
         assert session.scalar(select(models.JournalAdmin).where(models.JournalAdmin.objet == "parent")) is not None
 
-    def test_recherche_admin_exige_trois_caracteres(self, client):
-        assert client.get("/admin/parents", headers=connecter_admin(client), params={"q": "a"}).status_code == 422
+    def test_recherche_admin_par_fragment_d_adresse(self, client):
+        connecter_parent(client)
+        trouves = client.get("/admin/parents", headers=connecter_admin(client), params={"q": "zzz"}).json()
+        assert trouves["total"] == 0
 
 
 class TestSuivi:

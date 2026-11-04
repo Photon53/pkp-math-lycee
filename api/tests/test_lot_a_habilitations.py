@@ -282,7 +282,7 @@ class TestFamilles:
     def test_recherche_par_classe_et_suppression(self, client, session):
         connecter_parent(client)
         admin = connecter_admin(client)
-        assert client.get("/admin/parents", headers=admin).status_code == 422  # jamais de liste complète
+        assert client.get("/admin/parents", headers=admin).json()["total"] >= 1  # liste paginée, sans filtre
         classe_id = session.scalar(select(models.Eleve.classe_id).where(models.Eleve.id == LINA))
         page = client.get("/admin/parents", headers=admin, params={"classe_id": classe_id}).json()
         assert page["total"] == 1 and page["elements"][0]["email"] == EMAIL

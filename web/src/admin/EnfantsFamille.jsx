@@ -167,6 +167,14 @@ export function EnfantsDeLaFamille({ parentId, appeler }) {
     if (carte) setCartes([carte]);
   }
 
+  const [renommage, setRenommage] = useState(null); // { id, prenom, nom }
+  async function renommer(e) {
+    e.preventDefault();
+    const { id, prenom, nom } = renommage;
+    const r = await agir(appeler(`/admin/enfants/${id}`, { methode: "PATCH", corps: { prenom, nom } }), "Nom corrigé, dans toutes ses classes.");
+    if (r) setRenommage(null);
+  }
+
   const changerNiveau = (enfant, niveau) =>
     agir(appeler(`/admin/enfants/${enfant.id}`, { methode: "PATCH", corps: { niveau } }), `${enfant.prenom} passe en ${NOM_NIVEAU[niveau]}.`);
 
@@ -206,9 +214,27 @@ export function EnfantsDeLaFamille({ parentId, appeler }) {
           {enfants.map((e) => (
             <li key={e.id} className="encadre">
               <div className="barre-session">
-                <p>
-                  <strong>{nomComplet(e)}</strong> <span className="doux">· identifiant <code>{e.identifiant}</code></span>
-                </p>
+                {renommage?.id === e.id ? (
+                  <form onSubmit={renommer} className="ligne-champs">
+                    <label>
+                      Prénom
+                      <input required maxLength={50} value={renommage.prenom} onChange={(ev) => setRenommage({ ...renommage, prenom: ev.target.value })} />
+                    </label>
+                    <label>
+                      Nom
+                      <input maxLength={50} value={renommage.nom} onChange={(ev) => setRenommage({ ...renommage, nom: ev.target.value })} />
+                    </label>
+                    <button type="button" className="secondaire petit" onClick={() => setRenommage(null)}>Annuler</button>
+                    <button type="submit" className="petit">Enregistrer</button>
+                  </form>
+                ) : (
+                  <p>
+                    <strong>{nomComplet(e)}</strong> <span className="doux">· identifiant <code>{e.identifiant}</code></span>{" "}
+                    <button type="button" className="lien petit" onClick={() => setRenommage({ id: e.id, prenom: e.prenom, nom: e.nom ?? "" })}>
+                      Modifier le nom
+                    </button>
+                  </p>
+                )}
                 <label className="en-ligne">
                   Niveau{" "}
                   <select value={e.niveau} onChange={(ev) => changerNiveau(e, ev.target.value)}>
