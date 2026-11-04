@@ -292,7 +292,14 @@ export function ContenuDocument({ doc, type, competences, difficultes, ecran = f
   }, [choisies, difficultes]);
 
   if (type === "exercices" || type === "corrige") {
-    if (!numeros.size) return <p className="doux">Aucun exercice pour ces réglages.</p>;
+    if (!numeros.size)
+      return (
+        <p className="doux">
+          {doc.competences.some((c) => c.questions.length)
+            ? "Aucun exercice pour ces réglages (compétences ou difficultés choisies)."
+            : "Les exercices de ce chapitre ne sont pas encore disponibles : ils apparaîtront ici dès qu'ils auront été relus par l'équipe pédagogique."}
+        </p>
+      );
     return (
       <div className={`document-pkp ${type}`}>
         {choisies.map((c) => {

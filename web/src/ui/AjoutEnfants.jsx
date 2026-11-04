@@ -1,5 +1,5 @@
-// Ajouter à une classe (ou à un groupe d'anglais) des enfants déjà créés par l'administrateur dans leur
-// famille : recherche par prénom, nom ou identifiant, limitée au niveau de la classe.
+// Ajouter à une classe (ou à un groupe d'anglais) des enfants déjà créés : la liste des enfants du niveau
+// s'affiche d'emblée ; la recherche (prénom, nom ou identifiant) la filtre.
 import { useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
 
@@ -9,24 +9,21 @@ export default function AjoutEnfants({ chercher, ajouter, onAjoutes, libelle = "
   const [choisis, setChoisis] = useState([]);
   const [resultat, setResultat] = useState(null);
   const [erreur, setErreur] = useState(null);
+  const [version, setVersion] = useState(0); // recharge la liste après un ajout
 
   useEffect(() => {
-    if (q.trim().length < 2) {
-      setTrouves(null);
-      return undefined;
-    }
     let actif = true;
     const t = setTimeout(() => {
       chercher(q.trim()).then(
         (liste) => actif && (setTrouves(liste), setErreur(null)),
         (err) => actif && setErreur(err.message),
       );
-    }, 250);
+    }, q.trim() ? 250 : 0);
     return () => {
       actif = false;
       clearTimeout(t);
     };
-  }, [q, chercher]);
+  }, [q, chercher, version]);
 
   async function valider(e) {
     e.preventDefault();
@@ -35,6 +32,7 @@ export default function AjoutEnfants({ chercher, ajouter, onAjoutes, libelle = "
       setResultat(r);
       setChoisis([]);
       setQ("");
+      setVersion((v) => v + 1);
       onAjoutes?.();
     } catch (err) {
       setErreur(err.message);
@@ -53,12 +51,13 @@ export default function AjoutEnfants({ chercher, ajouter, onAjoutes, libelle = "
         autoComplete="off"
       />
       <p className="aide">
-        Les élèves sont créés par l'administrateur avec leur famille et leur niveau. Seuls ceux du même niveau
-        apparaissent ; ils gardent leur carte pour toutes leurs matières.
+        Les élèves de ce niveau s'affichent ci-dessous : choisissez ceux à ajouter, ou tapez un prénom pour filtrer.
+        Chacun garde sa carte pour toutes ses matières. Un élève absent de la liste est à créer par l'administrateur,
+        avec sa famille.
       </p>
       {trouves && (
         trouves.length === 0 ? (
-          <p className="doux">Aucun élève de ce niveau ne correspond.</p>
+          <p className="doux">{q.trim() ? "Aucun élève de ce niveau ne correspond." : "Aucun élève de ce niveau pour l'instant."}</p>
         ) : (
           <ul className="liste-inscriptions">
             {trouves.map((t) => {

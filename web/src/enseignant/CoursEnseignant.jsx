@@ -35,7 +35,7 @@ export default function CoursEnseignant({ jeton, onExpire, chemin }) {
     appeler(`/enseignants/cours${params.size ? `?${params}` : ""}`).then(setSommaire, () => setSommaire([]));
   }, [appeler, niveau, parcours, terme]);
 
-  const choisir = (id) => naviguer(id == null ? "/enseignant/cours" : `/enseignant/cours/${id}`);
+  const choisir = (id, ancre) => naviguer(id == null ? "/enseignant/cours" : `/enseignant/cours/${id}${ancre ? `#${ancre}` : ""}`);
 
   return (
     <>

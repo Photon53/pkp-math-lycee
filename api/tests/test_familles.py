@@ -54,7 +54,8 @@ def test_le_professeur_inscrit_l_enfant_dans_plusieurs_parcours_de_son_niveau(cl
     # Recherche par prénom, limitée au niveau de la classe.
     trouves = client.get(f"/enseignants/classes/{classes['excellence']}/enfants?q=in", headers=prof).json()
     assert [t["identifiant"] for t in trouves] == [ines["identifiant"]]
-    assert client.get(f"/enseignants/classes/{classes['excellence']}/enfants?q=n", headers=prof).status_code == 422
+    # Sans saisie : les enfants du niveau de la classe (Noé, en 4e, n'y est pas).
+    assert [t["identifiant"] for t in client.get(f"/enseignants/classes/{classes['excellence']}/enfants", headers=prof).json()] == [ines["identifiant"]]
     for cid in classes.values():
         r = client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
         assert r.json() == {"ajoutes": ["Inès Martin"], "refus": []}

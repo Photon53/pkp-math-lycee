@@ -40,8 +40,9 @@ from app.security import hacher_code_eleve, normaliser_code, probleme_code_chois
 
 router = APIRouter(tags=["familles"])
 
-# Un professeur ne parcourt pas la liste des enfants : il cherche par prénom, nom ou identifiant.
-RECHERCHE_MIN = 2
+# Sans recherche, le professeur voit les premiers enfants du niveau de sa classe ; au-delà, il cherche par
+# prénom, nom ou identifiant.
+LISTE_SANS_RECHERCHE = 40
 
 
 # --- Administrateur : familles et enfants ----------------------------------------------------------
@@ -327,9 +328,9 @@ def _place(groupe: models.GroupeAnglais, corps: AjoutEnfants) -> None:
 
 
 def _choix(session: SessionDB, niveau, q: str, deja: set[int]) -> list[EnfantChoix]:
-    if len(q.strip()) < RECHERCHE_MIN:
-        raise HTTPException(422, f"Saisissez au moins {RECHERCHE_MIN} lettres du prénom, du nom ou de l'identifiant.")
-    return [enfants.choix(e, e.id in deja) for e in enfants.rechercher(session, niveau, q, limite=20)]
+    """Enfants du niveau, ceux à ajouter d'abord ; `q` vide : les premiers du niveau."""
+    trouves = enfants.rechercher(session, niveau, q, limite=LISTE_SANS_RECHERCHE if not q.strip() else 20)
+    return sorted((enfants.choix(e, e.id in deja) for e in trouves), key=lambda c: c.deja_inscrit)
 
 
 @router.get("/enseignants/classes/{classe_id}/enfants", response_model=list[EnfantChoix])

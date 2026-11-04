@@ -57,6 +57,39 @@ def test_migration_conserve_les_donnees(tmp_path):
         assert c.exec_driver_sql("select cree_le from eleve").scalar() is not None
         # 0007 : les classes existantes reçoivent tout le programme de leur niveau et parcours.
         assert c.exec_driver_sql("select classe_id, chapitre_id from classe_chapitre").all() == [(1, 1)]
+        # 0027 : l'élève créé par le professeur devient un enfant du niveau de sa classe.
+        enfant = c.exec_driver_sql("select id, prenom, niveau from enfant").one()
+        assert enfant[1:] == ("Lina", "2nde")
+        assert c.exec_driver_sql("select enfant_id from eleve").scalar() == enfant[0]
+    moteur.dispose()
+
+
+def test_eleves_relies_et_parents_rejoignent_un_seul_enfant(tmp_path):
+    """0027 : deux inscriptions reliées (même élève, deux parcours) donnent un seul enfant, qui garde
+    l'identifiant et le code de l'élève ; le parent rattaché suit l'enfant."""
+    url = f"sqlite:///{tmp_path / 'familles.db'}"
+    config = config_alembic(url)
+    command.upgrade(config, "0026")
+    moteur = creer_moteur(url)
+    with moteur.begin() as c:
+        c.exec_driver_sql("insert into enseignant (id, nom, email, mot_de_passe_hash) values (1, 'E', 'e@x.test', 'h')")
+        for cid, code, parcours in [(1, "2NDE-TC-A", "tronc-commun"), (2, "2NDE-EXC-B", "excellence")]:
+            c.exec_driver_sql(
+                "insert into classe (id, code, niveau, parcours, enseignant_id, domaine_code) "
+                f"values ({cid}, '{code}', '2nde', '{parcours}', 1, 'maths-lycee')"
+            )
+        c.exec_driver_sql("insert into eleve (id, prenom, classe_id, code_hash, identifiant, groupe_id) values (1, 'Lina', 1, 'h1', 'lina-k7m4', 1)")
+        c.exec_driver_sql("insert into eleve (id, prenom, classe_id, code_hash, groupe_id) values (2, 'Lina', 2, 'h1', 1)")
+        c.exec_driver_sql("insert into eleve (id, prenom, classe_id) values (3, 'Noé', 1)")
+        c.exec_driver_sql("insert into parent (id, email, mot_de_passe_hash) values (1, 'p@x.test', 'h')")
+        c.exec_driver_sql("insert into parent_eleve (parent_id, eleve_id) values (1, 2)")
+    command.upgrade(config, "0027")
+    with moteur.connect() as c:
+        enfants = c.exec_driver_sql("select id, prenom, identifiant, code_hash from enfant order by id").all()
+        assert [(e[1], e[3]) for e in enfants] == [("Lina", "h1"), ("Noé", None)]
+        assert enfants[0][2] == "lina-k7m4" and enfants[1][2].startswith("noe-")
+        assert c.exec_driver_sql("select enfant_id from eleve order by id").scalars().all() == [enfants[0][0]] * 2 + [enfants[1][0]]
+        assert c.exec_driver_sql("select parent_id, enfant_id from parent_enfant").all() == [(1, enfants[0][0])]
     moteur.dispose()
 
 
