@@ -120,29 +120,31 @@ describe("spécialité des classes", () => {
 });
 
 describe("codes personnels des élèves", () => {
-  it("inscrit des élèves et affiche leurs codes une seule fois, imprimables", async () => {
+  it("ajoute à la classe des élèves créés par l'administrateur avec leur famille", async () => {
     let eleves = ELEVES;
     const appels = fausseApi({
       "GET /enseignants/classes": { json: CLASSES },
       "GET /enseignants/classes/1/eleves": () => ({ json: eleves }),
-      "POST /enseignants/classes/1/eleves": (corps) => {
+      "GET /enseignants/classes/1/enfants?q=no": {
+        json: [
+          { id: 5, nom: "Noé Martin", niveau: "2nde", identifiant: "noe-k7m4", deja_inscrit: false },
+          { id: 6, nom: "Noé Durand", niveau: "2nde", identifiant: "noe-p2q3", deja_inscrit: true },
+        ],
+      },
+      "POST /enseignants/classes/1/enfants": () => {
         eleves = [...ELEVES, { ...ELEVES[1], id: 3, prenom: "Noé" }];
-        return { status: 201, json: { crees: [{ id: 3, prenom: "Noé", code: "K7M4QP" }], deja_presents: ["Lina"] } };
+        return { json: { ajoutes: ["Noé Martin"], refus: [] } };
       },
     });
-    const imprimer = vi.spyOn(window, "print").mockImplementation(() => {});
     render(<Classes jeton="j" onExpire={vi.fn()} />);
     await userEvent.click(await screen.findByRole("button", { name: /2NDE-A-DEMO/ }));
-    await userEvent.type(await screen.findByLabelText(/Inscrire des élèves/), "Noé{Enter}  {Enter}Lina");
-    await userEvent.click(screen.getByRole("button", { name: "Inscrire et générer les codes" }));
-    expect(appels.find((a) => a.cle === "POST /enseignants/classes/1/eleves").corps).toEqual({ prenoms: ["Noé", "Lina"] });
-    const fiche = await screen.findByRole("region", { name: "Codes personnels à distribuer" });
-    expect(within(fiche).getByText("K7M4QP")).toBeInTheDocument();
-    expect(screen.getByText("Déjà inscrit(s), ignoré(s) : Lina.")).toBeInTheDocument();
-    await userEvent.click(within(fiche).getByRole("button", { name: "Imprimer les cartes" }));
-    expect(imprimer).toHaveBeenCalled();
-    await userEvent.click(within(fiche).getByRole("button", { name: "J'ai imprimé les cartes" }));
-    expect(screen.queryByText("K7M4QP")).not.toBeInTheDocument();
+    await userEvent.type(await screen.findByLabelText("Ajouter des élèves"), "no");
+    expect(await screen.findByText("Déjà inscrit")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Choisir" }));
+    await userEvent.click(screen.getByRole("button", { name: "Ajouter l'élève" }));
+    expect(appels.find((a) => a.cle === "POST /enseignants/classes/1/enfants").corps).toEqual({ enfant_ids: [5] });
+    expect(await screen.findByText("Ajouté(s) : Noé Martin.")).toBeInTheDocument();
+    expect(await screen.findByText("Noé")).toBeInTheDocument();
   });
 
   it("nouveau code après confirmation, et codes manquants pour les élèves d'avant", async () => {

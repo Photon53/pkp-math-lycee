@@ -12,7 +12,7 @@ TABLES = {
     "enseignant", "classe", "eleve", "chapitre", "competence", "lecon", "question", "seance", "reponse",
     "classe_chapitre", "seance_chapitre", "groupe_anglais", "eleve_anglais",
     "seance_anglais", "seance_anglais_version", "progression_anglais", "parent", "parent_eleve",
-    "domaine_pedagogique", "habilitation", "rattachement_parent",
+    "domaine_pedagogique", "habilitation", "rattachement_parent", "enfant", "parent_enfant",
 }
 
 

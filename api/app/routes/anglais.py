@@ -15,7 +15,7 @@ from app.anglais_pictos import image_svg
 from app.auth import EnseignantAnglais, EnseignantAuthentifie, SessionDB
 from app.db import models
 from app.schemas import CreationEleves
-from app.security import generer_code_eleve, generer_identifiant, hacher_code_eleve
+from app.security import generer_code_eleve, hacher_code_eleve
 
 router = APIRouter(prefix="/anglais", tags=["anglais"])
 
@@ -221,15 +221,17 @@ def _resume(groupe: models.GroupeAnglais) -> GroupeResume:
 
 def identifiant_libre(session: Session, prenom: str) -> str:
     """Identifiant unique sur toute la plateforme : un élève de maths et un d'anglais ne le partagent jamais."""
-    while True:
-        identifiant = generer_identifiant(prenom)
-        pris = session.scalar(select(models.Eleve.id).where(models.Eleve.identifiant == identifiant)) or session.scalar(
-            select(models.EleveAnglais.id).where(models.EleveAnglais.identifiant == identifiant))
-        if not pris:
-            return identifiant
+    from app import enfants
+
+    return enfants.identifiant_libre(session, prenom)
 
 
 def attribuer_code(session: Session, eleve: models.EleveAnglais) -> CodeEleveAnglais:
+    if eleve.enfant is not None:  # enfant d'une famille : sa carte unique change pour toutes ses inscriptions
+        from app import enfants
+
+        code = enfants.nouveau_code(eleve.enfant)
+        return CodeEleveAnglais(id=eleve.id, prenom=eleve.prenom, identifiant=eleve.enfant.identifiant, code=code)
     code = generer_code_eleve()
     eleve.code_hash = hacher_code_eleve(code)  # invalide aussi les jetons émis avec l'ancien code
     if not eleve.identifiant:

@@ -4,6 +4,7 @@ import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
+import { EnfantsDeLaFamille, FamilleCreee, NouvelleFamille } from "./EnfantsFamille.jsx";
 
 const nomEnfant = (e) => `${e.prenom} (${e.classe})`;
 
@@ -77,8 +78,11 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
             </select>
           </div>
           <div className="actions" style={{ flexGrow: 0, marginTop: 0 }}>
-            <button onClick={() => setFenetre({ genre: "nouveau" })}>
-              <Icone nom="plus" taille={18} /> Nouveau parent
+            <button onClick={() => setFenetre({ genre: "famille-nouvelle" })}>
+              <Icone nom="plus" taille={18} /> Nouvelle famille
+            </button>
+            <button className="secondaire" onClick={() => setFenetre({ genre: "nouveau" })}>
+              Parent d'un élève déjà inscrit
             </button>
           </div>
         </div>
@@ -109,7 +113,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
                   {resultats.elements.map((p) => (
                     <tr key={p.id}>
                       <td>{p.email}</td>
-                      <td>{p.enfants.map(nomEnfant).join(", ")}</td>
+                      <td>{[...(p.famille ?? []), ...p.enfants.map(nomEnfant)].join(", ")}</td>
                       <td>{p.mdp_provisoire ? <span className="badge alerte">Mot de passe provisoire</span> : formaterDate(p.derniere_connexion)}</td>
                       <td className="nombre">
                         <button className="secondaire petit" onClick={() => setFenetre({ genre: "famille", id: p.id })}>
@@ -126,6 +130,25 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
         )}
       </section>
 
+      {fenetre?.genre === "famille-nouvelle" && (
+        <NouvelleFamille
+          appeler={appeler}
+          onFermer={() => setFenetre(null)}
+          onCreee={(r) => {
+            setRecherche(r.email);
+            setFenetre({ genre: "famille-creee", resultat: r });
+          }}
+        />
+      )}
+      {fenetre?.genre === "famille-creee" && (
+        <FamilleCreee
+          resultat={fenetre.resultat}
+          onFermer={() => {
+            setFenetre(null);
+            charger();
+          }}
+        />
+      )}
       {fenetre?.genre === "nouveau" && (
         <NouveauParent
           appeler={appeler}
@@ -327,7 +350,9 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
             Compte créé le {formaterDate(famille.cree_le)} ·{" "}
             {famille.mdp_provisoire ? "mot de passe provisoire" : `dernière connexion : ${formaterDate(famille.derniere_connexion, { heure: true })}`}
           </p>
-          <h3>Enfants suivis</h3>
+          <EnfantsDeLaFamille parentId={id} appeler={appeler} />
+          <h3>Élèves rattachés par un professeur</h3>
+          {famille.enfants.length === 0 && <p className="doux">Aucun.</p>}
           <ul className="liste-simple">
             {famille.enfants.map((e) => (
               <li key={e.id}>

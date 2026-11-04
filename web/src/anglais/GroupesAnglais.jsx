@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
+import { api } from "../api.js";
 import { Erreur } from "../composants.jsx";
+import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import { FicheCodes } from "../enseignant/Classes.jsx";
 import { useApi } from "../enseignant/useApi.js";
 
@@ -15,7 +17,6 @@ export default function GroupesAnglais({ jeton, onExpire }) {
   const [groupeId, setGroupeId] = useState(null);
   const [nom, setNom] = useState("");
   const [niveau, setNiveau] = useState("4e");
-  const [prenomsSaisis, setPrenomsSaisis] = useState("");
   const [message, setMessage] = useState(null);
   // Codes montrés une seule fois, juste après leur création : le serveur n'en garde que l'empreinte.
   const [codes, setCodes] = useState(null);
@@ -31,7 +32,6 @@ export default function GroupesAnglais({ jeton, onExpire }) {
 
   function choisir(id) {
     setGroupeId(id);
-    setPrenomsSaisis("");
     setMessage(null);
     setCodes(null);
     setProgression(null);
@@ -68,19 +68,11 @@ export default function GroupesAnglais({ jeton, onExpire }) {
     }
   }
 
-  async function inscrire(e) {
-    e.preventDefault();
-    const prenoms = prenomsSaisis.split(/\r?\n/).map((p) => p.trim()).filter(Boolean);
-    try {
-      const r = await appeler(`/anglais/groupes/${groupeId}/eleves`, { methode: "POST", corps: { prenoms } });
-      setPrenomsSaisis("");
-      setMessage(r.deja_presents.length ? `Déjà inscrit(s), ignoré(s) : ${r.deja_presents.join(", ")}.` : null);
-      setCodes(r.crees);
-      await charger();
-    } catch {
-      // erreur déjà affichée (prénom invalide, groupe complet)
-    }
-  }
+  // Les élèves sont créés par l'administrateur dans leur famille : le professeur les ajoute à son groupe.
+  const chercherEnfants = useCallback(
+    (q) => api(`/anglais/groupes/${groupeId}/enfants?q=${encodeURIComponent(q)}`, { jeton }),
+    [groupeId, jeton],
+  );
 
   async function retirer(eleve) {
     if (!window.confirm(`Retirer ${eleve.prenom} du groupe ?\n\nSon prénom est supprimé définitivement.`)) return;
@@ -246,22 +238,12 @@ export default function GroupesAnglais({ jeton, onExpire }) {
             code personnel (ou en scannant le QR code de sa carte). Il n'y voit que les séances validées de son niveau.
           </p>
           {progression && <TableProgression lignes={progression} />}
-          <form onSubmit={inscrire}>
-            <label htmlFor="prenoms-anglais">Inscrire des élèves (un prénom par ligne)</label>
-            <textarea
-              id="prenoms-anglais"
-              rows={4}
-              value={prenomsSaisis}
-              onChange={(e) => setPrenomsSaisis(e.target.value)}
-              placeholder={"Lina\nYanis\nInès"}
-            />
-            <p className="aide">Prénom seulement, sans nom de famille.</p>
-            <div className="actions">
-              <button type="submit" className="secondaire" disabled={!prenomsSaisis.trim()}>
-                Inscrire
-              </button>
-            </div>
-          </form>
+          <AjoutEnfants
+            key={groupe.id}
+            chercher={chercherEnfants}
+            ajouter={(ids) => appeler(`/anglais/groupes/${groupeId}/enfants`, { methode: "POST", corps: { enfant_ids: ids } })}
+            onAjoutes={charger}
+          />
           {message && (
             <p className="succes" role="status">
               {message}

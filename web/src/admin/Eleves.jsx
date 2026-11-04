@@ -4,8 +4,10 @@ import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
+import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
 
-/** Vue transverse des élèves et des classes (EA3.7 à EA3.10). L'administrateur ne crée pas d'élève. */
+/** Vue transverse des élèves et des classes (EA3.7 à EA3.10). Les élèves sont créés avec leur famille
+ * (écran Familles) ; ici, l'administrateur crée des classes pour les professeurs. */
 export default function Eleves({ jeton, onExpire, domaine = "" }) {
   const [onglet, setOnglet] = useState(() => (parametre("onglet") === "classes" ? "classes" : "eleves"));
   return (
@@ -224,12 +226,32 @@ function Deplacement({ eleve, classes, onFermer, onValider }) {
 function ListeClasses({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [classes, setClasses] = useState(null);
+  const [nouvelle, setNouvelle] = useState(false);
+  const [message, setMessage] = useState(null);
+  const charger = useCallback(() => appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {}), [appeler, domaine]);
   useEffect(() => {
-    appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
-  }, [appeler, domaine]);
+    charger();
+  }, [charger]);
 
   return (
     <section className="carte">
+      <div className="actions" style={{ marginTop: 0 }}>
+        <button onClick={() => setNouvelle(true)}>
+          <Icone nom="plus" taille={18} /> Nouvelle classe
+        </button>
+      </div>
+      {message && <p className="succes" role="status">{message}</p>}
+      {nouvelle && (
+        <NouvelleClasse
+          appeler={appeler}
+          onFermer={() => setNouvelle(false)}
+          onCreee={(c) => {
+            setNouvelle(false);
+            setMessage(`Classe ${c.code} créée. Ajoutez-y les élèves depuis l'écran Familles, ou laissez le professeur le faire.`);
+            charger();
+          }}
+        />
+      )}
       <Erreur message={erreur} />
       {classes === null && <p className="doux">Chargement…</p>}
       {classes?.length === 0 && <Vide icone="classes">Aucune classe.</Vide>}
@@ -264,5 +286,68 @@ function ListeClasses({ jeton, onExpire, domaine }) {
         </div>
       )}
     </section>
+  );
+}
+
+function NouvelleClasse({ appeler, onFermer, onCreee }) {
+  const [professeurs, setProfesseurs] = useState([]);
+  const [enseignantId, setEnseignantId] = useState("");
+  const [niveau, setNiveau] = useState("6e");
+  const [parcours, setParcours] = useState("tronc-commun");
+  const [erreur, setErreur] = useState(null);
+
+  useEffect(() => {
+    appeler("/admin/enseignants").then((liste) => setProfesseurs(liste.filter((p) => p.actif && p.enseigne_maths !== false)), () => {});
+  }, [appeler]);
+
+  async function soumettre(e) {
+    e.preventDefault();
+    setErreur(null);
+    try {
+      onCreee(await appeler("/admin/classes", { methode: "POST", corps: { niveau, parcours, enseignant_id: Number(enseignantId) } }));
+    } catch (err) {
+      setErreur(err.message);
+    }
+  }
+
+  return (
+    <Modale titre="Nouvelle classe" onFermer={onFermer}>
+      <form onSubmit={soumettre}>
+        <label htmlFor="nc-prof">Professeur de mathématiques</label>
+        <select id="nc-prof" required value={enseignantId} onChange={(e) => setEnseignantId(e.target.value)}>
+          <option value="">Choisir…</option>
+          {professeurs.map((p) => (
+            <option key={p.id} value={p.id}>{p.nom}</option>
+          ))}
+        </select>
+        <label htmlFor="nc-niveau">Niveau</label>
+        <select
+          id="nc-niveau"
+          value={niveau}
+          onChange={(e) => {
+            setNiveau(e.target.value);
+            setParcours(PARCOURS_PAR_NIVEAU[e.target.value][0]);
+          }}
+        >
+          {NIVEAUX.map(([v, l]) => (
+            <option key={v} value={v}>{l}</option>
+          ))}
+        </select>
+        <label htmlFor="nc-parcours">Parcours</label>
+        <select id="nc-parcours" value={parcours} onChange={(e) => setParcours(e.target.value)}>
+          {PARCOURS_PAR_NIVEAU[niveau].map((v) => (
+            <option key={v} value={v}>{LIBELLES_PARCOURS[v]}</option>
+          ))}
+        </select>
+        <p className="aide">
+          Un même élève peut suivre plusieurs parcours de son niveau (tronc commun, excellence, mise à niveau) : créez une
+          classe par parcours et inscrivez-le dans chacune.
+        </p>
+        <Erreur message={erreur} />
+        <div className="actions">
+          <button type="submit" disabled={!enseignantId}>Créer la classe</button>
+        </div>
+      </form>
+    </Modale>
   );
 }

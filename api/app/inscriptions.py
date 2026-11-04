@@ -20,6 +20,11 @@ class LienImpossible(ValueError):
 
 def liees(session: Session, eleve: models.Eleve) -> list[models.Eleve]:
     """Les autres inscriptions du même élève (sans `eleve` lui-même)."""
+    if eleve.enfant_id is not None:  # enfant d'une famille : toutes ses inscriptions de maths
+        autres = session.scalars(
+            select(models.Eleve).where(models.Eleve.enfant_id == eleve.enfant_id, models.Eleve.id != eleve.id)
+        )
+        return sorted(autres, key=lambda e: e.classe.code)
     if eleve.groupe_id is None:
         return []
     autres = session.scalars(

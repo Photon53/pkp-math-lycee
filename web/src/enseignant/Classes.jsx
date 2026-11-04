@@ -1,9 +1,11 @@
 import QRCode from "qrcode";
 import { Fragment, useCallback, useEffect, useState } from "react";
+import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, NIVEAUX_COLLEGE, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
+import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import ParentsEleve from "./ParentsEleve.jsx";
 import { useApi } from "./useApi.js";
 
@@ -21,7 +23,6 @@ export default function Classes({ jeton, onExpire }) {
   const [niveau, setNiveau] = useState("2nde");
   const [parcours, setParcours] = useState("tronc-commun");
   const [message, setMessage] = useState(null);
-  const [prenomsSaisis, setPrenomsSaisis] = useState("");
   const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
   // Autres parcours d'un élève : { eleveId, liees, suggestions } (GET /enseignants/eleves/{id}/liens).
   const [liens, setLiens] = useState(null);
@@ -46,19 +47,11 @@ export default function Classes({ jeton, onExpire }) {
     chargerEleves(id);
   }
 
-  async function inscrire(e) {
-    e.preventDefault();
-    const prenoms = prenomsSaisis.split(/\r?\n/).map((p) => p.trim()).filter(Boolean);
-    try {
-      const r = await appeler(`/enseignants/classes/${classeId}/eleves`, { methode: "POST", corps: { prenoms } });
-      setCodesAffiches(r.crees);
-      setPrenomsSaisis("");
-      setMessage(r.deja_presents.length ? `Déjà inscrit(s), ignoré(s) : ${r.deja_presents.join(", ")}.` : null);
-      await Promise.all([chargerEleves(classeId), chargerClasses()]);
-    } catch {
-      // erreur déjà affichée (prénom invalide, par exemple)
-    }
-  }
+  // Les élèves sont créés par l'administrateur dans leur famille : le professeur les ajoute à sa classe.
+  const chercherEnfants = useCallback(
+    (q) => api(`/enseignants/classes/${classeId}/enfants?q=${encodeURIComponent(q)}`, { jeton }),
+    [classeId, jeton],
+  );
 
   async function nouveauCode(eleve) {
     const ok = window.confirm(
@@ -401,22 +394,12 @@ export default function Classes({ jeton, onExpire }) {
               </table>
             </div>
           )}
-          <form onSubmit={inscrire}>
-            <label htmlFor="prenoms">Inscrire des élèves (un prénom par ligne)</label>
-            <textarea
-              id="prenoms"
-              rows={4}
-              value={prenomsSaisis}
-              onChange={(e) => setPrenomsSaisis(e.target.value)}
-              placeholder={"Lina\nYanis\nInès"}
-            />
-            <p className="aide">Prénom seulement, sans nom de famille. Un code personnel est généré pour chacun.</p>
-            <div className="actions">
-              <button type="submit" className="secondaire" disabled={!prenomsSaisis.trim()}>
-                Inscrire et générer les codes
-              </button>
-            </div>
-          </form>
+          <AjoutEnfants
+            key={classe.id}
+            chercher={chercherEnfants}
+            ajouter={(ids) => appeler(`/enseignants/classes/${classeId}/enfants`, { methode: "POST", corps: { enfant_ids: ids } })}
+            onAjoutes={() => Promise.all([chargerEleves(classeId), chargerClasses()])}
+          />
           <div className="actions">
             <button className="danger" onClick={() => supprimerClasse(classe)}>
               Supprimer la classe (fin d'année)

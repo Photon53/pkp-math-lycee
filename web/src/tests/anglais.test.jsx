@@ -167,9 +167,11 @@ describe("PKP Anglais", () => {
         groupes = [g, ...groupes];
         return { status: 201, json: g };
       },
-      "POST /anglais/groupes/2/eleves": ({ prenoms }) => {
-        groupes[0] = { ...groupes[0], eleves: prenoms.map((prenom, i) => ({ id: 10 + i, prenom })) };
-        return { status: 201, json: { groupe: groupes[0], deja_presents: [] } };
+      "GET /anglais/groupes/2/enfants?q=li": { json: [{ id: 21, nom: "Lina", niveau: "4e", identifiant: "lina-k7m4", deja_inscrit: false }] },
+      "GET /anglais/groupes/2/enfants?q=ya": { json: [{ id: 22, nom: "Yanis", niveau: "4e", identifiant: "yanis-p2q3", deja_inscrit: false }] },
+      "POST /anglais/groupes/2/enfants": ({ enfant_ids }) => {
+        groupes = [{ ...groupes[0], eleves: enfant_ids.map((id) => ({ id: 10 + id, prenom: id === 21 ? "Lina" : "Yanis" })) }, ...groupes.slice(1)];
+        return { json: { ajoutes: ["Lina", "Yanis"], refus: [] } };
       },
     });
     render(<EspaceAnglais chemin="/anglais/groupes" />);
@@ -182,12 +184,18 @@ describe("PKP Anglais", () => {
     await userEvent.click(screen.getByRole("button", { name: "Créer le groupe" }));
     expect(await screen.findByRole("heading", { name: "Groupe 4e B · 4e" })).toBeInTheDocument();
 
-    await userEvent.type(screen.getByLabelText(/Inscrire des élèves/), "Lina{enter}Yanis");
-    await userEvent.click(screen.getByRole("button", { name: "Inscrire" }));
+    const recherche = screen.getByLabelText("Ajouter des élèves");
+    await userEvent.type(recherche, "li");
+    await userEvent.click(await screen.findByRole("button", { name: "Choisir" }));
+    await userEvent.clear(recherche);
+    await userEvent.type(recherche, "ya");
+    expect(await screen.findByText("yanis-p2q3", { exact: false })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Choisir" }));
+    await userEvent.click(screen.getByRole("button", { name: "Ajouter les 2 élèves" }));
     expect(await screen.findByRole("button", { name: "Retirer Yanis" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /4e B/ })).toHaveTextContent("2 élèves");
     expect(appels.find((a) => a.cle === "POST /anglais/groupes").corps).toEqual({ nom: "4e B", niveau: "4e" });
-    expect(appels.find((a) => a.cle === "POST /anglais/groupes/2/eleves").corps).toEqual({ prenoms: ["Lina", "Yanis"] });
+    expect(appels.find((a) => a.cle === "POST /anglais/groupes/2/enfants").corps).toEqual({ enfant_ids: [21, 22] });
   });
 
   it("l'administrateur voit les groupes d'anglais et transfère un groupe à un professeur d'anglais", async () => {

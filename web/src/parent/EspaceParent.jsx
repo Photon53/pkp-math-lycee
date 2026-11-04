@@ -5,7 +5,8 @@ import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
 import { ConnexionEnseignant, NouveauMotDePasse, PageSimple } from "../enseignant/EspaceEnseignant.jsx";
 import { useApi } from "../enseignant/useApi.js";
-import { libelleNiveauParcours } from "../parcours.js";
+import { NIVEAUX, libelleNiveauParcours } from "../parcours.js";
+import PkpMath from "../pkpmath/PkpMath.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { formaterDate, pourcentage } from "../ui/Cadre.jsx";
 
@@ -35,8 +36,8 @@ export default function EspaceParent() {
       <PageSimple>
         <ConnexionEnseignant titre="Espace parents" chemin="/parents/connexion" onConnexion={connecter}>
           <p className="doux">
-            Votre compte est créé par le professeur de mathématiques de votre enfant. Mot de passe oublié : demandez-lui
-            un nouveau mot de passe provisoire.
+            Votre compte est créé par l'établissement (ou par le professeur de votre enfant), avec un mot de passe
+            provisoire que vous changez à la première connexion. Mot de passe oublié : demandez-en un nouveau.
           </p>
         </ConnexionEnseignant>
       </PageSimple>
@@ -62,16 +63,27 @@ export default function EspaceParent() {
   );
 }
 
+const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
+
 function SuiviEnfants({ compte, onDeconnexion }) {
   const { appeler, erreur } = useApi(compte.jeton, onDeconnexion);
   const [enfants, setEnfants] = useState(null);
   const [enfantId, setEnfantId] = useState(null);
 
+  // Enfants de la famille (une carte, toutes matières) puis, à part, les inscriptions rattachées une à une
+  // par un professeur (ancien mode) qui n'appartiennent à aucun enfant de la famille.
   const charger = useCallback(
     () =>
-      appeler("/parents/enfants").then((liste) => {
+      Promise.all([appeler("/parents/famille"), appeler("/parents/enfants")]).then(([famille, inscriptions]) => {
+        const dejaVues = new Set(famille.flatMap((f) => f.enfant.maths.map((m) => m.eleve_id)));
+        const liste = [
+          ...famille.map((f) => ({ id: `f${f.enfant.id}`, libelle: f.enfant.prenom, famille: f })),
+          ...inscriptions
+            .filter((e) => !dejaVues.has(e.id))
+            .map((e) => ({ id: `i${e.id}`, libelle: `${e.prenom} · ${e.code_classe}`, eleveId: e.id })),
+        ];
         setEnfants(liste);
-        setEnfantId((id) => id ?? liste[0]?.id ?? null);
+        setEnfantId((id) => (liste.some((e) => e.id === id) ? id : liste[0]?.id ?? null));
       }, () => {}),
     [appeler],
   );
@@ -95,23 +107,176 @@ function SuiviEnfants({ compte, onDeconnexion }) {
         {enfants === null ? (
           !erreur && <p className="doux">Chargement…</p>
         ) : enfants.length === 0 ? (
-          <p className="doux">Aucun enfant n'est rattaché à votre compte pour l'instant. Contactez son professeur.</p>
+          <p className="doux">Aucun enfant n'est rattaché à votre compte pour l'instant. Contactez l'établissement.</p>
         ) : (
           enfants.length > 1 && (
             <Onglets
               valeur={enfantId}
               onChange={setEnfantId}
-              options={enfants.map((e) => [e.id, `${e.prenom} · ${e.code_classe}`])}
+              options={enfants.map((e) => [e.id, e.libelle])}
             />
           )
         )}
       </section>
-      {enfantId && <TableauEnfant key={enfantId} enfantId={enfantId} appeler={appeler} compte={compte} onExpire={onDeconnexion} onCode={charger} />}
+      {enfants?.filter((e) => e.id === enfantId).map((e) =>
+        e.famille ? (
+          <SuiviFamille key={e.id} suivi={e.famille} appeler={appeler} compte={compte} onExpire={onDeconnexion} onChange={charger} />
+        ) : (
+          <TableauEnfant key={e.id} enfantId={e.eleveId} appeler={appeler} compte={compte} onExpire={onDeconnexion} onCode={charger} />
+        ),
+      )}
     </>
   );
 }
 
-function TableauEnfant({ enfantId, appeler, compte, onExpire, onCode }) {
+/** Un enfant de la famille : ses matières (maths par parcours, anglais, français à venir), les fiches de
+ * son niveau et l'accès à son compte. */
+function SuiviFamille({ suivi, appeler, compte, onExpire, onChange }) {
+  const { enfant } = suivi;
+  const [vue, setVue] = useState("maths");
+  const [inscription, setInscription] = useState(suivi.maths[0]?.id ?? null);
+  const niveau = NOM_NIVEAU[enfant.niveau] ?? enfant.niveau;
+  const options = suivi.matieres.map((m) => [m.code, m.libelle]);
+
+  return (
+    <>
+      <section className="carte">
+        <h2>
+          {enfant.prenom} {enfant.nom} <span className="doux petit">{niveau} · identifiant {enfant.identifiant}</span>
+        </h2>
+        <p className="doux petit">
+          Dernière connexion : {enfant.derniere_connexion ? formaterDate(enfant.derniere_connexion, { heure: true }) : "jamais"}
+        </p>
+        <Onglets valeur={vue} onChange={setVue} options={[...options, ["fiches", "Cours et fiches PDF"], ["acces", "Accès de l'enfant"]]} />
+      </section>
+
+      {vue === "maths" &&
+        (suivi.maths.length === 0 ? (
+          <section className="carte">
+            <p className="doux">{enfant.prenom} n'est encore inscrit dans aucune classe de maths.</p>
+          </section>
+        ) : (
+          <>
+            {suivi.maths.length > 1 && (
+              <section className="carte">
+                <label htmlFor="inscription">Parcours suivi</label>
+                <select id="inscription" value={inscription ?? ""} onChange={(e) => setInscription(Number(e.target.value))}>
+                  {suivi.maths.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {libelleNiveauParcours(m.niveau, m.parcours)} ({m.code_classe})
+                    </option>
+                  ))}
+                </select>
+              </section>
+            )}
+            {inscription && (
+              <TableauEnfant key={inscription} enfantId={inscription} appeler={appeler} compte={compte} onExpire={onExpire} avecCode={false} />
+            )}
+          </>
+        ))}
+
+      {vue === "anglais" && (
+        <section className="carte">
+          <h2>PKP Anglais</h2>
+          {suivi.anglais.length === 0 ? (
+            <p className="doux">{enfant.prenom} n'est encore inscrit dans aucun groupe d'anglais.</p>
+          ) : (
+            <div className="kpis" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
+              {suivi.anglais.map((a) => (
+                <div key={a.groupe} className="kpi">
+                  <div className="libelle">Groupe {a.groupe} ({a.niveau})</div>
+                  <div className="valeur">{a.seances_faites} séance{a.seances_faites > 1 ? "s" : ""}</div>
+                  <div className="sous">
+                    Score moyen aux quiz : {pourcentage(a.score_moyen)} · {a.i_can} « I can » cochés
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {vue === "francais" && (
+        <section className="carte">
+          <h2>PKP Français</h2>
+          <p className="doux">Le français arrive bientôt sur PKP : {enfant.prenom} y aura accès avec la même carte.</p>
+        </section>
+      )}
+
+      {vue === "fiches" && (
+        <section className="carte">
+          <PkpMath
+            jeton={compte.jeton}
+            onExpire={onExpire}
+            niveauParDefaut={enfant.niveau}
+            intro={`Les cours de ${niveau} pour accompagner ${enfant.prenom} : résumé, cours complet, fiche d'exercices et corrigé, à lire ici ou à exporter en PDF.`}
+          />
+        </section>
+      )}
+
+      {vue === "acces" && (
+        <section className="carte">
+          <AccesEnfant enfant={enfant} jeton={compte.jeton} onExpire={onExpire} onChange={onChange} />
+        </section>
+      )}
+    </>
+  );
+}
+
+/** Le parent réinitialise l'accès de son enfant : nouveau code tiré au hasard, ou code choisi. */
+function AccesEnfant({ enfant, jeton, onExpire, onChange }) {
+  const [carte, setCarte] = useState(null);
+  const [erreur, setErreur] = useState(null);
+  const [choisir, setChoisir] = useState(false);
+
+  async function nouveauCode() {
+    setErreur(null);
+    try {
+      setCarte(await api(`/parents/famille/${enfant.id}/acces`, { methode: "POST", corps: {}, jeton }));
+    } catch (err) {
+      if (err.status === 401) onExpire();
+      else setErreur(err.message);
+    }
+  }
+
+  return (
+    <>
+      <h2>Accès de {enfant.prenom}</h2>
+      <p className="doux">
+        {enfant.prenom} se connecte sur l'<a href="/eleve">espace élève</a> avec l'identifiant <code>{enfant.identifiant}</code> et
+        son code personnel, pour toutes ses matières. Code perdu ou divulgué : réinitialisez-le. L'ancien code cesse aussitôt
+        de fonctionner et les sessions ouvertes de {enfant.prenom} sont fermées.
+      </p>
+      <Erreur message={erreur} />
+      {carte?.code && (
+        <div className="encadre" role="status">
+          <p>Nouveau code, à donner à {enfant.prenom} (il ne sera plus affiché) :</p>
+          <p className="carte-enfant-codes">
+            {carte.identifiant} · <strong>{carte.code}</strong>
+          </p>
+        </div>
+      )}
+      <div className="actions">
+        <button onClick={nouveauCode}>Générer un nouveau code</button>
+        <button className="secondaire" onClick={() => setChoisir((c) => !c)}>
+          Choisir le code moi-même
+        </button>
+      </div>
+      {choisir && (
+        <ChoixCode
+          enfant={enfant}
+          jeton={jeton}
+          onExpire={onExpire}
+          onCode={onChange}
+          chemin={`/parents/famille/${enfant.id}/acces`}
+          methode="POST"
+        />
+      )}
+    </>
+  );
+}
+
+function TableauEnfant({ enfantId, appeler, compte, onExpire, onCode, avecCode = true }) {
   const [tableau, setTableau] = useState(null);
   const [vue, setVue] = useState("progression");
 
@@ -183,7 +348,7 @@ function TableauEnfant({ enfantId, appeler, compte, onExpire, onCode }) {
           options={[
             ["progression", "Progression par compétence"],
             ["historique", "Historique des réponses"],
-            ["code", "Code de connexion"],
+            ...(avecCode ? [["code", "Code de connexion"]] : []),
           ]}
         />
         {vue === "progression" && <ListeProgression competences={tableau.progression} />}
@@ -207,7 +372,7 @@ function Indicateur({ libelle, valeur, sous }) {
 }
 
 /** Le parent choisit le code personnel de son enfant (l'ancien cesse de fonctionner). */
-function ChoixCode({ enfant, jeton, onExpire, onCode }) {
+function ChoixCode({ enfant, jeton, onExpire, onCode, chemin = null, methode = "PUT" }) {
   const [code, setCode] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [probleme, setProbleme] = useState(null);
@@ -222,7 +387,7 @@ function ChoixCode({ enfant, jeton, onExpire, onCode }) {
     if (code !== confirmation) return setProbleme("Les deux saisies diffèrent.");
     setProbleme(null);
     try {
-      const r = await api(`/parents/enfants/${enfant.id}/code`, { methode: "PUT", corps: { code }, jeton });
+      const r = await api(chemin ?? `/parents/enfants/${enfant.id}/code`, { methode, corps: { code }, jeton });
       setIdentifiant(r.identifiant);
       setCode("");
       setConfirmation("");

@@ -39,6 +39,7 @@ describe("espace parent", () => {
   it("affiche le tableau de bord de l'enfant", async () => {
     connecterParent();
     fausseApi({
+      "GET /parents/famille": { json: [] },
       "GET /parents/enfants": { json: [ENFANT] },
       "GET /parents/enfants/1": { json: TABLEAU },
     });
@@ -53,6 +54,7 @@ describe("espace parent", () => {
   it("choisit le code de connexion de l'enfant", async () => {
     connecterParent();
     const appels = fausseApi({
+      "GET /parents/famille": { json: [] },
       "GET /parents/enfants": { json: [ENFANT] },
       "GET /parents/enfants/1": { json: TABLEAU },
       "PUT /parents/enfants/1/code": { json: { identifiant: "lina-demo" } },

@@ -160,6 +160,8 @@ class FamilleAdmin(BaseModel):
     cree_le: datetime
     derniere_connexion: datetime | None
     enfants: list[EnfantRattache]
+    # Enfants de la famille (créés par l'administrateur), avec leur niveau : « Inès Martin (2nde) ».
+    famille: list[str] = []
 
 
 class PageFamilles(BaseModel):

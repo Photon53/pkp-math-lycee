@@ -12,7 +12,7 @@ from functools import cache
 from fastapi import APIRouter, HTTPException, Request, status
 from sqlalchemy import select
 
-from app import inscriptions, limitation, parents
+from app import enfants as enfants_famille, inscriptions, limitation, parents
 from app.auth import PARENT, ParentAuthentifie, ParentCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -118,11 +118,17 @@ def choisir_code(eleve_id: int, corps: CodeChoisi, parent: ParentCourant, sessio
     """Le parent choisit le code personnel de son enfant. Il vaut pour toutes ses inscriptions reliées ;
     l'ancien code et les sessions ouvertes de l'enfant cessent de fonctionner."""
     enfant = _mon_enfant(session, parent, eleve_id)
-    _attribuer_identifiant(enfant)
+    if enfant.enfant is None:
+        _attribuer_identifiant(enfant)
     code = normaliser_code(corps.code)
-    probleme = probleme_code_choisi(code, parents.mots_interdits(enfant))
+    probleme = probleme_code_choisi(code, parents.mots_interdits(enfant.enfant or enfant))
     if probleme:
         raise HTTPException(422, probleme)
+    if enfant.enfant is not None:  # enfant d'une famille : sa carte unique, pour toutes ses matières
+        enfant.enfant.code_hash = hacher_code_eleve(code)
+        enfants_famille.synchroniser(enfant.enfant)
+        session.commit()
+        return CodeEnfantModifie(identifiant=enfant.enfant.identifiant)
     enfant.code_hash = hacher_code_eleve(code)
     for autre in inscriptions.liees(session, enfant):
         autre.code_hash = enfant.code_hash

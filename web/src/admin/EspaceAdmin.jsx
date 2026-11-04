@@ -16,6 +16,13 @@ import Professeurs from "./Professeurs.jsx";
 import RessourcesAdmin from "./RessourcesAdmin.jsx";
 import { DOMAINES_PAR_DEFAUT } from "./Qualifications.jsx";
 import TableauDeBord from "./TableauDeBord.jsx";
+import PkpMath from "../pkpmath/PkpMath.jsx";
+
+const PkpMathAdmin = ({ jeton, onExpire }) => (
+  <section className="carte">
+    <PkpMath jeton={jeton} onExpire={onExpire} />
+  </section>
+);
 
 const CLE_COMPTE = "pkp.admin";
 const CLE_DOMAINE = "pkp.admin.domaine";
@@ -31,6 +38,7 @@ const PAGES = [
   { groupe: "Pédagogie", vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu, permission: "contenu.modifier", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices, permission: "contenu.modifier", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin, permission: "contenu.modifier", matiere: "maths" },
+  { groupe: "Pédagogie", vers: "/admin/pkp-math", libelle: "PKP Math", icone: "pdf", Page: PkpMathAdmin, permission: "contenu.lire", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
   { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration, permission: "configuration" },
 ];

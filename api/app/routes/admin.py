@@ -402,6 +402,7 @@ def _famille(p: models.Parent) -> FamilleAdmin:
             EnfantRattache(id=e.id, prenom=e.prenom, classe=e.classe.code, niveau=e.classe.niveau, enseignant=e.classe.enseignant.nom)
             for e in sorted(p.enfants, key=lambda e: (e.prenom, e.classe.code))
         ],
+        famille=[f"{f.prenom} {f.nom}".strip() + f" ({f.niveau.value})" for f in sorted(p.famille, key=lambda f: f.prenom)],
     )
 
 
@@ -440,7 +441,10 @@ def familles(
     if q:
         filtres.append(models.Parent.email.like(f"%{q}%"))
     if classe_id is not None:
-        filtres.append(models.Parent.enfants.any(models.Eleve.classe_id == classe_id))
+        filtres.append(
+            models.Parent.enfants.any(models.Eleve.classe_id == classe_id)
+            | models.Parent.famille.any(models.Enfant.inscriptions.any(models.Eleve.classe_id == classe_id))
+        )
     if domaine:
         filtres.append(models.Parent.enfants.any(models.Eleve.classe.has(models.Classe.domaine_code == domaine)))
     total = session.scalar(select(func.count(models.Parent.id)).where(*filtres))

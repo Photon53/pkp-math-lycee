@@ -554,3 +554,59 @@ th.centre, td.centre { text-align: center; }
 .resultats-recherche .resultat:hover:not(:disabled), .resultats-recherche .resultat:focus-visible { background: var(--action-doux); color: var(--texte); }
 .note-domaine { margin: 0 0 12px; }
 @media (max-width: 560px) { .bandeau-domaine { max-width: none; } }
+
+/* PKP Math : catalogue, documents de chapitre et export PDF (impression du navigateur) */
+.pkp-math-entete { margin-bottom: 12px; }
+.pkp-math-entete h2 { margin: 4px 0; }
+.filtres-pkp { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 16px; }
+.filtres-pkp label { display: flex; flex-direction: column; gap: 4px; min-width: 180px; }
+.groupe-chapitres h3 { margin: 18px 0 8px; font-size: var(--t-m); color: var(--texte-doux); }
+.liste-chapitres-pkp { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+button.chapitre-pkp { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; background: var(--surface); color: var(--texte); border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 12px 14px; }
+button.chapitre-pkp:hover { border-color: var(--action); background: var(--action-doux); }
+.chapitre-pkp-titre { font-weight: 600; }
+.bandeau-non-valide { background: var(--alerte-doux); color: var(--alerte); border-radius: var(--rayon-petit); padding: 8px 12px; margin: 8px 0; }
+.document-pkp { margin-top: 12px; }
+.competence-pkp { margin-bottom: 20px; }
+.competence-pkp > h3 { border-bottom: 2px solid var(--action-doux); padding-bottom: 4px; }
+.exercices-pkp { padding-left: 0; list-style: none; }
+.exercice-pkp { margin: 12px 0; padding: 10px 14px; border: 1px solid var(--bordure); border-radius: var(--rayon-petit); }
+.exercice-entete { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.corrige-pkp ol { margin: 4px 0; }
+.ligne-champs { display: flex; gap: 12px; }
+#pkp-impression { display: none; }
+
+/* Espace de l'enfant : choix de la matière */
+.grille-matieres { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+button.matiere { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px; text-align: left; background: var(--surface); color: var(--texte); border: 1px solid var(--bordure); border-radius: var(--rayon); }
+button.matiere:hover:not(:disabled) { border-color: var(--action); background: var(--action-doux); color: var(--texte); }
+button.matiere:disabled { opacity: 0.7; cursor: default; }
+.matiere-nom { font-size: var(--t-l); font-weight: 700; }
+.liste-inscriptions { list-style: none; padding: 0; display: grid; gap: 8px; }
+.liste-inscriptions li { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border: 1px solid var(--bordure); border-radius: var(--rayon-petit); }
+.carte-enfant-codes { font-family: var(--police-mono, monospace); font-size: var(--t-l); }
+
+@media print {
+  body.pkp-imprime > *:not(#pkp-impression) { display: none !important; }
+  body.pkp-imprime #pkp-impression { display: block; }
+  .pkp-impression { font-size: 10.5pt; color: #000; }
+  .pkp-impression .saut-page { break-before: page; }
+  .pkp-impression .entete-pdf { border-bottom: 2px solid #183153; margin-bottom: 10px; }
+  .pkp-impression .entete-pdf p { margin: 0; color: #2666a2; font-size: 9pt; }
+  .pkp-impression .entete-pdf h1 { margin: 2px 0; font-size: 18pt; color: #183153; }
+  .pkp-impression .entete-pdf .type-pdf { font-weight: 700; font-size: 10pt; }
+  .pkp-impression .competence-pkp > h3 { color: #183153; border-bottom: 1px solid #2666a2; }
+  .pkp-impression .exercice-pkp, .pkp-impression .encadre { break-inside: avoid; }
+  .pkp-impression .zone-reponse { height: 3.2cm; border-bottom: 1px dotted #888; background: repeating-linear-gradient(transparent 0 0.75cm, #ddd 0.75cm 0.77cm); }
+  .pkp-impression .filigrane { position: fixed; top: 40%; left: 0; right: 0; text-align: center; transform: rotate(-30deg); font-size: 64pt; font-weight: 800; color: rgba(200, 30, 30, 0.13); z-index: 10; pointer-events: none; }
+}
+
+/* Administration des familles : saisie des enfants et gestion de chaque enfant */
+.ligne-enfant { display: grid; grid-template-columns: 1fr 1fr 160px auto; gap: 10px; align-items: end; margin-bottom: 8px; }
+@media (max-width: 640px) { .ligne-enfant { grid-template-columns: 1fr; } }
+.liste-enfants-famille { list-style: none; padding: 0; margin: 0; }
+.liste-enfants-famille .ligne-champs { flex-wrap: wrap; }
+.liste-enfants-famille .ligne-champs label { display: flex; flex-direction: column; gap: 4px; flex: 1 1 240px; }
+label.en-ligne { display: flex; align-items: center; gap: 6px; font-weight: 400; }
+label.en-ligne select { width: auto; }
+.ajout-enfants { margin-top: 16px; }

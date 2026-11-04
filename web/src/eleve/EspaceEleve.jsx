@@ -8,6 +8,8 @@ import Cours from "./Cours.jsx";
 import Exercice, { CLE_BILAN, CLE_CIBLE, CLE_SEANCE } from "./Exercice.jsx";
 import Historique from "./Historique.jsx";
 import Progression from "./Progression.jsx";
+import EspaceEnfant, { CLE_ENFANT } from "./EspaceEnfant.jsx";
+import PkpMath from "../pkpmath/PkpMath.jsx";
 
 const CLE_COMPTE = "pkp.eleve";
 
@@ -15,6 +17,8 @@ export default function EspaceEleve() {
   // Carte scannée (ou saisie sur la mauvaise page) : c'est peut-être un autre élève sur le même appareil,
   // elle passe avant la session déjà ouverte.
   const [compte, setCompte] = useState(() => (lireCarte() ? null : lire(CLE_COMPTE)));
+  // Enfant d'une famille : une seule carte, puis le choix de la matière (PKP Math, Anglais, Français).
+  const [enfant, setEnfant] = useState(() => (lireCarte() ? null : lire(CLE_ENFANT)));
   const [onglet, setOnglet] = useState("exercice");
   const [leconOuverte, setLeconOuverte] = useState(null);
   const [ancreLecon, setAncreLecon] = useState(null); // section à montrer : « lecon-cours », « methode-2 »…
@@ -83,7 +87,7 @@ export default function EspaceEleve() {
     setCompte(avecDuree);
   }
 
-  function deconnecter() {
+  function quitterInscription() {
     ecrire(CLE_COMPTE, null);
     ecrire(CLE_SEANCE, null);
     ecrire(CLE_BILAN, null);
@@ -91,7 +95,31 @@ export default function EspaceEleve() {
     setCompte(null);
   }
 
-  if (!compte) return <ConnexionEleve onConnexion={connecter} />;
+  function deconnecter() {
+    quitterInscription();
+    ecrire(CLE_ENFANT, null);
+    setEnfant(null);
+  }
+
+  function connexionCarte(reponse, durable) {
+    if (reponse.type === "enfant") {
+      const session = { jeton: reponse.jeton, enfant: reponse.enfant, durable };
+      ecrire(CLE_ENFANT, session, { durable });
+      setEnfant(session);
+    } else {
+      connecter(reponse.type === "eleve" ? { jeton: reponse.jeton, eleve: reponse.eleve } : reponse, durable);
+    }
+  }
+
+  if (!compte && enfant)
+    return (
+      <EspaceEnfant
+        session={enfant}
+        onOuvrirMaths={(inscription) => connecter(inscription, enfant.durable)}
+        onDeconnexion={deconnecter}
+      />
+    );
+  if (!compte) return <ConnexionEleve onConnexion={connexionCarte} />;
 
   return (
     <>
@@ -115,9 +143,15 @@ export default function EspaceEleve() {
             </select>
           </div>
         )}
-        <button className="lien" onClick={deconnecter}>
-          Ce n'est pas moi
-        </button>
+        {enfant ? (
+          <button className="lien" onClick={quitterInscription}>
+            ← Mes matières
+          </button>
+        ) : (
+          <button className="lien" onClick={deconnecter}>
+            Ce n'est pas moi
+          </button>
+        )}
       </div>
       <Erreur message={erreurParcours} />
       <Onglets
@@ -126,6 +160,7 @@ export default function EspaceEleve() {
         options={[
           ["exercice", "S'entraîner"],
           ["cours", "Cours"],
+          ["pkp", "Fiches et PDF"],
           ["historique", "Mon historique"],
           ["progression", "Ma progression"],
         ]}
@@ -161,6 +196,15 @@ export default function EspaceEleve() {
           onToutVoir={() => setHistoriqueDe(null)}
           onVoirCours={(id) => voirCours(id, { depuisLExercice: false })}
           onEntrainer={entrainer}
+        />
+      )}
+      {onglet === "pkp" && (
+        <PkpMath
+          key={compte.eleve.id}
+          jeton={compte.jeton}
+          onExpire={deconnecter}
+          niveauParDefaut={compte.eleve.niveau}
+          intro="Les chapitres ouverts par ton professeur : résumé de cours, cours complet, fiche d'exercices et corrigé, à lire ici ou à exporter en PDF."
         />
       )}
       {onglet === "progression" && <Progression key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
@@ -216,7 +260,7 @@ export function ConnexionEleve({ onConnexion }) {
     if (!carte) return;
     window.history.replaceState(null, "", window.location.pathname);
     envoyer(
-      "/eleves/connexion/identifiant",
+      "/enfants/connexion",
       { identifiant: carte.identifiant, code_personnel: carte.code, rester_connecte: true },
       true,
     );
@@ -227,7 +271,7 @@ export function ConnexionEleve({ onConnexion }) {
     e.preventDefault();
     if (mode === "identifiant") {
       envoyer(
-        "/eleves/connexion/identifiant",
+        "/enfants/connexion",
         { identifiant, code_personnel: codePersonnel, rester_connecte: resterConnecte },
         resterConnecte,
       );
@@ -241,7 +285,7 @@ export function ConnexionEleve({ onConnexion }) {
 
   return (
     <form className="carte carte-etroite" onSubmit={soumettre}>
-      <RepereEleve matiere="Maths" />
+      <RepereEleve matiere="Maths · Anglais · Français" />
       <h1>Connexion élève</h1>
       {mode === "identifiant" ? (
         <>
