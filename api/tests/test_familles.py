@@ -298,3 +298,31 @@ def test_le_professeur_ne_renomme_pas_l_eleve_d_un_collegue(client, session):
     eid = client.get(f"/enseignants/classes/{cid}/eleves", headers=prof).json()[0]["id"]
     r = client.patch(f"/enseignants/eleves/{eid}", headers=prof, json={"prenom": "Agnès"})
     assert r.status_code == 403 and "administrateur" in r.json()["detail"]
+
+
+def test_l_administrateur_gere_un_groupe_d_anglais_comme_une_classe(client, session):
+    """Création pour un professeur d'anglais, ajout d'enfants du niveau, nouvelle carte, renommage."""
+    admin = connecter_admin(client)
+    noe = next(c for c in _famille(client, admin)["cartes"] if c["prenom"] == "Noé")
+    prof_anglais = session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO))
+    r = client.post("/admin/anglais/groupes", headers=admin, json={"nom": "4e Soleil", "niveau": "4e", "enseignant_id": prof_anglais.id})
+    assert r.status_code == 201, r.text
+    gid = r.json()["id"]
+    assert r.json()["enseignant"] == prof_anglais.nom
+    # Un professeur qui n'enseigne pas l'anglais est refusé.
+    maths = session.scalar(select(models.Enseignant.id).where(models.Enseignant.email == "demo@pkp.test"))
+    assert client.post("/admin/anglais/groupes", headers=admin, json={"nom": "X", "niveau": "4e", "enseignant_id": maths}).status_code == 422
+
+    choix = client.get(f"/admin/anglais/groupes/{gid}/enfants", headers=admin).json()
+    assert noe["id"] in [c["id"] for c in choix]
+    assert client.post(f"/admin/anglais/groupes/{gid}/enfants", headers=admin, json={"enfant_ids": [noe["id"]]}).json()["ajoutes"]
+    groupe = next(g for g in client.get("/admin/anglais/groupes", headers=admin).json() if g["id"] == gid)
+    assert [(e["prenom"], e["identifiant"], e["a_un_code"]) for e in groupe["eleves"]] == [("Noé", noe["identifiant"], True)]
+
+    carte = client.post(f"/admin/anglais/eleves/{groupe['eleves'][0]['id']}/code", headers=admin).json()
+    assert carte["identifiant"] == noe["identifiant"]
+    assert client.post("/enfants/connexion", json={"identifiant": noe["identifiant"], "code_personnel": noe["code"]}).status_code == 401
+    _carte(client, carte)
+
+    r = client.patch(f"/admin/anglais/groupes/{gid}", headers=admin, json={"nom": "4e Lune"})
+    assert r.status_code == 200 and r.json()["nom"] == "4e Lune"

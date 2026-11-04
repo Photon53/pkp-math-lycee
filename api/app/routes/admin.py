@@ -590,7 +590,10 @@ def classes(
 def _vue_groupe(g: models.GroupeAnglais) -> GroupeAnglaisAdmin:
     return GroupeAnglaisAdmin(
         id=g.id, nom=g.nom, niveau=g.niveau, enseignant_id=g.enseignant_id, enseignant=g.enseignant.nom,
-        eleves=[EleveAnglaisAdmin(id=e.id, prenom=e.prenom) for e in sorted(g.eleves, key=lambda e: e.prenom.lower())],
+        eleves=[
+            EleveAnglaisAdmin(id=e.id, prenom=e.prenom, identifiant=anglais.identifiant_de(e), a_un_code=e.code_hash is not None)
+            for e in sorted(g.eleves, key=lambda e: e.prenom.lower())
+        ],
     )
 
 
@@ -610,6 +613,47 @@ def groupes_anglais(_: AdminCourant, session: SessionDB, domaine: FiltreDomaine)
     return [_vue_groupe(g) for g in sorted(
         groupes, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.enseignant.nom.lower(), g.nom.lower())
     )]
+
+
+class GroupeAnglaisCreation(anglais.GroupeCreation):
+    enseignant_id: int
+
+
+@router.post("/anglais/groupes", response_model=GroupeAnglaisAdmin, status_code=status.HTTP_201_CREATED)
+def creer_groupe_anglais(corps: GroupeAnglaisCreation, admin: AdminCourant, session: SessionDB) -> GroupeAnglaisAdmin:
+    """L'administrateur crée un groupe pour un professeur d'anglais, comme une classe pour un professeur de maths."""
+    enseignant = _enseignant(session, corps.enseignant_id)
+    if not (enseignant.actif and enseignant.enseigne_anglais):
+        raise HTTPException(422, "Choisissez un professeur d'anglais actif.")
+    groupe = anglais.ouvrir_groupe(session, enseignant, corps)
+    journal.noter(session, admin, "creer", "groupe_anglais", groupe.id, apres={"nom": groupe.nom, "enseignant": enseignant.id})
+    session.commit()
+    return _vue_groupe(groupe)
+
+
+@router.patch("/anglais/groupes/{groupe_id}", response_model=GroupeAnglaisAdmin)
+def renommer_groupe_anglais(
+    groupe_id: int, corps: anglais.GroupeRenommage, admin: AdminCourant, session: SessionDB
+) -> GroupeAnglaisAdmin:
+    groupe = _groupe_anglais(session, groupe_id)
+    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in groupe.enseignant.groupes_anglais):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a déjà un groupe de ce nom.")
+    journal.noter(session, admin, "modifier", "groupe_anglais", groupe.id, avant={"nom": groupe.nom}, apres={"nom": corps.nom})
+    groupe.nom = corps.nom
+    session.commit()
+    return _vue_groupe(groupe)
+
+
+@router.post("/anglais/eleves/{eleve_id}/code", response_model=anglais.CodeEleveAnglais)
+def nouveau_code_anglais(eleve_id: int, admin: AdminCourant, session: SessionDB) -> anglais.CodeEleveAnglais:
+    """Carte perdue : nouveau code (celui de l'enfant, valable dans toutes ses matières)."""
+    eleve = session.get(models.EleveAnglais, eleve_id)
+    if eleve is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
+    carte = anglais.attribuer_code(session, eleve)
+    journal.noter(session, admin, "nouveau-code", "eleve_anglais", eleve.id)
+    session.commit()
+    return carte
 
 
 @router.post("/anglais/groupes/{groupe_id}/transfert", response_model=GroupeAnglaisAdmin)

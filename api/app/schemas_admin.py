@@ -243,6 +243,8 @@ class ClasseAdmin(BaseModel):
 class EleveAnglaisAdmin(BaseModel):
     id: int
     prenom: str
+    identifiant: str | None = None
+    a_un_code: bool = False
 
 
 class GroupeAnglaisAdmin(BaseModel):

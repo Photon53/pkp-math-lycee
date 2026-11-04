@@ -215,11 +215,18 @@ class ResultatInscription(BaseModel):
     deja_presents: list[str]
 
 
+def identifiant_de(eleve: models.EleveAnglais) -> str | None:
+    """L'enfant d'une famille garde l'identifiant de sa carte, comme en maths."""
+    return eleve.enfant.identifiant if eleve.enfant is not None else eleve.identifiant
+
+
+def resume_eleve(e: models.EleveAnglais) -> EleveAnglaisResume:
+    return EleveAnglaisResume(id=e.id, prenom=e.prenom, identifiant=identifiant_de(e), a_un_code=e.code_hash is not None)
+
+
 def _resume(groupe: models.GroupeAnglais) -> GroupeResume:
     eleves = sorted(groupe.eleves, key=lambda e: e.prenom.lower())
-    return GroupeResume(id=groupe.id, nom=groupe.nom, niveau=groupe.niveau,
-                        eleves=[EleveAnglaisResume(id=e.id, prenom=e.prenom, identifiant=e.identifiant,
-                                                   a_un_code=e.code_hash is not None) for e in eleves])
+    return GroupeResume(id=groupe.id, nom=groupe.nom, niveau=groupe.niveau, eleves=[resume_eleve(e) for e in eleves])
 
 
 def identifiant_libre(session: Session, prenom: str) -> str:
@@ -266,6 +273,13 @@ def mes_groupes(enseignant: EnseignantAnglais) -> list[GroupeResume]:
 
 @router.post("/groupes", response_model=GroupeResume, status_code=status.HTTP_201_CREATED)
 def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
+    groupe = ouvrir_groupe(session, enseignant, corps)
+    session.commit()
+    return _resume(groupe)
+
+
+def ouvrir_groupe(session: Session, enseignant: models.Enseignant, corps: GroupeCreation) -> models.GroupeAnglais:
+    """Crée le groupe d'un professeur d'anglais ; sert aussi à l'administrateur."""
     if any(g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
     domaine = permissions.DOMAINE_GROUPES_ANGLAIS
@@ -277,8 +291,8 @@ def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: 
         raise HTTPException(422, refus)
     groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant, domaine_code=domaine)
     session.add(groupe)
-    session.commit()
-    return _resume(groupe)
+    session.flush()
+    return groupe
 
 
 @router.patch("/groupes/{groupe_id}", response_model=GroupeResume)
@@ -305,7 +319,7 @@ def renommer_eleve(
     except enfants.InscriptionImpossible as e:
         raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from e
     session.commit()
-    return EleveAnglaisResume(id=eleve.id, prenom=eleve.prenom, identifiant=eleve.identifiant, a_un_code=eleve.code_hash is not None)
+    return resume_eleve(eleve)
 
 
 @router.post("/groupes/{groupe_id}/eleves", response_model=ResultatInscription, status_code=status.HTTP_201_CREATED)
