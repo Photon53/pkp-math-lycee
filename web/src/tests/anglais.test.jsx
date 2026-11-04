@@ -215,8 +215,7 @@ describe("PKP Anglais", () => {
     });
     render(<AnglaisAdmin jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByRole("cell", { name: "Mrs Smith" })).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: "1 élève" }));
-    expect(screen.getByRole("button", { name: "Supprimer Lina" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "1 élève" })).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: "Transférer" }));
     const fenetre = screen.getByRole("dialog");
@@ -225,5 +224,37 @@ describe("PKP Anglais", () => {
     await userEvent.click(within(fenetre).getByRole("button", { name: "Transférer" }));
     expect(await screen.findByRole("cell", { name: "Mr Brown" })).toBeInTheDocument();
     expect(appels.find((a) => a.cle === "POST /admin/anglais/groupes/3/transfert").corps).toEqual({ vers_enseignant_id: 8 });
+  });
+
+  it("l'administrateur crée un groupe d'anglais et le gère comme une classe", async () => {
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    let groupes = [];
+    const profs = [{ id: 5, nom: "Mrs Smith", email: "s@x.fr", actif: true, enseigne_maths: false, enseigne_anglais: true }];
+    const appels = fausseApi({
+      "GET /admin/anglais/groupes": () => ({ json: groupes }),
+      "GET /admin/enseignants": { json: profs },
+      "POST /admin/anglais/groupes": (corps) => {
+        groupes = [{ id: 9, nom: corps.nom, niveau: corps.niveau, enseignant_id: 5, enseignant: "Mrs Smith", eleves: [] }];
+        return { json: groupes[0] };
+      },
+      "GET /admin/anglais/groupes/9/enfants?q=": { json: [{ id: 4, nom: "Noé", niveau: "4e", identifiant: "noe-k7m4", deja_inscrit: false }] },
+      "POST /admin/anglais/groupes/9/enfants": () => {
+        groupes = [{ ...groupes[0], eleves: [{ id: 12, prenom: "Noé", identifiant: "noe-k7m4", a_un_code: true }] }];
+        return { json: { ajoutes: ["Noé"], refus: [] } };
+      },
+      "POST /admin/anglais/eleves/12/code": { json: { id: 12, prenom: "Noé", identifiant: "noe-k7m4", code: "ABCD-2345" } },
+    });
+    render(<AnglaisAdmin jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(await screen.findByRole("button", { name: /Nouveau groupe/ }));
+    await userEvent.type(screen.getByLabelText("Nom du groupe"), "4e Soleil");
+    await userEvent.click(screen.getByRole("button", { name: "Créer le groupe" }));
+    expect(appels.find((a) => a.cle === "POST /admin/anglais/groupes").corps).toEqual({ nom: "4e Soleil", niveau: "4e", enseignant_id: 5 });
+
+    const fenetre = await screen.findByRole("dialog", { name: /Groupe 4e Soleil/ });
+    await userEvent.click(await within(fenetre).findByRole("button", { name: "Choisir" }));
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Ajouter l'élève" }));
+    expect(await within(fenetre).findByText("noe-k7m4", { selector: "code" })).toBeInTheDocument();
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Nouvelle carte pour Noé" }));
+    expect(await within(fenetre).findByText("ABCD-2345")).toBeInTheDocument();
   });
 });

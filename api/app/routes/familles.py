@@ -328,6 +328,14 @@ def inscrire_en_classe_admin(classe_id: int, corps: AjoutEnfants, admin: AdminCo
     return _ajout(session, corps.enfant_ids, lambda e: enfants.inscrire_maths(session, e, classe))
 
 
+@router.get("/admin/anglais/groupes/{groupe_id}/enfants", response_model=list[EnfantChoix])
+def chercher_pour_groupe_admin(groupe_id: int, _: AdminCourant, session: SessionDB, q: str = "") -> list[EnfantChoix]:
+    groupe = session.get(models.GroupeAnglais, groupe_id)
+    if groupe is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Groupe introuvable.")
+    return _choix(session, Niveau(groupe.niveau), q, {e.enfant_id for e in groupe.eleves if e.enfant_id})
+
+
 @router.post("/admin/anglais/groupes/{groupe_id}/enfants", response_model=ResultatAjoutEnfants)
 def inscrire_en_groupe_admin(groupe_id: int, corps: AjoutEnfants, admin: AdminCourant, session: SessionDB) -> ResultatAjoutEnfants:
     groupe = session.get(models.GroupeAnglais, groupe_id)
