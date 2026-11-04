@@ -7,6 +7,7 @@ import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import Classes from "./Classes.jsx";
 import CoursEnseignant from "./CoursEnseignant.jsx";
+import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
 
@@ -16,6 +17,7 @@ export const CLE_COMPTE = "pkp.enseignant";
 const PAGES = [
   { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
+  { vers: "/enseignant/pkp-math", libelle: "PKP Math (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
 ];
@@ -90,6 +92,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
+      {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} /></section>}
     </CadreApplication>
   );
 }

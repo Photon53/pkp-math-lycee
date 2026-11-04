@@ -105,6 +105,14 @@ enfants_de_parent = Table(
     Column("eleve_id", ForeignKey("eleve.id", ondelete="CASCADE"), primary_key=True, index=True),
 )
 
+# Familles créées par l'administrateur : chaque parent a un ou plusieurs enfants (personnes, pas inscriptions).
+enfants_de_famille = Table(
+    "parent_enfant",
+    Base.metadata,
+    Column("parent_id", ForeignKey("parent.id", ondelete="CASCADE"), primary_key=True),
+    Column("enfant_id", ForeignKey("enfant.id", ondelete="CASCADE"), primary_key=True, index=True),
+)
+
 
 class Enseignant(Base):
     __tablename__ = "enseignant"
@@ -176,8 +184,12 @@ class Eleve(Base):
     # Même élève inscrit dans plusieurs classes (spécialité, mise à niveau, excellence…) : ses inscriptions
     # partagent ce numéro (l'id de la première), et il passe de l'une à l'autre sans ressaisir de code.
     groupe_id: Mapped[int | None] = mapped_column(Integer, index=True)
+    # Enfant d'une famille (créé par l'administrateur) : il se connecte avec la carte de l'enfant, et cette
+    # inscription partage son code. Vide pour les élèves créés directement dans une classe (ancien mode).
+    enfant_id: Mapped[int | None] = mapped_column(ForeignKey("enfant.id", ondelete="CASCADE"), index=True)
 
     classe: Mapped[Classe] = relationship(back_populates="eleves")
+    enfant: Mapped["Enfant | None"] = relationship(back_populates="inscriptions")
     seances: Mapped[list["Seance"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )
@@ -204,6 +216,35 @@ class Parent(Base):
     derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     enfants: Mapped[list[Eleve]] = relationship(secondary=enfants_de_parent, back_populates="parents")
+    famille: Mapped[list["Enfant"]] = relationship(secondary=enfants_de_famille, back_populates="parents")
+
+
+class Enfant(Base):
+    """Un enfant d'une famille : une personne, avec son niveau d'études et une seule carte de connexion.
+
+    Il est inscrit ensuite dans des classes de maths (une inscription `Eleve` par parcours) et des groupes
+    d'anglais (`EleveAnglais`) ; toutes ces inscriptions partagent son code personnel.
+    """
+
+    __tablename__ = "enfant"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    prenom: Mapped[str] = mapped_column(String(50))
+    # Initiale ou nom de famille, facultatif : distingue deux enfants de même prénom dans une classe.
+    nom: Mapped[str] = mapped_column(String(50), default="", server_default="")
+    niveau: Mapped[Niveau] = mapped_column(_enum(Niveau, "niveau"))
+    identifiant: Mapped[str] = mapped_column(String(40), unique=True)
+    code_hash: Mapped[str | None] = mapped_column(String(255))
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    parents: Mapped[list[Parent]] = relationship(secondary=enfants_de_famille, back_populates="famille")
+    inscriptions: Mapped[list[Eleve]] = relationship(
+        back_populates="enfant", cascade="all, delete-orphan", passive_deletes=True
+    )
+    inscriptions_anglais: Mapped[list["EleveAnglais"]] = relationship(
+        back_populates="enfant", cascade="all, delete-orphan", passive_deletes=True
+    )
 
 
 # Ordre d'affichage des niveaux d'anglais ; ceux qui sont ouverts sont les niveaux du domaine (EX.2).
@@ -245,8 +286,11 @@ class EleveAnglais(Base):
     # même mécanisme que les élèves de maths. Régénérer le code déconnecte l'élève.
     identifiant: Mapped[str | None] = mapped_column(String(40), unique=True)
     code_hash: Mapped[str | None] = mapped_column(String(255))
+    # Enfant d'une famille : même rôle que `Eleve.enfant_id`.
+    enfant_id: Mapped[int | None] = mapped_column(ForeignKey("enfant.id", ondelete="CASCADE"), index=True)
 
     groupe: Mapped[GroupeAnglais] = relationship(back_populates="eleves")
+    enfant: Mapped["Enfant | None"] = relationship(back_populates="inscriptions_anglais")
     progression: Mapped[list["ProgressionAnglais"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )

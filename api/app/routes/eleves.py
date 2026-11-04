@@ -69,7 +69,7 @@ def _info(eleve: models.Eleve) -> EleveInfo:
     return EleveInfo(
         id=eleve.id,
         prenom=eleve.prenom,
-        identifiant=eleve.identifiant,
+        identifiant=eleve.identifiant or (eleve.enfant.identifiant if eleve.enfant else None),
         code_classe=eleve.classe.code,
         niveau=eleve.classe.niveau,
         parcours=eleve.classe.parcours,

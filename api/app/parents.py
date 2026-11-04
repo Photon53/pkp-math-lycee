@@ -28,7 +28,7 @@ JOURS_ACTIVITE = 14
 def enfants(session: Session, parent: models.Parent) -> list[models.Eleve]:
     """Inscriptions suivies : celles rattachées au parent et leurs inscriptions reliées."""
     vus: dict[int, models.Eleve] = {}
-    for eleve in parent.enfants:
+    for eleve in [*parent.enfants, *(i for enfant in parent.famille for i in enfant.inscriptions)]:
         for e in (eleve, *inscriptions.liees(session, eleve)):
             if e.classe.enseignant.actif:
                 vus[e.id] = e
@@ -73,7 +73,10 @@ def supprimer_orphelins(session: Session) -> int:
     """RGPD : un compte parent sans enfant rattaché n'a plus de raison d'être conservé."""
     session.flush()
     rattaches = select(models.enfants_de_parent.c.parent_id)
-    resultat = session.execute(delete(models.Parent).where(models.Parent.id.not_in(rattaches)))
+    famille = select(models.enfants_de_famille.c.parent_id)
+    resultat = session.execute(
+        delete(models.Parent).where(models.Parent.id.not_in(rattaches), models.Parent.id.not_in(famille))
+    )
     session.expire_all()
     return resultat.rowcount
 

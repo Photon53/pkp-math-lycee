@@ -572,3 +572,169 @@ class CodeChoisi(BaseModel):
 
 class CodeEnfantModifie(BaseModel):
     identifiant: str
+
+
+# --- Familles : enfants (personnes) et leur carte unique ---------------------------------------------
+
+
+class EnfantSaisi(BaseModel):
+    """Un enfant saisi par l'administrateur : prénom, nom (ou initiale, facultatif) et niveau d'études."""
+
+    prenom: str
+    nom: Annotated[str, Field(max_length=50)] = ""
+    niveau: Niveau
+
+    @field_validator("prenom")
+    @classmethod
+    def _prenom(cls, v: str) -> str:
+        return valider_prenom(v)
+
+    @field_validator("nom")
+    @classmethod
+    def _nom(cls, v: str) -> str:
+        v = " ".join(v.split())
+        if v and not _PRENOM.match(v):
+            raise ValueError("Nom invalide : lettres, espaces, apostrophes et tirets seulement.")
+        return v
+
+
+class EnfantModification(BaseModel):
+    prenom: str | None = None
+    nom: Annotated[str | None, Field(max_length=50)] = None
+    niveau: Niveau | None = None
+
+    @field_validator("prenom")
+    @classmethod
+    def _prenom(cls, v: str | None) -> str | None:
+        return None if v is None else valider_prenom(v)
+
+    @field_validator("nom")
+    @classmethod
+    def _nom(cls, v: str | None) -> str | None:
+        if v is None:
+            return None
+        v = " ".join(v.split())
+        if v and not _PRENOM.match(v):
+            raise ValueError("Nom invalide : lettres, espaces, apostrophes et tirets seulement.")
+        return v
+
+
+class CarteEnfant(BaseModel):
+    """Identifiant et code en clair : affichés une seule fois, à imprimer ou à recopier."""
+
+    id: int
+    prenom: str
+    nom: str
+    niveau: Niveau
+    identifiant: str
+    code: str
+
+
+class InscriptionMaths(BaseModel):
+    eleve_id: int
+    code_classe: str
+    niveau: Niveau
+    parcours: Parcours
+    libelle_parcours: str
+    enseignant: str
+
+
+class InscriptionAnglais(BaseModel):
+    eleve_id: int
+    groupe: str
+    niveau: str
+    enseignant: str
+
+
+class EnfantFamille(BaseModel):
+    """Un enfant et toutes ses inscriptions (vu par l'administrateur, le professeur ou le parent)."""
+
+    id: int
+    prenom: str
+    nom: str
+    niveau: Niveau
+    identifiant: str
+    a_un_code: bool
+    derniere_connexion: datetime | None
+    maths: list[InscriptionMaths]
+    anglais: list[InscriptionAnglais]
+
+
+class EnfantChoix(BaseModel):
+    """Ce qu'un professeur voit d'un enfant pour l'ajouter à sa classe : le strict nécessaire."""
+
+    id: int
+    nom: str
+    niveau: Niveau
+    identifiant: str
+    deja_inscrit: bool = False
+
+
+class AjoutEnfants(BaseModel):
+    enfant_ids: Annotated[list[int], Field(min_length=1, max_length=60)]
+
+
+class ResultatAjoutEnfants(BaseModel):
+    ajoutes: list[str]
+    refus: list[str]
+
+
+class Matiere(BaseModel):
+    """Une matière de l'espace de l'enfant ; `disponible` faux : affichée « bientôt disponible »."""
+
+    code: str
+    libelle: str
+    disponible: bool
+
+
+class EspaceEnfant(BaseModel):
+    id: int
+    prenom: str
+    nom: str
+    niveau: Niveau
+    identifiant: str
+    matieres: list[Matiere]
+    maths: list[InscriptionMaths]
+    anglais: list[InscriptionAnglais]
+
+
+class JetonEnfant(BaseModel):
+    jeton: str
+    enfant: EspaceEnfant
+
+
+class ConnexionCarte(BaseModel):
+    """Réponse de la connexion par carte : carte d'enfant de famille, ou ancienne carte d'élève de maths."""
+
+    type: str  # « enfant » ou « eleve »
+    jeton: str
+    enfant: EspaceEnfant | None = None
+    eleve: EleveInfo | None = None
+
+
+class CodeEnfantFamille(BaseModel):
+    """Choisi par le parent (8 à 16 caractères) ; vide : un code est tiré au hasard et renvoyé une fois."""
+
+    code: Annotated[str, Field(max_length=20)] = ""
+
+
+class NouvelleCarte(BaseModel):
+    identifiant: str
+    code: str | None = None  # seulement quand il a été tiré au hasard
+
+
+class ProgressionAnglaisEnfant(BaseModel):
+    groupe: str
+    niveau: str
+    seances_faites: int
+    score_moyen: float | None  # entre 0 et 1
+    i_can: int  # nombre d'auto-évaluations « I can » cochées
+
+
+class SuiviEnfant(BaseModel):
+    """Tableau du parent pour un enfant : maths (par inscription), anglais, et le français à venir."""
+
+    enfant: EnfantFamille
+    matieres: list[Matiere]
+    maths: list[EnfantResume]
+    anglais: list[ProgressionAnglaisEnfant]

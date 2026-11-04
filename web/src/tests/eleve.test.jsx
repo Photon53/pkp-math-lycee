@@ -66,10 +66,10 @@ describe("connexion élève", () => {
 });
 
 describe("connexion par carte (identifiant + code)", () => {
-  const REPONSE = { json: { jeton: "j", eleve: { id: 1, prenom: "Lina", code_classe: "2NDE-A-DEMO", niveau: "2nde" } } };
+  const REPONSE = { json: { type: "eleve", jeton: "j", eleve: { id: 1, prenom: "Lina", code_classe: "2NDE-A-DEMO", niveau: "2nde" } } };
 
   it("se connecte avec l'identifiant et le code, sans prénom ni code classe", async () => {
-    const appels = fausseApi({ "POST /eleves/connexion/identifiant": REPONSE });
+    const appels = fausseApi({ "POST /enfants/connexion": REPONSE });
     render(<EspaceEleve />);
     await userEvent.type(screen.getByLabelText("Identifiant"), "Lina-Demo");
     await userEvent.type(screen.getByLabelText("Code personnel"), "pkp222");
@@ -81,7 +81,7 @@ describe("connexion par carte (identifiant + code)", () => {
   });
 
   it("« rester connecté » garde la session après fermeture du navigateur", async () => {
-    const appels = fausseApi({ "POST /eleves/connexion/identifiant": REPONSE });
+    const appels = fausseApi({ "POST /enfants/connexion": REPONSE });
     render(<EspaceEleve />);
     await userEvent.type(screen.getByLabelText("Identifiant"), "lina-demo");
     await userEvent.type(screen.getByLabelText("Code personnel"), "PKP222");
@@ -95,7 +95,7 @@ describe("connexion par carte (identifiant + code)", () => {
 
   it("se connecte directement depuis le QR code et efface le code de l'adresse", async () => {
     window.history.replaceState(null, "", "/eleve#carte=lina-demo.PKP222");
-    const appels = fausseApi({ "POST /eleves/connexion/identifiant": REPONSE });
+    const appels = fausseApi({ "POST /enfants/connexion": REPONSE });
     render(<EspaceEleve />);
     expect(await screen.findByText("Lina")).toBeInTheDocument();
     expect(appels[0].corps).toEqual({ identifiant: "lina-demo", code_personnel: "PKP222", rester_connecte: true });
@@ -106,12 +106,54 @@ describe("connexion par carte (identifiant + code)", () => {
   it("la carte scannée passe avant la session d'un autre élève sur le même appareil", async () => {
     sessionStorage.setItem("pkp.eleve", JSON.stringify({ jeton: "ancien", eleve: { ...REPONSE.json.eleve, prenom: "Yanis" } }));
     window.history.replaceState(null, "", "/eleve#carte=lina-demo.PKP222");
-    const appels = fausseApi({ "POST /eleves/connexion/identifiant": REPONSE });
+    const appels = fausseApi({ "POST /enfants/connexion": REPONSE });
     render(<EspaceEleve />);
     expect(await screen.findByText("Lina")).toBeInTheDocument();
     expect(screen.queryByText("Yanis")).not.toBeInTheDocument();
-    expect(appels[0].cle).toBe("POST /eleves/connexion/identifiant");
+    expect(appels[0].cle).toBe("POST /enfants/connexion");
     localStorage.clear();
+  });
+});
+
+describe("enfant d'une famille : une carte, puis la matière", () => {
+  const ESPACE = {
+    id: 7, prenom: "Inès", nom: "Martin", niveau: "2nde", identifiant: "ines-k7m4",
+    matieres: [
+      { code: "maths", libelle: "PKP Math", disponible: true },
+      { code: "anglais", libelle: "PKP Anglais", disponible: true },
+      { code: "francais", libelle: "PKP Français", disponible: false },
+    ],
+    maths: [
+      { eleve_id: 11, code_classe: "2NDE-TC-AAAAA", niveau: "2nde", parcours: "tronc-commun", libelle_parcours: "Tronc commun", enseignant: "M. Prof" },
+      { eleve_id: 12, code_classe: "2NDE-EXC-BBBBB", niveau: "2nde", parcours: "excellence", libelle_parcours: "Excellence et olympiades", enseignant: "M. Prof" },
+    ],
+    anglais: [],
+  };
+
+  it("choisit PKP Math puis un parcours ; le français est annoncé", async () => {
+    const appels = fausseApi({
+      "POST /enfants/connexion": { json: { type: "enfant", jeton: "je", enfant: ESPACE } },
+      "GET /enfants/moi": { json: ESPACE },
+      "GET /pkp-math/catalogue": { json: [] },
+      "POST /enfants/moi/maths/12": {
+        json: { jeton: "jm", eleve: { id: 12, prenom: "Inès Martin", code_classe: "2NDE-EXC-BBBBB", niveau: "2nde", parcours: "excellence" } },
+      },
+      "GET /eleves/moi/parcours": { json: [] },
+    });
+    render(<EspaceEleve />);
+    await userEvent.type(screen.getByLabelText("Identifiant"), "ines-k7m4");
+    await userEvent.type(screen.getByLabelText("Code personnel"), "ABC234");
+    await userEvent.click(screen.getByRole("button", { name: "Commencer" }));
+    expect(await screen.findByText("Que veux-tu travailler ?")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /PKP Français/ })).toBeDisabled();
+    expect(screen.getByText("Bientôt disponible")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /PKP Math/ }));
+    const boutons = await screen.findAllByRole("button", { name: "S'entraîner" });
+    expect(boutons).toHaveLength(2);
+    await userEvent.click(boutons[1]);
+    expect(await screen.findByRole("button", { name: "← Mes matières" })).toBeInTheDocument();
+    expect(appels.some((a) => a.cle === "POST /enfants/moi/maths/12")).toBe(true);
+    expect(screen.getByRole("tab", { name: "Fiches et PDF" })).toBeInTheDocument();
   });
 });
 

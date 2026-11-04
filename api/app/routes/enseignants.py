@@ -26,7 +26,7 @@ from app.progression import (
     progression_eleve,
     resume_eleve,
 )
-from app import inscriptions, parents, permissions
+from app import enfants, inscriptions, parents, permissions
 from app.referentiel import ABREVIATIONS_PARCOURS, domaine_maths
 from app.schemas import (
     ChangementMotDePasse,
@@ -55,7 +55,6 @@ from app.security import (
     creer_jeton,
     doit_rehacher,
     generer_code_eleve,
-    generer_identifiant,
     hacher_code_eleve,
     hacher_mot_de_passe,
     verifier_mot_de_passe,
@@ -155,6 +154,13 @@ def mes_classes(enseignant: EnseignantCourant, session: SessionDB) -> list[Class
 
 @router.post("/classes", response_model=ClasseResume, status_code=status.HTTP_201_CREATED)
 def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: SessionDB) -> ClasseResume:
+    classe = ouvrir_classe(session, enseignant, corps)
+    session.commit()
+    return _resume_classe(session, classe)
+
+
+def ouvrir_classe(session, enseignant: models.Enseignant, corps: ClasseCreation) -> models.Classe:
+    """Crée la classe (code unique, tout le programme ouvert) ; sert aussi à l'administrateur."""
     domaine = domaine_maths(corps.niveau)
     refus = permissions.refus_domaine_ferme(session, domaine)
     if refus:
@@ -171,8 +177,8 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
     session.add(classe)
     # Par défaut, tout le programme est ouvert ; l'enseignant ferme ce qu'il ne veut pas encore proposer.
     classe.chapitres_proposes = chapitres_du_programme(session, classe)
-    session.commit()
-    return _resume_classe(session, classe)
+    session.flush()
+    return classe
 
 
 def _ma_classe(session: SessionDB, classe_id: int, enseignant: models.Enseignant) -> models.Classe:
@@ -241,14 +247,14 @@ def _attribuer_identifiant(eleve: models.Eleve) -> None:
     if eleve.identifiant:
         return
     session = object_session(eleve)
-    identifiant = generer_identifiant(eleve.prenom)
-    while session.scalar(select(models.Eleve.id).where(models.Eleve.identifiant == identifiant)) is not None:
-        identifiant = generer_identifiant(eleve.prenom)
-    eleve.identifiant = identifiant
+    eleve.identifiant = enfants.identifiant_libre(session, eleve.prenom)
     session.flush()  # deux élèves créés ensemble ne tirent pas le même identifiant
 
 
 def _attribuer_code(eleve: models.Eleve) -> CodeEleve:
+    if eleve.enfant is not None:  # enfant d'une famille : sa carte unique change pour toutes ses inscriptions
+        code = enfants.nouveau_code(eleve.enfant)
+        return CodeEleve(id=eleve.id, prenom=eleve.prenom, code=code, identifiant=eleve.enfant.identifiant)
     code = generer_code_eleve()
     eleve.code_hash = hacher_code_eleve(code)  # invalide aussi les jetons émis avec l'ancien code
     _attribuer_identifiant(eleve)

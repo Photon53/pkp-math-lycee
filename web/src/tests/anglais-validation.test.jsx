@@ -34,32 +34,24 @@ function connecte(compte) {
 }
 
 describe("PKP Anglais : élèves, codes et validation", () => {
-  it("l'inscription affiche les cartes avec identifiant et code, à imprimer une seule fois", async () => {
+  it("un nouveau code s'affiche sur une carte à imprimer une seule fois", async () => {
     connecte({});
-    let groupes = [{ id: 1, nom: "4e A", niveau: "4e", eleves: [] }];
+    const groupes = [{ id: 1, nom: "4e A", niveau: "4e", eleves: [{ id: 9, prenom: "Lina", identifiant: "lina-k7m4", a_un_code: true }] }];
     fausseApi({
       "GET /anglais/groupes": () => ({ json: groupes }),
-      "POST /anglais/groupes/1/eleves": () => {
-        groupes = [{ ...groupes[0], eleves: [{ id: 9, prenom: "Lina", identifiant: "lina-k7m4", a_un_code: true }] }];
-        return { status: 201, json: { groupe: groupes[0], crees: [{ id: 9, prenom: "Lina", identifiant: "lina-k7m4", code: "AB23CD" }], deja_presents: [] } };
-      },
       "POST /anglais/groupes/1/eleves/9/code": () => ({ json: { id: 9, prenom: "Lina", identifiant: "lina-k7m4", code: "ZZ45QQ" } }),
     });
     render(<EspaceAnglais chemin="/anglais/groupes" />);
     await userEvent.click(await screen.findByRole("button", { name: /4e A/ }));
-    await userEvent.type(screen.getByLabelText(/Inscrire des élèves/), "Lina");
-    await userEvent.click(screen.getByRole("button", { name: "Inscrire" }));
-
-    expect(await screen.findByRole("region", { name: "Codes personnels à distribuer" })).toHaveTextContent("AB23CD");
-    expect(screen.getByRole("heading", { name: "Cartes de connexion — Anglais 4e · 4e A" })).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: "J'ai imprimé les cartes" }));
-    expect(screen.queryByText("AB23CD")).not.toBeInTheDocument();
     expect(screen.getByText("lina-k7m4")).toBeInTheDocument();
 
     vi.spyOn(window, "confirm").mockReturnValue(true);
     await userEvent.click(screen.getByRole("button", { name: "Nouveau code pour Lina" }));
     expect(window.confirm).toHaveBeenCalledWith(expect.stringContaining("L'ancien code ne fonctionnera plus."));
     expect(await screen.findByText("ZZ45QQ")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Cartes de connexion — Anglais 4e · 4e A" })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "J'ai imprimé les cartes" }));
+    expect(screen.queryByText("ZZ45QQ")).not.toBeInTheDocument();
   });
 
   it("une séance non validée porte la mention NON VALIDÉ chez le professeur", async () => {

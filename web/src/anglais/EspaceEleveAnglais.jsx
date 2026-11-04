@@ -7,6 +7,8 @@ import { Cahier } from "./SeancesAnglais.jsx";
 import { AutresEspaces, RepereEleve } from "../ui/Cadre.jsx";
 
 const CLE_COMPTE = "pkp.eleve.anglais";
+// Carte unique d'un enfant de famille : l'anglais s'ouvre depuis l'espace élève (choix de la matière).
+const CLE_ENFANT = "pkp.enfant";
 const NIVEAUX_I_CAN = [
   ["non_observe", "Not yet"],
   ["avec_aide", "With help"],
@@ -30,8 +32,13 @@ export default function EspaceEleveAnglais() {
     setCompte(null);
   }, []);
 
+  const depuisMesMatieres = Boolean(lire(CLE_ENFANT));
+  if (!compte && depuisMesMatieres && !lireCarte()) {
+    window.location.replace("/eleve");
+    return <p className="doux">Retour à tes matières…</p>;
+  }
   if (!compte) return <ConnexionEleveAnglais onConnexion={connecter} />;
-  return <MesSeances compte={compte} onDeconnexion={deconnecter} />;
+  return <MesSeances compte={compte} onDeconnexion={deconnecter} depuisMesMatieres={depuisMesMatieres} />;
 }
 
 function ConnexionEleveAnglais({ onConnexion }) {
@@ -73,6 +80,7 @@ function ConnexionEleveAnglais({ onConnexion }) {
       <RepereEleve matiere="Anglais" />
       <h1>Connexion élève</h1>
       <p className="doux">Entre l'identifiant et le code personnel de ta carte d'anglais, ou scanne son QR code.</p>
+      <p className="aide">Ta carte PKP sert pour toutes tes matières ? <a href="/eleve">Connecte-toi sur l'espace élève</a>.</p>
       <label htmlFor="identifiant-anglais">Identifiant</label>
       <input
         id="identifiant-anglais"
@@ -112,7 +120,7 @@ function ConnexionEleveAnglais({ onConnexion }) {
   );
 }
 
-function MesSeances({ compte, onDeconnexion }) {
+function MesSeances({ compte, onDeconnexion, depuisMesMatieres = false }) {
   const [seances, setSeances] = useState(null);
   const [code, setCode] = useState(null);
   const [erreur, setErreur] = useState(null);
@@ -156,9 +164,21 @@ function MesSeances({ compte, onDeconnexion }) {
         <p className="doux">
           Anglais {compte.eleve.niveau} · groupe {compte.eleve.groupe}
         </p>
-        <button className="lien" onClick={onDeconnexion}>
-          Se déconnecter
-        </button>
+        {depuisMesMatieres ? (
+          <button
+            className="lien"
+            onClick={() => {
+              ecrire(CLE_COMPTE, null);
+              window.location.assign("/eleve");
+            }}
+          >
+            ← Mes matières
+          </button>
+        ) : (
+          <button className="lien" onClick={onDeconnexion}>
+            Se déconnecter
+          </button>
+        )}
       </div>
       <Erreur message={erreur} />
       {seances === null ? (
