@@ -1,0 +1,21 @@
+theme:
+  code: REL
+  titre: Nombres relatifs
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 5E-2026-REL-01, type: automatisme, page: 7, texte: "Additionner, soustraire, multiplier des nombres décimaux à une ou deux décimales."}
+  - {code: 5E-2026-REL-02, type: automatisme, page: 7, texte: "Savoir que pour compléter une addition à trou, on utilise une soustraction : 2 + ... = 7 se complète en calculant 7 – 2."}
+  - {code: 5E-2026-REL-03, type: capacite, page: 7, texte: "Définir les nombres relatifs."}
+  - {code: 5E-2026-REL-04, type: capacite, page: 7, texte: "Définir l’opposé et la valeur absolue d’un nombre."}
+  - {code: 5E-2026-REL-05, type: capacite, page: 7, texte: "Définir la notion de nombre positif, strictement positif, négatif, strictement négatif."}
+  - {code: 5E-2026-REL-06, type: capacite, page: 7, texte: "Utiliser les nombres relatifs pour représenter des grandeurs observables qui peuvent prendre des valeurs inférieures à zéro (température, temps, altitude, etc.), en particulier dans le cadre de la résolution de problèmes."}
+  - {code: 5E-2026-REL-07, type: capacite, page: 8, texte: "Lire l’abscisse d’un nombre relatif sur une droite graduée et placer un nombre relatif d’abscisse donnée."}
+  - {code: 5E-2026-REL-08, type: capacite, page: 8, texte: "Comparer et ranger dans l’ordre croissant et décroissant des nombres décimaux relatifs."}
+  - {code: 5E-2026-REL-09, type: capacite, page: 8, texte: "Additionner deux nombres décimaux relatifs."}
+  - {code: 5E-2026-REL-10, type: capacite, page: 8, texte: "Additionner plusieurs nombres décimaux relatifs."}
+  - {code: 5E-2026-REL-11, type: capacite, page: 8, texte: "Soustraire deux nombres décimaux relatifs."}
+  - {code: 5E-2026-REL-12, type: capacite, page: 8, texte: "Connaitre et justifier les situations dans lesquelles des parenthèses sont indispensables au sens des écritures."}
+  - {code: 5E-2026-REL-13, type: capacite, page: 8, texte: "Simplifier l’écriture de sommes comportant des parenthèses."}
+  - {code: 5E-2026-REL-14, type: capacite, page: 8, texte: "Enchainer additions et soustractions de décimaux relatifs."}
+  - {code: 5E-2026-REL-15, type: capacite, page: 8, texte: "Résoudre des problèmes mobilisant addition et soustraction de nombres décimaux relatifs."}

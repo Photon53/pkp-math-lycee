@@ -1,0 +1,238 @@
+chapitre:
+  code: 5E-RELATIFS
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 2
+  titre: Nombres relatifs
+
+competences:
+  - code: 5E-RELATIFS-REPERER
+    libelle: Repérer et comparer des nombres relatifs
+    attendus: [5E-2026-REL-01, 5E-2026-REL-03, 5E-2026-REL-04, 5E-2026-REL-05, 5E-2026-REL-06, 5E-2026-REL-07, 5E-2026-REL-08]
+    cours_couvre: [5E-2026-REL-01, 5E-2026-REL-03, 5E-2026-REL-04, 5E-2026-REL-05, 5E-2026-REL-06, 5E-2026-REL-07, 5E-2026-REL-08]
+    objectifs:
+    - Définir les nombres relatifs, l’opposé et la valeur absolue (distance à zéro).
+    - Repérer un nombre relatif sur une droite graduée.
+    - Comparer et ranger des nombres relatifs.
+    methodes:
+    - titre: Comparer deux nombres relatifs
+      etapes:
+      - Si les signes sont différents, le nombre positif est le plus grand.
+      - Si les deux sont positifs, on compare comme d’habitude.
+      - Si les deux sont négatifs, le plus grand est celui qui a la plus petite distance à zéro.
+      exemple:
+        enonce: Comparer $-7{,}2$ et $-3{,}5$.
+        resolution:
+        - 'Les deux sont négatifs ; distances à zéro : $7{,}2$ et $3{,}5$.'
+        - '$3{,}5 < 7{,}2$, donc $-3{,}5$ est plus proche de zéro : $-3{,}5 > -7{,}2$.'
+        resultat: $-7{,}2 < -3{,}5$
+    erreurs_frequentes:
+    - erreur: 'Penser que $-8 > -2$ parce que $8 > 2$.'
+      explication: 'Sur la droite graduée, $-8$ est plus à gauche que $-2$ : $-8 < -2$.'
+    - erreur: 'Croire que l’opposé de $-5$ est $\dfrac{1}{5}$.'
+      explication: 'L’opposé de $-5$ est $5$ : un nombre et son opposé ont une somme nulle.'
+    resume: |
+      - Un nombre relatif a un **signe** et une **distance à zéro** (sa valeur absolue).
+      - Deux nombres **opposés** ont la même distance à zéro et des signes contraires : $3{,}5$ et $-3{,}5$.
+      - $0$ est à la fois positif et négatif ; « strictement positif » exclut $0$.
+      - Sur une droite graduée, les nombres sont rangés dans l’ordre croissant de gauche à droite.
+      - Entre deux nombres négatifs, le plus grand est le plus proche de zéro.
+    cours: |
+      ## 1. Définitions
+      Les **nombres relatifs** sont les nombres positifs et les nombres négatifs. Ils servent à repérer des grandeurs qui peuvent être inférieures à zéro : températures ($-5$ °C), altitudes ($-20$ m sous le niveau de la mer), dates avant l’an $1$.
+
+      > **Définitions.** La **distance à zéro** (ou valeur absolue) d’un nombre est le nombre sans son signe. Deux nombres sont **opposés** s’ils ont la même distance à zéro et des signes différents.
+
+      $-4$ est **strictement négatif**, $0$ est positif et négatif, $2{,}5$ est **strictement positif**.
+
+      ## 2. Droite graduée
+      Sur une droite graduée d’origine $O$, un point est repéré par son **abscisse**. Le point d’abscisse $-3$ est à $3$ unités à gauche de $O$.
+
+      ## 3. Comparer
+      > **Règle.** Un nombre négatif est plus petit qu’un nombre positif. Entre deux nombres négatifs, le plus petit est celui qui a la plus grande distance à zéro.
+
+      Ordre croissant : $-6 < -2{,}5 < -1 < 0 < 1{,}5 < 4$.
+    questions:
+      - code: 5E-RELATIFS-REPERER-01
+        difficulte: 1
+        type: numerique
+        enonce: Quel est l’opposé de $-7{,}5$ ?
+        solution: '7,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: L’opposé a la même distance à zéro et le signe contraire.
+          etapes:
+          - L’opposé de $-7{,}5$ est $7{,}5$.
+          resultat: '7,5'
+      - code: 5E-RELATIFS-REPERER-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quel est le plus petit nombre ? A) $-2$  B) $-8$  C) $0$  D) $-5{,}5$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le plus petit nombre négatif est celui qui a la plus grande distance à zéro.
+          etapes:
+          - 'Distances à zéro : $2$, $8$, $0$, $5{,}5$. La plus grande est $8$.'
+          resultat: B
+      - code: 5E-RELATIFS-REPERER-03
+        difficulte: 2
+        type: numerique
+        enonce: 'Sur une droite graduée en unités, le point $A$ a pour abscisse $-3$. On se déplace de $5$ unités vers la droite. Quelle est la nouvelle abscisse ?'
+        solution: '2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Se déplacer vers la droite, c’est augmenter l’abscisse.
+          etapes:
+          - $-3 + 5 = 2$.
+          resultat: '2'
+      - code: 5E-RELATIFS-REPERER-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel rangement est dans l’ordre croissant ? A) $-1 < -4 < 2$  B) $-4 < -1 < 2$  C) $2 < -1 < -4$  D) $-1 < 2 < -4$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Ordre croissant, du plus petit au plus grand.
+          etapes:
+          - '$-4$ est le plus petit (plus grande distance à zéro parmi les négatifs), puis $-1$, puis $2$.'
+          resultat: B
+      - code: 5E-RELATIFS-REPERER-05
+        difficulte: 4
+        type: numerique
+        enonce: Quelle est la distance à zéro de $-12{,}4$ ?
+        solution: '12,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La distance à zéro est le nombre sans son signe.
+          etapes:
+          - La distance à zéro de $-12{,}4$ est $12{,}4$.
+          resultat: '12,4'
+      - code: 5E-RELATIFS-REPERER-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un plongeur est à $-18$ m. Une mouette vole à $7$ m au-dessus du niveau de la mer. Quelle distance verticale (en m) les sépare ?'
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: On compte la distance de part et d’autre du zéro.
+          etapes:
+          - Du plongeur à la surface $18$ m, de la surface à la mouette $7$ m.
+          - $18 + 7 = 25$ m.
+          resultat: '25'
+
+  - code: 5E-RELATIFS-CALCUL
+    libelle: Additionner et soustraire des nombres relatifs
+    attendus: [5E-2026-REL-01, 5E-2026-REL-02, 5E-2026-REL-09, 5E-2026-REL-10, 5E-2026-REL-11, 5E-2026-REL-12, 5E-2026-REL-13, 5E-2026-REL-14, 5E-2026-REL-15]
+    cours_couvre: [5E-2026-REL-02, 5E-2026-REL-09, 5E-2026-REL-10, 5E-2026-REL-11, 5E-2026-REL-12, 5E-2026-REL-13, 5E-2026-REL-14, 5E-2026-REL-15]
+    prerequis: [5E-RELATIFS-REPERER]
+    objectifs:
+    - Additionner deux ou plusieurs nombres relatifs.
+    - Soustraire un nombre relatif en ajoutant son opposé.
+    - Simplifier l’écriture d’une somme avec des parenthèses.
+    methodes:
+    - titre: Soustraire un nombre relatif
+      etapes:
+      - Remplacer « soustraire un nombre » par « ajouter son opposé ».
+      - Additionner les deux nombres relatifs.
+      exemple:
+        enonce: Calculer $3 - (-5)$.
+        resolution:
+        - 'Soustraire $-5$, c’est ajouter $5$ : $3 - (-5) = 3 + 5$.'
+        - $3 + 5 = 8$.
+        resultat: $8$
+    erreurs_frequentes:
+    - erreur: 'Calculer $(-6) + (-4) = 10$ ou $-2$.'
+      explication: 'Deux nombres négatifs : on additionne les distances à zéro et on garde le signe $-$ : $-10$.'
+    - erreur: 'Écrire $3 - (-5) = -2$.'
+      explication: 'Soustraire un nombre négatif revient à ajouter son opposé : $3 - (-5) = 3 + 5 = 8$.'
+    resume: |
+      - **Même signe** : on additionne les distances à zéro et on garde le signe commun.
+      - **Signes contraires** : on soustrait la plus petite distance à zéro de la plus grande et on prend le signe du nombre qui a la plus grande distance à zéro.
+      - **Soustraire**, c’est ajouter l’opposé : $a - b = a + (-b)$.
+      - Pour compléter une addition à trou $2 + \ldots = 7$, on calcule $7 - 2$.
+    cours: |
+      ## 1. Addition
+      > **Règles.** Pour additionner deux nombres de même signe, on additionne leurs distances à zéro et on garde leur signe. Pour additionner deux nombres de signes contraires, on soustrait la plus petite distance à zéro de la plus grande et on garde le signe de celui qui a la plus grande distance à zéro.
+
+      $(-6) + (-4) = -10$ ; $(-9) + 4 = -5$ ; $7{,}5 + (-2{,}5) = 5$. La somme de deux nombres opposés est nulle.
+
+      ## 2. Soustraction
+      > **Règle.** Soustraire un nombre, c’est ajouter son opposé : $a - b = a + (-b)$.
+
+      $3 - (-5) = 3 + 5 = 8$ ; $-2 - 6 = -2 + (-6) = -8$.
+
+      ## 3. Sommes de plusieurs nombres
+      On peut regrouper les positifs et les négatifs : $5 + (-3) + 8 + (-7) = (5 + 8) + ((-3) + (-7)) = 13 + (-10) = 3$.
+
+      ## 4. Écriture simplifiée
+      Les parenthèses sont **indispensables** pour écrire $3 + (-5)$ ou $4 - (-2)$ (on n’écrit pas deux signes à la suite). On simplifie : $3 + (-5) = 3 - 5$ et $4 - (-2) = 4 + 2$.
+    questions:
+      - code: 5E-RELATIFS-CALCUL-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $(-6) + (-4)$.
+        solution: '-10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Même signe, on additionne les distances à zéro.
+          etapes:
+          - '$6 + 4 = 10$, signe $-$ : $-10$.'
+          resultat: '-10'
+      - code: 5E-RELATIFS-CALCUL-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $(-9) + 4$.
+        solution: '-5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Signes contraires.
+          etapes:
+          - $9 - 4 = 5$ ; $-9$ a la plus grande distance à zéro, donc le résultat est négatif.
+          resultat: '-5'
+      - code: 5E-RELATIFS-CALCUL-03
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $3 - (-5)$.
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Soustraire, c’est ajouter l’opposé.
+          etapes:
+          - $3 - (-5) = 3 + 5 = 8$.
+          resultat: '8'
+      - code: 5E-RELATIFS-CALCUL-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $5 + (-3) + 8 + (-7)$.
+        solution: '3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regrouper les positifs et les négatifs.
+          etapes:
+          - $5 + 8 = 13$ et $(-3) + (-7) = -10$.
+          - $13 + (-10) = 3$.
+          resultat: '3'
+      - code: 5E-RELATIFS-CALCUL-05
+        difficulte: 4
+        type: numerique
+        enonce: Calculer $-2{,}5 - 4 + 1{,}5 - (-3)$.
+        solution: '-2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Transformer les soustractions en additions de l’opposé.
+          etapes:
+          - $-2{,}5 + (-4) + 1{,}5 + 3$.
+          - 'Positifs : $4{,}5$ ; négatifs : $-6{,}5$. Somme : $-2$.'
+          resultat: '-2'
+      - code: 5E-RELATIFS-CALCUL-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Le matin, il fait $-4$ °C. La température monte de $9$ °C, puis baisse de $7$ °C dans la soirée. Quelle température fait-il le soir (en °C) ?'
+        solution: '-2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Traduire par une somme de nombres relatifs.
+          etapes:
+          - $-4 + 9 - 7 = 5 - 7 = -2$ °C.
+          resultat: '-2'

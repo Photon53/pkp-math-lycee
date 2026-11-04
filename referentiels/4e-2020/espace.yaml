@@ -1,0 +1,9 @@
+theme:
+  code: ESP
+  titre: Représenter l’espace
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 4E-2020-ESP-01, type: capacite, page: 9, texte: "Il utilise le vocabulaire du repérage : abscisse, ordonnée, altitude."}
+  - {code: 4E-2020-ESP-02, type: capacite, page: 9, texte: "Il se repère dans un pavé droit."}
+  - {code: 4E-2020-ESP-03, type: capacite, page: 9, texte: "Il construit et met en relation une représentation en perspective cavalière et un patron d’une pyramide, d’un cône de révolution."}

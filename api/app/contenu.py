@@ -43,13 +43,17 @@ from app.referentiel import (
     Adaptation,
     Parcours,
     StatutValidation,
+    domaine_maths,
 )
 
 DOSSIER_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "contenu"
-ORDRE_NIVEAUX = {Niveau.SECONDE: 0, Niveau.PREMIERE: 1, Niveau.TERMINALE: 2}
+ORDRE_NIVEAUX = {n: i for i, n in enumerate(Niveau)}
 ORDRE_PARCOURS = {p: i for i, p in enumerate(Parcours)}
 # Rangement attendu : contenu/<dossier du niveau>/<parcours>/NN-chapitre.yaml
-DOSSIERS_NIVEAU = {Niveau.SECONDE: "2nde", Niveau.PREMIERE: "1re", Niveau.TERMINALE: "tle"}
+DOSSIERS_NIVEAU = {
+    Niveau.SIXIEME: "6e", Niveau.CINQUIEME: "5e", Niveau.QUATRIEME: "4e", Niveau.TROISIEME: "3e",
+    Niveau.SECONDE: "2nde", Niveau.PREMIERE: "1re", Niveau.TERMINALE: "tle",
+}
 
 Code = Annotated[str, Field(pattern=r"^[A-Z0-9][A-Z0-9-]{1,59}$")]
 
@@ -500,13 +504,17 @@ def importer(
     for (_, contenu), chapitre in zip(fichiers, chapitres):
         ch = contenu.chapitre
         if chapitre is None:
-            chapitre = models.Chapitre(code=ch.code, niveau=ch.niveau, parcours=ch.parcours, ordre=ch.ordre, titre=ch.titre)
+            chapitre = models.Chapitre(
+                code=ch.code, niveau=ch.niveau, parcours=ch.parcours, ordre=ch.ordre, titre=ch.titre,
+                domaine_code=domaine_maths(ch.niveau),
+            )
             session.add(chapitre)
             rapport.crees["chapitres"] += 1
         else:
             avant = (chapitre.code, chapitre.niveau, chapitre.parcours, chapitre.titre)
             _appliquer(
-                chapitre, {"code": ch.code, "niveau": ch.niveau, "parcours": ch.parcours, "titre": ch.titre, "ordre": ch.ordre}
+                chapitre, {"code": ch.code, "niveau": ch.niveau, "parcours": ch.parcours, "titre": ch.titre, "ordre": ch.ordre,
+                 "domaine_code": domaine_maths(ch.niveau)}
             )
             rapport.modifies["chapitres"] += avant != (ch.code, ch.niveau, ch.parcours, ch.titre)
 

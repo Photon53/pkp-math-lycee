@@ -1,0 +1,9 @@
+theme:
+  code: CALC
+  titre: Pratiquer le calcul exact ou approché, mental, à la main ou instrumenté
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 3E-2020-CALC-01, type: capacite, page: 2, texte: "Il calcule avec les nombres rationnels, notamment dans le cadre de résolution de problèmes."}
+  - {code: 3E-2020-CALC-02, type: capacite, page: 2, texte: "Il résout des problèmes mettant en jeu des racines carrées."}
+  - {code: 3E-2020-CALC-03, type: capacite, page: 2, texte: "Il résout des problèmes avec des puissances, notamment en utilisant la notation scientifique."}

@@ -1,0 +1,108 @@
+chapitre:
+  code: 4E-ALGORITHMIQUE
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 10
+  titre: Algorithmique et programmation
+
+competences:
+  - code: 4E-PROGRAMMES
+    libelle: Écrire, mettre au point et exécuter un programme
+    attendus: [4E-2020-ALGO-01, 4E-2020-ALGO-02, 4E-2020-ALGO-03, 4E-2020-ALGO-04, 4E-2020-ALGO-05, 4E-2020-ALGO-06, 4E-2020-ALGO-07, 4E-2020-ALGO-08, 4E-2020-ALGO-09, 4E-2020-ALGO-10]
+    cours_couvre: [4E-2020-ALGO-01, 4E-2020-ALGO-02, 4E-2020-ALGO-03, 4E-2020-ALGO-04, 4E-2020-ALGO-05, 4E-2020-ALGO-06, 4E-2020-ALGO-07, 4E-2020-ALGO-08, 4E-2020-ALGO-09, 4E-2020-ALGO-10]
+    objectifs:
+    - Écrire un script avec boucles « répéter … fois », « répéter jusqu’à », conditions et variables.
+    - Déclencher un script par un événement ; faire fonctionner des scripts en parallèle.
+    - Créer un bloc personnalisé pour décomposer un problème.
+    methodes:
+    - titre: Exécuter une boucle « répéter jusqu’à »
+      etapes:
+      - Noter la valeur initiale des variables.
+      - Avant chaque passage, tester la condition d’arrêt ; si elle est vraie, sortir de la boucle.
+      - Sinon, exécuter les instructions et recommencer.
+      exemple:
+        enonce: '« mettre $n$ à $1$ ; répéter jusqu’à $n > 50$ : mettre $n$ à $n \times 3$ ». Que vaut $n$ à la fin ?'
+        resolution:
+        - $1 \to 3 \to 9 \to 27 \to 81$.
+        - $81 > 50$, on s’arrête.
+        resultat: $81$
+    erreurs_frequentes:
+    - erreur: Écrire une boucle « répéter jusqu’à » dont la condition n’est jamais vraie.
+      explication: Le programme tourne alors indéfiniment ; vérifier que les variables évoluent vers la condition d’arrêt.
+    - erreur: Oublier d’initialiser une variable.
+      explication: Une variable doit recevoir une valeur de départ avant d’être utilisée.
+    resume: |
+      - Boucle **« répéter $n$ fois »** : nombre de passages connu. Boucle **« répéter jusqu’à »** : on s’arrête quand la condition devient vraie.
+      - **Si … alors … sinon** : une seule des deux branches est exécutée.
+      - Une **variable** mémorise une valeur ; on l’initialise puis on la modifie.
+      - Un **bloc personnalisé** traduit un sous-problème ; des scripts peuvent s’exécuter **en parallèle** et réagir à des **événements**.
+    cours: |
+      ## 1. Algorithmique débranchée
+      Avant de coder, on peut décrire un algorithme en langage naturel ou le « jouer » : trier des cartes, guider un camarade sur un quadrillage.
+
+      ## 2. Boucles et conditions
+      Script d’un polygone régulier à $n$ côtés : « répéter $n$ fois : avancer de $60$ ; tourner de $\dfrac{360}{n}$ degrés ».
+
+      Simulation : « répéter $100$ fois : si nombre aléatoire entre $1$ et $6$ $= 6$ alors ajouter $1$ à compteur ».
+
+      ## 3. Événements et parallélisme
+      « Quand la touche flèche droite est pressée : ajouter $10$ à $x$ ». Pendant ce temps, un autre script fait avancer un obstacle : c’est le principe d’un jeu.
+
+      ## 4. Blocs personnalisés
+      On définit un bloc « carré (côté) » puis on l’appelle dans une boucle pour créer une rosace : décomposer un problème en sous-problèmes rend le programme plus lisible.
+    questions:
+      - code: 4E-PROGRAMMES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Pour tracer un pentagone régulier avec « répéter $5$ fois : avancer de $60$ ; tourner de … degrés », de combien faut-il tourner ?'
+        solution: '72'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un tour complet en $5$ rotations.
+          etapes:
+          - $360 \div 5 = 72°$.
+          resultat: '72'
+      - code: 4E-PROGRAMMES-02
+        difficulte: 2
+        type: numerique
+        enonce: '« mettre $s$ à $0$ ; mettre $i$ à $1$ ; répéter $4$ fois : ajouter $i$ à $s$ ; ajouter $1$ à $i$ ». Que vaut $s$ à la fin ?'
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suivre les variables passage par passage.
+          etapes:
+          - $s$ prend successivement $1$, $3$, $6$, $10$.
+          resultat: '10'
+      - code: 4E-PROGRAMMES-03
+        difficulte: 3
+        type: numerique
+        enonce: '« mettre $n$ à $1$ ; répéter jusqu’à $n > 50$ : mettre $n$ à $n \times 3$ ». Que vaut $n$ à la fin ?'
+        solution: '81'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tester la condition avant chaque passage.
+          etapes:
+          - $1 \to 3 \to 9 \to 27 \to 81$ ; $81 > 50$.
+          resultat: '81'
+      - code: 4E-PROGRAMMES-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Dans un jeu, un script déplace le personnage quand on presse une flèche, pendant qu’un autre script fait tomber des objets. On dit que : A) les scripts fonctionnent en parallèle  B) le programme est bloqué  C) une seule boucle est possible'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Scripts déclenchés par des événements.
+          etapes:
+          - Plusieurs scripts s’exécutent en même temps ; ils fonctionnent en parallèle.
+          resultat: A
+      - code: 4E-PROGRAMMES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un bloc « carré » trace un carré. Le script principal est « répéter $12$ fois : carré ; tourner de … degrés » et doit faire un tour complet. De combien faut-il tourner ?'
+        solution: '30'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $12$ rotations pour un tour complet.
+          etapes:
+          - $360 \div 12 = 30°$.
+          resultat: '30'

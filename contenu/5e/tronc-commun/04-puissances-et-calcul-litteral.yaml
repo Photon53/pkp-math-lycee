@@ -1,0 +1,348 @@
+chapitre:
+  code: 5E-LITTERAL
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 4
+  titre: Puissances et calcul littéral
+
+competences:
+  - code: 5E-PUISSANCES
+    libelle: Calculer avec des carrés et des cubes
+    attendus: [5E-2026-PUI-01, 5E-2026-PUI-02, 5E-2026-PUI-03, 5E-2026-PUI-04, 5E-2026-PUI-05, 5E-2026-PUI-06, 5E-2026-PUI-07, 5E-2026-PUI-08]
+    cours_couvre: [5E-2026-PUI-01, 5E-2026-PUI-02, 5E-2026-PUI-03, 5E-2026-PUI-04, 5E-2026-PUI-05, 5E-2026-PUI-06, 5E-2026-PUI-07, 5E-2026-PUI-08]
+    objectifs:
+    - Comprendre les notations $a^2$ et $a^3$.
+    - Connaître les carrés des entiers de $0$ à $12$ et le cube de $10$.
+    - Calculer une expression contenant des puissances simples.
+    methodes:
+    - titre: Calculer une expression avec un carré
+      etapes:
+      - Calculer d’abord les puissances (elles sont prioritaires sur les produits).
+      - Puis les produits, puis les sommes et différences.
+      exemple:
+        enonce: Calculer $3 \times 4^2 + 1$.
+        resolution:
+        - $4^2 = 16$.
+        - $3 \times 16 = 48$, puis $48 + 1 = 49$.
+        resultat: $49$
+    erreurs_frequentes:
+    - erreur: 'Confondre $5^2$ et $5 \times 2$.'
+      explication: '$5^2 = 5 \times 5 = 25$, alors que $5 \times 2 = 10$.'
+    - erreur: 'Calculer $3 \times 4^2$ comme $(3 \times 4)^2 = 144$.'
+      explication: 'La puissance porte seulement sur $4$ : $3 \times 4^2 = 3 \times 16 = 48$.'
+    resume: |
+      - $a^2 = a \times a$ se lit « $a$ au carré » (aire d’un carré de côté $a$).
+      - $a^3 = a \times a \times a$ se lit « $a$ au cube » (volume d’un cube d’arête $a$).
+      - Carrés à connaître : $0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144$. Et $10^3 = 1\,000$.
+      - Les puissances se calculent **avant** les produits et les sommes.
+    cours: |
+      ## 1. Carré et cube
+      > **Définitions.** Pour tout nombre $a$ : $a^2 = a \times a$ et $a^3 = a \times a \times a$.
+
+      Un carré de côté $7$ cm a pour aire $7^2 = 49$ cm². Un cube d’arête $10$ cm a pour volume $10^3 = 1\,000$ cm³ $= 1$ L.
+
+      ## 2. Carrés parfaits
+      | $n$ | $0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ | $11$ | $12$ |
+      |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+      | $n^2$ | $0$ | $1$ | $4$ | $9$ | $16$ | $25$ | $36$ | $49$ | $64$ | $81$ | $100$ | $121$ | $144$ |
+
+      ## 3. Priorités
+      On calcule les puissances avant les multiplications : $2 \times 3^2 - 5 = 2 \times 9 - 5 = 13$.
+
+      Avec une lettre : si $x = 4$, alors $x^2 + 2x = 16 + 8 = 24$.
+    questions:
+      - code: 5E-PUISSANCES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $9^2$.
+        solution: '81'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $9^2 = 9 \times 9$.
+          etapes:
+          - $9 \times 9 = 81$.
+          resultat: '81'
+      - code: 5E-PUISSANCES-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $3 \times 4^2 + 1$.
+        solution: '49'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La puissance est prioritaire.
+          etapes:
+          - $4^2 = 16$ ; $3 \times 16 = 48$ ; $48 + 1 = 49$.
+          resultat: '49'
+      - code: 5E-PUISSANCES-03
+        difficulte: 2
+        type: numerique
+        enonce: Quel nombre entier positif a pour carré $121$ ?
+        solution: '11'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Utiliser la liste des carrés parfaits.
+          etapes:
+          - $11 \times 11 = 121$.
+          resultat: '11'
+      - code: 5E-PUISSANCES-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer le volume (en cm³) d’un cube d’arête $3$ cm.
+        solution: '27'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Volume d’un cube $= a^3$.
+          etapes:
+          - $3^3 = 3 \times 3 \times 3 = 27$ cm³.
+          resultat: '27'
+      - code: 5E-PUISSANCES-05
+        difficulte: 4
+        type: numerique
+        enonce: Calculer $x^2 + 2x$ pour $x = 4$.
+        solution: '24'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $x$ par $4$.
+          etapes:
+          - $4^2 + 2 \times 4 = 16 + 8 = 24$.
+          resultat: '24'
+      - code: 5E-PUISSANCES-06
+        difficulte: 5
+        type: numerique
+        enonce: Calculer $5^2 - 2 \times 3^2 + 10^3 \div 100$.
+        solution: '17'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Puissances, puis produits et quotients, puis sommes.
+          etapes:
+          - $25 - 2 \times 9 + 1\,000 \div 100 = 25 - 18 + 10$.
+          - $= 17$.
+          resultat: '17'
+
+  - code: 5E-EXPRESSIONS
+    libelle: Produire et transformer des expressions littérales
+    attendus: [5E-2026-LIT-01, 5E-2026-LIT-02, 5E-2026-LIT-03, 5E-2026-LIT-04, 5E-2026-LIT-05, 5E-2026-LIT-06, 5E-2026-LIT-07, 5E-2026-LIT-08, 5E-2026-LIT-09, 5E-2026-LIT-10, 5E-2026-LIT-11, 5E-2026-LIT-12, 5E-2026-LIT-13]
+    cours_couvre: [5E-2026-LIT-01, 5E-2026-LIT-02, 5E-2026-LIT-03, 5E-2026-LIT-04, 5E-2026-LIT-05, 5E-2026-LIT-06, 5E-2026-LIT-07, 5E-2026-LIT-08, 5E-2026-LIT-09, 5E-2026-LIT-10, 5E-2026-LIT-11, 5E-2026-LIT-12, 5E-2026-LIT-13]
+    prerequis: [5E-PRIORITES]
+    objectifs:
+    - Produire une formule et calculer sa valeur par substitution.
+    - Tester une égalité ; reconnaître une somme ou un produit.
+    - Développer, factoriser et réduire avec $k(a + b) = ka + kb$.
+    - Démontrer une propriété par le calcul littéral ou la réfuter par un contre-exemple.
+    methodes:
+    - titre: Développer avec la distributivité simple
+      etapes:
+      - Repérer le facteur $k$ devant la parenthèse.
+      - Multiplier $k$ par chaque terme de la parenthèse.
+      - Réduire si possible.
+      exemple:
+        enonce: Développer $A = 3(2x + 5)$.
+        resolution:
+        - $3 \times 2x = 6x$ et $3 \times 5 = 15$.
+        - $A = 6x + 15$.
+        resultat: $6x + 15$
+    erreurs_frequentes:
+    - erreur: '$3(2x + 5) = 6x + 5$.'
+      explication: 'Le facteur $3$ multiplie **chaque** terme : $3(2x + 5) = 6x + 15$.'
+    - erreur: '$2x + 3 = 5x$.'
+      explication: '$2x$ et $3$ ne sont pas « de même nature » : on ne peut pas réduire $2x + 3$.'
+    resume: |
+      - Une lettre peut désigner un nombre quelconque (**variable**) ; $3x$ signifie $3 \times x$.
+      - **Substituer** : remplacer la lettre par une valeur pour calculer.
+      - $k(a + b) = ka + kb$ : de gauche à droite on **développe**, de droite à gauche on **factorise**.
+      - **Réduire** : $4x + 7x - 2 = 11x - 2$.
+      - Pour prouver qu’une propriété est **toujours** vraie, on utilise le calcul littéral ; pour prouver qu’elle est **fausse**, un seul contre-exemple suffit.
+    cours: |
+      ## 1. Formules
+      Le périmètre d’un carré de côté $c$ est $4c$ ; le double d’un nombre $n$ est $2n$ ; son successeur est $n + 1$.
+
+      Pour $n = 7$ : $2n + 1 = 2 \times 7 + 1 = 15$ (**substitution**).
+
+      ## 2. Somme ou produit ?
+      $3x + 12$ est une **somme** (dernière opération : $+$) ; $3(x + 4)$ est un **produit**.
+
+      ## 3. Distributivité
+      > **Propriété.** Pour tous nombres $k$, $a$, $b$ : $k(a + b) = ka + kb$ et $k(a - b) = ka - kb$.
+
+      - Développer : $5(x - 2) = 5x - 10$.
+      - Factoriser : $6x + 9 = 3 \times 2x + 3 \times 3 = 3(2x + 3)$.
+      - Réduire : $2(3x + 1) + 4x = 6x + 2 + 4x = 10x + 2$.
+
+      ## 4. Tester une égalité
+      L’égalité $2x + 3 = 5x$ est-elle vraie ? Pour $x = 1$ : $5 = 5$, oui ; pour $x = 2$ : $7 \neq 10$, non. Elle n’est **pas toujours vraie**.
+
+      ## 5. Démontrer
+      « La somme de trois entiers consécutifs est un multiple de $3$. » Avec $n$, $n + 1$, $n + 2$ : $n + (n + 1) + (n + 2) = 3n + 3 = 3(n + 1)$. C’est bien un multiple de $3$, pour **tout** $n$.
+
+      Un tableur ou un programme permet de **conjecturer** en testant beaucoup de valeurs ; la preuve se fait ensuite par le calcul.
+    questions:
+      - code: 5E-EXPRESSIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $2n + 1$ pour $n = 7$.
+        solution: '15'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $n$ par $7$.
+          etapes:
+          - $2 \times 7 + 1 = 15$.
+          resultat: '15'
+      - code: 5E-EXPRESSIONS-02
+        difficulte: 2
+        type: expression
+        forme: developpee
+        enonce: Développer $3(2x + 5)$.
+        solution: 6x+15
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier $3$ par chaque terme.
+          etapes:
+          - $3 \times 2x + 3 \times 5 = 6x + 15$.
+          resultat: 6x+15
+      - code: 5E-EXPRESSIONS-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle expression est un produit ? A) $3x + 12$  B) $3(x + 4)$  C) $x + 4 \times 3$  D) $3 + x$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher la dernière opération effectuée.
+          etapes:
+          - 'Dans $3(x + 4)$, on calcule d’abord la parenthèse, puis on multiplie : c’est un produit.'
+          resultat: B
+      - code: 5E-EXPRESSIONS-04
+        difficulte: 3
+        type: expression
+        forme: reduite
+        enonce: Réduire $2(3x + 1) + 4x$.
+        solution: 10x+2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Développer, puis regrouper les termes en $x$.
+          etapes:
+          - $6x + 2 + 4x = 10x + 2$.
+          resultat: 10x+2
+      - code: 5E-EXPRESSIONS-05
+        difficulte: 4
+        type: qcm
+        enonce: 'L’égalité $2x + 3 = 5x$ est-elle vraie pour toutes les valeurs de $x$ ? A) Oui, toujours  B) Non : elle est fausse pour $x = 2$  C) Non : elle est fausse pour $x = 1$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tester des valeurs ; un contre-exemple suffit.
+          etapes:
+          - 'Pour $x = 1$ : $5 = 5$, vraie. Pour $x = 2$ : $7 \neq 10$, fausse.'
+          resultat: B
+      - code: 5E-EXPRESSIONS-06
+        difficulte: 5
+        type: expression
+        forme: factorisee
+        enonce: Factoriser $6x + 9$.
+        solution: 3(2x+3)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher un facteur commun à $6x$ et $9$.
+          etapes:
+          - $6x = 3 \times 2x$ et $9 = 3 \times 3$.
+          - $6x + 9 = 3(2x + 3)$.
+          resultat: 3(2x+3)
+
+  - code: 5E-EQUATIONS
+    libelle: Modéliser et résoudre des équations simples
+    attendus: [5E-2026-LIT-04, 5E-2026-LIT-14, 5E-2026-LIT-15, 5E-2026-LIT-16]
+    cours_couvre: [5E-2026-LIT-14, 5E-2026-LIT-15, 5E-2026-LIT-16]
+    prerequis: [5E-EXPRESSIONS]
+    objectifs:
+    - Donner à la lettre le statut d’inconnue.
+    - Modéliser un problème par une équation $ax = c$ ou $x + b = c$.
+    - Résoudre ces équations à l’aide des opérations inverses.
+    methodes:
+    - titre: Résoudre $ax = c$ ou $x + b = c$
+      etapes:
+      - 'Pour $x + b = c$ : on soustrait $b$, donc $x = c - b$.'
+      - 'Pour $ax = c$ : on divise par $a$, donc $x = \dfrac{c}{a}$.'
+      - Vérifier en remplaçant $x$ dans l’équation.
+      exemple:
+        enonce: Résoudre $4x = 18$.
+        resolution:
+        - $x = 18 \div 4 = 4{,}5$.
+        - 'Vérification : $4 \times 4{,}5 = 18$.'
+        resultat: $x = 4{,}5$
+    erreurs_frequentes:
+    - erreur: 'Résoudre $4x = 18$ en écrivant $x = 18 - 4$.'
+      explication: '$4x$ signifie $4 \times x$ : l’opération inverse est la division.'
+    - erreur: Oublier de vérifier la solution.
+      explication: Remplacer $x$ par la valeur trouvée permet de détecter une erreur.
+    resume: |
+      - Une **équation** est une égalité contenant une inconnue ; la **résoudre**, c’est trouver la (ou les) valeur(s) qui la rendent vraie.
+      - $x + b = c$ donne $x = c - b$ ; $ax = c$ (avec $a \neq 0$) donne $x = \dfrac{c}{a}$.
+      - On vérifie toujours en remplaçant.
+    cours: |
+      ## 1. Inconnue et équation
+      « Je pense à un nombre ; en lui ajoutant $13$, j’obtiens $41$. » En notant $x$ ce nombre, on écrit l’**équation** $x + 13 = 41$. La lettre $x$ a ici le statut d’**inconnue**.
+
+      ## 2. Résoudre avec les opérations inverses
+      - $x + 13 = 41$ : on soustrait $13$, $x = 28$.
+      - $7x = 56$ : on divise par $7$, $x = 8$.
+      - $3x = 7$ : $x = \dfrac{7}{3}$ (la solution n’est pas toujours un nombre décimal).
+
+      ## 3. Modéliser
+      « Cinq stylos identiques coûtent $6{,}50$ €. Quel est le prix d’un stylo ? » : $5x = 6{,}5$, donc $x = 1{,}3$ €.
+
+      Al-Khwarizmi (IXe siècle) appelait l’inconnue « la chose » ; le mot « algèbre » vient du titre de son livre.
+    questions:
+      - code: 5E-EQUATIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: Résoudre l’équation $x + 13 = 41$.
+        solution: '28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Soustraire $13$.
+          etapes:
+          - $x = 41 - 13 = 28$.
+          resultat: '28'
+      - code: 5E-EQUATIONS-02
+        difficulte: 2
+        type: numerique
+        enonce: Résoudre l’équation $7x = 56$.
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par $7$.
+          etapes:
+          - $x = 56 \div 7 = 8$.
+          resultat: '8'
+      - code: 5E-EQUATIONS-03
+        difficulte: 3
+        type: numerique
+        enonce: Résoudre l’équation $4x = 18$.
+        solution: '4,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par $4$.
+          etapes:
+          - $x = 18 \div 4 = 4{,}5$.
+          resultat: '4,5'
+      - code: 5E-EQUATIONS-04
+        difficulte: 4
+        type: numerique
+        enonce: Résoudre l’équation $3x = 7$ (donner la solution sous forme de fraction).
+        solution: 7/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par $3$.
+          etapes:
+          - '$x = \dfrac{7}{3}$ ; vérification : $3 \times \dfrac{7}{3} = 7$.'
+          resultat: 7/3
+      - code: 5E-EQUATIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Cinq stylos identiques coûtent $6{,}50$ €. On note $x$ le prix d’un stylo. Résoudre l’équation qui modélise la situation.'
+        solution: '1,3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Modéliser par $5x = 6{,}5$.'
+          etapes:
+          - $x = 6{,}5 \div 5 = 1{,}3$ €.
+          resultat: '1,3'

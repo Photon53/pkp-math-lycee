@@ -1,0 +1,107 @@
+chapitre:
+  code: 6E-INFORMATIQUE
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 9
+  titre: Initiation à la pensée informatique
+
+competences:
+  - code: 6E-INSTRUCTIONS
+    libelle: Exécuter et produire une séquence d’instructions
+    attendus: [6E-2025-INFO-01, 6E-2025-INFO-02, 6E-2025-INFO-03]
+    cours_couvre: [6E-2025-INFO-01, 6E-2025-INFO-02, 6E-2025-INFO-03]
+    objectifs:
+    - Identifier une instruction, une séquence d’instructions, une entrée et une sortie.
+    - Exécuter à la main un programme de calcul ou de déplacement, avec une répétition.
+    methodes:
+    - titre: Exécuter un programme de calcul à la main
+      etapes:
+      - Noter le nombre d’entrée.
+      - Appliquer les instructions **dans l’ordre**, une par une, en écrivant chaque résultat intermédiaire.
+      - Le dernier résultat est la sortie.
+      exemple:
+        enonce: 'Programme : choisir un nombre ; ajouter $2$ ; multiplier par $4$ ; retirer $3$. Que donne-t-il avec $5$ ?'
+        resolution:
+        - $5 + 2 = 7$.
+        - $7 \times 4 = 28$.
+        - $28 - 3 = 25$.
+        resultat: $25$
+    erreurs_frequentes:
+    - erreur: Effectuer les instructions dans le désordre.
+      explication: 'L’ordre des instructions compte : « ajouter $2$ puis multiplier par $4$ » ne donne pas le même résultat que l’inverse.'
+    - erreur: Faire une répétition une fois de trop ou de moins.
+      explication: On compte les passages au fur et à mesure (passage $1$, $2$, …).
+    resume: |
+      - Une **instruction** est un ordre élémentaire (« avancer de $1$ case », « ajouter $2$ »).
+      - Une **séquence** est une suite d’instructions exécutées dans l’ordre.
+      - L’**entrée** est la donnée de départ, la **sortie** le résultat.
+      - « Répéter $n$ fois » exécute la même séquence $n$ fois de suite.
+    cours: |
+      ## 1. Instructions et séquences
+      Un robot sur un quadrillage comprend trois instructions : **avancer** d’une case, **tourner à gauche**, **tourner à droite**. La séquence « avancer, avancer, tourner à droite, avancer » le déplace de deux cases puis d’une case à sa droite.
+
+      ## 2. Entrées et sorties
+      Dans un programme de calcul, le nombre choisi est l’**entrée** et le nombre obtenu est la **sortie**.
+
+      ## 3. Répétitions
+      « Répéter $4$ fois : avancer de $3$ cases, tourner à droite » fait tracer un carré de côté $3$ cases au robot. Le même résultat s’obtient en écrivant les $8$ instructions à la suite, mais la répétition est plus courte.
+
+      Ces programmes peuvent être écrits avec un logiciel de programmation par blocs, comme Scratch.
+    questions:
+      - code: 6E-INSTRUCTIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Programme : choisir un nombre ; multiplier par $3$ ; ajouter $1$. Quel nombre obtient-on en choisissant $4$ ?'
+        solution: '13'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Appliquer les instructions dans l’ordre.
+          etapes:
+          - $4 \times 3 = 12$, puis $12 + 1 = 13$.
+          resultat: '13'
+      - code: 6E-INSTRUCTIONS-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Programme : choisir un nombre ; ajouter $2$ ; multiplier par $4$ ; retirer $3$. Quel nombre obtient-on en choisissant $5$ ?'
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire chaque résultat intermédiaire.
+          etapes:
+          - $5 + 2 = 7$ ; $7 \times 4 = 28$ ; $28 - 3 = 25$.
+          resultat: '25'
+      - code: 6E-INSTRUCTIONS-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un robot exécute : « Répéter $4$ fois : avancer de $3$ cases, tourner à droite ». Combien de cases a-t-il parcourues en tout ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter ce que fait un passage, puis multiplier par le nombre de répétitions.
+          etapes:
+          - 'Un passage : $3$ cases.'
+          - '$4$ passages : $4 \times 3 = 12$ cases (il trace un carré).'
+          resultat: '12'
+      - code: 6E-INSTRUCTIONS-04
+        difficulte: 4
+        type: numerique
+        enonce: 'On part de $1$ et on répète $5$ fois l’instruction « multiplier par $2$ ». Quel nombre obtient-on ?'
+        solution: '32'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Exécuter la répétition à la main.
+          etapes:
+          - $1 \to 2 \to 4 \to 8 \to 16 \to 32$.
+          resultat: '32'
+      - code: 6E-INSTRUCTIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Programme : choisir un nombre ; ajouter $2$ ; multiplier par $4$ ; retirer $3$. On obtient $33$. Quel nombre avait-on choisi ?'
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remonter le programme en faisant les opérations inverses.
+          etapes:
+          - $33 + 3 = 36$ ; $36 \div 4 = 9$ ; $9 - 2 = 7$.
+          - 'Vérification : $(7 + 2) \times 4 - 3 = 33$.'
+          resultat: '7'

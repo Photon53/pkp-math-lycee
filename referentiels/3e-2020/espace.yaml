@@ -1,0 +1,8 @@
+theme:
+  code: ESP
+  titre: Représenter l’espace
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 3E-2020-ESP-01, type: capacite, page: 8, texte: "Il se repère sur une sphère (latitude, longitude)."}
+  - {code: 3E-2020-ESP-02, type: capacite, page: 8, texte: "Il construit et met en relation différentes représentations des solides étudiés au cours du cycle (représentations en perspective cavalière, vues de face, de dessus, en coupe, patrons) et leurs sections planes."}

@@ -1,0 +1,8 @@
+theme:
+  code: ALG
+  titre: Algèbre
+  partie: Nombres, calcul et résolution de problèmes
+
+attendus:
+  - {code: 6E-2025-ALG-01, type: capacite, page: 16, texte: "Utiliser des modèles pré-algébriques pour résoudre des problèmes algébriques"}
+  - {code: 6E-2025-ALG-02, type: capacite, page: 16, texte: "Identifier la structure d’un motif évolutif en repérant une régularité et en identifiant une structure"}

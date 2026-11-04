@@ -1,0 +1,224 @@
+chapitre:
+  code: 4E-PUISSANCES-RACINES
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 1
+  titre: Puissances, notation scientifique et racines carrées
+
+competences:
+  - code: 4E-PUISSANCES
+    libelle: Calculer avec les puissances et la notation scientifique
+    attendus: [4E-2020-NOMB-01, 4E-2020-NOMB-02, 4E-2020-NOMB-03, 4E-2020-NOMB-06, 4E-2020-COMP-01, 4E-2020-COMP-04, 4E-2020-CALC-07]
+    cours_couvre: [4E-2020-NOMB-01, 4E-2020-NOMB-02, 4E-2020-NOMB-03, 4E-2020-NOMB-06, 4E-2020-COMP-01, 4E-2020-COMP-04, 4E-2020-CALC-07]
+    objectifs:
+    - Utiliser les puissances de $10$ d’exposant positif ou négatif et les préfixes de nano à giga.
+    - Passer de l’écriture décimale à la notation scientifique et inversement.
+    - Simplifier un produit à l’aide des puissances ; utiliser les ordres de grandeur.
+    methodes:
+    - titre: Écrire un nombre en notation scientifique
+      etapes:
+      - Placer la virgule après le premier chiffre non nul, pour obtenir un nombre $a$ avec $1 \leq a < 10$.
+      - Compter de combien de rangs la virgule s’est déplacée.
+      - Écrire $a \times 10^n$, avec $n$ positif si le nombre de départ est grand, négatif s’il est plus petit que $1$.
+      exemple:
+        enonce: Écrire $0{,}00052$ en notation scientifique.
+        resolution:
+        - $a = 5{,}2$ ; la virgule s’est déplacée de $4$ rangs vers la droite.
+        - $0{,}00052 = 5{,}2 \times 10^{-4}$.
+        resultat: $5{,}2 \times 10^{-4}$
+    erreurs_frequentes:
+    - erreur: 'Écrire $10^{-3} = -1\,000$.'
+      explication: '$10^{-3} = \dfrac{1}{10^3} = 0{,}001$ : c’est un nombre positif, plus petit que $1$.'
+    - erreur: 'Écrire $35 \times 10^4$ comme notation scientifique.'
+      explication: 'Le nombre devant la puissance doit être compris entre $1$ et $10$ (exclu) : $3{,}5 \times 10^5$.'
+    resume: |
+      - $a^n = a \times a \times \dots \times a$ ($n$ facteurs) ; $10^n = 1$ suivi de $n$ zéros ; $10^{-n} = \dfrac{1}{10^n}$.
+      - $10^m \times 10^n = 10^{m+n}$.
+      - Notation scientifique : $a \times 10^n$ avec $1 \leq a < 10$.
+      - Préfixes : nano ($10^{-9}$), micro ($10^{-6}$), milli ($10^{-3}$), kilo ($10^{3}$), méga ($10^{6}$), giga ($10^{9}$).
+    cours: |
+      ## 1. Puissances d’un nombre
+      > **Définition.** Pour $n$ entier strictement positif, $a^n$ est le produit de $n$ facteurs égaux à $a$.
+
+      $2^3 \times 2^2 = 2^5 = 32$ ; $(-3)^2 = 9$ mais $-3^2 = -9$.
+
+      ## 2. Puissances de 10
+      $10^4 = 10\,000$ ; $10^0 = 1$ ; $10^{-2} = \dfrac{1}{100} = 0{,}01$.
+
+      > **Propriété.** $10^m \times 10^n = 10^{m+n}$.
+
+      ## 3. Notation scientifique
+      Tout nombre décimal positif s’écrit $a \times 10^n$ avec $1 \leq a < 10$ et $n$ entier relatif. Pour comparer deux nombres positifs en notation scientifique, on compare d’abord les exposants.
+
+      La distance Terre–Soleil vaut environ $1{,}5 \times 10^8$ km ; la taille d’une bactérie est de l’ordre de $10^{-6}$ m (un micromètre).
+
+      ## 4. Préfixes et ordres de grandeur
+      $1$ GHz $= 10^9$ Hz ; $1$ nm $= 10^{-9}$ m. Un ordre de grandeur permet de vérifier un résultat : $49 \times 21 \approx 50 \times 20 = 1\,000$.
+    questions:
+      - code: 4E-PUISSANCES-01
+        difficulte: 1
+        type: numerique
+        enonce: Donner l’écriture décimale de $10^{-3}$.
+        solution: '0,001'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $10^{-n} = \dfrac{1}{10^n}$.
+          etapes:
+          - $10^{-3} = \dfrac{1}{1\,000} = 0{,}001$.
+          resultat: '0,001'
+      - code: 4E-PUISSANCES-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $2^3 \times 2^2$.
+        solution: '32'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $2^3 \times 2^2 = 2^{3+2}$.
+          etapes:
+          - $2^5 = 32$.
+          resultat: '32'
+      - code: 4E-PUISSANCES-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle est la notation scientifique de $0{,}00052$ ? A) $52 \times 10^{-5}$  B) $5{,}2 \times 10^{-4}$  C) $5{,}2 \times 10^{4}$  D) $0{,}52 \times 10^{-3}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le nombre devant la puissance de $10$ est entre $1$ et $10$.
+          etapes:
+          - $0{,}00052 = 5{,}2 \times 10^{-4}$.
+          resultat: B
+      - code: 4E-PUISSANCES-04
+        difficulte: 3
+        type: numerique
+        enonce: Donner l’écriture décimale de $3{,}7 \times 10^{5}$.
+        solution: '370000'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décaler la virgule de $5$ rangs vers la droite.
+          etapes:
+          - $3{,}7 \times 10^5 = 370\,000$.
+          resultat: '370000'
+      - code: 4E-PUISSANCES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Un fichier fait $4$ gigaoctets. Combien d’octets cela représente-t-il ? Donner l’écriture décimale.'
+        solution: '4000000000'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: giga $= 10^9$.
+          etapes:
+          - $4 \times 10^9 = 4\,000\,000\,000$ octets.
+          resultat: '4000000000'
+      - code: 4E-PUISSANCES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer $\dfrac{6 \times 10^{8}}{3 \times 10^{5}}$ et donner l’écriture décimale du résultat.'
+        solution: '2000'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser les nombres entre eux et les puissances de $10$ entre elles.
+          etapes:
+          - $\dfrac{6}{3} = 2$ et $\dfrac{10^8}{10^5} = 10^3$.
+          - $2 \times 10^3 = 2\,000$.
+          resultat: '2000'
+
+  - code: 4E-RACINES
+    libelle: Connaître et utiliser la racine carrée d’un nombre positif
+    attendus: [4E-2020-NOMB-04, 4E-2020-NOMB-05, 4E-2020-CALC-05, 4E-2020-COMP-03]
+    cours_couvre: [4E-2020-NOMB-04, 4E-2020-NOMB-05, 4E-2020-CALC-05, 4E-2020-COMP-03]
+    prerequis: [4E-PUISSANCES]
+    objectifs:
+    - Connaître les carrés parfaits de $1$ à $144$.
+    - Connaître la définition de $\sqrt{a}$ et en donner une valeur approchée à la calculatrice.
+    - Encadrer une racine carrée entre deux entiers consécutifs.
+    methodes:
+    - titre: Encadrer une racine carrée entre deux entiers
+      etapes:
+      - Chercher les deux carrés parfaits consécutifs qui encadrent le nombre.
+      - Prendre leurs racines.
+      exemple:
+        enonce: Encadrer $\sqrt{50}$ entre deux entiers consécutifs.
+        resolution:
+        - $49 < 50 < 64$.
+        - Donc $7 < \sqrt{50} < 8$.
+        resultat: $7 < \sqrt{50} < 8$
+    erreurs_frequentes:
+    - erreur: Penser que $\sqrt{16} = 8$.
+      explication: '$\sqrt{16}$ est le nombre positif dont le carré vaut $16$ : c’est $4$.'
+    - erreur: 'Écrire $\sqrt{9 + 16} = 3 + 4$.'
+      explication: '$\sqrt{9 + 16} = \sqrt{25} = 5$ ; la racine d’une somme n’est pas la somme des racines.'
+    resume: |
+      - Carrés parfaits : $1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144$.
+      - Pour $a \geq 0$, $\sqrt{a}$ est le nombre **positif** dont le carré vaut $a$ : $(\sqrt{a})^2 = a$.
+      - Si $n^2 < a < (n+1)^2$, alors $n < \sqrt{a} < n + 1$.
+    cours: |
+      ## 1. Carrés parfaits
+      Un carré parfait est le carré d’un entier : $1^2 = 1$, $2^2 = 4$, …, $12^2 = 144$.
+
+      ## 2. Racine carrée
+      > **Définition.** La racine carrée d’un nombre positif $a$ est le nombre positif, noté $\sqrt{a}$, dont le carré est égal à $a$.
+
+      $\sqrt{81} = 9$ ; $\sqrt{0} = 0$ ; $\sqrt{2} \approx 1{,}414$ (valeur approchée à la calculatrice). Un nombre négatif n’a pas de racine carrée.
+
+      ## 3. Encadrer
+      Comme $36 < 40 < 49$, on a $6 < \sqrt{40} < 7$.
+
+      ## 4. Lien avec la géométrie
+      Un carré d’aire $A$ a pour côté $\sqrt{A}$. Le théorème de Pythagore conduit souvent à calculer une racine carrée.
+    questions:
+      - code: 4E-RACINES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $\sqrt{81}$.
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher le nombre positif dont le carré vaut $81$.
+          etapes:
+          - $9^2 = 81$, donc $\sqrt{81} = 9$.
+          resultat: '9'
+      - code: 4E-RACINES-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $12^2$.
+        solution: '144'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $12^2 = 12 \times 12$.
+          etapes:
+          - $12 \times 12 = 144$.
+          resultat: '144'
+      - code: 4E-RACINES-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel encadrement est correct ? A) $6 < \sqrt{50} < 7$  B) $7 < \sqrt{50} < 8$  C) $8 < \sqrt{50} < 9$  D) $24 < \sqrt{50} < 26$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Encadrer $50$ entre deux carrés parfaits.
+          etapes:
+          - $49 < 50 < 64$, donc $7 < \sqrt{50} < 8$.
+          resultat: B
+      - code: 4E-RACINES-04
+        difficulte: 4
+        type: numerique
+        enonce: Un carré a une aire de $20$ cm². Donner la longueur de son côté arrondie au dixième de cm.
+        solution: '4,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le côté vaut $\sqrt{20}$.
+          etapes:
+          - $\sqrt{20} \approx 4{,}472$, soit $4{,}5$ cm au dixième.
+          resultat: '4,5'
+      - code: 4E-RACINES-05
+        difficulte: 5
+        type: numerique
+        enonce: Calculer $\sqrt{9 + 16}$.
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer d’abord sous la racine.
+          etapes:
+          - $\sqrt{25} = 5$ (et non $3 + 4 = 7$).
+          resultat: '5'

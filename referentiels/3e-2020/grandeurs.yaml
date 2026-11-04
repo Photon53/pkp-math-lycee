@@ -1,0 +1,11 @@
+theme:
+  code: GRAND
+  titre: Calculer avec des grandeurs mesurables ; exprimer les résultats dans les unités adaptées
+  partie: Grandeurs et mesures
+
+attendus:
+  - {code: 3E-2020-GRAND-01, type: capacite, page: 7, texte: "Il calcule le volume d’une boule."}
+  - {code: 3E-2020-GRAND-02, type: capacite, page: 7, texte: "Il calcule les volumes d’assemblages de solides étudiés au cours du cycle."}
+  - {code: 3E-2020-GRAND-03, type: capacite, page: 7, texte: "Il mène des calculs sur des grandeurs mesurables, notamment des grandeurs composées, et exprime les résultats dans les unités adaptées."}
+  - {code: 3E-2020-GRAND-04, type: capacite, page: 7, texte: "Il résout des problèmes utilisant les conversions d’unités sur des grandeurs composées."}
+  - {code: 3E-2020-GRAND-05, type: capacite, page: 7, texte: "Il vérifie la cohérence des résultats du point de vue des unités pour les calculs de grandeurs simples ou composées."}

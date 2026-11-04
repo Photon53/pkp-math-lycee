@@ -1,0 +1,12 @@
+theme:
+  code: STA
+  titre: Statistiques
+  partie: Organisation et gestion de données et probabilités
+
+attendus:
+  - {code: 5E-2026-STA-01, type: capacite, page: 16, texte: "Recueillir et organiser des données."}
+  - {code: 5E-2026-STA-02, type: capacite, page: 16, texte: "Calculer des effectifs et des fréquences (exprimées sous forme décimale, fractionnaire ou de pourcentage)."}
+  - {code: 5E-2026-STA-03, type: capacite, page: 16, texte: "Lire et interpréter des informations présentées sous forme de tableaux, de diagrammes et de graphiques."}
+  - {code: 5E-2026-STA-04, type: capacite, page: 16, texte: "Représenter, sur papier ou à l’aide d’un tableur-grapheur, des données sous la forme d’un tableau, d’un diagramme (diagramme en barres, diagramme circulaire) ou d’un graphique cartésien."}
+  - {code: 5E-2026-STA-05, type: capacite, page: 16, texte: "Choisir une représentation adaptée à ce qu’il convient de mettre en avant."}
+  - {code: 5E-2026-STA-06, type: capacite, page: 16, texte: "Calculer et interpréter la moyenne simple d’une série de données."}

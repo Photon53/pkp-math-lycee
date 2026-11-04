@@ -1,0 +1,11 @@
+theme:
+  code: LIT
+  titre: Utiliser le calcul littéral
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 3E-2020-LIT-01, type: capacite, page: 3, texte: "Il détermine l’opposé d’une expression littérale."}
+  - {code: 3E-2020-LIT-02, type: capacite, page: 3, texte: "Il développe (par simple et double distributivités), factorise, réduit des expressions algébriques simples."}
+  - {code: 3E-2020-LIT-03, type: capacite, page: 3, texte: "Il factorise une expression du type a² - b² et développe des expression du type (a + b)(a - b)."}
+  - {code: 3E-2020-LIT-04, type: capacite, page: 3, texte: "Il résout algébriquement différents types d’équations : – équation du premier degré ; – équation s’y ramenant (équations produits) ; – équations de la forme x² = a sur des exemples simples."}
+  - {code: 3E-2020-LIT-05, type: capacite, page: 3, texte: "Il résout des problèmes s’y ramenant, qui peuvent être internes aux mathématiques ou en lien avec d’autres disciplines."}

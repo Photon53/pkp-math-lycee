@@ -3,7 +3,7 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
-import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
+import { LIBELLES_PARCOURS, NIVEAUX, NIVEAUX_COLLEGE, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
 import ParentsEleve from "./ParentsEleve.jsx";
 import { useApi } from "./useApi.js";
 
@@ -243,10 +243,14 @@ export default function Classes({ jeton, onExpire }) {
             }}
             style={{ width: "auto" }}
           >
-            {NIVEAUX.map(([v, l]) => (
-              <option key={v} value={v}>
-                {l}
-              </option>
+            {[["Collège", true], ["Lycée", false]].map(([groupe, college]) => (
+              <optgroup key={groupe} label={groupe}>
+                {NIVEAUX.filter(([v]) => NIVEAUX_COLLEGE.includes(v) === college).map(([v, l]) => (
+                  <option key={v} value={v}>
+                    {l}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
           {PARCOURS_PAR_NIVEAU[niveau].length > 1 && (

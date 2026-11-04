@@ -1,0 +1,37 @@
+theme:
+  code: GEO
+  titre: Espace et géométrie
+  partie: Espace et géométrie
+
+attendus:
+  # Étude de configurations planes
+  - {code: 6E-2025-GEO-01, type: automatisme, page: 23, texte: "L’élève connaît le lexique et le codage des objets de base de la géométrie plane : angle droit, égalité de longueurs, égalité d’angles."}
+  - {code: 6E-2025-GEO-02, type: automatisme, page: 23, texte: "Il reconnaît un carré, un rectangle, un triangle."}
+  - {code: 6E-2025-GEO-03, type: automatisme, page: 23, texte: "Il reconnaît si une figure possède un ou plusieurs axes de symétrie."}
+  - {code: 6E-2025-GEO-04, type: automatisme, page: 23, texte: "Il sait coder des angles droits et des longueurs égales."}
+  - {code: 6E-2025-GEO-05, type: capacite, page: 23, texte: "Connaître et utiliser la définition de la distance entre deux points"}
+  - {code: 6E-2025-GEO-06, type: capacite, page: 23, texte: "Connaître et utiliser la définition du milieu d’un segment"}
+  - {code: 6E-2025-GEO-07, type: capacite, page: 23, texte: "Connaître les définitions d’un cercle, d’un disque, d’un rayon, d’un diamètre, d’une corde"}
+  - {code: 6E-2025-GEO-08, type: capacite, page: 23, texte: "Comprendre la définition d’un cercle et celle d’un disque sous la forme d’ensembles de points"}
+  - {code: 6E-2025-GEO-09, type: capacite, page: 23, texte: "Résoudre des problèmes mettant en jeu des distances à un point"}
+  - {code: 6E-2025-GEO-10, type: capacite, page: 23, texte: "Connaître la définition de la médiatrice d’un segment"}
+  - {code: 6E-2025-GEO-11, type: capacite, page: 23, texte: "Comprendre et utiliser la propriété caractéristique de la médiatrice d’un segment"}
+  - {code: 6E-2025-GEO-12, type: capacite, page: 23, texte: "Résoudre des problèmes en s’appuyant sur la propriété caractéristique de la médiatrice"}
+  - {code: 6E-2025-GEO-13, type: capacite, page: 23, texte: "Connaître et utiliser les angles ainsi que le lexique et les notations qui s’y rapportent : angle droit, angle plat, angle plein, angle nul, angle aigu, angle obtus, angles opposés par le sommet, angles adjacents, angles supplémentaires"}
+  - {code: 6E-2025-GEO-14, type: capacite, page: 23, texte: "Mesurer un angle"}
+  - {code: 6E-2025-GEO-15, type: capacite, page: 23, texte: "Construire un angle de mesure donnée"}
+  - {code: 6E-2025-GEO-16, type: capacite, page: 23, texte: "Connaître la définition de la bissectrice d’un angle saillant"}
+  - {code: 6E-2025-GEO-17, type: capacite, page: 23, texte: "Utiliser la définition de la bissectrice d’un angle pour effectuer des constructions et résoudre des problèmes"}
+  # Triangles
+  - {code: 6E-2025-GEO-18, type: capacite, page: 23, texte: "Construire des triangles"}
+  - {code: 6E-2025-GEO-19, type: capacite, page: 23, texte: "Connaître et utiliser les propriétés angulaires des triangles particuliers : triangle rectangle, triangle isocèle, triangle équilatéral"}
+  - {code: 6E-2025-GEO-20, type: capacite, page: 23, texte: "Connaître la valeur de la somme des mesures des angles d’un triangle"}
+  - {code: 6E-2025-GEO-21, type: capacite, page: 23, texte: "L’utiliser pour calculer des angles, effectuer des constructions et résoudre des problèmes"}
+  - {code: 6E-2025-GEO-22, type: capacite, page: 23, texte: "Savoir que les médiatrices d’un triangle sont concourantes"}
+  - {code: 6E-2025-GEO-23, type: capacite, page: 23, texte: "Connaître et construire le cercle circonscrit à un triangle"}
+  # Symétrie axiale
+  - {code: 6E-2025-GEO-24, type: capacite, page: 23, texte: "Connaître la définition du symétrique d’un point par rapport à une droite"}
+  - {code: 6E-2025-GEO-25, type: capacite, page: 23, texte: "Connaître et utiliser les propriétés de la symétrie axiale pour effectuer des constructions"}
+  # La vision dans l'espace
+  - {code: 6E-2025-GEO-26, type: automatisme, page: 24, texte: "L’élève identifie dans un ensemble de solides lesquels sont des pyramides, des boules, des cubes, des cylindres, des pavés, des cônes ou des prismes droits."}
+  - {code: 6E-2025-GEO-27, type: capacite, page: 24, texte: "Voir dans l’espace des assemblages de cubes"}

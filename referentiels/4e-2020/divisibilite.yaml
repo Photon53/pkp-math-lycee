@@ -1,0 +1,10 @@
+theme:
+  code: DIV
+  titre: Comprendre et utiliser les notions de divisibilité et de nombres premiers
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 4E-2020-DIV-01, type: capacite, page: 3, texte: "Il détermine la liste des nombres premiers inférieurs à 100."}
+  - {code: 4E-2020-DIV-02, type: capacite, page: 3, texte: "Il décompose un nombre entier en produit de facteurs premiers."}
+  - {code: 4E-2020-DIV-03, type: capacite, page: 3, texte: "Il utilise les nombres premiers inférieurs à 100 pour : – reconnaître et produire des fractions égales ; – simplifier des fractions."}
+  - {code: 4E-2020-DIV-04, type: capacite, page: 3, texte: "Il modélise et résout des problèmes simples mettant en jeu les notions de divisibilité et de nombre premier."}

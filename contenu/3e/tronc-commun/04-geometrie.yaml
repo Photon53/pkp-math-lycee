@@ -1,0 +1,303 @@
+chapitre:
+  code: 3E-GEOMETRIE
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 4
+  titre: Thalès, triangles semblables, trigonométrie et transformations
+
+competences:
+  - code: 3E-THALES-SEMBLABLES
+    libelle: Utiliser Thalès (configuration papillon) et les triangles semblables
+    attendus: [3E-2020-GEOM-01, 3E-2020-GEOM-03, 3E-2020-GEOM-04, 3E-2020-TRANS-02, 3E-2020-PROP-03]
+    cours_couvre: [3E-2020-GEOM-01, 3E-2020-GEOM-03, 3E-2020-GEOM-04, 3E-2020-TRANS-02, 3E-2020-PROP-03]
+    objectifs:
+    - Appliquer le théorème de Thalès et sa réciproque dans la configuration papillon.
+    - Reconnaître des triangles semblables et utiliser la proportionnalité de leurs côtés.
+    methodes:
+    - titre: Appliquer le théorème de Thalès en configuration papillon
+      etapes:
+      - 'Vérifier que les droites $(BM)$ et $(CN)$ se coupent en $A$ et que $(BC) \parallel (MN)$.'
+      - Écrire $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - Calculer la longueur cherchée par un produit en croix.
+      exemple:
+        enonce: '$A$ est le point d’intersection de $(BM)$ et $(CN)$, $(BC) \parallel (MN)$, $AB = 4$, $AM = 6$, $BC = 5$. Calculer $MN$.'
+        resolution:
+        - $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, soit $\dfrac{6}{4} = \dfrac{MN}{5}$.
+        - $MN = \dfrac{6 \times 5}{4} = 7{,}5$.
+        resultat: $MN = 7{,}5$
+    erreurs_frequentes:
+    - erreur: Oublier de vérifier l’ordre des points pour la réciproque.
+      explication: 'Les points $A, B, M$ et $A, C, N$ doivent être alignés **dans le même ordre**.'
+    - erreur: 'Penser que deux triangles semblables sont égaux.'
+      explication: Ils ont les mêmes angles, mais leurs côtés sont seulement proportionnels.
+    resume: |
+      - **Thalès (papillon)** : si $(BM)$ et $(CN)$ sont sécantes en $A$ et $(BC) \parallel (MN)$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - **Réciproque** : si $\dfrac{AM}{AB} = \dfrac{AN}{AC}$ et les points sont dans le même ordre, alors $(BC) \parallel (MN)$.
+      - **Triangles semblables** : leurs angles sont deux à deux égaux. Propriété caractéristique : leurs côtés sont proportionnels.
+    cours: |
+      ## 1. Configuration papillon
+      Les droites $(BM)$ et $(CN)$ se coupent en $A$, avec $A$ entre $B$ et $M$ et entre $C$ et $N$.
+
+      > **Théorème de Thalès.** Si $(BC)$ et $(MN)$ sont parallèles, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+
+      ## 2. Réciproque
+      > **Réciproque.** Si $\dfrac{AM}{AB} = \dfrac{AN}{AC}$ et si les points $A, B, M$ et $A, C, N$ sont alignés dans le même ordre, alors $(BC)$ et $(MN)$ sont parallèles.
+
+      ## 3. Triangles semblables
+      > **Définition.** Deux triangles sont semblables si leurs angles sont deux à deux de même mesure.
+
+      > **Propriété.** Deux triangles sont semblables si et seulement si les longueurs de leurs côtés sont proportionnelles.
+
+      Les triangles de côtés $3, 4, 5$ et $6, 8, 10$ sont semblables (coefficient $2$).
+    questions:
+      - code: 3E-THALES-SEMBLABLES-01
+        difficulte: 1
+        type: numerique
+        enonce: '$(BM)$ et $(CN)$ se coupent en $A$, $(BC) \parallel (MN)$, $AB = 4$, $AM = 6$, $BC = 5$. Calculer $MN$.'
+        solution: '7,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Thalès en configuration papillon.
+          etapes:
+          - $\dfrac{6}{4} = \dfrac{MN}{5}$, $MN = 7{,}5$.
+          resultat: '7,5'
+      - code: 3E-THALES-SEMBLABLES-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Les triangles de côtés $3$, $4$, $5$ et $6$, $8$, $10$ sont : A) égaux  B) semblables  C) ni égaux ni semblables'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Vérifier la proportionnalité des côtés.
+          etapes:
+          - $\dfrac{6}{3} = \dfrac{8}{4} = \dfrac{10}{5} = 2$ ; ils sont semblables.
+          resultat: B
+      - code: 3E-THALES-SEMBLABLES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Deux triangles semblables : le premier a pour côtés $5$, $7$, $9$ ; le plus petit côté du second mesure $15$. Combien mesure son plus grand côté ?'
+        solution: '27'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Coefficient de proportionnalité $\dfrac{15}{5} = 3$.
+          etapes:
+          - $9 \times 3 = 27$.
+          resultat: '27'
+      - code: 3E-THALES-SEMBLABLES-04
+        difficulte: 4
+        type: qcm
+        enonce: '$(BM)$ et $(CN)$ se coupent en $A$ (points dans le même ordre), $AB = 3$, $AM = 4{,}5$, $AC = 4$, $AN = 6$. A) $(BC) \parallel (MN)$  B) $(BC)$ et $(MN)$ ne sont pas parallèles'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réciproque du théorème de Thalès.
+          etapes:
+          - $\dfrac{AM}{AB} = 1{,}5$ et $\dfrac{AN}{AC} = 1{,}5$.
+          - Rapports égaux, points dans le même ordre ; $(BC) \parallel (MN)$.
+          resultat: A
+      - code: 3E-THALES-SEMBLABLES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Deux triangles semblables ont un rapport de similitude de $3$. L’aire du petit triangle est $4$ cm². Quelle est l’aire du grand, en cm² ?'
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les aires sont multipliées par le carré du rapport.
+          etapes:
+          - $4 \times 3^2 = 36$ cm².
+          resultat: '36'
+
+  - code: 3E-TRIGONOMETRIE
+    libelle: Utiliser cosinus, sinus et tangente dans le triangle rectangle
+    attendus: [3E-2020-GEOM-01, 3E-2020-GEOM-03]
+    cours_couvre: [3E-2020-GEOM-01, 3E-2020-GEOM-03]
+    objectifs:
+    - Connaître les définitions de $\cos$, $\sin$ et $\tan$ d’un angle aigu.
+    - Choisir la bonne ligne trigonométrique pour calculer une longueur ou un angle.
+    methodes:
+    - titre: Choisir la bonne formule (« SOH CAH TOA »)
+      etapes:
+      - Repérer, par rapport à l’angle, le côté connu et le côté cherché (opposé, adjacent, hypoténuse).
+      - 'Choisir : sinus (opposé/hypoténuse), cosinus (adjacent/hypoténuse), tangente (opposé/adjacent).'
+      - Écrire l’égalité, puis isoler l’inconnue.
+      exemple:
+        enonce: '$ABC$ est rectangle en $A$, $AB = 8$ cm et $\widehat{B} = 30°$. Calculer $AC$.'
+        resolution:
+        - '$AC$ est opposé à $\widehat{B}$, $AB$ adjacent : on utilise la tangente.'
+        - $AC = 8 \times \tan 30° \approx 4{,}6$ cm.
+        resultat: $AC \approx 4{,}6$ cm
+    erreurs_frequentes:
+    - erreur: Utiliser la trigonométrie dans un triangle non rectangle.
+      explication: Ces définitions ne valent que dans un triangle **rectangle**.
+    - erreur: Confondre côté opposé et côté adjacent.
+      explication: 'Le côté adjacent touche l’angle (sans être l’hypoténuse) ; le côté opposé lui fait face.'
+    resume: |
+      - $\cos \widehat{B} = \dfrac{\text{adjacent}}{\text{hypoténuse}}$ ; $\sin \widehat{B} = \dfrac{\text{opposé}}{\text{hypoténuse}}$ ; $\tan \widehat{B} = \dfrac{\text{opposé}}{\text{adjacent}}$.
+      - Moyen mnémotechnique : **SOH CAH TOA**.
+      - Pour un angle : touches $\cos^{-1}$, $\sin^{-1}$, $\tan^{-1}$ (calculatrice en degrés).
+    cours: |
+      ## 1. Définitions
+      Dans le triangle $ABC$ rectangle en $A$, pour l’angle $\widehat{B}$ : l’hypoténuse est $[BC]$, le côté adjacent $[AB]$, le côté opposé $[AC]$.
+
+      > **Définitions.** $\cos \widehat{B} = \dfrac{AB}{BC}$, $\sin \widehat{B} = \dfrac{AC}{BC}$, $\tan \widehat{B} = \dfrac{AC}{AB}$.
+
+      ## 2. Calculer une longueur
+      Une échelle de $5$ m fait un angle de $70°$ avec le sol : elle atteint une hauteur de $5 \times \sin 70° \approx 4{,}7$ m.
+
+      ## 3. Calculer un angle
+      Une rampe monte de $1$ m pour $12$ m à l’horizontale : $\tan \alpha = \dfrac{1}{12}$, $\alpha \approx 4{,}8°$.
+    questions:
+      - code: 3E-TRIGONOMETRIE-01
+        difficulte: 1
+        type: qcm
+        enonce: '$ABC$ est rectangle en $A$. Que vaut $\sin \widehat{B}$ ? A) $\dfrac{AB}{BC}$  B) $\dfrac{AC}{BC}$  C) $\dfrac{AC}{AB}$  D) $\dfrac{AB}{AC}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Sinus = opposé / hypoténuse.
+          etapes:
+          - Le côté opposé à $\widehat{B}$ est $[AC]$, l’hypoténuse $[BC]$.
+          resultat: B
+      - code: 3E-TRIGONOMETRIE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $BC = 10$ cm et $\widehat{B} = 30°$. Calculer $AC$, en cm.'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $AC = BC \times \sin \widehat{B}$.
+          etapes:
+          - $10 \times \sin 30° = 10 \times 0{,}5 = 5$ cm.
+          resultat: '5'
+      - code: 3E-TRIGONOMETRIE-03
+        difficulte: 3
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $AB = 8$ cm et $\widehat{B} = 30°$. Calculer $AC$, arrondi au dixième de cm.'
+        solution: '4,6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tangente = opposé / adjacent.
+          etapes:
+          - $AC = 8 \times \tan 30° \approx 4{,}62$ cm.
+          resultat: '4,6'
+      - code: 3E-TRIGONOMETRIE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une échelle de $5$ m est posée contre un mur et fait un angle de $70°$ avec le sol. À quelle hauteur touche-t-elle le mur ? Arrondir au dixième de m.'
+        solution: '4,7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La hauteur est le côté opposé à l’angle, l’échelle l’hypoténuse.
+          etapes:
+          - $h = 5 \times \sin 70° \approx 4{,}70$ m.
+          resultat: '4,7'
+      - code: 3E-TRIGONOMETRIE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une rampe monte de $1$ m pour $12$ m parcourus à l’horizontale. Quel angle fait-elle avec l’horizontale ? Arrondir au dixième de degré.'
+        solution: '4,8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\tan \alpha = \dfrac{\text{opposé}}{\text{adjacent}}$.
+          etapes:
+          - $\tan \alpha = \dfrac{1}{12}$, donc $\alpha \approx 4{,}76°$.
+          resultat: '4,8'
+
+  - code: 3E-ROTATION-HOMOTHETIE
+    libelle: Transformer une figure par rotation et par homothétie
+    attendus: [3E-2020-GEOM-01, 3E-2020-GEOM-02, 3E-2020-TRANS-01, 3E-2020-TRANS-02]
+    cours_couvre: [3E-2020-GEOM-01, 3E-2020-GEOM-02, 3E-2020-TRANS-01, 3E-2020-TRANS-02]
+    prerequis: [3E-THALES-SEMBLABLES]
+    objectifs:
+    - Construire l’image d’une figure par rotation et par homothétie.
+    - Identifier rotations et homothéties dans des frises, pavages, rosaces.
+    - Calculer longueurs, aires et volumes en utilisant les transformations.
+    methodes:
+    - titre: Utiliser une homothétie de rapport $k$
+      etapes:
+      - Les longueurs sont multipliées par $|k|$.
+      - Les aires sont multipliées par $k^2$, les volumes par $|k|^3$.
+      - Si $k < 0$, la figure image est « de l’autre côté » du centre.
+      exemple:
+        enonce: 'Un triangle d’aire $6$ cm² a pour image par une homothétie de rapport $-2$ un triangle d’aire… ?'
+        resolution:
+        - $6 \times (-2)^2 = 6 \times 4 = 24$.
+        resultat: $24$ cm²
+    erreurs_frequentes:
+    - erreur: Penser qu’une rotation change les longueurs.
+      explication: 'Rotations, translations et symétries conservent longueurs, angles et aires ; seule l’homothétie (avec $|k| \neq 1$) modifie les longueurs.'
+    - erreur: Multiplier les aires par $k$ dans une homothétie.
+      explication: Les aires sont multipliées par $k^2$.
+    resume: |
+      - **Rotation** de centre $O$ et d’angle $\alpha$ : $OM' = OM$ et $\widehat{MOM'} = \alpha$. Elle conserve longueurs, angles, aires.
+      - **Homothétie** de centre $O$ et de rapport $k$ : $O$, $M$, $M'$ alignés et $OM' = |k| \times OM$. Les longueurs sont multipliées par $|k|$, les aires par $k^2$.
+      - $k > 0$ : $M'$ du même côté que $M$ ; $k < 0$ : de l’autre côté de $O$.
+    cours: |
+      ## 1. Rotation
+      > **Définition.** L’image de $M$ par la rotation de centre $O$ et d’angle $\alpha$ (dans un sens donné) est le point $M'$ tel que $OM' = OM$ et $\widehat{MOM'} = \alpha$.
+
+      Une rosace à $6$ pétales est invariante par la rotation de centre son centre et d’angle $60°$.
+
+      ## 2. Homothétie
+      > **Définition.** L’image de $M$ par l’homothétie de centre $O$ et de rapport $k$ est le point $M'$ de la droite $(OM)$ tel que $OM' = |k| \times OM$, du même côté que $M$ si $k > 0$, de l’autre côté si $k < 0$.
+
+      L’homothétie de rapport $-1$ est la symétrie centrale de centre $O$.
+
+      ## 3. Effets sur les grandeurs
+      L’homothétie de rapport $k$ multiplie les longueurs par $|k|$, les aires par $k^2$, les volumes par $|k|^3$, et conserve les angles : une figure et son image sont semblables.
+    questions:
+      - code: 3E-ROTATION-HOMOTHETIE-01
+        difficulte: 1
+        type: numerique
+        enonce: '$OM = 4$ cm. $M’$ est l’image de $M$ par une rotation de centre $O$ et d’angle $90°$. Combien mesure $OM’$, en cm ?'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une rotation conserve la distance au centre.
+          etapes:
+          - $OM' = OM = 4$ cm.
+          resultat: '4'
+      - code: 3E-ROTATION-HOMOTHETIE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$OM = 3$ cm. $M’$ est l’image de $M$ par l’homothétie de centre $O$ et de rapport $2{,}5$. Combien mesure $OM’$, en cm ?'
+        solution: '7,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $OM' = |k| \times OM$.
+          etapes:
+          - $2{,}5 \times 3 = 7{,}5$ cm.
+          resultat: '7,5'
+      - code: 3E-ROTATION-HOMOTHETIE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une rosace à $8$ pétales identiques est invariante par une rotation de centre son centre. Quel est le plus petit angle positif de cette rotation, en degrés ?'
+        solution: '45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un tour complet partagé en $8$.
+          etapes:
+          - $360 \div 8 = 45°$.
+          resultat: '45'
+      - code: 3E-ROTATION-HOMOTHETIE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un triangle d’aire $6$ cm² a pour image par une homothétie de rapport $-2$ un triangle. Quelle est l’aire de l’image, en cm² ?'
+        solution: '24'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les aires sont multipliées par $k^2$.
+          etapes:
+          - $6 \times (-2)^2 = 24$ cm².
+          resultat: '24'
+      - code: 3E-ROTATION-HOMOTHETIE-05
+        difficulte: 5
+        type: qcm
+        enonce: 'L’homothétie de centre $O$ et de rapport $-1$ est : A) la symétrie centrale de centre $O$  B) une translation  C) une symétrie axiale  D) une rotation d’angle $90°$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$OM’ = OM$ et $M’$ de l’autre côté de $O$.'
+          etapes:
+          - $O$ est le milieu de $[MM']$ ; c’est la symétrie centrale de centre $O$.
+          resultat: A

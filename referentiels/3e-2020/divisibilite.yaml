@@ -1,0 +1,9 @@
+theme:
+  code: DIV
+  titre: Comprendre et utiliser les notions de divisibilité et de nombres premiers
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 3E-2020-DIV-01, type: capacite, page: 2, texte: "Il décompose un nombre entier en produit de facteurs premiers (à la main, à l’aide d’un tableur ou d’un logiciel de programmation)."}
+  - {code: 3E-2020-DIV-02, type: capacite, page: 2, texte: "Il simplifie une fraction pour la rendre irréductible."}
+  - {code: 3E-2020-DIV-03, type: capacite, page: 2, texte: "Il modélise et résout des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes…)."}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Lien } from "../navigation.js";
+import { NIVEAUX } from "../parcours.js";
 import { Vide, exporterCsv, formaterDate, pourcentage } from "../ui/Cadre.jsx";
 import { Barres, Courbe } from "../ui/Graphiques.jsx";
 import Icone from "../ui/Icone.jsx";
@@ -13,8 +14,8 @@ const PERIODES = [
   [365, "Année"],
 ];
 
-const NOMS_NIVEAUX = { "2nde": "Seconde", "1re": "Première", Tle: "Terminale" };
-const ORDRE_NIVEAUX = Object.keys(NOMS_NIVEAUX);
+const NOMS_NIVEAUX = Object.fromEntries(NIVEAUX);
+const ORDRE_NIVEAUX = NIVEAUX.map(([v]) => v);
 
 /** Statistiques globales du site, uniquement agrégées (EA3.20). */
 export default function TableauDeBord({ jeton, onExpire, domaine = "", domaines = [] }) {

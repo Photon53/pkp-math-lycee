@@ -5,6 +5,11 @@ from enum import Enum
 
 
 class Niveau(str, Enum):
+    # Ordre scolaire : collège (domaine Maths collège), puis lycée (Maths lycée).
+    SIXIEME = "6e"
+    CINQUIEME = "5e"
+    QUATRIEME = "4e"
+    TROISIEME = "3e"
     SECONDE = "2nde"
     PREMIERE = "1re"
     TERMINALE = "Tle"

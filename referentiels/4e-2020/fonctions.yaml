@@ -1,0 +1,9 @@
+theme:
+  code: FONC
+  titre: Comprendre et utiliser la notion de fonction
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 4E-2020-FONC-01, type: capacite, page: 6, texte: "Il produit une formule littérale représentant la dépendance de deux grandeurs."}
+  - {code: 4E-2020-FONC-02, type: capacite, page: 6, texte: "Il représente la dépendance de deux grandeurs par un graphique."}
+  - {code: 4E-2020-FONC-03, type: capacite, page: 6, texte: "Il utilise un graphique représentant la dépendance de deux grandeurs pour lire et interpréter différentes valeurs sur l’axe des abscisses ou l’axe des ordonnées."}

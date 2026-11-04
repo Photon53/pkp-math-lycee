@@ -1,0 +1,201 @@
+chapitre:
+  code: 4E-DONNEES-PROBAS
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 8
+  titre: Statistiques et probabilités
+
+competences:
+  - code: 4E-MEDIANE
+    libelle: Représenter des données et calculer une médiane
+    attendus: [4E-2020-DON-01, 4E-2020-DON-02]
+    cours_couvre: [4E-2020-DON-01, 4E-2020-DON-02]
+    objectifs:
+    - Lire et construire un diagramme circulaire.
+    - Calculer et interpréter la médiane d’une série de petit effectif.
+    methodes:
+    - titre: Déterminer la médiane d’une série
+      etapes:
+      - Ranger les valeurs dans l’ordre croissant.
+      - 'Si l’effectif $N$ est impair, la médiane est la valeur de rang $\dfrac{N+1}{2}$.'
+      - 'Si $N$ est pair, c’est la moyenne des valeurs de rangs $\dfrac{N}{2}$ et $\dfrac{N}{2} + 1$.'
+      exemple:
+        enonce: Déterminer la médiane de $12$ ; $7$ ; $15$ ; $9$ ; $10$ ; $8$.
+        resolution:
+        - 'Série rangée : $7$ ; $8$ ; $9$ ; $10$ ; $12$ ; $15$ ($N = 6$).'
+        - 'Médiane : $\dfrac{9 + 10}{2} = 9{,}5$.'
+        resultat: $9{,}5$
+    erreurs_frequentes:
+    - erreur: Oublier de ranger les valeurs.
+      explication: La médiane partage la série **rangée** en deux parties de même effectif.
+    - erreur: Confondre médiane et moyenne.
+      explication: 'La moyenne est sensible aux valeurs extrêmes, pas la médiane : $1$ ; $2$ ; $100$ a pour médiane $2$ et pour moyenne $34{,}3$.'
+    resume: |
+      - La **médiane** est une valeur qui partage la série rangée en deux groupes de même effectif : au moins la moitié des valeurs lui sont inférieures ou égales, au moins la moitié supérieures ou égales.
+      - Diagramme circulaire : angle $= \text{fréquence} \times 360°$.
+    cours: |
+      ## 1. Diagramme circulaire
+      Sur $40$ élèves, $10$ préfèrent le basket : fréquence $\dfrac{10}{40} = 0{,}25$, angle $0{,}25 \times 360 = 90°$.
+
+      ## 2. Médiane
+      > **Définition.** La médiane d’une série statistique rangée dans l’ordre croissant est une valeur qui partage cette série en deux groupes de même effectif.
+
+      Série $3$ ; $5$ ; $6$ ; $8$ ; $11$ : la médiane est $6$ (rang $3$).
+
+      ## 3. Interpréter
+      « Le salaire médian est $2\,100$ € » signifie que la moitié des salariés gagne au plus $2\,100$ € et l’autre moitié au moins $2\,100$ €.
+    questions:
+      - code: 4E-MEDIANE-01
+        difficulte: 1
+        type: numerique
+        enonce: Déterminer la médiane de la série $3$ ; $5$ ; $6$ ; $8$ ; $11$.
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Effectif impair, valeur centrale.
+          etapes:
+          - $N = 5$, la médiane est la $3^{\text{e}}$ valeur, $6$.
+          resultat: '6'
+      - code: 4E-MEDIANE-02
+        difficulte: 2
+        type: numerique
+        enonce: Déterminer la médiane de la série $12$ ; $7$ ; $15$ ; $9$ ; $10$ ; $8$.
+        solution: '9,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Ranger, puis effectif pair.
+          etapes:
+          - '$7$ ; $8$ ; $9$ ; $10$ ; $12$ ; $15$ : médiane $\dfrac{9 + 10}{2} = 9{,}5$.'
+          resultat: '9,5'
+      - code: 4E-MEDIANE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Sur $40$ élèves, $10$ préfèrent le basket. Quel est l’angle du secteur « basket » dans un diagramme circulaire, en degrés ?'
+        solution: '90'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Angle = fréquence × $360°$.
+          etapes:
+          - $\dfrac{10}{40} \times 360 = 90°$.
+          resultat: '90'
+      - code: 4E-MEDIANE-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Le salaire médian d’une entreprise est $2\,100$ €. Cela signifie : A) tous les salariés gagnent $2\,100$ €  B) au moins la moitié des salariés gagne $2\,100$ € ou moins  C) la moyenne des salaires est $2\,100$ €'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Interpréter la médiane.
+          etapes:
+          - La médiane partage les salariés en deux groupes de même effectif.
+          resultat: B
+      - code: 4E-MEDIANE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Série $4$ ; $6$ ; $7$ ; $9$ ; $x$ avec $x > 9$. On sait que la moyenne vaut $8$. Quelle est la valeur de $x$ ?'
+        solution: '14'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La somme des valeurs vaut $5 \times 8$.
+          etapes:
+          - $4 + 6 + 7 + 9 + x = 40$, donc $x = 14$ (et la médiane reste $7$).
+          resultat: '14'
+
+  - code: 4E-PROBABILITES
+    libelle: Calculer des probabilités et utiliser l’événement contraire
+    attendus: [4E-2020-PROBA-01, 4E-2020-PROBA-02, 4E-2020-PROBA-03, 4E-2020-PROBA-04, 4E-2020-PROBA-05]
+    cours_couvre: [4E-2020-PROBA-01, 4E-2020-PROBA-02, 4E-2020-PROBA-03, 4E-2020-PROBA-04, 4E-2020-PROBA-05]
+    objectifs:
+    - Utiliser le vocabulaire des probabilités.
+    - Calculer des probabilités, y compris avec l’événement contraire.
+    - Exprimer une probabilité sous forme de fraction, de décimal ou de pourcentage.
+    methodes:
+    - titre: Utiliser l’événement contraire
+      etapes:
+      - Repérer si l’événement contraire est plus simple à compter.
+      - Calculer sa probabilité.
+      - Appliquer $P(\bar{A}) = 1 - P(A)$.
+      exemple:
+        enonce: 'On tire une carte dans un jeu de $32$ cartes. Quelle est la probabilité de ne pas tirer un as ?'
+        resolution:
+        - $P(\text{as}) = \dfrac{4}{32} = \dfrac{1}{8}$.
+        - $P(\text{pas d’as}) = 1 - \dfrac{1}{8} = \dfrac{7}{8}$.
+        resultat: $\dfrac{7}{8}$
+    erreurs_frequentes:
+    - erreur: Trouver une probabilité négative ou supérieure à $1$.
+      explication: 'Une probabilité est toujours entre $0$ et $1$ ; c’est un signal d’erreur de calcul.'
+    - erreur: Confondre événement contraire et événement impossible.
+      explication: L’événement contraire de $A$ est réalisé exactement quand $A$ ne l’est pas.
+    resume: |
+      - $0 \leq P(A) \leq 1$ ; $P(\text{impossible}) = 0$ ; $P(\text{certain}) = 1$.
+      - En équiprobabilité, $P(A) = \dfrac{\text{issues favorables}}{\text{issues possibles}}$.
+      - $P(\bar{A}) = 1 - P(A)$.
+      - Une probabilité s’écrit indifféremment $\dfrac{1}{4}$, $0{,}25$ ou $25\,\%$.
+    cours: |
+      ## 1. Vocabulaire
+      Expérience aléatoire, issues, événement, événement certain, impossible, contraire ($\bar{A}$, « non $A$ »).
+
+      ## 2. Calcul
+      Dans un jeu de $32$ cartes, $P(\text{cœur}) = \dfrac{8}{32} = \dfrac{1}{4} = 0{,}25 = 25\,\%$.
+
+      ## 3. Événement contraire
+      > **Propriété.** $P(A) + P(\bar{A}) = 1$.
+
+      ## 4. Probabilité et fréquence
+      Lorsqu’on répète une expérience un grand nombre de fois, la fréquence observée d’un événement se rapproche de sa probabilité.
+    questions:
+      - code: 4E-PROBABILITES-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Laquelle de ces valeurs ne peut pas être une probabilité ? A) $0$  B) $0{,}75$  C) $\dfrac{5}{4}$  D) $1$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une probabilité est entre $0$ et $1$.
+          etapes:
+          - $\dfrac{5}{4} = 1{,}25 > 1$.
+          resultat: C
+      - code: 4E-PROBABILITES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On tire une carte dans un jeu de $32$ cartes. Quelle est la probabilité de tirer un cœur ? (écriture décimale)'
+        solution: '0,25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $8$ cœurs sur $32$ cartes.
+          etapes:
+          - $\dfrac{8}{32} = 0{,}25$.
+          resultat: '0,25'
+      - code: 4E-PROBABILITES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On tire une carte dans un jeu de $32$ cartes. Quelle est la probabilité de ne pas tirer un as ? (fraction irréductible)'
+        solution: 7/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Événement contraire.
+          etapes:
+          - $P(\text{as}) = \dfrac{4}{32} = \dfrac{1}{8}$, donc $1 - \dfrac{1}{8} = \dfrac{7}{8}$.
+          resultat: 7/8
+      - code: 4E-PROBABILITES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un sac contient des jetons rouges, verts et bleus. $P(\text{rouge}) = 0{,}35$ et $P(\text{vert}) = 0{,}4$. Quelle est la probabilité de tirer un jeton bleu, en pourcentage ?'
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La somme des probabilités des issues vaut $1$.
+          etapes:
+          - $1 - 0{,}35 - 0{,}4 = 0{,}25$, soit $25\,\%$.
+          resultat: '25'
+      - code: 4E-PROBABILITES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une urne contient $20$ boules. La probabilité de tirer une boule blanche est $\dfrac{3}{5}$. Combien y a-t-il de boules qui ne sont pas blanches ?'
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Nombre de blanches $= \dfrac{3}{5} \times 20$.
+          etapes:
+          - $12$ blanches, donc $20 - 12 = 8$ non blanches.
+          resultat: '8'

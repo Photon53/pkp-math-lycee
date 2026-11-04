@@ -1,0 +1,9 @@
+theme:
+  code: PROP
+  titre: Résoudre des problèmes de proportionnalité
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 3E-2020-PROP-01, type: capacite, page: 5, texte: "Il modélise une situation de proportionnalité à l’aide d’une fonction linéaire."}
+  - {code: 3E-2020-PROP-02, type: capacite, page: 5, texte: "Il utilise le lien entre pourcentage d’évolution et coefficient multiplicateur."}
+  - {code: 3E-2020-PROP-03, type: capacite, page: 5, texte: "Il résout des problèmes en utilisant la proportionnalité dans le cadre de la géométrie."}

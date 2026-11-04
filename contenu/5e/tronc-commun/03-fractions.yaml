@@ -1,0 +1,242 @@
+chapitre:
+  code: 5E-FRACTIONS
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 3
+  titre: Nombres rationnels et fractions
+
+competences:
+  - code: 5E-FRAC-COMPARER
+    libelle: Écrire autrement et comparer des fractions
+    attendus: [5E-2026-RAT-01, 5E-2026-RAT-02, 5E-2026-RAT-03, 5E-2026-RAT-04, 5E-2026-RAT-05, 5E-2026-RAT-06, 5E-2026-RAT-07, 5E-2026-RAT-11, 5E-2026-RAT-12]
+    cours_couvre: [5E-2026-RAT-01, 5E-2026-RAT-02, 5E-2026-RAT-03, 5E-2026-RAT-04, 5E-2026-RAT-05, 5E-2026-RAT-06, 5E-2026-RAT-07, 5E-2026-RAT-11, 5E-2026-RAT-12]
+    objectifs:
+    - Reconnaître des fractions égales et les simplifier.
+    - Comparer deux fractions, même de dénominateurs différents.
+    - Écrire une fraction comme somme d’un entier et d’une fraction inférieure à $1$.
+    methodes:
+    - titre: Comparer deux fractions de dénominateurs différents
+      etapes:
+      - Chercher un dénominateur commun (un multiple des deux dénominateurs).
+      - Écrire les deux fractions avec ce dénominateur.
+      - Comparer les numérateurs.
+      exemple:
+        enonce: Comparer $\dfrac{3}{4}$ et $\dfrac{7}{10}$.
+        resolution:
+        - 'Dénominateur commun : $20$.'
+        - $\dfrac{3}{4} = \dfrac{15}{20}$ et $\dfrac{7}{10} = \dfrac{14}{20}$.
+        - $15 > 14$, donc $\dfrac{3}{4} > \dfrac{7}{10}$.
+        resultat: $\dfrac{3}{4} > \dfrac{7}{10}$
+    erreurs_frequentes:
+    - erreur: 'Penser que $\dfrac{8}{21} > \dfrac{8}{12}$ parce que $21 > 12$.'
+      explication: 'À numérateurs égaux, plus le dénominateur est grand, plus les parts sont petites : $\dfrac{8}{21} < \dfrac{8}{12}$.'
+    - erreur: 'Ajouter un même nombre au numérateur et au dénominateur : $\dfrac{2}{3} = \dfrac{4}{5}$.'
+      explication: 'Il faut **multiplier** (ou diviser) les deux par un même nombre : $\dfrac{2}{3} = \dfrac{4}{6}$.'
+    resume: |
+      - $\dfrac{a}{b} = \dfrac{a \times k}{b \times k}$ pour tout $k \neq 0$ : c’est ainsi qu’on simplifie ou qu’on change de dénominateur.
+      - Même dénominateur : on compare les numérateurs. Même numérateur : la plus grande fraction a le plus petit dénominateur.
+      - $\dfrac{17}{5} = 3 + \dfrac{2}{5}$ car $17 = 5 \times 3 + 2$.
+      - Un nombre a de multiples écritures : $1{,}2 = \dfrac{12}{10} = \dfrac{6}{5} = 1 + \dfrac{1}{5} = 120\,\%$.
+    cours: |
+      ## 1. Fractions égales
+      > **Propriété.** On ne change pas une fraction en multipliant ou en divisant son numérateur et son dénominateur par un même nombre non nul.
+
+      $\dfrac{2}{3} = \dfrac{10}{15}$ ; $\dfrac{4}{7} = \dfrac{8}{14}$ ; $\dfrac{18}{24} = \dfrac{3}{4}$ (on divise par $6$).
+
+      ## 2. Écritures décimales usuelles
+      $\dfrac{1}{2} = 0{,}5$ ; $\dfrac{1}{4} = 0{,}25$ ; $\dfrac{3}{4} = 0{,}75$ ; $\dfrac{3}{2} = 1{,}5$ ; $\dfrac{5}{2} = 2{,}5$ ; $\dfrac{1}{10} = 0{,}1$ ; $\dfrac{7}{1} = 7$.
+
+      ## 3. Comparer
+      - Même dénominateur : $\dfrac{2}{7} < \dfrac{5}{7}$.
+      - Même numérateur : $\dfrac{8}{21} < \dfrac{8}{12}$.
+      - Par rapport à $1$ : $\dfrac{8}{3} > 1 > \dfrac{6}{7}$.
+      - Sinon, on se ramène au même dénominateur : $\dfrac{3}{4} = \dfrac{27}{36}$ et $\dfrac{7}{18} = \dfrac{14}{36}$, donc $\dfrac{3}{4} > \dfrac{7}{18}$.
+
+      ## 4. Partie entière et fraction
+      $\dfrac{17}{5} = \dfrac{15}{5} + \dfrac{2}{5} = 3 + \dfrac{2}{5}$ : le nombre est compris entre $3$ et $4$.
+    questions:
+      - code: 5E-FRAC-COMPARER-01
+        difficulte: 1
+        type: numerique
+        enonce: Compléter $\dfrac{2}{3} = \dfrac{\ldots}{15}$.
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: On a multiplié le dénominateur par $5$.
+          etapes:
+          - $2 \times 5 = 10$.
+          resultat: '10'
+      - code: 5E-FRAC-COMPARER-02
+        difficulte: 2
+        type: numerique
+        enonce: Simplifier $\dfrac{18}{24}$ au maximum.
+        solution: 3/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par le plus grand diviseur commun.
+          etapes:
+          - '$18 = 6 \times 3$ et $24 = 6 \times 4$ : $\dfrac{18}{24} = \dfrac{3}{4}$.'
+          resultat: 3/4
+      - code: 5E-FRAC-COMPARER-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle comparaison est vraie ? A) $\dfrac{8}{21} > \dfrac{8}{12}$  B) $\dfrac{3}{4} < \dfrac{7}{18}$  C) $\dfrac{8}{3} > \dfrac{6}{7}$  D) $\dfrac{2}{7} > \dfrac{5}{7}$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer à $1$ ou se ramener au même dénominateur.
+          etapes:
+          - '$\dfrac{8}{3} > 1$ et $\dfrac{6}{7} < 1$, donc $\dfrac{8}{3} > \dfrac{6}{7}$.'
+          - Les autres comparaisons sont fausses.
+          resultat: C
+      - code: 5E-FRAC-COMPARER-04
+        difficulte: 3
+        type: numerique
+        enonce: 'On écrit $\dfrac{17}{5} = 3 + \dfrac{a}{5}$ avec $a < 5$. Que vaut $a$ ?'
+        solution: '2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Division euclidienne de $17$ par $5$.
+          etapes:
+          - $17 = 5 \times 3 + 2$, donc $\dfrac{17}{5} = 3 + \dfrac{2}{5}$.
+          resultat: '2'
+      - code: 5E-FRAC-COMPARER-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle écriture n’est pas égale à $1{,}2$ ? A) $\dfrac{6}{5}$  B) $1 + \dfrac{1}{5}$  C) $120\,\%$  D) $\dfrac{12}{100}$'
+        solution: D
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire chaque proposition en écriture décimale.
+          etapes:
+          - '$\dfrac{6}{5} = 1{,}2$ ; $1 + 0{,}2 = 1{,}2$ ; $120\,\% = 1{,}2$.'
+          - '$\dfrac{12}{100} = 0{,}12$.'
+          resultat: D
+      - code: 5E-FRAC-COMPARER-06
+        difficulte: 5
+        type: qcm
+        enonce: 'Ranger dans l’ordre croissant $\dfrac{3}{4}$ ; $\dfrac{5}{6}$ ; $\dfrac{2}{3}$. A) $\dfrac{2}{3} < \dfrac{3}{4} < \dfrac{5}{6}$  B) $\dfrac{3}{4} < \dfrac{2}{3} < \dfrac{5}{6}$  C) $\dfrac{5}{6} < \dfrac{3}{4} < \dfrac{2}{3}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tout écrire en douzièmes.
+          etapes:
+          - '$\dfrac{3}{4} = \dfrac{9}{12}$ ; $\dfrac{5}{6} = \dfrac{10}{12}$ ; $\dfrac{2}{3} = \dfrac{8}{12}$.'
+          - $8 < 9 < 10$.
+          resultat: A
+
+  - code: 5E-FRAC-ADDITION
+    libelle: Additionner et soustraire des fractions
+    attendus: [5E-2026-RAT-08, 5E-2026-RAT-09, 5E-2026-RAT-10, 5E-2026-RAT-13, 5E-2026-RAT-14]
+    cours_couvre: [5E-2026-RAT-08, 5E-2026-RAT-09, 5E-2026-RAT-10, 5E-2026-RAT-13, 5E-2026-RAT-14]
+    prerequis: [5E-FRAC-COMPARER]
+    objectifs:
+    - Additionner et soustraire des fractions de dénominateurs quelconques.
+    - Prendre une fraction ou un pourcentage d’un nombre.
+    - Résoudre des problèmes avec des additions et soustractions de fractions.
+    methodes:
+    - titre: Additionner deux fractions de dénominateurs quelconques
+      etapes:
+      - Chercher un dénominateur commun (le plus petit multiple commun si possible).
+      - Transformer chaque fraction.
+      - Additionner les numérateurs, garder le dénominateur, simplifier.
+      exemple:
+        enonce: Calculer $\dfrac{2}{5} + \dfrac{1}{4}$.
+        resolution:
+        - 'Dénominateur commun : $20$.'
+        - $\dfrac{8}{20} + \dfrac{5}{20} = \dfrac{13}{20}$.
+        resultat: $\dfrac{13}{20}$
+    erreurs_frequentes:
+    - erreur: '$\dfrac{2}{5} + \dfrac{1}{4} = \dfrac{3}{9}$.'
+      explication: 'On n’additionne jamais les dénominateurs : on met d’abord au même dénominateur.'
+    - erreur: '$3 + \dfrac{2}{5} = \dfrac{5}{5}$.'
+      explication: '$3 = \dfrac{15}{5}$, donc $3 + \dfrac{2}{5} = \dfrac{17}{5}$.'
+    resume: |
+      - $\dfrac{a}{d} + \dfrac{b}{d} = \dfrac{a + b}{d}$ ; sinon, on met d’abord au même dénominateur.
+      - Un entier s’écrit comme une fraction : $3 = \dfrac{15}{5}$, $1 = \dfrac{3}{3}$.
+      - Le $\dfrac{1}{3}$ de $18$ vaut $18 \div 3 = 6$ ; $10\,\%$ d’un nombre, c’est son dixième.
+    cours: |
+      ## 1. Même dénominateur
+      $\dfrac{3}{5} + \dfrac{4}{5} = \dfrac{7}{5}$ ; $\dfrac{7}{9} - \dfrac{2}{9} = \dfrac{5}{9}$.
+
+      ## 2. Dénominateurs différents
+      > **Méthode.** On réduit au même dénominateur, puis on additionne (ou soustrait) les numérateurs.
+
+      - $\dfrac{4}{7} - \dfrac{2}{21} = \dfrac{12}{21} - \dfrac{2}{21} = \dfrac{10}{21}$ ($21$ est un multiple de $7$).
+      - $\dfrac{2}{5} + \dfrac{1}{4} = \dfrac{8}{20} + \dfrac{5}{20} = \dfrac{13}{20}$ ($20$ est un multiple de $5$ et de $4$).
+      - $1 - \dfrac{2}{3} = \dfrac{3}{3} - \dfrac{2}{3} = \dfrac{1}{3}$.
+
+      ## 3. Fraction ou pourcentage d’un nombre
+      Le $\dfrac{1}{4}$ de $12$ est $3$. $1\,\%$ de $250$ vaut $2{,}5$ ; $10\,\%$ vaut $25$ ; $50\,\%$ vaut $125$.
+
+      ## 4. Problèmes
+      Dans un collège, $\dfrac{1}{3}$ des élèves sont demi-pensionnaires et $\dfrac{2}{5}$ sont externes. Les autres sont internes : $1 - \dfrac{1}{3} - \dfrac{2}{5} = \dfrac{15}{15} - \dfrac{5}{15} - \dfrac{6}{15} = \dfrac{4}{15}$.
+    questions:
+      - code: 5E-FRAC-ADDITION-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $\dfrac{3}{5} + \dfrac{4}{5}$.
+        solution: 7/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Même dénominateur.
+          etapes:
+          - $\dfrac{3 + 4}{5} = \dfrac{7}{5}$.
+          resultat: 7/5
+      - code: 5E-FRAC-ADDITION-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $\dfrac{4}{7} - \dfrac{2}{21}$.
+        solution: 10/21
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $21$ est un multiple de $7$.
+          etapes:
+          - $\dfrac{4}{7} = \dfrac{12}{21}$.
+          - $\dfrac{12}{21} - \dfrac{2}{21} = \dfrac{10}{21}$.
+          resultat: 10/21
+      - code: 5E-FRAC-ADDITION-03
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $10\,\%$ de $250$.
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$10\,\%$, c’est le dixième.'
+          etapes:
+          - $250 \div 10 = 25$.
+          resultat: '25'
+      - code: 5E-FRAC-ADDITION-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $\dfrac{2}{5} + \dfrac{1}{4}$.
+        solution: 13/20
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Dénominateur commun $20$.
+          etapes:
+          - $\dfrac{8}{20} + \dfrac{5}{20} = \dfrac{13}{20}$.
+          resultat: 13/20
+      - code: 5E-FRAC-ADDITION-05
+        difficulte: 4
+        type: numerique
+        enonce: Calculer $3 + \dfrac{2}{5}$ sous la forme d’une seule fraction.
+        solution: 17/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire $3$ comme une fraction de dénominateur $5$.
+          etapes:
+          - $3 = \dfrac{15}{5}$, donc $\dfrac{15}{5} + \dfrac{2}{5} = \dfrac{17}{5}$.
+          resultat: 17/5
+      - code: 5E-FRAC-ADDITION-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Dans un collège, $\dfrac{1}{3}$ des élèves sont demi-pensionnaires et $\dfrac{2}{5}$ sont externes ; les autres sont internes. Quelle fraction des élèves est interne ?'
+        solution: 4/15
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Retirer de $1$ les deux fractions, au même dénominateur.
+          etapes:
+          - $1 - \dfrac{1}{3} - \dfrac{2}{5} = \dfrac{15}{15} - \dfrac{5}{15} - \dfrac{6}{15}$.
+          - $= \dfrac{4}{15}$.
+          resultat: 4/15

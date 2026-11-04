@@ -1,0 +1,13 @@
+theme:
+  code: INFO
+  titre: La pensée informatique
+  partie: La pensée informatique
+
+attendus:
+  - {code: 5E-2026-INFO-01, type: capacite, page: 20, texte: "Manipuler des instructions simples et les séquencer."}
+  - {code: 5E-2026-INFO-02, type: capacite, page: 20, texte: "Identifier les entrées et sorties d’un programme."}
+  - {code: 5E-2026-INFO-03, type: capacite, page: 20, texte: "Représenter des formules sous la forme d’une expression informatique dans un langage de programmation par blocs."}
+  - {code: 5E-2026-INFO-04, type: capacite, page: 20, texte: "Calculer la valeur de formules à l’aide d’une suite d’instruction dans un langage de programmation par blocs."}
+  - {code: 5E-2026-INFO-05, type: capacite, page: 20, texte: "Prévoir la valeur d’une expression informatique avant son exécution."}
+  - {code: 5E-2026-INFO-06, type: capacite, page: 20, texte: "Analyser un programme simple donné et modifier ses paramètres."}
+  - {code: 5E-2026-INFO-07, type: capacite, page: 20, texte: "Effectuer une boucle inconditionnelle simple permettant de répéter une séquence linéaire d’instructions un nombre précis de fois."}

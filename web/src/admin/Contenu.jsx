@@ -24,7 +24,7 @@ export default function Contenu({ jeton, onExpire, chemin, domaine = "" }) {
 
 function Arbre({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
-  const [niveau, setNiveau] = useState(() => (["2nde", "1re", "Tle"].includes(parametre("niveau")) ? parametre("niveau") : "2nde"));
+  const [niveau, setNiveau] = useState(() => (NIVEAUX.some(([v]) => v === parametre("niveau")) ? parametre("niveau") : "2nde"));
   const [parcours, setParcours] = useState("");
   const [chapitres, setChapitres] = useState(null);
   const [fenetre, setFenetre] = useState(null);

@@ -1,0 +1,117 @@
+chapitre:
+  code: 5E-ALGORITHMIQUE
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 10
+  titre: Algorithmique et programmation
+
+competences:
+  - code: 5E-PROGRAMMES
+    libelle: Écrire et exécuter des programmes avec boucles, conditions et variables
+    attendus: [5E-2026-INFO-01, 5E-2026-INFO-02, 5E-2026-INFO-03, 5E-2026-INFO-04, 5E-2026-INFO-05, 5E-2026-INFO-06, 5E-2026-INFO-07]
+    cours_couvre: [5E-2026-INFO-01, 5E-2026-INFO-02, 5E-2026-INFO-03, 5E-2026-INFO-04, 5E-2026-INFO-05, 5E-2026-INFO-06, 5E-2026-INFO-07]
+    objectifs:
+    - Utiliser une variable, une boucle « répéter », une instruction conditionnelle.
+    - Exécuter un programme à la main et prévoir son résultat.
+    - Décomposer un problème en sous-problèmes (blocs).
+    methodes:
+    - titre: Exécuter un programme à la main
+      etapes:
+      - Écrire la valeur de chaque variable au départ.
+      - Suivre les instructions une à une en mettant à jour les variables.
+      - Pour une boucle, compter les passages et noter la valeur après chacun.
+      exemple:
+        enonce: '« mettre $n$ à $1$ ; répéter $3$ fois : mettre $n$ à $n \times 2$ ». Que vaut $n$ à la fin ?'
+        resolution:
+        - $1 \to 2 \to 4 \to 8$.
+        resultat: $8$
+    erreurs_frequentes:
+    - erreur: Oublier un passage dans une boucle.
+      explication: Faire un tableau de suivi avec une ligne par passage.
+    - erreur: Exécuter les deux branches d’un « si… alors… sinon ».
+      explication: 'Une seule branche est exécutée : celle qui correspond au résultat du test.'
+    resume: |
+      - Une **variable** a un nom et une valeur qui peut changer.
+      - Une **boucle** « répéter $n$ fois » exécute $n$ fois les mêmes instructions.
+      - Une **instruction conditionnelle** « si… alors… sinon » choisit une action selon un test.
+      - Un **événement** (clic, touche) peut déclencher un script ; un **bloc personnalisé** regroupe des instructions réutilisables.
+    cours: |
+      ## 1. Variables
+      Une variable stocke une valeur : « mettre score à $0$ », « ajouter $1$ à score ».
+
+      ## 2. Boucles
+      La boucle « répéter $4$ fois : avancer de $50$ ; tourner de $90°$ » trace un carré. Pour un polygone régulier à $n$ côtés, on tourne de $\dfrac{360°}{n}$ à chaque fois.
+
+      ## 3. Conditions
+      « si $n$ est pair alors diviser $n$ par $2$ sinon multiplier $n$ par $3$ et ajouter $1$ ».
+
+      ## 4. Événements et blocs
+      Un script peut démarrer « quand le drapeau est cliqué » ou « quand la touche espace est pressée ». Plusieurs scripts peuvent s’exécuter en même temps. On crée un **bloc** « carré » pour le réutiliser au lieu de tout réécrire : c’est décomposer un problème en sous-problèmes.
+    questions:
+      - code: 5E-PROGRAMMES-01
+        difficulte: 1
+        type: numerique
+        enonce: '« mettre $n$ à $1$ ; répéter $3$ fois : mettre $n$ à $n \times 2$ ». Que vaut $n$ à la fin ?'
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suivre chaque passage dans la boucle.
+          etapes:
+          - $1 \to 2 \to 4 \to 8$.
+          resultat: '8'
+      - code: 5E-PROGRAMMES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Pour tracer un hexagone régulier avec « répéter $6$ fois : avancer de $50$ ; tourner de … degrés », de combien faut-il tourner ?'
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: On fait un tour complet en $6$ rotations.
+          etapes:
+          - $360 \div 6 = 60°$.
+          resultat: '60'
+      - code: 5E-PROGRAMMES-03
+        difficulte: 3
+        type: numerique
+        enonce: '« si $n$ est pair alors diviser $n$ par $2$ sinon multiplier $n$ par $3$ et ajouter $1$ ». Que devient $n = 7$ ?'
+        solution: '22'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tester la condition, puis exécuter une seule branche.
+          etapes:
+          - '$7$ est impair : $3 \times 7 + 1 = 22$.'
+          resultat: '22'
+      - code: 5E-PROGRAMMES-04
+        difficulte: 4
+        type: numerique
+        enonce: '« mettre score à $0$ ; répéter $5$ fois : ajouter $3$ à score ; puis ajouter $-4$ à score ». Que vaut score à la fin ?'
+        solution: '11'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Seule l’instruction « ajouter $3$ » est dans la boucle.
+          etapes:
+          - Après la boucle, score $= 5 \times 3 = 15$.
+          - $15 - 4 = 11$.
+          resultat: '11'
+      - code: 5E-PROGRAMMES-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Pourquoi créer un bloc personnalisé « triangle » ? A) Pour réutiliser les mêmes instructions sans les réécrire  B) Pour rendre le programme plus lent  C) Parce qu’une boucle est interdite'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer un problème en sous-problèmes.
+          etapes:
+          - Un bloc regroupe des instructions qu’on appelle plusieurs fois.
+          resultat: A
+      - code: 5E-PROGRAMMES-06
+        difficulte: 5
+        type: numerique
+        enonce: '« mettre $n$ à $6$ ; répéter $3$ fois : si $n$ est pair alors diviser $n$ par $2$ sinon multiplier $n$ par $3$ et ajouter $1$ ». Que vaut $n$ à la fin ?'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suivre chaque passage dans un tableau.
+          etapes:
+          - '$6$ pair : $3$ ; $3$ impair : $10$ ; $10$ pair : $5$.'
+          resultat: '5'

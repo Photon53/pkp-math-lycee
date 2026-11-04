@@ -1,0 +1,200 @@
+chapitre:
+  code: 4E-PROP-FONCTIONS
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 9
+  titre: Proportionnalité et notion de fonction
+
+competences:
+  - code: 4E-PROPORTIONNALITE
+    libelle: Résoudre des problèmes de proportionnalité
+    attendus: [4E-2020-PROP-01, 4E-2020-PROP-02, 4E-2020-PROP-03]
+    cours_couvre: [4E-2020-PROP-01, 4E-2020-PROP-02, 4E-2020-PROP-03]
+    objectifs:
+    - Reconnaître graphiquement une situation de proportionnalité.
+    - Calculer une quatrième proportionnelle.
+    - Utiliser une formule de proportionnalité ($y = kx$).
+    methodes:
+    - titre: Reconnaître graphiquement la proportionnalité
+      etapes:
+      - Vérifier que les points sont alignés.
+      - Vérifier que la droite passe par l’origine du repère.
+      - Si les deux conditions sont remplies, la situation est de proportionnalité.
+      exemple:
+        enonce: 'Des points représentant le prix en fonction de la masse sont alignés sur une droite passant par $(0 ; 0)$ et $(2 ; 7)$. Quel est le prix de $1$ kg ?'
+        resolution:
+        - Situation de proportionnalité, coefficient $\dfrac{7}{2} = 3{,}5$.
+        resultat: $3{,}50$ €
+    erreurs_frequentes:
+    - erreur: Penser que des points alignés traduisent toujours une proportionnalité.
+      explication: Il faut aussi que la droite passe par l’origine.
+    - erreur: Calculer une quatrième proportionnelle par différence.
+      explication: 'La proportionnalité est multiplicative : on utilise un coefficient ou un produit en croix.'
+    resume: |
+      - $y$ est proportionnel à $x$ si $y = kx$ pour un nombre $k$ fixé (coefficient).
+      - Graphiquement : points alignés **avec l’origine**.
+      - Quatrième proportionnelle : produit en croix, passage à l’unité, linéarité.
+    cours: |
+      ## 1. Formule
+      Le prix d’un carburant à $1{,}80$ €/L : $P = 1{,}80 \times V$. Le périmètre d’un cercle : $P = \pi \times D$.
+
+      ## 2. Graphique
+      > **Propriété.** Une situation est de proportionnalité si et seulement si elle est représentée par des points alignés avec l’origine.
+
+      ## 3. Quatrième proportionnelle
+      Si $5$ L coûtent $9$ €, $8$ L coûtent $\dfrac{8 \times 9}{5} = 14{,}40$ €.
+    questions:
+      - code: 4E-PROPORTIONNALITE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Le carburant coûte $1{,}80$ € le litre. Combien coûtent $25$ L, en euros ?'
+        solution: '45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $P = 1{,}80 \times V$.
+          etapes:
+          - $1{,}80 \times 25 = 45$ €.
+          resultat: '45'
+      - code: 4E-PROPORTIONNALITE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$5$ L de peinture coûtent $9$ €. Combien coûtent $8$ L, en euros ?'
+        solution: '14,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Produit en croix.
+          etapes:
+          - $\dfrac{8 \times 9}{5} = 14{,}4$ €.
+          resultat: '14,4'
+      - code: 4E-PROPORTIONNALITE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Une situation est représentée par des points alignés sur une droite qui coupe l’axe des ordonnées en $3$. A) C’est une situation de proportionnalité  B) Ce n’est pas une situation de proportionnalité'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La droite doit passer par l’origine.
+          etapes:
+          - Elle passe par $(0 ; 3)$, pas par $(0 ; 0)$.
+          resultat: B
+      - code: 4E-PROPORTIONNALITE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une droite passant par l’origine et par le point $(4 ; 10)$ représente une situation de proportionnalité. Quelle est l’ordonnée du point d’abscisse $6$ ?'
+        solution: '15'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Coefficient $k = \dfrac{10}{4}$.
+          etapes:
+          - $k = 2{,}5$, donc $y = 2{,}5 \times 6 = 15$.
+          resultat: '15'
+      - code: 4E-PROPORTIONNALITE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Le périmètre d’un cercle est proportionnel à son diamètre. Un cercle de diamètre $10$ cm a un périmètre de $31{,}4$ cm. Quel est le périmètre (en cm) d’un cercle de diamètre $25$ cm ?'
+        solution: '78,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Coefficient $3{,}14$.
+          etapes:
+          - $25 \times 3{,}14 = 78{,}5$ cm.
+          resultat: '78,5'
+
+  - code: 4E-FONCTIONS
+    libelle: Représenter la dépendance de deux grandeurs par une formule ou un graphique
+    attendus: [4E-2020-FONC-01, 4E-2020-FONC-02, 4E-2020-FONC-03]
+    cours_couvre: [4E-2020-FONC-01, 4E-2020-FONC-02, 4E-2020-FONC-03]
+    prerequis: [4E-DISTRIBUTIVITE]
+    objectifs:
+    - Produire une formule littérale reliant deux grandeurs.
+    - Représenter cette dépendance par un graphique.
+    - Lire et interpréter des valeurs sur un graphique.
+    methodes:
+    - titre: Lire une valeur sur un graphique
+      etapes:
+      - Repérer la valeur donnée sur l’axe correspondant (abscisses pour la grandeur de départ).
+      - Rejoindre la courbe, puis l’autre axe.
+      - Lire la valeur et l’écrire avec son unité.
+      exemple:
+        enonce: 'La distance d’arrêt $d$ (en m) d’une voiture en fonction de sa vitesse $v$ (en km/h) passe par le point $(50 ; 28)$. Que signifie ce point ?'
+        resolution:
+        - 'À $50$ km/h, la distance d’arrêt est de $28$ m.'
+        resultat: $28$ m à $50$ km/h
+    erreurs_frequentes:
+    - erreur: Inverser les axes lors de la lecture.
+      explication: La grandeur de départ est en abscisse, la grandeur qui en dépend en ordonnée.
+    - erreur: 'Penser qu’une formule comme $A = c^2$ traduit une proportionnalité.'
+      explication: 'Si $c$ double, $A$ est multiplié par $4$ : ce n’est pas proportionnel.'
+    resume: |
+      - Une **formule** exprime une grandeur en fonction d’une autre : $A = c^2$, $P = 4c$.
+      - Un **graphique** place la grandeur de départ en abscisse et la grandeur qui en dépend en ordonnée.
+      - On lit une valeur en ordonnée à partir d’une abscisse, et inversement.
+    cours: |
+      ## 1. Formules
+      L’aire d’un carré de côté $c$ : $A = c^2$. Le prix d’un abonnement de $15$ € plus $2$ € par séance : $P = 15 + 2n$.
+
+      ## 2. Tableau et graphique
+      | $c$ | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|
+      | $A$ | 1 | 4 | 9 | 16 |
+
+      On place les points $(c ; A)$ puis on les relie par une courbe.
+
+      ## 3. Lire et interpréter
+      Sur le graphique de $A = c^2$, l’abscisse $5$ correspond à l’ordonnée $25$ ; l’ordonnée $36$ correspond à l’abscisse $6$.
+    questions:
+      - code: 4E-FONCTIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: 'L’aire d’un carré de côté $c$ est $A = c^2$. Que vaut $A$ pour $c = 7$ ?'
+        solution: '49'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $c$ par $7$.
+          etapes:
+          - $7^2 = 49$.
+          resultat: '49'
+      - code: 4E-FONCTIONS-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Un abonnement coûte $15$ € plus $2$ € par séance. Quelle formule donne le prix $P$ pour $n$ séances ? A) $P = 17n$  B) $P = 15n + 2$  C) $P = 15 + 2n$  D) $P = 2(15 + n)$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Traduire l’énoncé.
+          etapes:
+          - Frais fixes $15$, plus $2$ par séance ; $P = 15 + 2n$.
+          resultat: C
+      - code: 4E-FONCTIONS-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Avec $P = 15 + 2n$, combien de séances peut-on faire avec $41$ € ?'
+        solution: '13'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre $15 + 2n = 41$.
+          etapes:
+          - $2n = 26$, donc $n = 13$.
+          resultat: '13'
+      - code: 4E-FONCTIONS-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Le graphique de la distance d’arrêt $d$ en fonction de la vitesse $v$ passe par $(50 ; 28)$. Que signifie ce point ? A) À $28$ km/h, on s’arrête en $50$ m  B) À $50$ km/h, on s’arrête en $28$ m  C) La voiture roule $28$ min'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Abscisse = vitesse, ordonnée = distance.
+          etapes:
+          - À $50$ km/h, la distance d’arrêt est $28$ m.
+          resultat: B
+      - code: 4E-FONCTIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Pour $A = c^2$, par combien l’aire est-elle multipliée quand le côté est multiplié par $3$ ?'
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $(3c)^2 = 9c^2$.
+          etapes:
+          - L’aire est multipliée par $9$ ; ce n’est pas une situation de proportionnalité.
+          resultat: '9'

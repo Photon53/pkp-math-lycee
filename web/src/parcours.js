@@ -1,6 +1,11 @@
 // Niveaux et parcours (enseignements de mathématiques) : même règle que l'API, app/referentiel.py.
 
+// Ordre scolaire : collège (domaine Maths collège), puis lycée (Maths lycée).
 export const NIVEAUX = [
+  ["6e", "Sixième"],
+  ["5e", "Cinquième"],
+  ["4e", "Quatrième"],
+  ["3e", "Troisième"],
   ["2nde", "Seconde"],
   ["1re", "Première"],
   ["Tle", "Terminale"],
@@ -16,15 +21,23 @@ export const LIBELLES_PARCOURS = {
   technologique: "Voie technologique (STMG, STI2D, STL, ST2S…)",
   "mise-a-niveau": "Mise à niveau (bases de l'année précédente)",
   excellence: "Excellence et olympiades (exercices très poussés)",
-  examens: "Préparation aux examens (épreuve anticipée, bac blanc)",
+  examens: "Préparation aux examens (brevet, épreuve anticipée, bac blanc)",
 };
 
 // Ordre d'affichage : la voie générale, la voie technologique, puis les groupes de soutien et d'approfondissement.
 export const PARCOURS_PAR_NIVEAU = {
+  "6e": ["tronc-commun", "mise-a-niveau", "excellence"],
+  "5e": ["tronc-commun", "mise-a-niveau", "excellence"],
+  "4e": ["tronc-commun", "mise-a-niveau", "excellence"],
+  "3e": ["tronc-commun", "mise-a-niveau", "excellence", "examens"],
   "2nde": ["tronc-commun", "mise-a-niveau", "excellence"],
   "1re": ["specialite", "scientifique", "technologique", "mise-a-niveau", "excellence", "examens"],
   Tle: ["specialite", "complementaires", "expertes", "technologique", "mise-a-niveau", "excellence", "examens"],
 };
+
+export const NIVEAUX_COLLEGE = ["6e", "5e", "4e", "3e"];
+/** Domaine des maths d'un niveau : même règle que `domaine_maths` de l'API. */
+export const domaineMaths = (niveau) => (NIVEAUX_COLLEGE.includes(niveau) ? "maths-college" : "maths-lycee");
 
 const RANG_NIVEAU = Object.fromEntries(NIVEAUX.map(([v], i) => [v, i]));
 

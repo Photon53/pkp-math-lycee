@@ -2,12 +2,103 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **118** · compétences : **256** · questions actives : **1382**
-- Validation pédagogique : 0 validée(s), 1382 à valider, 0 à corriger
+- Chapitres : **154** · compétences : **327** · questions actives : **1775**
+- Validation pédagogique : 0 validée(s), 1775 à valider, 0 à corriger
 
 ## Matrice de couverture
 
 Nombre de questions actives par difficulté (1 = application directe … 5 = niveau bac). ⚠ signale un trou : une difficulté sans question, ou une compétence sans cours.
+
+### 6e — Tronc commun
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Nombres entiers et décimaux | `6E-NUMERATION` Écrire et décomposer un nombre décimal | ✓ | 2 | 1 | 1 | 1 | 1 | 6 | 6 |
+| 1. Nombres entiers et décimaux | `6E-COMPARER-DEC` Repérer, comparer, encadrer et arrondir des nombres décimaux | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 2. Calculer avec les nombres décimaux | `6E-ADD-MULT` Additionner, soustraire et multiplier des nombres décimaux | ✓ | 2 | 1 | 2 | 1 | 1 | 7 | 7 |
+| 2. Calculer avec les nombres décimaux | `6E-DIVISION` Effectuer des divisions euclidiennes et décimales | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 3. Les fractions | `6E-FRAC-SENS` Comprendre une fraction comme un quotient | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 3. Les fractions | `6E-FRAC-CALCUL` Comparer et calculer avec des fractions | ✓ | 1 | 2 | 2 | 1 | 1 | 7 | 7 |
+| 4. Proportionnalité et pourcentages | `6E-PROP` Reconnaître et résoudre un problème de proportionnalité | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 4. Proportionnalité et pourcentages | `6E-POURCENT` Comprendre et appliquer un pourcentage | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 5. Pensée algébrique et motifs | `6E-PREALG` Résoudre des problèmes à nombre inconnu et étudier des motifs évolutifs | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 6. Longueurs, aires, volumes et durées | `6E-PERIMETRES` Convertir des longueurs et calculer des périmètres | ✓ | 2 | 1 | 1 | 1 | 1 | 6 | 6 |
+| 6. Longueurs, aires, volumes et durées | `6E-AIRES-VOLUMES` Calculer des aires et des volumes, convertir des aires | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 6. Longueurs, aires, volumes et durées | `6E-DUREES` Calculer avec des horaires et des durées | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 7. Géométrie plane et vision dans l’espace | `6E-CERCLE-MEDIATRICE` Utiliser distances, milieu, cercle et médiatrice | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 7. Géométrie plane et vision dans l’espace | `6E-ANGLES-TRIANGLES` Mesurer des angles et utiliser les propriétés des triangles | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 7. Géométrie plane et vision dans l’espace | `6E-SYMETRIE` Construire le symétrique d’une figure par rapport à une droite | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 8. Données et probabilités | `6E-TABLEAUX` Recueillir, organiser et lire des données | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Données et probabilités | `6E-PROBAS` Calculer des probabilités simples | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 9. Initiation à la pensée informatique | `6E-INSTRUCTIONS` Exécuter et produire une séquence d’instructions | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 5e — Tronc commun
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Opérations, priorités et divisibilité | `5E-PRIORITES` Enchaîner des opérations en respectant les priorités | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 1. Opérations, priorités et divisibilité | `5E-DIVISIBILITE` Utiliser multiples, diviseurs et critères de divisibilité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Nombres relatifs | `5E-RELATIFS-REPERER` Repérer et comparer des nombres relatifs | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 2. Nombres relatifs | `5E-RELATIFS-CALCUL` Additionner et soustraire des nombres relatifs | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 3. Nombres rationnels et fractions | `5E-FRAC-COMPARER` Écrire autrement et comparer des fractions | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 3. Nombres rationnels et fractions | `5E-FRAC-ADDITION` Additionner et soustraire des fractions | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 4. Puissances et calcul littéral | `5E-PUISSANCES` Calculer avec des carrés et des cubes | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 4. Puissances et calcul littéral | `5E-EXPRESSIONS` Produire et transformer des expressions littérales | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 4. Puissances et calcul littéral | `5E-EQUATIONS` Modéliser et résoudre des équations simples | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Repérage, solides et volumes | `5E-REPERAGE` Se repérer sur une droite graduée et dans un repère du plan | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 5. Repérage, solides et volumes | `5E-SOLIDES` Représenter des solides et calculer des volumes | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 6. Symétrie centrale et angles | `5E-SYM-CENTRALE` Construire et utiliser le symétrique par un demi-tour | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Symétrie centrale et angles | `5E-ANGLES-PARALLELES` Caractériser le parallélisme par les angles | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Triangles et parallélogrammes | `5E-TRIANGLES` Construire des triangles et utiliser leurs droites remarquables | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 7. Triangles et parallélogrammes | `5E-PARALLELOGRAMMES` Reconnaître et utiliser les parallélogrammes | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 8. Statistiques et probabilités | `5E-STATISTIQUES` Recueillir, représenter et résumer des données | ✓ | 1 | 1 | 1 | 2 | 1 | 6 | 6 |
+| 8. Statistiques et probabilités | `5E-PROBABILITES` Calculer des probabilités en situation d’équiprobabilité | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 9. Proportionnalité et premières fonctions | `5E-PROPORTIONNALITE` Reconnaître et résoudre des situations de proportionnalité | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 9. Proportionnalité et premières fonctions | `5E-FONCTIONS` Passer d’un mode de représentation d’une relation à un autre | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 10. Algorithmique et programmation | `5E-PROGRAMMES` Écrire et exécuter des programmes avec boucles, conditions et variables | ✓ | 1 | 1 | 1 | 2 | 1 | 6 | 6 |
+
+### 4e — Tronc commun
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Puissances, notation scientifique et racines carrées | `4E-PUISSANCES` Calculer avec les puissances et la notation scientifique | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 1. Puissances, notation scientifique et racines carrées | `4E-RACINES` Connaître et utiliser la racine carrée d’un nombre positif | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Nombres relatifs et nombres rationnels | `4E-RELATIFS-PRODUITS` Multiplier et diviser des nombres relatifs | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Nombres relatifs et nombres rationnels | `4E-FRACTIONS-CALCUL` Calculer et comparer avec des nombres rationnels | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 3. Divisibilité et nombres premiers | `4E-NOMBRES-PREMIERS` Décomposer en facteurs premiers et simplifier des fractions | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Calcul littéral et équations | `4E-DISTRIBUTIVITE` Développer, factoriser et réduire avec la distributivité simple | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Calcul littéral et équations | `4E-EQUATIONS` Mettre en équation et résoudre une équation du premier degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Pythagore, Thalès et cosinus | `4E-PYTHAGORE` Utiliser le théorème de Pythagore et sa réciproque | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Pythagore, Thalès et cosinus | `4E-THALES` Utiliser le théorème de Thalès dans des triangles emboîtés | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Pythagore, Thalès et cosinus | `4E-COSINUS` Utiliser le cosinus d’un angle aigu dans un triangle rectangle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Translations, agrandissements et réductions | `4E-TRANSLATION` Transformer une figure par translation | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Translations, agrandissements et réductions | `4E-AGRANDISSEMENT` Agrandir ou réduire une figure et calculer longueurs, aires, volumes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Pyramides, cônes et grandeurs composées | `4E-PYRAMIDE-CONE` Se repérer dans l’espace et calculer le volume d’une pyramide, d’un cône | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Pyramides, cônes et grandeurs composées | `4E-GRANDEURS-COMPOSEES` Calculer avec des grandeurs composées et convertir leurs unités | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Statistiques et probabilités | `4E-MEDIANE` Représenter des données et calculer une médiane | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 8. Statistiques et probabilités | `4E-PROBABILITES` Calculer des probabilités et utiliser l’événement contraire | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 9. Proportionnalité et notion de fonction | `4E-PROPORTIONNALITE` Résoudre des problèmes de proportionnalité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 9. Proportionnalité et notion de fonction | `4E-FONCTIONS` Représenter la dépendance de deux grandeurs par une formule ou un graphique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 10. Algorithmique et programmation | `4E-PROGRAMMES` Écrire, mettre au point et exécuter un programme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 3e — Tronc commun
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Arithmétique et calcul numérique | `3E-ARITHMETIQUE` Décomposer, simplifier et résoudre des problèmes de divisibilité | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 1. Arithmétique et calcul numérique | `3E-CALCUL-NUMERIQUE` Résoudre des problèmes avec fractions, racines et puissances | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 2. Calcul littéral, identités et équations | `3E-DEVELOPPER` Développer, factoriser et utiliser l’identité $a^2 - b^2$ | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 2. Calcul littéral, identités et équations | `3E-EQUATIONS` Résoudre des équations du premier degré, produits et $x^2 = a$ | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 3. Fonctions, fonctions linéaires et affines | `3E-NOTION-FONCTION` Utiliser le vocabulaire des fonctions, déterminer images et antécédents | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
+| 3. Fonctions, fonctions linéaires et affines | `3E-FONCTIONS-AFFINES` Représenter et interpréter fonctions linéaires et affines | ✓ | 1 | 1 | 1 | 2 | 1 | 6 | 6 |
+| 4. Thalès, triangles semblables, trigonométrie et transformations | `3E-THALES-SEMBLABLES` Utiliser Thalès (configuration papillon) et les triangles semblables | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Thalès, triangles semblables, trigonométrie et transformations | `3E-TRIGONOMETRIE` Utiliser cosinus, sinus et tangente dans le triangle rectangle | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 4. Thalès, triangles semblables, trigonométrie et transformations | `3E-ROTATION-HOMOTHETIE` Transformer une figure par rotation et par homothétie | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Sphère, sections et grandeurs | `3E-SPHERE-BOULE` Se repérer sur une sphère, représenter des solides et calculer des volumes | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 5. Sphère, sections et grandeurs | `3E-GRANDEURS` Calculer avec des grandeurs composées et vérifier la cohérence des unités | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Statistiques et probabilités | `3E-STATISTIQUES` Représenter des données, calculer effectifs, fréquences et étendue | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 6. Statistiques et probabilités | `3E-PROBABILITES` Calculer des probabilités pour une ou deux épreuves | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+| 7. Algorithmique et programmation | `3E-PROGRAMMES` Concevoir des programmes avec boucles, conditions, variables et blocs | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
 ### 2nde — Tronc commun
 
@@ -353,7 +444,7 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 1339 |
+| PKP Math | — | originale | 1732 |
 | math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |

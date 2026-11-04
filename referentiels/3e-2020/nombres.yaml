@@ -1,0 +1,7 @@
+theme:
+  code: NOMB
+  titre: Nombres
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 3E-2020-NOMB-01, type: capacite, page: 2, texte: "Il utilise les puissances d’exposants positifs ou négatifs pour simplifier l’écriture des produits."}

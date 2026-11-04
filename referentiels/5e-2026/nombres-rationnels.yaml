@@ -1,0 +1,21 @@
+theme:
+  code: RAT
+  titre: Nombres rationnels
+  partie: Nombres et calculs
+
+attendus:
+  # Automatismes (page 8) : fractions écrites a/b, l'extraction du PDF les coupe sur plusieurs lignes.
+  - {code: 5E-2026-RAT-01, type: automatisme, page: 8, texte: "Entretenir la connaissance et l’utilisation des tables de multiplication."}
+  - {code: 5E-2026-RAT-02, type: automatisme, page: 8, texte: "Entretenir l’écriture décimale des fractions simples comme 1/2 ; 1/4 ; 3/4 ; 3/2 ; 4/2 ; 5/2 ; 1/10 ; 100/100 ; 7/1."}
+  - {code: 5E-2026-RAT-03, type: automatisme, page: 8, texte: "Faire vivre la notion de nombre quotient en complétant des multiplications à trou : 3 × … = 7 puis 3 × 7/3 = …"}
+  - {code: 5E-2026-RAT-04, type: automatisme, page: 8, texte: "Lire l’abscisse d’un point sur une droite graduée en tiers, en quarts, en moitiés, en dixièmes."}
+  - {code: 5E-2026-RAT-05, type: automatisme, page: 8, texte: "Reconnaitre des fractions égales : 2/3 = …/15 ; 4/7 = …/14."}
+  - {code: 5E-2026-RAT-06, type: automatisme, page: 8, texte: "Comparer deux fractions : 2/7 et 5/7 ; 8/12 et 8/21 ; 3/4 et 7/18 ; 8/3 et 6/7."}
+  - {code: 5E-2026-RAT-07, type: automatisme, page: 8, texte: "Écrire une fraction sous la forme d’une somme d’un nombre entier et d’une fraction inférieure à 1 : 17/5 = 3 + 2/5."}
+  - {code: 5E-2026-RAT-08, type: automatisme, page: 8, texte: "Addition et soustraction de fractions simples : 3/5 + 4/5 ; 1 – 2/3 ; 4/7 – 2/21 ; 3 + 2/5 ; 2/5 + 1/4."}
+  - {code: 5E-2026-RAT-09, type: automatisme, page: 8, texte: "Prendre une fraction simple d’un nombre : le 1/3 de 18 ; le 1/4 de 12."}
+  - {code: 5E-2026-RAT-10, type: automatisme, page: 8, texte: "Prendre 1 %, 10 % ou 50 % d’un nombre, en lien avec la proportionnalité."}
+  - {code: 5E-2026-RAT-11, type: automatisme, page: 8, texte: "Écrire un même nombre sous de multiples formes, par exemple dire que 1,2 = 12/10 = 6/5 = 1 + 1/5 = 120 % = 120/100 etc."}
+  - {code: 5E-2026-RAT-12, type: capacite, page: 8, texte: "Comparer des fractions."}
+  - {code: 5E-2026-RAT-13, type: capacite, page: 8, texte: "Additionner et soustraire des fractions de dénominateurs quelconques."}
+  - {code: 5E-2026-RAT-14, type: capacite, page: 8, texte: "Résoudre des problèmes avec des additions et soustractions de fractions."}

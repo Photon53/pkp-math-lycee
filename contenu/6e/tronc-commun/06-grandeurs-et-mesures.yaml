@@ -1,0 +1,355 @@
+chapitre:
+  code: 6E-GRANDEURS
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 6
+  titre: Longueurs, aires, volumes et durées
+
+competences:
+  - code: 6E-PERIMETRES
+    libelle: Convertir des longueurs et calculer des périmètres
+    attendus: [6E-2025-GM-01, 6E-2025-GM-02, 6E-2025-GM-03, 6E-2025-GM-04, 6E-2025-GM-05, 6E-2025-GM-06, 6E-2025-GM-07, 6E-2025-GM-08, 6E-2025-GM-09, 6E-2025-GM-10]
+    cours_couvre: [6E-2025-GM-01, 6E-2025-GM-02, 6E-2025-GM-03, 6E-2025-GM-04, 6E-2025-GM-05, 6E-2025-GM-06, 6E-2025-GM-07, 6E-2025-GM-08, 6E-2025-GM-09, 6E-2025-GM-10]
+    prerequis: [6E-ADD-MULT]
+    objectifs:
+    - Convertir des longueurs du kilomètre au millimètre.
+    - Calculer le périmètre d’un carré, d’un rectangle, d’un disque et de figures composées.
+    methodes:
+    - titre: Calculer le périmètre d’un disque
+      etapes:
+      - Repérer le diamètre $D$ (ou le rayon $r$, avec $D = 2r$).
+      - Appliquer $P = \pi \times D$.
+      - Donner une valeur approchée avec $\pi \approx 3{,}14$ si demandé, et l’unité.
+      exemple:
+        enonce: Calculer le périmètre d’un cercle de rayon $5$ cm (avec $\pi \approx 3{,}14$).
+        resolution:
+        - $D = 2 \times 5 = 10$ cm.
+        - $P \approx 3{,}14 \times 10 = 31{,}4$ cm.
+        resultat: $31{,}4$ cm
+    erreurs_frequentes:
+    - erreur: Utiliser le rayon à la place du diamètre dans $P = \pi \times D$.
+      explication: 'Le diamètre vaut deux fois le rayon : $P = \pi \times D = 2 \times \pi \times r$.'
+    - erreur: Additionner des longueurs exprimées dans des unités différentes.
+      explication: On convertit d’abord toutes les longueurs dans la même unité.
+    resume: |
+      - $1$ km $= 1\,000$ m ; $1$ m $= 10$ dm $= 100$ cm $= 1\,000$ mm ; $1$ cm $= 0{,}1$ dm.
+      - Le **périmètre** est la longueur du contour.
+      - Carré de côté $c$ : $P = 4 \times c$. Rectangle : $P = 2 \times (L + \ell)$.
+      - Disque de diamètre $D$ : $P = \pi \times D$ ; le périmètre est **proportionnel** au diamètre.
+    cours: |
+      ## 1. Unités de longueur
+      Les préfixes indiquent des multiples ou des sous-multiples du mètre : **kilo** ($1\,000$), **hecto** ($100$), **déca** ($10$), **déci** ($\dfrac{1}{10}$), **centi** ($\dfrac{1}{100}$), **milli** ($\dfrac{1}{1\,000}$).
+
+      Exemples : $3{,}5$ m $= 350$ cm car $1$ m $= 100$ cm ; $2\,400$ m $= 2{,}4$ km.
+
+      ## 2. Périmètres usuels
+      > **Formules.** Carré : $P = 4 \times c$. Rectangle : $P = 2 \times (L + \ell)$. Cercle : $P = \pi \times D$.
+
+      Le nombre $\pi$ vaut environ $3{,}14$. Si l’on double le diamètre, le périmètre double : il y a **proportionnalité**.
+
+      ## 3. Figures composées
+      Pour une figure faite d’un carré de côté $4$ cm surmonté d’un demi-cercle de diamètre $4$ cm, le contour comprend trois côtés du carré ($12$ cm) et un demi-cercle ($\dfrac{\pi \times 4}{2} \approx 6{,}28$ cm) : $P \approx 18{,}28$ cm.
+
+      On reporte une longueur avec le **compas** sans la mesurer.
+    questions:
+      - code: 6E-PERIMETRES-01
+        difficulte: 1
+        type: numerique
+        enonce: Convertir $3{,}5$ m en centimètres.
+        solution: '350'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ m $= 100$ cm.
+          etapes:
+          - $3{,}5 \times 100 = 350$ cm.
+          resultat: '350'
+      - code: 6E-PERIMETRES-02
+        difficulte: 1
+        type: numerique
+        enonce: Calculer le périmètre (en cm) d’un rectangle de longueur $8$ cm et de largeur $5$ cm.
+        solution: '26'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $P = 2 \times (L + \ell)$.
+          etapes:
+          - $2 \times (8 + 5) = 2 \times 13 = 26$ cm.
+          resultat: '26'
+      - code: 6E-PERIMETRES-03
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $2\,400$ m en kilomètres.
+        solution: '2,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ km $= 1\,000$ m.
+          etapes:
+          - $2\,400 \div 1\,000 = 2{,}4$ km.
+          resultat: '2,4'
+      - code: 6E-PERIMETRES-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer le périmètre (en cm) d’un cercle de rayon $5$ cm, en prenant $\pi \approx 3{,}14$.
+        solution: '31,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $P = \pi \times D$ avec $D = 2r$.
+          etapes:
+          - $D = 10$ cm.
+          - $P \approx 3{,}14 \times 10 = 31{,}4$ cm.
+          resultat: '31,4'
+      - code: 6E-PERIMETRES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Un carré a un périmètre de $3{,}6$ m. Quelle est la longueur de son côté, en cm ?'
+        solution: '90'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le périmètre d’un carré vaut quatre fois son côté.
+          etapes:
+          - $3{,}6 \div 4 = 0{,}9$ m.
+          - $0{,}9$ m $= 90$ cm.
+          resultat: '90'
+      - code: 6E-PERIMETRES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Une figure est formée d’un carré de côté $4$ cm surmonté d’un demi-cercle de diamètre $4$ cm (le diamètre est un côté du carré). Donner son périmètre en cm, avec $\pi \approx 3{,}14$.'
+        solution: '18,28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le contour comprend trois côtés du carré et le demi-cercle.
+          etapes:
+          - Trois côtés $= 3 \times 4 = 12$ cm.
+          - Demi-cercle $\approx 3{,}14 \times 4 \div 2 = 6{,}28$ cm.
+          - $12 + 6{,}28 = 18{,}28$ cm.
+          resultat: '18,28'
+          erreurs_frequentes:
+          - Compter le côté commun au carré et au demi-cercle, qui n’est pas sur le contour.
+
+  - code: 6E-AIRES-VOLUMES
+    libelle: Calculer des aires et des volumes, convertir des aires
+    attendus: [6E-2025-GM-11, 6E-2025-GM-12, 6E-2025-GM-13, 6E-2025-GM-14, 6E-2025-GM-15, 6E-2025-GM-16, 6E-2025-GM-17, 6E-2025-GM-18, 6E-2025-GM-19, 6E-2025-GM-20, 6E-2025-GM-21, 6E-2025-GM-22]
+    cours_couvre: [6E-2025-GM-11, 6E-2025-GM-12, 6E-2025-GM-13, 6E-2025-GM-14, 6E-2025-GM-15, 6E-2025-GM-16, 6E-2025-GM-17, 6E-2025-GM-18, 6E-2025-GM-19, 6E-2025-GM-20, 6E-2025-GM-21, 6E-2025-GM-22]
+    prerequis: [6E-PERIMETRES]
+    objectifs:
+    - Calculer l’aire d’un carré, d’un rectangle et effectuer des conversions d’aires.
+    - Déterminer un volume en comptant des cubes de $1$ cm³.
+    methodes:
+    - titre: Convertir une aire
+      etapes:
+      - Se rappeler que $1$ m² $= 100$ dm² et $1$ dm² $= 100$ cm².
+      - Multiplier par $100$ pour passer à l’unité d’aire juste inférieure, diviser par $100$ pour l’unité supérieure.
+      exemple:
+        enonce: Convertir $3{,}5$ m² en dm².
+        resolution:
+        - $1$ m² $= 100$ dm².
+        - $3{,}5 \times 100 = 350$ dm².
+        resultat: $350$ dm²
+    erreurs_frequentes:
+    - erreur: 'Convertir $1$ m² en $10$ dm².'
+      explication: 'Un carré de $1$ m de côté contient $10 \times 10 = 100$ carrés de $1$ dm de côté.'
+    - erreur: Confondre aire et périmètre.
+      explication: L’aire mesure la surface (en unités carrées), le périmètre la longueur du contour.
+    resume: |
+      - $1$ cm² est l’aire d’un carré de $1$ cm de côté.
+      - Carré : $\mathcal{A} = c \times c$. Rectangle : $\mathcal{A} = L \times \ell$.
+      - $1$ m² $= 100$ dm² ; $1$ dm² $= 100$ cm² ; donc $1$ cm² $= 0{,}01$ dm².
+      - $1$ cm³ est le volume d’un cube de $1$ cm d’arête ; un pavé de $3$ cm, $2$ cm et $4$ cm contient $3 \times 2 \times 4 = 24$ cm³.
+    cours: |
+      ## 1. Comparer des aires
+      On peut comparer deux surfaces sans mesurer, par superposition ou par découpage et recollement. Deux surfaces de formes différentes peuvent avoir la même aire.
+
+      ## 2. Aires du carré et du rectangle
+      > **Formules.** Carré de côté $c$ : $\mathcal{A} = c \times c$. Rectangle de longueur $L$ et de largeur $\ell$ : $\mathcal{A} = L \times \ell$.
+
+      Un rectangle de $6$ cm sur $4$ cm a une aire de $24$ cm² : on peut y ranger $24$ carrés de $1$ cm de côté.
+
+      ## 3. Conversions d’aires
+      $1$ m² $= 1$ m $\times 1$ m $= 10$ dm $\times 10$ dm $= 100$ dm². De même $1$ dm² $= 100$ cm². Ainsi $1$ cm² $= \dfrac{1}{100}$ dm² $= 0{,}01$ dm².
+
+      ## 4. Volumes
+      Le **centimètre cube** (cm³) est le volume d’un cube d’arête $1$ cm. Pour un assemblage de cubes, on **compte** les cubes, couche par couche.
+    questions:
+      - code: 6E-AIRES-VOLUMES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer l’aire (en cm²) d’un rectangle de $6$ cm sur $4$ cm.
+        solution: '24'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\mathcal{A} = L \times \ell$.
+          etapes:
+          - $6 \times 4 = 24$ cm².
+          resultat: '24'
+      - code: 6E-AIRES-VOLUMES-02
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $3{,}5$ m² en dm².
+        solution: '350'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ m² $= 100$ dm².
+          etapes:
+          - $3{,}5 \times 100 = 350$ dm².
+          resultat: '350'
+      - code: 6E-AIRES-VOLUMES-03
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $250$ cm² en dm².
+        solution: '2,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ cm² $= 0{,}01$ dm².
+          etapes:
+          - $250 \div 100 = 2{,}5$ dm².
+          resultat: '2,5'
+      - code: 6E-AIRES-VOLUMES-04
+        difficulte: 3
+        type: numerique
+        enonce: Un carré a une aire de $49$ cm². Quel est son périmètre, en cm ?
+        solution: '28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Trouver le côté, puis le périmètre.
+          etapes:
+          - $7 \times 7 = 49$, donc le côté mesure $7$ cm.
+          - $P = 4 \times 7 = 28$ cm.
+          resultat: '28'
+      - code: 6E-AIRES-VOLUMES-05
+        difficulte: 4
+        type: numerique
+        enonce: Combien de cubes de $1$ cm d’arête faut-il pour remplir une boîte en forme de pavé de $5$ cm de long, $3$ cm de large et $2$ cm de haut ?
+        solution: '30'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter couche par couche.
+          etapes:
+          - 'Une couche : $5 \times 3 = 15$ cubes.'
+          - 'Deux couches : $2 \times 15 = 30$ cubes, soit $30$ cm³.'
+          resultat: '30'
+      - code: 6E-AIRES-VOLUMES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un jardin rectangulaire de $12$ m sur $8$ m contient une allée rectangulaire de $12$ m sur $1{,}5$ m. Quelle est l’aire du reste du jardin, en m² ?'
+        solution: '78'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Aire du jardin moins aire de l’allée.
+          etapes:
+          - 'Jardin : $12 \times 8 = 96$ m² ; allée : $12 \times 1{,}5 = 18$ m².'
+          - $96 - 18 = 78$ m².
+          resultat: '78'
+
+  - code: 6E-DUREES
+    libelle: Calculer avec des horaires et des durées
+    attendus: [6E-2025-GM-23, 6E-2025-GM-24, 6E-2025-GM-25, 6E-2025-GM-26, 6E-2025-GM-27, 6E-2025-GM-28, 6E-2025-GM-29, 6E-2025-GM-30]
+    cours_couvre: [6E-2025-GM-23, 6E-2025-GM-24, 6E-2025-GM-25, 6E-2025-GM-26, 6E-2025-GM-27, 6E-2025-GM-28, 6E-2025-GM-29, 6E-2025-GM-30]
+    objectifs:
+    - Connaître les relations entre jour, heure, minute et seconde.
+    - Calculer une durée, un horaire de début ou de fin.
+    - Convertir une durée exprimée en heures décimales.
+    methodes:
+    - titre: Calculer une durée entre deux horaires
+      etapes:
+      - Compléter jusqu’à l’heure pleine suivante.
+      - Ajouter les heures pleines.
+      - Ajouter les minutes restantes.
+      exemple:
+        enonce: Un film commence à $20$ h $45$ et finit à $22$ h $10$. Quelle est sa durée ?
+        resolution:
+        - 'De $20$ h $45$ à $21$ h $00$ : $15$ min.'
+        - 'De $21$ h $00$ à $22$ h $10$ : $1$ h $10$ min.'
+        - $15$ min $+ 1$ h $10$ min $= 1$ h $25$ min.
+        resultat: $1$ h $25$ min
+    erreurs_frequentes:
+    - erreur: 'Écrire $1{,}5$ h $= 1$ h $50$ min.'
+      explication: '$0{,}5$ h est une demi-heure, soit $30$ minutes : $1{,}5$ h $= 1$ h $30$ min.'
+    - erreur: Soustraire les horaires comme des nombres décimaux ($22{,}10 - 20{,}45$).
+      explication: 'Une heure compte $60$ minutes, pas $100$ : on passe par l’heure pleine.'
+    resume: |
+      - $1$ j $= 24$ h ; $1$ h $= 60$ min ; $1$ min $= 60$ s ; donc $1$ h $= 3\,600$ s.
+      - Une demi-heure $= 30$ min ; un quart d’heure $= 15$ min ; trois quarts d’heure $= 45$ min.
+      - Une année compte $365$ jours ($366$ si elle est bissextile) ; un siècle $100$ ans ; un millénaire $1\,000$ ans.
+      - Pour une durée entre deux horaires, on passe par les heures pleines.
+    cours: |
+      ## 1. Unités de durée
+      $1$ jour $= 24$ heures, $1$ heure $= 60$ minutes, $1$ minute $= 60$ secondes. Le système des durées n’est **pas décimal** : il est sexagésimal (on compte par $60$).
+
+      ## 2. Lire l’heure
+      Sur un cadran, la petite aiguille indique les heures et la grande les minutes. « $14$ h $45$ » se lit aussi « trois heures moins le quart » de l’après-midi.
+
+      ## 3. Calculer une durée
+      De $8$ h $50$ à $11$ h $15$ : $10$ min pour aller à $9$ h, puis $2$ h jusqu’à $11$ h, puis $15$ min. Total : $2$ h $25$ min.
+
+      ## 4. Convertir
+      - $2$ h $15$ min $= 120 + 15 = 135$ min.
+      - $1{,}25$ h $= 1$ h $+ 0{,}25 \times 60$ min $= 1$ h $15$ min.
+      - $200$ s $= 3 \times 60 + 20$ s $= 3$ min $20$ s.
+    questions:
+      - code: 6E-DUREES-01
+        difficulte: 1
+        type: numerique
+        enonce: Combien de minutes y a-t-il dans trois quarts d’heure ?
+        solution: '45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un quart d’heure vaut $15$ min.
+          etapes:
+          - $3 \times 15 = 45$ min.
+          resultat: '45'
+      - code: 6E-DUREES-02
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $2$ h $15$ min en minutes.
+        solution: '135'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ h $= 60$ min.
+          etapes:
+          - $2 \times 60 + 15 = 135$ min.
+          resultat: '135'
+      - code: 6E-DUREES-03
+        difficulte: 3
+        type: numerique
+        enonce: Un film commence à $20$ h $45$ et finit à $22$ h $10$. Quelle est sa durée, en minutes ?
+        solution: '85'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Passer par l’heure pleine.
+          etapes:
+          - 'De $20$ h $45$ à $21$ h : $15$ min ; de $21$ h à $22$ h $10$ : $70$ min.'
+          - $15 + 70 = 85$ min ($1$ h $25$ min).
+          resultat: '85'
+      - code: 6E-DUREES-04
+        difficulte: 3
+        type: qcm
+        enonce: 'À quelle durée correspond $1{,}5$ h ? A) $1$ h $50$ min  B) $1$ h $5$ min  C) $1$ h $30$ min  D) $150$ min'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$0{,}5$ h est une demi-heure.'
+          etapes:
+          - $0{,}5 \times 60 = 30$ min, donc $1{,}5$ h $= 1$ h $30$ min.
+          resultat: C
+      - code: 6E-DUREES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Un train part à $9$ h $40$ et le trajet dure $2$ h $35$ min. À quelle heure arrive-t-il ? Donner le nombre de minutes affichées après l’heure (par exemple $15$ pour « $12$ h $15$ »).'
+        solution: '15'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Ajouter les heures, puis les minutes, en convertissant $60$ min en $1$ h.
+          etapes:
+          - $9$ h $40 + 2$ h $= 11$ h $40$.
+          - $11$ h $40 + 35$ min $= 11$ h $75$ min $= 12$ h $15$.
+          resultat: '15'
+      - code: 6E-DUREES-06
+        difficulte: 5
+        type: numerique
+        enonce: Combien de secondes y a-t-il dans une journée ?
+        solution: '86400'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ j $= 24$ h et $1$ h $= 3\,600$ s.
+          etapes:
+          - $24 \times 3\,600 = 86\,400$ s.
+          resultat: '86400'

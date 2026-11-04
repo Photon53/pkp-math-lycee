@@ -1,0 +1,107 @@
+chapitre:
+  code: 3E-ALGORITHMIQUE
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 7
+  titre: Algorithmique et programmation
+
+competences:
+  - code: 3E-PROGRAMMES
+    libelle: Concevoir des programmes avec boucles, conditions, variables et blocs
+    attendus: [3E-2020-ALGO-01, 3E-2020-ALGO-02, 3E-2020-ALGO-03, 3E-2020-ALGO-04, 3E-2020-ALGO-05, 3E-2020-ALGO-06, 3E-2020-ALGO-07, 3E-2020-ALGO-08, 3E-2020-ALGO-09, 3E-2020-ALGO-10]
+    cours_couvre: [3E-2020-ALGO-01, 3E-2020-ALGO-02, 3E-2020-ALGO-03, 3E-2020-ALGO-04, 3E-2020-ALGO-05, 3E-2020-ALGO-06, 3E-2020-ALGO-07, 3E-2020-ALGO-08, 3E-2020-ALGO-09, 3E-2020-ALGO-10]
+    objectifs:
+    - Utiliser simultanément boucles « répéter … fois », « répéter jusqu’à » et conditions.
+    - Décomposer un problème en blocs personnalisés ; reproduire un motif avec une boucle.
+    - Programmer des simulations et des jeux (scripts en parallèle, événements).
+    methodes:
+    - titre: Lire un programme de calcul avec une boucle « répéter jusqu’à »
+      etapes:
+      - Initialiser les variables (par exemple un compteur à $0$).
+      - Tester la condition d’arrêt avant chaque passage.
+      - Mettre à jour les variables et compter les passages.
+      exemple:
+        enonce: '« mettre $c$ à $0$ ; mettre $s$ à $100$ ; répéter jusqu’à $s < 10$ : mettre $s$ à $s \div 2$ ; ajouter $1$ à $c$ ». Que vaut $c$ à la fin ?'
+        resolution:
+        - $100 \to 50 \to 25 \to 12{,}5 \to 6{,}25$.
+        - $4$ passages, donc $c = 4$.
+        resultat: $c = 4$
+    erreurs_frequentes:
+    - erreur: Confondre « répéter jusqu’à » et « répéter tant que ».
+      explication: '« Répéter jusqu’à C » s’arrête quand C devient **vraie** ; « tant que C » continue tant que C est vraie.'
+    - erreur: Utiliser un nombre aléatoire sans le stocker dans une variable.
+      explication: Chaque appel à « nombre aléatoire » donne une nouvelle valeur ; il faut la mémoriser pour la tester plusieurs fois.
+    resume: |
+      - Les boucles et conditions se combinent : figures, programmes de calcul, déplacements, **simulations**.
+      - Un **bloc personnalisé** (avec paramètres) traduit un sous-problème et se réutilise.
+      - Un motif répété dans une boucle avec une rotation produit une rosace.
+      - Plusieurs scripts déclenchés par des **événements** s’exécutent en parallèle et interagissent (messages).
+    cours: |
+      ## 1. Combiner boucles et conditions
+      Simulation de $1\,000$ lancers d’un dé : « mettre six à $0$ ; répéter $1\,000$ fois : mettre $d$ à nombre aléatoire entre $1$ et $6$ ; si $d = 6$ alors ajouter $1$ à six ». La fréquence $\dfrac{\text{six}}{1\,000}$ approche $\dfrac{1}{6}$.
+
+      ## 2. Blocs personnalisés et motifs
+      Bloc « polygone ($n$, côté) » : « répéter $n$ fois : avancer de côté ; tourner de $\dfrac{360}{n}$ ». Rosace : « répéter $10$ fois : polygone ($5$, $40$) ; tourner de $36$ ».
+
+      ## 3. Jeux et scripts parallèles
+      Un script gère le déplacement du joueur avec les flèches ; un autre fait apparaître des obstacles ; un troisième teste les collisions et envoie le message « perdu ».
+
+      ## 4. Algorithmique débranchée
+      Rechercher un nombre entre $1$ et $100$ en posant « plus grand ou plus petit ? » : en divisant l’intervalle par deux à chaque question, $7$ questions suffisent.
+    questions:
+      - code: 3E-PROGRAMMES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Pour une rosace, le script est « répéter $10$ fois : polygone ; tourner de … degrés » et doit faire exactement un tour. De combien faut-il tourner ?'
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un tour complet partagé en $10$.
+          etapes:
+          - $360 \div 10 = 36°$.
+          resultat: '36'
+      - code: 3E-PROGRAMMES-02
+        difficulte: 2
+        type: numerique
+        enonce: '« mettre $c$ à $0$ ; mettre $s$ à $100$ ; répéter jusqu’à $s < 10$ : mettre $s$ à $s \div 2$ ; ajouter $1$ à $c$ ». Que vaut $c$ à la fin ?'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suivre $s$ et $c$.
+          etapes:
+          - $100 \to 50 \to 25 \to 12{,}5 \to 6{,}25$ ; $4$ passages.
+          resultat: '4'
+      - code: 3E-PROGRAMMES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'On recherche un nombre entre $1$ et $100$ en divisant à chaque question l’intervalle par deux (« plus grand ou plus petit ? »). Combien de questions suffisent au maximum ?'
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher la plus petite puissance de $2$ supérieure ou égale à $100$.
+          etapes:
+          - $2^6 = 64 < 100 \leq 128 = 2^7$ ; $7$ questions suffisent.
+          resultat: '7'
+      - code: 3E-PROGRAMMES-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Dans une simulation de $1\,000$ lancers de dé, le compteur « six » vaut $172$ à la fin. Que peut-on dire ? A) Le dé est truqué  B) La fréquence $0{,}172$ est proche de la probabilité $\dfrac{1}{6}$  C) Le programme est faux'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer fréquence et probabilité.
+          etapes:
+          - $\dfrac{1}{6} \approx 0{,}167$ ; l’écart est normal pour $1\,000$ lancers.
+          resultat: B
+      - code: 3E-PROGRAMMES-05
+        difficulte: 5
+        type: numerique
+        enonce: '« mettre $n$ à $7$ ; mettre $c$ à $0$ ; répéter jusqu’à $n = 1$ : si $n$ est pair alors $n \leftarrow n \div 2$ sinon $n \leftarrow 3n + 1$ ; ajouter $1$ à $c$ ». Que vaut $c$ à la fin ?'
+        solution: '16'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Suivre la suite de Syracuse à partir de $7$.
+          etapes:
+          - $7 \to 22 \to 11 \to 34 \to 17 \to 52 \to 26 \to 13 \to 40 \to 20 \to 10 \to 5 \to 16 \to 8 \to 4 \to 2 \to 1$.
+          - $16$ passages.
+          resultat: '16'

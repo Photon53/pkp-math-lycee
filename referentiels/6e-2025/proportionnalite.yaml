@@ -1,0 +1,13 @@
+theme:
+  code: PROP
+  titre: La proportionnalité
+  partie: La proportionnalité
+
+attendus:
+  - {code: 6E-2025-PROP-01, type: automatisme, page: 27, texte: "L’élève sait repérer des relations multiplicatives simples entre des nombres (double, quadruple, moitié, tiers, quart)."}
+  - {code: 6E-2025-PROP-02, type: automatisme, page: 27, texte: "Il associe de manière automatique les expressions du type : « 4 fois plus grand, 4 fois plus petit, 5 fois plus, 5 fois moins » à une multiplication ou à une division."}
+  - {code: 6E-2025-PROP-03, type: capacite, page: 27, texte: "Connaître la définition de la proportionnalité entre deux grandeurs et la mettre en lien avec des expressions de la vie courante"}
+  - {code: 6E-2025-PROP-04, type: capacite, page: 27, texte: "Identifier si une situation relève du « modèle » de la proportionnalité"}
+  - {code: 6E-2025-PROP-05, type: capacite, page: 27, texte: "Résoudre un problème de proportionnalité en choisissant une procédure adaptée : propriété de linéarité pour la multiplication ou l’addition, retour à l’unité"}
+  - {code: 6E-2025-PROP-06, type: capacite, page: 27, texte: "Représenter une situation de proportionnalité à l’aide d’un tableau ou de notations symboliques"}
+  - {code: 6E-2025-PROP-07, type: capacite, page: 27, texte: "S’initier à la résolution de problèmes d’échelles"}

@@ -225,7 +225,9 @@ class TestExercicesAdmin:
 
     def test_relecteur_different_de_l_auteur(self, client):
         h = connecter_admin(client)
-        corps = {"competence_id": 3, "enonce": "Calculer 1+1.", "type": "numerique", "solution": "2", "difficulte": 1}
+        # Une compétence de lycée : le compte de démo n'est validateur que pour les maths du lycée.
+        lycee = client.get("/admin/questions?q=2NDE-FRAC-01", headers=h).json()["elements"][0]["competence_id"]
+        corps = {"competence_id": lycee, "enonce": "Calculer 1+1.", "type": "numerique", "solution": "2", "difficulte": 1}
         q = client.post("/admin/questions", headers=h, json=corps).json()
         assert client.post(f"/admin/questions/{q['id']}/validation", headers=h, json={"statut": "validee"}).status_code == 422
         r = client.post(f"/admin/questions/{q['id']}/validation", headers=h, json={"statut": "a-corriger"})

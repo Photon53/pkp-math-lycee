@@ -51,3 +51,48 @@
   sha256: c491ac1ccb63dbce86f59767d6826f4d13afb3efa782ed1176621aa691329ebd
   url: https://cache.media.education.gouv.fr/file/SPE8_MENJ_25_7_2019/82/5/spe264_annexe_1158825.pdf
   obtenu_le: 2026-11-01
+# --- Collège (domaine Maths collège) : textes en vigueur en 2026-2027 ---------------------------------------
+# 6e : programme du cycle 3 de 2025 ; 5e : nouveau programme du cycle 4 de 2026 ; 4e et 3e : programme du cycle 4
+# de 2020 (modifié), réparti par niveau dans les repères annuels de progression et attendus de fin d'année de 2019.
+- code: bo-2025-16-cycle-3
+  titre: Programme de mathématiques pour le cycle 3 (annexe de l'arrêté du 10 avril 2025), appliqué en 6e depuis 2025-2026
+  bulletin: BO n° 16 du 17 avril 2025
+  fichier: bo-2025-16-cycle-3-439827.pdf
+  sha256: f3f79a75ca8be7f54409b8b7cee3eafd769c23d12e6c822a253454e2c703b508
+  url: https://www.education.gouv.fr/sites/default/files/programme-de-math-matiques-pour-le-cycle-3-439827.pdf
+  obtenu_le: 2026-11-04
+- code: bo-2026-10-cycle-4
+  titre: Programme de mathématiques pour le cycle 4 (annexe 2 de l'arrêté du 18 février 2026), appliqué en 5e en 2026-2027, en 4e en 2027-2028, en 3e en 2028-2029
+  bulletin: BO n° 10 du 5 mars 2026
+  fichier: bo-2026-10-cycle-4-480716.pdf
+  sha256: e20a05da6c68a08c4487fc63a3345c902f5249b4bf6e950765bfb9c2da0aadb9
+  url: https://www.education.gouv.fr/sites/default/files/document/Annexe%202%20%E2%80%93%20Programme%20de%20math%C3%A9matiques%20pour%20le%20cycle%204-480716.pdf
+  obtenu_le: 2026-11-04
+- code: bo-2020-31-cycle-4
+  titre: Programme du cycle 4 en vigueur à la rentrée 2020 (version consolidée, éduscol), encore appliqué en 4e et en 3e en 2026-2027
+  bulletin: BO n° 31 du 30 juillet 2020
+  fichier: bo-2020-31-cycle-4-consolide-621.pdf
+  sha256: de42e9816d7d012fd5d6b3349171cf43dd038c1e50fa0fe9e664bcc8521194b9
+  url: https://eduscol.education.fr/document/621/download
+  obtenu_le: 2026-11-04
+- code: bo-2019-22-cycle-4-reperes
+  titre: Repères annuels de progression en mathématiques au cycle 4 (annexe 26 de la note de service n° 2019-072)
+  bulletin: BO n° 22 du 29 mai 2019
+  fichier: bo-2019-22-cycle-4-reperes-74694.pdf
+  sha256: 643a239fb6cbe7f69d96e206da0d9aae06321b49789062fd84c770713f5b3426
+  url: https://eduscol.education.gouv.fr/sites/default/files/document/26-maths-c4-reperes-eduscol1114756pdf-74694.pdf
+  obtenu_le: 2026-11-04
+- code: bo-2019-22-4e-attendus
+  titre: Attendus de fin d'année de quatrième en mathématiques (note de service n° 2019-072)
+  bulletin: BO n° 22 du 29 mai 2019
+  fichier: bo-2019-22-4e-attendus-74682.pdf
+  sha256: d0edabd6a21d6345d36d32c5506ddcf225e819ddca25d27c1ecc3f97b87a8966
+  url: https://eduscol.education.gouv.fr/sites/default/files/document/16-maths-4e-attendus-eduscol1114746pdf-74682.pdf
+  obtenu_le: 2026-11-04
+- code: bo-2019-22-3e-attendus
+  titre: Attendus de fin d'année de troisième en mathématiques (note de service n° 2019-072)
+  bulletin: BO n° 22 du 29 mai 2019
+  fichier: bo-2019-22-3e-attendus-74688.pdf
+  sha256: 49ccdca4d97ba4cf25875dfc731474e84d0332985c15396d3abfb9107f5f545a
+  url: https://eduscol.education.gouv.fr/sites/default/files/document/18-maths-3e-attendus-eduscol1114748pdf-74688.pdf
+  obtenu_le: 2026-11-04

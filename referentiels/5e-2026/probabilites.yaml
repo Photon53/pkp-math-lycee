@@ -1,0 +1,13 @@
+theme:
+  code: PRO
+  titre: Probabilités
+  partie: Organisation et gestion de données et probabilités
+
+attendus:
+  - {code: 5E-2026-PRO-01, type: automatisme, page: 16, texte: "Positionner sur une échelle de probabilité les évènements du type : • évènement impossible ; • évènement certain ; • obtenir pile en lançant une pièce équilibrée ; • obtenir une valeur donnée en lançant un dé équilibré ; • obtenir une couleur d’une boule lors du tirage dans une urne ; • ne pas obtenir la bonne combinaison au loto ; • obtenir 10 fois de suite la valeur 1 en lançant un dé à six faces."}
+  - {code: 5E-2026-PRO-02, type: automatisme, page: 17, texte: "Donner la probabilité sous diverses formes (fraction, décimale, pourcentage) pour les cinq premiers évènements ci-dessus."}
+  - {code: 5E-2026-PRO-03, type: automatisme, page: 17, texte: "Lier l’expression « une chance sur quatre » (par exemple) et la probabilité 1/4."}
+  - {code: 5E-2026-PRO-04, type: capacite, page: 17, texte: "Aborder les questions relatives au hasard à partir de problèmes simples."}
+  - {code: 5E-2026-PRO-05, type: capacite, page: 17, texte: "Utiliser le vocabulaire des probabilités dans des contextes concrets : expérience aléatoire, issue, évènement."}
+  - {code: 5E-2026-PRO-06, type: capacite, page: 17, texte: "Attribuer des probabilités dans des cas simples (équiprobabilité)."}
+  - {code: 5E-2026-PRO-07, type: capacite, page: 17, texte: "Répéter matériellement une expérience aléatoire simple. Enregistrer les résultats observés dans un tableau d’effectifs et de fréquences."}

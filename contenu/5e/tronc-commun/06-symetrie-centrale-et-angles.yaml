@@ -1,0 +1,206 @@
+chapitre:
+  code: 5E-SYMETRIE-ANGLES
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 6
+  titre: Symétrie centrale et angles
+
+competences:
+  - code: 5E-SYM-CENTRALE
+    libelle: Construire et utiliser le symétrique par un demi-tour
+    attendus: [5E-2026-TRA-01, 5E-2026-TRA-02, 5E-2026-TRA-03, 5E-2026-TRA-04]
+    cours_couvre: [5E-2026-TRA-01, 5E-2026-TRA-02, 5E-2026-TRA-03, 5E-2026-TRA-04]
+    objectifs:
+    - Définir le demi-tour (symétrie centrale) et construire le symétrique d’un point, d’une figure.
+    - Connaître les propriétés de conservation du demi-tour.
+    methodes:
+    - titre: Construire le symétrique d’un point par rapport à un point $O$
+      etapes:
+      - Tracer la demi-droite $[AO)$.
+      - Reporter au compas la longueur $OA$ de l’autre côté de $O$.
+      - Le point obtenu $A'$ vérifie que $O$ est le milieu de $[AA']$.
+      exemple:
+        enonce: '$OA = 4$ cm. Quelle est la longueur $AA’$, si $A’$ est le symétrique de $A$ par rapport à $O$ ?'
+        resolution:
+        - $O$ est le milieu de $[AA']$, donc $OA' = OA = 4$ cm.
+        - $AA' = 8$ cm.
+        resultat: $8$ cm
+    erreurs_frequentes:
+    - erreur: Confondre symétrie centrale (par rapport à un point) et symétrie axiale (par rapport à une droite).
+      explication: Le demi-tour fait tourner la figure de $180°$ autour du centre ; il ne la « retourne » pas comme un pliage.
+    - erreur: Penser que le symétrique d’une droite est une droite perpendiculaire.
+      explication: Par symétrie centrale, une droite a pour image une droite **parallèle**.
+    resume: |
+      - $A'$ est le symétrique de $A$ par rapport à $O$ si $O$ est le **milieu** de $[AA']$ ; le symétrique de $O$ est $O$.
+      - Le demi-tour (rotation de $180°$) **conserve** les longueurs, les angles, les aires et l’alignement.
+      - L’image d’une droite est une droite **parallèle** ; un parallélogramme a un centre de symétrie (le point d’intersection de ses diagonales).
+    cours: |
+      ## 1. Définition
+      > **Définition.** Le symétrique d’un point $A$ par rapport à un point $O$ est le point $A'$ tel que $O$ soit le milieu du segment $[AA']$. On dit aussi que $A'$ est l’image de $A$ par le **demi-tour** de centre $O$.
+
+      ## 2. Propriétés
+      > **Propriété.** La symétrie centrale conserve les longueurs, les mesures d’angles, les aires et l’alignement. L’image d’une droite est une droite qui lui est parallèle.
+
+      Pour construire le symétrique d’un triangle $ABC$, on construit $A'$, $B'$ et $C'$ puis on trace $A'B'C'$ : les deux triangles sont superposables.
+
+      ## 3. Rappel : symétrie axiale
+      Le symétrique d’une figure par rapport à une droite s’obtient par pliage le long de cette droite ; sur quadrillage, on compte les carreaux perpendiculairement à l’axe.
+
+      Rosaces et pavages de l’art médiéval combinent souvent symétries axiales et centrales.
+    questions:
+      - code: 5E-SYM-CENTRALE-01
+        difficulte: 1
+        type: numerique
+        enonce: '$OA = 4$ cm et $A’$ est le symétrique de $A$ par rapport à $O$. Combien mesure $AA’$, en cm ?'
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $O$ est le milieu de $[AA']$.
+          etapes:
+          - $AA' = 2 \times OA = 8$ cm.
+          resultat: '8'
+      - code: 5E-SYM-CENTRALE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Un angle $\widehat{ABC}$ mesure $63°$. Combien mesure son image par une symétrie centrale, en degrés ?'
+        solution: '63'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La symétrie centrale conserve les angles.
+          etapes:
+          - L’image mesure aussi $63°$.
+          resultat: '63'
+      - code: 5E-SYM-CENTRALE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Par une symétrie centrale, l’image d’une droite $(d)$ est : A) une droite perpendiculaire à $(d)$  B) une droite parallèle à $(d)$  C) un segment  D) un cercle'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Propriété du demi-tour.
+          etapes:
+          - L’image d’une droite par symétrie centrale est une droite parallèle.
+          resultat: B
+      - code: 5E-SYM-CENTRALE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un repère, $O$ est l’origine et $A(3 ; -2)$. Quelle est l’abscisse du symétrique de $A$ par rapport à $O$ ?'
+        solution: '-3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le symétrique par rapport à l’origine a des coordonnées opposées.
+          etapes:
+          - $A'(-3 ; 2)$, d’abscisse $-3$.
+          resultat: '-3'
+      - code: 5E-SYM-CENTRALE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un triangle a une aire de $12{,}5$ cm². Quelle est l’aire (en cm²) de son symétrique par rapport à un point ?'
+        solution: '12,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La symétrie centrale conserve les aires.
+          etapes:
+          - L’aire du triangle image est $12{,}5$ cm².
+          resultat: '12,5'
+
+  - code: 5E-ANGLES-PARALLELES
+    libelle: Caractériser le parallélisme par les angles
+    attendus: [5E-2026-ANG-01, 5E-2026-ANG-02, 5E-2026-ANG-03, 5E-2026-ANG-04, 5E-2026-ANG-05]
+    cours_couvre: [5E-2026-ANG-01, 5E-2026-ANG-02, 5E-2026-ANG-03, 5E-2026-ANG-04, 5E-2026-ANG-05]
+    objectifs:
+    - Reconnaître angles opposés par le sommet, adjacents, supplémentaires, alternes-internes et correspondants.
+    - Utiliser les angles pour démontrer que deux droites sont parallèles ou calculer un angle.
+    methodes:
+    - titre: Calculer un angle avec deux droites parallèles et une sécante
+      etapes:
+      - Repérer la paire d’angles (alternes-internes ou correspondants).
+      - Comme les droites sont parallèles, ces angles ont la même mesure.
+      - Utiliser éventuellement des angles supplémentaires ($180°$).
+      exemple:
+        enonce: 'Les droites $(d)$ et $(d’)$ sont parallèles et coupées par une sécante. Un angle alterne-interne mesure $58°$. Combien mesure l’autre ?'
+        resolution:
+        - Deux angles alternes-internes formés par des parallèles ont la même mesure.
+        - L’autre mesure $58°$.
+        resultat: $58°$
+    erreurs_frequentes:
+    - erreur: Penser que deux angles alternes-internes sont toujours égaux.
+      explication: Ils ne sont égaux que si les deux droites sont **parallèles**.
+    - erreur: Confondre angles supplémentaires ($180°$) et complémentaires ($90°$).
+      explication: '« Supplémentaires » : la somme fait un angle plat, $180°$.'
+    resume: |
+      - Angles **opposés par le sommet** : même mesure. Angles **supplémentaires** : somme $180°$.
+      - Une sécante coupe deux droites et forme des angles **alternes-internes** et **correspondants**.
+      - Si les deux droites sont parallèles, ces angles sont égaux ; **réciproquement**, s’ils sont égaux, les droites sont parallèles.
+      - Angles de l’équerre : $30°$, $60°$, $90°$ ou $45°$, $45°$, $90°$.
+    cours: |
+      ## 1. Rappels
+      Un angle droit mesure $90°$, un angle plat $180°$. Deux angles opposés par le sommet ont la même mesure. La bissectrice partage un angle en deux angles égaux.
+
+      ## 2. Angles formés par une sécante
+      Deux droites $(d)$ et $(d')$ sont coupées par une sécante $(\Delta)$.
+      - Deux angles **alternes-internes** sont situés de part et d’autre de la sécante, entre les deux droites.
+      - Deux angles **correspondants** sont du même côté de la sécante, l’un entre les droites, l’autre à l’extérieur, « à la même place ».
+
+      ## 3. Propriétés
+      > **Propriété.** Si deux droites parallèles sont coupées par une sécante, alors les angles alternes-internes (et les angles correspondants) ont la même mesure.
+
+      > **Propriété réciproque.** Si deux angles alternes-internes (ou correspondants) ont la même mesure, alors les deux droites sont parallèles.
+
+      Euclide énonce ces propriétés dans le livre I de ses *Éléments* (propositions 27 à 29).
+    questions:
+      - code: 5E-ANGLES-PARALLELES-01
+        difficulte: 1
+        type: numerique
+        enonce: Deux angles sont opposés par le sommet ; l’un mesure $72°$. Combien mesure l’autre, en degrés ?
+        solution: '72'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux angles opposés par le sommet ont la même mesure.
+          etapes:
+          - L’autre mesure $72°$.
+          resultat: '72'
+      - code: 5E-ANGLES-PARALLELES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Deux droites parallèles sont coupées par une sécante. Un angle alterne-interne mesure $58°$. Combien mesure l’autre angle alterne-interne, en degrés ?'
+        solution: '58'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Droites parallèles, angles alternes-internes égaux.
+          etapes:
+          - L’autre angle mesure $58°$.
+          resultat: '58'
+      - code: 5E-ANGLES-PARALLELES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Deux droites parallèles sont coupées par une sécante. Un angle mesure $115°$. Combien mesure l’angle qui lui est adjacent et supplémentaire, en degrés ?'
+        solution: '65'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux angles supplémentaires ont une somme de $180°$.
+          etapes:
+          - $180 - 115 = 65°$.
+          resultat: '65'
+      - code: 5E-ANGLES-PARALLELES-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Une sécante coupe deux droites $(d)$ et $(d’)$ ; deux angles correspondants mesurent $47°$ et $49°$. Que peut-on dire ? A) $(d)$ et $(d’)$ sont parallèles  B) $(d)$ et $(d’)$ ne sont pas parallèles  C) On ne peut rien dire'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Si les droites étaient parallèles, les angles correspondants seraient égaux.
+          etapes:
+          - '$47° \neq 49°$ : les droites ne sont pas parallèles.'
+          resultat: B
+      - code: 5E-ANGLES-PARALLELES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Les droites $(AB)$ et $(CD)$ sont parallèles et coupées par une sécante. Un angle alterne-interne mesure $3x$ degrés et l’autre $84°$. Que vaut $x$ ?'
+        solution: '28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Égalité des angles alternes-internes, puis équation.
+          etapes:
+          - $3x = 84$, donc $x = 28$.
+          resultat: '28'

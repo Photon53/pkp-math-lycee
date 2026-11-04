@@ -1,0 +1,231 @@
+chapitre:
+  code: 5E-REPERAGE-ESPACE
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 5
+  titre: Repérage, solides et volumes
+
+competences:
+  - code: 5E-REPERAGE
+    libelle: Se repérer sur une droite graduée et dans un repère du plan
+    attendus: [5E-2026-REP-01, 5E-2026-REP-02, 5E-2026-REP-03, 5E-2026-REP-04]
+    cours_couvre: [5E-2026-REP-01, 5E-2026-REP-02, 5E-2026-REP-03, 5E-2026-REP-04]
+    prerequis: [5E-RELATIFS-REPERER]
+    objectifs:
+    - Lire l’abscisse d’un point et placer un point d’abscisse donnée.
+    - Lire les coordonnées d’un point et placer un point dans un repère orthogonal.
+    methodes:
+    - titre: Lire les coordonnées d’un point
+      etapes:
+      - Descendre (ou monter) verticalement jusqu’à l’axe des abscisses et lire l’abscisse.
+      - Aller horizontalement jusqu’à l’axe des ordonnées et lire l’ordonnée.
+      - 'Écrire le couple dans l’ordre : (abscisse ; ordonnée).'
+      exemple:
+        enonce: 'Le point $A$ est à $3$ unités à gauche de l’origine et $2$ unités au-dessus. Quelles sont ses coordonnées ?'
+        resolution:
+        - Abscisse $-3$ (à gauche), ordonnée $2$ (au-dessus).
+        - $A(-3 ; 2)$.
+        resultat: $A(-3 ; 2)$
+    erreurs_frequentes:
+    - erreur: Inverser abscisse et ordonnée.
+      explication: 'On donne toujours l’abscisse (axe horizontal) **en premier**.'
+    - erreur: Oublier le signe $-$ pour un point à gauche ou en dessous de l’origine.
+      explication: 'À gauche de l’origine, l’abscisse est négative ; en dessous, l’ordonnée est négative.'
+    resume: |
+      - Sur une droite graduée, chaque point a une **abscisse** (nombre relatif).
+      - Dans un repère orthogonal d’origine $O$, un point a deux **coordonnées** : abscisse (axe horizontal) puis ordonnée (axe vertical). On note $A(x ; y)$.
+      - L’origine est $O(0 ; 0)$.
+    cours: |
+      ## 1. Droite graduée
+      Une droite graduée a une origine (abscisse $0$), un sens et une unité. On lit les abscisses positives à droite de l’origine et les négatives à gauche.
+
+      ## 2. Repère du plan
+      Un **repère orthogonal** est formé de deux droites graduées perpendiculaires qui se coupent en $O$ : l’axe des **abscisses** (horizontal) et l’axe des **ordonnées** (vertical).
+
+      > **Définition.** Tout point $M$ du plan est repéré par un couple de nombres $(x ; y)$ : $x$ est l’abscisse et $y$ l’ordonnée de $M$.
+
+      $B(4 ; -1)$ est à $4$ unités à droite de $O$ et $1$ unité en dessous. Un point de l’axe des abscisses a une ordonnée nulle : $C(5 ; 0)$.
+    questions:
+      - code: 5E-REPERAGE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Sur une droite graduée en unités, le point $M$ est à $4$ graduations à gauche de l’origine. Quelle est son abscisse ?'
+        solution: '-4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: À gauche de l’origine, les abscisses sont négatives.
+          etapes:
+          - L’abscisse de $M$ est $-4$.
+          resultat: '-4'
+      - code: 5E-REPERAGE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Le point $A$ est à $3$ unités à gauche de l’origine et $2$ unités au-dessus. Quelles sont ses coordonnées ? A) $(3 ; 2)$  B) $(2 ; -3)$  C) $(-3 ; 2)$  D) $(-2 ; 3)$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Abscisse d’abord, puis ordonnée.
+          etapes:
+          - 'Abscisse $-3$, ordonnée $2$ : $A(-3 ; 2)$.'
+          resultat: C
+      - code: 5E-REPERAGE-03
+        difficulte: 2
+        type: numerique
+        enonce: 'Sur une droite graduée, une unité est partagée en $4$ graduations. Quelle est l’abscisse du point situé à $3$ graduations à droite de $-2$ ?'
+        solution: '-1,25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une graduation vaut $\dfrac{1}{4} = 0{,}25$.
+          etapes:
+          - $-2 + 3 \times 0{,}25 = -2 + 0{,}75 = -1{,}25$.
+          resultat: '-1,25'
+      - code: 5E-REPERAGE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Le point $C$ a pour coordonnées $(5 ; 0)$. Où se trouve-t-il ? A) Sur l’axe des abscisses  B) Sur l’axe des ordonnées  C) À l’origine'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une ordonnée nulle signifie que le point est sur l’axe horizontal.
+          etapes:
+          - $C$ est sur l’axe des abscisses, à $5$ unités à droite de $O$.
+          resultat: A
+      - code: 5E-REPERAGE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'On part du point $P(-2 ; 3)$ et on se déplace de $5$ unités vers la droite. Quelle est l’abscisse du point d’arrivée ?'
+        solution: '3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Aller vers la droite augmente l’abscisse ; l’ordonnée ne change pas.
+          etapes:
+          - $-2 + 5 = 3$.
+          resultat: '3'
+      - code: 5E-REPERAGE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Les points $A(-3 ; 1)$ et $B(4 ; 1)$ ont la même ordonnée. Quelle est la longueur $AB$, en unités ?'
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Sur une même horizontale, la longueur est l’écart des abscisses.
+          etapes:
+          - $4 - (-3) = 4 + 3 = 7$ unités.
+          resultat: '7'
+
+  - code: 5E-SOLIDES
+    libelle: Représenter des solides et calculer des volumes
+    attendus: [5E-2026-ESP-01, 5E-2026-ESP-02, 5E-2026-ESP-03, 5E-2026-ESP-04, 5E-2026-ESP-05, 5E-2026-ESP-06, 5E-2026-ESP-07, 5E-2026-ESP-08, 5E-2026-ESP-09]
+    cours_couvre: [5E-2026-ESP-01, 5E-2026-ESP-02, 5E-2026-ESP-03, 5E-2026-ESP-04, 5E-2026-ESP-05, 5E-2026-ESP-06, 5E-2026-ESP-07, 5E-2026-ESP-08, 5E-2026-ESP-09]
+    prerequis: [5E-PUISSANCES]
+    objectifs:
+    - Représenter en perspective cavalière et relier aux patrons (pavé, cube, prisme droit, cylindre).
+    - Calculer le volume du cube, du pavé droit, du prisme droit et du cylindre ; l’aire du disque.
+    - Convertir des unités de volume et de capacité.
+    methodes:
+    - titre: Calculer le volume d’un prisme droit ou d’un cylindre
+      etapes:
+      - Calculer l’aire de la base.
+      - Multiplier par la hauteur du solide.
+      - Écrire l’unité de volume (cm³, m³…).
+      exemple:
+        enonce: Calculer le volume d’un cylindre de rayon $3$ cm et de hauteur $10$ cm (valeur exacte).
+        resolution:
+        - 'Aire de la base : $\pi \times 3^2 = 9\pi$ cm².'
+        - 'Volume : $9\pi \times 10 = 90\pi$ cm³ $\approx 282{,}7$ cm³.'
+        resultat: $90\pi$ cm³
+    erreurs_frequentes:
+    - erreur: 'Calculer l’aire d’un disque avec $\pi \times D$.'
+      explication: '$\pi \times D$ est le périmètre ; l’aire est $\pi \times r^2$.'
+    - erreur: 'Convertir $1$ dm³ en $10$ cm³.'
+      explication: '$1$ dm³ $= 10 \times 10 \times 10 = 1\,000$ cm³ $= 1$ L.'
+    resume: |
+      - Pavé droit : $V = L \times \ell \times h$ ; cube : $V = a^3$.
+      - Prisme droit et cylindre : $V = \text{aire de la base} \times \text{hauteur}$.
+      - Aire du disque de rayon $r$ : $\pi r^2$ ; cylindre : $V = \pi r^2 h$.
+      - $1$ dm³ $= 1$ L $= 1\,000$ cm³ ; $1$ cm³ $= 1$ mL ; $1$ m³ $= 1\,000$ L.
+    cours: |
+      ## 1. Représenter
+      En **perspective cavalière**, les faces avant sont dessinées en vraie grandeur, les arêtes « fuyantes » sont tracées en oblique et raccourcies ; les arêtes cachées sont en pointillés.
+
+      Un **patron** est une figure plane qui, une fois pliée, forme le solide. Le patron d’un cylindre comprend deux disques et un rectangle dont la longueur est le périmètre du disque.
+
+      ## 2. Volumes
+      > **Formules.** Pavé droit : $V = L \times \ell \times h$. Prisme droit et cylindre : $V = \mathcal{B} \times h$ ($\mathcal{B}$ aire de la base).
+
+      Un prisme droit dont la base est un triangle rectangle de côtés $3$ cm et $4$ cm (angle droit entre eux), de hauteur $10$ cm : $\mathcal{B} = \dfrac{3 \times 4}{2} = 6$ cm², $V = 60$ cm³.
+
+      ## 3. Aire du disque
+      > **Formule.** L’aire d’un disque de rayon $r$ est $\pi \times r^2$.
+
+      ## 4. Unités de volume et de capacité
+      $1$ m³ $= 1\,000$ dm³ ; $1$ dm³ $= 1\,000$ cm³. Et $1$ dm³ $= 1$ L, $1$ cm³ $= 1$ mL.
+    questions:
+      - code: 5E-SOLIDES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer le volume (en cm³) d’un pavé droit de $5$ cm sur $4$ cm sur $3$ cm.
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $V = L \times \ell \times h$.
+          etapes:
+          - $5 \times 4 \times 3 = 60$ cm³.
+          resultat: '60'
+      - code: 5E-SOLIDES-02
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $2{,}5$ L en cm³.
+        solution: '2500'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ L $= 1$ dm³ $= 1\,000$ cm³.
+          etapes:
+          - $2{,}5 \times 1\,000 = 2\,500$ cm³.
+          resultat: '2500'
+      - code: 5E-SOLIDES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un prisme droit a pour base un triangle rectangle dont les côtés de l’angle droit mesurent $3$ cm et $4$ cm. Sa hauteur est $10$ cm. Quel est son volume, en cm³ ?'
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Aire de la base × hauteur.
+          etapes:
+          - $\mathcal{B} = \dfrac{3 \times 4}{2} = 6$ cm².
+          - $V = 6 \times 10 = 60$ cm³.
+          resultat: '60'
+      - code: 5E-SOLIDES-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Le patron d’un cylindre est formé de : A) deux disques et un rectangle  B) un disque et un triangle  C) deux rectangles et un disque  D) trois disques'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Déplier le solide.
+          etapes:
+          - 'Les deux bases sont des disques ; la surface latérale déroulée est un rectangle.'
+          resultat: A
+      - code: 5E-SOLIDES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Calculer l’aire (en cm²) d’un disque de rayon $5$ cm, avec $\pi \approx 3{,}14$.'
+        solution: '78,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\mathcal{A} = \pi r^2$.
+          etapes:
+          - $3{,}14 \times 5^2 = 3{,}14 \times 25 = 78{,}5$ cm².
+          resultat: '78,5'
+      - code: 5E-SOLIDES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Une boîte de conserve cylindrique a un rayon de $5$ cm et une hauteur de $10$ cm. Quelle est sa contenance, en litres, avec $\pi \approx 3{,}14$ ?'
+        solution: '0,785'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Volume du cylindre, puis conversion.
+          etapes:
+          - $V \approx 3{,}14 \times 25 \times 10 = 785$ cm³.
+          - $785$ cm³ $= 0{,}785$ L.
+          resultat: '0,785'

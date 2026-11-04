@@ -1,0 +1,16 @@
+theme:
+  code: DON
+  titre: Organisation et gestion de données et probabilités
+  partie: Organisation et gestion de données et probabilités
+
+attendus:
+  # Organisation et gestion de données
+  - {code: 6E-2025-DON-01, type: automatisme, page: 26, texte: "L’élève sait lire un tableau, un diagramme en barres, un diagramme circulaire ou une courbe dans des cas adaptés à une lecture immédiate."}
+  - {code: 6E-2025-DON-02, type: capacite, page: 26, texte: "Planifier une enquête et recueillir des données"}
+  - {code: 6E-2025-DON-03, type: capacite, page: 26, texte: "Réaliser des mesures et les consigner dans un tableau"}
+  - {code: 6E-2025-DON-04, type: capacite, page: 26, texte: "Construire un tableau simple pour présenter des données (observations, caractères)"}
+  - {code: 6E-2025-DON-05, type: capacite, page: 26, texte: "Faire un choix en filtrant les données d’un tableau selon un critère"}
+  # Les probabilités
+  - {code: 6E-2025-DON-06, type: capacite, page: 26, texte: "Savoir que la probabilité d’un évènement est un nombre compris entre 0 et 1"}
+  - {code: 6E-2025-DON-07, type: capacite, page: 26, texte: "Calculer des probabilités dans des situations simples d’équiprobabilité"}
+  - {code: 6E-2025-DON-08, type: capacite, page: 26, texte: "Comparer des résultats d’une expérience aléatoire répétée à une probabilité calculée"}

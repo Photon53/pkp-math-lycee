@@ -1,0 +1,23 @@
+theme:
+  code: OPE
+  titre: Opérations
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 5E-2026-OPE-01, type: automatisme, page: 7, texte: "Mobiliser les critères de divisibilité par 2, 5 et 10 vus en CM1 et CM2."}
+  - {code: 5E-2026-OPE-02, type: automatisme, page: 7, texte: "Déterminer le quotient et le reste dans une division euclidienne, par exemple, savoir que 17 = 3 × 5 + 2."}
+  - {code: 5E-2026-OPE-03, type: automatisme, page: 7, texte: "Utiliser les tables de multiplication pour factoriser des nombres entiers décomposables en produit de deux nombres différents de 1, par exemple, 21 = 3 × 7."}
+  - {code: 5E-2026-OPE-04, type: automatisme, page: 7, texte: "Savoir calculer des produits en lien avec les tables : 0,6 × 7 ; 40 × 0,03."}
+  - {code: 5E-2026-OPE-05, type: automatisme, page: 7, texte: "Multiplier et diviser par 10, 100, 1 000."}
+  - {code: 5E-2026-OPE-06, type: automatisme, page: 7, texte: "Additionner et soustraire des décimaux, par exemple, 2,7 + 1,4 ; 3,4 – 0,8."}
+  - {code: 5E-2026-OPE-07, type: capacite, page: 7, texte: "Additionner, soustraire, multiplier et diviser pour résoudre des problèmes et contrôler la vraisemblance de son résultat."}
+  - {code: 5E-2026-OPE-08, type: capacite, page: 7, texte: "Connaitre le sens et les situations d’emploi de ces opérations."}
+  - {code: 5E-2026-OPE-09, type: capacite, page: 7, texte: "Diviser par un nombre décimal."}
+  - {code: 5E-2026-OPE-10, type: capacite, page: 7, texte: "Enchainer des opérations."}
+  - {code: 5E-2026-OPE-11, type: capacite, page: 7, texte: "Traduire un problème, une succession donnée d’opérations, un programme de calcul, en une seule expression, en faisant appel ou non à des parenthèses."}
+  - {code: 5E-2026-OPE-12, type: capacite, page: 7, texte: "Nommer un calcul, distinguer sommes et produits, termes et facteurs."}
+  - {code: 5E-2026-OPE-13, type: capacite, page: 7, texte: "Connaitre et utiliser les priorités opératoires."}
+  - {code: 5E-2026-OPE-14, type: capacite, page: 7, texte: "Connaitre et utiliser la distributivité simple sur des exemples numériques."}
+  - {code: 5E-2026-OPE-15, type: capacite, page: 7, texte: "Utiliser les notions de multiples et diviseurs."}
+  - {code: 5E-2026-OPE-16, type: capacite, page: 7, texte: "Connaitre les critères de divisibilité par 3 et par 9."}
+  - {code: 5E-2026-OPE-17, type: capacite, page: 7, texte: "Mobiliser un algorithme dans le cadre du calcul numérique."}

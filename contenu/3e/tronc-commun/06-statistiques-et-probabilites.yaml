@@ -1,0 +1,209 @@
+chapitre:
+  code: 3E-STATS-PROBAS
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 6
+  titre: Statistiques et probabilités
+
+competences:
+  - code: 3E-STATISTIQUES
+    libelle: Représenter des données, calculer effectifs, fréquences et étendue
+    attendus: [3E-2020-DON-01, 3E-2020-DON-02, 3E-2020-DON-03]
+    cours_couvre: [3E-2020-DON-01, 3E-2020-DON-02, 3E-2020-DON-03]
+    objectifs:
+    - Lire et construire un histogramme (classes de même amplitude).
+    - Calculer effectifs, fréquences et étendue.
+    - Comparer des séries (moyenne, médiane, étendue).
+    methodes:
+    - titre: Calculer et interpréter l’étendue
+      etapes:
+      - Repérer la plus grande et la plus petite valeur.
+      - Calculer leur différence.
+      - Interpréter ; plus l’étendue est grande, plus les valeurs sont dispersées.
+      exemple:
+        enonce: 'Températures relevées : $12$ ; $18$ ; $9$ ; $21$ ; $15$. Quelle est l’étendue ?'
+        resolution:
+        - $21 - 9 = 12$.
+        resultat: $12$ °C
+    erreurs_frequentes:
+    - erreur: Calculer l’étendue avec la première et la dernière valeur de la liste non rangée.
+      explication: On utilise la **plus grande** et la **plus petite** valeur.
+    - erreur: Laisser des espaces entre les barres d’un histogramme.
+      explication: 'Les classes sont contiguës : les rectangles se touchent.'
+    resume: |
+      - **Effectif** d’une valeur ou d’une classe ; **fréquence** $= \dfrac{\text{effectif}}{\text{effectif total}}$.
+      - **Étendue** $= \text{valeur max} - \text{valeur min}$ : mesure de dispersion.
+      - **Histogramme** : rectangles accolés, une classe par rectangle, hauteur proportionnelle à l’effectif (classes de même amplitude).
+    cours: |
+      ## 1. Histogramme
+      Temps de trajet de $40$ élèves :
+
+      | Temps (min) | $[0 ; 10[$ | $[10 ; 20[$ | $[20 ; 30[$ | $[30 ; 40[$ |
+      |---|---|---|---|---|
+      | Effectif | 8 | 18 | 10 | 4 |
+
+      Chaque classe a une amplitude de $10$ min ; on trace des rectangles accolés de hauteurs $8$, $18$, $10$, $4$.
+
+      ## 2. Fréquences
+      Fréquence de la classe $[10 ; 20[$ : $\dfrac{18}{40} = 0{,}45 = 45\,\%$.
+
+      ## 3. Étendue
+      > **Définition.** L’étendue d’une série est la différence entre sa plus grande et sa plus petite valeur.
+
+      Deux classes de même moyenne peuvent avoir des étendues très différentes : l’étendue complète l’information donnée par la moyenne et la médiane.
+    questions:
+      - code: 3E-STATISTIQUES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Températures relevées : $12$ ; $18$ ; $9$ ; $21$ ; $15$. Quelle est l’étendue de la série, en °C ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Max moins min.
+          etapes:
+          - $21 - 9 = 12$ °C.
+          resultat: '12'
+      - code: 3E-STATISTIQUES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Sur $40$ élèves, $18$ mettent entre $10$ et $20$ minutes pour venir au collège. Quelle est la fréquence de cette classe, en pourcentage ?'
+        solution: '45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence = effectif / effectif total.
+          etapes:
+          - $\dfrac{18}{40} = 0{,}45$, soit $45\,\%$.
+          resultat: '45'
+      - code: 3E-STATISTIQUES-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Dans un histogramme à classes de même amplitude, la hauteur de chaque rectangle est proportionnelle : A) à l’amplitude de la classe  B) à l’effectif de la classe  C) au centre de la classe'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Définition de l’histogramme.
+          etapes:
+          - À amplitude égale, la hauteur représente l’effectif.
+          resultat: B
+      - code: 3E-STATISTIQUES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Effectifs par classe : $8$ ; $18$ ; $10$ ; $4$. Combien d’élèves sont dans les deux dernières classes ? Donner la fréquence correspondante en écriture décimale.'
+        solution: '0,35'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner les effectifs, puis diviser par le total.
+          etapes:
+          - $10 + 4 = 14$ élèves sur $40$.
+          - $\dfrac{14}{40} = 0{,}35$.
+          resultat: '0,35'
+      - code: 3E-STATISTIQUES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Une série a une étendue de $15$ et une plus petite valeur de $7$. On ajoute la valeur $25$. Quelle est la nouvelle étendue ?'
+        solution: '18'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Trouver l’ancien maximum.
+          etapes:
+          - Ancien max $= 7 + 15 = 22$ ; le nouveau max est $25$.
+          - $25 - 7 = 18$.
+          resultat: '18'
+
+  - code: 3E-PROBABILITES
+    libelle: Calculer des probabilités pour une ou deux épreuves
+    attendus: [3E-2020-PROBA-01, 3E-2020-PROBA-02]
+    cours_couvre: [3E-2020-PROBA-01, 3E-2020-PROBA-02]
+    objectifs:
+    - Dénombrer les issues d’une expérience à deux épreuves (tableau, arbre).
+    - Calculer des probabilités.
+    - Relier stabilisation des fréquences et probabilité.
+    methodes:
+    - titre: Utiliser un tableau à double entrée pour deux épreuves
+      etapes:
+      - Placer les issues de la première épreuve en lignes, celles de la seconde en colonnes.
+      - Remplir chaque case avec l’issue combinée ; toutes les cases sont équiprobables si les épreuves le sont.
+      - Compter les cases favorables et diviser par le nombre total de cases.
+      exemple:
+        enonce: 'On lance deux dés équilibrés à $6$ faces. Quelle est la probabilité que la somme fasse $7$ ?'
+        resolution:
+        - '$36$ cases ; somme $7$ : $(1;6), (2;5), (3;4), (4;3), (5;2), (6;1)$, soit $6$ cases.'
+        - $\dfrac{6}{36} = \dfrac{1}{6}$.
+        resultat: $\dfrac{1}{6}$
+    erreurs_frequentes:
+    - erreur: Considérer que les sommes de $2$ à $12$ sont équiprobables.
+      explication: 'La somme $7$ s’obtient de $6$ façons, la somme $2$ d’une seule : elles n’ont pas la même probabilité.'
+    - erreur: 'Compter $(2 ; 5)$ et $(5 ; 2)$ comme une seule issue.'
+      explication: Les deux dés sont distincts ; ce sont deux issues différentes.
+    resume: |
+      - Pour deux épreuves, on dénombre les issues avec un **tableau à double entrée** ou un **arbre**.
+      - En équiprobabilité : $P(A) = \dfrac{\text{issues favorables}}{\text{issues possibles}}$.
+      - Sur un grand nombre de répétitions, la fréquence observée se **stabilise** autour de la probabilité (loi des grands nombres).
+    cours: |
+      ## 1. Expériences à deux épreuves
+      On lance une pièce puis un dé : $2 \times 6 = 12$ issues équiprobables. $P(\text{pile et } 6) = \dfrac{1}{12}$.
+
+      ## 2. Tirages
+      Une urne contient $2$ boules rouges et $1$ verte. On tire une boule, on la remet, on en tire une seconde : $3 \times 3 = 9$ issues. $P(\text{deux rouges}) = \dfrac{4}{9}$.
+
+      Sans remise, il ne reste que $2$ boules au second tirage : $3 \times 2 = 6$ issues, $P(\text{deux rouges}) = \dfrac{2}{6} = \dfrac{1}{3}$.
+
+      ## 3. Fréquence et probabilité
+      En simulant $10\,000$ lancers de deux dés (tableur, programme), la fréquence de la somme $7$ se rapproche de $\dfrac{1}{6} \approx 0{,}167$.
+    questions:
+      - code: 3E-PROBABILITES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'On lance une pièce puis un dé à $6$ faces. Combien y a-t-il d’issues possibles ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier les nombres d’issues.
+          etapes:
+          - $2 \times 6 = 12$.
+          resultat: '12'
+      - code: 3E-PROBABILITES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On lance deux dés équilibrés à $6$ faces. Quelle est la probabilité que la somme fasse $7$ ? (fraction irréductible)'
+        solution: 1/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tableau à double entrée.
+          etapes:
+          - $6$ cases favorables sur $36$, donc $\dfrac{1}{6}$.
+          resultat: 1/6
+      - code: 3E-PROBABILITES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une urne contient $2$ boules rouges et $1$ verte. On tire une boule, on la remet, puis on en tire une seconde. Quelle est la probabilité d’obtenir deux boules rouges ?'
+        solution: 4/9
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Dénombrer avec un tableau $3 \times 3$.
+          etapes:
+          - $2 \times 2 = 4$ issues favorables sur $9$.
+          resultat: 4/9
+      - code: 3E-PROBABILITES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Même urne ($2$ rouges, $1$ verte), mais sans remise. Quelle est la probabilité d’obtenir deux boules rouges ? (fraction irréductible)'
+        solution: 1/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Au second tirage, il ne reste que $2$ boules.
+          etapes:
+          - $3 \times 2 = 6$ issues ; favorables $2 \times 1 = 2$.
+          - $\dfrac{2}{6} = \dfrac{1}{3}$.
+          resultat: 1/3
+      - code: 3E-PROBABILITES-05
+        difficulte: 5
+        type: qcm
+        enonce: 'On simule $10\,000$ lancers de deux dés. Vers quelle valeur la fréquence de la somme $2$ doit-elle se stabiliser ? A) $\dfrac{1}{11}$  B) $\dfrac{1}{36}$  C) $\dfrac{1}{6}$  D) $\dfrac{1}{12}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Loi des grands nombres et dénombrement.
+          etapes:
+          - 'La somme $2$ n’est obtenue que par $(1 ; 1)$ : probabilité $\dfrac{1}{36}$.'
+          resultat: B

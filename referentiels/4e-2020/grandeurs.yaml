@@ -1,0 +1,8 @@
+theme:
+  code: GRAND
+  titre: Calculer avec des grandeurs mesurables ; exprimer les résultats dans les unités adaptées
+  partie: Grandeurs et mesures
+
+attendus:
+  - {code: 4E-2020-GRAND-01, type: capacite, page: 8, texte: "Il calcule le volume d’une pyramide, d’un cône."}
+  - {code: 4E-2020-GRAND-02, type: capacite, page: 8, texte: "Il effectue des conversions d’unités sur des grandeurs composées."}

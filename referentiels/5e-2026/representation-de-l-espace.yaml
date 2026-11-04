@@ -1,0 +1,15 @@
+theme:
+  code: ESP
+  titre: Représentation de l’espace
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-ESP-01, type: automatisme, page: 12, texte: "Reconnaitre des vues (de dessus, dessous…) d’empilements de cubes."}
+  - {code: 5E-2026-ESP-02, type: automatisme, page: 12, texte: "Dénombrer des cubes dans des empilements."}
+  - {code: 5E-2026-ESP-03, type: automatisme, page: 12, texte: "Reconnaitre un cube, un pavé représenté en perspective cavalière."}
+  - {code: 5E-2026-ESP-04, type: automatisme, page: 12, texte: "Reconnaitre un patron d’un cube."}
+  - {code: 5E-2026-ESP-05, type: capacite, page: 12, texte: "Construire et mettre en relation différentes représentations en perspectives cavalières des solides suivants : pavé droit, cube, cylindre de révolution, prisme droit."}
+  - {code: 5E-2026-ESP-06, type: capacite, page: 12, texte: "Savoir mettre en relation une représentation en perspective cavalière et un patron d’un pavé, d’un prisme droit ou d’un cylindre de révolution."}
+  - {code: 5E-2026-ESP-07, type: capacite, page: 12, texte: "Calculer le volume du cube, du pavé droit, du prisme droit."}
+  - {code: 5E-2026-ESP-08, type: capacite, page: 12, texte: "Connaitre et convertir des unités usuelles (volume et capacité)."}
+  - {code: 5E-2026-ESP-09, type: capacite, page: 12, texte: "Calculer l’aire du disque, le volume du cylindre de révolution."}

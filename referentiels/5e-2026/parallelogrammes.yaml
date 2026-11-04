@@ -1,0 +1,16 @@
+theme:
+  code: PAR
+  titre: Parallélogrammes
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-PAR-01, type: automatisme, page: 13, texte: "Reconnaitre en justifiant un quadrilatère, un parallélogramme, un rectangle, un losange, un carré, un trapèze, un pentagone, un hexagone dans des figures complexes."}
+  - {code: 5E-2026-PAR-02, type: automatisme, page: 13, texte: "Exploiter le codage d’une figure pour identifier des parallélogrammes particuliers."}
+  - {code: 5E-2026-PAR-03, type: capacite, page: 13, texte: "Définir le parallélogramme."}
+  - {code: 5E-2026-PAR-04, type: capacite, page: 13, texte: "Construire des parallélogrammes."}
+  - {code: 5E-2026-PAR-05, type: capacite, page: 13, texte: "Connaitre les propriétés caractéristiques des côtés opposés et des diagonales."}
+  - {code: 5E-2026-PAR-06, type: capacite, page: 13, texte: "Utiliser une propriété caractéristique sur les diagonales ou les côtés pour les construire ou donner la nature du quadrilatère."}
+  - {code: 5E-2026-PAR-07, type: capacite, page: 13, texte: "Définir les parallélogrammes particuliers (rectangle, losange, carré)."}
+  - {code: 5E-2026-PAR-08, type: capacite, page: 13, texte: "Connaitre les propriétés caractéristiques."}
+  - {code: 5E-2026-PAR-09, type: capacite, page: 13, texte: "Savoir calculer l’aire d’un parallélogramme et de figures complexes."}
+  - {code: 5E-2026-PAR-10, type: capacite, page: 13, texte: "Résoudre des problèmes faisant appel à des conversions d’unités de longueur et d’unités d’aires."}

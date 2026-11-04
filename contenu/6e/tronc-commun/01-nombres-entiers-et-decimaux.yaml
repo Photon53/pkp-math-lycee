@@ -1,0 +1,253 @@
+chapitre:
+  code: 6E-DECIMAUX
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 1
+  titre: Nombres entiers et décimaux
+
+competences:
+  - code: 6E-NUMERATION
+    libelle: Écrire et décomposer un nombre décimal
+    attendus: [6E-2025-NUM-01, 6E-2025-NUM-02, 6E-2025-NUM-03, 6E-2025-NUM-06, 6E-2025-NUM-07, 6E-2025-NUM-08, 6E-2025-NUM-09, 6E-2025-NUM-11]
+    cours_couvre: [6E-2025-NUM-01, 6E-2025-NUM-02, 6E-2025-NUM-03, 6E-2025-NUM-06, 6E-2025-NUM-07, 6E-2025-NUM-08, 6E-2025-NUM-09, 6E-2025-NUM-11]
+    objectifs:
+    - Connaître la valeur de chaque chiffre selon son rang, des milliards aux millièmes.
+    - Passer d’une écriture à virgule à une écriture fractionnaire décimale, et inversement.
+    methodes:
+    - titre: Passer d’une fraction décimale à l’écriture à virgule
+      quand: Le dénominateur est 10, 100 ou 1 000.
+      etapes:
+      - 'Compter les zéros du dénominateur : c’est le nombre de chiffres après la virgule.'
+      - Écrire le numérateur et placer la virgule pour avoir ce nombre de chiffres à droite.
+      - Compléter par des zéros à gauche si nécessaire.
+      exemple:
+        enonce: Écrire $\dfrac{4\,107}{1\,000}$ avec une virgule.
+        resolution:
+        - '$1\,000$ a trois zéros : il faut trois chiffres après la virgule.'
+        - $\dfrac{4\,107}{1\,000} = 4{,}107$.
+        resultat: $4{,}107$
+    erreurs_frequentes:
+    - erreur: Croire que $0{,}12$ est plus grand que $0{,}9$ parce que $12 > 9$.
+      explication: 'On compare chiffre par chiffre à partir de la gauche : $9$ dixièmes est plus que $1$ dixième.'
+    - erreur: 'Écrire $\dfrac{7}{100} = 0{,}7$.'
+      explication: '$\dfrac{7}{100}$ se lit « sept centièmes » : le $7$ est au rang des centièmes, $0{,}07$.'
+    resume: |
+      - Chaque rang vaut **dix fois** le rang situé à sa droite : $1 = \dfrac{10}{10}$, $\dfrac{1}{10} = \dfrac{10}{100}$, $\dfrac{1}{100} = \dfrac{10}{1\,000}$.
+      - $\dfrac{1}{10} = 0{,}1$ ; $\dfrac{1}{100} = 0{,}01$ ; $\dfrac{1}{1\,000} = 0{,}001$.
+      - Un **nombre décimal** peut s’écrire sous forme d’une fraction décimale (dénominateur $10$, $100$, $1\,000$…).
+      - Un milliard, c’est mille millions : $1\,000\,000\,000$.
+    cours: |
+      ## 1. Les rangs d’un nombre
+      Dans $3\,524{,}076$ : $3$ est le chiffre des **milliers**, $5$ celui des **centaines**, $2$ celui des **dizaines**, $4$ celui des **unités** ; après la virgule, $0$ est le chiffre des **dixièmes**, $7$ celui des **centièmes** et $6$ celui des **millièmes**.
+
+      > **Règle.** Une unité d’un rang vaut **dix** unités du rang situé juste à droite : $1$ dizaine $= 10$ unités, $1$ unité $= 10$ dixièmes, $1$ dixième $= 10$ centièmes.
+
+      Les grands nombres se lisent par classes de trois chiffres : unités, milliers, millions, **milliards**. Ainsi $4\,200\,000\,000$ se lit « quatre milliards deux cents millions ».
+
+      ## 2. Fractions décimales
+      Une **fraction décimale** a pour dénominateur $10$, $100$, $1\,000$…
+      - $\dfrac{1}{10} = 0{,}1$ (un dixième), $\dfrac{1}{100} = 0{,}01$ (un centième), $\dfrac{1}{1\,000} = 0{,}001$ (un millième).
+      - Un nombre a plusieurs écritures : $4{,}107 = \dfrac{4\,107}{1\,000} = 4 + \dfrac{107}{1\,000} = 4 + \dfrac{1}{10} + \dfrac{7}{1\,000}$.
+
+      Un **nombre décimal** est un nombre qui peut s’écrire avec une fraction décimale, donc avec un nombre fini de chiffres après la virgule.
+
+      ## 3. Nombre mixte
+      $2{,}5 = 2 + \dfrac{5}{10} = 2 + \dfrac{1}{2}$ : on dit que $2 + \dfrac{1}{2}$ est l’écriture en **nombre mixte** (partie entière plus une fraction inférieure à $1$).
+    questions:
+      - code: 6E-NUMERATION-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Dans le nombre $8\,436{,}25$, quel est le chiffre des dizaines ? A) $8$  B) $4$  C) $3$  D) $2$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Repérer le rang de chaque chiffre à partir de la virgule.
+          etapes:
+          - 'Avant la virgule, de droite à gauche : $6$ unités, $3$ dizaines, $4$ centaines, $8$ milliers.'
+          resultat: C
+      - code: 6E-NUMERATION-02
+        difficulte: 1
+        type: numerique
+        enonce: Écrire $\dfrac{7}{100}$ avec une virgule.
+        solution: '0,07'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$\dfrac{7}{100}$ se lit « sept centièmes ».'
+          etapes:
+          - 'Le $7$ est au rang des centièmes : deux chiffres après la virgule.'
+          - $\dfrac{7}{100} = 0{,}07$.
+          resultat: '0,07'
+          erreurs_frequentes:
+          - Écrire $0{,}7$, qui vaut sept dixièmes.
+      - code: 6E-NUMERATION-03
+        difficulte: 2
+        type: numerique
+        enonce: Écrire $4 + \dfrac{3}{10} + \dfrac{5}{1\,000}$ avec une virgule.
+        solution: '4,305'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Placer chaque chiffre dans son rang.
+          etapes:
+          - '$4$ unités, $3$ dixièmes, $0$ centième, $5$ millièmes.'
+          - On obtient $4{,}305$.
+          resultat: '4,305'
+          erreurs_frequentes:
+          - Oublier le zéro des centièmes et écrire $4{,}35$.
+      - code: 6E-NUMERATION-04
+        difficulte: 3
+        type: numerique
+        enonce: Combien y a-t-il de centièmes dans $3{,}2$ ?
+        solution: '320'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$1$ unité $= 100$ centièmes et $1$ dixième $= 10$ centièmes.'
+          etapes:
+          - $3$ unités $= 300$ centièmes et $2$ dixièmes $= 20$ centièmes.
+          - $300 + 20 = 320$ centièmes.
+          resultat: '320'
+      - code: 6E-NUMERATION-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Quelle écriture n’est pas égale à $2{,}75$ ? A) $\dfrac{275}{100}$  B) $2 + \dfrac{3}{4}$  C) $2 + \dfrac{7}{10} + \dfrac{5}{100}$  D) $\dfrac{275}{10}$'
+        solution: D
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Transformer chaque écriture en écriture à virgule.
+          etapes:
+          - '$\dfrac{275}{100} = 2{,}75$ ; $2 + \dfrac{3}{4} = 2 + 0{,}75 = 2{,}75$ ; $2 + 0{,}7 + 0{,}05 = 2{,}75$.'
+          - '$\dfrac{275}{10} = 27{,}5$ : ce n’est pas $2{,}75$.'
+          resultat: D
+      - code: 6E-NUMERATION-06
+        difficulte: 5
+        type: numerique
+        enonce: 'La distance moyenne de la Terre au Soleil est d’environ cent cinquante millions de kilomètres. Combien de fois faut-il cette distance pour atteindre un milliard cinq cents millions de kilomètres ?'
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire les deux nombres en chiffres, puis comparer.
+          etapes:
+          - 'Cent cinquante millions : $150\,000\,000$. Un milliard cinq cents millions : $1\,500\,000\,000$.'
+          - $1\,500\,000\,000 = 10 \times 150\,000\,000$.
+          resultat: '10'
+
+  - code: 6E-COMPARER-DEC
+    libelle: Repérer, comparer, encadrer et arrondir des nombres décimaux
+    attendus: [6E-2025-NUM-12, 6E-2025-NUM-13, 6E-2025-NUM-14, 6E-2025-NUM-15, 6E-2025-NUM-16, 6E-2025-NUM-17, 6E-2025-NUM-18]
+    cours_couvre: [6E-2025-NUM-12, 6E-2025-NUM-13, 6E-2025-NUM-14, 6E-2025-NUM-15, 6E-2025-NUM-16, 6E-2025-NUM-17, 6E-2025-NUM-18]
+    prerequis: [6E-NUMERATION]
+    objectifs:
+    - Placer et lire un nombre décimal sur une demi-droite graduée.
+    - Comparer, ranger, encadrer et arrondir des nombres décimaux.
+    methodes:
+    - titre: Comparer deux nombres décimaux
+      etapes:
+      - Comparer d’abord les parties entières.
+      - Si elles sont égales, comparer les chiffres des dixièmes, puis des centièmes, etc.
+      - On peut ajouter des zéros à droite pour avoir autant de chiffres après la virgule.
+      exemple:
+        enonce: Comparer $3{,}8$ et $3{,}75$.
+        resolution:
+        - Parties entières égales ($3$).
+        - '$3{,}8 = 3{,}80$ ; on compare $80$ centièmes et $75$ centièmes.'
+        - $3{,}80 > 3{,}75$.
+        resultat: $3{,}8 > 3{,}75$
+    erreurs_frequentes:
+    - erreur: Penser que le nombre qui a le plus de chiffres après la virgule est le plus grand.
+      explication: '$2{,}9 > 2{,}888$ : on compare rang par rang, pas le nombre de chiffres.'
+    - erreur: 'Arrondir $4{,}76$ au dixième en $4{,}7$.'
+      explication: 'Le chiffre suivant ($6$) est $5$ ou plus : on arrondit au dixième supérieur, $4{,}8$.'
+    resume: |
+      - Pour comparer, on compare les parties entières puis les chiffres **rang par rang**.
+      - **Encadrer** $x$ à l’unité : trouver deux entiers consécutifs $n < x < n + 1$.
+      - **Arrondir** au dixième : on regarde le chiffre des centièmes ; s’il vaut $5$ ou plus, on augmente le chiffre des dixièmes de $1$.
+      - Entre deux décimaux différents, on peut toujours **intercaler** un autre décimal.
+    cours: |
+      ## 1. Demi-droite graduée
+      Sur une demi-droite graduée d’origine $O$, chaque point est repéré par un nombre, son **abscisse**. Pour lire une abscisse, on cherche d’abord ce que vaut **une graduation** : si $10$ graduations séparent $2$ et $3$, une graduation vaut $0{,}1$.
+
+      ## 2. Comparer et ranger
+      > **Méthode.** On compare les parties entières ; si elles sont égales, on compare les dixièmes, puis les centièmes…
+
+      Ranger dans l’**ordre croissant**, c’est écrire du plus petit au plus grand : $2{,}09 < 2{,}1 < 2{,}15 < 2{,}5$.
+
+      ## 3. Encadrer et intercaler
+      $7{,}36$ est compris entre $7$ et $8$ (encadrement à l’unité), entre $7{,}3$ et $7{,}4$ (au dixième).
+      Entre $1{,}4$ et $1{,}5$, on peut intercaler $1{,}45$ (et bien d’autres : $1{,}41$, $1{,}482$…).
+
+      ## 4. Arrondir
+      - L’arrondi à l’unité de $12{,}7$ est $13$ ; celui de $12{,}3$ est $12$.
+      - L’arrondi au centième de $5{,}438$ est $5{,}44$.
+      - Certains nombres ne sont pas décimaux : $\dfrac{1}{3} = 0{,}333\ldots$ ; son arrondi au centième est $0{,}33$.
+    questions:
+      - code: 6E-COMPARER-DEC-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel est le plus grand nombre ? A) $5{,}09$  B) $5{,}9$  C) $5{,}89$  D) $5{,}899$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Même partie entière ($5$) ; on compare les dixièmes.
+          etapes:
+          - 'Dixièmes : $0$, $9$, $8$, $8$. Le plus grand chiffre des dixièmes est $9$.'
+          resultat: B
+      - code: 6E-COMPARER-DEC-02
+        difficulte: 2
+        type: numerique
+        enonce: Donner l’arrondi au dixième de $8{,}46$.
+        solution: '8,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regarder le chiffre des centièmes.
+          etapes:
+          - Le chiffre des centièmes est $6$, qui est $5$ ou plus.
+          - 'On augmente le chiffre des dixièmes de $1$ : $8{,}5$.'
+          resultat: '8,5'
+      - code: 6E-COMPARER-DEC-03
+        difficulte: 2
+        type: numerique
+        enonce: Sur une demi-droite graduée, $10$ graduations régulières séparent le point d’abscisse $3$ du point d’abscisse $4$. Quelle est l’abscisse du point situé $7$ graduations après $3$ ?
+        solution: '3,7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher la valeur d’une graduation.
+          etapes:
+          - Une graduation vaut $1 \div 10 = 0{,}1$.
+          - $3 + 7 \times 0{,}1 = 3{,}7$.
+          resultat: '3,7'
+      - code: 6E-COMPARER-DEC-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel nombre est compris entre $2{,}3$ et $2{,}4$ ? A) $2{,}29$  B) $2{,}35$  C) $2{,}41$  D) $2{,}04$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire les bornes avec deux chiffres après la virgule.
+          etapes:
+          - '$2{,}30 < x < 2{,}40$.'
+          - 'Seul $2{,}35$ convient.'
+          resultat: B
+      - code: 6E-COMPARER-DEC-05
+        difficulte: 4
+        type: numerique
+        enonce: Donner l’arrondi au centième du quotient $2 \div 3$.
+        solution: '0,67'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer quelques décimales puis regarder le chiffre des millièmes.
+          etapes:
+          - $2 \div 3 = 0{,}666\ldots$
+          - 'Le chiffre des millièmes est $6 \geq 5$ : l’arrondi au centième est $0{,}67$.'
+          resultat: '0,67'
+      - code: 6E-COMPARER-DEC-06
+        difficulte: 5
+        type: numerique
+        enonce: 'On range dans l’ordre croissant : $4{,}5$ ; $4{,}05$ ; $4{,}505$ ; $4{,}055$ ; $4{,}55$. Quel nombre est au milieu (en troisième position) ?'
+        solution: '4,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire tous les nombres avec trois chiffres après la virgule.
+          etapes:
+          - '$4{,}500$ ; $4{,}050$ ; $4{,}505$ ; $4{,}055$ ; $4{,}550$.'
+          - 'Ordre croissant : $4{,}050 < 4{,}055 < 4{,}500 < 4{,}505 < 4{,}550$.'
+          - Le troisième est $4{,}5$.
+          resultat: '4,5'

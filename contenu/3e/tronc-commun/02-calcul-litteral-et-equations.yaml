@@ -1,0 +1,228 @@
+chapitre:
+  code: 3E-LITTERAL
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 2
+  titre: Calcul littéral, identités et équations
+
+competences:
+  - code: 3E-DEVELOPPER
+    libelle: Développer, factoriser et utiliser l’identité $a^2 - b^2$
+    attendus: [3E-2020-LIT-01, 3E-2020-LIT-02, 3E-2020-LIT-03]
+    cours_couvre: [3E-2020-LIT-01, 3E-2020-LIT-02, 3E-2020-LIT-03]
+    objectifs:
+    - Déterminer l’opposé d’une expression.
+    - Développer avec la double distributivité, factoriser, réduire.
+    - Factoriser $a^2 - b^2$ et développer $(a + b)(a - b)$.
+    methodes:
+    - titre: Développer avec la double distributivité
+      etapes:
+      - Multiplier chaque terme de la première parenthèse par chaque terme de la seconde.
+      - Écrire les quatre produits avec leurs signes.
+      - Réduire.
+      exemple:
+        enonce: Développer et réduire $(x + 3)(x - 2)$.
+        resolution:
+        - $x \times x + x \times (-2) + 3 \times x + 3 \times (-2)$.
+        - $= x^2 - 2x + 3x - 6 = x^2 + x - 6$.
+        resultat: $x^2 + x - 6$
+    erreurs_frequentes:
+    - erreur: 'Écrire $(x + 3)^2 = x^2 + 9$.'
+      explication: '$(x + 3)^2 = (x + 3)(x + 3) = x^2 + 6x + 9$ : il manque le double produit.'
+    - erreur: 'Écrire $-(2x - 5) = -2x - 5$.'
+      explication: 'L’opposé change le signe de **chaque** terme : $-(2x - 5) = -2x + 5$.'
+    resume: |
+      - Opposé : $-(a + b) = -a - b$ ; $-(a - b) = -a + b$.
+      - Double distributivité : $(a + b)(c + d) = ac + ad + bc + bd$.
+      - Identité : $(a + b)(a - b) = a^2 - b^2$, et réciproquement $a^2 - b^2 = (a + b)(a - b)$.
+    cours: |
+      ## 1. Opposé d’une expression
+      L’opposé de $3x - 7$ est $-(3x - 7) = -3x + 7$.
+
+      ## 2. Double distributivité
+      > **Propriété.** Pour tous nombres $a$, $b$, $c$, $d$ : $(a + b)(c + d) = ac + ad + bc + bd$.
+
+      $(2x - 1)(x + 4) = 2x^2 + 8x - x - 4 = 2x^2 + 7x - 4$.
+
+      ## 3. Identité $a^2 - b^2$
+      > **Propriété.** $(a + b)(a - b) = a^2 - b^2$.
+
+      Factoriser $x^2 - 25 = (x + 5)(x - 5)$ ; calcul mental : $101 \times 99 = 100^2 - 1 = 9\,999$.
+
+      ## 4. Factoriser avec un facteur commun
+      $(x + 2)(3x - 1) + (x + 2)(x + 5) = (x + 2)(4x + 4)$.
+    questions:
+      - code: 3E-DEVELOPPER-01
+        difficulte: 1
+        type: expression
+        forme: reduite
+        enonce: Écrire l’opposé de $3x - 7$ sous forme réduite.
+        solution: -3x+7
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Changer le signe de chaque terme.
+          etapes:
+          - $-(3x - 7) = -3x + 7$.
+          resultat: -3x+7
+      - code: 3E-DEVELOPPER-02
+        difficulte: 2
+        type: expression
+        forme: developpee
+        enonce: Développer et réduire $(x + 3)(x - 2)$.
+        solution: x^2+x-6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Double distributivité.
+          etapes:
+          - $x^2 - 2x + 3x - 6 = x^2 + x - 6$.
+          resultat: x^2+x-6
+      - code: 3E-DEVELOPPER-03
+        difficulte: 3
+        type: expression
+        forme: factorisee
+        enonce: Factoriser $x^2 - 25$.
+        solution: (x+5)(x-5)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $a^2 - b^2 = (a + b)(a - b)$ avec $a = x$, $b = 5$.
+          etapes:
+          - $x^2 - 25 = (x + 5)(x - 5)$.
+          resultat: (x+5)(x-5)
+      - code: 3E-DEVELOPPER-04
+        difficulte: 4
+        type: expression
+        forme: developpee
+        enonce: Développer et réduire $(2x - 1)(x + 4)$.
+        solution: 2x^2+7x-4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Double distributivité.
+          etapes:
+          - $2x^2 + 8x - x - 4 = 2x^2 + 7x - 4$.
+          resultat: 2x^2+7x-4
+      - code: 3E-DEVELOPPER-05
+        difficulte: 5
+        type: expression
+        forme: factorisee
+        enonce: Factoriser $9x^2 - 16$.
+        solution: (3x+4)(3x-4)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Reconnaître $a^2 - b^2$ avec $a = 3x$ et $b = 4$.
+          etapes:
+          - $9x^2 - 16 = (3x)^2 - 4^2 = (3x + 4)(3x - 4)$.
+          resultat: (3x+4)(3x-4)
+      - code: 3E-DEVELOPPER-06
+        difficulte: 3
+        type: numerique
+        enonce: Calculer mentalement $101 \times 99$ en utilisant une identité.
+        solution: '9999'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $(100 + 1)(100 - 1) = 100^2 - 1^2$.
+          etapes:
+          - $10\,000 - 1 = 9\,999$.
+          resultat: '9999'
+
+  - code: 3E-EQUATIONS
+    libelle: Résoudre des équations du premier degré, produits et $x^2 = a$
+    attendus: [3E-2020-LIT-04, 3E-2020-LIT-05]
+    cours_couvre: [3E-2020-LIT-04, 3E-2020-LIT-05]
+    prerequis: [3E-DEVELOPPER]
+    objectifs:
+    - Résoudre une équation du premier degré.
+    - Résoudre une équation produit nul.
+    - Résoudre une équation $x^2 = a$.
+    - Mettre un problème en équation.
+    methodes:
+    - titre: Résoudre une équation produit nul
+      etapes:
+      - Vérifier que l’équation est de la forme $A \times B = 0$ (sinon, factoriser).
+      - Un produit est nul si et seulement si l’un au moins de ses facteurs est nul ; écrire $A = 0$ ou $B = 0$.
+      - Résoudre chaque équation du premier degré.
+      exemple:
+        enonce: Résoudre $(2x - 6)(x + 5) = 0$.
+        resolution:
+        - $2x - 6 = 0$ ou $x + 5 = 0$.
+        - $x = 3$ ou $x = -5$.
+        resultat: Deux solutions ; $3$ et $-5$.
+    erreurs_frequentes:
+    - erreur: 'Résoudre $x^2 = 16$ en ne donnant que $x = 4$.'
+      explication: '$(-4)^2 = 16$ aussi ; les solutions sont $4$ et $-4$.'
+    - erreur: Appliquer la règle du produit nul à $(x - 1)(x + 2) = 5$.
+      explication: La règle ne fonctionne que si le produit est égal à **zéro**.
+    resume: |
+      - Équation du premier degré : on isole $x$.
+      - **Produit nul** : $A \times B = 0 \iff A = 0$ ou $B = 0$.
+      - $x^2 = a$ : si $a > 0$, deux solutions $\sqrt{a}$ et $-\sqrt{a}$ ; si $a = 0$, une solution $0$ ; si $a < 0$, aucune solution.
+    cours: |
+      ## 1. Premier degré
+      $7x - 4 = 3x + 10 \iff 4x = 14 \iff x = 3{,}5$.
+
+      ## 2. Équation produit nul
+      > **Propriété.** Un produit de facteurs est nul si et seulement si l’un au moins de ses facteurs est nul.
+
+      $x^2 - 9 = 0 \iff (x - 3)(x + 3) = 0 \iff x = 3$ ou $x = -3$.
+
+      ## 3. Équation $x^2 = a$
+      $x^2 = 7$ a deux solutions : $\sqrt{7}$ et $-\sqrt{7}$. $x^2 = -4$ n’a pas de solution : un carré est toujours positif.
+
+      ## 4. Problèmes
+      Un carré dont on augmente le côté de $3$ cm voit son aire augmenter de $39$ cm² : $(c + 3)^2 - c^2 = 39$, soit $6c + 9 = 39$, d’où $c = 5$ cm.
+    questions:
+      - code: 3E-EQUATIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: Résoudre $7x - 4 = 3x + 10$.
+        solution: '3,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regrouper les termes en $x$.
+          etapes:
+          - $4x = 14$, donc $x = 3{,}5$.
+          resultat: '3,5'
+      - code: 3E-EQUATIONS-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelles sont les solutions de $(2x - 6)(x + 5) = 0$ ? A) $3$ et $-5$  B) $-3$ et $5$  C) $6$ et $-5$  D) $3$ seulement'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Produit nul.
+          etapes:
+          - $2x - 6 = 0$ donne $x = 3$ ; $x + 5 = 0$ donne $x = -5$.
+          resultat: A
+      - code: 3E-EQUATIONS-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Combien de solutions l’équation $x^2 = 16$ a-t-elle ? A) aucune  B) une seule, $4$  C) deux, $4$ et $-4$  D) deux, $8$ et $-8$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $x^2 = a$ avec $a > 0$.
+          etapes:
+          - $x = \sqrt{16} = 4$ ou $x = -4$.
+          resultat: C
+      - code: 3E-EQUATIONS-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Résoudre $x^2 - 49 = 0$ et donner la solution négative.'
+        solution: '-7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Factoriser, puis produit nul.
+          etapes:
+          - $(x - 7)(x + 7) = 0$, donc $x = 7$ ou $x = -7$.
+          resultat: '-7'
+      - code: 3E-EQUATIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On augmente le côté d’un carré de $3$ cm ; son aire augmente alors de $39$ cm². Quel était le côté du carré, en cm ?'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Mettre en équation.
+          etapes:
+          - $(c + 3)^2 - c^2 = 39$, soit $c^2 + 6c + 9 - c^2 = 39$.
+          - $6c = 30$, donc $c = 5$ cm.
+          resultat: '5'
