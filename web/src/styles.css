@@ -131,6 +131,10 @@ button.icone:hover:not(:disabled) { background: var(--surface-2); color: var(--t
   background: var(--action-doux); color: var(--action); padding: 2px 8px; border-radius: 99px;
   max-width: 100%; overflow-wrap: anywhere; vertical-align: middle; /* un badge long passe à la ligne, il reste lisible */
 }
+/* Liste de statuts dans une cellule de tableau : la colonne garde une largeur lisible et les badges
+   passent à la ligne entre les mots, jamais au milieu d'un mot. */
+.badges { display: flex; flex-wrap: wrap; gap: 4px; min-width: 12rem; max-width: 22rem; }
+.badges .badge { overflow-wrap: normal; }
 .badge.ok { background: var(--ok-doux); color: var(--ok); }
 .badge.alerte { background: var(--alerte-doux); color: var(--alerte); }
 .badge.ko { background: var(--ko-doux); color: var(--ko); }

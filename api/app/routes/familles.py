@@ -10,17 +10,22 @@ from pkp_engine import Niveau
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from app import enfants, journal, parents
+from app import enfants, inscriptions, journal, parents
 from app.auth import AdminCourant, EnseignantAnglais, EnseignantCourant, ParentCourant, SessionDB
 from app.db import models
+from app.progression import chapitres_du_programme, resume_eleve
 from app.routes.anglais import ELEVES_PAR_GROUPE, _mon_groupe
-from app.routes.enseignants import _ma_classe, _resume_classe, ouvrir_classe
+from app.routes.enseignants import _ma_classe, _programme_de_la_classe, _resume_classe, ouvrir_classe
+from app.schemas_admin import ClasseAdmin
 from app.schemas import (
     AjoutEnfants,
     CarteEnfant,
+    ChapitreProgramme,
+    ChoixChapitres,
     ClasseCreation,
     ClasseResume,
     CodeEnfantFamille,
+    EleveResume,
     EnfantChoix,
     EnfantFamille,
     EnfantModification,
@@ -133,9 +138,10 @@ def rattacher_enfant(parent_id: int, enfant_id: int, admin: AdminCourant, sessio
 
 @router.get("/admin/enfants", response_model=list[EnfantFamille])
 def rechercher_enfants(
-    _: AdminCourant, session: SessionDB, q: str = "", niveau: Niveau | None = None
+    _: AdminCourant, session: SessionDB, q: str = "", niveau: Niveau | None = None, sans_classe: bool = False
 ) -> list[EnfantFamille]:
-    return [enfants.decrire(e) for e in enfants.rechercher(session, niveau, q)]
+    """Enfants des familles, inscrits ou non (les 100 premiers par prénom) ; filtres facultatifs."""
+    return [enfants.decrire(e) for e in enfants.rechercher(session, niveau, q, limite=100, sans_classe=sans_classe)]
 
 
 @router.get("/admin/enfants/{enfant_id}", response_model=EnfantFamille)
@@ -197,6 +203,94 @@ def creer_classe_admin(corps: ClasseAdminCreation, admin: AdminCourant, session:
     journal.noter(session, admin, "creer", "classe", classe.id, apres={"code": classe.code, "enseignant": enseignant.id})
     session.commit()
     return _resume_classe(session, classe)
+
+
+class ClasseModification(BaseModel):
+    enseignant_id: int
+
+
+def _classe(session: SessionDB, classe_id: int) -> models.Classe:
+    classe = session.get(models.Classe, classe_id)
+    if classe is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Classe introuvable.")
+    return classe
+
+
+def _vue_classe(c: models.Classe) -> ClasseAdmin:
+    return ClasseAdmin(
+        id=c.id, code=c.code, niveau=c.niveau, parcours=c.parcours, domaine_code=c.domaine_code,
+        enseignant_id=c.enseignant_id, enseignant=c.enseignant.nom, nb_eleves=len(c.eleves),
+        nb_chapitres_ouverts=len(c.chapitres_proposes),
+    )
+
+
+@router.get("/admin/classes/{classe_id}", response_model=ClasseAdmin)
+def classe_admin(classe_id: int, _: AdminCourant, session: SessionDB) -> ClasseAdmin:
+    return _vue_classe(_classe(session, classe_id))
+
+
+@router.patch("/admin/classes/{classe_id}", response_model=ClasseAdmin)
+def modifier_classe_admin(classe_id: int, corps: ClasseModification, admin: AdminCourant, session: SessionDB) -> ClasseAdmin:
+    """Changer le professeur d'une classe (remplacement, erreur d'affectation). Élèves et chapitres restent."""
+    classe = _classe(session, classe_id)
+    enseignant = session.get(models.Enseignant, corps.enseignant_id)
+    if enseignant is None or not enseignant.actif or not enseignant.enseigne_maths:
+        raise HTTPException(422, "Choisissez un professeur de mathématiques actif.")
+    if enseignant.id != classe.enseignant_id:
+        journal.noter(session, admin, "changer-professeur", "classe", classe.id,
+                      avant={"enseignant": classe.enseignant_id}, apres={"enseignant": enseignant.id})
+        classe.enseignant = enseignant
+        session.commit()
+    return _vue_classe(classe)
+
+
+@router.get("/admin/classes/{classe_id}/eleves", response_model=list[EleveResume])
+def eleves_classe_admin(classe_id: int, _: AdminCourant, session: SessionDB) -> list[EleveResume]:
+    classe = _classe(session, classe_id)
+    return [resume_eleve(session, e) for e in sorted(classe.eleves, key=lambda e: e.prenom)]
+
+
+@router.get("/admin/classes/{classe_id}/chapitres", response_model=list[ChapitreProgramme])
+def chapitres_classe_admin(classe_id: int, _: AdminCourant, session: SessionDB) -> list[ChapitreProgramme]:
+    return _programme_de_la_classe(session, _classe(session, classe_id))
+
+
+@router.put("/admin/classes/{classe_id}/chapitres", response_model=list[ChapitreProgramme])
+def proposer_chapitres_admin(
+    classe_id: int, corps: ChoixChapitres, admin: AdminCourant, session: SessionDB
+) -> list[ChapitreProgramme]:
+    classe = _classe(session, classe_id)
+    programme = {c.id: c for c in chapitres_du_programme(session, classe)}
+    if any(i not in programme for i in corps.chapitre_ids):
+        raise HTTPException(422, "Chapitre hors du programme de cette classe (niveau et parcours).")
+    journal.noter(session, admin, "chapitres", "classe", classe.id,
+                  avant={"ouverts": len(classe.chapitres_proposes)}, apres={"ouverts": len(set(corps.chapitre_ids))})
+    classe.chapitres_proposes = [programme[i] for i in dict.fromkeys(corps.chapitre_ids)]
+    session.commit()
+    return _programme_de_la_classe(session, classe)
+
+
+@router.get("/admin/classes/{classe_id}/enfants", response_model=list[EnfantChoix])
+def chercher_pour_classe_admin(classe_id: int, _: AdminCourant, session: SessionDB, q: str = "") -> list[EnfantChoix]:
+    classe = _classe(session, classe_id)
+    return _choix(session, classe.niveau, q, {e.enfant_id for e in classe.eleves if e.enfant_id})
+
+
+@router.delete("/admin/classes/{classe_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_classe_admin(classe_id: int, confirmation: str, admin: AdminCourant, session: SessionDB) -> Response:
+    """Après saisie du code de la classe : supprime la classe, ses inscriptions, leurs séances et réponses.
+    Les enfants des familles et leurs autres inscriptions ne sont pas touchés."""
+    classe = _classe(session, classe_id)
+    if confirmation.strip().upper() != classe.code:
+        raise HTTPException(422, "Saisissez le code de la classe pour confirmer.")
+    journal.noter(session, admin, "supprimer", "classe", classe.id,
+                  avant={"code": classe.code, "enseignant": classe.enseignant_id, "eleves": len(classe.eleves)})
+    for eleve in classe.eleves:
+        inscriptions.delier(session, eleve)
+    session.delete(classe)
+    parents.supprimer_orphelins(session)
+    session.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 def _ajout(session: SessionDB, ids: list[int], inscrire) -> ResultatAjoutEnfants:

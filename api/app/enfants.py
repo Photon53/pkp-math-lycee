@@ -177,8 +177,13 @@ def choix(enfant: models.Enfant, deja: bool = False):
                        deja_inscrit=deja)
 
 
-def rechercher(session: Session, niveau=None, q: str = "", limite: int = 50) -> list[models.Enfant]:
+def rechercher(
+    session: Session, niveau=None, q: str = "", limite: int = 50, sans_classe: bool = False
+) -> list[models.Enfant]:
+    """`sans_classe` : seulement les enfants inscrits nulle part (ni classe de maths, ni groupe d'anglais)."""
     filtres = []
+    if sans_classe:
+        filtres += [~models.Enfant.inscriptions.any(), ~models.Enfant.inscriptions_anglais.any()]
     if niveau is not None:
         filtres.append(models.Enfant.niveau == niveau)
     q = q.strip().lower()

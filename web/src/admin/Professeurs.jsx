@@ -106,10 +106,12 @@ export default function Professeurs({ jeton, onExpire, domaine = "" }) {
                       <div className="aide">{p.email}</div>
                     </td>
                     <td>
-                      {p.role === "admin" && <span className="badge accent">Admin</span>}{" "}
-                      <BadgesHabilitations habilitations={p.habilitations} />{" "}
-                      {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}{" "}
-                      {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
+                      <div className="badges">
+                        {p.role === "admin" && <span className="badge accent">Admin</span>}
+                        <BadgesHabilitations habilitations={p.habilitations} />
+                        {p.actif ? <span className="badge ok">Actif</span> : <span className="badge neutre">Désactivé</span>}
+                        {p.mdp_provisoire && <span className="badge alerte">Mot de passe provisoire</span>}
+                      </div>
                     </td>
                     <td className="nombre">
                       {p.nb_classes}

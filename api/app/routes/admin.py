@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import anglais_contenu, journal, limitation, parents, permissions, ressources, statistiques
+from app import anglais_contenu, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, FiltreDomaine, SessionDB
 from app.config import settings
 from app.db import models
@@ -372,6 +372,7 @@ def deplacer(eleve_id: int, corps: Deplacement, admin: AdminCourant, session: Se
 def supprimer_eleve(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
     eleve = _eleve(session, eleve_id)
     journal.noter(session, admin, "supprimer", "eleve", eleve.id, avant={"prenom": eleve.prenom, "classe": eleve.classe.code})
+    inscriptions.delier(session, eleve)  # ses autres parcours restent ; un enfant de famille garde sa carte
     session.delete(eleve)
     parents.supprimer_orphelins(session)
     session.commit()
