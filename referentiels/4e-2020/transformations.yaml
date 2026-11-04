@@ -1,0 +1,9 @@
+theme:
+  code: TRANS
+  titre: Comprendre l’effet de quelques transformations sur les figures géométriques
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 4E-2020-TRANS-01, type: capacite, page: 8, texte: "Il utilise un rapport d’agrandissement ou de réduction pour calculer, des longueurs, des aires, des volumes."}
+  - {code: 4E-2020-TRANS-02, type: capacite, page: 8, texte: "Il construit un agrandissement ou une réduction d’une figure donnée."}
+  - {code: 4E-2020-TRANS-03, type: capacite, page: 8, texte: "Il comprend l’effet d’une translation : conservation du parallélisme, des longueurs, des aires et des angles."}

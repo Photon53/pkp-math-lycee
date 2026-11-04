@@ -1,0 +1,242 @@
+chapitre:
+  code: 6E-PROPORTIONNALITE
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 4
+  titre: Proportionnalité et pourcentages
+
+competences:
+  - code: 6E-PROP
+    libelle: Reconnaître et résoudre un problème de proportionnalité
+    attendus: [6E-2025-PROP-01, 6E-2025-PROP-02, 6E-2025-PROP-03, 6E-2025-PROP-04, 6E-2025-PROP-05, 6E-2025-PROP-06, 6E-2025-PROP-07]
+    cours_couvre: [6E-2025-PROP-01, 6E-2025-PROP-02, 6E-2025-PROP-03, 6E-2025-PROP-04, 6E-2025-PROP-05, 6E-2025-PROP-06, 6E-2025-PROP-07]
+    prerequis: [6E-ADD-MULT, 6E-DIVISION]
+    objectifs:
+    - Reconnaître si deux grandeurs sont proportionnelles.
+    - Résoudre un problème par linéarité ou par retour à l’unité.
+    - Utiliser une échelle simple.
+    methodes:
+    - titre: Utiliser le retour à l’unité
+      quand: Les nombres ne sont pas multiples l’un de l’autre.
+      etapes:
+      - Calculer la valeur pour une unité (division).
+      - Multiplier par le nombre d’unités voulu.
+      - Écrire les unités dans les calculs.
+      exemple:
+        enonce: '$4$ croissants coûtent $5{,}20$ €. Combien coûtent $7$ croissants ?'
+        resolution:
+        - 'Un croissant : $5{,}20 \div 4 = 1{,}30$ €.'
+        - '$7$ croissants : $7 \times 1{,}30 = 9{,}10$ €.'
+        resultat: $9{,}10$ €
+    erreurs_frequentes:
+    - erreur: Ajouter la même quantité aux deux grandeurs (« $4$ croissants $\to 5{,}20$ €, donc $7$ croissants $\to 8{,}20$ € »).
+      explication: 'En proportionnalité, on **multiplie** (ou divise) les deux grandeurs par le même nombre, on n’ajoute pas un même nombre.'
+    - erreur: Penser que toute situation où deux grandeurs augmentent ensemble est proportionnelle.
+      explication: 'La taille d’un enfant augmente avec son âge, mais elle n’est pas proportionnelle à l’âge.'
+    resume: |
+      - Deux grandeurs sont **proportionnelles** si l’on passe de l’une à l’autre en multipliant toujours par le même nombre (le « prix au kilo », la « vitesse »…).
+      - **Linéarité** : si $3$ kg coûtent $6$ €, $6$ kg coûtent $2 \times 6 = 12$ € et $3 + 6 = 9$ kg coûtent $6 + 12 = 18$ €.
+      - **Retour à l’unité** : on calcule la valeur pour $1$, puis on multiplie.
+      - **Échelle** $\dfrac{1}{1\,000}$ : $1$ cm sur le plan représente $1\,000$ cm en réalité.
+    cours: |
+      ## 1. Situation de proportionnalité
+      > **Définition.** Deux grandeurs sont proportionnelles lorsque l’on obtient les valeurs de l’une en multipliant celles de l’autre par un **même nombre**.
+
+      Le prix de pommes à $2{,}50$ € le kilo est proportionnel à la masse achetée : prix $= 2{,}50 \times$ masse. Au contraire, un forfait de $10$ € plus $1$ € par heure n’est pas proportionnel au temps.
+
+      ## 2. Représenter
+      | Masse (kg) | $1$ | $2$ | $4$ |
+      |---|---|---|---|
+      | Prix (€) | $2{,}5$ | $5$ | $10$ |
+
+      ## 3. Résoudre
+      - **Linéarité multiplicative** : $2$ fois plus de pommes, $2$ fois plus cher.
+      - **Linéarité additive** : le prix de $6$ kg est la somme des prix de $2$ kg et de $4$ kg.
+      - **Retour à l’unité** : on cherche d’abord le prix d’un kilo.
+
+      ## 4. Échelles
+      Sur un plan à l’échelle $\dfrac{1}{100}$, les longueurs réelles sont $100$ fois plus grandes : $4{,}5$ cm sur le plan représentent $450$ cm, soit $4{,}5$ m.
+    questions:
+      - code: 6E-PROP-01
+        difficulte: 1
+        type: numerique
+        enonce: '$3$ cahiers coûtent $6$ €. Combien coûtent $6$ cahiers (en €) ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux fois plus de cahiers, deux fois plus cher.
+          etapes:
+          - $6 = 2 \times 3$, donc le prix est $2 \times 6 = 12$ €.
+          resultat: '12'
+      - code: 6E-PROP-02
+        difficulte: 2
+        type: numerique
+        enonce: '$4$ croissants coûtent $5{,}20$ €. Combien coûtent $7$ croissants (en €) ?'
+        solution: '9,1'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Retour à l’unité.
+          etapes:
+          - 'Un croissant : $5{,}20 \div 4 = 1{,}30$ €.'
+          - '$7 \times 1{,}30 = 9{,}10$ €.'
+          resultat: '9,1'
+      - code: 6E-PROP-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Laquelle de ces situations est une situation de proportionnalité ? A) La taille d’un enfant et son âge  B) Le prix de l’essence et le volume acheté  C) Le prix d’un abonnement de $10$ € plus $2$ € par séance et le nombre de séances'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher un coefficient multiplicateur constant.
+          etapes:
+          - 'Le prix de l’essence est le volume multiplié par le prix d’un litre : proportionnalité.'
+          - 'La taille ne double pas quand l’âge double ; l’abonnement contient une partie fixe.'
+          resultat: B
+      - code: 6E-PROP-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Pour $4$ personnes, une recette demande $300$ g de farine. Quelle masse de farine (en g) faut-il pour $6$ personnes ?'
+        solution: '450'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Linéarité additive (ou retour à $2$ personnes).
+          etapes:
+          - 'Pour $2$ personnes : $300 \div 2 = 150$ g.'
+          - 'Pour $6 = 4 + 2$ personnes : $300 + 150 = 450$ g.'
+          resultat: '450'
+      - code: 6E-PROP-05
+        difficulte: 4
+        type: numerique
+        enonce: Sur un plan à l’échelle $\dfrac{1}{100}$, une pièce mesure $4{,}5$ cm de long. Quelle est sa longueur réelle, en mètres ?
+        solution: '4,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les longueurs réelles sont $100$ fois plus grandes.
+          etapes:
+          - $4{,}5 \times 100 = 450$ cm.
+          - $450$ cm $= 4{,}5$ m.
+          resultat: '4,5'
+      - code: 6E-PROP-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Le cœur d’Hugo bat régulièrement $72$ fois par minute. Combien de battements fait-il en $45$ secondes ?'
+        solution: '54'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$45$ secondes, c’est les trois quarts d’une minute.'
+          etapes:
+          - 'En $15$ s (quart de minute) : $72 \div 4 = 18$ battements.'
+          - 'En $45$ s : $3 \times 18 = 54$ battements.'
+          resultat: '54'
+
+  - code: 6E-POURCENT
+    libelle: Comprendre et appliquer un pourcentage
+    attendus: [6E-2025-NUM-10, 6E-2025-FRAC-20, 6E-2025-FRAC-21, 6E-2025-FRAC-22]
+    cours_couvre: [6E-2025-NUM-10, 6E-2025-FRAC-20, 6E-2025-FRAC-21, 6E-2025-FRAC-22]
+    prerequis: [6E-FRAC-SENS, 6E-PROP]
+    objectifs:
+    - Savoir qu’un pourcentage est une fraction de dénominateur 100.
+    - Calculer une proportion et l’exprimer en pourcentage.
+    - Appliquer un pourcentage à une quantité.
+    methodes:
+    - titre: Appliquer un pourcentage
+      etapes:
+      - Écrire le pourcentage comme une fraction de dénominateur $100$.
+      - Multiplier la quantité par cette fraction.
+      exemple:
+        enonce: Calculer $30\,\%$ de $80$ €.
+        resolution:
+        - $30\,\% = \dfrac{30}{100}$.
+        - $\dfrac{30}{100} \times 80 = 80 \div 100 \times 30 = 24$ €.
+        resultat: $24$ €
+    erreurs_frequentes:
+    - erreur: 'Calculer $30\,\%$ de $80$ en faisant $80 - 30$.'
+      explication: '$30\,\%$ signifie $30$ pour $100$, soit $\dfrac{30}{100}$ de la quantité.'
+    - erreur: 'Croire qu’une proportion de $12$ sur $50$ vaut $12\,\%$.'
+      explication: '$\dfrac{12}{50} = \dfrac{24}{100}$ : cela fait $24\,\%$.'
+    resume: |
+      - $t\,\% = \dfrac{t}{100}$ : $50\,\% = \dfrac{1}{2}$ ; $25\,\% = \dfrac{1}{4}$ ; $10\,\% = \dfrac{1}{10}$ ; $1\,\% = \dfrac{1}{100}$.
+      - Prendre $t\,\%$ d’une quantité, c’est la multiplier par $\dfrac{t}{100}$.
+      - Une **proportion** est le quotient $\dfrac{\text{partie}}{\text{tout}}$ ; on l’exprime en pourcentage en l’écrivant avec le dénominateur $100$.
+    cours: |
+      ## 1. Définition
+      > **Définition.** Un pourcentage $t\,\%$ est une autre écriture de la fraction $\dfrac{t}{100}$.
+
+      Ainsi $50\,\% = \dfrac{50}{100} = \dfrac{1}{2}$ : prendre $50\,\%$ d’une quantité, c’est en prendre la moitié.
+
+      ## 2. Appliquer un pourcentage
+      $t\,\%$ de $Q$ $= \dfrac{t}{100} \times Q$. Par exemple, $15\,\%$ de $60$ élèves : $\dfrac{15}{100} \times 60 = 9$ élèves.
+      Astuce : $10\,\%$ de $60$ font $6$ ; $5\,\%$ en font la moitié, $3$ ; donc $15\,\% = 6 + 3 = 9$.
+
+      ## 3. Calculer une proportion
+      Dans une classe de $25$ élèves, $10$ sont externes. La proportion d’externes est $\dfrac{10}{25} = \dfrac{40}{100}$, soit $40\,\%$.
+    questions:
+      - code: 6E-POURCENT-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $50\,\%$ de $36$.
+        solution: '18'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$50\,\%$, c’est la moitié.'
+          etapes:
+          - $36 \div 2 = 18$.
+          resultat: '18'
+      - code: 6E-POURCENT-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $30\,\%$ de $80$ €.
+        solution: '24'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par $\dfrac{30}{100}$.
+          etapes:
+          - $80 \div 100 \times 30 = 0{,}8 \times 30 = 24$ €.
+          resultat: '24'
+      - code: 6E-POURCENT-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Quelle écriture est égale à $25\,\%$ ? A) $\dfrac{1}{25}$  B) $\dfrac{1}{4}$  C) $2{,}5$  D) $\dfrac{25}{10}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire le pourcentage comme une fraction de dénominateur $100$.
+          etapes:
+          - $25\,\% = \dfrac{25}{100} = \dfrac{1}{4}$.
+          resultat: B
+      - code: 6E-POURCENT-04
+        difficulte: 3
+        type: numerique
+        enonce: Dans une classe de $25$ élèves, $10$ sont externes. Quel pourcentage d’élèves sont externes ?
+        solution: '40'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Écrire la proportion avec le dénominateur $100$.
+          etapes:
+          - $\dfrac{10}{25} = \dfrac{10 \times 4}{25 \times 4} = \dfrac{40}{100}$.
+          - Soit $40\,\%$.
+          resultat: '40'
+      - code: 6E-POURCENT-05
+        difficulte: 4
+        type: numerique
+        enonce: Un collège compte $60$ élèves de 6e ; $15\,\%$ d’entre eux font de la chorale. Combien d’élèves de 6e font de la chorale ?
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$15\,\% = 10\,\% + 5\,\%$.'
+          etapes:
+          - '$10\,\%$ de $60$ : $6$ ; $5\,\%$ de $60$ : $3$.'
+          - $6 + 3 = 9$ élèves.
+          resultat: '9'
+      - code: 6E-POURCENT-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un pull coûte $40$ €. Pendant les soldes, son prix baisse de $20\,\%$. Quel est son nouveau prix (en €) ?'
+        solution: '32'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer la baisse, puis la retirer du prix.
+          etapes:
+          - '$20\,\%$ de $40$ : $\dfrac{20}{100} \times 40 = 8$ €.'
+          - '$40 - 8 = 32$ €.'
+          resultat: '32'

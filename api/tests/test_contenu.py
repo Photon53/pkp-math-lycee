@@ -46,11 +46,11 @@ class TestDepotReel:
     def test_tout_le_contenu_du_depot_est_valide(self):
         """Garde-fou CI : aucune solution illisible, aucun QCM incohérent, aucun code en double."""
         fichiers = charger()
-        assert {f.chapitre.niveau.value for _, f in fichiers} == {"2nde", "1re", "Tle"}
+        assert {"6e", "2nde", "1re", "Tle"} <= {f.chapitre.niveau.value for _, f in fichiers}
 
     def test_ordre_scolaire(self):
         niveaux = [f.chapitre.niveau.value for _, f in charger()]
-        assert niveaux == sorted(niveaux, key=["2nde", "1re", "Tle"].index)
+        assert niveaux == sorted(niveaux, key=["6e", "5e", "4e", "3e", "2nde", "1re", "Tle"].index)
 
 
 class TestVerification:

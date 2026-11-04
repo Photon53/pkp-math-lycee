@@ -1,0 +1,10 @@
+theme:
+  code: REP
+  titre: Repérage sur une droite et dans le plan
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-REP-01, type: automatisme, page: 12, texte: "Placer sur une demi-droite graduée un point dont l’abscisse est un nombre décimal."}
+  - {code: 5E-2026-REP-02, type: automatisme, page: 12, texte: "Repérer un nombre décimal sur une demi-droite graduée."}
+  - {code: 5E-2026-REP-03, type: capacite, page: 12, texte: "Sur une droite graduée : - lire l’abscisse d’un point donné ; - placer un point d’abscisse donnée."}
+  - {code: 5E-2026-REP-04, type: capacite, page: 12, texte: "Dans le plan muni d’un repère orthogonal : - lire les coordonnées d’un point donné ; - placer un point de coordonnées données."}

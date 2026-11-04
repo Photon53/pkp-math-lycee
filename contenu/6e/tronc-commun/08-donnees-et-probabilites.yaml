@@ -1,0 +1,227 @@
+chapitre:
+  code: 6E-DONNEES
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 8
+  titre: Données et probabilités
+
+competences:
+  - code: 6E-TABLEAUX
+    libelle: Recueillir, organiser et lire des données
+    attendus: [6E-2025-DON-01, 6E-2025-DON-02, 6E-2025-DON-03, 6E-2025-DON-04, 6E-2025-DON-05]
+    cours_couvre: [6E-2025-DON-01, 6E-2025-DON-02, 6E-2025-DON-03, 6E-2025-DON-04, 6E-2025-DON-05]
+    objectifs:
+    - Planifier une petite enquête et présenter les données dans un tableau.
+    - Lire un tableau, un diagramme en barres, un diagramme circulaire ou une courbe.
+    - Filtrer les données d’un tableau selon un critère.
+    methodes:
+    - titre: Lire un diagramme en barres
+      etapes:
+      - Lire le titre et ce que représente chaque axe.
+      - Repérer l’unité des graduations.
+      - Lire la hauteur de la barre qui correspond à la catégorie cherchée.
+      exemple:
+        enonce: 'Sur un diagramme, l’axe vertical est gradué de $5$ en $5$ et la barre « vélo » atteint la troisième graduation. Combien d’élèves viennent à vélo ?'
+        resolution:
+        - Chaque graduation vaut $5$ élèves.
+        - $3 \times 5 = 15$ élèves.
+        resultat: $15$ élèves
+    erreurs_frequentes:
+    - erreur: Compter les graduations sans regarder leur valeur.
+      explication: On vérifie toujours l’unité (de $1$ en $1$, de $5$ en $5$, de $10$ en $10$…).
+    - erreur: Oublier une ligne ou une colonne lors du filtrage d’un tableau.
+      explication: On relit le critère et on vérifie chaque ligne une par une.
+    resume: |
+      - Une **enquête** se prépare : question posée, personnes interrogées, manière de noter les réponses.
+      - On présente les données dans un **tableau** (catégories et effectifs).
+      - Pour lire un graphique : titre, axes, unités, puis lecture.
+      - **Filtrer** un tableau, c’est ne garder que les lignes qui vérifient un critère.
+    cours: |
+      ## 1. Mener une enquête
+      On choisit une question (« Comment viens-tu au collège ? »), on interroge les élèves et on note les réponses. On obtient un **effectif** pour chaque catégorie.
+
+      | Moyen | À pied | Vélo | Bus | Voiture |
+      |---|---|---|---|---|
+      | Effectif | $8$ | $5$ | $10$ | $3$ |
+
+      L’effectif total est $8 + 5 + 10 + 3 = 26$.
+
+      ## 2. Lire des représentations
+      - **Diagramme en barres** : la hauteur de chaque barre donne l’effectif.
+      - **Diagramme circulaire** : la taille de chaque secteur montre la part de chaque catégorie.
+      - **Courbe** : elle montre l’évolution d’une grandeur (une température au fil des heures).
+
+      ## 3. Filtrer
+      Dans un tableau de relevés, garder les jours où il a plu plus de $5$ mm, c’est filtrer selon le critère « pluie $> 5$ mm ».
+    questions:
+      - code: 6E-TABLEAUX-01
+        difficulte: 1
+        type: numerique
+        enonce: 'À pied : $8$ élèves ; vélo : $5$ ; bus : $10$ ; voiture : $3$. Quel est l’effectif total ?'
+        solution: '26'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner tous les effectifs.
+          etapes:
+          - $8 + 5 + 10 + 3 = 26$.
+          resultat: '26'
+      - code: 6E-TABLEAUX-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Sur un diagramme en barres, l’axe vertical est gradué de $5$ en $5$. La barre « vélo » s’arrête à la troisième graduation. Combien d’élèves viennent à vélo ?'
+        solution: '15'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tenir compte de la valeur d’une graduation.
+          etapes:
+          - $3 \times 5 = 15$ élèves.
+          resultat: '15'
+      - code: 6E-TABLEAUX-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Pluie relevée (en mm) du lundi au vendredi : $2$ ; $7$ ; $0$ ; $12$ ; $6$. Combien de jours a-t-il plu plus de $5$ mm ?'
+        solution: '3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Filtrer selon le critère « plus de $5$ mm ».
+          etapes:
+          - 'Valeurs retenues : $7$, $12$, $6$.'
+          - Cela fait $3$ jours.
+          resultat: '3'
+      - code: 6E-TABLEAUX-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un diagramme circulaire, la moitié du disque représente les élèves qui viennent en bus. Il y a $24$ élèves en tout. Combien viennent en bus ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La moitié du disque représente la moitié des élèves.
+          etapes:
+          - $24 \div 2 = 12$ élèves.
+          resultat: '12'
+      - code: 6E-TABLEAUX-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Températures relevées à $8$ h, $12$ h et $16$ h : $9$ °C, $15$ °C, $13$ °C. De combien de degrés la température a-t-elle augmenté entre $8$ h et le moment le plus chaud ?'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Repérer le maximum, puis calculer l’écart.
+          etapes:
+          - Le maximum est $15$ °C (à $12$ h).
+          - $15 - 9 = 6$ °C.
+          resultat: '6'
+
+  - code: 6E-PROBAS
+    libelle: Calculer des probabilités simples
+    attendus: [6E-2025-DON-06, 6E-2025-DON-07, 6E-2025-DON-08]
+    cours_couvre: [6E-2025-DON-06, 6E-2025-DON-07, 6E-2025-DON-08]
+    prerequis: [6E-FRAC-SENS]
+    objectifs:
+    - Savoir qu’une probabilité est un nombre compris entre $0$ et $1$.
+    - Calculer une probabilité dans une situation d’équiprobabilité.
+    - Comparer des fréquences observées à une probabilité calculée.
+    methodes:
+    - titre: Calculer une probabilité dans une situation d’équiprobabilité
+      etapes:
+      - Compter le nombre total d’issues possibles.
+      - Compter les issues qui réalisent l’évènement.
+      - 'Probabilité $= \dfrac{\text{issues favorables}}{\text{issues possibles}}$.'
+      exemple:
+        enonce: On lance un dé équilibré à six faces. Quelle est la probabilité d’obtenir un nombre pair ?
+        resolution:
+        - $6$ issues possibles.
+        - 'Issues favorables : $2$, $4$, $6$, soit $3$.'
+        - $\dfrac{3}{6} = \dfrac{1}{2}$.
+        resultat: $\dfrac{1}{2}$
+    erreurs_frequentes:
+    - erreur: Donner une probabilité plus grande que $1$.
+      explication: 'Le nombre d’issues favorables ne peut pas dépasser le nombre total d’issues : une probabilité est entre $0$ et $1$.'
+    - erreur: Croire qu’après trois « pile », « face » a plus de chances de sortir.
+      explication: 'La pièce « ne se souvient pas » : chaque lancer a toujours une chance sur deux de donner « face ».'
+    resume: |
+      - Une probabilité est un nombre entre $0$ (évènement **impossible**) et $1$ (évènement **certain**).
+      - « $a$ chances sur $b$ » correspond à la probabilité $\dfrac{a}{b}$, qu’on peut écrire en fraction, en décimal ou en pourcentage.
+      - Quand on répète une expérience un grand nombre de fois, la **fréquence** observée se rapproche de la probabilité.
+    cours: |
+      ## 1. Probabilité d’un évènement
+      Lors d’une expérience aléatoire où toutes les issues ont la même chance (équiprobabilité), la probabilité d’un évènement est :
+      > $P = \dfrac{\text{nombre d’issues favorables}}{\text{nombre d’issues possibles}}$
+
+      Avec un dé équilibré, « obtenir un $5$ » a une chance sur six : $P = \dfrac{1}{6}$.
+
+      ## 2. Valeurs possibles
+      $0 \leq P \leq 1$. Une probabilité de $\dfrac{1}{2}$ s’écrit aussi $0{,}5$ ou $50\,\%$.
+
+      ## 3. Fréquences et probabilité
+      On lance une pièce $100$ fois et on obtient $47$ fois « pile » : la fréquence de « pile » est $\dfrac{47}{100} = 0{,}47$, proche de la probabilité $0{,}5$. Plus le nombre de lancers est grand, plus la fréquence se rapproche en général de la probabilité.
+    questions:
+      - code: 6E-PROBAS-01
+        difficulte: 1
+        type: numerique
+        enonce: On lance un dé équilibré à six faces. Quelle est la probabilité d’obtenir un $5$ ?
+        solution: 1/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une issue favorable sur six possibles.
+          etapes:
+          - $P = \dfrac{1}{6}$.
+          resultat: 1/6
+      - code: 6E-PROBAS-02
+        difficulte: 2
+        type: numerique
+        enonce: On lance un dé équilibré à six faces. Quelle est la probabilité d’obtenir un nombre pair ?
+        solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter les issues favorables.
+          etapes:
+          - 'Issues favorables : $2$, $4$, $6$, soit $3$ sur $6$.'
+          - $\dfrac{3}{6} = \dfrac{1}{2}$.
+          resultat: 1/2
+      - code: 6E-PROBAS-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Quel nombre ne peut pas être une probabilité ? A) $0$  B) $0{,}75$  C) $\dfrac{4}{3}$  D) $1$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une probabilité est comprise entre $0$ et $1$.
+          etapes:
+          - '$\dfrac{4}{3} > 1$ : ce n’est pas une probabilité.'
+          resultat: C
+      - code: 6E-PROBAS-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Une urne contient $3$ boules rouges et $5$ boules bleues, indiscernables au toucher. On tire une boule au hasard. Quelle est la probabilité qu’elle soit rouge ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Issues favorables sur issues possibles.
+          etapes:
+          - $3 + 5 = 8$ boules au total, dont $3$ rouges.
+          - $P = \dfrac{3}{8}$.
+          resultat: 3/8
+      - code: 6E-PROBAS-05
+        difficulte: 4
+        type: numerique
+        enonce: 'On lance une pièce $200$ fois et on obtient $96$ fois « pile ». Quelle est la fréquence de « pile » (en écriture décimale) ?'
+        solution: '0,48'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence $=$ effectif $\div$ effectif total.
+          etapes:
+          - $96 \div 200 = 0{,}48$, proche de la probabilité $0{,}5$.
+          resultat: '0,48'
+      - code: 6E-PROBAS-06
+        difficulte: 5
+        type: numerique
+        enonce: 'On tire une carte au hasard dans un jeu de $32$ cartes contenant $4$ as. Quelle est la probabilité, en pourcentage, de tirer un as ?'
+        solution: '12,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer la probabilité, puis l’écrire en pourcentage.
+          etapes:
+          - $P = \dfrac{4}{32} = \dfrac{1}{8} = 0{,}125$.
+          - $0{,}125 = 12{,}5\,\%$.
+          resultat: '12,5'

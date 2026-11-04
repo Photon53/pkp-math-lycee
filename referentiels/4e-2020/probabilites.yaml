@@ -1,0 +1,11 @@
+theme:
+  code: PROBA
+  titre: Comprendre et utiliser des notions élémentaires de probabilités
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 4E-2020-PROBA-01, type: capacite, page: 5, texte: "Il utilise le vocabulaire des probabilités : expérience aléatoire, issues, événement, probabilité, événement certain, événement impossible, événement contraire."}
+  - {code: 4E-2020-PROBA-02, type: capacite, page: 5, texte: "Il reconnaît des événements contraires et s’en sert pour calculer des probabilités."}
+  - {code: 4E-2020-PROBA-03, type: capacite, page: 5, texte: "Il calcule des probabilités."}
+  - {code: 4E-2020-PROBA-04, type: capacite, page: 5, texte: "Il sait que la probabilité d’un événement est un nombre compris entre 0 et 1."}
+  - {code: 4E-2020-PROBA-05, type: capacite, page: 5, texte: "Il exprime des probabilités sous diverses formes."}

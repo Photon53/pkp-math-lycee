@@ -1,0 +1,10 @@
+theme:
+  code: PROP
+  titre: Résoudre des problèmes de proportionnalité
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 4E-2020-PROP-01, type: capacite, page: 6, texte: "Il reconnaît sur un graphique une situation de proportionnalité ou de non proportionnalité."}
+  - {code: 4E-2020-PROP-02, type: capacite, page: 6, texte: "Il calcule une quatrième proportionnelle par la procédure de son choix."}
+  - {code: 4E-2020-PROP-03, type: capacite, page: 6, texte: "Il utilise une formule liant deux grandeurs dans une situation de proportionnalité."}
+  - {code: 4E-2020-PROP-04, type: capacite, page: 6, texte: "Il résout des problèmes en utilisant la proportionnalité dans le cadre de la géométrie."}

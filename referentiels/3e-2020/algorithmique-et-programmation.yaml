@@ -1,0 +1,16 @@
+theme:
+  code: ALGO
+  titre: Écrire, mettre au point, exécuter un programme
+  partie: Algorithmique et programmation
+
+attendus:
+  - {code: 3E-2020-ALGO-01, type: capacite, page: 10, texte: "Il réalise des activités d’algorithmique débranchée."}
+  - {code: 3E-2020-ALGO-02, type: capacite, page: 10, texte: "Il met en ordre et/ou complète des blocs fournis par le professeur pour construire un programme simple sur un logiciel de programmation."}
+  - {code: 3E-2020-ALGO-03, type: capacite, page: 10, texte: "Il écrit un script de déplacement ou de construction géométrique utilisant des instructions conditionnelles et/ou la boucle « Répéter … fois »."}
+  - {code: 3E-2020-ALGO-04, type: capacite, page: 10, texte: "Il gère le déclenchement d'un script en réponse à un événement."}
+  - {code: 3E-2020-ALGO-05, type: capacite, page: 10, texte: "Il écrit une séquence d’instructions (condition « si … alors » et boucle « répéter … fois »)."}
+  - {code: 3E-2020-ALGO-06, type: capacite, page: 10, texte: "Il intègre une variable dans un programme de déplacement, de construction géométrique ou de calcul."}
+  - {code: 3E-2020-ALGO-07, type: capacite, page: 10, texte: "Il décompose un problème en sous-problèmes et traduit un sous-problème en créant un « bloc-personnalisé »."}
+  - {code: 3E-2020-ALGO-08, type: capacite, page: 10, texte: "Il construit une figure en créant un motif et en le reproduisant à l’aide d’une boucle."}
+  - {code: 3E-2020-ALGO-09, type: capacite, page: 10, texte: "Il utilise simultanément les boucles « Répéter … fois » et « Répéter jusqu’à … » ainsi que les instructions conditionnelles pour réaliser des figures, des programmes de calculs, des déplacements, des simulations d’expérience aléatoire."}
+  - {code: 3E-2020-ALGO-10, type: capacite, page: 10, texte: "Il écrit plusieurs scripts fonctionnant en parallèle pour gérer des interactions et créer des jeux."}

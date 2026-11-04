@@ -1,0 +1,11 @@
+theme:
+  code: ANG
+  titre: Angles
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-ANG-01, type: automatisme, page: 13, texte: "Reconnaitre et citer sur une configuration géométrique des angles : angle plein, plat, nul, droit ; angles opposés par le sommet, adjacents, supplémentaires, aigus, obtus."}
+  - {code: 5E-2026-ANG-02, type: automatisme, page: 13, texte: "Savoir qu’un angle droit mesure 90°, qu’un angle plat mesure 180°."}
+  - {code: 5E-2026-ANG-03, type: automatisme, page: 13, texte: "Reconnaitre une bissectrice."}
+  - {code: 5E-2026-ANG-04, type: automatisme, page: 13, texte: "Connaitre les mesures des angles de l’équerre dont dispose l’élève (30° 60° 90° ou 45° 45° 90°)."}
+  - {code: 5E-2026-ANG-05, type: capacite, page: 13, texte: "Caractériser le parallélisme par les angles : angles alternes internes, angles correspondants."}

@@ -1,0 +1,361 @@
+chapitre:
+  code: 6E-GEOMETRIE
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 7
+  titre: Géométrie plane et vision dans l’espace
+
+competences:
+  - code: 6E-CERCLE-MEDIATRICE
+    libelle: Utiliser distances, milieu, cercle et médiatrice
+    attendus: [6E-2025-GEO-01, 6E-2025-GEO-02, 6E-2025-GEO-04, 6E-2025-GEO-05, 6E-2025-GEO-06, 6E-2025-GEO-07, 6E-2025-GEO-08, 6E-2025-GEO-09, 6E-2025-GEO-10, 6E-2025-GEO-11, 6E-2025-GEO-12]
+    cours_couvre: [6E-2025-GEO-01, 6E-2025-GEO-02, 6E-2025-GEO-04, 6E-2025-GEO-05, 6E-2025-GEO-06, 6E-2025-GEO-07, 6E-2025-GEO-08, 6E-2025-GEO-09, 6E-2025-GEO-10, 6E-2025-GEO-11, 6E-2025-GEO-12]
+    objectifs:
+    - Connaître les définitions du milieu, du cercle, du disque, du rayon, du diamètre et de la corde.
+    - Connaître et utiliser la propriété caractéristique de la médiatrice.
+    methodes:
+    - titre: Construire la médiatrice d’un segment au compas
+      etapes:
+      - Pointer le compas en $A$ avec un écartement plus grand que la moitié de $AB$ ; tracer deux arcs de part et d’autre de $[AB]$.
+      - Sans changer l’écartement, recommencer depuis $B$.
+      - Les deux points d’intersection des arcs sont équidistants de $A$ et $B$ ; la droite qui les joint est la médiatrice.
+      exemple:
+        enonce: 'Le point $M$ est sur la médiatrice de $[AB]$ et $MA = 6$ cm. Que vaut $MB$ ?'
+        resolution:
+        - Tout point de la médiatrice est à égale distance des extrémités du segment.
+        - Donc $MB = MA = 6$ cm.
+        resultat: $MB = 6$ cm
+    erreurs_frequentes:
+    - erreur: Confondre le cercle (la ligne) et le disque (la surface).
+      explication: 'Le cercle de centre $O$ et de rayon $r$ est formé des points à la distance $r$ de $O$ ; le disque contient aussi tous les points intérieurs.'
+    - erreur: Penser que toute droite qui passe par le milieu d’un segment est sa médiatrice.
+      explication: La médiatrice passe par le milieu **et** est perpendiculaire au segment.
+    resume: |
+      - La **distance** entre $A$ et $B$ est la longueur $AB$ du segment $[AB]$.
+      - Le **milieu** $I$ de $[AB]$ est le point de $[AB]$ tel que $IA = IB$.
+      - **Cercle** de centre $O$ et de rayon $r$ : points situés à la distance $r$ de $O$. **Disque** : points à une distance inférieure ou égale à $r$.
+      - Diamètre $= 2 \times$ rayon ; une **corde** est un segment qui joint deux points du cercle.
+      - **Médiatrice** de $[AB]$ : droite perpendiculaire à $[AB]$ en son milieu. Un point est sur la médiatrice si et seulement s’il est équidistant de $A$ et de $B$.
+    cours: |
+      ## 1. Distance et milieu
+      La distance entre deux points $A$ et $B$ est la longueur du segment $[AB]$, notée $AB$. Le **milieu** de $[AB]$ est le point $I$ du segment tel que $IA = IB = \dfrac{AB}{2}$.
+
+      ## 2. Cercle et disque
+      > **Définition.** Le cercle de centre $O$ et de rayon $r$ est l’ensemble des points situés à la distance $r$ du point $O$. Le disque de centre $O$ et de rayon $r$ est l’ensemble des points situés à une distance de $O$ inférieure ou égale à $r$.
+
+      - Un **rayon** joint le centre à un point du cercle.
+      - Un **diamètre** est une corde qui passe par le centre ; sa longueur vaut $2r$.
+      - Une **corde** joint deux points du cercle.
+
+      ## 3. Médiatrice d’un segment
+      > **Définition.** La médiatrice d’un segment est la droite perpendiculaire à ce segment qui passe par son milieu.
+
+      > **Propriété caractéristique.** Un point appartient à la médiatrice de $[AB]$ si et seulement s’il est à égale distance de $A$ et de $B$.
+
+      On utilise cette propriété pour construire la médiatrice au compas, ou pour trouver un point équidistant de deux lieux (par exemple de deux maisons).
+    questions:
+      - code: 6E-CERCLE-MEDIATRICE-01
+        difficulte: 1
+        type: numerique
+        enonce: Un cercle a un rayon de $3{,}5$ cm. Quelle est la longueur de son diamètre, en cm ?
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diamètre $= 2 \times$ rayon.
+          etapes:
+          - $2 \times 3{,}5 = 7$ cm.
+          resultat: '7'
+      - code: 6E-CERCLE-MEDIATRICE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$I$ est le milieu de $[AB]$ et $AB = 9$ cm. Combien mesure $AI$, en cm ?'
+        solution: '4,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le milieu partage le segment en deux longueurs égales.
+          etapes:
+          - $AI = 9 \div 2 = 4{,}5$ cm.
+          resultat: '4,5'
+      - code: 6E-CERCLE-MEDIATRICE-03
+        difficulte: 2
+        type: qcm
+        enonce: 'Le point $M$ est à $4$ cm du point $O$. Que peut-on dire de $M$ par rapport au cercle de centre $O$ et de rayon $5$ cm ? A) $M$ est sur le cercle  B) $M$ est à l’intérieur du disque, pas sur le cercle  C) $M$ est à l’extérieur du disque'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer la distance $OM$ au rayon.
+          etapes:
+          - '$OM = 4 < 5$ : $M$ est dans le disque, mais pas sur le cercle.'
+          resultat: B
+      - code: 6E-CERCLE-MEDIATRICE-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Le point $M$ est sur la médiatrice de $[AB]$ et $MA = 6$ cm. Combien mesure $MB$, en cm ?'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Propriété caractéristique de la médiatrice.
+          etapes:
+          - 'Un point de la médiatrice est équidistant de $A$ et de $B$ : $MB = MA = 6$ cm.'
+          resultat: '6'
+      - code: 6E-CERCLE-MEDIATRICE-05
+        difficulte: 4
+        type: qcm
+        enonce: 'On a $PA = 5$ cm et $PB = 5$ cm. Que peut-on en déduire ? A) $P$ est le milieu de $[AB]$  B) $P$ est sur la médiatrice de $[AB]$  C) $P$ est sur le segment $[AB]$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Utiliser la propriété caractéristique de la médiatrice.
+          etapes:
+          - '$P$ est équidistant de $A$ et de $B$ : il est sur la médiatrice de $[AB]$.'
+          - Il n’est le milieu que s’il est aussi sur le segment, ce qu’on ne sait pas.
+          resultat: B
+      - code: 6E-CERCLE-MEDIATRICE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Deux maisons $A$ et $B$ sont à $800$ m l’une de l’autre. On place un puits $P$ sur le segment $[AB]$, à la même distance des deux maisons. À combien de mètres de $A$ est le puits ?'
+        solution: '400'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un point du segment équidistant des extrémités est son milieu.
+          etapes:
+          - '$P$ est sur la médiatrice et sur $[AB]$ : c’est le milieu.'
+          - $PA = 800 \div 2 = 400$ m.
+          resultat: '400'
+
+  - code: 6E-ANGLES-TRIANGLES
+    libelle: Mesurer des angles et utiliser les propriétés des triangles
+    attendus: [6E-2025-GEO-13, 6E-2025-GEO-14, 6E-2025-GEO-15, 6E-2025-GEO-16, 6E-2025-GEO-17, 6E-2025-GEO-18, 6E-2025-GEO-19, 6E-2025-GEO-20, 6E-2025-GEO-21, 6E-2025-GEO-22, 6E-2025-GEO-23]
+    cours_couvre: [6E-2025-GEO-13, 6E-2025-GEO-14, 6E-2025-GEO-15, 6E-2025-GEO-16, 6E-2025-GEO-17, 6E-2025-GEO-18, 6E-2025-GEO-19, 6E-2025-GEO-20, 6E-2025-GEO-21, 6E-2025-GEO-22, 6E-2025-GEO-23]
+    prerequis: [6E-CERCLE-MEDIATRICE]
+    objectifs:
+    - Nommer, mesurer et construire des angles ; connaître la bissectrice.
+    - Utiliser la somme des angles d’un triangle et les propriétés des triangles particuliers.
+    - Construire le cercle circonscrit à un triangle.
+    methodes:
+    - titre: Calculer le troisième angle d’un triangle
+      etapes:
+      - Additionner les deux angles connus.
+      - Soustraire cette somme de $180°$.
+      - Utiliser les propriétés du triangle (isocèle, rectangle…) si un angle manque encore.
+      exemple:
+        enonce: 'Dans le triangle $ABC$, $\widehat{A} = 50°$ et $\widehat{B} = 65°$. Calculer $\widehat{C}$.'
+        resolution:
+        - $50 + 65 = 115$.
+        - $180 - 115 = 65$.
+        resultat: $\widehat{C} = 65°$
+    erreurs_frequentes:
+    - erreur: Lire la mauvaise graduation du rapporteur.
+      explication: On part du $0$ situé sur un côté de l’angle ; un angle aigu mesure moins de $90°$, un angle obtus plus de $90°$.
+    - erreur: 'Penser que la somme des angles d’un triangle dépend de sa taille.'
+      explication: Dans **tout** triangle, la somme des mesures des trois angles vaut $180°$.
+    resume: |
+      - Angle **nul** $0°$, **aigu** entre $0°$ et $90°$, **droit** $90°$, **obtus** entre $90°$ et $180°$, **plat** $180°$, **plein** $360°$.
+      - Deux angles **supplémentaires** ont une somme de $180°$ ; deux angles **opposés par le sommet** ont la même mesure.
+      - La **bissectrice** d’un angle le partage en deux angles de même mesure.
+      - Dans un triangle, $\widehat{A} + \widehat{B} + \widehat{C} = 180°$. Triangle équilatéral : trois angles de $60°$ ; isocèle : deux angles de base égaux ; rectangle : les deux angles aigus ont pour somme $90°$.
+      - Les trois médiatrices d’un triangle se coupent en un point, centre du **cercle circonscrit**.
+    cours: |
+      ## 1. Angles
+      Un angle est formé de deux demi-droites de même origine (le **sommet**). On le note $\widehat{xOy}$ ou $\widehat{AOB}$ et on le mesure en degrés avec un **rapporteur**.
+
+      - Deux angles **adjacents** ont le même sommet, un côté commun et sont situés de part et d’autre de ce côté.
+      - Deux angles **supplémentaires** ont pour somme $180°$ ; deux angles **opposés par le sommet** ont la même mesure.
+
+      > **Définition.** La bissectrice d’un angle saillant est la demi-droite qui le partage en deux angles de même mesure.
+
+      ## 2. Triangles
+      > **Propriété.** Dans un triangle, la somme des mesures des trois angles est égale à $180°$.
+
+      - Triangle **équilatéral** : trois côtés égaux et trois angles de $60°$.
+      - Triangle **isocèle** en $A$ : $AB = AC$ et les angles $\widehat{B}$ et $\widehat{C}$ sont égaux.
+      - Triangle **rectangle** en $A$ : $\widehat{A} = 90°$, donc $\widehat{B} + \widehat{C} = 90°$.
+
+      On ne peut pas toujours construire un triangle avec trois longueurs : avec $2$ cm, $3$ cm et $7$ cm, les deux arcs de cercle ne se coupent pas.
+
+      ## 3. Cercle circonscrit
+      Les trois médiatrices des côtés d’un triangle sont **concourantes** : elles se coupent en un point $O$, équidistant des trois sommets. Le cercle de centre $O$ qui passe par les trois sommets est le **cercle circonscrit** au triangle.
+    questions:
+      - code: 6E-ANGLES-TRIANGLES-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Un angle mesure $125°$. Comment s’appelle-t-il ? A) aigu  B) droit  C) obtus  D) plat'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer à $90°$ et à $180°$.
+          etapes:
+          - '$90° < 125° < 180°$ : l’angle est obtus.'
+          resultat: C
+      - code: 6E-ANGLES-TRIANGLES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans le triangle $ABC$, $\widehat{A} = 50°$ et $\widehat{B} = 65°$. Combien mesure $\widehat{C}$, en degrés ?'
+        solution: '65'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La somme des angles d’un triangle vaut $180°$.
+          etapes:
+          - $180 - (50 + 65) = 180 - 115 = 65°$.
+          resultat: '65'
+      - code: 6E-ANGLES-TRIANGLES-03
+        difficulte: 2
+        type: numerique
+        enonce: 'La bissectrice d’un angle de $84°$ le partage en deux angles. Combien mesure chacun d’eux, en degrés ?'
+        solution: '42'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La bissectrice partage l’angle en deux angles égaux.
+          etapes:
+          - $84 \div 2 = 42°$.
+          resultat: '42'
+      - code: 6E-ANGLES-TRIANGLES-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Un triangle $ABC$ est isocèle en $A$ et $\widehat{A} = 40°$. Combien mesure $\widehat{B}$, en degrés ?'
+        solution: '70'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les angles de base d’un triangle isocèle sont égaux.
+          etapes:
+          - $\widehat{B} + \widehat{C} = 180 - 40 = 140°$.
+          - $\widehat{B} = \widehat{C} = 140 \div 2 = 70°$.
+          resultat: '70'
+      - code: 6E-ANGLES-TRIANGLES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Deux angles sont supplémentaires. L’un mesure $37°$. Combien mesure l’autre, en degrés ?'
+        solution: '143'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux angles supplémentaires ont pour somme $180°$.
+          etapes:
+          - $180 - 37 = 143°$.
+          resultat: '143'
+      - code: 6E-ANGLES-TRIANGLES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un triangle $ABC$ est rectangle en $A$ et $\widehat{B}$ mesure le double de $\widehat{C}$. Combien mesure $\widehat{C}$, en degrés ?'
+        solution: '30'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les deux angles aigus d’un triangle rectangle ont pour somme $90°$.
+          etapes:
+          - $\widehat{B} + \widehat{C} = 90°$ et $\widehat{B} = 2 \times \widehat{C}$, donc $3 \times \widehat{C} = 90°$.
+          - $\widehat{C} = 30°$ (et $\widehat{B} = 60°$).
+          resultat: '30'
+
+  - code: 6E-SYMETRIE
+    libelle: Construire le symétrique d’une figure par rapport à une droite
+    attendus: [6E-2025-GEO-03, 6E-2025-GEO-24, 6E-2025-GEO-25, 6E-2025-GEO-26, 6E-2025-GEO-27]
+    cours_couvre: [6E-2025-GEO-03, 6E-2025-GEO-24, 6E-2025-GEO-25, 6E-2025-GEO-26, 6E-2025-GEO-27]
+    prerequis: [6E-CERCLE-MEDIATRICE]
+    objectifs:
+    - Connaître la définition du symétrique d’un point par rapport à une droite.
+    - Utiliser la conservation des longueurs, des angles et des aires par symétrie axiale.
+    - Reconnaître des solides et voir dans l’espace des assemblages de cubes.
+    methodes:
+    - titre: Construire le symétrique d’un point
+      etapes:
+      - Tracer la perpendiculaire à l’axe $(d)$ passant par le point $A$.
+      - Mesurer la distance de $A$ à l’axe.
+      - 'Reporter cette distance de l’autre côté de l’axe sur la perpendiculaire : on obtient $A''$.'
+      exemple:
+        enonce: '$A$ est à $3$ cm de l’axe $(d)$. À quelle distance de $A$ se trouve son symétrique $A’$ ?'
+        resolution:
+        - $A'$ est aussi à $3$ cm de l’axe, de l’autre côté.
+        - $AA' = 3 + 3 = 6$ cm.
+        resultat: $6$ cm
+    erreurs_frequentes:
+    - erreur: Reporter la distance parallèlement aux lignes du quadrillage alors que l’axe est oblique.
+      explication: On reporte toujours **perpendiculairement** à l’axe.
+    - erreur: Penser que la symétrie change la taille d’une figure.
+      explication: La symétrie axiale conserve les longueurs, les angles et les aires.
+    resume: |
+      - Le symétrique de $A$ par rapport à $(d)$ est le point $A'$ tel que $(d)$ soit la **médiatrice** de $[AA']$ (si $A \in (d)$, $A' = A$).
+      - La symétrie axiale **conserve** les longueurs, les angles, les aires et l’alignement.
+      - Une figure a un **axe de symétrie** si elle se superpose à elle-même par pliage le long de cet axe.
+      - Solides usuels : cube, pavé, prisme droit, pyramide, cylindre, cône, boule.
+    cours: |
+      ## 1. Symétrique d’un point
+      > **Définition.** Le symétrique du point $A$ par rapport à la droite $(d)$ est le point $A'$ tel que $(d)$ soit la médiatrice du segment $[AA']$. Si $A$ est sur $(d)$, son symétrique est lui-même.
+
+      ## 2. Propriétés
+      > **Propriété.** Le symétrique d’un segment est un segment de même longueur ; le symétrique d’un angle est un angle de même mesure ; le symétrique d’un cercle est un cercle de même rayon.
+
+      Pour construire le symétrique d’un polygone, on construit les symétriques de ses sommets et on les relie.
+
+      ## 3. Axes de symétrie
+      Un carré a $4$ axes de symétrie, un rectangle (non carré) $2$, un triangle équilatéral $3$, un cercle une infinité.
+
+      ## 4. Vision dans l’espace
+      On reconnaît les **pyramides**, **boules**, **cubes**, **cylindres**, **pavés**, **cônes** et **prismes droits**. Pour un assemblage de cubes, certaines faces sont cachées : on compte les cubes couche par couche et on imagine les vues de dessus, de face, de côté.
+    questions:
+      - code: 6E-SYMETRIE-01
+        difficulte: 1
+        type: numerique
+        enonce: Combien un carré a-t-il d’axes de symétrie ?
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher les pliages qui superposent la figure.
+          etapes:
+          - 'Deux médiatrices des côtés et deux diagonales : $4$ axes.'
+          resultat: '4'
+      - code: 6E-SYMETRIE-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Le segment $[AB]$ mesure $5{,}2$ cm. Son symétrique par rapport à une droite est le segment $[A’B’]$. Combien mesure $A’B’$, en cm ?'
+        solution: '5,2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La symétrie axiale conserve les longueurs.
+          etapes:
+          - $A'B' = AB = 5{,}2$ cm.
+          resultat: '5,2'
+      - code: 6E-SYMETRIE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Le point $A$ est à $3$ cm de la droite $(d)$. Quelle est la distance $AA’$ (en cm), $A’$ étant le symétrique de $A$ par rapport à $(d)$ ?'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$(d)$ est la médiatrice de $[AA’]$.'
+          etapes:
+          - $A'$ est aussi à $3$ cm de $(d)$, de l’autre côté.
+          - $AA' = 3 + 3 = 6$ cm.
+          resultat: '6'
+      - code: 6E-SYMETRIE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel solide a deux bases en forme de disque ? A) le cône  B) le cylindre  C) la pyramide  D) le pavé'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Se représenter chaque solide.
+          etapes:
+          - 'Le cylindre a deux disques comme bases ; le cône n’en a qu’un.'
+          resultat: B
+      - code: 6E-SYMETRIE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Un angle $\widehat{ABC}$ mesure $47°$. Combien mesure son symétrique $\widehat{A’B’C’}$ par rapport à une droite, en degrés ?'
+        solution: '47'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La symétrie axiale conserve les angles.
+          etapes:
+          - $\widehat{A'B'C'} = \widehat{ABC} = 47°$.
+          resultat: '47'
+      - code: 6E-SYMETRIE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un assemblage est fait de deux couches de cubes : la couche du bas compte $3$ rangées de $4$ cubes, celle du haut une seule rangée de $4$ cubes. Combien de cubes compte l’assemblage ?'
+        solution: '16'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter couche par couche.
+          etapes:
+          - 'Bas : $3 \times 4 = 12$ cubes ; haut : $4$ cubes.'
+          - $12 + 4 = 16$ cubes.
+          resultat: '16'

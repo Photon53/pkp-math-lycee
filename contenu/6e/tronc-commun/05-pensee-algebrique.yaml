@@ -1,0 +1,125 @@
+chapitre:
+  code: 6E-ALGEBRE
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 5
+  titre: Pensée algébrique et motifs
+
+competences:
+  - code: 6E-PREALG
+    libelle: Résoudre des problèmes à nombre inconnu et étudier des motifs évolutifs
+    attendus: [6E-2025-ALG-01, 6E-2025-ALG-02]
+    cours_couvre: [6E-2025-ALG-01, 6E-2025-ALG-02]
+    prerequis: [6E-ADD-MULT]
+    objectifs:
+    - Représenter un problème par un schéma en barres pour trouver un nombre inconnu.
+    - Trouver la règle d’un motif évolutif et calculer le nombre d’éléments d’une étape.
+    methodes:
+    - titre: Utiliser un schéma en barres
+      etapes:
+      - Dessiner une barre pour chaque quantité, de même longueur si les quantités sont égales.
+      - Repérer le total connu et les parts inconnues.
+      - Retirer ce qui est connu, puis partager le reste en parts égales.
+      exemple:
+        enonce: 'Trois amis ont le même nombre de billes ; avec les $4$ billes de Tom, cela fait $25$ billes. Combien chaque ami a-t-il de billes ?'
+        resolution:
+        - 'Schéma : trois barres égales et une barre de $4$, total $25$.'
+        - $25 - 4 = 21$, puis $21 \div 3 = 7$.
+        resultat: $7$ billes
+    erreurs_frequentes:
+    - erreur: Faire les opérations dans l’ordre où les nombres apparaissent dans l’énoncé.
+      explication: 'Le schéma montre la structure du problème : on retire d’abord la partie connue avant de partager.'
+    - erreur: Croire que l’étape $10$ d’un motif contient $10$ fois plus d’éléments que l’étape $1$.
+      explication: Il faut trouver la règle (ce qui s’ajoute à chaque étape) avant de calculer.
+    resume: |
+      - Un **schéma en barres** représente les quantités connues et inconnues ; il aide à choisir les opérations.
+      - Pour un **motif évolutif**, on repère ce qui reste fixe et ce qui s’ajoute à chaque étape.
+      - Si un motif commence avec $a$ éléments et en gagne $b$ à chaque étape, l’étape $n$ en contient $a + b \times (n - 1)$.
+    cours: |
+      ## 1. Problèmes à nombre inconnu
+      On peut raisonner sur un nombre **sans le connaître**. « Le double d’un nombre plus $5$ vaut $23$ » : en barres, deux barres égales et une barre de $5$ font $23$. Donc les deux barres font $18$ et une barre fait $9$.
+
+      ## 2. Égalités à trous
+      $178 - \ldots = 6 \times 8$ : on calcule $6 \times 8 = 48$ ; le nombre manquant est $178 - 48 = 130$.
+
+      ## 3. Motifs évolutifs
+      Un motif d’allumettes : étape $1$, un carré ($4$ allumettes) ; à chaque étape on ajoute un carré accolé ($3$ allumettes de plus).
+
+      | Étape | $1$ | $2$ | $3$ | $4$ |
+      |---|---|---|---|---|
+      | Allumettes | $4$ | $7$ | $10$ | $13$ |
+
+      Règle : $4$ au départ, puis $3$ de plus à chaque étape. À l’étape $10$ : $4 + 3 \times 9 = 31$ allumettes.
+    questions:
+      - code: 6E-PREALG-01
+        difficulte: 1
+        type: numerique
+        enonce: Trouver le nombre manquant dans l’égalité $\ldots + 17 = 42$.
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Pour compléter une addition à trou, on soustrait.
+          etapes:
+          - $42 - 17 = 25$.
+          resultat: '25'
+      - code: 6E-PREALG-02
+        difficulte: 2
+        type: numerique
+        enonce: Trouver le nombre manquant dans l’égalité $178 - \ldots = 6 \times 8$.
+        solution: '130'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer d’abord le membre connu.
+          etapes:
+          - $6 \times 8 = 48$.
+          - $178 - 48 = 130$.
+          resultat: '130'
+      - code: 6E-PREALG-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Le double d’un nombre, augmenté de $5$, vaut $23$. Quel est ce nombre ?'
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Schéma en barres : deux barres égales et une barre de $5$ font $23$.'
+          etapes:
+          - $23 - 5 = 18$ pour les deux barres.
+          - $18 \div 2 = 9$.
+          resultat: '9'
+      - code: 6E-PREALG-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Un motif d’allumettes compte $4$ allumettes à l’étape $1$, $7$ à l’étape $2$, $10$ à l’étape $3$. Combien en compte-t-il à l’étape $5$ ?'
+        solution: '16'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Repérer ce qui s’ajoute à chaque étape.
+          etapes:
+          - 'On ajoute $3$ allumettes à chaque étape.'
+          - 'Étape $4$ : $13$ ; étape $5$ : $16$.'
+          resultat: '16'
+      - code: 6E-PREALG-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Même motif ($4$ allumettes à l’étape $1$, puis $3$ de plus à chaque étape). Combien d’allumettes à l’étape $20$ ?'
+        solution: '61'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Départ $4$, puis $19$ ajouts de $3$.'
+          etapes:
+          - $4 + 3 \times 19 = 4 + 57 = 61$.
+          resultat: '61'
+          erreurs_frequentes:
+          - Calculer $3 \times 20 = 60$ ou $4 \times 20 = 80$ sans comprendre la règle.
+      - code: 6E-PREALG-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un sac de pommes et un sac de poires pèsent ensemble $11$ kg. Le sac de pommes pèse $3$ kg de plus que le sac de poires. Combien pèse le sac de poires (en kg) ?'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Schéma : une barre « poires », une barre « poires » plus $3$ kg ; le total vaut $11$ kg.'
+          etapes:
+          - $11 - 3 = 8$ kg pour deux barres égales.
+          - $8 \div 2 = 4$ kg.
+          resultat: '4'

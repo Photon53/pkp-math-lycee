@@ -1,0 +1,14 @@
+theme:
+  code: FONC
+  titre: Fonctions
+  partie: Proportionnalité, fonctions
+
+attendus:
+  - {code: 5E-2026-FONC-01, type: capacite, page: 19, texte: "Introduire l’expression : « en fonction de » dans des contextes concrets ou mathématiques."}
+  - {code: 5E-2026-FONC-02, type: capacite, page: 19, texte: "Produire un tableau de valeurs."}
+  - {code: 5E-2026-FONC-03, type: capacite, page: 19, texte: "Lire et interpréter un tableau de valeurs."}
+  - {code: 5E-2026-FONC-04, type: capacite, page: 19, texte: "Placer dans un repère orthogonal donné des points correspondant à un tableau de valeurs."}
+  - {code: 5E-2026-FONC-05, type: capacite, page: 19, texte: "Lire et interpréter un graphique cartésien donné par une courbe ou un nuage de points."}
+  - {code: 5E-2026-FONC-06, type: capacite, page: 19, texte: "Traduire la relation de dépendance entre deux grandeurs par un tableau de valeurs à partir d’une formule."}
+  - {code: 5E-2026-FONC-07, type: capacite, page: 19, texte: "Produire une formule simple représentant la dépendance de deux grandeurs."}
+  - {code: 5E-2026-FONC-08, type: capacite, page: 19, texte: "Caractériser graphiquement la proportionnalité."}

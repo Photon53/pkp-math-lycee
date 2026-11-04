@@ -1,0 +1,8 @@
+theme:
+  code: PROBA
+  titre: Comprendre et utiliser des notions élémentaires de probabilités
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 3E-2020-PROBA-01, type: capacite, page: 4, texte: "À partir de dénombrements, il calcule des probabilités pour des expériences aléatoires simples à une ou deux épreuves."}
+  - {code: 3E-2020-PROBA-02, type: capacite, page: 4, texte: "Il fait le lien entre stabilisation des fréquences et probabilités."}

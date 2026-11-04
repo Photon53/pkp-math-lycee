@@ -1,0 +1,9 @@
+theme:
+  code: DON
+  titre: Interpréter, représenter et traiter des données
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 3E-2020-DON-01, type: capacite, page: 4, texte: "Il lit, interprète et représente des données sous forme d’histogrammes pour des classes de même amplitude."}
+  - {code: 3E-2020-DON-02, type: capacite, page: 4, texte: "Il calcule et interprète l’étendue d’une série présentée sous forme de données brutes, d’un tableau, d’un diagramme en bâtons, d’un diagramme circulaire ou d’un histogramme."}
+  - {code: 3E-2020-DON-03, type: capacite, page: 4, texte: "Il calcule des effectifs et des fréquences."}

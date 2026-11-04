@@ -1,0 +1,235 @@
+chapitre:
+  code: 5E-PROP-FONCTIONS
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 9
+  titre: Proportionnalité et premières fonctions
+
+competences:
+  - code: 5E-PROPORTIONNALITE
+    libelle: Reconnaître et résoudre des situations de proportionnalité
+    attendus: [5E-2026-PROP-01, 5E-2026-PROP-02, 5E-2026-PROP-03, 5E-2026-PROP-04, 5E-2026-PROP-05, 5E-2026-PROP-06, 5E-2026-PROP-07, 5E-2026-PROP-08, 5E-2026-PROP-09]
+    cours_couvre: [5E-2026-PROP-01, 5E-2026-PROP-02, 5E-2026-PROP-03, 5E-2026-PROP-04, 5E-2026-PROP-05, 5E-2026-PROP-06, 5E-2026-PROP-07, 5E-2026-PROP-08, 5E-2026-PROP-09]
+    prerequis: [5E-FRAC-COMPARER]
+    objectifs:
+    - Reconnaître un tableau de proportionnalité et calculer une quatrième proportionnelle.
+    - Appliquer et calculer un pourcentage ; utiliser une échelle, un ratio.
+    - Reconnaître la proportionnalité sur un graphique (points alignés avec l’origine).
+    methodes:
+    - titre: Calculer une quatrième proportionnelle (produit en croix)
+      etapes:
+      - Placer les trois nombres connus dans un tableau de proportionnalité.
+      - Multiplier les deux nombres situés « en diagonale ».
+      - Diviser par le troisième nombre.
+      exemple:
+        enonce: '$3$ kg de pommes coûtent $7{,}50$ €. Combien coûtent $5$ kg ?'
+        resolution:
+        - $\dfrac{5 \times 7{,}50}{3} = \dfrac{37{,}5}{3} = 12{,}5$.
+        resultat: $12{,}50$ €
+    erreurs_frequentes:
+    - erreur: Ajouter au lieu de multiplier pour passer d’une ligne à l’autre.
+      explication: Dans un tableau de proportionnalité, on passe d’une ligne à l’autre en **multipliant** par le coefficient.
+    - erreur: 'Penser qu’une hausse de $10\,\%$ puis une baisse de $10\,\%$ ramène au prix initial.'
+      explication: 'Les pourcentages s’appliquent à des quantités différentes : $100 \to 110 \to 99$.'
+    resume: |
+      - Deux grandeurs sont proportionnelles si l’on passe de l’une à l’autre en multipliant par un même nombre, le **coefficient de proportionnalité**.
+      - Quatrième proportionnelle : produit en croix.
+      - Appliquer $t\,\%$ : multiplier par $\dfrac{t}{100}$.
+      - Échelle $\dfrac{1}{n}$ : $1$ cm sur le plan représente $n$ cm en réalité.
+      - Graphiquement : points alignés **avec l’origine**.
+      - Ratio $a : b$ : partager en $a + b$ parts égales.
+    cours: |
+      ## 1. Reconnaître la proportionnalité
+      Un tableau est de proportionnalité si les quotients « ligne du bas / ligne du haut » sont tous égaux.
+
+      | Masse (kg) | 2 | 3 | 5 |
+      |---|---|---|---|
+      | Prix (€) | 5 | 7,5 | 12,5 |
+
+      Le coefficient est $2{,}5$.
+
+      ## 2. Calculer
+      On peut utiliser le coefficient, le passage par l’unité, la linéarité (additivité, multiplication) ou le **produit en croix**.
+
+      ## 3. Pourcentages
+      $t\,\%$ d’une quantité, c’est $\dfrac{t}{100}$ de cette quantité. Calculer un pourcentage : $\dfrac{\text{partie}}{\text{total}} \times 100$.
+
+      ## 4. Échelles et ratios
+      Sur une carte à l’échelle $\dfrac{1}{25\,000}$, $4$ cm représentent $100\,000$ cm, soit $1$ km.
+
+      Partager $60$ selon le ratio $2 : 3$, c’est faire $5$ parts de $12$ : on obtient $24$ et $36$.
+
+      ## 5. Graphique
+      > **Propriété.** Une situation est de proportionnalité si et seulement si sa représentation graphique est formée de points alignés avec l’origine du repère.
+    questions:
+      - code: 5E-PROPORTIONNALITE-01
+        difficulte: 1
+        type: numerique
+        enonce: '$3$ kg de pommes coûtent $7{,}50$ €. Combien coûtent $5$ kg, en euros ?'
+        solution: '12,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Passage par l’unité ou produit en croix.
+          etapes:
+          - $1$ kg coûte $7{,}50 \div 3 = 2{,}50$ €.
+          - $5 \times 2{,}50 = 12{,}50$ €.
+          resultat: '12,5'
+      - code: 5E-PROPORTIONNALITE-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $15\,\%$ de $240$.
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par $\dfrac{15}{100}$.
+          etapes:
+          - $240 \times 0{,}15 = 36$.
+          resultat: '36'
+      - code: 5E-PROPORTIONNALITE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Sur une carte à l’échelle $\dfrac{1}{25\,000}$, deux villages sont à $6$ cm l’un de l’autre. Quelle est la distance réelle, en km ?'
+        solution: '1,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par $25\,000$ puis convertir.
+          etapes:
+          - $6 \times 25\,000 = 150\,000$ cm $= 1{,}5$ km.
+          resultat: '1,5'
+      - code: 5E-PROPORTIONNALITE-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle représentation graphique traduit une situation de proportionnalité ? A) Des points alignés passant par l’origine  B) Des points alignés ne passant pas par l’origine  C) Une courbe qui monte'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Caractérisation graphique.
+          etapes:
+          - Points alignés avec l’origine.
+          resultat: A
+      - code: 5E-PROPORTIONNALITE-05
+        difficulte: 4
+        type: numerique
+        enonce: 'On partage $60$ bonbons entre Ali et Zoé selon le ratio $2 : 3$. Combien en reçoit Zoé ?'
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Faire $2 + 3 = 5$ parts égales.
+          etapes:
+          - 'Une part : $60 \div 5 = 12$.'
+          - 'Zoé : $3 \times 12 = 36$.'
+          resultat: '36'
+      - code: 5E-PROPORTIONNALITE-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un article à $100$ € augmente de $10\,\%$, puis baisse de $10\,\%$. Quel est son prix final, en euros ?'
+        solution: '99'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Appliquer les pourcentages successivement.
+          etapes:
+          - 'Hausse : $100 \times 1{,}1 = 110$ €.'
+          - 'Baisse : $110 \times 0{,}9 = 99$ €.'
+          resultat: '99'
+
+  - code: 5E-FONCTIONS
+    libelle: Passer d’un mode de représentation d’une relation à un autre
+    attendus: [5E-2026-FONC-01, 5E-2026-FONC-02, 5E-2026-FONC-03, 5E-2026-FONC-04, 5E-2026-FONC-05, 5E-2026-FONC-06, 5E-2026-FONC-07, 5E-2026-FONC-08]
+    cours_couvre: [5E-2026-FONC-01, 5E-2026-FONC-02, 5E-2026-FONC-03, 5E-2026-FONC-04, 5E-2026-FONC-05, 5E-2026-FONC-06, 5E-2026-FONC-07, 5E-2026-FONC-08]
+    prerequis: [5E-EXPRESSIONS, 5E-REPERAGE]
+    objectifs:
+    - Exprimer une relation entre deux grandeurs par une formule, un tableau ou un graphique.
+    - Lire un graphique (image, antécédent) et compléter un tableau de valeurs.
+    methodes:
+    - titre: Compléter un tableau de valeurs à partir d’une formule
+      etapes:
+      - Remplacer la variable par chaque valeur donnée.
+      - Effectuer le calcul en respectant les priorités.
+      - Reporter chaque résultat dans le tableau.
+      exemple:
+        enonce: 'Le prix d’une course de taxi est $P = 2x + 3$ ($x$ en km). Quel est le prix pour $7$ km ?'
+        resolution:
+        - $P = 2 \times 7 + 3 = 17$.
+        resultat: $17$ €
+    erreurs_frequentes:
+    - erreur: Lire l’axe des ordonnées pour trouver la valeur de départ.
+      explication: La valeur de départ se lit sur l’axe **horizontal** ; le résultat sur l’axe vertical.
+    - erreur: 'Calculer $2x + 3$ pour $x = 7$ comme $2 \times (7 + 3)$.'
+      explication: 'La multiplication est prioritaire : $2 \times 7 + 3 = 17$.'
+    resume: |
+      - Une relation entre deux grandeurs peut être donnée par une **phrase**, une **formule**, un **tableau** ou un **graphique**.
+      - Sur un graphique, on lit la valeur de départ en abscisse et la valeur obtenue en ordonnée.
+      - Un tableur permet de calculer automatiquement un tableau de valeurs à partir d’une formule.
+    cours: |
+      ## 1. Grandeurs qui dépendent l’une de l’autre
+      Le prix payé dépend du nombre de kilomètres parcourus ; la température dépend de l’heure. On peut décrire cette dépendance de plusieurs façons.
+
+      ## 2. Formule et tableau
+      Formule : $P = 2x + 3$. Tableau :
+
+      | $x$ (km) | 0 | 1 | 5 | 10 |
+      |---|---|---|---|---|
+      | $P$ (€) | 3 | 5 | 13 | 23 |
+
+      Avec un tableur, on écrit la formule une fois (par exemple `=2*A2+3`) et on l’étire.
+
+      ## 3. Graphique
+      On place les points $(x ; P)$ dans un repère. Pour lire le prix d’une course de $5$ km, on part de $5$ sur l’axe horizontal, on monte jusqu’à la courbe, puis on lit la valeur sur l’axe vertical.
+
+      Inversement, pour savoir quelle distance correspond à $13$ €, on part de $13$ sur l’axe vertical.
+    questions:
+      - code: 5E-FONCTIONS-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Le prix d’une course de taxi est $P = 2x + 3$ ($x$ en km). Quel est le prix pour $7$ km, en euros ?'
+        solution: '17'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $x$ par $7$.
+          etapes:
+          - $2 \times 7 + 3 = 14 + 3 = 17$.
+          resultat: '17'
+      - code: 5E-FONCTIONS-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Le périmètre d’un carré de côté $c$ est $P = 4c$. Quel est le côté (en cm) d’un carré de périmètre $26$ cm ?'
+        solution: '6,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre $4c = 26$.
+          etapes:
+          - $c = 26 \div 4 = 6{,}5$ cm.
+          resultat: '6,5'
+      - code: 5E-FONCTIONS-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle formule traduit « le prix est de $4$ € par place plus $10$ € de frais fixes » ($n$ places) ? A) $P = 4 + 10n$  B) $P = 4n + 10$  C) $P = 14n$  D) $P = 4(n + 10)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Traduire la phrase en formule.
+          etapes:
+          - '$4$ € pour chacune des $n$ places, plus $10$ € : $P = 4n + 10$.'
+          resultat: B
+      - code: 5E-FONCTIONS-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un tableur, la cellule A2 contient $5$ et la cellule B2 contient la formule =3*A2-4. Quelle valeur affiche B2 ?'
+        solution: '11'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer A2 par sa valeur.
+          etapes:
+          - $3 \times 5 - 4 = 11$.
+          resultat: '11'
+      - code: 5E-FONCTIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Avec la formule $P = 2x + 3$, quelle distance $x$ (en km) correspond à un prix de $21$ € ?'
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre l’équation $2x + 3 = 21$.
+          etapes:
+          - $2x = 18$, donc $x = 9$ km.
+          resultat: '9'

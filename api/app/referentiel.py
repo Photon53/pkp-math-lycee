@@ -10,7 +10,7 @@ from pkp_engine import Niveau
 
 
 class Parcours(str, Enum):
-    TRONC_COMMUN = "tronc-commun"  # Seconde : enseignement commun de mathématiques
+    TRONC_COMMUN = "tronc-commun"  # Collège et seconde : enseignement commun de mathématiques
     SPECIALITE = "specialite"  # Première et Terminale : spécialité mathématiques
     COMPLEMENTAIRES = "complementaires"  # Terminale : option mathématiques complémentaires
     EXPERTES = "expertes"  # Terminale : option mathématiques expertes
@@ -18,10 +18,15 @@ class Parcours(str, Enum):
     TECHNOLOGIQUE = "technologique"  # Première et Terminale : voie technologique (STMG, STI2D, STL, ST2S…)
     EXCELLENCE = "excellence"  # Tous niveaux : exercices très poussés et olympiades (groupe d'approfondissement)
     MISE_A_NIVEAU = "mise-a-niveau"  # Tous niveaux : vérifier les bases de l'année précédente (groupe de soutien)
-    EXAMENS = "examens"  # 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
+    EXAMENS = "examens"  # 3e : brevet ; 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
 
 
 PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
+    # Collège : un programme commun ; soutien et approfondissement ; en 3e, préparation au brevet.
+    Niveau.SIXIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    Niveau.CINQUIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    Niveau.QUATRIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    Niveau.TROISIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS),
     Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.PREMIERE: (
         Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE,
@@ -58,6 +63,14 @@ ABREVIATIONS_PARCOURS = {
     Parcours.EXCELLENCE: "EXC",
     Parcours.EXAMENS: "EXAM",
 }
+
+
+NIVEAUX_COLLEGE = (Niveau.SIXIEME, Niveau.CINQUIEME, Niveau.QUATRIEME, Niveau.TROISIEME)
+
+
+def domaine_maths(niveau: Niveau) -> str:
+    """Domaine pédagogique d'une classe ou d'un chapitre de maths : Maths collège ou Maths lycée (CDC V2, EX.2)."""
+    return "maths-college" if niveau in NIVEAUX_COLLEGE else "maths-lycee"
 
 
 def parcours_par_defaut(niveau: Niveau) -> Parcours:

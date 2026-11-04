@@ -1,0 +1,201 @@
+chapitre:
+  code: 4E-ESPACE-GRANDEURS
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 7
+  titre: Pyramides, cônes et grandeurs composées
+
+competences:
+  - code: 4E-PYRAMIDE-CONE
+    libelle: Se repérer dans l’espace et calculer le volume d’une pyramide, d’un cône
+    attendus: [4E-2020-ESP-01, 4E-2020-ESP-02, 4E-2020-ESP-03, 4E-2020-GRAND-01]
+    cours_couvre: [4E-2020-ESP-01, 4E-2020-ESP-02, 4E-2020-ESP-03, 4E-2020-GRAND-01]
+    objectifs:
+    - Se repérer dans un pavé droit (abscisse, ordonnée, altitude).
+    - Représenter une pyramide, un cône (perspective, patron).
+    - Calculer le volume d’une pyramide et d’un cône.
+    methodes:
+    - titre: Calculer le volume d’une pyramide ou d’un cône
+      etapes:
+      - Calculer l’aire de la base.
+      - Multiplier par la hauteur.
+      - Diviser par $3$.
+      exemple:
+        enonce: 'Une pyramide a une base carrée de côté $6$ cm et une hauteur de $5$ cm. Quel est son volume ?'
+        resolution:
+        - 'Aire de la base : $36$ cm².'
+        - $V = \dfrac{36 \times 5}{3} = 60$ cm³.
+        resultat: $60$ cm³
+    erreurs_frequentes:
+    - erreur: Oublier de diviser par $3$.
+      explication: 'Une pyramide occupe le tiers du prisme de même base et même hauteur.'
+    - erreur: Prendre la longueur d’une arête latérale comme hauteur.
+      explication: La hauteur est la distance du sommet au plan de la base, mesurée **perpendiculairement**.
+    resume: |
+      - Dans un pavé droit, un point est repéré par trois coordonnées : abscisse, ordonnée, **altitude**.
+      - Pyramide et cône : $V = \dfrac{\mathcal{B} \times h}{3}$.
+      - Cône de révolution de rayon $r$ : $V = \dfrac{\pi r^2 h}{3}$.
+    cours: |
+      ## 1. Se repérer dans un pavé droit
+      On choisit un sommet $O$ comme origine et trois arêtes issues de $O$ comme axes. Un point est repéré par $(x ; y ; z)$ : abscisse, ordonnée, altitude.
+
+      ## 2. Pyramide et cône
+      Une **pyramide** a une base polygonale et des faces latérales triangulaires qui se rejoignent au sommet. Un **cône de révolution** est obtenu en faisant tourner un triangle rectangle autour d’un côté de l’angle droit.
+
+      Le patron d’une pyramide à base carrée est formé d’un carré et de quatre triangles ; celui d’un cône, d’un disque et d’un secteur de disque.
+
+      ## 3. Volumes
+      > **Formule.** $V = \dfrac{1}{3} \times \mathcal{B} \times h$.
+
+      La pyramide de Khéops, base carrée de $230$ m de côté et hauteur d’environ $146$ m, a un volume d’environ $2{,}6$ millions de m³.
+    questions:
+      - code: 4E-PYRAMIDE-CONE-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Une pyramide a une base carrée de côté $6$ cm et une hauteur de $5$ cm. Quel est son volume, en cm³ ?'
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $V = \dfrac{\mathcal{B} \times h}{3}$.
+          etapes:
+          - $\dfrac{36 \times 5}{3} = 60$ cm³.
+          resultat: '60'
+      - code: 4E-PYRAMIDE-CONE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Dans un repère de l’espace, la troisième coordonnée d’un point s’appelle : A) l’abscisse  B) l’ordonnée  C) l’altitude  D) la hauteur'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Vocabulaire du repérage.
+          etapes:
+          - Abscisse, ordonnée, altitude.
+          resultat: C
+      - code: 4E-PYRAMIDE-CONE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Le patron d’un cône de révolution est formé : A) d’un disque et d’un secteur de disque  B) de deux disques et d’un rectangle  C) d’un carré et de quatre triangles'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Déplier la surface latérale.
+          etapes:
+          - La surface latérale d’un cône se déplie en secteur de disque ; la base est un disque.
+          resultat: A
+      - code: 4E-PYRAMIDE-CONE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un cône a pour rayon $3$ cm et pour hauteur $10$ cm. Calculer son volume, en cm³, arrondi à l’unité.'
+        solution: '94'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $V = \dfrac{\pi r^2 h}{3}$.
+          etapes:
+          - $V = \dfrac{\pi \times 9 \times 10}{3} = 30\pi \approx 94{,}2$ cm³.
+          resultat: '94'
+      - code: 4E-PYRAMIDE-CONE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un prisme droit et une pyramide ont la même base et la même hauteur. Le volume du prisme est $72$ cm³. Quel est celui de la pyramide, en cm³ ?'
+        solution: '24'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La pyramide occupe le tiers du prisme.
+          etapes:
+          - $72 \div 3 = 24$ cm³.
+          resultat: '24'
+
+  - code: 4E-GRANDEURS-COMPOSEES
+    libelle: Calculer avec des grandeurs composées et convertir leurs unités
+    attendus: [4E-2020-GRAND-02]
+    cours_couvre: [4E-2020-GRAND-02]
+    objectifs:
+    - Utiliser vitesse, débit, masse volumique.
+    - Convertir des unités de grandeurs composées (km/h et m/s…).
+    methodes:
+    - titre: Convertir des km/h en m/s
+      etapes:
+      - Écrire la vitesse comme une distance par heure.
+      - Convertir la distance en mètres et l’heure en secondes ($1$ h $= 3\,600$ s).
+      - Effectuer la division.
+      exemple:
+        enonce: Convertir $72$ km/h en m/s.
+        resolution:
+        - $72$ km/h $= \dfrac{72\,000 \text{ m}}{3\,600 \text{ s}}$.
+        - $= 20$ m/s.
+        resultat: $20$ m/s
+    erreurs_frequentes:
+    - erreur: Diviser par $60$ pour passer des km/h aux m/s.
+      explication: 'Une heure compte $3\,600$ secondes ; on multiplie par $1\,000$ puis on divise par $3\,600$.'
+    - erreur: Écrire $1$ h $30$ min $= 1{,}30$ h.
+      explication: '$30$ min $= 0{,}5$ h, donc $1$ h $30$ min $= 1{,}5$ h.'
+    resume: |
+      - Vitesse moyenne : $v = \dfrac{d}{t}$ ; $d = v \times t$ ; $t = \dfrac{d}{v}$.
+      - $1$ m/s $= 3{,}6$ km/h.
+      - Une grandeur composée se convertit en convertissant chacune des unités qui la composent.
+    cours: |
+      ## 1. Grandeurs quotients
+      La **vitesse** (km/h, m/s), le **débit** (L/min), la **masse volumique** (g/cm³) sont des quotients de deux grandeurs.
+
+      ## 2. Grandeurs produits
+      L’énergie électrique en kWh est le produit d’une puissance (kW) par une durée (h).
+
+      ## 3. Conversions
+      $90$ km/h $= \dfrac{90\,000}{3\,600}$ m/s $= 25$ m/s. Un robinet qui débite $12$ L/min débite $720$ L/h.
+    questions:
+      - code: 4E-GRANDEURS-COMPOSEES-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Une voiture parcourt $180$ km en $2$ h. Quelle est sa vitesse moyenne, en km/h ?'
+        solution: '90'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $v = \dfrac{d}{t}$.
+          etapes:
+          - $180 \div 2 = 90$ km/h.
+          resultat: '90'
+      - code: 4E-GRANDEURS-COMPOSEES-02
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $72$ km/h en m/s.
+        solution: '20'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Convertir distance et durée.
+          etapes:
+          - $\dfrac{72\,000}{3\,600} = 20$ m/s.
+          resultat: '20'
+      - code: 4E-GRANDEURS-COMPOSEES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un cycliste roule à $24$ km/h pendant $1$ h $30$ min. Quelle distance parcourt-il, en km ?'
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $d = v \times t$ avec $t = 1{,}5$ h.
+          etapes:
+          - $24 \times 1{,}5 = 36$ km.
+          resultat: '36'
+      - code: 4E-GRANDEURS-COMPOSEES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un robinet débite $12$ L/min. Combien de litres débite-t-il en une heure ?'
+        solution: '720'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ h $= 60$ min.
+          etapes:
+          - $12 \times 60 = 720$ L/h.
+          resultat: '720'
+      - code: 4E-GRANDEURS-COMPOSEES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un radiateur de $2$ kW fonctionne $3$ h par jour pendant $30$ jours. Le kWh coûte $0{,}25$ €. Quel est le coût total, en euros ?'
+        solution: '45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Énergie = puissance × durée.
+          etapes:
+          - $2 \times 3 \times 30 = 180$ kWh.
+          - $180 \times 0{,}25 = 45$ €.
+          resultat: '45'

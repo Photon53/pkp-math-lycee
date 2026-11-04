@@ -36,7 +36,10 @@ class TestDomaineEnregistre:
 
     def test_contenus_et_espaces_de_demo(self, client, session):
         assert set(session.scalars(select(models.Classe.domaine_code))) == {MATHS}
-        assert set(session.scalars(select(models.Chapitre.domaine_code))) == {MATHS}
+        # Chaque chapitre est rangé dans le domaine de son niveau : collège ou lycée.
+        domaines = {(c.niveau, c.domaine_code) for c in session.scalars(select(models.Chapitre))}
+        assert {d for _, d in domaines} == {MATHS, "maths-college"}
+        assert all(d == ("maths-college" if n.value in ("6e", "5e", "4e", "3e") else MATHS) for n, d in domaines)
 
     def test_un_groupe_prend_un_niveau_de_son_domaine(self, client):
         h = connecter_enseignant(client, EMAIL_ANGLAIS_DEMO)
@@ -52,7 +55,8 @@ class TestFiltreDomaine:
         nb = lambda chemin, d: len(client.get(f"{chemin}{'&' if '?' in chemin else '?'}domaine={d}", headers=admin).json())  # noqa: E731
         for chemin in ["/admin/classes", "/admin/contenu", "/admin/ressources"]:
             assert nb(chemin, ANGLAIS) == 0, chemin
-            assert nb(chemin, MATHS) == len(client.get(chemin, headers=admin).json()), chemin
+            tout = len(client.get(chemin, headers=admin).json())
+            assert nb(chemin, MATHS) + nb(chemin, "maths-college") == tout, chemin
         assert client.get("/admin/eleves?domaine=anglais-college", headers=admin).json()["total"] == 0
         assert client.get("/admin/eleves?domaine=maths-lycee", headers=admin).json()["total"] > 0
         assert client.get("/admin/questions?domaine=anglais-college", headers=admin).json()["total"] == 0

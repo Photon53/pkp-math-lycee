@@ -1,0 +1,13 @@
+theme:
+  code: CALC
+  titre: Pratiquer le calcul exact ou approché, mental, à la main ou instrumenté
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 4E-2020-CALC-01, type: capacite, page: 3, texte: "Il effectue avec des nombres décimaux relatifs, des produits et des quotients."}
+  - {code: 4E-2020-CALC-02, type: capacite, page: 3, texte: "Il calcule avec les nombres rationnels : addition, soustraction, multiplication, division."}
+  - {code: 4E-2020-CALC-03, type: capacite, page: 3, texte: "Il utilise l’inverse pour calculer."}
+  - {code: 4E-2020-CALC-04, type: capacite, page: 3, texte: "Il résout des problèmes avec des nombres rationnels."}
+  - {code: 4E-2020-CALC-05, type: capacite, page: 3, texte: "Il utilise la calculatrice pour déterminer une valeur approchée de la racine carrée d’un nombre positif."}
+  - {code: 4E-2020-CALC-06, type: capacite, page: 3, texte: "Il utilise la racine carrée d’un nombre positif en lien avec des situations géométriques (théorème de Pythagore ; agrandissement, réduction et aires)."}
+  - {code: 4E-2020-CALC-07, type: capacite, page: 3, texte: "Il utilise les ordres de grandeur pour vérifier ses résultats."}

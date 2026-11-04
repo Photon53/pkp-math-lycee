@@ -1,0 +1,222 @@
+chapitre:
+  code: 4E-RATIONNELS
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 2
+  titre: Nombres relatifs et nombres rationnels
+
+competences:
+  - code: 4E-RELATIFS-PRODUITS
+    libelle: Multiplier et diviser des nombres relatifs
+    attendus: [4E-2020-CALC-01]
+    cours_couvre: [4E-2020-CALC-01]
+    objectifs:
+    - Déterminer le signe d’un produit ou d’un quotient de nombres relatifs.
+    - Calculer des produits et des quotients de décimaux relatifs.
+    methodes:
+    - titre: Calculer un produit de plusieurs nombres relatifs
+      etapes:
+      - Compter les facteurs négatifs.
+      - 'Nombre pair de facteurs négatifs : produit positif ; nombre impair : produit négatif.'
+      - Multiplier les distances à zéro.
+      exemple:
+        enonce: Calculer $(-2) \times 3 \times (-5) \times (-1)$.
+        resolution:
+        - '$3$ facteurs négatifs : le produit est négatif.'
+        - $2 \times 3 \times 5 \times 1 = 30$.
+        resultat: $-30$
+    erreurs_frequentes:
+    - erreur: Appliquer la règle des signes de la multiplication à l’addition.
+      explication: '$(-3) + (-4) = -7$ alors que $(-3) \times (-4) = 12$.'
+    - erreur: 'Penser que $(-2)^2 = -4$.'
+      explication: '$(-2)^2 = (-2) \times (-2) = 4$.'
+    resume: |
+      - Le produit (ou le quotient) de deux nombres de **même signe** est positif ; de **signes contraires**, il est négatif.
+      - Un produit de plusieurs facteurs non nuls est positif si le nombre de facteurs négatifs est pair, négatif sinon.
+    cours: |
+      ## 1. Produit de deux relatifs
+      > **Règle des signes.** $(+) \times (+) = (+)$ ; $(-) \times (-) = (+)$ ; $(+) \times (-) = (-)$.
+
+      $(-4) \times (-2{,}5) = 10$ ; $7 \times (-3) = -21$.
+
+      ## 2. Produit de plusieurs relatifs
+      On compte les facteurs négatifs : $(-1) \times (-2) \times (-3) = -6$ (trois facteurs négatifs).
+
+      ## 3. Quotient
+      Même règle : $\dfrac{-12}{-4} = 3$ ; $\dfrac{15}{-3} = -5$.
+    questions:
+      - code: 4E-RELATIFS-PRODUITS-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $(-4) \times (-2{,}5)$.
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Deux facteurs de même signe donnent un produit positif.
+          etapes:
+          - $4 \times 2{,}5 = 10$, positif.
+          resultat: '10'
+      - code: 4E-RELATIFS-PRODUITS-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $\dfrac{15}{-3}$.
+        solution: '-5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Signes contraires, quotient négatif.
+          etapes:
+          - $15 \div 3 = 5$, donc $-5$.
+          resultat: '-5'
+      - code: 4E-RELATIFS-PRODUITS-03
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $(-2) \times 3 \times (-5) \times (-1)$.
+        solution: '-30'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter les facteurs négatifs.
+          etapes:
+          - '$3$ facteurs négatifs (impair) : résultat négatif.'
+          - $2 \times 3 \times 5 \times 1 = 30$, donc $-30$.
+          resultat: '-30'
+      - code: 4E-RELATIFS-PRODUITS-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Quel est le signe de $(-1{,}2)^{5}$ ? A) positif  B) négatif  C) nul'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: '$5$ facteurs négatifs.'
+          etapes:
+          - Un nombre impair de facteurs négatifs donne un produit négatif.
+          resultat: B
+      - code: 4E-RELATIFS-PRODUITS-05
+        difficulte: 5
+        type: numerique
+        enonce: Calculer $-3 \times (-4) - 6 \div (-2)$.
+        solution: '15'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Priorités opératoires et règle des signes.
+          etapes:
+          - $-3 \times (-4) = 12$ et $6 \div (-2) = -3$.
+          - $12 - (-3) = 15$.
+          resultat: '15'
+
+  - code: 4E-FRACTIONS-CALCUL
+    libelle: Calculer et comparer avec des nombres rationnels
+    attendus: [4E-2020-CALC-02, 4E-2020-CALC-03, 4E-2020-CALC-04, 4E-2020-COMP-02]
+    cours_couvre: [4E-2020-CALC-02, 4E-2020-CALC-03, 4E-2020-CALC-04, 4E-2020-COMP-02]
+    prerequis: [4E-RELATIFS-PRODUITS]
+    objectifs:
+    - Additionner, soustraire, multiplier et diviser des fractions (positives ou négatives).
+    - Utiliser l’inverse d’un nombre pour diviser.
+    - Comparer, ranger et encadrer des nombres rationnels ; résoudre des problèmes.
+    methodes:
+    - titre: Diviser par une fraction
+      etapes:
+      - Remplacer « diviser par $\dfrac{c}{d}$ » par « multiplier par l’inverse $\dfrac{d}{c}$ ».
+      - Multiplier numérateurs entre eux et dénominateurs entre eux.
+      - Simplifier le résultat.
+      exemple:
+        enonce: Calculer $\dfrac{3}{4} \div \dfrac{9}{8}$.
+        resolution:
+        - $\dfrac{3}{4} \times \dfrac{8}{9} = \dfrac{24}{36}$.
+        - $\dfrac{24}{36} = \dfrac{2}{3}$.
+        resultat: $\dfrac{2}{3}$
+    erreurs_frequentes:
+    - erreur: 'Additionner les numérateurs et les dénominateurs : $\dfrac{1}{2} + \dfrac{1}{3} = \dfrac{2}{5}$.'
+      explication: 'On met d’abord au même dénominateur : $\dfrac{3}{6} + \dfrac{2}{6} = \dfrac{5}{6}$.'
+    - erreur: Penser que l’inverse de $-2$ est $2$.
+      explication: 'L’inverse de $a$ est $\dfrac{1}{a}$ ; celui de $-2$ est $-\dfrac{1}{2}$ (c’est l’opposé de $-2$ qui vaut $2$).'
+    resume: |
+      - $\dfrac{a}{b} + \dfrac{c}{b} = \dfrac{a+c}{b}$ ; sinon, on réduit au même dénominateur.
+      - $\dfrac{a}{b} \times \dfrac{c}{d} = \dfrac{ac}{bd}$.
+      - L’inverse de $\dfrac{c}{d}$ (non nul) est $\dfrac{d}{c}$ ; diviser revient à multiplier par l’inverse.
+      - Pour comparer deux fractions, on les écrit avec le même dénominateur positif.
+    cours: |
+      ## 1. Addition et soustraction
+      $\dfrac{2}{3} - \dfrac{5}{6} = \dfrac{4}{6} - \dfrac{5}{6} = -\dfrac{1}{6}$.
+
+      ## 2. Multiplication
+      > **Règle.** $\dfrac{a}{b} \times \dfrac{c}{d} = \dfrac{a \times c}{b \times d}$. On simplifie de préférence avant de multiplier.
+
+      ## 3. Inverse et division
+      > **Définition.** Deux nombres sont inverses l’un de l’autre si leur produit vaut $1$. L’inverse de $a \neq 0$ est $\dfrac{1}{a}$.
+
+      Diviser par un nombre non nul revient à multiplier par son inverse.
+
+      ## 4. Comparer et ranger
+      $-\dfrac{3}{4} < -\dfrac{2}{3}$ car $-\dfrac{9}{12} < -\dfrac{8}{12}$. Entre deux nombres négatifs, le plus petit est celui qui a la plus grande distance à zéro.
+
+      ## 5. Problèmes
+      Les $\dfrac{2}{5}$ d’une classe de $30$ élèves font du sport, dont la moitié du football : $\dfrac{1}{2} \times \dfrac{2}{5} = \dfrac{1}{5}$ de la classe, soit $6$ élèves.
+    questions:
+      - code: 4E-FRACTIONS-CALCUL-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $\dfrac{2}{3} \times \dfrac{9}{4}$ (fraction irréductible).
+        solution: 3/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier puis simplifier.
+          etapes:
+          - $\dfrac{18}{12} = \dfrac{3}{2}$.
+          resultat: 3/2
+      - code: 4E-FRACTIONS-CALCUL-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $\dfrac{2}{3} - \dfrac{5}{6}$ (fraction irréductible).
+        solution: -1/6
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réduire au même dénominateur.
+          etapes:
+          - $\dfrac{4}{6} - \dfrac{5}{6} = -\dfrac{1}{6}$.
+          resultat: -1/6
+      - code: 4E-FRACTIONS-CALCUL-03
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $\dfrac{3}{4} \div \dfrac{9}{8}$ (fraction irréductible).
+        solution: 2/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par l’inverse.
+          etapes:
+          - $\dfrac{3}{4} \times \dfrac{8}{9} = \dfrac{24}{36} = \dfrac{2}{3}$.
+          resultat: 2/3
+      - code: 4E-FRACTIONS-CALCUL-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel est le plus petit nombre ? A) $-\dfrac{2}{3}$  B) $-\dfrac{3}{4}$  C) $-\dfrac{1}{2}$  D) $\dfrac{1}{4}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Mettre au même dénominateur $12$.
+          etapes:
+          - '$-\dfrac{8}{12}$, $-\dfrac{9}{12}$, $-\dfrac{6}{12}$, $\dfrac{3}{12}$ : le plus petit est $-\dfrac{9}{12}$.'
+          resultat: B
+      - code: 4E-FRACTIONS-CALCUL-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Les $\dfrac{2}{5}$ des $30$ élèves d’une classe font du sport ; la moitié d’entre eux font du football. Combien d’élèves font du football ?'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Prendre une fraction d’une fraction.
+          etapes:
+          - $\dfrac{1}{2} \times \dfrac{2}{5} = \dfrac{1}{5}$.
+          - $\dfrac{1}{5} \times 30 = 6$.
+          resultat: '6'
+      - code: 4E-FRACTIONS-CALCUL-06
+        difficulte: 5
+        type: numerique
+        enonce: Calculer $\dfrac{1}{2} + \dfrac{1}{3} \times \dfrac{3}{4}$ (fraction irréductible).
+        solution: 3/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La multiplication est prioritaire.
+          etapes:
+          - $\dfrac{1}{3} \times \dfrac{3}{4} = \dfrac{1}{4}$.
+          - $\dfrac{1}{2} + \dfrac{1}{4} = \dfrac{3}{4}$.
+          resultat: 3/4

@@ -1,0 +1,14 @@
+theme:
+  code: PUI
+  titre: Puissances
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 5E-2026-PUI-01, type: automatisme, page: 8, texte: "Entretenir les tables de multiplications."}
+  - {code: 5E-2026-PUI-02, type: automatisme, page: 8, texte: "Connaitre les unités d’aires et de volume."}
+  - {code: 5E-2026-PUI-03, type: capacite, page: 8, texte: "Découvrir la notion de puissance d’un nombre et sa notation dans le cas du carré et du cube."}
+  - {code: 5E-2026-PUI-04, type: capacite, page: 8, texte: "Connaitre les carrés des entiers de 0 à 12."}
+  - {code: 5E-2026-PUI-05, type: capacite, page: 8, texte: "Connaitre le cube de 10."}
+  - {code: 5E-2026-PUI-06, type: capacite, page: 8, texte: "Savoir écrire un nombre sous la forme d’une puissance 2 ou 3."}
+  - {code: 5E-2026-PUI-07, type: capacite, page: 8, texte: "Calculer la valeur numérique d’expressions contenant des puissances simples, additions, soustractions et produits."}
+  - {code: 5E-2026-PUI-08, type: capacite, page: 8, texte: "Calculer la valeur d’une expression littérale contenant une puissance simple."}

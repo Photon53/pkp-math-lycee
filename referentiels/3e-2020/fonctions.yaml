@@ -1,0 +1,16 @@
+theme:
+  code: FONC
+  titre: Comprendre et utiliser la notion de fonction
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 3E-2020-FONC-01, type: capacite, page: 5, texte: "Il utilise les notations et le vocabulaire fonctionnels."}
+  - {code: 3E-2020-FONC-02, type: capacite, page: 5, texte: "Il passe d’un mode de représentation d’une fonction à un autre."}
+  - {code: 3E-2020-FONC-03, type: capacite, page: 5, texte: "Il détermine, à partir de tous les modes de représentation, l’image d’un nombre."}
+  - {code: 3E-2020-FONC-04, type: capacite, page: 5, texte: "Il détermine un antécédent à partir d‘une représentation graphique ou d’un tableau de valeurs d’une fonction."}
+  - {code: 3E-2020-FONC-05, type: capacite, page: 5, texte: "Il détermine de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré."}
+  - {code: 3E-2020-FONC-06, type: capacite, page: 5, texte: "Il représente graphiquement une fonction linéaire, une fonction affine."}
+  - {code: 3E-2020-FONC-07, type: capacite, page: 5, texte: "Il interprète les paramètres d’une fonction affine suivant l’allure de sa courbe représentative."}
+  - {code: 3E-2020-FONC-08, type: capacite, page: 5, texte: "Il modélise un phénomène continu par une fonction."}
+  - {code: 3E-2020-FONC-09, type: capacite, page: 5, texte: "Il modélise une situation de proportionnalité à l’aide d’une fonction linéaire."}
+  - {code: 3E-2020-FONC-10, type: capacite, page: 5, texte: "Il résout des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation."}

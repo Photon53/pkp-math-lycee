@@ -1,0 +1,9 @@
+theme:
+  code: INFO
+  titre: Initiation à la pensée informatique
+  partie: Initiation à la pensée informatique
+
+attendus:
+  - {code: 6E-2025-INFO-01, type: capacite, page: 28, texte: "Identifier une instruction ou une séquence d’instructions"}
+  - {code: 6E-2025-INFO-02, type: capacite, page: 28, texte: "Produire et exécuter une séquence d’instructions"}
+  - {code: 6E-2025-INFO-03, type: capacite, page: 28, texte: "Répéter à la main une séquence d’instructions pour accomplir une tâche imposée"}

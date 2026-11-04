@@ -1,0 +1,12 @@
+theme:
+  code: LIT
+  titre: Utiliser le calcul littéral
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 4E-2020-LIT-01, type: capacite, page: 4, texte: "Il identifie la structure d’une expression littérale (somme, produit)."}
+  - {code: 4E-2020-LIT-02, type: capacite, page: 4, texte: "Il utilise la propriété de distributivité simple pour développer un produit, factoriser une somme ou réduire une expression littérale."}
+  - {code: 4E-2020-LIT-03, type: capacite, page: 4, texte: "Il démontre l’équivalence de deux programmes de calcul."}
+  - {code: 4E-2020-LIT-04, type: capacite, page: 4, texte: "Il introduit une lettre pour désigner une valeur inconnue et met un problème en équation."}
+  - {code: 4E-2020-LIT-05, type: capacite, page: 4, texte: "Il teste si un nombre est solution d’une équation."}
+  - {code: 4E-2020-LIT-06, type: capacite, page: 4, texte: "Il résout algébriquement une équation du premier degré."}

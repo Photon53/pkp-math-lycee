@@ -1,0 +1,262 @@
+chapitre:
+  code: 6E-OPERATIONS
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 2
+  titre: Calculer avec les nombres décimaux
+
+competences:
+  - code: 6E-ADD-MULT
+    libelle: Additionner, soustraire et multiplier des nombres décimaux
+    attendus: [6E-2025-NUM-04, 6E-2025-NUM-05, 6E-2025-NUM-19, 6E-2025-NUM-20, 6E-2025-NUM-21, 6E-2025-NUM-22, 6E-2025-NUM-23, 6E-2025-NUM-24, 6E-2025-NUM-25]
+    cours_couvre: [6E-2025-NUM-04, 6E-2025-NUM-05, 6E-2025-NUM-19, 6E-2025-NUM-20, 6E-2025-NUM-21, 6E-2025-NUM-22, 6E-2025-NUM-23, 6E-2025-NUM-24, 6E-2025-NUM-25]
+    prerequis: [6E-NUMERATION]
+    objectifs:
+    - Poser et effectuer une addition, une soustraction, une multiplication de décimaux.
+    - Multiplier ou diviser par 10, 100, 1 000 et multiplier par 0,1, 0,01, 0,001.
+    - Contrôler un résultat par un ordre de grandeur.
+    methodes:
+    - titre: Multiplier deux nombres décimaux
+      etapes:
+      - Effectuer la multiplication sans tenir compte des virgules.
+      - Compter le nombre total de chiffres après la virgule dans les deux facteurs.
+      - Placer la virgule dans le résultat pour avoir ce même nombre de chiffres après la virgule.
+      - Vérifier avec un ordre de grandeur.
+      exemple:
+        enonce: Calculer $2{,}4 \times 1{,}3$.
+        resolution:
+        - $24 \times 13 = 312$.
+        - Un chiffre après la virgule dans chaque facteur, donc deux au total.
+        - $2{,}4 \times 1{,}3 = 3{,}12$ (ordre de grandeur $2 \times 1 = 2$ à $3 \times 1 = 3$, cohérent).
+        resultat: $3{,}12$
+    erreurs_frequentes:
+    - erreur: Aligner les nombres à droite pour poser une addition de décimaux.
+      explication: On aligne les **virgules** (unités sous unités, dixièmes sous dixièmes).
+    - erreur: Croire que multiplier rend toujours plus grand.
+      explication: 'Multiplier par un nombre inférieur à $1$ rend plus petit : $8 \times 0{,}5 = 4$.'
+    resume: |
+      - Addition, soustraction : on **aligne les virgules**.
+      - Multiplier par $10$, $100$, $1\,000$ : chaque chiffre prend une valeur $10$, $100$, $1\,000$ fois plus grande (la virgule « se décale » vers la droite).
+      - Multiplier par $0{,}1$, c’est diviser par $10$ ; par $0{,}01$, diviser par $100$ ; par $0{,}001$, diviser par $1\,000$.
+      - Produit de deux décimaux : on multiplie sans virgule, puis on place autant de chiffres après la virgule qu’il y en a dans les deux facteurs.
+      - Un **ordre de grandeur** permet de vérifier un résultat.
+    cours: |
+      ## 1. Addition et soustraction
+      Pour poser $27{,}5 + 3{,}84$, on aligne les virgules et on complète par des zéros : $27{,}50 + 3{,}84 = 31{,}34$.
+
+      ## 2. Multiplier et diviser par 10, 100, 1 000
+      > **Règle.** Multiplier par $10$ rend chaque chiffre dix fois plus grand : $3{,}47 \times 10 = 34{,}7$ ; $3{,}47 \times 100 = 347$.
+      > Diviser par $10$ rend chaque chiffre dix fois plus petit : $52{,}6 \div 10 = 5{,}26$ ; $52{,}6 \div 1\,000 = 0{,}0526$.
+
+      ## 3. Multiplier par 0,1 ; 0,01 ; 0,001
+      $0{,}1 = \dfrac{1}{10}$ : prendre $0{,}1$ fois un nombre, c’est en prendre le dixième. Donc $45 \times 0{,}1 = 45 \div 10 = 4{,}5$ et $45 \times 0{,}01 = 0{,}45$.
+
+      ## 4. Produit de deux décimaux
+      Le produit $2{,}4 \times 1{,}3$ peut se voir comme l’aire d’un rectangle de $2{,}4$ m sur $1{,}3$ m. Comme $2{,}4 = \dfrac{24}{10}$ et $1{,}3 = \dfrac{13}{10}$, on a $2{,}4 \times 1{,}3 = \dfrac{24 \times 13}{100} = \dfrac{312}{100} = 3{,}12$.
+
+      > **Propriétés.** On peut changer l’ordre des facteurs et les regrouper : $0{,}5 \times 7{,}3 \times 4 = (0{,}5 \times 4) \times 7{,}3 = 2 \times 7{,}3 = 14{,}6$.
+
+      ## 5. Ordre de grandeur
+      Pour $19{,}8 \times 5{,}1$, on calcule $20 \times 5 = 100$ : le résultat exact ($100{,}98$) doit être proche de $100$.
+    questions:
+      - code: 6E-ADD-MULT-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $3{,}47 \times 100$.
+        solution: '347'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par $100$ rend chaque chiffre cent fois plus grand.
+          etapes:
+          - $3$ unités deviennent $3$ centaines, $4$ dixièmes deviennent $4$ dizaines, $7$ centièmes deviennent $7$ unités.
+          resultat: '347'
+      - code: 6E-ADD-MULT-02
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $27{,}5 + 3{,}84$.
+        solution: '31,34'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Aligner les virgules.
+          etapes:
+          - $27{,}50 + 3{,}84 = 31{,}34$.
+          resultat: '31,34'
+      - code: 6E-ADD-MULT-03
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $45 \times 0{,}01$.
+        solution: '0,45'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier par $0{,}01$, c’est diviser par $100$.
+          etapes:
+          - $45 \div 100 = 0{,}45$.
+          resultat: '0,45'
+      - code: 6E-ADD-MULT-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $2{,}4 \times 1{,}3$.
+        solution: '3,12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier sans les virgules, puis placer la virgule.
+          etapes:
+          - $24 \times 13 = 312$.
+          - 'Deux chiffres après la virgule au total : $3{,}12$.'
+          resultat: '3,12'
+      - code: 6E-ADD-MULT-05
+        difficulte: 3
+        type: qcm
+        enonce: 'Quel est le meilleur ordre de grandeur de $19{,}8 \times 5{,}1$ ? A) $10$  B) $100$  C) $1\,000$  D) $25$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer chaque facteur par un nombre proche et simple.
+          etapes:
+          - $19{,}8 \approx 20$ et $5{,}1 \approx 5$, donc le produit est proche de $20 \times 5 = 100$.
+          resultat: B
+      - code: 6E-ADD-MULT-06
+        difficulte: 4
+        type: numerique
+        enonce: Un rouleau de tissu coûte $12{,}40$ € le mètre. Combien coûtent $3{,}5$ m de tissu (en euros) ?
+        solution: '43,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Prix total = prix d’un mètre × nombre de mètres.
+          etapes:
+          - $12{,}4 \times 3{,}5$ ; $124 \times 35 = 4\,340$.
+          - 'Deux chiffres après la virgule au total : $43{,}40$ €.'
+          resultat: '43,4'
+      - code: 6E-ADD-MULT-07
+        difficulte: 5
+        type: numerique
+        enonce: 'Calculer astucieusement $0{,}25 \times 7{,}9 \times 40$.'
+        solution: '79'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regrouper les facteurs dont le produit est simple.
+          etapes:
+          - $0{,}25 \times 40 = 10$.
+          - $10 \times 7{,}9 = 79$.
+          resultat: '79'
+
+  - code: 6E-DIVISION
+    libelle: Effectuer des divisions euclidiennes et décimales
+    attendus: [6E-2025-NUM-26, 6E-2025-NUM-27, 6E-2025-NUM-28, 6E-2025-NUM-29]
+    cours_couvre: [6E-2025-NUM-26, 6E-2025-NUM-27, 6E-2025-NUM-28, 6E-2025-NUM-29]
+    prerequis: [6E-ADD-MULT]
+    objectifs:
+    - Effectuer la division euclidienne d’un entier par un entier inférieur à 100.
+    - Diviser un nombre décimal par un entier inférieur à 10.
+    - Choisir la bonne division pour résoudre un problème de partage.
+    methodes:
+    - titre: Effectuer une division euclidienne
+      etapes:
+      - Chercher combien de fois le diviseur « va » dans le dividende (avec les tables).
+      - 'Écrire l’égalité : dividende = diviseur × quotient + reste.'
+      - Vérifier que le reste est **plus petit** que le diviseur.
+      exemple:
+        enonce: Effectuer la division euclidienne de $347$ par $12$.
+        resolution:
+        - $12 \times 28 = 336$ et $12 \times 29 = 348$, trop grand.
+        - $347 = 12 \times 28 + 11$, et $11 < 12$.
+        resultat: 'Quotient $28$, reste $11$'
+    erreurs_frequentes:
+    - erreur: Obtenir un reste plus grand que le diviseur.
+      explication: 'Si le reste est plus grand que le diviseur, on peut encore mettre une fois le diviseur : le quotient est trop petit.'
+    - erreur: 'Oublier la virgule au quotient en divisant $7{,}2$ par $3$.'
+      explication: 'On place la virgule au quotient au moment où l’on « abaisse » le chiffre des dixièmes : $7{,}2 \div 3 = 2{,}4$.'
+    resume: |
+      - **Division euclidienne** : $a = b \times q + r$ avec $r < b$ ($q$ quotient, $r$ reste).
+      - **Division décimale** : on continue la division après la virgule en ajoutant des zéros ; on place la virgule au quotient quand on abaisse le premier chiffre après la virgule.
+      - Partager $a$ en $b$ parts égales (valeur d’une part) ou chercher combien de fois $b$ est contenu dans $a$ (nombre de parts) : dans les deux cas, on divise.
+    cours: |
+      ## 1. Division euclidienne
+      > **Définition.** Effectuer la division euclidienne de $a$ par $b$ (entiers, $b \neq 0$), c’est trouver deux entiers $q$ et $r$ tels que $a = b \times q + r$ et $r < b$.
+
+      **Exemple.** $347 = 12 \times 28 + 11$ : le quotient est $28$ et le reste $11$.
+
+      Si le reste est nul, $a$ est un **multiple** de $b$ et $b$ est un **diviseur** de $a$ : $84 = 12 \times 7 + 0$.
+
+      ## 2. Division décimale
+      On peut poursuivre la division au-delà des unités : $7{,}2 \div 3 = 2{,}4$ car $3 \times 2{,}4 = 7{,}2$. Pour $9 \div 4$, on écrit $9 = 9{,}00$ et on obtient $2{,}25$.
+
+      ## 3. Quel calcul choisir ?
+      - « $36$ élèves en groupes de $4$ : combien de groupes ? » : $36 \div 4 = 9$ (nombre de parts).
+      - « $13{,}5$ m de ficelle partagés en $5$ morceaux égaux » : $13{,}5 \div 5 = 2{,}7$ m (valeur d’une part).
+      - « $50$ œufs en boîtes de $6$ » : division euclidienne $50 = 6 \times 8 + 2$ ; il faut $9$ boîtes pour tout ranger.
+    questions:
+      - code: 6E-DIVISION-01
+        difficulte: 1
+        type: numerique
+        enonce: Quel est le reste de la division euclidienne de $47$ par $6$ ?
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher le plus grand multiple de $6$ inférieur à $47$.
+          etapes:
+          - $6 \times 7 = 42$ et $6 \times 8 = 48$.
+          - $47 = 6 \times 7 + 5$.
+          resultat: '5'
+      - code: 6E-DIVISION-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $7{,}2 \div 3$.
+        solution: '2,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser un décimal par un entier.
+          etapes:
+          - '$7 \div 3$ : $2$, reste $1$ ; on abaisse le $2$ des dixièmes, la virgule se place au quotient.'
+          - '$12$ dixièmes $\div 3 = 4$ dixièmes : $2{,}4$.'
+          resultat: '2,4'
+      - code: 6E-DIVISION-03
+        difficulte: 2
+        type: numerique
+        enonce: Quel est le quotient de la division euclidienne de $347$ par $12$ ?
+        solution: '28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Encadrer $347$ entre deux multiples consécutifs de $12$.
+          etapes:
+          - $12 \times 28 = 336 \leq 347 < 348 = 12 \times 29$.
+          - $347 = 12 \times 28 + 11$.
+          resultat: '28'
+      - code: 6E-DIVISION-04
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $9 \div 4$ (résultat décimal exact).
+        solution: '2,25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Continuer la division après la virgule.
+          etapes:
+          - $9 = 4 \times 2 + 1$ ; $1 = 10$ dixièmes ; $10 \div 4 = 2$ reste $2$.
+          - $2$ dixièmes $= 20$ centièmes ; $20 \div 4 = 5$. Donc $9 \div 4 = 2{,}25$.
+          resultat: '2,25'
+      - code: 6E-DIVISION-05
+        difficulte: 4
+        type: numerique
+        enonce: On range $50$ œufs dans des boîtes de $6$. Combien faut-il de boîtes au minimum pour ranger tous les œufs ?
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Division euclidienne, puis interprétation du reste.
+          etapes:
+          - '$50 = 6 \times 8 + 2$ : $8$ boîtes pleines et $2$ œufs restants.'
+          - 'Il faut une boîte de plus pour les $2$ œufs : $9$ boîtes.'
+          resultat: '9'
+          erreurs_frequentes:
+          - Répondre $8$ en oubliant les œufs restants.
+      - code: 6E-DIVISION-06
+        difficulte: 5
+        type: numerique
+        enonce: Un ruban de $13{,}5$ m est coupé en $6$ morceaux de même longueur. Quelle est la longueur d’un morceau, en mètres ?
+        solution: '2,25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Valeur d’une part : on divise la longueur totale par le nombre de morceaux.'
+          etapes:
+          - $13{,}5 \div 6$ ; $13 = 6 \times 2 + 1$, puis $15$ dixièmes $\div 6 = 2$ reste $3$.
+          - '$30$ centièmes $\div 6 = 5$ : $2{,}25$ m.'
+          resultat: '2,25'

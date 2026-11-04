@@ -1,0 +1,261 @@
+chapitre:
+  code: 6E-FRACTIONS
+  niveau: 6e
+  parcours: tronc-commun
+  ordre: 3
+  titre: Les fractions
+
+competences:
+  - code: 6E-FRAC-SENS
+    libelle: Comprendre une fraction comme un quotient
+    attendus: [6E-2025-FRAC-01, 6E-2025-FRAC-03, 6E-2025-FRAC-06, 6E-2025-FRAC-07, 6E-2025-FRAC-08, 6E-2025-FRAC-09, 6E-2025-FRAC-10, 6E-2025-FRAC-11, 6E-2025-FRAC-12]
+    cours_couvre: [6E-2025-FRAC-01, 6E-2025-FRAC-03, 6E-2025-FRAC-06, 6E-2025-FRAC-07, 6E-2025-FRAC-08, 6E-2025-FRAC-09, 6E-2025-FRAC-10, 6E-2025-FRAC-11, 6E-2025-FRAC-12]
+    prerequis: [6E-DIVISION]
+    objectifs:
+    - Savoir que $\dfrac{a}{b}$ est le nombre qui, multiplié par $b$, donne $a$.
+    - Placer une fraction sur une demi-droite graduée.
+    - Passer de l’écriture fractionnaire à l’écriture décimale dans les cas usuels.
+    methodes:
+    - titre: Compléter une égalité à trous multiplicative
+      quand: On cherche le nombre qui, multiplié par $b$, donne $a$.
+      etapes:
+      - Reconnaître l’égalité $b \times \ldots = a$.
+      - Le nombre manquant est le quotient $\dfrac{a}{b}$.
+      - Vérifier en multipliant.
+      exemple:
+        enonce: Compléter $7 \times \ldots = 3$.
+        resolution:
+        - Le nombre cherché est le quotient de $3$ par $7$.
+        - $7 \times \dfrac{3}{7} = 3$.
+        resultat: $\dfrac{3}{7}$
+    erreurs_frequentes:
+    - erreur: Penser qu’une fraction est toujours plus petite que $1$.
+      explication: '$\dfrac{7}{4}$ représente sept quarts, soit plus d’une unité : $\dfrac{7}{4} = 1{,}75$.'
+    - erreur: 'Confondre $\dfrac{3}{4}$ et $\dfrac{4}{3}$.'
+      explication: '$\dfrac{3}{4} = 3 \div 4$ : le numérateur est divisé par le dénominateur.'
+    resume: |
+      - $\dfrac{a}{b}$ ($b \neq 0$) est le **quotient** de $a$ par $b$ : c’est le nombre qui, multiplié par $b$, donne $a$ : $b \times \dfrac{a}{b} = a$.
+      - $\dfrac{3}{4}$, c’est à la fois « trois quarts » et « le quart de $3$ » : $\dfrac{3}{4} = 3 \div 4 = 0{,}75$.
+      - À connaître : $\dfrac{1}{4} = 0{,}25$ ; $\dfrac{1}{2} = 0{,}5$ ; $\dfrac{3}{4} = 0{,}75$ ; $\dfrac{3}{2} = 1{,}5$ ; $\dfrac{5}{2} = 2{,}5$.
+      - Une fraction peut être un entier ($\dfrac{8}{4} = 2$), un décimal non entier ($\dfrac{3}{4}$) ou un nombre non décimal ($\dfrac{1}{3}$).
+    cours: |
+      ## 1. La fraction, un quotient
+      > **Définition.** Pour deux entiers $a$ et $b$ avec $b \neq 0$, le quotient de $a$ par $b$ est le nombre qui, multiplié par $b$, donne $a$. On le note $\dfrac{a}{b}$ ($a$ est le **numérateur**, $b$ le **dénominateur**).
+
+      Ainsi $4 \times \dfrac{3}{4} = 3$. Partager $3$ bandes en $4$ parts égales donne autant que prendre $3$ quarts d’une bande.
+
+      ## 2. Écriture décimale
+      On divise le numérateur par le dénominateur : $\dfrac{3}{4} = 3 \div 4 = 0{,}75$ ; $\dfrac{8}{4} = 2$.
+      Pour $\dfrac{1}{3} = 0{,}333\ldots$, la division ne s’arrête jamais : $\dfrac{1}{3}$ n’est **pas un nombre décimal**.
+
+      ## 3. Sur une demi-droite graduée
+      Pour placer $\dfrac{5}{3}$, on partage chaque unité en $3$ parts égales et on compte $5$ graduations à partir de $0$. Le point est entre $1$ et $2$.
+
+      ## 4. Fraction d’un nombre
+      Prendre $\dfrac{2}{3}$ de $12$, c’est calculer $\dfrac{2}{3} \times 12 = (12 \div 3) \times 2 = 8$. Ainsi $\dfrac{3}{4}$ de $10$ m font $7{,}5$ m.
+    questions:
+      - code: 6E-FRAC-SENS-01
+        difficulte: 1
+        type: numerique
+        enonce: Donner l’écriture décimale de $\dfrac{3}{4}$.
+        solution: '0,75'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser le numérateur par le dénominateur.
+          etapes:
+          - $3 \div 4 = 0{,}75$.
+          resultat: '0,75'
+      - code: 6E-FRAC-SENS-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $\dfrac{2}{3}$ de $12$ œufs.
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Diviser par le dénominateur, puis multiplier par le numérateur.
+          etapes:
+          - 'Un tiers de $12$ : $12 \div 3 = 4$.'
+          - 'Deux tiers : $4 \times 2 = 8$ œufs.'
+          resultat: '8'
+      - code: 6E-FRAC-SENS-03
+        difficulte: 2
+        type: numerique
+        enonce: Compléter l’égalité $5 \times \ldots = 3$ par une fraction.
+        solution: 3/5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le nombre qui, multiplié par $5$, donne $3$ est le quotient $\dfrac{3}{5}$.
+          etapes:
+          - $5 \times \dfrac{3}{5} = 3$.
+          resultat: 3/5
+      - code: 6E-FRAC-SENS-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Entre quels entiers consécutifs se trouve $\dfrac{17}{5}$ ? A) $1$ et $2$  B) $2$ et $3$  C) $3$ et $4$  D) $17$ et $18$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Encadrer le numérateur par des multiples du dénominateur.
+          etapes:
+          - '$15 < 17 < 20$, donc $\dfrac{15}{5} < \dfrac{17}{5} < \dfrac{20}{5}$, soit $3 < \dfrac{17}{5} < 4$.'
+          resultat: C
+      - code: 6E-FRAC-SENS-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Lequel de ces nombres n’est pas un nombre décimal ? A) $\dfrac{9}{4}$  B) $\dfrac{7}{2}$  C) $\dfrac{2}{3}$  D) $\dfrac{3}{5}$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Effectuer chaque division.
+          etapes:
+          - '$\dfrac{9}{4} = 2{,}25$ ; $\dfrac{7}{2} = 3{,}5$ ; $\dfrac{3}{5} = 0{,}6$.'
+          - '$\dfrac{2}{3} = 0{,}666\ldots$ : la division ne s’arrête pas.'
+          resultat: C
+      - code: 6E-FRAC-SENS-06
+        difficulte: 5
+        type: numerique
+        enonce: Une bande de $3$ cm est partagée en $4$ morceaux égaux. Quelle est la longueur d’un morceau, en cm ?
+        solution: '0,75'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Le quart de $3$ est $\dfrac{3}{4}$.'
+          etapes:
+          - $3 \div 4 = \dfrac{3}{4} = 0{,}75$ cm.
+          resultat: '0,75'
+
+  - code: 6E-FRAC-CALCUL
+    libelle: Comparer et calculer avec des fractions
+    attendus: [6E-2025-FRAC-02, 6E-2025-FRAC-04, 6E-2025-FRAC-05, 6E-2025-FRAC-13, 6E-2025-FRAC-14, 6E-2025-FRAC-15, 6E-2025-FRAC-16, 6E-2025-FRAC-17, 6E-2025-FRAC-18, 6E-2025-FRAC-19]
+    cours_couvre: [6E-2025-FRAC-02, 6E-2025-FRAC-04, 6E-2025-FRAC-05, 6E-2025-FRAC-13, 6E-2025-FRAC-14, 6E-2025-FRAC-15, 6E-2025-FRAC-16, 6E-2025-FRAC-17, 6E-2025-FRAC-18, 6E-2025-FRAC-19]
+    prerequis: [6E-FRAC-SENS]
+    objectifs:
+    - Établir des égalités de fractions et simplifier.
+    - Comparer, encadrer et ranger des fractions.
+    - Additionner et soustraire des fractions, multiplier une fraction par un entier.
+    methodes:
+    - titre: Additionner deux fractions dont un dénominateur est multiple de l’autre
+      etapes:
+      - Écrire les deux fractions avec le même dénominateur (le plus grand).
+      - Additionner les numérateurs ; garder le dénominateur.
+      - Simplifier si possible.
+      exemple:
+        enonce: Calculer $\dfrac{1}{2} + \dfrac{3}{8}$.
+        resolution:
+        - $\dfrac{1}{2} = \dfrac{4}{8}$.
+        - $\dfrac{4}{8} + \dfrac{3}{8} = \dfrac{7}{8}$.
+        resultat: $\dfrac{7}{8}$
+    erreurs_frequentes:
+    - erreur: 'Additionner numérateurs et dénominateurs : $\dfrac{1}{2} + \dfrac{1}{4} = \dfrac{2}{6}$.'
+      explication: 'On n’additionne que des parts de même taille : $\dfrac{1}{2} + \dfrac{1}{4} = \dfrac{2}{4} + \dfrac{1}{4} = \dfrac{3}{4}$.'
+    - erreur: 'Multiplier aussi le dénominateur : $3 \times \dfrac{2}{7} = \dfrac{6}{21}$.'
+      explication: '$3 \times \dfrac{2}{7}$, c’est trois fois deux septièmes, soit $\dfrac{6}{7}$.'
+    resume: |
+      - On ne change pas une fraction en multipliant (ou divisant) numérateur et dénominateur par un même nombre non nul : $\dfrac{2}{3} = \dfrac{10}{15}$.
+      - Même dénominateur : la plus grande fraction est celle qui a le plus grand numérateur.
+      - $\dfrac{a}{d} + \dfrac{b}{d} = \dfrac{a + b}{d}$ et $\dfrac{a}{d} - \dfrac{b}{d} = \dfrac{a - b}{d}$.
+      - $n \times \dfrac{a}{b} = \dfrac{n \times a}{b}$.
+      - À connaître : $\dfrac{1}{2} + \dfrac{1}{4} = \dfrac{3}{4}$ ; $1 - \dfrac{1}{4} = \dfrac{3}{4}$ ; $\dfrac{3}{4} - \dfrac{1}{4} = \dfrac{1}{2}$.
+    cours: |
+      ## 1. Égalité de fractions
+      > **Propriété.** Pour tout nombre $k$ non nul : $\dfrac{a}{b} = \dfrac{a \times k}{b \times k}$.
+
+      Ainsi $\dfrac{2}{3} = \dfrac{4}{6} = \dfrac{10}{15}$. **Simplifier** une fraction, c’est diviser son numérateur et son dénominateur par un même diviseur : $\dfrac{18}{24} = \dfrac{3}{4}$ (on divise par $6$).
+
+      ## 2. Comparer
+      - Même dénominateur : $\dfrac{5}{7} > \dfrac{2}{7}$ car $5 > 2$.
+      - Sinon on se ramène au même dénominateur : $\dfrac{3}{4} = \dfrac{6}{8}$ donc $\dfrac{3}{4} < \dfrac{7}{8}$.
+      - Par rapport à $1$ : $\dfrac{a}{b} < 1$ si $a < b$, et $\dfrac{a}{b} > 1$ si $a > b$.
+      - Un **nombre mixte** s’écrit comme un entier plus une fraction inférieure à $1$ : $\dfrac{17}{5} = 3 + \dfrac{2}{5}$.
+
+      ## 3. Additionner, soustraire
+      On met les fractions **au même dénominateur**, puis on additionne (ou soustrait) les numérateurs : $\dfrac{2}{3} + \dfrac{1}{6} = \dfrac{4}{6} + \dfrac{1}{6} = \dfrac{5}{6}$.
+
+      ## 4. Multiplier une fraction par un entier
+      $3 \times \dfrac{2}{7} = \dfrac{2}{7} + \dfrac{2}{7} + \dfrac{2}{7} = \dfrac{6}{7}$ : on multiplie seulement le numérateur.
+
+      ## 5. Résoudre des problèmes
+      « Léa a lu $\dfrac{1}{4}$ de son livre lundi et $\dfrac{3}{8}$ mardi. Quelle fraction lui reste-t-il ? » : $\dfrac{1}{4} + \dfrac{3}{8} = \dfrac{5}{8}$, il reste $1 - \dfrac{5}{8} = \dfrac{3}{8}$.
+    questions:
+      - code: 6E-FRAC-CALCUL-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $\dfrac{1}{2} + \dfrac{1}{4}$.
+        solution: 3/4
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Mettre au même dénominateur.
+          etapes:
+          - $\dfrac{1}{2} = \dfrac{2}{4}$, donc $\dfrac{2}{4} + \dfrac{1}{4} = \dfrac{3}{4}$.
+          resultat: 3/4
+          erreurs_frequentes:
+          - Répondre $\dfrac{2}{6}$ en additionnant numérateurs et dénominateurs.
+      - code: 6E-FRAC-CALCUL-02
+        difficulte: 2
+        type: numerique
+        enonce: Compléter l’égalité $\dfrac{2}{3} = \dfrac{\ldots}{15}$.
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Trouver par combien on a multiplié le dénominateur.
+          etapes:
+          - '$3 \times 5 = 15$ ; on multiplie aussi le numérateur par $5$ : $2 \times 5 = 10$.'
+          resultat: '10'
+      - code: 6E-FRAC-CALCUL-03
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $3 \times \dfrac{2}{7}$.
+        solution: 6/7
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: On multiplie seulement le numérateur.
+          etapes:
+          - $3 \times \dfrac{2}{7} = \dfrac{3 \times 2}{7} = \dfrac{6}{7}$.
+          resultat: 6/7
+      - code: 6E-FRAC-CALCUL-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle fraction est la plus grande ? A) $\dfrac{3}{4}$  B) $\dfrac{5}{8}$  C) $\dfrac{7}{8}$  D) $\dfrac{1}{2}$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tout écrire en huitièmes.
+          etapes:
+          - '$\dfrac{3}{4} = \dfrac{6}{8}$ ; $\dfrac{1}{2} = \dfrac{4}{8}$.'
+          - 'Numérateurs : $6$, $5$, $7$, $4$. Le plus grand est $7$.'
+          resultat: C
+      - code: 6E-FRAC-CALCUL-05
+        difficulte: 3
+        type: numerique
+        enonce: Calculer $\dfrac{5}{6} - \dfrac{1}{3}$ et simplifier le résultat.
+        solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Même dénominateur, puis simplification.
+          etapes:
+          - $\dfrac{1}{3} = \dfrac{2}{6}$, donc $\dfrac{5}{6} - \dfrac{2}{6} = \dfrac{3}{6}$.
+          - $\dfrac{3}{6} = \dfrac{1}{2}$.
+          resultat: 1/2
+      - code: 6E-FRAC-CALCUL-06
+        difficulte: 4
+        type: numerique
+        enonce: 'Léa a lu $\dfrac{1}{4}$ de son livre lundi et $\dfrac{3}{8}$ mardi. Quelle fraction du livre lui reste-t-il à lire ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner ce qui est lu, puis le retirer de $1$.
+          etapes:
+          - $\dfrac{1}{4} + \dfrac{3}{8} = \dfrac{2}{8} + \dfrac{3}{8} = \dfrac{5}{8}$.
+          - $1 - \dfrac{5}{8} = \dfrac{8}{8} - \dfrac{5}{8} = \dfrac{3}{8}$.
+          resultat: 3/8
+      - code: 6E-FRAC-CALCUL-07
+        difficulte: 5
+        type: numerique
+        enonce: 'Un réservoir est plein aux $\dfrac{3}{4}$. On utilise $\dfrac{1}{8}$ du réservoir le matin et $\dfrac{1}{4}$ l’après-midi. Quelle fraction du réservoir est encore remplie ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tout écrire en huitièmes.
+          etapes:
+          - '$\dfrac{3}{4} = \dfrac{6}{8}$ et $\dfrac{1}{4} = \dfrac{2}{8}$.'
+          - $\dfrac{6}{8} - \dfrac{1}{8} - \dfrac{2}{8} = \dfrac{3}{8}$.
+          resultat: 3/8

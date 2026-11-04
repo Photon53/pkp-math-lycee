@@ -1,0 +1,239 @@
+chapitre:
+  code: 5E-STATS-PROBAS
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 8
+  titre: Statistiques et probabilités
+
+competences:
+  - code: 5E-STATISTIQUES
+    libelle: Recueillir, représenter et résumer des données
+    attendus: [5E-2026-STA-01, 5E-2026-STA-02, 5E-2026-STA-03, 5E-2026-STA-04, 5E-2026-STA-05, 5E-2026-STA-06]
+    cours_couvre: [5E-2026-STA-01, 5E-2026-STA-02, 5E-2026-STA-03, 5E-2026-STA-04, 5E-2026-STA-05, 5E-2026-STA-06]
+    objectifs:
+    - Organiser des données dans un tableau d’effectifs et de fréquences.
+    - Lire et construire des diagrammes (bâtons, circulaires, histogrammes).
+    - Calculer une moyenne, y compris pondérée.
+    methodes:
+    - titre: Calculer une moyenne pondérée
+      etapes:
+      - Multiplier chaque valeur par son effectif (ou son coefficient).
+      - Additionner ces produits.
+      - Diviser par l’effectif total (ou la somme des coefficients).
+      exemple:
+        enonce: 'Notes : $12$ (coefficient $2$) et $15$ (coefficient $1$). Quelle est la moyenne ?'
+        resolution:
+        - $12 \times 2 + 15 \times 1 = 39$.
+        - $39 \div 3 = 13$.
+        resultat: $13$
+    erreurs_frequentes:
+    - erreur: Diviser par le nombre de valeurs différentes au lieu de l’effectif total.
+      explication: Dans une moyenne pondérée, on divise par la **somme des effectifs** (ou des coefficients).
+    - erreur: Confondre effectif et fréquence.
+      explication: 'La fréquence est l’effectif divisé par l’effectif total ; c’est un nombre entre $0$ et $1$ (ou un pourcentage).'
+    resume: |
+      - **Effectif** d’une valeur : nombre de fois où elle apparaît. **Fréquence** : $\dfrac{\text{effectif}}{\text{effectif total}}$.
+      - **Moyenne** : somme des valeurs divisée par l’effectif total ; **moyenne pondérée** : $\dfrac{\sum n_i x_i}{\sum n_i}$.
+      - Diagramme circulaire : l’angle d’un secteur est $\text{fréquence} \times 360°$.
+    cours: |
+      ## 1. Recueillir et organiser
+      On recueille des données par une enquête, une mesure, une expérience. On les organise dans un tableau d’effectifs, puis de fréquences.
+
+      ## 2. Représenter
+      - **Diagramme en bâtons** : une barre de hauteur proportionnelle à l’effectif, pour chaque valeur.
+      - **Diagramme circulaire** : un secteur d’angle proportionnel à l’effectif.
+      - **Histogramme** : pour des données regroupées en classes (intervalles).
+
+      ## 3. Moyenne
+      > **Définition.** La moyenne d’une série est la somme de toutes les valeurs divisée par l’effectif total.
+
+      Quand les valeurs sont données avec leurs effectifs, on calcule une **moyenne pondérée** : on multiplie chaque valeur par son effectif.
+
+      | Note | 8 | 10 | 14 |
+      |---|---|---|---|
+      | Effectif | 2 | 5 | 3 |
+
+      Moyenne : $\dfrac{8 \times 2 + 10 \times 5 + 14 \times 3}{10} = \dfrac{108}{10} = 10{,}8$.
+    questions:
+      - code: 5E-STATISTIQUES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer la moyenne de la série $8$ ; $12$ ; $10$ ; $14$.
+        solution: '11'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Somme des valeurs divisée par leur nombre.
+          etapes:
+          - $8 + 12 + 10 + 14 = 44$ ; $44 \div 4 = 11$.
+          resultat: '11'
+      - code: 5E-STATISTIQUES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans une classe de $25$ élèves, $10$ viennent à pied. Quelle est la fréquence (en écriture décimale) des élèves venant à pied ?'
+        solution: '0,4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence = effectif / effectif total.
+          etapes:
+          - $\dfrac{10}{25} = 0{,}4$.
+          resultat: '0,4'
+      - code: 5E-STATISTIQUES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Notes $8$ (effectif $2$), $10$ (effectif $5$) et $14$ (effectif $3$). Calculer la moyenne.'
+        solution: '10,8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Moyenne pondérée par les effectifs.
+          etapes:
+          - $8 \times 2 + 10 \times 5 + 14 \times 3 = 16 + 50 + 42 = 108$.
+          - $108 \div 10 = 10{,}8$.
+          resultat: '10,8'
+      - code: 5E-STATISTIQUES-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Dans un diagramme circulaire, une catégorie représente $25\,\%$ de l’effectif. Quel est l’angle de son secteur, en degrés ?'
+        solution: '90'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Angle = fréquence × $360°$.
+          etapes:
+          - $0{,}25 \times 360 = 90°$.
+          resultat: '90'
+      - code: 5E-STATISTIQUES-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Pour représenter des tailles regroupées en classes ($[140 ; 150[$, $[150 ; 160[$…), on utilise plutôt : A) un histogramme  B) un diagramme circulaire  C) une droite graduée'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Données regroupées en classes.
+          etapes:
+          - L’histogramme représente des classes de valeurs.
+          resultat: A
+      - code: 5E-STATISTIQUES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Après $4$ contrôles, Léa a une moyenne de $12$. Quelle note doit-elle obtenir au cinquième pour avoir une moyenne de $13$ ?'
+        solution: '17'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Raisonner sur la somme des notes.
+          etapes:
+          - Somme actuelle $4 \times 12 = 48$ ; somme voulue $5 \times 13 = 65$.
+          - $65 - 48 = 17$.
+          resultat: '17'
+
+  - code: 5E-PROBABILITES
+    libelle: Calculer des probabilités en situation d’équiprobabilité
+    attendus: [5E-2026-PRO-01, 5E-2026-PRO-02, 5E-2026-PRO-03, 5E-2026-PRO-04, 5E-2026-PRO-05, 5E-2026-PRO-06, 5E-2026-PRO-07]
+    cours_couvre: [5E-2026-PRO-01, 5E-2026-PRO-02, 5E-2026-PRO-03, 5E-2026-PRO-04, 5E-2026-PRO-05, 5E-2026-PRO-06, 5E-2026-PRO-07]
+    prerequis: [5E-FRAC-COMPARER]
+    objectifs:
+    - Utiliser le vocabulaire (issue, événement, certain, impossible, contraire).
+    - Calculer une probabilité dans une situation d’équiprobabilité.
+    - Relier fréquence observée et probabilité.
+    methodes:
+    - titre: Calculer une probabilité (équiprobabilité)
+      etapes:
+      - Compter le nombre total d’issues, toutes également probables.
+      - Compter les issues favorables à l’événement.
+      - Probabilité $= \dfrac{\text{issues favorables}}{\text{issues possibles}}$.
+      exemple:
+        enonce: On lance un dé équilibré à $6$ faces. Quelle est la probabilité d’obtenir un nombre pair ?
+        resolution:
+        - '$6$ issues ; favorables : $2$, $4$, $6$, soit $3$ issues.'
+        - $\dfrac{3}{6} = \dfrac{1}{2}$.
+        resultat: $\dfrac{1}{2}$
+    erreurs_frequentes:
+    - erreur: Donner une probabilité supérieure à $1$.
+      explication: 'Une probabilité est toujours comprise entre $0$ (impossible) et $1$ (certain).'
+    - erreur: Penser qu’après plusieurs « pile », « face » devient plus probable.
+      explication: Les lancers sont indépendants ; la pièce n’a pas de mémoire.
+    resume: |
+      - Une probabilité est un nombre entre $0$ et $1$ : $0$ pour un événement impossible, $1$ pour un événement certain.
+      - En équiprobabilité : $P(A) = \dfrac{\text{nombre d’issues favorables}}{\text{nombre d’issues}}$.
+      - Événement contraire : $P(\text{non } A) = 1 - P(A)$.
+      - Sur un grand nombre d’essais, la fréquence observée se rapproche de la probabilité.
+    cours: |
+      ## 1. Vocabulaire
+      Une **expérience aléatoire** a plusieurs résultats possibles, les **issues**, sans qu’on puisse prévoir lequel se produira. Un **événement** est un ensemble d’issues.
+
+      ## 2. Probabilité
+      > **Propriété.** Lorsque toutes les issues ont la même chance de se produire, la probabilité d’un événement $A$ est $P(A) = \dfrac{\text{nombre d’issues favorables à } A}{\text{nombre total d’issues}}$.
+
+      Une urne contient $3$ boules rouges et $5$ vertes ; on tire une boule au hasard. $P(\text{rouge}) = \dfrac{3}{8}$.
+
+      ## 3. Événement contraire
+      L’événement « non $A$ » est réalisé quand $A$ ne l’est pas : $P(\text{non }A) = 1 - P(A)$. Ici, $P(\text{verte}) = 1 - \dfrac{3}{8} = \dfrac{5}{8}$.
+
+      ## 4. Fréquence et probabilité
+      En répétant une expérience un grand nombre de fois (à la main ou par simulation), la fréquence d’apparition d’un événement se stabilise autour de sa probabilité.
+    questions:
+      - code: 5E-PROBABILITES-01
+        difficulte: 1
+        type: qcm
+        enonce: 'On lance un dé à $6$ faces. L’événement « obtenir $7$ » est : A) certain  B) impossible  C) probable'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Vocabulaire des événements.
+          etapes:
+          - Aucune face ne porte $7$ ; l’événement est impossible, de probabilité $0$.
+          resultat: B
+      - code: 5E-PROBABILITES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'On lance un dé équilibré à $6$ faces. Quelle est la probabilité d’obtenir un nombre pair ? (fraction irréductible)'
+        solution: 1/2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Issues favorables / issues possibles.
+          etapes:
+          - $\dfrac{3}{6} = \dfrac{1}{2}$.
+          resultat: 1/2
+      - code: 5E-PROBABILITES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une urne contient $3$ boules rouges et $5$ boules vertes. On tire une boule au hasard. Quelle est la probabilité qu’elle soit verte ?'
+        solution: 5/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $8$ boules au total, $5$ vertes.
+          etapes:
+          - $P(\text{verte}) = \dfrac{5}{8}$.
+          resultat: 5/8
+      - code: 5E-PROBABILITES-04
+        difficulte: 3
+        type: numerique
+        enonce: 'La probabilité qu’il pleuve demain est $0{,}3$. Quelle est la probabilité qu’il ne pleuve pas ?'
+        solution: '0,7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Événement contraire.
+          etapes:
+          - $1 - 0{,}3 = 0{,}7$.
+          resultat: '0,7'
+      - code: 5E-PROBABILITES-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Une pièce équilibrée est tombée $5$ fois de suite sur « pile ». Au sixième lancer, la probabilité d’obtenir « face » est : A) plus grande que $\dfrac{1}{2}$  B) égale à $\dfrac{1}{2}$  C) plus petite que $\dfrac{1}{2}$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les lancers sont indépendants.
+          etapes:
+          - La pièce n’a pas de mémoire ; la probabilité reste $\dfrac{1}{2}$.
+          resultat: B
+      - code: 5E-PROBABILITES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Une roue est partagée en $12$ secteurs égaux numérotés de $1$ à $12$. Quelle est la probabilité d’obtenir un multiple de $3$ ? (fraction irréductible)'
+        solution: 1/3
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Compter les multiples de $3$ entre $1$ et $12$.
+          etapes:
+          - '$3$, $6$, $9$, $12$ : $4$ issues favorables sur $12$.'
+          - $\dfrac{4}{12} = \dfrac{1}{3}$.
+          resultat: 1/3

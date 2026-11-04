@@ -1,0 +1,10 @@
+theme:
+  code: TRA
+  titre: Transformations
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-TRA-01, type: automatisme, page: 12, texte: "Reconnaitre et construire le symétrique d’une figure par symétrie axiale, dont l’axe est vertical, horizontal, ou en diagonale sur quadrillage."}
+  - {code: 5E-2026-TRA-02, type: automatisme, page: 12, texte: "Construire le symétrique, par rapport à un axe, d’un point, d’une figure, sur feuille blanche."}
+  - {code: 5E-2026-TRA-03, type: capacite, page: 12, texte: "Définir le demi-tour, ou symétrie centrale."}
+  - {code: 5E-2026-TRA-04, type: capacite, page: 12, texte: "Connaitre les propriétés du demi-tour."}

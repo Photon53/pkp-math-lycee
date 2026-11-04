@@ -1,0 +1,233 @@
+chapitre:
+  code: 5E-OPERATIONS
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 1
+  titre: Opérations, priorités et divisibilité
+
+competences:
+  - code: 5E-PRIORITES
+    libelle: Enchaîner des opérations en respectant les priorités
+    attendus: [5E-2026-OPE-04, 5E-2026-OPE-05, 5E-2026-OPE-06, 5E-2026-OPE-07, 5E-2026-OPE-08, 5E-2026-OPE-09, 5E-2026-OPE-10, 5E-2026-OPE-11, 5E-2026-OPE-12, 5E-2026-OPE-13, 5E-2026-OPE-14, 5E-2026-OPE-17]
+    cours_couvre: [5E-2026-OPE-04, 5E-2026-OPE-05, 5E-2026-OPE-06, 5E-2026-OPE-07, 5E-2026-OPE-08, 5E-2026-OPE-09, 5E-2026-OPE-10, 5E-2026-OPE-11, 5E-2026-OPE-12, 5E-2026-OPE-13, 5E-2026-OPE-14, 5E-2026-OPE-17]
+    objectifs:
+    - Connaître et utiliser les priorités opératoires.
+    - Traduire un programme de calcul en une seule expression, avec ou sans parenthèses.
+    - Utiliser la distributivité simple sur des exemples numériques ; diviser par un décimal.
+    methodes:
+    - titre: Calculer une expression avec des priorités
+      etapes:
+      - Effectuer d’abord les calculs entre parenthèses.
+      - Puis les multiplications et les divisions, de gauche à droite.
+      - Enfin les additions et les soustractions, de gauche à droite.
+      exemple:
+        enonce: Calculer $A = 7 + 3 \times (8 - 2)$.
+        resolution:
+        - 'Parenthèses : $8 - 2 = 6$.'
+        - 'Multiplication : $3 \times 6 = 18$.'
+        - 'Addition : $7 + 18 = 25$.'
+        resultat: $A = 25$
+    erreurs_frequentes:
+    - erreur: 'Calculer de gauche à droite sans priorités : $7 + 3 \times 6 = 60$.'
+      explication: 'La multiplication est prioritaire sur l’addition : $7 + 3 \times 6 = 7 + 18 = 25$.'
+    - erreur: Croire qu’on ne peut pas diviser par un nombre décimal.
+      explication: 'On multiplie dividende et diviseur par $10$, $100$… : $4{,}2 \div 0{,}6 = 42 \div 6 = 7$.'
+    resume: |
+      - **Priorités** : parenthèses, puis $\times$ et $\div$, puis $+$ et $-$ ; à priorité égale, de gauche à droite.
+      - Dans $a + b$, $a$ et $b$ sont des **termes** (somme) ; dans $a \times b$, des **facteurs** (produit).
+      - **Distributivité simple** : $k \times (a + b) = k \times a + k \times b$, par exemple $7 \times 102 = 7 \times 100 + 7 \times 2 = 714$.
+      - Diviser par un décimal : $\dfrac{a}{b} = \dfrac{a \times 10}{b \times 10}$, donc $4{,}2 \div 0{,}6 = 42 \div 6$.
+    cours: |
+      ## 1. Vocabulaire
+      Le résultat d’une addition est une **somme**, d’une soustraction une **différence**, d’une multiplication un **produit**, d’une division un **quotient**. On nomme un calcul d’après la **dernière** opération effectuée : $3 \times (4 + 5)$ est un produit, $3 \times 4 + 5$ est une somme.
+
+      ## 2. Priorités opératoires
+      > **Règle.** On effectue d’abord les calculs entre parenthèses, puis les multiplications et divisions, puis les additions et soustractions. À priorité égale, on calcule de gauche à droite.
+
+      $20 - 12 \div 4 \times 2 = 20 - 3 \times 2 = 20 - 6 = 14$.
+
+      ## 3. Traduire un programme de calcul
+      « Choisir $5$, ajouter $3$, multiplier le résultat par $4$ » s’écrit en une seule expression $(5 + 3) \times 4$ : les parenthèses sont **indispensables**.
+
+      ## 4. Distributivité simple
+      > **Propriété.** $k \times (a + b) = k \times a + k \times b$ et $k \times (a - b) = k \times a - k \times b$.
+
+      Calcul mental : $25 \times 12 = 25 \times (10 + 2) = 250 + 50 = 300$ ; $9 \times 99 = 9 \times (100 - 1) = 891$.
+
+      ## 5. Diviser par un nombre décimal
+      On ne change pas un quotient en multipliant dividende et diviseur par un même nombre : $7{,}5 \div 0{,}25 = 750 \div 25 = 30$.
+    questions:
+      - code: 5E-PRIORITES-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $7 + 3 \times 6$.
+        solution: '25'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La multiplication est prioritaire.
+          etapes:
+          - $3 \times 6 = 18$, puis $7 + 18 = 25$.
+          resultat: '25'
+      - code: 5E-PRIORITES-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $20 - 12 \div 4 \times 2$.
+        solution: '14'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: 'Division et multiplication d’abord, de gauche à droite.'
+          etapes:
+          - $12 \div 4 = 3$ ; $3 \times 2 = 6$.
+          - $20 - 6 = 14$.
+          resultat: '14'
+      - code: 5E-PRIORITES-03
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $4{,}2 \div 0{,}6$.
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier dividende et diviseur par $10$.
+          etapes:
+          - $4{,}2 \div 0{,}6 = 42 \div 6 = 7$.
+          resultat: '7'
+      - code: 5E-PRIORITES-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle expression traduit « choisir $5$, ajouter $3$, puis multiplier par $4$ » ? A) $5 + 3 \times 4$  B) $(5 + 3) \times 4$  C) $5 \times 4 + 3$  D) $5 + (3 \times 4)$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La somme doit être calculée avant le produit, il faut des parenthèses.
+          etapes:
+          - '$(5 + 3) \times 4 = 32$ ; sans parenthèses, $5 + 3 \times 4 = 17$.'
+          resultat: B
+      - code: 5E-PRIORITES-05
+        difficulte: 4
+        type: numerique
+        enonce: Calculer mentalement $25 \times 12$ en utilisant la distributivité.
+        solution: '300'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer $12 = 10 + 2$.
+          etapes:
+          - $25 \times (10 + 2) = 250 + 50 = 300$.
+          resultat: '300'
+      - code: 5E-PRIORITES-06
+        difficulte: 5
+        type: numerique
+        enonce: Calculer $B = 3 \times (15 - 2 \times 4) + 18 \div (5 - 2)$.
+        solution: '27'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Parenthèses d’abord (avec leurs propres priorités), puis produits et quotients.
+          etapes:
+          - $15 - 2 \times 4 = 15 - 8 = 7$ et $5 - 2 = 3$.
+          - $B = 3 \times 7 + 18 \div 3 = 21 + 6 = 27$.
+          resultat: '27'
+
+  - code: 5E-DIVISIBILITE
+    libelle: Utiliser multiples, diviseurs et critères de divisibilité
+    attendus: [5E-2026-OPE-01, 5E-2026-OPE-02, 5E-2026-OPE-03, 5E-2026-OPE-15, 5E-2026-OPE-16]
+    cours_couvre: [5E-2026-OPE-01, 5E-2026-OPE-02, 5E-2026-OPE-03, 5E-2026-OPE-15, 5E-2026-OPE-16]
+    objectifs:
+    - Utiliser les notions de multiple et de diviseur.
+    - Connaître les critères de divisibilité par 2, 3, 5, 9 et 10.
+    methodes:
+    - titre: Tester la divisibilité par 3 ou par 9
+      etapes:
+      - Additionner les chiffres du nombre.
+      - Si cette somme est divisible par $3$ (ou par $9$), le nombre l’est aussi.
+      exemple:
+        enonce: '$4\,572$ est-il divisible par $9$ ?'
+        resolution:
+        - $4 + 5 + 7 + 2 = 18$.
+        - $18$ est divisible par $9$, donc $4\,572$ aussi ($4\,572 = 9 \times 508$).
+        resultat: Oui
+    erreurs_frequentes:
+    - erreur: Penser qu’un nombre qui se termine par $3$ est divisible par $3$.
+      explication: '$13$ n’est pas divisible par $3$ ; on regarde la **somme des chiffres**.'
+    - erreur: Confondre « $a$ est un multiple de $b$ » et « $a$ est un diviseur de $b$ ».
+      explication: '$24$ est un multiple de $6$ ($24 = 6 \times 4$) et $6$ est un diviseur de $24$.'
+    resume: |
+      - $a$ est un **multiple** de $b$ (et $b$ un **diviseur** de $a$) si $a = b \times k$ avec $k$ entier ; le reste de la division euclidienne de $a$ par $b$ est alors nul.
+      - Divisible par $2$ : chiffre des unités pair ; par $5$ : se termine par $0$ ou $5$ ; par $10$ : se termine par $0$.
+      - Divisible par $3$ (ou $9$) : la somme des chiffres est divisible par $3$ (ou $9$).
+    cours: |
+      ## 1. Multiples et diviseurs
+      > **Définition.** Soient $a$ et $b$ deux entiers ($b \neq 0$). Si le reste de la division euclidienne de $a$ par $b$ est nul, alors $a$ est un multiple de $b$ et $b$ est un diviseur de $a$.
+
+      $17 = 3 \times 5 + 2$ : $17$ n’est pas un multiple de $3$. Mais $21 = 3 \times 7$ : $3$ et $7$ sont des diviseurs de $21$.
+
+      ## 2. Critères de divisibilité
+      | Par | Critère | Exemple |
+      |---|---|---|
+      | $2$ | chiffre des unités $0, 2, 4, 6, 8$ | $1\,358$ |
+      | $5$ | chiffre des unités $0$ ou $5$ | $745$ |
+      | $10$ | chiffre des unités $0$ | $3\,210$ |
+      | $3$ | somme des chiffres divisible par $3$ | $471$ ($4 + 7 + 1 = 12$) |
+      | $9$ | somme des chiffres divisible par $9$ | $4\,572$ ($18$) |
+
+      Un nombre divisible par $9$ est divisible par $3$, mais pas l’inverse : $12$ est divisible par $3$, pas par $9$.
+
+      ## 3. Liste des diviseurs
+      Pour trouver tous les diviseurs de $36$, on cherche les produits égaux à $36$ : $1 \times 36$, $2 \times 18$, $3 \times 12$, $4 \times 9$, $6 \times 6$. Les diviseurs sont $1, 2, 3, 4, 6, 9, 12, 18, 36$.
+    questions:
+      - code: 5E-DIVISIBILITE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Lequel de ces nombres est divisible par $5$ ? A) $452$  B) $745$  C) $551$  D) $1\,003$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un nombre divisible par $5$ se termine par $0$ ou $5$.
+          etapes:
+          - Seul $745$ se termine par $5$.
+          resultat: B
+      - code: 5E-DIVISIBILITE-02
+        difficulte: 2
+        type: numerique
+        enonce: Quel est le reste de la division euclidienne de $17$ par $3$ ?
+        solution: '2'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher le plus grand multiple de $3$ inférieur à $17$.
+          etapes:
+          - $17 = 3 \times 5 + 2$.
+          resultat: '2'
+      - code: 5E-DIVISIBILITE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Lequel de ces nombres est divisible par $9$ ? A) $1\,234$  B) $4\,572$  C) $3\,003$  D) $8\,191$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer la somme des chiffres.
+          etapes:
+          - 'Sommes des chiffres : $10$ ; $18$ ; $6$ ; $19$.'
+          - 'Seul $18$ est un multiple de $9$ : $4\,572$ est divisible par $9$.'
+          resultat: B
+      - code: 5E-DIVISIBILITE-04
+        difficulte: 4
+        type: numerique
+        enonce: Combien le nombre $36$ a-t-il de diviseurs ?
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher les produits de deux entiers égaux à $36$.
+          etapes:
+          - '$1 \times 36$, $2 \times 18$, $3 \times 12$, $4 \times 9$, $6 \times 6$.'
+          - 'Diviseurs : $1, 2, 3, 4, 6, 9, 12, 18, 36$, soit $9$ diviseurs.'
+          resultat: '9'
+      - code: 5E-DIVISIBILITE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Quel est le plus petit nombre entier supérieur à $100$ qui est divisible à la fois par $2$, par $3$ et par $5$ ?'
+        solution: '120'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Un nombre divisible par $2$, $3$ et $5$ est un multiple de $30$.
+          etapes:
+          - 'Multiples de $30$ : $90$, $120$…'
+          - Le premier supérieur à $100$ est $120$.
+          resultat: '120'

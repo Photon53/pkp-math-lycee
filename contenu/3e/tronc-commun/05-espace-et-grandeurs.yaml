@@ -1,0 +1,204 @@
+chapitre:
+  code: 3E-ESPACE-GRANDEURS
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 5
+  titre: Sphère, sections et grandeurs
+
+competences:
+  - code: 3E-SPHERE-BOULE
+    libelle: Se repérer sur une sphère, représenter des solides et calculer des volumes
+    attendus: [3E-2020-ESP-01, 3E-2020-ESP-02, 3E-2020-GRAND-01, 3E-2020-GRAND-02]
+    cours_couvre: [3E-2020-ESP-01, 3E-2020-ESP-02, 3E-2020-GRAND-01, 3E-2020-GRAND-02]
+    objectifs:
+    - Se repérer sur la sphère terrestre (latitude, longitude).
+    - Connaître les sections planes des solides usuels.
+    - Calculer le volume d’une boule et d’assemblages de solides.
+    methodes:
+    - titre: Calculer le volume d’une boule
+      etapes:
+      - Repérer le rayon $r$ (moitié du diamètre).
+      - Appliquer $V = \dfrac{4}{3}\pi r^3$.
+      - Arrondir selon la consigne et écrire l’unité de volume.
+      exemple:
+        enonce: Calculer le volume d’une boule de rayon $3$ cm.
+        resolution:
+        - $V = \dfrac{4}{3} \pi \times 27 = 36\pi$.
+        - $V \approx 113{,}1$ cm³.
+        resultat: $36\pi$ cm³
+    erreurs_frequentes:
+    - erreur: Utiliser le diamètre à la place du rayon.
+      explication: 'Avec un diamètre de $6$ cm, le rayon est $3$ cm ; une erreur multiplie le volume par $8$.'
+    - erreur: Penser que la section d’une sphère par un plan est toujours un grand cercle.
+      explication: La section est un cercle dont le rayon dépend de la distance du plan au centre.
+    resume: |
+      - Latitude : de $0°$ à $90°$ Nord ou Sud (à partir de l’équateur). Longitude : de $0°$ à $180°$ Est ou Ouest (à partir du méridien de Greenwich).
+      - Sections : sphère → cercle ; cylindre (plan parallèle à la base) → disque ; pavé, prisme (plan parallèle à une face) → rectangle ; pyramide, cône (plan parallèle à la base) → réduction de la base.
+      - Boule : $V = \dfrac{4}{3}\pi r^3$ ; sphère : $\mathcal{A} = 4\pi r^2$.
+    cours: |
+      ## 1. Se repérer sur la sphère
+      Un point du globe est repéré par sa **latitude** (angle par rapport à l’équateur) et sa **longitude** (angle par rapport au méridien de Greenwich). Paris : environ $49°$ N, $2°$ E.
+
+      ## 2. Sections planes
+      La section d’une sphère de centre $O$ et de rayon $R$ par un plan situé à la distance $d < R$ de $O$ est un cercle de rayon $r = \sqrt{R^2 - d^2}$ (Pythagore).
+
+      La section d’une pyramide par un plan parallèle à sa base est une **réduction** de la base.
+
+      ## 3. Volumes
+      > **Formule.** Le volume d’une boule de rayon $r$ est $V = \dfrac{4}{3}\pi r^3$.
+
+      Un silo formé d’un cylindre (rayon $2$ m, hauteur $5$ m) surmonté d’une demi-boule (rayon $2$ m) a pour volume $20\pi + \dfrac{16\pi}{3} \approx 79{,}6$ m³.
+    questions:
+      - code: 3E-SPHERE-BOULE-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer le volume d’une boule de rayon $3$ cm, arrondi au dixième de cm³.
+        solution: '113,1'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $V = \dfrac{4}{3}\pi r^3$.
+          etapes:
+          - $\dfrac{4}{3}\pi \times 27 = 36\pi \approx 113{,}1$ cm³.
+          resultat: '113,1'
+      - code: 3E-SPHERE-BOULE-02
+        difficulte: 2
+        type: qcm
+        enonce: 'La section d’un cylindre par un plan parallèle à sa base est : A) un rectangle  B) un disque  C) un triangle  D) une ellipse quelconque'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Connaître les sections planes.
+          etapes:
+          - C’est un disque de même rayon que la base.
+          resultat: B
+      - code: 3E-SPHERE-BOULE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Un point du globe est situé sur l’équateur. Quelle est sa latitude ? A) $0°$  B) $90°$ N  C) $180°$  D) Elle dépend de la longitude'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La latitude se mesure à partir de l’équateur.
+          etapes:
+          - Sur l’équateur, la latitude vaut $0°$.
+          resultat: A
+      - code: 3E-SPHERE-BOULE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Une sphère a pour rayon $5$ cm. On la coupe par un plan situé à $3$ cm du centre. Quel est le rayon du cercle de section, en cm ?'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Théorème de Pythagore dans le triangle centre / centre de la section / point du cercle.
+          etapes:
+          - $r^2 = 5^2 - 3^2 = 16$, donc $r = 4$ cm.
+          resultat: '4'
+      - code: 3E-SPHERE-BOULE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un silo est formé d’un cylindre de rayon $2$ m et de hauteur $5$ m, surmonté d’une demi-boule de rayon $2$ m. Calculer son volume, arrondi au dixième de m³.'
+        solution: '79,6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner les volumes.
+          etapes:
+          - 'Cylindre : $\pi \times 4 \times 5 = 20\pi$ ; demi-boule : $\dfrac{1}{2} \times \dfrac{4}{3}\pi \times 8 = \dfrac{16\pi}{3}$.'
+          - $20\pi + \dfrac{16\pi}{3} = \dfrac{76\pi}{3} \approx 79{,}6$ m³.
+          resultat: '79,6'
+
+  - code: 3E-GRANDEURS
+    libelle: Calculer avec des grandeurs composées et vérifier la cohérence des unités
+    attendus: [3E-2020-GRAND-03, 3E-2020-GRAND-04, 3E-2020-GRAND-05]
+    cours_couvre: [3E-2020-GRAND-03, 3E-2020-GRAND-04, 3E-2020-GRAND-05]
+    objectifs:
+    - Mener des calculs avec vitesse, débit, masse volumique, énergie.
+    - Convertir des unités de grandeurs composées.
+    - Contrôler la cohérence d’un résultat grâce aux unités.
+    methodes:
+    - titre: Vérifier un résultat par les unités
+      etapes:
+      - Écrire les unités dans le calcul, comme des nombres.
+      - Simplifier les unités.
+      - Vérifier que l’unité obtenue est celle de la grandeur cherchée.
+      exemple:
+        enonce: 'Une masse volumique de $2{,}7$ g/cm³ et un volume de $50$ cm³. Quelle est la masse ?'
+        resolution:
+        - $2{,}7 \text{ g/cm³} \times 50 \text{ cm³} = 135$ g.
+        - Les cm³ se simplifient ; on obtient bien des grammes.
+        resultat: $135$ g
+    erreurs_frequentes:
+    - erreur: Additionner des grandeurs d’unités différentes.
+      explication: On convertit tout dans la même unité avant de calculer.
+    - erreur: 'Convertir $1$ m³ en $1\,000$ cm³.'
+      explication: '$1$ m³ $= 1\,000$ dm³ $= 1\,000\,000$ cm³.'
+    resume: |
+      - Masse volumique : $\rho = \dfrac{m}{V}$ ; débit : $D = \dfrac{V}{t}$ ; vitesse : $v = \dfrac{d}{t}$ ; énergie : $E = P \times t$.
+      - On convertit chaque unité séparément ; $1$ m/s $= 3{,}6$ km/h.
+      - Une analyse des unités permet de repérer une formule mal utilisée.
+    cours: |
+      ## 1. Grandeurs composées
+      Une grandeur quotient (vitesse, débit, masse volumique) ou produit (énergie en kWh, quantité de travail en heures·personne) s’exprime avec une unité composée.
+
+      ## 2. Conversions
+      $1$ g/cm³ $= 1$ kg/L $= 1\,000$ kg/m³. $15$ m/s $= 15 \times 3{,}6 = 54$ km/h.
+
+      ## 3. Cohérence des unités
+      Si l’on calcule $\dfrac{t}{d}$ au lieu de $\dfrac{d}{t}$, on obtient des h/km, ce qui n’est pas une vitesse : l’analyse des unités révèle l’erreur.
+    questions:
+      - code: 3E-GRANDEURS-01
+        difficulte: 1
+        type: numerique
+        enonce: 'L’aluminium a une masse volumique de $2{,}7$ g/cm³. Quelle est la masse (en g) d’une pièce de $50$ cm³ ?'
+        solution: '135'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $m = \rho \times V$.
+          etapes:
+          - $2{,}7 \times 50 = 135$ g.
+          resultat: '135'
+      - code: 3E-GRANDEURS-02
+        difficulte: 2
+        type: numerique
+        enonce: Convertir $15$ m/s en km/h.
+        solution: '54'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ m/s $= 3{,}6$ km/h.
+          etapes:
+          - $15 \times 3{,}6 = 54$ km/h.
+          resultat: '54'
+      - code: 3E-GRANDEURS-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Une piscine de $60$ m³ se remplit avec un débit de $20$ L/min. Combien d’heures faut-il pour la remplir ?'
+        solution: '50'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Convertir le volume en litres.
+          etapes:
+          - $60$ m³ $= 60\,000$ L ; $60\,000 \div 20 = 3\,000$ min.
+          - $3\,000 \div 60 = 50$ h.
+          resultat: '50'
+      - code: 3E-GRANDEURS-04
+        difficulte: 4
+        type: qcm
+        enonce: 'Un élève calcule une vitesse en divisant une durée (en h) par une distance (en km). L’unité de son résultat est : A) km/h  B) h/km  C) km·h'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Analyser les unités.
+          etapes:
+          - $\dfrac{\text{h}}{\text{km}}$ n’est pas une unité de vitesse ; le calcul est erroné.
+          resultat: B
+      - code: 3E-GRANDEURS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un TGV roule à $300$ km/h. Quelle distance parcourt-il en $1$ min $12$ s, en km ?'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Convertir la durée en heures.
+          etapes:
+          - $1$ min $12$ s $= 72$ s $= \dfrac{72}{3\,600}$ h $= 0{,}02$ h.
+          - $300 \times 0{,}02 = 6$ km.
+          resultat: '6'

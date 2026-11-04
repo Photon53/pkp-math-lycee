@@ -26,7 +26,7 @@ from app.schemas import (
 router = APIRouter(prefix="/enseignants", tags=["enseignant"])
 
 # Ordre scolaire, et non alphabétique (« 1re » < « 2nde »).
-ORDRE_NIVEAUX = {Niveau.SECONDE: 0, Niveau.PREMIERE: 1, Niveau.TERMINALE: 2}
+ORDRE_NIVEAUX = {n: i for i, n in enumerate(Niveau)}
 
 
 # --- Cours ------------------------------------------------------------------------

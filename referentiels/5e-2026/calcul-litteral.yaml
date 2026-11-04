@@ -1,0 +1,22 @@
+theme:
+  code: LIT
+  titre: Calcul littéral et algébrique
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 5E-2026-LIT-01, type: automatisme, page: 8, texte: "Identifier des régularités et poursuivre une suite de motifs évolutive."}
+  - {code: 5E-2026-LIT-02, type: automatisme, page: 8, texte: "Trouver le nombre d’éléments pour une étape donnée dans une suite de motifs évolutive."}
+  - {code: 5E-2026-LIT-03, type: automatisme, page: 8, texte: "Identifier la structure d’un motif évolutif en repérant une régularité."}
+  - {code: 5E-2026-LIT-04, type: automatisme, page: 8, texte: "Nombre quotient."}
+  - {code: 5E-2026-LIT-05, type: capacite, page: 8, texte: "Produire des formules (double, triple, carré, successeur, prédécesseur, aire, périmètre, etc.)."}
+  - {code: 5E-2026-LIT-06, type: capacite, page: 8, texte: "Calculer la valeur d’une expression littérale par substitution."}
+  - {code: 5E-2026-LIT-07, type: capacite, page: 9, texte: "Tester si une égalité entre expressions algébriques comportant une variable est vraie ou fausse."}
+  - {code: 5E-2026-LIT-08, type: capacite, page: 9, texte: "Déterminer si une expression littérale est une somme ou un produit."}
+  - {code: 5E-2026-LIT-09, type: capacite, page: 9, texte: "Exploiter les relations k(a + b) = ka + kb ou k(a – b) = ka – kb pour factoriser, ou développer une expression littérale."}
+  - {code: 5E-2026-LIT-10, type: capacite, page: 9, texte: "Réduire une expression littérale de la forme ax + b, où a et b sont des nombres décimaux."}
+  - {code: 5E-2026-LIT-11, type: capacite, page: 9, texte: "Démontrer une propriété générale par le calcul littéral."}
+  - {code: 5E-2026-LIT-12, type: capacite, page: 9, texte: "Utiliser un contre-exemple pour démontrer qu’une assertion est fausse."}
+  - {code: 5E-2026-LIT-13, type: capacite, page: 9, texte: "Formuler des conjectures en s’appuyant sur un langage algorithmique ou un tableur."}
+  - {code: 5E-2026-LIT-14, type: capacite, page: 9, texte: "Donner à la lettre le statut d’inconnue."}
+  - {code: 5E-2026-LIT-15, type: capacite, page: 9, texte: "Modéliser des problèmes relevant des opérations à trous par des équations du type ax = c ou x + b = c."}
+  - {code: 5E-2026-LIT-16, type: capacite, page: 9, texte: "Résoudre des équations du type ax = c ou x + b = c par des méthodes arithmétiques s'appuyant sur les opérations inverses."}

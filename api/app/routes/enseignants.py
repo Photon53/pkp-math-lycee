@@ -27,7 +27,7 @@ from app.progression import (
     resume_eleve,
 )
 from app import inscriptions, parents, permissions
-from app.referentiel import ABREVIATIONS_PARCOURS
+from app.referentiel import ABREVIATIONS_PARCOURS, domaine_maths
 from app.schemas import (
     ChangementMotDePasse,
     ChapitreProgramme,
@@ -66,7 +66,10 @@ router = APIRouter(prefix="/enseignants", tags=["enseignant"])
 
 # Deux responsables légaux, plus une marge (famille recomposée) : au-delà, c'est sans doute une erreur.
 MAX_PARENTS_PAR_ELEVE = 4
-PREFIXES_CODE = {Niveau.SECONDE: "2NDE", Niveau.PREMIERE: "1RE", Niveau.TERMINALE: "TLE"}
+PREFIXES_CODE = {
+    Niveau.SIXIEME: "6E", Niveau.CINQUIEME: "5E", Niveau.QUATRIEME: "4E", Niveau.TROISIEME: "3E",
+    Niveau.SECONDE: "2NDE", Niveau.PREMIERE: "1RE", Niveau.TERMINALE: "TLE",
+}
 # Sans 0/O ni 1/I/L : le code est recopié à la main par des élèves.
 
 
@@ -152,7 +155,8 @@ def mes_classes(enseignant: EnseignantCourant, session: SessionDB) -> list[Class
 
 @router.post("/classes", response_model=ClasseResume, status_code=status.HTTP_201_CREATED)
 def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: SessionDB) -> ClasseResume:
-    refus = permissions.refus_domaine_ferme(session, permissions.DOMAINE_CLASSES)
+    domaine = domaine_maths(corps.niveau)
+    refus = permissions.refus_domaine_ferme(session, domaine)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     while True:
@@ -162,7 +166,7 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
             break
     classe = models.Classe(
         code=code, niveau=corps.niveau, parcours=corps.parcours, enseignant=enseignant,
-        domaine_code=permissions.DOMAINE_CLASSES,
+        domaine_code=domaine,
     )
     session.add(classe)
     # Par défaut, tout le programme est ouvert ; l'enseignant ferme ce qu'il ne veut pas encore proposer.

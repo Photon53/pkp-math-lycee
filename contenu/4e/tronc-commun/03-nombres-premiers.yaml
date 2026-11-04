@@ -1,0 +1,112 @@
+chapitre:
+  code: 4E-ARITHMETIQUE
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 3
+  titre: Divisibilité et nombres premiers
+
+competences:
+  - code: 4E-NOMBRES-PREMIERS
+    libelle: Décomposer en facteurs premiers et simplifier des fractions
+    attendus: [4E-2020-DIV-01, 4E-2020-DIV-02, 4E-2020-DIV-03, 4E-2020-DIV-04]
+    cours_couvre: [4E-2020-DIV-01, 4E-2020-DIV-02, 4E-2020-DIV-03, 4E-2020-DIV-04]
+    objectifs:
+    - Connaître les nombres premiers inférieurs à $100$.
+    - Décomposer un entier en produit de facteurs premiers.
+    - Utiliser la décomposition pour simplifier une fraction et résoudre des problèmes.
+    methodes:
+    - titre: Décomposer un nombre en produit de facteurs premiers
+      etapes:
+      - Diviser par le plus petit nombre premier possible ($2$, puis $3$, $5$, $7$…).
+      - Recommencer avec le quotient jusqu’à obtenir $1$.
+      - Écrire le produit des diviseurs utilisés, avec des puissances.
+      exemple:
+        enonce: Décomposer $360$ en produit de facteurs premiers.
+        resolution:
+        - $360 = 2 \times 180 = 2 \times 2 \times 90 = 2 \times 2 \times 2 \times 45$.
+        - $45 = 3 \times 3 \times 5$.
+        resultat: $360 = 2^3 \times 3^2 \times 5$
+    erreurs_frequentes:
+    - erreur: Considérer $1$ comme un nombre premier.
+      explication: 'Un nombre premier a exactement **deux** diviseurs ; $1$ n’en a qu’un.'
+    - erreur: Penser que tous les nombres impairs sont premiers.
+      explication: '$9 = 3 \times 3$, $15$, $21$, $91 = 7 \times 13$ sont impairs mais pas premiers.'
+    resume: |
+      - Un nombre **premier** a exactement deux diviseurs : $1$ et lui-même.
+      - Premiers inférieurs à $100$ : $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97$ ($25$ nombres).
+      - Tout entier supérieur ou égal à $2$ se décompose en produit de facteurs premiers.
+      - Pour simplifier une fraction, on décompose numérateur et dénominateur et on supprime les facteurs communs.
+    cours: |
+      ## 1. Nombres premiers
+      > **Définition.** Un nombre entier est premier s’il admet exactement deux diviseurs : $1$ et lui-même.
+
+      Le **crible d’Ératosthène** permet de trouver les nombres premiers inférieurs à $100$ : on barre les multiples de $2$, $3$, $5$, $7$ (autres qu’eux-mêmes).
+
+      ## 2. Décomposition
+      > **Propriété.** Tout entier $n \geq 2$ peut s’écrire comme un produit de nombres premiers ; cette écriture est unique à l’ordre près.
+
+      $84 = 2^2 \times 3 \times 7$.
+
+      ## 3. Simplifier une fraction
+      $\dfrac{84}{120} = \dfrac{2^2 \times 3 \times 7}{2^3 \times 3 \times 5} = \dfrac{7}{2 \times 5} = \dfrac{7}{10}$.
+
+      ## 4. Problèmes
+      On veut répartir $84$ billes rouges et $120$ bleues dans le plus grand nombre de sachets identiques. Ce nombre est le plus grand diviseur commun : $2^2 \times 3 = 12$ sachets.
+    questions:
+      - code: 4E-NOMBRES-PREMIERS-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Lequel de ces nombres est premier ? A) $21$  B) $27$  C) $29$  D) $33$'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher un diviseur autre que $1$ et le nombre lui-même.
+          etapes:
+          - '$21 = 3 \times 7$, $27 = 3 \times 9$, $33 = 3 \times 11$ ; $29$ est premier.'
+          resultat: C
+      - code: 4E-NOMBRES-PREMIERS-02
+        difficulte: 2
+        type: numerique
+        enonce: Combien y a-t-il de nombres premiers inférieurs à $20$ ?
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les lister.
+          etapes:
+          - $2, 3, 5, 7, 11, 13, 17, 19$, soit $8$ nombres.
+          resultat: '8'
+      - code: 4E-NOMBRES-PREMIERS-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Quelle est la décomposition de $360$ en produit de facteurs premiers ? A) $2^3 \times 3^2 \times 5$  B) $2^2 \times 9 \times 10$  C) $6^2 \times 10$  D) $2^3 \times 45$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tous les facteurs doivent être premiers.
+          etapes:
+          - $360 = 8 \times 45 = 2^3 \times 3^2 \times 5$.
+          resultat: A
+      - code: 4E-NOMBRES-PREMIERS-04
+        difficulte: 4
+        type: numerique
+        enonce: Simplifier $\dfrac{84}{120}$ pour obtenir une fraction irréductible.
+        solution: 7/10
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer numérateur et dénominateur.
+          etapes:
+          - $84 = 2^2 \times 3 \times 7$ et $120 = 2^3 \times 3 \times 5$.
+          - On supprime $2^2 \times 3$ ; il reste $\dfrac{7}{10}$.
+          resultat: 7/10
+      - code: 4E-NOMBRES-PREMIERS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'On répartit $84$ billes rouges et $120$ billes bleues dans des sachets identiques (même nombre de rouges et de bleues dans chaque sachet), en utilisant toutes les billes. Quel est le nombre maximal de sachets ?'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher le plus grand diviseur commun.
+          etapes:
+          - $84 = 2^2 \times 3 \times 7$ et $120 = 2^3 \times 3 \times 5$.
+          - 'Facteurs communs : $2^2 \times 3 = 12$ sachets.'
+          resultat: '12'

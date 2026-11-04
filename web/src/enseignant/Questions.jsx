@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
+import { NIVEAUX } from "../parcours.js";
 import { useApi } from "./useApi.js";
 
 const ignorer = () => {};
-
-// Ordre scolaire, et non alphabétique (« 1re » < « 2nde »).
-const NIVEAUX = [
-  ["2nde", "Seconde"],
-  ["1re", "Première"],
-  ["Tle", "Terminale"],
-];
 
 function CompetencesOptions({ competences }) {
   const presents = new Set(competences.map((c) => c.niveau));

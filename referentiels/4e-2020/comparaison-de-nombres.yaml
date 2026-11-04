@@ -1,0 +1,10 @@
+theme:
+  code: COMP
+  titre: Comparaison de nombres
+  partie: Nombres et calculs
+
+attendus:
+  - {code: 4E-2020-COMP-01, type: capacite, page: 2, texte: "Il utilise des puissances de 10 pour comparer des nombres."}
+  - {code: 4E-2020-COMP-02, type: capacite, page: 2, texte: "Il compare, range et encadre des nombres rationnels (positifs ou négatifs)."}
+  - {code: 4E-2020-COMP-03, type: capacite, page: 2, texte: "Il encadre la racine carrée d’un nombre positif entre deux entiers."}
+  - {code: 4E-2020-COMP-04, type: capacite, page: 2, texte: "Il associe à des objets des ordres de grandeur en lien avec d’autres disciplines."}

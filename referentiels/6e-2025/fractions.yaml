@@ -1,0 +1,30 @@
+theme:
+  code: FRAC
+  titre: Les fractions
+  partie: Nombres, calcul et résolution de problèmes
+
+attendus:
+  # Automatismes (page 15)
+  - {code: 6E-2025-FRAC-01, type: automatisme, page: 15, texte: "L’élève sait reconnaître une fraction sur des représentations variées."}
+  - {code: 6E-2025-FRAC-02, type: automatisme, page: 15, texte: "L’élève connaît des relations entre 1/4, 1/2, 3/4 et 1, et complète de manière automatique des « égalités à trous » du type : 1/2 + 1/2 = … ; 1/4 + 1/4 = … ; 1 – 1/4 = … ; 1/2 + 1/4 = … ; 1 – 1/2 = … ; 3/4 + 1/4 = … ; 1/2 – 1/4 = … ; 3/4 – 1/4 = … ."}
+  - {code: 6E-2025-FRAC-03, type: automatisme, page: 15, texte: "L’élève sait passer de manière automatique d’une écriture fractionnaire à une écriture décimale, et inversement, dans les cas suivants : 1/4 = 0,25 ; 1/2 = 0,5 ; 3/4 = 0,75 ; 3/2 = 1,5 ; 4/2 = 2 ; 5/2 = 2,5."}
+  - {code: 6E-2025-FRAC-04, type: automatisme, page: 15, texte: "Les notions de diviseur et de multiple et les tables de multiplication sont réactivées en vue de leur utilisation dans le calcul sur les fractions (simplification, addition et soustraction)."}
+  - {code: 6E-2025-FRAC-05, type: automatisme, page: 15, texte: "L’élève sait calculer 2/3 de 12 œufs, 3/4 de 10 m."}
+  # Connaissances et capacités attendues : sens quotient, opérateur, comparaison, opérations, pourcentages
+  - {code: 6E-2025-FRAC-06, type: capacite, page: 15, texte: "Relier une fraction au résultat exact de la division de son numérateur par son dénominateur"}
+  - {code: 6E-2025-FRAC-07, type: capacite, page: 15, texte: "Comprendre et connaître la définition du quotient d’un entier a par un entier b non nul"}
+  - {code: 6E-2025-FRAC-08, type: capacite, page: 15, texte: "Compléter des égalités à trous multiplicatives"}
+  - {code: 6E-2025-FRAC-09, type: capacite, page: 15, texte: "Placer une fraction sur une demi-droite graduée dans des cas simples"}
+  - {code: 6E-2025-FRAC-10, type: capacite, page: 15, texte: "Graduer un segment de longueur donnée"}
+  - {code: 6E-2025-FRAC-11, type: capacite, page: 15, texte: "Savoir que la fraction a/b peut représenter un nombre entier, un nombre décimal non entier ou un nombre non décimal"}
+  - {code: 6E-2025-FRAC-12, type: capacite, page: 15, texte: "Utiliser une multiplication pour appliquer une fraction à un nombre entier"}
+  - {code: 6E-2025-FRAC-13, type: capacite, page: 16, texte: "Établir des égalités de fractions"}
+  - {code: 6E-2025-FRAC-14, type: capacite, page: 16, texte: "Comparer et encadrer des fractions"}
+  - {code: 6E-2025-FRAC-15, type: capacite, page: 16, texte: "Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes"}
+  - {code: 6E-2025-FRAC-16, type: capacite, page: 16, texte: "Additionner et soustraire des fractions"}
+  - {code: 6E-2025-FRAC-17, type: capacite, page: 16, texte: "Multiplier une fraction par un nombre entier"}
+  - {code: 6E-2025-FRAC-18, type: capacite, page: 16, texte: "Résoudre des problèmes mettant en jeu des fractions"}
+  - {code: 6E-2025-FRAC-19, type: capacite, page: 16, texte: "Inventer des problèmes mettant en jeu des fractions"}
+  - {code: 6E-2025-FRAC-20, type: capacite, page: 16, texte: "Comprendre le sens d’un pourcentage"}
+  - {code: 6E-2025-FRAC-21, type: capacite, page: 16, texte: "Calculer une proportion (rapport entre une partie et le tout) et l’exprimer sous forme de pourcentage dans des cas simples"}
+  - {code: 6E-2025-FRAC-22, type: capacite, page: 16, texte: "Appliquer un pourcentage à une grandeur ou à un nombre"}

@@ -1,0 +1,10 @@
+theme:
+  code: GEOM
+  titre: Utiliser les notions de géométrie plane pour démontrer
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 3E-2020-GEOM-01, type: capacite, page: 8, texte: "À partir des connaissances suivantes : – le théorème de Thalès et sa réciproque dans la configuration papillon ; – les triangles semblables : une définition et une propriété caractéristique ; – les lignes trigonométriques dans le triangle rectangle : cosinus, sinus, tangente, il transforme une figure par rotation et par homothétie et il comprend l’effet d’une rotation et d’une homothétie."}
+  - {code: 3E-2020-GEOM-02, type: capacite, page: 8, texte: "Il identifie des rotations et des homothéties dans des frises, des pavages et des rosaces."}
+  - {code: 3E-2020-GEOM-03, type: capacite, page: 8, texte: "Il mobilise les connaissances des figures, des configurations, de la rotation et de l’homothétie pour déterminer des grandeurs géométriques."}
+  - {code: 3E-2020-GEOM-04, type: capacite, page: 8, texte: "Il mène des raisonnements en utilisant des propriétés des figures, des configurations, de la rotation et de l’homothétie."}

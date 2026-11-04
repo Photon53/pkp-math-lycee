@@ -1,0 +1,8 @@
+theme:
+  code: DON
+  titre: Interpréter, représenter et traiter des données
+  partie: Organisation et gestion de données, fonctions
+
+attendus:
+  - {code: 4E-2020-DON-01, type: capacite, page: 5, texte: "Il lit, interprète et représente des données sous forme de diagrammes circulaires."}
+  - {code: 4E-2020-DON-02, type: capacite, page: 5, texte: "Il calcule et interprète la médiane d’une série de données de petit effectif total."}

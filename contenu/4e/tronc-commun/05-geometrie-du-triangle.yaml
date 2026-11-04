@@ -1,0 +1,308 @@
+chapitre:
+  code: 4E-GEOMETRIE-TRIANGLE
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 5
+  titre: Pythagore, Thalès et cosinus
+
+competences:
+  - code: 4E-PYTHAGORE
+    libelle: Utiliser le théorème de Pythagore et sa réciproque
+    attendus: [4E-2020-GEOM-01, 4E-2020-GEOM-05, 4E-2020-CALC-06]
+    cours_couvre: [4E-2020-GEOM-01, 4E-2020-GEOM-05, 4E-2020-CALC-06]
+    prerequis: [4E-RACINES]
+    objectifs:
+    - Calculer une longueur dans un triangle rectangle.
+    - Démontrer qu’un triangle est (ou n’est pas) rectangle.
+    methodes:
+    - titre: Calculer une longueur avec le théorème de Pythagore
+      etapes:
+      - Identifier l’angle droit et l’hypoténuse (côté opposé à l’angle droit).
+      - Écrire l’égalité $\text{hypoténuse}^2 = \text{côté}_1^2 + \text{côté}_2^2$.
+      - Remplacer les longueurs connues, puis calculer la longueur cherchée (racine carrée).
+      exemple:
+        enonce: '$ABC$ est rectangle en $A$, $AB = 6$ cm et $AC = 8$ cm. Calculer $BC$.'
+        resolution:
+        - $BC^2 = AB^2 + AC^2 = 36 + 64 = 100$.
+        - $BC = \sqrt{100} = 10$ cm.
+        resultat: $BC = 10$ cm
+    erreurs_frequentes:
+    - erreur: Additionner les carrés pour trouver un côté de l’angle droit.
+      explication: 'Si on cherche un côté de l’angle droit, on **soustrait** : $AB^2 = BC^2 - AC^2$.'
+    - erreur: Utiliser le théorème de Pythagore dans un triangle qui n’est pas rectangle.
+      explication: Le théorème ne s’applique que si l’on sait que le triangle est rectangle ; sinon, on utilise la réciproque pour le vérifier.
+    resume: |
+      - **Théorème** : si $ABC$ est rectangle en $A$, alors $BC^2 = AB^2 + AC^2$.
+      - **Réciproque** : si $BC^2 = AB^2 + AC^2$ (avec $[BC]$ le plus grand côté), alors $ABC$ est rectangle en $A$.
+      - **Contraposée** : si $BC^2 \neq AB^2 + AC^2$, le triangle n’est pas rectangle.
+    cours: |
+      ## 1. Le théorème
+      > **Théorème de Pythagore.** Si un triangle est rectangle, alors le carré de la longueur de l’hypoténuse est égal à la somme des carrés des longueurs des deux autres côtés.
+
+      ## 2. Calculer une longueur
+      $ABC$ rectangle en $A$ avec $BC = 13$ et $AB = 5$ : $AC^2 = 169 - 25 = 144$, $AC = 12$.
+
+      ## 3. La réciproque
+      > **Réciproque.** Si, dans un triangle, le carré du plus grand côté est égal à la somme des carrés des deux autres, alors ce triangle est rectangle.
+
+      Le triangle de côtés $3$, $4$, $5$ est rectangle car $5^2 = 25 = 9 + 16$ : c’est la « corde à $13$ nœuds » des bâtisseurs.
+
+      ## 4. Rédiger
+      On compare séparément $BC^2$ et $AB^2 + AC^2$, puis on conclut avec la réciproque ou la contraposée.
+    questions:
+      - code: 4E-PYTHAGORE-01
+        difficulte: 1
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $AB = 6$ cm et $AC = 8$ cm. Calculer $BC$, en cm.'
+        solution: '10'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Théorème de Pythagore.
+          etapes:
+          - $BC^2 = 36 + 64 = 100$, $BC = 10$ cm.
+          resultat: '10'
+      - code: 4E-PYTHAGORE-02
+        difficulte: 2
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $BC = 13$ cm et $AB = 5$ cm. Calculer $AC$, en cm.'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: On cherche un côté de l’angle droit, on soustrait.
+          etapes:
+          - $AC^2 = 169 - 25 = 144$, $AC = 12$ cm.
+          resultat: '12'
+      - code: 4E-PYTHAGORE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Un triangle a des côtés de $5$ cm, $12$ cm et $13$ cm. A) Il est rectangle  B) Il n’est pas rectangle  C) On ne peut pas savoir'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réciproque du théorème de Pythagore.
+          etapes:
+          - $13^2 = 169$ et $5^2 + 12^2 = 25 + 144 = 169$ ; le triangle est rectangle.
+          resultat: A
+      - code: 4E-PYTHAGORE-04
+        difficulte: 4
+        type: numerique
+        enonce: Calculer la longueur de la diagonale d’un rectangle de $5$ cm sur $3$ cm, arrondie au dixième de cm.
+        solution: '5,8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La diagonale est l’hypoténuse d’un triangle rectangle.
+          etapes:
+          - $d^2 = 25 + 9 = 34$ ; $d = \sqrt{34} \approx 5{,}83$ cm.
+          resultat: '5,8'
+      - code: 4E-PYTHAGORE-05
+        difficulte: 5
+        type: qcm
+        enonce: 'Un triangle $EFG$ a pour côtés $EF = 6$, $FG = 7$, $EG = 9$. A) Il est rectangle en $F$  B) Il n’est pas rectangle  C) Il est rectangle en $E$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Comparer le carré du plus grand côté à la somme des deux autres carrés.
+          etapes:
+          - '$EG^2 = 81$ et $EF^2 + FG^2 = 36 + 49 = 85$.'
+          - '$81 \neq 85$ : par la contraposée, le triangle n’est pas rectangle.'
+          resultat: B
+
+  - code: 4E-THALES
+    libelle: Utiliser le théorème de Thalès dans des triangles emboîtés
+    attendus: [4E-2020-GEOM-01, 4E-2020-GEOM-04, 4E-2020-GEOM-05]
+    cours_couvre: [4E-2020-GEOM-01, 4E-2020-GEOM-04, 4E-2020-GEOM-05]
+    prerequis: [4E-FRACTIONS-CALCUL]
+    objectifs:
+    - Reconnaître des triangles égaux (cas d’égalité).
+    - Calculer des longueurs avec le théorème de Thalès dans des triangles emboîtés.
+    - Démontrer que deux droites sont parallèles avec la réciproque.
+    methodes:
+    - titre: Calculer une longueur avec le théorème de Thalès
+      etapes:
+      - Vérifier la configuration ; points alignés et droites parallèles.
+      - Écrire l’égalité des trois rapports $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - Choisir deux rapports contenant la longueur cherchée et trois longueurs connues, puis faire un produit en croix.
+      exemple:
+        enonce: '$M \in [AB]$, $N \in [AC]$, $(MN) \parallel (BC)$, $AM = 3$, $AB = 5$, $BC = 10$. Calculer $MN$.'
+        resolution:
+        - $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, soit $\dfrac{3}{5} = \dfrac{MN}{10}$.
+        - $MN = \dfrac{3 \times 10}{5} = 6$.
+        resultat: $MN = 6$
+    erreurs_frequentes:
+    - erreur: 'Écrire $\dfrac{AM}{MB}$ au lieu de $\dfrac{AM}{AB}$.'
+      explication: 'Les rapports comparent les côtés du **petit** triangle $AMN$ à ceux du **grand** triangle $ABC$.'
+    - erreur: Utiliser le théorème sans droites parallèles.
+      explication: 'Sans parallélisme, les rapports ne sont pas égaux ; c’est la **réciproque** qui permet de prouver un parallélisme.'
+    resume: |
+      - **Cas d’égalité** : deux triangles sont égaux s’ils ont leurs trois côtés égaux deux à deux, ou un angle égal compris entre deux côtés égaux, ou un côté égal adjacent à deux angles égaux.
+      - **Thalès** : si $M \in [AB]$, $N \in [AC]$ et $(MN) \parallel (BC)$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+      - **Réciproque** : si $\dfrac{AM}{AB} = \dfrac{AN}{AC}$ (points dans le même ordre), alors $(MN) \parallel (BC)$.
+    cours: |
+      ## 1. Triangles égaux
+      > **Définition.** Deux triangles sont égaux si leurs côtés sont deux à deux de même longueur ; ils sont alors superposables.
+
+      Il suffit de vérifier l’un des trois cas d’égalité (trois côtés ; deux côtés et l’angle compris ; un côté et les deux angles adjacents).
+
+      ## 2. Théorème de Thalès
+      > **Théorème.** Soit $ABC$ un triangle, $M$ un point de $[AB]$ et $N$ un point de $[AC]$. Si $(MN)$ et $(BC)$ sont parallèles, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.
+
+      Le triangle $AMN$ est une **réduction** du triangle $ABC$.
+
+      ## 3. Réciproque
+      > **Réciproque.** Si $M \in [AB]$, $N \in [AC]$ et $\dfrac{AM}{AB} = \dfrac{AN}{AC}$, alors $(MN)$ et $(BC)$ sont parallèles.
+
+      On calcule les deux rapports séparément (de préférence en écriture fractionnaire ou décimale exacte) avant de conclure.
+    questions:
+      - code: 4E-THALES-01
+        difficulte: 1
+        type: numerique
+        enonce: '$M \in [AB]$, $N \in [AC]$, $(MN) \parallel (BC)$, $AM = 3$, $AB = 5$ et $BC = 10$. Calculer $MN$.'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Théorème de Thalès.
+          etapes:
+          - $\dfrac{3}{5} = \dfrac{MN}{10}$, $MN = 6$.
+          resultat: '6'
+      - code: 4E-THALES-02
+        difficulte: 2
+        type: numerique
+        enonce: '$M \in [AB]$, $N \in [AC]$, $(MN) \parallel (BC)$, $AM = 4$, $AB = 10$ et $AC = 15$. Calculer $AN$.'
+        solution: '6'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\dfrac{AM}{AB} = \dfrac{AN}{AC}$.
+          etapes:
+          - $AN = \dfrac{4 \times 15}{10} = 6$.
+          resultat: '6'
+      - code: 4E-THALES-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Deux triangles ont un côté de $5$ cm compris entre deux angles de $40°$ et $70°$. Ces triangles : A) sont égaux  B) ne sont pas forcément égaux  C) sont rectangles'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Cas d’égalité ; un côté et les deux angles adjacents.
+          etapes:
+          - Ce cas suffit à garantir l’égalité des triangles.
+          resultat: A
+      - code: 4E-THALES-04
+        difficulte: 4
+        type: qcm
+        enonce: '$M \in [AB]$, $N \in [AC]$, $AM = 3$, $AB = 9$, $AN = 4$, $AC = 12$. A) $(MN) \parallel (BC)$  B) $(MN)$ et $(BC)$ ne sont pas parallèles  C) On ne peut pas conclure'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Réciproque du théorème de Thalès.
+          etapes:
+          - $\dfrac{AM}{AB} = \dfrac{3}{9} = \dfrac{1}{3}$ et $\dfrac{AN}{AC} = \dfrac{4}{12} = \dfrac{1}{3}$.
+          - Les rapports sont égaux, donc $(MN) \parallel (BC)$.
+          resultat: A
+      - code: 4E-THALES-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un bâton de $1{,}5$ m planté verticalement a une ombre de $2$ m ; au même moment, l’ombre d’un arbre mesure $12$ m. Quelle est la hauteur de l’arbre, en m ?'
+        solution: '9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les rayons du soleil sont parallèles ; on applique Thalès.
+          etapes:
+          - $\dfrac{h}{1{,}5} = \dfrac{12}{2}$, donc $h = 1{,}5 \times 6 = 9$ m.
+          resultat: '9'
+
+  - code: 4E-COSINUS
+    libelle: Utiliser le cosinus d’un angle aigu dans un triangle rectangle
+    attendus: [4E-2020-GEOM-01, 4E-2020-GEOM-04]
+    cours_couvre: [4E-2020-GEOM-01, 4E-2020-GEOM-04]
+    prerequis: [4E-PYTHAGORE]
+    objectifs:
+    - Connaître la définition du cosinus d’un angle aigu.
+    - Calculer une longueur ou un angle avec le cosinus.
+    methodes:
+    - titre: Calculer une longueur avec le cosinus
+      etapes:
+      - Repérer l’angle connu, son côté adjacent et l’hypoténuse.
+      - Écrire $\cos \widehat{B} = \dfrac{\text{côté adjacent}}{\text{hypoténuse}}$.
+      - Remplacer et isoler la longueur cherchée (calculatrice en mode degrés).
+      exemple:
+        enonce: '$ABC$ est rectangle en $A$, $BC = 10$ cm et $\widehat{B} = 60°$. Calculer $AB$.'
+        resolution:
+        - $\cos 60° = \dfrac{AB}{BC}$, donc $AB = 10 \times \cos 60°$.
+        - $AB = 10 \times 0{,}5 = 5$ cm.
+        resultat: $AB = 5$ cm
+    erreurs_frequentes:
+    - erreur: Prendre le côté opposé à la place du côté adjacent.
+      explication: 'Le côté adjacent à $\widehat{B}$ est le côté de l’angle droit qui **touche** $B$.'
+    - erreur: Calculatrice réglée en radians.
+      explication: Vérifier le mode « degrés » avant de calculer.
+    resume: |
+      - Dans un triangle rectangle, $\cos \widehat{B} = \dfrac{\text{côté adjacent à } \widehat{B}}{\text{hypoténuse}}$.
+      - Le cosinus d’un angle aigu est compris entre $0$ et $1$.
+      - Pour trouver l’angle, on utilise la touche $\cos^{-1}$ (ou « Arccos ») de la calculatrice.
+    cours: |
+      ## 1. Vocabulaire
+      Dans le triangle $ABC$ rectangle en $A$, l’hypoténuse est $[BC]$ ; le côté adjacent à $\widehat{B}$ est $[AB]$.
+
+      ## 2. Définition
+      > **Définition.** $\cos \widehat{B} = \dfrac{AB}{BC}$.
+
+      Ce rapport ne dépend que de l’angle, pas de la taille du triangle (conséquence du théorème de Thalès).
+
+      ## 3. Calculer un angle
+      Si $AB = 4$ et $BC = 8$, $\cos \widehat{B} = 0{,}5$ donc $\widehat{B} = 60°$.
+    questions:
+      - code: 4E-COSINUS-01
+        difficulte: 1
+        type: qcm
+        enonce: '$ABC$ est rectangle en $A$. Que vaut $\cos \widehat{B}$ ? A) $\dfrac{AB}{BC}$  B) $\dfrac{AC}{BC}$  C) $\dfrac{AB}{AC}$  D) $\dfrac{BC}{AB}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Côté adjacent sur hypoténuse.
+          etapes:
+          - Le côté adjacent à $\widehat{B}$ est $[AB]$, l’hypoténuse $[BC]$.
+          resultat: A
+      - code: 4E-COSINUS-02
+        difficulte: 2
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $AB = 4$ cm et $BC = 8$ cm. Quelle est la mesure de $\widehat{B}$, en degrés ?'
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer le cosinus, puis l’angle.
+          etapes:
+          - $\cos \widehat{B} = \dfrac{4}{8} = 0{,}5$, donc $\widehat{B} = 60°$.
+          resultat: '60'
+      - code: 4E-COSINUS-03
+        difficulte: 3
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $BC = 10$ cm et $\widehat{B} = 60°$. Calculer $AB$, en cm.'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $AB = BC \times \cos \widehat{B}$.
+          etapes:
+          - $AB = 10 \times 0{,}5 = 5$ cm.
+          resultat: '5'
+      - code: 4E-COSINUS-04
+        difficulte: 4
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $BC = 12$ cm et $\widehat{B} = 35°$. Calculer $AB$, arrondi au dixième de cm.'
+        solution: '9,8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $AB = BC \times \cos \widehat{B}$ (calculatrice en degrés).
+          etapes:
+          - $AB = 12 \times \cos 35° \approx 9{,}83$ cm.
+          resultat: '9,8'
+      - code: 4E-COSINUS-05
+        difficulte: 5
+        type: numerique
+        enonce: '$ABC$ est rectangle en $A$, $AB = 6$ cm et $\widehat{B} = 40°$. Calculer l’hypoténuse $BC$, arrondie au dixième de cm.'
+        solution: '7,8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $BC = \dfrac{AB}{\cos \widehat{B}}$.
+          etapes:
+          - $BC = \dfrac{6}{\cos 40°} \approx 7{,}83$ cm.
+          resultat: '7,8'

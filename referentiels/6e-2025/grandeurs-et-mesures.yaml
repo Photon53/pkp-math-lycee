@@ -1,0 +1,40 @@
+theme:
+  code: GM
+  titre: Grandeurs et mesures
+  partie: Grandeurs et mesures
+
+attendus:
+  # Les longueurs
+  - {code: 6E-2025-GM-01, type: automatisme, page: 19, texte: "L’élève connaît les significations des préfixes allant du kilo- au milli-, ainsi que les relations entre le mètre, ses multiples et ses sous-multiples, et fait le lien avec les unités de numération du système décimal."}
+  - {code: 6E-2025-GM-02, type: automatisme, page: 19, texte: "L’élève connaît les relations entre deux unités successives du système décimal, par exemple : 1 dm = 10 cm et 1 cm = 1/10 dm = 0,1 dm."}
+  - {code: 6E-2025-GM-03, type: automatisme, page: 19, texte: "L’élève sait convertir en mètre une longueur donnée dans une autre unité, multiple ou sous-multiple du mètre. Inversement, l’élève sait convertir dans une unité donnée une longueur exprimée en mètre."}
+  - {code: 6E-2025-GM-04, type: automatisme, page: 19, texte: "L’élève sait utiliser le compas comme outil de report de longueurs."}
+  - {code: 6E-2025-GM-05, type: automatisme, page: 19, texte: "Il sait que le périmètre d’une figure plane est la longueur de son contour. L’élève sait calculer le périmètre d’un carré et d’un rectangle."}
+  - {code: 6E-2025-GM-06, type: capacite, page: 19, texte: "Savoir que le périmètre du disque est proportionnel à son diamètre"}
+  - {code: 6E-2025-GM-07, type: capacite, page: 19, texte: "Connaître la formule du périmètre d’un disque"}
+  - {code: 6E-2025-GM-08, type: capacite, page: 19, texte: "Calculer le périmètre d’un disque"}
+  - {code: 6E-2025-GM-09, type: capacite, page: 19, texte: "Calculer des périmètres de figures composées"}
+  - {code: 6E-2025-GM-10, type: capacite, page: 19, texte: "Résoudre des problèmes impliquant des longueurs"}
+  # Les aires
+  - {code: 6E-2025-GM-11, type: automatisme, page: 19, texte: "L’élève sait comparer des aires sans avoir recours à la mesure, par superposition ou par découpage et recollement de surfaces."}
+  - {code: 6E-2025-GM-12, type: automatisme, page: 19, texte: "L’élève sait que 1 cm² est l’aire d’un carré de 1 cm de côté, que 1 m² est l’aire d’un carré de 1 m de côté, que 1 dm² est l’aire d’un carré de 1 dm de côté."}
+  - {code: 6E-2025-GM-13, type: automatisme, page: 19, texte: "Dans des cas simples, l’élève sait déterminer l’aire d’une surface en s’appuyant sur un quadrillage composé de carreaux dont les côtés mesurent 1 cm."}
+  - {code: 6E-2025-GM-14, type: automatisme, page: 19, texte: "L’élève sait que : 1 m² = 1 m × 1 m = 10 dm × 10 dm = 10 × 10 dm² = 100 dm² ; 1 dm² = 1 dm × 1 dm = 10 cm × 10 cm = 10 × 10 cm² = 100 cm²."}
+  - {code: 6E-2025-GM-15, type: automatisme, page: 19, texte: "L’élève mémorise que 1 cm² est égal à un centième de 1 dm², qu’il écrit 1 cm² = 1/100 dm² ou 1 cm² = 0,01 dm²."}
+  - {code: 6E-2025-GM-16, type: automatisme, page: 19, texte: "L’élève mémorise que 1 dm² est égal à un centième de 1 m², qu’il écrit 1 dm² = 1/100 m² ou 1 dm² = 0,01 m²."}
+  - {code: 6E-2025-GM-17, type: capacite, page: 19, texte: "Effectuer des conversions d’aire"}
+  - {code: 6E-2025-GM-18, type: capacite, page: 19, texte: "Connaître la formule de l’aire d’un carré ou d’un rectangle"}
+  - {code: 6E-2025-GM-19, type: capacite, page: 19, texte: "Calculer l’aire d’un carré ou d’un rectangle"}
+  # Les volumes
+  - {code: 6E-2025-GM-20, type: capacite, page: 20, texte: "Connaître l’unité centimètre cube"}
+  - {code: 6E-2025-GM-21, type: capacite, page: 20, texte: "Comparer des volumes"}
+  - {code: 6E-2025-GM-22, type: capacite, page: 20, texte: "Déterminer un volume"}
+  # Le repérage dans le temps et les durées
+  - {code: 6E-2025-GM-23, type: automatisme, page: 20, texte: "L’élève lit l’heure sur un cadran à aiguilles ou sur un affichage digital (heures, minutes et secondes)."}
+  - {code: 6E-2025-GM-24, type: automatisme, page: 20, texte: "L’élève place les aiguilles pour qu’une horloge indique une heure donnée."}
+  - {code: 6E-2025-GM-25, type: automatisme, page: 20, texte: "L’élève connaît les unités de mesure de durées jour, heure, minute et seconde et les relations qui les lient."}
+  - {code: 6E-2025-GM-26, type: automatisme, page: 20, texte: "L’élève sait combien de jours il y a dans une année (bissextile ou non), combien d’années il y a dans un siècle, et dans un millénaire."}
+  - {code: 6E-2025-GM-27, type: automatisme, page: 20, texte: "L’élève sait qu’une demi-heure c’est 30 minutes, qu’un quart d’heure c’est 15 minutes, que trois quarts d’heure c’est 45 minutes."}
+  - {code: 6E-2025-GM-28, type: capacite, page: 20, texte: "Effectuer des calculs sur des horaires et des durées"}
+  - {code: 6E-2025-GM-29, type: capacite, page: 20, texte: "Résoudre des problèmes impliquant des horaires et des durées"}
+  - {code: 6E-2025-GM-30, type: capacite, page: 20, texte: "Convertir des durées"}

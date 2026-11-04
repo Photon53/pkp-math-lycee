@@ -1,0 +1,18 @@
+theme:
+  code: TRI
+  titre: Triangles
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 5E-2026-TRI-01, type: automatisme, page: 13, texte: "Reconnaitre un triangle isocèle, équilatéral ou rectangle à partir d’un schéma codé."}
+  - {code: 5E-2026-TRI-02, type: automatisme, page: 13, texte: "Connaitre la somme des angles d’un triangle, calculer le 3e angle d’un triangle connaissant les mesures des deux autres."}
+  - {code: 5E-2026-TRI-03, type: automatisme, page: 13, texte: "Connaitre la notion de médiatrice, de cercle circonscrit."}
+  - {code: 5E-2026-TRI-04, type: capacite, page: 13, texte: "Connaitre la somme des angles d’un triangle et savoir la démontrer."}
+  - {code: 5E-2026-TRI-05, type: capacite, page: 13, texte: "Construire des triangles à partir de données partielles."}
+  - {code: 5E-2026-TRI-06, type: capacite, page: 13, texte: "Connaitre les propriétés des médiatrices et du cercle circonscrit dans le cas de triangles particuliers."}
+  - {code: 5E-2026-TRI-07, type: capacite, page: 13, texte: "Calculer l’aire d’un triangle."}
+  - {code: 5E-2026-TRI-08, type: capacite, page: 13, texte: "Définir et tracer les hauteurs dans un triangle."}
+  - {code: 5E-2026-TRI-09, type: capacite, page: 13, texte: "Savoir que les hauteurs d’un triangle sont concourantes."}
+  - {code: 5E-2026-TRI-10, type: capacite, page: 13, texte: "Définir et tracer les médianes dans un triangle."}
+  - {code: 5E-2026-TRI-11, type: demonstration, page: 13, texte: "Démontrer qu’une médiane partage un triangle en deux triangles d’aires égales."}
+  - {code: 5E-2026-TRI-12, type: capacite, page: 13, texte: "Utiliser ces propriétés dans le cas de triangles particuliers."}

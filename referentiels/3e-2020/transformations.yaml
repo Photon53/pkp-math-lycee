@@ -1,0 +1,8 @@
+theme:
+  code: TRANS
+  titre: Comprendre l’effet de quelques transformations sur les figures géométriques
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 3E-2020-TRANS-01, type: capacite, page: 7, texte: "Il calcule des grandeurs géométriques (longueurs, aires et volumes) en utilisant les transformations (symétries, rotations, translations, homothétie)."}
+  - {code: 3E-2020-TRANS-02, type: capacite, page: 7, texte: "Il résout des problèmes en utilisant la proportionnalité en géométrie dans le cadre de certaines configurations ou transformations (agrandissement, réduction, triangles semblables, homothéties)."}

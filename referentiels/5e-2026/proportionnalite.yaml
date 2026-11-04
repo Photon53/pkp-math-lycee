@@ -1,0 +1,16 @@
+theme:
+  code: PROP
+  titre: Proportionnalité
+  partie: Proportionnalité, fonctions
+
+attendus:
+  - {code: 5E-2026-PROP-01, type: automatisme, page: 18, texte: "Reconnaitre si une situation donnée entre dans le cadre de la proportionnalité ou non."}
+  # Le tableau de l'exemple (résultats de l'élection des délégués) est remis en ligne.
+  - {code: 5E-2026-PROP-02, type: automatisme, page: 18, texte: "Dans des situations simples, mobiliser une procédure adaptée (propriété de linéarité pour la multiplication ou l’addition, retour à l’unité) pour résoudre un problème lié à la proportionnalité. Par exemple : • à partir d’une recette pour 4 personnes, on sait donner (ou verbaliser la procédure) les quantités lorsque l’on passe à 2, 8 ou 6 personnes ; • si l’on connait le prix d’un kilogramme de tomates, on sait comment calculer le prix de 3 kg ou de 4,3 kg de tomates ; • lors de l’élection des délégués de la classe, 4 élèves se présentent. Chaque élève a voté pour un seul candidat. Voici les résultats : Alexis 6, Chloé 12, Salma 3, Djibril 3, total 24. Calculer le pourcentage de voix de chaque candidat."}
+  - {code: 5E-2026-PROP-03, type: capacite, page: 18, texte: "Utiliser des proportions, des pourcentages."}
+  - {code: 5E-2026-PROP-04, type: capacite, page: 18, texte: "Calculer, appliquer des proportions, des pourcentages."}
+  - {code: 5E-2026-PROP-05, type: capacite, page: 18, texte: "Identifier des situations de proportionnalité dans des contextes concrets (prix, recettes, distances, échelles)."}
+  - {code: 5E-2026-PROP-06, type: capacite, page: 18, texte: "Utiliser un coefficient de proportionnalité dans des contextes concrets (prix unitaire, vitesse moyenne, échelle, etc.)."}
+  - {code: 5E-2026-PROP-07, type: capacite, page: 18, texte: "Représenter une situation de proportionnalité par un tableau ou un graphique."}
+  - {code: 5E-2026-PROP-08, type: capacite, page: 18, texte: "Reconnaitre une situation de proportionnalité à partir d’un tableau ou d’un graphique."}
+  - {code: 5E-2026-PROP-09, type: capacite, page: 18, texte: "Reconnaitre graphiquement qu’un nuage de points est ou n’est pas associé à une situation de proportionnalité entre données discrètes."}

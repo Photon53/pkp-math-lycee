@@ -1,0 +1,237 @@
+chapitre:
+  code: 3E-FONCTIONS
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 3
+  titre: Fonctions, fonctions linéaires et affines
+
+competences:
+  - code: 3E-NOTION-FONCTION
+    libelle: Utiliser le vocabulaire des fonctions, déterminer images et antécédents
+    attendus: [3E-2020-FONC-01, 3E-2020-FONC-02, 3E-2020-FONC-03, 3E-2020-FONC-04, 3E-2020-FONC-05, 3E-2020-FONC-08, 3E-2020-FONC-10]
+    cours_couvre: [3E-2020-FONC-01, 3E-2020-FONC-02, 3E-2020-FONC-03, 3E-2020-FONC-04, 3E-2020-FONC-05, 3E-2020-FONC-08, 3E-2020-FONC-10]
+    prerequis: [3E-EQUATIONS]
+    objectifs:
+    - 'Utiliser les notations $f(x)$ et $f : x \mapsto \dots$.'
+    - Déterminer une image, un antécédent, par le calcul, un tableau ou un graphique.
+    - Modéliser un phénomène par une fonction.
+    methodes:
+    - titre: Déterminer un antécédent par le calcul
+      etapes:
+      - Écrire l’équation $f(x) = b$.
+      - Résoudre cette équation.
+      - Conclure ; les solutions sont les antécédents de $b$.
+      exemple:
+        enonce: '$f(x) = 3x - 5$. Déterminer l’antécédent de $7$.'
+        resolution:
+        - $3x - 5 = 7$, donc $3x = 12$.
+        - $x = 4$.
+        resultat: L’antécédent de $7$ est $4$.
+    erreurs_frequentes:
+    - erreur: Confondre image et antécédent.
+      explication: 'Dans $f(2) = 9$, $9$ est l’**image** de $2$ et $2$ est **un antécédent** de $9$.'
+    - erreur: Croire qu’un nombre a toujours un seul antécédent.
+      explication: 'Un nombre a une seule image, mais peut avoir plusieurs antécédents (ou aucun) : avec $f(x) = x^2$, $9$ a pour antécédents $3$ et $-3$.'
+    resume: |
+      - Une **fonction** $f$ associe à chaque nombre $x$ un unique nombre $f(x)$, son **image**.
+      - Si $f(a) = b$, $a$ est **un antécédent** de $b$.
+      - Représentations : formule, tableau de valeurs, courbe (points $(x ; f(x))$).
+      - Lecture graphique : image sur l’axe des ordonnées, antécédent(s) sur l’axe des abscisses.
+    cours: |
+      ## 1. Notations
+      $f : x \mapsto x^2 - 1$ se lit « $f$ est la fonction qui à $x$ associe $x^2 - 1$ ». On écrit $f(3) = 8$.
+
+      ## 2. Modes de représentation
+      | $x$ | $-2$ | $0$ | $1$ | $3$ |
+      |---|---|---|---|---|
+      | $f(x)$ | $3$ | $-1$ | $0$ | $8$ |
+
+      La **courbe représentative** de $f$ est l’ensemble des points de coordonnées $(x ; f(x))$.
+
+      ## 3. Image et antécédent
+      - L’image de $3$ est $8$.
+      - Les antécédents de $3$ par $f$ sont les solutions de $x^2 - 1 = 3$, soit $2$ et $-2$.
+
+      ## 4. Modéliser
+      La hauteur d’un objet lâché, la température au cours d’une journée, le prix en fonction de la quantité : chaque fois, une grandeur est une fonction d’une autre.
+    questions:
+      - code: 3E-NOTION-FONCTION-01
+        difficulte: 1
+        type: numerique
+        enonce: '$f(x) = x^2 - 1$. Calculer $f(3)$.'
+        solution: '8'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $x$ par $3$.
+          etapes:
+          - $3^2 - 1 = 8$.
+          resultat: '8'
+      - code: 3E-NOTION-FONCTION-02
+        difficulte: 2
+        type: qcm
+        enonce: 'On sait que $g(2) = 9$. Quelle phrase est correcte ? A) $2$ est l’image de $9$  B) $9$ est l’image de $2$  C) $9$ est un antécédent de $2$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Vocabulaire des fonctions.
+          etapes:
+          - $g(2) = 9$ ; $9$ est l’image de $2$, et $2$ un antécédent de $9$.
+          resultat: B
+      - code: 3E-NOTION-FONCTION-03
+        difficulte: 3
+        type: numerique
+        enonce: '$f(x) = 3x - 5$. Déterminer l’antécédent de $7$ par $f$.'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre $f(x) = 7$.
+          etapes:
+          - $3x - 5 = 7$, $3x = 12$, $x = 4$.
+          resultat: '4'
+      - code: 3E-NOTION-FONCTION-04
+        difficulte: 3
+        type: numerique
+        enonce: '$f(x) = -2x^2 + 3x$. Calculer $f(-1)$.'
+        solution: '-5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Attention aux priorités et aux signes.
+          etapes:
+          - $-2 \times (-1)^2 + 3 \times (-1) = -2 - 3 = -5$.
+          resultat: '-5'
+      - code: 3E-NOTION-FONCTION-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Par la fonction $f : x \mapsto x^2$, combien d’antécédents le nombre $9$ a-t-il ? A) aucun  B) un seul  C) deux'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre $x^2 = 9$.
+          etapes:
+          - $x = 3$ ou $x = -3$.
+          resultat: C
+      - code: 3E-NOTION-FONCTION-06
+        difficulte: 5
+        type: numerique
+        enonce: 'La hauteur (en m) d’une balle lancée est modélisée par $h(t) = -5t^2 + 20t$, où $t$ est en secondes. À quel instant $t > 0$ la balle retombe-t-elle au sol ?'
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Résoudre $h(t) = 0$ par factorisation.
+          etapes:
+          - $-5t(t - 4) = 0$, donc $t = 0$ ou $t = 4$.
+          - La balle retombe à $t = 4$ s.
+          resultat: '4'
+
+  - code: 3E-FONCTIONS-AFFINES
+    libelle: Représenter et interpréter fonctions linéaires et affines
+    attendus: [3E-2020-FONC-06, 3E-2020-FONC-07, 3E-2020-FONC-09, 3E-2020-PROP-01, 3E-2020-PROP-02]
+    cours_couvre: [3E-2020-FONC-06, 3E-2020-FONC-07, 3E-2020-FONC-09, 3E-2020-PROP-01, 3E-2020-PROP-02]
+    prerequis: [3E-NOTION-FONCTION]
+    objectifs:
+    - Reconnaître et représenter une fonction linéaire, une fonction affine.
+    - Interpréter coefficient directeur et ordonnée à l’origine.
+    - Modéliser une proportionnalité, un pourcentage d’évolution par une fonction linéaire.
+    methodes:
+    - titre: Déterminer une fonction affine à partir de deux points
+      etapes:
+      - 'Calculer $a = \dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$.'
+      - Calculer $b$ en remplaçant dans $f(x_1) = a x_1 + b$.
+      - Écrire $f(x) = ax + b$.
+      exemple:
+        enonce: '$f$ est affine, $f(1) = 5$ et $f(3) = 11$. Déterminer $f$.'
+        resolution:
+        - $a = \dfrac{11 - 5}{3 - 1} = 3$.
+        - $5 = 3 \times 1 + b$, donc $b = 2$.
+        resultat: $f(x) = 3x + 2$
+    erreurs_frequentes:
+    - erreur: Penser qu’une fonction affine traduit toujours une proportionnalité.
+      explication: 'Seules les fonctions **linéaires** ($b = 0$) traduisent une proportionnalité.'
+    - erreur: 'Associer une hausse de $20\,\%$ au coefficient $0{,}2$.'
+      explication: 'Augmenter de $20\,\%$, c’est multiplier par $1 + 0{,}2 = 1{,}2$ ; baisser de $20\,\%$, multiplier par $0{,}8$.'
+    resume: |
+      - **Linéaire** : $f(x) = ax$ ; droite passant par l’origine ; modélise la proportionnalité.
+      - **Affine** : $f(x) = ax + b$ ; droite qui coupe l’axe des ordonnées en $b$.
+      - $a$ (coefficient directeur) : si $a > 0$ la droite monte, si $a < 0$ elle descend ; quand $x$ augmente de $1$, $f(x)$ augmente de $a$.
+      - Évolution de $t\,\%$ : coefficient multiplicateur $1 + \dfrac{t}{100}$ (hausse) ou $1 - \dfrac{t}{100}$ (baisse).
+    cours: |
+      ## 1. Fonction linéaire
+      > **Définition.** Une fonction linéaire est de la forme $f(x) = ax$. Sa représentation graphique est une droite passant par l’origine.
+
+      Un prix de $1{,}50$ € le kg : $p(x) = 1{,}5x$.
+
+      ## 2. Fonction affine
+      > **Définition.** Une fonction affine est de la forme $f(x) = ax + b$. Sa représentation est une droite ; $b$ est l’**ordonnée à l’origine**, $a$ le **coefficient directeur**.
+
+      Pour tracer $f(x) = 2x - 3$, on place $(0 ; -3)$ et $(2 ; 1)$.
+
+      ## 3. Pourcentages d’évolution
+      Une hausse de $5\,\%$ correspond à la fonction linéaire $x \mapsto 1{,}05x$. Deux évolutions successives se traduisent par le produit des coefficients : $+10\,\%$ puis $-10\,\%$ donne $1{,}1 \times 0{,}9 = 0{,}99$, soit une baisse de $1\,\%$.
+    questions:
+      - code: 3E-FONCTIONS-AFFINES-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Laquelle de ces fonctions est linéaire ? A) $f(x) = 3x + 1$  B) $g(x) = -2x$  C) $h(x) = x^2$  D) $k(x) = 5$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Forme $ax$.
+          etapes:
+          - $g(x) = -2x$ est linéaire (coefficient $-2$).
+          resultat: B
+      - code: 3E-FONCTIONS-AFFINES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Quel est le coefficient multiplicateur associé à une baisse de $15\,\%$ ?'
+        solution: '0,85'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1 - \dfrac{15}{100}$.
+          etapes:
+          - $1 - 0{,}15 = 0{,}85$.
+          resultat: '0,85'
+      - code: 3E-FONCTIONS-AFFINES-03
+        difficulte: 3
+        type: numerique
+        enonce: 'La droite représentant $f(x) = 2x - 3$ coupe l’axe des ordonnées en quel point ? Donner son ordonnée.'
+        solution: '-3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: L’ordonnée à l’origine est $f(0) = b$.
+          etapes:
+          - $f(0) = -3$.
+          resultat: '-3'
+      - code: 3E-FONCTIONS-AFFINES-04
+        difficulte: 4
+        type: expression
+        forme: reduite
+        enonce: '$f$ est une fonction affine telle que $f(1) = 5$ et $f(3) = 11$. Donner l’expression de $f(x)$.'
+        solution: 3x+2
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Calculer $a$ puis $b$.
+          etapes:
+          - $a = \dfrac{11 - 5}{3 - 1} = 3$ ; $5 = 3 + b$, donc $b = 2$.
+          resultat: 3x+2
+      - code: 3E-FONCTIONS-AFFINES-05
+        difficulte: 4
+        type: qcm
+        enonce: 'La droite représentant une fonction affine $f(x) = ax + b$ descend de gauche à droite. A) $a > 0$  B) $a < 0$  C) $b < 0$  D) $a = 0$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Interpréter le coefficient directeur.
+          etapes:
+          - Une droite qui descend a un coefficient directeur négatif.
+          resultat: B
+      - code: 3E-FONCTIONS-AFFINES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un prix augmente de $20\,\%$, puis baisse de $25\,\%$. Quel est le coefficient multiplicateur global ?'
+        solution: '0,9'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier les coefficients.
+          etapes:
+          - $1{,}2 \times 0{,}75 = 0{,}9$, soit une baisse globale de $10\,\%$.
+          resultat: '0,9'

@@ -1,0 +1,37 @@
+theme:
+  code: NUM
+  titre: Les nombres entiers et décimaux
+  partie: Nombres, calcul et résolution de problèmes
+
+attendus:
+  # Automatismes (page 13) : fractions écrites a/b, l'extraction du PDF les coupe sur plusieurs lignes.
+  - {code: 6E-2025-NUM-01, type: automatisme, page: 13, texte: "L’élève restitue de manière automatique les résultats suivants, relatifs aux relations entre 1/1 000 ; 1/100 ; 1/10 et 1 : 1 = 10/10 = 100/100 = 1 000/1 000 ; 1/10 = 10/100 = 100/1 000 ; 1/100 = 10/1 000 ; 1 = 10 × 1/10 = 100 × 1/100 ; 1/10 = 10 × 1/100."}
+  - {code: 6E-2025-NUM-02, type: automatisme, page: 13, texte: "L’élève restitue de manière automatique les équivalences d’écriture suivantes : 1/10 = 0,1 ; 1/100 = 0,01 ; 1/1 000 = 0,001."}
+  - {code: 6E-2025-NUM-03, type: automatisme, page: 13, texte: "L’élève passe de manière automatique d’une écriture sous forme de fraction décimale ou de somme de fractions décimales à une écriture décimale, et inversement. Par exemple, il sait que les écritures 4 107/1 000 ; 4 + 107/1 000 ; 4 + 1/10 + 7/1 000 ; 4,107, représentent le même nombre."}
+  - {code: 6E-2025-NUM-04, type: automatisme, page: 13, texte: "L’élève applique de manière automatique la procédure de multiplication d’un nombre décimal par 1, par 10, par 100 ou par 1 000, en lien avec la numération."}
+  - {code: 6E-2025-NUM-05, type: automatisme, page: 13, texte: "Il applique de manière automatique la procédure de division d’un nombre décimal par 1, par 10, par 100 ou par 1 000."}
+  # Connaissances et capacités attendues
+  - {code: 6E-2025-NUM-06, type: capacite, page: 14, texte: "Connaître et utiliser la valeur des chiffres selon leur rang dans l’écriture d’un nombre"}
+  - {code: 6E-2025-NUM-07, type: capacite, page: 14, texte: "Connaître les liens entre les unités de numération unité, dizaine, centaine, millier, dixième, centième, millième"}
+  - {code: 6E-2025-NUM-08, type: capacite, page: 14, texte: "Connaître des grands nombres entiers"}
+  - {code: 6E-2025-NUM-09, type: capacite, page: 14, texte: "Reconnaître un nombre décimal"}
+  - {code: 6E-2025-NUM-10, type: capacite, page: 14, texte: "Connaître la définition d’un pourcentage"}
+  - {code: 6E-2025-NUM-11, type: capacite, page: 14, texte: "Associer et utiliser différentes écritures d’un nombre décimal : écriture à virgule, fraction, nombre mixte, pourcentage"}
+  - {code: 6E-2025-NUM-12, type: capacite, page: 14, texte: "Placer sur une demi-droite graduée un point dont l’abscisse est un nombre décimal"}
+  - {code: 6E-2025-NUM-13, type: capacite, page: 14, texte: "Repérer un nombre décimal sur une demi-droite graduée"}
+  - {code: 6E-2025-NUM-14, type: capacite, page: 14, texte: "Comparer deux nombres décimaux"}
+  - {code: 6E-2025-NUM-15, type: capacite, page: 14, texte: "Ordonner une liste de nombres décimaux"}
+  - {code: 6E-2025-NUM-16, type: capacite, page: 14, texte: "Donner la valeur arrondie à l’unité, au dixième ou au centième, d’un nombre décimal"}
+  - {code: 6E-2025-NUM-17, type: capacite, page: 14, texte: "Déterminer ou connaître la valeur arrondie de certains nombres non décimaux"}
+  - {code: 6E-2025-NUM-18, type: capacite, page: 14, texte: "Encadrer un nombre décimal par deux nombres décimaux, intercaler un nombre décimal entre deux nombres décimaux"}
+  - {code: 6E-2025-NUM-19, type: capacite, page: 14, texte: "Additionner et soustraire des nombres décimaux"}
+  - {code: 6E-2025-NUM-20, type: capacite, page: 14, texte: "Multiplier un nombre entier ou un nombre décimal par 0,1, par 0,01, et par 0,001"}
+  - {code: 6E-2025-NUM-21, type: capacite, page: 14, texte: "Connaître le lien avec la division par 10, 100 et par 1 000"}
+  - {code: 6E-2025-NUM-22, type: capacite, page: 14, texte: "Comprendre le sens de la multiplication de deux nombres décimaux"}
+  - {code: 6E-2025-NUM-23, type: capacite, page: 14, texte: "Calculer le produit de deux nombres décimaux"}
+  - {code: 6E-2025-NUM-24, type: capacite, page: 14, texte: "Contrôler les résultats à l’aide d’ordres de grandeur"}
+  - {code: 6E-2025-NUM-25, type: capacite, page: 14, texte: "Résoudre des problèmes mettant en jeu des multiplications entre des nombres décimaux"}
+  - {code: 6E-2025-NUM-26, type: capacite, page: 14, texte: "Diviser un nombre décimal par un nombre entier non nul inférieur à 10"}
+  - {code: 6E-2025-NUM-27, type: capacite, page: 14, texte: "Résoudre des problèmes mettant en jeu des divisions décimales"}
+  - {code: 6E-2025-NUM-28, type: capacite, page: 14, texte: "Effectuer la division euclidienne d’un nombre entier par un nombre entier inférieur à 100"}
+  - {code: 6E-2025-NUM-29, type: capacite, page: 14, texte: "Résoudre des problèmes mettant en jeu des divisions euclidiennes"}

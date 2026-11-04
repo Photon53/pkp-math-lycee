@@ -1,0 +1,11 @@
+theme:
+  code: GEOM
+  titre: Utiliser les notions de géométrie plane pour démontrer
+  partie: Espace et géométrie
+
+attendus:
+  - {code: 4E-2020-GEOM-01, type: capacite, page: 9, texte: "À partir des connaissances suivantes : – les cas d’égalité des triangles ; – le théorème de Thalès et sa réciproque dans la configuration des triangles emboîtés ; – le théorème de Pythagore et sa réciproque ; – le cosinus d’un angle d’un triangle rectangle ; – effet d’une translation : conservation du parallélisme, des longueurs, des aires et des angles, il met en œuvre et écrit un protocole de construction de figures."}
+  - {code: 4E-2020-GEOM-02, type: capacite, page: 9, texte: "Il transforme une figure par translation."}
+  - {code: 4E-2020-GEOM-03, type: capacite, page: 9, texte: "Il identifie des translations dans des frises et des pavages."}
+  - {code: 4E-2020-GEOM-04, type: capacite, page: 10, texte: "Il mobilise les connaissances des figures, des configurations et de la translation pour déterminer des grandeurs géométriques."}
+  - {code: 4E-2020-GEOM-05, type: capacite, page: 10, texte: "Il mène des raisonnements en utilisant des propriétés des figures, des configurations et de la translation."}

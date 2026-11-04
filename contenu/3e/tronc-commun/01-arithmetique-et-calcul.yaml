@@ -1,0 +1,207 @@
+chapitre:
+  code: 3E-NOMBRES
+  niveau: 3e
+  parcours: tronc-commun
+  ordre: 1
+  titre: Arithmétique et calcul numérique
+
+competences:
+  - code: 3E-ARITHMETIQUE
+    libelle: Décomposer, simplifier et résoudre des problèmes de divisibilité
+    attendus: [3E-2020-DIV-01, 3E-2020-DIV-02, 3E-2020-DIV-03]
+    cours_couvre: [3E-2020-DIV-01, 3E-2020-DIV-02, 3E-2020-DIV-03]
+    objectifs:
+    - Décomposer un entier en produit de facteurs premiers.
+    - Rendre une fraction irréductible.
+    - Résoudre des problèmes de divisibilité (engrenages, phénomènes périodiques).
+    methodes:
+    - titre: Résoudre un problème de conjonction de phénomènes
+      etapes:
+      - Identifier les périodes des phénomènes.
+      - Décomposer chaque période en facteurs premiers.
+      - 'Chercher le plus petit multiple commun : produit des facteurs premiers avec leur plus grand exposant.'
+      exemple:
+        enonce: 'Un phare clignote toutes les $12$ s, un autre toutes les $18$ s. Ils clignotent ensemble à minuit. Dans combien de secondes clignoteront-ils de nouveau ensemble ?'
+        resolution:
+        - $12 = 2^2 \times 3$ et $18 = 2 \times 3^2$.
+        - Plus petit multiple commun ; $2^2 \times 3^2 = 36$.
+        resultat: $36$ s
+    erreurs_frequentes:
+    - erreur: Multiplier simplement les deux périodes.
+      explication: '$12 \times 18 = 216$ est un multiple commun, mais pas le plus petit ($36$).'
+    - erreur: Croire qu’une fraction est irréductible dès que le numérateur est premier.
+      explication: '$\dfrac{7}{21}$ n’est pas irréductible : $21 = 3 \times 7$.'
+    resume: |
+      - Tout entier $n \geq 2$ se décompose de façon unique en produit de facteurs premiers.
+      - Une fraction est **irréductible** si son numérateur et son dénominateur n’ont pas d’autre diviseur commun que $1$.
+      - Plus grand diviseur commun : produit des facteurs premiers communs (plus petit exposant). Plus petit multiple commun : tous les facteurs (plus grand exposant).
+    cours: |
+      ## 1. Décomposition en facteurs premiers
+      $1\,050 = 2 \times 3 \times 5^2 \times 7$. On divise successivement par $2$, $3$, $5$, $7$… Un tableur ou un programme peut automatiser ces divisions.
+
+      ## 2. Fraction irréductible
+      $\dfrac{1\,050}{1\,470} = \dfrac{2 \times 3 \times 5^2 \times 7}{2 \times 3 \times 5 \times 7^2} = \dfrac{5}{7}$.
+
+      ## 3. Problèmes
+      - **Partage** : le plus grand nombre de lots identiques est le plus grand diviseur commun.
+      - **Engrenages, phénomènes périodiques** : le premier retour à la position initiale correspond au plus petit multiple commun.
+
+      Deux roues dentées de $24$ et $36$ dents reviennent en position initiale après $72$ dents, soit $3$ tours de la petite et $2$ tours de la grande.
+    questions:
+      - code: 3E-ARITHMETIQUE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quelle est la décomposition en facteurs premiers de $60$ ? A) $2^2 \times 3 \times 5$  B) $4 \times 15$  C) $2 \times 30$  D) $6 \times 10$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Tous les facteurs doivent être premiers.
+          etapes:
+          - $60 = 2 \times 2 \times 3 \times 5$.
+          resultat: A
+      - code: 3E-ARITHMETIQUE-02
+        difficulte: 2
+        type: numerique
+        enonce: Rendre irréductible la fraction $\dfrac{1\,050}{1\,470}$.
+        solution: 5/7
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer, puis simplifier.
+          etapes:
+          - Facteurs communs $2 \times 3 \times 5 \times 7 = 210$.
+          - $\dfrac{1\,050 \div 210}{1\,470 \div 210} = \dfrac{5}{7}$.
+          resultat: 5/7
+      - code: 3E-ARITHMETIQUE-03
+        difficulte: 3
+        type: numerique
+        enonce: 'Un phare clignote toutes les $12$ s, un autre toutes les $18$ s. Ils clignotent ensemble à un instant donné. Au bout de combien de secondes clignoteront-ils de nouveau ensemble ?'
+        solution: '36'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Plus petit multiple commun.
+          etapes:
+          - $12 = 2^2 \times 3$, $18 = 2 \times 3^2$, donc $2^2 \times 3^2 = 36$ s.
+          resultat: '36'
+      - code: 3E-ARITHMETIQUE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Deux roues dentées ont $24$ et $36$ dents. Combien de tours doit faire la petite roue pour que les deux reviennent ensemble à leur position initiale ?'
+        solution: '3'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Plus petit multiple commun de $24$ et $36$.
+          etapes:
+          - $24 = 2^3 \times 3$, $36 = 2^2 \times 3^2$, multiple commun $2^3 \times 3^2 = 72$.
+          - $72 \div 24 = 3$ tours.
+          resultat: '3'
+      - code: 3E-ARITHMETIQUE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un fleuriste a $105$ roses et $63$ tulipes. Il veut faire le plus grand nombre de bouquets identiques en utilisant toutes les fleurs. Combien de roses y aura-t-il dans chaque bouquet ?'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Plus grand diviseur commun.
+          etapes:
+          - $105 = 3 \times 5 \times 7$ et $63 = 3^2 \times 7$ ; diviseur commun $21$.
+          - $21$ bouquets de $105 \div 21 = 5$ roses.
+          resultat: '5'
+
+  - code: 3E-CALCUL-NUMERIQUE
+    libelle: Résoudre des problèmes avec fractions, racines et puissances
+    attendus: [3E-2020-CALC-01, 3E-2020-CALC-02, 3E-2020-CALC-03, 3E-2020-NOMB-01]
+    cours_couvre: [3E-2020-CALC-01, 3E-2020-CALC-02, 3E-2020-CALC-03, 3E-2020-NOMB-01]
+    objectifs:
+    - Calculer avec les rationnels dans des problèmes.
+    - Utiliser racines carrées et puissances, y compris la notation scientifique.
+    methodes:
+    - titre: Calculer avec la notation scientifique
+      etapes:
+      - Regrouper les nombres décimaux d’un côté, les puissances de $10$ de l’autre.
+      - Utiliser $10^m \times 10^n = 10^{m+n}$ et $\dfrac{10^m}{10^n} = 10^{m-n}$.
+      - Remettre le résultat en notation scientifique si besoin.
+      exemple:
+        enonce: Calculer $(3 \times 10^{4}) \times (5 \times 10^{-7})$.
+        resolution:
+        - $3 \times 5 = 15$ et $10^4 \times 10^{-7} = 10^{-3}$.
+        - $15 \times 10^{-3} = 1{,}5 \times 10^{-2}$.
+        resultat: $1{,}5 \times 10^{-2}$
+    erreurs_frequentes:
+    - erreur: 'Écrire $10^{4} \times 10^{-7} = 10^{-28}$.'
+      explication: 'On **additionne** les exposants : $4 + (-7) = -3$.'
+    - erreur: 'Écrire $\sqrt{a} + \sqrt{b} = \sqrt{a+b}$.'
+      explication: '$\sqrt{9} + \sqrt{16} = 7$ alors que $\sqrt{25} = 5$.'
+    resume: |
+      - $a^m \times a^n = a^{m+n}$ ; $\dfrac{a^m}{a^n} = a^{m-n}$ ; $(a^m)^n = a^{mn}$ ; $a^{-n} = \dfrac{1}{a^n}$.
+      - $\sqrt{a} \times \sqrt{b} = \sqrt{ab}$ pour $a, b \geq 0$.
+      - Notation scientifique : $a \times 10^n$ avec $1 \leq a < 10$.
+    cours: |
+      ## 1. Calcul avec les rationnels
+      Un réservoir est rempli aux $\dfrac{3}{8}$ ; on ajoute $\dfrac{1}{4}$ de sa capacité : il est rempli aux $\dfrac{5}{8}$.
+
+      ## 2. Puissances
+      $2^5 \times 2^{-3} = 2^2 = 4$ ; $\dfrac{10^{6}}{10^{-2}} = 10^8$.
+
+      ## 3. Racines carrées
+      $\sqrt{2} \times \sqrt{8} = \sqrt{16} = 4$. La diagonale d’un carré de côté $c$ mesure $c\sqrt{2}$.
+
+      ## 4. Notation scientifique
+      La lumière parcourt environ $3 \times 10^5$ km par seconde ; en $500$ s (trajet Soleil–Terre), elle parcourt $1{,}5 \times 10^8$ km.
+    questions:
+      - code: 3E-CALCUL-NUMERIQUE-01
+        difficulte: 1
+        type: numerique
+        enonce: Calculer $2^5 \times 2^{-3}$.
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner les exposants.
+          etapes:
+          - $2^{5-3} = 2^2 = 4$.
+          resultat: '4'
+      - code: 3E-CALCUL-NUMERIQUE-02
+        difficulte: 2
+        type: numerique
+        enonce: Calculer $\sqrt{2} \times \sqrt{8}$.
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\sqrt{a} \times \sqrt{b} = \sqrt{ab}$.
+          etapes:
+          - $\sqrt{16} = 4$.
+          resultat: '4'
+      - code: 3E-CALCUL-NUMERIQUE-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Que vaut $(3 \times 10^{4}) \times (5 \times 10^{-7})$ ? A) $1{,}5 \times 10^{-2}$  B) $15 \times 10^{-28}$  C) $1{,}5 \times 10^{-3}$  D) $8 \times 10^{-3}$'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regrouper nombres et puissances de $10$.
+          etapes:
+          - $15 \times 10^{-3} = 1{,}5 \times 10^{-2}$.
+          resultat: A
+      - code: 3E-CALCUL-NUMERIQUE-04
+        difficulte: 4
+        type: numerique
+        enonce: 'Un réservoir est rempli aux $\dfrac{3}{8}$. On ajoute $\dfrac{1}{4}$ de sa capacité. Quelle fraction reste-t-il à remplir ?'
+        solution: 3/8
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Additionner, puis prendre le complément à $1$.
+          etapes:
+          - $\dfrac{3}{8} + \dfrac{2}{8} = \dfrac{5}{8}$.
+          - $1 - \dfrac{5}{8} = \dfrac{3}{8}$.
+          resultat: 3/8
+      - code: 3E-CALCUL-NUMERIQUE-05
+        difficulte: 5
+        type: numerique
+        enonce: 'La lumière parcourt $3 \times 10^{5}$ km par seconde. Quelle distance parcourt-elle en $500$ s ? Donner l’écriture décimale, en km.'
+        solution: '150000000'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $d = v \times t$.
+          etapes:
+          - $3 \times 10^5 \times 5 \times 10^2 = 15 \times 10^7 = 1{,}5 \times 10^8$ km.
+          - Soit $150\,000\,000$ km.
+          resultat: '150000000'

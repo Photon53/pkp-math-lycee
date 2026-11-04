@@ -1,0 +1,217 @@
+chapitre:
+  code: 4E-LITTERAL
+  niveau: 4e
+  parcours: tronc-commun
+  ordre: 4
+  titre: Calcul littéral et équations
+
+competences:
+  - code: 4E-DISTRIBUTIVITE
+    libelle: Développer, factoriser et réduire avec la distributivité simple
+    attendus: [4E-2020-LIT-01, 4E-2020-LIT-02, 4E-2020-LIT-03]
+    cours_couvre: [4E-2020-LIT-01, 4E-2020-LIT-02, 4E-2020-LIT-03]
+    objectifs:
+    - Identifier si une expression est une somme ou un produit.
+    - Développer, factoriser, réduire une expression avec $k(a + b) = ka + kb$.
+    - Démontrer que deux programmes de calcul sont équivalents.
+    methodes:
+    - titre: Démontrer que deux programmes de calcul donnent toujours le même résultat
+      etapes:
+      - Appeler $x$ le nombre de départ.
+      - Écrire l’expression obtenue par chaque programme.
+      - Développer et réduire les deux expressions, puis constater qu’elles sont égales.
+      exemple:
+        enonce: 'Programme A : ajouter $3$ puis multiplier par $2$. Programme B : multiplier par $2$ puis ajouter $6$. Sont-ils équivalents ?'
+        resolution:
+        - 'A : $2(x + 3) = 2x + 6$ ; B : $2x + 6$.'
+        - Les expressions sont égales pour tout $x$.
+        resultat: Oui, ils sont équivalents.
+    erreurs_frequentes:
+    - erreur: 'Développer $-2(x - 4)$ en $-2x - 8$.'
+      explication: '$-2 \times (-4) = +8$ : on obtient $-2x + 8$.'
+    - erreur: 'Réduire $3x + 2$ en $5x$.'
+      explication: '$3x$ et $2$ ne sont pas des termes de même nature ; $3x + 2$ ne se réduit pas.'
+    resume: |
+      - Une expression est une **somme** si la dernière opération à effectuer est une addition (ou soustraction), un **produit** si c’est une multiplication.
+      - **Distributivité** : $k(a + b) = ka + kb$ et $k(a - b) = ka - kb$.
+      - Développer : produit → somme. Factoriser : somme → produit. Réduire : regrouper les termes semblables.
+      - Un seul contre-exemple suffit pour prouver que deux expressions ne sont **pas** égales ; il faut un calcul littéral pour prouver qu’elles le sont toujours.
+    cours: |
+      ## 1. Structure d’une expression
+      $3(x + 2)$ est un produit ; $3x + 2$ est une somme ; $(x+1)^2 - 4$ est une différence.
+
+      ## 2. Distributivité simple
+      > **Propriété.** Pour tous nombres $k$, $a$, $b$ : $k(a + b) = ka + kb$.
+
+      Développer : $-3(2x - 5) = -6x + 15$. Factoriser : $12x - 8 = 4(3x - 2)$.
+
+      ## 3. Réduire
+      $5x - 2 + 3(x - 1) = 5x - 2 + 3x - 3 = 8x - 5$.
+
+      ## 4. Prouver avec le calcul littéral
+      Tester quelques valeurs ne prouve rien en général. Pour démontrer qu’un programme donne toujours le même résultat qu’un autre, on calcule avec une lettre.
+    questions:
+      - code: 4E-DISTRIBUTIVITE-01
+        difficulte: 1
+        type: qcm
+        enonce: 'L’expression $3(x + 2)$ est : A) une somme  B) un produit  C) une différence'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Repérer la dernière opération.
+          etapes:
+          - On calcule d’abord $x + 2$, puis on multiplie par $3$ ; c’est un produit.
+          resultat: B
+      - code: 4E-DISTRIBUTIVITE-02
+        difficulte: 2
+        type: expression
+        forme: developpee
+        enonce: Développer $-3(2x - 5)$.
+        solution: -6x+15
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Multiplier $-3$ par chaque terme.
+          etapes:
+          - $-3 \times 2x = -6x$ et $-3 \times (-5) = 15$.
+          resultat: -6x+15
+      - code: 4E-DISTRIBUTIVITE-03
+        difficulte: 3
+        type: expression
+        forme: factorisee
+        enonce: Factoriser $12x - 8$.
+        solution: 4(3x-2)
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Chercher le plus grand facteur commun.
+          etapes:
+          - $12x = 4 \times 3x$ et $8 = 4 \times 2$.
+          - $12x - 8 = 4(3x - 2)$.
+          resultat: 4(3x-2)
+      - code: 4E-DISTRIBUTIVITE-04
+        difficulte: 4
+        type: expression
+        forme: reduite
+        enonce: Réduire $5x - 2 + 3(x - 1)$.
+        solution: 8x-5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Développer, puis regrouper.
+          etapes:
+          - $5x - 2 + 3x - 3 = 8x - 5$.
+          resultat: 8x-5
+      - code: 4E-DISTRIBUTIVITE-05
+        difficulte: 5
+        type: expression
+        forme: reduite
+        enonce: 'Programme : choisir $x$, ajouter $4$, multiplier par $3$, puis soustraire $3x$. Écrire le résultat en fonction de $x$, sous forme réduite.'
+        solution: '12'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Traduire le programme, puis réduire.
+          etapes:
+          - $3(x + 4) - 3x = 3x + 12 - 3x = 12$.
+          - Le résultat vaut toujours $12$.
+          resultat: '12'
+
+  - code: 4E-EQUATIONS
+    libelle: Mettre en équation et résoudre une équation du premier degré
+    attendus: [4E-2020-LIT-04, 4E-2020-LIT-05, 4E-2020-LIT-06]
+    cours_couvre: [4E-2020-LIT-04, 4E-2020-LIT-05, 4E-2020-LIT-06]
+    prerequis: [4E-DISTRIBUTIVITE]
+    objectifs:
+    - Tester si un nombre est solution d’une équation.
+    - Résoudre algébriquement une équation du premier degré.
+    - Mettre un problème en équation.
+    methodes:
+    - titre: Résoudre une équation du premier degré
+      etapes:
+      - Développer et réduire chaque membre si nécessaire.
+      - Regrouper les termes en $x$ d’un côté, les nombres de l’autre (en ajoutant ou soustrayant le même nombre aux deux membres).
+      - Diviser les deux membres par le coefficient de $x$.
+      - Vérifier en remplaçant $x$ par la valeur trouvée.
+      exemple:
+        enonce: Résoudre $5x - 3 = 2x + 9$.
+        resolution:
+        - $5x - 2x = 9 + 3$, soit $3x = 12$.
+        - $x = 4$. Vérification ; $5 \times 4 - 3 = 17$ et $2 \times 4 + 9 = 17$.
+        resultat: $x = 4$
+    erreurs_frequentes:
+    - erreur: 'Passer de $3x = 12$ à $x = 12 - 3$.'
+      explication: '$3x$ signifie $3 \times x$ : on **divise** par $3$, donc $x = 4$.'
+    - erreur: Oublier de changer d’opération en passant un terme dans l’autre membre.
+      explication: On ajoute (ou retranche) **le même nombre aux deux membres** ; on ne « déplace » rien.
+    resume: |
+      - Un nombre est **solution** d’une équation si l’égalité est vraie quand on remplace l’inconnue par ce nombre.
+      - On ne change pas les solutions en ajoutant (ou soustrayant) un même nombre aux deux membres, ni en les multipliant (ou divisant) par un même nombre **non nul**.
+      - Mettre en équation : choisir l’inconnue, traduire l’énoncé, résoudre, puis conclure dans le contexte.
+    cours: |
+      ## 1. Tester une solution
+      $x = 2$ est-il solution de $3x + 1 = 7$ ? $3 \times 2 + 1 = 7$ : oui.
+
+      ## 2. Résoudre
+      > **Propriétés.** Une égalité reste vraie si l’on ajoute ou soustrait un même nombre à ses deux membres, ou si on les multiplie ou divise par un même nombre non nul.
+
+      $4(x - 2) = x + 7$ donne $4x - 8 = x + 7$, puis $3x = 15$, donc $x = 5$.
+
+      ## 3. Mettre en équation
+      « Le triple d’un nombre augmenté de $5$ vaut $26$. » Avec $x$ le nombre : $3x + 5 = 26$, d’où $x = 7$.
+
+      La méthode d’**al-Khwârizmî** (IXᵉ siècle), « al-jabr », consiste justement à réarranger les deux membres d’une équation.
+    questions:
+      - code: 4E-EQUATIONS-01
+        difficulte: 1
+        type: qcm
+        enonce: 'Quel nombre est solution de $3x + 1 = 7$ ? A) $1$  B) $2$  C) $3$  D) $6$'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Remplacer $x$ par chaque valeur.
+          etapes:
+          - $3 \times 2 + 1 = 7$.
+          resultat: B
+      - code: 4E-EQUATIONS-02
+        difficulte: 2
+        type: numerique
+        enonce: Résoudre $4x - 7 = 13$.
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Isoler $x$.
+          etapes:
+          - $4x = 20$, donc $x = 5$.
+          resultat: '5'
+      - code: 4E-EQUATIONS-03
+        difficulte: 3
+        type: numerique
+        enonce: Résoudre $5x - 3 = 2x + 9$.
+        solution: '4'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Regrouper les termes en $x$.
+          etapes:
+          - $3x = 12$, donc $x = 4$.
+          resultat: '4'
+      - code: 4E-EQUATIONS-04
+        difficulte: 4
+        type: numerique
+        enonce: Résoudre $4(x - 2) = x + 7$.
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Développer, puis résoudre.
+          etapes:
+          - $4x - 8 = x + 7$.
+          - $3x = 15$, donc $x = 5$.
+          resultat: '5'
+      - code: 4E-EQUATIONS-05
+        difficulte: 5
+        type: numerique
+        enonce: 'Un rectangle a une longueur qui dépasse sa largeur de $4$ cm et un périmètre de $36$ cm. Quelle est sa largeur, en cm ?'
+        solution: '7'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Appeler $x$ la largeur et mettre en équation.
+          etapes:
+          - $2(x + x + 4) = 36$, soit $4x + 8 = 36$.
+          - $4x = 28$, donc $x = 7$ cm.
+          resultat: '7'

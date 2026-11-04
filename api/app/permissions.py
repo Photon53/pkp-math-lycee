@@ -18,7 +18,7 @@ from app.referentiel import Role
 PROFESSEUR, VALIDATEUR = "professeur", "validateur"
 ROLES = (PROFESSEUR, VALIDATEUR)
 
-MATHS_LYCEE, ANGLAIS_COLLEGE = "maths-lycee", "anglais-college"
+MATHS_COLLEGE, MATHS_LYCEE, ANGLAIS_COLLEGE = "maths-college", "maths-lycee", "anglais-college"
 
 NIVEAUX_COLLEGE = ["6e", "5e", "4e", "3e"]
 
@@ -35,7 +35,7 @@ class Domaine(NamedTuple):
 
 # Réglages de départ (migration 0023) : seuls les deux domaines déjà en service sont ouverts.
 DOMAINES = (
-    Domaine("maths-college", "maths", "college", "Maths collège", NIVEAUX_COLLEGE, False, False),
+    Domaine(MATHS_COLLEGE, "maths", "college", "Maths collège", NIVEAUX_COLLEGE, False, False),
     Domaine(MATHS_LYCEE, "maths", "lycee", "Maths lycée", ["2nde", "1re", "Tle"], True, True),
     Domaine(ANGLAIS_COLLEGE, "anglais", "college", "Anglais collège", NIVEAUX_COLLEGE, True, True),
     Domaine("anglais-lycee", "anglais", "lycee", "Anglais lycée", ["2nde", "1re", "Tle"], False, False),
@@ -63,6 +63,8 @@ CASES = {
     "enseigne_anglais": (PROFESSEUR, ANGLAIS_COLLEGE),
     "referent_anglais": (VALIDATEUR, ANGLAIS_COLLEGE),
 }
+# La case « enseigne les maths » ouvre l'espace des classes, collège comme lycée.
+AUSSI_COCHEE_PAR = {"enseigne_maths": [(PROFESSEUR, MATHS_COLLEGE)]}
 
 
 class Portee(NamedTuple):
@@ -125,8 +127,9 @@ def appliquer(session: Session, enseignant: models.Enseignant, voulues: list[Por
                 role=portee.role, domaine_code=portee.domaine, niveau=portee.niveau,
                 accordee_par_id=par.id if par else None, accordee_le=datetime.now(UTC),
             ))
-    for case, (role, domaine) in CASES.items():
-        setattr(enseignant, case, any(p.role == role and p.domaine == domaine for p in voulues))
+    for case, portee in CASES.items():
+        cochee_par = [portee, *AUSSI_COCHEE_PAR.get(case, [])]
+        setattr(enseignant, case, any((p.role, p.domaine) in cochee_par for p in voulues))
 
 
 def peut_valider(enseignant: models.Enseignant, domaine: str, niveau: str | None) -> bool:

@@ -1,0 +1,246 @@
+chapitre:
+  code: 5E-TRIANGLES-PARALL
+  niveau: 5e
+  parcours: tronc-commun
+  ordre: 7
+  titre: Triangles et parallélogrammes
+
+competences:
+  - code: 5E-TRIANGLES
+    libelle: Construire des triangles et utiliser leurs droites remarquables
+    attendus: [5E-2026-TRI-01, 5E-2026-TRI-02, 5E-2026-TRI-03, 5E-2026-TRI-04, 5E-2026-TRI-05, 5E-2026-TRI-06, 5E-2026-TRI-07, 5E-2026-TRI-08, 5E-2026-TRI-09, 5E-2026-TRI-10, 5E-2026-TRI-11, 5E-2026-TRI-12]
+    cours_couvre: [5E-2026-TRI-01, 5E-2026-TRI-02, 5E-2026-TRI-03, 5E-2026-TRI-04, 5E-2026-TRI-05, 5E-2026-TRI-06, 5E-2026-TRI-07, 5E-2026-TRI-08, 5E-2026-TRI-09, 5E-2026-TRI-10, 5E-2026-TRI-11, 5E-2026-TRI-12]
+    prerequis: [5E-ANGLES-PARALLELES]
+    objectifs:
+    - Connaître et démontrer la somme des angles d’un triangle.
+    - Construire un triangle à partir de données partielles (inégalité triangulaire).
+    - Tracer hauteurs et médianes ; calculer l’aire d’un triangle.
+    methodes:
+    - titre: Calculer l’aire d’un triangle
+      etapes:
+      - Choisir un côté comme base.
+      - Repérer la hauteur relative à ce côté (perpendiculaire issue du sommet opposé).
+      - Appliquer $\mathcal{A} = \dfrac{\text{base} \times \text{hauteur}}{2}$.
+      exemple:
+        enonce: Un triangle a une base de $8$ cm et une hauteur relative de $5$ cm. Quelle est son aire ?
+        resolution:
+        - $\dfrac{8 \times 5}{2} = 20$.
+        resultat: $20$ cm²
+    erreurs_frequentes:
+    - erreur: Prendre un autre côté à la place de la hauteur.
+      explication: La hauteur est **perpendiculaire** à la base ; elle ne se confond avec un côté que dans un triangle rectangle.
+    - erreur: Croire qu’on peut toujours construire un triangle avec trois longueurs données.
+      explication: 'Il faut que la plus grande longueur soit inférieure à la somme des deux autres : $3$, $4$, $8$ ne convient pas.'
+    resume: |
+      - Somme des angles d’un triangle : $180°$ (démonstration avec une parallèle et les angles alternes-internes).
+      - Inégalité triangulaire : la plus grande longueur est inférieure à la somme des deux autres.
+      - **Hauteur** : droite issue d’un sommet, perpendiculaire au côté opposé ; les trois hauteurs sont concourantes.
+      - **Médiane** : droite issue d’un sommet, passant par le milieu du côté opposé ; elle partage le triangle en deux triangles de même aire.
+      - Aire : $\mathcal{A} = \dfrac{b \times h}{2}$.
+    cours: |
+      ## 1. Somme des angles
+      > **Propriété.** Dans un triangle, la somme des mesures des angles est $180°$.
+
+      **Démonstration.** Soit $ABC$ un triangle et $(d)$ la parallèle à $(BC)$ passant par $A$. Les angles formés en $A$ par $(d)$ avec $(AB)$ et $(AC)$ sont alternes-internes avec $\widehat{B}$ et $\widehat{C}$ : ils leur sont égaux. Avec $\widehat{A}$, ces trois angles forment un angle plat. Donc $\widehat{A} + \widehat{B} + \widehat{C} = 180°$.
+
+      ## 2. Construire un triangle
+      On peut construire un triangle connaissant trois longueurs, ou deux longueurs et l’angle compris, ou une longueur et deux angles. Avec trois longueurs $a \leq b \leq c$, la construction n’est possible que si $c < a + b$.
+
+      ## 3. Droites remarquables
+      - Les **médiatrices** se coupent au centre du cercle circonscrit. Dans un triangle rectangle, ce centre est le milieu de l’hypoténuse.
+      - Les **hauteurs** se coupent en un point (l’orthocentre).
+      - Une **médiane** joint un sommet au milieu du côté opposé.
+
+      > **Propriété.** Une médiane partage un triangle en deux triangles de même aire (même base, même hauteur).
+
+      ## 4. Aire
+      $\mathcal{A} = \dfrac{\text{base} \times \text{hauteur}}{2}$ : c’est la moitié de l’aire d’un rectangle.
+    questions:
+      - code: 5E-TRIANGLES-01
+        difficulte: 1
+        type: numerique
+        enonce: Un triangle a une base de $8$ cm et une hauteur relative de $5$ cm. Quelle est son aire, en cm² ?
+        solution: '20'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\mathcal{A} = \dfrac{b \times h}{2}$.
+          etapes:
+          - $\dfrac{8 \times 5}{2} = 20$ cm².
+          resultat: '20'
+      - code: 5E-TRIANGLES-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Dans un triangle, deux angles mesurent $35°$ et $85°$. Combien mesure le troisième, en degrés ?'
+        solution: '60'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Somme des angles égale à $180°$.
+          etapes:
+          - $180 - 35 - 85 = 60°$.
+          resultat: '60'
+      - code: 5E-TRIANGLES-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Avec quelles longueurs peut-on construire un triangle ? A) $3$ cm, $4$ cm, $8$ cm  B) $2$ cm, $5$ cm, $7$ cm  C) $4$ cm, $5$ cm, $7$ cm  D) $1$ cm, $1$ cm, $3$ cm'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: La plus grande longueur doit être inférieure à la somme des deux autres.
+          etapes:
+          - 'A : $8 > 7$ ; B : $7 = 7$ (points alignés) ; D : $3 > 2$.'
+          - 'C : $7 < 9$, la construction est possible.'
+          resultat: C
+      - code: 5E-TRIANGLES-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Comment s’appelle la droite issue d’un sommet et perpendiculaire au côté opposé ? A) la médiane  B) la médiatrice  C) la hauteur  D) la bissectrice'
+        solution: C
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Revoir les définitions des droites remarquables.
+          etapes:
+          - C’est la hauteur ; la médiane passe par le milieu du côté opposé.
+          resultat: C
+      - code: 5E-TRIANGLES-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Un triangle $ABC$ a une aire de $36$ cm². La médiane issue de $A$ coupe $[BC]$ en $M$. Quelle est l’aire du triangle $ABM$, en cm² ?'
+        solution: '18'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Une médiane partage le triangle en deux triangles de même aire.
+          etapes:
+          - $36 \div 2 = 18$ cm².
+          resultat: '18'
+      - code: 5E-TRIANGLES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Un triangle $ABC$ est rectangle en $A$, avec $BC = 10$ cm. Quel est le rayon (en cm) de son cercle circonscrit ?'
+        solution: '5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Le centre du cercle circonscrit à un triangle rectangle est le milieu de l’hypoténuse.
+          etapes:
+          - 'Le rayon vaut la moitié de l’hypoténuse : $10 \div 2 = 5$ cm.'
+          resultat: '5'
+
+  - code: 5E-PARALLELOGRAMMES
+    libelle: Reconnaître et utiliser les parallélogrammes
+    attendus: [5E-2026-PAR-01, 5E-2026-PAR-02, 5E-2026-PAR-03, 5E-2026-PAR-04, 5E-2026-PAR-05, 5E-2026-PAR-06, 5E-2026-PAR-07, 5E-2026-PAR-08, 5E-2026-PAR-09, 5E-2026-PAR-10]
+    cours_couvre: [5E-2026-PAR-01, 5E-2026-PAR-02, 5E-2026-PAR-03, 5E-2026-PAR-04, 5E-2026-PAR-05, 5E-2026-PAR-06, 5E-2026-PAR-07, 5E-2026-PAR-08, 5E-2026-PAR-09, 5E-2026-PAR-10]
+    prerequis: [5E-SYM-CENTRALE]
+    objectifs:
+    - Définir le parallélogramme et ses cas particuliers (rectangle, losange, carré).
+    - Utiliser les propriétés caractéristiques des côtés et des diagonales.
+    - Calculer l’aire d’un parallélogramme et convertir des unités d’aire.
+    methodes:
+    - titre: Démontrer qu’un quadrilatère est un parallélogramme
+      etapes:
+      - Choisir une propriété caractéristique adaptée aux données.
+      - 'Par exemple : « ses diagonales se coupent en leur milieu ».'
+      - Conclure par « donc $ABCD$ est un parallélogramme ».
+      exemple:
+        enonce: 'Les diagonales $[AC]$ et $[BD]$ du quadrilatère $ABCD$ ont le même milieu $I$. Quelle est la nature de $ABCD$ ?'
+        resolution:
+        - Si les diagonales d’un quadrilatère se coupent en leur milieu, c’est un parallélogramme.
+        - Donc $ABCD$ est un parallélogramme.
+        resultat: Un parallélogramme
+    erreurs_frequentes:
+    - erreur: Calculer l’aire d’un parallélogramme en multipliant deux côtés.
+      explication: 'On multiplie un côté (la base) par la **hauteur** relative, perpendiculaire à ce côté.'
+    - erreur: 'Penser qu’un losange a toujours des diagonales de même longueur.'
+      explication: 'Le losange a des diagonales **perpendiculaires** ; c’est le rectangle qui a des diagonales de même longueur.'
+    resume: |
+      - **Parallélogramme** : quadrilatère dont les côtés opposés sont parallèles deux à deux.
+      - Caractérisations : côtés opposés de même longueur ; diagonales qui se coupent en leur milieu ; deux côtés opposés parallèles et de même longueur.
+      - Rectangle : parallélogramme avec un angle droit (diagonales de même longueur). Losange : deux côtés consécutifs égaux (diagonales perpendiculaires). Carré : rectangle et losange.
+      - Aire du parallélogramme : $\mathcal{A} = b \times h$.
+      - $1$ m² $= 100$ dm² $= 10\,000$ cm².
+    cours: |
+      ## 1. Définition et propriétés
+      > **Définition.** Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles deux à deux.
+
+      > **Propriétés caractéristiques.** Un quadrilatère (non croisé) est un parallélogramme si et seulement si l’une des propriétés suivantes est vraie : ses côtés opposés ont la même longueur ; ses diagonales se coupent en leur milieu ; deux de ses côtés opposés sont parallèles et de même longueur.
+
+      Le point d’intersection des diagonales est un **centre de symétrie** du parallélogramme.
+
+      ## 2. Parallélogrammes particuliers
+      - **Rectangle** : parallélogramme qui a un angle droit ; ses diagonales ont la même longueur.
+      - **Losange** : parallélogramme qui a deux côtés consécutifs de même longueur ; ses diagonales sont perpendiculaires.
+      - **Carré** : à la fois rectangle et losange.
+
+      ## 3. Aire
+      > **Formule.** $\mathcal{A} = \text{base} \times \text{hauteur}$.
+
+      En découpant un triangle d’un côté pour le recoller de l’autre, le parallélogramme devient un rectangle de même base et de même hauteur.
+
+      ## 4. Figures complexes et conversions
+      On décompose une figure en rectangles, triangles, parallélogrammes, et on additionne (ou soustrait) les aires, après avoir tout converti dans la même unité : $1$ m² $= 10\,000$ cm².
+    questions:
+      - code: 5E-PARALLELOGRAMMES-01
+        difficulte: 1
+        type: numerique
+        enonce: Un parallélogramme a une base de $7$ cm et une hauteur relative de $4$ cm. Quelle est son aire, en cm² ?
+        solution: '28'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $\mathcal{A} = b \times h$.
+          etapes:
+          - $7 \times 4 = 28$ cm².
+          resultat: '28'
+      - code: 5E-PARALLELOGRAMMES-02
+        difficulte: 2
+        type: qcm
+        enonce: 'Les diagonales du quadrilatère $ABCD$ se coupent en leur milieu. $ABCD$ est donc : A) un trapèze  B) un parallélogramme  C) forcément un carré  D) forcément un losange'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Propriété caractéristique des diagonales.
+          etapes:
+          - Diagonales qui se coupent en leur milieu, donc parallélogramme (sans plus d’information).
+          resultat: B
+      - code: 5E-PARALLELOGRAMMES-03
+        difficulte: 3
+        type: qcm
+        enonce: 'Un parallélogramme a des diagonales perpendiculaires. C’est : A) un rectangle  B) un losange  C) un trapèze  D) un triangle'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Propriétés des parallélogrammes particuliers.
+          etapes:
+          - Un parallélogramme à diagonales perpendiculaires est un losange.
+          resultat: B
+      - code: 5E-PARALLELOGRAMMES-04
+        difficulte: 3
+        type: numerique
+        enonce: '$ABCD$ est un parallélogramme et $AB = 6{,}5$ cm. Combien mesure $CD$, en cm ?'
+        solution: '6,5'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Les côtés opposés d’un parallélogramme ont la même longueur.
+          etapes:
+          - $CD = AB = 6{,}5$ cm.
+          resultat: '6,5'
+      - code: 5E-PARALLELOGRAMMES-05
+        difficulte: 4
+        type: numerique
+        enonce: Convertir $0{,}35$ m² en cm².
+        solution: '3500'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: $1$ m² $= 10\,000$ cm².
+          etapes:
+          - $0{,}35 \times 10\,000 = 3\,500$ cm².
+          resultat: '3500'
+      - code: 5E-PARALLELOGRAMMES-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Une figure est formée d’un rectangle de $6$ cm sur $4$ cm et d’un triangle de base $6$ cm et de hauteur $3$ cm posé sur un grand côté. Quelle est son aire totale, en cm² ?'
+        solution: '33'
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Décomposer en figures simples.
+          etapes:
+          - 'Rectangle : $6 \times 4 = 24$ cm² ; triangle : $\dfrac{6 \times 3}{2} = 9$ cm².'
+          - $24 + 9 = 33$ cm².
+          resultat: '33'
