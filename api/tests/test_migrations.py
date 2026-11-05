@@ -100,3 +100,28 @@ def test_downgrade_puis_upgrade(db_url):
     assert set(inspect(moteur).get_table_names()) == {"alembic_version"}
     moteur.dispose()
     command.upgrade(config, "head")
+
+
+def test_retour_arriere_du_lot_0_v3(db_url):
+    """Scripts retour-v3-lot0-*.sh : 0029 → 0028 retire seulement la table des archives, sans toucher au reste ;
+    la remontée la recrée."""
+    config = config_alembic(db_url)
+    moteur = creer_moteur(db_url)
+    with moteur.begin() as c:
+        c.exec_driver_sql("insert into enfant (prenom, nom, niveau, identifiant) values ('Lina', '', '2nde', 'lina-test')")
+        enfant = c.exec_driver_sql("select id from enfant").scalar()
+        c.exec_driver_sql(
+            "insert into archive_inscription (enfant_id, matiere, domaine_code, niveau, cours, enseignant, archivee_le,"
+            " par, motif, resume, contenu) values (?, 'maths', 'maths-lycee', '2nde', '2NDE-X', 'Prof', '2026-11-05',"
+            " 'Administrateur : A', 'classe supprimée', '{}', '{}')", (enfant,))
+    moteur.dispose()
+    command.downgrade(config, "0028")
+    moteur = creer_moteur(db_url)
+    assert set(inspect(moteur).get_table_names()) == (TABLES - {"archive_inscription"}) | {"alembic_version"}
+    with moteur.connect() as c:
+        assert c.exec_driver_sql("select identifiant from enfant").scalars().all() == ["lina-test"]
+    moteur.dispose()
+    command.upgrade(config, "head")
+    moteur = creer_moteur(db_url)
+    assert "archive_inscription" in inspect(moteur).get_table_names()
+    moteur.dispose()
