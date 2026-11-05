@@ -68,7 +68,7 @@ def sommaire(
         ).all()
     )
     ouvert_dans: dict[int, list[str]] = {}
-    for classe in enseignant.classes:
+    for classe in (c for c in enseignant.classes if c.archivee_le is None):
         for chapitre in classe.chapitres_proposes:
             ouvert_dans.setdefault(chapitre.id, []).append(classe.code)
 

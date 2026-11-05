@@ -158,6 +158,10 @@ class Classe(Base):
     domaine_code: Mapped[str] = mapped_column(
         ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="maths-lycee", server_default="maths-lycee"
     )
+    # Archivage (V3, Lot 3) : hors des listes actives, plus de séance ; inscriptions et travail conservés.
+    archivee_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
+    archivee_par: Mapped[str | None] = mapped_column(String(80))
+    motif_archivage: Mapped[str | None] = mapped_column(String(200))
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="classes")
     chapitres_proposes: Mapped[list["Chapitre"]] = relationship(secondary=chapitres_de_classe)
@@ -272,6 +276,10 @@ class GroupeAnglais(Base):
         ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True, default="anglais-college", server_default="anglais-college"
     )
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    # Archivage (V3, Lot 3) : hors des listes actives, plus de séance ; inscriptions et travail conservés.
+    archivee_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
+    archivee_par: Mapped[str | None] = mapped_column(String(80))
+    motif_archivage: Mapped[str | None] = mapped_column(String(200))
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="groupes_anglais")
     eleves: Mapped[list["EleveAnglais"]] = relationship(

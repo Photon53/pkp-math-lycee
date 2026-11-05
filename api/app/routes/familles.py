@@ -284,6 +284,7 @@ def _vue_classe(c: models.Classe) -> ClasseAdmin:
         id=c.id, code=c.code, niveau=c.niveau, parcours=c.parcours, domaine_code=c.domaine_code,
         enseignant_id=c.enseignant_id, enseignant=c.enseignant.nom, nb_eleves=len(c.eleves),
         nb_chapitres_ouverts=len(c.chapitres_proposes),
+        archivee_le=c.archivee_le, archivee_par=c.archivee_par, motif_archivage=c.motif_archivage,
     )
 
 

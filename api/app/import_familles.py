@@ -76,8 +76,14 @@ def modele(session: Session) -> bytes:
     feuille.freeze_panes = "A2"
 
     listes = classeur.create_sheet("Listes")
-    classes = session.scalars(select(models.Classe).order_by(models.Classe.code)).all()
-    groupes = session.scalars(select(models.GroupeAnglais).order_by(models.GroupeAnglais.niveau, models.GroupeAnglais.nom)).all()
+    # Seules les classes et groupes actifs sont proposés (V3, Lot 3).
+    classes = session.scalars(
+        select(models.Classe).where(models.Classe.archivee_le.is_(None)).order_by(models.Classe.code)
+    ).all()
+    groupes = session.scalars(
+        select(models.GroupeAnglais).where(models.GroupeAnglais.archivee_le.is_(None))
+        .order_by(models.GroupeAnglais.niveau, models.GroupeAnglais.nom)
+    ).all()
     niveaux = [n.value for n in Niveau]
     for colonne, titre, valeurs in (
         (1, "Niveaux", niveaux),
@@ -247,8 +253,8 @@ def _message(err: ValidationError) -> str:
 
 
 def _verifier(session: Session, lignes: list[tuple[int, dict[str, str]]]) -> list[_Ligne]:
-    classes = {c.code.upper(): c for c in session.scalars(select(models.Classe))}
-    groupes = list(session.scalars(select(models.GroupeAnglais)))
+    classes = {c.code.upper(): c for c in session.scalars(select(models.Classe).where(models.Classe.archivee_le.is_(None)))}
+    groupes = list(session.scalars(select(models.GroupeAnglais).where(models.GroupeAnglais.archivee_le.is_(None))))
     comptes = {p.email: p for p in session.scalars(select(models.Parent))}
     vus: set[tuple[str, str, str]] = set()
     par_famille: dict[str, int] = {}

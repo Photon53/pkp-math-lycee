@@ -108,6 +108,8 @@ def renommer_inscription(inscription: models.Eleve | models.EleveAnglais, prenom
 
 
 def inscrire_maths(session: Session, enfant: models.Enfant, classe: models.Classe) -> models.Eleve:
+    if classe.archivee_le is not None:
+        raise InscriptionImpossible(f"La classe {classe.code} est archivée : rétablissez-la avant d'y inscrire un élève.")
     if classe.niveau != enfant.niveau:
         raise InscriptionImpossible(
             f"{enfant.prenom} est en {enfant.niveau.value} : la classe {classe.code} est une classe de {classe.niveau.value}."
@@ -124,6 +126,8 @@ def inscrire_maths(session: Session, enfant: models.Enfant, classe: models.Class
 
 
 def inscrire_anglais(session: Session, enfant: models.Enfant, groupe: models.GroupeAnglais) -> models.EleveAnglais:
+    if groupe.archivee_le is not None:
+        raise InscriptionImpossible(f"Le groupe « {groupe.nom} » est archivé : rétablissez-le avant d'y inscrire un élève.")
     if groupe.niveau != enfant.niveau.value:
         raise InscriptionImpossible(
             f"{enfant.prenom} est en {enfant.niveau.value} : le groupe « {groupe.nom} » est un groupe de {groupe.niveau}."
@@ -163,10 +167,10 @@ def inscriptions_maths(enfant: models.Enfant, actives_seulement: bool = True):
         InscriptionMaths(
             eleve_id=e.id, code_classe=e.classe.code, niveau=e.classe.niveau, parcours=e.classe.parcours,
             libelle_parcours=libelle_parcours(e.classe), enseignant=e.classe.enseignant.nom,
-            principal=est_principal(e.classe.parcours),
+            principal=est_principal(e.classe.parcours), archivee=e.classe.archivee_le is not None,
         )
         for e in sorted(enfant.inscriptions, key=lambda e: e.classe.code)
-        if not actives_seulement or e.classe.enseignant.actif
+        if not actives_seulement or (e.classe.enseignant.actif and e.classe.archivee_le is None)
     ]
 
 
@@ -174,9 +178,10 @@ def inscriptions_anglais(enfant: models.Enfant, actives_seulement: bool = True):
     from app.schemas import InscriptionAnglais
 
     return [
-        InscriptionAnglais(eleve_id=e.id, groupe=e.groupe.nom, niveau=e.groupe.niveau, enseignant=e.groupe.enseignant.nom)
+        InscriptionAnglais(eleve_id=e.id, groupe=e.groupe.nom, niveau=e.groupe.niveau, enseignant=e.groupe.enseignant.nom,
+                           archivee=e.groupe.archivee_le is not None)
         for e in sorted(enfant.inscriptions_anglais, key=lambda e: e.groupe.nom.lower())
-        if not actives_seulement or e.groupe.enseignant.actif
+        if not actives_seulement or (e.groupe.enseignant.actif and e.groupe.archivee_le is None)
     ]
 
 

@@ -5,6 +5,7 @@ production) ; le rôle est revérifié en base à chaque requête. Chaque écrit
 """
 
 from datetime import UTC, datetime
+from typing import Literal
 from urllib.parse import urlencode
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
@@ -568,11 +569,28 @@ def supprimer_famille(parent_id: int, confirmation: str, admin: AdminCourant, se
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
+EtatClasse = Literal["actives", "archivees", "toutes"]
+
+
+def filtrer_etat(requete, modele, etat: str):
+    """Les listes montrent les classes et groupes actifs ; les archivés sur demande (V3, Lot 3)."""
+    if etat == "actives":
+        return requete.where(modele.archivee_le.is_(None))
+    if etat == "archivees":
+        return requete.where(modele.archivee_le.is_not(None))
+    return requete
+
+
+def archivage(objet) -> dict:
+    return {"archivee_le": objet.archivee_le, "archivee_par": objet.archivee_par, "motif_archivage": objet.motif_archivage}
+
+
 @router.get("/classes", response_model=list[ClasseAdmin])
 def classes(
-    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, enseignant_id: int | None = None
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, enseignant_id: int | None = None,
+    etat: EtatClasse = "actives",
 ) -> list[ClasseAdmin]:
-    requete = select(models.Classe).order_by(models.Classe.code)
+    requete = filtrer_etat(select(models.Classe).order_by(models.Classe.code), models.Classe, etat)
     if domaine:
         requete = requete.where(models.Classe.domaine_code == domaine)
     if enseignant_id is not None:
@@ -582,6 +600,7 @@ def classes(
             id=c.id, code=c.code, niveau=c.niveau, parcours=c.parcours, domaine_code=c.domaine_code,
             enseignant_id=c.enseignant_id,
             enseignant=c.enseignant.nom, nb_eleves=len(c.eleves), nb_chapitres_ouverts=len(c.chapitres_proposes),
+            **archivage(c),
         )
         for c in session.scalars(requete)
     ]
@@ -598,6 +617,7 @@ def _vue_groupe(g: models.GroupeAnglais) -> GroupeAnglaisAdmin:
             EleveAnglaisAdmin(id=e.id, prenom=e.prenom, identifiant=anglais.identifiant_de(e), a_un_code=e.code_hash is not None)
             for e in sorted(g.eleves, key=lambda e: e.prenom.lower())
         ],
+        domaine_code=g.domaine_code, **archivage(g),
     )
 
 
@@ -609,8 +629,10 @@ def _groupe_anglais(session: SessionDB, groupe_id: int) -> models.GroupeAnglais:
 
 
 @router.get("/anglais/groupes", response_model=list[GroupeAnglaisAdmin])
-def groupes_anglais(_: AdminCourant, session: SessionDB, domaine: FiltreDomaine) -> list[GroupeAnglaisAdmin]:
-    requete = select(models.GroupeAnglais)
+def groupes_anglais(
+    _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, etat: EtatClasse = "actives"
+) -> list[GroupeAnglaisAdmin]:
+    requete = filtrer_etat(select(models.GroupeAnglais), models.GroupeAnglais, etat)
     if domaine:
         requete = requete.where(models.GroupeAnglais.domaine_code == domaine)
     groupes = session.scalars(requete)
@@ -640,7 +662,7 @@ def renommer_groupe_anglais(
     groupe_id: int, corps: anglais.GroupeRenommage, admin: AdminCourant, session: SessionDB
 ) -> GroupeAnglaisAdmin:
     groupe = _groupe_anglais(session, groupe_id)
-    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in groupe.enseignant.groupes_anglais):
+    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in anglais.groupes_actifs(groupe.enseignant)):
         raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a déjà un groupe de ce nom.")
     journal.noter(session, admin, "modifier", "groupe_anglais", groupe.id, avant={"nom": groupe.nom}, apres={"nom": corps.nom})
     groupe.nom = corps.nom
@@ -668,7 +690,7 @@ def transferer_groupe_anglais(groupe_id: int, corps: Transfert, admin: AdminCour
         raise HTTPException(422, "Choisissez un autre professeur.")
     if not vers.enseigne_anglais:
         raise HTTPException(422, "Ce professeur n'enseigne pas l'anglais.")
-    if any(g.nom.lower() == groupe.nom.lower() for g in vers.groupes_anglais):
+    if any(g.nom.lower() == groupe.nom.lower() for g in anglais.groupes_actifs(vers)):
         raise HTTPException(status.HTTP_409_CONFLICT, "Ce professeur a déjà un groupe de ce nom.")
     journal.noter(session, admin, "transferer", "groupe_anglais", groupe.id, {"enseignant": groupe.enseignant_id}, {"enseignant": vers.id})
     groupe.enseignant = vers
@@ -767,7 +789,30 @@ def pdf_seance_anglais(code: str, public: str, _: AdminCourant, session: Session
 # --- Domaines pédagogiques (configuration) ------------------------------------------------
 
 
+def contenus_par_domaine(session: SessionDB) -> dict[str, int]:
+    """Contenu prêt pour les élèves, par domaine (V3, Lot 3) : questions de maths en service dans des
+    chapitres visibles, séances d'anglais ayant une version validée. Un domaine à 0 ne peut pas ouvrir."""
+    maths = session.execute(
+        select(models.Chapitre.domaine_code, func.count(models.Question.id))
+        .join(models.Competence, models.Competence.chapitre_id == models.Chapitre.id)
+        .join(models.Question, models.Question.competence_id == models.Competence.id)
+        .where(models.Question.archivee.is_(False), models.Chapitre.masque.is_(False))
+        .group_by(models.Chapitre.domaine_code)
+    ).all()
+    anglais_valides = session.execute(
+        select(models.SeanceAnglais.domaine_code, func.count(func.distinct(models.SeanceAnglais.id)))
+        .join(models.SeanceAnglaisVersion, models.SeanceAnglaisVersion.seance_id == models.SeanceAnglais.id)
+        .where(models.SeanceAnglaisVersion.statut == "valide")
+        .group_by(models.SeanceAnglais.domaine_code)
+    ).all()
+    contenus: dict[str, int] = {}
+    for code, n in [*maths, *anglais_valides]:
+        contenus[code] = contenus.get(code, 0) + n
+    return contenus
+
+
 def _vues_domaines(session: SessionDB) -> list[DomaineAdmin]:
+    contenus = contenus_par_domaine(session)
     comptes = {
         (domaine, role): nombre
         for domaine, role, nombre in session.execute(
@@ -781,6 +826,7 @@ def _vues_domaines(session: SessionDB) -> list[DomaineAdmin]:
             code=d.code, matiere=d.matiere, cycle=d.cycle, libelle=d.libelle, niveaux=d.niveaux, actif=d.actif, public=d.public,
             nb_professeurs=comptes.get((d.code, permissions.PROFESSEUR), 0),
             nb_validateurs=comptes.get((d.code, permissions.VALIDATEUR), 0),
+            nb_contenus=contenus.get(d.code, 0),
         )
         for d in session.scalars(select(models.DomainePedagogique).order_by(models.DomainePedagogique.ordre))
     ]
@@ -803,6 +849,9 @@ def regler_domaine(code: str, corps: DomaineEdition, admin: AdminCourant, sessio
         if habilites:
             raise HTTPException(status.HTTP_409_CONFLICT,
                                 f"{habilites} habilitation(s) portent sur {d.libelle} : retirez-les avant de le désactiver.")
+    if corps.public and not d.public and not contenus_par_domaine(session).get(code):
+        raise HTTPException(status.HTTP_409_CONFLICT,
+                            f"{d.libelle} n'a encore aucun contenu prêt pour les élèves : il ne peut pas être rendu public.")
     avant = {"code": code, "actif": d.actif, "public": d.public}
     d.actif, d.public = corps.actif, corps.public
     journal.noter(session, admin, "regler", "domaine", None, avant, {"code": code, **corps.model_dump()})

@@ -35,7 +35,8 @@ def _inscriptions_maths_du_niveau(principales: bool):
     requete = (
         select(func.count(models.Eleve.id))
         .join(models.Classe, models.Classe.id == models.Eleve.classe_id)
-        .where(models.Eleve.enfant_id == models.Enfant.id, models.Classe.niveau == models.Enfant.niveau)
+        .where(models.Eleve.enfant_id == models.Enfant.id, models.Classe.niveau == models.Enfant.niveau,
+               models.Classe.archivee_le.is_(None))
     )
     if principales:
         requete = requete.where(models.Classe.parcours.in_([p.value for p in PARCOURS_PRINCIPAUX]))
@@ -46,13 +47,15 @@ def alertes(enfant: models.Enfant) -> list[str]:
     points = []
     if not enfant.parents:
         points.append(SANS_RESPONSABLE)
-    du_niveau = [e for e in enfant.inscriptions if e.classe.niveau == enfant.niveau]
+    # Les classes archivées (années passées) ne comptent plus (V3, Lot 3).
+    en_cours = [e for e in enfant.inscriptions if e.classe.archivee_le is None]
+    du_niveau = [e for e in en_cours if e.classe.niveau == enfant.niveau]
     principales = sum(e.classe.parcours in PARCOURS_PRINCIPAUX for e in du_niveau)
     if du_niveau and principales == 0:
         points.append(SANS_PRINCIPAL)
     elif principales > 1:
         points.append(DEUX_PRINCIPAUX)
-    if any(e.classe.niveau != enfant.niveau for e in enfant.inscriptions):
+    if any(e.classe.niveau != enfant.niveau for e in en_cours):
         points.append(AUTRE_NIVEAU)
     return points
 
@@ -116,11 +119,16 @@ def chercher(
         filtres.append(E.bloque_le.is_(None))
     if sans_responsable:
         filtres.append(~E.parents.any())
-    if sans_classe:
-        filtres += [~E.inscriptions.any(), ~E.inscriptions_anglais.any()]
+    if sans_classe:  # inscrit nulle part cette année : seules des classes archivées, ou aucune
+        filtres += [
+            ~E.inscriptions.any(models.Eleve.classe.has(models.Classe.archivee_le.is_(None))),
+            ~E.inscriptions_anglais.any(models.EleveAnglais.groupe.has(models.GroupeAnglais.archivee_le.is_(None))),
+        ]
     if a_verifier:
         du_niveau, principales = _inscriptions_maths_du_niveau(False), _inscriptions_maths_du_niveau(True)
-        autre_niveau = E.inscriptions.any(models.Eleve.classe.has(models.Classe.niveau != E.niveau))
+        autre_niveau = E.inscriptions.any(
+            models.Eleve.classe.has((models.Classe.niveau != E.niveau) & models.Classe.archivee_le.is_(None))
+        )
         filtres.append(or_(~E.parents.any(), (du_niveau > 0) & (principales != 1), autre_niveau))
 
     ordre = {
@@ -157,6 +165,7 @@ def _suivi_maths(session: Session, eleve: models.Eleve) -> SuiviMaths:
         libelle_parcours=enfants.libelle_parcours(c), principal=c.parcours in PARCOURS_PRINCIPAUX,
         enseignant=c.enseignant.nom, inscrit_le=eleve.cree_le, seances=nb_seances, reponses=nb_reponses,
         taux_reussite=((correctes or 0) / nb_reponses) if nb_reponses else None, derniere_activite=derniere,
+        archivee=c.archivee_le is not None,
     )
 
 
@@ -165,6 +174,7 @@ def _suivi_anglais(eleve: models.EleveAnglais) -> SuiviAnglais:
     return SuiviAnglais(
         eleve_id=eleve.id, groupe=g.nom, niveau=g.niveau, enseignant=g.enseignant.nom, inscrit_le=eleve.cree_le,
         seances=len(eleve.progression), derniere_activite=max((p.maj_le for p in eleve.progression), default=None),
+        archivee=g.archivee_le is not None,
     )
 
 

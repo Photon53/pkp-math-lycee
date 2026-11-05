@@ -114,7 +114,7 @@ def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
         return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts(eleve.classe)))
     if lire_jeton(jeton, ENFANT):
         enfant = enfant_courant(identifiants, session)
-        ouverts = {i for e in enfant.inscriptions for i in ids_ouverts(e.classe)}
+        ouverts = {i for e in enfant.inscriptions if e.classe.archivee_le is None for i in ids_ouverts(e.classe)}
         return Lecteur(ENFANT, complet=False, chapitres=ouverts, niveaux={enfant.niveau})
     if lire_jeton(jeton, PARENT):
         parent = parent_courant(identifiants, session)

@@ -183,6 +183,7 @@ def _calculer(session: Session, periode: int, maintenant: datetime) -> Statistiq
         for niveau, parcours, nc, ne in session.execute(
             select(models.Classe.niveau, models.Classe.parcours, func.count(models.Classe.id), func.sum(nb_eleves_classe.c.n))
             .outerjoin(nb_eleves_classe, nb_eleves_classe.c.classe_id == models.Classe.id)
+            .where(models.Classe.archivee_le.is_(None))  # classes en cours (V3, Lot 3)
             .group_by(models.Classe.niveau, models.Classe.parcours)
             .order_by(models.Classe.niveau, models.Classe.parcours)
         )

@@ -148,7 +148,9 @@ def _resume_classe(session: SessionDB, classe: models.Classe) -> ClasseResume:
 @router.get("/classes", response_model=list[ClasseResume])
 def mes_classes(enseignant: EnseignantCourant, session: SessionDB) -> list[ClasseResume]:
     classes = session.scalars(
-        select(models.Classe).where(models.Classe.enseignant_id == enseignant.id).order_by(models.Classe.code)
+        select(models.Classe)
+        .where(models.Classe.enseignant_id == enseignant.id, models.Classe.archivee_le.is_(None))
+        .order_by(models.Classe.code)
     )
     return [_resume_classe(session, c) for c in classes]
 
@@ -184,14 +186,15 @@ def ouvrir_classe(session, enseignant: models.Enseignant, corps: ClasseCreation)
 
 def _ma_classe(session: SessionDB, classe_id: int, enseignant: models.Enseignant) -> models.Classe:
     classe = session.get(models.Classe, classe_id)
-    if classe is None or classe.enseignant_id != enseignant.id:
+    # Une classe archivée sort de l'espace du professeur (V3, Lot 3) ; l'administrateur la retrouve.
+    if classe is None or classe.enseignant_id != enseignant.id or classe.archivee_le is not None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Classe introuvable.")
     return classe
 
 
 def _mon_eleve(session: SessionDB, eleve_id: int, enseignant: models.Enseignant) -> models.Eleve:
     eleve = session.get(models.Eleve, eleve_id)
-    if eleve is None or eleve.classe.enseignant_id != enseignant.id:
+    if eleve is None or eleve.classe.enseignant_id != enseignant.id or eleve.classe.archivee_le is not None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
     return eleve
 

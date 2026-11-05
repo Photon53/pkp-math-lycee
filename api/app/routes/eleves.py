@@ -14,7 +14,7 @@ from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
 from sqlalchemy import select
 
 from app import exemplaires, inscriptions, limitation, permissions
-from app.auth import CARTE_BLOQUEE, ELEVE, EleveCourant, SessionDB, carte_bloquee
+from app.auth import CARTE_BLOQUEE, CLASSE_ARCHIVEE, ELEVE, EleveCourant, SessionDB, carte_bloquee
 from app.config import settings
 from app.db import models
 from app.db.conversions import historique_eleve
@@ -116,6 +116,8 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
         raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
     if not classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
+    if classe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     version = version_mot_de_passe(eleve.code_hash)
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
 
@@ -157,6 +159,8 @@ def connexion_identifiant(corps: ConnexionIdentifiant, request: Request, session
         raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
     if not eleve.classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
+    if eleve.classe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     duree_h = settings.duree_jeton_eleve_longue_j * 24 if corps.rester_connecte else settings.duree_jeton_eleve_h
     version = version_mot_de_passe(eleve.code_hash)
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, duree_h, version), eleve=_info(eleve))
@@ -182,6 +186,8 @@ def changer_de_parcours(eleve_id: int, eleve: EleveCourant, session: SessionDB) 
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Parcours introuvable.")
     if not cible.classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte du professeur de cette classe est suspendu.")
+    if cible.classe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     version = version_mot_de_passe(cible.code_hash)
     return JetonEleve(jeton=creer_jeton(ELEVE, cible.id, settings.duree_jeton_eleve_h, version), eleve=_info(cible))
 

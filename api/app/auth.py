@@ -24,6 +24,7 @@ _bearer = HTTPBearer(auto_error=False)
 # Compte suspendu temporairement par l'administrateur : refusé à la connexion (403, avec ce message) et pour
 # toute session déjà ouverte (401 : retour à la page de connexion).
 CARTE_BLOQUEE = "Ton compte est suspendu pour le moment : parles-en à ton professeur."
+CLASSE_ARCHIVEE = "Cette classe est terminée : elle a été archivée par l'établissement."
 COMPTE_PARENT_BLOQUE = "Votre compte est suspendu temporairement : contactez l'établissement."
 
 
@@ -53,6 +54,7 @@ def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Elev
         or eleve.code_hash is None
         or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
         or not eleve.classe.enseignant.actif
+        or eleve.classe.archivee_le is not None
         or carte_bloquee(eleve)
     ):
         raise _non_authentifie()
@@ -68,6 +70,7 @@ def eleve_anglais_courant(identifiants: Identifiants, session: SessionDB) -> mod
         or eleve.code_hash is None
         or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
         or not eleve.groupe.enseignant.actif
+        or eleve.groupe.archivee_le is not None
         or carte_bloquee(eleve)
     ):
         raise _non_authentifie()
