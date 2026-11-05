@@ -748,3 +748,27 @@ class SuiviEnfant(BaseModel):
     matieres: list[Matiere]
     maths: list[EnfantResume]
     anglais: list[ProgressionAnglaisEnfant]
+
+
+class ArchiveResume(BaseModel):
+    """Inscription archivée d'un enfant (V3) : ce qu'elle était et ce qu'il y avait fait."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    matiere: str
+    domaine_code: str
+    niveau: str
+    parcours: str | None
+    cours: str
+    enseignant: str
+    inscrit_le: datetime | None
+    archivee_le: datetime
+    par: str
+    motif: str
+    resume: dict
+
+
+class ArchiveDetail(ArchiveResume):
+    contenu: dict
+

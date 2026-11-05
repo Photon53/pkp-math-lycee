@@ -58,6 +58,30 @@ def _taux(correctes: int, total: int) -> float | None:
     return correctes / total if total else None
 
 
+def _eleves(session: Session, debut: datetime) -> tuple[int, int]:
+    """Élèves comptés une fois chacun (V3, Lot 0) : un enfant de famille inscrit dans plusieurs parcours ou
+    matières compte pour un ; une inscription sans enfant (ancien modèle) compte pour un élève.
+
+    Actif = au moins une séance de maths, ou une progression d'anglais enregistrée, sur la période.
+    """
+    total = (session.scalar(select(func.count(models.Enfant.id))) or 0) + (
+        session.scalar(select(func.count(models.Eleve.id)).where(models.Eleve.enfant_id.is_(None))) or 0
+    ) + (session.scalar(select(func.count(models.EleveAnglais.id)).where(models.EleveAnglais.enfant_id.is_(None))) or 0)
+    actifs = {
+        ("enfant", enfant) if enfant is not None else ("maths", eleve)
+        for eleve, enfant in session.execute(
+            select(models.Eleve.id, models.Eleve.enfant_id).join(models.Seance).where(models.Seance.debut >= debut).distinct()
+        )
+    } | {
+        ("enfant", enfant) if enfant is not None else ("anglais", eleve)
+        for eleve, enfant in session.execute(
+            select(models.EleveAnglais.id, models.EleveAnglais.enfant_id)
+            .join(models.ProgressionAnglais).where(models.ProgressionAnglais.maj_le >= debut).distinct()
+        )
+    }
+    return total, len(actifs)
+
+
 def _calculer(session: Session, periode: int, maintenant: datetime) -> Statistiques:
     debut = maintenant - timedelta(days=periode)
     correcte = func.sum(case((models.Reponse.correcte, 1), else_=0))
@@ -67,8 +91,7 @@ def _calculer(session: Session, periode: int, maintenant: datetime) -> Statistiq
     professeurs_actifs = session.scalar(
         select(func.count(models.Enseignant.id)).where(models.Enseignant.actif, models.Enseignant.derniere_connexion >= debut)
     )
-    eleves_total = session.scalar(select(func.count(models.Eleve.id)))
-    eleves_actifs = session.scalar(select(func.count(distinct(models.Seance.eleve_id))).where(models.Seance.debut >= debut))
+    eleves_total, eleves_actifs = _eleves(session, debut)
     seances = session.scalar(select(func.count(models.Seance.id)).where(models.Seance.debut >= debut))
     nb_reponses, nb_correctes = session.execute(select(func.count(models.Reponse.id), correcte).where(sur_periode)).one()
 

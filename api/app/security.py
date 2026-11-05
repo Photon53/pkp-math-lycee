@@ -194,6 +194,14 @@ def uri_totp(secret: str, email: str) -> str:
     return f"otpauth://totp/PKP%20Math%20Lyc%C3%A9e:{email}?secret={secret}&issuer=PKP%20Math%20Lyc%C3%A9e"
 
 
+def hacher_mot_de_passe_provisoire(provisoire: str) -> str:
+    """Mot de passe provisoire tiré au hasard (16 caractères parmi 54, environ 92 bits) : un coût de hachage
+    modéré suffit, la lenteur ne protège que les secrets choisis par un humain. Sans cela, importer 500 élèves
+    (375 comptes parents) prenait plus de 8 minutes (mesure V3, Lot 0). L'empreinte est re-hachée au coût
+    complet à la première connexion (`doit_rehacher`), puis remplacée par le mot de passe choisi."""
+    return _hacher(provisoire, _N_CODE)
+
+
 def generer_mot_de_passe_provisoire() -> str:
     # 16 caractères sans caractères ambigus : recopié à la main par le professeur.
     return "".join(secrets.choice(ALPHABET_CODE + "abcdefghjkmnpqrstuvwxyz") for _ in range(16))

@@ -694,6 +694,33 @@ class RattachementParent(Base):
     eleve: Mapped[Eleve] = relationship()
 
 
+class ArchiveInscription(Base):
+    """Copie figée d'une inscription (classe de maths ou groupe d'anglais) retirée ou dont la classe a été
+    supprimée : séances, réponses et progression restent consultables sur la fiche de l'enfant (V3, Lot 0).
+
+    Seules les inscriptions d'un enfant de famille sont archivées : l'enfant existe toujours. Effacer l'enfant
+    (droit à l'effacement) efface ses archives en cascade ; la purge RGPD les supprime aussi à échéance.
+    """
+
+    __tablename__ = "archive_inscription"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    enfant_id: Mapped[int] = mapped_column(ForeignKey("enfant.id", ondelete="CASCADE"), index=True)
+    matiere: Mapped[str] = mapped_column(String(20))  # « maths » ou « anglais »
+    domaine_code: Mapped[str] = mapped_column(String(30))
+    niveau: Mapped[str] = mapped_column(String(4))
+    parcours: Mapped[str | None] = mapped_column(String(30))
+    # Code de la classe ou nom du groupe, et professeur, tels qu'ils étaient au moment de l'archivage.
+    cours: Mapped[str] = mapped_column(String(60))
+    enseignant: Mapped[str] = mapped_column(String(100))
+    inscrit_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    archivee_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+    par: Mapped[str] = mapped_column(String(120))
+    motif: Mapped[str] = mapped_column(String(60))
+    resume: Mapped[dict] = mapped_column(JSON)
+    contenu: Mapped[dict] = mapped_column(JSON)
+
+
 class SuppressionInterdite(RuntimeError):
     """Une question ne se supprime pas : mettre `archivee = True`."""
 

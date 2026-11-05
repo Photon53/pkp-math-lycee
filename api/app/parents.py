@@ -18,7 +18,7 @@ from app.db import models
 from app.db.conversions import historique_eleve
 from app.progression import competences_du_niveau, progression_eleve
 from app.schemas import ChapitreSuivi, EnfantResume, JourActivite, ParentVue, TableauEnfant
-from app.security import generer_mot_de_passe_provisoire, hacher_mot_de_passe
+from app.security import generer_mot_de_passe_provisoire, hacher_mot_de_passe_provisoire
 
 # Une réponse restée ouverte (onglet abandonné) ne compte pas des heures de travail.
 DUREE_MAX_REPONSE_S = 10 * 60
@@ -42,7 +42,7 @@ def rattacher(session: Session, eleve: models.Eleve, email: str, par: str) -> tu
     provisoire = None
     if parent is None:
         provisoire = generer_mot_de_passe_provisoire()
-        parent = models.Parent(email=email, mot_de_passe_hash=hacher_mot_de_passe(provisoire), mdp_provisoire=True)
+        parent = models.Parent(email=email, mot_de_passe_hash=hacher_mot_de_passe_provisoire(provisoire), mdp_provisoire=True)
         session.add(parent)
     if eleve not in parent.enfants:
         parent.enfants.append(eleve)
@@ -65,7 +65,7 @@ def detacher(session: Session, eleve: models.Eleve, parent: models.Parent, par: 
 def reinitialiser(parent: models.Parent) -> str:
     """Nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées."""
     provisoire = generer_mot_de_passe_provisoire()
-    parent.mot_de_passe_hash, parent.mdp_provisoire = hacher_mot_de_passe(provisoire), True
+    parent.mot_de_passe_hash, parent.mdp_provisoire = hacher_mot_de_passe_provisoire(provisoire), True
     return provisoire
 
 
