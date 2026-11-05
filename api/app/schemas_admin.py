@@ -162,6 +162,7 @@ class FamilleAdmin(BaseModel):
     enfants: list[EnfantRattache]
     # Enfants de la famille (créés par l'administrateur), avec leur niveau : « Inès Martin (2nde) ».
     famille: list[str] = []
+    bloque: bool = False
 
 
 class PageFamilles(BaseModel):

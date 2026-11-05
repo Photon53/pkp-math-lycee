@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Request, status
 from sqlalchemy import select
 
 from app import enfants, limitation
-from app.auth import ELEVE, ELEVE_ANGLAIS, ENFANT, EnfantCourant, SessionDB
+from app.auth import CARTE_BLOQUEE, ELEVE, ELEVE_ANGLAIS, ENFANT, EnfantCourant, SessionDB, carte_bloquee
 from app.config import settings
 from app.db import models
 from app.routes.anglais_eleves import JetonEleveAnglais, _info as info_anglais
@@ -45,6 +45,8 @@ def connexion(corps: ConnexionIdentifiant, request: Request, session: SessionDB)
         limitation.echecs_code_eleve.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_IDENTIFIANT)
     limitation.echecs_code_eleve.effacer(compte)
+    if carte_bloquee(titulaire):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
 
     if enfant is not None:
         enfant.derniere_connexion = datetime.now(UTC)

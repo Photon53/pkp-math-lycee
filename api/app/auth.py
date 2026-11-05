@@ -21,6 +21,16 @@ ENFANT = "enfant"
 
 _bearer = HTTPBearer(auto_error=False)
 
+# Compte suspendu temporairement par l'administrateur : refusé à la connexion (403, avec ce message) et pour
+# toute session déjà ouverte (401 : retour à la page de connexion).
+CARTE_BLOQUEE = "Ton compte est suspendu pour le moment : parles-en à ton professeur."
+COMPTE_PARENT_BLOQUE = "Votre compte est suspendu temporairement : contactez l'établissement."
+
+
+def carte_bloquee(inscription: models.Eleve | models.EleveAnglais | models.Enfant) -> bool:
+    enfant = inscription if isinstance(inscription, models.Enfant) else inscription.enfant
+    return enfant is not None and enfant.bloque_le is not None
+
 SessionDB = Annotated[Session, Depends(get_session)]
 Identifiants = Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)]
 
@@ -43,6 +53,7 @@ def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Elev
         or eleve.code_hash is None
         or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
         or not eleve.classe.enseignant.actif
+        or carte_bloquee(eleve)
     ):
         raise _non_authentifie()
     return eleve
@@ -57,6 +68,7 @@ def eleve_anglais_courant(identifiants: Identifiants, session: SessionDB) -> mod
         or eleve.code_hash is None
         or not hmac.compare_digest(lu[1], version_mot_de_passe(eleve.code_hash))
         or not eleve.groupe.enseignant.actif
+        or carte_bloquee(eleve)
     ):
         raise _non_authentifie()
     return eleve
@@ -66,7 +78,12 @@ def enfant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enf
     lu = identifiants and lire_jeton(identifiants.credentials, ENFANT)
     enfant = lu and session.get(models.Enfant, lu[0])
     # Refusé si : enfant supprimé, ou code changé (par le parent ou l'administrateur) depuis l'émission.
-    if not enfant or enfant.code_hash is None or not hmac.compare_digest(lu[1], version_mot_de_passe(enfant.code_hash)):
+    if (
+        not enfant
+        or enfant.code_hash is None
+        or not hmac.compare_digest(lu[1], version_mot_de_passe(enfant.code_hash))
+        or carte_bloquee(enfant)
+    ):
         raise _non_authentifie()
     return enfant
 
@@ -124,7 +141,11 @@ def _parent(identifiants: Identifiants, session: Session) -> models.Parent:
     lu = identifiants and lire_jeton(identifiants.credentials, PARENT)
     parent = lu and session.get(models.Parent, lu[0])
     # Refusé si : compte supprimé (plus d'enfant rattaché) ou mot de passe changé / réinitialisé depuis l'émission.
-    if not parent or not hmac.compare_digest(lu[1], version_mot_de_passe(parent.mot_de_passe_hash)):
+    if (
+        not parent
+        or not hmac.compare_digest(lu[1], version_mot_de_passe(parent.mot_de_passe_hash))
+        or parent.bloque_le is not None
+    ):
         raise _non_authentifie()
     return parent
 

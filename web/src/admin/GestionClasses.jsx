@@ -5,6 +5,7 @@ import { Erreur, Onglets } from "../composants.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, libelleNiveauParcours } from "../parcours.js";
 import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import { Modale, Vide, formaterDate } from "../ui/Cadre.jsx";
+import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { nomComplet } from "./EnfantsFamille.jsx";
 
 const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
@@ -285,6 +286,8 @@ export function ListeEnfants({ appeler, erreur }) {
   const [classes, setClasses] = useState([]);
   const [message, setMessage] = useState(null);
   const [echec, setEchec] = useState(null);
+  const [suppression, setSuppression] = useState(false);
+  const selection = useSelection();
 
   const charger = useCallback(() => {
     const params = new URLSearchParams();
@@ -302,11 +305,11 @@ export function ListeEnfants({ appeler, erreur }) {
     appeler("/admin/classes").then(setClasses, () => {});
   }, [appeler]);
 
-  async function inscrire(enfant, classeId) {
+  async function inscrire(ids, classeId) {
     setMessage(null);
     setEchec(null);
     try {
-      const r = await appeler(`/admin/classes/${classeId}/enfants`, { methode: "POST", corps: { enfant_ids: [enfant.id] } });
+      const r = await appeler(`/admin/classes/${classeId}/enfants`, { methode: "POST", corps: { enfant_ids: ids } });
       if (r.ajoutes.length) setMessage(`Inscription faite : ${r.ajoutes.join(", ")}.`);
       if (r.refus.length) setEchec(r.refus.join(" "));
       charger();
@@ -314,6 +317,22 @@ export function ListeEnfants({ appeler, erreur }) {
       setEchec(err.message);
     }
   }
+
+  async function bloquer(bloque) {
+    setMessage(null);
+    setEchec(null);
+    try {
+      const r = await appeler("/admin/enfants/blocage", { methode: "POST", corps: { ids: selection.ids, bloque } });
+      setMessage(bloque ? `${r.traites} carte(s) bloquée(s) : connexion suspendue dans toutes les matières.` : `${r.traites} carte(s) débloquée(s).`);
+      selection.vider();
+      charger();
+    } catch (err) {
+      setEchec(err.message);
+    }
+  }
+
+  const choisis = enfants?.filter((e) => selection.choisis.has(e.id)) ?? [];
+  const niveauCommun = choisis.length && choisis.every((e) => e.niveau === choisis[0].niveau) ? choisis[0].niveau : null;
 
   return (
     <section className="carte">
@@ -337,8 +356,9 @@ export function ListeEnfants({ appeler, erreur }) {
         inscrits nulle part (ni classe, ni groupe d'anglais)
       </label>
       <p className="aide">
-        Les enfants sont créés avec leur famille (écran Familles). Inscrivez-les ici dans une classe de leur niveau, ou
-        laissez leur professeur les ajouter.
+        Les enfants sont créés avec leur famille (écran Familles, une par une ou par fichier Excel). Inscrivez-les ici dans une
+        classe de leur niveau, ou laissez leur professeur les ajouter. Cochez plusieurs enfants pour les inscrire, les bloquer
+        ou les supprimer ensemble.
       </p>
       <Erreur message={erreur || echec} />
       {message && <p className="succes" role="status">{message}</p>}
@@ -347,10 +367,30 @@ export function ListeEnfants({ appeler, erreur }) {
       {enfants?.length > 0 && (
         <>
           <p className="doux petit">{enfants.length === 100 ? "Les 100 premiers résultats : affinez la recherche." : `${enfants.length} enfant(s)`}</p>
+          <BarreSelection selection={selection} noms={["enfant", "enfants"]}>
+            <select
+              value=""
+              aria-label="Inscrire la sélection dans une classe"
+              disabled={!niveauCommun}
+              title={niveauCommun ? undefined : "Sélectionnez des enfants du même niveau"}
+              onChange={(ev) => ev.target.value && inscrire(selection.ids, ev.target.value).then(selection.vider)}
+            >
+              <option value="">{niveauCommun ? "Inscrire dans la classe…" : "Inscrire : même niveau requis"}</option>
+              {classes
+                .filter((c) => c.niveau === niveauCommun)
+                .map((c) => (
+                  <option key={c.id} value={c.id}>{c.code} · {parcoursCourt(c.parcours)} ({c.enseignant})</option>
+                ))}
+            </select>
+            <button className="secondaire petit" onClick={() => bloquer(true)}>Bloquer</button>
+            <button className="secondaire petit" onClick={() => bloquer(false)}>Débloquer</button>
+            <button className="danger petit" onClick={() => setSuppression(true)}>Supprimer</button>
+          </BarreSelection>
           <div className="tableau-defilant">
             <table>
               <thead>
                 <tr>
+                  <CaseTout selection={selection} ids={enfants.map((e) => e.id)} libelle="Sélectionner tous les enfants affichés" />
                   <th>Enfant</th>
                   <th>Niveau</th>
                   <th>Identifiant</th>
@@ -365,7 +405,10 @@ export function ListeEnfants({ appeler, erreur }) {
                   const possibles = classes.filter((c) => c.niveau === e.niveau && !e.maths.some((m) => m.code_classe === c.code));
                   return (
                     <tr key={e.id}>
-                      <td><strong>{nomComplet(e)}</strong></td>
+                      <CaseLigne selection={selection} id={e.id} libelle={`Sélectionner ${nomComplet(e)}`} />
+                      <td>
+                        <strong>{nomComplet(e)}</strong> {e.bloque && <span className="badge alerte insecable">Bloqué</span>}
+                      </td>
                       <td>{NOM_NIVEAU[e.niveau] ?? e.niveau}</td>
                       <td><code>{e.identifiant}</code></td>
                       <td>
@@ -383,7 +426,7 @@ export function ListeEnfants({ appeler, erreur }) {
                         <select
                           value=""
                           aria-label={`Inscrire ${nomComplet(e)} dans une classe`}
-                          onChange={(ev) => ev.target.value && inscrire(e, ev.target.value)}
+                          onChange={(ev) => ev.target.value && inscrire([e.id], ev.target.value)}
                           disabled={!possibles.length}
                         >
                           <option value="">{possibles.length ? "Choisir une classe…" : "Aucune autre classe de ce niveau"}</option>
@@ -399,6 +442,24 @@ export function ListeEnfants({ appeler, erreur }) {
             </table>
           </div>
         </>
+      )}
+      {suppression && (
+        <ConfirmationSuppression
+          titre={`Supprimer ${selection.nombre} enfant(s)`}
+          onFermer={() => setSuppression(false)}
+          onConfirmer={async (confirmation) => {
+            const r = await appeler("/admin/enfants/suppression", { methode: "POST", corps: { ids: selection.ids, confirmation } });
+            setSuppression(false);
+            setMessage(`${r.traites} enfant(s) supprimé(s), avec leurs inscriptions et leur travail.`);
+            selection.vider();
+            charger();
+          }}
+        >
+          <p>
+            Les enfants sélectionnés sont effacés avec toutes leurs inscriptions (maths et anglais), séances et réponses. Un compte
+            parent qui n'a plus d'enfant est supprimé aussi.
+          </p>
+        </ConfirmationSuppression>
       )}
     </section>
   );

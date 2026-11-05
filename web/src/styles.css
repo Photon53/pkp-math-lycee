@@ -614,3 +614,13 @@ button.matiere:disabled { opacity: 0.7; cursor: default; }
 label.en-ligne { display: flex; align-items: center; gap: 6px; font-weight: 400; }
 label.en-ligne select { width: auto; }
 .ajout-enfants { margin-top: 16px; }
+
+/* Sélection en masse : cases à cocher des listes et barre d'actions */
+th.col-case, td.col-case { width: 2.5rem; text-align: center; }
+.col-case input[type="checkbox"] { width: auto; margin: 0; }
+.barre-selection { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 8px 12px; margin: 8px 0; border-radius: var(--rayon-petit); background: var(--action-doux); border: 1px solid var(--bordure-forte); }
+.barre-selection .actions { margin-top: 0; }
+.alerte-texte { color: var(--ko); font-weight: 600; }
+tr.ligne-erreur td { background: var(--alerte-doux); }
+.barre-selection select { width: auto; max-width: 100%; }
+.badge.insecable { white-space: nowrap; }

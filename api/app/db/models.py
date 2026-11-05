@@ -214,6 +214,8 @@ class Parent(Base):
     mdp_provisoire: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
     derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Compte suspendu temporairement par l'administrateur (rien n'est effacé).
+    bloque_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     enfants: Mapped[list[Eleve]] = relationship(secondary=enfants_de_parent, back_populates="parents")
     famille: Mapped[list["Enfant"]] = relationship(secondary=enfants_de_famille, back_populates="parents")
@@ -237,6 +239,8 @@ class Enfant(Base):
     code_hash: Mapped[str | None] = mapped_column(String(255))
     cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
     derniere_connexion: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Carte suspendue temporairement par l'administrateur, dans toutes les matières.
+    bloque_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     parents: Mapped[list[Parent]] = relationship(secondary=enfants_de_famille, back_populates="famille")
     inscriptions: Mapped[list[Eleve]] = relationship(

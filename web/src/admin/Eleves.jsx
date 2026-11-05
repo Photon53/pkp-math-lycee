@@ -3,6 +3,7 @@ import { Erreur, Onglets } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
 import { GererClasse, ListeEnfants, parcoursCourt } from "./GestionClasses.jsx";
@@ -236,6 +237,8 @@ function ListeClasses({ jeton, onExpire, domaine }) {
   const [nouvelle, setNouvelle] = useState(false);
   const [geree, setGeree] = useState(null);
   const [message, setMessage] = useState(null);
+  const [suppression, setSuppression] = useState(false);
+  const selection = useSelection();
   const charger = useCallback(() => appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {}), [appeler, domaine]);
   const apresModification = useCallback(
     (texte) => {
@@ -271,11 +274,33 @@ function ListeClasses({ jeton, onExpire, domaine }) {
       <Erreur message={erreur} />
       {classes === null && <p className="doux">Chargement…</p>}
       {classes?.length === 0 && <Vide icone="classes">Aucune classe.</Vide>}
+      {suppression && (
+        <ConfirmationSuppression
+          titre={`Supprimer ${selection.nombre} classe(s)`}
+          onFermer={() => setSuppression(false)}
+          onConfirmer={async (confirmation) => {
+            const r = await appeler("/admin/classes/suppression", { methode: "POST", corps: { ids: selection.ids, confirmation } });
+            setSuppression(false);
+            setMessage(`${r.traites} classe(s) supprimée(s). Les enfants des familles et leurs autres inscriptions sont conservés.`);
+            selection.vider();
+            charger();
+          }}
+        >
+          <p>
+            Classes : {classes.filter((c) => selection.choisis.has(c.id)).map((c) => c.code).join(", ")}. Leurs inscriptions,
+            séances et réponses sont effacées ; les enfants des familles restent.
+          </p>
+        </ConfirmationSuppression>
+      )}
+      <BarreSelection selection={selection} noms={["classe", "classes"]}>
+        <button className="danger petit" onClick={() => setSuppression(true)}>Supprimer</button>
+      </BarreSelection>
       {classes?.length > 0 && (
         <div className="tableau-defilant">
           <table>
             <thead>
               <tr>
+                <CaseTout selection={selection} ids={classes.map((c) => c.id)} libelle="Sélectionner toutes les classes" />
                 <th>Code</th>
                 <th>Niveau</th>
                 <th>Parcours</th>
@@ -290,6 +315,7 @@ function ListeClasses({ jeton, onExpire, domaine }) {
             <tbody>
               {classes.map((c) => (
                 <tr key={c.id}>
+                  <CaseLigne selection={selection} id={c.id} libelle={`Sélectionner la classe ${c.code}`} />
                   <td>
                     <code>{c.code}</code>
                   </td>
