@@ -250,9 +250,14 @@ def attribuer_code(session: Session, eleve: models.EleveAnglais) -> CodeEleveAng
     return CodeEleveAnglais(id=eleve.id, prenom=eleve.prenom, identifiant=eleve.identifiant, code=code)
 
 
+def groupes_actifs(enseignant: models.Enseignant) -> list[models.GroupeAnglais]:
+    """Groupes non archivés : un groupe de l'an dernier ne bloque pas le même nom cette année (V3, Lot 3)."""
+    return [g for g in enseignant.groupes_anglais if g.archivee_le is None]
+
+
 def _mon_groupe(session: SessionDB, groupe_id: int, enseignant: models.Enseignant) -> models.GroupeAnglais:
     groupe = session.get(models.GroupeAnglais, groupe_id)
-    if groupe is None or groupe.enseignant_id != enseignant.id:
+    if groupe is None or groupe.enseignant_id != enseignant.id or groupe.archivee_le is not None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Groupe introuvable.")
     return groupe
 
@@ -267,7 +272,7 @@ def _mon_eleve(session: Session, groupe: models.GroupeAnglais, eleve_id: int) ->
 @router.get("/groupes", response_model=list[GroupeResume])
 def mes_groupes(enseignant: EnseignantAnglais) -> list[GroupeResume]:
     # 4e avant 3e, comme le programme.
-    groupes = sorted(enseignant.groupes_anglais, key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.nom.lower()))
+    groupes = sorted(groupes_actifs(enseignant), key=lambda g: (models.NIVEAUX_ANGLAIS.index(g.niveau), g.nom.lower()))
     return [_resume(g) for g in groupes]
 
 
@@ -280,7 +285,7 @@ def creer_groupe(corps: GroupeCreation, enseignant: EnseignantAnglais, session: 
 
 def ouvrir_groupe(session: Session, enseignant: models.Enseignant, corps: GroupeCreation) -> models.GroupeAnglais:
     """Crée le groupe d'un professeur d'anglais ; sert aussi à l'administrateur."""
-    if any(g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
+    if any(g.nom.lower() == corps.nom.lower() for g in groupes_actifs(enseignant)):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
     domaine = permissions.DOMAINE_GROUPES_ANGLAIS
     refus = permissions.refus_domaine_ferme(session, domaine)
@@ -298,7 +303,7 @@ def ouvrir_groupe(session: Session, enseignant: models.Enseignant, corps: Groupe
 @router.patch("/groupes/{groupe_id}", response_model=GroupeResume)
 def renommer_groupe(groupe_id: int, corps: GroupeRenommage, enseignant: EnseignantAnglais, session: SessionDB) -> GroupeResume:
     groupe = _mon_groupe(session, groupe_id, enseignant)
-    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in enseignant.groupes_anglais):
+    if any(g.id != groupe.id and g.nom.lower() == corps.nom.lower() for g in groupes_actifs(enseignant)):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
     groupe.nom = corps.nom
     session.commit()

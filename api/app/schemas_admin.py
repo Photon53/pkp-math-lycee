@@ -129,6 +129,8 @@ class DomaineAdmin(BaseModel):
     public: bool
     nb_professeurs: int
     nb_validateurs: int
+    # Contenu prêt pour les élèves (questions en service, séances d'anglais validées) : V3, Lot 3.
+    nb_contenus: int = 0
 
 
 class DomaineEdition(BaseModel):
@@ -238,6 +240,10 @@ class ClasseAdmin(BaseModel):
     enseignant: str
     nb_eleves: int
     nb_chapitres_ouverts: int
+    # Archivage (V3, Lot 3) : None tant que la classe ou le groupe est actif.
+    archivee_le: datetime | None = None
+    archivee_par: str | None = None
+    motif_archivage: str | None = None
 
 
 # --- PKP Anglais ------------------------------------------------------------------
@@ -257,6 +263,19 @@ class GroupeAnglaisAdmin(BaseModel):
     enseignant_id: int
     enseignant: str
     eleves: list[EleveAnglaisAdmin]
+    domaine_code: str = "anglais-college"
+    # Archivage (V3, Lot 3) : None tant que la classe ou le groupe est actif.
+    archivee_le: datetime | None = None
+    archivee_par: str | None = None
+    motif_archivage: str | None = None
+
+
+class ArchivageClasses(BaseModel):
+    """Archiver (fin d'année) ou rétablir des classes ou des groupes ; leur travail reste en base."""
+
+    ids: list[int] = Field(min_length=1, max_length=500)
+    archiver: bool = True
+    motif: str = Field(default="", max_length=200)
 
 
 # --- Cours ------------------------------------------------------------------------
@@ -586,6 +605,7 @@ class SuiviMaths(BaseModel):
     reponses: int
     taux_reussite: float | None
     derniere_activite: datetime | None
+    archivee: bool = False
 
 
 class SuiviAnglais(BaseModel):
@@ -596,6 +616,7 @@ class SuiviAnglais(BaseModel):
     inscrit_le: datetime
     seances: int
     derniere_activite: datetime | None
+    archivee: bool = False
 
 
 class EntreeHistoriqueEleve(BaseModel):

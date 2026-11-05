@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Request, status
 from sqlalchemy import select
 
 from app import enfants, limitation
-from app.auth import CARTE_BLOQUEE, ELEVE, ELEVE_ANGLAIS, ENFANT, EnfantCourant, SessionDB, carte_bloquee
+from app.auth import CARTE_BLOQUEE, CLASSE_ARCHIVEE, ELEVE, ELEVE_ANGLAIS, ENFANT, EnfantCourant, SessionDB, carte_bloquee
 from app.config import settings
 from app.db import models
 from app.routes.anglais_eleves import JetonEleveAnglais, _info as info_anglais
@@ -55,6 +55,8 @@ def connexion(corps: ConnexionIdentifiant, request: Request, session: SessionDB)
         return ConnexionCarte(type="enfant", jeton=jeton, enfant=enfants.espace(enfant))
     if not eleve.classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
+    if eleve.classe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     jeton = creer_jeton(ELEVE, eleve.id, duree_h, version_mot_de_passe(eleve.code_hash))
     return ConnexionCarte(type="eleve", jeton=jeton, eleve=info_maths(eleve))
 
@@ -72,6 +74,8 @@ def ouvrir_maths(eleve_id: int, enfant: EnfantCourant) -> JetonEleve:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Inscription introuvable.")
     if not eleve.classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte du professeur de cette classe est suspendu.")
+    if eleve.classe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     jeton = creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version_mot_de_passe(eleve.code_hash))
     return JetonEleve(jeton=jeton, eleve=info_maths(eleve))
 
@@ -83,5 +87,7 @@ def ouvrir_anglais(eleve_id: int, enfant: EnfantCourant) -> JetonEleveAnglais:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Inscription introuvable.")
     if not eleve.groupe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte du professeur de ce groupe est suspendu.")
+    if eleve.groupe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     jeton = creer_jeton(ELEVE_ANGLAIS, eleve.id, settings.duree_jeton_eleve_h, version_mot_de_passe(eleve.code_hash))
     return JetonEleveAnglais(jeton=jeton, eleve=info_anglais(eleve))

@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 
 from app import anglais_contenu, limitation, permissions
-from app.auth import CARTE_BLOQUEE, ELEVE_ANGLAIS, EleveAnglaisCourant, SessionDB, carte_bloquee
+from app.auth import CARTE_BLOQUEE, CLASSE_ARCHIVEE, ELEVE_ANGLAIS, EleveAnglaisCourant, SessionDB, carte_bloquee
 from app.config import settings
 from app.db import models
 from app.routes.eleves import ECHEC_IDENTIFIANT, _code_leurre
@@ -65,6 +65,8 @@ def connexion(corps: ConnexionIdentifiant, request: Request, session: SessionDB)
         raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
     if not eleve.groupe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
+    if eleve.groupe.archivee_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CLASSE_ARCHIVEE)
     duree_h = settings.duree_jeton_eleve_longue_j * 24 if corps.rester_connecte else settings.duree_jeton_eleve_h
     jeton = creer_jeton(ELEVE_ANGLAIS, eleve.id, duree_h, version_mot_de_passe(eleve.code_hash))
     return JetonEleveAnglais(jeton=jeton, eleve=_info(eleve))

@@ -680,6 +680,8 @@ class InscriptionMaths(BaseModel):
     enseignant: str
     # Parcours principal (tronc commun, spécialité…) ou option (excellence, mise à niveau…) : V3, Lot 1.
     principal: bool = True
+    # Classe archivée (V3, Lot 3) : montrée à l'administrateur et aux responsables, plus à l'élève.
+    archivee: bool = False
 
 
 class InscriptionAnglais(BaseModel):
@@ -687,6 +689,7 @@ class InscriptionAnglais(BaseModel):
     groupe: str
     niveau: str
     enseignant: str
+    archivee: bool = False
 
 
 class EnfantFamille(BaseModel):
