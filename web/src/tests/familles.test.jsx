@@ -22,7 +22,7 @@ describe("familles", () => {
       "DELETE /admin/parents/7/enfants/2": { json: famille([LINA]) },
     });
     render(<Familles jeton="j" onExpire={vi.fn()} />);
-    await userEvent.type(screen.getByLabelText(/E-mail du parent/), "parent");
+    await userEvent.type(screen.getByLabelText(/Nom ou e-mail du responsable/), "parent");
     await userEvent.click(await screen.findByRole("button", { name: "Gérer" }));
     const fenetre = screen.getByRole("dialog");
     expect(await within(fenetre).findByText("Professeur : M. Demo")).toBeInTheDocument();
@@ -38,19 +38,22 @@ describe("familles", () => {
       "GET /admin/parents/7": { json: famille([]) },
       "GET /admin/parents/7/famille": { json: [] },
       "GET /admin/anglais/groupes": { json: [] },
-      "PATCH /admin/parents/7": (corps) => ({ json: { id: 7, email: corps.email, mdp_provisoire: false, derniere_connexion: null, enfants: [] } }),
+      "PATCH /admin/parents/7": (corps) => ({ json: { id: 7, email: corps.email, nom: corps.nom, prenom: corps.prenom, mdp_provisoire: false, derniere_connexion: null, enfants: [] } }),
     });
     render(<Familles jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByText("parent@exemple.fr")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Gérer" }));
     const fenetre = screen.getByRole("dialog");
     await userEvent.click(await within(fenetre).findByRole("button", { name: "Modifier" }));
-    const champ = within(fenetre).getByLabelText("Nouvelle adresse e-mail");
+    await userEvent.type(within(fenetre).getByLabelText("Prénom du responsable"), "Claire");
+    await userEvent.type(within(fenetre).getByLabelText("Nom du responsable"), "Martin");
+    const champ = within(fenetre).getByLabelText("Adresse e-mail");
     await userEvent.clear(champ);
     await userEvent.type(champ, "nouveau@exemple.fr");
     await userEvent.click(within(fenetre).getByRole("button", { name: "Enregistrer" }));
     expect((await within(fenetre).findAllByText("nouveau@exemple.fr")).length).toBeGreaterThan(0);
-    expect(appels.find((a) => a.cle === "PATCH /admin/parents/7").corps).toEqual({ email: "nouveau@exemple.fr" });
+    expect(within(fenetre).getAllByText("Claire Martin").length).toBeGreaterThan(0);
+    expect(appels.find((a) => a.cle === "PATCH /admin/parents/7").corps).toEqual({ email: "nouveau@exemple.fr", prenom: "Claire", nom: "Martin" });
   });
 });
 

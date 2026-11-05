@@ -214,6 +214,9 @@ label.case input { width: auto; flex: none; margin-top: 0.2em; }
 .filtres { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: end; margin-bottom: 12px; }
 .filtres > * { flex: 1 1 160px; }
 .filtres label { margin-top: 0; }
+.filtres-cases { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 8px; }
+.fiche-eleve > section + section { border-top: 1px solid var(--bordure); margin-top: 20px; padding-top: 4px; }
+.fiche-eleve dl > div { display: flex; gap: 8px; }
 .pagination { display: flex; gap: 8px; align-items: center; justify-content: flex-end; margin-top: 12px; font-size: var(--t-s); }
 .vide { text-align: center; padding: 32px 16px; color: var(--texte-doux); }
 .vide svg { color: var(--bordure-forte); margin-bottom: 8px; }
@@ -578,6 +581,9 @@ button.chapitre-pkp:hover { border-color: var(--action); background: var(--actio
 .exercice-entete { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
 .corrige-pkp ol { margin: 4px 0; }
 .ligne-champs { display: flex; gap: 12px; }
+.ligne-champs.souple { flex-wrap: wrap; }
+.ligne-champs.souple > * { flex: 1 1 160px; }
+.ligne-champs.souple label { display: flex; flex-direction: column; gap: 4px; }
 #pkp-impression { display: none; }
 
 /* Espace de l'enfant : choix de la matière */

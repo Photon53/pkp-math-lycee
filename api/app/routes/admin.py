@@ -399,7 +399,7 @@ def _par(admin: models.Enseignant) -> str:
 
 def _famille(p: models.Parent) -> FamilleAdmin:
     return FamilleAdmin(
-        id=p.id, email=p.email, mdp_provisoire=p.mdp_provisoire, cree_le=p.cree_le, derniere_connexion=p.derniere_connexion,
+        id=p.id, email=p.email, nom=p.nom, prenom=p.prenom, mdp_provisoire=p.mdp_provisoire, cree_le=p.cree_le, derniere_connexion=p.derniere_connexion,
         enfants=[
             EnfantRattache(id=e.id, prenom=e.prenom, classe=e.classe.code, niveau=e.classe.niveau, enseignant=e.classe.enseignant.nom)
             for e in sorted(p.enfants, key=lambda e: (e.prenom, e.classe.code))
@@ -436,14 +436,16 @@ def familles(
     _: AdminCourant, session: SessionDB, domaine: FiltreDomaine, q: str | None = None, classe_id: int | None = None,
     page: int = 1,
 ) -> PageFamilles:
-    """Comptes parents, les plus récents d'abord ; filtres facultatifs : e-mail, classe d'un enfant, domaine.
+    """Comptes parents, les plus récents d'abord ; filtres facultatifs : e-mail, nom ou prénom du responsable,
+    classe d'un enfant, domaine.
 
     Une famille dont aucun enfant n'est encore inscrit reste visible quel que soit le domaine choisi :
     l'administrateur qui l'a créée doit la retrouver pour la compléter."""
     q = (q or "").strip().lower()
     filtres = []
     if q:
-        filtres.append(models.Parent.email.like(f"%{q}%"))
+        motif = f"%{q}%"
+        filtres.append(models.Parent.email.like(motif) | models.Parent.nom.ilike(motif) | models.Parent.prenom.ilike(motif))
     if classe_id is not None:
         filtres.append(
             models.Parent.enfants.any(models.Eleve.classe_id == classe_id)

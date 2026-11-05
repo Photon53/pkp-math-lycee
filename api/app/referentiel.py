@@ -21,6 +21,17 @@ class Parcours(str, Enum):
     EXAMENS = "examens"  # 3e : brevet ; 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
 
 
+# Parcours principal d'un élève en maths, un par niveau : l'enseignement qu'il suit (V3, Lot 1). Les autres
+# parcours (excellence, mise à niveau, examens, maths expertes) sont des options qui s'y ajoutent.
+PARCOURS_PRINCIPAUX: frozenset[Parcours] = frozenset({
+    Parcours.TRONC_COMMUN, Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE, Parcours.COMPLEMENTAIRES,
+})
+
+
+def est_principal(parcours: "Parcours | str") -> bool:
+    return Parcours(parcours) in PARCOURS_PRINCIPAUX
+
+
 PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
     # Collège : un programme commun ; soutien et approfondissement ; en 3e, préparation au brevet.
     Niveau.SIXIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),

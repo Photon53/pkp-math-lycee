@@ -47,6 +47,7 @@ function LigneEnfant({ enfant, onChange, onRetirer, index }) {
 
 export function NouvelleFamille({ appeler, onFermer, onCreee }) {
   const [email, setEmail] = useState("");
+  const [tuteur, setTuteur] = useState({ prenom: "", nom: "" });
   const [enfants, setEnfants] = useState([{ ...VIDE }]);
   const [erreur, setErreur] = useState(null);
   const [envoi, setEnvoi] = useState(false);
@@ -56,7 +57,7 @@ export function NouvelleFamille({ appeler, onFermer, onCreee }) {
     setErreur(null);
     setEnvoi(true);
     try {
-      onCreee(await appeler("/admin/familles", { methode: "POST", corps: { email, enfants } }));
+      onCreee(await appeler("/admin/familles", { methode: "POST", corps: { email, ...tuteur, enfants } }));
     } catch (err) {
       setErreur(err.message);
     } finally {
@@ -67,8 +68,21 @@ export function NouvelleFamille({ appeler, onFermer, onCreee }) {
   return (
     <Modale titre="Nouvelle famille" onFermer={onFermer} large>
       <form onSubmit={soumettre}>
-        <label htmlFor="nf-email">E-mail du parent</label>
-        <input id="nf-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+        <h3>Responsable légal</h3>
+        <div className="ligne-champs souple">
+          <div>
+            <label htmlFor="nf-prenom">Prénom</label>
+            <input id="nf-prenom" value={tuteur.prenom} maxLength={50} onChange={(e) => setTuteur({ ...tuteur, prenom: e.target.value })} />
+          </div>
+          <div>
+            <label htmlFor="nf-nom">Nom</label>
+            <input id="nf-nom" value={tuteur.nom} maxLength={50} onChange={(e) => setTuteur({ ...tuteur, nom: e.target.value })} />
+          </div>
+          <div style={{ flexGrow: 2 }}>
+            <label htmlFor="nf-email">E-mail du parent</label>
+            <input id="nf-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+        </div>
         <h3>Enfants</h3>
         {enfants.map((enf, i) => (
           <LigneEnfant

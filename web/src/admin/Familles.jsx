@@ -6,6 +6,7 @@ import Icone from "../ui/Icone.jsx";
 import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { EnfantsDeLaFamille, FamilleCreee, NouvelleFamille } from "./EnfantsFamille.jsx";
+import { nomResponsable } from "./Repertoire.jsx";
 import ImportFamilles from "./ImportFamilles.jsx";
 
 const nomEnfant = (e) => `${e.prenom} (${e.classe})`;
@@ -62,7 +63,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
       <section className="carte">
         <div className="filtres">
           <div style={{ flexGrow: 3 }}>
-            <label htmlFor="f-recherche">E-mail du parent</label>
+            <label htmlFor="f-recherche">Nom ou e-mail du responsable</label>
             <input
               id="f-recherche"
               type="search"
@@ -104,7 +105,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
           </div>
         </div>
         <p className="aide">
-          Les familles les plus récentes en premier ; filtrez par e-mail ou par la classe d'un enfant. Cochez des familles pour
+          Les familles les plus récentes en premier ; filtrez par nom, par e-mail ou par la classe d'un enfant. Cochez des familles pour
           les bloquer temporairement ou les supprimer ensemble.
         </p>
         {message && (
@@ -127,7 +128,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
                 <thead>
                   <tr>
                     <CaseTout selection={selection} ids={resultats.elements.map((p) => p.id)} libelle="Sélectionner toutes les familles de la page" />
-                    <th>E-mail</th>
+                    <th>Responsable légal</th>
                     <th>Enfants suivis</th>
                     <th>Dernière connexion</th>
                     <th>
@@ -140,6 +141,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
                     <tr key={p.id}>
                       <CaseLigne selection={selection} id={p.id} libelle={`Sélectionner ${p.email}`} />
                       <td>
+                        {nomResponsable(p) !== p.email && <strong>{nomResponsable(p)} </strong>}
                         {p.email} {p.bloque && <span className="badge alerte insecable">Bloqué</span>}
                       </td>
                       <td>{[...(p.famille ?? []), ...p.enfants.map(nomEnfant)].join(", ")}</td>
@@ -271,7 +273,7 @@ function SuppressionFamilles({ nombre, onFermer, onConfirmer }) {
   );
 }
 
-/** Correction de l'adresse e-mail du compte (c'est l'identifiant de connexion du parent). */
+/** Identité du responsable légal (nom, prénom) et adresse e-mail du compte, qui sert d'identifiant de connexion. */
 function EmailDuParent({ famille, appeler, onModifie, onErreur }) {
   const [edition, setEdition] = useState(null);
 
@@ -279,8 +281,7 @@ function EmailDuParent({ famille, appeler, onModifie, onErreur }) {
     e.preventDefault();
     onErreur(null);
     try {
-      const r = await appeler(`/admin/parents/${famille.id}`, { methode: "PATCH", corps: { email: edition } });
-      onModifie(r.email);
+      onModifie(await appeler(`/admin/parents/${famille.id}`, { methode: "PATCH", corps: edition }));
       setEdition(null);
     } catch (err) {
       onErreur(err.message);
@@ -290,18 +291,34 @@ function EmailDuParent({ famille, appeler, onModifie, onErreur }) {
   if (edition === null)
     return (
       <p>
-        E-mail de connexion : <strong>{famille.email}</strong>{" "}
-        <button type="button" className="lien petit" onClick={() => setEdition(famille.email)}>
+        Responsable légal : <strong>{`${famille.prenom ?? ""} ${famille.nom ?? ""}`.trim() || "nom non renseigné"}</strong> · e-mail de
+        connexion : <strong>{famille.email}</strong>{" "}
+        <button
+          type="button"
+          className="lien petit"
+          onClick={() => setEdition({ email: famille.email, prenom: famille.prenom ?? "", nom: famille.nom ?? "" })}
+        >
           Modifier
         </button>
       </p>
     );
+  const champ = (cle) => (e) => setEdition({ ...edition, [cle]: e.target.value });
   return (
-    <form onSubmit={enregistrer} className="ligne-champs">
-      <label>
-        Nouvelle adresse e-mail
-        <input type="email" required value={edition} onChange={(e) => setEdition(e.target.value)} />
-      </label>
+    <form onSubmit={enregistrer}>
+      <div className="ligne-champs souple">
+        <label>
+          Prénom du responsable
+          <input value={edition.prenom} onChange={champ("prenom")} maxLength={50} />
+        </label>
+        <label>
+          Nom du responsable
+          <input value={edition.nom} onChange={champ("nom")} maxLength={50} />
+        </label>
+        <label>
+          Adresse e-mail
+          <input type="email" required value={edition.email} onChange={champ("email")} />
+        </label>
+      </div>
       <div className="actions">
         <button type="button" className="secondaire" onClick={() => setEdition(null)}>Annuler</button>
         <button type="submit">Enregistrer</button>
@@ -452,7 +469,7 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
   }
 
   return (
-    <Modale titre={famille ? famille.email : "Famille"} onFermer={onFermer} large>
+    <Modale titre={famille ? nomResponsable(famille) : "Famille"} onFermer={onFermer} large>
       <Erreur message={erreur} />
       {famille === null ? (
         <p className="doux">Chargement…</p>
@@ -461,7 +478,7 @@ function Famille({ id, appeler, onFermer, onSecret, onSupprime }) {
           <EmailDuParent
             famille={famille}
             appeler={appeler}
-            onModifie={(email) => setFamille({ ...famille, email })}
+            onModifie={(r) => setFamille({ ...famille, email: r.email, nom: r.nom, prenom: r.prenom })}
             onErreur={setErreur}
           />
           <p className="doux">

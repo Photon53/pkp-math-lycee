@@ -520,6 +520,8 @@ class ParentCreation(BaseModel):
 class ParentVue(BaseModel):
     id: int
     email: str
+    nom: str = ""
+    prenom: str = ""
     mdp_provisoire: bool
     derniere_connexion: datetime | None
     enfants: list[str]  # « Lina (2NDE-A-DEMO) »
@@ -607,6 +609,36 @@ class EnfantSaisi(BaseModel):
         return v
 
 
+def _nom_facultatif(v: str) -> str:
+    v = " ".join(v.split())
+    if v and (len(v) > 50 or not _PRENOM.match(v)):
+        raise ValueError("Nom invalide : lettres, espaces, apostrophes et tirets seulement.")
+    return v
+
+
+class IdentiteResponsable(BaseModel):
+    """Nom et prénom du responsable légal, facultatifs (V3, Lot 1)."""
+
+    nom: str = ""
+    prenom: str = ""
+
+    @field_validator("nom", "prenom")
+    @classmethod
+    def _valider(cls, v: str) -> str:
+        return _nom_facultatif(v)
+
+
+class ResponsableAjout(IdentiteResponsable):
+    """Responsable d'un enfant existant : compte retrouvé par son e-mail, ou créé."""
+
+    email: Annotated[str, Field(min_length=5, max_length=254)]
+
+    @field_validator("email")
+    @classmethod
+    def _email(cls, v: str) -> str:
+        return ParentCreation(email=v).email
+
+
 class EnfantModification(BaseModel):
     prenom: str | None = None
     nom: Annotated[str | None, Field(max_length=50)] = None
@@ -646,6 +678,8 @@ class InscriptionMaths(BaseModel):
     parcours: Parcours
     libelle_parcours: str
     enseignant: str
+    # Parcours principal (tronc commun, spécialité…) ou option (excellence, mise à niveau…) : V3, Lot 1.
+    principal: bool = True
 
 
 class InscriptionAnglais(BaseModel):
