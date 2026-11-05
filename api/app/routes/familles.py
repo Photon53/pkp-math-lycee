@@ -10,7 +10,7 @@ from pkp_engine import Niveau
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from app import enfants, inscriptions, journal, parents
+from app import archives, enfants, inscriptions, journal, parents
 from app.auth import AdminCourant, EnseignantAnglais, EnseignantCourant, ParentCourant, SessionDB
 from app.db import models
 from app.progression import chapitres_du_programme, resume_eleve
@@ -19,6 +19,8 @@ from app.routes.enseignants import _ma_classe, _programme_de_la_classe, _resume_
 from app.schemas_admin import ClasseAdmin
 from app.schemas import (
     AjoutEnfants,
+    ArchiveDetail,
+    ArchiveResume,
     CarteEnfant,
     ChapitreProgramme,
     ChoixChapitres,
@@ -167,6 +169,20 @@ def enfant_admin(enfant_id: int, _: AdminCourant, session: SessionDB) -> EnfantF
     return enfants.decrire(_enfant(session, enfant_id))
 
 
+@router.get("/admin/enfants/{enfant_id}/archives", response_model=list[ArchiveResume])
+def archives_enfant(enfant_id: int, _: AdminCourant, session: SessionDB) -> list[models.ArchiveInscription]:
+    """Inscriptions retirées ou dont la classe a été supprimée, avec le résumé de leur travail (V3)."""
+    return archives.de_l_enfant(session, _enfant(session, enfant_id).id)
+
+
+@router.get("/admin/archives/{archive_id}", response_model=ArchiveDetail)
+def archive_detail(archive_id: int, _: AdminCourant, session: SessionDB) -> models.ArchiveInscription:
+    archive = session.get(models.ArchiveInscription, archive_id)
+    if archive is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Archive introuvable.")
+    return archive
+
+
 @router.patch("/admin/enfants/{enfant_id}", response_model=EnfantFamille)
 def modifier_enfant(enfant_id: int, corps: EnfantModification, admin: AdminCourant, session: SessionDB) -> EnfantFamille:
     """Correction du prénom ou du nom, ou passage au niveau supérieur. Les inscriptions déjà faites restent :
@@ -305,6 +321,7 @@ def supprimer_classe_admin(classe_id: int, confirmation: str, admin: AdminCouran
         raise HTTPException(422, "Saisissez le code de la classe pour confirmer.")
     journal.noter(session, admin, "supprimer", "classe", classe.id,
                   avant={"code": classe.code, "enseignant": classe.enseignant_id, "eleves": len(classe.eleves)})
+    archives.archiver_classe(session, classe, archives.par_admin(admin))
     for eleve in classe.eleves:
         inscriptions.delier(session, eleve)
     session.delete(classe)

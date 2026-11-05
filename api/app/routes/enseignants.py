@@ -14,7 +14,7 @@ from pkp_engine import Niveau
 from sqlalchemy import func, select
 from sqlalchemy.orm import object_session
 
-from app import limitation
+from app import archives, limitation
 from app.auth import ENSEIGNANT, EnseignantAuthentifie, EnseignantCourant, SessionDB
 from app.config import settings
 from app.db import models
@@ -437,8 +437,10 @@ def exporter_eleve(eleve_id: int, enseignant: EnseignantCourant, session: Sessio
 
 @router.delete("/classes/{classe_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> Response:
-    """Fin d'année : supprime la classe, ses élèves, leurs séances et réponses."""
+    """Fin d'année : supprime la classe, ses élèves, leurs séances et réponses. Le travail des enfants de
+    famille est d'abord archivé sur leur fiche."""
     classe = _ma_classe(session, classe_id, enseignant)
+    archives.archiver_classe(session, classe, archives.par_professeur(enseignant))
     for eleve in classe.eleves:
         inscriptions.delier(session, eleve)  # leurs autres parcours restent, sans ce lien
     session.delete(classe)
@@ -449,8 +451,10 @@ def supprimer_classe(classe_id: int, enseignant: EnseignantCourant, session: Ses
 
 @router.delete("/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_eleve(eleve_id: int, enseignant: EnseignantCourant, session: SessionDB) -> Response:
-    """Droit à l'effacement (RGPD) : supprime l'élève, ses séances et ses réponses."""
+    """Retire l'élève de la classe. Un enfant de famille garde une copie archivée de son travail ; sans enfant,
+    c'est le droit à l'effacement (RGPD) : séances et réponses sont supprimées."""
     eleve = _mon_eleve(session, eleve_id, enseignant)
+    archives.archiver_maths(session, eleve, archives.INSCRIPTION_RETIREE, archives.par_professeur(enseignant))
     inscriptions.delier(session, eleve)
     session.delete(eleve)
     parents.supprimer_orphelins(session)

@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import anglais_contenu, journal, permissions
+from app import archives, anglais_contenu, journal, permissions
 from app.anglais_pdf import produire_pdf
 from app.anglais_pictos import image_svg
 from app.auth import EnseignantAnglais, EnseignantAuthentifie, SessionDB
@@ -375,15 +375,20 @@ def progression_du_groupe(groupe_id: int, enseignant: EnseignantAnglais, session
 
 @router.delete("/groupes/{groupe_id}/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
 def retirer_eleve(groupe_id: int, eleve_id: int, enseignant: EnseignantAnglais, session: SessionDB) -> Response:
-    """Droit à l'effacement (RGPD) : le prénom et la progression sont supprimés, pas archivés."""
-    session.delete(_mon_eleve(session, _mon_groupe(session, groupe_id, enseignant), eleve_id))
+    """Retire l'élève du groupe. Un enfant de famille garde une copie archivée de sa progression ; sans enfant,
+    c'est le droit à l'effacement (RGPD) : prénom et progression sont supprimés."""
+    eleve = _mon_eleve(session, _mon_groupe(session, groupe_id, enseignant), eleve_id)
+    archives.archiver_anglais(session, eleve, archives.INSCRIPTION_RETIREE, archives.par_professeur(enseignant))
+    session.delete(eleve)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete("/groupes/{groupe_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_groupe(groupe_id: int, enseignant: EnseignantAnglais, session: SessionDB) -> Response:
-    """Fin d'année : supprime le groupe et ses élèves."""
-    session.delete(_mon_groupe(session, groupe_id, enseignant))
+    """Fin d'année : supprime le groupe et ses élèves ; le travail des enfants de famille est archivé."""
+    groupe = _mon_groupe(session, groupe_id, enseignant)
+    archives.archiver_groupe(session, groupe, archives.par_professeur(enseignant))
+    session.delete(groupe)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

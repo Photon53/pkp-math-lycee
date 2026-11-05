@@ -8,7 +8,7 @@ from fastapi import APIRouter, Body, HTTPException, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from app import import_familles, inscriptions, journal, parents
+from app import archives, import_familles, inscriptions, journal, parents
 from app.auth import AdminCourant, SessionDB
 from app.db import models
 
@@ -157,6 +157,7 @@ def supprimer_classes(corps: Suppression, admin: AdminCourant, session: SessionD
     journal.noter(session, admin, "supprimer-en-masse", "classe", None,
                   avant={"codes": [c.code for c in choisies], "eleves": sum(len(c.eleves) for c in choisies)})
     for classe in choisies:
+        archives.archiver_classe(session, classe, archives.par_admin(admin))
         for eleve in classe.eleves:
             inscriptions.delier(session, eleve)
         session.delete(classe)
@@ -173,6 +174,7 @@ def supprimer_groupes(corps: Suppression, admin: AdminCourant, session: SessionD
     journal.noter(session, admin, "supprimer-en-masse", "groupe_anglais", None,
                   avant={"noms": [g.nom for g in choisis], "eleves": sum(len(g.eleves) for g in choisis)})
     for groupe in choisis:
+        archives.archiver_groupe(session, groupe, archives.par_admin(admin))
         session.delete(groupe)
     session.commit()
     return ResultatMasse(traites=len(choisis))

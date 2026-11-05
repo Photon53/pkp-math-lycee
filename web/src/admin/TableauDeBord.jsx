@@ -72,7 +72,7 @@ function Contenu({ stats }) {
     <>
       <div className="kpis">
         <Kpi icone="professeurs" libelle="Professeurs actifs" valeur={stats.professeurs_actifs} sous={`sur ${stats.professeurs_total}`} />
-        <Kpi icone="eleve" libelle="Élèves actifs" valeur={stats.eleves_actifs} sous={`sur ${stats.eleves_total} inscrits`} />
+        <Kpi icone="eleve" libelle="Élèves actifs" valeur={stats.eleves_actifs} sous={`sur ${stats.eleves_total} élèves`} />
         <Kpi icone="exercices" libelle="Réponses" valeur={stats.reponses.toLocaleString("fr-FR")} sous={`${stats.seances} séances`} />
         <Kpi icone="ok" libelle="Taux de réussite" valeur={pourcentage(stats.taux_reussite)} sous="toutes questions confondues" />
       </div>

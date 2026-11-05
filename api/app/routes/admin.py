@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import anglais_contenu, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
+from app import archives, anglais_contenu, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, FiltreDomaine, SessionDB
 from app.config import settings
 from app.db import models
@@ -372,6 +372,7 @@ def deplacer(eleve_id: int, corps: Deplacement, admin: AdminCourant, session: Se
 def supprimer_eleve(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
     eleve = _eleve(session, eleve_id)
     journal.noter(session, admin, "supprimer", "eleve", eleve.id, avant={"prenom": eleve.prenom, "classe": eleve.classe.code})
+    archives.archiver_maths(session, eleve, archives.INSCRIPTION_RETIREE, archives.par_admin(admin))
     inscriptions.delier(session, eleve)  # ses autres parcours restent ; un enfant de famille garde sa carte
     session.delete(eleve)
     parents.supprimer_orphelins(session)
@@ -678,6 +679,7 @@ def supprimer_groupe_anglais(groupe_id: int, admin: AdminCourant, session: Sessi
     groupe = _groupe_anglais(session, groupe_id)
     journal.noter(session, admin, "supprimer", "groupe_anglais", groupe.id,
                   avant={"nom": groupe.nom, "niveau": groupe.niveau, "eleves": len(groupe.eleves)})
+    archives.archiver_groupe(session, groupe, archives.par_admin(admin))
     session.delete(groupe)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
@@ -685,11 +687,13 @@ def supprimer_groupe_anglais(groupe_id: int, admin: AdminCourant, session: Sessi
 
 @router.delete("/anglais/eleves/{eleve_id}", status_code=status.HTTP_204_NO_CONTENT)
 def supprimer_eleve_anglais(eleve_id: int, admin: AdminCourant, session: SessionDB) -> Response:
-    """Droit à l'effacement (RGPD) : le prénom est supprimé, l'action est journalisée."""
+    """Retire l'élève du groupe, action journalisée. Un enfant de famille garde une copie archivée de sa
+    progression ; sans enfant, c'est le droit à l'effacement (RGPD)."""
     eleve = session.get(models.EleveAnglais, eleve_id)
     if eleve is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Élève introuvable.")
     journal.noter(session, admin, "supprimer", "eleve_anglais", eleve.id, avant={"prenom": eleve.prenom, "groupe": eleve.groupe.nom})
+    archives.archiver_anglais(session, eleve, archives.INSCRIPTION_RETIREE, archives.par_admin(admin))
     session.delete(eleve)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
