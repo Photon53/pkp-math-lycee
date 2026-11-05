@@ -6,7 +6,8 @@ import Icone from "../ui/Icone.jsx";
 import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
-import { GererClasse, ListeEnfants, parcoursCourt } from "./GestionClasses.jsx";
+import { GererClasse, parcoursCourt } from "./GestionClasses.jsx";
+import Repertoire from "./Repertoire.jsx";
 
 /** Vue transverse des élèves et des classes (EA3.7 à EA3.10). Les élèves sont créés avec leur famille
  * (écran Familles) ; ici, l'administrateur crée des classes pour les professeurs. */
@@ -22,12 +23,12 @@ export default function Eleves({ jeton, onExpire, domaine = "" }) {
         valeur={onglet}
         onChange={setOnglet}
         options={[
-          ["enfants", "Enfants des familles"],
+          ["enfants", "Tous les élèves"],
           ["inscriptions", "Inscriptions en classe"],
           ["classes", "Classes"],
         ]}
       />
-      {onglet === "enfants" && <ListeEnfants appeler={appeler} erreur={erreur} />}
+      {onglet === "enfants" && <Repertoire appeler={appeler} erreur={erreur} domaine={domaine} />}
       {onglet === "inscriptions" && <ListeEleves jeton={jeton} onExpire={onExpire} domaine={domaine} />}
       {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} domaine={domaine} />}
     </>

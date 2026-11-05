@@ -209,6 +209,9 @@ class Parent(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(254), unique=True)
+    # Nom et prénom du responsable légal (V3, Lot 1) : facultatifs, vides pour les comptes existants.
+    nom: Mapped[str] = mapped_column(String(50), default="", server_default="")
+    prenom: Mapped[str] = mapped_column(String(50), default="", server_default="")
     mot_de_passe_hash: Mapped[str] = mapped_column(String(255))
     # Donné par le professeur ou un administrateur : à changer avant tout autre usage.
     mdp_provisoire: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())

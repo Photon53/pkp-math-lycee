@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
-from app.referentiel import LIBELLES_PARCOURS
+from app.referentiel import LIBELLES_PARCOURS, est_principal
 from app.security import generer_code_eleve, generer_identifiant, hacher_code_eleve
 
 MAX_ENFANTS_PAR_FAMILLE = 8
@@ -163,6 +163,7 @@ def inscriptions_maths(enfant: models.Enfant, actives_seulement: bool = True):
         InscriptionMaths(
             eleve_id=e.id, code_classe=e.classe.code, niveau=e.classe.niveau, parcours=e.classe.parcours,
             libelle_parcours=libelle_parcours(e.classe), enseignant=e.classe.enseignant.nom,
+            principal=est_principal(e.classe.parcours),
         )
         for e in sorted(enfant.inscriptions, key=lambda e: e.classe.code)
         if not actives_seulement or e.classe.enseignant.actif

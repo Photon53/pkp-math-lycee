@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { GererClasse, ListeEnfants } from "../admin/GestionClasses.jsx";
+import { GererClasse } from "../admin/GestionClasses.jsx";
 import { api } from "../api.js";
 import { fausseApi } from "./setup.js";
 
@@ -68,38 +68,5 @@ describe("administrateur : gérer une classe", () => {
     await userEvent.click(bouton);
     await vi.waitFor(() => expect(onFermer).toHaveBeenCalled());
     expect(onChange).toHaveBeenCalledWith("Classe 2NDE-EXC-42JJJ supprimée.");
-  });
-});
-
-describe("administrateur : enfants des familles", () => {
-  it("montre les enfants inscrits nulle part et les inscrit dans une classe de leur niveau", async () => {
-    let enfants = [
-      { id: 7, prenom: "Noé", nom: "Durand", niveau: "2nde", identifiant: "noe-p2q3", a_un_code: true, derniere_connexion: null, maths: [], anglais: [] },
-    ];
-    const appels = fausseApi({
-      "GET /admin/enfants?": () => ({ json: enfants }),
-      "GET /admin/enfants?sans_classe=true": () => ({ json: enfants.filter((e) => !e.maths.length) }),
-      "GET /admin/classes": {
-        json: [
-          { ...CLASSE, id: 1, code: "2NDE-TC-AAAAA", parcours: "tronc-commun" },
-          { ...CLASSE, id: 2, code: "1RE-SPE-BBBBB", niveau: "1re", parcours: "specialite" },
-        ],
-      },
-      "POST /admin/classes/1/enfants": () => {
-        enfants = [{ ...enfants[0], maths: [{ eleve_id: 30, code_classe: "2NDE-TC-AAAAA" }] }];
-        return { json: { ajoutes: ["Noé Durand"], refus: [] } };
-      },
-    });
-    render(<ListeEnfants appeler={appeler} />);
-    expect(await screen.findByText("Noé Durand")).toBeInTheDocument();
-    expect(screen.getByText("Sans classe")).toBeInTheDocument();
-    const choix = screen.getByLabelText("Inscrire Noé Durand dans une classe");
-    expect(within(choix).queryByText(/1RE-SPE/)).not.toBeInTheDocument(); // autre niveau
-    await userEvent.selectOptions(choix, "1");
-    expect(await screen.findByText("Inscription faite : Noé Durand.")).toBeInTheDocument();
-    expect(appels.find((a) => a.cle === "POST /admin/classes/1/enfants").corps).toEqual({ enfant_ids: [7] });
-
-    await userEvent.click(screen.getByLabelText(/Seulement les enfants inscrits nulle part/));
-    expect(await screen.findByText("Aucun enfant ne correspond.")).toBeInTheDocument();
   });
 });

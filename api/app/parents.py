@@ -87,6 +87,8 @@ def vue(parent: models.Parent, enseignant_id: int | None = None) -> ParentVue:
     return ParentVue(
         id=parent.id,
         email=parent.email,
+        nom=parent.nom,
+        prenom=parent.prenom,
         mdp_provisoire=parent.mdp_provisoire,
         derniere_connexion=parent.derniere_connexion,
         enfants=sorted(f"{e.prenom} ({e.classe.code})" for e in visibles),

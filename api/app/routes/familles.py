@@ -7,7 +7,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Response, status
 from pkp_engine import Niveau
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import select
 
 from app import archives, enfants, inscriptions, journal, parents
@@ -32,6 +32,7 @@ from app.schemas import (
     EnfantFamille,
     EnfantModification,
     EnfantSaisi,
+    IdentiteResponsable,
     NouvelleCarte,
     ParentCreation,
     ParentVue,
@@ -51,7 +52,7 @@ LISTE_SANS_RECHERCHE = 40
 # --- Administrateur : familles et enfants ----------------------------------------------------------
 
 
-class FamilleNouvelle(ParentCreation):
+class FamilleNouvelle(ParentCreation, IdentiteResponsable):
     enfants: Annotated[list[EnfantSaisi], Field(min_length=1, max_length=enfants.MAX_ENFANTS_PAR_FAMILLE)]
 
 
@@ -96,6 +97,7 @@ def creer_famille(corps: FamilleNouvelle, admin: AdminCourant, session: SessionD
         parent = models.Parent(email=corps.email, mot_de_passe_hash="", mdp_provisoire=True)
         provisoire = parents.reinitialiser(parent)
         session.add(parent)
+    _completer_identite(parent, corps)
     if len(parent.famille) + len(corps.enfants) > enfants.MAX_ENFANTS_PAR_FAMILLE:
         raise HTTPException(422, f"Une famille compte au plus {enfants.MAX_ENFANTS_PAR_FAMILLE} enfants.")
     cartes = []
@@ -141,17 +143,42 @@ def rattacher_enfant(parent_id: int, enfant_id: int, admin: AdminCourant, sessio
 
 
 class ParentModification(ParentCreation):
-    """Correction de l'adresse e-mail du compte (identifiant de connexion du parent)."""
+    """Correction de l'adresse e-mail du compte (identifiant de connexion du parent) et, si fournis, du nom et du
+    prénom du responsable légal."""
+
+    nom: str | None = None
+    prenom: str | None = None
+
+    @field_validator("nom", "prenom")
+    @classmethod
+    def _identite(cls, v: str | None) -> str | None:
+        return None if v is None else IdentiteResponsable(nom=v).nom
+
+
+def _completer_identite(parent: models.Parent, saisie: IdentiteResponsable) -> None:
+    """Le nom et le prénom saisis complètent le compte ; un champ laissé vide ne remplace rien."""
+    if saisie.nom:
+        parent.nom = saisie.nom
+    if saisie.prenom:
+        parent.prenom = saisie.prenom
 
 
 @router.patch("/admin/parents/{parent_id}", response_model=ParentVue)
 def modifier_parent(parent_id: int, corps: ParentModification, admin: AdminCourant, session: SessionDB) -> ParentVue:
     parent = _parent(session, parent_id)
-    if corps.email != parent.email:
-        if session.scalar(select(models.Parent.id).where(models.Parent.email == corps.email)):
-            raise HTTPException(status.HTTP_409_CONFLICT, "Un autre compte parent utilise déjà cette adresse.")
-        journal.noter(session, admin, "modifier", "parent", parent.id, avant={"email": parent.email}, apres={"email": corps.email})
-        parent.email = corps.email
+    if corps.email != parent.email and session.scalar(select(models.Parent.id).where(models.Parent.email == corps.email)):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Un autre compte parent utilise déjà cette adresse.")
+    avant = {"email": parent.email, "nom": parent.nom, "prenom": parent.prenom}
+    parent.email = corps.email
+    if corps.nom is not None:
+        parent.nom = corps.nom
+    if corps.prenom is not None:
+        parent.prenom = corps.prenom
+    apres = {"email": parent.email, "nom": parent.nom, "prenom": parent.prenom}
+    if apres != avant:
+        changes = [k for k in avant if avant[k] != apres[k]]
+        journal.noter(session, admin, "modifier", "parent", parent.id,
+                      avant={k: avant[k] for k in changes}, apres={k: apres[k] for k in changes})
         session.commit()
     return parents.vue(parent)
 

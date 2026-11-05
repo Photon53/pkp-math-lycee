@@ -7,7 +7,7 @@ from pkp_engine import Forme, Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import Adaptation, Parcours, Role, StatutValidation
-from app.schemas import ParentCreation
+from app.schemas import EnfantFamille, ParentCreation
 
 TAILLE_PAGE = 50
 
@@ -156,6 +156,8 @@ class EnfantRattache(BaseModel):
 class FamilleAdmin(BaseModel):
     id: int
     email: str
+    nom: str = ""
+    prenom: str = ""
     mdp_provisoire: bool
     cree_le: datetime
     derniere_connexion: datetime | None
@@ -545,3 +547,86 @@ class ResultatRecherche(BaseModel):
     libelle: str
     detail: str | None = None
     vers: str
+
+
+# --- Répertoire des élèves (V3, Lot 1) --------------------------------------------------------
+
+
+class ResponsableResume(BaseModel):
+    id: int
+    email: str
+    nom: str
+    prenom: str
+    mdp_provisoire: bool
+    bloque: bool
+    derniere_connexion: datetime | None
+
+
+class EnfantRepertoire(EnfantFamille):
+    cree_le: datetime
+    responsables: list[ResponsableResume]
+    alertes: list[str]
+
+
+class PageRepertoire(BaseModel):
+    total: int
+    elements: list[EnfantRepertoire]
+
+
+class SuiviMaths(BaseModel):
+    eleve_id: int
+    code_classe: str
+    niveau: Niveau
+    parcours: Parcours
+    libelle_parcours: str
+    principal: bool
+    enseignant: str
+    inscrit_le: datetime
+    seances: int
+    reponses: int
+    taux_reussite: float | None
+    derniere_activite: datetime | None
+
+
+class SuiviAnglais(BaseModel):
+    eleve_id: int
+    groupe: str
+    niveau: str
+    enseignant: str
+    inscrit_le: datetime
+    seances: int
+    derniere_activite: datetime | None
+
+
+class EntreeHistoriqueEleve(BaseModel):
+    le: datetime
+    admin: str | None
+    action: str
+    objet: str
+    avant: dict | None
+    apres: dict | None
+
+
+class FicheEleve(BaseModel):
+    eleve: EnfantRepertoire
+    maths: list[SuiviMaths]
+    anglais: list[SuiviAnglais]
+    archives: list["ArchiveResume"]
+    historique: list[EntreeHistoriqueEleve]
+
+
+class ChangementNiveau(BaseModel):
+    ids: Annotated[list[int], Field(min_length=1, max_length=500)]
+    niveau: Niveau
+
+
+class ResponsableRattache(BaseModel):
+    responsable: ResponsableResume
+    cree: bool
+    mot_de_passe_provisoire: str | None = None
+
+
+from app.schemas import ArchiveResume  # noqa: E402  (référence avant de FicheEleve)
+
+FicheEleve.model_rebuild()
+
