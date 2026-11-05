@@ -14,7 +14,7 @@ from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
 from sqlalchemy import select
 
 from app import exemplaires, inscriptions, limitation, permissions
-from app.auth import ELEVE, EleveCourant, SessionDB
+from app.auth import CARTE_BLOQUEE, ELEVE, EleveCourant, SessionDB, carte_bloquee
 from app.config import settings
 from app.db import models
 from app.db.conversions import historique_eleve
@@ -112,6 +112,8 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
         limitation.echecs_code_eleve.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_CONNEXION)
     limitation.echecs_code_eleve.effacer(compte)
+    if carte_bloquee(eleve):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
     if not classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
     version = version_mot_de_passe(eleve.code_hash)
@@ -151,6 +153,8 @@ def connexion_identifiant(corps: ConnexionIdentifiant, request: Request, session
         limitation.echecs_code_eleve.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_IDENTIFIANT)
     limitation.echecs_code_eleve.effacer(compte)
+    if carte_bloquee(eleve):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, CARTE_BLOQUEE)
     if not eleve.classe.enseignant.actif:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Le compte de ton professeur est suspendu.")
     duree_h = settings.duree_jeton_eleve_longue_j * 24 if corps.rester_connecte else settings.duree_jeton_eleve_h

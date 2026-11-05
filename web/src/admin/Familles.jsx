@@ -3,13 +3,16 @@ import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Modale, Pagination, Vide, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { EnfantsDeLaFamille, FamilleCreee, NouvelleFamille } from "./EnfantsFamille.jsx";
+import ImportFamilles from "./ImportFamilles.jsx";
 
 const nomEnfant = (e) => `${e.prenom} (${e.classe})`;
 
-/** Familles (CDC V2, EA.8 à EA.12) : recherche par e-mail ou par classe — jamais de liste complète —,
- * création, rattachement et détachement des enfants, historique, mot de passe oublié, suppression. */
+/** Familles (CDC V2, EA.8 à EA.12) : liste filtrable, création une par une ou en masse (fichier Excel),
+ * rattachement et détachement des enfants, historique, mot de passe oublié, blocage et suppression (aussi
+ * par cases à cocher). */
 export default function Familles({ jeton, onExpire, domaine = "" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [recherche, setRecherche] = useState(() => parametre("q"));
@@ -19,6 +22,7 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
   const [resultats, setResultats] = useState(null);
   const [fenetre, setFenetre] = useState(null); // { genre: "nouveau" | "famille" | "secret", ... }
   const [message, setMessage] = useState(null);
+  const selection = useSelection();
 
   useEffect(() => {
     appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {});
@@ -36,6 +40,18 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
     const minuterie = setTimeout(charger, 250);
     return () => clearTimeout(minuterie);
   }, [charger]);
+
+  async function bloquer(bloque) {
+    setMessage(null);
+    try {
+      const r = await appeler("/admin/parents/blocage", { methode: "POST", corps: { ids: selection.ids, bloque } });
+      setMessage(bloque ? `${r.traites} compte(s) parent bloqué(s) : connexion suspendue.` : `${r.traites} compte(s) parent débloqué(s).`);
+      selection.vider();
+      charger();
+    } catch {
+      // erreur déjà affichée
+    }
+  }
 
   function montrerSecret(email, secret) {
     setFenetre({ genre: "secret", email, secret });
@@ -79,12 +95,18 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
             <button onClick={() => setFenetre({ genre: "famille-nouvelle" })}>
               <Icone nom="plus" taille={18} /> Nouvelle famille
             </button>
+            <button className="secondaire" onClick={() => setFenetre({ genre: "import" })}>
+              <Icone nom="telecharger" taille={18} /> Importer (Excel)
+            </button>
             <button className="secondaire" onClick={() => setFenetre({ genre: "nouveau" })}>
               Parent d'un élève déjà inscrit
             </button>
           </div>
         </div>
-        <p className="aide">Les familles les plus récentes en premier ; filtrez par e-mail ou par la classe d'un enfant.</p>
+        <p className="aide">
+          Les familles les plus récentes en premier ; filtrez par e-mail ou par la classe d'un enfant. Cochez des familles pour
+          les bloquer temporairement ou les supprimer ensemble.
+        </p>
         {message && (
           <p className="succes" role="status">
             {message}
@@ -95,10 +117,16 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
         {resultats?.total > 0 && (
           <>
             <p className="doux petit">{resultats.total} compte(s) parent</p>
+            <BarreSelection selection={selection} noms={["famille", "familles"]}>
+              <button className="secondaire petit" onClick={() => bloquer(true)}>Bloquer</button>
+              <button className="secondaire petit" onClick={() => bloquer(false)}>Débloquer</button>
+              <button className="danger petit" onClick={() => setFenetre({ genre: "suppression" })}>Supprimer</button>
+            </BarreSelection>
             <div className="tableau-defilant">
               <table>
                 <thead>
                   <tr>
+                    <CaseTout selection={selection} ids={resultats.elements.map((p) => p.id)} libelle="Sélectionner toutes les familles de la page" />
                     <th>E-mail</th>
                     <th>Enfants suivis</th>
                     <th>Dernière connexion</th>
@@ -110,7 +138,10 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
                 <tbody>
                   {resultats.elements.map((p) => (
                     <tr key={p.id}>
-                      <td>{p.email}</td>
+                      <CaseLigne selection={selection} id={p.id} libelle={`Sélectionner ${p.email}`} />
+                      <td>
+                        {p.email} {p.bloque && <span className="badge alerte insecable">Bloqué</span>}
+                      </td>
                       <td>{[...(p.famille ?? []), ...p.enfants.map(nomEnfant)].join(", ")}</td>
                       <td>{p.mdp_provisoire ? <span className="badge alerte">Mot de passe provisoire</span> : formaterDate(p.derniere_connexion)}</td>
                       <td className="nombre">
@@ -128,6 +159,33 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
         )}
       </section>
 
+      {fenetre?.genre === "import" && (
+        <ImportFamilles
+          jeton={jeton}
+          onExpire={onExpire}
+          onFermer={() => {
+            setFenetre(null);
+            charger();
+          }}
+          onImporte={() => charger()}
+        />
+      )}
+      {fenetre?.genre === "suppression" && (
+        <SuppressionFamilles
+          nombre={selection.nombre}
+          onFermer={() => setFenetre(null)}
+          onConfirmer={async (confirmation, avecEnfants) => {
+            const r = await appeler("/admin/parents/suppression", {
+              methode: "POST",
+              corps: { ids: selection.ids, confirmation, avec_enfants: avecEnfants },
+            });
+            setFenetre(null);
+            setMessage(`${r.traites} famille(s) supprimée(s)${avecEnfants ? ", avec leurs enfants" : " ; les enfants sont conservés"}.`);
+            selection.vider();
+            charger();
+          }}
+        />
+      )}
       {fenetre?.genre === "famille-nouvelle" && (
         <NouvelleFamille
           appeler={appeler}
@@ -193,6 +251,23 @@ export default function Familles({ jeton, onExpire, domaine = "" }) {
         </Modale>
       )}
     </>
+  );
+}
+
+function SuppressionFamilles({ nombre, onFermer, onConfirmer }) {
+  const [avecEnfants, setAvecEnfants] = useState(false);
+  return (
+    <ConfirmationSuppression
+      titre={`Supprimer ${nombre} famille(s)`}
+      onFermer={onFermer}
+      onConfirmer={(confirmation) => onConfirmer(confirmation, avecEnfants)}
+    >
+      <p>Les comptes parents sélectionnés seront supprimés (RGPD).</p>
+      <label className="case">
+        <input type="checkbox" checked={avecEnfants} onChange={(e) => setAvecEnfants(e.target.checked)} /> Supprimer aussi leurs
+        enfants (cartes, inscriptions, séances et réponses), sauf ceux qu'un autre parent suit encore
+      </label>
+    </ConfirmationSuppression>
   );
 }
 

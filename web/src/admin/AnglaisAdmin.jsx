@@ -5,6 +5,7 @@ import { useApi } from "../enseignant/useApi.js";
 import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import { Modale, Vide } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
+import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import SeancesAnglaisAdmin from "./SeancesAnglaisAdmin.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
@@ -40,6 +41,8 @@ function Groupes({ jeton, onExpire, domaine }) {
   const [creation, setCreation] = useState(false);
   const [transfert, setTransfert] = useState(null);
   const [message, setMessage] = useState(null);
+  const [suppression, setSuppression] = useState(false);
+  const selection = useSelection();
 
   const charger = useCallback(
     () => appeler(avecDomaine("/admin/anglais/groupes", domaine)).then(setGroupes, () => {}),
@@ -86,11 +89,33 @@ function Groupes({ jeton, onExpire, domaine }) {
       <Erreur message={erreur} />
       {groupes === null && <p className="doux">Chargement…</p>}
       {groupes?.length === 0 && <Vide icone="classes">Aucun groupe d'anglais.</Vide>}
+      {suppression && (
+        <ConfirmationSuppression
+          titre={`Supprimer ${selection.nombre} groupe(s) d'anglais`}
+          onFermer={() => setSuppression(false)}
+          onConfirmer={async (confirmation) => {
+            const r = await appeler("/admin/anglais/groupes/suppression", { methode: "POST", corps: { ids: selection.ids, confirmation } });
+            setSuppression(false);
+            setMessage(`${r.traites} groupe(s) supprimé(s). Les enfants des familles et leurs autres inscriptions sont conservés.`);
+            selection.vider();
+            charger();
+          }}
+        >
+          <p>
+            Groupes : {groupes.filter((g) => selection.choisis.has(g.id)).map((g) => g.nom).join(", ")}. Le travail d'anglais de
+            leurs élèves est effacé ; les enfants des familles restent.
+          </p>
+        </ConfirmationSuppression>
+      )}
+      <BarreSelection selection={selection} noms={["groupe", "groupes"]}>
+        <button className="danger petit" onClick={() => setSuppression(true)}>Supprimer</button>
+      </BarreSelection>
       {groupes?.length > 0 && (
         <div className="tableau-defilant">
           <table>
             <thead>
               <tr>
+                <CaseTout selection={selection} ids={groupes.map((g) => g.id)} libelle="Sélectionner tous les groupes" />
                 <th>Groupe</th>
                 <th>Niveau</th>
                 <th>Professeur</th>
@@ -102,6 +127,7 @@ function Groupes({ jeton, onExpire, domaine }) {
               {groupes.map((g) => (
                 <Fragment key={g.id}>
                   <tr>
+                    <CaseLigne selection={selection} id={g.id} libelle={`Sélectionner le groupe ${g.nom}`} />
                     <td>{g.nom}</td>
                     <td>{g.niveau}</td>
                     <td>{g.enseignant}</td>

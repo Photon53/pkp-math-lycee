@@ -13,7 +13,7 @@ from fastapi import APIRouter, HTTPException, Request, status
 from sqlalchemy import select
 
 from app import enfants as enfants_famille, inscriptions, limitation, parents
-from app.auth import PARENT, ParentAuthentifie, ParentCourant, SessionDB
+from app.auth import COMPTE_PARENT_BLOQUE, PARENT, ParentAuthentifie, ParentCourant, SessionDB
 from app.config import settings
 from app.db import models
 from app.progression import historique_reponses
@@ -69,6 +69,8 @@ def connexion(corps: ConnexionEnseignant, request: Request, session: SessionDB) 
         limitation.echecs_enseignant.enregistrer(compte)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "E-mail ou mot de passe incorrect.")
     limitation.echecs_enseignant.effacer(compte)
+    if parent.bloque_le is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, COMPTE_PARENT_BLOQUE)
     if doit_rehacher(parent.mot_de_passe_hash):
         parent.mot_de_passe_hash = hacher_mot_de_passe(corps.mot_de_passe)
     parent.derniere_connexion = datetime.now(UTC)

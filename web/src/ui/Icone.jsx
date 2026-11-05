@@ -14,6 +14,7 @@ const TRACES = {
   bouclier: "M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z",
   menu: "M4 6h16M4 12h16M4 18h16",
   plus: "M12 5v14M5 12h14",
+  telecharger: "M12 4v11M7 10l5 5 5-5M5 20h14",
   recherche: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14M20 20l-4-4",
   ecran: "M3 5h18v11H3zM8 20h8M12 16v4",
   imprimer: "M7 9V3h10v6M7 17H5a1 1 0 0 1-1-1v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a1 1 0 0 1-1 1h-2M7 14h10v7H7z",

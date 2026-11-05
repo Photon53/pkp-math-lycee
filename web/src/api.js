@@ -57,6 +57,26 @@ export async function envoyerPdf(chemin, fichier, jeton) {
   return reponse.json();
 }
 
+/** Envoie un fichier brut en POST (ex. classeur Excel) et renvoie la réponse JSON. */
+export async function envoyerFichier(chemin, fichier, jeton, type) {
+  const reponse = await envoyer(chemin, {
+    methode: "POST",
+    entetes: { "Content-Type": type, Authorization: `Bearer ${jeton}` },
+    corps: fichier,
+  });
+  await erreurSiEchec(reponse);
+  return reponse.json();
+}
+
+/** Télécharge un fichier protégé (en-tête Authorization) et l'enregistre sous `nom`. */
+export async function telechargerFichier(chemin, jeton, nom) {
+  const reponse = await envoyer(chemin, { methode: "GET", entetes: { Authorization: `Bearer ${jeton}` } });
+  await erreurSiEchec(reponse);
+  const url = URL.createObjectURL(await reponse.blob());
+  Object.assign(document.createElement("a"), { href: url, download: nom }).click();
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
 /**
  * Ouvre un PDF protégé dans un nouvel onglet : le jeton ne peut pas voyager dans un simple lien,
  * on télécharge donc le fichier avec l'en-tête Authorization puis on l'ouvre localement.

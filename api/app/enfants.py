@@ -186,6 +186,7 @@ def decrire(enfant: models.Enfant):
         id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
         a_un_code=enfant.code_hash is not None, derniere_connexion=enfant.derniere_connexion,
         maths=inscriptions_maths(enfant, actives_seulement=False), anglais=inscriptions_anglais(enfant, False),
+        bloque=enfant.bloque_le is not None,
     )
 
 

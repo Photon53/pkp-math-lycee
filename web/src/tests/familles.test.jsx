@@ -54,6 +54,79 @@ describe("familles", () => {
   });
 });
 
+describe("familles : actions en masse", () => {
+  const ligne = (n, enfant, erreurs = []) => ({ ligne: n, enfant, niveau: "2nde", parents: ["a@x.fr"], inscriptions: [], erreurs, deja_present: false });
+  const rapport = (lignes, autres = {}) => ({
+    simulation: true, lignes, nb_enfants: lignes.filter((l) => !l.erreurs.length).length, nb_deja_presents: 0,
+    nb_comptes_nouveaux: 1, nb_erreurs: lignes.filter((l) => l.erreurs.length).length, cartes: [], comptes: [], ...autres,
+  });
+
+  it("vérifie le fichier Excel, signale les lignes à corriger, puis importe et donne cartes et mots de passe", async () => {
+    let essai = 0;
+    const appels = fausseApi({
+      "GET /admin/classes": { json: [] },
+      "GET /admin/parents?page=1": { json: { total: 0, elements: [] } },
+      "POST /admin/import?simulation=true": () =>
+        ++essai === 1
+          ? { json: rapport([ligne(2, "Inès Durand"), ligne(3, "Léa", ["Niveau « CM2 » inconnu (6e, 5e, 4e, 3e, 2nde, 1re ou Tle)."])]) }
+          : { json: rapport([ligne(2, "Inès Durand")]) },
+      "POST /admin/import?simulation=false": {
+        json: rapport([ligne(2, "Inès Durand")], {
+          simulation: false,
+          cartes: [{ id: 5, prenom: "Inès", nom: "Durand", niveau: "2nde", identifiant: "ines-ab12", code: "CODE-1234", famille: "a@x.fr" }],
+          comptes: [{ email: "a@x.fr", mot_de_passe_provisoire: "mdp-provisoire-1" }],
+        }),
+      },
+    });
+    render(<Familles jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(await screen.findByRole("button", { name: /Importer \(Excel\)/ }));
+    const fenetre = screen.getByRole("dialog");
+    const fichier = new File(["xlsx"], "eleves.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    await userEvent.upload(within(fenetre).getByLabelText("Fichier rempli (.xlsx)"), fichier);
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Vérifier le fichier" }));
+    expect(await within(fenetre).findByText(/1 ligne\(s\) à corriger/)).toBeInTheDocument();
+    expect(within(fenetre).getByText(/Niveau « CM2 » inconnu/)).toBeInTheDocument();
+    expect(within(fenetre).getByRole("button", { name: /Importer 1 élève/ })).toBeDisabled();
+    expect(appels.find((a) => a.cle === "POST /admin/import?simulation=true").corps).toBe(fichier);
+
+    await userEvent.click(within(fenetre).getByRole("button", { name: "Vérifier le fichier" }));
+    await userEvent.click(await within(fenetre).findByRole("button", { name: /Importer 1 élève/ }));
+    const fin = await screen.findByRole("dialog", { name: "Import terminé" });
+    expect(within(fin).getByText("mdp-provisoire-1")).toBeInTheDocument();
+    expect(within(fin).getByText("CODE-1234")).toBeInTheDocument();
+  });
+
+  it("bloque et supprime plusieurs familles cochées", async () => {
+    const appels = fausseApi({
+      "GET /admin/classes": { json: [] },
+      "GET /admin/parents?page=1": {
+        json: { total: 2, elements: [{ ...famille([]), famille: ["Inès (2nde)"] }, { ...famille([]), id: 8, email: "autre@exemple.fr", bloque: true }] },
+      },
+      "POST /admin/parents/blocage": { json: { traites: 2 } },
+      "POST /admin/parents/suppression": { json: { traites: 2 } },
+    });
+    render(<Familles jeton="j" onExpire={vi.fn()} />);
+    expect(await screen.findByText("Bloqué")).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText("Sélectionner toutes les familles de la page"));
+    expect(screen.getByText("Sélection : 2 familles")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Bloquer" }));
+    expect(appels.find((a) => a.cle === "POST /admin/parents/blocage").corps).toEqual({ ids: [7, 8], bloque: true });
+    expect(await screen.findByText(/2 compte\(s\) parent bloqué\(s\)/)).toBeInTheDocument();
+
+    await userEvent.click(screen.getByLabelText("Sélectionner parent@exemple.fr"));
+    await userEvent.click(screen.getByLabelText("Sélectionner autre@exemple.fr"));
+    await userEvent.click(screen.getByRole("button", { name: "Supprimer" }));
+    const fenetre = screen.getByRole("dialog");
+    const confirmer = within(fenetre).getByRole("button", { name: "Supprimer définitivement" });
+    expect(confirmer).toBeDisabled();
+    await userEvent.click(within(fenetre).getByLabelText(/Supprimer aussi leurs enfants/));
+    await userEvent.type(within(fenetre).getByLabelText(/saisissez SUPPRIMER/), "supprimer");
+    await userEvent.click(confirmer);
+    expect(appels.find((a) => a.cle === "POST /admin/parents/suppression").corps).toEqual({ ids: [7, 8], confirmation: "supprimer", avec_enfants: true });
+    expect(await screen.findByText(/2 famille\(s\) supprimée\(s\), avec leurs enfants/)).toBeInTheDocument();
+  });
+});
+
 describe("configuration", () => {
   it("ouvre un domaine aux élèves seulement s'il est activé", async () => {
     const domaine = { code: "anglais-lycee", libelle: "Anglais lycée", niveaux: ["2nde"], actif: false, public: false, nb_professeurs: 0, nb_validateurs: 0 };

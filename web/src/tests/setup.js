@@ -25,7 +25,7 @@ export function fausseApi(routesDuTest) {
   const appels = [];
   const fetch = vi.fn(async (url, { method = "GET", body } = {}) => {
     const cle = `${method} ${url.replace(/^\/api/, "")}`;
-    const corps = body ? JSON.parse(body) : undefined;
+    const corps = typeof body === "string" ? JSON.parse(body) : body; // fichier envoyé brut (import Excel)
     appels.push({ cle, corps });
     let route = routes[cle];
     if (typeof route === "function") route = route(corps);

@@ -666,6 +666,7 @@ class EnfantFamille(BaseModel):
     a_un_code: bool
     derniere_connexion: datetime | None
     maths: list[InscriptionMaths]
+    bloque: bool = False
     anglais: list[InscriptionAnglais]
 
 
