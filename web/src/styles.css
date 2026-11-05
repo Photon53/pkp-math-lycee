@@ -288,35 +288,89 @@ fieldset.choix-chapitres label.case { margin: 6px 0; }
 .accueil-hero { padding: 40px 0 24px; }
 .accueil-hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); max-width: 18ch; }
 .accueil-hero p { font-size: 1.125rem; color: var(--texte-doux); max-width: 56ch; }
-.choix-espace { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
-.choix-espace a {
-  display: flex; flex-direction: column; gap: 8px; padding: 24px; text-decoration: none; color: var(--texte);
-  background: var(--surface); border: 1px solid var(--bordure); border-radius: var(--rayon); box-shadow: var(--ombre);
-  transition: border-color 0.15s, transform 0.15s;
+.accueil-hero .actions { flex-wrap: wrap; }
+.accueil > section { margin-bottom: 40px; }
+.accueil > section > h2 { font-size: var(--t-xl); }
+
+/* Une entrée par profil : le profil en titre, puis un bouton par espace. */
+.profils { list-style: none; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.profils .carte { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.profil h3 { margin: 0; font-size: var(--t-l); color: var(--primaire); }
+.profil p { margin: 0; }
+.profil svg { color: var(--action); }
+.profil-liens { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.profil-liens .bouton { flex: 1 1 auto; text-align: center; }
+.profil-aide { font-size: var(--t-s); }
+
+/* Chiffres clés : bandeau sur fond doux, lu comme une liste. */
+.chiffres-cles {
+  list-style: none; margin: 0; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px;
+  background: var(--action-doux); border-radius: var(--rayon);
 }
-.choix-espace a:hover { border-color: var(--action); transform: translateY(-2px); color: var(--texte); }
-.choix-espace strong { font-size: var(--t-l); color: var(--primaire); }
-.choix-espace svg { color: var(--action); }
-.matieres { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0 32px; }
-.matieres h3 { margin: 10px 0 6px; font-size: var(--t-l); color: var(--primaire); }
-.matieres h3 em { font-style: normal; color: var(--action); }
-.matieres p { margin: 0; }
+.chiffres-cles li { display: flex; flex-direction: column; gap: 2px; }
+.chiffres-cles strong { font-size: var(--t-xl); color: var(--primaire); line-height: 1.2; }
+.chiffres-cles span { color: var(--texte); font-size: var(--t-s); }
+
+/* Comment ça marche : étapes numérotées par le compteur de la liste. */
+.etapes-accueil { list-style: none; counter-reset: etape; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.etapes-accueil li { counter-increment: etape; position: relative; padding-left: 52px; }
+.etapes-accueil li::before {
+  content: counter(etape); position: absolute; left: 0; top: 0; width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; background: var(--action); color: var(--action-texte);
+}
+.etapes-accueil h3 { margin: 6px 0 4px; font-size: 1.125rem; }
+.etapes-accueil p { margin: 0; }
+
+/* Question d'essai. */
+.exemple-question { max-width: 640px; }
+.exemple-question fieldset { border: 0; padding: 0; margin: 0; }
+.exemple-question legend { font-size: 1.125rem; font-weight: 600; margin-bottom: 12px; padding: 0; }
+.exemple-choix { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+/* Les règles globales des formulaires (label en bloc, input à 100 %) écrasaient la formule : on les neutralise ici. */
+.exemple-choix label {
+  display: flex; align-items: center; justify-content: flex-start; gap: 12px; margin: 0; padding: 12px 14px; cursor: pointer;
+  font-weight: 400; font-size: 1.125rem; color: var(--texte);
+  border: 1px solid var(--bordure-forte); border-radius: var(--rayon-petit); background: var(--surface);
+}
+.exemple-choix input[type="radio"] {
+  width: 1.15rem; height: 1.15rem; flex: none; margin: 0; padding: 0; accent-color: var(--action); cursor: pointer;
+}
+.exemple-choix .maths, .exemple-choix span { white-space: nowrap; }
+.exemple-choix label:has(input:checked) { border-color: var(--action); background: var(--action-doux); }
+.exemple-choix label.exemple-bonne { border-color: var(--ok); background: var(--ok-doux); }
+.exemple-retour { margin-top: 16px; padding: 12px 16px; border-radius: var(--rayon-petit); border-left: 4px solid var(--ok); background: var(--surface-2); }
+.exemple-retour.faux { border-left-color: var(--alerte); }
+.exemple-retour p { margin: 0 0 8px; }
+.exemple-question .actions { margin-top: 16px; }
+
 /* Parcours de l'accueil : listes de cartes, état écrit en toutes lettres (la couleur n'est qu'un repère). */
-.accueil-parcours h2 { font-size: var(--t-xl); }
+.matieres { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0 32px; }
+.matieres p { margin: 0; }
 .accueil-parcours h3 { margin: 24px 0 4px; font-size: var(--t-l); color: var(--texte); }
 .accueil-parcours ul.matieres { list-style: none; padding: 0; }
-.accueil-parcours .matieres .carte { margin-bottom: 0; } /* l'espacement vient de la grille */
+.accueil-parcours .matieres .carte { margin-bottom: 0; border-left: 4px solid var(--couleur-matiere, var(--action)); } /* l'espacement vient de la grille */
+.matiere-maths { --couleur-matiere: var(--maths); }
+.matiere-anglais { --couleur-matiere: var(--anglais); }
+.matiere-francais { --couleur-matiere: var(--francais); }
 .matieres h4 { margin: 10px 0 6px; font-size: 1.125rem; color: var(--primaire); }
-.matieres h4 em { font-style: normal; color: var(--action); }
+.matieres h4 em { font-style: normal; color: var(--couleur-matiere, var(--action)); }
 .parcours-cycle { font-weight: 600; color: var(--texte-doux); }
 .parcours-entete { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .parcours-intro { margin: 0; max-width: 64ch; }
 .etat-parcours { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-s); font-weight: 600; color: var(--texte); }
-.etat-parcours .pastille { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--texte-doux); }
-.etat-ouvert .pastille { background: var(--ok); }
-.etat-en_preparation .pastille { background: var(--alerte); }
+.point-etat { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--texte-doux); }
+.etat-ouvert .point-etat { background: var(--ok); }
+.etat-en_preparation .point-etat { background: var(--alerte); }
 .parcours-chantier { background: var(--surface-2); box-shadow: none; border-style: dashed; }
-.parcours-chantier h4 em { color: var(--primaire); }
+/* Quatre chantiers : une grille 2 × 2 sur écran large (jamais une carte seule en bas), une colonne sur téléphone. */
+.accueil-parcours ul.chantiers { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* Questions fréquentes : <details> natif, ouvrable au clavier. */
+.faq { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; max-width: 760px; }
+.faq details { background: var(--surface); border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 0 16px; }
+.faq summary { cursor: pointer; font-weight: 600; padding: 12px 0; color: var(--primaire); }
+.faq details[open] summary { border-bottom: 1px solid var(--bordure); }
+.faq details p { margin: 12px 0; color: var(--texte); }
 .atouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
 .atouts div { padding: 4px 0; }
 .atouts strong { display: block; margin-bottom: 4px; }

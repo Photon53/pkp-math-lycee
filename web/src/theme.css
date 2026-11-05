@@ -12,6 +12,11 @@
   --accent: #e07a1f;            /* mise en avant ponctuelle, jamais pour du texte courant */
   --accent-doux: #fdf0e3;
 
+  /* Matières (page d'accueil) : contraste ≥ 4,5:1 sur --surface et --surface-2 */
+  --maths: #2f5bd3;
+  --anglais: #a3215f;
+  --francais: #0f6e66;
+
   /* Sens */
   --ok: #2b8a3e;
   --ok-doux: #e6f6ea;
@@ -63,6 +68,9 @@
     --action-doux: #232b48;
     --accent: #f2a65a;
     --accent-doux: #3a2a18;
+    --maths: #8ea3ff;
+    --anglais: #f49ac1;
+    --francais: #5fd4c4;
     --ok: #63c27a;
     --ok-doux: #19301f;
     --alerte: #f0b35a;

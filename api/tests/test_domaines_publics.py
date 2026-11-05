@@ -57,3 +57,29 @@ def test_etat_du_domaine():
     assert etat_du_domaine(d) == "en_preparation"
     d.public = True
     assert etat_du_domaine(d) == "ouvert"
+
+
+class TestChiffres:
+    def test_totaux_du_contenu_ouvert_sans_connexion(self, client, session):
+        r = client.get("/domaines/chiffres")
+        assert r.status_code == 200
+        chiffres = r.json()
+        assert set(chiffres) == {"chapitres", "questions", "seances_anglais"}
+        # Maths collège est fermé : seuls les chapitres non masqués de maths lycée comptent.
+        attendus = session.query(models.Chapitre).filter_by(domaine_code="maths-lycee", masque=False).count()
+        assert chiffres["chapitres"] == attendus > 0
+        assert chiffres["questions"] > 0
+
+    def test_suit_l_ouverture_des_domaines_et_le_masquage(self, client, session):
+        avant = client.get("/domaines/chiffres").json()
+        chapitre = session.query(models.Chapitre).filter_by(domaine_code="maths-lycee").first()
+        chapitre.masque = True
+        session.commit()
+        apres = client.get("/domaines/chiffres").json()
+        assert apres["chapitres"] == avant["chapitres"] - 1
+        assert apres["questions"] <= avant["questions"]
+
+        admin = connecter_admin(client)
+        client.post("/admin/domaines/maths-lycee", headers=admin, json={"actif": True, "public": False})
+        assert client.get("/domaines/chiffres").json()["chapitres"] == 0
+        assert client.get("/domaines/chiffres").json()["questions"] == 0
