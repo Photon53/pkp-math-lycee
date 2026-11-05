@@ -301,6 +301,22 @@ fieldset.choix-chapitres label.case { margin: 6px 0; }
 .matieres h3 { margin: 10px 0 6px; font-size: var(--t-l); color: var(--primaire); }
 .matieres h3 em { font-style: normal; color: var(--action); }
 .matieres p { margin: 0; }
+/* Parcours de l'accueil : listes de cartes, état écrit en toutes lettres (la couleur n'est qu'un repère). */
+.accueil-parcours h2 { font-size: var(--t-xl); }
+.accueil-parcours h3 { margin: 24px 0 4px; font-size: var(--t-l); color: var(--texte); }
+.accueil-parcours ul.matieres { list-style: none; padding: 0; }
+.accueil-parcours .matieres .carte { margin-bottom: 0; } /* l'espacement vient de la grille */
+.matieres h4 { margin: 10px 0 6px; font-size: 1.125rem; color: var(--primaire); }
+.matieres h4 em { font-style: normal; color: var(--action); }
+.parcours-cycle { font-weight: 600; color: var(--texte-doux); }
+.parcours-entete { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.parcours-intro { margin: 0; max-width: 64ch; }
+.etat-parcours { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-s); font-weight: 600; color: var(--texte); }
+.etat-parcours .pastille { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--texte-doux); }
+.etat-ouvert .pastille { background: var(--ok); }
+.etat-en_preparation .pastille { background: var(--alerte); }
+.parcours-chantier { background: var(--surface-2); box-shadow: none; border-style: dashed; }
+.parcours-chantier h4 em { color: var(--primaire); }
 .atouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
 .atouts div { padding: 4px 0; }
 .atouts strong { display: block; margin-bottom: 4px; }
