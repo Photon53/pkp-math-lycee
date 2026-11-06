@@ -80,7 +80,7 @@ function ConnexionEleveAnglais({ onConnexion }) {
       <RepereEleve matiere="Anglais" />
       <h1>Connexion élève</h1>
       <p className="doux">Entre l'identifiant et le code personnel de ta carte d'anglais, ou scanne son QR code.</p>
-      <p className="aide">Ta carte PKP sert pour toutes tes matières ? <a href="/eleve">Connecte-toi sur l'espace élève</a>.</p>
+      <p className="aide">Ta carte Boussole sert pour toutes tes matières ? <a href="/eleve">Connecte-toi sur l'espace élève</a>.</p>
       <label htmlFor="identifiant-anglais">Identifiant</label>
       <input
         id="identifiant-anglais"

@@ -8,7 +8,7 @@ from app.routes import admin, admin_contenu, archivage, cours, domaines, eleves,
 
 # En production, la documentation interactive n'est pas exposée publiquement.
 app = FastAPI(
-    title="PKP Math Lycée",
+    title="Boussole",
     version="1.0.0",
     docs_url=None if settings.production else "/docs",
     redoc_url=None,

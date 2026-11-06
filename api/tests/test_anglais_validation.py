@@ -178,6 +178,6 @@ def test_carte_d_anglais_saisie_sur_la_page_de_maths(client):
     """L'élève d'anglais qui se trompe de page est renvoyé vers la sienne, seulement avec le bon code."""
     _, carte = _groupe_avec_eleve(client, connecter_anglais(client))
     r = client.post("/eleves/connexion/identifiant", json={"identifiant": carte["identifiant"], "code_personnel": carte["code"]})
-    assert r.status_code == 409 and "PKP Anglais" in r.json()["detail"]
+    assert r.status_code == 409 and "Boussole Anglais" in r.json()["detail"]
     r = client.post("/eleves/connexion/identifiant", json={"identifiant": carte["identifiant"], "code_personnel": "XXXXXX"})
     assert r.status_code == 401

@@ -33,7 +33,7 @@ function connecte(compte) {
   );
 }
 
-describe("PKP Anglais : élèves, codes et validation", () => {
+describe("Boussole Anglais : élèves, codes et validation", () => {
   it("un nouveau code s'affiche sur une carte à imprimer une seule fois", async () => {
     connecte({});
     const groupes = [{ id: 1, nom: "4e A", niveau: "4e", eleves: [{ id: 9, prenom: "Lina", identifiant: "lina-k7m4", a_un_code: true }] }];

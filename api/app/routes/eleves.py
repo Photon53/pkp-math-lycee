@@ -122,7 +122,7 @@ def connexion(corps: ConnexionEleve, request: Request, session: SessionDB) -> Je
     return JetonEleve(jeton=creer_jeton(ELEVE, eleve.id, settings.duree_jeton_eleve_h, version), eleve=_info(eleve))
 
 
-CARTE_ANGLAIS = "Cette carte est une carte PKP Anglais : connecte-toi sur la page élève de PKP Anglais."
+CARTE_ANGLAIS = "Cette carte est une carte Boussole Anglais : connecte-toi sur la page élève de Boussole Anglais."
 
 
 def _carte_anglais(session: SessionDB, identifiant: str, code: str) -> bool:

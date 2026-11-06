@@ -119,9 +119,9 @@ describe("enfant d'une famille : une carte, puis la matière", () => {
   const ESPACE = {
     id: 7, prenom: "Inès", nom: "Martin", niveau: "2nde", identifiant: "ines-k7m4",
     matieres: [
-      { code: "maths", libelle: "PKP Math", disponible: true },
-      { code: "anglais", libelle: "PKP Anglais", disponible: true },
-      { code: "francais", libelle: "PKP Français", disponible: false },
+      { code: "maths", libelle: "Boussole Maths", disponible: true },
+      { code: "anglais", libelle: "Boussole Anglais", disponible: true },
+      { code: "francais", libelle: "Boussole Français", disponible: false },
     ],
     maths: [
       { eleve_id: 11, code_classe: "2NDE-TC-AAAAA", niveau: "2nde", parcours: "tronc-commun", libelle_parcours: "Tronc commun", enseignant: "M. Prof" },
@@ -130,7 +130,7 @@ describe("enfant d'une famille : une carte, puis la matière", () => {
     anglais: [],
   };
 
-  it("choisit PKP Math puis un parcours ; le français est annoncé", async () => {
+  it("choisit Boussole Maths puis un parcours ; le français est annoncé", async () => {
     const appels = fausseApi({
       "POST /enfants/connexion": { json: { type: "enfant", jeton: "je", enfant: ESPACE } },
       "GET /enfants/moi": { json: ESPACE },
@@ -145,9 +145,9 @@ describe("enfant d'une famille : une carte, puis la matière", () => {
     await userEvent.type(screen.getByLabelText("Code personnel"), "ABC234");
     await userEvent.click(screen.getByRole("button", { name: "Commencer" }));
     expect(await screen.findByText("Que veux-tu travailler ?")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /PKP Français/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /Boussole Français/ })).toBeDisabled();
     expect(screen.getByText("Bientôt disponible")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: /PKP Math/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Boussole Maths/ }));
     const boutons = await screen.findAllByRole("button", { name: "S'entraîner" });
     expect(boutons).toHaveLength(2);
     await userEvent.click(boutons[1]);

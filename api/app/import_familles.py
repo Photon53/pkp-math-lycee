@@ -127,7 +127,7 @@ def modele(session: Session) -> bytes:
             "6. Groupe d'anglais (facultatif) : choisissez-le dans la liste (4e et 3e).",
             "7. Niveaux acceptés : 6e, 5e, 4e, 3e, 2nde, 1re, Tle (ou en toutes lettres : seconde, première…).",
             "",
-            "Dans PKP, onglet Familles → « Importer (Excel) » : la vérification signale chaque ligne à corriger sans",
+            "Dans Boussole, onglet Familles → « Importer (Excel) » : la vérification signale chaque ligne à corriger sans",
             "rien enregistrer ; l'import crée ensuite tout, ou rien si une ligne reste en erreur. Un enfant déjà",
             "présent dans la famille (même prénom et même nom) est ignoré : réimporter le fichier ne crée pas de doublon.",
             "À la fin, imprimez les cartes des enfants et transmettez à chaque nouveau parent son mot de passe provisoire.",

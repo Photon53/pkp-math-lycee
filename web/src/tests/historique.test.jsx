@@ -122,7 +122,7 @@ describe("partie du cours à utiliser", () => {
   });
 });
 
-describe("méthode PKP", () => {
+describe("Méthode Spirale", () => {
   it("présente les cinq étapes et les dix gestes", async () => {
     const { default: Methode } = await import("../Methode.jsx");
     render(<Methode />);
@@ -151,7 +151,7 @@ describe("méthode PKP", () => {
     render(<EspaceEleve />);
     await userEvent.click(screen.getByRole("tab", { name: "Cours" }));
     await userEvent.click(await screen.findByRole("button", { name: LECON.libelle }));
-    const etapes = await screen.findByRole("navigation", { name: "Méthode PKP pour cette compétence" });
+    const etapes = await screen.findByRole("navigation", { name: "Méthode Spirale pour cette compétence" });
     expect(await within(etapes).findByText("1 / 3 réussies (niveaux 1 à 3)")).toBeInTheDocument();
     const suivante = etapes.querySelector('[aria-current="step"]');
     expect(suivante).toHaveTextContent("Je m'entraîne");

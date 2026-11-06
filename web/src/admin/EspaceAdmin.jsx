@@ -38,8 +38,8 @@ const PAGES = [
   { groupe: "Pédagogie", vers: "/admin/cours", libelle: "Cours", icone: "cours", Page: Contenu, permission: "contenu.modifier", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/exercices", libelle: "Exercices", icone: "exercices", Page: Exercices, permission: "contenu.modifier", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/ressources", libelle: "Ressources", icone: "ressources", Page: RessourcesAdmin, permission: "contenu.modifier", matiere: "maths" },
-  { groupe: "Pédagogie", vers: "/admin/pkp-math", libelle: "PKP Math", icone: "pdf", Page: PkpMathAdmin, permission: "contenu.lire", matiere: "maths" },
-  { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
+  { groupe: "Pédagogie", vers: "/admin/pkp-math", libelle: "Boussole Maths", icone: "pdf", Page: PkpMathAdmin, permission: "contenu.lire", matiere: "maths" },
+  { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "Boussole Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
   { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration, permission: "configuration" },
 ];
 
@@ -185,7 +185,7 @@ function ConnexionAdmin({ onConnexion, expiree }) {
         <h1>
           <Icone nom="bouclier" taille={24} /> Administration
         </h1>
-        <p className="doux">Accès réservé à l'équipe PKP. Toutes les actions sont journalisées.</p>
+        <p className="doux">Accès réservé à l'équipe Boussole. Toutes les actions sont journalisées.</p>
         <label htmlFor="a-email">Email</label>
         <input id="a-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required />
         <label htmlFor="a-mdp">Mot de passe</label>

@@ -95,7 +95,7 @@ def verifier_identifiants(corps: ConnexionEnseignant, request: Request, session:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Email ou mot de passe incorrect.")
     limitation.echecs_enseignant.effacer(compte)
     if not enseignant.actif:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Ce compte est désactivé. Contactez l'équipe PKP.")
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Ce compte est désactivé. Contactez l'équipe Boussole.")
     if doit_rehacher(enseignant.mot_de_passe_hash):
         # Empreinte calculée avec un coût plus faible que l'actuel (audit A-06) : on la
         # renforce maintenant que le mot de passe est connu. Les anciens jetons deviennent invalides.

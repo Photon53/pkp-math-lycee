@@ -149,7 +149,7 @@ def libelle_parcours(classe: models.Classe) -> str:
 
 # --- Descriptions --------------------------------------------------------------------------------------
 
-MATIERES = (("maths", "PKP Math"), ("anglais", "PKP Anglais"), ("francais", "PKP Français"))
+MATIERES = (("maths", "Boussole Maths"), ("anglais", "Boussole Anglais"), ("francais", "Boussole Français"))
 # Le français a sa place dans tous les espaces ; son contenu viendra dans un lot dédié.
 MATIERES_DISPONIBLES = {"maths", "anglais"}
 

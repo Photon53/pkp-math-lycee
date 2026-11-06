@@ -106,7 +106,7 @@ export default function ImportFamilles({ jeton, onExpire, onFermer, onImporte })
           </button>
         </li>
         <li>Remplissez-le dans Excel (ou LibreOffice), enregistrez au format .xlsx.</li>
-        <li>Choisissez le fichier : PKP vérifie chaque ligne sans rien enregistrer, puis vous lancez l'import.</li>
+        <li>Choisissez le fichier : Boussole vérifie chaque ligne sans rien enregistrer, puis vous lancez l'import.</li>
       </ol>
       <form onSubmit={verifier} className="ligne-champs">
         <label>

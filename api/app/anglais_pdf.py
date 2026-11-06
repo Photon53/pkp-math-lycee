@@ -100,7 +100,7 @@ def produire_pdf(seance: dict, public: str, cahier: dict | None = None, validee:
     buf = BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=(21 * cm, 29.7 * cm), leftMargin=1.65 * cm, rightMargin=1.65 * cm,
                             topMargin=1.3 * cm, bottomMargin=1.45 * cm,
-                            title=f"PKP Anglais {code} - {seance['titre']}", author="PKP Anglais")
+                            title=f"Boussole Anglais {code} - {seance['titre']}", author="Boussole Anglais")
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name="PKPTitle", fontName="Helvetica-Bold", fontSize=18, leading=22, textColor=NAVY, spaceAfter=5))
     styles.add(ParagraphStyle(name="PKPBand", fontName="Helvetica-Bold", fontSize=11, leading=14, textColor=colors.white))
@@ -206,7 +206,7 @@ def produire_pdf(seance: dict, public: str, cahier: dict | None = None, validee:
         return t
 
     # --- Couverture -----------------------------------------------------------------------
-    p("PKP ANGLAIS  /  " + seance["niveau"].upper() + "  /  " + ("CAHIER ÉLÈVE" if public == "eleve" else "GUIDE ANIMATEUR"), "PKPSmall")
+    p("BOUSSOLE ANGLAIS  /  " + seance["niveau"].upper() + "  /  " + ("CAHIER ÉLÈVE" if public == "eleve" else "GUIDE ANIMATEUR"), "PKPSmall")
     p(seance["titre"], "PKPTitle")
     accroche = Table([[Paragraph(escape(r["hook"]), styles["PKPHook"])],
                       [Paragraph(f"90 MIN  ·  {escape(seance['objectif'])}", ParagraphStyle(
@@ -320,7 +320,7 @@ def produire_pdf(seance: dict, public: str, cahier: dict | None = None, validee:
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(NAVY)
         etat = "Version validée" if validee else "NON VALIDÉ - usage personnel uniquement"
-        canvas.drawString(1.65 * cm, 1.05 * cm, "PKP ANGLAIS | " + code + " | " + etat)
+        canvas.drawString(1.65 * cm, 1.05 * cm, "BOUSSOLE ANGLAIS | " + code + " | " + etat)
         canvas.drawRightString(19.35 * cm, 1.05 * cm, str(document.page))
         if not validee:
             # Filigrane en diagonale (CDC anglais V1.8) : visible sans masquer le contenu.

@@ -113,7 +113,7 @@ export default function EspaceEnfant({ session, onOuvrirMaths, onDeconnexion }) 
 
       {matiere === "anglais" && (
         <section className="carte" aria-labelledby="titre-anglais">
-          <h2 id="titre-anglais">PKP Anglais</h2>
+          <h2 id="titre-anglais">Boussole Anglais</h2>
           {espace.anglais.length === 0 ? (
             <p className="doux">Ton professeur d'anglais ne t'a pas encore ajouté à un groupe.</p>
           ) : (
@@ -135,7 +135,7 @@ export default function EspaceEnfant({ session, onOuvrirMaths, onDeconnexion }) 
 }
 
 function resumeMatiere(m, espace, niveau) {
-  if (!m.disponible) return "Le français arrive bientôt sur PKP.";
+  if (!m.disponible) return "Le français arrive bientôt sur Boussole.";
   if (m.code === "maths") {
     const n = espace.maths.length;
     return n ? `${n} parcours · cours et fiches de ${niveau}` : `Cours et fiches de ${niveau}`;

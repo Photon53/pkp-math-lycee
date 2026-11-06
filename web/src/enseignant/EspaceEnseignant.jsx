@@ -17,7 +17,7 @@ export const CLE_COMPTE = "pkp.enseignant";
 const PAGES = [
   { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
-  { vers: "/enseignant/pkp-math", libelle: "PKP Math (fiches PDF)", icone: "pdf" },
+  { vers: "/enseignant/pkp-math", libelle: "Boussole Maths (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
 ];
@@ -50,7 +50,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
         <AccesReserve
           titre="Espace réservé aux professeurs de mathématiques"
           compte={compte}
-          autreEspace={{ vers: "/anglais", libelle: "Aller à l'espace PKP Anglais" }}
+          autreEspace={{ vers: "/anglais", libelle: "Aller à l'espace Boussole Anglais" }}
           onDeconnexion={deconnecter}
         />
       </PageSimple>
@@ -78,7 +78,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
           )}
           {compte.enseigne_anglais && (
             <a href="/anglais">
-              <Icone nom="cours" /> PKP Anglais
+              <Icone nom="cours" /> Boussole Anglais
             </a>
           )}
           <button className="nav" onClick={deconnecter}>

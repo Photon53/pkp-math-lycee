@@ -288,6 +288,7 @@ fieldset.choix-chapitres label.case { margin: 6px 0; }
 .accueil-hero { padding: 40px 0 24px; }
 .accueil-hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); max-width: 18ch; }
 .accueil-hero p { font-size: 1.125rem; color: var(--texte-doux); max-width: 56ch; }
+.accueil-hero p.spirale-definition { color: var(--texte); border-left: 4px solid var(--accent); padding-left: 12px; }
 .accueil-hero .actions { flex-wrap: wrap; }
 .accueil > section { margin-bottom: 40px; }
 .accueil > section > h2 { font-size: var(--t-xl); }

@@ -191,7 +191,7 @@ def verifier_totp(secret: str, code: str, instant: float | None = None) -> bool:
 
 def uri_totp(secret: str, email: str) -> str:
     """À transformer en QR code ou à saisir dans l'application d'authentification."""
-    return f"otpauth://totp/PKP%20Math%20Lyc%C3%A9e:{email}?secret={secret}&issuer=PKP%20Math%20Lyc%C3%A9e"
+    return f"otpauth://totp/Boussole:{email}?secret={secret}&issuer=Boussole"
 
 
 def hacher_mot_de_passe_provisoire(provisoire: str) -> str:

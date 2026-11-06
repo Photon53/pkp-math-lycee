@@ -57,7 +57,7 @@ export default function App() {
       <header className="entete">
         <Logo />
         <nav aria-label="Espaces">
-          {!methode && <a href="/methode">La méthode PKP</a>}
+          {!methode && <a href="/methode">La Méthode Spirale</a>}
           {eleveAnglais ? (
             <a href="/anglais">Espace professeur</a>
           ) : eleve ? (
@@ -89,7 +89,7 @@ export default function App() {
         )}
       </main>
       <footer className="pied">
-        <span>© {new Date().getFullYear()} PKP Éducation</span>
+        <span>© {new Date().getFullYear()} Boussole</span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>
       </footer>
     </div>

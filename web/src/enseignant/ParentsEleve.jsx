@@ -106,7 +106,7 @@ export default function ParentsEleve({ eleve, appeler }) {
           required
         />
         <p className="aide">
-          Un compte par responsable légal. L'adresse sert d'identifiant de connexion ; PKP n'envoie aucun courriel.
+          Un compte par responsable légal. L'adresse sert d'identifiant de connexion ; Boussole n'envoie aucun courriel.
         </p>
         <div className="actions">
           <button type="submit" className="secondaire">

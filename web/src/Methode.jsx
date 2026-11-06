@@ -153,11 +153,14 @@ export default function Methode() {
   return (
     <>
       <section className="accueil-hero">
-        <span className="badge accent">La méthode PKP</span>
+        <span className="badge accent">La Méthode Spirale</span>
         <h1>Apprendre les mathématiques, étape par étape.</h1>
+        <p className="spirale-definition">
+          <strong>On revient sur les notions jusqu'à ce qu'elles tiennent.</strong>
+        </p>
         <p>
           On ne réussit pas en mathématiques parce qu'on est né fort : on progresse en comprenant, en pratiquant et en
-          persévérant. La méthode PKP est la même dans chaque chapitre, pour que tu saches toujours quoi faire ensuite.
+          persévérant. La Méthode Spirale est la même dans chaque chapitre, pour que tu saches toujours quoi faire ensuite.
         </p>
         <p className="accroche citation">Trois ingrédients pour apprendre : du temps, de la concentration, de la persévérance.</p>
       </section>
@@ -181,7 +184,7 @@ export default function Methode() {
               </span>
               <div>
                 <strong>{e.titre}</strong>
-                <p className="doux">Dans PKP : {e.dans}</p>
+                <p className="doux">Dans Boussole : {e.dans}</p>
                 <p>{e.critere}</p>
               </div>
             </li>
@@ -249,7 +252,7 @@ export default function Methode() {
           </li>
           <li>
             <strong>Carnet d'erreurs :</strong> pour chaque erreur, note ce que tu as fait, pourquoi c'était faux, la bonne
-            méthode, et refais un exercice semblable deux jours plus tard sans regarder la correction. Le carnet intégré à PKP
+            méthode, et refais un exercice semblable deux jours plus tard sans regarder la correction. Le carnet intégré à Boussole
             arrive bientôt ; en attendant, l'onglet « Mon historique » liste déjà toutes tes erreurs avec leur correction
             (case « Seulement mes erreurs ») : c'est le point de départ de ton carnet.
           </li>

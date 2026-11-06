@@ -139,11 +139,11 @@ function Etapes() {
 
 // --- Parcours prêts et en chantier ---------------------------------------------------------------
 
-/** Titre d'un parcours : « PKP Maths », puis le cycle. */
+/** Titre d'un parcours : « Boussole Maths », puis le cycle. */
 function TitreParcours({ domaine }) {
   return (
     <h4>
-      PKP <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
+      Boussole <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
     </h4>
   );
 }
@@ -223,7 +223,7 @@ const FAQ = [
   {
     question: "Faut-il installer une application ?",
     reponse:
-      "Non. PKP Éducation s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet " +
+      "Non. Boussole s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet " +
       "déconnecte, pratique sur un poste partagé.",
   },
   {
@@ -264,12 +264,16 @@ export default function Accueil() {
           <strong>Des cours clairs, des exercices corrigés pas à pas et un entraînement à ton rythme</strong>, préparés et relus par des
           professeurs.
         </p>
+        <p className="spirale-definition">
+          Avec la Méthode Spirale, <strong>on revient sur les notions jusqu'à ce qu'elles tiennent</strong> : c'est ça, viser la
+          Maîtrise+.
+        </p>
         <div className="actions">
           <a className="bouton" href="#titre-exemple">
             Essayer une question
           </a>
           <a className="bouton secondaire" href="/methode">
-            Découvrir la méthode PKP
+            Découvrir la Méthode Spirale
           </a>
         </div>
       </section>

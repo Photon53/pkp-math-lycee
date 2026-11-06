@@ -23,7 +23,7 @@ export function CadreApplication({ espace, liens, cheminActif, pied, marque = "Ã
         <a className="logo" href="/">
           <Monogramme taille={28} />
           <span>
-            PKP <em>{marque}</em>
+            Boussole <em>{marque}</em>
           </span>
         </a>
         <div className="espace">{espace}</div>

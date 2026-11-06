@@ -51,7 +51,7 @@ export default function Questions({ jeton, onExpire }) {
   return (
     <>
       <p className="info">
-        La banque est commune à tous les professeurs : elle est relue et enrichie par l'équipe PKP. Signalez une
+        La banque est commune à tous les professeurs : elle est relue et enrichie par l'équipe Boussole. Signalez une
         erreur ou proposez une question à votre administrateur.
       </p>
       <Erreur message={erreur} />
