@@ -1,0 +1,101 @@
+{
+  "code": "6E-02",
+  "level": "6e",
+  "school_year": "2026-2027",
+  "title": "My family: who's who?",
+  "objective": "Décrire physiquement une personne de son entourage",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: guess who?",
+      "duration_minutes": 10,
+      "student_instruction": "Look at the picture of the class. Your teacher describes a person. Point and say: It's him! / It's her!",
+      "facilitator_instruction": "Décrire trois personnages simples (tall, short hair, glasses). Réactiver les couleurs en anglais."
+    },
+    {
+      "order": 2,
+      "title": "Listening: describing people",
+      "duration_minutes": 15,
+      "student_instruction": "Listen twice. Who are Jem and Alex? Note their age, their hair and their eyes.",
+      "facilitator_instruction": "Audio British Council « Describing people » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute : liens de famille ; seconde : âge, cheveux, yeux."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: have got and adjectives",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: I have got (I've got) / he has got (he's got) ... Then put the words in order: hair / brown / short.",
+      "facilitator_instruction": "Has got pour he/she ; adjectif avant le nom et invariable (short brown hair, green eyes). Faire comparer avec le français."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : relier descriptions et dessins ; B : écrire la description de deux personnes à partir d'images ; C : portrait d'un membre de sa famille réel ou imaginaire."
+    },
+    {
+      "order": 5,
+      "title": "Pair task: draw my family",
+      "duration_minutes": 25,
+      "student_instruction": "Student A describes a family member. Student B draws him or her. Then swap. Compare the drawings!",
+      "facilitator_instruction": "Imposer quatre éléments : âge, taille, cheveux, yeux. Valoriser les questions de vérification : Has he got glasses?"
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write two sentences to describe a person in your family.",
+      "facilitator_instruction": "Ramasser ; repérer l'ordre des adjectifs et has got / have got."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Match the sentences with the pictures. 1) She's got long brown hair. 2) He's tall and thin. 3) He's got green eyes. 4) She's got short blond hair. Then colour the hair.",
+      "facilitator_correction": "Correspondances selon les dessins fournis ; vérifier long / short et les couleurs."
+    },
+    {
+      "track": "B",
+      "student_content": "Look at the two pictures and write a description for each person: age, height, hair, eyes (4 sentences each).",
+      "facilitator_correction": "Exemple : He's fifteen. He's tall and thin. He's got short brown hair. He's got green eyes."
+    },
+    {
+      "track": "C",
+      "student_content": "Describe a person in your family (or an imaginary one) in six sentences. Use has got, is and one adjective you like: cute, funny, kind...",
+      "facilitator_correction": "Production libre ; attendus : has got, ordre adjectif + nom, au moins deux adjectifs de couleur ou de taille."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève décrit les cheveux et les yeux d'une personne",
+      "L'élève utilise has got avec he / she",
+      "L'élève place l'adjectif avant le nom"
+    ]
+  },
+  "common_errors": [
+    "He have got (au lieu de He has got)",
+    "Hair brown (ordre du français)",
+    "Adjectif accordé : greens eyes"
+  ],
+  "source_objectives": [
+    "6E-02"
+  ],
+  "theme": "Personnes et personnages - la famille",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

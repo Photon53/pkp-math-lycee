@@ -1,0 +1,101 @@
+{
+  "code": "TLE-01",
+  "level": "Tle",
+  "school_year": "2026-2027",
+  "title": "Inside the filter bubble",
+  "objective": "Comprendre un exposé sur la personnalisation en ligne et débattre de ses effets sur l'information",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: who chooses what you see?",
+      "duration_minutes": 10,
+      "student_instruction": "Look at two screenshots of the same app on two phones. Why are they different? Discuss in pairs for two minutes.",
+      "facilitator_instruction": "Deux fils d'actualité inventés (sport / musique). Faire émerger algorithm, personalised, to track."
+    },
+    {
+      "order": 2,
+      "title": "Listening: the filter bubble",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to the talk. Note how websites collect data, two examples from the speaker's life and the main warning.",
+      "facilitator_instruction": "Audio British Council « The Filter Bubble - part one » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute : thèse générale ; seconde : exemples et mise en garde."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: the passive",
+      "duration_minutes": 15,
+      "student_instruction": "Transform: Websites track our clicks. → Our clicks are tracked by websites. Then write three passive sentences about your online life.",
+      "facilitator_instruction": "Passif présent et prétérit (is / are + participe, was / were + participe) ; usage quand l'agent est inconnu ou peu important. Insister sur les participes irréguliers (shown, seen, chosen)."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : QCM de compréhension et transformations passives guidées ; B : résumé de l'écoute en 80 mots ; C : essai argumenté sur la responsabilité des plateformes."
+    },
+    {
+      "order": 5,
+      "title": "Debate: should apps show us everything?",
+      "duration_minutes": 20,
+      "student_instruction": "In groups, prepare two arguments for or against personalised feeds. Then debate: one minute per speaker.",
+      "facilitator_instruction": "Distribuer les positions au hasard. Exiger des expressions d'opinion nuancées (I'd argue that, it depends on, admittedly) et une réfutation."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one passive sentence and one opinion about the filter bubble.",
+      "facilitator_instruction": "Ramasser ; repérer l'oubli de be au passif (our data collected)."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Answer: 1) What are cookies used for? 2) What did the speaker see after looking for trainers? Then make passive: Apps choose our news. / Websites collected my data.",
+      "facilitator_correction": "1) To track what users do online. 2) Adverts for trainers everywhere. Our news is chosen by apps. / My data was collected by websites."
+    },
+    {
+      "track": "B",
+      "student_content": "Summarise the talk in 80 words: what a filter bubble is, one example, and why the speaker is worried.",
+      "facilitator_correction": "Attendus : définition (sites et applis sélectionnent ce que l'on voit selon nos clics), un exemple (publicités, fil d'actualité politique), risque de ne pas voir d'autres points de vue."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 180-word essay: \"Social media companies should be responsible for the information we see.\" Discuss.",
+      "facilitator_correction": "Production libre ; attendus : introduction avec problématique, arguments pour et contre, passif employé au moins deux fois, conclusion nuancée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève explique ce qu'est une bulle de filtres",
+      "L'élève emploie le passif pour décrire la collecte de données",
+      "L'élève défend un point de vue et répond à un argument"
+    ]
+  },
+  "common_errors": [
+    "Passif sans be : our clicks tracked",
+    "Participe régulier inventé : choosed",
+    "Informations au pluriel : informations (indénombrable)"
+  ],
+  "source_objectives": [
+    "TLE-01"
+  ],
+  "theme": "Axe 5 - Citoyenneté et mondes virtuels",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

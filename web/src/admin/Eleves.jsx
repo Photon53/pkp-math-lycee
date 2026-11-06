@@ -7,6 +7,8 @@ import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelect
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { LIBELLES_PARCOURS, NIVEAUX, PARCOURS_PAR_NIVEAU } from "../parcours.js";
 import { GererClasse, parcoursCourt } from "./GestionClasses.jsx";
+import { NouveauGroupe } from "./AnglaisAdmin.jsx";
+import { naviguer } from "../navigation.js";
 import Repertoire from "./Repertoire.jsx";
 
 /** Vue transverse des élèves et des classes (EA3.7 à EA3.10). Les élèves sont créés avec leur famille
@@ -25,7 +27,7 @@ export default function Eleves({ jeton, onExpire, domaine = "" }) {
         options={[
           ["enfants", "Tous les élèves"],
           ["inscriptions", "Inscriptions en classe"],
-          ["classes", "Classes"],
+          ["classes", "Classes et groupes"],
         ]}
       />
       {onglet === "enfants" && <Repertoire appeler={appeler} erreur={erreur} domaine={domaine} />}
@@ -232,103 +234,243 @@ function Deplacement({ eleve, classes, onFermer, onValider }) {
   );
 }
 
+const ETATS = [
+  ["actives", "En cours"],
+  ["archivees", "Archivées"],
+  ["toutes", "Toutes"],
+];
+const NOM_DOMAINE = {
+  "maths-college": "Maths collège",
+  "maths-lycee": "Maths lycée",
+  "anglais-college": "Anglais collège",
+  "anglais-lycee": "Anglais lycée",
+  "francais-college": "Français collège",
+  "francais-lycee": "Français lycée",
+};
+const ORDRE_NIVEAU = Object.fromEntries(NIVEAUX.map(([v], i) => [v, i]));
+
+/** Classes de maths et groupes d'anglais réunis, quel que soit le domaine (V3, Lot 3) : création, gestion,
+ * archivage de fin d'année et rétablissement. Le travail des élèves d'une classe archivée est conservé. */
 function ListeClasses({ jeton, onExpire, domaine }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
-  const [classes, setClasses] = useState(null);
-  const [nouvelle, setNouvelle] = useState(false);
-  const [geree, setGeree] = useState(null);
+  const [etat, setEtat] = useState("actives");
+  const [lignes, setLignes] = useState(null);
+  const [fenetre, setFenetre] = useState(null);
   const [message, setMessage] = useState(null);
-  const [suppression, setSuppression] = useState(false);
+  const [echec, setEchec] = useState(null);
+  const [profs, setProfs] = useState([]);
   const selection = useSelection();
-  const charger = useCallback(() => appeler(avecDomaine("/admin/classes", domaine)).then(setClasses, () => {}), [appeler, domaine]);
-  const apresModification = useCallback(
-    (texte) => {
-      if (texte) setMessage(texte);
-      charger();
-    },
-    [charger],
+
+  const charger = useCallback(
+    () =>
+      Promise.all([
+        appeler(avecDomaine(`/admin/classes?etat=${etat}`, domaine)),
+        appeler(avecDomaine(`/admin/anglais/groupes?etat=${etat}`, domaine)),
+      ]).then(([classes, groupes]) => {
+        const toutes = [
+          ...classes.map((c) => ({ ...c, cle: `c-${c.id}`, genre: "classe", nom: c.code, nb: c.nb_eleves })),
+          ...groupes.map((g) => ({ ...g, cle: `g-${g.id}`, genre: "groupe", nb: g.eleves.length })),
+        ];
+        toutes.sort((a, b) => (ORDRE_NIVEAU[a.niveau] ?? 9) - (ORDRE_NIVEAU[b.niveau] ?? 9) || a.nom.localeCompare(b.nom));
+        setLignes(toutes);
+      }, () => {}),
+    [appeler, domaine, etat],
   );
   useEffect(() => {
     charger();
   }, [charger]);
+  useEffect(() => {
+    appeler("/admin/enseignants").then(setProfs, () => {});
+  }, [appeler]);
+
+  const choisies = (lignes ?? []).filter((l) => selection.choisis.has(l.cle));
+  const ids = (genre) => choisies.filter((l) => l.genre === genre).map((l) => l.id);
+
+  async function regler(archiver, motif = "") {
+    setMessage(null);
+    setEchec(null);
+    try {
+      let n = 0;
+      for (const [genre, chemin] of [["classe", "/admin/classes/archivage"], ["groupe", "/admin/anglais/groupes/archivage"]]) {
+        if (ids(genre).length) n += (await appeler(chemin, { methode: "POST", corps: { ids: ids(genre), archiver, motif } })).traites;
+      }
+      setMessage(
+        archiver
+          ? `${n} classe(s) ou groupe(s) archivé(s) : hors des listes, le travail des élèves est conservé.`
+          : `${n} classe(s) ou groupe(s) rétabli(s).`,
+      );
+      setFenetre(null);
+      selection.vider();
+      charger();
+    } catch (err) {
+      setEchec(err.message);
+    }
+  }
 
   return (
     <section className="carte">
-      <div className="actions" style={{ marginTop: 0 }}>
-        <button onClick={() => setNouvelle(true)}>
-          <Icone nom="plus" taille={18} /> Nouvelle classe
-        </button>
+      <div className="filtres">
+        <div style={{ flexGrow: 0 }}>
+          <label htmlFor="cg-etat">Afficher</label>
+          <select
+            id="cg-etat"
+            value={etat}
+            onChange={(e) => {
+              setEtat(e.target.value);
+              selection.vider();
+            }}
+          >
+            {ETATS.map(([v, l]) => (
+              <option key={v} value={v}>{l}</option>
+            ))}
+          </select>
+        </div>
+        <div className="actions" style={{ flexGrow: 0, marginTop: 0 }}>
+          <button onClick={() => setFenetre({ genre: "classe" })}>
+            <Icone nom="plus" taille={18} /> Classe de maths
+          </button>
+          <button className="secondaire" onClick={() => setFenetre({ genre: "groupe" })}>
+            <Icone nom="plus" taille={18} /> Groupe d'anglais
+          </button>
+        </div>
       </div>
+      <p className="aide">
+        Toutes les classes et tous les groupes, quel que soit le domaine (choisissez-le dans le bandeau). En fin d'année,
+        archivez-les : ils sortent des listes et n'ouvrent plus de séance, mais le travail des élèves reste consultable sur
+        leur fiche et peut être rétabli.
+      </p>
       {message && <p className="succes" role="status">{message}</p>}
-      {nouvelle && (
+      <Erreur message={erreur || echec} />
+      {fenetre?.genre === "classe" && (
         <NouvelleClasse
           appeler={appeler}
-          onFermer={() => setNouvelle(false)}
+          onFermer={() => setFenetre(null)}
           onCreee={(c) => {
-            setNouvelle(false);
+            setFenetre(null);
             setMessage(`Classe ${c.code} créée. Ajoutez-y les élèves avec « Gérer », ou laissez le professeur le faire.`);
             charger();
           }}
         />
       )}
-      {geree && <GererClasse classe={geree} appeler={appeler} onFermer={() => setGeree(null)} onChange={apresModification} />}
-      <Erreur message={erreur} />
-      {classes === null && <p className="doux">Chargement…</p>}
-      {classes?.length === 0 && <Vide icone="classes">Aucune classe.</Vide>}
-      {suppression && (
+      {fenetre?.genre === "groupe" && (
+        <NouveauGroupe
+          profs={profs.filter((p) => p.actif && p.enseigne_anglais)}
+          appeler={appeler}
+          onFermer={() => setFenetre(null)}
+          onCree={(g) => {
+            setFenetre(null);
+            setMessage(`Groupe « ${g.nom} » créé.`);
+            charger();
+          }}
+        />
+      )}
+      {fenetre?.genre === "gerer" && (
+        <GererClasse
+          classe={fenetre.classe}
+          appeler={appeler}
+          onFermer={() => setFenetre(null)}
+          onChange={(texte) => {
+            if (texte) setMessage(texte);
+            charger();
+          }}
+        />
+      )}
+      {fenetre?.genre === "archiver" && (
+        <ArchivageFinAnnee nombre={choisies.length} onFermer={() => setFenetre(null)} onValider={(m) => regler(true, m)} />
+      )}
+      {fenetre?.genre === "suppression" && (
         <ConfirmationSuppression
-          titre={`Supprimer ${selection.nombre} classe(s)`}
-          onFermer={() => setSuppression(false)}
+          titre={`Supprimer ${ids("classe").length} classe(s)`}
+          onFermer={() => setFenetre(null)}
           onConfirmer={async (confirmation) => {
-            const r = await appeler("/admin/classes/suppression", { methode: "POST", corps: { ids: selection.ids, confirmation } });
-            setSuppression(false);
-            setMessage(`${r.traites} classe(s) supprimée(s). Les enfants des familles et leurs autres inscriptions sont conservés.`);
+            const r = await appeler("/admin/classes/suppression", { methode: "POST", corps: { ids: ids("classe"), confirmation } });
+            setFenetre(null);
+            setMessage(`${r.traites} classe(s) supprimée(s). Les enfants des familles gardent une copie archivée de leur travail.`);
             selection.vider();
             charger();
           }}
         >
           <p>
-            Classes : {classes.filter((c) => selection.choisis.has(c.id)).map((c) => c.code).join(", ")}. Leurs inscriptions,
-            séances et réponses sont effacées ; les enfants des familles restent.
+            Classes : {choisies.filter((l) => l.genre === "classe").map((l) => l.nom).join(", ")}. Préférez l'archivage en fin
+            d'année : la suppression efface les inscriptions, séances et réponses (une copie est gardée pour les enfants des
+            familles).
           </p>
         </ConfirmationSuppression>
       )}
-      <BarreSelection selection={selection} noms={["classe", "classes"]}>
-        <button className="danger petit" onClick={() => setSuppression(true)}>Supprimer</button>
+      <BarreSelection selection={selection} noms={["classe ou groupe", "classes ou groupes"]}>
+        {choisies.some((l) => !l.archivee_le) && (
+          <button className="secondaire petit" onClick={() => setFenetre({ genre: "archiver" })}>Archiver (fin d'année)</button>
+        )}
+        {choisies.some((l) => l.archivee_le) && (
+          <button className="secondaire petit" onClick={() => regler(false)}>Rétablir</button>
+        )}
+        <button
+          className="danger petit"
+          disabled={!ids("classe").length || ids("groupe").length > 0}
+          title={ids("groupe").length ? "Les groupes d'anglais se suppriment un par un, dans Boussole Anglais" : undefined}
+          onClick={() => setFenetre({ genre: "suppression" })}
+        >
+          Supprimer
+        </button>
       </BarreSelection>
-      {classes?.length > 0 && (
+      {lignes === null && <p className="doux">Chargement…</p>}
+      {lignes?.length === 0 && (
+        <Vide icone="classes">{etat === "archivees" ? "Aucune classe archivée." : "Aucune classe ni aucun groupe."}</Vide>
+      )}
+      {lignes?.length > 0 && (
         <div className="tableau-defilant">
           <table>
             <thead>
               <tr>
-                <CaseTout selection={selection} ids={classes.map((c) => c.id)} libelle="Sélectionner toutes les classes" />
-                <th>Code</th>
+                <CaseTout selection={selection} ids={lignes.map((l) => l.cle)} libelle="Sélectionner toutes les classes et tous les groupes" />
+                <th>Classe ou groupe</th>
+                <th>Domaine</th>
                 <th>Niveau</th>
                 <th>Parcours</th>
                 <th>Professeur</th>
                 <th className="nombre">Élèves</th>
-                <th className="nombre">Chapitres ouverts</th>
+                <th>État</th>
                 <th>
                   <span className="visuellement-cache">Actions</span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {classes.map((c) => (
-                <tr key={c.id}>
-                  <CaseLigne selection={selection} id={c.id} libelle={`Sélectionner la classe ${c.code}`} />
+              {lignes.map((l) => (
+                <tr key={l.cle}>
+                  <CaseLigne selection={selection} id={l.cle} libelle={`Sélectionner ${l.nom}`} />
+                  <td>{l.genre === "classe" ? <code>{l.nom}</code> : l.nom}</td>
+                  <td>{NOM_DOMAINE[l.domaine_code] ?? l.domaine_code}</td>
+                  <td>{l.niveau}</td>
+                  <td>{l.genre === "classe" ? parcoursCourt(l.parcours) : <span className="doux">—</span>}</td>
+                  <td>{l.enseignant}</td>
+                  <td className="nombre">{l.nb}</td>
                   <td>
-                    <code>{c.code}</code>
+                    {l.archivee_le ? (
+                      <span className="badge neutre" title={[l.motif_archivage, l.archivee_par].filter(Boolean).join(" · ")}>
+                        Archivée le {formaterDate(l.archivee_le)}
+                      </span>
+                    ) : (
+                      <span className="badge ok">En cours</span>
+                    )}
                   </td>
-                  <td>{c.niveau}</td>
-                  <td>{parcoursCourt(c.parcours)}</td>
-                  <td>{c.enseignant}</td>
-                  <td className="nombre">{c.nb_eleves}</td>
-                  <td className="nombre">{c.nb_chapitres_ouverts}</td>
                   <td className="nombre">
-                    <button className="secondaire petit" onClick={() => setGeree(c)} aria-label={`Gérer la classe ${c.code}`}>
-                      Gérer
-                    </button>
+                    {l.genre === "classe" ? (
+                      <button className="secondaire petit" onClick={() => setFenetre({ genre: "gerer", classe: l })} aria-label={`Gérer ${l.nom}`}>
+                        Gérer
+                      </button>
+                    ) : (
+                      <a
+                        className="lien petit"
+                        href="/admin/anglais"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          naviguer("/admin/anglais");
+                        }}
+                      >
+                        Dans Boussole Anglais
+                      </a>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -337,6 +479,31 @@ function ListeClasses({ jeton, onExpire, domaine }) {
         </div>
       )}
     </section>
+  );
+}
+
+function ArchivageFinAnnee({ nombre, onFermer, onValider }) {
+  const [motif, setMotif] = useState("Fin d'année scolaire");
+  return (
+    <Modale titre={`Archiver ${nombre} classe(s) ou groupe(s)`} onFermer={onFermer}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onValider(motif);
+        }}
+      >
+        <label htmlFor="arch-motif">Motif (visible dans l'historique)</label>
+        <input id="arch-motif" value={motif} maxLength={200} onChange={(e) => setMotif(e.target.value)} />
+        <p className="aide">
+          Les élèves et leur professeur n'y ont plus accès ; inscriptions, séances et réponses restent en base. Vous pourrez
+          les rétablir.
+        </p>
+        <div className="actions">
+          <button type="button" className="secondaire" onClick={onFermer}>Annuler</button>
+          <button type="submit">Archiver</button>
+        </div>
+      </form>
+    </Modale>
   );
 }
 

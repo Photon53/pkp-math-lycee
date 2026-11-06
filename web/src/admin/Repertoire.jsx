@@ -253,7 +253,7 @@ export default function Repertoire({ appeler, erreur, domaine = "" }) {
                         <div className="badges">
                           {e.maths.map((m) => (
                             <span key={m.eleve_id} className={m.principal ? "badge accent" : "badge neutre"} title={m.libelle_parcours}>
-                              {m.code_classe}{m.principal ? "" : " · option"}
+                              {m.code_classe}{m.principal ? "" : " · option"}{m.archivee ? " · archivée" : ""}
                             </span>
                           ))}
                         </div>
@@ -507,7 +507,7 @@ export function FicheEleve({ id, appeler, onFermer, onChange }) {
                       <tr key={m.eleve_id}>
                         <td>{m.code_classe}</td>
                         <td>
-                          {parcoursCourt(m.parcours)} <span className={m.principal ? "badge accent" : "badge neutre"}>{m.principal ? "principal" : "option"}</span>
+                          {parcoursCourt(m.parcours)} <span className={m.principal ? "badge accent" : "badge neutre"}>{m.principal ? "principal" : "option"}</span>{m.archivee && <span className="badge neutre"> classe archivée</span>}
                         </td>
                         <td>{m.enseignant}</td>
                         <td>{m.seances}</td>
@@ -529,7 +529,7 @@ export function FicheEleve({ id, appeler, onFermer, onChange }) {
                   <tbody>
                     {fiche.anglais.map((a) => (
                       <tr key={a.eleve_id}>
-                        <td>{a.groupe}</td>
+                        <td>{a.groupe}{a.archivee && <span className="badge neutre"> archivé</span>}</td>
                         <td>{a.enseignant}</td>
                         <td>{a.seances}</td>
                         <td>{a.derniere_activite ? formaterDate(a.derniere_activite) : "—"}</td>

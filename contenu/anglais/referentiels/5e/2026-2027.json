@@ -1,0 +1,94 @@
+{
+  "level": "5e",
+  "school_year": "2026-2027",
+  "program": "lve-college-2025",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "À la rencontre de l'autre",
+    "Le réel et l'imaginaire",
+    "L'Irlande"
+  ],
+  "objectives": [
+    {
+      "code": "5E-01",
+      "activity": "Interaction orale",
+      "observable": "Commander à manger et à boire, demander et comprendre un prix",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "Can I have...? I'd like... How much...?"
+    },
+    {
+      "code": "5E-02",
+      "activity": "Interaction orale",
+      "observable": "Inviter, accepter ou refuser en justifiant, fixer un rendez-vous",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "Would you like to...? Let's... because"
+    },
+    {
+      "code": "5E-03",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un court récit au passé",
+      "theme": "Le réel et l'imaginaire",
+      "language_support": "Prétérit des verbes réguliers"
+    },
+    {
+      "code": "5E-04",
+      "activity": "Expression écrite",
+      "observable": "Raconter son week-end ou ses vacances",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "Prétérit, verbes irréguliers fréquents"
+    },
+    {
+      "code": "5E-05",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un blog de voyage et relever lieux et activités",
+      "theme": "L'Irlande",
+      "language_support": "Repérage, prétérit"
+    },
+    {
+      "code": "5E-06",
+      "activity": "Expression orale",
+      "observable": "Comparer deux villes, deux personnes ou deux objets",
+      "theme": "L'Irlande",
+      "language_support": "Comparatifs et superlatifs"
+    },
+    {
+      "code": "5E-07",
+      "activity": "Interaction orale",
+      "observable": "Faire des projets pour le week-end ou un voyage",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "be going to"
+    },
+    {
+      "code": "5E-08",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre des règles et des obligations",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "must / mustn't, have to"
+    },
+    {
+      "code": "5E-09",
+      "activity": "Expression orale",
+      "observable": "Présenter une personnalité du monde anglophone",
+      "theme": "À la rencontre de l'autre",
+      "language_support": "was / were, dates"
+    },
+    {
+      "code": "5E-10",
+      "activity": "Expression écrite",
+      "observable": "Écrire un message pour donner des conseils",
+      "theme": "Le réel et l'imaginaire",
+      "language_support": "should / shouldn't"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Programmes de langues vivantes du collège et du lycée, BO n°22 du 29 mai 2025 (annexe 3 : anglais au collège)",
+      "url": "https://www.education.gouv.fr/bo/2025/Hebdo22/MENE2504621A"
+    },
+    {
+      "title": "Éduscol, livret d'accompagnement du programme d'anglais 6e-3e (2026)",
+      "url": "https://eduscol.education.gouv.fr/sites/default/files/document/2026livretaccompagnementanglais6e5e4e3e-127310.pdf"
+    }
+  ],
+  "note": "Objectifs opérationnels Boussole pour le programme 2025 (niveau visé en LVA : A2). Intitulés d'axes repris des documents d'accompagnement, liste partielle à compléter et vérifier sur l'annexe 3 du BO. Progression en cours : seules les deux premières séances sont rédigées. Validation par enseignant référent requise."
+}

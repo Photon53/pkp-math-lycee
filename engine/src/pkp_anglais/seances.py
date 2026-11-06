@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from typing import Literal
 
 Parcours = Literal["A", "B", "C"]
-Niveau = Literal["4e", "3e"]
+Niveau = Literal["6e", "5e", "4e", "3e", "2nde", "1re", "Tle"]
+NIVEAUX = ("6e", "5e", "4e", "3e", "2nde", "1re", "Tle")
 
 
 @dataclass(frozen=True)
@@ -37,8 +38,8 @@ class Seance:
 def verifier_seance(seance: Seance) -> list[str]:
     """Renvoie toutes les erreurs de structure avant publication."""
     erreurs: list[str] = []
-    if seance.niveau not in ("4e", "3e"):
-        erreurs.append("Niveau non pris en charge par le MVP.")
+    if seance.niveau not in NIVEAUX:
+        erreurs.append("Niveau inconnu.")
     if not seance.code.strip() or not seance.titre.strip() or not seance.objectif.strip():
         erreurs.append("Code, titre et objectif sont obligatoires.")
     if not seance.etapes:

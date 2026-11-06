@@ -1,0 +1,93 @@
+{
+  "level": "Tle",
+  "school_year": "2026-2027",
+  "program": "lve-lycee-2025",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Axe 1 - Espace privé et espace public",
+    "Axe 2 - Territoire et mémoire",
+    "Axe 3 - Fictions et réalités",
+    "Axe 4 - Enjeux et formes de la communication",
+    "Axe 5 - Citoyenneté et mondes virtuels",
+    "Axe 6 - Le Royaume-Uni et ses nations"
+  ],
+  "objectives": [
+    {
+      "code": "TLE-01",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un exposé sur la personnalisation en ligne et débattre de ses effets sur l'information",
+      "theme": "Axe 5 - Citoyenneté et mondes virtuels",
+      "language_support": "Passif"
+    },
+    {
+      "code": "TLE-02",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un reportage sur une tradition qui évolue et argumenter sur la conciliation entre culture et environnement",
+      "theme": "Axe 2 - Territoire et mémoire",
+      "language_support": "Connecteurs de contraste, instead of"
+    },
+    {
+      "code": "TLE-03",
+      "activity": "Expression écrite",
+      "observable": "Rédiger un essai argumenté structuré (type baccalauréat)",
+      "theme": "Axe 5 - Citoyenneté et mondes virtuels",
+      "language_support": "Connecteurs, nuance, concession"
+    },
+    {
+      "code": "TLE-04",
+      "activity": "Interaction orale",
+      "observable": "Défendre un point de vue sur la frontière entre vie privée et vie publique",
+      "theme": "Axe 1 - Espace privé et espace public",
+      "language_support": "Réfutation, concession"
+    },
+    {
+      "code": "TLE-05",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un extrait littéraire et analyser la part de fiction et de réel",
+      "theme": "Axe 3 - Fictions et réalités",
+      "language_support": "Lexique de l'analyse, modaux de déduction"
+    },
+    {
+      "code": "TLE-06",
+      "activity": "Expression orale en continu",
+      "observable": "Analyser une campagne de communication ou un discours",
+      "theme": "Axe 4 - Enjeux et formes de la communication",
+      "language_support": "Relatives, passif, lexique de la persuasion"
+    },
+    {
+      "code": "TLE-07",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un document sur l'identité d'une nation du Royaume-Uni",
+      "theme": "Axe 6 - Le Royaume-Uni et ses nations",
+      "language_support": "Repérage, present perfect"
+    },
+    {
+      "code": "TLE-08",
+      "activity": "Expression écrite",
+      "observable": "Rédiger une synthèse de plusieurs documents",
+      "theme": "Axe 4 - Enjeux et formes de la communication",
+      "language_support": "Reformulation, connecteurs"
+    },
+    {
+      "code": "TLE-09",
+      "activity": "Interaction orale",
+      "observable": "Préparer l'épreuve orale : présenter un axe et répondre aux questions",
+      "theme": "Axe 1 - Espace privé et espace public",
+      "language_support": "Stratégies de prise de parole"
+    },
+    {
+      "code": "TLE-10",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un texte sur un lieu de mémoire et en dégager les enjeux",
+      "theme": "Axe 2 - Territoire et mémoire",
+      "language_support": "Repérage des arguments, passif"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Programme d'anglais pour les classes de lycée général et technologique (annexe 4, BO n°22 du 29 mai 2025)",
+      "url": "https://www.education.gouv.fr/sites/default/files/annexe-4-programme-d-anglais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440361.pdf"
+    }
+  ],
+  "note": "Objectifs opérationnels Boussole, rattachés aux axes du programme 2025, non reproduction exhaustive des attendus officiels. Niveaux visés en LVA : B1+ en seconde et en première, B2 en terminale. Progression en cours : seules les deux premières séances sont rédigées. Validation par enseignant référent requise."
+}

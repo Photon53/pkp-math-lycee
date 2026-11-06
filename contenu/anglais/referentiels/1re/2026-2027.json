@@ -1,0 +1,93 @@
+{
+  "level": "1re",
+  "school_year": "2026-2027",
+  "program": "lve-lycee-2025",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Axe 1 - Identités et échanges",
+    "Axe 2 - Diversité et inclusion",
+    "Axe 3 - Art et pouvoir",
+    "Axe 4 - Innovations scientifiques et responsabilité",
+    "Axe 5 - L'être humain et la nature",
+    "Axe 6 - Les aires anglophones américaines"
+  ],
+  "objectives": [
+    {
+      "code": "1RE-01",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre la présentation d'inventions et évaluer leur utilité en faisant des hypothèses",
+      "theme": "Axe 4 - Innovations scientifiques et responsabilité",
+      "language_support": "could, might, second conditionnel"
+    },
+    {
+      "code": "1RE-02",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre une émission sur les tendances des prénoms et discuter du lien entre nom et identité",
+      "theme": "Axe 1 - Identités et échanges",
+      "language_support": "tend to, used to, be named after"
+    },
+    {
+      "code": "1RE-03",
+      "activity": "Interaction orale",
+      "observable": "Discuter de l'inclusion à l'école et dans le sport",
+      "theme": "Axe 2 - Diversité et inclusion",
+      "language_support": "Expression de l'opinion, concession"
+    },
+    {
+      "code": "1RE-04",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un article sur un artiste engagé et en dégager le message",
+      "theme": "Axe 3 - Art et pouvoir",
+      "language_support": "Repérage, relatives"
+    },
+    {
+      "code": "1RE-05",
+      "activity": "Expression écrite",
+      "observable": "Rédiger un essai argumenté court sur la responsabilité des scientifiques",
+      "theme": "Axe 4 - Innovations scientifiques et responsabilité",
+      "language_support": "Connecteurs logiques, modaux"
+    },
+    {
+      "code": "1RE-06",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un reportage sur la cohabitation entre l'être humain et la faune sauvage",
+      "theme": "Axe 5 - L'être humain et la nature",
+      "language_support": "Connecteurs de contraste"
+    },
+    {
+      "code": "1RE-07",
+      "activity": "Expression orale en continu",
+      "observable": "Présenter un enjeu environnemental d'un pays anglophone",
+      "theme": "Axe 5 - L'être humain et la nature",
+      "language_support": "Passif, chiffres, cause et conséquence"
+    },
+    {
+      "code": "1RE-08",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un témoignage sur l'immigration et l'identité aux États-Unis ou au Canada",
+      "theme": "Axe 6 - Les aires anglophones américaines",
+      "language_support": "Prétérit, present perfect"
+    },
+    {
+      "code": "1RE-09",
+      "activity": "Interaction orale",
+      "observable": "Négocier une décision collective en groupe",
+      "theme": "Axe 2 - Diversité et inclusion",
+      "language_support": "Suggestion, compromis"
+    },
+    {
+      "code": "1RE-10",
+      "activity": "Expression écrite",
+      "observable": "Rédiger le compte rendu d'un document audio ou vidéo sur les Amériques anglophones",
+      "theme": "Axe 6 - Les aires anglophones américaines",
+      "language_support": "Discours rapporté, synthèse"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Programme d'anglais pour les classes de lycée général et technologique (annexe 4, BO n°22 du 29 mai 2025)",
+      "url": "https://www.education.gouv.fr/sites/default/files/annexe-4-programme-d-anglais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440361.pdf"
+    }
+  ],
+  "note": "Objectifs opérationnels Boussole, rattachés aux axes du programme 2025, non reproduction exhaustive des attendus officiels. Niveaux visés en LVA : B1+ en seconde et en première, B2 en terminale. Progression en cours : seules les deux premières séances sont rédigées. Validation par enseignant référent requise."
+}

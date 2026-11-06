@@ -1,0 +1,101 @@
+{
+  "code": "2NDE-02",
+  "level": "2nde",
+  "school_year": "2026-2027",
+  "title": "Theme parks: when stories become places",
+  "objective": "Comprendre une interview radio sur des parcs qui recréent des univers de fiction et comparer des lieux pour recommander une sortie",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: thrill or chill?",
+      "duration_minutes": 10,
+      "student_instruction": "Stand on the left if you love roller coasters, on the right if you hate them. Say why in one sentence.",
+      "facilitator_instruction": "Faire justifier avec because et un adjectif (thrilling, terrifying, boring). Introduire le lexique des parcs."
+    },
+    {
+      "order": 2,
+      "title": "Listening: theme parks",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to the radio interview. Note the parks, the countries and one record or number for each.",
+      "facilitator_instruction": "Audio British Council « Theme parks » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Prévenir que certaines informations datent : on travaille la compréhension, pas l'actualité des parcs."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: comparatives and superlatives",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: Cedar Point has ___ (many) roller coasters ___ my local park. Ocean Kingdom will have the ___ (long) roller coaster in the world.",
+      "facilitator_instruction": "Comparatif (-er than / more ... than), superlatif (the -est / the most), irréguliers good / better / the best, bad / worse / the worst."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : tableau de comparaison guidé ; B : rédaction d'une recommandation à partir de fiches de parcs ; C : article critique sur le coût écologique et financier des parcs géants."
+    },
+    {
+      "order": 5,
+      "title": "Pair task: plan the class trip",
+      "duration_minutes": 20,
+      "student_instruction": "With your park cards, compare two parks and agree on the best one for the class. Present your choice in three sentences.",
+      "facilitator_instruction": "Fiches inventées avec prix, attractions, distance. Exiger trois comparatifs et un superlatif, et un accord négocié (I see your point, but...)."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one comparative and one superlative about places you know.",
+      "facilitator_instruction": "Ramasser ; repérer more bigger et the most good."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the table with the comparative and superlative: big, exciting, good, far. Then write two sentences comparing Cedar Point and a park you know.",
+      "facilitator_correction": "bigger / the biggest ; more exciting / the most exciting ; better / the best ; further / the furthest. Phrases libres correctes."
+    },
+    {
+      "track": "B",
+      "student_content": "Read the three park cards (price, rides, distance). Write a 100-word recommendation for a family with two teenagers.",
+      "facilitator_correction": "Production guidée ; attendus : trois comparatifs, un superlatif, un conseil final (I would recommend... because...)."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 150-word article: \"Are giant theme parks worth it?\" Think about money, the environment and fun.",
+      "facilitator_correction": "Production libre ; attendus : deux arguments opposés, connecteurs (whereas, however, on the other hand), conclusion personnelle."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève relève des noms de parcs, des pays et des chiffres",
+      "L'élève compare deux lieux avec des comparatifs corrects",
+      "L'élève formule une recommandation justifiée"
+    ]
+  },
+  "common_errors": [
+    "more bigger (double comparatif)",
+    "the most good (au lieu de the best)",
+    "than oublié : bigger my park"
+  ],
+  "source_objectives": [
+    "2NDE-02"
+  ],
+  "theme": "Axe 5 - Créer et recréer (univers de fiction recréés : Harry Potter, dinosaures, Sesame Street)",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

@@ -26,7 +26,7 @@ def test_chaque_seance_listee_s_ouvre_et_produit_ses_pdf(client):
     h = connecter_anglais(client)
     liste = client.get("/anglais/seances", headers=h)
     assert liste.status_code == 200
-    assert {s["niveau"] for s in liste.json()} == {"4e", "3e"}
+    assert {s["niveau"] for s in liste.json()} == {"6e", "5e", "4e", "3e", "2nde", "1re", "Tle"}
     for item in liste.json():
         seance = client.get(f"/anglais/seances/{item['code']}", headers=h)
         assert seance.status_code == 200, item["code"]
@@ -43,15 +43,18 @@ def test_chaque_seance_listee_s_ouvre_et_produit_ses_pdf(client):
 
 
 def test_chaque_objectif_du_referentiel_a_sa_seance():
-    """Le programme 4e et 3e est couvert : chaque objectif du référentiel a une séance au catalogue, dans l'ordre."""
+    """4e et 3e sont couverts (chaque objectif a sa séance) ; ailleurs, les séances suivent l'ordre du référentiel."""
     import json
 
     from app.anglais_contenu import CONTENU, FICHIERS
 
-    for niveau in ("4e", "3e"):
+    for niveau in ("6e", "5e", "4e", "3e", "2nde", "1re", "Tle"):
         referentiel = json.loads((CONTENU / "referentiels" / niveau / "2026-2027.json").read_text(encoding="utf-8"))
         objectifs = [o["code"] for o in referentiel["objectives"]]
-        assert objectifs == [code for code, f in FICHIERS.items() if f.startswith(niveau)]
+        seances = [code for code, f in FICHIERS.items() if f.startswith(niveau)]
+        assert seances and seances == objectifs[: len(seances)], niveau
+        if niveau in ("4e", "3e"):
+            assert seances == objectifs
 
 
 def test_chaque_fichier_de_seance_est_au_catalogue():
@@ -64,7 +67,7 @@ def test_chaque_fichier_de_seance_est_au_catalogue():
 
 def test_code_ou_pack_inconnu(client):
     h = connecter_anglais(client)
-    assert client.get("/anglais/seances/5E-01", headers=h).status_code == 404
+    assert client.get("/anglais/seances/5E-99", headers=h).status_code == 404
     assert client.get("/anglais/seances/4E-01/pdf/autre", headers=h).status_code == 404
 
 
@@ -119,7 +122,10 @@ def test_le_professeur_d_anglais_cree_ses_groupes_et_inscrit_ses_eleves(client):
 
 def test_groupes_valides_et_limites(client):
     h = connecter_anglais(client)
-    assert client.post("/anglais/groupes", headers=h, json={"nom": "Lycée", "niveau": "2nde"}).status_code == 422
+    assert client.post("/anglais/groupes", headers=h, json={"nom": "Primaire", "niveau": "CM2"}).status_code == 422
+    # Le lycée relève d'Anglais lycée, fermé au départ.
+    r = client.post("/anglais/groupes", headers=h, json={"nom": "Lycée", "niveau": "2nde"})
+    assert r.status_code == 403 and "Anglais lycée" in r.json()["detail"]
     assert client.post("/anglais/groupes", headers=h, json={"nom": "  ", "niveau": "4e"}).status_code == 422
     gid = client.post("/anglais/groupes", headers=h, json={"nom": "4e A", "niveau": "4e"}).json()["id"]
     assert client.post("/anglais/groupes", headers=h, json={"nom": "4E a", "niveau": "3e"}).status_code == 409
@@ -197,6 +203,41 @@ def test_l_administrateur_voit_et_gere_les_groupes_d_anglais(client):
 def test_l_administrateur_consulte_les_seances_d_anglais(client):
     admin = connecter_admin(client)
     seances = client.get("/admin/anglais/seances", headers=admin).json()
-    assert len(seances) == 20 and {s["code"] for s in seances} >= {"4E-01", "4E-10", "3E-01", "3E-10"}
+    assert len(seances) == 30 and {s["code"] for s in seances} >= {"6E-01", "5E-02", "4E-01", "4E-10", "3E-01", "3E-10"}
+    assert [s["code"] for s in seances][:5] == ["6E-01", "6E-02", "5E-01", "5E-02", "4E-01"]
+    assert [s["code"] for s in seances][-2:] == ["TLE-01", "TLE-02"]
     r = client.get("/admin/anglais/seances/3E-01/pdf/animateur", headers=admin)
     assert r.status_code == 200 and r.content.startswith(b"%PDF")
+
+
+def test_anglais_lycee_se_range_dans_son_domaine(client, session):
+    """Groupes et séances de 2nde, 1re et Tle relèvent d'Anglais lycée : domaine ouvert et habilitation requis."""
+    from sqlalchemy import select
+
+    from app import permissions
+    from app.db import models
+
+    h = connecter_anglais(client)
+    admin = connecter_admin(client)
+    lycee = [s["code"] for s in client.get("/admin/anglais/seances?domaine=anglais-lycee", headers=admin).json()]
+    assert lycee == ["2NDE-01", "2NDE-02", "1RE-01", "1RE-02", "TLE-01", "TLE-02"]
+    college = client.get("/admin/anglais/seances?domaine=anglais-college", headers=admin).json()
+    assert len(college) == 24 and college[0]["code"] == "6E-01"
+    # Le référent du collège ne valide pas le lycée.
+    assert "2NDE-01" not in {s["code"] for s in client.get("/anglais/validation", headers=h).json()}
+    assert client.post("/anglais/validation/2NDE-01/valider", headers=h).status_code == 403
+
+    # Domaine ouvert, mais professeur sans habilitation lycée : refusé.
+    domaine = session.get(models.DomainePedagogique, "anglais-lycee")
+    domaine.actif = domaine.public = True
+    session.commit()
+    r = client.post("/anglais/groupes", headers=h, json={"nom": "2nde B", "niveau": "2nde"})
+    assert r.status_code == 403 and "habilité" in r.json()["detail"]
+
+    prof = session.scalar(select(models.Enseignant).where(models.Enseignant.email == EMAIL_ANGLAIS_DEMO))
+    permissions.appliquer(session, prof, [*permissions.portees(prof), permissions.Portee(permissions.PROFESSEUR, "anglais-lycee")], None)
+    session.commit()
+    r = client.post("/anglais/groupes", headers=h, json={"nom": "2nde B", "niveau": "2nde"})
+    assert r.status_code == 201, r.text
+    groupe = session.get(models.GroupeAnglais, r.json()["id"])
+    assert groupe.domaine_code == "anglais-lycee"

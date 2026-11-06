@@ -44,9 +44,10 @@ class TestDomaineEnregistre:
     def test_un_groupe_prend_un_niveau_de_son_domaine(self, client):
         h = connecter_enseignant(client, EMAIL_ANGLAIS_DEMO)
         assert client.post("/anglais/groupes", headers=h, json={"nom": "6e A", "niveau": "6e"}).status_code == 201
+        # Le lycée relève d'Anglais lycée, fermé au départ ; un niveau inconnu est refusé.
         r = client.post("/anglais/groupes", headers=h, json={"nom": "2nde A", "niveau": "2nde"})
-        assert r.status_code == 422
-        assert "Anglais collège" in r.json()["detail"]
+        assert r.status_code == 403 and "Anglais lycée" in r.json()["detail"]
+        assert client.post("/anglais/groupes", headers=h, json={"nom": "CM2", "niveau": "CM2"}).status_code == 422
 
 
 class TestFiltreDomaine:
@@ -61,7 +62,8 @@ class TestFiltreDomaine:
         assert client.get("/admin/eleves?domaine=maths-lycee", headers=admin).json()["total"] > 0
         assert client.get("/admin/questions?domaine=anglais-college", headers=admin).json()["total"] == 0
         assert nb("/admin/anglais/seances", MATHS) == 0
-        assert nb("/admin/anglais/seances", ANGLAIS) == 20
+        assert nb("/admin/anglais/seances", ANGLAIS) == 24
+        assert nb("/admin/anglais/seances", "anglais-lycee") == 6
         equipe = {e["email"] for e in client.get("/admin/enseignants?domaine=anglais-college", headers=admin).json()}
         assert EMAIL_ANGLAIS_DEMO in equipe and "admin@pkp.test" not in equipe
         assert client.get("/admin/classes", headers=admin).json()[0]["domaine_code"] == MATHS

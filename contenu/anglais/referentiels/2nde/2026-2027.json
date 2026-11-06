@@ -1,0 +1,93 @@
+{
+  "level": "2nde",
+  "school_year": "2026-2027",
+  "program": "lve-lycee-2025",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Axe 1 - Représentation de soi et rapport à autrui",
+    "Axe 2 - Vivre entre générations",
+    "Axe 3 - Le passé dans le présent",
+    "Axe 4 - Défis et transitions",
+    "Axe 5 - Créer et recréer",
+    "Axe 6 - Les pays du Commonwealth : héritages, unité, diversité"
+  ],
+  "objectives": [
+    {
+      "code": "2NDE-01",
+      "activity": "Expression orale en continu",
+      "observable": "Présenter un objet qui compte pour soi et expliquer en quoi il nous représente",
+      "theme": "Axe 1 - Représentation de soi et rapport à autrui",
+      "language_support": "Present perfect avec for / since, relatives"
+    },
+    {
+      "code": "2NDE-02",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre une interview radio sur des parcs qui recréent des univers de fiction et comparer des lieux pour recommander une sortie",
+      "theme": "Axe 5 - Créer et recréer",
+      "language_support": "Comparatifs et superlatifs"
+    },
+    {
+      "code": "2NDE-03",
+      "activity": "Interaction orale",
+      "observable": "Échanger sur l'évolution de la famille et des relations entre générations",
+      "theme": "Axe 2 - Vivre entre générations",
+      "language_support": "used to, would, comparaison passé / présent"
+    },
+    {
+      "code": "2NDE-04",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un article sur l'écologie comme fracture entre générations et en dégager les points de vue",
+      "theme": "Axe 2 - Vivre entre générations",
+      "language_support": "Repérage des opinions, connecteurs"
+    },
+    {
+      "code": "2NDE-05",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre un document sur un lieu de patrimoine et ce qu'il dit du passé",
+      "theme": "Axe 3 - Le passé dans le présent",
+      "language_support": "Passif, prétérit"
+    },
+    {
+      "code": "2NDE-06",
+      "activity": "Expression écrite",
+      "observable": "Rédiger un court texte sur une forme de mobilisation (pétition, hashtag)",
+      "theme": "Axe 4 - Défis et transitions",
+      "language_support": "Modaux, impératif, connecteurs"
+    },
+    {
+      "code": "2NDE-07",
+      "activity": "Interaction orale",
+      "observable": "Débattre de l'aménagement de la ville et des transports",
+      "theme": "Axe 4 - Défis et transitions",
+      "language_support": "Suggestion, comparaison, accord et désaccord"
+    },
+    {
+      "code": "2NDE-08",
+      "activity": "Compréhension écrite",
+      "observable": "Lire la réécriture d'un conte ou d'une légende et la comparer à l'original",
+      "theme": "Axe 5 - Créer et recréer",
+      "language_support": "Prétérit, récit"
+    },
+    {
+      "code": "2NDE-09",
+      "activity": "Expression orale en continu",
+      "observable": "Présenter un pays du Commonwealth et son héritage",
+      "theme": "Axe 6 - Les pays du Commonwealth : héritages, unité, diversité",
+      "language_support": "Prétérit, present perfect, chiffres et dates"
+    },
+    {
+      "code": "2NDE-10",
+      "activity": "Expression écrite",
+      "observable": "Écrire un compte rendu d'un extrait de littérature anglophone du Commonwealth",
+      "theme": "Axe 6 - Les pays du Commonwealth : héritages, unité, diversité",
+      "language_support": "Discours rapporté, synthèse"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Programme d'anglais pour les classes de lycée général et technologique (annexe 4, BO n°22 du 29 mai 2025)",
+      "url": "https://www.education.gouv.fr/sites/default/files/annexe-4-programme-d-anglais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440361.pdf"
+    }
+  ],
+  "note": "Objectifs opérationnels Boussole, rattachés aux axes du programme 2025, non reproduction exhaustive des attendus officiels. Niveaux visés en LVA : B1+ en seconde et en première, B2 en terminale. Progression en cours : seules les deux premières séances sont rédigées. Validation par enseignant référent requise."
+}

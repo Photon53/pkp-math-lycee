@@ -1,0 +1,101 @@
+{
+  "code": "5E-02",
+  "level": "5e",
+  "school_year": "2026-2027",
+  "title": "Let's go to the cinema!",
+  "objective": "Inviter, accepter ou refuser en justifiant, fixer un rendez-vous",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: film genres",
+      "duration_minutes": 10,
+      "student_instruction": "Look at four film posters. Say the genre: horror, comedy, romantic comedy, science fiction. Which one do you like?",
+      "facilitator_instruction": "Afficher quatre affiches inventées ; faire voter la classe et noter au tableau I love / I like / I don't like / I hate."
+    },
+    {
+      "order": 2,
+      "title": "Listening: inviting someone to the cinema",
+      "duration_minutes": 15,
+      "student_instruction": "Listen twice. Note the films they don't want, the film they choose, the time and the meeting place.",
+      "facilitator_instruction": "Audio British Council « Inviting someone to the cinema » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Seconde écoute ciblée sur les refus et leurs raisons."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: inviting and answering",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: Would you like to...? / Do you want to...? - Yes, great! / Sorry, I can't, I... / No thanks, I don't like...",
+      "facilitator_instruction": "Would you like to + verbe ; refuser poliment et justifier avec because. Rendez-vous : at + heure, outside / in front of + lieu."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : associer invitations et réponses ; B : compléter un agenda et répondre à trois invitations ; C : écrire un message d'invitation et deux réponses (oui / non justifié)."
+    },
+    {
+      "order": 5,
+      "title": "Pair task: plan a night out",
+      "duration_minutes": 25,
+      "student_instruction": "With your diary card, invite your partner. Agree on a film, a day, a time and a place to meet.",
+      "facilitator_instruction": "Distribuer des agendas avec des créneaux occupés différents pour forcer au moins un refus justifié. Vérifier que chaque binôme note le rendez-vous final."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one invitation and one polite refusal with because.",
+      "facilitator_instruction": "Ramasser ; repérer Would you like + to et la justification."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Match: 1) Would you like to go to the cinema? 2) What time? 3) Where do we meet? 4) Do you like horror films? - a) Outside the cinema. b) No, I hate them! c) Yes, great idea! d) At eight o'clock.",
+      "facilitator_correction": "1-c ; 2-d ; 3-a ; 4-b"
+    },
+    {
+      "track": "B",
+      "student_content": "Look at your diary for Saturday. Answer three invitations: accept one, refuse two and give a reason for each refusal.",
+      "facilitator_correction": "Exemple : Sorry, I can't, I've got a piano lesson. / No thanks, I don't like comedies. Yes, great! What time?"
+    },
+    {
+      "track": "C",
+      "student_content": "Write a message to invite two friends to the cinema (film, day, time, meeting place). Then write one friend's answer: yes or no, with a reason.",
+      "facilitator_correction": "Production libre ; attendus : Would you like to..., heure avec at, lieu de rendez-vous, refus justifié avec because."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève formule une invitation",
+      "L'élève accepte ou refuse en donnant une raison",
+      "L'élève fixe une heure et un lieu de rendez-vous"
+    ]
+  },
+  "common_errors": [
+    "Would you like go (oubli de to)",
+    "Refus sans raison : No.",
+    "Oubli de at devant l'heure"
+  ],
+  "source_objectives": [
+    "5E-02"
+  ],
+  "theme": "À la rencontre de l'autre - les loisirs",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

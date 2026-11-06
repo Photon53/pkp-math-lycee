@@ -1,0 +1,101 @@
+{
+  "code": "1RE-02",
+  "level": "1re",
+  "school_year": "2026-2027",
+  "title": "What's in a name?",
+  "objective": "Comprendre une émission sur les tendances des prénoms et discuter du lien entre nom et identité",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: the story of your name",
+      "duration_minutes": 10,
+      "student_instruction": "In pairs, tell the story of your first name: who chose it, why, what it means. Use: I was named after...",
+      "facilitator_instruction": "Valoriser la diversité des origines sans obliger à se dévoiler : proposer de parler d'un personnage ou d'un prénom choisi."
+    },
+    {
+      "order": 2,
+      "title": "Listening: what's in a name?",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to the radio extract. Note the country that starts trends, three categories of new names and one unusual family.",
+      "facilitator_instruction": "Audio British Council « What's in a name? » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute : thèse ; seconde : catégories et exemples."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: tend to, used to and be named after",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: British parents ___ (tend) choose traditional names. People ___ (use) give children their grandparents' names. She was named ___ a novelist.",
+      "facilitator_instruction": "Tend to + base verbale (généralité), used to (habitude passée révolue), be named after (passif). Faire comparer avec le français « avoir tendance à », « autrefois »."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : classer des prénoms par catégorie et compléter des phrases ; B : synthèse de l'écoute ; C : essai sur le prénom comme marqueur d'identité."
+    },
+    {
+      "order": 5,
+      "title": "Discussion: does a name shape who we are?",
+      "duration_minutes": 20,
+      "student_instruction": "In groups of four, discuss the question for ten minutes. Then one spokesperson sums up your group's ideas in one minute.",
+      "facilitator_instruction": "Distribuer des cartes d'arguments (préjugés liés aux noms, célébrités, changements de nom). Exiger reformulation et synthèse (To sum up, our group feels that...)."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence with tend to and one with used to about names.",
+      "facilitator_instruction": "Ramasser ; repérer used to + -ing et tend + -ing."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Sort the names into categories (nature, virtues, music, food, places): Wolf, Honor, Melody, Apple, Brooklyn, Faith, Fox, Lyric, Clementine, Chelsea. Then complete: In the past, parents ___ (use) choose saints' names.",
+      "facilitator_correction": "Nature : Wolf, Fox ; virtues : Honor, Faith ; music : Melody, Lyric ; food : Apple, Clementine ; places : Brooklyn, Chelsea. used to."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a 120-word summary of the programme: where trends come from, three types of names and the two families mentioned.",
+      "facilitator_correction": "Attendus : les États-Unis lancent les tendances, la Grande-Bretagne suit avec des choix plus classiques ; noms communs (vertus, nature, musique, mois, couleurs, aliments, lieux, métiers) ; famille néerlandaise (anagrammes de A, E, L, X) et famille Kardashian (même initiale)."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 200-word essay: \"Our name is the first part of our identity.\" To what extent do you agree?",
+      "facilitator_correction": "Production libre ; attendus : problématique, exemples (écoute, culture, expérience), tend to / used to, conclusion nuancée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève identifie l'origine des tendances et trois catégories de prénoms",
+      "L'élève emploie tend to, used to ou be named after",
+      "L'élève participe à une discussion et en fait la synthèse"
+    ]
+  },
+  "common_errors": [
+    "used to + -ing : I used to giving",
+    "tend + -ing : they tend choosing",
+    "named of (au lieu de named after)"
+  ],
+  "source_objectives": [
+    "1RE-02"
+  ],
+  "theme": "Axe 1 - Identités et échanges",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

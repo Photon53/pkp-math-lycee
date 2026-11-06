@@ -7,9 +7,10 @@ RACINE = Path(__file__).resolve().parents[2] / "contenu" / "anglais"
 
 
 def test_referentiels_pilotes():
-    for niveau in ("4e", "3e"):
-        chemin = RACINE / "referentiels" / niveau / "2026-2027.json"
-        assert verifier_referentiel(chemin) == []
+    chemins = sorted((RACINE / "referentiels").glob("*/2026-2027.json"))
+    assert {c.parent.name for c in chemins} >= {"6e", "5e", "4e", "3e"}
+    for chemin in chemins:
+        assert verifier_referentiel(chemin) == [], chemin
 
 
 def test_seances_pilotes_90_minutes_et_packs_separes():

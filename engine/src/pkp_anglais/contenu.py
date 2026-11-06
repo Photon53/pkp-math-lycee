@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-from .seances import Etape, Fiche, Seance, verifier_seance
+from .seances import NIVEAUX, Etape, Fiche, Seance, verifier_seance
 
 
 def charger_seance(chemin: str | Path) -> Seance:
@@ -34,7 +34,7 @@ def seance_depuis_dict(data: dict) -> Seance:
 def verifier_referentiel(chemin: str | Path) -> list[str]:
     data = json.loads(Path(chemin).read_text(encoding="utf-8"))
     erreurs = []
-    if data.get("level") not in ("4e", "3e"):
+    if data.get("level") not in NIVEAUX:
         erreurs.append("Niveau inconnu")
     if not data.get("school_year") or not data.get("program"):
         erreurs.append("Version du programme manquante")

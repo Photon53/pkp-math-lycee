@@ -1,0 +1,101 @@
+{
+  "code": "6E-01",
+  "level": "6e",
+  "school_year": "2026-2027",
+  "title": "Hello! Meet my friends",
+  "objective": "Se présenter et présenter quelqu'un : nom, âge, pays",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: hello chain",
+      "duration_minutes": 10,
+      "student_instruction": "Stand in a circle. Say: Hello, I'm ... What's your name? The next student answers and asks the next one.",
+      "facilitator_instruction": "Faire tourner la chaîne deux fois ; la seconde fois, ajouter l'âge (I'm eleven). Ne pas corriger pendant la chaîne : noter les erreurs pour l'étape 3."
+    },
+    {
+      "order": 2,
+      "title": "Listening: introducing a friend",
+      "duration_minutes": 15,
+      "student_instruction": "Listen twice. Note the names of the three people and the countries.",
+      "facilitator_instruction": "Audio British Council « Introducing a friend » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute : combien de personnes ? Seconde écoute : prénoms et pays."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: be and my / his / her",
+      "duration_minutes": 15,
+      "student_instruction": "Complete the table: I am / you are / he is / she is. Then say: This is my friend. His name is... Her name is...",
+      "facilitator_instruction": "Faire découvrir la règle his (garçon) / her (fille) à partir de deux photos. Insister sur les formes contractées I'm, he's, she's."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then check with your partner.",
+      "facilitator_instruction": "A : phrases à trous avec banque de mots ; B : questions et réponses à écrire ; C : présentation d'un personnage inventé. Circuler et faire relire à voix haute."
+    },
+    {
+      "order": 5,
+      "title": "Pair task: identity cards",
+      "duration_minutes": 25,
+      "student_instruction": "Pick an identity card. Introduce yourself to your partner, then introduce your partner to another pair.",
+      "facilitator_instruction": "Distribuer des cartes d'identité fictives (prénom, âge, pays, drapeau). Vérifier le passage de I'm à This is... / He's from... / She's..."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write two sentences: one about you, one about a friend (name, age or country).",
+      "facilitator_instruction": "Ramasser ; repérer la confusion his / her et l'oubli du verbe be."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete with: is, am, from, her. 1) I ___ eleven. 2) This ___ my friend Lucy. 3) ___ name is Lucy. 4) She is ___ Ireland.",
+      "facilitator_correction": "1) am 2) is 3) Her 4) from"
+    },
+    {
+      "track": "B",
+      "student_content": "Write the questions and answer them about you: name? age? country? Then write three sentences to introduce a friend.",
+      "facilitator_correction": "What's your name? How old are you? Where are you from? Exemple : This is Tom. He's twelve. He's from Scotland."
+    },
+    {
+      "track": "C",
+      "student_content": "Invent a character from an English-speaking country. Write five sentences to introduce him or her (name, age, country, city, one favourite thing).",
+      "facilitator_correction": "Production libre ; attendus : be correct, his/her cohérent avec le personnage, un pays anglophone bien orthographié."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève se présente avec son nom, son âge et son pays",
+      "L'élève présente un camarade avec This is... et he / she",
+      "L'élève pose la question What's your name? ou Where are you from?"
+    ]
+  },
+  "common_errors": [
+    "I have eleven (au lieu de I'm eleven)",
+    "Confusion his / her",
+    "Oubli de is : She from Wales"
+  ],
+  "source_objectives": [
+    "6E-01"
+  ],
+  "theme": "Personnes et personnages - se présenter",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

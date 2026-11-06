@@ -287,13 +287,19 @@ def ouvrir_groupe(session: Session, enseignant: models.Enseignant, corps: Groupe
     """Crée le groupe d'un professeur d'anglais ; sert aussi à l'administrateur."""
     if any(g.nom.lower() == corps.nom.lower() for g in groupes_actifs(enseignant)):
         raise HTTPException(status.HTTP_409_CONFLICT, "Vous avez déjà un groupe de ce nom.")
-    domaine = permissions.DOMAINE_GROUPES_ANGLAIS
-    refus = permissions.refus_domaine_ferme(session, domaine)
-    if refus:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
+    domaine = permissions.domaine_anglais(corps.niveau)
     refus = permissions.refus_niveau(session, domaine, corps.niveau)
     if refus:
         raise HTTPException(422, refus)
+    refus = permissions.refus_domaine_ferme(session, domaine)
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
+    # Le collège reste ouvert à tout professeur d'anglais (case historique) ; le lycée demande son habilitation.
+    if domaine != permissions.ANGLAIS_COLLEGE and not permissions.enseigne(enseignant, domaine, corps.niveau):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            f"{enseignant.nom} n'est pas habilité pour {permissions.LIBELLES[domaine]} : accordez-le dans « Équipe ».",
+        )
     groupe = models.GroupeAnglais(nom=corps.nom, niveau=corps.niveau, enseignant=enseignant, domaine_code=domaine)
     session.add(groupe)
     session.flush()

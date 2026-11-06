@@ -13,20 +13,29 @@ from sqlalchemy.orm import Session
 
 from app.anglais_pdf import charger_ressources, verifier_ressources
 from app.anglais_pictos import image_svg
+from app import permissions
 from app.db import models
 
 CONTENU = Path(__file__).resolve().parents[2] / "contenu" / "anglais"
-# Progression complète : un objectif du référentiel = une séance (10 en 4e, 10 en 3e).
+# Un objectif du référentiel = une séance. Progression complète en 4e et 3e (10 chacune) ;
+# 6e, 5e et lycée en cours (les premières séances, dans l'ordre du référentiel).
 FICHIERS = {
+    **{f"6E-{n:02d}": f"6e/6e-{n:02d}.json" for n in range(1, 3)},
+    **{f"5E-{n:02d}": f"5e/5e-{n:02d}.json" for n in range(1, 3)},
     **{f"4E-{n:02d}": f"4e/4e-{n:02d}{'-pilote' if n <= 2 else ''}.json" for n in range(1, 11)},
     **{f"3E-{n:02d}": f"3e/3e-{n:02d}{'-pilote' if n <= 2 else ''}.json" for n in range(1, 11)},
+    **{f"2NDE-{n:02d}": f"2nde/2nde-{n:02d}.json" for n in range(1, 3)},
+    **{f"1RE-{n:02d}": f"1re/1re-{n:02d}.json" for n in range(1, 3)},
+    **{f"TLE-{n:02d}": f"Tle/tle-{n:02d}.json" for n in range(1, 3)},
 }
+NIVEAU_DU_CODE = {n.upper(): n for n in models.NIVEAUX_ANGLAIS}  # "6E" -> "6e", "2NDE" -> "2nde"
 NIVEAUX_I_CAN = ("non_observe", "avec_aide", "en_cours", "autonome")
 QUESTIONS_VOCABULAIRE = 6
 
 
-def _ordre(code: str) -> tuple[bool, str]:
-    return code[0] != "4", code  # 4e avant 3e, comme le programme
+def _ordre(code: str) -> tuple[int, str]:
+    """6e, 5e, 4e, 3e puis lycée, comme le programme."""
+    return models.NIVEAUX_ANGLAIS.index(NIVEAU_DU_CODE[code.split("-")[0]]), code
 
 
 def importer_seances(session: Session) -> int:
@@ -42,7 +51,8 @@ def importer_seances(session: Session) -> int:
     quiz = json.loads((CONTENU / "quiz-grammaire.json").read_text(encoding="utf-8"))
     for code in manquantes:
         contenu = json.loads((CONTENU / "seances" / FICHIERS[code]).read_text(encoding="utf-8"))
-        seance = models.SeanceAnglais(code=code, niveau=contenu["level"])
+        seance = models.SeanceAnglais(
+            code=code, niveau=contenu["level"], domaine_code=permissions.domaine_anglais(contenu["level"]))
         seance.versions.append(models.SeanceAnglaisVersion(
             numero=1, contenu=contenu, cahier=cahiers[code], quiz=quiz.get(code, []), statut="soumis"))
         session.add(seance)

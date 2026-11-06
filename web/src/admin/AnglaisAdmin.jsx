@@ -11,7 +11,7 @@ import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
 
-/** PKP Anglais côté administrateur : groupes 4e/3e de tous les professeurs d'anglais, édition et validation des séances. */
+/** PKP Anglais côté administrateur : groupes (collège et lycée) de tous les professeurs d'anglais, édition et validation des séances. */
 export default function AnglaisAdmin({ jeton, onExpire, domaine = "" }) {
   const [onglet, setOnglet] = useState(() => (parametre("onglet") === "seances" ? "seances" : "groupes"));
   return (
@@ -75,7 +75,7 @@ function Groupes({ jeton, onExpire, domaine }) {
     <section className="carte">
       <div className="barre-session">
         <p className="doux">
-          Groupes d'anglais (4e, 3e), gérés comme les classes de maths : élèves, cartes, professeur, suppression.
+          Groupes d'anglais (6e à Tle ; lycée une fois Anglais lycée ouvert), gérés comme les classes de maths : élèves, cartes, professeur, suppression.
         </p>
         <button onClick={() => setCreation(true)}>
           <Icone nom="plus" taille={18} /> Nouveau groupe
@@ -223,7 +223,7 @@ function TransfertGroupe({ groupe, autres, onFermer, onValider }) {
   );
 }
 
-function NouveauGroupe({ profs, appeler, onFermer, onCree }) {
+export function NouveauGroupe({ profs, appeler, onFermer, onCree }) {
   const [nom, setNom] = useState("");
   const [niveau, setNiveau] = useState("4e");
   const [prof, setProf] = useState(profs[0]?.id ?? "");
@@ -249,8 +249,9 @@ function NouveauGroupe({ profs, appeler, onFermer, onCree }) {
           <input id="ng-nom" required maxLength={60} value={nom} onChange={(e) => setNom(e.target.value)} placeholder="Ex. : 4e B - mardi" />
           <label htmlFor="ng-niveau">Niveau</label>
           <select id="ng-niveau" value={niveau} onChange={(e) => setNiveau(e.target.value)}>
-            <option value="4e">4e</option>
-            <option value="3e">3e</option>
+            {["6e", "5e", "4e", "3e", "2nde", "1re", "Tle"].map((n) => (
+              <option key={n} value={n}>{n}</option>
+            ))}
           </select>
           <label htmlFor="ng-prof">Professeur</label>
           <select id="ng-prof" value={prof} onChange={(e) => setProf(e.target.value)}>

@@ -1,0 +1,101 @@
+{
+  "code": "TLE-02",
+  "level": "Tle",
+  "school_year": "2026-2027",
+  "title": "Lions, traditions and change",
+  "objective": "Comprendre un reportage sur une tradition qui évolue et argumenter sur la conciliation entre culture et environnement",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: can traditions change?",
+      "duration_minutes": 10,
+      "student_instruction": "Think of a tradition that has changed in your family or region. Explain in two sentences: what people used to do and what they do now.",
+      "facilitator_instruction": "Faire produire used to / now ; noter au tableau quelques exemples (fêtes, repas, sports)."
+    },
+    {
+      "order": 2,
+      "title": "Listening: the Maasai and the lions",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to the report. Note the old tradition, the problem, the solution and two numbers.",
+      "facilitator_instruction": "Audio British Council « The Maasai and the lions » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Seconde écoute ciblée sur les chiffres (7, 2007, 0, 63)."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: contrast and change",
+      "duration_minutes": 15,
+      "student_instruction": "Join the ideas with whereas, although or instead of: Young warriors killed lions. Now they protect them.",
+      "facilitator_instruction": "Connecteurs de contraste (whereas, although, while) et instead of + -ing ; rappel de used to pour le passé révolu."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : remise en ordre des étapes du reportage et phrases de contraste guidées ; B : compte rendu structuré ; C : essai sur la conciliation tradition / protection de la nature."
+    },
+    {
+      "order": 5,
+      "title": "Role play: the village meeting",
+      "duration_minutes": 20,
+      "student_instruction": "In groups, play a village meeting: a herder, a young warrior, a Lion Guardian, a tourist guide. Find a solution everyone accepts.",
+      "facilitator_instruction": "Cartes de rôle avec intérêts divergents. Exiger au moins deux connecteurs de contraste et une proposition concrète votée à la fin."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one sentence with whereas and one with instead of about the report.",
+      "facilitator_instruction": "Ramasser ; repérer instead of + base verbale (instead of kill)."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Put the ideas in order: a) Lions attacked the Maasai's cattle. b) Warriors earn names by protecting lions. c) Young men killed lions to become warriors. d) The Lion Guardians programme started in 2007. Then complete: ___ killing lions, young men now protect them.",
+      "facilitator_correction": "c - a - d - b. Instead of."
+    },
+    {
+      "track": "B",
+      "student_content": "Write a 120-word report: the tradition, the conflict, how the Lion Guardians work and the results.",
+      "facilitator_correction": "Attendus : rite de passage (tuer un lion), conflit avec le bétail, gardiens formés sur place (suivi des lions, alertes aux éleveurs, recherche du bétail perdu), aucun lion tué dans la zone surveillée depuis 2007 contre 63 dans la zone voisine."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 200-word essay: \"Traditions must sometimes change to protect nature.\" Discuss, using the report and another example.",
+      "facilitator_correction": "Production libre ; attendus : problématique, exemple du reportage et autre exemple, connecteurs de contraste, conclusion nuancée."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève restitue la tradition, le problème et la solution",
+      "L'élève relève et interprète les chiffres du reportage",
+      "L'élève argumente avec des connecteurs de contraste"
+    ]
+  },
+  "common_errors": [
+    "instead of + base verbale : instead of kill",
+    "whereas en début de phrase sans seconde proposition",
+    "lion au pluriel invariable : two lion"
+  ],
+  "source_objectives": [
+    "TLE-02"
+  ],
+  "theme": "Axe 2 - Territoire et mémoire",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

@@ -78,5 +78,45 @@
   "3E-10": [
     {"question": "A good chunk has...", "choix": ["3 to 6 words", "1 word", "20 words"], "reponse": 0, "explication": "On découpe en groupes de 3 à 6 mots."},
     {"question": "When you read numbers aloud, you...", "choix": ["speed up", "slow down", "whisper"], "reponse": 1, "explication": "On ralentit pour les nombres."}
+  ],
+  "6E-01": [
+    {"question": "Choose the correct sentence.", "choix": ["I have eleven.", "I'm eleven.", "I eleven."], "reponse": 1, "explication": "Pour l'âge, on utilise be : I'm eleven."},
+    {"question": "This is Ana. ___ name is Ana.", "choix": ["His", "Her", "Its"], "reponse": 1, "explication": "Ana est une fille : her."}
+  ],
+  "6E-02": [
+    {"question": "Complete: \"My brother ___ got blue eyes.\"", "choix": ["have", "has", "is"], "reponse": 1, "explication": "Avec he / she : has got."},
+    {"question": "Choose the correct order.", "choix": ["She's got hair long brown.", "She's got brown long hair.", "She's got long brown hair."], "reponse": 2, "explication": "Les adjectifs se placent avant le nom : long brown hair."}
+  ],
+  "5E-01": [
+    {"question": "Which order is the most polite?", "choix": ["I want a juice.", "Give me a juice.", "Can I have a juice, please?"], "reponse": 2, "explication": "Can I have ..., please? est la demande polie attendue."},
+    {"question": "£8.37 is...", "choix": ["eight pounds thirty-seven", "eighty-three pounds seven", "eight three seven pounds"], "reponse": 0, "explication": "On lit d'abord les livres, puis les pence : eight pounds thirty-seven."}
+  ],
+  "5E-02": [
+    {"question": "Complete: \"Would you like ___ to the cinema?\"", "choix": ["go", "to go", "going"], "reponse": 1, "explication": "Would you like est suivi de to + verbe."},
+    {"question": "Which answer is a polite refusal?", "choix": ["No.", "Sorry, I can't, I've got a lot of homework.", "I don't want you."], "reponse": 1, "explication": "On s'excuse et on donne une raison."}
+  ],
+  "2NDE-01": [
+    {"question": "Choose the correct sentence.", "choix": ["I have this bike since 2021.", "I've had this bike since 2021.", "I had this bike since 2021."], "reponse": 1, "explication": "Situation qui dure encore : present perfect (I've had) + since."},
+    {"question": "\"I've had my cat ___ six years.\"", "choix": ["since", "for", "during"], "reponse": 1, "explication": "For + durée ; since + point de départ."}
+  ],
+  "2NDE-02": [
+    {"question": "Choose the correct sentence.", "choix": ["It's more bigger than mine.", "It's bigger than mine.", "It's the bigger than mine."], "reponse": 1, "explication": "Adjectif court : -er than, sans more."},
+    {"question": "\"It's the ___ park in the world.\"", "choix": ["most good", "goodest", "best"], "reponse": 2, "explication": "Good est irrégulier : better, the best."}
+  ],
+  "TLE-01": [
+    {"question": "Choose the passive sentence.", "choix": ["Websites track our clicks.", "Our clicks are tracked.", "Our clicks tracking."], "reponse": 1, "explication": "Passif : be + participe passé."},
+    {"question": "\"My data ___ collected last year.\"", "choix": ["is", "was", "were"], "reponse": 1, "explication": "Passif au prétérit avec un sujet singulier : was + participe."}
+  ],
+  "1RE-01": [
+    {"question": "\"If I ___ rich, I would invest in clean water.\"", "choix": ["would be", "were", "am"], "reponse": 1, "explication": "Second conditionnel : If + prétérit (were), puis would + verbe."},
+    {"question": "Choose the correct sentence.", "choix": ["It could to help people.", "It could helps people.", "It could help people."], "reponse": 2, "explication": "Modal + base verbale, sans to ni -s."}
+  ],
+  "1RE-02": [
+    {"question": "\"People ___ give children their grandparents' names.\"", "choix": ["used to", "use to", "were used to"], "reponse": 0, "explication": "Habitude passée révolue : used to + base verbale."},
+    {"question": "\"She was named ___ her grandmother.\"", "choix": ["of", "after", "for"], "reponse": 1, "explication": "On dit be named after someone."}
+  ],
+  "TLE-02": [
+    {"question": "\"___ killing lions, they now protect them.\"", "choix": ["Instead", "Instead of", "Whereas"], "reponse": 1, "explication": "Instead of + verbe en -ing."},
+    {"question": "Choose the correct sentence.", "choix": ["They used to hunting lions.", "They used to hunt lions.", "They use to hunted lions."], "reponse": 1, "explication": "Used to + base verbale pour une habitude passée."}
   ]
 }

@@ -1,0 +1,101 @@
+{
+  "code": "5E-01",
+  "level": "5e",
+  "school_year": "2026-2027",
+  "title": "At the café: can I have...?",
+  "objective": "Commander à manger et à boire, demander et comprendre un prix",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: food bingo",
+      "duration_minutes": 10,
+      "student_instruction": "Draw a grid with six food words. Tick the words when your teacher says them.",
+      "facilitator_instruction": "Lire une liste rapide d'aliments et de boissons ; réactiver les nombres jusqu'à 100 en annonçant des prix."
+    },
+    {
+      "order": 2,
+      "title": "Listening: ordering food in a café",
+      "duration_minutes": 15,
+      "student_instruction": "Listen twice. Note what the customer orders, the price and the table number.",
+      "facilitator_instruction": "Audio British Council « Ordering food in a café » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Seconde écoute ciblée sur le prix et la monnaie rendue."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: polite requests and prices",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: Can I have ..., please? / I'd like ... / How much is it? - It's ... pounds ... pence.",
+      "facilitator_instruction": "Opposer Can I have / I want (moins poli) ; lecture des prix : £8.37 = eight pounds thirty-seven. Faire répéter en chaîne avec un menu."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : remettre un dialogue dans l'ordre ; B : calculer et écrire des additions au café ; C : écrire un dialogue complet avec un problème (plus de gâteau, mauvaise monnaie)."
+    },
+    {
+      "order": 5,
+      "title": "Role play: the class café",
+      "duration_minutes": 25,
+      "student_instruction": "Student A is the waiter, student B is the customer. Order, pay and check your change. Then swap.",
+      "facilitator_instruction": "Distribuer un menu avec prix en livres et de la fausse monnaie. Observer la politesse (please, thank you) et la précision des prix."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one polite order and one price in words.",
+      "facilitator_instruction": "Ramasser ; repérer l'oubli de please et la lecture des prix."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Put the dialogue in order: a) Here you are. b) Can I have an apple juice, please? c) That's £1.50. d) How much is it? e) Thank you!",
+      "facilitator_correction": "b - d - c - a - e (le serveur peut aussi annoncer le prix avant la question)."
+    },
+    {
+      "track": "B",
+      "student_content": "Look at the menu. Order a meal for you and a friend. Write the order and the total, then write the change from £10.",
+      "facilitator_correction": "Exemple : Can I have two cheeseburgers and two orange juices, please? Total : £7.80 ; change : £2.20."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a café dialogue with a problem: there is no more cake, or the change is wrong. Use Can I have, I'd like, How much and Sorry.",
+      "facilitator_correction": "Production libre ; attendus : deux demandes polies, un prix correct, une phrase pour résoudre le problème."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève commande poliment avec Can I have ... please?",
+      "L'élève demande et comprend un prix",
+      "L'élève vérifie la monnaie rendue"
+    ]
+  },
+  "common_errors": [
+    "I want a juice (trop direct)",
+    "Prix lu chiffre par chiffre : eight three seven",
+    "Oubli de please"
+  ],
+  "source_objectives": [
+    "5E-01"
+  ],
+  "theme": "À la rencontre de l'autre - au café",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

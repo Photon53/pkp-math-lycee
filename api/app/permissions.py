@@ -19,6 +19,7 @@ PROFESSEUR, VALIDATEUR = "professeur", "validateur"
 ROLES = (PROFESSEUR, VALIDATEUR)
 
 MATHS_COLLEGE, MATHS_LYCEE, ANGLAIS_COLLEGE = "maths-college", "maths-lycee", "anglais-college"
+ANGLAIS_LYCEE = "anglais-lycee"
 
 NIVEAUX_COLLEGE = ["6e", "5e", "4e", "3e"]
 
@@ -38,7 +39,7 @@ DOMAINES = (
     Domaine(MATHS_COLLEGE, "maths", "college", "Maths collège", NIVEAUX_COLLEGE, False, False),
     Domaine(MATHS_LYCEE, "maths", "lycee", "Maths lycée", ["2nde", "1re", "Tle"], True, True),
     Domaine(ANGLAIS_COLLEGE, "anglais", "college", "Anglais collège", NIVEAUX_COLLEGE, True, True),
-    Domaine("anglais-lycee", "anglais", "lycee", "Anglais lycée", ["2nde", "1re", "Tle"], False, False),
+    Domaine(ANGLAIS_LYCEE, "anglais", "lycee", "Anglais lycée", ["2nde", "1re", "Tle"], False, False),
     Domaine("francais-college", "francais", "college", "Français collège", NIVEAUX_COLLEGE, False, False),
     Domaine("francais-lycee", "francais", "lycee", "Français lycée", ["2nde", "1re"], False, False),
 )
@@ -48,6 +49,19 @@ MATIERES = {d.code: d.matiere for d in DOMAINES}
 # Domaine donné aux nouvelles classes et aux nouveaux groupes par les espaces actuels ; chaque classe, chapitre,
 # groupe et séance d'anglais porte ensuite son domaine (colonne `domaine_code`, EX.2).
 DOMAINE_CLASSES, DOMAINE_GROUPES_ANGLAIS = MATHS_LYCEE, ANGLAIS_COLLEGE
+
+
+def domaine_anglais(niveau: str) -> str:
+    """Domaine d'un groupe ou d'une séance d'anglais : Anglais collège (6e à 3e) ou Anglais lycée."""
+    return ANGLAIS_COLLEGE if niveau in NIVEAUX_COLLEGE else ANGLAIS_LYCEE
+
+
+def enseigne(enseignant: models.Enseignant, domaine: str, niveau: str | None = None) -> bool:
+    """Habilitation de professeur (ou de validateur) sur ce domaine, pour tout le domaine ou ce niveau."""
+    return any(
+        h.domaine_code == domaine and (h.niveau is None or niveau is None or h.niveau == niveau)
+        for h in enseignant.habilitations
+    )
 
 
 def refus_niveau(session: Session, domaine: str, niveau: str) -> str | None:
@@ -64,7 +78,12 @@ CASES = {
     "referent_anglais": (VALIDATEUR, ANGLAIS_COLLEGE),
 }
 # La case « enseigne les maths » ouvre l'espace des classes, collège comme lycée.
-AUSSI_COCHEE_PAR = {"enseigne_maths": [(PROFESSEUR, MATHS_COLLEGE)]}
+# Les cases d'anglais ouvrent l'espace Boussole Anglais, collège comme lycée.
+AUSSI_COCHEE_PAR = {
+    "enseigne_maths": [(PROFESSEUR, MATHS_COLLEGE)],
+    "enseigne_anglais": [(PROFESSEUR, ANGLAIS_LYCEE)],
+    "referent_anglais": [(VALIDATEUR, ANGLAIS_LYCEE)],
+}
 
 
 class Portee(NamedTuple):

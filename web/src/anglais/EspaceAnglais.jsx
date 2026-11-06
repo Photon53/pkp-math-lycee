@@ -9,7 +9,7 @@ import ValidationAnglais from "./ValidationAnglais.jsx";
 
 const MARQUE = "Anglais";
 const PAGES = [
-  { vers: "/anglais", libelle: "Séances 4e et 3e", icone: "cours" },
+  { vers: "/anglais", libelle: "Séances", icone: "cours" },
   { vers: "/anglais/groupes", libelle: "Mes groupes", icone: "classes" },
 ];
 // Ouverte aux validateurs qualifiés en anglais, qu'ils y enseignent ou non (EX.9-bis) ; l'API le revérifie.

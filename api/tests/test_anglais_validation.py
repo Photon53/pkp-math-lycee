@@ -76,7 +76,7 @@ def test_le_referent_valide_puis_l_eleve_fait_le_quiz(client):
     h = connecter_anglais(client)
     _, carte = _groupe_avec_eleve(client, h)
     a_valider = client.get("/anglais/validation", headers=h).json()
-    assert len(a_valider) == 20 and not any(s["est_auteur"] for s in a_valider)
+    assert len(a_valider) == 24 and not any(s["est_auteur"] for s in a_valider)
     r = client.post("/anglais/validation/4E-01/valider", headers=h)
     assert r.status_code == 200 and r.json()["statut"] == "valide"
     assert client.post("/anglais/validation/3E-01/refuser", headers=h, json={"motif": "  "}).status_code == 422

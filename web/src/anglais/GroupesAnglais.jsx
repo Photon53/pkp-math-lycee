@@ -5,12 +5,12 @@ import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import { FicheCodes } from "../enseignant/Classes.jsx";
 import { useApi } from "../enseignant/useApi.js";
 
-const NIVEAUX = ["4e", "3e"];
+const NIVEAUX = ["6e", "5e", "4e", "3e", "2nde", "1re", "Tle"];
 const ignorer = () => {};
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
 const I_CAN = { non_observe: "—", avec_aide: "avec aide", en_cours: "en cours", autonome: "autonome" };
 
-/** Groupes PKP Anglais par niveau (4e, 3e) et leurs élèves : séparés des classes de maths. */
+/** Groupes Boussole Anglais par niveau (6e à Tle) et leurs élèves : séparés des classes de maths. */
 export default function GroupesAnglais({ jeton, onExpire }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [groupes, setGroupes] = useState(null);
@@ -124,7 +124,7 @@ export default function GroupesAnglais({ jeton, onExpire }) {
   return (
     <>
       <section className="carte">
-        <h2>Groupes de 4e et de 3e</h2>
+        <h2>Mes groupes</h2>
         <p className="doux">Un groupe par niveau, de préférence 8 à 10 élèves. Les élèves sont inscrits par leur seul prénom.</p>
         {groupes === null ? (
           <p className="doux">Chargement…</p>
@@ -197,8 +197,7 @@ export default function GroupesAnglais({ jeton, onExpire }) {
             </button>
           </div>
           <p className="doux">
-            {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances 4e et 3e</a> ({groupe.niveau.toUpperCase()}-01 à{" "}
-            {groupe.niveau.toUpperCase()}-10).
+            {pluriel(groupe.eleves.length)}. Séances de ce niveau : <a href="/anglais">Séances</a> (codes {groupe.niveau.toUpperCase()}-01, -02…).
           </p>
           {codes && (
             <FicheCodes

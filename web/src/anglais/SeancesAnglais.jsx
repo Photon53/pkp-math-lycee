@@ -179,7 +179,7 @@ export default function SeancesAnglais({ jeton, onExpire }) {
   }
 
   return <section>
-    <p className="doux">Progression complète : 10 séances en 4e, 10 en 3e, une par objectif du programme · 90 minutes · une séance non validée par un validateur reste utilisable par les professeurs, avec la mention NON VALIDÉ, mais n'est pas ouverte aux élèves.</p>
+    <p className="doux">Une séance par objectif du programme : progression complète en 4e et 3e (10 chacune), premières séances en 6e et 5e · 90 minutes · une séance non validée par un validateur reste utilisable par les professeurs, avec la mention NON VALIDÉ, mais n'est pas ouverte aux élèves.</p>
     {chargement && <p>Chargement des séances…</p>}
     {erreur && <p role="alert" className="erreur">{erreur}</p>}
     {liste.length > 0 && <div className="carte">

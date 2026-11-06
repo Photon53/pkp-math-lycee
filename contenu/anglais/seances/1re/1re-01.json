@@ -1,0 +1,101 @@
+{
+  "code": "1RE-01",
+  "level": "1re",
+  "school_year": "2026-2027",
+  "title": "Inventions that could change lives",
+  "objective": "Comprendre la présentation d'inventions et évaluer leur utilité en faisant des hypothèses",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: useful or useless?",
+      "duration_minutes": 10,
+      "student_instruction": "Look at four strange inventions. Vote: useful or useless? Say why in one sentence.",
+      "facilitator_instruction": "Images inventées (parapluie à ventilateur, fourchette connectée…). Faire produire It could help... / It would be..."
+    },
+    {
+      "order": 2,
+      "title": "Listening: new inventions",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to the radio show. Fill in the grid: invention / what it does / opinion of the correspondent.",
+      "facilitator_instruction": "Audio British Council « New inventions » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Deux écoutes ; la seconde ciblée sur les opinions."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: could, might, would and the second conditional",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: If I ___ (have) a wingsuit, I ___ (fly) over the mountains. This distiller could ___ thousands of people.",
+      "facilitator_instruction": "Modaux de possibilité (could / might) et second conditionnel (If + prétérit, would + base verbale) pour une hypothèse."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : appariement invention / fonction et phrases au conditionnel guidées ; B : fiche de présentation d'une invention ; C : texte sur la responsabilité des inventeurs."
+    },
+    {
+      "order": 5,
+      "title": "Group task: pitch your invention",
+      "duration_minutes": 20,
+      "student_instruction": "In groups, invent something that could solve a real problem. Pitch it in one minute: what it does, who it helps, one risk.",
+      "facilitator_instruction": "Façon « concours d'innovation » : la classe vote pour l'invention la plus utile. Exiger un second conditionnel et un modal de possibilité."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write one second conditional sentence about an invention.",
+      "facilitator_instruction": "Ramasser ; repérer If I would have (erreur fréquente)."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Match the inventions (wingsuit, solar distiller, talking gloves, bottle coating) with what they do. Then complete: If I ___ (can) invent something, I ___ (make)...",
+      "facilitator_correction": "wingsuit - glide in the air ; solar distiller - turns salty water into drinking water ; gloves - translate sign language into speech ; coating - helps ketchup come out of bottles. could - would make."
+    },
+    {
+      "track": "B",
+      "student_content": "Choose one invention from the recording. Write a 100-word fact file: inventor, what it does, who it could help, one limit.",
+      "facilitator_correction": "Exemple : solar distiller, Gabriele Diamanti, sunlight turns salty water into drinking water, could help people without clean water, needs investors."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a 180-word text: \"Inventors are responsible for how their inventions are used.\" Do you agree?",
+      "facilitator_correction": "Production libre ; attendus : exemples précis, second conditionnel, modaux, nuance (to some extent, nevertheless)."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève relève la fonction d'au moins trois inventions",
+      "L'élève formule une hypothèse au second conditionnel",
+      "L'élève évalue l'utilité et une limite d'une invention"
+    ]
+  },
+  "common_errors": [
+    "If I would have... (would dans la subordonnée)",
+    "could + to : it could to help",
+    "Oubli de l'article : it's invention"
+  ],
+  "source_objectives": [
+    "1RE-01"
+  ],
+  "theme": "Axe 4 - Innovations scientifiques et responsabilité",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

@@ -1,0 +1,101 @@
+{
+  "code": "2NDE-01",
+  "level": "2nde",
+  "school_year": "2026-2027",
+  "title": "Objects that tell who we are",
+  "objective": "Présenter un objet qui compte pour soi et expliquer en quoi il nous représente",
+  "duration_minutes": 90,
+  "status": "brouillon_a_valider",
+  "teacher_review_required": true,
+  "materials": [
+    "tableau",
+    "cahier élève imprimé",
+    "fiches A/B/C",
+    "chronomètre",
+    "accès audio (ou script de secours)"
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "title": "Warm-up: three objects, one person",
+      "duration_minutes": 10,
+      "student_instruction": "Look at three objects on the board. Guess who owns them: age, hobbies, personality. Justify: It must be someone who...",
+      "facilitator_instruction": "Projeter trois objets (casque, carnet de croquis, ballon). Faire produire des hypothèses avec must / might et les noter."
+    },
+    {
+      "order": 2,
+      "title": "Listening: favourite things",
+      "duration_minutes": 20,
+      "student_instruction": "Listen to five young people. Note each object, how long they have had it and why it matters.",
+      "facilitator_instruction": "Audio British Council « Favourite things » (QR code du cahier) ; sans réseau, lire deux fois le script de secours. Première écoute : les cinq objets ; seconde : les raisons (liberté, compagnie, projet professionnel)."
+    },
+    {
+      "order": 3,
+      "title": "Language focus: present perfect with for / since and relative clauses",
+      "duration_minutes": 15,
+      "student_instruction": "Complete: I've had my guitar ___ 2022 / ___ three years. Join the sentences with which or that.",
+      "facilitator_instruction": "Present perfect pour une situation qui dure encore ; for + durée, since + point de départ. Relatives which / that / who pour enrichir la description."
+    },
+    {
+      "order": 4,
+      "title": "Differentiated practice",
+      "duration_minutes": 20,
+      "student_instruction": "Complete your A, B or C sheet, then compare with a partner.",
+      "facilitator_instruction": "A : compléter une présentation guidée ; B : rédiger une présentation à partir de notes ; C : texte argumenté « un objet peut-il dire qui nous sommes ? »."
+    },
+    {
+      "order": 5,
+      "title": "Speaking: one-minute show and tell",
+      "duration_minutes": 20,
+      "student_instruction": "Present your object in one minute: what it is, how long you've had it, what it says about you. Your group asks two questions.",
+      "facilitator_instruction": "Chronométrer ; exiger au moins un present perfect et une relative. Les auditeurs notent une information et posent une question de relance."
+    },
+    {
+      "order": 6,
+      "title": "Exit ticket",
+      "duration_minutes": 5,
+      "student_instruction": "Write two sentences about your object: one with for or since, one with which or that.",
+      "facilitator_instruction": "Ramasser ; repérer I have this since (calque du français)."
+    }
+  ],
+  "sheets": [
+    {
+      "track": "A",
+      "student_content": "Complete the presentation with: since, for, which, have had. My favourite thing is my bike, ___ my grandfather gave me. I ___ it ___ four years, ___ I was twelve. It means freedom to me.",
+      "facilitator_correction": "which - have had - for - since"
+    },
+    {
+      "track": "B",
+      "student_content": "Use your notes (object / since when / three reasons) to write an eight-line presentation of an object that matters to you.",
+      "facilitator_correction": "Production guidée ; attendus : present perfect + for / since, une relative, trois raisons reliées (because, also, above all)."
+    },
+    {
+      "track": "C",
+      "student_content": "Write a short opinion text (150 words): \"Our things say who we are.\" Do you agree? Use examples from the recording and from your life.",
+      "facilitator_correction": "Production libre ; attendus : position claire, deux exemples dont un tiré de l'écoute, connecteurs (however, for instance), conclusion."
+    }
+  ],
+  "assessment": {
+    "scale": [
+      "non_observe",
+      "avec_aide",
+      "en_cours",
+      "autonome"
+    ],
+    "criteria": [
+      "L'élève présente un objet et sa signification personnelle",
+      "L'élève emploie le present perfect avec for ou since",
+      "L'élève relève au moins trois raisons dans l'écoute"
+    ]
+  },
+  "common_errors": [
+    "I have this phone since two years (calque)",
+    "Confusion for / since",
+    "Relative omise : the bike my grandfather gave me it"
+  ],
+  "source_objectives": [
+    "2NDE-01"
+  ],
+  "theme": "Axe 1 - Représentation de soi et rapport à autrui",
+  "license": "Contenu original Boussole, revue pédagogique nécessaire"
+}

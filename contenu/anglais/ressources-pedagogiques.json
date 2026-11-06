@@ -1533,5 +1533,506 @@
       "I can stress key words and numbers."
     ],
     "memory": "Write three tips for speaking clearly and practise them with one sentence."
+  },
+  "6E-01": {
+    "hook": "HELLO! WHO ARE YOU? WHERE ARE YOU FROM?",
+    "visual": [
+      {"label": "HELLO", "picto": "bulles"},
+      {"label": "COUNTRY", "picto": "globe"},
+      {"label": "FRIENDS", "picto": "equipe"},
+      {"label": "BIRTHDAY", "picto": "gateau"}
+    ],
+    "vocab": [
+      ["name", "nom, prénom", "My name is Sam."],
+      ["friend", "ami(e)", "This is my friend Mia."],
+      ["country", "pays", "What country are you from?"],
+      ["to be from", "venir de", "I'm from France."],
+      ["old", "âgé", "I'm eleven years old."],
+      ["nice to meet you", "enchanté(e)", "Hi Tom, nice to meet you!"],
+      ["this is", "voici", "This is my brother."],
+      ["his", "son, sa (à lui)", "His name is Leo."],
+      ["her", "son, sa (à elle)", "Her name is Ana."],
+      ["Germany", "l'Allemagne", "Greta is from Germany."],
+      ["Argentina", "l'Argentine", "Pablo is from Argentina."]
+    ],
+    "grammar": {
+      "title": "be + my / his / her",
+      "rule": "I am (I'm) - you are (you're) - he is (he's) - she is (she's). Age: I'm eleven (not I have eleven). His = to a boy, her = to a girl: This is Tom. His name is Tom. This is Ana. Her name is Ana.",
+      "examples": ["What's your name? - My name's Lily.", "How old are you? - I'm twelve.", "This is Pablo. He's from Argentina."]
+    },
+    "pronunciation": "The h in hello, his, her and how is pronounced: breathe out! Practise: Hello, how old is his sister?",
+    "did_you_know": "In the United Kingdom, people often say \"Hiya!\" or \"Alright?\" to say hello to friends.",
+    "model": "Mia: Hi! I'm Mia. What's your name?\nLeo: Hello, I'm Leo. Nice to meet you!\nMia: Nice to meet you too. Where are you from?\nLeo: I'm from Canada. And this is my friend Ana. She's from Ireland.\nAna: Hi Mia! I'm eleven. How old are you?\nMia: I'm eleven too!",
+    "listening": {
+      "title": "Introducing a friend",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/introducing-friend",
+      "verified_on": "2026-11-06",
+      "questions": ["Who introduces Pablo to Greta?", "Where is Greta from?", "Where is Pablo from?"],
+      "answers": ["Sumi", "Germany", "Argentina"],
+      "fallback": "Sumi: Greta, I'd like you to meet my friend Pablo.\nGreta: Hi Pablo! Nice to meet you. I'm Greta, I'm from Germany.\nPablo: Nice to meet you too, Greta. I'm from Argentina.\nSumi: Pablo is in my English class."
+    },
+    "go_further": [
+      {"title": "Spelling names", "source": "British Council - LearnEnglish Teens", "level": "A1", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/spelling-names", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and write the names you hear, letter by letter."}
+    ],
+    "practice": ["Complete: I ___ eleven. She ___ from Wales.", "His or her? This is Tom. ___ name is Tom.", "Write the question: ___ are you from?", "Introduce a friend in two sentences."],
+    "practice_answers": ["am - is", "His", "Where are you from?", "Réponse possible : This is Lucy. She's twelve and she's from England."],
+    "starters": ["Hello, I'm...", "I'm ... years old.", "I'm from...", "This is my friend...", "His / Her name is..."],
+    "mission": "In pairs, pick an identity card. Introduce yourself to your partner, then present your partner to another pair: name, age and country.",
+    "can_do": ["I can say my name, my age and my country.", "I can introduce a friend.", "I can ask: What's your name? Where are you from?"],
+    "memory": "Write your identity card in English and learn it. Next time, introduce a classmate without notes."
+  },
+  "6E-02": {
+    "hook": "TALL OR SHORT? BROWN EYES OR GREEN EYES? GUESS WHO!",
+    "visual": [
+      {"label": "FAMILY", "picto": "maison"},
+      {"label": "LOOK", "picto": "loupe"},
+      {"label": "TWINS", "picto": "equipe"},
+      {"label": "CUTE", "picto": "coeur"}
+    ],
+    "vocab": [
+      ["brother", "frère", "My brother is fifteen."],
+      ["sister", "sœur", "I've got one sister."],
+      ["twins", "jumeaux", "Jem and Alex are twins."],
+      ["tall", "grand", "My dad is very tall."],
+      ["short", "petit, court", "She's got short hair."],
+      ["thin", "mince", "He's tall and thin."],
+      ["hair", "cheveux", "Her hair is long."],
+      ["eyes", "yeux", "He's got green eyes."],
+      ["brown", "brun, marron", "I've got brown eyes."],
+      ["long", "long", "She's got long brown hair."],
+      ["glasses", "lunettes", "My grandma has got glasses."],
+      ["cute", "mignon", "Your little brother is cute!"]
+    ],
+    "grammar": {
+      "title": "have got / has got + adjectives",
+      "rule": "I / you / we / they have got ('ve got) - he / she has got ('s got). The adjective comes before the noun and never takes -s: short brown hair, green eyes.",
+      "examples": ["She's got long brown hair.", "He's got green eyes.", "Has he got glasses? - No, he hasn't."]
+    },
+    "pronunciation": "Hair, her and here are different: hair /heə/, her /hɜː/. Say: Her hair is long.",
+    "did_you_know": "About one baby in eighty is a twin. Twins who look the same are called identical twins.",
+    "model": "Leo: Who's that boy?\nZoe: That's my cousin Sam. He's thirteen.\nLeo: He's very tall!\nZoe: Yes, he's tall and thin. He's got short black hair and blue eyes.\nLeo: And the girl with long hair?\nZoe: That's his sister. She's got long red hair. She's really funny.",
+    "listening": {
+      "title": "Describing people",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/describing-people",
+      "verified_on": "2026-11-06",
+      "questions": ["Who is Jem?", "How old are Jem and Alex?", "What colour are the twins' eyes?"],
+      "answers": ["Hannah's brother (Alex's twin)", "Fifteen", "Green"],
+      "fallback": "Aurelia: Hannah, who's the boy over there?\nHannah: That's my brother Jem. And that's his girlfriend Lucy, with long brown hair.\nAurelia: Is Alex your brother too?\nHannah: Yes! Jem and Alex are twins. They're fifteen.\nAurelia: They're both tall and thin, with short brown hair and green eyes.\nHannah: And big ears!\nAurelia: No, they're cute!"
+    },
+    "go_further": [
+      {"title": "Spelling colours", "source": "British Council - LearnEnglish Teens", "level": "A1", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/spelling-colours", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and write the colours you hear. Use three of them to describe someone."}
+    ],
+    "practice": ["Complete: He ___ got green eyes. I ___ got brown hair.", "Put the words in order: hair / long / she's got / brown.", "Correct the mistake: She's got eyes blues.", "Describe a person in your family in two sentences."],
+    "practice_answers": ["has - have", "She's got long brown hair.", "She's got blue eyes.", "Réponse possible : My sister is ten. She's got short blond hair and brown eyes."],
+    "starters": ["This is my...", "He's / She's ... years old.", "He's / She's tall / short.", "He's / She's got ... hair.", "He's / She's got ... eyes."],
+    "mission": "In pairs, student A describes a family member and student B draws the person. Then swap roles and compare your drawings with the descriptions.",
+    "can_do": ["I can describe someone's hair and eyes.", "I can say if a person is tall, short or thin.", "I can understand a short description of a person."],
+    "memory": "Learn ten words to describe people. Next time, describe a famous person and your partner guesses who it is."
+  },
+  "5E-01": {
+    "hook": "HUNGRY? CAN I HAVE A CHEESEBURGER, PLEASE?",
+    "visual": [
+      {"label": "FOOD", "picto": "assiette"},
+      {"label": "CAKE", "picto": "gateau"},
+      {"label": "ORDER", "picto": "bulles"},
+      {"label": "PAY", "picto": "valide"}
+    ],
+    "vocab": [
+      ["Can I have...?", "Est-ce que je peux avoir... ?", "Can I have a cola, please?"],
+      ["I'd like...", "Je voudrais...", "I'd like a sandwich."],
+      ["a slice of cake", "une part de gâteau", "A slice of banana cake, please."],
+      ["apple juice", "jus de pomme", "An apple juice for me."],
+      ["How much is it?", "Combien ça coûte ?", "How much is the burger?"],
+      ["a pound", "une livre (£)", "It's ten pounds."],
+      ["pence", "pence (centimes)", "It's eighty pence."],
+      ["change", "monnaie rendue", "Here's your change."],
+      ["table", "table", "We're at table 3."],
+      ["next, please!", "au suivant !", "Next, please! What would you like?"],
+      ["Here you are.", "Voilà.", "Here you are, your juice."]
+    ],
+    "grammar": {
+      "title": "Polite requests and prices",
+      "rule": "Order politely: Can I have + noun, please? or I'd like + noun. Ask the price: How much is it? / How much are they? Prices: £8.37 = eight pounds thirty-seven (pence).",
+      "examples": ["Can I have a double cheeseburger, please?", "How much is it? - It's eight pounds thirty-seven.", "Here's your change: one pound sixty-three."]
+    },
+    "pronunciation": "Join the words: Can I have a... = /kənaɪhævə/. Say it fast and smile: Can-I-have-a juice, please?",
+    "did_you_know": "In a British café, people often order and pay at the counter, then wait for their table number to be called.",
+    "model": "Waiter: Hello! What would you like?\nKim: Can I have a cheese sandwich and an orange juice, please?\nWaiter: Sure. Anything else?\nKim: I'd like a slice of chocolate cake too.\nWaiter: That's six pounds fifty, please.\nKim: Here you are, ten pounds.\nWaiter: Thank you. Here's your change: three pounds fifty.",
+    "listening": {
+      "title": "Ordering food in a café",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/ordering-food-cafe",
+      "verified_on": "2026-11-06",
+      "questions": ["What does Andi drink?", "How much is the order?", "How much change does Andi get from £10?"],
+      "answers": ["An apple juice", "£8.37 (eight pounds thirty-seven)", "£1.63"],
+      "fallback": "Waiter: Next, please! Hi, what would you like?\nAndi: Can I have a double cheeseburger, please? And a slice of banana cake.\nWaiter: Anything to drink?\nAndi: An apple juice, please.\nWaiter: That's eight pounds thirty-seven. You're at table 3.\nAndi: Here's ten pounds.\nWaiter: Thanks. Your change is one pound sixty-three."
+    },
+    "go_further": [
+      {"title": "Understanding numbers", "source": "British Council - LearnEnglish Teens", "level": "A1", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/understanding-numbers", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and write the numbers you hear. Read three of them as prices."}
+    ],
+    "practice": ["Make it polite: I want a cola.", "Write the price in words: £4.75.", "Write the question to ask the price of a sandwich.", "You pay £5 for £3.20. What's your change? Write it in words."],
+    "practice_answers": ["Can I have a cola, please? / I'd like a cola, please.", "four pounds seventy-five", "How much is the sandwich?", "one pound eighty"],
+    "starters": ["Can I have..., please?", "I'd like...", "How much is it?", "It's ... pounds ...", "Here you are."],
+    "mission": "Play the class café: student A is the waiter, student B is the customer. Order a meal, pay with play money and check the change. Then swap roles.",
+    "can_do": ["I can order food and drinks politely.", "I can ask and understand a price.", "I can check my change."],
+    "memory": "Make a mini menu with six items and prices in pounds. Read the prices aloud to a partner next time."
+  },
+  "5E-02": {
+    "hook": "HORROR, COMEDY OR SCI-FI? WOULD YOU LIKE TO COME?",
+    "visual": [
+      {"label": "CINEMA", "picto": "cinema"},
+      {"label": "TIME", "picto": "horloge"},
+      {"label": "FRIENDS", "picto": "equipe"},
+      {"label": "PLANS", "picto": "calendrier"}
+    ],
+    "vocab": [
+      ["Would you like to...?", "Est-ce que tu voudrais... ?", "Would you like to come?"],
+      ["tonight", "ce soir", "Are you free tonight?"],
+      ["horror film", "film d'horreur", "I hate horror films."],
+      ["comedy", "comédie", "This comedy is very funny."],
+      ["science fiction", "science-fiction", "I love science fiction."],
+      ["romantic", "romantique", "No romantic films, please!"],
+      ["to meet", "se retrouver", "Let's meet at seven."],
+      ["outside", "devant, dehors", "We meet outside the cinema."],
+      ["homework", "devoirs", "I've got a lot of homework."],
+      ["Sorry, I can't.", "Désolé, je ne peux pas.", "Sorry, I can't, I'm busy."],
+      ["Great idea!", "Bonne idée !", "The cinema? Great idea!"]
+    ],
+    "grammar": {
+      "title": "Inviting, accepting and refusing",
+      "rule": "Invite: Would you like to + verb? / Do you want to + verb? / Let's + verb. Accept: Yes, great! / I'd love to. Refuse politely and give a reason: Sorry, I can't, I've got... / No thanks, I don't like... because...",
+      "examples": ["Would you like to see a film tonight?", "Sorry, I can't, I've got a lot of homework.", "Let's meet outside the cinema at half past seven."]
+    },
+    "pronunciation": "Would you sounds like /wʊdʒu/. Say it smoothly: Would you like to come?",
+    "did_you_know": "In the UK and the USA, many cinemas sell popcorn sweet or salty, and people choose their seat when they buy the ticket.",
+    "model": "Ella: Hi Sam! Would you like to go to the cinema on Saturday?\nSam: Great idea! What film?\nElla: There's a new horror film.\nSam: Oh no, I hate horror films. What about the new sci-fi film?\nElla: OK! It starts at six.\nSam: Perfect. Let's meet outside the cinema at half past five.",
+    "listening": {
+      "title": "Inviting someone to the cinema",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "A1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/inviting-someone-cinema",
+      "verified_on": "2026-11-06",
+      "questions": ["Why doesn't Ismael want to see the horror film?", "Which film do they choose?", "What time and where do they meet?"],
+      "answers": ["He doesn't like horror films", "A new science fiction film (Alien Attacks)", "At 7:30, outside the cinema (the film is at 8)"],
+      "fallback": "Jack: Ismael, do you want to come to the cinema tonight? Jamie and Nicola are coming.\nIsmael: Maybe, but I've got lots of homework. What film?\nJack: The new horror film!\nIsmael: No way, I don't like horror films.\nJack: OK... what about that new sci-fi film, Alien Attacks?\nIsmael: Yes, good idea. What time?\nJack: The film is at eight. Let's meet outside the cinema at half past seven."
+    },
+    "go_further": [
+      {"title": "Band auditions", "source": "British Council - LearnEnglish Teens", "level": "A1", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/a1-listening/band-auditions", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and note one thing each person can do and one thing they like."}
+    ],
+    "practice": ["Complete: Would you like ___ come to my party?", "Refuse politely and give a reason: Do you want to play tennis tonight?", "Put in order: meet / let's / outside / the cinema / at seven.", "Invite a friend to see a film: give the day and the time."],
+    "practice_answers": ["to", "Réponse possible : Sorry, I can't, I've got a lot of homework.", "Let's meet outside the cinema at seven.", "Réponse possible : Would you like to see a comedy on Friday at six?"],
+    "starters": ["Would you like to...?", "Yes, great idea!", "Sorry, I can't, I...", "I don't like ... because...", "Let's meet at ... outside..."],
+    "mission": "With your diary card, invite your partner to the cinema. Agree on a film, a day, a time and a meeting place. At least one invitation must be refused with a reason.",
+    "can_do": ["I can invite a friend.", "I can accept or refuse and say why.", "I can agree on a time and a place to meet."],
+    "memory": "Write three invitations and three answers on cards. Next time, play them with a partner without looking."
+  },
+  "2NDE-01": {
+    "hook": "SHOW ME YOUR FAVOURITE THING AND I'LL TELL YOU WHO YOU ARE.",
+    "visual": [
+      {"label": "TECH", "picto": "telephone"},
+      {"label": "PETS", "picto": "coeur"},
+      {"label": "MUSIC", "picto": "casque"},
+      {"label": "CREATE", "picto": "crayon"}
+    ],
+    "vocab": [
+      ["belonging", "objet personnel", "My guitar is my most precious belonging."],
+      ["to mean a lot to", "compter beaucoup pour", "This old watch means a lot to me."],
+      ["affectionate", "affectueux", "My cat is very affectionate."],
+      ["to keep someone company", "tenir compagnie", "My dog keeps me company."],
+      ["freedom", "liberté", "My scooter gives me freedom."],
+      ["second-hand", "d'occasion", "I love second-hand clothes."],
+      ["to customise", "personnaliser", "She customises old jackets."],
+      ["to take up", "se mettre à (une activité)", "He took up cooking last year."],
+      ["to host", "recevoir (des invités)", "We host dinners for friends."],
+      ["light", "léger", "My tablet is light and small."],
+      ["to reflect", "refléter", "My room reflects my personality."]
+    ],
+    "grammar": {
+      "title": "Present perfect with for / since + relative clauses",
+      "rule": "Something that started in the past and is still true: I've had my cat since 2020 / for six years (not I have my cat since). Relative clauses add information: which / that for things, who for people.",
+      "examples": ["I've had this tablet for a year.", "It's a sewing machine which I use every day.", "My cousin, who studies fashion, made this jacket."]
+    },
+    "pronunciation": "Weak forms: I've had it for years = /aɪv hæd ɪt fə jɪəz/. For is short and unstressed: /fə/.",
+    "did_you_know": "In British schools, younger pupils often do \"show and tell\": they bring an object from home and present it to the class.",
+    "model": "Maya: My favourite thing is this old camera. I've had it since I was thirteen.\nTom: Why does it matter so much?\nMaya: It belonged to my grandmother, who was a photographer. It reminds me of her.\nTom: Do you still use it?\nMaya: Yes, every weekend. Taking photos helps me see the world differently.",
+    "listening": {
+      "title": "Favourite things",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b1-listening/favourite-things",
+      "verified_on": "2026-11-06",
+      "questions": ["Which speaker's favourite thing is an animal?", "Why does one speaker prefer his scooter to walking?", "How often does the speaker with Japanese knives host dinners?"],
+      "answers": ["The second speaker (a girl): her cat", "It's faster to get to the metro and college, and easy to park", "Every two or three weeks"],
+      "fallback": "Boy 1: My tablet goes everywhere with me: it's light and I use it for messages, homework and films.\nGirl 1: My favourite is my cat. I've had her since she was a kitten and she always welcomes me home.\nBoy 2: My new scooter! It's quicker than walking and parking is easy. I feel free.\nGirl 2: I study fashion, so my sewing machine is precious: I change second-hand clothes.\nBoy 3: My Japanese knives. I took up cooking after a TV show, and every two or three weeks I cook for my friends."
+    },
+    "go_further": [
+      {"title": "My hero", "source": "British Council - LearnEnglish Teens", "level": "B2", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/my-hero", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and note who the hero is and two reasons why he or she matters to the speaker."}
+    ],
+    "practice": ["Complete: I've known my best friend ___ primary school.", "Correct the mistake: I have this bike since three years.", "Join with which: I've got a notebook. I draw in it every day.", "Write two sentences about an object that matters to you."],
+    "practice_answers": ["since", "I've had this bike for three years.", "I've got a notebook which I draw in every day.", "Réponse possible : My headphones mean a lot to me. I've had them for two years."],
+    "starters": ["My favourite thing is...", "I've had it for / since...", "It means a lot to me because...", "It's something which...", "It reflects my personality: ..."],
+    "mission": "Bring (or draw) an object that matters to you. In groups of four, present it in one minute, then answer two questions from your classmates.",
+    "can_do": ["I can present an object and say why it matters to me.", "I can use the present perfect with for and since.", "I can note reasons in a recording with several speakers."],
+    "memory": "Record your one-minute presentation on your phone. Listen again and correct one mistake before next lesson."
+  },
+  "2NDE-02": {
+    "hook": "17 ROLLER COASTERS IN ONE PARK. WOULD YOU DARE?",
+    "visual": [
+      {"label": "THRILLS", "picto": "etoile"},
+      {"label": "TRAVEL", "picto": "avion"},
+      {"label": "WORLD", "picto": "globe"},
+      {"label": "RECORDS", "picto": "cible"}
+    ],
+    "vocab": [
+      ["theme park", "parc d'attractions", "We went to a theme park in Florida."],
+      ["ride", "attraction, manège", "This ride is terrifying!"],
+      ["roller coaster", "montagnes russes", "It has seventeen roller coasters."],
+      ["thrilling", "palpitant", "The new ride is thrilling."],
+      ["Ferris wheel", "grande roue", "The Ferris wheel is the tallest in the world."],
+      ["indoor", "couvert, en intérieur", "It's the largest indoor park."],
+      ["lifelike", "réaliste, plus vrai que nature", "The dinosaurs look lifelike."],
+      ["queue", "file d'attente", "We waited in the queue for an hour."],
+      ["worth it", "qui en vaut la peine", "It's expensive but worth it."],
+      ["guidebook", "guide (livre)", "He wrote a guidebook about parks."],
+      ["to expand", "se développer", "Theme parks are expanding in China."]
+    ],
+    "grammar": {
+      "title": "Comparatives and superlatives",
+      "rule": "Short adjectives: big - bigger than - the biggest. Long adjectives: exciting - more exciting than - the most exciting. Irregular: good - better - the best, bad - worse - the worst, far - further - the furthest.",
+      "examples": ["Cedar Point is more exciting than my local park.", "Lotte World is the largest indoor park in the world.", "The queues were worse than last year."]
+    },
+    "pronunciation": "Than is weak: /ðən/. Say: bigger than = /bɪgə ðən/, not /ðæn/.",
+    "did_you_know": "Some roller coasters reach more than 200 kilometres per hour, faster than many cars on a motorway.",
+    "model": "Lena: Shall we go to Thrill Valley or Splash Kingdom for the class trip?\nOmar: Thrill Valley is cheaper and closer.\nLena: True, but Splash Kingdom has more rides and the biggest water slide in the country.\nOmar: The queues are longer there, though.\nLena: OK, let's choose Thrill Valley: it's the best option for a one-day trip.",
+    "listening": {
+      "title": "Theme parks",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B1",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b1-listening/theme-parks",
+      "verified_on": "2026-11-06",
+      "questions": ["Which park is the best for thrill rides, and how many roller coasters does it have?", "What is special about a wingcoaster?", "Which two world records will Ocean Kingdom in China hold?"],
+      "answers": ["Cedar Point in Ohio, with 17 roller coasters", "The seats stick out on both sides, so you feel you are flying", "The longest roller coaster and the tallest Ferris wheel"],
+      "fallback": "Host: Andy, you've written a guide to the world's theme parks. Which is the best for thrills?\nAndy: Cedar Point, in Ohio. It has seventeen roller coasters! The new one is a wingcoaster: the seats are on the sides, so you feel like you're flying.\nHost: And the biggest park?\nAndy: Magic Kingdom in Florida gets the most visitors. In Asia, Lotte World in South Korea is the largest indoor park.\nAndy: Fans of fiction love the Wizarding World of Harry Potter in Orlando, and Cedar Point even has lifelike dinosaurs.\nHost: What's next?\nAndy: China. Ocean Kingdom will have the longest roller coaster and the tallest Ferris wheel in the world."
+    },
+    "go_further": [
+      {"title": "The weekend", "source": "British Council - LearnEnglish Teens", "level": "B1", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b1-listening/weekend", "verified_on": "2026-11-06", "task": "Do the preparation task, then listen and note two activities and compare them with your own weekend."}
+    ],
+    "practice": ["Complete: This ride is ___ (scary) than the old one.", "Complete: It's the ___ (good) park I've ever visited.", "Correct the mistake: Lotte World is more bigger than my park.", "Compare two places you know in one sentence."],
+    "practice_answers": ["scarier", "best", "Lotte World is bigger than my park.", "Réponse possible : Paris is busier than my town, but my town is more relaxing."],
+    "starters": ["X is more ... than Y.", "The best thing about ... is...", "It's the ...-est in the world.", "I'd recommend ... because...", "I see your point, but..."],
+    "mission": "In pairs, compare two parks from your cards (price, rides, distance) and agree on the best one for the class trip. Present your choice to the class in three sentences.",
+    "can_do": ["I can understand numbers and records in a radio interview.", "I can compare places with comparatives and superlatives.", "I can recommend a place and justify my choice."],
+    "memory": "Write five facts with superlatives about places in your region. Test a partner next lesson."
+  },
+  "TLE-01": {
+    "hook": "YOU CHOOSE WHAT YOU CLICK. BUT WHO CHOOSES WHAT YOU SEE?",
+    "visual": [
+      {"label": "ONLINE", "picto": "telephone"},
+      {"label": "DATA", "picto": "loupe"},
+      {"label": "NEWS", "picto": "livre"},
+      {"label": "VIEWS", "picto": "bulles"}
+    ],
+    "vocab": [
+      ["filter bubble", "bulle de filtres", "We all live in a filter bubble."],
+      ["to track", "suivre, pister", "Websites track what we click."],
+      ["cookie", "cookie (témoin de connexion)", "Cookies are downloaded onto your computer."],
+      ["newsfeed", "fil d'actualité", "My newsfeed only shows sports news."],
+      ["personalised", "personnalisé", "Our online experience is personalised."],
+      ["algorithm", "algorithme", "The algorithm decides what we see."],
+      ["to be aware of", "avoir conscience de", "Few people are aware of it."],
+      ["point of view", "point de vue", "We don't see other points of view."],
+      ["advert", "publicité", "I saw adverts for trainers everywhere."],
+      ["to rely on", "dépendre de", "Many teens rely on social media for news."],
+      ["biased", "partial, orienté", "A biased feed can change your opinions."]
+    ],
+    "grammar": {
+      "title": "The passive voice",
+      "rule": "be + past participle. Present: Our clicks are tracked. Past: My data was collected. Use the passive when the doer is unknown, obvious or less important. Add by + agent only if useful: The book was written by Eli Pariser.",
+      "examples": ["What we see is chosen by algorithms.", "Cookies are downloaded onto our computers.", "My friends' posts were hidden from my newsfeed."]
+    },
+    "pronunciation": "Stress shifts in word families: PERsonal, personALity, PERsonalised. Practise: My personalised feed shows my personality.",
+    "did_you_know": "The expression \"filter bubble\" was made popular by internet activist Eli Pariser in a book published in 2011.",
+    "model": "Ines: I only see football videos on my feed now.\nJake: That's because your clicks are tracked. The app thinks it's all you like.\nInes: So I'm in a filter bubble?\nJake: Exactly. You aren't shown other topics anymore.\nInes: That's a bit worrying. I'd argue we should be able to switch it off.",
+    "listening": {
+      "title": "The Filter Bubble - part one",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B2",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/filter-bubble-part-one",
+      "verified_on": "2026-11-06",
+      "questions": ["What tool do websites use to track what users do?", "Why did posts from some of the speaker's friends disappear from the newsfeed?", "What does Eli Pariser think we should worry about?"],
+      "answers": ["Cookies, downloaded onto the user's computer", "The speaker rarely clicked on them, so the site decided they weren't interesting", "Websites and apps control what information we see and don't see"],
+      "fallback": "Speaker: Today I'd like to recommend a book: The Filter Bubble, by Eli Pariser. Websites and apps record what we do online, often with cookies. Then they decide what to show us.\nLast month I looked for new trainers. Since then, I've seen trainer adverts everywhere!\nIt's more serious with news. I rarely clicked on posts by friends who vote for another party, so they disappeared from my newsfeed.\nPariser says we should worry: we don't see all the information, and we don't even notice."
+    },
+    "go_further": [
+      {"title": "The Filter Bubble - part two", "source": "British Council - LearnEnglish Teens", "level": "B2", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/filter-bubble-part-two", "verified_on": "2026-11-06", "task": "Listen to the second part of the talk and note two solutions to get out of the filter bubble."}
+    ],
+    "practice": ["Make passive: Algorithms choose our videos.", "Make passive (past): Someone hacked my account.", "Complete: The book ___ (write) by Eli Pariser.", "Give your opinion on personalised feeds in two sentences."],
+    "practice_answers": ["Our videos are chosen by algorithms.", "My account was hacked.", "was written", "Réponse possible : Personalised feeds are convenient. However, I'd argue they hide other points of view."],
+    "starters": ["Our data is collected by...", "We are shown...", "I'd argue that...", "Admittedly, ... but...", "It depends on..."],
+    "mission": "In groups, prepare two arguments for or against personalised feeds. Debate with another group: one minute per speaker, then one counter-argument each.",
+    "can_do": ["I can explain what a filter bubble is.", "I can use the passive to talk about data and the internet.", "I can defend an opinion and answer an argument."],
+    "memory": "Check the settings of one app you use. Next lesson, explain in English what data it collects."
+  },
+  "1RE-01": {
+    "hook": "CLOUDS IN YOUR LIVING ROOM, GLOVES THAT SPEAK: SCIENCE FICTION OR SCIENCE?",
+    "visual": [
+      {"label": "IDEAS", "picto": "ampoule"},
+      {"label": "WATER", "picto": "pluie"},
+      {"label": "SUN", "picto": "soleil"},
+      {"label": "SPEECH", "picto": "micro"}
+    ],
+    "vocab": [
+      ["invention", "invention", "It's the best invention of the year."],
+      ["to glide", "planer", "With a wingsuit, you can glide."],
+      ["drinking water", "eau potable", "It turns salty water into drinking water."],
+      ["sign language", "langue des signes", "The gloves translate sign language."],
+      ["hearing impairment", "déficience auditive", "It helps people with hearing impairments."],
+      ["investor", "investisseur", "The project needs investors."],
+      ["to mass-produce", "produire en série", "It isn't mass-produced yet."],
+      ["submarine", "sous-marin", "The submarine went down ten kilometres."],
+      ["breakthrough", "avancée majeure", "It's a real breakthrough."],
+      ["affordable", "abordable", "Wingsuits are becoming more affordable."],
+      ["to solve", "résoudre", "It could solve a real problem."]
+    ],
+    "grammar": {
+      "title": "Possibility and hypothesis: could, might, would",
+      "rule": "Possibility: It could / might help thousands of people (could / might + base verb, no to). Second conditional for an imaginary situation: If + past simple, would + base verb. If I had a wingsuit, I would fly over the Alps.",
+      "examples": ["These gloves could change lives.", "If it were cheaper, more people would buy it.", "It might not work in every country."]
+    },
+    "pronunciation": "Would, could, should: the l is silent. /wʊd/, /kʊd/, /ʃʊd/.",
+    "did_you_know": "In 2012, film director James Cameron dived alone to the deepest point of the ocean, almost 11 kilometres down, in a submarine he helped design.",
+    "model": "Sara: Which invention did you prefer?\nNoah: The talking gloves. They could help thousands of people with hearing impairments.\nSara: I agree. If they were cheaper, every school would have some.\nNoah: And the indoor clouds?\nSara: Beautiful, but useless! I wouldn't buy them.",
+    "listening": {
+      "title": "New inventions",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B2",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/new-inventions",
+      "verified_on": "2026-11-06",
+      "questions": ["What does Gabriele Diamanti's solar distiller do?", "What do the gloves made by Ukrainian students translate?", "How long did James Cameron stay at the deepest point of the ocean?"],
+      "answers": ["It turns salty water into drinking water using sunlight", "Sign language into text, then speech on a smartphone", "Three hours"],
+      "fallback": "Presenter: Welcome to Tech Today. Jed, what's new?\nJed: First, wingsuits: they're better and cheaper than before, but still too expensive for me.\nThen a solar distiller by Gabriele Diamanti: the sun turns salty water into drinking water. It's simple, but it needs investors.\nPresenter: And the gloves?\nJed: Brilliant! Ukrainian students made gloves that turn sign language into text and speech on a phone.\nJed: Finally, the Deepsea Challenger: James Cameron stayed three hours at the bottom of the ocean."
+    },
+    "go_further": [
+      {"title": "How to improve your memory", "source": "British Council - LearnEnglish Teens", "level": "B2", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/how-improve-your-memory", "verified_on": "2026-11-06", "task": "Listen and note three tips. Which one could work for you? Write one sentence with could or might."}
+    ],
+    "practice": ["Complete: If I ___ (be) an inventor, I ___ (create) a robot teacher.", "Correct the mistake: It could to help many people.", "Rewrite with might: Perhaps it doesn't work everywhere.", "Imagine an invention for your school in two sentences."],
+    "practice_answers": ["were (was) - would create", "It could help many people.", "It might not work everywhere.", "Réponse possible : I'd invent a bag that weighs nothing. It could protect our backs."],
+    "starters": ["It could / might...", "If it were..., it would...", "The main benefit is...", "One risk is...", "To some extent, ..."],
+    "mission": "In groups, invent something that could solve a real problem. Pitch it in one minute (what it does, who it helps, one risk) and vote for the most useful invention.",
+    "can_do": ["I can understand descriptions of inventions in a radio show.", "I can make hypotheses with could, might and the second conditional.", "I can present an idea and its limits."],
+    "memory": "Find one recent invention online. Next lesson, present it in three sentences, one with could."
+  },
+  "1RE-02": {
+    "hook": "WOLF, HONOR, APPLE: WOULD YOU GIVE THESE NAMES TO YOUR CHILD?",
+    "visual": [
+      {"label": "NATURE", "picto": "arbre"},
+      {"label": "MUSIC", "picto": "musique"},
+      {"label": "IDENTITY", "picto": "loupe"},
+      {"label": "WORLD", "picto": "globe"}
+    ],
+    "vocab": [
+      ["first name", "prénom", "My first name comes from Greek."],
+      ["surname", "nom de famille", "Mason used to be a surname."],
+      ["to be named after", "porter le nom de", "She was named after a novelist."],
+      ["trend", "tendance", "It's the latest trend in baby names."],
+      ["to set a trend", "lancer une mode", "Celebrities set trends."],
+      ["to tend to", "avoir tendance à", "British parents tend to be traditional."],
+      ["virtue", "vertu", "Faith and Honor are virtue names."],
+      ["anagram", "anagramme", "Their names are anagrams of the same letters."],
+      ["common noun", "nom commun", "Apple is a common noun used as a name."],
+      ["to sound strange", "sembler bizarre", "New names sound strange at first."],
+      ["heritage", "héritage, patrimoine", "My name reflects my heritage."]
+    ],
+    "grammar": {
+      "title": "tend to, used to, be named after",
+      "rule": "tend to + base verb for a general habit: Parents tend to follow celebrities. used to + base verb for a past habit that has stopped: People used to choose saints' names. be named after + person: He was named after his grandfather.",
+      "examples": ["The USA tends to start naming trends.", "Names like Taylor used to be surnames.", "Harper was named after a novelist."]
+    },
+    "pronunciation": "Used to is pronounced /juːstə/, with an s sound: People used to /juːstə/ choose traditional names.",
+    "did_you_know": "In England and Wales, the most popular baby names are published every year by the Office for National Statistics.",
+    "model": "Chloe: Why did your parents call you River?\nRiver: They tend to love nature: my sister is called Willow!\nChloe: In my family, people used to be named after their grandparents.\nRiver: Do you think a name changes who you are?\nChloe: To some extent. People judge you before they meet you, just from your name.",
+    "listening": {
+      "title": "What's in a name?",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B2",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/whats-name",
+      "verified_on": "2026-11-06",
+      "questions": ["Which country usually starts new trends in baby names?", "What do the names of the Dutch family's six children have in common?", "Give one category of common nouns used as first names."],
+      "answers": ["The United States (Britain tends to follow)", "They are all made with the letters A, E, L and X", "Any one: virtues, nature or animals, music, months, colours, food, places, jobs"],
+      "fallback": "Presenter 1: Finn, where do baby-name trends come from?\nFinn: Mostly from the USA; Britain follows, but parents here tend to be more traditional.\nPresenter 1: What's the big trend?\nFinn: Ordinary words as names: virtues like Honor, nature like Wolf or Fox, music like Melody, even food, like Apple.\nPresenter 1: Any surprising families?\nFinn: A Dutch family whose six children's names all use the letters A, E, L and X! New names sound strange at first, then we get used to them."
+    },
+    "go_further": [
+      {"title": "Unusual British festivals", "source": "British Council - LearnEnglish Teens", "level": "B2", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/unusual-british-festivals", "verified_on": "2026-11-06", "task": "Listen and note two festivals and what they say about local identity."}
+    ],
+    "practice": ["Complete: Teenagers ___ (tend) follow celebrities on social media.", "Complete with used to: My grandparents ___ live in Ireland.", "Correct the mistake: He was named of his uncle.", "Does a name shape who we are? Answer in two sentences."],
+    "practice_answers": ["tend to", "used to", "He was named after his uncle.", "Réponse possible : To some extent, yes: people make assumptions from names. But our choices matter more."],
+    "starters": ["I was named after...", "People tend to...", "In the past, parents used to...", "To some extent, ...", "To sum up, our group feels that..."],
+    "mission": "In groups of four, discuss \"Does a name shape who we are?\" for ten minutes using the argument cards. Then a spokesperson sums up your ideas in one minute.",
+    "can_do": ["I can understand the main points of a radio discussion.", "I can talk about trends and past habits.", "I can take part in a discussion and sum it up."],
+    "memory": "Find the meaning and origin of a name you like. Present it in three sentences next lesson."
+  },
+  "TLE-02": {
+    "hook": "THEY USED TO HUNT LIONS. NOW THEY PROTECT THEM.",
+    "visual": [
+      {"label": "NATURE", "picto": "arbre"},
+      {"label": "PROTECT", "picto": "valide"},
+      {"label": "COMMUNITY", "picto": "equipe"},
+      {"label": "TRACKING", "picto": "loupe"}
+    ],
+    "vocab": [
+      ["livestock", "bétail", "Lions attacked their livestock."],
+      ["herder", "éleveur, berger", "Guardians warn herders about lions."],
+      ["warrior", "guerrier", "Young warriors used to hunt lions."],
+      ["rite of passage", "rite de passage", "Killing a lion was a rite of passage."],
+      ["conservation", "protection de la nature", "They work in conservation."],
+      ["to track", "suivre (à la trace)", "They track lions with radio collars."],
+      ["to come of age", "devenir adulte", "Boys came of age by proving their courage."],
+      ["to persuade", "persuader", "They persuade people not to hunt."],
+      ["scheme", "programme, dispositif", "The scheme started in 2007."],
+      ["whereas", "alors que (contraste)", "Sixty-three lions died there, whereas none died here."],
+      ["endangered", "menacé", "Lions are an endangered species."]
+    ],
+    "grammar": {
+      "title": "Contrast and change",
+      "rule": "Contrast two facts: whereas / while (Zero lions were killed here, whereas 63 were killed next door), although (Although it was a tradition, it changed). Replace an action: instead of + -ing (Instead of killing lions, they protect them). Past habit: used to + base verb.",
+      "examples": ["Young men used to kill lions.", "Instead of hunting, they now track lions.", "Although the tradition was old, the community accepted the change."]
+    },
+    "pronunciation": "Stress in long words: conserVAtion, traDItion, compeTItion. The stress falls just before -tion.",
+    "did_you_know": "Lion Guardians started in Kenya in 2007. Many guardians are former lion hunters who now use radio tracking to follow the lions.",
+    "model": "Amara: Did you know the Maasai used to kill lions to become warriors?\nLeo: Really? Do they still do it?\nAmara: Much less. Instead of hunting, some young men become Lion Guardians.\nLeo: Do they earn respect in the same way?\nAmara: Yes, they can earn a lion name by protecting lions, whereas in the past they earned it by killing one.",
+    "listening": {
+      "title": "The Maasai and the lions",
+      "source": "British Council - LearnEnglish Teens",
+      "level": "B2",
+      "media": "audio",
+      "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/maasai-lions",
+      "verified_on": "2026-11-06",
+      "questions": ["What did young Maasai warriors traditionally have to do to come of age?", "What is the aim of the Lion Guardians scheme?", "How many lions were killed in the area patrolled by the Guardians, compared with the area next to it?"],
+      "answers": ["Kill a lion", "To train local people to protect lions and manage conflicts between lions and herders", "None in the Guardians' area since 2007, whereas 63 were killed in the neighbouring area"],
+      "fallback": "Reporter: For centuries, the Maasai of Kenya saw lions as enemies: lions killed their cattle, and young men proved they were warriors by killing a lion.\nToday, a scheme called Lion Guardians trains local people to protect lions. Guardians follow the lions, warn herders, help find lost animals and persuade others not to hunt.\nOlubi used to be a hunter: he killed seven lions. Now he is a Guardian.\nSince 2007, no lion has been killed in the Guardians' area, whereas sixty-three were killed in the area next to it."
+    },
+    "go_further": [
+      {"title": "High-achieving teenagers", "source": "British Council - LearnEnglish Teens", "level": "B2", "media": "audio", "url": "https://learnenglishteens.britishcouncil.org/skills/listening/b2-listening/high-achieving-teenagers", "verified_on": "2026-11-06", "task": "Listen and note what one young person achieved and what motivated him or her."}
+    ],
+    "practice": ["Join with whereas: In the Guardians' area, no lions died. In the next area, 63 died.", "Rewrite with instead of: They don't hunt lions now; they protect them.", "Complete with used to: Olubi ___ hunt lions.", "Should traditions change to protect nature? Answer in two sentences."],
+    "practice_answers": ["No lions died in the Guardians' area, whereas 63 died in the next area.", "Instead of hunting lions, they protect them.", "used to", "Réponse possible : Traditions matter, although some must adapt. Changing them can protect both people and nature."],
+    "starters": ["They used to..., but now...", "Instead of ...-ing, ...", "Whereas..., ...", "Although..., ...", "The best compromise would be..."],
+    "mission": "In groups, play a village meeting (herder, young warrior, Lion Guardian, tourist guide). Each defends his or her interests, then the group agrees on one solution and presents it.",
+    "can_do": ["I can understand a report about a changing tradition.", "I can contrast past and present.", "I can defend a point of view in a role play."],
+    "memory": "Find another example of a tradition that changed to protect nature. Present it next lesson with one contrast connector."
   }
 }

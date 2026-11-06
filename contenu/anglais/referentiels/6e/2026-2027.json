@@ -1,0 +1,94 @@
+{
+  "level": "6e",
+  "school_year": "2026-2027",
+  "program": "lve-college-2025",
+  "status": "proposition_pedagogique_a_valider",
+  "themes": [
+    "Personnes et personnages",
+    "Le quotidien : vivre, jouer, apprendre",
+    "Imaginaire, contes et légendes"
+  ],
+  "objectives": [
+    {
+      "code": "6E-01",
+      "activity": "Interaction orale",
+      "observable": "Se présenter et présenter quelqu'un : nom, âge, pays",
+      "theme": "Personnes et personnages",
+      "language_support": "be, my / his / her, What's your name? Where are you from?"
+    },
+    {
+      "code": "6E-02",
+      "activity": "Expression orale",
+      "observable": "Décrire physiquement une personne de son entourage",
+      "theme": "Personnes et personnages",
+      "language_support": "have got / has got, adjectifs avant le nom"
+    },
+    {
+      "code": "6E-03",
+      "activity": "Compréhension orale",
+      "observable": "Comprendre et suivre des consignes de classe",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "Impératif, verbes d'action"
+    },
+    {
+      "code": "6E-04",
+      "activity": "Expression écrite",
+      "observable": "Rédiger une courte fiche de présentation : ce que je sais faire",
+      "theme": "Personnes et personnages",
+      "language_support": "can / can't"
+    },
+    {
+      "code": "6E-05",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un emploi du temps et repérer jours, matières et heures",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "Jours, matières, l'heure"
+    },
+    {
+      "code": "6E-06",
+      "activity": "Interaction orale",
+      "observable": "Parler de ses goûts alimentaires et de ses animaux préférés",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "like / don't like, Do you like...?"
+    },
+    {
+      "code": "6E-07",
+      "activity": "Compréhension orale",
+      "observable": "Repérer des informations sur une fête du monde anglophone",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "Dates, mois, vocabulaire des fêtes"
+    },
+    {
+      "code": "6E-08",
+      "activity": "Expression orale",
+      "observable": "Décrire sa maison ou sa chambre",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "there is / there are, prépositions de lieu"
+    },
+    {
+      "code": "6E-09",
+      "activity": "Compréhension écrite",
+      "observable": "Lire un court conte et identifier personnages et lieux",
+      "theme": "Imaginaire, contes et légendes",
+      "language_support": "Repérage, mots transparents"
+    },
+    {
+      "code": "6E-10",
+      "activity": "Expression écrite",
+      "observable": "Décrire sa journée type en quelques phrases",
+      "theme": "Le quotidien : vivre, jouer, apprendre",
+      "language_support": "Présent simple, connecteurs first, then"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Programmes de langues vivantes du collège et du lycée, BO n°22 du 29 mai 2025 (annexe 3 : anglais au collège)",
+      "url": "https://www.education.gouv.fr/bo/2025/Hebdo22/MENE2504621A"
+    },
+    {
+      "title": "Éduscol, livret d'accompagnement du programme d'anglais 6e-3e (2026)",
+      "url": "https://eduscol.education.gouv.fr/sites/default/files/document/2026livretaccompagnementanglais6e5e4e3e-127310.pdf"
+    }
+  ],
+  "note": "Objectifs opérationnels Boussole pour le programme 2025 (niveau visé en LVA : A1+). Intitulés d'axes repris des documents d'accompagnement, liste partielle à compléter et vérifier sur l'annexe 3 du BO. Progression en cours : seules les deux premières séances sont rédigées. Validation par enseignant référent requise."
+}
