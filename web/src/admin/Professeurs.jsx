@@ -5,6 +5,7 @@ import { Modale, exporterCsv, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import { BadgesHabilitations, DOMAINES_PAR_DEFAUT, GrilleQualifications, depuisGrille, versGrille } from "./Qualifications.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
+import ImportProfesseurs from "./ImportProfesseurs.jsx";
 
 /** Comptes de l'équipe (professeurs, validateurs, administrateurs) : création, qualifications par matière,
  * désactivation, transfert, suppression (EA3.1 à EA3.6, CDC V2 EA.5 à EA.7). */
@@ -72,6 +73,9 @@ export default function Professeurs({ jeton, onExpire, domaine = "" }) {
             </button>
             <button onClick={() => setFenetre({ genre: "edition", prof: null })}>
               <Icone nom="plus" taille={18} /> Nouveau compte
+            </button>
+            <button className="secondaire" onClick={() => setFenetre({ genre: "import" })}>
+              <Icone nom="telecharger" taille={18} /> Importer (Excel)
             </button>
           </div>
         </div>
@@ -171,6 +175,17 @@ export default function Professeurs({ jeton, onExpire, domaine = "" }) {
             setMessage("Modifications enregistrées.");
             charger();
           }}
+        />
+      )}
+      {fenetre?.genre === "import" && (
+        <ImportProfesseurs
+          jeton={jeton}
+          onExpire={onExpire}
+          onFermer={() => {
+            setFenetre(null);
+            charger();
+          }}
+          onImporte={() => charger()}
         />
       )}
       {fenetre?.genre === "secret" && (

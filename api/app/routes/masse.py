@@ -8,7 +8,7 @@ from fastapi import APIRouter, Body, HTTPException, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from app import archives, import_familles, inscriptions, journal, parents
+from app import archives, import_familles, import_professeurs, inscriptions, journal, parents
 from app.auth import AdminCourant, SessionDB
 from app.db import models
 
@@ -67,6 +67,34 @@ def importer(
     if not simulation and not rapport.nb_erreurs:
         journal.noter(session, admin, "importer", "familles", None,
                       apres={"enfants": rapport.nb_enfants, "comptes_crees": rapport.nb_comptes_nouveaux})
+        session.commit()
+    return rapport
+
+
+@router.get("/import/professeurs/modele")
+def modele_import_professeurs(_: AdminCourant) -> Response:
+    """Modèle à remplir : une ligne par professeur (nom, e-mail, matières)."""
+    return Response(
+        import_professeurs.modele(), media_type=MIME_XLSX,
+        headers={"Content-Disposition": 'attachment; filename="boussole-modele-professeurs.xlsx"'},
+    )
+
+
+@router.post("/import/professeurs", response_model=import_professeurs.RapportProfesseurs)
+def importer_professeurs(
+    admin: AdminCourant, session: SessionDB, fichier: Annotated[bytes, Body(media_type=MIME_XLSX)],
+    simulation: bool = True,
+) -> import_professeurs.RapportProfesseurs:
+    """Corps : le classeur rempli. `simulation` (par défaut) vérifie sans rien écrire ; sinon tous les comptes
+    sont créés, ou aucun. Les mots de passe provisoires ne sont donnés qu'ici, jamais journalisés."""
+    try:
+        rapport = import_professeurs.importer(session, fichier, simulation, admin)
+    except import_familles.FichierInvalide as e:
+        raise HTTPException(422, str(e)) from e
+    if not simulation and not rapport.nb_erreurs and rapport.comptes:
+        for c in rapport.comptes:
+            journal.noter(session, admin, "creer", "enseignant", c.id, apres={"nom": c.nom, "email": c.email, "import": True})
+        journal.noter(session, admin, "importer", "professeurs", None, apres={"comptes_crees": len(rapport.comptes)})
         session.commit()
     return rapport
 
