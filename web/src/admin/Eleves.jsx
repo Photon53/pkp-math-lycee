@@ -30,7 +30,7 @@ export default function Eleves({ jeton, onExpire, domaine = "" }) {
           ["classes", "Classes et groupes"],
         ]}
       />
-      {onglet === "enfants" && <Repertoire appeler={appeler} erreur={erreur} domaine={domaine} />}
+      {onglet === "enfants" && <Repertoire appeler={appeler} erreur={erreur} domaine={domaine} jeton={jeton} onExpire={onExpire} />}
       {onglet === "inscriptions" && <ListeEleves jeton={jeton} onExpire={onExpire} domaine={domaine} />}
       {onglet === "classes" && <ListeClasses jeton={jeton} onExpire={onExpire} domaine={domaine} />}
     </>

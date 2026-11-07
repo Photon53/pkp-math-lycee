@@ -5,6 +5,7 @@ import { FicheCodes } from "../enseignant/Classes.jsx";
 import { Modale, exporterCsv } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 import { cartesAImprimer } from "./EnfantsFamille.jsx";
+import { PdfCartesConnues } from "./ExportCartes.jsx";
 
 const MIME_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
@@ -90,6 +91,12 @@ export default function ImportFamilles({ jeton, onExpire, onFermer, onImporte })
             </div>
           </>
         )}
+        <h3>Cartes des enfants</h3>
+        <p className="aide">
+          Les codes ne sont affichés que maintenant : téléchargez le PDF A4 (cartes à découper, QR code compris) ou imprimez les
+          cartes ci-dessous.
+        </p>
+        <PdfCartesConnues jeton={jeton} onExpire={onExpire} cartes={resultat.cartes} />
         <FicheCodes classe="Import" intitule="Inscription en masse" codes={cartesAImprimer(resultat.cartes)} onFermer={onFermer} />
       </Modale>
     );

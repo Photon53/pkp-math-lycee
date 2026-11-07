@@ -6,6 +6,7 @@ import { Modale, Pagination, Vide, exporterCsv, formaterDate, pourcentage } from
 import { BarreSelection, CaseLigne, CaseTout, ConfirmationSuppression, useSelection } from "../ui/Selection.jsx";
 import { avecDomaine, parametre } from "./BandeauAdmin.jsx";
 import { nomComplet } from "./EnfantsFamille.jsx";
+import ExportCartes from "./ExportCartes.jsx";
 import { parcoursCourt } from "./GestionClasses.jsx";
 
 const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
@@ -38,7 +39,7 @@ const ligneCsv = (e) => ({
   a_verifier: e.alertes.join(" ; "),
 });
 
-export default function Repertoire({ appeler, erreur, domaine = "" }) {
+export default function Repertoire({ appeler, erreur, domaine = "", jeton, onExpire }) {
   const [q, setQ] = useState(() => parametre("eleve_q"));
   const [filtres, setFiltres] = useState({ niveau: "", statut: "", sans_responsable: false, sans_classe: false, a_verifier: false });
   const [tri, setTri] = useState("nom");
@@ -48,6 +49,7 @@ export default function Repertoire({ appeler, erreur, domaine = "" }) {
   const [message, setMessage] = useState(null);
   const [echec, setEchec] = useState(null);
   const [suppression, setSuppression] = useState(false);
+  const [cartes, setCartes] = useState(null); // null, ou les ids sélectionnés ([] : par niveau ou par classe)
   const [ouverte, setOuverte] = useState(() => Number(parametre("eleve")) || null);
   const selection = useSelection();
 
@@ -158,6 +160,13 @@ export default function Repertoire({ appeler, erreur, domaine = "" }) {
         spécialité, techno…) ; excellence, mise à niveau et examens sont des options. Ouvrez la fiche pour voir sa progression, ses
         responsables et son historique.
       </p>
+      {jeton && (
+        <div className="actions" style={{ marginTop: 0 }}>
+          <button className="secondaire" onClick={() => setCartes([])}>
+            Cartes d'accès (PDF)
+          </button>
+        </div>
+      )}
       <Erreur message={erreur || echec} />
       {message && <p className="succes" role="status">{message}</p>}
       {donnees === null && <p className="doux">Chargement…</p>}
@@ -198,6 +207,9 @@ export default function Repertoire({ appeler, erreur, domaine = "" }) {
               ))}
             </select>
             <button className="secondaire petit" onClick={() => exporterCsv("eleves.csv", choisis.map(ligneCsv))}>Exporter (CSV)</button>
+            {jeton && (
+              <button className="secondaire petit" onClick={() => setCartes(selection.ids)}>Cartes d'accès (PDF)</button>
+            )}
             <button
               className="secondaire petit"
               onClick={() =>
@@ -298,6 +310,19 @@ export default function Repertoire({ appeler, erreur, domaine = "" }) {
             compte responsable qui n'a plus d'enfant est supprimé aussi.
           </p>
         </ConfirmationSuppression>
+      )}
+      {cartes && (
+        <ExportCartes
+          jeton={jeton}
+          onExpire={onExpire}
+          ids={cartes}
+          classes={classes.filter((c) => !c.archivee_le)}
+          onFermer={() => setCartes(null)}
+          onExporte={(texte) => {
+            setCartes(null);
+            setMessage(texte);
+          }}
+        />
       )}
     </section>
   );
