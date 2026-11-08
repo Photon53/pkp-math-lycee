@@ -24,8 +24,12 @@ OBJECTIF_AVANCEES = 2
 
 
 def programme_de(classe: models.Classe):
-    """Conditions SQL : chapitres du niveau ET du parcours (spécialité) de la classe."""
-    return (models.Chapitre.niveau == classe.niveau, models.Chapitre.parcours == classe.parcours)
+    """Conditions SQL : chapitres du domaine (maths ou français), du niveau ET du parcours (spécialité) de la classe."""
+    return (
+        models.Chapitre.domaine_code == classe.domaine_code,
+        models.Chapitre.niveau == classe.niveau,
+        models.Chapitre.parcours == classe.parcours,
+    )
 
 
 def chapitres_du_programme(session: Session, classe: models.Classe) -> list[models.Chapitre]:

@@ -96,6 +96,19 @@ class Lecteur:
     complet: bool  # tout le programme et toutes les questions (admin, professeur)
     chapitres: set[int] | None = None  # chapitres permis ; None : selon les niveaux
     niveaux: set[Niveau] | None = None
+    # Accès par niveau seulement : parcours écartés (voie générale ou voie professionnelle, ticket #25).
+    parcours_exclus: frozenset[Parcours] = frozenset()
+
+
+def voie_exclue(classes: "list[models.Classe]") -> frozenset[Parcours]:
+    """Parcours de seconde à écarter de l'accès par niveau : l'autre voie que celle de l'élève.
+
+    Un élève de seconde professionnelle ne reçoit pas les chapitres propres à la seconde générale, et
+    inversement ; sans classe de maths active, on écarte la voie professionnelle (rien ne change pour
+    les comptes existants).
+    """
+    pro = any(c.parcours == Parcours.PROFESSIONNEL for c in classes if c.domaine_code.startswith("maths-"))
+    return frozenset({Parcours.TRONC_COMMUN} if pro else {Parcours.PROFESSIONNEL})
 
 
 def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
@@ -114,8 +127,10 @@ def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
         return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts(eleve.classe)))
     if lire_jeton(jeton, ENFANT):
         enfant = enfant_courant(identifiants, session)
-        ouverts = {i for e in enfant.inscriptions if e.classe.archivee_le is None for i in ids_ouverts(e.classe)}
-        return Lecteur(ENFANT, complet=False, chapitres=ouverts, niveaux={enfant.niveau})
+        actives = [e.classe for e in enfant.inscriptions if e.classe.archivee_le is None]
+        ouverts = {i for c in actives for i in ids_ouverts(c)}
+        return Lecteur(ENFANT, complet=False, chapitres=ouverts, niveaux={enfant.niveau},
+                       parcours_exclus=voie_exclue(actives))
     if lire_jeton(jeton, PARENT):
         parent = parent_courant(identifiants, session)
         niveaux = {e.niveau for e in parent.famille} | {e.classe.niveau for e in parent.enfants}
@@ -132,7 +147,8 @@ def _permis(session: SessionDB, lecteur: Lecteur, chapitre: models.Chapitre) -> 
         return False
     if lecteur.chapitres is not None and chapitre.id in lecteur.chapitres:
         return True
-    return lecteur.niveaux is not None and chapitre.niveau in lecteur.niveaux
+    return (lecteur.niveaux is not None and chapitre.niveau in lecteur.niveaux
+            and chapitre.parcours not in lecteur.parcours_exclus)
 
 
 def _questions(session: SessionDB, lecteur: Lecteur, competence: models.Competence) -> list[models.Question]:

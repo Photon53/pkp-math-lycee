@@ -14,6 +14,8 @@ export const NIVEAUX = [
 // Le libellé dit la voie : une classe de 1re générale et une de 1re technologique ne se confondent pas.
 export const LIBELLES_PARCOURS = {
   "tronc-commun": "Tronc commun",
+  // Ticket #25 : seconde préparant au bac pro (BO spécial n° 5 du 11 avril 2019), distincte de la voie technologique.
+  professionnel: "Voie professionnelle (seconde bac pro)",
   specialite: "Spécialité maths (voie générale)",
   scientifique: "Enseignement scientifique (voie générale, sans spécialité maths)",
   complementaires: "Maths complémentaires (voie générale)",
@@ -24,18 +26,24 @@ export const LIBELLES_PARCOURS = {
   examens: "Préparation aux examens (brevet, épreuve anticipée, bac blanc)",
 };
 
-// Ordre d'affichage : la voie générale, la voie technologique, puis les groupes de soutien et d'approfondissement.
+// Ordre d'affichage : la voie générale, la voie technologique ou professionnelle, puis les groupes de soutien et d'approfondissement.
 export const PARCOURS_PAR_NIVEAU = {
   "6e": ["tronc-commun", "mise-a-niveau", "excellence"],
   "5e": ["tronc-commun", "mise-a-niveau", "excellence"],
   "4e": ["tronc-commun", "mise-a-niveau", "excellence"],
   "3e": ["tronc-commun", "mise-a-niveau", "excellence", "examens"],
-  "2nde": ["tronc-commun", "mise-a-niveau", "excellence"],
+  "2nde": ["tronc-commun", "professionnel", "mise-a-niveau", "excellence"],
   "1re": ["specialite", "scientifique", "technologique", "mise-a-niveau", "excellence", "examens"],
   Tle: ["specialite", "complementaires", "expertes", "technologique", "mise-a-niveau", "excellence", "examens"],
 };
 
 export const NIVEAUX_COLLEGE = ["6e", "5e", "4e", "3e"];
+/** Français (F1) : de la 6e à la 1re, en tronc commun ; même règle que `refus_matiere` de l'API. */
+export const NIVEAUX_FRANCAIS = [...NIVEAUX_COLLEGE, "2nde", "1re"];
+export const MATIERES_CLASSES = { maths: "Mathématiques", francais: "Français" };
+/** Libellé d'une classe dans la liste du professeur : le français n'a pas de parcours à afficher. */
+export const libelleClasse = (classe, libellesParcours) =>
+  classe.matiere === "francais" ? "Français" : libellesParcours[classe.parcours];
 /** Domaine des maths d'un niveau : même règle que `domaine_maths` de l'API. */
 export const domaineMaths = (niveau) => (NIVEAUX_COLLEGE.includes(niveau) ? "maths-college" : "maths-lycee");
 

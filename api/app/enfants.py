@@ -6,8 +6,8 @@ niveau…) et dans des groupes d'anglais. Toutes ces inscriptions partagent le c
 connecte une seule fois, puis choisit sa matière. Changer son code déconnecte toutes ses inscriptions.
 """
 
-from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy import func, select
+from sqlalchemy.orm import Session, object_session
 
 from app.db import models
 from app.referentiel import LIBELLES_PARCOURS, est_principal
@@ -144,23 +144,37 @@ def inscrire_anglais(session: Session, enfant: models.Enfant, groupe: models.Gro
 
 
 def libelle_parcours(classe: models.Classe) -> str:
+    if classe.domaine_code.startswith("francais-"):
+        return "Français"
     return LIBELLES_PARCOURS.get(classe.parcours, classe.parcours.value)
 
 
 # --- Descriptions --------------------------------------------------------------------------------------
 
 MATIERES = (("maths", "Boussole Maths"), ("anglais", "Boussole Anglais"), ("francais", "Boussole Français"))
-# Le français a sa place dans tous les espaces ; son contenu viendra dans un lot dédié.
 MATIERES_DISPONIBLES = {"maths", "anglais"}
+# Boussole Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
+DOMAINES_FRANCAIS = ("francais-college", "francais-lycee")
 
 
-def matieres():
+def francais_disponible(session: Session | None, enfant: models.Enfant | None = None) -> bool:
+    if enfant is not None and inscriptions_francais(enfant):
+        return True
+    if session is None:
+        return False
+    return bool(session.scalar(select(func.count()).select_from(models.DomainePedagogique).where(
+        models.DomainePedagogique.code.in_(DOMAINES_FRANCAIS), models.DomainePedagogique.public.is_(True))))
+
+
+def matieres(session: Session | None = None, enfant: models.Enfant | None = None):
     from app.schemas import Matiere
 
-    return [Matiere(code=c, libelle=l, disponible=c in MATIERES_DISPONIBLES) for c, l in MATIERES]
+    disponibles = MATIERES_DISPONIBLES | ({"francais"} if francais_disponible(session, enfant) else set())
+    return [Matiere(code=c, libelle=l, disponible=c in disponibles) for c, l in MATIERES]
 
 
-def inscriptions_maths(enfant: models.Enfant, actives_seulement: bool = True):
+def _inscriptions_classes(enfant: models.Enfant, matiere: str, actives_seulement: bool):
+    """Inscriptions de l'enfant dans les classes d'une matière (maths ou français : même espace élève)."""
     from app.schemas import InscriptionMaths
 
     return [
@@ -170,8 +184,17 @@ def inscriptions_maths(enfant: models.Enfant, actives_seulement: bool = True):
             principal=est_principal(e.classe.parcours), archivee=e.classe.archivee_le is not None,
         )
         for e in sorted(enfant.inscriptions, key=lambda e: e.classe.code)
-        if not actives_seulement or (e.classe.enseignant.actif and e.classe.archivee_le is None)
+        if e.classe.domaine_code.startswith(f"{matiere}-")
+        and (not actives_seulement or (e.classe.enseignant.actif and e.classe.archivee_le is None))
     ]
+
+
+def inscriptions_maths(enfant: models.Enfant, actives_seulement: bool = True):
+    return _inscriptions_classes(enfant, "maths", actives_seulement)
+
+
+def inscriptions_francais(enfant: models.Enfant, actives_seulement: bool = True):
+    return _inscriptions_classes(enfant, "francais", actives_seulement)
 
 
 def inscriptions_anglais(enfant: models.Enfant, actives_seulement: bool = True):
@@ -192,7 +215,7 @@ def decrire(enfant: models.Enfant):
         id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
         a_un_code=enfant.code_hash is not None, derniere_connexion=enfant.derniere_connexion,
         maths=inscriptions_maths(enfant, actives_seulement=False), anglais=inscriptions_anglais(enfant, False),
-        bloque=enfant.bloque_le is not None,
+        francais=inscriptions_francais(enfant, actives_seulement=False), bloque=enfant.bloque_le is not None,
     )
 
 
@@ -201,7 +224,8 @@ def espace(enfant: models.Enfant):
 
     return EspaceEnfant(
         id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
-        matieres=matieres(), maths=inscriptions_maths(enfant), anglais=inscriptions_anglais(enfant),
+        matieres=matieres(object_session(enfant), enfant), maths=inscriptions_maths(enfant),
+        anglais=inscriptions_anglais(enfant), francais=inscriptions_francais(enfant),
     )
 
 

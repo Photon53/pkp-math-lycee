@@ -1,0 +1,23 @@
+# Module « Algorithmique et programmation » (pages 16 et 17 du PDF). Textes recopiés du BO.
+# « Les notions abordées dans ce module ne font pas l’objet d’un cours spécifique et sont travaillées en situation. »
+theme:
+  code: ALGO
+  titre: Algorithmique et programmation
+  partie: Transversale
+
+attendus:
+  - {code: 2NDE-PRO-2019-ALGO-01, type: capacite, page: 17, texte: "Analyser un problème."}
+  - {code: 2NDE-PRO-2019-ALGO-02, type: capacite, page: 17, texte: "Décomposer un problème en sous-problèmes."}
+  - {code: 2NDE-PRO-2019-ALGO-03, type: capacite, page: 17, texte: "Repérer les enchaînements logiques et les traduire en instructions conditionnelles et en boucles."}
+  - {code: 2NDE-PRO-2019-ALGO-04, type: contenu, page: 17, texte: "Séquences d’instructions, instructions conditionnelles, boucles bornées (for) et non bornées (while)."}
+  - {code: 2NDE-PRO-2019-ALGO-05, type: capacite, page: 17, texte: "Choisir ou reconnaître le type d’une variable."}
+  - {code: 2NDE-PRO-2019-ALGO-06, type: capacite, page: 17, texte: "Réaliser un calcul à l’aide d’une ou de plusieurs variables."}
+  - {code: 2NDE-PRO-2019-ALGO-07, type: contenu, page: 17, texte: "Types de variables : entiers, flottants, chaînes de caractères, booléens."}
+  - {code: 2NDE-PRO-2019-ALGO-08, type: contenu, page: 17, texte: "Affectation d’une variable."}
+  - {code: 2NDE-PRO-2019-ALGO-09, type: capacite, page: 17, texte: "Modifier ou compléter un algorithme ou un programme."}
+  - {code: 2NDE-PRO-2019-ALGO-10, type: capacite, page: 17, texte: "Concevoir un algorithme ou un programme simple pour résoudre un problème."}
+  - {code: 2NDE-PRO-2019-ALGO-11, type: capacite, page: 17, texte: "Comprendre et utiliser des fonctions."}
+  - {code: 2NDE-PRO-2019-ALGO-12, type: capacite, page: 17, texte: "Compléter la définition d’une fonction."}
+  - {code: 2NDE-PRO-2019-ALGO-13, type: capacite, page: 17, texte: "Structurer un programme en ayant recours à des fonctions pour résoudre un problème donné."}
+  - {code: 2NDE-PRO-2019-ALGO-14, type: contenu, page: 17, texte: "Arguments d’une fonction."}
+  - {code: 2NDE-PRO-2019-ALGO-15, type: contenu, page: 17, texte: "Valeur(s) renvoyée(s) par une fonction."}

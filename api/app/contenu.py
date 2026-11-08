@@ -24,7 +24,7 @@ import sys
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 import pkp_engine
 import yaml
@@ -43,7 +43,8 @@ from app.referentiel import (
     Adaptation,
     Parcours,
     StatutValidation,
-    domaine_maths,
+    domaine_de,
+    refus_matiere,
 )
 
 DOSSIER_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "contenu"
@@ -221,6 +222,8 @@ class CompetenceYaml(_Strict):
 
 class ChapitreYaml(_Strict):
     code: Code
+    # Maths par défaut ; « francais » : rangé sous contenu/francais/, tronc commun, de la 6e à la 1re.
+    matiere: Literal["maths", "francais"] = "maths"
     niveau: Niveau
     parcours: Parcours
     ordre: Annotated[int, Field(ge=1, le=99)]
@@ -228,6 +231,10 @@ class ChapitreYaml(_Strict):
 
     @model_validator(mode="after")
     def _parcours_du_niveau(self):
+        if refus := refus_matiere(self.matiere, self.niveau, self.parcours):
+            raise ValueError(refus)
+        if self.matiere == "francais":  # tronc commun, y compris en 1re (les parcours sont ceux des maths)
+            return self
         permis = PARCOURS_PAR_NIVEAU[self.niveau]
         if self.parcours not in permis:
             raise ValueError(
@@ -265,8 +272,10 @@ def _verifier_question(q: QuestionYaml) -> str | None:
             return f"solution « {q.solution} » absente des choix de l'énoncé (attendu « {q.solution}) … »)"
         return None
     domaine = pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme)
+    if q.type is TypeQuestion.TEXTE and any(not r.strip() for r in q.solution.split("|")):
+        return f"solution « {q.solution} » : une réponse acceptée est vide (« | » en trop)"
     try:
-        if not pkp_engine.corriger(domaine, q.solution):
+        if not pkp_engine.corriger(domaine, pkp_engine.reponse_modele(domaine)):
             return f"le moteur n'accepte pas sa propre solution « {q.solution} »"
     except ExpressionInvalide as exc:
         return f"solution « {q.solution} » illisible par le moteur ({exc})"
@@ -294,7 +303,7 @@ def _verifier_correction(q: QuestionYaml) -> list[str]:
             erreurs.append(f"correction.resultat « {c.resultat} » différent de la solution « {q.solution} »")
         return erreurs
     if c.resultat is None:
-        erreurs.append("correction.resultat obligatoire pour une réponse numérique ou une expression")
+        erreurs.append("correction.resultat obligatoire pour une réponse numérique, une expression ou une réponse courte")
         return erreurs
     try:
         equivalents = pkp_engine.corriger(pkp_engine.Question(0, 0, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme), c.resultat)
@@ -386,8 +395,8 @@ def charger(
             erreurs.extend(f"{nom} : {'.'.join(map(str, e['loc']))} : {e['msg']}" for e in exc.errors())
             continue
         ch = contenu.chapitre
-        attendu = f"{DOSSIERS_NIVEAU[ch.niveau]}/{ch.parcours.value}/"
-        if not nom.startswith(attendu) or nom.count("/") != 2:
+        attendu = ("francais/" if ch.matiere == "francais" else "") + f"{DOSSIERS_NIVEAU[ch.niveau]}/{ch.parcours.value}/"
+        if not nom.startswith(attendu) or nom.count("/") != attendu.count("/"):
             erreurs.append(f"{nom} : à ranger dans contenu/{attendu} (niveau {ch.niveau.value}, parcours {ch.parcours.value})")
         for c in contenu.competences:
             for champ, texte in c.textes():
@@ -412,7 +421,8 @@ def charger(
         raise ContenuInvalide(erreurs)
     return sorted(
         fichiers,
-        key=lambda f: (ORDRE_NIVEAUX[f[1].chapitre.niveau], ORDRE_PARCOURS[f[1].chapitre.parcours], f[1].chapitre.ordre),
+        key=lambda f: (f[1].chapitre.matiere != "maths", ORDRE_NIVEAUX[f[1].chapitre.niveau],
+                       ORDRE_PARCOURS[f[1].chapitre.parcours], f[1].chapitre.ordre),
     )
 
 
@@ -428,7 +438,8 @@ def _verifier_unicite(fichiers, dossier: Path, erreurs: list[str]) -> None:
     for chemin, contenu in fichiers:
         nom = chemin.relative_to(dossier).as_posix()
         noter("chapitre", contenu.chapitre.code, nom)
-        noter("ordre", f"{contenu.chapitre.niveau.value} {contenu.chapitre.parcours.value} n°{contenu.chapitre.ordre}", nom)
+        ch = contenu.chapitre
+        noter("ordre", f"{ch.matiere} {ch.niveau.value} {ch.parcours.value} n°{ch.ordre}", nom)
         for c in contenu.competences:
             noter("compétence", c.code, nom)
             for q in c.questions:
@@ -489,6 +500,7 @@ def importer(
         if chapitre is None:  # base antérieure à la migration 0004 : reconnu par sa position
             chapitre = session.scalar(
                 select(models.Chapitre).where(
+                    models.Chapitre.domaine_code == domaine_de(ch.matiere, ch.niveau),
                     models.Chapitre.niveau == ch.niveau,
                     models.Chapitre.parcours == ch.parcours,
                     models.Chapitre.ordre == ch.ordre,
@@ -506,7 +518,7 @@ def importer(
         if chapitre is None:
             chapitre = models.Chapitre(
                 code=ch.code, niveau=ch.niveau, parcours=ch.parcours, ordre=ch.ordre, titre=ch.titre,
-                domaine_code=domaine_maths(ch.niveau),
+                domaine_code=domaine_de(ch.matiere, ch.niveau),
             )
             session.add(chapitre)
             rapport.crees["chapitres"] += 1
@@ -514,7 +526,7 @@ def importer(
             avant = (chapitre.code, chapitre.niveau, chapitre.parcours, chapitre.titre)
             _appliquer(
                 chapitre, {"code": ch.code, "niveau": ch.niveau, "parcours": ch.parcours, "titre": ch.titre, "ordre": ch.ordre,
-                 "domaine_code": domaine_maths(ch.niveau)}
+                 "domaine_code": domaine_de(ch.matiere, ch.niveau)}
             )
             rapport.modifies["chapitres"] += avant != (ch.code, ch.niveau, ch.parcours, ch.titre)
 

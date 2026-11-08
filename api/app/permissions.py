@@ -64,6 +64,18 @@ def enseigne(enseignant: models.Enseignant, domaine: str, niveau: str | None = N
     )
 
 
+def enseigne_francais(enseignant: models.Enseignant) -> bool:
+    return any(h.domaine_code.startswith("francais-") for h in enseignant.habilitations)
+
+
+def refus_matiere_enseignee(enseignant: models.Enseignant, matiere: str, domaine: str, niveau) -> str | None:
+    """Un professeur ne crée de classe que dans sa matière (français : habilitation sur ce domaine et ce niveau)."""
+    if matiere == "francais":
+        niveau = getattr(niveau, "value", niveau)
+        return None if enseigne(enseignant, domaine, niveau) else f"Vous n'enseignez pas le français en {niveau}."
+    return None if enseignant.enseigne_maths else "Vous n'enseignez pas les mathématiques."
+
+
 def refus_niveau(session: Session, domaine: str, niveau: str) -> str | None:
     """Le niveau doit être l'un de ceux du domaine (remplace les contraintes `niveau IN (...)` de l'anglais)."""
     d = session.get(models.DomainePedagogique, domaine)

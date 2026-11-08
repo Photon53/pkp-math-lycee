@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **154** · compétences : **327** · questions actives : **1775**
-- Validation pédagogique : 0 validée(s), 1775 à valider, 0 à corriger
+- Chapitres : **155** · compétences : **330** · questions actives : **1794**
+- Validation pédagogique : 0 validée(s), 1794 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -153,6 +153,14 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 14. Algorithmique et programmation | `2NDE-PY-FONC` Écrire et utiliser des fonctions en Python | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 15. Ensembles, logique et raisonnement | `2NDE-ENS-LOG` Utiliser le vocabulaire des ensembles et les connecteurs logiques | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 15. Ensembles, logique et raisonnement | `2NDE-RAISON` Raisonner avec implications, réciproques et contre-exemples | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 2nde — Voie professionnelle
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Statistique à une variable | `2PRO-STAT-ORGA` Organiser et représenter des données | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
+| 1. Statistique à une variable | `2PRO-STAT-POS` Calculer et interpréter des indicateurs de position | ✓ | 1 | 2 | 2 | 1 | 1 | 7 | 7 |
+| 1. Statistique à une variable | `2PRO-STAT-DISP` Mesurer la dispersion et utiliser un diagramme en boîte | ✓ | 1 | 1 | 2 | 1 | 1 | 6 | 6 |
 
 ### 2nde — Excellence et olympiades
 
@@ -444,7 +452,7 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 1732 |
+| PKP Math | — | originale | 1751 |
 | math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |

@@ -1,0 +1,16 @@
+# Domaine « Algèbre – Analyse », module « Résolution d’un problème du premier degré » (page 10 du PDF).
+# Textes recopiés du BO, sans reformulation.
+theme:
+  code: DEGRE1
+  titre: Résolution d’un problème du premier degré
+  partie: Algèbre – Analyse
+
+attendus:
+  - {code: 2NDE-PRO-2019-DEGRE1-01, type: capacite, page: 10, texte: "Traduire un problème par une équation ou une inéquation du premier degré à une inconnue."}
+  - {code: 2NDE-PRO-2019-DEGRE1-02, type: capacite, page: 10, texte: "Résoudre algébriquement, graphiquement sans ou avec outils numériques (grapheur, solveur, tableur) : une équation du premier degré à une inconnue ; une inéquation du premier degré à une inconnue."}
+  - {code: 2NDE-PRO-2019-DEGRE1-03, type: capacite, page: 10, texte: "Choisir et mettre en œuvre une méthode de résolution adaptée au problème."}
+  - {code: 2NDE-PRO-2019-DEGRE1-04, type: contenu, page: 10, texte: "Équation du premier degré à une inconnue."}
+  - {code: 2NDE-PRO-2019-DEGRE1-05, type: contenu, page: 10, texte: "Inéquation du premier degré à une inconnue."}
+  - {code: 2NDE-PRO-2019-DEGRE1-06, type: contenu, page: 10, texte: "Intervalles de ℝ."}
+  # « Exemple d’algorithme » : non exigible. Commentaire : « Aucune virtuosité calculatoire n’est attendue pour la méthode algébrique. »
+  - {code: 2NDE-PRO-2019-DEGRE1-07, type: approfondissement, page: 10, texte: "Formaliser par un organigramme la résolution d’une inéquation du premier degré à une inconnue du type ax < b."}

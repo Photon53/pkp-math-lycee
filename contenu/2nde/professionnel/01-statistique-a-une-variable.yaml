@@ -1,0 +1,449 @@
+# Seconde professionnelle (ticket #25), module « Statistique à une variable » du programme 2NDE-PRO-2019.
+# Brouillon à faire valider : toutes les questions restent « à valider » jusqu'à la relecture du professeur.
+# Situations variées (vie courante, plusieurs secteurs professionnels), sans viser une spécialité en particulier.
+chapitre:
+  code: 2PRO-STAT
+  niveau: 2nde
+  parcours: professionnel
+  ordre: 1
+  titre: Statistique à une variable
+
+competences:
+  - code: 2PRO-STAT-ORGA
+    libelle: Organiser et représenter des données
+    attendus: [2NDE-PRO-2019-STAT-01, 2NDE-PRO-2019-STAT-02, 2NDE-PRO-2019-STAT-03, 2NDE-PRO-2019-STAT-04, 2NDE-PRO-2019-STAT-05]
+    cours_couvre: [2NDE-PRO-2019-STAT-01, 2NDE-PRO-2019-STAT-02, 2NDE-PRO-2019-STAT-03, 2NDE-PRO-2019-STAT-04, 2NDE-PRO-2019-STAT-05]
+    prerequis: [5E-STATISTIQUES, 3E-STATISTIQUES]
+    objectifs:
+    - Calculer un effectif et une fréquence.
+    - Regrouper une série en classes.
+    - Choisir un diagramme adapté et en extraire des informations.
+    methodes:
+    - titre: Calculer une fréquence
+      quand: Pour comparer des groupes qui n'ont pas le même effectif.
+      etapes:
+      - Compter l'effectif de la valeur (ou de la classe) étudiée.
+      - Diviser par l'effectif total.
+      - Pour un pourcentage, multiplier par $100$.
+      exemple:
+        enonce: Sur $50$ colis livrés, $8$ sont arrivés en retard. Quelle est la fréquence des retards ?
+        resolution:
+        - $\dfrac{8}{50} = 0{,}16$.
+        - '$0{,}16 \times 100 = 16$ : $16\,\%$ des colis sont arrivés en retard.'
+        resultat: $16\,\%$
+    - titre: Calculer l'angle d'un secteur
+      etapes:
+      - Le disque entier représente $100\,\%$ des données, soit $360°$.
+      - "L'angle d'un secteur est proportionnel à sa fréquence : angle $=$ fréquence $\\times 360°$."
+      exemple:
+        enonce: Une catégorie représente $25\,\%$ des réponses.
+        resolution:
+        - $0{,}25 \times 360 = 90$.
+        resultat: $90°$
+    erreurs_frequentes:
+    - erreur: Diviser par le mauvais total pour une fréquence.
+      explication: Une fréquence se calcule toujours par rapport à l'effectif total de la population étudiée.
+    - erreur: Compter une valeur égale à la borne de droite dans la classe $[a ; b[$.
+      explication: Le crochet tourné vers l'extérieur signifie que $b$ est exclu ; cette valeur va dans la classe suivante.
+    - erreur: Utiliser un diagramme en lignes brisées pour des catégories sans ordre.
+      explication: Les lignes brisées montrent une évolution (dans le temps par exemple) ; pour des parts d'un tout, on prend un diagramme en secteurs.
+    resume: |
+      - **Effectif** : nombre de fois où une valeur apparaît. **Effectif total** $N$ : nombre de données.
+      - **Fréquence** : $\dfrac{\text{effectif}}{N}$, entre $0$ et $1$ ; multipliée par $100$, elle donne un pourcentage.
+      - **Classes** : intervalles $[a ; b[$ qui regroupent les valeurs ; $a$ est compris, $b$ est exclu.
+      - Diagramme en **secteurs** : des parts d'un tout (angle $=$ fréquence $\times 360°$). En **bâtons** : des valeurs isolées. En **colonnes** : des catégories ou des classes. En **lignes brisées** : une évolution.
+      - La calculatrice et le tableur organisent les données et tracent les diagrammes.
+    cours: |
+      ## 1. Vocabulaire
+      On étudie un **caractère** (une durée, une pointure, un mode de paiement…) sur une **population** (des clients, des pièces fabriquées, des élèves…).
+
+      > **Définitions.** L'**effectif** d'une valeur est le nombre de fois où elle apparaît. L'**effectif total** $N$ est le nombre de données. La **fréquence** d'une valeur est $\dfrac{\text{effectif}}{N}$.
+
+      Exemple : sur $40$ clients, $10$ paient en espèces. La fréquence est $\dfrac{10}{40} = 0{,}25$, soit $25\,\%$.
+
+      ## 2. Regrouper en classes
+      Quand les valeurs sont nombreuses et toutes différentes (des durées, des masses), on les regroupe en **classes** de même amplitude, par exemple $[10 ; 20[$ : de $10$ compris à $20$ exclu.
+
+      **Exemple.** Temps de livraison (en min) : $12$, $18$, $25$, $31$, $22$, $15$, $28$, $35$, $19$, $24$.
+
+      | Classe (min) | $[10 ; 20[$ | $[20 ; 30[$ | $[30 ; 40[$ |
+      |---|---|---|---|
+      | Effectif | $4$ | $4$ | $2$ |
+
+      Les **effectifs cumulés croissants** additionnent les effectifs des classes de gauche à droite : $4$, $8$, $10$.
+
+      ## 3. Choisir une représentation
+      - **Diagramme en secteurs** : répartition d'un tout. L'angle d'un secteur vaut fréquence $\times 360°$.
+      - **Diagramme en bâtons** : un bâton par valeur (pointures, nombre d'enfants…).
+      - **Diagramme en colonnes** : une colonne par catégorie ou par classe.
+      - **Diagramme en lignes brisées** : une évolution, par exemple des ventes mois par mois.
+
+      Pour **lire** un diagramme : repérer le titre, les unités et la graduation des axes avant de lire une valeur.
+
+      ## 4. Avec la calculatrice ou le tableur
+      Saisir les valeurs dans une liste (ou une colonne), et les effectifs dans une seconde liste. Le tableur calcule les fréquences en divisant chaque effectif par la cellule de l'effectif total, puis trace le diagramme choisi.
+    questions:
+      - code: 2PRO-STAT-ORGA-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Sur $25$ pièces contrôlées, $4$ sont défectueuses. Quelle est la fréquence des pièces défectueuses, en pourcentage ?'
+        solution: 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Fréquence $=$ effectif $\div$ effectif total.
+          etapes:
+          - $\dfrac{4}{25} = 0{,}16$.
+          - $0{,}16 \times 100 = 16$.
+          resultat: 16
+      - code: 2PRO-STAT-ORGA-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Temps de livraison (en min) : 12 ; 18 ; 25 ; 31 ; 22 ; 15 ; 28 ; 35 ; 19 ; 24. Quel est l''effectif de la classe $[20 ; 30[$ ?'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'La classe $[20 ; 30[$ contient les valeurs de $20$ compris à $30$ exclu.'
+          - 'Ce sont $25$, $22$, $28$ et $24$.'
+          resultat: 4
+      - code: 2PRO-STAT-ORGA-03
+        difficulte: 2
+        type: qcm
+        enonce: 'On veut montrer comment se répartit le budget d''une association entre ses différentes dépenses. Quel diagramme choisir ? A) Un diagramme en secteurs  B) Un diagramme en lignes brisées  C) Aucun diagramme ne convient'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'On représente des parts d''un tout (le budget total) : c''est le rôle du diagramme en secteurs.'
+          - 'Les lignes brisées servent à montrer une évolution, ce qui n''est pas le cas ici.'
+          resultat: A
+      - code: 2PRO-STAT-ORGA-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Dans une enquête, $15\,\%$ des personnes choisissent la réponse « sans avis ». Quel est l''angle, en degrés, du secteur correspondant ?'
+        solution: 54
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Angle $=$ fréquence $\times 360°$.
+          etapes:
+          - $0{,}15 \times 360 = 54$.
+          resultat: 54
+      - code: 2PRO-STAT-ORGA-05
+        difficulte: 4
+        type: numerique
+        enonce: 'Sur $120$ clients d''un magasin, la part de ceux qui paient avec leur téléphone est représentée par un secteur de $72°$. Combien de clients paient avec leur téléphone ?'
+        solution: 24
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Fréquence : $\dfrac{72}{360} = 0{,}2$.'
+          - 'Effectif : $0{,}2 \times 120 = 24$.'
+          resultat: 24
+          erreurs_frequentes:
+          - Diviser $120$ par $72$ au lieu de passer par la fréquence.
+      - code: 2PRO-STAT-ORGA-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Durées de trajet de $40$ salariés : $[0 ; 10[$ : 6 ; $[10 ; 20[$ : 9 ; $[20 ; 30[$ : 15 ; $[30 ; 40[$ : 10. Quel pourcentage des salariés met moins de $20$ minutes ?'
+        solution: 37.5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Effectif cumulé, puis fréquence.
+          etapes:
+          - 'Moins de $20$ minutes : classes $[0 ; 10[$ et $[10 ; 20[$, soit $6 + 9 = 15$ salariés.'
+          - 'Fréquence : $\dfrac{15}{40} = 0{,}375$, soit $37{,}5\,\%$.'
+          resultat: 37.5
+
+  - code: 2PRO-STAT-POS
+    libelle: Calculer et interpréter des indicateurs de position
+    attendus: [2NDE-PRO-2019-STAT-06, 2NDE-PRO-2019-STAT-07]
+    cours_couvre: [2NDE-PRO-2019-STAT-07]
+    prerequis: [2PRO-STAT-ORGA, 3E-STATISTIQUES]
+    objectifs:
+    - Déterminer le mode, la classe modale, la moyenne, la médiane et les quartiles d'une série.
+    - Interpréter ces indicateurs dans la situation étudiée.
+    methodes:
+    - titre: Calculer une moyenne à partir d'un tableau d'effectifs
+      etapes:
+      - Multiplier chaque valeur par son effectif.
+      - Additionner ces produits.
+      - Diviser par l'effectif total $N$.
+      exemple:
+        enonce: 'Pointures commandées : $38$ (5 paires), $40$ (10), $42$ (15), $44$ (10).'
+        resolution:
+        - $38 \times 5 + 40 \times 10 + 42 \times 15 + 44 \times 10 = 190 + 400 + 630 + 440 = 1\,660$.
+        - $N = 5 + 10 + 15 + 10 = 40$.
+        - $\dfrac{1\,660}{40} = 41{,}5$.
+        resultat: $41{,}5$
+    - titre: Déterminer la médiane et les quartiles
+      etapes:
+      - Ranger les valeurs dans l'ordre croissant.
+      - 'Médiane : si $N$ est impair, la valeur du milieu (rang $\dfrac{N + 1}{2}$) ; si $N$ est pair, la moyenne des deux valeurs du milieu.'
+      - '$Q_1$ : la valeur dont le rang est le premier entier supérieur ou égal à $\dfrac{N}{4}$ ; $Q_3$ : de même avec $\dfrac{3N}{4}$.'
+      exemple:
+        enonce: 'Durées d''appel (min) : 2 ; 4 ; 4 ; 5 ; 7 ; 8 ; 10 ; 12 ; 15 ; 20.'
+        resolution:
+        - '$N = 10$ (pair) : médiane $= \dfrac{7 + 8}{2} = 7{,}5$.'
+        - '$\dfrac{N}{4} = 2{,}5$ : $Q_1$ est la $3^e$ valeur, $4$.'
+        - '$\dfrac{3N}{4} = 7{,}5$ : $Q_3$ est la $8^e$ valeur, $12$.'
+        resultat: $Me = 7{,}5$, $Q_1 = 4$, $Q_3 = 12$
+    erreurs_frequentes:
+    - erreur: Chercher la médiane sans avoir rangé les valeurs.
+      explication: La médiane partage la série **rangée** en deux moitiés ; on range toujours d'abord.
+    - erreur: Donner l'effectif le plus grand au lieu de la valeur pour le mode.
+      explication: Le mode est la **valeur** la plus fréquente, pas son effectif.
+    - erreur: Faire la moyenne des valeurs du tableau sans tenir compte des effectifs.
+      explication: "Chaque valeur compte autant de fois que son effectif : c'est une moyenne pondérée."
+    resume: |
+      - **Mode** : valeur la plus fréquente ; pour des classes, **classe modale** : classe de plus grand effectif.
+      - **Moyenne** : $\bar x = \dfrac{n_1x_1 + n_2x_2 + \dots + n_px_p}{N}$ ; pour des classes, on prend le **centre** de chaque classe.
+      - **Médiane** $Me$ : partage la série rangée en deux groupes de même effectif.
+      - **Quartiles** : au moins $25\,\%$ des valeurs sont inférieures ou égales à $Q_1$, au moins $75\,\%$ à $Q_3$.
+      - Une valeur extrême déplace beaucoup la moyenne, peu la médiane.
+    cours: |
+      ## 1. Mode et classe modale
+      > **Définition.** Le **mode** est la valeur qui a le plus grand effectif. Quand les données sont regroupées en classes, la **classe modale** est la classe de plus grand effectif.
+
+      Exemple : pointures commandées $38$ (5), $40$ (10), $42$ (15), $44$ (10) : le mode est $42$.
+
+      ## 2. Moyenne
+      > **Définition.** La **moyenne** d'une série de valeurs $x_1, \dots, x_p$ d'effectifs $n_1, \dots, n_p$ est $\bar x = \dfrac{n_1x_1 + \dots + n_px_p}{N}$, où $N = n_1 + \dots + n_p$.
+
+      Pour des données en classes, on remplace chaque classe par son **centre** : le centre de $[10 ; 20[$ est $\dfrac{10 + 20}{2} = 15$.
+
+      ## 3. Médiane et quartiles
+      On range d'abord les valeurs dans l'ordre croissant.
+
+      > **Définitions.**
+      > - La **médiane** $Me$ partage la série en deux groupes de même effectif : au moins la moitié des valeurs lui sont inférieures ou égales, au moins la moitié supérieures ou égales.
+      > - Le **premier quartile** $Q_1$ est la plus petite valeur de la série telle qu'au moins $25\,\%$ des valeurs lui sont inférieures ou égales. Le **troisième quartile** $Q_3$ : de même avec $75\,\%$.
+
+      **Exemple.** Durées d'appel : $2$ ; $4$ ; $4$ ; $5$ ; $7$ ; $8$ ; $10$ ; $12$ ; $15$ ; $20$. On trouve $Me = 7{,}5$ min, $Q_1 = 4$ min et $Q_3 = 12$ min : la moitié des appels dure moins de $7{,}5$ min.
+
+      ## 4. Avec la calculatrice ou le tableur
+      En mode statistiques, la calculatrice donne $\bar x$, $Me$, $Q_1$ et $Q_3$. Au tableur : `=MOYENNE(…)`, `=MEDIANE(…)`. Les quartiles du tableur peuvent différer légèrement de la définition ci-dessus : on indique toujours la méthode utilisée.
+
+      ## 5. Interpréter
+      La moyenne tient compte de toutes les valeurs : une valeur très grande la déplace beaucoup. La médiane ne dépend que du rang : elle résiste aux valeurs extrêmes. Pour des salaires ou des prix, comparer les deux est souvent éclairant.
+    questions:
+      - code: 2PRO-STAT-POS-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Températures relevées dans une chambre froide (en °C) : 3 ; 4 ; 2 ; 5 ; 6. Calculer la température moyenne.'
+        solution: 4
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $\dfrac{3 + 4 + 2 + 5 + 6}{5} = \dfrac{20}{5} = 4$.
+          resultat: 4
+      - code: 2PRO-STAT-POS-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Nombre de clients servis par heure : 14 ; 9 ; 12 ; 20 ; 11 ; 15 ; 10. Déterminer la médiane.'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Série rangée : $9$ ; $10$ ; $11$ ; $12$ ; $14$ ; $15$ ; $20$ ($7$ valeurs).'
+          - 'La médiane est la $4^e$ valeur : $12$.'
+          resultat: 12
+          erreurs_frequentes:
+          - Prendre la $4^e$ valeur de la série non rangée ($20$).
+      - code: 2PRO-STAT-POS-03
+        difficulte: 2
+        type: numerique
+        enonce: 'Pointures de chaussures de sécurité commandées : 38 (5 paires) ; 40 (10 paires) ; 42 (15 paires) ; 44 (10 paires). Quel est le mode de cette série ?'
+        solution: 42
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Le plus grand effectif est $15$, celui de la pointure $42$.'
+          resultat: 42
+          erreurs_frequentes:
+          - Répondre $15$, qui est l'effectif et non la valeur.
+      - code: 2PRO-STAT-POS-04
+        difficulte: 3
+        type: numerique
+        enonce: 'Avec le même tableau (38 : 5 ; 40 : 10 ; 42 : 15 ; 44 : 10), calculer la pointure moyenne.'
+        solution: 41.5
+        auteur: Brouillon IA (Claude)
+        correction:
+          methode: Moyenne pondérée par les effectifs.
+          etapes:
+          - $38 \times 5 + 40 \times 10 + 42 \times 15 + 44 \times 10 = 1\,660$.
+          - '$N = 40$ ; $\dfrac{1\,660}{40} = 41{,}5$.'
+          resultat: 41.5
+      - code: 2PRO-STAT-POS-05
+        difficulte: 3
+        type: numerique
+        enonce: 'Durées d''appel (en min) : 2 ; 4 ; 4 ; 5 ; 7 ; 8 ; 10 ; 12 ; 15 ; 20. Déterminer le troisième quartile $Q_3$.'
+        solution: 12
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'La série est rangée et $N = 10$.'
+          - '$\dfrac{3N}{4} = 7{,}5$ : on prend la valeur de rang $8$.'
+          - 'La $8^e$ valeur est $12$.'
+          resultat: 12
+      - code: 2PRO-STAT-POS-06
+        difficulte: 4
+        type: numerique
+        enonce: 'Distance domicile-travail de $40$ salariés (en km) : $[0 ; 10[$ : 12 ; $[10 ; 20[$ : 20 ; $[20 ; 30[$ : 8. Calculer la distance moyenne en utilisant les centres des classes.'
+        solution: 14
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Centres des classes : $5$, $15$ et $25$.'
+          - $5 \times 12 + 15 \times 20 + 25 \times 8 = 60 + 300 + 200 = 560$.
+          - $\dfrac{560}{40} = 14$.
+          resultat: 14
+          erreurs_frequentes:
+          - Utiliser une borne de la classe au lieu de son centre.
+      - code: 2PRO-STAT-POS-07
+        difficulte: 5
+        type: qcm
+        enonce: 'Dans une petite entreprise, cinq salaires sont compris entre $1\,500$ € et $1\,900$ €. On ajoute le salaire du directeur, $9\,000$ €. Que se passe-t-il ? A) La moyenne augmente beaucoup, la médiane très peu  B) La médiane augmente beaucoup, la moyenne très peu  C) Ni la moyenne ni la médiane ne changent'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'La moyenne utilise toutes les valeurs : un salaire très élevé la fait monter fortement.'
+          - 'La médiane ne dépend que du rang : elle passe seulement entre la $3^e$ et la $4^e$ valeur.'
+          resultat: A
+
+  - code: 2PRO-STAT-DISP
+    libelle: Mesurer la dispersion et utiliser un diagramme en boîte
+    attendus: [2NDE-PRO-2019-STAT-06, 2NDE-PRO-2019-STAT-08, 2NDE-PRO-2019-STAT-09, 2NDE-PRO-2019-STAT-10, 2NDE-PRO-2019-STAT-11]
+    cours_couvre: [2NDE-PRO-2019-STAT-06, 2NDE-PRO-2019-STAT-08, 2NDE-PRO-2019-STAT-09, 2NDE-PRO-2019-STAT-10, 2NDE-PRO-2019-STAT-11]
+    prerequis: [2PRO-STAT-POS]
+    objectifs:
+    - Calculer l'étendue et l'écart interquartile ; obtenir l'écart type avec une calculatrice ou un tableur.
+    - Construire et lire un diagramme en boîte à moustaches.
+    - Comparer deux séries à l'aide de leurs indicateurs.
+    methodes:
+    - titre: Construire un diagramme en boîte à moustaches
+      etapes:
+      - Déterminer le minimum, $Q_1$, la médiane, $Q_3$ et le maximum.
+      - Tracer un axe gradué ; dessiner une boîte de $Q_1$ à $Q_3$, coupée par un trait à la médiane.
+      - Tracer les « moustaches » du minimum à $Q_1$ et de $Q_3$ au maximum.
+      exemple:
+        enonce: 'Minimum $2$, $Q_1 = 4$, $Me = 7{,}5$, $Q_3 = 12$, maximum $20$.'
+        resolution:
+        - 'Boîte de $4$ à $12$, trait à $7{,}5$.'
+        - 'Moustaches de $2$ à $4$ et de $12$ à $20$.'
+        resultat: La boîte contient environ la moitié centrale des valeurs.
+    - titre: Comparer deux séries
+      etapes:
+      - Comparer un indicateur de position (moyenne ou médiane) pour savoir quelle série a des valeurs plus grandes.
+      - Comparer un indicateur de dispersion (écart type ou écart interquartile) pour savoir quelle série est la plus régulière.
+      - Conclure par une phrase dans le contexte.
+      exemple:
+        enonce: 'Deux machines fabriquent des tiges de $50$ mm en moyenne ; écarts types $0{,}2$ mm et $0{,}8$ mm.'
+        resolution:
+        - Les moyennes sont égales.
+        - La première machine a le plus petit écart type.
+        resultat: La première machine est la plus régulière.
+    erreurs_frequentes:
+    - erreur: Penser qu'une grande boîte contient plus de valeurs qu'une petite.
+      explication: Chaque partie du diagramme contient environ un quart des valeurs ; une boîte large signifie seulement que ces valeurs sont plus dispersées.
+    - erreur: Conclure seulement avec la moyenne.
+      explication: Deux séries de même moyenne peuvent être très différentes ; il faut aussi un indicateur de dispersion.
+    resume: |
+      - **Étendue** : maximum $-$ minimum.
+      - **Écart interquartile** : $Q_3 - Q_1$ ; environ la moitié centrale des valeurs est comprise entre $Q_1$ et $Q_3$.
+      - **Écart type** $\sigma$ : mesure l'écart moyen des valeurs à la moyenne ; on l'obtient avec la calculatrice ($\sigma x$) ou le tableur.
+      - **Diagramme en boîte** : minimum, $Q_1$, médiane, $Q_3$, maximum.
+      - Plus un indicateur de dispersion est petit, plus la série est **regroupée** (régulière).
+    cours: |
+      ## 1. Étendue
+      > **Définition.** L'**étendue** d'une série est la différence entre la plus grande et la plus petite valeur.
+
+      Elle est simple à calculer mais dépend uniquement des deux valeurs extrêmes.
+
+      ## 2. Écart interquartile
+      > **Définition.** L'**écart interquartile** est $Q_3 - Q_1$.
+
+      Environ la moitié des valeurs, celles du milieu de la série, sont comprises entre $Q_1$ et $Q_3$. Il n'est presque pas influencé par les valeurs extrêmes.
+
+      ## 3. Écart type
+      L'**écart type**, noté $\sigma$, mesure à quel point les valeurs s'écartent de la moyenne. On l'obtient avec les fonctions statistiques :
+      - calculatrice : mode statistiques, valeur notée $\sigma x$ ;
+      - tableur : `=ECARTYPE.PEARSON(…)`.
+
+      Exemple : pour la série $2$ ; $4$ ; $4$ ; $4$ ; $5$ ; $5$ ; $7$ ; $9$, la calculatrice donne $\bar x = 5$ et $\sigma = 2$.
+
+      ## 4. Diagramme en boîte à moustaches
+      On place sur un axe gradué : le minimum, $Q_1$, la médiane, $Q_3$ et le maximum. La boîte va de $Q_1$ à $Q_3$, avec un trait à la médiane ; les moustaches vont jusqu'au minimum et au maximum.
+
+      Chacune des quatre parties (moustache gauche, deux demi-boîtes, moustache droite) contient environ $25\,\%$ des valeurs.
+
+      ## 5. Comparer deux séries
+      On compare toujours **un indicateur de position et un indicateur de dispersion** : par exemple médiane et écart interquartile (diagrammes en boîte placés sur le même axe), ou moyenne et écart type. On conclut par une phrase dans le contexte : « les livraisons de l'entreprise A sont en moyenne aussi rapides, mais plus régulières ».
+    questions:
+      - code: 2PRO-STAT-DISP-01
+        difficulte: 1
+        type: numerique
+        enonce: 'Masses de colis (en kg) : 12 ; 18 ; 9 ; 25 ; 14. Calculer l''étendue de cette série.'
+        solution: 16
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Maximum $25$, minimum $9$.'
+          - $25 - 9 = 16$.
+          resultat: 16
+      - code: 2PRO-STAT-DISP-02
+        difficulte: 2
+        type: numerique
+        enonce: 'Pour une série de temps de préparation (en min), on a $Q_1 = 18$ et $Q_3 = 27$. Calculer l''écart interquartile.'
+        solution: 9
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - $Q_3 - Q_1 = 27 - 18 = 9$.
+          resultat: 9
+      - code: 2PRO-STAT-DISP-03
+        difficulte: 3
+        type: numerique
+        enonce: 'À l''aide de la calculatrice ou du tableur, déterminer l''écart type de la série : 2 ; 4 ; 4 ; 4 ; 5 ; 5 ; 7 ; 9.'
+        solution: 2
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Saisir les $8$ valeurs dans une liste, en mode statistiques.'
+          - 'La calculatrice affiche $\bar x = 5$ et $\sigma x = 2$.'
+          resultat: 2
+      - code: 2PRO-STAT-DISP-04
+        difficulte: 3
+        type: qcm
+        enonce: 'Un diagramme en boîte indique : minimum 5, $Q_1 = 10$, médiane 14, $Q_3 = 20$, maximum 30. Environ quelle part des valeurs est comprise entre 10 et 20 ? A) 25 %  B) 50 %  C) 75 %'
+        solution: B
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Entre $Q_1$ et $Q_3$ se trouve environ la moitié centrale des valeurs.'
+          resultat: B
+      - code: 2PRO-STAT-DISP-05
+        difficulte: 4
+        type: qcm
+        enonce: 'Deux machines fabriquent des tiges de longueur moyenne 50 mm. Écart type : machine 1 : 0,2 mm ; machine 2 : 0,8 mm. Quelle machine est la plus régulière ? A) La machine 1  B) La machine 2  C) On ne peut pas savoir, les moyennes sont égales'
+        solution: A
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Les moyennes sont égales : on compare la dispersion.'
+          - 'Le plus petit écart type est celui de la machine 1 : ses tiges s''écartent moins de $50$ mm.'
+          resultat: A
+          erreurs_frequentes:
+          - Croire qu'avec la même moyenne, les deux séries sont identiques.
+      - code: 2PRO-STAT-DISP-06
+        difficulte: 5
+        type: numerique
+        enonce: 'Délais de réparation (en jours) dans deux ateliers, de même médiane 14. Atelier A : $Q_1 = 12$, $Q_3 = 16$. Atelier B : $Q_1 = 10$, $Q_3 = 20$. De combien de jours l''écart interquartile de B dépasse-t-il celui de A ?'
+        solution: 6
+        auteur: Brouillon IA (Claude)
+        correction:
+          etapes:
+          - 'Atelier A : $16 - 12 = 4$ jours.'
+          - 'Atelier B : $20 - 10 = 10$ jours.'
+          - '$10 - 4 = 6$ : les délais de l''atelier B sont plus dispersés, donc moins prévisibles.'
+          resultat: 6

@@ -117,10 +117,12 @@ def _enseignant_pret(identifiants: Identifiants, session: Session) -> models.Ens
 
 
 def enseignant_courant(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
-    """Espace professeur de mathématiques : la discipline est revérifiée en base à chaque requête."""
+    """Espace des classes (maths, et français depuis F1) : la discipline est revérifiée en base à chaque requête."""
+    from app import permissions
+
     enseignant = _enseignant_pret(identifiants, session)
-    if not enseignant.enseigne_maths:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs de mathématiques.")
+    if not (enseignant.enseigne_maths or permissions.enseigne_francais(enseignant)):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Réservé aux professeurs de mathématiques ou de français.")
     return enseignant
 
 

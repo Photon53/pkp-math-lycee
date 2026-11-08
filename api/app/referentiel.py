@@ -16,6 +16,9 @@ class Parcours(str, Enum):
     EXPERTES = "expertes"  # Terminale : option mathématiques expertes
     SCIENTIFIQUE = "scientifique"  # Première : mathématiques de l'enseignement scientifique (sans la spécialité)
     TECHNOLOGIQUE = "technologique"  # Première et Terminale : voie technologique (STMG, STI2D, STL, ST2S…)
+    # Seconde : voie professionnelle (seconde préparant au bac pro, BO spécial n° 5 du 11 avril 2019).
+    # À ne pas confondre avec la voie technologique ; programme distinct de la seconde générale.
+    PROFESSIONNEL = "professionnel"
     EXCELLENCE = "excellence"  # Tous niveaux : exercices très poussés et olympiades (groupe d'approfondissement)
     MISE_A_NIVEAU = "mise-a-niveau"  # Tous niveaux : vérifier les bases de l'année précédente (groupe de soutien)
     EXAMENS = "examens"  # 3e : brevet ; 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
@@ -25,6 +28,7 @@ class Parcours(str, Enum):
 # parcours (excellence, mise à niveau, examens, maths expertes) sont des options qui s'y ajoutent.
 PARCOURS_PRINCIPAUX: frozenset[Parcours] = frozenset({
     Parcours.TRONC_COMMUN, Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE, Parcours.COMPLEMENTAIRES,
+    Parcours.PROFESSIONNEL,
 })
 
 
@@ -38,7 +42,9 @@ PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
     Niveau.CINQUIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.QUATRIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.TROISIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS),
-    Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    # Le tronc commun reste le parcours par défaut (seconde générale et technologique) : rien ne change pour
+    # les classes existantes. La voie professionnelle n'est jamais attribuée sans choix explicite.
+    Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.PROFESSIONNEL, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.PREMIERE: (
         Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE,
         Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS,
@@ -56,6 +62,7 @@ LIBELLES_PARCOURS = {
     Parcours.EXPERTES: "Maths expertes",
     Parcours.SCIENTIFIQUE: "Enseignement scientifique",
     Parcours.TECHNOLOGIQUE: "Voie technologique",
+    Parcours.PROFESSIONNEL: "Voie professionnelle",
     Parcours.EXCELLENCE: "Excellence et olympiades",
     Parcours.MISE_A_NIVEAU: "Mise à niveau",
     Parcours.EXAMENS: "Préparation aux examens",
@@ -70,6 +77,7 @@ ABREVIATIONS_PARCOURS = {
     Parcours.COMPLEMENTAIRES: "COMP",
     Parcours.EXPERTES: "EXP",
     Parcours.TECHNOLOGIQUE: "TECH",
+    Parcours.PROFESSIONNEL: "PRO",
     Parcours.MISE_A_NIVEAU: "MAN",
     Parcours.EXCELLENCE: "EXC",
     Parcours.EXAMENS: "EXAM",
@@ -82,6 +90,32 @@ NIVEAUX_COLLEGE = (Niveau.SIXIEME, Niveau.CINQUIEME, Niveau.QUATRIEME, Niveau.TR
 def domaine_maths(niveau: Niveau) -> str:
     """Domaine pédagogique d'une classe ou d'un chapitre de maths : Maths collège ou Maths lycée (CDC V2, EX.2)."""
     return "maths-college" if niveau in NIVEAUX_COLLEGE else "maths-lycee"
+
+
+# Matières d'une classe (espace des classes). Le français suit le tronc commun, de la 6e à la 1re.
+MATIERES_CLASSES = ("maths", "francais")
+NIVEAUX_FRANCAIS = (*NIVEAUX_COLLEGE, Niveau.SECONDE, Niveau.PREMIERE)
+
+
+def refus_matiere(matiere: str, niveau: Niveau, parcours: "Parcours | None") -> str | None:
+    """Motif du refus d'une classe ou d'un chapitre de cette matière à ce niveau, ou None."""
+    if matiere == "francais":
+        if niveau not in NIVEAUX_FRANCAIS:
+            return f"Le français n'est pas enseigné en {niveau.value} dans Boussole."
+        if parcours not in (None, Parcours.TRONC_COMMUN):
+            return "Une classe ou un chapitre de français suit le tronc commun."
+    return None
+
+
+def domaine_de(matiere: str, niveau: Niveau) -> str:
+    """Domaine pédagogique d'une classe ou d'un chapitre (CDC V2, EX.2)."""
+    if matiere == "francais":
+        return "francais-college" if niveau in NIVEAUX_COLLEGE else "francais-lycee"
+    return domaine_maths(niveau)
+
+
+def matiere_du_domaine(domaine: str) -> str:
+    return domaine.split("-", 1)[0]
 
 
 def parcours_par_defaut(niveau: Niveau) -> Parcours:

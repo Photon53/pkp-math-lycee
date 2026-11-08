@@ -7,7 +7,7 @@ modifiée ici porte `modifiee_admin_le` ; l'import YAML ne l'écrase plus sans `
 from datetime import UTC, date, datetime
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, gabarits, verifier
+from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, gabarits, reponse_modele, verifier
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
@@ -366,7 +366,8 @@ def _verdict(type_: TypeQuestion, solution: str, reponse: str | None = None, for
         id=0, competence_id=0, enonce="", type=type_, solution=solution, difficulte=1, archivee=False, forme=forme
     )
     try:
-        return verifier(question_vers_domaine(question), solution if reponse is None else reponse)
+        domaine = question_vers_domaine(question)
+        return verifier(domaine, reponse_modele(domaine) if reponse is None else reponse)
     except ExpressionInvalide:
         return None
 

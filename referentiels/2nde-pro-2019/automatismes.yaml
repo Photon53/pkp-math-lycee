@@ -1,0 +1,30 @@
+# Partie « Automatismes » (pages 17 et 18 du PDF) : « Liste non exhaustive d’automatismes à travailler ».
+# Textes recopiés du BO. Entraînement régulier sur l'année (« questions flash »), pas de chapitre spécifique.
+theme:
+  code: AUTO
+  titre: Automatismes
+  partie: Transversale
+
+attendus:
+  - {code: 2NDE-PRO-2019-AUTO-01, type: automatisme, page: 18, texte: "Calcul d’une fréquence."}
+  - {code: 2NDE-PRO-2019-AUTO-02, type: automatisme, page: 18, texte: "Utilisation des pourcentages."}
+  - {code: 2NDE-PRO-2019-AUTO-03, type: automatisme, page: 18, texte: "Expression d’un nombre donné en écriture décimale ou fractionnaire sous forme d’un pourcentage et réciproquement."}
+  - {code: 2NDE-PRO-2019-AUTO-04, type: automatisme, page: 18, texte: "Calcul d’une moyenne."}
+  - {code: 2NDE-PRO-2019-AUTO-05, type: automatisme, page: 18, texte: "Calculs avec les puissances de 10."}
+  - {code: 2NDE-PRO-2019-AUTO-06, type: automatisme, page: 18, texte: "Écriture d’un nombre en notation scientifique."}
+  - {code: 2NDE-PRO-2019-AUTO-07, type: automatisme, page: 18, texte: "Comparaison des fractions simples entre elles ou avec des nombres décimaux."}
+  - {code: 2NDE-PRO-2019-AUTO-08, type: automatisme, page: 18, texte: "Additions de fractions, multiplication de fractions."}
+  - {code: 2NDE-PRO-2019-AUTO-09, type: automatisme, page: 18, texte: "Développement, factorisation, réduction d’expressions littérales."}
+  - {code: 2NDE-PRO-2019-AUTO-10, type: automatisme, page: 18, texte: "Transformation de formules (par exemple U = RI, d = vt…), expression d’une variable en fonction des autres."}
+  - {code: 2NDE-PRO-2019-AUTO-11, type: automatisme, page: 18, texte: "Résolutions d’équations du type ax = b et a + x = b, avec a et b entiers relatifs."}
+  - {code: 2NDE-PRO-2019-AUTO-12, type: automatisme, page: 18, texte: "Utilisation des différentes procédures de calcul d’une quatrième proportionnelle."}
+  - {code: 2NDE-PRO-2019-AUTO-13, type: automatisme, page: 18, texte: "Application et calcul d’un pourcentage ou d’une échelle."}
+  - {code: 2NDE-PRO-2019-AUTO-14, type: automatisme, page: 18, texte: "Repérage dans un plan rapporté à un repère orthogonal."}
+  - {code: 2NDE-PRO-2019-AUTO-15, type: automatisme, page: 18, texte: "Recherche d’image et d’antécédents d’un nombre par une fonction."}
+  - {code: 2NDE-PRO-2019-AUTO-16, type: automatisme, page: 18, texte: "Utilisation des procédures de résolution graphique d’équations."}
+  - {code: 2NDE-PRO-2019-AUTO-17, type: automatisme, page: 18, texte: "Conversions d’unités de longueur, d’aire et de volume."}
+  - {code: 2NDE-PRO-2019-AUTO-18, type: automatisme, page: 18, texte: "Reconnaissance des configurations de Pythagore et de Thalès."}
+  - {code: 2NDE-PRO-2019-AUTO-19, type: automatisme, page: 18, texte: "Détermination d’un arrondi, d’une valeur approchée."}
+  - {code: 2NDE-PRO-2019-AUTO-20, type: automatisme, page: 18, texte: "Expression d’un résultat dans une unité adaptée."}
+  - {code: 2NDE-PRO-2019-AUTO-21, type: automatisme, page: 18, texte: "Vérification de la cohérence grandeur - unité d’une mesure."}
+  - {code: 2NDE-PRO-2019-AUTO-22, type: automatisme, page: 18, texte: "Calcul de l’aire d’un carré, d’un rectangle, d’un disque."}

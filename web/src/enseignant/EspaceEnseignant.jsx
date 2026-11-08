@@ -44,7 +44,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
     );
   }
   // Session ouverte avant l'ajout des disciplines : le champ manque, le compte reste un compte de maths.
-  if (compte.enseigne_maths === false) {
+  if (compte.enseigne_maths === false && !compte.enseigne_francais) {
     return (
       <PageSimple>
         <AccesReserve
@@ -88,7 +88,9 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       }
     >
       <EntetePage titre={page.libelle} fil="Espace professeur" />
-      {page.vers === "/enseignant" && <Classes {...props} />}
+      {page.vers === "/enseignant" && (
+        <Classes {...props} maths={compte.enseigne_maths !== false} francais={Boolean(compte.enseigne_francais)} />
+      )}
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}

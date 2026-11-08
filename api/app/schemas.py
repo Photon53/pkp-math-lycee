@@ -3,13 +3,14 @@ que la bonne réponse n'est envoyée au navigateur qu'après soumission."""
 
 import re
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pkp_engine import Niveau, TypeQuestion
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.referentiel import (
     PARCOURS_PAR_NIVEAU,
+    refus_matiere,
     Adaptation,
     Parcours,
     PublicRessource,
@@ -72,6 +73,7 @@ class EleveInfo(BaseModel):
     code_classe: str
     niveau: Niveau
     parcours: Parcours
+    matiere: str = "maths"  # « francais » : classe de PKP Français (F1)
 
 
 class InscriptionLiee(BaseModel):
@@ -365,6 +367,8 @@ class JetonEnseignant(BaseModel):
     # Espaces ouverts au compte ; l'API les revérifie à chaque requête.
     enseigne_maths: bool = True
     enseigne_anglais: bool = False
+    # Habilitation de professeur en français (collège ou lycée) : classes de français dans l'espace des classes.
+    enseigne_francais: bool = False
     # Référent : ouvre la page de validation des séances PKP Anglais.
     referent_anglais: bool = False
 
@@ -394,12 +398,17 @@ class ChapitreCoursEnseignant(BaseModel):
 
 
 class ClasseCreation(BaseModel):
+    matiere: Literal["maths", "francais"] = "maths"
     niveau: Niveau
     parcours: Parcours | None = None  # par défaut : tronc commun en 2nde, spécialité ensuite
 
     @model_validator(mode="after")
     def _parcours_du_niveau(self):
-        if self.parcours is None:
+        if refus := refus_matiere(self.matiere, self.niveau, self.parcours):
+            raise ValueError(refus)
+        if self.matiere == "francais":
+            self.parcours = Parcours.TRONC_COMMUN
+        elif self.parcours is None:
             self.parcours = parcours_par_defaut(self.niveau)
         elif self.parcours not in PARCOURS_PAR_NIVEAU[self.niveau]:
             raise ValueError(f"Le parcours « {self.parcours.value} » n'existe pas en {self.niveau.value}.")
@@ -411,6 +420,7 @@ class ClasseResume(BaseModel):
     code: str
     niveau: Niveau
     parcours: Parcours
+    matiere: str = "maths"
     nb_eleves: int
 
 
@@ -705,6 +715,7 @@ class EnfantFamille(BaseModel):
     maths: list[InscriptionMaths]
     bloque: bool = False
     anglais: list[InscriptionAnglais]
+    francais: list[InscriptionMaths] = []
 
 
 class EnfantChoix(BaseModel):
@@ -743,6 +754,8 @@ class EspaceEnfant(BaseModel):
     matieres: list[Matiere]
     maths: list[InscriptionMaths]
     anglais: list[InscriptionAnglais]
+    # Classes de français (F1) : même espace élève que les maths, ouvert par /enfants/moi/maths/{eleve_id}.
+    francais: list[InscriptionMaths] = []
 
 
 class JetonEnfant(BaseModel):
@@ -779,12 +792,13 @@ class ProgressionAnglaisEnfant(BaseModel):
 
 
 class SuiviEnfant(BaseModel):
-    """Tableau du parent pour un enfant : maths (par inscription), anglais, et le français à venir."""
+    """Tableau du parent pour un enfant : maths et français (par inscription), anglais."""
 
     enfant: EnfantFamille
     matieres: list[Matiere]
     maths: list[EnfantResume]
     anglais: list[ProgressionAnglaisEnfant]
+    francais: list[EnfantResume] = []
 
 
 class ArchiveResume(BaseModel):
