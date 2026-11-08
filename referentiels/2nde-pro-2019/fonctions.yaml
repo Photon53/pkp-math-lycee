@@ -1,0 +1,43 @@
+# Domaine « Algèbre – Analyse », module « Fonctions » (pages 11 à 13 du PDF). Textes recopiés du BO.
+theme:
+  code: FONC
+  titre: Fonctions
+  partie: Algèbre – Analyse
+
+attendus:
+  - {code: 2NDE-PRO-2019-FONC-01, type: capacite, page: 12, texte: "Exploiter différents modes de représentation d’une fonction et passer de l’un à l’autre (expression, tableau de valeurs, courbe représentative)."}
+  - {code: 2NDE-PRO-2019-FONC-02, type: capacite, page: 12, texte: "Selon le mode de représentation : identifier la variable ; déterminer l’image ou des antécédents éventuels d’un nombre par une fonction définie sur un ensemble donné."}
+  - {code: 2NDE-PRO-2019-FONC-03, type: capacite, page: 12, texte: "Reconnaître une situation de proportionnalité et déterminer la fonction linéaire qui la modélise."}
+  - {code: 2NDE-PRO-2019-FONC-04, type: contenu, page: 12, texte: "Différents modes de représentation d’une fonction (expression, tableau de valeurs, courbe représentative)."}
+  - {code: 2NDE-PRO-2019-FONC-05, type: contenu, page: 12, texte: "Variable, fonction, image, antécédent et notation ƒ(x)."}
+  - {code: 2NDE-PRO-2019-FONC-06, type: contenu, page: 12, texte: "Intervalles de ℝ."}
+  - {code: 2NDE-PRO-2019-FONC-07, type: contenu, page: 12, texte: "Fonctions linéaires."}
+  - {code: 2NDE-PRO-2019-FONC-08, type: capacite, page: 12, texte: "Relier courbe représentative et tableau de variations d’une fonction."}
+  - {code: 2NDE-PRO-2019-FONC-09, type: capacite, page: 12, texte: "Déterminer graphiquement les extremums d’une fonction sur un intervalle."}
+  - {code: 2NDE-PRO-2019-FONC-10, type: contenu, page: 12, texte: "Fonction croissante ou décroissante sur un intervalle."}
+  - {code: 2NDE-PRO-2019-FONC-11, type: contenu, page: 12, texte: "Tableau de variations."}
+  - {code: 2NDE-PRO-2019-FONC-12, type: contenu, page: 12, texte: "Maximum, minimum d’une fonction sur un intervalle."}
+  - {code: 2NDE-PRO-2019-FONC-13, type: capacite, page: 12, texte: "Exploiter l’équation y = ƒ(x) d’une courbe : vérifier l’appartenance d’un point à une courbe ; calculer les coordonnées d’un point de la courbe."}
+  - {code: 2NDE-PRO-2019-FONC-14, type: contenu, page: 12, texte: "Courbe représentative d’une fonction ƒ : la courbe d’équation y = ƒ(x) est l’ensemble des points du plan dont les coordonnées (x;y) vérifient y = ƒ(x)."}
+  - {code: 2NDE-PRO-2019-FONC-15, type: capacite, page: 12, texte: "Représenter graphiquement une fonction affine."}
+  - {code: 2NDE-PRO-2019-FONC-16, type: capacite, page: 12, texte: "Déterminer l’expression d’une fonction affine à partir de la donnée de deux nombres et de leurs images."}
+  - {code: 2NDE-PRO-2019-FONC-17, type: capacite, page: 12, texte: "Déterminer graphiquement le coefficient directeur d’une droite non verticale."}
+  - {code: 2NDE-PRO-2019-FONC-18, type: capacite, page: 12, texte: "Faire le lien entre coefficient directeur et pente dans un repère orthonormé."}
+  - {code: 2NDE-PRO-2019-FONC-19, type: capacite, page: 12, texte: "Reconnaître que deux droites d’équations données sont parallèles."}
+  - {code: 2NDE-PRO-2019-FONC-20, type: capacite, page: 12, texte: "Résoudre graphiquement, ou à l’aide d’outils numériques, un système de deux équations du premier degré à deux inconnues."}
+  - {code: 2NDE-PRO-2019-FONC-21, type: capacite, page: 12, texte: "Construire la parabole représentant la fonction carré et donner son tableau de variations."}
+  - {code: 2NDE-PRO-2019-FONC-22, type: contenu, page: 12, texte: "Fonction affine : courbe représentative ; coefficient directeur et ordonnée à l’origine d’une droite représentant une fonction affine ; équation réduite d’une droite ; sens de variation en fonction du coefficient directeur de la droite qui la représente."}
+  - {code: 2NDE-PRO-2019-FONC-23, type: contenu, page: 12, texte: "Interprétation du coefficient directeur de la droite représentative d’une fonction affine comme taux d’accroissement."}
+  - {code: 2NDE-PRO-2019-FONC-24, type: contenu, page: 12, texte: "Système de deux équations du premier degré à deux inconnues."}
+  - {code: 2NDE-PRO-2019-FONC-25, type: contenu, page: 12, texte: "Courbe représentative de la fonction carré."}
+  - {code: 2NDE-PRO-2019-FONC-26, type: contenu, page: 12, texte: "Sens de variation de la fonction carré."}
+  - {code: 2NDE-PRO-2019-FONC-27, type: capacite, page: 13, texte: "Déduire de la courbe représentative d’une fonction ƒ sur un intervalle donné celle de la fonction qui à x associe ƒ(x) + k, où k est un nombre réel donné, sur le même intervalle."}
+  - {code: 2NDE-PRO-2019-FONC-28, type: capacite, page: 13, texte: "Déduire de la courbe représentative de la fonction carré, l’allure de celle de la fonction définie par ƒ(x) = kx², où k est un nombre réel donné."}
+  - {code: 2NDE-PRO-2019-FONC-29, type: capacite, page: 13, texte: "Déduire des variations d’une fonction ƒ sur un intervalle donné celles de la fonction kƒ, où k est un nombre réel donné, sur le même intervalle."}
+  - {code: 2NDE-PRO-2019-FONC-30, type: capacite, page: 13, texte: "Dans le cadre de problèmes modélisés par des fonctions, résoudre par une méthode algébrique ou graphique une équation du type ƒ(x) = c ou une inéquation du type ƒ(x) < c, où c est un réel donné et ƒ une fonction affine ou une fonction du type x ↦ kx² (avec k réel donné)."}
+  - {code: 2NDE-PRO-2019-FONC-31, type: contenu, page: 13, texte: "Résolution algébrique ou graphique."}
+  # « Exemples d’algorithmes et d’activités numériques » et « Commentaires » : non exigibles.
+  - {code: 2NDE-PRO-2019-FONC-32, type: approfondissement, page: 13, texte: "Traduire un programme de calcul à l’aide d’une fonction en Python."}
+  - {code: 2NDE-PRO-2019-FONC-33, type: approfondissement, page: 13, texte: "Rechercher un extremum par balayage sur un intervalle donné."}
+  - {code: 2NDE-PRO-2019-FONC-34, type: approfondissement, page: 13, texte: "Rechercher un encadrement ou une valeur approchée d’une solution d’une équation du type ƒ(x) = 0 par balayage sur un intervalle donné."}
+  - {code: 2NDE-PRO-2019-FONC-35, type: approfondissement, page: 13, texte: "Les fonctions cube, racine carrée, inverse ou trigonométriques peuvent être évoquées lors de la résolution de problèmes en lien avec le domaine professionnel."}

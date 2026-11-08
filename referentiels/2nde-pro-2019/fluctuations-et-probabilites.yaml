@@ -1,0 +1,26 @@
+# Domaine « Statistique et probabilités », module « Fluctuations d’une fréquence selon les échantillons,
+# probabilités » (pages 8 et 9 du PDF). Textes recopiés du BO, sans reformulation.
+theme:
+  code: PROBA
+  titre: Fluctuations d’une fréquence selon les échantillons, probabilités
+  partie: Statistique et probabilités
+
+attendus:
+  - {code: 2NDE-PRO-2019-PROBA-01, type: capacite, page: 9, texte: "Expérimenter pour observer la fluctuation des fréquences (jets de dés, lancers de pièces de monnaie…)."}
+  - {code: 2NDE-PRO-2019-PROBA-02, type: capacite, page: 9, texte: "Réaliser une simulation informatique, dans des cas simples, permettant la prise d’échantillons aléatoires de taille n fixée, extraits d’une population où la fréquence p relative à un caractère est connue."}
+  - {code: 2NDE-PRO-2019-PROBA-03, type: capacite, page: 9, texte: "Déterminer l’étendue des fréquences, relatives à un caractère, de la série d’échantillons de taille n obtenus par expérience concrète ou simulation."}
+  - {code: 2NDE-PRO-2019-PROBA-04, type: contenu, page: 9, texte: "Vocabulaire des probabilités : expérience aléatoire, ensemble des issues (univers), événement, probabilité."}
+  - {code: 2NDE-PRO-2019-PROBA-05, type: contenu, page: 9, texte: "Expérience aléatoire à deux issues."}
+  - {code: 2NDE-PRO-2019-PROBA-06, type: contenu, page: 9, texte: "Échantillon aléatoire de taille n pour une expérience à deux issues (avec remise)."}
+  - {code: 2NDE-PRO-2019-PROBA-07, type: contenu, page: 9, texte: "Notion de tirage au hasard et avec remise de n éléments dans une population où la fréquence p relative à un caractère est connue."}
+  - {code: 2NDE-PRO-2019-PROBA-08, type: contenu, page: 9, texte: "Fluctuation d’une fréquence relative à un caractère, sur des échantillons de taille n fixée."}
+  - {code: 2NDE-PRO-2019-PROBA-09, type: capacite, page: 9, texte: "Estimer la probabilité d'un événement à partir des fréquences."}
+  - {code: 2NDE-PRO-2019-PROBA-10, type: contenu, page: 9, texte: "Stabilisation relative des fréquences vers la probabilité de l'événement quand n augmente."}
+  - {code: 2NDE-PRO-2019-PROBA-11, type: capacite, page: 9, texte: "Calculer la probabilité d'un événement dans le cas d'une situation aléatoire simple."}
+  - {code: 2NDE-PRO-2019-PROBA-12, type: capacite, page: 9, texte: "Faire preuve d'esprit critique face à une situation aléatoire simple."}
+  - {code: 2NDE-PRO-2019-PROBA-13, type: contenu, page: 9, texte: "Dénombrements à l’aide de tableaux à double entrée ou d’arbres."}
+  # « Exemples d’algorithmes et d’activités numériques » et « Commentaires » : non exigibles.
+  - {code: 2NDE-PRO-2019-PROBA-14, type: approfondissement, page: 9, texte: "Modifier une simulation donnée (par exemple, en augmentant la taille de l’échantillon pour percevoir une version vulgarisée de la loi des grands nombres : « Lorsque n est grand, sauf exception, la fréquence observée est proche de la probabilité »)."}
+  - {code: 2NDE-PRO-2019-PROBA-15, type: approfondissement, page: 9, texte: "Utiliser une simulation fournie pour estimer une probabilité non triviale."}
+  - {code: 2NDE-PRO-2019-PROBA-16, type: approfondissement, page: 9, texte: "Écrire des fonctions permettant de simuler une expérience aléatoire, une répétition d’expériences aléatoires indépendantes."}
+  - {code: 2NDE-PRO-2019-PROBA-17, type: approfondissement, page: 9, texte: "Dans le cadre de la programmation, on peut s’intéresser à des exemples pour lesquels l’univers est infini (franc carreau, cible…)."}

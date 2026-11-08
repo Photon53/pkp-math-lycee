@@ -1,0 +1,17 @@
+# Domaine « Algèbre – Analyse », module « Calculs commerciaux et financiers » (page 14 du PDF).
+# Textes recopiés du BO. Le module « ne concerne que les spécialités de baccalauréat professionnel ne comportant
+# pas d’enseignement de physique-chimie » (pages 6 et 14) : il n'est pas exigible des autres spécialités.
+theme:
+  code: CCF
+  titre: Calculs commerciaux et financiers (uniquement pour les spécialités de baccalauréat professionnel ne comportant pas d’enseignement de physique-chimie)
+  partie: Algèbre – Analyse
+
+attendus:
+  - {code: 2NDE-PRO-2019-CCF-01, type: capacite, page: 14, texte: "Compléter une facture, un bon de commande, réaliser un devis en déterminant dans le cadre de situations professionnelles : un prix ; un coût ; une marge ; une taxe ; une réduction commerciale (remise, rabais, ristourne) ; un taux."}
+  - {code: 2NDE-PRO-2019-CCF-02, type: contenu, page: 14, texte: "Pourcentages."}
+  - {code: 2NDE-PRO-2019-CCF-03, type: contenu, page: 14, texte: "Coefficients multiplicateurs."}
+  - {code: 2NDE-PRO-2019-CCF-04, type: capacite, page: 14, texte: "Calculer le montant : d’un intérêt simple ; d’une valeur acquise."}
+  - {code: 2NDE-PRO-2019-CCF-05, type: capacite, page: 14, texte: "Déterminer graphiquement ou par le calcul : un taux annuel de placement ; la durée de placement (exprimée en jours, quinzaines, mois ou années) ; le montant du capital placé."}
+  - {code: 2NDE-PRO-2019-CCF-06, type: contenu, page: 14, texte: "Capital, taux, intérêt, valeur acquise."}
+  # Commentaires : non exigibles.
+  - {code: 2NDE-PRO-2019-CCF-07, type: approfondissement, page: 14, texte: "Grandeurs proportionnelles : les partages proportionnels peuvent être traités s’ils sont en liaison directe avec l’enseignement professionnel et s’ils lui sont utiles."}

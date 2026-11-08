@@ -1,0 +1,22 @@
+# Domaine « Statistique et probabilités », module « Statistique à une variable » (pages 7 et 8 du PDF).
+# Textes recopiés du BO, sans reformulation : colonne « Capacités » (capacite), colonne « Connaissances » (contenu).
+theme:
+  code: STAT
+  titre: Statistique à une variable
+  partie: Statistique et probabilités
+
+attendus:
+  - {code: 2NDE-PRO-2019-STAT-01, type: capacite, page: 8, texte: "Recueillir et organiser des données statistiques."}
+  - {code: 2NDE-PRO-2019-STAT-02, type: capacite, page: 8, texte: "Organiser des données statistiques en choisissant un mode de représentation adapté à l'aide des fonctions statistiques d'une calculatrice ou d'un tableur."}
+  - {code: 2NDE-PRO-2019-STAT-03, type: contenu, page: 8, texte: "Regroupement par classes d’une série statistique."}
+  - {code: 2NDE-PRO-2019-STAT-04, type: capacite, page: 8, texte: "Extraire des informations d’une représentation d’une série statistique."}
+  - {code: 2NDE-PRO-2019-STAT-05, type: contenu, page: 8, texte: "Représentation d’une série statistique par un diagramme en secteurs, en bâtons, en colonnes, à lignes brisées."}
+  - {code: 2NDE-PRO-2019-STAT-06, type: capacite, page: 8, texte: "Comparer et interpréter des séries statistiques à l’aide d’indicateurs de position et de dispersion calculés avec les fonctions statistiques d'une calculatrice ou d'un tableur."}
+  - {code: 2NDE-PRO-2019-STAT-07, type: contenu, page: 8, texte: "Indicateurs de position : mode, classe modale, moyenne, médiane, quartiles."}
+  - {code: 2NDE-PRO-2019-STAT-08, type: contenu, page: 8, texte: "Indicateurs de dispersion : étendue, écart type, écart interquartile Q3 – Q1."}
+  - {code: 2NDE-PRO-2019-STAT-09, type: capacite, page: 8, texte: "Construire le diagramme en boîte à moustaches associé à une série statistique avec ou sans TIC."}
+  - {code: 2NDE-PRO-2019-STAT-10, type: capacite, page: 8, texte: "Comparer et interpréter des diagrammes en boîte à moustaches."}
+  - {code: 2NDE-PRO-2019-STAT-11, type: contenu, page: 8, texte: "Diagrammes en boîte à moustaches."}
+  # « Exemple d’algorithme » et « Commentaires » : non exigibles.
+  - {code: 2NDE-PRO-2019-STAT-12, type: approfondissement, page: 8, texte: "Déterminer la fréquence d’apparition d’une lettre dans un texte."}
+  - {code: 2NDE-PRO-2019-STAT-13, type: approfondissement, page: 8, texte: "Les déciles et les centiles peuvent être présentés lorsque leur étude est pertinente pour la situation traitée."}

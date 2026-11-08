@@ -96,3 +96,12 @@
   sha256: 49ccdca4d97ba4cf25875dfc731474e84d0332985c15396d3abfb9107f5f545a
   url: https://eduscol.education.gouv.fr/sites/default/files/document/18-maths-3e-attendus-eduscol1114748pdf-74688.pdf
   obtenu_le: 2026-11-04
+# Voie professionnelle (ticket #25) : annexe de l'arrêté du 3 avril 2019, BO spécial n° 5 du 11 avril 2019.
+# Fichier d'origine « spe628_annexe_1105268.pdf », renommé selon la convention du dépôt.
+- code: bo-2019-sp5-2nde-pro
+  titre: Programme d'enseignement de mathématiques de la classe de seconde préparant au baccalauréat professionnel
+  bulletin: BO spécial n° 5 du 11 avril 2019
+  fichier: bo-2019-sp5-2nde-pro-1105268.pdf
+  sha256: eeb053b117a829bb08cbfcf7ce777439451088200e131604e86308ec7ee41228
+  url: https://cache.media.education.gouv.fr/file/SP5-MEN-11-4-2019/26/8/spe628_annexe_1105268.pdf
+  obtenu_le: 2026-11-08

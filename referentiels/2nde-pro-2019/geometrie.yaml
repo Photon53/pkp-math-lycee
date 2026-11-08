@@ -1,0 +1,23 @@
+# Domaine « Géométrie », module unique (pages 15 et 16 du PDF). Textes recopiés du BO.
+theme:
+  code: GEOM
+  titre: Géométrie
+  partie: Géométrie
+
+attendus:
+  - {code: 2NDE-PRO-2019-GEOM-01, type: capacite, page: 15, texte: "Reconnaître, nommer un solide usuel."}
+  - {code: 2NDE-PRO-2019-GEOM-02, type: capacite, page: 15, texte: "Nommer les solides usuels constituant d'autres solides."}
+  - {code: 2NDE-PRO-2019-GEOM-03, type: capacite, page: 15, texte: "Calculer des longueurs, des mesures d’angles, des aires et des volumes dans les figures ou solides (les formules pour la pyramide, le cône et la boule sont fournies)."}
+  - {code: 2NDE-PRO-2019-GEOM-04, type: contenu, page: 15, texte: "Solides usuels : le cube, le pavé droit, la pyramide, le cylindre droit, le cône, la boule."}
+  - {code: 2NDE-PRO-2019-GEOM-05, type: contenu, page: 15, texte: "Figures planes usuelles : triangle, quadrilatère, cercle."}
+  - {code: 2NDE-PRO-2019-GEOM-06, type: contenu, page: 15, texte: "Le théorème de Pythagore et sa réciproque."}
+  - {code: 2NDE-PRO-2019-GEOM-07, type: contenu, page: 15, texte: "Le théorème de Thalès dans le triangle."}
+  - {code: 2NDE-PRO-2019-GEOM-08, type: contenu, page: 15, texte: "Formule donnant le périmètre d’un cercle."}
+  - {code: 2NDE-PRO-2019-GEOM-09, type: contenu, page: 15, texte: "Somme des mesures, en degré, des angles d’un triangle."}
+  - {code: 2NDE-PRO-2019-GEOM-10, type: contenu, page: 15, texte: "Formule de l’aire d’un triangle, d’un carré, d'un rectangle, d’un disque."}
+  - {code: 2NDE-PRO-2019-GEOM-11, type: contenu, page: 15, texte: "Formule du volume du cube, du pavé droit et du cylindre."}
+  - {code: 2NDE-PRO-2019-GEOM-12, type: capacite, page: 15, texte: "Déterminer les effets d’un agrandissement ou d’une réduction sur les longueurs, les aires et les volumes."}
+  - {code: 2NDE-PRO-2019-GEOM-13, type: contenu, page: 15, texte: "Grandeurs proportionnelles."}
+  # « Exemples d’algorithmes et d’activités numériques » : non exigibles.
+  - {code: 2NDE-PRO-2019-GEOM-14, type: approfondissement, page: 15, texte: "Chercher les triplets d’entiers pythagoriciens jusqu’à 1 000."}
+  - {code: 2NDE-PRO-2019-GEOM-15, type: approfondissement, page: 16, texte: "Calculer le diamètre d’un cylindre connaissant sa hauteur et son volume."}

@@ -1,0 +1,19 @@
+# Partie « Vocabulaire ensembliste et logique » (page 18 du PDF). Textes recopiés du BO ; le paragraphe
+# d'introduction est découpé en ses phrases, et la liste « les élèves rencontrent sur des exemples » en ses points.
+# Transversal aux trois années : travaillé en situation, puis synthèses ponctuelles.
+theme:
+  code: LOGIQUE
+  titre: Vocabulaire ensembliste et logique
+  partie: Transversale
+
+attendus:
+  - {code: 2NDE-PRO-2019-LOGIQUE-01, type: contenu, page: 18, texte: "Les élèves doivent connaître les notions d’élément d’un ensemble, de sous-ensemble, d’appartenance et d’inclusion, de réunion, d’intersection et de complémentaire et savoir utiliser les symboles de base correspondant : ∈, ⊂, ⋂, ⋃ ainsi que la notation des ensembles de nombres et des intervalles du type [a ; b], ]a ; b[, [a ; b[, ]a ; b], avec a et b réels."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-02, type: contenu, page: 18, texte: "Ils rencontrent également la notion de couple."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-03, type: contenu, page: 18, texte: "Pour le complémentaire d’un sous-ensemble A de E, on utilise la notation des probabilités Ā."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-04, type: capacite, page: 18, texte: "Les connecteurs logiques « et », « ou »."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-05, type: capacite, page: 18, texte: "Le quantificateur « quel que soit » et le quantificateur « il existe » (les symboles ∀ et ∃ sont hors programme)."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-06, type: capacite, page: 18, texte: "Des implications et équivalences logiques."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-07, type: capacite, page: 18, texte: "La réciproque d’une implication."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-08, type: capacite, page: 18, texte: "L’utilisation d’un contre-exemple pour infirmer une proposition universelle."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-09, type: capacite, page: 18, texte: "Des raisonnements par disjonction des cas, des raisonnements par l’absurde."}
+  - {code: 2NDE-PRO-2019-LOGIQUE-10, type: capacite, page: 18, texte: "Les élèves distinguent les utilisations possibles du symbole « = » (égalité, identité, équation) et le statut des lettres utilisées (variable, indéterminée, inconnue, paramètre)."}

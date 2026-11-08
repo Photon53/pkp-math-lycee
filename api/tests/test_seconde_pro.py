@@ -6,6 +6,8 @@ existantes ne changent pas.
 
 from sqlalchemy import select
 
+from app import matrice, programmes
+from app.config import settings
 from app.contenu import charger, importer
 from app.db import models
 from app.referentiel import PARCOURS_PAR_NIVEAU, Niveau, Parcours, est_principal, parcours_par_defaut
@@ -14,21 +16,21 @@ from tests.test_contenu import ecrire, erreurs
 from tests.test_familles import _carte, _famille
 
 CHAPITRE_PRO = """
-chapitre: {code: 2PRO-STAT, niveau: 2nde, parcours: professionnel, ordre: 1, titre: Statistique à une variable}
+chapitre: {code: 2PRO-TEST, niveau: 2nde, parcours: professionnel, ordre: 9, titre: Chapitre de test}
 competences:
-  - code: 2PRO-STAT-MOY
+  - code: 2PRO-TEST-MOY
     libelle: Calculer une moyenne
     questions:
-      - {code: 2PRO-STAT-MOY-01, difficulte: 1, type: numerique, enonce: "Moyenne de 8 et 12 ?", solution: "10"}
+      - {code: 2PRO-TEST-MOY-01, difficulte: 1, type: numerique, enonce: "Moyenne de 8 et 12 ?", solution: "10"}
 """
-DOSSIER_PRO = "2nde/professionnel/01-statistique.yaml"
+DOSSIER_PRO = "2nde/professionnel/09-test.yaml"
 
 
 def importer_chapitre_pro(session, tmp_path) -> models.Chapitre:
     ecrire(tmp_path, CHAPITRE_PRO, DOSSIER_PRO)
     importer(session, charger(tmp_path), archiver_absentes=False)
     session.commit()
-    return session.scalar(select(models.Chapitre).where(models.Chapitre.code == "2PRO-STAT"))
+    return session.scalar(select(models.Chapitre).where(models.Chapitre.code == "2PRO-TEST"))
 
 
 class TestReferentiel:
@@ -53,7 +55,7 @@ class TestContenu:
         assert fichier.chapitre.parcours is Parcours.PROFESSIONNEL
 
     def test_refuse_hors_seconde(self, tmp_path):
-        ecrire(tmp_path, CHAPITRE_PRO.replace("niveau: 2nde", "niveau: 1re"), "1re/professionnel/01-statistique.yaml")
+        ecrire(tmp_path, CHAPITRE_PRO.replace("niveau: 2nde", "niveau: 1re"), "1re/professionnel/09-test.yaml")
         assert "parcours « professionnel » impossible en 1re" in erreurs(tmp_path)
 
 
@@ -66,7 +68,7 @@ class TestClasses:
         assert r.json()["code"].startswith("2NDE-PRO-")
         classe = session.get(models.Classe, r.json()["id"])
         assert classe.domaine_code == "maths-lycee"
-        assert [c.code for c in classe.chapitres_proposes] == ["2PRO-STAT"]
+        assert "2PRO-TEST" in [c.code for c in classe.chapitres_proposes]
         # Critère 1 : aucun chapitre de seconde générale dans le programme de la classe.
         assert all(c.parcours is Parcours.PROFESSIONNEL for c in classe.chapitres_proposes)
 
@@ -76,7 +78,7 @@ class TestClasses:
         assert r.status_code == 201
         classe = session.get(models.Classe, r.json()["id"])
         assert classe.parcours is Parcours.TRONC_COMMUN
-        assert classe.chapitres_proposes and "2PRO-STAT" not in [c.code for c in classe.chapitres_proposes]
+        assert classe.chapitres_proposes and "2PRO-TEST" not in [c.code for c in classe.chapitres_proposes]
 
     def test_refusee_hors_seconde(self, client):
         r = client.post("/enseignants/classes", headers=connecter_enseignant(client),
@@ -110,3 +112,45 @@ class TestEnfant:
         h = self._enfant_en_classe(client, session, tmp_path, "tronc-commun")
         parcours = {c["parcours"] for c in client.get("/pkp-math/catalogue", headers=h).json()}
         assert "tronc-commun" in parcours and "professionnel" not in parcours
+
+
+class TestProgrammeOfficiel:
+    """Référentiel 2NDE-PRO-2019 (BO spécial n° 5 du 11 avril 2019) et première séquence."""
+
+    def test_referentiel_trace_jusqu_au_bo(self):
+        r = programmes.charger()
+        p = r.programmes["2NDE-PRO-2019"]
+        assert p.niveau is Niveau.SECONDE and p.parcours is Parcours.PROFESSIONNEL
+        assert r.sources[p.source].bulletin == "BO spécial n° 5 du 11 avril 2019"
+        themes = {t.code for t, _ in r.du_programme("2NDE-PRO-2019")}
+        # Six modules des domaines de connaissances, et les trois modules transversaux.
+        assert themes == {"STAT", "PROBA", "DEGRE1", "FONC", "CCF", "GEOM", "ALGO", "AUTO", "LOGIQUE"}
+        assert all(a.page for _, a in r.du_programme("2NDE-PRO-2019"))
+
+    def test_calculs_commerciaux_reserves_aux_specialites_sans_physique_chimie(self):
+        r = programmes.charger()
+        [titre] = {t.titre for t, _ in r.du_programme("2NDE-PRO-2019") if t.code == "CCF"}
+        assert "ne comportant pas d’enseignement de physique-chimie" in titre
+
+    def test_sequence_statistique_couvre_le_module(self):
+        r = programmes.charger()
+        fichiers = charger(codes_attendus=set(r.attendus))
+        lignes = [l for l in matrice.couverture(r, fichiers, "2NDE-PRO-2019") if l.theme.code == "STAT"]
+        exigibles = [l for l in lignes if l.attendu.obligatoire]
+        assert exigibles and all(l.explique and l.questions >= 5 for l in exigibles)
+        assert all(set(l.difficultes) == {1, 2, 3, 4, 5} for l in exigibles)
+
+    def test_sequence_a_valider_par_un_humain(self):
+        """Brouillon : aucune question n'est validée d'office, et l'auteur n'est pas le relecteur."""
+        [(_, f)] = [(c, f) for c, f in charger() if f.chapitre.code == "2PRO-STAT"]
+        questions = [q for c in f.competences for q in c.questions]
+        assert questions and all(q.validation.statut.value == "a-valider" and q.correction for q in questions)
+
+    def test_brouillons_non_servis_quand_la_validation_est_exigee(self, client, session, tmp_path, monkeypatch):
+        h = TestEnfant()._enfant_en_classe(client, session, tmp_path, "professionnel")
+        stat = next(c for c in client.get("/pkp-math/catalogue", headers=h).json() if c["code"] == "2PRO-STAT")
+        assert stat["nb_questions"] > 0  # bêta : brouillons servis, document marqué NON VALIDÉ
+        assert stat["valide"] is False
+        monkeypatch.setattr(settings, "servir_questions_non_validees", False)
+        stat = next(c for c in client.get("/pkp-math/catalogue", headers=h).json() if c["code"] == "2PRO-STAT")
+        assert stat["nb_questions"] == 0
