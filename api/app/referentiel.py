@@ -16,6 +16,9 @@ class Parcours(str, Enum):
     EXPERTES = "expertes"  # Terminale : option mathématiques expertes
     SCIENTIFIQUE = "scientifique"  # Première : mathématiques de l'enseignement scientifique (sans la spécialité)
     TECHNOLOGIQUE = "technologique"  # Première et Terminale : voie technologique (STMG, STI2D, STL, ST2S…)
+    # Seconde : voie professionnelle (seconde préparant au bac pro, BO spécial n° 5 du 11 avril 2019).
+    # À ne pas confondre avec la voie technologique ; programme distinct de la seconde générale.
+    PROFESSIONNEL = "professionnel"
     EXCELLENCE = "excellence"  # Tous niveaux : exercices très poussés et olympiades (groupe d'approfondissement)
     MISE_A_NIVEAU = "mise-a-niveau"  # Tous niveaux : vérifier les bases de l'année précédente (groupe de soutien)
     EXAMENS = "examens"  # 3e : brevet ; 1re et Tle : épreuve anticipée, bac blanc, sujets type annales
@@ -25,6 +28,7 @@ class Parcours(str, Enum):
 # parcours (excellence, mise à niveau, examens, maths expertes) sont des options qui s'y ajoutent.
 PARCOURS_PRINCIPAUX: frozenset[Parcours] = frozenset({
     Parcours.TRONC_COMMUN, Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE, Parcours.COMPLEMENTAIRES,
+    Parcours.PROFESSIONNEL,
 })
 
 
@@ -38,7 +42,9 @@ PARCOURS_PAR_NIVEAU: dict[Niveau, tuple[Parcours, ...]] = {
     Niveau.CINQUIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.QUATRIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.TROISIEME: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS),
-    Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
+    # Le tronc commun reste le parcours par défaut (seconde générale et technologique) : rien ne change pour
+    # les classes existantes. La voie professionnelle n'est jamais attribuée sans choix explicite.
+    Niveau.SECONDE: (Parcours.TRONC_COMMUN, Parcours.PROFESSIONNEL, Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE),
     Niveau.PREMIERE: (
         Parcours.SPECIALITE, Parcours.SCIENTIFIQUE, Parcours.TECHNOLOGIQUE,
         Parcours.MISE_A_NIVEAU, Parcours.EXCELLENCE, Parcours.EXAMENS,
@@ -56,6 +62,7 @@ LIBELLES_PARCOURS = {
     Parcours.EXPERTES: "Maths expertes",
     Parcours.SCIENTIFIQUE: "Enseignement scientifique",
     Parcours.TECHNOLOGIQUE: "Voie technologique",
+    Parcours.PROFESSIONNEL: "Voie professionnelle",
     Parcours.EXCELLENCE: "Excellence et olympiades",
     Parcours.MISE_A_NIVEAU: "Mise à niveau",
     Parcours.EXAMENS: "Préparation aux examens",
@@ -70,6 +77,7 @@ ABREVIATIONS_PARCOURS = {
     Parcours.COMPLEMENTAIRES: "COMP",
     Parcours.EXPERTES: "EXP",
     Parcours.TECHNOLOGIQUE: "TECH",
+    Parcours.PROFESSIONNEL: "PRO",
     Parcours.MISE_A_NIVEAU: "MAN",
     Parcours.EXCELLENCE: "EXC",
     Parcours.EXAMENS: "EXAM",

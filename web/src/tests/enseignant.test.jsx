@@ -109,9 +109,10 @@ describe("spécialité des classes", () => {
     });
     render(<Classes jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByText(/Seconde · Tronc commun · 2 élèves/)).toBeInTheDocument();
-    // Seconde : tronc commun, mise à niveau ou excellence ; la voie technologique n'existe qu'en 1re et Tle.
+    // Seconde : tronc commun, voie professionnelle (ticket #25), mise à niveau ou excellence ;
+    // la voie technologique n'existe qu'en 1re et Tle.
     const options = [...screen.getByLabelText("Parcours de la nouvelle classe").options].map((o) => o.value);
-    expect(options).toEqual(["tronc-commun", "mise-a-niveau", "excellence"]);
+    expect(options).toEqual(["tronc-commun", "professionnel", "mise-a-niveau", "excellence"]);
     await userEvent.selectOptions(screen.getByLabelText("Niveau de la nouvelle classe"), "Tle");
     await userEvent.selectOptions(screen.getByLabelText("Parcours de la nouvelle classe"), "expertes");
     await userEvent.click(screen.getByRole("button", { name: "Créer une classe" }));
