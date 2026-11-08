@@ -4,7 +4,16 @@ import { api } from "../api.js";
 import { Erreur, Onglets } from "../composants.jsx";
 import Historique from "../eleve/Historique.jsx";
 import { ListeProgression } from "../eleve/Progression.jsx";
-import { LIBELLES_PARCOURS, NIVEAUX, NIVEAUX_COLLEGE, PARCOURS_PAR_NIVEAU, libelleNiveauParcours } from "../parcours.js";
+import {
+  LIBELLES_PARCOURS,
+  MATIERES_CLASSES,
+  NIVEAUX,
+  NIVEAUX_COLLEGE,
+  NIVEAUX_FRANCAIS,
+  PARCOURS_PAR_NIVEAU,
+  libelleClasse,
+  libelleNiveauParcours,
+} from "../parcours.js";
 import AjoutEnfants from "../ui/AjoutEnfants.jsx";
 import ParentsEleve from "./ParentsEleve.jsx";
 import { useApi } from "./useApi.js";
@@ -14,14 +23,17 @@ export { LIBELLES_PARCOURS };
 const pourcent = (x) => (x == null ? "—" : `${Math.round(x * 100)} %`);
 const ignorer = () => {};
 
-export default function Classes({ jeton, onExpire }) {
+export default function Classes({ jeton, onExpire, maths = true, francais = false }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [classes, setClasses] = useState(null);
   const [classeId, setClasseId] = useState(null);
   const [eleves, setEleves] = useState(null);
   const [detail, setDetail] = useState(null); // { eleveId, competences }
+  const [matiere, setMatiere] = useState(maths ? "maths" : "francais");
   const [niveau, setNiveau] = useState("2nde");
   const [parcours, setParcours] = useState("tronc-commun");
+  const matieresPermises = Object.keys(MATIERES_CLASSES).filter((m) => (m === "maths" ? maths : francais));
+  const enFrancais = matiere === "francais";
   const [message, setMessage] = useState(null);
   const [codesAffiches, setCodesAffiches] = useState(null); // [{ prenom, code }] : affichés une seule fois
   // Autres parcours d'un élève : { eleveId, liees, suggestions } (GET /enseignants/eleves/{id}/liens).
@@ -95,7 +107,8 @@ export default function Classes({ jeton, onExpire }) {
   async function creer(e) {
     e.preventDefault();
     try {
-      const classe = await appeler("/enseignants/classes", { methode: "POST", corps: { niveau, parcours } });
+      const corps = enFrancais ? { matiere, niveau } : { niveau, parcours };
+      const classe = await appeler("/enseignants/classes", { methode: "POST", corps });
       await chargerClasses();
       choisir(classe.id);
       setMessage(`Classe créée. Code à donner aux élèves : ${classe.code}`);
@@ -229,13 +242,35 @@ export default function Classes({ jeton, onExpire }) {
               >
                 <span className="code">{c.code}</span>
                 <span className="doux">
-                  {NIVEAUX.find(([v]) => v === c.niveau)?.[1]} · {LIBELLES_PARCOURS[c.parcours]} · {c.nb_eleves} élève{c.nb_eleves > 1 ? "s" : ""}
+                  {NIVEAUX.find(([v]) => v === c.niveau)?.[1]} · {libelleClasse(c, LIBELLES_PARCOURS)} · {c.nb_eleves} élève{c.nb_eleves > 1 ? "s" : ""}
                 </span>
               </button>
             ))}
           </div>
         )}
         <form className="actions" onSubmit={creer}>
+          {matieresPermises.length > 1 && (
+            <>
+              <label htmlFor="matiere" className="visuellement-cache">
+                Matière de la nouvelle classe
+              </label>
+              <select
+                id="matiere"
+                value={matiere}
+                onChange={(e) => {
+                  setMatiere(e.target.value);
+                  if (e.target.value === "francais" && !NIVEAUX_FRANCAIS.includes(niveau)) setNiveau("2nde");
+                }}
+                style={{ width: "auto" }}
+              >
+                {matieresPermises.map((m) => (
+                  <option key={m} value={m}>
+                    {MATIERES_CLASSES[m]}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
           <label htmlFor="niveau" className="visuellement-cache">
             Niveau de la nouvelle classe
           </label>
@@ -250,7 +285,7 @@ export default function Classes({ jeton, onExpire }) {
           >
             {[["Collège", true], ["Lycée", false]].map(([groupe, college]) => (
               <optgroup key={groupe} label={groupe}>
-                {NIVEAUX.filter(([v]) => NIVEAUX_COLLEGE.includes(v) === college).map(([v, l]) => (
+                {NIVEAUX.filter(([v]) => NIVEAUX_COLLEGE.includes(v) === college && (!enFrancais || NIVEAUX_FRANCAIS.includes(v))).map(([v, l]) => (
                   <option key={v} value={v}>
                     {l}
                   </option>
@@ -258,7 +293,7 @@ export default function Classes({ jeton, onExpire }) {
               </optgroup>
             ))}
           </select>
-          {PARCOURS_PAR_NIVEAU[niveau].length > 1 && (
+          {!enFrancais && PARCOURS_PAR_NIVEAU[niveau].length > 1 && (
             <>
               <label htmlFor="parcours" className="visuellement-cache">
                 Parcours de la nouvelle classe

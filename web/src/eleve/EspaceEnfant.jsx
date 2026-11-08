@@ -1,6 +1,7 @@
 // Espace de l'enfant d'une famille : une seule carte, puis le choix de la matière.
 // PKP Math : s'entraîner dans l'un de ses parcours (tronc commun, excellence, mise à niveau…) ou lire les
-// fiches de son niveau ; PKP Anglais : ouvre son groupe d'anglais ; PKP Français : bientôt disponible.
+// fiches de son niveau ; PKP Anglais : ouvre son groupe d'anglais ; PKP Français : ouvre sa classe de français
+// (même espace d'entraînement que les maths), disponible dès que le français est ouvert.
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../api.js";
 import { Erreur } from "../composants.jsx";
@@ -111,6 +112,26 @@ export default function EspaceEnfant({ session, onOuvrirMaths, onDeconnexion }) 
         </>
       )}
 
+      {matiere === "francais" && (
+        <section className="carte" aria-labelledby="titre-francais">
+          <h2 id="titre-francais">S'entraîner en français</h2>
+          {(espace.francais ?? []).length === 0 ? (
+            <p className="doux">Ton professeur de français ne t'a pas encore ajouté à une classe.</p>
+          ) : (
+            <ul className="liste-inscriptions">
+              {espace.francais.map((i) => (
+                <li key={i.eleve_id}>
+                  <span>
+                    <strong>{i.libelle_parcours}</strong> <span className="doux">· {i.code_classe} · {i.enseignant}</span>
+                  </span>
+                  <button onClick={() => ouvrirMaths(i.eleve_id)}>S'entraîner</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
       {matiere === "anglais" && (
         <section className="carte" aria-labelledby="titre-anglais">
           <h2 id="titre-anglais">Boussole Anglais</h2>
@@ -139,6 +160,10 @@ function resumeMatiere(m, espace, niveau) {
   if (m.code === "maths") {
     const n = espace.maths.length;
     return n ? `${n} parcours · cours et fiches de ${niveau}` : `Cours et fiches de ${niveau}`;
+  }
+  if (m.code === "francais") {
+    const classes = espace.francais ?? [];
+    return classes.length ? classes.map((c) => c.code_classe).join(", ") : "Pas encore de classe";
   }
   if (m.code === "anglais") return espace.anglais.length ? espace.anglais.map((a) => a.groupe).join(", ") : "Pas encore de groupe";
   return "";

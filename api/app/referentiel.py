@@ -84,6 +84,32 @@ def domaine_maths(niveau: Niveau) -> str:
     return "maths-college" if niveau in NIVEAUX_COLLEGE else "maths-lycee"
 
 
+# Matières d'une classe (espace des classes). Le français suit le tronc commun, de la 6e à la 1re.
+MATIERES_CLASSES = ("maths", "francais")
+NIVEAUX_FRANCAIS = (*NIVEAUX_COLLEGE, Niveau.SECONDE, Niveau.PREMIERE)
+
+
+def refus_matiere(matiere: str, niveau: Niveau, parcours: "Parcours | None") -> str | None:
+    """Motif du refus d'une classe ou d'un chapitre de cette matière à ce niveau, ou None."""
+    if matiere == "francais":
+        if niveau not in NIVEAUX_FRANCAIS:
+            return f"Le français n'est pas enseigné en {niveau.value} dans Boussole."
+        if parcours not in (None, Parcours.TRONC_COMMUN):
+            return "Une classe ou un chapitre de français suit le tronc commun."
+    return None
+
+
+def domaine_de(matiere: str, niveau: Niveau) -> str:
+    """Domaine pédagogique d'une classe ou d'un chapitre (CDC V2, EX.2)."""
+    if matiere == "francais":
+        return "francais-college" if niveau in NIVEAUX_COLLEGE else "francais-lycee"
+    return domaine_maths(niveau)
+
+
+def matiere_du_domaine(domaine: str) -> str:
+    return domaine.split("-", 1)[0]
+
+
 def parcours_par_defaut(niveau: Niveau) -> Parcours:
     return PARCOURS_PAR_NIVEAU[niveau][0]
 

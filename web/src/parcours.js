@@ -36,6 +36,12 @@ export const PARCOURS_PAR_NIVEAU = {
 };
 
 export const NIVEAUX_COLLEGE = ["6e", "5e", "4e", "3e"];
+/** Français (F1) : de la 6e à la 1re, en tronc commun ; même règle que `refus_matiere` de l'API. */
+export const NIVEAUX_FRANCAIS = [...NIVEAUX_COLLEGE, "2nde", "1re"];
+export const MATIERES_CLASSES = { maths: "Mathématiques", francais: "Français" };
+/** Libellé d'une classe dans la liste du professeur : le français n'a pas de parcours à afficher. */
+export const libelleClasse = (classe, libellesParcours) =>
+  classe.matiere === "francais" ? "Français" : libellesParcours[classe.parcours];
 /** Domaine des maths d'un niveau : même règle que `domaine_maths` de l'API. */
 export const domaineMaths = (niveau) => (NIVEAUX_COLLEGE.includes(niveau) ? "maths-college" : "maths-lycee");
 

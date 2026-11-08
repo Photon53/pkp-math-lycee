@@ -128,7 +128,9 @@ export default function EspaceEleve() {
           Bonjour <strong>{compte.eleve.prenom}</strong>{" "}
           <span className="doux">
             · {compte.eleve.code_classe}
-            {compte.eleve.parcours && ` · ${libelleNiveauParcours(compte.eleve.niveau, compte.eleve.parcours)}`}
+            {compte.eleve.matiere === "francais"
+              ? ` · Français · ${compte.eleve.niveau}`
+              : compte.eleve.parcours && ` · ${libelleNiveauParcours(compte.eleve.niveau, compte.eleve.parcours)}`}
           </span>
         </p>
         {mesParcours.length > 1 && (

@@ -258,9 +258,9 @@ def supprimer_enfant(enfant_id: int, confirmation: str, admin: AdminCourant, ses
 
 @router.post("/admin/classes", response_model=ClasseResume, status_code=status.HTTP_201_CREATED)
 def creer_classe_admin(corps: ClasseAdminCreation, admin: AdminCourant, session: SessionDB) -> ClasseResume:
-    """L'administrateur crée une classe pour un professeur de mathématiques."""
+    """L'administrateur crée une classe pour un professeur de la matière (habilitation revérifiée par `ouvrir_classe`)."""
     enseignant = session.get(models.Enseignant, corps.enseignant_id)
-    if enseignant is None or not enseignant.actif or not enseignant.enseigne_maths:
+    if enseignant is None or not enseignant.actif or (corps.matiere == "maths" and not enseignant.enseigne_maths):
         raise HTTPException(422, "Choisissez un professeur de mathématiques actif.")
     classe = ouvrir_classe(session, enseignant, corps)
     journal.noter(session, admin, "creer", "classe", classe.id, apres={"code": classe.code, "enseignant": enseignant.id})
@@ -458,10 +458,12 @@ def ma_famille(parent: ParentCourant, session: SessionDB) -> list[SuiviEnfant]:
 
 
 def _suivi(session: SessionDB, enfant: models.Enfant) -> SuiviEnfant:
-    maths = [parents.resume(session, e) for e in sorted(enfant.inscriptions, key=lambda e: e.classe.code)
-             if e.classe.enseignant.actif]
+    classes = [e for e in sorted(enfant.inscriptions, key=lambda e: e.classe.code) if e.classe.enseignant.actif]
+    maths = [parents.resume(session, e) for e in classes if e.classe.domaine_code.startswith("maths-")]
+    francais = [parents.resume(session, e) for e in classes if e.classe.domaine_code.startswith("francais-")]
     anglais = [_anglais(e) for e in enfant.inscriptions_anglais if e.groupe.enseignant.actif]
-    return SuiviEnfant(enfant=enfants.decrire(enfant), matieres=enfants.matieres(), maths=maths, anglais=anglais)
+    return SuiviEnfant(enfant=enfants.decrire(enfant), matieres=enfants.matieres(session, enfant), maths=maths,
+                       anglais=anglais, francais=francais)
 
 
 @router.get("/parents/famille/{enfant_id}", response_model=SuiviEnfant)

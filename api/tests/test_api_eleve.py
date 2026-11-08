@@ -29,7 +29,7 @@ class TestConnexion:
         assert r.status_code == 200
         assert r.json()["eleve"] == {
             "id": 1, "prenom": "Lina", "identifiant": "lina-demo", "code_classe": "2NDE-A-DEMO", "niveau": "2nde",
-            "parcours": "tronc-commun",
+            "parcours": "tronc-commun", "matiere": "maths",
         }
 
     @pytest.mark.parametrize(

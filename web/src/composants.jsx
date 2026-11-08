@@ -53,4 +53,16 @@ export function Difficulte({ niveau }) {
   );
 }
 
-export const LIBELLES_TYPE = { qcm: "QCM", numerique: "Numérique", expression: "Expression" };
+export const LIBELLES_TYPE = { qcm: "QCM", numerique: "Numérique", expression: "Expression", texte: "Réponse courte" };
+
+/** Réponses acceptées d'une question « texte » (séparées par « | ») ; la première est la réponse modèle. */
+export function reponsesAcceptees(solution) {
+  return String(solution ?? "").split("|").map((r) => r.trim()).filter(Boolean);
+}
+
+/** Solution telle qu'on l'affiche : « finissent (aussi accepté : ils finissent) » pour une réponse courte. */
+export function solutionLisible(type, solution) {
+  if (type !== "texte") return solution;
+  const [modele, ...autres] = reponsesAcceptees(solution);
+  return autres.length ? `${modele} (aussi accepté : ${autres.join(" ; ")})` : modele;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
-import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
+import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE, solutionLisible } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
 import { Correction } from "../ui/Pedagogie.jsx";
 import { ecrire, lire } from "../stockage.js";
@@ -14,6 +14,7 @@ const AIDE = {
   numerique: "Écris 1/2, 0,5 ou -3, ou une valeur exacte comme ln(5), e^2, sqrt(2).",
   expression: "Écris x^2 ou x², 2x pour 2×x, sqrt(…), ln(x), e^x. Parenthèses conseillées : ln(2x).",
   qcm: "Écris la lettre de la bonne réponse.",
+  texte: "Écris ta réponse en toutes lettres : les accents comptent, pas les majuscules.",
 };
 
 // « … ? A) positif  B) négatif » → intitulé + options cliquables.
@@ -346,7 +347,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
           {resultat.remarque && <p className="avertissement">{resultat.remarque}</p>}
           {!resultat.correcte && (
             <p>
-              Réponse attendue : <code>{resultat.solution}</code>
+              Réponse attendue : <code>{solutionLisible(question.type, resultat.solution)}</code>
             </p>
           )}
           <Correction

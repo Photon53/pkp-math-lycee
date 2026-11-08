@@ -166,3 +166,47 @@ class TestReproductibilite:
     def test_meme_reponse_meme_verdict(self):
         question = q(TypeQuestion.EXPRESSION, "x^2 + 6x + 9")
         assert len({verifier(question, "(x+3)^2") for _ in range(20)}) == 1
+
+
+class TestTexte:
+    """Réponse courte (français) : plusieurs réponses acceptées, accents exigés."""
+
+    @pytest.mark.parametrize(
+        "saisie",
+        ["finissent", "Finissent", "  finissent. ", "ils finissent", "Ils  finissent !", "ILS FINISSENT"],
+    )
+    def test_reponses_acceptees(self, saisie):
+        assert corriger(q(TypeQuestion.TEXTE, "finissent | ils finissent"), saisie)
+
+    @pytest.mark.parametrize("saisie", ["finisent", "finissez", "", "   ", "ils"])
+    def test_refuse(self, saisie):
+        assert not corriger(q(TypeQuestion.TEXTE, "finissent | ils finissent"), saisie)
+
+    def test_les_accents_comptent(self):
+        assert corriger(q(TypeQuestion.TEXTE, "à"), "à")
+        assert corriger(q(TypeQuestion.TEXTE, "à"), "À")
+        assert not corriger(q(TypeQuestion.TEXTE, "à"), "a")
+        assert not corriger(q(TypeQuestion.TEXTE, "été"), "ete")
+        # Même lettre accentuée saisie décomposée (e + accent) : acceptée.
+        assert corriger(q(TypeQuestion.TEXTE, "été"), "été")
+
+    @pytest.mark.parametrize("saisie", ["l’arbre", "l'arbre", "l ' arbre", "L‘arbre"])
+    def test_apostrophes(self, saisie):
+        assert corriger(q(TypeQuestion.TEXTE, "l'arbre"), saisie)
+
+    def test_tirets(self):
+        assert corriger(q(TypeQuestion.TEXTE, "peut-être"), "peut – être")
+        assert not corriger(q(TypeQuestion.TEXTE, "peut-être"), "peut être")
+
+    def test_verdict_texte(self):
+        assert verifier(q(TypeQuestion.TEXTE, "COD"), "cod") is Verdict.JUSTE
+        assert verifier(q(TypeQuestion.TEXTE, "COD"), "COI") is Verdict.FAUX
+
+    def test_l_apostrophe_n_est_pas_effacee(self):
+        assert not corriger(q(TypeQuestion.TEXTE, "l'a"), "la")
+        assert not corriger(q(TypeQuestion.TEXTE, "peut-être"), "peutêtre")
+
+    def test_reponse_modele(self):
+        from pkp_engine import reponse_modele
+        assert reponse_modele(q(TypeQuestion.TEXTE, " finissent | ils finissent")) == "finissent"
+        assert reponse_modele(q(TypeQuestion.NUMERIQUE, "1/2")) == "1/2"

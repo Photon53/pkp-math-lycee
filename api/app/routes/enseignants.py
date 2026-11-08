@@ -27,7 +27,7 @@ from app.progression import (
     resume_eleve,
 )
 from app import enfants, inscriptions, parents, permissions
-from app.referentiel import ABREVIATIONS_PARCOURS, domaine_maths
+from app.referentiel import ABREVIATIONS_PARCOURS, domaine_de, matiere_du_domaine
 from app.schemas import (
     EleveRenommage,
     ChangementMotDePasse,
@@ -114,6 +114,7 @@ def _jeton(enseignant: models.Enseignant) -> JetonEnseignant:
         mdp_provisoire=enseignant.mdp_provisoire,
         enseigne_maths=enseignant.enseigne_maths,
         enseigne_anglais=enseignant.enseigne_anglais,
+        enseigne_francais=permissions.enseigne_francais(enseignant),
         referent_anglais=enseignant.referent_anglais,
     )
 
@@ -142,7 +143,10 @@ def changer_mot_de_passe(corps: ChangementMotDePasse, enseignant: EnseignantAuth
 
 def _resume_classe(session: SessionDB, classe: models.Classe) -> ClasseResume:
     nb = session.scalar(select(func.count()).select_from(models.Eleve).where(models.Eleve.classe_id == classe.id))
-    return ClasseResume(id=classe.id, code=classe.code, niveau=classe.niveau, parcours=classe.parcours, nb_eleves=nb)
+    return ClasseResume(
+        id=classe.id, code=classe.code, niveau=classe.niveau, parcours=classe.parcours, nb_eleves=nb,
+        matiere=matiere_du_domaine(classe.domaine_code),
+    )
 
 
 @router.get("/classes", response_model=list[ClasseResume])
@@ -164,12 +168,13 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
 
 def ouvrir_classe(session, enseignant: models.Enseignant, corps: ClasseCreation) -> models.Classe:
     """Crée la classe (code unique, tout le programme ouvert) ; sert aussi à l'administrateur."""
-    domaine = domaine_maths(corps.niveau)
-    refus = permissions.refus_domaine_ferme(session, domaine)
+    domaine = domaine_de(corps.matiere, corps.niveau)
+    refus = permissions.refus_domaine_ferme(session, domaine) or permissions.refus_matiere_enseignee(enseignant, corps.matiere, domaine, corps.niveau)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     while True:
-        prefixe = f"{PREFIXES_CODE[corps.niveau]}-{ABREVIATIONS_PARCOURS[corps.parcours]}"
+        suffixe = "FR" if corps.matiere == "francais" else ABREVIATIONS_PARCOURS[corps.parcours]
+        prefixe = f"{PREFIXES_CODE[corps.niveau]}-{suffixe}"
         code = f"{prefixe}-" + "".join(secrets.choice(ALPHABET_CODE) for _ in range(5))
         if not session.scalar(select(models.Classe).where(models.Classe.code == code)):
             break

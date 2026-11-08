@@ -19,6 +19,8 @@ class TypeQuestion(str, Enum):
     QCM = "qcm"
     NUMERIQUE = "numerique"
     EXPRESSION = "expression"
+    # Réponse courte en toutes lettres (français : un mot, une forme verbale…) : voir `correction`.
+    TEXTE = "texte"
 
 
 class Forme(str, Enum):

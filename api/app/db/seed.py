@@ -27,7 +27,7 @@ from app import anglais_contenu, contenu, permissions
 from app.db import models
 from app.db.conversions import question_vers_domaine
 from app.progression import chapitres_du_programme
-from app.referentiel import Role, parcours_par_defaut
+from app.referentiel import Role, domaine_maths, parcours_par_defaut
 from app.security import generer_identifiant, hacher_code_eleve, hacher_mot_de_passe
 
 EMAIL_DEMO = "demo@pkp.test"
@@ -101,7 +101,10 @@ def charger_demo(session: Session) -> bool:
 
     eleves: dict[str, models.Eleve] = {}
     for code, niveau, prenoms in CLASSES:
-        classe = models.Classe(code=code, niveau=niveau, parcours=parcours_par_defaut(niveau), enseignant=enseignant)
+        classe = models.Classe(
+            code=code, niveau=niveau, parcours=parcours_par_defaut(niveau), enseignant=enseignant,
+            domaine_code=domaine_maths(niveau),
+        )
         session.add(classe)
         classe.chapitres_proposes = chapitres_du_programme(session, classe)
         for prenom in prenoms:

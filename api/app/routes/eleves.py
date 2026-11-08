@@ -73,6 +73,7 @@ def _info(eleve: models.Eleve) -> EleveInfo:
         code_classe=eleve.classe.code,
         niveau=eleve.classe.niveau,
         parcours=eleve.classe.parcours,
+        matiere=eleve.classe.domaine_code.split("-", 1)[0],
     )
 
 

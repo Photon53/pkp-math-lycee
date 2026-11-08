@@ -36,7 +36,7 @@ def _inscriptions_maths_du_niveau(principales: bool):
         select(func.count(models.Eleve.id))
         .join(models.Classe, models.Classe.id == models.Eleve.classe_id)
         .where(models.Eleve.enfant_id == models.Enfant.id, models.Classe.niveau == models.Enfant.niveau,
-               models.Classe.archivee_le.is_(None))
+               models.Classe.archivee_le.is_(None), models.Classe.domaine_code.like("maths-%"))
     )
     if principales:
         requete = requete.where(models.Classe.parcours.in_([p.value for p in PARCOURS_PRINCIPAUX]))
@@ -49,7 +49,8 @@ def alertes(enfant: models.Enfant) -> list[str]:
         points.append(SANS_RESPONSABLE)
     # Les classes archivées (années passées) ne comptent plus (V3, Lot 3).
     en_cours = [e for e in enfant.inscriptions if e.classe.archivee_le is None]
-    du_niveau = [e for e in en_cours if e.classe.niveau == enfant.niveau]
+    # Le parcours principal se compte en maths : la classe de français (tronc commun) n'en est pas un second.
+    du_niveau = [e for e in en_cours if e.classe.niveau == enfant.niveau and e.classe.domaine_code.startswith("maths-")]
     principales = sum(e.classe.parcours in PARCOURS_PRINCIPAUX for e in du_niveau)
     if du_niveau and principales == 0:
         points.append(SANS_PRINCIPAL)

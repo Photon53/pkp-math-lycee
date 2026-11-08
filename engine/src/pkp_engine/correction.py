@@ -12,12 +12,18 @@
   Si la question exige une forme (`Question.forme`), elle est contrôlée ensuite :
   recopier `(x+3)²` ne répond pas à « Développer (x+3)² » (voir `formes`).
 
+- Texte (réponse courte) : la solution liste les réponses acceptées, séparées par « | »
+  (`finissent | ils finissent`). La casse, les espaces en trop, la forme des apostrophes et des
+  tirets et la ponctuation finale ne comptent pas ; **les accents comptent** (« a » ≠ « à »).
+
 Une saisie illisible de l'élève est simplement fausse. Une solution illisible
 est une erreur de données et lève `ExpressionInvalide`.
 """
 
 import math
 import random
+import re
+import unicodedata
 from enum import Enum
 
 from pkp_engine import formes
@@ -51,6 +57,9 @@ def verifier(question: Question, reponse_donnee: str) -> Verdict:
     """Verdict détaillé : juste, faux, ou juste en valeur mais pas sous la forme demandée."""
     if question.type is TypeQuestion.QCM:
         return _verdict(_normaliser_qcm(reponse_donnee) == _normaliser_qcm(question.solution))
+    if question.type is TypeQuestion.TEXTE:
+        saisie = normaliser_texte(reponse_donnee)
+        return _verdict(bool(saisie) and saisie in {normaliser_texte(r) for r in reponses_acceptees(question.solution)})
 
     solution = analyser(question.solution)
     try:
@@ -75,6 +84,30 @@ def verifier(question: Question, reponse_donnee: str) -> Verdict:
 
 def _verdict(juste: bool) -> Verdict:
     return Verdict.JUSTE if juste else Verdict.FAUX
+
+
+SEPARATEUR_REPONSES = "|"
+_APOSTROPHES = str.maketrans({"’": "'", "‘": "'", "ʼ": "'", "`": "'", "´": "'", "‐": "-", "‑": "-", "–": "-", "—": "-"})
+
+
+def reponses_acceptees(solution: str) -> list[str]:
+    """Les réponses acceptées d'une question « texte », dans l'ordre (la première est la réponse modèle)."""
+    return [r.strip() for r in solution.split(SEPARATEUR_REPONSES) if r.strip()]
+
+
+def reponse_modele(question: Question) -> str:
+    """La réponse modèle : la solution telle quelle, ou la première réponse acceptée d'une question « texte »."""
+    if question.type is TypeQuestion.TEXTE:
+        return next(iter(reponses_acceptees(question.solution)), "")
+    return question.solution
+
+
+def normaliser_texte(texte: str) -> str:
+    """Forme de comparaison d'une réponse courte : casse, espaces, apostrophes, tirets et ponctuation
+    finale neutralisés ; accents et cédilles conservés (forme Unicode composée)."""
+    texte = unicodedata.normalize("NFC", texte).translate(_APOSTROPHES).casefold()
+    texte = re.sub(r"\s*([-'])\s*", r"\1", " ".join(texte.split()))  # « l ' arbre » = « l'arbre »
+    return texte.rstrip(" .!?;:…")
 
 
 def _normaliser_qcm(texte: str) -> str:

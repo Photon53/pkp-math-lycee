@@ -396,7 +396,7 @@ class ProgressionAnglais(Base):
 
 class Chapitre(Base):
     __tablename__ = "chapitre"
-    __table_args__ = (UniqueConstraint("niveau", "parcours", "ordre", name="uq_chapitre_niveau_parcours_ordre"),)
+    __table_args__ = (UniqueConstraint("domaine_code", "niveau", "parcours", "ordre", name="uq_chapitre_domaine_niveau_parcours_ordre"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # Identifiant stable venant des fichiers contenu/*.yaml (import idempotent).

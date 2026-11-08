@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
+import { Difficulte, Erreur, LIBELLES_TYPE, reponsesAcceptees } from "../composants.jsx";
 import { NIVEAUX } from "../enseignant/CoursEnseignant.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Maths, formulesInvalides } from "../maths.jsx";
@@ -243,7 +243,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
     setResultatEssai(null);
     try {
       setResultatEssai(
-        await appeler("/admin/questions/tester", { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || v.solution, forme: formeExigee } }),
+        await appeler("/admin/questions/tester", { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || (v.type === "texte" ? reponsesAcceptees(v.solution)[0] ?? "" : v.solution), forme: formeExigee } }),
       );
     } catch (err) {
       setErreur(err.message);
@@ -317,6 +317,9 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
             <input id="q-difficulte" type="number" min={1} max={5} required {...champ("difficulte")} />
           </div>
         </div>
+        {v.type === "texte" && (
+          <p className="aide">Réponse courte : séparer les réponses acceptées par « | » (ex. « finissent | ils finissent »). Majuscules, espaces et ponctuation finale ne comptent pas ; les accents comptent.</p>
+        )}
         {v.type === "expression" && (
           <>
             <label htmlFor="q-forme">Forme exigée</label>
