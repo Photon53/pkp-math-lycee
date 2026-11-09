@@ -385,8 +385,10 @@ function Corrige({ q }) {
   return (
     <div className="corrige-pkp">
       <p className="doux"><Maths texte={q.enonce} enLigne /></p>
+      {c?.formule && <p><strong>Formule :</strong> <Maths texte={c.formule} enLigne />{c.conditions && <> ({<Maths texte={c.conditions} enLigne />})</>}</p>}
       {c?.methode && <p><strong>Méthode :</strong> <Maths texte={c.methode} enLigne /></p>}
       {c?.etapes?.length > 0 && <ol>{c.etapes.map((e, i) => <li key={i}><Maths texte={e} enLigne /></li>)}</ol>}
+      {c?.verification && <p><strong>Vérification :</strong> <Maths texte={c.verification} enLigne /></p>}
       <p><strong>Réponse :</strong> <Maths texte={c?.resultat ?? (q.type === "qcm" ? q.solution : q.type === "texte" ? solutionLisible("texte", q.solution) : `$${q.solution}$`)} enLigne /></p>
     </div>
   );

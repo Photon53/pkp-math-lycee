@@ -178,6 +178,34 @@ python -m app.contenu ecarts       # attendus absents ou incomplets, compétence
 Le réglage `PKP_SERVIR_QUESTIONS_NON_VALIDEES` (vrai par défaut) permet, une fois la banque relue,
 de ne plus servir aux élèves que les questions validées.
 
+### Corrigés : le gabarit
+
+Un corrigé doit permettre à l'élève de comprendre **pourquoi** la réponse est juste et de **refaire** la méthode
+sur un exercice semblable (ticket #27). Rubriques de `correction`, dans l'ordre d'affichage :
+
+| Rubrique | Rôle | Obligatoire |
+|---|---|:-:|
+| `rappel` | Notion, définition ou prérequis (« $m$ est le coefficient de $x$ ») | non |
+| `formule` | Formule ou propriété utilisée | non |
+| `conditions` | Conditions d'application (« $x_1 \neq x_2$ ») | non |
+| `methode` | La démarche en une phrase | non |
+| `etapes` | Étapes justifiées : substitution, calcul | **oui** |
+| `resultat` | La réponse (contrôlée équivalente à `solution`) | oui sauf QCM |
+| `verification` | Contrôle du résultat (on remplace, on recalcule) | non |
+| `erreurs_frequentes` | Erreurs à éviter | non |
+| `autre_methode` | Une autre façon de faire | non |
+
+Règles :
+
+- Adapter au niveau et à la voie : pas de formule répétée à chaque question quand la notion est acquise
+  (difficulté 1), une formule et ses conditions dès que la question s'appuie dessus.
+- Exemple de référence : `2NDE-AFF-04` (coefficient directeur à partir de deux points, puis $f(10)$).
+- Un corrigé est **complet** s'il a une méthode ou une formule, au moins 2 étapes et une vérification (sauf QCM).
+  `python -m app.contenu corrections` écrit `docs/audit/CORRIGES-INVENTAIRE.md` (réponses réduites au
+  résultat, chapitre par chapitre ; à régénérer après chaque modification, un test le vérifie).
+- Les compétences pilotes (`COMPETENCES_PILOTES_CORRIGES`, fonctions affines) doivent avoir des corrigés
+  complets. Réécrire un corrigé ne valide pas la question : elle reste « à valider » jusqu'à la relecture.
+
 ### Sources externes : ce qu'on peut en faire
 
 | Source | Licence | Usage dans PKP |
