@@ -116,6 +116,7 @@ def _jeton(enseignant: models.Enseignant) -> JetonEnseignant:
         enseigne_anglais=enseignant.enseigne_anglais,
         enseigne_francais=permissions.enseigne_francais(enseignant),
         referent_anglais=enseignant.referent_anglais,
+        validateur_maths=permissions.valide_les_maths(enseignant),
     )
 
 

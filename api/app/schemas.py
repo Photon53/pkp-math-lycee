@@ -371,6 +371,8 @@ class JetonEnseignant(BaseModel):
     enseigne_francais: bool = False
     # Référent : ouvre la page de validation des séances PKP Anglais.
     referent_anglais: bool = False
+    # Validateur en maths (collège ou lycée) : ouvre la page « Validation » de l'espace professeur (ticket #29).
+    validateur_maths: bool = False
 
 
 class ChangementMotDePasse(BaseModel):
