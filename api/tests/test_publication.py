@@ -11,8 +11,11 @@ from tests.conftest import connecter_eleve
 
 
 def competence_ouverte(client, session, h, min_questions: int = 2) -> models.Competence:
-    """Une compétence ouverte à Lina, avec plusieurs questions non archivées."""
+    """Une compétence ouverte à Lina, avec plusieurs questions non archivées, où elle n'a encore rien répondu :
+    une question qu'elle a déjà réussie (données de démo) resterait au repos (ticket #26)."""
     for p in client.get("/eleves/moi/progression", headers=h).json():
+        if p["nb_reponses"]:
+            continue
         nb = session.scalar(
             select(func.count(models.Question.id)).where(
                 models.Question.competence_id == p["competence_id"], models.Question.archivee.is_(False)
