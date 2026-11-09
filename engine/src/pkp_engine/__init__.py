@@ -8,9 +8,11 @@ from pkp_engine.correction import Verdict, corriger, reponse_modele, reponses_ac
 from pkp_engine.domain import Forme, Niveau, Question, Reponse, TypeQuestion
 from pkp_engine.expressions import ExpressionInvalide
 from pkp_engine.maitrise import SEUIL_MAITRISE, calculer_maitrise, est_maitrisee
-from pkp_engine.selection import choisir_prochaine_question
+from pkp_engine.selection import ESPACEMENT_REVISION, choisir_prochaine_question, questions_au_repos
 
 __all__ = [
+    "ESPACEMENT_REVISION",
+    "questions_au_repos",
     "SEUIL_MAITRISE",
     "ExpressionInvalide",
     "Forme",

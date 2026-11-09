@@ -178,6 +178,15 @@ class QuestionPublique(_Modele):
     en_relecture: bool = False
 
 
+class Epuisement(BaseModel):
+    """Pourquoi une séance n'a plus de question à proposer (ticket #26)."""
+
+    # « aucune-question » : rien dans les chapitres choisis ; « toutes-reussies » : tout est réussi récemment.
+    motif: Literal["aucune-question", "toutes-reussies"]
+    nb_questions: int
+    nb_au_repos: int
+
+
 class DemandeVariante(BaseModel):
     question_id: int
 
