@@ -10,6 +10,7 @@ import CoursEnseignant from "./CoursEnseignant.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
+import Remarques from "../ui/Remarques.jsx";
 
 // Session partagée avec l'espace PKP Anglais : un professeur des deux disciplines ne se connecte qu'une fois.
 export const CLE_COMPTE = "pkp.enseignant";
@@ -20,6 +21,7 @@ const PAGES = [
   { vers: "/enseignant/pkp-math", libelle: "Boussole Maths (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
+  { vers: "/enseignant/remarques", libelle: "Remarques et suggestions", icone: "crayon" },
 ];
 
 export default function EspaceEnseignant({ chemin = "/enseignant" }) {
@@ -94,6 +96,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
+      {page.vers === "/enseignant/remarques" && <Remarques {...props} />}
       {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} /></section>}
     </CadreApplication>
   );

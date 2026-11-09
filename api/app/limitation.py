@@ -60,7 +60,12 @@ codes_inconnus = Limiteur(settings.connexion_eleve_max_codes_inconnus, _fenetre)
 # 5 essais par compte et par 15 min : deviner un code parmi 887 millions est hors de portée.
 echecs_code_eleve = Limiteur(settings.connexion_eleve_max_echecs_code, _fenetre)
 
-TOUS = (par_ip, echecs_enseignant, codes_inconnus, echecs_code_eleve)
+# Remarques et suggestions (ticket #30) : contre le spam, par compte et par adresse ; suivi : contre la devinette.
+remarques_par_compte = Limiteur(10, 3600)
+remarques_par_ip = Limiteur(30, 3600)
+suivi_remarques_par_ip = Limiteur(30, 15 * 60)
+
+TOUS = (par_ip, echecs_enseignant, codes_inconnus, echecs_code_eleve, remarques_par_compte, remarques_par_ip, suivi_remarques_par_ip)
 
 
 def adresse_ip(request: Request) -> str:
