@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE, solutionLisible } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
+import { AideExercice } from "./Comprehension.jsx";
 import { Correction } from "../ui/Pedagogie.jsx";
 import { ecrire, lire } from "../stockage.js";
 
@@ -42,6 +43,9 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
   const [envoi, setEnvoi] = useState(false);
   // Compétence visée par la séance en cours (séance lancée depuis une leçon ou l'historique).
   const [competenceVisee, setCompetenceVisee] = useState(() => lire(CLE_CIBLE));
+  // Ticket #26 : révision demandée par l'élève (les questions déjà réussies reviennent) et motif d'épuisement.
+  const [revision, setRevision] = useState(false);
+  const [epuisement, setEpuisement] = useState(null);
   const champ = useRef(null);
 
   function changerSeance(id, visee = null) {
@@ -49,6 +53,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     ecrire(CLE_CIBLE, visee);
     setSeanceId(id);
     setCompetenceVisee(visee);
+    setRevision(false);
   }
 
   async function appeler(chemin, options) {
@@ -64,12 +69,13 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     }
   }
 
-  async function chargerQuestion(id) {
+  async function chargerQuestion(id, enRevision = revision) {
     try {
-      const q = await appeler(`/seances/${id}/question`);
+      const q = await appeler(`/seances/${id}/question${enRevision ? "?revision=true" : ""}`);
       setResultat(null);
       setSaisie("");
       if (q === null) {
+        setEpuisement(await appeler(`/seances/${id}/epuisement`).catch(() => null));
         setEtape("epuise");
       } else {
         setQuestion(q);
@@ -265,9 +271,27 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     return (
       <section className="carte">
         <h2>Plus de question disponible</h2>
-        <p className="doux">Ton professeur n'a pas encore ajouté de questions pour ton niveau.</p>
+        {epuisement?.motif === "toutes-reussies" ? (
+          <p className="doux">
+            Tu as réussi toutes les questions de cette séance : elles ne reviendront pas tout de suite. Tu peux les réviser
+            maintenant, ou terminer la séance et choisir d'autres chapitres.
+          </p>
+        ) : (
+          <p className="doux">Ton professeur n'a pas encore ajouté de questions pour ton niveau.</p>
+        )}
         <Erreur message={erreur} />
         <div className="actions">
+          {epuisement?.motif === "toutes-reussies" && (
+            <button
+              className="secondaire"
+              onClick={() => {
+                setRevision(true);
+                chargerQuestion(seanceId, true);
+              }}
+            >
+              Réviser les questions réussies
+            </button>
+          )}
           <button onClick={terminer}>Terminer la séance</button>
         </div>
       </section>
@@ -359,6 +383,13 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
                 onVoir: (ancre) => onVoirCours(question.competence_id, { ancre }),
               }
             }
+          />
+          <AideExercice
+            key={question.id}
+            seanceId={seanceId}
+            questionId={question.id}
+            jeton={jeton}
+            avecCorrection={Boolean(resultat.correction)}
           />
           {!resultat.correction && resultat.rappel && (
             <details className="correction" open={!resultat.correcte}>

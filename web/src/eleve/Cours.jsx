@@ -5,6 +5,7 @@ import { Maths } from "../maths.jsx";
 import { libelleNiveauParcours, trierChapitres } from "../parcours.js";
 import Icone from "../ui/Icone.jsx";
 import { ErreursFrequentes, Methodes, Objectifs } from "../ui/Pedagogie.jsx";
+import { AvisCours } from "./Comprehension.jsx";
 import ParcoursPKP from "./ParcoursPKP.jsx";
 
 /**
@@ -194,6 +195,7 @@ function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour, onRetourExerc
           <Methodes methodes={lecon.methodes} />
           <ErreursFrequentes erreurs={lecon.erreurs_frequentes} />
           <Ressources ressources={lecon.ressources ?? []} jeton={jeton} />
+          {!enseignant && base === "/cours" && <AvisCours competenceId={lecon.competence_id} jeton={jeton} />}
           {onEntrainer && (
             <div className="actions">
               <button onClick={() => onEntrainer(lecon.competence_id, lecon.libelle)}>S'entraîner sur cette compétence</button>

@@ -7,7 +7,7 @@ Usage, depuis `api/` :
     python -m app.contenu verifier              # contrôle tous les fichiers, sans base
     python -m app.contenu matrice               # docs/matrices/MATRICE-<programme>.md (couverture du BO)
     python -m app.contenu ecarts                # attendus officiels absents ou incomplets
-    python -m app.contenu corrections           # corrections trop courtes, à détailler
+    python -m app.contenu corrections           # inventaire des corrigés (docs/audit/CORRIGES-INVENTAIRE.md)
     python -m app.contenu importer --simulation # montre ce qui changerait
     python -m app.contenu importer              # applique
 
@@ -21,6 +21,7 @@ import argparse
 import random
 import re
 import sys
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
@@ -82,10 +83,20 @@ Etapes = Annotated[list[Texte], Field(min_length=1, max_length=12)]
 
 
 class CorrectionYaml(_Strict):
-    """Correction détaillée, montrée à l'élève après sa réponse (cahier des charges V2, E0.1)."""
+    """Correction détaillée, montrée à l'élève après sa réponse (cahier des charges V2, E0.1).
 
+    Gabarit (ticket #27), dans l'ordre d'affichage : `rappel` (notion ou prérequis), `formule` et ses `conditions`,
+    `methode`, `etapes` justifiées, `resultat`, `verification`, `erreurs_frequentes`, `autre_methode`. Seuls
+    `etapes` (et `resultat` selon le type) sont obligatoires : on ne répète pas une formule inutile à chaque question.
+    """
+
+    rappel: Annotated[str, Field(min_length=1, max_length=400)] | None = None  # notion, définition ou prérequis
+    formule: Annotated[str, Field(min_length=1, max_length=300)] | None = None  # formule ou propriété utilisée
+    conditions: Annotated[str, Field(min_length=1, max_length=300)] | None = None  # conditions d'application
     methode: Annotated[str, Field(min_length=1, max_length=300)] | None = None  # la propriété ou la méthode utilisée
     etapes: Etapes
+    verification: Annotated[str, Field(min_length=1, max_length=400)] | None = None  # contrôle du résultat
+    autre_methode: Annotated[str, Field(min_length=1, max_length=400)] | None = None
     # Obligatoire pour les types numérique et expression : contrôlé équivalent à `solution` par le moteur.
     resultat: Annotated[str, Field(min_length=1, max_length=200)] | None = None
     erreurs_frequentes: list[Texte] = []
@@ -282,6 +293,14 @@ def _verifier_question(q: QuestionYaml) -> str | None:
     return None
 
 
+CHAMPS_TEXTE_CORRECTION = ("rappel", "formule", "conditions", "methode", "resultat", "verification", "autre_methode")
+
+
+def textes_de_correction(c: CorrectionYaml) -> list[str]:
+    """Tous les textes d'une correction (contrôles des « $ » et des valeurs variables)."""
+    return [*(getattr(c, champ) or "" for champ in CHAMPS_TEXTE_CORRECTION), *c.etapes, *c.erreurs_frequentes]
+
+
 def _verifier_correction(q: QuestionYaml) -> list[str]:
     """Règles du lot 0 (E0.2) : pas de validation sans correction ni par l'auteur ; correction cohérente."""
     erreurs = []
@@ -295,7 +314,7 @@ def _verifier_correction(q: QuestionYaml) -> list[str]:
     c = q.correction
     if c is None:
         return erreurs
-    textes = [c.methode or "", *c.etapes, c.resultat or "", *c.erreurs_frequentes]
+    textes = textes_de_correction(c)
     if not all(_dollars_equilibres(t) for t in textes):
         erreurs.append("nombre impair de « $ » dans la correction")
     if q.type is TypeQuestion.QCM:
@@ -336,7 +355,7 @@ def _verifier_gabarit(q: QuestionYaml) -> list[str]:
             exemplaire = instancier(q, tirage)
         except (gabarits.GabaritInvalide, ZeroDivisionError) as exc:
             return [f"gabarit : {exc}"]
-        textes = [exemplaire.enonce, exemplaire.solution, *(exemplaire.correction.etapes if exemplaire.correction else [])]
+        textes = [exemplaire.enonce, exemplaire.solution, *(textes_de_correction(exemplaire.correction) if exemplaire.correction else [])]
         if any("[[" in t or "]]" in t for t in textes):
             return [f"gabarit : marque [[…]] mal fermée (tirage {tirage})"]
         problemes = [p for p in [_verifier_question(exemplaire)] if p] + _verifier_correction(exemplaire)
@@ -649,7 +668,6 @@ def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
     Signale les trous : niveau de difficulté sans question, compétence sans cours,
     questions à valider. Le registre des sources récapitule l'origine des questions.
     """
-    from collections import Counter
 
     from app.referentiel import LIBELLES_PARCOURS
 
@@ -704,10 +722,26 @@ def inventaire(fichiers: list[tuple[Path, FichierContenu]]) -> str:
     return "\n".join(lignes) + "\n"
 
 
-# Une correction de difficulté 3 ou plus doit montrer le raisonnement, pas seulement le résultat
-# (retours des classes, novembre 2026) : la commande `corrections` liste celles à détailler.
+# Corrigés (ticket #27) : un élève doit comprendre pourquoi la réponse est juste et pouvoir refaire la méthode.
+# La commande `corrections` classe chaque corrigé et écrit docs/audit/CORRIGES-INVENTAIRE.md (généré).
 DIFFICULTE_CORRECTION_DETAILLEE = 3
 ETAPES_MIN = 2
+CORRIGES_PAR_DEFAUT = Path(__file__).resolve().parents[2] / "docs" / "audit" / "CORRIGES-INVENTAIRE.md"
+# Compétences traitées en priorité (pilote) : leurs corrigés doivent tous suivre le gabarit complet.
+COMPETENCES_PILOTES_CORRIGES = ("2NDE-AFF",)
+RESULTAT_SEUL, A_COMPLETER, COMPLET = "résultat seul", "à compléter", "complet"
+
+
+def niveau_de_corrige(q: QuestionYaml) -> str:
+    """« résultat seul » : pas de correction, ou une seule étape sans méthode ni formule ;
+    « complet » : méthode ou formule, au moins deux étapes, et une vérification (sauf QCM) ;
+    sinon « à compléter »."""
+    c = q.correction
+    if c is None or (len(c.etapes) < ETAPES_MIN and not (c.methode or c.formule or c.rappel)):
+        return RESULTAT_SEUL
+    explique = bool(c.methode or c.formule)
+    verifie = bool(c.verification) or q.type is TypeQuestion.QCM
+    return COMPLET if explique and len(c.etapes) >= ETAPES_MIN and verifie else A_COMPLETER
 
 
 def corrections_courtes(fichiers) -> list[tuple[str, int]]:
@@ -721,6 +755,60 @@ def corrections_courtes(fichiers) -> list[tuple[str, int]]:
         and q.difficulte >= DIFFICULTE_CORRECTION_DETAILLEE
         and (q.correction is None or len(q.correction.etapes) < ETAPES_MIN)
     ]
+
+
+def inventaire_corriges(fichiers) -> str:
+    """Inventaire des corrigés : où sont les réponses réduites au résultat, chapitre par chapitre."""
+    niveaux = (RESULTAT_SEUL, A_COMPLETER, COMPLET)
+    par_chapitre = []
+    total: Counter = Counter()
+    par_niveau: dict[tuple[str, str], Counter] = {}
+    for _, f in fichiers:
+        ch = f.chapitre
+        compte: Counter = Counter()
+        a_reprendre = []
+        for c in f.competences:
+            for q in c.questions:
+                if q.archivee:
+                    continue
+                n = niveau_de_corrige(q)
+                compte[n] += 1
+                if n == RESULTAT_SEUL:
+                    a_reprendre.append((q.difficulte, q.code))
+        total.update(compte)
+        par_niveau.setdefault((ch.niveau.value, ch.parcours.value), Counter()).update(compte)
+        pilote = any(c.code in COMPETENCES_PILOTES_CORRIGES for c in f.competences)
+        par_chapitre.append((not pilote, ch.niveau.value, ch.parcours.value, ch.ordre, ch.code, ch.titre, compte, a_reprendre))
+
+    def ligne(compte: Counter) -> str:
+        n = sum(compte.values())
+        return " | ".join(str(compte[k]) for k in niveaux) + f" | {n} | {round(100 * compte[COMPLET] / n) if n else 0} %"
+
+    lignes = [
+        "# Inventaire des corrigés",
+        "",
+        "Généré par `python -m app.contenu corrections` depuis `api/` (ticket #27) : ne pas modifier à la main.",
+        "",
+        f"- **{RESULTAT_SEUL}** : pas de correction, ou une seule étape sans méthode ni formule ;",
+        f"- **{COMPLET}** : méthode ou formule, au moins {ETAPES_MIN} étapes et une vérification (sauf QCM) ;",
+        f"- **{A_COMPLETER}** : entre les deux.",
+        "",
+        "Gabarit et règles de rédaction : `docs/CONTENU.md`, section « Corrigés ».",
+        "",
+        "| Niveau | Parcours | Résultat seul | À compléter | Complet | Questions | Complets |",
+        "|---|---|:-:|:-:|:-:|:-:|:-:|",
+    ]
+    lignes += [f"| {niv} | {parc} | {ligne(c)} |" for (niv, parc), c in par_niveau.items()]
+    lignes += [f"| **Total** | | {ligne(total)} |", "", "## Par chapitre", "",
+               "Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résultat seul » par difficulté décroissante.", ""]
+    for non_pilote, niv, parc, _, code, titre, compte, a_reprendre in sorted(par_chapitre, key=lambda x: x[0]):  # tri stable : ordre du programme
+        lignes.append(f"### {niv} · {parc} · {titre}{'' if non_pilote else ' (pilote)'}")
+        lignes.append("")
+        lignes.append(f"{code} : {compte[RESULTAT_SEUL]} résultat seul, {compte[A_COMPLETER]} à compléter, {compte[COMPLET]} complet(s).")
+        if a_reprendre:
+            lignes += ["", "À reprendre : " + ", ".join(c for _, c in sorted(a_reprendre, key=lambda x: (-x[0], x[1]))) + "."]
+        lignes.append("")
+    return "\n".join(lignes).rstrip("\n") + "\n"
 
 
 def main() -> None:
@@ -745,10 +833,10 @@ def main() -> None:
     print(f"Contenu valide : {len(fichiers)} chapitre(s), {nb_questions} question(s).")
     if args.commande == "corrections":
         courtes = corrections_courtes(fichiers)
-        for code, etapes in courtes:
-            print(f"{code} : {etapes} étape(s)")
         print(f"{len(courtes)} correction(s) à détailler (difficulté {DIFFICULTE_CORRECTION_DETAILLEE} ou plus, "
               f"moins de {ETAPES_MIN} étapes).")
+        CORRIGES_PAR_DEFAUT.write_text(inventaire_corriges(fichiers), encoding="utf-8")
+        print(f"Inventaire des corrigés écrit dans {CORRIGES_PAR_DEFAUT}")
         return
     if args.commande == "inventaire":
         args.sortie.write_text(inventaire(fichiers), encoding="utf-8")

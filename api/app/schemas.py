@@ -178,6 +178,15 @@ class QuestionPublique(_Modele):
     en_relecture: bool = False
 
 
+class Epuisement(BaseModel):
+    """Pourquoi une séance n'a plus de question à proposer (ticket #26)."""
+
+    # « aucune-question » : rien dans les chapitres choisis ; « toutes-reussies » : tout est réussi récemment.
+    motif: Literal["aucune-question", "toutes-reussies"]
+    nb_questions: int
+    nb_au_repos: int
+
+
 class DemandeVariante(BaseModel):
     question_id: int
 
@@ -371,6 +380,8 @@ class JetonEnseignant(BaseModel):
     enseigne_francais: bool = False
     # Référent : ouvre la page de validation des séances PKP Anglais.
     referent_anglais: bool = False
+    # Validateur en maths (collège ou lycée) : ouvre la page « Validation » de l'espace professeur (ticket #29).
+    validateur_maths: bool = False
 
 
 class ChangementMotDePasse(BaseModel):
