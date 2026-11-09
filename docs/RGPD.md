@@ -85,3 +85,23 @@ comptes parents en production :
 | ☐ | Cas des parents séparés ou d'un retrait d'autorité parentale : le professeur retire le compte concerné (« Retirer » dans la fiche de l'élève) |
 | ☐ | Élèves majeurs (Terminale) : décider avec le DPO si le suivi parental reste ouvert sans leur accord |
 | ⚠️ | Le code choisi par un parent est plus facile à deviner qu'un code tiré au hasard : les règles ci-dessus et le blocage après 5 essais limitent ce risque |
+
+## 7. Remarques et suggestions (ticket #30) — à valider avec le délégué à la protection des données
+
+- Élèves, parents et professeurs connectés envoient une remarque **avec leur nom** ou **anonyme** ; le choix est
+  obligatoire avant l'envoi.
+- **Anonyme** : aucune identité n'est enregistrée avec la remarque (ni nom, ni rôle, ni identifiant de compte ;
+  une contrainte de la base l'interdit). Rien ne peut donc apparaître dans l'administration, l'export CSV ou le
+  journal. Le compte connecté ne sert qu'à limiter le spam, en mémoire (10 remarques par heure et par compte,
+  30 par adresse IP), sans trace durable. L'interface rappelle les limites : l'utilisateur est connecté et le texte
+  qu'il écrit peut permettre de le reconnaître.
+- **Avec son nom** : rôle, identifiant et nom affiché (prénom et classe pour un élève) sont visibles des seuls
+  administrateurs, dans l'écran et l'export.
+- Suivi : référence aléatoire (`R-` + 8 caractères) et code de suivi confidentiel de 12 caractères, montré une
+  seule fois ; seule son empreinte (HMAC-SHA-256 avec la clé du serveur) est conservée. Essais de suivi limités
+  par adresse IP.
+- Journal d'administration : seulement le traitement (statut, priorité, assignation, présence d'une réponse),
+  jamais l'identité de l'auteur ni le texte.
+- Conservation : même durée que les données des élèves (`PKP_RETENTION_JOURS`), comptée depuis le dernier
+  traitement ; supprimées par `python -m app.purge`.
+- Pas encore de pièce jointe (V1) : à ajouter avec contrôle du type, de la taille et suppression des métadonnées.

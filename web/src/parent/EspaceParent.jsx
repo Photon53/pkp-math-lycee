@@ -9,6 +9,7 @@ import { NIVEAUX, libelleNiveauParcours } from "../parcours.js";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { formaterDate, pourcentage } from "../ui/Cadre.jsx";
+import Remarques from "../ui/Remarques.jsx";
 
 const CLE_COMPTE = "pkp.parent";
 // Mêmes règles que l'API (app/security.py) : vérifiées ici pour un message immédiat.
@@ -125,6 +126,10 @@ function SuiviEnfants({ compte, onDeconnexion }) {
           <TableauEnfant key={e.id} enfantId={e.eleveId} appeler={appeler} compte={compte} onExpire={onDeconnexion} onCode={charger} />
         ),
       )}
+      <details className="carte">
+        <summary>Remarques et suggestions</summary>
+        <Remarques jeton={compte.jeton} onExpire={onDeconnexion} />
+      </details>
     </>
   );
 }

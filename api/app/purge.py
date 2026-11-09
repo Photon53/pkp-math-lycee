@@ -2,7 +2,7 @@
 
 Les comptes parents qui ne suivent plus aucun enfant sont supprimés en même temps.
 
-Les archives d'inscriptions plus anciennes que la durée de conservation sont supprimées aussi.
+Les archives d'inscriptions et les remarques plus anciennes que la durée de conservation sont supprimées aussi.
 Activité = début de la dernière séance, ou date de création si l'élève n'a
 jamais commencé de séance. Séances et réponses partent en cascade.
 
@@ -66,6 +66,8 @@ def purger(
             session.delete(a_supprimer)
         # Les archives d'inscriptions (V3) ont la même durée de conservation, comptée depuis leur archivage.
         session.execute(delete(models.ArchiveInscription).where(models.ArchiveInscription.archivee_le < limite))
+        # Remarques et suggestions (ticket #30) : même durée, comptée depuis leur dernier traitement.
+        session.execute(delete(models.Remarque).where(models.Remarque.maj_le < limite))
         # Les comptes parents qui ne suivent plus aucun enfant partent avec le dernier.
         parents.supprimer_orphelins(session)
         session.commit()

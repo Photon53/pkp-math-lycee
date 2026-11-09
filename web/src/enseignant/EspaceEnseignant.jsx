@@ -11,6 +11,7 @@ import EnDirect from "./EnDirect.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
+import Remarques from "../ui/Remarques.jsx";
 import Validation from "./Validation.jsx";
 
 // Session partagée avec l'espace PKP Anglais : un professeur des deux disciplines ne se connecte qu'une fois.
@@ -23,6 +24,7 @@ const PAGES = [
   { vers: "/enseignant/pkp-math", libelle: "Boussole Maths (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
+  { vers: "/enseignant/remarques", libelle: "Remarques et suggestions", icone: "crayon" },
 ];
 // Validateurs en maths (ticket #29) : consulter, modifier et valider les cours et exercices de leur périmètre.
 const VALIDATION = { vers: "/enseignant/validation", libelle: "Validation", icone: "bouclier" };
@@ -103,6 +105,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
+      {page.vers === "/enseignant/remarques" && <Remarques {...props} />}
       {page.vers === "/enseignant/validation" && <Validation {...props} chemin={chemin} />}
       {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} /></section>}
     </CadreApplication>

@@ -559,6 +559,46 @@ class Reponse(Base):
     question: Mapped[Question] = relationship()
 
 
+class Remarque(Base):
+    """Remarque ou suggestion d'un élève, d'un parent ou d'un professeur (ticket #30).
+
+    Anonyme : aucune identité n'est enregistrée (ni nom, ni rôle, ni identifiant de compte) ; l'auteur suit sa
+    remarque avec la référence et le code de suivi confidentiel (seule son empreinte est conservée).
+    Avec son nom : rôle, identifiant et nom affiché de l'auteur, visibles des administrateurs qui la traitent.
+    """
+
+    __tablename__ = "remarque"
+    __table_args__ = (
+        CheckConstraint(
+            "categorie IN ('bug', 'dysfonctionnement', 'amelioration-fonctionnelle', 'amelioration-pedagogique', "
+            "'erreur-pedagogique', 'lien-inaccessible', 'question', 'autre')",
+            name="categorie",
+        ),
+        CheckConstraint("statut IN ('recue', 'en-cours', 'resolue', 'fermee')", name="statut"),
+        CheckConstraint("priorite IN ('basse', 'normale', 'haute')", name="priorite"),
+        CheckConstraint("NOT anonyme OR (auteur_role IS NULL AND auteur_id IS NULL AND auteur_nom IS NULL)", name="anonymat"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    reference: Mapped[str] = mapped_column(String(20), unique=True)
+    code_suivi_empreinte: Mapped[str] = mapped_column(String(64))
+    categorie: Mapped[str] = mapped_column(String(30), index=True)
+    description: Mapped[str] = mapped_column(String(3000))
+    page: Mapped[str | None] = mapped_column(String(300))  # lien, page, cours ou exercice concerné
+    anonyme: Mapped[bool] = mapped_column(Boolean)
+    auteur_role: Mapped[str | None] = mapped_column(String(12))  # eleve, parent, professeur
+    auteur_id: Mapped[int | None] = mapped_column(Integer)
+    auteur_nom: Mapped[str | None] = mapped_column(String(120))
+    statut: Mapped[str] = mapped_column(String(10), default="recue", index=True)
+    priorite: Mapped[str] = mapped_column(String(10), default="normale")
+    assignee_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    reponse: Mapped[str | None] = mapped_column(String(3000))
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+    maj_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+
+    assignee: Mapped["Enseignant | None"] = relationship()
+
+
 class DemandeAide(Base):
     """« Je n'ai pas compris » d'un élève (ticket #28), sur un cours, un exercice ou sa correction.
 
