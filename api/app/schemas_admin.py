@@ -388,6 +388,8 @@ class QuestionAdmin(BaseModel):
     auteur: str | None
     nb_reponses: int
     taux_reussite: float | None
+    # Le compte connecté est validateur pour ce contenu (ticket #29) ; l'API le revérifie à chaque décision.
+    peut_valider: bool = False
 
 
 class PageQuestions(BaseModel):

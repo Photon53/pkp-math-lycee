@@ -65,6 +65,7 @@ class TestEleve:
         h = connecter_eleve(client)
         c = competence_ouverte(client, session, h)
         self._seule_question_texte(session, c)
-        assert repondre(client, h, c.id, " Peinte. ")["correcte"]
+        # D'abord faux (la question reste à retravailler), puis juste : une réussite la mettrait au repos (#26).
         r = repondre(client, h, c.id, "peins")
         assert not r["correcte"] and r["solution"] == "peint | peinte"
+        assert repondre(client, h, c.id, " Peinte. ")["correcte"]

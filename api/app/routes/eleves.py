@@ -9,9 +9,18 @@ from datetime import UTC, datetime
 from functools import cache
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import Question, Verdict, calculer_maitrise, choisir_prochaine_question, est_maitrisee, verifier
+from pkp_engine import (
+    ESPACEMENT_REVISION,
+    Question,
+    Verdict,
+    calculer_maitrise,
+    choisir_prochaine_question,
+    est_maitrisee,
+    questions_au_repos,
+    verifier,
+)
 from pkp_engine.formes import LIBELLES as LIBELLES_FORMES
-from sqlalchemy import select
+from sqlalchemy import String, and_, cast, select
 
 from app import exemplaires, inscriptions, limitation, permissions
 from app.auth import CARTE_BLOQUEE, CLASSE_ARCHIVEE, ELEVE, EleveCourant, SessionDB, carte_bloquee
@@ -33,6 +42,7 @@ from app.schemas import (
     ConnexionEleve,
     ConnexionIdentifiant,
     DemandeVariante,
+    Epuisement,
     PageHistorique,
     EleveInfo,
     InscriptionLiee,
@@ -271,16 +281,8 @@ def terminer_seance(seance_id: int, eleve: EleveCourant, session: SessionDB) -> 
     return seance
 
 
-@router.get(
-    "/seances/{seance_id}/question",
-    response_model=QuestionPublique,
-    responses={204: {"description": "Aucune question disponible dans les chapitres de la séance."}},
-)
-def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
-    seance = _seance_ouverte(session, seance_id, eleve)
-    if seance.question_courante is not None:
-        return exemplaires.publique(seance.question_courante, seance.tirage_courant)
-
+def _candidates(session: SessionDB, seance: models.Seance, eleve: models.Eleve) -> list[Question]:
+    """Questions que cette séance peut servir, pour le moteur."""
     # Les colonnes de la question du moteur, sans charger chaque objet entier (correction, gabarit…) :
     # ce serait plus cher que tout le reste de la requête. La question choisie est lue ensuite.
     questions = list(
@@ -294,6 +296,8 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
                 models.Question.difficulte,
                 models.Question.forme,
                 models.Question.statut_validation,
+                # Colonne JSON : « sans gabarit » y est un null JSON, pas un NULL SQL.
+                and_(models.Question.gabarit.is_not(None), cast(models.Question.gabarit, String) != "null").label("variable"),
             )
             .join(models.Competence)
             .join(models.Chapitre)
@@ -310,15 +314,46 @@ def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB):
     )
     if settings.servir_questions_non_validees:
         questions = validees_en_priorite(session, questions)
-    historique = historique_eleve(session, eleve.id, {q.competence_id for q in questions})
-    choix = choisir_prochaine_question(
-        [Question(q.id, q.competence_id, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme) for q in questions],
-        historique,
-    )
+    return [
+        Question(q.id, q.competence_id, q.enonce, q.type, q.solution, q.difficulte, forme=q.forme, variable=bool(q.variable))
+        for q in questions
+    ]
+
+
+@router.get(
+    "/seances/{seance_id}/question",
+    response_model=QuestionPublique,
+    responses={204: {"description": "Rien à proposer : voir /seances/{seance_id}/epuisement."}},
+)
+def question_suivante(seance_id: int, eleve: EleveCourant, session: SessionDB, revision: bool = False):
+    """`revision=true` : l'élève demande à revoir des questions déjà réussies (ticket #26) ; sinon une
+    question réussie reste au repos le temps de `ESPACEMENT_REVISION` réponses."""
+    seance = _seance_ouverte(session, seance_id, eleve)
+    if seance.question_courante is not None:
+        return exemplaires.publique(seance.question_courante, seance.tirage_courant)
+
+    candidates = _candidates(session, seance, eleve)
+    historique = historique_eleve(session, eleve.id, {q.competence_id for q in candidates})
+    choix = choisir_prochaine_question(candidates, historique, espacement=0 if revision else ESPACEMENT_REVISION)
     if choix is None:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     return _servir(session, seance, session.get(models.Question, choix.id))
+
+
+@router.get("/seances/{seance_id}/epuisement", response_model=Epuisement)
+def epuisement(seance_id: int, eleve: EleveCourant, session: SessionDB) -> Epuisement:
+    """Pourquoi la séance n'a plus de question : banque vide, ou tout est déjà réussi récemment (l'élève
+    peut alors réviser, choisir d'autres chapitres ou terminer : pas de boucle silencieuse)."""
+    seance = _seance_ouverte(session, seance_id, eleve)
+    candidates = _candidates(session, seance, eleve)
+    historique = historique_eleve(session, eleve.id, {q.competence_id for q in candidates})
+    au_repos = questions_au_repos(historique) & {q.id for q in candidates}
+    return Epuisement(
+        motif="toutes-reussies" if candidates else "aucune-question",
+        nb_questions=len(candidates),
+        nb_au_repos=len(au_repos),
+    )
 
 
 def _servir(session: SessionDB, seance: models.Seance, question: models.Question) -> dict:

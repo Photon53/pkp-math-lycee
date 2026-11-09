@@ -182,6 +182,14 @@ def domaines_valides(enseignant: models.Enseignant) -> set[str]:
     return {h.domaine_code for h in enseignant.habilitations if h.role == VALIDATEUR}
 
 
+DOMAINES_MATHS = (MATHS_COLLEGE, MATHS_LYCEE)
+
+
+def valide_les_maths(enseignant: models.Enseignant) -> bool:
+    """Validateur d'au moins un domaine de maths : page « Validation » de l'espace professeur (ticket #29)."""
+    return bool(domaines_valides(enseignant) & set(DOMAINES_MATHS))
+
+
 def refus_domaine_ferme(session: Session, domaine: str) -> str | None:
     """Un domaine non public n'accepte ni nouvelle séance d'élève, ni nouvelle classe ou nouveau groupe (EX.4)."""
     d = session.get(models.DomainePedagogique, domaine)

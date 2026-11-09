@@ -11,6 +11,7 @@ import EnDirect from "./EnDirect.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
+import Validation from "./Validation.jsx";
 
 // Session partagée avec l'espace PKP Anglais : un professeur des deux disciplines ne se connecte qu'une fois.
 export const CLE_COMPTE = "pkp.enseignant";
@@ -23,6 +24,8 @@ const PAGES = [
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
 ];
+// Validateurs en maths (ticket #29) : consulter, modifier et valider les cours et exercices de leur périmètre.
+const VALIDATION = { vers: "/enseignant/validation", libelle: "Validation", icone: "bouclier" };
 
 export default function EspaceEnseignant({ chemin = "/enseignant" }) {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
@@ -46,7 +49,8 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
     );
   }
   // Session ouverte avant l'ajout des disciplines : le champ manque, le compte reste un compte de maths.
-  if (compte.enseigne_maths === false && !compte.enseigne_francais) {
+  const enseigne = compte.enseigne_maths !== false || Boolean(compte.enseigne_francais);
+  if (!enseigne && !compte.validateur_maths) {
     return (
       <PageSimple>
         <AccesReserve
@@ -59,16 +63,18 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
     );
   }
 
-  const page = PAGES.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
+  // Un validateur qui n'enseigne pas les maths n'a que la page Validation (l'API refuse le reste).
+  const pages = !enseigne ? [VALIDATION] : compte.validateur_maths ? [...PAGES, VALIDATION] : PAGES;
+  const page = pages.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
     (a, b) => b.vers.length - a.vers.length,
-  )[0] ?? PAGES[0];
+  )[0] ?? pages[0];
   const props = { jeton: compte.jeton, onExpire: deconnecter };
 
   return (
     <CadreApplication
       espace="Espace professeur"
       marque="Maths"
-      liens={PAGES}
+      liens={pages}
       cheminActif={chemin}
       pied={
         <>
@@ -97,6 +103,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
+      {page.vers === "/enseignant/validation" && <Validation {...props} chemin={chemin} />}
       {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} /></section>}
     </CadreApplication>
   );

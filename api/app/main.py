@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routes import admin, admin_contenu, archivage, cartes, cours, domaines, eleves, enseignants, enseignants_contenu, health, parents, ressources, anglais, anglais_eleves, enfants, familles, masse, pkp_math, repertoire, suivi
+from app.routes import admin, admin_contenu, archivage, cartes, cours, domaines, eleves, enseignants, enseignants_contenu, health, parents, ressources, anglais, anglais_eleves, enfants, familles, masse, pkp_math, repertoire, suivi, validation_maths
 
 # En production, la documentation interactive n'est pas exposée publiquement.
 app = FastAPI(
@@ -35,6 +35,7 @@ app.include_router(enseignants.router)
 app.include_router(parents.router)
 app.include_router(cours.router)
 app.include_router(enseignants_contenu.router)
+app.include_router(validation_maths.router)
 app.include_router(ressources.router)
 app.include_router(masse.router)
 app.include_router(cartes.router)
