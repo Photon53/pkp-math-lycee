@@ -559,6 +559,39 @@ class Reponse(Base):
     question: Mapped[Question] = relationship()
 
 
+class DemandeAide(Base):
+    """« Je n'ai pas compris » d'un élève (ticket #28), sur un cours, un exercice ou sa correction.
+
+    Pour un cours, chaque avis (« J'ai compris » / « Je n'ai pas compris ») ajoute une ligne : l'avis courant est
+    la ligne la plus récente de l'élève pour cette compétence, l'historique des changements d'avis est conservé.
+    Le professeur marque une demande « prise en charge » puis « résolue » sans rien effacer.
+    C'est une auto-déclaration de l'élève : elle ne change pas la maîtrise mesurée.
+    """
+
+    __tablename__ = "demande_aide"
+    __table_args__ = (
+        CheckConstraint("objet IN ('cours', 'exercice', 'corrige')", name="objet"),
+        CheckConstraint("statut IN ('compris', 'ouverte', 'prise-en-charge', 'resolue')", name="statut"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    eleve_id: Mapped[int] = mapped_column(ForeignKey("eleve.id", ondelete="CASCADE"), index=True)
+    competence_id: Mapped[int] = mapped_column(ForeignKey("competence.id", ondelete="CASCADE"), index=True)
+    question_id: Mapped[int | None] = mapped_column(ForeignKey("question.id", ondelete="CASCADE"))
+    seance_id: Mapped[int | None] = mapped_column(ForeignKey("seance.id", ondelete="SET NULL"))
+    objet: Mapped[str] = mapped_column(String(10))
+    # « compris » : avis positif sur un cours (aucune demande) ; sinon une demande et son suivi.
+    statut: Mapped[str] = mapped_column(String(20))
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+    traitee_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    traitee_par_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+
+    eleve: Mapped["Eleve"] = relationship()
+    competence: Mapped["Competence"] = relationship()
+    question: Mapped["Question | None"] = relationship()
+    traitee_par: Mapped["Enseignant | None"] = relationship()
+
+
 class JournalAdmin(Base):
     """Toute écriture d'un administrateur : qui, quoi, sur quel objet, avant et après."""
 

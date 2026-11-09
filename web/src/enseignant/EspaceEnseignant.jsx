@@ -7,6 +7,7 @@ import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
 import Classes from "./Classes.jsx";
 import CoursEnseignant from "./CoursEnseignant.jsx";
+import EnDirect from "./EnDirect.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
@@ -16,6 +17,7 @@ export const CLE_COMPTE = "pkp.enseignant";
 
 const PAGES = [
   { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
+  { vers: "/enseignant/seance", libelle: "Séance en direct", icone: "tableau" },
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
   { vers: "/enseignant/pkp-math", libelle: "Boussole Maths (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
@@ -91,6 +93,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant" && (
         <Classes {...props} maths={compte.enseigne_maths !== false} francais={Boolean(compte.enseigne_francais)} />
       )}
+      {page.vers === "/enseignant/seance" && <EnDirect {...props} />}
       {page.vers === "/enseignant/cours" && <CoursEnseignant {...props} chemin={chemin} />}
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
