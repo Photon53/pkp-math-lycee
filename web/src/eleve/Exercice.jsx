@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { BarreMaitrise, Difficulte, Erreur, LIBELLES_TYPE, solutionLisible } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
+import { AideExercice } from "./Comprehension.jsx";
 import { Correction } from "../ui/Pedagogie.jsx";
 import { ecrire, lire } from "../stockage.js";
 
@@ -382,6 +383,13 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
                 onVoir: (ancre) => onVoirCours(question.competence_id, { ancre }),
               }
             }
+          />
+          <AideExercice
+            key={question.id}
+            seanceId={seanceId}
+            questionId={question.id}
+            jeton={jeton}
+            avecCorrection={Boolean(resultat.correction)}
           />
           {!resultat.correction && resultat.rappel && (
             <details className="correction" open={!resultat.correcte}>
