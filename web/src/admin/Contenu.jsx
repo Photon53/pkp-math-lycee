@@ -294,7 +294,8 @@ function FenetreArbre({ fenetre, niveau, appeler, onFermer, onFait }) {
   );
 }
 
-function EditeurLecon({ jeton, onExpire, competenceId }) {
+/** `base` : API (« /admin » ou « /enseignants/validation ») ; `retour` : adresse de la liste (ticket #29). */
+export function EditeurLecon({ jeton, onExpire, competenceId, base = "/admin", retour = "/admin/cours" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [lecon, setLecon] = useState(null);
   const [cours, setCours] = useState("");
@@ -310,8 +311,8 @@ function EditeurLecon({ jeton, onExpire, competenceId }) {
   }, []);
 
   useEffect(() => {
-    appeler(`/admin/lecons/${competenceId}`).then(appliquer, () => {});
-  }, [appeler, competenceId, appliquer]);
+    appeler(`${base}/lecons/${competenceId}`).then(appliquer, () => {});
+  }, [appeler, competenceId, appliquer, base]);
 
   const invalides = useMemo(() => [...formulesInvalides(cours), ...formulesInvalides(resume)], [cours, resume]);
   const modifie = lecon && (cours !== lecon.cours || resume !== lecon.resume);
@@ -319,7 +320,7 @@ function EditeurLecon({ jeton, onExpire, competenceId }) {
   async function enregistrer() {
     setMessage(null);
     try {
-      appliquer(await appeler(`/admin/lecons/${competenceId}`, { methode: "POST", corps: { cours, resume } }));
+      appliquer(await appeler(`${base}/lecons/${competenceId}`, { methode: "POST", corps: { cours, resume } }));
       setMessage("Leçon enregistrée. La version précédente est conservée.");
     } catch {
       // erreur déjà affichée
@@ -328,7 +329,7 @@ function EditeurLecon({ jeton, onExpire, competenceId }) {
 
   async function voirVersion(id) {
     try {
-      setVersion(await appeler(`/admin/lecons/versions/${id}`));
+      setVersion(await appeler(`${base}/lecons/versions/${id}`));
     } catch {
       // erreur déjà affichée
     }
@@ -337,7 +338,7 @@ function EditeurLecon({ jeton, onExpire, competenceId }) {
   async function restaurer() {
     if (!window.confirm("Restaurer cette version ? L'état actuel sera conservé dans l'historique.")) return;
     try {
-      appliquer(await appeler(`/admin/lecons/versions/${version.id}/restaurer`, { methode: "POST" }));
+      appliquer(await appeler(`${base}/lecons/versions/${version.id}/restaurer`, { methode: "POST" }));
       setVersion(null);
       setMessage("Version restaurée.");
     } catch {
@@ -347,7 +348,7 @@ function EditeurLecon({ jeton, onExpire, competenceId }) {
 
   return (
     <>
-      <button className="lien" style={{ paddingLeft: 0 }} onClick={() => naviguer("/admin/cours")}>
+      <button className="lien" style={{ paddingLeft: 0 }} onClick={() => naviguer(retour)}>
         ← Arborescence
       </button>
       <Erreur message={erreur} />

@@ -54,6 +54,8 @@ CHAMPS_QUESTION = (
 # Le fond d'une question déjà répondue ne change pas : les statistiques resteraient fausses (EA3.18).
 # La forme exigée en fait partie : elle change ce qui est compté juste.
 CHAMPS_DE_FOND = ("enonce", "type", "solution", "forme", "competence_id")
+# Ce qu'un élève voit ou ce qui décide de sa note : changé après validation, la question repart « à valider ».
+CHAMPS_A_RELIRE = (*CHAMPS_DE_FOND, "difficulte")
 
 
 def _maintenant() -> datetime:
@@ -287,7 +289,8 @@ def _requete_stats():
     )
 
 
-def _vue_question(q: models.Question, n: int | None, c: int | None) -> QuestionAdmin:
+def _vue_question(q: models.Question, n: int | None, c: int | None, compte: models.Enseignant | None = None) -> QuestionAdmin:
+    chapitre = q.competence.chapitre
     return QuestionAdmin(
         id=q.id, code=q.code, competence_id=q.competence_id, competence=q.competence.libelle,
         chapitre=q.competence.chapitre.titre, niveau=q.competence.chapitre.niveau, enonce=q.enonce, type=q.type,
@@ -295,12 +298,14 @@ def _vue_question(q: models.Question, n: int | None, c: int | None) -> QuestionA
         licence_source=q.licence_source, adaptation=q.adaptation, statut_validation=q.statut_validation,
         valide_par=q.valide_par, valide_le=q.valide_le, auteur=q.auteur, nb_reponses=n or 0,
         taux_reussite=(c or 0) / n if n else None,
+        # Ticket #29 : le bouton « Valider » n'est montré qu'à qui peut valider ce contenu (l'API le revérifie).
+        peut_valider=compte is not None and permissions.peut_valider(compte, chapitre.domaine_code, chapitre.niveau.value),
     )
 
 
 @router.get("/questions", response_model=PageQuestions)
 def questions(
-    _: AdminCourant,
+    admin: AdminCourant,
     session: SessionDB,
     domaine: FiltreDomaine,
     niveau: Niveau | None = None,
@@ -313,7 +318,32 @@ def questions(
     q: str | None = None,
     page: int = 1,
 ) -> PageQuestions:
+    return lister_questions(
+        session, admin, domaine=domaine, niveau=niveau, chapitre_id=chapitre_id, competence_id=competence_id, type=type,
+        difficulte=difficulte, statut=statut, archivees=archivees, q=q, page=page,
+    )
+
+
+def lister_questions(
+    session: SessionDB,
+    compte: models.Enseignant,
+    *,
+    domaine: str | None = None,
+    niveau: Niveau | None = None,
+    chapitre_id: int | None = None,
+    competence_id: int | None = None,
+    type: TypeQuestion | None = None,
+    difficulte: int | None = None,
+    statut: StatutValidation | None = None,
+    archivees: bool = False,
+    q: str | None = None,
+    page: int = 1,
+    perimetre=None,
+) -> PageQuestions:
+    """Banque filtrée ; `perimetre` : condition SQL sur le chapitre (espace validateur du professeur)."""
     filtres = [] if archivees else [models.Question.archivee.is_(False)]
+    if perimetre is not None:
+        filtres.append(perimetre)
     if niveau is not None:
         filtres.append(models.Chapitre.niveau == niveau)
     if domaine:
@@ -344,7 +374,7 @@ def questions(
         .offset((max(page, 1) - 1) * TAILLE_PAGE)
         .limit(TAILLE_PAGE)
     ).all()
-    return PageQuestions(total=total, elements=[_vue_question(qu, n, c) for qu, n, c in lignes])
+    return PageQuestions(total=total, elements=[_vue_question(qu, n, c, compte) for qu, n, c in lignes])
 
 
 def _question(session: SessionDB, question_id: int) -> models.Question:
@@ -354,10 +384,10 @@ def _question(session: SessionDB, question_id: int) -> models.Question:
     return q
 
 
-def _vue_question_seule(session: SessionDB, q: models.Question) -> QuestionAdmin:
+def _vue_question_seule(session: SessionDB, q: models.Question, compte: models.Enseignant | None = None) -> QuestionAdmin:
     stats = _requete_stats()
     ligne = session.execute(select(stats.c.n, stats.c.c).where(stats.c.question_id == q.id)).first()
-    return _vue_question(q, *(ligne or (0, 0)))
+    return _vue_question(q, *(ligne or (0, 0)), compte)
 
 
 def _verdict(type_: TypeQuestion, solution: str, reponse: str | None = None, forme: Forme | None = None) -> Verdict | None:
@@ -400,7 +430,7 @@ def creer_question(corps: QuestionEdition, admin: AdminCourant, session: Session
     session.flush()
     journal.noter(session, admin, "creer", "question", q.id, apres=journal.instantane(q, CHAMPS_QUESTION))
     session.commit()
-    return _vue_question_seule(session, q)
+    return _vue_question_seule(session, q, admin)
 
 
 @router.post("/questions/{question_id}", response_model=QuestionAdmin)
@@ -425,12 +455,18 @@ def modifier_question(question_id: int, corps: QuestionEdition, admin: AdminCour
     if not all(_solution_lisible(corps.type, solution, corps.forme) for solution in solutions):
         raise HTTPException(422, "Solution illisible par le moteur de correction, ou pas sous la forme demandée.")
     avant = journal.instantane(q, CHAMPS_QUESTION)
+    # Ticket #29 : une question validée dont le contenu change repart en relecture (jamais publiée sans revue).
+    revoir = q.statut_validation == StatutValidation.VALIDEE and any(
+        valeurs[c] != getattr(q, c) for c in CHAMPS_A_RELIRE
+    )
     for cle, valeur in valeurs.items():
         setattr(q, cle, valeur)
+    if revoir:
+        q.statut_validation, q.valide_par, q.valide_le = StatutValidation.A_VALIDER, None, None
     q.modifiee_admin_le = _maintenant()
     journal.noter(session, admin, "modifier", "question", q.id, avant, journal.instantane(q, CHAMPS_QUESTION))
     session.commit()
-    return _vue_question_seule(session, q)
+    return _vue_question_seule(session, q, admin)
 
 
 @router.post("/questions/{question_id}/validation", response_model=QuestionAdmin)
@@ -452,7 +488,7 @@ def valider(question_id: int, corps: Validation, admin: AdminCourant, session: S
     q.modifiee_admin_le = _maintenant()
     journal.noter(session, admin, "valider", "question", q.id, avant, journal.instantane(q, ("statut_validation", "valide_par", "valide_le")))
     session.commit()
-    return _vue_question_seule(session, q)
+    return _vue_question_seule(session, q, admin)
 
 
 @router.post("/questions/{question_id}/archivage", response_model=QuestionAdmin)
@@ -463,7 +499,7 @@ def archiver(question_id: int, corps: Archivage, admin: AdminCourant, session: S
     q.modifiee_admin_le = _maintenant()
     journal.noter(session, admin, "archiver" if corps.archivee else "desarchiver", "question", q.id)
     session.commit()
-    return _vue_question_seule(session, q)
+    return _vue_question_seule(session, q, admin)
 
 
 # --- Ressources communes et modération -------------------------------------------------------

@@ -20,9 +20,16 @@ const VIDE = {
 
 const FORMES = { "": "Seule la valeur compte", developpee: "Développée", reduite: "Développée et réduite", factorisee: "Factorisée" };
 
-/** Banque d'exercices : filtres, édition testée par le moteur, validation, archivage (EA3.15 à EA3.19). */
-export default function Exercices({ jeton, onExpire, domaine = "" }) {
+/**
+ * Banque d'exercices : filtres, édition testée par le moteur, validation, archivage (EA3.15 à EA3.19).
+ * `base` : « /admin » (administration) ou « /enseignants/validation » (page Validation d'un professeur
+ * validateur, ticket #29 : ni création ni archivage, seulement son périmètre).
+ */
+export default function Exercices({ jeton, onExpire, domaine = "", base = "/admin" }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
+  const administration = base === "/admin";
+  // Retour de la dernière action, affiché sur la ligne de la question (jamais hors de l'écran).
+  const [retour, setRetour] = useState(null);
   const [filtres, setFiltres] = useState(() => ({
     niveau: "", type: "", statut: "", archivees: false,
     q: new URLSearchParams(window.location.search).get("q") ?? "",
@@ -36,8 +43,8 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
     const params = new URLSearchParams({ page: String(page), archivees: String(filtres.archivees) });
     for (const cle of ["niveau", "type", "statut", "q"]) if (filtres[cle]) params.set(cle, filtres[cle]);
     if (domaine) params.set("domaine", domaine);
-    return appeler(`/admin/questions?${params}`).then(setDonnees, () => {});
-  }, [appeler, filtres, page, domaine]);
+    return appeler(`${base}/questions?${params}`).then(setDonnees, () => {});
+  }, [appeler, filtres, page, domaine, base]);
 
   useEffect(() => {
     const minuterie = setTimeout(charger, 250);
@@ -45,11 +52,11 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
   }, [charger]);
 
   useEffect(() => {
-    appeler("/admin/contenu").then(
+    appeler(`${base}/contenu`).then(
       (arbre) => setCompetences(arbre.flatMap((ch) => ch.competences.map((c) => ({ ...c, chapitre: ch.titre, niveau: ch.niveau })))),
       () => {},
     );
-  }, [appeler]);
+  }, [appeler, base]);
 
   const filtre = (cle) => ({
     value: filtres[cle],
@@ -60,11 +67,13 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
   });
 
   async function valider(q, statut) {
+    setRetour({ id: q.id, envoi: true });
     try {
-      await appeler(`/admin/questions/${q.id}/validation`, { methode: "POST", corps: { statut } });
+      await appeler(`${base}/questions/${q.id}/validation`, { methode: "POST", corps: { statut } });
+      setRetour({ id: q.id, ok: true, texte: statut === "validee" ? "Question validée." : "Question marquée « à corriger »." });
       charger();
-    } catch {
-      // erreur déjà affichée
+    } catch (err) {
+      setRetour({ id: q.id, ok: false, texte: err.message || "La décision n'a pas été enregistrée." });
     }
   }
 
@@ -74,7 +83,7 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
       : "Archiver cette question ? Elle ne sera plus proposée aux élèves ; leur historique est conservé.";
     if (!window.confirm(texte)) return;
     try {
-      await appeler(`/admin/questions/${q.id}/archivage`, { methode: "POST", corps: { archivee: !q.archivee } });
+      await appeler(`${base}/questions/${q.id}/archivage`, { methode: "POST", corps: { archivee: !q.archivee } });
       charger();
     } catch {
       // erreur déjà affichée
@@ -132,9 +141,11 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
             <button className="secondaire" onClick={() => exporterCsv("questions.csv", donnees?.elements ?? [])} disabled={!donnees?.elements.length}>
               CSV
             </button>
-            <button onClick={() => setEdition(VIDE)}>
-              <Icone nom="plus" taille={18} /> Nouvelle question
-            </button>
+            {administration && (
+              <button onClick={() => setEdition(VIDE)}>
+                <Icone nom="plus" taille={18} /> Nouvelle question
+              </button>
+            )}
           </span>
         </div>
         <Erreur message={erreur} />
@@ -184,20 +195,30 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
                           <button className="icone" title="Modifier" aria-label={`Modifier la question ${q.code ?? q.id}`} onClick={() => setEdition(q)}>
                             <Icone nom="crayon" />
                           </button>
-                          {q.statut_validation !== "validee" && (
-                            <button className="secondaire petit" onClick={() => valider(q, "validee")}>
+                          {q.peut_valider && q.statut_validation !== "validee" && (
+                            <button className="secondaire petit" disabled={retour?.id === q.id && retour.envoi} onClick={() => valider(q, "validee")}>
                               Valider
                             </button>
                           )}
-                          {q.statut_validation !== "a-corriger" && (
-                            <button className="secondaire petit" onClick={() => valider(q, "a-corriger")}>
+                          {q.peut_valider && q.statut_validation !== "a-corriger" && (
+                            <button className="secondaire petit" disabled={retour?.id === q.id && retour.envoi} onClick={() => valider(q, "a-corriger")}>
                               À corriger
                             </button>
                           )}
-                          <button className="secondaire petit" onClick={() => archiver(q)}>
-                            {q.archivee ? "Désarchiver" : "Archiver"}
-                          </button>
+                          {administration && (
+                            <button className="secondaire petit" onClick={() => archiver(q)}>
+                              {q.archivee ? "Désarchiver" : "Archiver"}
+                            </button>
+                          )}
                         </div>
+                        {!q.peut_valider && q.statut_validation !== "validee" && (
+                          <div className="aide">Validation réservée aux validateurs de ce niveau</div>
+                        )}
+                        {retour?.id === q.id && retour.texte && (
+                          <p className={retour.ok ? "succes" : "erreur"} role={retour.ok ? "status" : "alert"} style={{ textAlign: "left" }}>
+                            {retour.texte}
+                          </p>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -211,12 +232,18 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
 
       {edition && (
         <EditionQuestion
+          base={base}
           initiale={edition}
           competences={competences}
           appeler={appeler}
           onFermer={() => setEdition(null)}
-          onEnregistree={() => {
+          onEnregistree={(q) => {
             setEdition(null);
+            if (q && edition.statut_validation === "validee" && q.statut_validation !== "validee") {
+              setRetour({ id: q.id, ok: true, texte: "Modification enregistrée : la question repart en relecture (« à valider »)." });
+            } else if (q) {
+              setRetour({ id: q.id, ok: true, texte: "Modification enregistrée." });
+            }
             charger();
           }}
         />
@@ -225,7 +252,7 @@ export default function Exercices({ jeton, onExpire, domaine = "" }) {
   );
 }
 
-function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistree }) {
+function EditionQuestion({ base = "/admin", initiale, competences, appeler, onFermer, onEnregistree }) {
   const [v, setV] = useState(() => ({
     ...VIDE,
     ...Object.fromEntries(Object.entries(initiale).map(([k, x]) => [k, x ?? ""])),
@@ -243,7 +270,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
     setResultatEssai(null);
     try {
       setResultatEssai(
-        await appeler("/admin/questions/tester", { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || (v.type === "texte" ? reponsesAcceptees(v.solution)[0] ?? "" : v.solution), forme: formeExigee } }),
+        await appeler(`${base}/questions/tester`, { methode: "POST", corps: { type: v.type, solution: v.solution, reponse: essai || (v.type === "texte" ? reponsesAcceptees(v.solution)[0] ?? "" : v.solution), forme: formeExigee } }),
       );
     } catch (err) {
       setErreur(err.message);
@@ -259,8 +286,7 @@ function EditionQuestion({ initiale, competences, appeler, onFermer, onEnregistr
       licence_source: v.licence_source || null, adaptation: v.adaptation, auteur: v.auteur || null,
     };
     try {
-      await appeler(initiale.id ? `/admin/questions/${initiale.id}` : "/admin/questions", { methode: "POST", corps });
-      onEnregistree();
+      onEnregistree(await appeler(initiale.id ? `${base}/questions/${initiale.id}` : `${base}/questions`, { methode: "POST", corps }));
     } catch (err) {
       setErreur(err.message);
     }
