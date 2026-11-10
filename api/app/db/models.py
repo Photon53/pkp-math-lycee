@@ -805,6 +805,87 @@ class ArchiveInscription(Base):
     contenu: Mapped[dict] = mapped_column(JSON)
 
 
+class CompteServiceIA(Base):
+    """Compte de service du vérificateur IA (ticket #48), distinct des comptes humains.
+
+    Seule l'empreinte HMAC du jeton est conservée : le jeton est montré une fois à l'administrateur, qui le range dans
+    le gestionnaire de secrets du service IA. Durée limitée, révocation et renouvellement par un administrateur.
+    Le jeton n'ouvre que les routes /service-ia : lecture des exercices demandés et dépôt des rapports.
+    """
+
+    __tablename__ = "compte_service_ia"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nom: Mapped[str] = mapped_column(String(80))
+    empreinte: Mapped[str] = mapped_column(String(64), unique=True)
+    prefixe: Mapped[str] = mapped_column(String(24))  # début du jeton, pour le reconnaître sans le révéler
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+    cree_par_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    expire_le: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    revoque_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    revoque_par_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    dernier_usage_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class PrevalidationIA(Base):
+    """Une demande de prévalidation IA d'un exercice, puis son rapport (ticket #48).
+
+    Distincte de la validation pédagogique humaine : elle ne change jamais `Question.statut_validation`, ni le contenu.
+    `version` est l'empreinte du contenu examiné : si l'exercice change ensuite, le rapport devient obsolète.
+    """
+
+    __tablename__ = "prevalidation_ia"
+    __table_args__ = (
+        CheckConstraint("statut IN ('en-attente', 'terminee', 'annulee')", name="statut"),
+        CheckConstraint(
+            "resultat IS NULL OR resultat IN ('aucune-anomalie', 'a-revoir', 'erreur-detectee', 'incertain')",
+            name="resultat",
+        ),
+        CheckConstraint("verite_humaine IS NULL OR verite_humaine IN ('erronee', 'correcte')", name="verite_humaine"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    question_id: Mapped[int] = mapped_column(ForeignKey("question.id", ondelete="CASCADE"), index=True)
+    lot: Mapped[str] = mapped_column(String(24), index=True)
+    version: Mapped[str] = mapped_column(String(64))
+    # Exemplaire examiné d'une question à valeurs variables : le même pour l'énoncé et pour le corrigé.
+    tirage: Mapped[dict | None] = mapped_column(JSON)
+    statut: Mapped[str] = mapped_column(String(12), default="en-attente", index=True)
+    resultat: Mapped[str | None] = mapped_column(String(20))
+    demandee_par_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    demandee_par_nom: Mapped[str] = mapped_column(String(100))
+    demandee_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+    compte_service_id: Mapped[int | None] = mapped_column(ForeignKey("compte_service_ia.id", ondelete="SET NULL"))
+    enonce_lu_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    corrige_lu_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    rendue_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    modele: Mapped[str | None] = mapped_column(String(100))
+    version_modele: Mapped[str | None] = mapped_column(String(100))
+    rapport: Mapped[dict | None] = mapped_column(JSON)
+    # Essai sur un lot relu par des professeurs : l'exercice était-il réellement erroné ? Mesure des erreurs non détectées.
+    verite_humaine: Mapped[str | None] = mapped_column(String(10))
+    verite_commentaire: Mapped[str | None] = mapped_column(String(1000))
+    verite_par_nom: Mapped[str | None] = mapped_column(String(100))
+    verite_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    question: Mapped["Question"] = relationship()
+    compte_service: Mapped["CompteServiceIA | None"] = relationship()
+
+
+class AccesServiceIA(Base):
+    """Journal des appels du compte de service IA, acceptés ou refusés (ticket #48)."""
+
+    __tablename__ = "acces_service_ia"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    compte_service_id: Mapped[int | None] = mapped_column(ForeignKey("compte_service_ia.id", ondelete="SET NULL"), index=True)
+    action: Mapped[str] = mapped_column(String(40))
+    prevalidation_id: Mapped[int | None] = mapped_column(Integer)
+    code_http: Mapped[int] = mapped_column(Integer)
+    ip: Mapped[str | None] = mapped_column(String(45))
+    le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, index=True)
+
+
 class SuppressionInterdite(RuntimeError):
     """Une question ne se supprime pas : mettre `archivee = True`."""
 
