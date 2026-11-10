@@ -22,12 +22,12 @@ describe("page d'accueil : état des parcours", () => {
     await waitFor(() => expect(appels.some((a) => a.cle === "GET /domaines/publics")).toBe(true));
 
     const { prets, chantiers } = listes();
-    expect(titres(prets)).toEqual(["Boussole Maths lycée", "Boussole Anglais collège"]);
+    expect(titres(prets)).toEqual(["PKP Maths lycée", "PKP Anglais collège"]);
     expect(within(prets).getByText("Seconde · Première · Terminale")).toBeInTheDocument();
     expect(within(prets).getByText("4e · 3e")).toBeInTheDocument();
     expect(within(prets).getAllByText("Ouvert")).toHaveLength(2);
 
-    expect(titres(chantiers)).toEqual(["Boussole Maths collège", "Boussole Anglais lycée", "Boussole Français collège", "Boussole Français lycée"]);
+    expect(titres(chantiers)).toEqual(["PKP Maths collège", "PKP Anglais lycée", "PKP Français collège", "PKP Français lycée"]);
     expect(within(chantiers).getAllByText("En construction")).toHaveLength(4);
   });
 
@@ -37,9 +37,9 @@ describe("page d'accueil : état des parcours", () => {
     fausseApi({ "GET /domaines/publics": { json: domaines } });
     render(<Accueil />);
 
-    await waitFor(() => expect(titres(listes().prets)).toContain("Boussole Maths collège"));
+    await waitFor(() => expect(titres(listes().prets)).toContain("PKP Maths collège"));
     const { chantiers } = listes();
-    expect(titres(chantiers)).toEqual(["Boussole Anglais lycée", "Boussole Français collège", "Boussole Français lycée"]);
+    expect(titres(chantiers)).toEqual(["PKP Anglais lycée", "PKP Français collège", "PKP Français lycée"]);
     expect(within(chantiers).getByText("En préparation")).toBeInTheDocument();
   });
 
@@ -48,7 +48,7 @@ describe("page d'accueil : état des parcours", () => {
     render(<Accueil />);
     await new Promise((r) => setTimeout(r, 0));
     const { prets, chantiers } = listes();
-    expect(titres(prets)).toEqual(["Boussole Maths lycée", "Boussole Anglais collège"]);
+    expect(titres(prets)).toEqual(["PKP Maths lycée", "PKP Anglais collège"]);
     expect(titres(chantiers)).toHaveLength(4);
   });
 });
@@ -74,12 +74,12 @@ describe("page d'accueil : attirer élèves, parents et professeurs", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Comment ça marche" })).toBeInTheDocument();
   });
 
-  it("présente Boussole et la Méthode Spirale", () => {
+  it("présente PKP Éducation et la méthode PKP", () => {
     fausseApi({});
     render(<Accueil />);
     expect(screen.getByText(/on revient sur les notions jusqu'à ce qu'elles tiennent/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Découvrir la Méthode Spirale" })).toHaveAttribute("href", "/methode");
-    expect(document.body.textContent).not.toMatch(/\bPKP\b/);
+    expect(screen.getByRole("link", { name: "Découvrir la méthode PKP" })).toHaveAttribute("href", "/methode");
+    expect(document.body.textContent).not.toMatch(/Boussole|Spirale|Maîtrise\+/);
   });
 
   it("affiche les chiffres clés renvoyés par l'API, sans les zéros", async () => {

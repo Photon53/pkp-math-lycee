@@ -51,25 +51,23 @@ export default function Icone({ nom, taille = 20, titre, className }) {
   );
 }
 
-/** Monogramme Boussole : un carré bleu encre et une aiguille de boussole (nord orange). */
+/** Monogramme PKP : un carré bleu encre et une racine carrée stylisée. */
 export function Monogramme({ taille = 32 }) {
   return (
     <svg className="monogramme" width={taille} height={taille} viewBox="0 0 32 32" aria-hidden="true">
       <rect width="32" height="32" rx="8" fill="#1f3a68" />
-      <circle cx="16" cy="16" r="10.5" fill="none" stroke="#ffffff" strokeWidth="2" />
-      <path d="M16 6.5 19.2 16h-6.4z" fill="#e07a1f" />
-      <path d="M16 25.5 12.8 16h6.4z" fill="#ffffff" />
-      <circle cx="16" cy="16" r="1.6" fill="#1f3a68" />
+      <path d="M6 17h3l3 7 5-15h9" fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="26" cy="9" r="2.2" fill="#e07a1f" />
     </svg>
   );
 }
 
-export function Logo({ vers = "/", marque = "Maîtrise+" }) {
+export function Logo({ vers = "/", marque = "Éducation" }) {
   return (
     <a className="logo" href={vers}>
       <Monogramme />
       <span>
-        Boussole <em>{marque}</em>
+        PKP <em>{marque}</em>
       </span>
     </a>
   );

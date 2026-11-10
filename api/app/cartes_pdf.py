@@ -89,7 +89,7 @@ def _contenu(c: Canvas, carte: CarteAImprimer, x: float, y: float, l: float, h: 
 
     c.setFillColor(NAVY)
     c.setFont("Helvetica-Bold", 8 * k)
-    c.drawString(gauche, haut - 8 * k, "BOUSSOLE · CARTE D'ACCÈS")
+    c.drawString(gauche, haut - 8 * k, "PKP ÉDUCATION · CARTE D'ACCÈS")
     c.setStrokeColor(NAVY)
     c.setLineWidth(0.8)
     c.line(gauche, haut - 11 * k, gauche + texte_l, haut - 11 * k)
@@ -148,7 +148,7 @@ def generer(cartes: list[CarteAImprimer], par_page: int, origine: str, titre: st
     flux = BytesIO()
     c = Canvas(flux, pagesize=A4, pageCompression=1)
     c.setTitle(titre)
-    c.setAuthor("Boussole")
+    c.setAuthor("PKP Éducation")
     for debut in range(0, len(cartes), par_page):
         _decoupe(c, colonnes, rangees, l, h)
         for i, carte in enumerate(cartes[debut:debut + par_page]):

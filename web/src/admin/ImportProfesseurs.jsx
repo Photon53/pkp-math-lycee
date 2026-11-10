@@ -30,7 +30,7 @@ export default function ImportProfesseurs({ jeton, onExpire, onFermer, onImporte
   }
 
   const modele = () =>
-    executer(telechargerFichier("/admin/import/professeurs/modele", jeton, "boussole-modele-professeurs.xlsx"));
+    executer(telechargerFichier("/admin/import/professeurs/modele", jeton, "pkp-modele-professeurs.xlsx"));
 
   async function verifier(e) {
     e.preventDefault();
@@ -92,7 +92,7 @@ export default function ImportProfesseurs({ jeton, onExpire, onFermer, onImporte
               className="secondaire"
               onClick={() =>
                 exporterCsv(
-                  "boussole-comptes-professeurs.csv",
+                  "pkp-comptes-professeurs.csv",
                   resultat.comptes.map(({ nom, email, mot_de_passe_provisoire }) => ({ nom, email, mot_de_passe_provisoire })),
                 )
               }
@@ -116,7 +116,7 @@ export default function ImportProfesseurs({ jeton, onExpire, onFermer, onImporte
           </button>
         </li>
         <li>Remplissez-le dans Excel (ou LibreOffice), enregistrez au format .xlsx.</li>
-        <li>Choisissez le fichier : Boussole vérifie chaque ligne sans rien enregistrer, puis vous lancez l'import.</li>
+        <li>Choisissez le fichier : PKP Éducation vérifie chaque ligne sans rien enregistrer, puis vous lancez l'import.</li>
       </ol>
       <form onSubmit={verifier} className="ligne-champs">
         <label>

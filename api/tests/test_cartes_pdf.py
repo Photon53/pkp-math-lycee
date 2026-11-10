@@ -10,7 +10,7 @@ from app.cartes_pdf import CarteAImprimer, generer
 from tests.conftest import connecter_admin, connecter_enseignant
 from tests.test_masse import _classeur, _importer
 
-ORIGINE = "https://boussole.test"
+ORIGINE = "https://pkp.test"
 
 
 def _lettres(i: int) -> str:
@@ -42,7 +42,7 @@ def test_mise_en_page_4_6_8_cartes_par_page():
     for par_page, attendu in ((8, 12), (6, 15), (4, 23)):
         assert len(_pages(generer(cartes, par_page, ORIGINE))) == attendu
     texte = _pages(generer(cartes[:8], 8, ORIGINE))[0]
-    assert "eleve7" in texte and "CODE0007" in texte and "boussole.test/eleve" in texte and "Seconde" in texte
+    assert "eleve7" in texte and "CODE0007" in texte and "pkp.test/eleve" in texte and "Seconde" in texte
 
 
 def test_reemission_de_90_cartes_en_12_pages(client):

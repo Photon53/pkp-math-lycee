@@ -90,7 +90,7 @@ CASES = {
     "referent_anglais": (VALIDATEUR, ANGLAIS_COLLEGE),
 }
 # La case « enseigne les maths » ouvre l'espace des classes, collège comme lycée.
-# Les cases d'anglais ouvrent l'espace Boussole Anglais, collège comme lycée.
+# Les cases d'anglais ouvrent l'espace PKP Anglais, collège comme lycée.
 AUSSI_COCHEE_PAR = {
     "enseigne_maths": [(PROFESSEUR, MATHS_COLLEGE)],
     "enseigne_anglais": [(PROFESSEUR, ANGLAIS_LYCEE)],
