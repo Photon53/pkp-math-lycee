@@ -45,6 +45,11 @@ class Settings(BaseSettings):
     # En production, le choix doit être explicite (PKP_SERVIR_QUESTIONS_NON_VALIDEES dans .env).
     servir_questions_non_validees: bool = True
 
+    # Prévalidation IA (ticket #48) : jetons du compte de service, à durée limitée, et plafonds d'usage.
+    service_ia_duree_max_j: int = 90
+    service_ia_requetes_par_minute: int = 60
+    prevalidation_ia_max_par_lot: int = 50
+
     # RGPD : un élève sans activité depuis ce délai est supprimé par la purge.
     retention_jours: int = 365
 

@@ -201,10 +201,12 @@ def refus_domaine_ferme(session: Session, domaine: str) -> str | None:
 # --- Permissions (CDC V2, EX.7) ------------------------------------------------------------------
 # Table de correspondance dans le code, pas un moteur configurable en base. L'admin a toutes les permissions
 # sauf `contenu.valider`, qui vient d'une habilitation de validateur, domaine par domaine (EX.9-bis).
+# `prevalidation.ia` (ticket #48) n'appartient qu'aux administrateurs : aucune habilitation ne la donne.
 
 PERMISSIONS = (
     "contenu.lire", "contenu.modifier", "contenu.soumettre", "contenu.valider", "contenu.publier",
     "comptes.gerer", "parents.gerer", "pilotage.global", "pilotage.domaine", "configuration",
+    "prevalidation.ia",
 )
 PAR_ROLE = {
     PROFESSEUR: ("contenu.lire", "contenu.soumettre", "pilotage.domaine"),
