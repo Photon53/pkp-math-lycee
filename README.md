@@ -21,6 +21,7 @@ des 8 tables et le découpage en 6 phases.
 - Protection des données : [docs/RGPD.md](docs/RGPD.md) (checklist à valider avec le DPO)
 - Rédiger cours et exercices : [docs/CONTENU.md](docs/CONTENU.md) (fichiers `contenu/<niveau>/<parcours>/*.yaml`)
 - État de la banque (matrice de couverture, trous, sources) : [docs/CONTENU-INVENTAIRE.md](docs/CONTENU-INVENTAIRE.md)
+- Prévalidation IA des exercices, réservée aux administrateurs : [docs/PREVALIDATION-IA.md](docs/PREVALIDATION-IA.md)
 - Audit (protocoles, grille de gravité, résultats) : [docs/audit/README.md](docs/audit/README.md)
 - Version 2 commerciale (périmètre, exigences, recette, décisions) : [docs/CAHIER-DES-CHARGES-V2.md](docs/CAHIER-DES-CHARGES-V2.md)
 
