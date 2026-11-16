@@ -67,8 +67,14 @@ competences:
     solution: '6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Un trinôme a une racine double si et seulement si son discriminant est nul : $\Delta = m^2 - 4 \times 1 \times 9$.'
       etapes:
-      - $\Delta = m^2 - 36 = 0$, donc $m = 6$ (ou $-6$).
+      - 'On calcule le discriminant : $\Delta = m^2 - 36$.'
+      - 'On impose $\Delta = 0$ : $m^2 = 36$, donc $m = 6$ ou $m = -6$.'
+      - 'La question demande la valeur strictement positive : $m = 6$.'
+      - 'Vérification : $x^2 + 6x + 9 = (x + 3)^2$, qui a bien une racine double $x = -3$.'
+      erreurs_frequentes:
+      - Donner $m = -6$, ou oublier de sélectionner la valeur positive.
       resultat: '6'
   - code: 1RE-EX-POLYNOMES-04
     difficulte: 4
@@ -77,8 +83,14 @@ competences:
     solution: '7'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Utiliser $x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1x_2 = S^2 - 2P$.
       etapes:
-      - $S^2 - 2P = 9 - 2 = 7$.
+      - 'On identifie la somme et le produit des racines : $S = 3$ et $P = 1$.'
+      - 'On développe : $x_1^2 + x_2^2 = S^2 - 2P$.'
+      - 'On calcule : $9 - 2 = 7$.'
+      - 'Vérification : les racines sont $\dfrac{3 \pm \sqrt{5}}{2}$, et la somme de leurs carrés vaut $\dfrac{9 + 6\sqrt{5} + 5}{4} + \dfrac{9 - 6\sqrt{5} + 5}{4} = 7$.'
+      erreurs_frequentes:
+      - Calculer $S^2 = 9$ en oubliant $-2P$, ou confondre $S$ et $P$.
       resultat: '7'
   - code: 1RE-EX-POLYNOMES-05
     difficulte: 5
@@ -87,8 +99,14 @@ competences:
     solution: 5/3
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Réduire au même dénominateur : $\dfrac{1}{x_1} + \dfrac{1}{x_2} = \dfrac{x_1 + x_2}{x_1x_2} = \dfrac{S}{P}$.'
       etapes:
-      - $\dfrac{x_1 + x_2}{x_1x_2} = \dfrac{S}{P} = \dfrac{5}{3}$.
+      - On identifie $S = 5$ et $P = 3$ pour le trinôme $x^2 - 5x + 3$.
+      - 'On réduit au même dénominateur : $\dfrac{1}{x_1} + \dfrac{1}{x_2} = \dfrac{x_2 + x_1}{x_1x_2}$.'
+      - 'On remplace : $\dfrac{S}{P} = \dfrac{5}{3}$.'
+      - 'Vérification : le discriminant $25 - 12 = 13 > 0$, les racines existent et $P = 3 \neq 0$ : le quotient est bien défini.'
+      erreurs_frequentes:
+      - Utiliser $\dfrac{P}{S}$ en inversant, ou oublier que $P \neq 0$.
       resultat: 5/3
 - code: 1RE-EX-POLY-PB
   libelle: 'Problème guidé : une équation avec paramètre'
@@ -153,8 +171,14 @@ competences:
     solution: '2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Solution double lorsque le discriminant est nul ; ici $\Delta = 8 - 4m$.
       etapes:
-      - $8 - 4m = 0$, donc $m = 2$.
+      - La condition s'écrit $\Delta = 0$.
+      - 'On résout : $8 - 4m = 0$, donc $4m = 8$ et $m = 2$.'
+      - La valeur cherchée est $m = 2$.
+      - 'Vérification : pour $m = 2$, l''équation devient $x^2 - 4x + 4 = 0$, dont le discriminant vaut $16 - 16 = 0$.'
+      erreurs_frequentes:
+      - Confondre « solution double » et « deux solutions », ou se tromper de signe en isolant $m$.
       resultat: '2'
   - code: 1RE-EX-POLY-PB-04
     difficulte: 4
@@ -163,8 +187,14 @@ competences:
     solution: '2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Pour $m = 2$, l''équation est un carré parfait : on factorise pour lire la racine double.'
       etapes:
-      - $x^2 - 4x + 4 = (x - 2)^2 = 0$, donc $x = 2$.
+      - 'On remplace $m$ par $2$ : $x^2 - 4x + 4 = 0$.'
+      - 'On reconnaît une identité remarquable : $x^2 - 4x + 4 = (x - 2)^2$.'
+      - L'équation $(x - 2)^2 = 0$ a pour solution $x = 2$, racine double.
+      - 'Vérification : $2^2 - 4 \times 2 + 4 = 4 - 8 + 4 = 0$.'
+      erreurs_frequentes:
+      - Chercher deux racines distinctes alors que le discriminant est nul.
       resultat: '2'
   - code: 1RE-EX-POLY-PB-05
     difficulte: 5
@@ -173,6 +203,13 @@ competences:
     solution: '0'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Deux solutions distinctes exigent un discriminant strictement positif : $8 - 4m > 0$, avec un coefficient de $x^2$ non nul.'
       etapes:
-      - 'Il faut $m \neq 1$ et $8 - 4m > 0$, soit $m < 2$ : le plus grand entier possible est $0$.'
+      - 'On écrit la condition : $\Delta = 8 - 4m > 0$.'
+      - 'On résout : $4m < 8$, donc $m < 2$.'
+      - 'La question précise aussi $m \neq 1$ (sinon le coefficient de $x^2$ s''annule) : les entiers convenables sont $0, -1, -2, \dots$'
+      - Le plus grand entier possible est $0$
+      - 'Vérification : Pour $m = 0$, $\Delta = 8 > 0$, deux solutions distinctes.'
       resultat: '0'
+      erreurs_frequentes:
+      - Prendre $m = 1$ en oubliant la condition $m \neq 1$, ou $m = 2$ alors que le discriminant serait nul.

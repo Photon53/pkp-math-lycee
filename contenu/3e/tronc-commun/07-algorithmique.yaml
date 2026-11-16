@@ -78,10 +78,16 @@ competences:
         solution: '7'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Chercher la plus petite puissance de $2$ supérieure ou égale à $100$.
+          methode: 'Une recherche par dichotomie divise l''intervalle par deux à chaque question : le nombre maximal de questions est le plus petit entier $n$ tel que $2^n \geq 100$.'
           etapes:
-          - $2^6 = 64 < 100 \leq 128 = 2^7$ ; $7$ questions suffisent.
+          - 'Chaque question réduit l''intervalle de moitié : après $n$ questions, il reste une taille $100 \div 2^n$.'
+          - 'Il faut que cette taille devienne inférieure à $1$ : $2^n \geq 100$.'
+          - 'On calcule : $2^6 = 64 < 100$ et $2^7 = 128 \geq 100$.'
+          - Il faut donc $7$ questions au maximum
+          - 'Vérification : $128 \geq 100$ et $64 < 100$.'
           resultat: '7'
+          erreurs_frequentes:
+          - Répondre $6$ en oubliant l'arrondi supérieur, ou $100$ en croyant à une recherche linéaire.
       - code: 3E-PROGRAMMES-04
         difficulte: 4
         type: qcm
@@ -89,9 +95,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Comparer fréquence et probabilité.
+          methode: 'Comparer la fréquence observée à la probabilité théorique : sur un grand nombre de lancers, un écart modéré est normal.'
           etapes:
-          - $\dfrac{1}{6} \approx 0{,}167$ ; l’écart est normal pour $1\,000$ lancers.
+          - La fréquence observée est $\dfrac{172}{1\,000} = 0{,}172$.
+          - La probabilité théorique d'obtenir un six est $\dfrac{1}{6} \approx 0{,}167$.
+          - 'L''écart de $0{,}005$ est faible : il est compatible avec les fluctuations d''échantillonnage.'
+          - 'Rien ne permet de conclure que le dé est truqué ni que le programme est faux : la fréquence est proche de la probabilité.'
+          erreurs_frequentes:
+          - Conclure au trucage dès qu'une fréquence n'est pas exactement égale à $\dfrac{1}{6}$.
           resultat: B
       - code: 3E-PROGRAMMES-05
         difficulte: 5

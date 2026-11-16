@@ -67,8 +67,14 @@ competences:
     solution: '50'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Théorème de l''angle inscrit : un angle inscrit mesure la moitié de l''angle au centre qui intercepte le même arc.'
       etapes:
-      - L'angle inscrit vaut la moitié de l'angle au centre.
+      - L'angle au centre mesure $100°$.
+      - 'L''angle inscrit qui intercepte le même arc vaut la moitié : $\dfrac{100°}{2}$.'
+      - On obtient $50°$.
+      - 'Vérification : $50° + 50° = 100°$, la relation entre angle inscrit et angle au centre est respectée.'
+      erreurs_frequentes:
+      - Doubler l'angle au lieu de le diviser par $2$.
       resultat: '50'
   - code: 2NDE-EX-GEOMETRIE-04
     difficulte: 4
@@ -151,8 +157,14 @@ competences:
     solution: '2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Le centre de gravité d''un triangle est la moyenne des coordonnées de ses sommets : $x_G = \dfrac{x_A + x_B + x_C}{3}$.'
       etapes:
-      - $\dfrac{0 + 6 + 0}{3} = 2$ (et $G$ est bien aux deux tiers de $[AI]$).
+      - 'On identifie les abscisses des sommets : $x_A = 0$, $x_B = 6$, $x_C = 0$.'
+      - 'On applique la formule : $x_G = \dfrac{0 + 6 + 0}{3}$.'
+      - 'On calcule : $x_G = 2$.'
+      - 'Vérification : $G$ se trouve aux deux tiers de la médiane issue de $A$, soit $\dfrac{2}{3} \times 3 = 2$, ce qui est cohérent.'
+      erreurs_frequentes:
+      - Diviser par $2$ (milieu) au lieu de $3$, ou oublier un sommet.
       resultat: '2'
   - code: 2NDE-EX-GEO-PB-04
     difficulte: 4
@@ -161,9 +173,16 @@ competences:
     solution: '48'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Calculer chaque distance au carré avec $(x_B - x_A)^2 + (y_B - y_A)^2$, puis additionner.
       etapes:
-      - '$G(2 ; 2)$ : $GA^2 = 8$, $GB^2 = 16 + 4 = 20$, $GC^2 = 4 + 16 = 20$.'
+      - Le centre de gravité est $G(2 ; 2)$ ; on calcule $GA^2 = (0 - 2)^2 + (0 - 2)^2 = 4 + 4 = 8$.
+      - $GB^2 = (6 - 2)^2 + (0 - 2)^2 = 16 + 4 = 20$.
+      - $GC^2 = (0 - 2)^2 + (6 - 2)^2 = 4 + 16 = 20$.
+      - 'On additionne : $8 + 20 + 20 = 48$'
+      - 'Vérification : $GB^2 = GC^2$, cohérent avec la symétrie du triangle.'
       resultat: '48'
+      erreurs_frequentes:
+      - Oublier d'élever au carré, ou se tromper de signe dans les différences de coordonnées.
   - code: 2NDE-EX-GEO-PB-05
     difficulte: 5
     type: numerique
@@ -171,6 +190,12 @@ competences:
     solution: '6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Le centre de gravité partage le triangle en trois triangles de même aire : chaque tiers vaut $\dfrac{\mathcal{A}}{3}$.'
       etapes:
-      - 'Aire de $ABC$ : $\dfrac{6 \times 6}{2} = 18$, et $G$ partage le triangle en trois aires égales : $6$.'
+      - L'aire du triangle $ABC$ est $\dfrac{6 \times 6}{2} = 18$ (base et hauteur de $6$).
+      - Les trois triangles $GAB$, $GBC$ et $GCA$ ont la même aire, car $G$ est le centre de gravité.
+      - L'aire de $GBC$ est donc $\dfrac{18}{3} = 6$.
+      - 'Vérification : $3 \times 6 = 18$, la somme des trois aires redonne bien celle de $ABC$.'
+      erreurs_frequentes:
+      - Diviser par $2$ (médiane) au lieu de $3$, ou confondre avec l'aire de $ABC$.
       resultat: '6'

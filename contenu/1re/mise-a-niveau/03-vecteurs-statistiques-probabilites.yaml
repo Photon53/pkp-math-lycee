@@ -69,8 +69,14 @@ competences:
     solution: A
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Deux vecteurs $\vec u(x ; y)$ et $\vec v(x'' ; y'')$ sont colinéaires si leur déterminant est nul : $xy'' - x''y = 0$.'
       etapes:
-      - $2 \times 6 - 4 \times 3 = 0$ (et $\vec v = 2\vec u$).
+      - 'On calcule le déterminant : $2 \times 6 - 4 \times 3$.'
+      - 'On obtient $12 - 12 = 0$ : les vecteurs sont colinéaires.'
+      - 'On peut aussi l''écrire $\vec v = 2\vec u$ : les coordonnées sont proportionnelles.'
+      - 'Vérification : $4 = 2 \times 2$ et $6 = 2 \times 3$, le coefficient $2$ est le même pour les deux coordonnées.'
+      erreurs_frequentes:
+      - Additionner les coordonnées au lieu de calculer le déterminant, ou conclure sans vérifier les deux coordonnées.
       resultat: A
   - code: 1RE-MAN-VECPROBA-04
     difficulte: 4
@@ -79,8 +85,14 @@ competences:
     solution: '11'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Moyenne d''une série : somme des valeurs divisée par l''effectif.'
       etapes:
-      - $\dfrac{8 + 12 + 15 + 9 + 11}{5} = \dfrac{55}{5} = 11$.
+      - 'On somme les valeurs : $8 + 12 + 15 + 9 + 11 = 55$.'
+      - 'On compte l''effectif : $5$ valeurs.'
+      - 'On divise : $\dfrac{55}{5} = 11$.'
+      - 'Vérification : $11$ est bien compris entre la plus petite valeur ($8$) et la plus grande ($15$).'
+      erreurs_frequentes:
+      - Diviser par le nombre de valeurs différentes au lieu de l'effectif, ou se tromper dans la somme.
       resultat: '11'
   - code: 1RE-MAN-VECPROBA-05
     difficulte: 5
@@ -89,6 +101,13 @@ competences:
     solution: 2/3
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Compter les issues favorables de « pair ou multiple de 3 » sur les $6$ issues équiprobables du dé, sans compter deux fois les issues communes.
       etapes:
-      - 'Issues favorables : 2, 3, 4, 6, soit $\dfrac{4}{6} = \dfrac{2}{3}$.'
+      - Les nombres pairs sont $2$, $4$ et $6$ ; les multiples de $3$ sont $3$ et $6$.
+      - 'L''issue $6$ appartient aux deux catégories : on ne la compte qu''une fois.'
+      - Les issues favorables sont $2$, $3$, $4$, $6$, soit $4$ issues sur $6$.
+      - 'On simplifie : $\dfrac{4}{6} = \dfrac{2}{3}$'
+      - 'Vérification : $\dfrac{3}{6} + \dfrac{2}{6} - \dfrac{1}{6} = \dfrac{4}{6}$.'
       resultat: 2/3
+      erreurs_frequentes:
+      - Additionner les probabilités sans retirer l'issue commune $6$, et trouver $\dfrac{5}{6}$.

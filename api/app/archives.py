@@ -84,7 +84,7 @@ def archiver_anglais(
     if eleve.enfant_id is None:
         return None
     progression = [
-        {"seance": p.code, "meilleur_score": p.meilleur_score, "total": p.total, "tentatives": p.tentatives,
+        {"seance": p.code, "meilleur_score": p.meilleur_score, "premier_score": p.premier_score, "total": p.total, "tentatives": p.tentatives,
          "i_can": list(p.i_can or []), "maj_le": _iso(p.maj_le)}
         for p in sorted(eleve.progression, key=lambda p: p.code)
     ]

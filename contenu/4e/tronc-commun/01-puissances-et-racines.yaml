@@ -95,9 +95,14 @@ competences:
         solution: '370000'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Décaler la virgule de $5$ rangs vers la droite.
+          methode: Multiplier par $10^5$ décale la virgule de $5$ rangs vers la droite ; on complète avec des zéros.
           etapes:
-          - $3{,}7 \times 10^5 = 370\,000$.
+          - 'L''écriture scientifique est $3{,}7 \times 10^5$ : la virgule se trouve après le $7$.'
+          - On décale la virgule de $5$ rangs vers la droite en complétant par des zéros.
+          - On obtient $370\,000$.
+          - 'Vérification : $370\,000 = 3{,}7 \times 100\,000 = 3{,}7 \times 10^5$, l''écriture scientifique est bien retrouvée.'
+          erreurs_frequentes:
+          - Décaler de $3$ rangs seulement et répondre $3\,700$, ou oublier les zéros intermédiaires.
           resultat: '370000'
       - code: 4E-PUISSANCES-05
         difficulte: 4
@@ -106,9 +111,14 @@ competences:
         solution: '4000000000'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: giga $= 10^9$.
+          methode: 'Un gigaoctet vaut $10^9$ octets : on multiplie le nombre de gigaoctets par $10^9$.'
           etapes:
-          - $4 \times 10^9 = 4\,000\,000\,000$ octets.
+          - 'On convertit l''unité : $1$ Go $= 10^9$ octets $= 1\,000\,000\,000$ octets.'
+          - 'On multiplie par le nombre de gigaoctets : $4 \times 10^9$.'
+          - 'On écrit le résultat en écriture décimale : $4\,000\,000\,000$ octets.'
+          - 'Vérification : $4\,000\,000\,000 \div 10^9 = 4$, on retrouve bien les $4$ Go.'
+          erreurs_frequentes:
+          - Confondre $10^9$ avec $10^6$ (mégaoctet) et répondre $4\,000\,000$.
           resultat: '4000000000'
       - code: 4E-PUISSANCES-06
         difficulte: 5
@@ -196,9 +206,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Encadrer $50$ entre deux carrés parfaits.
+          methode: 'Encadrer le nombre sous la racine entre deux carrés parfaits : la racine est alors encadrée par leurs racines carrées.'
           etapes:
-          - $49 < 50 < 64$, donc $7 < \sqrt{50} < 8$.
+          - 'On cherche les carrés parfaits autour de $50$ : $7^2 = 49$ et $8^2 = 64$.'
+          - On a $49 < 50 < 64$.
+          - 'La fonction racine carrée est croissante : $7 < \sqrt{50} < 8$.'
+          - 'Vérification : $\sqrt{50} \approx 7{,}07$, qui est bien compris entre $7$ et $8$.'
+          erreurs_frequentes:
+          - Confondre $49 < 50 < 64$ avec $6 < \sqrt{50} < 7$, ou calculer $50^2$ au lieu de $\sqrt{50}$.
           resultat: B
       - code: 4E-RACINES-04
         difficulte: 4
@@ -207,10 +222,16 @@ competences:
         solution: '4,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Le côté vaut $\sqrt{20}$.
+          methode: Le côté d'un carré d'aire $\mathcal{A}$ vaut $\sqrt{\mathcal{A}}$ ; on arrondit ensuite au dixième.
           etapes:
-          - $\sqrt{20} \approx 4{,}472$, soit $4{,}5$ cm au dixième.
-          resultat: '4,5'
+          - L'aire du carré est $20$ cm², donc le côté $c$ vérifie $c^2 = 20$.
+          - 'Le côté est la racine carrée positive : $c = \sqrt{20}$.'
+          - 'On calcule : $\sqrt{20} \approx 4{,}472$.'
+          - 'On arrondit au dixième : $c \approx 4{,}5$ cm'
+          - 'Vérification : $4{,}5^2 = 20{,}25$, proche de $20$.'
+          resultat: 4,5
+          erreurs_frequentes:
+          - Diviser l'aire par $4$ (confusion avec le périmètre), ou oublier d'arrondir au dixième.
       - code: 4E-RACINES-05
         difficulte: 5
         type: numerique
@@ -218,7 +239,12 @@ competences:
         solution: '5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Calculer d’abord sous la racine.
+          methode: 'La racine carrée porte sur tout le contenu des parenthèses : on calcule d''abord la somme, puis la racine.'
           etapes:
-          - $\sqrt{25} = 5$ (et non $3 + 4 = 7$).
+          - 'On calcule l''expression sous la racine : $9 + 16 = 25$.'
+          - 'On applique la racine carrée : $\sqrt{25} = 5$.'
+          - 'La racine ne se distribue pas sur une somme : $\sqrt{9} + \sqrt{16} = 3 + 4 = 7$ est une autre expression.'
+          - 'Vérification : $5^2 = 25 = 9 + 16$, l''égalité est bien vérifiée.'
+          erreurs_frequentes:
+          - Calculer $\sqrt{9} + \sqrt{16} = 7$ en « distribuant » la racine sur la somme.
           resultat: '5'

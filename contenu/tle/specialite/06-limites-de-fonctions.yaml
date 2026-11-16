@@ -107,9 +107,15 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Forme indéterminée $\dfrac{\infty}{\infty}$ en $+\infty$ : factoriser par le terme dominant $x$ au numérateur et $x^2$ au dénominateur, puis simplifier.'
           etapes:
-          - $\dfrac{1}{x} \times \dfrac{2 + \frac{1}{x}}{1 + \frac{1}{x^2}} \to 0 \times 2 = 0$.
-          resultat: 0
+          - 'On factorise : $2x + 1 = x\left(2 + \dfrac{1}{x}\right)$ et $x^2 + 1 = x^2\left(1 + \dfrac{1}{x^2}\right)$.'
+          - 'En simplifiant par $x^2$ : $\dfrac{2x + 1}{x^2 + 1} = \dfrac{1}{x} \times \dfrac{2 + \frac{1}{x}}{1 + \frac{1}{x^2}}$.'
+          - 'Or $\dfrac{1}{x} \to 0$ et le second facteur tend vers $\dfrac{2}{1} = 2$ : le produit tend vers $0 \times 2 = 0$.'
+          - 'Vérification numérique : pour $x = 1000$, $\dfrac{2001}{10^6 + 1} \approx 0{,}002$, proche de $0$.'
+          erreurs_frequentes:
+          - 'Comparer seulement les termes dominants et conclure $2$ : le degré du dénominateur est plus élevé, la limite est $0$.'
+          resultat: '0'
       - code: TLE-LIMF-OP-04
         difficulte: 4
         type: qcm
@@ -117,8 +123,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Étudier le signe et l'ordre de grandeur de $\dfrac{1}{x}$ quand $x$ s'approche de $0$ par valeurs supérieures.
           etapes:
-          - Pour $x > 0$ très petit, $\dfrac{1}{x}$ est positif et très grand.
+          - 'Pour $x > 0$, $\dfrac{1}{x}$ est positif : la limite ne peut être ni $-\infty$ ni un nombre négatif.'
+          - 'Quand $x$ devient très petit ($10^{-1}$, $10^{-2}$, $10^{-6}$…), $\dfrac{1}{x}$ devient très grand : $10$, $100$, $10^6$.'
+          - 'Aucun réel $A$ ne majore $\dfrac{1}{x}$ : la limite est donc $+\infty$.'
+          - 'Vérification : $x = 0{,}001$ donne $\dfrac{1}{x} = 1000$, ce qui confirme la croissance sans borne.'
+          erreurs_frequentes:
+          - Répondre $-\infty$ en voyant « $0$ au dénominateur » sans regarder le signe, ou répondre $0$ en confondant avec la limite en $+\infty$.
           resultat: A
       - code: TLE-LIMF-OP-05
         difficulte: 5
@@ -198,9 +210,15 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Croissances comparées : pour tout entier $n \geq 1$, $\lim\limits_{x \to +\infty} \dfrac{x^n}{e^x} = 0$ ; ici $n = 1$.'
           etapes:
-          - $xe^{-x} = \dfrac{x}{e^x}$ et, par croissances comparées, $\dfrac{e^x}{x} \to +\infty$.
-          resultat: 0
+          - On réécrit $x e^{-x} = \dfrac{x}{e^x}$.
+          - C'est une forme indéterminée $\dfrac{\infty}{\infty}$, mais les croissances comparées donnent $\dfrac{e^x}{x} \to +\infty$.
+          - 'En passant à l''inverse : $\dfrac{x}{e^x} = \dfrac{1}{\frac{e^x}{x}} \to 0$.'
+          - 'Vérification : pour $x = 10$, $\dfrac{10}{e^{10}} \approx 0{,}00045$ ; pour $x = 20$, $\dfrac{20}{e^{20}} \approx 4 \times 10^{-8}$ : les valeurs diminuent très vite.'
+          erreurs_frequentes:
+          - 'Conclure « $+\infty \times 0 = 0$ » sans justifier : c''est une forme indéterminée, il faut invoquer les croissances comparées.'
+          resultat: '0'
       - code: TLE-LIMF-ASYMP-04
         difficulte: 4
         type: qcm
@@ -208,8 +226,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Changement de variable $t = -x$ pour se ramener en $+\infty$, puis croissances comparées.
           etapes:
-          - 'Croissances comparées : $\lim_{x \to -\infty} xe^x = 0$.'
+          - 'On pose $t = -x$ : quand $x \to -\infty$, $t \to +\infty$.'
+          - Alors $x e^x = -t e^{-t}$.
+          - Or $t e^{-t} = \dfrac{t}{e^t} \to 0$ par croissances comparées, donc $-t e^{-t} \to 0$.
+          - 'Vérification : pour $x = -10$, $x e^x = -10 \times e^{-10} \approx -0{,}00045$, très proche de $0$.'
+          erreurs_frequentes:
+          - 'Conclure $-\infty$ en raisonnant « $(-\infty) \times 0$ » : le produit tend vers $0$, comme le montre le changement de variable.'
           resultat: A
       - code: TLE-LIMF-ASYMP-05
         difficulte: 5
@@ -218,7 +242,12 @@ competences:
         solution: 1
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Reconnaitre un taux d'accroissement.
+          methode: 'Reconnaître le taux d''accroissement de $\exp$ en $0$ : $\lim\limits_{x \to 0} \dfrac{e^x - e^0}{x - 0} = \exp^{\prime}(0) = e^0 = 1$.'
           etapes:
-          - $\dfrac{e^x - e^0}{x - 0}$ tend vers le nombre dérivé de $\exp$ en $0$, soit $e^0 = 1$.
-          resultat: 1
+          - 'On écrit $\dfrac{e^x - 1}{x} = \dfrac{e^x - e^0}{x - 0}$ : c''est le taux d''accroissement de $\exp$ entre $0$ et $x$.'
+          - Quand $x \to 0$, ce taux tend vers le nombre dérivé de $\exp$ en $0$.
+          - Or $\exp^{\prime} = \exp$, donc $\exp^{\prime}(0) = e^0 = 1$.
+          - 'Vérification : pour $x = 0{,}001$, $\dfrac{e^{0{,}001} - 1}{0{,}001} \approx 1{,}0005$, tout proche de $1$.'
+          erreurs_frequentes:
+          - 'Conclure $\dfrac{0}{0} = 0$ ou $1$ sans justification : c''est une forme indéterminée, seul le taux d''accroissement donne la valeur.'
+          resultat: '1'

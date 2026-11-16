@@ -80,10 +80,14 @@ competences:
     solution: '32'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Les évolutions successives se composent en multipliant les coefficients multiplicateurs : $1{,}1 \times 1{,}2$.'
       etapes:
-      - $1{,}1 \times 1{,}2 = 1{,}32$, soit $+32\,\%$.
+      - 'On traduit chaque hausse par son coefficient : $+10\,\%$ donne $1{,}1$ et $+20\,\%$ donne $1{,}2$.'
+      - 'On multiplie : $1{,}1 \times 1{,}2 = 1{,}32$.'
+      - Un coefficient de $1{,}32$ correspond à une hausse de $32\,\%$.
+      - 'Vérification : sur $100$ €, $100 \times 1{,}1 = 110$ € puis $110 \times 1{,}2 = 132$ €, soit $+32$ €.'
       erreurs_frequentes:
-      - Répondre 30 en additionnant les pourcentages.
+      - Additionner les pourcentages ($10 + 20 = 30$) au lieu de multiplier les coefficients.
       resultat: '32'
   - code: 1RE-ES-EVO-TAUX-04
     difficulte: 4
@@ -92,9 +96,14 @@ competences:
     solution: '25'
     auteur: Brouillon IA (Claude)
     correction:
-      methode: Évolution réciproque.
+      methode: 'L''évolution réciproque d''un coefficient $k$ est $\dfrac{1}{k}$ : on cherche la hausse dont le coefficient est l''inverse de $0{,}8$.'
       etapes:
-      - $\dfrac{1}{0{,}8} = 1{,}25$, soit une hausse de $25\,\%$.
+      - Une baisse de $20\,\%$ correspond au coefficient $1 - 0{,}2 = 0{,}8$.
+      - 'Pour revenir à la valeur initiale, il faut multiplier par l''inverse : $\dfrac{1}{0{,}8} = 1{,}25$.'
+      - Un coefficient de $1{,}25$ correspond à une hausse de $25\,\%$.
+      - 'Vérification : $100 \times 0{,}8 = 80$ puis $80 \times 1{,}25 = 100$ : la valeur initiale est retrouvée.'
+      erreurs_frequentes:
+      - Répondre $20\,\%$ en croyant que la hausse inverse est égale à la baisse.
       resultat: '25'
   - code: 1RE-ES-EVO-TAUX-05
     difficulte: 5

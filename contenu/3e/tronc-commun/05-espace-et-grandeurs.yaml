@@ -78,9 +78,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La latitude se mesure à partir de l’équateur.
+          methode: 'La latitude se mesure en degrés à partir de l''équateur : $0°$ à l''équateur, $90°$ aux pôles.'
           etapes:
-          - Sur l’équateur, la latitude vaut $0°$.
+          - L'équateur est le grand cercle qui partage le globe en deux hémisphères.
+          - 'La latitude y est nulle par définition : $0°$.'
+          - Les pôles ont une latitude de $90°$ ; les autres points ont une latitude intermédiaire.
+          - 'Vérification : un point de latitude $0°$ est bien sur l''équateur, quelle que soit sa longitude.'
+          erreurs_frequentes:
+          - Confondre latitude et longitude, ou répondre $90°$ en pensant au pôle.
           resultat: A
       - code: 3E-SPHERE-BOULE-04
         difficulte: 4
@@ -89,10 +94,16 @@ competences:
         solution: '4'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Théorème de Pythagore dans le triangle centre / centre de la section / point du cercle.
+          methode: 'Le rayon de la section, la distance du centre au plan et le rayon de la sphère forment un triangle rectangle : théorème de Pythagore.'
           etapes:
-          - $r^2 = 5^2 - 3^2 = 16$, donc $r = 4$ cm.
+          - On note $r$ le rayon de la section, $d = 3$ cm la distance du centre au plan et $R = 5$ cm le rayon de la sphère.
+          - 'Le triangle formé par le centre, le centre de la section et un point du cercle de section est rectangle : $R^2 = d^2 + r^2$.'
+          - 'On isole : $r^2 = R^2 - d^2 = 25 - 9 = 16$.'
+          - On obtient $r = \sqrt{16} = 4$ cm
+          - 'Vérification : $3^2 + 4^2 = 9 + 16 = 25 = 5^2$.'
           resultat: '4'
+          erreurs_frequentes:
+          - Additionner les carrés au lieu de soustraire ($r^2 = 25 + 9 = 34$), ou oublier la racine carrée.
       - code: 3E-SPHERE-BOULE-05
         difficulte: 5
         type: numerique
@@ -186,9 +197,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Analyser les unités.
+          methode: 'Analyser les unités du calcul : diviser des heures par des kilomètres donne des heures par kilomètre, et non une vitesse.'
           etapes:
-          - $\dfrac{\text{h}}{\text{km}}$ n’est pas une unité de vitesse ; le calcul est erroné.
+          - 'Une vitesse s''obtient en divisant une distance par une durée : km $\div$ h, soit des km/h.'
+          - 'Le calcul de l''élève divise une durée par une distance : $\dfrac{\text{h}}{\text{km}}$.'
+          - 'L''unité obtenue est donc h/km, qui n''est pas une unité de vitesse : le calcul est inversé.'
+          - 'Vérification : avec ce calcul, une distance plus grande donnerait une valeur plus petite, alors qu''un trajet plus long dure plus longtemps à vitesse donnée.'
+          erreurs_frequentes:
+          - Répondre km/h en regardant le contexte (une vitesse) au lieu des unités du calcul effectué.
           resultat: B
       - code: 3E-GRANDEURS-05
         difficulte: 5

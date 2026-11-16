@@ -12,7 +12,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy import func, or_, select
 
-from app import archives, anglais_contenu, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
+from app import archives, anglais_contenu, correction, inscriptions, journal, limitation, parents, permissions, ressources, statistiques
 from app.auth import ADMIN, AdminCourant, FiltreDomaine, SessionDB
 from app.config import settings
 from app.db import models
@@ -668,6 +668,37 @@ def renommer_groupe_anglais(
     groupe.nom = corps.nom
     session.commit()
     return _vue_groupe(groupe)
+
+
+@router.get("/anglais/groupes/{groupe_id}/correction", response_model=correction.ReglageCorrection)
+def mode_de_correction_anglais(groupe_id: int, admin: AdminCourant, session: SessionDB) -> correction.ReglageCorrection:
+    return correction.reglage(_groupe_anglais(session, groupe_id))
+
+
+@router.put("/anglais/groupes/{groupe_id}/correction", response_model=correction.ReglageCorrection)
+def regler_correction_groupe_anglais(
+    groupe_id: int, corps: correction.ChoixMode, admin: AdminCourant, session: SessionDB
+) -> correction.ReglageCorrection:
+    """Mode de correction des quiz du groupe (#110), action journalisée."""
+    groupe = _groupe_anglais(session, groupe_id)
+    journal.noter(session, admin, "mode-correction", "groupe_anglais", groupe.id,
+                  avant={"mode": groupe.mode_correction}, apres={"mode": corps.mode})
+    groupe.mode_correction = corps.mode
+    session.commit()
+    return correction.reglage(groupe)
+
+
+@router.put("/anglais/groupes/{groupe_id}/seances/{code}/correction", response_model=correction.ReglageCorrection)
+def regler_correction_seance_anglais(
+    groupe_id: int, code: str, corps: correction.ChoixModeSeance, admin: AdminCourant, session: SessionDB
+) -> correction.ReglageCorrection:
+    """Mode propre à une séance pour ce groupe (#110) ; `null` le retire. Action journalisée."""
+    groupe = _groupe_anglais(session, groupe_id)
+    avant, apres = correction.regler_seance(session, groupe, code, corps.mode)
+    journal.noter(session, admin, "mode-correction", "groupe_anglais", groupe.id,
+                  avant={"seance": code, "mode": avant}, apres={"seance": code, "mode": apres})
+    session.commit()
+    return correction.reglage(groupe)
 
 
 @router.post("/anglais/eleves/{eleve_id}/code", response_model=anglais.CodeEleveAnglais)

@@ -69,8 +69,14 @@ competences:
         solution: 16/81
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Loi binomiale : $P(X = k) = \dbinom{n}{k}p^k(1-p)^{n-k}$ ; pour $k = 0$, le coefficient binomial vaut $1$.'
           etapes:
-          - $P(X = 0) = \left(\dfrac{2}{3}\right)^4 = \dfrac{16}{81}$.
+          - On identifie $n = 4$, $p = \dfrac{1}{3}$ et $k = 0$, donc $1 - p = \dfrac{2}{3}$.
+          - 'On applique la formule : $P(X = 0) = \dbinom{4}{0}\left(\dfrac{1}{3}\right)^0\left(\dfrac{2}{3}\right)^4$.'
+          - Comme $\dbinom{4}{0} = 1$ et $\left(\dfrac{1}{3}\right)^0 = 1$, il reste $P(X = 0) = \left(\dfrac{2}{3}\right)^4 = \dfrac{16}{81}$.
+          - 'Vérification : $\dfrac{16}{81} \approx 0{,}198$, valeur comprise entre $0$ et $1$, cohérente avec une probabilité.'
+          erreurs_frequentes:
+          - Oublier que $\dbinom{n}{0} = 1$, ou calculer $p^0(1-p)^0$ au lieu de $(1-p)^n$.
           resultat: 16/81
       - code: TLE-BINOM-LOI-04
         difficulte: 4
@@ -79,8 +85,15 @@ competences:
         solution: 256/625
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Loi binomiale : $P(X = k) = \dbinom{n}{k}p^k(1-p)^{n-k}$.'
           etapes:
-          - $5 \times 0{,}2 \times 0{,}8^4 = 0{,}4096 = \dfrac{256}{625}$.
+          - On identifie $n = 5$, $p = 0{,}2$ et $k = 1$, donc $1 - p = 0{,}8$.
+          - 'On applique la formule : $P(X = 1) = \dbinom{5}{1} \times 0{,}2^1 \times 0{,}8^4$.'
+          - 'On calcule : $5 \times 0{,}2 \times 0{,}4096 = 1 \times 0{,}4096 = 0{,}4096$.'
+          - 'On convertit en fraction : $0{,}4096 = \dfrac{4096}{10\,000} = \dfrac{256}{625}$.'
+          - 'Vérification : $256 \div 625 = 0{,}4096$ ; la fraction redonne bien la probabilité calculée.'
+          erreurs_frequentes:
+          - Oublier le coefficient $\dbinom{5}{1} = 5$, ou utiliser $p^{n-k}$ et $(1-p)^k$ à l'envers.
           resultat: 256/625
       - code: TLE-BINOM-LOI-05
         difficulte: 5
@@ -89,10 +102,15 @@ competences:
         solution: 63/256
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Loi binomiale $\mathcal B\left(10 ; \dfrac{1}{2}\right)$ : $P(X = 5) = \dbinom{10}{5}\left(\dfrac{1}{2}\right)^{10}$.'
           etapes:
-          - $\dbinom{10}{5} \times 0{,}5^{10} = \dfrac{252}{1024} = \dfrac{63}{256}$.
+          - 'On identifie $n = 10$, $p = \dfrac{1}{2}$ et $k = 5$ : $P(X = 5) = \dbinom{10}{5}\left(\dfrac{1}{2}\right)^5\left(\dfrac{1}{2}\right)^5$.'
+          - 'On calcule le coefficient du binôme : $\dbinom{10}{5} = \dfrac{10 \times 9 \times 8 \times 7 \times 6}{5 \times 4 \times 3 \times 2 \times 1} = 252$.'
+          - 'On obtient $P(X = 5) = \dfrac{252}{2^{10}} = \dfrac{252}{1024}$, puis on simplifie par $4$ : $\dfrac{63}{256}$.'
+          - 'Vérification : $\dfrac{63}{256} \approx 0{,}246$ ; c''est la valeur la plus probable de la loi, cohérente avec $5$ piles sur $10$.'
+          erreurs_frequentes:
+          - Oublier le coefficient binomial et répondre $\left(\dfrac{1}{2}\right)^{10}$, ou confondre $\dbinom{10}{5}$ avec $10^5$.
           resultat: 63/256
-
   - code: TLE-BINOM-ESP
     libelle: Utiliser espérance et variance d'une loi binomiale
     objectifs:
@@ -154,8 +172,14 @@ competences:
         solution: 7/8
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Passer à l''événement contraire : « au moins un pile » est le contraire de « aucun pile ».'
           etapes:
-          - $1 - P(\text{aucun pile}) = 1 - \dfrac{1}{8}$.
+          - 'Soit $X$ le nombre de piles : $X$ suit $\mathcal B\left(3 ; \dfrac{1}{2}\right)$ et on cherche $P(X \geq 1)$.'
+          - 'L''événement contraire est $X = 0$ : $P(X = 0) = \left(\dfrac{1}{2}\right)^3 = \dfrac{1}{8}$.'
+          - On en déduit $P(X \geq 1) = 1 - P(X = 0) = 1 - \dfrac{1}{8} = \dfrac{7}{8}$.
+          - 'Vérification : $P(X = 0) + P(X \geq 1) = \dfrac{1}{8} + \dfrac{7}{8} = 1$, comme attendu.'
+          erreurs_frequentes:
+          - Calculer $P(X = 1)$ au lieu de « au moins un » pile, ou oublier le $1 -$ du contraire.
           resultat: 7/8
       - code: TLE-BINOM-ESP-04
         difficulte: 4

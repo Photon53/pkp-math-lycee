@@ -95,9 +95,14 @@ competences:
         solution: '12'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La moitié du disque représente la moitié des élèves.
+          methode: 'Dans un diagramme circulaire, chaque secteur est proportionnel à l''effectif : un demi-disque correspond à la moitié de l''effectif total.'
           etapes:
-          - $24 \div 2 = 12$ élèves.
+          - Le secteur « bus » occupe la moitié du disque.
+          - La moitié du disque correspond donc à la moitié des $24$ élèves.
+          - 'On calcule : $24 \div 2 = 12$ élèves.'
+          - 'Vérification : un demi-disque représente $180°$, soit la moitié des $360°$ du cercle, comme $12$ est la moitié de $24$.'
+          erreurs_frequentes:
+          - Prendre $24 \div 4 = 6$ en confondant moitié et quart, ou oublier de diviser.
           resultat: '12'
       - code: 6E-TABLEAUX-05
         difficulte: 5
@@ -209,10 +214,15 @@ competences:
         solution: '0,48'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Fréquence $=$ effectif $\div$ effectif total.
+          methode: 'Fréquence $=$ effectif de la valeur $\div$ effectif total : ici $96$ piles sur $200$ lancers.'
           etapes:
-          - $96 \div 200 = 0{,}48$, proche de la probabilité $0{,}5$.
-          resultat: '0,48'
+          - 'On identifie l''effectif de « pile » : $96$, et l''effectif total : $200$.'
+          - 'On calcule la fréquence : $\dfrac{96}{200}$.'
+          - 'On simplifie en divisant par $2$ : $\dfrac{48}{100} = 0{,}48$.'
+          - 'Vérification : $0{,}48 \times 200 = 96$, on retrouve bien le nombre de piles ; $0{,}48$ est proche de la probabilité théorique $0{,}5$.'
+          erreurs_frequentes:
+          - Calculer $200 \div 96 \approx 2{,}08$ en inversant, ou donner $96$ au lieu d'une fréquence.
+          resultat: 0,48
       - code: 6E-PROBAS-06
         difficulte: 5
         type: numerique

@@ -131,6 +131,22 @@ remplace ce mot de passe à sa première connexion sur `/parent`. Un même compt
 | `GET /parents/enfants/{id}/historique` | Historique des réponses avec corrections |
 | `PUT /parents/enfants/{id}/code` | Code personnel choisi par le parent (8 à 16 lettres et chiffres) ; vaut pour les inscriptions reliées, ferme les sessions de l'enfant |
 
+### Français (préparation, #98)
+Tables `dossier_francais` et `dossier_francais_version` (migration 0037) : parties élève et professeur séparées,
+empreinte du fichier source, circuit de validation des séances d'anglais. Contrat et accès :
+[francais/FORMAT-IMPORT.md](francais/FORMAT-IMPORT.md). Le lien vers `/francais` n'est affiché (accueil, connexion
+professeur) que si un domaine Français est actif, d'après `GET /domaines/publics`.
+
+| Route | Rôle |
+|-------|------|
+| `GET /francais/dossiers` | Dossiers lisibles par l'adulte (domaine actif, habilitation au domaine et au niveau, ou administrateur) |
+| `GET /francais/dossiers/{code}/eleve` | Aperçu de la partie élève, sans corrigé |
+| `GET /francais/dossiers/{code}/professeur` | Corrigés, déroulement, grille d'observation |
+| `GET /francais/dossiers/{code}/historique` | Versions et décisions |
+| `POST /francais/dossiers/{code}/valider`, `/refuser` | Validateur habilité, distinct de l'auteur ; journalisé ; ne publie rien aux élèves |
+
+Aucune route élève ; aucune réponse d'élève enregistrée ni corrigée (retour humain uniquement).
+
 ### Chapitres proposés et choisis
 L'enseignant **ouvre** des chapitres du programme de sa classe ; l'élève **choisit**, parmi eux, ceux qu'il travaille
 dans une séance. Le cours, la progression et les tirages du moteur sont limités aux chapitres ouverts (et, en séance,

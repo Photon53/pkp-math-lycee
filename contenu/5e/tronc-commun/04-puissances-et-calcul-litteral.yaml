@@ -91,9 +91,14 @@ competences:
         solution: '27'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Volume d’un cube $= a^3$.
+          methode: 'Volume d''un cube d''arête $a$ : $V = a \times a \times a = a^3$ ; le résultat s''exprime en cm³.'
           etapes:
-          - $3^3 = 3 \times 3 \times 3 = 27$ cm³.
+          - 'On identifie l''arête : $a = 3$ cm.'
+          - 'On applique la formule : $V = 3^3 = 3 \times 3 \times 3$.'
+          - 'On calcule : $9 \times 3 = 27$, donc $V = 27$ cm³.'
+          - 'Vérification : $27 \div 3 = 9 = 3^2$, ce qui est cohérent avec le produit de trois facteurs égaux.'
+          erreurs_frequentes:
+          - Calculer $3 \times 3 = 9$ (aire d'une face) ou $3 \times 3 \times 6 = 54$ (surface totale) au lieu du volume.
           resultat: '27'
       - code: 5E-PUISSANCES-05
         difficulte: 4
@@ -102,9 +107,15 @@ competences:
         solution: '24'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Remplacer $x$ par $4$.
+          methode: 'Substituer la valeur de $x$ dans l''expression, en respectant les priorités : la puissance d''abord, puis le produit.'
           etapes:
-          - $4^2 + 2 \times 4 = 16 + 8 = 24$.
+          - 'On remplace $x$ par $4$ : $4^2 + 2 \times 4$.'
+          - 'On calcule la puissance : $4^2 = 16$.'
+          - 'On calcule le produit : $2 \times 4 = 8$.'
+          - 'On additionne : $16 + 8 = 24$.'
+          - 'Vérification : en factorisant, $x^2 + 2x = x(x + 2) = 4 \times 6 = 24$, même résultat.'
+          erreurs_frequentes:
+          - Calculer $(4 + 2)^2$ au lieu de $4^2 + 2 \times 4$, ou oublier le produit $2x$.
           resultat: '24'
       - code: 5E-PUISSANCES-06
         difficulte: 5
@@ -218,9 +229,14 @@ competences:
         solution: 10x+2
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Développer, puis regrouper les termes en $x$.
+          methode: Développer en distribuant, puis regrouper les termes en $x$ et les constantes.
           etapes:
-          - $6x + 2 + 4x = 10x + 2$.
+          - 'On développe : $2(3x + 1) = 2 \times 3x + 2 \times 1 = 6x + 2$.'
+          - 'On ajoute le terme restant : $6x + 2 + 4x$.'
+          - 'On regroupe les termes en $x$ : $6x + 4x = 10x$, d''où $10x + 2$.'
+          - 'Vérification : pour $x = 1$, l''expression de départ vaut $2 \times 4 + 4 = 12$ et $10 \times 1 + 2 = 12$ : les deux écritures donnent le même résultat.'
+          erreurs_frequentes:
+          - Oublier de multiplier le $1$ par $2$ dans le développement, ou regrouper $6x$ et $2$ en $8x$.
           resultat: 10x+2
       - code: 5E-EXPRESSIONS-05
         difficulte: 4
@@ -229,9 +245,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Tester des valeurs ; un contre-exemple suffit.
+          methode: Une égalité n'est vraie « pour toutes les valeurs » que si elle est vraie partout ; un seul contre-exemple suffit à prouver le contraire.
           etapes:
-          - 'Pour $x = 1$ : $5 = 5$, vraie. Pour $x = 2$ : $7 \neq 10$, fausse.'
+          - 'On teste $x = 0$ : $2 \times 0 + 3 = 3$ et $5 \times 0 = 0$ ; l''égalité est déjà fausse.'
+          - 'On teste $x = 1$ : $2 + 3 = 5$ et $5 \times 1 = 5$ ; elle est vraie pour cette valeur.'
+          - 'On teste $x = 2$ : $4 + 3 = 7$ et $5 \times 2 = 10$ ; elle est fausse.'
+          - 'Vérification : l''égalité n''est vraie que pour $x = 1$, pas pour toutes les valeurs ; c''est une équation, pas une identité.'
+          erreurs_frequentes:
+          - Conclure « vrai » parce que l'égalité fonctionne pour une valeur, ou croire que deux expressions égales en un point sont égales partout.
           resultat: B
       - code: 5E-EXPRESSIONS-06
         difficulte: 5
@@ -320,10 +341,15 @@ competences:
         solution: '4,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Diviser par $4$.
+          methode: 'Isoler $x$ : on divise les deux membres par le coefficient $4$.'
           etapes:
-          - $x = 18 \div 4 = 4{,}5$.
-          resultat: '4,5'
+          - L'équation est $4x = 18$.
+          - 'On divise les deux membres par $4$ : $x = \dfrac{18}{4}$.'
+          - 'On simplifie : $\dfrac{18}{4} = \dfrac{9}{2} = 4{,}5$.'
+          - 'Vérification : $4 \times 4{,}5 = 18$, l''égalité de départ est bien retrouvée.'
+          erreurs_frequentes:
+          - Soustraire $4$ au lieu de diviser, ou s'arrêter à $\dfrac{18}{4}$ sans simplifier.
+          resultat: 4,5
       - code: 5E-EQUATIONS-04
         difficulte: 4
         type: numerique
@@ -331,9 +357,14 @@ competences:
         solution: 7/3
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Diviser par $3$.
+          methode: 'Isoler $x$ : on divise les deux membres par $3$ et on garde le résultat sous forme exacte de fraction.'
           etapes:
-          - '$x = \dfrac{7}{3}$ ; vérification : $3 \times \dfrac{7}{3} = 7$.'
+          - L'équation est $3x = 7$.
+          - 'On divise les deux membres par $3$ : $x = \dfrac{7}{3}$.'
+          - La fraction est irréductible, car $7$ et $3$ n'ont pas de diviseur commun autre que $1$.
+          - 'Vérification : $3 \times \dfrac{7}{3} = 7$, l''égalité de départ est bien retrouvée.'
+          erreurs_frequentes:
+          - Donner une valeur arrondie ($2{,}33$) alors qu'une valeur exacte est demandée, ou écrire $x = 7 - 3$.
           resultat: 7/3
       - code: 5E-EQUATIONS-05
         difficulte: 5
@@ -342,7 +373,12 @@ competences:
         solution: '1,3'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: 'Modéliser par $5x = 6{,}5$.'
+          methode: 'Modéliser la situation par une équation : $5$ stylos identiques de prix $x$ coûtent $5x$ ; on résout $5x = 6{,}50$.'
           etapes:
-          - $x = 6{,}5 \div 5 = 1{,}3$ €.
-          resultat: '1,3'
+          - 'On traduit l''énoncé : $5$ stylos à $x$ euros coûtent $5x$ euros, et ce total vaut $6{,}50$ €.'
+          - 'On écrit l''équation : $5x = 6{,}50$.'
+          - 'On divise les deux membres par $5$ : $x = 6{,}50 \div 5 = 1{,}30$.'
+          - 'Vérification : $5 \times 1{,}30 = 6{,}50$ €, le prix total de l''énoncé est bien retrouvé.'
+          erreurs_frequentes:
+          - Écrire $x + 5 = 6{,}50$, ou oublier l'unité (euros) dans la réponse.
+          resultat: 1,3

@@ -64,8 +64,14 @@ competences:
         solution: e - 1
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème fondamental : $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a)$, où $F$ est une primitive de $f$.'
           etapes:
-          - $[e^x]_0^1 = e - 1$.
+          - Une primitive de $e^x$ est $e^x$.
+          - 'On applique la formule : $\displaystyle\int_0^1 e^x\,dx = \left[e^x\right]_0^1 = e^1 - e^0$.'
+          - 'On calcule : $e - 1$.'
+          - 'Vérification : $e - 1 \approx 1{,}718$, valeur positive cohérente avec une fonction positive sur $[0 ; 1]$.'
+          erreurs_frequentes:
+          - Écrire $e^1 - e^0 = e$ en oubliant que $e^0 = 1$.
           resultat: e - 1
       - code: TLE-INT-CALC-04
         difficulte: 4
@@ -74,9 +80,15 @@ competences:
         solution: 1
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Une primitive de $\dfrac{1}{x}$ sur $]0 ; +\infty[$ est $\ln x$ ; on applique $\left[\ln x\right]_a^b$.
           etapes:
-          - $[\ln x]_1^e = \ln e - \ln 1 = 1$.
-          resultat: 1
+          - Une primitive de $\dfrac{1}{x}$ est $\ln x$.
+          - 'On applique la formule : $\displaystyle\int_1^e \dfrac{1}{x}\,dx = \left[\ln x\right]_1^e = \ln e - \ln 1$.'
+          - 'On calcule : $\ln e = 1$ et $\ln 1 = 0$, donc l''intégrale vaut $1$.'
+          - 'Vérification : l''intégrale mesure l''aire sous la courbe de $\dfrac{1}{x}$ entre $1$ et $e$, positive et de l''ordre de l''unité, cohérent avec $1$.'
+          erreurs_frequentes:
+          - Écrire $\ln e - \ln 1 = \ln(e - 1)$, ou oublier que $\ln 1 = 0$.
+          resultat: '1'
       - code: TLE-INT-CALC-05
         difficulte: 5
         type: numerique
@@ -84,10 +96,15 @@ competences:
         solution: 2
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Une primitive de $\sin x$ est $-\cos x$ ; on applique $\left[-\cos x\right]_a^b$.
           etapes:
-          - $[-\cos x]_0^\pi = -\cos\pi + \cos 0 = 1 + 1$.
-          resultat: 2
-
+          - Une primitive de $\sin x$ est $-\cos x$, car $(-\cos x)^{\prime} = \sin x$.
+          - 'On applique la formule : $\displaystyle\int_0^\pi \sin x\,dx = \left[-\cos x\right]_0^\pi = -\cos\pi - (-\cos 0)$.'
+          - 'On calcule : $\cos\pi = -1$ et $\cos 0 = 1$, donc $-(-1) + 1 = 2$.'
+          - 'Vérification : $\sin x \geq 0$ sur $[0 ; \pi]$, l''intégrale est positive et vaut $2$, cohérent avec l''aire sous la sinusoïde.'
+          erreurs_frequentes:
+          - Oublier le signe $-$ de la primitive et obtenir $-2$, ou se tromper sur $\cos\pi = -1$.
+          resultat: '2'
   - code: TLE-INT-APP
     libelle: Utiliser l'intégrale (aires, valeur moyenne, intégration par parties)
     objectifs:

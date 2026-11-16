@@ -23,7 +23,7 @@ const DOC = {
   ],
 };
 
-describe("Boussole Maths", () => {
+describe("PKP Maths", () => {
   it("catalogue par niveau, document du chapitre et export PDF avec la mention NON VALIDÉ", async () => {
     fausseApi({ "GET /pkp-math/catalogue": { json: CATALOGUE }, "GET /pkp-math/chapitres/1": { json: DOC } });
     const imprimer = vi.spyOn(window, "print").mockImplementation(() => {});
@@ -60,6 +60,17 @@ describe("Boussole Maths", () => {
     window.dispatchEvent(new Event("afterprint"));
     await vi.waitFor(() => expect(document.getElementById("pkp-impression")).toBeNull());
   });
+
+  it("élève : le corrigé d'un exercice sans réponse en séance reste masqué (ARCH-4)", async () => {
+    const masquee = { ...QUESTION(2, 1), solution: "", correction: null, corrige_visible: false };
+    const doc = { ...DOC, competences: [{ ...DOC.competences[0], questions: [{ ...QUESTION(1, 1), corrige_visible: true }, masquee] }] };
+    fausseApi({ "GET /pkp-math/catalogue": { json: CATALOGUE }, "GET /pkp-math/chapitres/1": { json: doc } });
+    render(<PkpMath jeton="j" niveauParDefaut="2nde" />);
+    await userEvent.click(await screen.findByRole("button", { name: /Fractions/ }));
+    await userEvent.click(await screen.findByRole("tab", { name: "Corrigé" }));
+    expect(screen.getAllByText("Additionner.").length).toBe(1);
+    expect(screen.getByText(/Le corrigé s'affichera ici après ta réponse/)).toBeInTheDocument();
+  });
 });
 
 describe("espace parent : enfants de la famille", () => {
@@ -70,9 +81,9 @@ describe("espace parent : enfants de la famille", () => {
       anglais: [],
     },
     matieres: [
-      { code: "maths", libelle: "Boussole Maths", disponible: true },
-      { code: "anglais", libelle: "Boussole Anglais", disponible: true },
-      { code: "francais", libelle: "Boussole Français", disponible: false },
+      { code: "maths", libelle: "PKP Maths", disponible: true },
+      { code: "anglais", libelle: "PKP Anglais", disponible: true },
+      { code: "francais", libelle: "PKP Français", disponible: false },
     ],
     maths: [],
     anglais: [{ groupe: "4e A", niveau: "2nde", seances_faites: 3, score_moyen: 0.8, i_can: 5 }],
@@ -87,9 +98,9 @@ describe("espace parent : enfants de la famille", () => {
     });
     render(<EspaceParent />);
     expect(await screen.findByText(/identifiant ines-k7m4/)).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("tab", { name: "Boussole Anglais" }));
+    await userEvent.click(screen.getByRole("tab", { name: "PKP Anglais" }));
     expect(screen.getByText("3 séances")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("tab", { name: "Boussole Français" }));
+    await userEvent.click(screen.getByRole("tab", { name: "PKP Français" }));
     expect(screen.getByText(/Le français arrive bientôt/)).toBeInTheDocument();
     await userEvent.click(screen.getByRole("tab", { name: "Accès de l'enfant" }));
     await userEvent.click(screen.getByRole("button", { name: "Générer un nouveau code" }));

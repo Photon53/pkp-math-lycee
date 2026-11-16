@@ -5,6 +5,10 @@ on:
     branches: [PKP-Anglais]
   workflow_dispatch:
 
+# Tests et build uniquement : le jeton GitHub n'a besoin que de lire le dépôt (#62).
+permissions:
+  contents: read
+
 jobs:
   python:
     runs-on: ubuntu-latest

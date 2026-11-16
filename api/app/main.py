@@ -4,11 +4,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routes import admin, admin_contenu, archivage, cartes, cours, domaines, eleves, enseignants, enseignants_contenu, health, parents, ressources, anglais, anglais_eleves, enfants, familles, masse, pkp_math, prevalidation_ia, repertoire, remarques, suivi, validation_maths
+from app.routes import admin, admin_contenu, archivage, cartes, cours, domaines, eleves, enseignants, enseignants_contenu, health, parents, ressources, anglais, anglais_eleves, enfants, familles, francais, masse, pkp_math, prevalidation_ia, repertoire, remarques, suivi, validation_maths
 
 # En production, la documentation interactive n'est pas exposée publiquement.
 app = FastAPI(
-    title="Boussole",
+    title="PKP Éducation",
     version="1.0.0",
     docs_url=None if settings.production else "/docs",
     redoc_url=None,
@@ -45,6 +45,7 @@ app.include_router(admin.router)
 app.include_router(admin_contenu.router)
 app.include_router(anglais_eleves.router)
 app.include_router(anglais.router)
+app.include_router(francais.router)
 app.include_router(enfants.router)
 app.include_router(familles.router)
 app.include_router(pkp_math.router)

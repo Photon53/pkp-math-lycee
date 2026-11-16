@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { api } from "./api.js";
+import { francaisActif } from "./francaisOuvert.jsx";
 import { DOMAINES_PAR_DEFAUT, ETATS, repartirParcours } from "./parcoursPublics.js";
 import Icone from "./ui/Icone.jsx";
 
@@ -35,7 +36,7 @@ function LienEspace({ href, profil, children, secondaire = false }) {
   );
 }
 
-function Profils() {
+function Profils({ francais }) {
   return (
     <section aria-labelledby="titre-espaces" className="accueil-profils">
       <h2 id="titre-espaces">Accéder à mon espace</h2>
@@ -76,8 +77,14 @@ function Profils() {
             <LienEspace href="/anglais" profil="Professeur" secondaire>
               Anglais
             </LienEspace>
+            {francais && (
+              <LienEspace href="/francais" profil="Professeur" secondaire>
+                Français (préparation)
+              </LienEspace>
+            )}
           </div>
           <p className="doux profil-aide">Classes, groupes, séances, packs PDF et ressources.</p>
+          {francais && <p className="doux profil-aide">Français : préparation réservée aux adultes habilités, sans accès élève.</p>}
         </li>
       </ul>
     </section>
@@ -139,18 +146,17 @@ function Etapes() {
 
 // --- Parcours prêts et en chantier ---------------------------------------------------------------
 
-/** Titre d'un parcours : « Boussole Maths », puis le cycle. */
+/** Titre d'un parcours : « PKP Maths », puis le cycle. */
 function TitreParcours({ domaine }) {
   return (
     <h4>
-      Boussole <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
+      PKP <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
     </h4>
   );
 }
 
 /** Les parcours prêts puis les chantiers ; l'état suit les réglages des domaines, avec un repli statique hors ligne. */
-function Parcours() {
-  const domaines = useDonneePublique("/domaines/publics", DOMAINES_PAR_DEFAUT, (l) => Array.isArray(l) && l.length > 0);
+function Parcours({ domaines }) {
   const { prets, chantiers } = repartirParcours(domaines);
 
   return (
@@ -223,7 +229,7 @@ const FAQ = [
   {
     question: "Faut-il installer une application ?",
     reponse:
-      "Non. Boussole s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet " +
+      "Non. PKP Éducation s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet " +
       "déconnecte, pratique sur un poste partagé.",
   },
   {
@@ -255,6 +261,8 @@ function QuestionsFrequentes() {
 
 /** Page d'accueil publique : une entrée par profil, le fonctionnement, un essai, les parcours, puis les questions fréquentes. */
 export default function Accueil() {
+  // Une seule lecture de l'état des domaines : les parcours et le lien Français (affiché seulement si un domaine est actif).
+  const domaines = useDonneePublique("/domaines/publics", DOMAINES_PAR_DEFAUT, (l) => Array.isArray(l) && l.length > 0);
   return (
     <div className="accueil">
       <section className="accueil-hero">
@@ -265,20 +273,19 @@ export default function Accueil() {
           professeurs.
         </p>
         <p className="spirale-definition">
-          Avec la Méthode Spirale, <strong>on revient sur les notions jusqu'à ce qu'elles tiennent</strong> : c'est ça, viser la
-          Maîtrise+.
+          Avec la méthode PKP, <strong>on revient sur les notions jusqu'à ce qu'elles tiennent</strong>.
         </p>
         <div className="actions">
           <a className="bouton" href="#titre-exemple">
             Essayer une question
           </a>
           <a className="bouton secondaire" href="/methode">
-            Découvrir la Méthode Spirale
+            Découvrir la méthode PKP
           </a>
         </div>
       </section>
 
-      <Profils />
+      <Profils francais={francaisActif(domaines)} />
       <Chiffres />
       <Etapes />
 
@@ -290,7 +297,7 @@ export default function Accueil() {
         </Suspense>
       </section>
 
-      <Parcours />
+      <Parcours domaines={domaines} />
       <QuestionsFrequentes />
 
       <p className="accroche">

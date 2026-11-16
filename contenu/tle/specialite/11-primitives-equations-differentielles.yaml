@@ -72,8 +72,14 @@ competences:
         solution: 1 - 1/x
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Une primitive de $\dfrac{1}{x^2} = x^{-2}$ sur $]0 ; +\infty[$ est $-\dfrac{1}{x}$ ; la condition initiale fixe la constante $C$.
           etapes:
-          - $F(x) = -\dfrac{1}{x} + C$ et $F(1) = -1 + C = 0$, donc $C = 1$.
+          - 'On primitive $f(x) = x^{-2}$ : $F(x) = \dfrac{x^{-1}}{-1} + C = -\dfrac{1}{x} + C$.'
+          - 'On traduit la condition $F(1) = 0$ : $-\dfrac{1}{1} + C = 0$, donc $-1 + C = 0$ et $C = 1$.'
+          - La primitive cherchée est $F(x) = 1 - \dfrac{1}{x}$.
+          - 'Vérification : $F^{\prime}(x) = \dfrac{1}{x^2} = f(x)$ et $F(1) = 1 - 1 = 0$ : les deux conditions sont remplies.'
+          erreurs_frequentes:
+          - Donner $-\dfrac{1}{x}$ sans constante, ou oublier la condition $F(1) = 0$ qui détermine $C$.
           resultat: 1 - 1/x
       - code: TLE-PRIM-04
         difficulte: 4
@@ -82,9 +88,14 @@ competences:
         solution: e^(x^2) - 1
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Reconnaitre $u'e^u$ avec $u = x^2$.
+          methode: 'Reconnaître la forme $u^{\prime}e^{u}$ : une primitive est $e^{u}$ lorsque $u = x^2$ et $u^{\prime} = 2x$.'
           etapes:
-          - $F(x) = e^{x^2} + C$ et $F(0) = 1 + C = 0$.
+          - 'On pose $u(x) = x^2$, donc $u^{\prime}(x) = 2x$ : on a bien $f(x) = u^{\prime}(x)e^{u(x)}$.'
+          - 'Une primitive de $u^{\prime}e^{u}$ est $e^{u}$ : $F(x) = e^{x^2} + C$.'
+          - 'On utilise $F(0) = 0$ : $e^0 + C = 1 + C = 0$, donc $C = -1$.'
+          - 'Vérification : $F^{\prime}(x) = 2x e^{x^2} = f(x)$ et $F(0) = e^0 - 1 = 0$.'
+          erreurs_frequentes:
+          - Écrire $F(x) = e^{x^2}$ sans constante, ou dériver $e^{x^2}$ en oubliant le facteur $2x$ lors de la vérification.
           resultat: e^(x^2) - 1
       - code: TLE-PRIM-05
         difficulte: 5
@@ -93,10 +104,15 @@ competences:
         solution: sin(2x)/2
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Une primitive de $\cos(ax)$ est $\dfrac{\sin(ax)}{a}$, car la dérivée de $\sin(ax)$ est $a\cos(ax)$.
           etapes:
-          - $F(x) = \dfrac{\sin(2x)}{2} + C$ et $F(0) = C = 0$.
+          - On cherche une primitive de $\cos(2x)$ sous la forme $\dfrac{\sin(2x)}{2}$.
+          - 'On vérifie la formule : $\left(\dfrac{\sin(2x)}{2}\right)^{\prime} = \dfrac{2\cos(2x)}{2} = \cos(2x)$.'
+          - 'On ajoute la constante : $F(x) = \dfrac{\sin(2x)}{2} + C$, et $F(0) = 0 + C = 0$ donne $C = 0$.'
+          - 'Vérification : $F(0) = \dfrac{\sin 0}{2} = 0$ et $F^{\prime}(x) = \cos(2x)$.'
+          erreurs_frequentes:
+          - Oublier de diviser par $2$ et proposer $\sin(2x)$, dont la dérivée est $2\cos(2x)$.
           resultat: sin(2x)/2
-
   - code: TLE-EQDIFF
     libelle: Résoudre une équation différentielle y' = ay + b
     objectifs:
@@ -161,9 +177,15 @@ competences:
         solution: 3
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Une solution constante $y = k$ a pour dérivée $y^{\prime} = 0$ ; on reporte dans l'équation pour trouver $k$.
           etapes:
-          - '$y'' = 0$ : $-2y + 6 = 0$, donc $y = 3$.'
-          resultat: 3
+          - On cherche une solution constante $y(x) = k$, donc $y^{\prime}(x) = 0$.
+          - 'On reporte dans $y^{\prime} = -2y + 6$ : $0 = -2k + 6$.'
+          - 'On résout : $2k = 6$, donc $k = 3$.'
+          - 'Vérification : avec $y = 3$, $-2 \times 3 + 6 = 0 = y^{\prime}$ : l''équation est satisfaite.'
+          erreurs_frequentes:
+          - Chercher une solution de la forme $Ce^{-2x}$ au lieu d'une constante, ou oublier que la dérivée d'une constante est nulle.
+          resultat: '3'
       - code: TLE-EQDIFF-04
         difficulte: 4
         type: expression
@@ -171,8 +193,14 @@ competences:
         solution: 3 + 2e^(-2x)
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Solutions de $y^{\prime} = ay + b$ : $y = Ce^{ax} - \dfrac{b}{a}$, la constante $C$ étant fixée par la condition initiale.'
           etapes:
-          - $y = Ce^{-2x} + 3$ et $y(0) = C + 3 = 5$, donc $C = 2$.
+          - 'L''équation $y^{\prime} = -2y + 6$ a pour solutions $y(x) = Ce^{-2x} + 3$ : solution générale de l''équation homogène plus la solution constante $3$.'
+          - 'On utilise $y(0) = 5$ : $C e^0 + 3 = C + 3 = 5$, donc $C = 2$.'
+          - La solution est $y(x) = 2e^{-2x} + 3$.
+          - 'Vérification : $y(0) = 2 + 3 = 5$ et $y^{\prime}(x) = -4e^{-2x}$, tandis que $-2y + 6 = -2\left(2e^{-2x} + 3\right) + 6 = -4e^{-2x}$ : l''équation est satisfaite.'
+          erreurs_frequentes:
+          - Confondre la solution générale et la solution constante, ou oublier d'utiliser $y(0) = 5$ pour déterminer $C$.
           resultat: 3 + 2e^(-2x)
       - code: TLE-EQDIFF-05
         difficulte: 5

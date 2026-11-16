@@ -71,10 +71,16 @@ competences:
     solution: '84'
     auteur: Brouillon IA (Claude)
     correction:
-      methode: Formule de Héron.
+      methode: 'Formule de Héron : $\mathcal{A} = \sqrt{s(s-a)(s-b)(s-c)}$ avec $s = \dfrac{a + b + c}{2}$.'
       etapes:
-      - $s = 21$ ; aire $= \sqrt{21 \times 8 \times 7 \times 6} = \sqrt{7\,056} = 84$.
+      - 'On calcule le demi-périmètre : $s = \dfrac{13 + 14 + 15}{2} = 21$.'
+      - 'On calcule les trois différences : $s - 13 = 8$, $s - 14 = 7$, $s - 15 = 6$.'
+      - 'On applique la formule : $\mathcal{A} = \sqrt{21 \times 8 \times 7 \times 6}$.'
+      - 'On calcule : $21 \times 8 \times 7 \times 6 = 7\,056$ et $\sqrt{7\,056} = 84$'
+      - 'Vérification : $84^2 = 7\,056$.'
       resultat: '84'
+      erreurs_frequentes:
+      - Utiliser le périmètre au lieu du demi-périmètre, ou oublier la racine carrée.
   - code: 1RE-EX-OLYMPIADE-04
     difficulte: 4
     type: numerique
@@ -160,9 +166,16 @@ competences:
     solution: '12'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Aire d''un triangle : $\mathcal{A} = \dfrac{\text{base} \times \text{hauteur}}{2}$, donc $h = \dfrac{2\mathcal{A}}{\text{base}}$.'
       etapes:
-      - $h = \dfrac{2 \times 84}{14} = 12$.
+      - L'aire du triangle est $\mathcal{A} = 84$ (calculée à l'étape précédente).
+      - La base relative à la hauteur cherchée est le côté de longueur $14$.
+      - 'On isole $h$ : $h = \dfrac{2 \times 84}{14}$.'
+      - 'On calcule : $h = \dfrac{168}{14} = 12$'
+      - 'Vérification : $\dfrac{14 \times 12}{2} = 84$, l''aire est bien retrouvée.'
       resultat: '12'
+      erreurs_frequentes:
+      - Diviser $84$ par $14$ sans multiplier par $2$, ou prendre la mauvaise base.
   - code: 1RE-EX-OLYMP-PB-04
     difficulte: 4
     type: numerique
@@ -170,8 +183,14 @@ competences:
     solution: '4'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Le rayon du cercle inscrit vérifie $\mathcal{A} = r \times s$, donc $r = \dfrac{\mathcal{A}}{s}$.
       etapes:
-      - $r = \dfrac{\mathcal A}{s} = \dfrac{84}{21} = 4$.
+      - On reprend l'aire $\mathcal{A} = 84$ et le demi-périmètre $s = 21$.
+      - 'On applique la formule : $r = \dfrac{84}{21}$.'
+      - 'On calcule : $r = 4$.'
+      - 'Vérification : $r \times s = 4 \times 21 = 84 = \mathcal{A}$, la relation est bien vérifiée.'
+      erreurs_frequentes:
+      - Diviser par le périmètre entier ($42$) au lieu du demi-périmètre.
       resultat: '4'
   - code: 1RE-EX-OLYMP-PB-05
     difficulte: 5
@@ -180,6 +199,12 @@ competences:
     solution: 65/8
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Rayon du cercle circonscrit : $R = \dfrac{abc}{4\mathcal{A}}$, avec les trois côtés et l''aire.'
       etapes:
-      - $R = \dfrac{13 \times 14 \times 15}{4 \times 84} = \dfrac{2\,730}{336} = \dfrac{65}{8}$.
+      - 'On applique la formule : $R = \dfrac{13 \times 14 \times 15}{4 \times 84}$.'
+      - 'On calcule le numérateur : $13 \times 14 \times 15 = 2\,730$.'
+      - 'On calcule le dénominateur : $4 \times 84 = 336$, puis on simplifie : $\dfrac{2\,730}{336} = \dfrac{65}{8}$.'
+      - 'Vérification : $\dfrac{65}{8} = 8{,}125 > \dfrac{15}{2} = 7{,}5$, le rayon dépasse la moitié du plus grand côté, comme attendu.'
+      erreurs_frequentes:
+      - Oublier le facteur $4$ au dénominateur, ou utiliser le demi-périmètre au lieu de l'aire.
       resultat: 65/8

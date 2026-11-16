@@ -76,9 +76,14 @@ competences:
         solution: '3'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Appliquer à $M$ le même déplacement que de $A$ à $B$.
+          methode: 'Une translation fait subir à tout point le même déplacement : ici le vecteur $\overrightarrow{AB}$.'
           etapes:
-          - Déplacement horizontal $4 - 1 = 3$ ; abscisse de $M'$ ; $0 + 3 = 3$.
+          - 'On calcule le déplacement de $A$ à $B$ : $4 - 1 = 3$ horizontalement et $3 - 2 = 1$ verticalement.'
+          - 'On applique ce déplacement à $M(0 ; -1)$ : abscisse $0 + 3 = 3$, ordonnée $-1 + 1 = 0$.'
+          - L'image est $M'(3 ; 0)$, d'abscisse $3$.
+          - 'Vérification : $\overrightarrow{MM''} = (3 - 0 ; 0 - (-1)) = (3 ; 1) = \overrightarrow{AB}$ : le déplacement est bien le même.'
+          erreurs_frequentes:
+          - Utiliser le déplacement $\overrightarrow{BA}$ ou oublier de modifier l'ordonnée.
           resultat: '3'
       - code: 4E-TRANSLATION-04
         difficulte: 4
@@ -87,9 +92,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Définition de la translation.
+          methode: 'Par définition, la translation qui transforme $A$ en $B$ transforme $M$ en $M''$ tel que $\overrightarrow{MM''} = \overrightarrow{AB}$ : le quadrilatère a deux côtés opposés parallèles et égaux.'
           etapes:
-          - $ABM'M$ est un parallélogramme.
+          - La translation donne $\overrightarrow{MM'} = \overrightarrow{AB}$.
+          - Ces deux vecteurs sont égaux, donc les côtés $[AB]$ et $[M'M]$ sont parallèles et de même longueur.
+          - Un quadrilatère qui a une paire de côtés opposés parallèles et égaux est un parallélogramme.
+          - 'Vérification : les diagonales $[AM'']$ et $[BM]$ se coupent en leur milieu, autre propriété du parallélogramme.'
+          erreurs_frequentes:
+          - 'Choisir « trapèze » : ici les côtés opposés sont non seulement parallèles mais aussi égaux.'
           resultat: A
       - code: 4E-TRANSLATION-05
         difficulte: 5
@@ -98,11 +108,15 @@ competences:
         solution: '48'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La translation conserve les aires.
+          methode: 'La translation conserve les aires : chaque copie a la même aire que le motif de départ, on multiplie par le nombre de copies.'
           etapes:
-          - $8 \times 6 = 48$ cm².
+          - Le motif est un triangle d'aire $6$ cm².
+          - 'Les $8$ copies sont obtenues par translation : aucune n''est agrandie ni réduite.'
+          - L'aire totale est donc $8 \times 6 = 48$ cm².
+          - 'Vérification : l''énoncé précise « sans chevauchement », donc les aires s''additionnent sans recouvrement.'
+          erreurs_frequentes:
+          - Croire que la translation agrandit le motif, ou oublier de multiplier par le nombre de copies.
           resultat: '48'
-
   - code: 4E-AGRANDISSEMENT
     libelle: Agrandir ou réduire une figure et calculer longueurs, aires, volumes
     attendus: [4E-2020-TRANS-01, 4E-2020-TRANS-02, 4E-2020-PROP-04]
@@ -171,10 +185,15 @@ competences:
         solution: '0,75'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $k = \dfrac{\text{nouvelle longueur}}{\text{ancienne longueur}}$.
+          methode: Le rapport de réduction est $k = \dfrac{\text{longueur de l'image}}{\text{longueur d'origine}}$, avec $0 < k < 1$.
           etapes:
-          - $k = \dfrac{4{,}5}{6} = 0{,}75$.
-          resultat: '0,75'
+          - La longueur d'origine est $6$ cm, celle de l'image est $4{,}5$ cm.
+          - 'On calcule le rapport : $k = \dfrac{4{,}5}{6}$.'
+          - 'On simplifie : $k = 0{,}75$, soit un rapport de $\dfrac{3}{4}$.'
+          - 'Vérification : $6 \times 0{,}75 = 4{,}5$, on retrouve bien la longueur de l''image.'
+          erreurs_frequentes:
+          - Inverser le rapport et écrire $\dfrac{6}{4{,}5} \approx 1{,}33$, qui est un agrandissement.
+          resultat: 0,75
       - code: 4E-AGRANDISSEMENT-04
         difficulte: 4
         type: numerique
@@ -182,9 +201,14 @@ competences:
         solution: '216'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les volumes sont multipliés par $k^3$.
+          methode: Dans un agrandissement de rapport $k$, les longueurs sont multipliées par $k$, les aires par $k^2$ et les volumes par $k^3$.
           etapes:
-          - $8 \times 27 = 216$ cm³.
+          - Le rapport d'agrandissement est $k = 3$.
+          - Les volumes sont multipliés par $k^3 = 3^3 = 27$.
+          - Le nouveau volume est $8 \times 27 = 216$ cm³.
+          - 'Vérification : l''arête du cube initial vaut $2$ cm (car $2^3 = 8$) ; agrandie de rapport $3$, elle vaut $6$ cm et $6^3 = 216$.'
+          erreurs_frequentes:
+          - Multiplier par $3$ ou par $9$ au lieu de $27$ (confusion avec les longueurs ou les aires).
           resultat: '216'
       - code: 4E-AGRANDISSEMENT-05
         difficulte: 5

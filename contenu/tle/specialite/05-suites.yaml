@@ -92,8 +92,13 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'L''hérédité consiste à supposer $P(k)$ vraie et à démontrer $P(k + 1)$, la même propriété écrite au rang suivant.'
           etapes:
-          - 'On démontre la propriété au rang $k + 1$ : $u_{k+1} = 2^{(k + 1) + 1} - 1 = 2^{k+2} - 1$.'
+          - 'La propriété à démontrer est $P(n)$ : « $u_n = 2^{n+1} - 1$ ».'
+          - 'Au rang $k + 1$, on remplace $n$ par $k + 1$ : la cible est $u_{k+1} = 2^{(k + 1) + 1} - 1 = 2^{k+2} - 1$.'
+          - 'L''égalité $u_k = 2^{k+1} - 1$ est l''hypothèse de récurrence (réponse C), pas ce qu''il faut démontrer.'
+          erreurs_frequentes:
+          - 'Recopier l''hypothèse de récurrence en croyant avoir démontré $P(k+1)$ : la cible porte sur le rang $k + 1$, pas sur le rang $k$.'
           resultat: B
       - code: TLE-SUI-REC-04
         difficulte: 4
@@ -102,8 +107,15 @@ competences:
         solution: 2/11
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Utiliser l''expression explicite $u_n = \dfrac{2}{1 + 2n}$ et y substituer $n = 5$.'
           etapes:
-          - $u_5 = \dfrac{2}{1 + 10} = \dfrac{2}{11}$.
+          - 'L''énoncé donne $u_n$ directement en fonction de $n$ : inutile de calculer $u_1$, $u_2$, … jusqu''à $u_5$.'
+          - 'Pour $n = 5$, le dénominateur vaut $1 + 2 \times 5 = 1 + 10 = 11$.'
+          - 'On obtient $u_5 = \dfrac{2}{11}$, fraction déjà irréductible.'
+          - 'Vérification : $u_4 = \dfrac{2}{1 + 8} = \dfrac{2}{9} \approx 0{,}22$ et $u_5 = \dfrac{2}{11} \approx 0{,}18$ ; la suite décroît, ce qui est cohérent avec $u_{n+1} = \dfrac{u_n}{1 + u_n}$.'
+          erreurs_frequentes:
+          - 'Oublier le $1$ du dénominateur et écrire $u_5 = \dfrac{2}{10} = \dfrac{1}{5}$.'
+          - 'Calculer les termes un par un et se tromper en route, alors que la formule explicite donne $u_5$ directement.'
           resultat: 2/11
       - code: TLE-SUI-REC-05
         difficulte: 5
@@ -224,8 +236,13 @@ competences:
         solution: D
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Limite de $q^n$ selon la position de $q$ : pour $q \leq -1$, la suite n''a pas de limite.'
           etapes:
-          - '$q = -2 \leq -1$ : les termes alternent de signe et grandissent en valeur absolue, pas de limite.'
+          - 'Ici $q = -2$, donc $q \leq -1$ : on est dans le cas « pas de limite » des suites géométriques.'
+          - 'Les premiers termes sont $1$, $-2$, $4$, $-8$, $16$ : le signe change à chaque rang.'
+          - 'La valeur absolue $\left|(-2)^n\right| = 2^n$ tend vers $+\infty$ : la suite oscille en s''amplifiant, donc elle ne converge pas et ne tend vers aucun infini.'
+          erreurs_frequentes:
+          - 'Conclure « tend vers $+\infty$ » parce que $2 > 1$ : la règle $q > 1$ suppose $q$ positif, l''alternance de signe l''interdit ici.'
           resultat: D
       - code: TLE-SUI-LIM-05
         difficulte: 4
@@ -234,8 +251,13 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème de convergence monotone : une suite croissante et majorée converge, mais le majorant ne donne pas la valeur de la limite.'
           etapes:
-          - 'Théorème de convergence monotone : la suite converge vers une limite $\ell \leq 5$.'
+          - 'Croissante et majorée par $5$ : le théorème de convergence monotone assure l''existence d''une limite $\ell$.'
+          - 'Comme $u_n \leq 5$ pour tout $n$, le passage à la limite donne $\ell \leq 5$.'
+          - 'Rien n''impose $\ell = 5$ : $u_n = 5 - \dfrac{1}{n}$ converge vers $5$, mais $u_n = 1 - \dfrac{1}{n}$ est aussi croissante et majorée par $5$ et converge vers $1$.'
+          erreurs_frequentes:
+          - 'Confondre « majorée par $5$ » et « converge vers $5$ » : le théorème donne l''existence de la limite, pas sa valeur.'
           resultat: B
       - code: TLE-SUI-LIM-06
         difficulte: 3
@@ -248,8 +270,13 @@ competences:
         adaptation: inspiree
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Suite géométrique : $u_n = u_0 \times q^n$ pour tout entier $n \geq 0$.'
           etapes:
-          - 'Suite géométrique : $u_n = u_0 \times q^n = 8 \times 0{,}85^n$.'
+          - 'On identifie le premier terme $u_0 = 8$ et la raison $q = 0{,}85$.'
+          - 'On applique la formule du terme général : $u_n = u_0 \times q^n = 8 \times 0{,}85^n$.'
+          - 'Vérification au rang $n = 1$ : $8 \times 0{,}85 = 6{,}8$, ce qui est bien $u_1$.'
+          erreurs_frequentes:
+          - 'Écrire $u_n = 8 + 0{,}85n$ : c''est la formule d''une suite arithmétique, alors que la raison multiplie ici chaque terme.'
           resultat: 8*0.85^n
       - code: TLE-SUI-LIM-07
         difficulte: 5
@@ -347,8 +374,14 @@ competences:
         solution: 3
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Forme indéterminée $\dfrac{\infty}{\infty}$ : factoriser le numérateur et le dénominateur par leur terme de plus haut degré $n^2$, puis simplifier.'
           etapes:
-          - $\dfrac{n^2(3 - \frac{1}{n})}{n^2(1 + \frac{1}{n^2})} = \dfrac{3 - \frac{1}{n}}{1 + \frac{1}{n^2}} \to 3$.
+          - 'On factorise : $3n^2 - n = n^2\left(3 - \dfrac{1}{n}\right)$ et $n^2 + 1 = n^2\left(1 + \dfrac{1}{n^2}\right)$.'
+          - 'En simplifiant par $n^2 \neq 0$ : $\dfrac{3n^2 - n}{n^2 + 1} = \dfrac{3 - \frac{1}{n}}{1 + \frac{1}{n^2}}$.'
+          - 'Or $\dfrac{1}{n} \to 0$ et $\dfrac{1}{n^2} \to 0$, donc le quotient tend vers $\dfrac{3 - 0}{1 + 0} = 3$.'
+          - 'Vérification numérique : pour $n = 1000$, $\dfrac{3 \times 10^6 - 1000}{10^6 + 1} \approx 2{,}999$, tout proche de $3$.'
+          erreurs_frequentes:
+          - 'Répondre « $\dfrac{\infty}{\infty} = 1$ » ou ne comparer que les coefficients des termes dominants sans justifier la simplification.'
           resultat: 3
       - code: TLE-SUI-OPE-04
         difficulte: 4
@@ -357,8 +390,14 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Forme indéterminée $\dfrac{\infty}{\infty}$ : factoriser par $n$ au numérateur et par $n^2$ au dénominateur, puis simplifier par $n$.'
           etapes:
-          - $\dfrac{n(2 + \frac{1}{n})}{n^2(4 - \frac{3}{n^2})} = \dfrac{1}{n} \times \dfrac{2 + \frac{1}{n}}{4 - \frac{3}{n^2}} \to 0 \times \dfrac{1}{2}$.
+          - 'On factorise : $2n + 1 = n\left(2 + \dfrac{1}{n}\right)$ et $4n^2 - 3 = n^2\left(4 - \dfrac{3}{n^2}\right)$.'
+          - 'En simplifiant par $n$ : $\dfrac{2n + 1}{4n^2 - 3} = \dfrac{1}{n} \times \dfrac{2 + \frac{1}{n}}{4 - \frac{3}{n^2}}$.'
+          - 'Le second facteur tend vers $\dfrac{2}{4} = \dfrac{1}{2}$, et $\dfrac{1}{n} \to 0$ : le produit tend vers $0 \times \dfrac{1}{2} = 0$.'
+          - 'Vérification numérique : pour $n = 1000$, $\dfrac{2001}{4 \times 10^6 - 3} \approx 0{,}0005$, proche de $0$.'
+          erreurs_frequentes:
+          - 'Comparer seulement les coefficients ($2$ et $4$) et conclure $\dfrac{1}{2}$ : c''est le degré du dénominateur, plus élevé, qui impose la limite $0$.'
           resultat: 0
       - code: TLE-SUI-OPE-05
         difficulte: 4
@@ -447,8 +486,14 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème des gendarmes : encadrer la suite par deux suites qui tendent vers la même limite.'
           etapes:
-          - $-\dfrac{1}{n} \leq \dfrac{(-1)^n}{n} \leq \dfrac{1}{n}$, les deux bornes tendent vers $0$.
+          - 'Pour tout entier $n \geq 1$ : $-1 \leq (-1)^n \leq 1$.'
+          - 'On divise par $n > 0$, ce qui conserve l''ordre : $-\dfrac{1}{n} \leq \dfrac{(-1)^n}{n} \leq \dfrac{1}{n}$.'
+          - 'Les deux bornes tendent vers $0$, donc par le théorème des gendarmes $\dfrac{(-1)^n}{n} \to 0$.'
+          - 'Vérification : pour $n = 1000$, $\left|\dfrac{(-1)^n}{n}\right| = 0{,}001$ ; les termes restent dans $[-1 ; 1]$ et se rapprochent de $0$.'
+          erreurs_frequentes:
+          - 'Vouloir utiliser la limite d''un produit : $(-1)^n$ n''a pas de limite, c''est l''encadrement qui permet de conclure.'
           resultat: 0
       - code: TLE-SUI-COMP-03
         difficulte: 3
@@ -457,8 +502,13 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème de comparaison : si $u_n \leq v_n$ à partir d''un certain rang et $v_n \to -\infty$, alors $u_n \to -\infty$.'
           etapes:
-          - '$-\sqrt{n} \to -\infty$ et $u_n \leq -\sqrt{n}$ : par comparaison, $u_n \to -\infty$.'
+          - 'On connait la limite de la borne : $\sqrt{n} \to +\infty$, donc $-\sqrt{n} \to -\infty$.'
+          - 'Pour tout $n \geq 1$, $u_n \leq -\sqrt{n}$ : les termes de $(u_n)$ sont encore plus petits que ceux qui partent vers $-\infty$.'
+          - 'Par comparaison, $u_n \to -\infty$ : la suite diverge vers $-\infty$ et ne converge pas.'
+          erreurs_frequentes:
+          - 'Inverser le sens de l''inégalité et croire que $(u_n)$ est plus grande que $-\sqrt{n}$, ce qui ne permettrait pas de conclure.'
           resultat: B
       - code: TLE-SUI-COMP-04
         difficulte: 4
@@ -467,8 +517,14 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème des gendarmes, après avoir encadré $\cos n$ entre $-1$ et $1$.'
           etapes:
-          - '$-\dfrac{1}{n^2} \leq \dfrac{\cos n}{n^2} \leq \dfrac{1}{n^2}$ : gendarmes, limite $0$.'
+          - 'Pour tout entier $n$ : $-1 \leq \cos n \leq 1$.'
+          - 'On divise par $n^2 > 0$, ce qui conserve l''ordre : $-\dfrac{1}{n^2} \leq \dfrac{\cos n}{n^2} \leq \dfrac{1}{n^2}$.'
+          - 'Les deux bornes tendent vers $0$ : par gendarmes, $\dfrac{\cos n}{n^2} \to 0$.'
+          - 'Vérification : pour $n = 1000$, $\left|\dfrac{\cos n}{n^2}\right| \leq 10^{-6}$, donc les termes sont plus petits que $10^{-5}$ en valeur absolue.'
+          erreurs_frequentes:
+          - 'Écrire que $\cos n$ tend vers $0$ ou vers une limite : $(\cos n)$ n''a pas de limite, seul l''encadrement permet de conclure.'
           resultat: 0
       - code: TLE-SUI-COMP-05
         difficulte: 5

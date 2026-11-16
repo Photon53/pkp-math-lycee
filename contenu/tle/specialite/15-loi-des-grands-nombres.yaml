@@ -158,8 +158,14 @@ competences:
         solution: 1/10
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Inégalité de concentration : $P\left(|M_n - \mu| \geq \delta\right) \leq \dfrac{\sigma^2}{n\delta^2}$, où $\sigma^2$ est la variance.'
           etapes:
-          - $\dfrac{0{,}25}{1000 \times 0{,}0025} = \dfrac{0{,}25}{2{,}5} = 0{,}1$.
+          - 'On identifie les données : $\sigma^2 = 0{,}25$, $n = 1000$, $\delta = 0{,}05$.'
+          - On calcule $\delta^2 = 0{,}05^2 = 0{,}0025$.
+          - 'On applique la formule : $\dfrac{0{,}25}{1000 \times 0{,}0025} = \dfrac{0{,}25}{2{,}5} = 0{,}1$.'
+          - 'Vérification : $\dfrac{0{,}25}{2{,}5} = \dfrac{1}{10}$, qui est bien un majorant de probabilité (inférieur à $1$).'
+          erreurs_frequentes:
+          - Oublier d'élever $\delta$ au carré, ou confondre variance et écart type ($\sigma = 0{,}5$).
           resultat: 1/10
       - code: TLE-CONCENTRATION-04
         difficulte: 4
@@ -168,9 +174,15 @@ competences:
         solution: 500
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'On impose $\dfrac{\sigma^2}{n\delta^2} \leq \alpha$ et on isole $n$ : $n \geq \dfrac{\sigma^2}{\alpha\delta^2}$.'
           etapes:
-          - $\dfrac{0{,}25}{0{,}01n} \leq 0{,}05 \iff n \geq \dfrac{0{,}25}{0{,}0005} = 500$.
-          resultat: 500
+          - 'On identifie : $\sigma^2 = 0{,}25$, $\delta = 0{,}1$, majorant visé $\alpha = 0{,}05$.'
+          - On calcule $\delta^2 = 0{,}01$ et $\alpha\delta^2 = 0{,}05 \times 0{,}01 = 0{,}0005$.
+          - 'On isole $n$ : $\dfrac{0{,}25}{0{,}01n} \leq 0{,}05 \iff n \geq \dfrac{0{,}25}{0{,}0005} = 500$.'
+          - 'Vérification : pour $n = 500$, le majorant vaut $\dfrac{0{,}25}{500 \times 0{,}01} = \dfrac{0{,}25}{5} = 0{,}05$, exactement la valeur visée.'
+          erreurs_frequentes:
+          - Diviser par $n$ sans inverser l'inégalité, ou oublier que $n$ est entier et doit être arrondi à l'entier supérieur.
+          resultat: '500'
       - code: TLE-CONCENTRATION-05
         difficulte: 5
         type: numerique
@@ -178,6 +190,12 @@ competences:
         solution: 10000
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'On impose $\dfrac{\sigma^2}{n\delta^2} \leq \alpha$ et on isole $n$ : $n \geq \dfrac{\sigma^2}{\alpha\delta^2}$.'
           etapes:
-          - $\dfrac{0{,}25}{0{,}0025n} \leq 0{,}01 \iff n \geq \dfrac{100}{0{,}01} = 10\,000$.
-          resultat: 10000
+          - 'On identifie : $\sigma^2 = 0{,}25$, $\delta = 0{,}05$, majorant visé $\alpha = 0{,}01$.'
+          - On calcule $\delta^2 = 0{,}0025$ et $\alpha\delta^2 = 0{,}01 \times 0{,}0025 = 0{,}000025$.
+          - 'On isole $n$ : $n \geq \dfrac{0{,}25}{0{,}000025} = 10\,000$.'
+          - 'Vérification : pour $n = 10\,000$, le majorant vaut $\dfrac{0{,}25}{10\,000 \times 0{,}0025} = \dfrac{0{,}25}{25} = 0{,}01$.'
+          erreurs_frequentes:
+          - Se tromper de puissance de dix en divisant par $0{,}000025$, ou oublier d'élever $\delta$ au carré.
+          resultat: '10000'

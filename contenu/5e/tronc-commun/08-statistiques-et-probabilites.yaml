@@ -96,9 +96,14 @@ competences:
         solution: '90'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Angle = fréquence × $360°$.
+          methode: 'L''angle d''un secteur est proportionnel à la fréquence : angle $=$ fréquence $\times 360°$.'
           etapes:
-          - $0{,}25 \times 360 = 90°$.
+          - La catégorie représente $25\,\%$ de l'effectif, soit la fréquence $0{,}25$.
+          - 'On applique la formule : $0{,}25 \times 360°$.'
+          - 'On calcule : $\dfrac{1}{4} \times 360 = 90°$.'
+          - 'Vérification : $90°$ est bien le quart de $360°$, comme $25\,\%$ est le quart de $100\,\%$.'
+          erreurs_frequentes:
+          - Multiplier par $100$ au lieu de $360$, ou oublier de convertir le pourcentage en fréquence.
           resultat: '90'
       - code: 5E-STATISTIQUES-05
         difficulte: 4
@@ -107,9 +112,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Données regroupées en classes.
+          methode: 'Choisir la représentation adaptée : l''histogramme représente des classes de valeurs, le diagramme circulaire des parties d''un tout.'
           etapes:
-          - L’histogramme représente des classes de valeurs.
+          - 'Les données sont regroupées en classes : $[140 ; 150[$, $[150 ; 160[$, etc.'
+          - Un histogramme est formé de rectangles juxtaposés dont la largeur représente l'étendue de la classe.
+          - Le diagramme circulaire ne convient qu'à des catégories, pas à des intervalles de valeurs.
+          - 'Vérification : une droite graduée ne montrerait que des valeurs isolées, pas l''effectif de chaque classe.'
+          erreurs_frequentes:
+          - Choisir le diagramme circulaire parce qu'il montre des pourcentages, alors que les classes ne sont pas des catégories.
           resultat: A
       - code: 5E-STATISTIQUES-06
         difficulte: 5
@@ -199,9 +209,14 @@ competences:
         solution: 5/8
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $8$ boules au total, $5$ vertes.
+          methode: Probabilité $= \dfrac{\text{nombre de cas favorables}}{\text{nombre de cas possibles}}$, avec équiprobabilité des tirages.
           etapes:
-          - $P(\text{verte}) = \dfrac{5}{8}$.
+          - L'urne contient $3 + 5 = 8$ boules, toutes indiscernables au toucher.
+          - Le nombre de cas favorables à « verte » est $5$.
+          - 'On calcule : $P(\text{verte}) = \dfrac{5}{8}$.'
+          - 'Vérification : $P(\text{rouge}) = \dfrac{3}{8}$ et $\dfrac{3}{8} + \dfrac{5}{8} = 1$, la somme des probabilités vaut bien $1$.'
+          erreurs_frequentes:
+          - Écrire $\dfrac{5}{3}$ en inversant, ou oublier de compter les boules rouges dans le total.
           resultat: 5/8
       - code: 5E-PROBABILITES-04
         difficulte: 3
@@ -210,10 +225,15 @@ competences:
         solution: '0,7'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Événement contraire.
+          methode: 'La probabilité d''un événement et celle de son contraire ont pour somme $1$ : $P(\text{non } A) = 1 - P(A)$.'
           etapes:
-          - $1 - 0{,}3 = 0{,}7$.
-          resultat: '0,7'
+          - L'événement $A$ est « il pleut demain », de probabilité $0{,}3$.
+          - Son contraire est « il ne pleut pas ».
+          - 'On applique la formule : $P(\text{non } A) = 1 - 0{,}3 = 0{,}7$.'
+          - 'Vérification : $0{,}3 + 0{,}7 = 1$, les deux probabilités sont bien complémentaires.'
+          erreurs_frequentes:
+          - Répondre $0{,}3$ ou $0{,}5$ en oubliant la règle du contraire.
+          resultat: 0,7
       - code: 5E-PROBABILITES-05
         difficulte: 4
         type: qcm
@@ -221,9 +241,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les lancers sont indépendants.
+          methode: 'Les lancers d''une pièce sont indépendants : le résultat passé ne modifie pas la probabilité du lancer suivant.'
           etapes:
-          - La pièce n’a pas de mémoire ; la probabilité reste $\dfrac{1}{2}$.
+          - 'La pièce est équilibrée : à chaque lancer, $P(\text{pile}) = P(\text{face}) = \dfrac{1}{2}$.'
+          - 'Les lancers sont indépendants : cinq « pile » de suite n''informent pas sur le sixième lancer.'
+          - La probabilité d'obtenir « face » au sixième lancer reste donc $\dfrac{1}{2}$.
+          - 'Vérification : si la pièce était déséquilibrée, l''énoncé le dirait ; « équilibrée » impose la même probabilité à chaque lancer.'
+          erreurs_frequentes:
+          - 'Croire que « face » est plus probable après cinq « pile » : c''est l''erreur du joueur, la pièce n''a pas de mémoire.'
           resultat: B
       - code: 5E-PROBABILITES-06
         difficulte: 5

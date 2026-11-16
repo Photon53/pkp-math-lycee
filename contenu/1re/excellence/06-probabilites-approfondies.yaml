@@ -67,8 +67,14 @@ competences:
     solution: 2/3
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Raisonner sur les cas : on gagne en changeant exactement lorsque le premier choix était perdant.'
       etapes:
-      - 'On gagne en changeant exactement quand le premier choix était perdant : probabilité $\dfrac{2}{3}$.'
+      - 'Le premier choix est gagnant avec la probabilité $\dfrac{1}{3}$ : changer fait alors perdre.'
+      - 'Le premier choix est perdant avec la probabilité $\dfrac{2}{3}$ : le présentateur ouvre l''autre porte perdante, et changer fait gagner.'
+      - La probabilité de gagner en changeant est donc $\dfrac{2}{3}$.
+      - 'Vérification : $P(\text{gagner sans changer}) = \dfrac{1}{3}$, et $\dfrac{1}{3} + \dfrac{2}{3} = 1$, les deux stratégies sont complémentaires.'
+      erreurs_frequentes:
+      - Répondre $\dfrac{1}{2}$ en oubliant que le présentateur connaît les portes et ouvre toujours une porte perdante.
       resultat: 2/3
   - code: 1RE-EX-PROBAS-04
     difficulte: 4
@@ -77,8 +83,14 @@ competences:
     solution: 8/15
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Somme de deux cas incompatibles : rouge puis bleu, ou bleu puis rouge ; les tirages sont sans remise.'
       etapes:
-      - $\dfrac{4}{10} \times \dfrac{6}{9} + \dfrac{6}{10} \times \dfrac{4}{9} = \dfrac{48}{90} = \dfrac{8}{15}$.
+      - 'Cas « rouge puis bleu » : $\dfrac{4}{10} \times \dfrac{6}{9} = \dfrac{24}{90}$.'
+      - 'Cas « bleu puis rouge » : $\dfrac{6}{10} \times \dfrac{4}{9} = \dfrac{24}{90}$.'
+      - 'On additionne : $\dfrac{24}{90} + \dfrac{24}{90} = \dfrac{48}{90} = \dfrac{8}{15}$.'
+      - 'Vérification : deux boules de même couleur valent $\dfrac{4}{10} \times \dfrac{3}{9} + \dfrac{6}{10} \times \dfrac{5}{9} = \dfrac{42}{90} = \dfrac{7}{15}$, et $\dfrac{8}{15} + \dfrac{7}{15} = 1$.'
+      erreurs_frequentes:
+      - Utiliser $\dfrac{4}{10} \times \dfrac{6}{10}$ (tirage avec remise), ou oublier l'un des deux ordres.
       resultat: 8/15
   - code: 1RE-EX-PROBAS-05
     difficulte: 5
@@ -87,8 +99,14 @@ competences:
     solution: 1/2
     auteur: Brouillon IA (Claude)
     correction:
+      methode: L'espérance d'une somme est la somme des espérances ; chaque lancer suit une loi de Bernoulli de paramètre $\dfrac{1}{6}$.
       etapes:
-      - 'Somme de trois variables de Bernoulli de paramètre $\dfrac{1}{6}$ : $3 \times \dfrac{1}{6} = \dfrac{1}{2}$.'
+      - 'Pour un lancer, la variable $X_i$ vaut $1$ si l''on obtient $6$, sinon $0$ : $E(X_i) = \dfrac{1}{6}$.'
+      - Le nombre total de $6$ est $X = X_1 + X_2 + X_3$.
+      - 'Par linéarité de l''espérance : $E(X) = 3 \times \dfrac{1}{6} = \dfrac{1}{2}$.'
+      - 'Vérification : $\dfrac{1}{2}$ est bien compris entre $0$ et $3$, les valeurs possibles du nombre de $6$.'
+      erreurs_frequentes:
+      - Croire que l'espérance doit être un entier, ou multiplier par $6$ au lieu de $\dfrac{1}{6}$.
       resultat: 1/2
 - code: 1RE-EX-PROBA-PB
   libelle: 'Problème guidé : faux positifs et second test'
@@ -151,8 +169,14 @@ competences:
     solution: '0.0297'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Probabilités totales : $P(T) = P(M) \times P(T|M) + P(\overline{M}) \times P(T|\overline{M})$.'
       etapes:
-      - $0{,}0099 + 0{,}0198 = 0{,}0297$.
+      - Le premier terme est $P(M) \times P(T|M) = 0{,}0099$.
+      - Le second terme est $P(\overline{M}) \times P(T|\overline{M}) = 0{,}0198$.
+      - 'On additionne : $0{,}0099 + 0{,}0198 = 0{,}0297$.'
+      - 'Vérification : la somme de deux probabilités positives donne une probabilité comprise entre $0$ et $1$.'
+      erreurs_frequentes:
+      - Oublier l'un des deux termes, ou additionner les probabilités conditionnelles sans les pondérer.
       resultat: '0.0297'
   - code: 1RE-EX-PROBA-PB-04
     difficulte: 4
@@ -161,8 +185,14 @@ competences:
     solution: 1/3
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Formule de Bayes : $P(M|T) = \dfrac{P(M \cap T)}{P(T)}$, avec les valeurs des étapes précédentes.'
       etapes:
-      - $\dfrac{0{,}0099}{0{,}0297} = \dfrac{1}{3}$.
+      - Au numérateur, $P(M \cap T) = 0{,}0099$.
+      - Au dénominateur, $P(T) = 0{,}0297$.
+      - 'On divise : $\dfrac{0{,}0099}{0{,}0297} = \dfrac{1}{3}$.'
+      - 'Vérification : $0{,}0099 \times 3 = 0{,}0297$, et $\dfrac{1}{3}$ est bien une probabilité.'
+      erreurs_frequentes:
+      - Inverser numérateur et dénominateur, ou confondre $P(T|M) = 0{,}95$ avec $P(M|T)$.
       resultat: 1/3
   - code: 1RE-EX-PROBA-PB-05
     difficulte: 5

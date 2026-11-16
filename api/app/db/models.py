@@ -266,6 +266,9 @@ class GroupeAnglais(Base):
     """Groupe PKP Anglais (collège) : séparé des classes de maths, sans parcours ni chapitres (CDC anglais V1.8)."""
 
     __tablename__ = "groupe_anglais"
+    __table_args__ = (
+        CheckConstraint("mode_correction IN ('apres_chaque_question', 'fin_du_quiz')", name="mode_correction"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nom: Mapped[str] = mapped_column(String(60))
@@ -280,11 +283,41 @@ class GroupeAnglais(Base):
     archivee_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
     archivee_par: Mapped[str | None] = mapped_column(String(80))
     motif_archivage: Mapped[str | None] = mapped_column(String(200))
+    # Mode de correction des quiz du groupe (#110) : après chaque question (défaut) ou à la fin du quiz.
+    mode_correction: Mapped[str] = mapped_column(
+        String(25), default="apres_chaque_question", server_default="apres_chaque_question"
+    )
 
     enseignant: Mapped[Enseignant] = relationship(back_populates="groupes_anglais")
     eleves: Mapped[list["EleveAnglais"]] = relationship(
         back_populates="groupe", cascade="all, delete-orphan", passive_deletes=True
     )
+    modes_seances: Mapped[list["ModeCorrectionSeanceAnglais"]] = relationship(
+        back_populates="groupe", cascade="all, delete-orphan", passive_deletes=True
+    )
+
+    def mode_correction_de(self, code: str) -> str:
+        """Mode effectif pour une séance : réglage de la séance dans ce groupe, sinon celui du groupe (#110)."""
+        from app.correction import mode_effectif
+
+        return mode_effectif(self.mode_correction, next((m.mode for m in self.modes_seances if m.code == code), None))
+
+
+class ModeCorrectionSeanceAnglais(Base):
+    """Mode de correction propre à une séance, pour un groupe (#110) : remplace le mode du groupe."""
+
+    __tablename__ = "mode_correction_seance_anglais"
+    __table_args__ = (
+        UniqueConstraint("groupe_id", "code", name="uq_mode_correction_seance_anglais_groupe_code"),
+        CheckConstraint("mode IN ('apres_chaque_question', 'fin_du_quiz')", name="mode"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    groupe_id: Mapped[int] = mapped_column(ForeignKey("groupe_anglais.id", ondelete="CASCADE"), index=True)
+    code: Mapped[str] = mapped_column(String(10))
+    mode: Mapped[str] = mapped_column(String(25))
+
+    groupe: Mapped[GroupeAnglais] = relationship(back_populates="modes_seances")
 
 
 class EleveAnglais(Base):
@@ -309,6 +342,7 @@ class EleveAnglais(Base):
     progression: Mapped[list["ProgressionAnglais"]] = relationship(
         back_populates="eleve", cascade="all, delete-orphan", passive_deletes=True
     )
+    reponses: Mapped[list["ReponseAnglais"]] = relationship(cascade="all, delete-orphan", passive_deletes=True)
 
 
 STATUTS_SEANCE_ANGLAIS = ("brouillon", "soumis", "valide", "refuse", "archive")
@@ -387,11 +421,101 @@ class ProgressionAnglais(Base):
     meilleur_score: Mapped[int] = mapped_column(Integer, default=0)
     total: Mapped[int] = mapped_column(Integer, default=0)
     tentatives: Mapped[int] = mapped_column(Integer, default=0)
+    # Score du premier essai, figé (#110, choix B) ; inconnu (None) pour les résultats antérieurs.
+    premier_score: Mapped[int | None] = mapped_column(Integer)
     # Un niveau par phrase « I can » : non_observe, avec_aide, en_cours, autonome.
     i_can: Mapped[list] = mapped_column(JSON, default=list)
     maj_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, onupdate=_maintenant)
 
     eleve: Mapped[EleveAnglais] = relationship(back_populates="progression")
+
+
+class ReponseAnglais(Base):
+    """Réponse d'un élève à une question d'un quiz d'anglais, par essai (#110).
+
+    Unique par (élève, séance, essai, question) : la première réponse d'un essai compte et ne se modifie pas.
+    """
+
+    __tablename__ = "reponse_anglais"
+    __table_args__ = (
+        UniqueConstraint("eleve_id", "code", "essai", "question", name="uq_reponse_anglais_eleve_code_essai_question"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    eleve_id: Mapped[int] = mapped_column(ForeignKey("eleve_anglais.id", ondelete="CASCADE"), index=True)
+    code: Mapped[str] = mapped_column(String(10))
+    essai: Mapped[int] = mapped_column(Integer)  # 1 = premier essai
+    question: Mapped[int] = mapped_column(Integer)  # rang dans le quiz complet, à partir de 0
+    choix: Mapped[int] = mapped_column(Integer)
+    juste: Mapped[bool] = mapped_column(Boolean)
+    repondu_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant)
+
+
+STATUTS_DOSSIER_FRANCAIS = ("brouillon", "soumis", "valide", "refuse", "archive")
+
+
+class DossierFrancais(Base):
+    """Dossier de français (leçon, textes, questions et supports professeur), importé de contenu/francais (#98).
+
+    Même circuit que les séances d'anglais : version courante = la dernière ; version validée = la dernière validée.
+    Aucun élève n'y accède : il n'existe pas de route élève pour le français (V2-D12 en attente).
+    """
+
+    __tablename__ = "dossier_francais"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code: Mapped[str] = mapped_column(String(30), unique=True)
+    domaine_code: Mapped[str] = mapped_column(ForeignKey("domaine_pedagogique.code", ondelete="RESTRICT"), index=True)
+    niveau: Mapped[str] = mapped_column(String(4))
+    titre: Mapped[str] = mapped_column(String(200))
+
+    versions: Mapped[list["DossierFrancaisVersion"]] = relationship(
+        back_populates="dossier", cascade="all, delete-orphan", passive_deletes=True,
+        order_by="DossierFrancaisVersion.numero",
+    )
+
+    @property
+    def courante(self) -> "DossierFrancaisVersion":
+        return self.versions[-1]
+
+    @property
+    def validee(self) -> "DossierFrancaisVersion | None":
+        return next((v for v in reversed(self.versions) if v.statut == "valide"), None)
+
+
+class DossierFrancaisVersion(Base):
+    """Une version importée : partie élève et partie professeur séparées, empreinte du fichier source."""
+
+    __tablename__ = "dossier_francais_version"
+    __table_args__ = (
+        UniqueConstraint("dossier_id", "numero", name="uq_dossier_francais_version_numero"),
+        # Import idempotent : un même fichier source ne crée jamais deux versions d'un dossier.
+        UniqueConstraint("dossier_id", "empreinte", name="uq_dossier_francais_version_empreinte"),
+        CheckConstraint(
+            "statut IN ('brouillon', 'soumis', 'valide', 'refuse', 'archive')", name="ck_dossier_francais_version_statut"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    dossier_id: Mapped[int] = mapped_column(ForeignKey("dossier_francais.id", ondelete="CASCADE"), index=True)
+    numero: Mapped[int] = mapped_column(Integer)
+    # Partie élève (leçon, textes, consignes) et partie professeur (corrigés, déroulement, grille) : jamais mélangées.
+    eleve: Mapped[dict] = mapped_column(JSON)
+    professeur: Mapped[dict] = mapped_column(JSON)
+    # Format, attribution, registre des sources, cible et codes locaux.
+    meta: Mapped[dict] = mapped_column(JSON)
+    empreinte: Mapped[str] = mapped_column(String(64))
+    statut: Mapped[str] = mapped_column(String(10), default="soumis")
+    # Auteur vide = contenu importé du dépôt (rédaction par un agent, voir meta.attribution).
+    auteur_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    cree_le: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_maintenant, server_default=func.now())
+    validateur_id: Mapped[int | None] = mapped_column(ForeignKey("enseignant.id", ondelete="SET NULL"))
+    decide_le: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    motif_refus: Mapped[str | None] = mapped_column(Text)
+
+    dossier: Mapped[DossierFrancais] = relationship(back_populates="versions")
+    auteur: Mapped["Enseignant | None"] = relationship(foreign_keys=[auteur_id])
+    validateur: Mapped["Enseignant | None"] = relationship(foreign_keys=[validateur_id])
 
 
 class Chapitre(Base):

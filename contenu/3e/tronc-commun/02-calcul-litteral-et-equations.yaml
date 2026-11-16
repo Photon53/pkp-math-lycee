@@ -84,9 +84,14 @@ competences:
         solution: (x+5)(x-5)
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $a^2 - b^2 = (a + b)(a - b)$ avec $a = x$, $b = 5$.
+          methode: 'Reconnaître une différence de deux carrés : $a^2 - b^2 = (a + b)(a - b)$, avec $a = x$ et $b = 5$.'
           etapes:
-          - $x^2 - 25 = (x + 5)(x - 5)$.
+          - 'On repère les deux carrés : $x^2 = (x)^2$ et $25 = 5^2$.'
+          - 'On applique l''identité : $x^2 - 25 = x^2 - 5^2 = (x + 5)(x - 5)$.'
+          - 'On développe pour contrôler : $(x + 5)(x - 5) = x^2 - 5x + 5x - 25 = x^2 - 25$.'
+          - 'Vérification numérique : pour $x = 6$, $36 - 25 = 11$ et $(6 + 5)(6 - 5) = 11 \times 1 = 11$.'
+          erreurs_frequentes:
+          - Écrire $(x - 5)^2$, qui vaut $x^2 - 10x + 25$, ou oublier que $25 = 5^2$.
           resultat: (x+5)(x-5)
       - code: 3E-DEVELOPPER-04
         difficulte: 4
@@ -96,10 +101,16 @@ competences:
         solution: 2x^2+7x-4
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Double distributivité.
+          methode: 'Double distributivité : chaque terme du premier facteur multiplie chaque terme du second, puis on réduit.'
           etapes:
-          - $2x^2 + 8x - x - 4 = 2x^2 + 7x - 4$.
+          - 'On développe : $(2x - 1)(x + 4) = 2x \times x + 2x \times 4 - 1 \times x - 1 \times 4$.'
+          - 'On calcule chaque produit : $2x^2 + 8x - x - 4$.'
+          - 'On réduit les termes en $x$ : $8x - x = 7x$.'
+          - On obtient $2x^2 + 7x - 4$
+          - 'Vérification : Pour $x = 1$, l''expression vaut $1 \times 5 = 5$ et $2 + 7 - 4 = 5$.'
           resultat: 2x^2+7x-4
+          erreurs_frequentes:
+          - Oublier un des quatre produits (souvent $-1 \times 4$) ou se tromper sur les signes.
       - code: 3E-DEVELOPPER-05
         difficulte: 5
         type: expression
@@ -108,9 +119,14 @@ competences:
         solution: (3x+4)(3x-4)
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Reconnaître $a^2 - b^2$ avec $a = 3x$ et $b = 4$.
+          methode: 'Reconnaître $a^2 - b^2$ avec $a = 3x$ et $b = 4$ : $a^2 - b^2 = (a + b)(a - b)$.'
           etapes:
-          - $9x^2 - 16 = (3x)^2 - 4^2 = (3x + 4)(3x - 4)$.
+          - 'On repère les carrés : $9x^2 = (3x)^2$ et $16 = 4^2$.'
+          - 'On applique l''identité : $(3x)^2 - 4^2 = (3x + 4)(3x - 4)$.'
+          - 'On développe pour contrôler : $9x^2 - 12x + 12x - 16 = 9x^2 - 16$.'
+          - 'Vérification numérique : pour $x = 2$, $36 - 16 = 20$ et $(6 + 4)(6 - 4) = 10 \times 2 = 20$.'
+          erreurs_frequentes:
+          - Écrire $(3x - 4)^2$, ou oublier que $9x^2$ est le carré de $3x$ et non de $9x$.
           resultat: (3x+4)(3x-4)
       - code: 3E-DEVELOPPER-06
         difficulte: 3
@@ -119,11 +135,15 @@ competences:
         solution: '9999'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $(100 + 1)(100 - 1) = 100^2 - 1^2$.
+          methode: Utiliser l'identité $a^2 - b^2 = (a + b)(a - b)$ avec $a = 100$ et $b = 1$.
           etapes:
-          - $10\,000 - 1 = 9\,999$.
+          - On écrit $101 = 100 + 1$ et $99 = 100 - 1$.
+          - On reconnaît $(a + b)(a - b) = a^2 - b^2$.
+          - 'On calcule : $100^2 - 1^2 = 10\,000 - 1 = 9\,999$.'
+          - 'Vérification : $101 \times 99 = 101 \times (100 - 1) = 10\,100 - 101 = 9\,999$, même résultat.'
+          erreurs_frequentes:
+          - Écrire $100^2 - 1 = 9\,999$ sans justifier l'identité, ou oublier le carré sur $1$.
           resultat: '9999'
-
   - code: 3E-EQUATIONS
     libelle: Résoudre des équations du premier degré, produits et $x^2 = a$
     attendus: [3E-2020-LIT-04, 3E-2020-LIT-05]
@@ -199,9 +219,14 @@ competences:
         solution: C
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $x^2 = a$ avec $a > 0$.
+          methode: 'Pour $a > 0$, l''équation $x^2 = a$ a deux solutions : $\sqrt{a}$ et $-\sqrt{a}$.'
           etapes:
-          - $x = \sqrt{16} = 4$ ou $x = -4$.
+          - On a $x^2 = 16$ avec $16 > 0$.
+          - Les deux solutions sont $x = \sqrt{16} = 4$ et $x = -\sqrt{16} = -4$.
+          - 'On vérifie : $4^2 = 16$ et $(-4)^2 = 16$.'
+          - 'Il y a donc deux solutions : un carré peut provenir d''un nombre négatif comme d''un nombre positif.'
+          erreurs_frequentes:
+          - Répondre « une seule, $4$ » en oubliant la solution négative, ou proposer $8$ et $-8$, dont les carrés valent $64$.
           resultat: C
       - code: 3E-EQUATIONS-04
         difficulte: 4
@@ -210,9 +235,14 @@ competences:
         solution: '-7'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Factoriser, puis produit nul.
+          methode: 'Factoriser avec $a^2 - b^2$, puis utiliser la règle du produit nul : un produit est nul si l''un de ses facteurs est nul.'
           etapes:
-          - $(x - 7)(x + 7) = 0$, donc $x = 7$ ou $x = -7$.
+          - 'On factorise : $x^2 - 49 = (x - 7)(x + 7)$.'
+          - 'On applique le produit nul : $x - 7 = 0$ ou $x + 7 = 0$.'
+          - Les solutions sont $x = 7$ et $x = -7$ ; la solution négative demandée est $-7$.
+          - 'Vérification : $(-7)^2 - 49 = 49 - 49 = 0$.'
+          erreurs_frequentes:
+          - Ne donner que $7$, ou perdre la solution négative en divisant par $x$.
           resultat: '-7'
       - code: 3E-EQUATIONS-05
         difficulte: 5

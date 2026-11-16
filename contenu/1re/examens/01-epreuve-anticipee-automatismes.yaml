@@ -68,8 +68,14 @@ competences:
     solution: A
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Réduire au même dénominateur : $6$ est un multiple de $3$, on convertit $\dfrac{2}{3}$ en sixièmes.'
       etapes:
-      - $\dfrac{4}{6} + \dfrac{1}{6} = \dfrac{5}{6}$.
+      - 'On cherche un dénominateur commun : $6$, qui est multiple de $3$.'
+      - 'On convertit : $\dfrac{2}{3} = \dfrac{4}{6}$.'
+      - 'On additionne : $\dfrac{4}{6} + \dfrac{1}{6} = \dfrac{5}{6}$.'
+      - 'Vérification : $\dfrac{5}{6} \approx 0{,}833$ et $\dfrac{2}{3} + \dfrac{1}{6} \approx 0{,}667 + 0{,}167 = 0{,}833$.'
+      erreurs_frequentes:
+      - Additionner les numérateurs et les dénominateurs ($\dfrac{3}{9}$), ou mal convertir $\dfrac{2}{3}$.
       resultat: A
   - code: 1RE-EXA-AUTO-CALC-04
     difficulte: 4
@@ -78,8 +84,14 @@ competences:
     solution: B
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Identité remarquable : $(a - b)^2 = a^2 - 2ab + b^2$.'
       etapes:
-      - $(a - b)^2 = a^2 - 2ab + b^2$.
+      - On identifie $a = x$ et $b = 2$.
+      - 'On développe : $x^2 - 2 \times x \times 2 + 2^2$.'
+      - On obtient $x^2 - 4x + 4$.
+      - 'Vérification : pour $x = 3$, $(3 - 2)^2 = 1$ et $9 - 12 + 4 = 1$.'
+      erreurs_frequentes:
+      - Écrire $x^2 - 4$ en oubliant le double produit, ou $x^2 + 4$ en oubliant le signe.
       resultat: B
   - code: 1RE-EXA-AUTO-CALC-05
     difficulte: 5
@@ -88,8 +100,14 @@ competences:
     solution: C
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Résoudre une inéquation du premier degré : isoler $x$ en appliquant la même opération aux deux membres.'
       etapes:
-      - $3x > 12$, donc $x > 4$.
+      - 'On ajoute $5$ aux deux membres : $3x > 12$.'
+      - 'On divise par $3 > 0$ : le sens de l''inégalité ne change pas, $x > 4$.'
+      - Les solutions sont les réels strictement supérieurs à $4$.
+      - 'Vérification : $x = 5$ donne $15 - 5 = 10 > 7$, tandis que $x = 4$ donne $7$, qui n''est pas strictement supérieur.'
+      erreurs_frequentes:
+      - Changer le sens de l'inégalité sans diviser par un nombre négatif, ou s'arrêter à $3x > 12$.
       resultat: C
 - code: 1RE-EXA-AUTO-FONC
   libelle: Automatismes sur fonctions, statistiques et probabilités (QCM)
@@ -152,8 +170,14 @@ competences:
     solution: B
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Moyenne : somme des valeurs divisée par l''effectif.'
       etapes:
-      - $\dfrac{24}{3} = 8$.
+      - 'On additionne : $4 + 8 + 12 = 24$.'
+      - On compte $3$ valeurs.
+      - 'On divise : $\dfrac{24}{3} = 8$.'
+      - 'Vérification : $8$ est la valeur du milieu, les écarts $-4$ et $+4$ se compensent.'
+      erreurs_frequentes:
+      - Répondre $12$ (la plus grande valeur) ou $6$ en divisant par $4$.
       resultat: B
   - code: 1RE-EXA-AUTO-FONC-04
     difficulte: 4
@@ -162,8 +186,14 @@ competences:
     solution: C
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Probabilité conditionnelle : $P(F|E) = \dfrac{P(E \cap F)}{P(E)}$, avec $P(E) \neq 0$.'
       etapes:
-      - $\dfrac{0{,}2}{0{,}5} = 0{,}4$.
+      - On identifie $P(E) = 0{,}5$ et $P(E \cap F) = 0{,}2$.
+      - 'On applique la formule : $P(F|E) = \dfrac{0{,}2}{0{,}5}$.'
+      - 'On calcule : $\dfrac{0{,}2}{0{,}5} = 0{,}4$.'
+      - 'Vérification : $0{,}4 \times 0{,}5 = 0{,}2$, on retrouve $P(E \cap F)$.'
+      erreurs_frequentes:
+      - Calculer $0{,}5 - 0{,}2 = 0{,}3$, ou inverser numérateur et dénominateur.
       resultat: C
   - code: 1RE-EXA-AUTO-FONC-05
     difficulte: 5
@@ -172,6 +202,12 @@ competences:
     solution: A
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Signe d''un produit de facteurs : on étudie le signe de chaque facteur sur l''intervalle, puis on multiplie.'
       etapes:
-      - Entre les racines, $x - 1 > 0$ et $x - 3 < 0$.
+      - Sur $]1 ; 3[$, on a $x > 1$, donc $x - 1 > 0$.
+      - Sur le même intervalle, $x < 3$, donc $x - 3 < 0$.
+      - 'Le produit d''un facteur positif et d''un facteur négatif est négatif : $(x - 1)(x - 3) < 0$.'
+      - 'Vérification : pour $x = 2$, $(2 - 1)(2 - 3) = 1 \times (-1) = -1 < 0$.'
+      erreurs_frequentes:
+      - Conclure « positif » en oubliant le signe du second facteur, ou confondre avec l'extérieur des racines.
       resultat: A

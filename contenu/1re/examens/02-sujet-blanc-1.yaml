@@ -63,8 +63,14 @@ competences:
     solution: '5'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Résoudre l''équation du second degré : discriminant puis formule des racines ; on garde la plus grande.'
       etapes:
-      - '$x = \dfrac{-6 \pm 4}{-2}$ : $1$ et $5$.'
+      - 'On calcule le discriminant : $\Delta = 36 - 4 \times 1 \times 5 = 16$, donc $\sqrt{\Delta} = 4$.'
+      - Les racines sont $x = \dfrac{-6 \pm 4}{-2}$, soit $\dfrac{-2}{-2} = 1$ et $\dfrac{-10}{-2} = 5$.
+      - La plus grande racine est $5$.
+      - 'Vérification : $1$ et $5$ sont bien racines, et le sommet de la parabole est à leur milieu, $x = 3$.'
+      erreurs_frequentes:
+      - Se tromper de signe dans $-b$ et obtenir $-1$ et $-5$, ou garder la plus petite racine.
       resultat: '5'
   - code: 1RE-EXA-B1-EX1-04
     difficulte: 4
@@ -73,8 +79,14 @@ competences:
     solution: '3'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Le bénéfice est modélisé par un trinôme du second degré : son extremum est atteint en $x = -\dfrac{b}{2a}$, ou au milieu des racines.'
       etapes:
-      - Sommet en $x = -\dfrac{b}{2a} = 3$ (milieu des racines).
+      - Le trinôme est $f(x) = -x^2 + 6x - 5$, avec $a = -1$ et $b = 6$.
+      - L'abscisse du sommet vaut $-\dfrac{b}{2a} = -\dfrac{6}{2 \times (-1)} = 3$.
+      - 'On peut aussi prendre le milieu des racines $1$ et $5$ : $\dfrac{1 + 5}{2} = 3$.'
+      - 'Vérification : $a < 0$, la parabole est tournée vers le bas, le sommet est bien un maximum.'
+      erreurs_frequentes:
+      - Écrire $\dfrac{b}{2a}$ sans le signe $-$, ou confondre abscisse et ordonnée du sommet.
       resultat: '3'
   - code: 1RE-EXA-B1-EX1-05
     difficulte: 5
@@ -83,9 +95,16 @@ competences:
     solution: '4'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Calculer $f$ à l''abscisse du sommet : la valeur obtenue est le maximum.'
       etapes:
-      - $f(3) = -9 + 18 - 5 = 4$, soit $4\,000$ €.
+      - Le sommet est atteint en $x = 3$.
+      - On calcule $f(3) = -3^2 + 6 \times 3 - 5$.
+      - On obtient $-9 + 18 - 5 = 4$.
+      - Le bénéfice maximal est donc $4$ milliers d'euros, soit $4\,000$ €
+      - 'Vérification : $f(2) = -4 + 12 - 5 = 3 < 4$.'
       resultat: '4'
+      erreurs_frequentes:
+      - Confondre l'abscisse et la valeur du maximum, ou oublier l'unité (milliers d'euros).
 - code: 1RE-EXA-B1-EX2
   libelle: 'Exercice 2 : évolution d''une population'
   objectifs:
@@ -143,8 +162,14 @@ competences:
     solution: B
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Reconnaître une suite géométrique : chaque terme s''obtient en multipliant le précédent par un coefficient constant.'
       etapes:
-      - On multiplie par 1,03 chaque année.
+      - Une hausse de $3\,\%$ par an correspond au coefficient $1 + 0{,}03 = 1{,}03$.
+      - 'Chaque terme est obtenu en multipliant le précédent par $1{,}03$ : la suite est géométrique.'
+      - La raison est donc $1{,}03$, et non $0{,}03$ (qui serait le taux seul).
+      - 'Vérification : $u_1 = u_0 \times 1{,}03$, puis $u_2 = u_1 \times 1{,}03$ : le rapport $u_{n+1}/u_n$ reste constant.'
+      erreurs_frequentes:
+      - Choisir la raison $0{,}03$ en confondant le taux et le coefficient multiplicateur.
       resultat: B
   - code: 1RE-EXA-B1-EX2-04
     difficulte: 4
@@ -153,9 +178,16 @@ competences:
     solution: '8'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Résoudre $1{,}03^n > 1{,}25$ par essais successifs en calculant les puissances.
       etapes:
-      - '$1{,}03^n > 1{,}25$ : $1{,}03^7 \approx 1{,}230$ et $1{,}03^8 \approx 1{,}267$.'
+      - On cherche $n$ tel que $u_0 \times 1{,}03^n > 2\,500$, soit $1{,}03^n > 1{,}25$.
+      - On calcule $1{,}03^7 \approx 1{,}230 < 1{,}25$.
+      - On calcule $1{,}03^8 \approx 1{,}267 > 1{,}25$.
+      - Le plus petit entier convenable est donc $8$
+      - 'Vérification : La population dépasse $2\,500$ à partir de la huitième année.'
       resultat: '8'
+      erreurs_frequentes:
+      - Répondre $7$ en arrondissant, ou calculer $1{,}03 \times n$ au lieu de $1{,}03^n$.
   - code: 1RE-EXA-B1-EX2-05
     difficulte: 5
     type: numerique
@@ -163,6 +195,12 @@ competences:
     solution: 100*(1.03^10 - 1)
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Le coefficient global sur $10$ ans est $1{,}03^{10}$ ; le taux d'augmentation est le coefficient moins $1$, exprimé en pourcentage.
       etapes:
-      - Coefficient global $1{,}03^{10}$, soit une hausse de $100 \times (1{,}03^{10} - 1) \approx 34{,}4\,\%$.
+      - Le coefficient multiplicateur global est $1{,}03^{10}$.
+      - La hausse relative est $1{,}03^{10} - 1$.
+      - 'En pourcentage, on multiplie par $100$ : $100 \times (1{,}03^{10} - 1) \approx 34{,}4\,\%$.'
+      - 'Vérification : $1{,}03^{10} \approx 1{,}344$, donc la hausse est bien d''environ $34{,}4\,\%$.'
+      erreurs_frequentes:
+      - Écrire $100 \times 1{,}03^{10}$ (le coefficient, pas la hausse), ou multiplier $3\,\%$ par $10$.
       resultat: 100*(1.03^10 - 1)

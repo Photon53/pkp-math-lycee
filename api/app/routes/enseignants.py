@@ -95,7 +95,7 @@ def verifier_identifiants(corps: ConnexionEnseignant, request: Request, session:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Email ou mot de passe incorrect.")
     limitation.echecs_enseignant.effacer(compte)
     if not enseignant.actif:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Ce compte est désactivé. Contactez l'équipe Boussole.")
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Ce compte est désactivé. Contactez l'équipe PKP Éducation.")
     if doit_rehacher(enseignant.mot_de_passe_hash):
         # Empreinte calculée avec un coût plus faible que l'actuel (audit A-06) : on la
         # renforce maintenant que le mot de passe est connu. Les anciens jetons deviennent invalides.
@@ -290,7 +290,11 @@ def inscrire_eleves(
 def generer_codes_manquants(classe_id: int, enseignant: EnseignantCourant, session: SessionDB) -> list[CodeEleve]:
     """Pour les élèves inscrits avant les codes personnels : leur en attribuer un."""
     classe = _ma_classe(session, classe_id, enseignant)
-    codes = [_attribuer_code(e) for e in sorted(classe.eleves, key=lambda e: e.prenom) if e.code_hash is None]
+    # Un enfant de famille garde sa carte : elle est gérée par l'administrateur et ses parents (#115).
+    codes = [
+        _attribuer_code(e) for e in sorted(classe.eleves, key=lambda e: e.prenom)
+        if e.code_hash is None and e.enfant is None
+    ]
     session.commit()
     return codes
 
@@ -302,6 +306,8 @@ def cartes_de_la_classe(classe_id: int, enseignant: EnseignantCourant, session: 
     classe = _ma_classe(session, classe_id, enseignant)
     cartes = []
     for eleve in sorted(classe.eleves, key=lambda e: e.prenom):
+        if eleve.enfant is not None:  # carte de famille : jamais régénérée par un professeur (#115)
+            continue
         cartes.append(_attribuer_code(eleve))
         for autre in inscriptions.liees(session, eleve):
             autre.code_hash = eleve.code_hash  # un seul code pour toutes les inscriptions du même élève
@@ -328,6 +334,8 @@ def nouveau_code(eleve_id: int, enseignant: EnseignantCourant, session: SessionD
     """Code oublié ou divulgué : en génère un nouveau ; l'ancien et ses sessions cessent de fonctionner.
     Il vaut pour toutes les inscriptions reliées du même élève (un seul code à retenir)."""
     eleve = _mon_eleve(session, eleve_id, enseignant)
+    if eleve.enfant is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, enfants.CARTE_DE_FAMILLE)
     code = _attribuer_code(eleve)
     for autre in inscriptions.liees(session, eleve):
         autre.code_hash = eleve.code_hash
@@ -420,6 +428,14 @@ def reinitialiser_parent(parent_id: int, enseignant: EnseignantCourant, session:
     parent = session.get(models.Parent, parent_id)
     if parent is None or not any(e.classe.enseignant_id == enseignant.id for e in parent.enfants):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Parent introuvable.")
+    # Le mot de passe provisoire ouvre tout le compte : le professeur ne l'obtient que si le parent ne suit
+    # que ses élèves. Sinon, rattacher l'adresse d'un parent à son élève suffirait à prendre son compte (#114).
+    if not parents.suivi_seulement_par(parent, enseignant.id):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "Ce parent suit aussi des enfants d'autres professeurs ou de l'établissement : "
+            "demandez la réinitialisation à l'administrateur.",
+        )
     provisoire = parents.reinitialiser(parent)
     session.commit()
     return ParentCree(parent=parents.vue(parent, enseignant.id), mot_de_passe_provisoire=provisoire)

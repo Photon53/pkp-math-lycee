@@ -70,7 +70,7 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
   return (
     <section className="pkp-math" aria-labelledby="titre-pkp-math">
       <div className="pkp-math-entete">
-        <h2 id="titre-pkp-math">Boussole Maths</h2>
+        <h2 id="titre-pkp-math">PKP Maths</h2>
         <p className="doux">
           {intro ?? "Pour chaque chapitre : le résumé de cours, le cours complet, une fiche d'exercices et son corrigé, à lire ici ou à exporter en PDF."}
         </p>
@@ -140,7 +140,7 @@ function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
   useEffect(() => {
     if (!impression) return undefined;
     const titre = document.title;
-    document.title = `Boussole Maths - ${doc.titre}`;
+    document.title = `PKP Maths - ${doc.titre}`;
     document.body.classList.add("pkp-imprime");
     const fin = () => setImpression(null);
     window.addEventListener("afterprint", fin);
@@ -272,7 +272,7 @@ function EntetePdf({ doc, type }) {
   const libelle = Object.fromEntries(DOCUMENTS)[type];
   return (
     <header className="entete-pdf">
-      <p>Boussole Maths · {NOM_NIVEAU[doc.niveau] ?? doc.niveau} — {doc.libelle_parcours}</p>
+      <p>PKP Maths · {NOM_NIVEAU[doc.niveau] ?? doc.niveau} — {doc.libelle_parcours}</p>
       <h1>{doc.titre}</h1>
       <p className="type-pdf">{libelle}{!doc.valide && " · NON VALIDÉ"}</p>
     </header>
@@ -382,6 +382,14 @@ export function ContenuDocument({ doc, type, competences, difficultes, ecran = f
 
 function Corrige({ q }) {
   const c = q.correction;
+  // Élève : le corrigé d'une question n'est servi qu'après sa réponse en séance (ARCH-4).
+  if (q.corrige_visible === false)
+    return (
+      <div className="corrige-pkp">
+        <p className="doux"><Maths texte={q.enonce} enLigne /></p>
+        <p className="doux">Le corrigé s'affichera ici après ta réponse à cet exercice en séance.</p>
+      </div>
+    );
   return (
     <div className="corrige-pkp">
       <p className="doux"><Maths texte={q.enonce} enLigne /></p>

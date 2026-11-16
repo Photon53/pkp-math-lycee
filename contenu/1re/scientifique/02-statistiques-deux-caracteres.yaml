@@ -73,9 +73,16 @@ competences:
     solution: 3/8
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Lire un tableau croisé : la proportion se calcule dans la sous-population demandée, pas sur le total.'
       etapes:
-      - 'Externes : $50 + 30 = 80$, dont $30$ garçons : $\dfrac{30}{80} = \dfrac{3}{8}$.'
+      - 'On identifie la sous-population « externes » : $50$ filles $+ 30$ garçons $= 80$ élèves.'
+      - Parmi ces externes, il y a $30$ garçons.
+      - La proportion cherchée est $\dfrac{30}{80}$.
+      - 'On simplifie par $10$ : $\dfrac{3}{8}$'
+      - 'Vérification : $\dfrac{3}{8} \times 80 = 30$.'
       resultat: 3/8
+      erreurs_frequentes:
+      - Diviser par $200$ (le total) au lieu de l'effectif des externes.
   - code: 1RE-ES-CROISE-04
     difficulte: 4
     type: numerique
@@ -83,9 +90,16 @@ competences:
     solution: 1/4
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Une fréquence sur l''ensemble se calcule sur l''effectif total : $50$ filles externes sur $200$ élèves.'
       etapes:
-      - $\dfrac{50}{200} = \dfrac{1}{4}$.
+      - 'On repère l''effectif de « filles et externes » : $50$.'
+      - L'effectif total est $200$.
+      - La fréquence est $\dfrac{50}{200}$.
+      - 'On simplifie par $50$ : $\dfrac{1}{4} = 0{,}25$, soit $25\,\%$'
+      - 'Vérification : $\dfrac{1}{4} \times 200 = 50$.'
       resultat: 1/4
+      erreurs_frequentes:
+      - Diviser par l'effectif des externes ou des filles au lieu du total.
   - code: 1RE-ES-CROISE-05
     difficulte: 5
     type: qcm
@@ -162,8 +176,14 @@ competences:
     solution: '15'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Utiliser l''équation de la droite d''ajustement : remplacer $x$ par la valeur donnée pour estimer $y$.'
       etapes:
-      - $y = 2 \times 7 + 1 = 15$.
+      - L'équation est $y = 2x + 1$.
+      - 'On remplace $x$ par $7$ : $y = 2 \times 7 + 1$.'
+      - 'On calcule : $14 + 1 = 15$.'
+      - 'Vérification : la valeur estimée est cohérente avec une droite croissante de pente $2$, le point $(7 ; 15)$ vérifie l''équation.'
+      erreurs_frequentes:
+      - Intervertir $x$ et $y$ (chercher $x$ pour $y = 7$), ou oublier le $+1$.
       resultat: '15'
   - code: 1RE-ES-AJUST-04
     difficulte: 4
@@ -172,8 +192,14 @@ competences:
     solution: '0.5'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Le point moyen $G$ appartient à la droite d''ajustement : ses coordonnées vérifient l''équation, ce qui permet de trouver $b$.'
       etapes:
-      - $6 = 2{,}2 \times 2{,}5 + b = 5{,}5 + b$, donc $b = 0{,}5$.
+      - 'On écrit l''équation : $y = 2{,}2x + b$.'
+      - 'On remplace par les coordonnées de $G(2{,}5 ; 6)$ : $6 = 2{,}2 \times 2{,}5 + b$.'
+      - 'On calcule : $2{,}2 \times 2{,}5 = 5{,}5$, donc $6 = 5{,}5 + b$ et $b = 0{,}5$.'
+      - 'Vérification : $2{,}2 \times 2{,}5 + 0{,}5 = 5{,}5 + 0{,}5 = 6$, le point $G$ est bien sur la droite.'
+      erreurs_frequentes:
+      - Ajouter $2{,}2$ au lieu de multiplier, ou oublier que $G$ est le point moyen de la série.
       resultat: '0.5'
   - code: 1RE-ES-AJUST-05
     difficulte: 5

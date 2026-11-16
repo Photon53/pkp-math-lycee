@@ -101,7 +101,7 @@ def refus_matiere(matiere: str, niveau: Niveau, parcours: "Parcours | None") -> 
     """Motif du refus d'une classe ou d'un chapitre de cette matière à ce niveau, ou None."""
     if matiere == "francais":
         if niveau not in NIVEAUX_FRANCAIS:
-            return f"Le français n'est pas enseigné en {niveau.value} dans Boussole."
+            return f"Le français n'est pas enseigné en {niveau.value} dans PKP Éducation."
         if parcours not in (None, Parcours.TRONC_COMMUN):
             return "Une classe ou un chapitre de français suit le tronc commun."
     return None

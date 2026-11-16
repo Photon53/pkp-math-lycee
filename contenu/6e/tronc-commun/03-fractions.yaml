@@ -95,9 +95,14 @@ competences:
         solution: C
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Encadrer le numérateur par des multiples du dénominateur.
+          methode: Encadrer le numérateur entre deux multiples du dénominateur pour situer la fraction entre deux entiers.
           etapes:
-          - '$15 < 17 < 20$, donc $\dfrac{15}{5} < \dfrac{17}{5} < \dfrac{20}{5}$, soit $3 < \dfrac{17}{5} < 4$.'
+          - 'On cherche les multiples de $5$ autour de $17$ : $15 = 5 \times 3$ et $20 = 5 \times 4$.'
+          - On a $15 < 17 < 20$.
+          - 'En divisant par $5 > 0$, l''ordre est conservé : $\dfrac{15}{5} < \dfrac{17}{5} < \dfrac{20}{5}$, soit $3 < \dfrac{17}{5} < 4$.'
+          - 'Vérification : $\dfrac{17}{5} = 3{,}4$, qui est bien compris entre $3$ et $4$.'
+          erreurs_frequentes:
+          - Choisir $2$ et $3$ en regardant seulement le chiffre des unités du numérateur, ou confondre avec $\dfrac{5}{17}$.
           resultat: C
       - code: 6E-FRAC-SENS-05
         difficulte: 4
@@ -118,11 +123,15 @@ competences:
         solution: '0,75'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: 'Le quart de $3$ est $\dfrac{3}{4}$.'
+          methode: 'Partager une longueur en $4$ morceaux égaux, c''est multiplier par $\dfrac{1}{4}$ : la longueur d''un morceau est $\dfrac{3}{4}$ cm.'
           etapes:
-          - $3 \div 4 = \dfrac{3}{4} = 0{,}75$ cm.
-          resultat: '0,75'
-
+          - La bande mesure $3$ cm et elle est coupée en $4$ morceaux égaux.
+          - La longueur d'un morceau est $3 \div 4 = \dfrac{3}{4}$ cm.
+          - 'On convertit en écriture décimale : $\dfrac{3}{4} = 0{,}75$ cm.'
+          - 'Vérification : $4 \times 0{,}75 = 3$ cm, on retrouve bien la longueur totale.'
+          erreurs_frequentes:
+          - Calculer $4 \div 3 \approx 1{,}33$ en inversant le partage, ou croire qu'un morceau mesure $3$ cm.
+          resultat: 0,75
   - code: 6E-FRAC-CALCUL
     libelle: Comparer et calculer avec des fractions
     attendus: [6E-2025-FRAC-02, 6E-2025-FRAC-04, 6E-2025-FRAC-05, 6E-2025-FRAC-13, 6E-2025-FRAC-14, 6E-2025-FRAC-15, 6E-2025-FRAC-16, 6E-2025-FRAC-17, 6E-2025-FRAC-18, 6E-2025-FRAC-19]

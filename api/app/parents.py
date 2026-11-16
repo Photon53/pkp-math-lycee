@@ -62,6 +62,19 @@ def detacher(session: Session, eleve: models.Eleve, parent: models.Parent, par: 
     return session.get(models.Parent, parent_id) is not None
 
 
+def suivi_seulement_par(parent: models.Parent, enseignant_id: int) -> bool:
+    """Vrai si tout ce que le compte permet de voir relève de ce professeur (#114) : chaque élève suivi est dans
+    une de ses classes, et chaque enfant de la famille a au moins une inscription, toutes dans ses classes ou
+    groupes. Un enfant inscrit nulle part n'est à personne : seul l'administrateur réinitialise alors le compte."""
+    if any(e.classe.enseignant_id != enseignant_id for e in parent.enfants):
+        return False
+    for enfant in parent.famille:
+        inscriptions = [i.classe for i in enfant.inscriptions] + [g.groupe for g in enfant.inscriptions_anglais]
+        if not inscriptions or any(lieu.enseignant_id != enseignant_id for lieu in inscriptions):
+            return False
+    return True
+
+
 def reinitialiser(parent: models.Parent) -> str:
     """Nouveau mot de passe provisoire ; les sessions ouvertes du parent sont fermées."""
     provisoire = generer_mot_de_passe_provisoire()

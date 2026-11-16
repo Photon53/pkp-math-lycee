@@ -41,6 +41,14 @@ def synchroniser(enfant: models.Enfant) -> None:
         inscription.code_hash = enfant.code_hash
 
 
+# La carte d'un enfant de famille vaut pour toutes ses inscriptions, chez tous ses professeurs : un professeur
+# qui la régénérerait obtiendrait le code d'un enfant qu'il peut inscrire lui-même dans sa classe (#115).
+CARTE_DE_FAMILLE = (
+    "La carte de cet élève est celle de sa famille : un nouveau code se demande à l'administrateur "
+    "ou à ses parents."
+)
+
+
 def nouveau_code(enfant: models.Enfant) -> str:
     """Tire un nouveau code, renvoyé en clair une seule fois ; l'ancien cesse de fonctionner partout."""
     code = generer_code_eleve()
@@ -151,9 +159,9 @@ def libelle_parcours(classe: models.Classe) -> str:
 
 # --- Descriptions --------------------------------------------------------------------------------------
 
-MATIERES = (("maths", "Boussole Maths"), ("anglais", "Boussole Anglais"), ("francais", "Boussole Français"))
+MATIERES = (("maths", "PKP Maths"), ("anglais", "PKP Anglais"), ("francais", "PKP Français"))
 MATIERES_DISPONIBLES = {"maths", "anglais"}
-# Boussole Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
+# PKP Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
 DOMAINES_FRANCAIS = ("francais-college", "francais-lycee")
 
 

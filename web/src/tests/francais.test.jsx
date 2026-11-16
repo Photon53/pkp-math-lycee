@@ -36,9 +36,9 @@ describe("PKP Français (F1)", () => {
     const espace = {
       id: 1, prenom: "Inès", nom: "Martin", niveau: "5e", identifiant: "ines.m",
       matieres: [
-        { code: "maths", libelle: "Boussole Maths", disponible: true },
-        { code: "anglais", libelle: "Boussole Anglais", disponible: true },
-        { code: "francais", libelle: "Boussole Français", disponible: true },
+        { code: "maths", libelle: "PKP Maths", disponible: true },
+        { code: "anglais", libelle: "PKP Anglais", disponible: true },
+        { code: "francais", libelle: "PKP Français", disponible: true },
       ],
       maths: [], anglais: [],
       francais: [{ eleve_id: 9, code_classe: "5E-FR-ABCDE", niveau: "5e", parcours: "tronc-commun", libelle_parcours: "Français", enseignant: "Mme Lettres" }],
@@ -47,7 +47,7 @@ describe("PKP Français (F1)", () => {
     fausseApi({ "GET /enfants/moi": { json: espace }, "POST /enfants/moi/maths/9": { json: jeton } });
     const onOuvrir = vi.fn();
     render(<EspaceEnfant session={{ jeton: "j", enfant: espace }} onOuvrirMaths={onOuvrir} onDeconnexion={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: /Boussole Français/ }));
+    await userEvent.click(screen.getByRole("button", { name: /PKP Français/ }));
     expect(screen.getByText("Mme Lettres", { exact: false })).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "S'entraîner" }));
     expect(onOuvrir).toHaveBeenCalledWith(jeton);

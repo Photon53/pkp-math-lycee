@@ -95,10 +95,16 @@ competences:
         solution: 8x-5
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Développer, puis regrouper.
+          methode: Développer avec la distributivité, puis regrouper les termes en $x$ et les constantes.
           etapes:
-          - $5x - 2 + 3x - 3 = 8x - 5$.
+          - 'On développe : $3(x - 1) = 3x - 3$.'
+          - L'expression devient $5x - 2 + 3x - 3$.
+          - 'On regroupe les termes en $x$ : $5x + 3x = 8x$ ; les constantes : $-2 - 3 = -5$.'
+          - On obtient $8x - 5$
+          - 'Vérification : Pour $x = 1$, l''expression de départ vaut $5 - 2 + 0 = 3$ et $8 \times 1 - 5 = 3$.'
           resultat: 8x-5
+          erreurs_frequentes:
+          - Oublier de multiplier le $-1$ par $3$ et écrire $5x - 2 + 3x - 1$.
       - code: 4E-DISTRIBUTIVITE-05
         difficulte: 5
         type: expression
@@ -187,9 +193,14 @@ competences:
         solution: '4'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Regrouper les termes en $x$.
+          methode: Regrouper les termes en $x$ dans un membre et les constantes dans l'autre, en appliquant la même opération aux deux membres.
           etapes:
-          - $3x = 12$, donc $x = 4$.
+          - 'On soustrait $2x$ aux deux membres : $3x - 3 = 9$.'
+          - 'On ajoute $3$ aux deux membres : $3x = 12$.'
+          - 'On divise les deux membres par $3$ : $x = 4$.'
+          - 'Vérification : $5 \times 4 - 3 = 17$ et $2 \times 4 + 9 = 17$ : les deux membres sont égaux.'
+          erreurs_frequentes:
+          - Changer un terme de membre sans changer son signe, ou oublier de diviser par $3$.
           resultat: '4'
       - code: 4E-EQUATIONS-04
         difficulte: 4

@@ -98,9 +98,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La somme doit être calculée avant le produit, il faut des parenthèses.
+          methode: 'Traduire l''énoncé pas à pas : une somme entre parenthèses se calcule avant un produit (priorité des opérations).'
           etapes:
-          - '$(5 + 3) \times 4 = 32$ ; sans parenthèses, $5 + 3 \times 4 = 17$.'
+          - 'Le programme demande d''abord $5 + 3$ : la somme vaut $8$.'
+          - 'On multiplie ensuite ce résultat par $4$ : $8 \times 4 = 32$.'
+          - L'expression qui traduit cet ordre est donc $(5 + 3) \times 4$.
+          - 'Vérification : sans parenthèses, $5 + 3 \times 4 = 5 + 12 = 17$, et non $32$ : les parenthèses sont indispensables.'
+          erreurs_frequentes:
+          - Écrire $5 + 3 \times 4$ en oubliant que le produit est prioritaire sur la somme.
           resultat: B
       - code: 5E-PRIORITES-05
         difficulte: 4
@@ -109,9 +114,14 @@ competences:
         solution: '300'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Décomposer $12 = 10 + 2$.
+          methode: 'Utiliser la distributivité : $a \times (b + c) = a \times b + a \times c$, avec $12 = 10 + 2$.'
           etapes:
-          - $25 \times (10 + 2) = 250 + 50 = 300$.
+          - On décompose $12 = 10 + 2$.
+          - 'On distribue : $25 \times (10 + 2) = 25 \times 10 + 25 \times 2$.'
+          - 'On calcule chaque produit : $250 + 50 = 300$.'
+          - 'Vérification : avec l''autre décomposition $25 = 100 \div 4$, on obtient $12 \times 100 \div 4 = 1\,200 \div 4 = 300$ : même résultat.'
+          erreurs_frequentes:
+          - Additionner $25 + 12$, ou oublier un terme de la distributivité et s'arrêter à $250$.
           resultat: '300'
       - code: 5E-PRIORITES-06
         difficulte: 5

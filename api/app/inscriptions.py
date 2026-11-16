@@ -64,6 +64,10 @@ def relier(session: Session, eleve: models.Eleve, autre: models.Eleve) -> None:
     """Relie `autre` (et ses inscriptions déjà reliées) à `eleve`, qui donne son code personnel à tous."""
     if autre.id == eleve.id:
         raise LienImpossible("Une inscription ne peut pas être reliée à elle-même.")
+    if eleve.enfant_id is not None or autre.enfant_id is not None:
+        # Ses inscriptions partagent déjà la carte de l'enfant ; les relier donnerait le code choisi ici à ses
+        # inscriptions chez d'autres professeurs (#115).
+        raise LienImpossible("Cet élève a une carte de famille : ses inscriptions sont déjà reliées.")
     if autre.classe.enseignant_id != eleve.classe.enseignant_id:
         raise LienImpossible("Les deux classes doivent être les vôtres.")
     groupe_a = [eleve, *liees(session, eleve)]

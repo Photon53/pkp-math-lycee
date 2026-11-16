@@ -82,8 +82,14 @@ competences:
     adaptation: inspiree
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Étudier le signe de la différence avec la valeur candidate $2$ : $x + \dfrac{1}{x} - 2 = \dfrac{(x - 1)^2}{x}$, positive pour $x > 0$.'
       etapes:
-      - $x + \dfrac{1}{x} - 2 = \dfrac{(x - 1)^2}{x} \geq 0$, avec égalité en $x = 1$.
+      - On calcule $x + \dfrac{1}{x} - 2 = \dfrac{x^2 - 2x + 1}{x} = \dfrac{(x - 1)^2}{x}$.
+      - Pour $x > 0$, le dénominateur est positif et le numérateur est un carré, donc la différence est positive ou nulle.
+      - Ainsi $x + \dfrac{1}{x} \geq 2$, avec égalité quand $x = 1$.
+      - 'Vérification : pour $x = 1$, $1 + 1 = 2$ ; pour $x = 2$, $2 + 0{,}5 = 2{,}5 > 2$.'
+      erreurs_frequentes:
+      - Conclure « minimum $0$ » parce que $x > 0$, ou oublier de vérifier le cas d'égalité.
       resultat: '2'
   - code: 2NDE-EX-INEG-04
     difficulte: 4
@@ -96,9 +102,16 @@ competences:
     adaptation: inspiree
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Substituer $b = 10 - a$, puis écrire $ab$ sous forme canonique pour faire apparaître le maximum.
       etapes:
-      - $ab = a(10 - a) = 25 - (a - 5)^2 \leq 25$, avec égalité pour $a = b = 5$.
+      - 'On remplace : $ab = a(10 - a) = 10a - a^2$.'
+      - 'On met sous forme canonique : $10a - a^2 = 25 - (a - 5)^2$.'
+      - Comme un carré est positif, $ab \leq 25$, avec égalité quand $a = 5$.
+      - Alors $b = 10 - 5 = 5$
+      - 'Vérification : $5 \times 5 = 25$.'
       resultat: '25'
+      erreurs_frequentes:
+      - Prendre $a = 10$ et $b = 0$ (produit nul), ou oublier le cas d'égalité.
   - code: 2NDE-EX-INEG-05
     difficulte: 5
     type: numerique
@@ -175,8 +188,14 @@ competences:
     solution: '3'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'L''égalité dans $x + \dfrac{a}{x} \geq 2\sqrt{a}$ est atteinte lorsque les deux termes sont égaux : $x = \dfrac{a}{x}$.'
       etapes:
-      - 'Égalité quand les deux termes sont égaux : $x = \dfrac{9}{x}$, soit $x = 3$.'
+      - 'On écrit la condition d''égalité : $x = \dfrac{9}{x}$.'
+      - 'On multiplie par $x > 0$ : $x^2 = 9$.'
+      - La solution positive est $x = 3$.
+      - 'Vérification : $3 + \dfrac{9}{3} = 3 + 3 = 6$, la borne est bien atteinte.'
+      erreurs_frequentes:
+      - Prendre $x = -3$ (hors du domaine $x > 0$), ou confondre avec $x = 9$.
       resultat: '3'
   - code: 2NDE-EX-ORDRE-PB-04
     difficulte: 4
@@ -185,8 +204,14 @@ competences:
     solution: '6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Inégalité $x + \dfrac{a}{x} \geq 2\sqrt{a}$ pour $x > 0$, conséquence de $\left(\sqrt{x} - \sqrt{\dfrac{a}{x}}\right)^2 \geq 0$.
       etapes:
-      - $x + \dfrac{9}{x} \geq 2\sqrt{9} = 6$, atteint en $x = 3$.
+      - 'On applique l''inégalité avec $a = 9$ : $x + \dfrac{9}{x} \geq 2\sqrt{9}$.'
+      - 'On calcule : $2\sqrt{9} = 2 \times 3 = 6$.'
+      - Le minimum vaut $6$, atteint en $x = 3$ d'après l'étape précédente.
+      - 'Vérification : pour $x = 3$, $3 + 3 = 6$ ; pour $x = 1$, $1 + 9 = 10 > 6$.'
+      erreurs_frequentes:
+      - Écrire $2\sqrt{9} = 2 \times 9 = 18$, ou oublier le facteur $2$.
       resultat: '6'
   - code: 2NDE-EX-ORDRE-PB-05
     difficulte: 5

@@ -13,6 +13,8 @@ const EspaceParent = lazy(() => import("./parent/EspaceParent.jsx"));
 // Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
 const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
 const EspaceEleveAnglais = lazy(() => import("./anglais/EspaceEleveAnglais.jsx"));
+// Français : préparation par les adultes habilités seulement, aucun espace élève (#98).
+const EspaceFrancais = lazy(() => import("./francais/EspaceFrancais.jsx"));
 
 export default function App() {
   const chemin = useChemin();
@@ -39,6 +41,13 @@ export default function App() {
       </Suspense>
     );
   }
+  if (chemin === "/francais" || chemin.startsWith("/francais/")) {
+    return (
+      <Suspense fallback={<p className="doux page">Chargement…</p>}>
+        <EspaceFrancais />
+      </Suspense>
+    );
+  }
   // Élève d'anglais : avant l'espace professeur /anglais, dont il partage le préfixe.
   const eleveAnglais = chemin === "/anglais/eleve" || chemin.startsWith("/anglais/eleve/");
   if (!eleveAnglais && (chemin === "/anglais" || chemin.startsWith("/anglais/"))) {
@@ -57,7 +66,7 @@ export default function App() {
       <header className="entete">
         <Logo />
         <nav aria-label="Espaces">
-          {!methode && <a href="/methode">La Méthode Spirale</a>}
+          {!methode && <a href="/methode">La méthode PKP</a>}
           {eleveAnglais ? (
             <a href="/anglais">Espace professeur</a>
           ) : eleve ? (
@@ -89,7 +98,7 @@ export default function App() {
         )}
       </main>
       <footer className="pied">
-        <span>© {new Date().getFullYear()} Boussole</span>
+        <span>© {new Date().getFullYear()} PKP Éducation</span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>
       </footer>
     </div>

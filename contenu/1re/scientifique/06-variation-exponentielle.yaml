@@ -65,8 +65,14 @@ competences:
     solution: '25.6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Décroissance exponentielle : chaque heure multiplie la quantité par $0{,}8$, donc $Q(t) = 50 \times 0{,}8^t$.'
       etapes:
-      - $50 \times 0{,}8^3 = 50 \times 0{,}512 = 25{,}6$ mg.
+      - 'On identifie le coefficient : une baisse de $20\,\%$ par heure correspond à $1 - 0{,}2 = 0{,}8$.'
+      - La quantité restante après $t$ heures est $50 \times 0{,}8^t$.
+      - 'Pour $t = 3$ : $50 \times 0{,}8^3 = 50 \times 0{,}512 = 25{,}6$ mg.'
+      - 'Vérification : après $1$ h il reste $40$ mg, après $2$ h $32$ mg, après $3$ h $25{,}6$ mg ; la quantité diminue bien.'
+      erreurs_frequentes:
+      - Calculer $50 \times 0{,}2^3$, ou retrancher $20\,\%$ de $50$ trois fois en croyant à une baisse linéaire.
       resultat: '25.6'
   - code: 1RE-ES-GEOM-04
     difficulte: 4
@@ -153,8 +159,14 @@ competences:
     solution: '10'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Taux annuel moyen $t$ : le coefficient global $1{,}21$ vérifie $(1 + t)^2 = 1{,}21$, donc $1 + t = 1{,}21^{1/2}$.'
       etapes:
-      - $1{,}21^{\frac{1}{2}} = 1{,}1$, soit $10\,\%$ par an.
+      - Une hausse de $21\,\%$ sur deux ans correspond au coefficient $1{,}21$.
+      - Si $t$ est le taux annuel moyen, on a $(1 + t)^2 = 1{,}21$.
+      - 'On prend la racine carrée : $1 + t = \sqrt{1{,}21} = 1{,}1$, donc $t = 0{,}1$, soit $10\,\%$.'
+      - 'Vérification : $1{,}1^2 = 1{,}21$, la hausse globale est bien retrouvée.'
+      erreurs_frequentes:
+      - 'Diviser $21$ par $2$ et répondre $10{,}5\,\%$ : le taux moyen ne se calcule pas par une moyenne arithmétique.'
       resultat: '10'
   - code: 1RE-ES-PUISS-04
     difficulte: 4
@@ -163,8 +175,14 @@ competences:
     solution: sqrt(2)/2
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Décroissance radioactive : la proportion restante après $t$ jours est $0{,}5^{t/T}$, où $T$ est la demi-vie.'
       etapes:
-      - $0{,}5^{\frac{4}{8}} = 0{,}5^{0{,}5} = \sqrt{0{,}5} = \dfrac{\sqrt{2}}{2}$ (environ $71\,\%$).
+      - La demi-vie est $T = 8$ jours ; après $t = 4$ jours, la proportion restante est $0{,}5^{4/8} = 0{,}5^{0{,}5}$.
+      - Or $0{,}5^{0{,}5} = \sqrt{0{,}5}$.
+      - 'On simplifie : $\sqrt{0{,}5} = \sqrt{\dfrac{1}{2}} = \dfrac{1}{\sqrt{2}} = \dfrac{\sqrt{2}}{2}$.'
+      - 'Vérification : $\dfrac{\sqrt{2}}{2} \approx 0{,}707$, soit environ $71\,\%$ : cohérent, car il reste plus que la moitié.'
+      erreurs_frequentes:
+      - Écrire $0{,}5 \times \dfrac{4}{8}$ (décroissance linéaire) au lieu de $0{,}5^{4/8}$ (exponentielle).
       resultat: sqrt(2)/2
   - code: 1RE-ES-PUISS-05
     difficulte: 5

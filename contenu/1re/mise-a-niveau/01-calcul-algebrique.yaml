@@ -71,8 +71,14 @@ competences:
     solution: '2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Résoudre une inéquation du premier degré : isoler $x$ ; diviser par un nombre négatif inverse le sens de l''inégalité.'
       etapes:
-      - '$x < 3$ : le plus grand entier est $2$.'
+      - 'On isole le terme en $x$ : $-2x + 6 > 0$ devient $-2x > -6$.'
+      - 'On divise par $-2 < 0$ : l''inégalité change de sens, donc $x < 3$.'
+      - Les solutions sont les réels strictement inférieurs à $3$ ; le plus grand entier solution est $2$.
+      - 'Vérification : $x = 2$ donne $-4 + 6 = 2 > 0$, tandis que $x = 3$ donne $0$, qui n''est pas strictement positif.'
+      erreurs_frequentes:
+      - Oublier d'inverser le sens en divisant par $-2$ et répondre $x > 3$.
       resultat: '2'
   - code: 1RE-MAN-ALGEBRE-04
     difficulte: 4
@@ -81,8 +87,14 @@ competences:
     solution: '4'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Méthode d''addition : additionner les deux équations membre à membre pour éliminer $y$.'
       etapes:
-      - 'En additionnant : $2x = 8$, donc $x = 4$ (et $y = 3$).'
+      - 'On écrit le système : $x + y = 7$ et $x - y = 1$.'
+      - 'On additionne membre à membre : $(x + y) + (x - y) = 7 + 1$, soit $2x = 8$.'
+      - 'On divise par $2$ : $x = 4$.'
+      - 'Vérification : avec $x = 4$, la première équation donne $y = 3$, et $4 - 3 = 1$ : le couple $(4 ; 3)$ est solution.'
+      erreurs_frequentes:
+      - Soustraire les équations au lieu de les additionner, ou oublier de vérifier dans la seconde équation.
       resultat: '4'
   - code: 1RE-MAN-ALGEBRE-05
     difficulte: 5
@@ -91,6 +103,12 @@ competences:
     solution: '4'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Résoudre une équation quotient : préciser la valeur interdite, puis multiplier par le dénominateur non nul pour annuler le numérateur.'
       etapes:
-      - 'Pour $x \neq -3$ : $2x - 1 = x + 3$, donc $x = 4$.'
+      - 'On précise la condition : $x + 3 \neq 0$, donc $x \neq -3$.'
+      - 'On multiplie les deux membres par $x + 3$ : $2x - 1 = x + 3$.'
+      - 'On résout : $2x - x = 3 + 1$, soit $x = 4$.'
+      - 'Vérification : $x = 4 \neq -3$ et $\dfrac{2 \times 4 - 1}{4 + 3} = \dfrac{7}{7} = 1$.'
+      erreurs_frequentes:
+      - Oublier la valeur interdite, ou multiplier seulement le numérateur par $x + 3$.
       resultat: '4'

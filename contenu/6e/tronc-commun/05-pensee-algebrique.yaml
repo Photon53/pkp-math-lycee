@@ -105,12 +105,15 @@ competences:
         solution: '61'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: 'Départ $4$, puis $19$ ajouts de $3$.'
+          methode: 'Repérer la règle de croissance : $4$ allumettes à l''étape $1$, puis $3$ allumettes de plus à chaque étape.'
           etapes:
-          - $4 + 3 \times 19 = 4 + 57 = 61$.
-          resultat: '61'
+          - De l'étape $1$ à l'étape $20$, il y a $20 - 1 = 19$ augmentations de $3$ allumettes.
+          - 'On calcule les allumettes ajoutées : $3 \times 19 = 57$.'
+          - 'On ajoute le point de départ : $4 + 57 = 61$ allumettes.'
+          - 'Vérification : à l''étape $2$, la même règle donne $4 + 3 \times 1 = 7$ allumettes, ce qui correspond au dessin.'
           erreurs_frequentes:
-          - Calculer $3 \times 20 = 60$ ou $4 \times 20 = 80$ sans comprendre la règle.
+          - Calculer $3 \times 20 = 60$ ou $4 \times 20 = 80$ sans tenir compte du point de départ à l'étape $1$.
+          resultat: '61'
       - code: 6E-PREALG-06
         difficulte: 5
         type: numerique

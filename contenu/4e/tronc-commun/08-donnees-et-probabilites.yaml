@@ -74,9 +74,14 @@ competences:
         solution: '90'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Angle = fréquence × $360°$.
+          methode: 'L''angle d''un secteur est proportionnel à l''effectif : angle $= \dfrac{\text{effectif}}{\text{effectif total}} \times 360°$.'
           etapes:
-          - $\dfrac{10}{40} \times 360 = 90°$.
+          - 'On calcule la fréquence : $\dfrac{10}{40} = 0{,}25$.'
+          - 'On multiplie par $360°$ : $0{,}25 \times 360 = 90°$.'
+          - Le secteur « basket » mesure $90°$, soit un quart du disque.
+          - 'Vérification : $10$ élèves sur $40$, c''est le quart de l''effectif ; le quart de $360°$ vaut bien $90°$.'
+          erreurs_frequentes:
+          - Multiplier par $100$ au lieu de $360$, ou inverser effectif et effectif total.
           resultat: '90'
       - code: 4E-MEDIANE-04
         difficulte: 4
@@ -85,9 +90,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Interpréter la médiane.
+          methode: 'La médiane partage l''effectif en deux : au moins la moitié des valeurs lui est inférieure ou égale, et au moins la moitié lui est supérieure ou égale.'
           etapes:
-          - La médiane partage les salariés en deux groupes de même effectif.
+          - La médiane des salaires est $2\,100$ €.
+          - Cela signifie qu'au moins la moitié des salariés gagne $2\,100$ € ou moins.
+          - Cela signifie aussi qu'au moins la moitié gagne $2\,100$ € ou plus ; ce n'est pas une moyenne.
+          - 'Vérification : avec quelques salaires très élevés, la moyenne peut dépasser largement $2\,100$ € sans que la médiane change.'
+          erreurs_frequentes:
+          - Confondre médiane et moyenne, ou croire que tous les salariés gagnent la même somme.
           resultat: B
       - code: 4E-MEDIANE-05
         difficulte: 5
@@ -96,11 +106,15 @@ competences:
         solution: '14'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La somme des valeurs vaut $5 \times 8$.
+          methode: La moyenne de $5$ valeurs vaut $8$, donc leur somme vaut $5 \times 8 = 40$ ; on en déduit $x$.
           etapes:
-          - $4 + 6 + 7 + 9 + x = 40$, donc $x = 14$ (et la médiane reste $7$).
+          - 'On écrit la somme des valeurs : $4 + 6 + 7 + 9 + x$.'
+          - La moyenne vaut $8$ sur $5$ valeurs, donc la somme vaut $5 \times 8 = 40$.
+          - 'On résout : $26 + x = 40$, donc $x = 14$.'
+          - 'Vérification : $(4 + 6 + 7 + 9 + 14) \div 5 = 40 \div 5 = 8$ ; la médiane de la série ordonnée est bien $7$.'
+          erreurs_frequentes:
+          - Diviser $8$ par $5$ au lieu de multiplier, ou oublier que $x$ doit être supérieur à $9$.
           resultat: '14'
-
   - code: 4E-PROBABILITES
     libelle: Calculer des probabilités et utiliser l’événement contraire
     attendus: [4E-2020-PROBA-01, 4E-2020-PROBA-02, 4E-2020-PROBA-03, 4E-2020-PROBA-04, 4E-2020-PROBA-05]
@@ -173,9 +187,14 @@ competences:
         solution: 7/8
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Événement contraire.
+          methode: 'Passer par l''événement contraire : $P(\text{non as}) = 1 - P(\text{as})$.'
           etapes:
-          - $P(\text{as}) = \dfrac{4}{32} = \dfrac{1}{8}$, donc $1 - \dfrac{1}{8} = \dfrac{7}{8}$.
+          - 'Un jeu de $32$ cartes contient $4$ as : $P(\text{as}) = \dfrac{4}{32}$.'
+          - 'On simplifie : $\dfrac{4}{32} = \dfrac{1}{8}$.'
+          - 'On applique le contraire : $P(\text{non as}) = 1 - \dfrac{1}{8} = \dfrac{7}{8}$.'
+          - 'Vérification : il y a $28$ cartes qui ne sont pas des as sur $32$, et $\dfrac{28}{32} = \dfrac{7}{8}$.'
+          erreurs_frequentes:
+          - Compter les $4$ as comme favorables, ou oublier de simplifier la fraction.
           resultat: 7/8
       - code: 4E-PROBABILITES-04
         difficulte: 4
@@ -184,10 +203,16 @@ competences:
         solution: '25'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La somme des probabilités des issues vaut $1$.
+          methode: 'La somme des probabilités de toutes les issues vaut $1$ : on soustrait les probabilités connues.'
           etapes:
-          - $1 - 0{,}35 - 0{,}4 = 0{,}25$, soit $25\,\%$.
+          - 'Les issues sont rouge, vert et bleu : $P(\text{rouge}) + P(\text{vert}) + P(\text{bleu}) = 1$.'
+          - 'On additionne les probabilités connues : $0{,}35 + 0{,}4 = 0{,}75$.'
+          - 'On soustrait : $P(\text{bleu}) = 1 - 0{,}75 = 0{,}25$.'
+          - 'On convertit en pourcentage : $0{,}25 = 25\,\%$'
+          - 'Vérification : $35\,\% + 40\,\% + 25\,\% = 100\,\%$.'
           resultat: '25'
+          erreurs_frequentes:
+          - Répondre $0{,}25$ sans convertir en pourcentage, ou oublier qu'il manque une issue.
       - code: 4E-PROBABILITES-05
         difficulte: 5
         type: numerique
@@ -195,7 +220,12 @@ competences:
         solution: '8'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Nombre de blanches $= \dfrac{3}{5} \times 20$.
+          methode: Le nombre de boules blanches est $P(\text{blanche}) \times$ nombre total ; les autres boules sont obtenues par soustraction.
           etapes:
-          - $12$ blanches, donc $20 - 12 = 8$ non blanches.
+          - 'On calcule le nombre de boules blanches : $\dfrac{3}{5} \times 20 = 12$.'
+          - 'On soustrait du total pour obtenir les boules non blanches : $20 - 12 = 8$.'
+          - Il y a donc $8$ boules qui ne sont pas blanches.
+          - 'Vérification : la probabilité de tirer une boule non blanche vaut $\dfrac{8}{20} = \dfrac{2}{5}$, et $\dfrac{3}{5} + \dfrac{2}{5} = 1$.'
+          erreurs_frequentes:
+          - Répondre $12$ (les boules blanches), ou appliquer la probabilité à l'effectif non blanc.
           resultat: '8'
