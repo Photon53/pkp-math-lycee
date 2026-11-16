@@ -69,9 +69,15 @@ competences:
         solution: 6
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Linéarité de l''espérance : $E(aX + bY + c) = aE(X) + bE(Y) + c$, quelles que soient les dépendances.'
           etapes:
-          - $2 \times 4 - 3 \times 1 + 1 = 6$.
-          resultat: 6
+          - 'On applique la linéarité : $E(2X - 3Y + 1) = 2E(X) - 3E(Y) + 1$.'
+          - 'On remplace : $2 \times 4 - 3 \times 1 + 1$.'
+          - 'On calcule : $8 - 3 + 1 = 6$.'
+          - 'Vérification : le résultat est proche de $2E(X) = 8$, diminué de $3E(Y) = 3$ puis augmenté de $1$ : $6$ est cohérent.'
+          erreurs_frequentes:
+          - Oublier la constante $+1$, ou transposer cette linéarité à la variance, ce qui serait faux.
+          resultat: '6'
       - code: TLE-SOMME-LIN-04
         difficulte: 4
         type: numerique
@@ -79,9 +85,15 @@ competences:
         solution: 22
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Pour $X$ et $Y$ indépendantes : $V(aX + bY) = a^2V(X) + b^2V(Y)$.'
           etapes:
-          - $4V(X) + 9V(Y) = 4 + 18$.
-          resultat: 22
+          - 'L''indépendance autorise l''additivité des variances : $V(2X + 3Y) = V(2X) + V(3Y)$.'
+          - 'On sort les coefficients au carré : $V(2X) = 4V(X) = 4 \times 1 = 4$ et $V(3Y) = 9V(Y) = 9 \times 2 = 18$.'
+          - 'On additionne : $V(2X + 3Y) = 4 + 18 = 22$.'
+          - 'Vérification : l''écart type de la somme vaut $\sqrt{22} \approx 4{,}69$, supérieur à chacun des écarts types $2$ et $3\sqrt{2} \approx 4{,}24$.'
+          erreurs_frequentes:
+          - Écrire $V(2X + 3Y) = 2V(X) + 3V(Y)$ en oubliant les carrés, ou additionner les variances sans l'indépendance.
+          resultat: '22'
       - code: TLE-SOMME-LIN-05
         difficulte: 5
         type: numerique
@@ -155,9 +167,15 @@ competences:
         solution: 1
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Écart type de la moyenne d''un échantillon de variables indépendantes de même écart type $\sigma$ : $\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$.'
           etapes:
-          - $\sigma(M_{36}) = \dfrac{6}{\sqrt{36}} = 1$.
-          resultat: 1
+          - On identifie $\sigma = 6$ et $n = 36$.
+          - 'On applique la formule : $\sigma(M_{36}) = \dfrac{6}{\sqrt{36}}$.'
+          - 'On calcule : $\dfrac{6}{6} = 1$.'
+          - 'Vérification : la moyenne est $6$ fois plus concentrée que la variable seule, ce qui correspond à $\sqrt{36} = 6$.'
+          erreurs_frequentes:
+          - Diviser par $n$ au lieu de $\sqrt n$ et trouver $\dfrac{1}{6}$.
+          resultat: '1'
       - code: TLE-ECHANTILLON-04
         difficulte: 4
         type: numerique
@@ -165,9 +183,15 @@ competences:
         solution: 100
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Pour des variables indépendantes, les variances s''additionnent : $V(X_1 + \dots + X_n) = V(X_1) + \dots + V(X_n)$.'
           etapes:
-          - $V(S) = 50 \times 2$.
-          resultat: 100
+          - 'Les $X_i$ sont indépendantes de variance $2$ : on additionne les $50$ variances.'
+          - On calcule $V(S) = 50 \times 2 = 100$.
+          - La variance est multipliée par la taille de l'échantillon, elle n'est pas divisée.
+          - 'Vérification : l''écart type de $S$ vaut $\sqrt{100} = 10$, et $\sqrt{50} \times \sqrt{2} \approx 7{,}07 \times 1{,}41 \approx 10$ : cohérent.'
+          erreurs_frequentes:
+          - Diviser la variance par $n$ comme pour une moyenne, ou oublier l'indépendance.
+          resultat: '100'
       - code: TLE-ECHANTILLON-05
         difficulte: 5
         type: numerique
@@ -175,6 +199,12 @@ competences:
         solution: 100
         auteur: Brouillon IA (Claude)
         correction:
+          methode: On veut $\sigma(M_n) = \dfrac{\sigma}{\sqrt n} = \dfrac{\sigma}{10}$, ce qui donne $\sqrt n = 10$.
           etapes:
-          - '$\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$ : il faut $\sqrt n = 10$.'
-          resultat: 100
+          - L'écart type de la moyenne vaut $\sigma(M_n) = \dfrac{\sigma}{\sqrt n}$.
+          - 'On veut qu''il soit dix fois plus petit : $\dfrac{\sigma}{\sqrt n} = \dfrac{\sigma}{10}$.'
+          - 'En simplifiant par $\sigma > 0$ : $\sqrt n = 10$, donc $n = 100$.'
+          - 'Vérification : pour $n = 99$, $\dfrac{\sigma}{\sqrt{99}} \approx 0{,}1005\,\sigma > \dfrac{\sigma}{10}$ : $100$ est bien la plus petite taille entière.'
+          erreurs_frequentes:
+          - Écrire $n = 10$ au lieu de $n = 10^2$, ou croire que l'écart type est divisé par $n$.
+          resultat: '100'

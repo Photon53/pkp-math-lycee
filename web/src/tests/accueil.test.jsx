@@ -68,10 +68,23 @@ describe("page d'accueil : attirer élèves, parents et professeurs", () => {
       "Professeur — Anglais": "/anglais",
     };
     for (const [nom, href] of Object.entries(liens)) expect(screen.getByRole("link", { name: nom })).toHaveAttribute("href", href);
+    // Aucun domaine Français actif (état par défaut) : l'espace n'est pas annoncé.
+    expect(screen.queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
     // Les profils viennent avant les parcours dans l'ordre de lecture.
     const titres = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
     expect(titres.indexOf("Accéder à mon espace")).toBeLessThan(titres.indexOf("Les parcours"));
     expect(screen.getByRole("heading", { level: 2, name: "Comment ça marche" })).toBeInTheDocument();
+  });
+
+  it("annonce le Français aux professeurs seulement quand un domaine Français est actif", async () => {
+    const domaines = DOMAINES_PAR_DEFAUT.map((d) => (d.code === "francais-college" ? { ...d, etat: "en_preparation" } : d));
+    fausseApi({ "GET /domaines/publics": { json: domaines } });
+    render(<Accueil />);
+    expect(await screen.findByRole("link", { name: "Professeur — Français (préparation)" })).toHaveAttribute("href", "/francais");
+    const eleve = screen.getByRole("heading", { name: "Je suis élève" }).closest("li");
+    const parent = screen.getByRole("heading", { name: "Je suis parent" }).closest("li");
+    expect(within(eleve).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
+    expect(within(parent).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
   });
 
   it("présente PKP Éducation et la méthode PKP", () => {

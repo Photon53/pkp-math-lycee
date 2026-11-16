@@ -86,9 +86,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: '$5$ facteurs négatifs.'
+          methode: 'Le signe d''une puissance dépend du signe de la base et de la parité de l''exposant : base négative et exposant impair donnent un résultat négatif.'
           etapes:
+          - La base $-1{,}2$ est négative.
+          - 'L''exposant est $5$, qui est impair : le produit comporte $5$ facteurs négatifs.'
           - Un nombre impair de facteurs négatifs donne un produit négatif.
+          - 'Vérification : $(-1{,}2)^2 = 1{,}44 > 0$ mais $(-1{,}2)^3 = -1{,}728 < 0$ : l''alternance confirme un signe négatif pour un exposant impair.'
+          erreurs_frequentes:
+          - Répondre positif avec la règle « moins par moins fait plus », sans regarder la parité de l'exposant.
           resultat: B
       - code: 4E-RELATIFS-PRODUITS-05
         difficulte: 5
@@ -181,9 +186,14 @@ competences:
         solution: 2/3
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Multiplier par l’inverse.
+          methode: 'Diviser par une fraction revient à multiplier par son inverse : $\dfrac{a}{b} \div \dfrac{c}{d} = \dfrac{a}{b} \times \dfrac{d}{c}$.'
           etapes:
-          - $\dfrac{3}{4} \times \dfrac{8}{9} = \dfrac{24}{36} = \dfrac{2}{3}$.
+          - 'On remplace la division par une multiplication par l''inverse : $\dfrac{3}{4} \times \dfrac{8}{9}$.'
+          - 'On multiplie les numérateurs et les dénominateurs : $\dfrac{3 \times 8}{4 \times 9} = \dfrac{24}{36}$.'
+          - 'On simplifie par $12$ : $\dfrac{24}{36} = \dfrac{2}{3}$.'
+          - 'Vérification : $\dfrac{2}{3} \times \dfrac{9}{8} = \dfrac{18}{24} = \dfrac{3}{4}$, on retrouve le dividende.'
+          erreurs_frequentes:
+          - Multiplier par la fraction elle-même au lieu de son inverse, ou oublier de simplifier.
           resultat: 2/3
       - code: 4E-FRACTIONS-CALCUL-04
         difficulte: 3
@@ -192,9 +202,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Mettre au même dénominateur $12$.
+          methode: Réduire les fractions au même dénominateur, puis comparer les numérateurs ; entre deux négatifs, le plus grand en valeur absolue est le plus petit.
           etapes:
-          - '$-\dfrac{8}{12}$, $-\dfrac{9}{12}$, $-\dfrac{6}{12}$, $\dfrac{3}{12}$ : le plus petit est $-\dfrac{9}{12}$.'
+          - 'On réduit au dénominateur commun $12$ : $-\dfrac{2}{3} = -\dfrac{8}{12}$, $-\dfrac{3}{4} = -\dfrac{9}{12}$, $-\dfrac{1}{2} = -\dfrac{6}{12}$ et $\dfrac{1}{4} = \dfrac{3}{12}$.'
+          - Les trois nombres négatifs sont $-\dfrac{9}{12}$, $-\dfrac{8}{12}$ et $-\dfrac{6}{12}$ ; le positif est le plus grand.
+          - 'Le plus petit est celui de plus grande valeur absolue : $-\dfrac{9}{12}$, soit $-\dfrac{3}{4}$.'
+          - 'Vérification : $-\dfrac{3}{4} = -0{,}75$ et $-\dfrac{2}{3} \approx -0{,}67$ ; $-0{,}75 < -0{,}67$, le classement est cohérent.'
+          erreurs_frequentes:
+          - Choisir $-\dfrac{8}{12}$ parce que $8 > 6$, sans tenir compte du signe négatif.
           resultat: B
       - code: 4E-FRACTIONS-CALCUL-05
         difficulte: 4

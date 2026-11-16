@@ -13,6 +13,8 @@ const EspaceParent = lazy(() => import("./parent/EspaceParent.jsx"));
 // Même principe pour PKP Anglais : ni les élèves ni les professeurs de maths ne le téléchargent.
 const EspaceAnglais = lazy(() => import("./anglais/EspaceAnglais.jsx"));
 const EspaceEleveAnglais = lazy(() => import("./anglais/EspaceEleveAnglais.jsx"));
+// Français : préparation par les adultes habilités seulement, aucun espace élève (#98).
+const EspaceFrancais = lazy(() => import("./francais/EspaceFrancais.jsx"));
 
 export default function App() {
   const chemin = useChemin();
@@ -36,6 +38,13 @@ export default function App() {
     return (
       <Suspense fallback={<p className="doux page">Chargement…</p>}>
         <EspaceParent />
+      </Suspense>
+    );
+  }
+  if (chemin === "/francais" || chemin.startsWith("/francais/")) {
+    return (
+      <Suspense fallback={<p className="doux page">Chargement…</p>}>
+        <EspaceFrancais />
       </Suspense>
     );
   }

@@ -72,8 +72,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Étudier la parité : $f$ est paire si $f(-x) = f(x)$, impaire si $f(-x) = -f(x)$, sur un domaine symétrique.'
           etapes:
-          - '$\cos(-x) = \cos x$ : la fonction est paire.'
+          - Le domaine de $\cos$ est $\mathbb{R}$, symétrique par rapport à $0$.
+          - 'On utilise la formule $\cos(-x) = \cos(x)$ pour tout réel $x$ : la valeur ne change pas.'
+          - La fonction est donc paire ; sa courbe est symétrique par rapport à l'axe des ordonnées.
+          - 'Vérification : $\cos\left(-\dfrac{\pi}{3}\right) = \cos\left(\dfrac{\pi}{3}\right) = \dfrac{1}{2}$, ce qui exclut la parité impaire.'
+          erreurs_frequentes:
+          - 'Confondre avec $\sin$, qui est impaire : $\sin(-x) = -\sin x$.'
           resultat: A
       - code: TLE-TRIG-ETU-04
         difficulte: 4
@@ -82,8 +88,14 @@ competences:
         solution: pi
         auteur: Brouillon IA (Claude)
         correction:
+          methode: La période de $x \mapsto \sin(ax)$ est $\dfrac{2\pi}{|a|}$, car $\sin$ est $2\pi$-périodique.
           etapes:
-          - '$\sin(2(x + \pi)) = \sin(2x + 2\pi) = \sin(2x)$ : période $\dfrac{2\pi}{2} = \pi$.'
+          - On cherche le plus petit $T > 0$ tel que $\sin\left(2(x + T)\right) = \sin(2x)$ pour tout $x$.
+          - 'On écrit $\sin(2x + 2T) = \sin(2x)$ : cela équivaut à $2T$ multiple de $2\pi$.'
+          - Le plus petit $T > 0$ est donc $T = \dfrac{2\pi}{2} = \pi$.
+          - 'Vérification : $\sin\left(2(x + \pi)\right) = \sin(2x + 2\pi) = \sin(2x)$ ; avec $T = \dfrac{\pi}{2}$ on aurait $\sin(2x + \pi) = -\sin(2x) \neq \sin(2x)$.'
+          erreurs_frequentes:
+          - Répondre $2\pi$ en oubliant le facteur $2$, ou $\dfrac{\pi}{2}$ en divisant par $4$ au lieu de $2$.
           resultat: pi
       - code: TLE-TRIG-ETU-05
         difficulte: 5
@@ -92,11 +104,15 @@ competences:
         solution: 1
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Reconnaitre un taux d'accroissement.
+          methode: 'Reconnaître le taux d''accroissement de $\sin$ en $0$ : $\lim\limits_{x \to 0} \dfrac{\sin x - \sin 0}{x - 0} = \sin^{\prime}(0) = \cos(0) = 1$.'
           etapes:
-          - $\dfrac{\sin x - \sin 0}{x - 0}$ tend vers $\cos 0 = 1$.
-          resultat: 1
-
+          - 'On a $\sin(0) = 0$, donc $\dfrac{\sin x}{x} = \dfrac{\sin x - \sin 0}{x - 0}$ : c''est le taux d''accroissement de $\sin$ en $0$.'
+          - Quand $x \to 0$, ce taux tend vers le nombre dérivé $\sin^{\prime}(0)$.
+          - Or $\sin^{\prime} = \cos$, donc $\sin^{\prime}(0) = \cos 0 = 1$.
+          - 'Vérification : pour $x = 0{,}001$, $\dfrac{\sin(0{,}001)}{0{,}001} \approx 0{,}9999998$, proche de $1$.'
+          erreurs_frequentes:
+          - Conclure $\dfrac{0}{0} = 1$ sans justification, ou écrire $\sin^{\prime}(0) = 0$ en confondant avec $\sin(0)$.
+          resultat: '1'
   - code: TLE-TRIG-EQ
     libelle: Résoudre des équations trigonométriques
     objectifs:
@@ -159,9 +175,15 @@ competences:
         solution: 2
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Sur $[0 ; 2\pi[$, l''équation $\cos x = \cos\theta$ a deux solutions : $\theta$ et $2\pi - \theta$ (pour $0 \leq \theta \leq \pi$).'
           etapes:
-          - $\dfrac{\pi}{3}$ et $2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3}$.
-          resultat: 2
+          - 'On reconnaît une solution remarquable : $\cos\left(\dfrac{\pi}{3}\right) = \dfrac{1}{2}$.'
+          - La première solution dans $[0 ; 2\pi[$ est $x = \dfrac{\pi}{3}$.
+          - La seconde est $x = 2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3}$.
+          - 'Vérification : $\cos\left(\dfrac{5\pi}{3}\right) = \cos\left(-\dfrac{\pi}{3}\right) = \dfrac{1}{2}$ ; il n''y en a pas d''autre car $\cos$ est strictement monotone sur $[0 ; \pi]$ puis sur $[\pi ; 2\pi]$.'
+          erreurs_frequentes:
+          - 'Oublier la seconde solution, ou en proposer une troisième : sur un intervalle de longueur $2\pi$, il y en a exactement deux sauf si $\cos x = \pm 1$.'
+          resultat: '2'
       - code: TLE-TRIG-EQ-04
         difficulte: 4
         type: numerique
@@ -169,8 +191,14 @@ competences:
         solution: 5pi/3
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Résoudre $\cos x = \dfrac{1}{2}$ sur $[0 ; 2\pi[$ : les solutions sont $\dfrac{\pi}{3}$ et $2\pi - \dfrac{\pi}{3}$.'
           etapes:
-          - Les solutions sont $\dfrac{\pi}{3}$ et $\dfrac{5\pi}{3}$ ; la plus grande est $\dfrac{5\pi}{3}$.
+          - 'On a $\cos\left(\dfrac{\pi}{3}\right) = \dfrac{1}{2}$ : une première solution est $\dfrac{\pi}{3}$.'
+          - Par symétrie de $\cos$ autour de $0$, l'autre solution de $[0 ; 2\pi[$ est $2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3}$.
+          - 'On compare : $\dfrac{5\pi}{3} \approx 5{,}24$ contre $\dfrac{\pi}{3} \approx 1{,}05$ ; la plus grande est $\dfrac{5\pi}{3}$.'
+          - 'Vérification : $\cos\left(\dfrac{5\pi}{3}\right) = \cos\left(-\dfrac{\pi}{3}\right) = \dfrac{1}{2}$ et $\dfrac{5\pi}{3} < 2\pi$.'
+          erreurs_frequentes:
+          - Donner $\dfrac{\pi}{3}$ parce qu'elle est trouvée en premier, ou proposer $\dfrac{7\pi}{3}$, hors de l'intervalle.
           resultat: 5pi/3
       - code: TLE-TRIG-EQ-05
         difficulte: 5

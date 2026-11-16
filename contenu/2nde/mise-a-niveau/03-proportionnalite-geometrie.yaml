@@ -66,8 +66,14 @@ competences:
     solution: '13'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Théorème de Pythagore : dans un triangle rectangle, $c^2 = a^2 + b^2$ pour les côtés de l''angle droit $a$ et $b$.'
       etapes:
-      - $\sqrt{25 + 144} = \sqrt{169} = 13$.
+      - 'On identifie les côtés de l''angle droit : $5$ et $12$.'
+      - 'On applique Pythagore : $h^2 = 5^2 + 12^2 = 25 + 144 = 169$.'
+      - 'On prend la racine carrée : $h = \sqrt{169} = 13$.'
+      - 'Vérification : $13^2 = 169 = 25 + 144$, le triplet $(5 ; 12 ; 13)$ est bien pythagoricien.'
+      erreurs_frequentes:
+      - Additionner les longueurs ($5 + 12 = 17$), ou oublier la racine carrée.
       resultat: '13'
   - code: 2NDE-MAN-PROPORTION-04
     difficulte: 4
@@ -76,8 +82,14 @@ competences:
     solution: '6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Théorème de Thalès : si $(MN) \parallel (BC)$, alors $\dfrac{AM}{AB} = \dfrac{AN}{AC}$.'
       etapes:
-      - 'Thalès : $\dfrac{AN}{AC} = \dfrac{AM}{AB} = \dfrac{3}{5}$, donc $AN = 6$.'
+      - 'On écrit l''égalité des rapports : $\dfrac{AM}{AB} = \dfrac{AN}{AC}$.'
+      - 'On remplace : $\dfrac{3}{5} = \dfrac{AN}{10}$.'
+      - 'On isole $AN$ : $AN = 10 \times \dfrac{3}{5} = 6$.'
+      - 'Vérification : $\dfrac{AN}{AC} = \dfrac{6}{10} = 0{,}6$ et $\dfrac{AM}{AB} = \dfrac{3}{5} = 0{,}6$ : les rapports sont égaux.'
+      erreurs_frequentes:
+      - Utiliser $MB$ au lieu de $AM$, ou écrire l'égalité avec $BC$ et $MN$ sans les longueurs données.
       resultat: '6'
   - code: 2NDE-MAN-PROPORTION-05
     difficulte: 5
@@ -86,6 +98,12 @@ competences:
     solution: '80'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Le prix TTC est le prix HT multiplié par le coefficient de TVA $1{,}20$ : pour retrouver le HT, on divise par ce coefficient.'
       etapes:
-      - $\dfrac{96}{1{,}2} = 80$.
+      - 'On identifie le coefficient : une TVA de $20\,\%$ correspond à $1 + 0{,}20 = 1{,}20$.'
+      - 'On écrit la relation : prix TTC $=$ prix HT $\times 1{,}20$.'
+      - 'On divise : prix HT $= \dfrac{96}{1{,}20} = 80$ €.'
+      - 'Vérification : $80 \times 1{,}20 = 96$ € TTC, le prix de départ est retrouvé.'
+      erreurs_frequentes:
+      - 'Retrancher $20\,\%$ de $96$ et trouver $76{,}80$ : la TVA se calcule sur le prix HT, pas sur le TTC.'
       resultat: '80'

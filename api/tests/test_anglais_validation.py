@@ -92,9 +92,15 @@ def test_le_referent_valide_puis_l_eleve_fait_le_quiz(client):
     assert all("corrige" not in f for f in seance["fiches"]) and all("reponse" not in q for q in seance["quiz"])
     assert len(seance["quiz"]) >= 8  # 6 QCM de vocabulaire + 2 de grammaire
 
-    vides = client.post("/anglais/eleve/seances/4E-01/corriger", headers=entree, json={"reponses": []}).json()
-    assert vides["score"] == 0 and vides["total"] == len(seance["quiz"]) and vides["practice_answers"]
-    bonnes = [d["reponse"] for d in vides["details"]]
+    # ARCH-4 (#107) : envoi vide, partiel ou avec un choix inexistant refusé, sans correction ni tentative.
+    n = len(seance["quiz"])
+    for incomplet in ([], [0] * (n - 1), [0] * (n - 1) + [None], [0] * (n - 1) + [99], [0] * (n + 1)):
+        r = client.post("/anglais/eleve/seances/4E-01/corriger", headers=entree, json={"reponses": incomplet})
+        assert r.status_code == 422 and "details" not in r.text and "practice_answers" not in r.text
+    assert next(s for s in client.get("/anglais/eleve/seances", headers=entree).json() if s["code"] == "4E-01")["tentatives"] == 0
+    premier = client.post("/anglais/eleve/seances/4E-01/corriger", headers=entree, json={"reponses": [0] * n}).json()
+    assert premier["total"] == n and premier["practice_answers"]
+    bonnes = [d["reponse"] for d in premier["details"]]
     r = client.post("/anglais/eleve/seances/4E-01/corriger", headers=entree, json={"reponses": bonnes}).json()
     assert r["score"] == r["total"] == r["meilleur_score"]
 

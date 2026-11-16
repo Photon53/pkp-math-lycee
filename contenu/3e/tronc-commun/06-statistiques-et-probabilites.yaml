@@ -81,9 +81,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Définition de l’histogramme.
+          methode: Dans un histogramme à classes de même amplitude, la hauteur de chaque rectangle est proportionnelle à l'effectif de la classe.
           etapes:
-          - À amplitude égale, la hauteur représente l’effectif.
+          - 'Les classes ont la même amplitude : leur largeur est identique.'
+          - L'aire d'un rectangle reste proportionnelle à l'effectif ; la largeur étant constante, c'est la hauteur qui varie.
+          - La hauteur est donc proportionnelle à l'effectif de la classe.
+          - 'Vérification : une classe deux fois plus peuplée est représentée par un rectangle deux fois plus haut.'
+          erreurs_frequentes:
+          - Croire que la hauteur représente l'amplitude de la classe (constante ici) ou son centre.
           resultat: B
       - code: 3E-STATISTIQUES-04
         difficulte: 4
@@ -180,9 +185,14 @@ competences:
         solution: 4/9
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Dénombrer avec un tableau $3 \times 3$.
+          methode: 'Tirages avec remise : les deux tirages sont indépendants, on multiplie les probabilités de chaque tirage.'
           etapes:
-          - $2 \times 2 = 4$ issues favorables sur $9$.
+          - 'L''urne contient $3$ boules : $2$ rouges et $1$ verte.'
+          - La probabilité d'obtenir une rouge au premier tirage est $\dfrac{2}{3}$ ; la boule est remise.
+          - 'Au second tirage, la probabilité reste $\dfrac{2}{3}$ ; on multiplie : $\dfrac{2}{3} \times \dfrac{2}{3} = \dfrac{4}{9}$.'
+          - 'Vérification : le tableau des $9$ issues possibles contient $4$ cases « rouge-rouge », soit $\dfrac{4}{9}$.'
+          erreurs_frequentes:
+          - Additionner les probabilités au lieu de les multiplier, ou oublier la remise et prendre $\dfrac{2}{3} \times \dfrac{1}{2}$.
           resultat: 4/9
       - code: 3E-PROBABILITES-04
         difficulte: 4
@@ -203,7 +213,12 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Loi des grands nombres et dénombrement.
+          methode: 'Loi des grands nombres : la fréquence observée se stabilise vers la probabilité théorique, calculée par dénombrement.'
           etapes:
-          - 'La somme $2$ n’est obtenue que par $(1 ; 1)$ : probabilité $\dfrac{1}{36}$.'
+          - 'On dénombre les issues possibles de deux dés : $6 \times 6 = 36$ couples équiprobables.'
+          - La somme $2$ n'est obtenue que par le couple $(1 ; 1)$.
+          - La probabilité théorique est donc $\dfrac{1}{36}$, et la fréquence doit s'en approcher sur $10\,000$ lancers.
+          - 'Vérification : $\dfrac{1}{36} \approx 0{,}028$, alors que $\dfrac{1}{11}$ ou $\dfrac{1}{6}$ sont bien trop grandes.'
+          erreurs_frequentes:
+          - 'Choisir $\dfrac{1}{11}$ en comptant les sommes de $2$ à $12$ : ces sommes ne sont pas équiprobables.'
           resultat: B

@@ -123,19 +123,38 @@ def mes_seances(eleve: EleveAnglaisCourant, session: SessionDB):
 @router.get("/seances/{code}")
 def ma_seance(code: str, eleve: EleveAnglaisCourant, session: SessionDB):
     p = next((p for p in eleve.progression if p.code == code), None)
-    return {**anglais_contenu.vue_eleve(_publiee(session, eleve, code)), "i_can": p.i_can if p else []}
+    version = _publiee(session, eleve, code)
+    return {**anglais_contenu.vue_eleve(version), "i_can": p.i_can if p else [],
+            "mode_correction": eleve.groupe.mode_correction_de(version.seance.code)}
 
 
 @router.post("/seances/{code}/corriger")
 def corriger(code: str, corps: Reponses, eleve: EleveAnglaisCourant, session: SessionDB):
-    """Correction immédiate ; seul le meilleur score est conservé."""
-    resultat = anglais_contenu.corriger(_publiee(session, eleve, code), corps.reponses)
+    """Correction immédiate ; seul le meilleur score est conservé.
+
+    ARCH-4 (décision du propriétaire du 14/11/2026, #107) : le corrigé n'est rendu qu'une fois chaque question
+    répondue par un choix existant ; un envoi vide ou partiel est refusé, sans rien enregistrer."""
+    version = _publiee(session, eleve, code)
+    quiz = anglais_contenu.quiz_complet(version)
+    if len(corps.reponses) != len(quiz) or any(
+        r is None or not 0 <= r < len(q["choix"]) for r, q in zip(corps.reponses, quiz, strict=False)
+    ):
+        raise HTTPException(422, "Réponds à toutes les questions avant de voir la correction.")
+    resultat = anglais_contenu.corriger(version, corps.reponses)
     p = _progression(session, eleve, code)
+    if p.tentatives == 0:
+        # Score du premier essai, figé (#110, choix B) ; inconnu pour les résultats d'avant ce suivi.
+        p.premier_score = resultat["score"]
     p.tentatives += 1
     p.total = resultat["total"]
     p.meilleur_score = max(p.meilleur_score, resultat["score"])
+    # Réponses de cet essai, question par question (#110).
+    for i, (choix, detail) in enumerate(zip(corps.reponses, resultat["details"], strict=True)):
+        eleve.reponses.append(models.ReponseAnglais(
+            code=version.seance.code, essai=p.tentatives, question=i, choix=choix, juste=detail["juste"],
+        ))
     session.commit()
-    return {**resultat, "meilleur_score": p.meilleur_score}
+    return {**resultat, "meilleur_score": p.meilleur_score, "premier_score": p.premier_score}
 
 
 @router.put("/seances/{code}/i-can")

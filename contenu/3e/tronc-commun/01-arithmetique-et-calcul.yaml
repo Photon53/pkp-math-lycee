@@ -78,9 +78,14 @@ competences:
         solution: '36'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Plus petit multiple commun.
+          methode: 'Deux événements périodiques se reproduisent ensemble au bout d''un multiple commun des deux périodes : la première fois au plus petit multiple commun (PPCM).'
           etapes:
-          - $12 = 2^2 \times 3$, $18 = 2 \times 3^2$, donc $2^2 \times 3^2 = 36$ s.
+          - 'On décompose les périodes en facteurs premiers : $12 = 2^2 \times 3$ et $18 = 2 \times 3^2$.'
+          - 'Le PPCM prend chaque facteur premier au plus grand exposant : $2^2 \times 3^2$.'
+          - 'On calcule : $4 \times 9 = 36$.'
+          - 'Vérification : $36 = 3 \times 12$ et $36 = 2 \times 18$ : c''est un multiple commun, et le plus petit.'
+          erreurs_frequentes:
+          - Additionner les périodes ($12 + 18 = 30$) ou multiplier sans chercher le plus petit commun.
           resultat: '36'
       - code: 3E-ARITHMETIQUE-04
         difficulte: 4
@@ -177,9 +182,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Regrouper nombres et puissances de $10$.
+          methode: 'Multiplier les nombres entre eux et les puissances de $10$ entre elles : $10^a \times 10^b = 10^{a+b}$, puis ajuster en écriture scientifique.'
           etapes:
-          - $15 \times 10^{-3} = 1{,}5 \times 10^{-2}$.
+          - 'On regroupe : $(3 \times 5) \times \left(10^4 \times 10^{-7}\right)$.'
+          - 'On calcule chaque partie : $3 \times 5 = 15$ et $10^{4 + (-7)} = 10^{-3}$.'
+          - 'On obtient $15 \times 10^{-3}$, puis on écrit en notation scientifique : $1{,}5 \times 10^{-2}$.'
+          - 'Vérification : $1{,}5 \times 10^{-2} = 0{,}015$ et $30\,000 \times 0{,}0000005 = 0{,}015$ : les deux calculs concordent.'
+          erreurs_frequentes:
+          - Multiplier les exposants au lieu de les additionner, ou garder $15$ sans ajuster en notation scientifique.
           resultat: A
       - code: 3E-CALCUL-NUMERIQUE-04
         difficulte: 4

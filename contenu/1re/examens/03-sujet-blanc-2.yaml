@@ -62,8 +62,14 @@ competences:
     solution: '3'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Équation de la tangente en $a$ : $y = f''(a)(x - a) + f(a)$ ; on identifie ensuite $p$.'
       etapes:
-      - '$f(1) = 0$ : $y = -3(x - 1) + 0 = -3x + 3$.'
+      - 'On connaît la pente $-3$ et le point de contact d''abscisse $1$ : $f(1) = 0$.'
+      - 'On écrit la tangente : $y = -3(x - 1) + 0 = -3x + 3$.'
+      - Par identification avec $y = -3x + p$, on obtient $p = 3$.
+      - 'Vérification : la tangente passe par $(1 ; 0)$ : $-3 \times 1 + 3 = 0$.'
+      erreurs_frequentes:
+      - Confondre $p$ avec $f(1)$ sans développer, ou oublier le terme $f(a)$.
       resultat: '3'
   - code: 1RE-EXA-B2-EX1-04
     difficulte: 4
@@ -72,9 +78,16 @@ competences:
     solution: '-2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Un minimum local est atteint lorsque la dérivée s'annule en changeant de signe de $-$ à $+$.
       etapes:
-      - '$f''(x) = 3x(x - 2)$ change de signe de $-$ à $+$ en $2$ : $f(2) = 8 - 12 + 2 = -2$.'
+      - 'On calcule la dérivée : $f''(x) = 3x^2 - 6x = 3x(x - 2)$.'
+      - Elle s'annule en $x = 0$ et $x = 2$ ; elle est négative sur $]0 ; 2[$ et positive au-delà de $2$.
+      - 'Le signe passe de $-$ à $+$ en $x = 2$ : c''est un minimum local.'
+      - On calcule $f(2) = 2^3 - 3 \times 2^2 + 2 = 8 - 12 + 2 = -2$.
+      - 'Vérification : $f''(1) = 3 \times 1 \times (-1) = -3 < 0$ et $f''(3) = 3 \times 3 \times 1 = 9 > 0$ ; le signe de la dérivée change bien de $-$ à $+$ en $2$.'
       resultat: '-2'
+      erreurs_frequentes:
+      - Prendre $x = 0$ (maximum local), ou oublier de calculer la valeur de $f$.
   - code: 1RE-EXA-B2-EX1-05
     difficulte: 5
     type: numerique
@@ -82,9 +95,16 @@ competences:
     solution: '3'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Étudier les variations de $f$ et appliquer le théorème des valeurs intermédiaires sur chaque intervalle de monotonie.
       etapes:
-      - 'Maximum local $f(0) = 2 > 0$, minimum local $f(2) = -2 < 0$, et $f$ va de $-\infty$ à $+\infty$ : trois solutions ($1$ et $1 \pm \sqrt3$).'
+      - 'La dérivée $f''(x) = 3x(x - 2)$ donne les variations : $f$ croît jusqu''au maximum local $f(0) = 2$.'
+      - $f$ décroît ensuite jusqu'au minimum local $f(2) = -2$, puis croît à nouveau.
+      - Avec $\lim_{-\infty} f = -\infty$, $f(0) = 2 > 0$, $f(2) = -2 < 0$ et $\lim_{+\infty} f = +\infty$, le signe change une fois sur chacun des trois intervalles.
+      - L'équation $f(x) = 0$ a donc trois solutions réelles.
+      - 'Vérification : on factorise $f(x) = (x - 1)(x^2 - 2x - 2)$ ; le facteur $x^2 - 2x - 2$ a pour discriminant $4 + 8 = 12 > 0$, il apporte deux racines réelles $1 \pm \sqrt{3}$, en plus de $x = 1$.'
       resultat: '3'
+      erreurs_frequentes:
+      - Conclure deux solutions en oubliant l'intervalle extérieur, ou se fier au seul discriminant d'un trinôme.
 - code: 1RE-EXA-B2-EX2
   libelle: 'Exercice 2 : un jeu de hasard'
   objectifs:
@@ -141,8 +161,14 @@ competences:
     solution: C
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Un jeu est équitable si l'espérance du gain est nulle ; favorable si elle est positive, défavorable si elle est négative.
       etapes:
-      - L'espérance du gain est nulle.
+      - On calcule l'espérance du gain en sommant chaque gain multiplié par sa probabilité.
+      - 'Le calcul donne une espérance nulle : $E(G) = 0$.'
+      - 'Le jeu n''avantage ni le joueur ni l''organisateur : il est équitable.'
+      - 'Vérification : sur un grand nombre de parties, le gain moyen tend vers $0$ par la loi des grands nombres.'
+      erreurs_frequentes:
+      - 'Confondre équitable et favorable : un jeu équitable a une espérance nulle, pas positive.'
       resultat: C
   - code: 1RE-EXA-B2-EX2-04
     difficulte: 4
@@ -151,8 +177,14 @@ competences:
     solution: 9/25
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Tirages avec remise : les deux tirages sont indépendants, on multiplie les probabilités.'
       etapes:
-      - $\dfrac{3}{5} \times \dfrac{3}{5} = \dfrac{9}{25}$.
+      - La probabilité d'obtenir une boule rouge est $\dfrac{3}{5}$ à chaque tirage.
+      - La boule est remise, donc la probabilité reste $\dfrac{3}{5}$ au second tirage.
+      - 'On multiplie : $\dfrac{3}{5} \times \dfrac{3}{5} = \dfrac{9}{25}$.'
+      - 'Vérification : $\dfrac{9}{25} = 0{,}36$, valeur comprise entre $0$ et $1$.'
+      erreurs_frequentes:
+      - Utiliser $\dfrac{3}{5} \times \dfrac{2}{4}$ (sans remise), ou additionner les probabilités.
       resultat: 9/25
   - code: 1RE-EXA-B2-EX2-05
     difficulte: 5

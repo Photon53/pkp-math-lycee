@@ -10,28 +10,28 @@ Gabarit et règles de rédaction : `docs/CONTENU.md`, section « Corrigés ».
 
 | Niveau | Parcours | Résultat seul | À compléter | Complet | Questions | Complets |
 |---|---|:-:|:-:|:-:|:-:|:-:|
-| 6e | tronc-commun | 0 | 102 | 6 | 108 | 6 % |
-| 5e | tronc-commun | 0 | 110 | 5 | 115 | 4 % |
-| 4e | tronc-commun | 0 | 95 | 2 | 97 | 2 % |
-| 3e | tronc-commun | 0 | 72 | 1 | 73 | 1 % |
+| 6e | tronc-commun | 0 | 98 | 10 | 108 | 9 % |
+| 5e | tronc-commun | 0 | 96 | 19 | 115 | 17 % |
+| 4e | tronc-commun | 0 | 83 | 14 | 97 | 14 % |
+| 3e | tronc-commun | 0 | 62 | 11 | 73 | 15 % |
 | 2nde | tronc-commun | 73 | 182 | 20 | 275 | 7 % |
 | 2nde | professionnel | 4 | 15 | 0 | 19 | 0 % |
-| 2nde | excellence | 43 | 17 | 0 | 60 | 0 % |
-| 2nde | mise-a-niveau | 15 | 0 | 0 | 15 | 0 % |
+| 2nde | excellence | 21 | 39 | 0 | 60 | 0 % |
+| 2nde | mise-a-niveau | 6 | 9 | 0 | 15 | 0 % |
 | 1re | specialite | 56 | 157 | 5 | 218 | 2 % |
-| 1re | scientifique | 30 | 15 | 0 | 45 | 0 % |
+| 1re | scientifique | 17 | 27 | 1 | 45 | 2 % |
 | 1re | technologique | 33 | 60 | 0 | 93 | 0 % |
-| 1re | excellence | 51 | 9 | 0 | 60 | 0 % |
-| 1re | mise-a-niveau | 14 | 1 | 0 | 15 | 0 % |
-| 1re | examens | 29 | 1 | 0 | 30 | 0 % |
-| Tle | specialite | 124 | 48 | 0 | 172 | 0 % |
+| 1re | excellence | 23 | 35 | 2 | 60 | 3 % |
+| 1re | mise-a-niveau | 6 | 7 | 2 | 15 | 13 % |
+| 1re | examens | 12 | 10 | 8 | 30 | 27 % |
+| Tle | specialite | 64 | 92 | 16 | 172 | 9 % |
 | Tle | complementaires | 63 | 17 | 0 | 80 | 0 % |
 | Tle | expertes | 39 | 68 | 0 | 107 | 0 % |
 | Tle | technologique | 31 | 56 | 0 | 87 | 0 % |
 | Tle | excellence | 65 | 15 | 0 | 80 | 0 % |
 | Tle | mise-a-niveau | 13 | 2 | 0 | 15 | 0 % |
 | Tle | examens | 29 | 1 | 0 | 30 | 0 % |
-| **Total** | | 712 | 1043 | 39 | 1794 | 2 % |
+| **Total** | | 555 | 1131 | 108 | 1794 | 6 % |
 
 ## Par chapitre
 
@@ -49,11 +49,11 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 6e · tronc-commun · Calculer avec les nombres décimaux
 
-6E-OPERATIONS : 0 résultat seul, 13 à compléter, 0 complet(s).
+6E-OPERATIONS : 0 résultat seul, 12 à compléter, 1 complet(s).
 
 ### 6e · tronc-commun · Les fractions
 
-6E-FRACTIONS : 0 résultat seul, 11 à compléter, 2 complet(s).
+6E-FRACTIONS : 0 résultat seul, 10 à compléter, 3 complet(s).
 
 ### 6e · tronc-commun · Proportionnalité et pourcentages
 
@@ -65,11 +65,11 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 6e · tronc-commun · Longueurs, aires, volumes et durées
 
-6E-GRANDEURS : 0 résultat seul, 18 à compléter, 0 complet(s).
+6E-GRANDEURS : 0 résultat seul, 17 à compléter, 1 complet(s).
 
 ### 6e · tronc-commun · Géométrie plane et vision dans l’espace
 
-6E-GEOMETRIE : 0 résultat seul, 17 à compléter, 1 complet(s).
+6E-GEOMETRIE : 0 résultat seul, 16 à compléter, 2 complet(s).
 
 ### 6e · tronc-commun · Données et probabilités
 
@@ -81,11 +81,11 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 5e · tronc-commun · Opérations, priorités et divisibilité
 
-5E-OPERATIONS : 0 résultat seul, 10 à compléter, 1 complet(s).
+5E-OPERATIONS : 0 résultat seul, 9 à compléter, 2 complet(s).
 
 ### 5e · tronc-commun · Nombres relatifs
 
-5E-RELATIFS : 0 résultat seul, 12 à compléter, 0 complet(s).
+5E-RELATIFS : 0 résultat seul, 11 à compléter, 1 complet(s).
 
 ### 5e · tronc-commun · Nombres rationnels et fractions
 
@@ -93,43 +93,43 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 5e · tronc-commun · Puissances et calcul littéral
 
-5E-LITTERAL : 0 résultat seul, 17 à compléter, 0 complet(s).
+5E-LITTERAL : 0 résultat seul, 16 à compléter, 1 complet(s).
 
 ### 5e · tronc-commun · Repérage, solides et volumes
 
-5E-REPERAGE-ESPACE : 0 résultat seul, 12 à compléter, 0 complet(s).
+5E-REPERAGE-ESPACE : 0 résultat seul, 10 à compléter, 2 complet(s).
 
 ### 5e · tronc-commun · Symétrie centrale et angles
 
-5E-SYMETRIE-ANGLES : 0 résultat seul, 10 à compléter, 0 complet(s).
+5E-SYMETRIE-ANGLES : 0 résultat seul, 8 à compléter, 2 complet(s).
 
 ### 5e · tronc-commun · Triangles et parallélogrammes
 
-5E-TRIANGLES-PARALL : 0 résultat seul, 11 à compléter, 1 complet(s).
+5E-TRIANGLES-PARALL : 0 résultat seul, 9 à compléter, 3 complet(s).
 
 ### 5e · tronc-commun · Statistiques et probabilités
 
-5E-STATS-PROBAS : 0 résultat seul, 12 à compléter, 0 complet(s).
+5E-STATS-PROBAS : 0 résultat seul, 10 à compléter, 2 complet(s).
 
 ### 5e · tronc-commun · Proportionnalité et premières fonctions
 
-5E-PROP-FONCTIONS : 0 résultat seul, 11 à compléter, 0 complet(s).
+5E-PROP-FONCTIONS : 0 résultat seul, 9 à compléter, 2 complet(s).
 
 ### 5e · tronc-commun · Algorithmique et programmation
 
-5E-ALGORITHMIQUE : 0 résultat seul, 6 à compléter, 0 complet(s).
+5E-ALGORITHMIQUE : 0 résultat seul, 5 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Puissances, notation scientifique et racines carrées
 
-4E-PUISSANCES-RACINES : 0 résultat seul, 11 à compléter, 0 complet(s).
+4E-PUISSANCES-RACINES : 0 résultat seul, 10 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Nombres relatifs et nombres rationnels
 
-4E-RATIONNELS : 0 résultat seul, 11 à compléter, 0 complet(s).
+4E-RATIONNELS : 0 résultat seul, 9 à compléter, 2 complet(s).
 
 ### 4e · tronc-commun · Divisibilité et nombres premiers
 
-4E-ARITHMETIQUE : 0 résultat seul, 5 à compléter, 0 complet(s).
+4E-ARITHMETIQUE : 0 résultat seul, 4 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Calcul littéral et équations
 
@@ -137,55 +137,55 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 4e · tronc-commun · Pythagore, Thalès et cosinus
 
-4E-GEOMETRIE-TRIANGLE : 0 résultat seul, 13 à compléter, 2 complet(s).
+4E-GEOMETRIE-TRIANGLE : 0 résultat seul, 11 à compléter, 4 complet(s).
 
 ### 4e · tronc-commun · Translations, agrandissements et réductions
 
-4E-TRANSFORMATIONS : 0 résultat seul, 10 à compléter, 0 complet(s).
+4E-TRANSFORMATIONS : 0 résultat seul, 9 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Pyramides, cônes et grandeurs composées
 
-4E-ESPACE-GRANDEURS : 0 résultat seul, 10 à compléter, 0 complet(s).
+4E-ESPACE-GRANDEURS : 0 résultat seul, 9 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Statistiques et probabilités
 
-4E-DONNEES-PROBAS : 0 résultat seul, 10 à compléter, 0 complet(s).
+4E-DONNEES-PROBAS : 0 résultat seul, 9 à compléter, 1 complet(s).
 
 ### 4e · tronc-commun · Proportionnalité et notion de fonction
 
-4E-PROP-FONCTIONS : 0 résultat seul, 10 à compléter, 0 complet(s).
+4E-PROP-FONCTIONS : 0 résultat seul, 8 à compléter, 2 complet(s).
 
 ### 4e · tronc-commun · Algorithmique et programmation
 
-4E-ALGORITHMIQUE : 0 résultat seul, 5 à compléter, 0 complet(s).
+4E-ALGORITHMIQUE : 0 résultat seul, 4 à compléter, 1 complet(s).
 
 ### 3e · tronc-commun · Arithmétique et calcul numérique
 
-3E-NOMBRES : 0 résultat seul, 10 à compléter, 0 complet(s).
+3E-NOMBRES : 0 résultat seul, 9 à compléter, 1 complet(s).
 
 ### 3e · tronc-commun · Calcul littéral, identités et équations
 
-3E-LITTERAL : 0 résultat seul, 11 à compléter, 0 complet(s).
+3E-LITTERAL : 0 résultat seul, 10 à compléter, 1 complet(s).
 
 ### 3e · tronc-commun · Fonctions, fonctions linéaires et affines
 
-3E-FONCTIONS : 0 résultat seul, 12 à compléter, 0 complet(s).
+3E-FONCTIONS : 0 résultat seul, 10 à compléter, 2 complet(s).
 
 ### 3e · tronc-commun · Thalès, triangles semblables, trigonométrie et transformations
 
-3E-GEOMETRIE : 0 résultat seul, 14 à compléter, 1 complet(s).
+3E-GEOMETRIE : 0 résultat seul, 13 à compléter, 2 complet(s).
 
 ### 3e · tronc-commun · Sphère, sections et grandeurs
 
-3E-ESPACE-GRANDEURS : 0 résultat seul, 10 à compléter, 0 complet(s).
+3E-ESPACE-GRANDEURS : 0 résultat seul, 8 à compléter, 2 complet(s).
 
 ### 3e · tronc-commun · Statistiques et probabilités
 
-3E-STATS-PROBAS : 0 résultat seul, 10 à compléter, 0 complet(s).
+3E-STATS-PROBAS : 0 résultat seul, 8 à compléter, 2 complet(s).
 
 ### 3e · tronc-commun · Algorithmique et programmation
 
-3E-ALGORITHMIQUE : 0 résultat seul, 5 à compléter, 0 complet(s).
+3E-ALGORITHMIQUE : 0 résultat seul, 4 à compléter, 1 complet(s).
 
 ### 2nde · tronc-commun · Nombres et calculs
 
@@ -279,57 +279,57 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 2nde · excellence · Arithmétique approfondie
 
-2NDE-EX-ARITH : 4 résultat seul, 6 à compléter, 0 complet(s).
+2NDE-EX-ARITH : 2 résultat seul, 8 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-ARITH-PB-04, 2NDE-EX-ARITH-PB-03, 2NDE-EX-ARITH-PB-02, 2NDE-EX-ARITH-PB-01.
+À reprendre : 2NDE-EX-ARITH-PB-02, 2NDE-EX-ARITH-PB-01.
 
 ### 2nde · excellence · Ordre et inégalités
 
-2NDE-EX-ORDRE : 8 résultat seul, 2 à compléter, 0 complet(s).
+2NDE-EX-ORDRE : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-INEG-04, 2NDE-EX-ORDRE-PB-04, 2NDE-EX-INEG-03, 2NDE-EX-ORDRE-PB-03, 2NDE-EX-INEG-02, 2NDE-EX-ORDRE-PB-02, 2NDE-EX-INEG-01, 2NDE-EX-ORDRE-PB-01.
+À reprendre : 2NDE-EX-INEG-02, 2NDE-EX-ORDRE-PB-02, 2NDE-EX-INEG-01, 2NDE-EX-ORDRE-PB-01.
 
 ### 2nde · excellence · Olympiades, algèbre et combinatoire
 
-2NDE-EX-OLYMP : 5 résultat seul, 5 à compléter, 0 complet(s).
+2NDE-EX-OLYMP : 3 résultat seul, 7 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-OLYMP-PB-04, 2NDE-EX-OLYMP-PB-03, 2NDE-EX-OLYMP-PB-02, 2NDE-EX-OLYMP-PB-01, 2NDE-EX-OLYMPIADE-01.
+À reprendre : 2NDE-EX-OLYMP-PB-02, 2NDE-EX-OLYMP-PB-01, 2NDE-EX-OLYMPIADE-01.
 
 ### 2nde · excellence · Géométrie et vecteurs approfondis
 
-2NDE-EX-GEO : 8 résultat seul, 2 à compléter, 0 complet(s).
+2NDE-EX-GEO : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-GEO-PB-05, 2NDE-EX-GEO-PB-04, 2NDE-EX-GEO-PB-03, 2NDE-EX-GEOMETRIE-03, 2NDE-EX-GEO-PB-02, 2NDE-EX-GEOMETRIE-02, 2NDE-EX-GEO-PB-01, 2NDE-EX-GEOMETRIE-01.
+À reprendre : 2NDE-EX-GEO-PB-02, 2NDE-EX-GEOMETRIE-02, 2NDE-EX-GEO-PB-01, 2NDE-EX-GEOMETRIE-01.
 
 ### 2nde · excellence · Fonctions et équations
 
-2NDE-EX-FONC : 10 résultat seul, 0 à compléter, 0 complet(s).
+2NDE-EX-FONC : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-FONC-PB-05, 2NDE-EX-FONCTIONS-05, 2NDE-EX-FONC-PB-04, 2NDE-EX-FONCTIONS-04, 2NDE-EX-FONC-PB-03, 2NDE-EX-FONCTIONS-03, 2NDE-EX-FONC-PB-02, 2NDE-EX-FONCTIONS-02, 2NDE-EX-FONC-PB-01, 2NDE-EX-FONCTIONS-01.
+À reprendre : 2NDE-EX-FONC-PB-02, 2NDE-EX-FONCTIONS-02, 2NDE-EX-FONC-PB-01, 2NDE-EX-FONCTIONS-01.
 
 ### 2nde · excellence · Dénombrement et principe des tiroirs
 
-2NDE-EX-DENOMB : 8 résultat seul, 2 à compléter, 0 complet(s).
+2NDE-EX-DENOMB : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-EX-DENOMB-PB-05, 2NDE-EX-DENOMB-PB-04, 2NDE-EX-DENOMBR-04, 2NDE-EX-DENOMB-PB-03, 2NDE-EX-DENOMB-PB-02, 2NDE-EX-DENOMBR-02, 2NDE-EX-DENOMB-PB-01, 2NDE-EX-DENOMBR-01.
+À reprendre : 2NDE-EX-DENOMB-PB-02, 2NDE-EX-DENOMBR-02, 2NDE-EX-DENOMB-PB-01, 2NDE-EX-DENOMBR-01.
 
 ### 2nde · mise-a-niveau · Bases du collège, calcul numérique
 
-2NDE-MAN-NUM : 5 résultat seul, 0 à compléter, 0 complet(s).
+2NDE-MAN-NUM : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-MAN-CALCUL-05, 2NDE-MAN-CALCUL-04, 2NDE-MAN-CALCUL-03, 2NDE-MAN-CALCUL-02, 2NDE-MAN-CALCUL-01.
+À reprendre : 2NDE-MAN-CALCUL-02, 2NDE-MAN-CALCUL-01.
 
 ### 2nde · mise-a-niveau · Bases du collège, calcul littéral et équations
 
-2NDE-MAN-LIT : 5 résultat seul, 0 à compléter, 0 complet(s).
+2NDE-MAN-LIT : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-MAN-EQUATIONS-05, 2NDE-MAN-EQUATIONS-04, 2NDE-MAN-EQUATIONS-03, 2NDE-MAN-EQUATIONS-02, 2NDE-MAN-EQUATIONS-01.
+À reprendre : 2NDE-MAN-EQUATIONS-02, 2NDE-MAN-EQUATIONS-01.
 
 ### 2nde · mise-a-niveau · Bases du collège, proportionnalité et géométrie
 
-2NDE-MAN-PROP : 5 résultat seul, 0 à compléter, 0 complet(s).
+2NDE-MAN-PROP : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 2NDE-MAN-PROPORTION-05, 2NDE-MAN-PROPORTION-04, 2NDE-MAN-PROPORTION-03, 2NDE-MAN-PROPORTION-02, 2NDE-MAN-PROPORTION-01.
+À reprendre : 2NDE-MAN-PROPORTION-02, 2NDE-MAN-PROPORTION-01.
 
 ### 1re · specialite · Second degré
 
@@ -403,39 +403,39 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 1re · scientifique · Information chiffrée, évolutions et pourcentages
 
-1RE-ES-EVO : 3 résultat seul, 2 à compléter, 0 complet(s).
+1RE-ES-EVO : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 1RE-ES-EVO-TAUX-03, 1RE-ES-EVO-TAUX-02, 1RE-ES-EVO-TAUX-01.
+À reprendre : 1RE-ES-EVO-TAUX-02, 1RE-ES-EVO-TAUX-01.
 
 ### 1re · scientifique · Statistiques à deux caractères
 
-1RE-ES-STAT : 8 résultat seul, 2 à compléter, 0 complet(s).
+1RE-ES-STAT : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 1RE-ES-AJUST-04, 1RE-ES-CROISE-04, 1RE-ES-AJUST-03, 1RE-ES-CROISE-03, 1RE-ES-AJUST-02, 1RE-ES-CROISE-02, 1RE-ES-AJUST-01, 1RE-ES-CROISE-01.
+À reprendre : 1RE-ES-AJUST-02, 1RE-ES-CROISE-02, 1RE-ES-AJUST-01, 1RE-ES-CROISE-01.
 
 ### 1re · scientifique · Probabilités conditionnelles et indépendance
 
-1RE-ES-PROBA : 6 résultat seul, 4 à compléter, 0 complet(s).
+1RE-ES-PROBA : 3 résultat seul, 6 à compléter, 1 complet(s).
 
-À reprendre : 1RE-ES-INDEP-04, 1RE-ES-PCOND-04, 1RE-ES-INDEP-03, 1RE-ES-INDEP-02, 1RE-ES-INDEP-01, 1RE-ES-PCOND-01.
+À reprendre : 1RE-ES-INDEP-02, 1RE-ES-INDEP-01, 1RE-ES-PCOND-01.
 
 ### 1re · scientifique · Variation linéaire, suites arithmétiques
 
-1RE-ES-LIN : 3 résultat seul, 2 à compléter, 0 complet(s).
+1RE-ES-LIN : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 1RE-ES-ARITH-04, 1RE-ES-ARITH-02, 1RE-ES-ARITH-01.
+À reprendre : 1RE-ES-ARITH-02, 1RE-ES-ARITH-01.
 
 ### 1re · scientifique · Modélisation quadratique
 
-1RE-ES-QUAD : 3 résultat seul, 2 à compléter, 0 complet(s).
+1RE-ES-QUAD : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 1RE-ES-PARAB-03, 1RE-ES-PARAB-02, 1RE-ES-PARAB-01.
+À reprendre : 1RE-ES-PARAB-02, 1RE-ES-PARAB-01.
 
 ### 1re · scientifique · Variation exponentielle, suites géométriques
 
-1RE-ES-EXPO : 7 résultat seul, 3 à compléter, 0 complet(s).
+1RE-ES-EXPO : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 1RE-ES-PUISS-04, 1RE-ES-GEOM-03, 1RE-ES-PUISS-03, 1RE-ES-GEOM-02, 1RE-ES-PUISS-02, 1RE-ES-GEOM-01, 1RE-ES-PUISS-01.
+À reprendre : 1RE-ES-GEOM-02, 1RE-ES-PUISS-02, 1RE-ES-GEOM-01, 1RE-ES-PUISS-01.
 
 ### 1re · technologique · Automatismes, évolutions et calcul algébrique
 
@@ -487,75 +487,75 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 ### 1re · excellence · Logique et raisonnements
 
-1RE-EX-LOG : 8 résultat seul, 2 à compléter, 0 complet(s).
+1RE-EX-LOG : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : 1RE-EX-LOG-PB-05, 1RE-EX-LOG-PB-04, 1RE-EX-LOG-PB-03, 1RE-EX-LOGIQUE-03, 1RE-EX-LOG-PB-02, 1RE-EX-LOGIQUE-02, 1RE-EX-LOG-PB-01, 1RE-EX-LOGIQUE-01.
+À reprendre : 1RE-EX-LOG-PB-02, 1RE-EX-LOGIQUE-02, 1RE-EX-LOG-PB-01, 1RE-EX-LOGIQUE-01.
 
 ### 1re · excellence · Ensembles et applications
 
-1RE-EX-ENS : 9 résultat seul, 1 à compléter, 0 complet(s).
+1RE-EX-ENS : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : 1RE-EX-APPLI-05, 1RE-EX-APPLI-04, 1RE-EX-ENS-PB-04, 1RE-EX-APPLI-03, 1RE-EX-ENS-PB-03, 1RE-EX-APPLI-02, 1RE-EX-ENS-PB-02, 1RE-EX-APPLI-01, 1RE-EX-ENS-PB-01.
+À reprendre : 1RE-EX-APPLI-02, 1RE-EX-ENS-PB-02, 1RE-EX-APPLI-01, 1RE-EX-ENS-PB-01.
 
 ### 1re · excellence · Olympiades, géométrie et trigonométrie
 
-1RE-EX-OLYMP : 6 résultat seul, 4 à compléter, 0 complet(s).
+1RE-EX-OLYMP : 3 résultat seul, 7 à compléter, 0 complet(s).
 
-À reprendre : 1RE-EX-OLYMP-PB-05, 1RE-EX-OLYMP-PB-04, 1RE-EX-OLYMP-PB-03, 1RE-EX-OLYMP-PB-02, 1RE-EX-OLYMP-PB-01, 1RE-EX-OLYMPIADE-01.
+À reprendre : 1RE-EX-OLYMP-PB-02, 1RE-EX-OLYMP-PB-01, 1RE-EX-OLYMPIADE-01.
 
 ### 1re · excellence · Suites et récurrences avancées
 
-1RE-EX-SUI : 9 résultat seul, 1 à compléter, 0 complet(s).
+1RE-EX-SUI : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 1RE-EX-SUI-PB-05, 1RE-EX-SUI-PB-04, 1RE-EX-SUITES-04, 1RE-EX-SUI-PB-03, 1RE-EX-SUITES-03, 1RE-EX-SUI-PB-02, 1RE-EX-SUITES-02, 1RE-EX-SUI-PB-01, 1RE-EX-SUITES-01.
+À reprendre : 1RE-EX-SUI-PB-02, 1RE-EX-SUITES-02, 1RE-EX-SUI-PB-01, 1RE-EX-SUITES-01.
 
 ### 1re · excellence · Second degré avec paramètre, somme et produit des racines
 
-1RE-EX-POLY : 10 résultat seul, 0 à compléter, 0 complet(s).
+1RE-EX-POLY : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 1RE-EX-POLY-PB-05, 1RE-EX-POLYNOMES-05, 1RE-EX-POLY-PB-04, 1RE-EX-POLYNOMES-04, 1RE-EX-POLY-PB-03, 1RE-EX-POLYNOMES-03, 1RE-EX-POLY-PB-02, 1RE-EX-POLYNOMES-02, 1RE-EX-POLY-PB-01, 1RE-EX-POLYNOMES-01.
+À reprendre : 1RE-EX-POLY-PB-02, 1RE-EX-POLYNOMES-02, 1RE-EX-POLY-PB-01, 1RE-EX-POLYNOMES-01.
 
 ### 1re · excellence · Probabilités approfondies
 
-1RE-EX-PROBA : 9 résultat seul, 1 à compléter, 0 complet(s).
+1RE-EX-PROBA : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : 1RE-EX-PROBAS-05, 1RE-EX-PROBA-PB-04, 1RE-EX-PROBAS-04, 1RE-EX-PROBA-PB-03, 1RE-EX-PROBAS-03, 1RE-EX-PROBA-PB-02, 1RE-EX-PROBAS-02, 1RE-EX-PROBA-PB-01, 1RE-EX-PROBAS-01.
+À reprendre : 1RE-EX-PROBA-PB-02, 1RE-EX-PROBAS-02, 1RE-EX-PROBA-PB-01, 1RE-EX-PROBAS-01.
 
 ### 1re · mise-a-niveau · Bases de seconde, calcul algébrique
 
-1RE-MAN-ALG : 5 résultat seul, 0 à compléter, 0 complet(s).
+1RE-MAN-ALG : 2 résultat seul, 3 à compléter, 0 complet(s).
 
-À reprendre : 1RE-MAN-ALGEBRE-05, 1RE-MAN-ALGEBRE-04, 1RE-MAN-ALGEBRE-03, 1RE-MAN-ALGEBRE-02, 1RE-MAN-ALGEBRE-01.
+À reprendre : 1RE-MAN-ALGEBRE-02, 1RE-MAN-ALGEBRE-01.
 
 ### 1re · mise-a-niveau · Bases de seconde, fonctions et droites
 
-1RE-MAN-FONC : 4 résultat seul, 1 à compléter, 0 complet(s).
+1RE-MAN-FONC : 2 résultat seul, 2 à compléter, 1 complet(s).
 
-À reprendre : 1RE-MAN-FONCTIONS-04, 1RE-MAN-FONCTIONS-03, 1RE-MAN-FONCTIONS-02, 1RE-MAN-FONCTIONS-01.
+À reprendre : 1RE-MAN-FONCTIONS-02, 1RE-MAN-FONCTIONS-01.
 
 ### 1re · mise-a-niveau · Bases de seconde, vecteurs, statistiques et probabilités
 
-1RE-MAN-VEC : 5 résultat seul, 0 à compléter, 0 complet(s).
+1RE-MAN-VEC : 2 résultat seul, 2 à compléter, 1 complet(s).
 
-À reprendre : 1RE-MAN-VECPROBA-05, 1RE-MAN-VECPROBA-04, 1RE-MAN-VECPROBA-03, 1RE-MAN-VECPROBA-02, 1RE-MAN-VECPROBA-01.
+À reprendre : 1RE-MAN-VECPROBA-02, 1RE-MAN-VECPROBA-01.
 
 ### 1re · examens · Épreuve anticipée, partie automatismes (QCM)
 
-1RE-EXA-AUTO : 10 résultat seul, 0 à compléter, 0 complet(s).
+1RE-EXA-AUTO : 4 résultat seul, 0 à compléter, 6 complet(s).
 
-À reprendre : 1RE-EXA-AUTO-CALC-05, 1RE-EXA-AUTO-FONC-05, 1RE-EXA-AUTO-CALC-04, 1RE-EXA-AUTO-FONC-04, 1RE-EXA-AUTO-CALC-03, 1RE-EXA-AUTO-FONC-03, 1RE-EXA-AUTO-CALC-02, 1RE-EXA-AUTO-FONC-02, 1RE-EXA-AUTO-CALC-01, 1RE-EXA-AUTO-FONC-01.
+À reprendre : 1RE-EXA-AUTO-CALC-02, 1RE-EXA-AUTO-FONC-02, 1RE-EXA-AUTO-CALC-01, 1RE-EXA-AUTO-FONC-01.
 
 ### 1re · examens · Sujet blanc n° 1 (second degré et suites)
 
-1RE-EXA-BLANC1 : 10 résultat seul, 0 à compléter, 0 complet(s).
+1RE-EXA-BLANC1 : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : 1RE-EXA-B1-EX1-05, 1RE-EXA-B1-EX2-05, 1RE-EXA-B1-EX1-04, 1RE-EXA-B1-EX2-04, 1RE-EXA-B1-EX1-03, 1RE-EXA-B1-EX2-03, 1RE-EXA-B1-EX1-02, 1RE-EXA-B1-EX2-02, 1RE-EXA-B1-EX1-01, 1RE-EXA-B1-EX2-01.
+À reprendre : 1RE-EXA-B1-EX1-02, 1RE-EXA-B1-EX2-02, 1RE-EXA-B1-EX1-01, 1RE-EXA-B1-EX2-01.
 
 ### 1re · examens · Sujet blanc n° 2 (dérivation et probabilités)
 
-1RE-EXA-BLANC2 : 9 résultat seul, 1 à compléter, 0 complet(s).
+1RE-EXA-BLANC2 : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : 1RE-EXA-B2-EX1-05, 1RE-EXA-B2-EX1-04, 1RE-EXA-B2-EX2-04, 1RE-EXA-B2-EX1-03, 1RE-EXA-B2-EX2-03, 1RE-EXA-B2-EX1-02, 1RE-EXA-B2-EX2-02, 1RE-EXA-B2-EX1-01, 1RE-EXA-B2-EX2-01.
+À reprendre : 1RE-EXA-B2-EX1-02, 1RE-EXA-B2-EX2-02, 1RE-EXA-B2-EX1-01, 1RE-EXA-B2-EX2-01.
 
 ### Tle · specialite · Combinatoire et dénombrement
 
@@ -565,87 +565,87 @@ TLE-COMB : 2 résultat seul, 4 à compléter, 0 complet(s).
 
 ### Tle · specialite · Vecteurs, droites et plans de l'espace
 
-TLE-VECTEURS-ESPACE : 6 résultat seul, 4 à compléter, 0 complet(s).
+TLE-VECTEURS-ESPACE : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : TLE-ESP-COORD-04, TLE-ESP-COORD-03, TLE-ESP-COORD-02, TLE-ESP-COPLAN-02, TLE-ESP-COORD-01, TLE-ESP-COPLAN-01.
+À reprendre : TLE-ESP-COORD-02, TLE-ESP-COPLAN-02, TLE-ESP-COORD-01, TLE-ESP-COPLAN-01.
 
 ### Tle · specialite · Orthogonalité et distances dans l'espace
 
-TLE-ORTHOGONALITE : 7 résultat seul, 3 à compléter, 0 complet(s).
+TLE-ORTHOGONALITE : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : TLE-PS-ESP-04, TLE-PLAN-NORMAL-03, TLE-PS-ESP-03, TLE-PLAN-NORMAL-02, TLE-PS-ESP-02, TLE-PLAN-NORMAL-01, TLE-PS-ESP-01.
+À reprendre : TLE-PLAN-NORMAL-02, TLE-PS-ESP-02, TLE-PLAN-NORMAL-01, TLE-PS-ESP-01.
 
 ### Tle · specialite · Représentations paramétriques et équations cartésiennes
 
-TLE-PARAMETRIQUES : 5 résultat seul, 5 à compléter, 0 complet(s).
+TLE-PARAMETRIQUES : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : TLE-DROITE-ESP-03, TLE-DROITE-ESP-02, TLE-INTERSECTION-02, TLE-DROITE-ESP-01, TLE-INTERSECTION-01.
+À reprendre : TLE-DROITE-ESP-02, TLE-INTERSECTION-02, TLE-DROITE-ESP-01, TLE-INTERSECTION-01.
 
 ### Tle · specialite · Suites
 
-TLE-SUITES : 19 résultat seul, 6 à compléter, 0 complet(s).
+TLE-SUITES : 9 résultat seul, 12 à compléter, 4 complet(s).
 
-À reprendre : TLE-SUI-COMP-04, TLE-SUI-LIM-05, TLE-SUI-OPE-04, TLE-SUI-REC-04, TLE-SUI-COMP-02, TLE-SUI-COMP-03, TLE-SUI-LIM-04, TLE-SUI-LIM-06, TLE-SUI-OPE-03, TLE-SUI-REC-03, TLE-SUI-COMP-01, TLE-SUI-LIM-02, TLE-SUI-LIM-03, TLE-SUI-OPE-02, TLE-SUI-REC-02, TLE-SUI-COMP-06, TLE-SUI-LIM-01, TLE-SUI-OPE-01, TLE-SUI-REC-01.
+À reprendre : TLE-SUI-COMP-01, TLE-SUI-LIM-02, TLE-SUI-LIM-03, TLE-SUI-OPE-02, TLE-SUI-REC-02, TLE-SUI-COMP-06, TLE-SUI-LIM-01, TLE-SUI-OPE-01, TLE-SUI-REC-01.
 
 ### Tle · specialite · Limites de fonctions
 
-TLE-LIMITES-FONCTIONS : 7 résultat seul, 3 à compléter, 0 complet(s).
+TLE-LIMITES-FONCTIONS : 3 résultat seul, 5 à compléter, 2 complet(s).
 
-À reprendre : TLE-LIMF-ASYMP-04, TLE-LIMF-OP-04, TLE-LIMF-ASYMP-03, TLE-LIMF-OP-03, TLE-LIMF-ASYMP-02, TLE-LIMF-OP-02, TLE-LIMF-OP-01.
+À reprendre : TLE-LIMF-ASYMP-02, TLE-LIMF-OP-02, TLE-LIMF-OP-01.
 
 ### Tle · specialite · Compléments sur la dérivation et convexité
 
-TLE-CONVEXITE : 8 résultat seul, 2 à compléter, 0 complet(s).
+TLE-CONVEXITE : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : TLE-COMPOSEE-04, TLE-CONVEX-04, TLE-COMPOSEE-03, TLE-CONVEX-03, TLE-COMPOSEE-02, TLE-CONVEX-02, TLE-COMPOSEE-01, TLE-CONVEX-01.
+À reprendre : TLE-COMPOSEE-02, TLE-CONVEX-02, TLE-COMPOSEE-01, TLE-CONVEX-01.
 
 ### Tle · specialite · Continuité des fonctions
 
-TLE-CONTINUITE : 6 résultat seul, 4 à compléter, 0 complet(s).
+TLE-CONTINUITE : 3 résultat seul, 5 à compléter, 2 complet(s).
 
-À reprendre : TLE-POINT-FIXE-05, TLE-TVI-04, TLE-TVI-03, TLE-POINT-FIXE-02, TLE-POINT-FIXE-01, TLE-TVI-01.
+À reprendre : TLE-POINT-FIXE-02, TLE-POINT-FIXE-01, TLE-TVI-01.
 
 ### Tle · specialite · Fonction logarithme népérien
 
-TLE-LN : 17 résultat seul, 4 à compléter, 0 complet(s).
+TLE-LN : 7 résultat seul, 11 à compléter, 3 complet(s).
 
-À reprendre : TLE-LN-APP-06, TLE-LN-ETU-06, TLE-LN-APP-04, TLE-LN-APP-05, TLE-LN-DEF-06, TLE-LN-ETU-05, TLE-LN-APP-02, TLE-LN-DEF-05, TLE-LN-ETU-03, TLE-LN-ETU-04, TLE-LN-APP-01, TLE-LN-DEF-03, TLE-LN-DEF-04, TLE-LN-ETU-02, TLE-LN-DEF-01, TLE-LN-DEF-02, TLE-LN-ETU-01.
+À reprendre : TLE-LN-APP-01, TLE-LN-DEF-03, TLE-LN-DEF-04, TLE-LN-ETU-02, TLE-LN-DEF-01, TLE-LN-DEF-02, TLE-LN-ETU-01.
 
 ### Tle · specialite · Fonctions trigonométriques
 
-TLE-TRIGONOMETRIE : 8 résultat seul, 2 à compléter, 0 complet(s).
+TLE-TRIGONOMETRIE : 4 résultat seul, 5 à compléter, 1 complet(s).
 
-À reprendre : TLE-TRIG-EQ-04, TLE-TRIG-ETU-04, TLE-TRIG-EQ-03, TLE-TRIG-ETU-03, TLE-TRIG-EQ-02, TLE-TRIG-ETU-02, TLE-TRIG-EQ-01, TLE-TRIG-ETU-01.
+À reprendre : TLE-TRIG-EQ-02, TLE-TRIG-ETU-02, TLE-TRIG-EQ-01, TLE-TRIG-ETU-01.
 
 ### Tle · specialite · Primitives et équations différentielles
 
-TLE-PRIMITIVES : 8 résultat seul, 2 à compléter, 0 complet(s).
+TLE-PRIMITIVES : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : TLE-PRIM-05, TLE-EQDIFF-04, TLE-EQDIFF-03, TLE-PRIM-03, TLE-EQDIFF-02, TLE-PRIM-02, TLE-EQDIFF-01, TLE-PRIM-01.
+À reprendre : TLE-EQDIFF-02, TLE-PRIM-02, TLE-EQDIFF-01, TLE-PRIM-01.
 
 ### Tle · specialite · Calcul intégral
 
-TLE-INTEGRALES : 7 résultat seul, 3 à compléter, 0 complet(s).
+TLE-INTEGRALES : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : TLE-INT-CALC-05, TLE-INT-CALC-04, TLE-INT-CALC-03, TLE-INT-APP-02, TLE-INT-CALC-02, TLE-INT-APP-01, TLE-INT-CALC-01.
+À reprendre : TLE-INT-APP-02, TLE-INT-CALC-02, TLE-INT-APP-01, TLE-INT-CALC-01.
 
 ### Tle · specialite · Succession d'épreuves indépendantes, loi binomiale
 
-TLE-BINOMIALE : 8 résultat seul, 2 à compléter, 0 complet(s).
+TLE-BINOMIALE : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : TLE-BINOM-LOI-05, TLE-BINOM-LOI-04, TLE-BINOM-ESP-03, TLE-BINOM-LOI-03, TLE-BINOM-ESP-02, TLE-BINOM-LOI-02, TLE-BINOM-ESP-01, TLE-BINOM-LOI-01.
+À reprendre : TLE-BINOM-ESP-02, TLE-BINOM-LOI-02, TLE-BINOM-ESP-01, TLE-BINOM-LOI-01.
 
 ### Tle · specialite · Sommes de variables aléatoires
 
-TLE-SOMMES-VA : 9 résultat seul, 1 à compléter, 0 complet(s).
+TLE-SOMMES-VA : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : TLE-ECHANTILLON-05, TLE-ECHANTILLON-04, TLE-SOMME-LIN-04, TLE-ECHANTILLON-03, TLE-SOMME-LIN-03, TLE-ECHANTILLON-02, TLE-SOMME-LIN-02, TLE-ECHANTILLON-01, TLE-SOMME-LIN-01.
+À reprendre : TLE-ECHANTILLON-02, TLE-SOMME-LIN-02, TLE-ECHANTILLON-01, TLE-SOMME-LIN-01.
 
 ### Tle · specialite · Concentration et loi des grands nombres
 
-TLE-GRANDS-NOMBRES : 7 résultat seul, 3 à compléter, 0 complet(s).
+TLE-GRANDS-NOMBRES : 4 résultat seul, 6 à compléter, 0 complet(s).
 
-À reprendre : TLE-CONCENTRATION-05, TLE-CONCENTRATION-04, TLE-CONCENTRATION-03, TLE-BIENAYME-02, TLE-CONCENTRATION-02, TLE-BIENAYME-01, TLE-CONCENTRATION-01.
+À reprendre : TLE-BIENAYME-02, TLE-CONCENTRATION-02, TLE-BIENAYME-01, TLE-CONCENTRATION-01.
 
 ### Tle · complementaires · Suites numériques et modèles discrets
 

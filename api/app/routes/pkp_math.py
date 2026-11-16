@@ -6,7 +6,9 @@ Le même document sert à l'écran et à l'export PDF (rendu par le navigateur, 
 - enfant de famille : les chapitres de son niveau ;
 - parent : les chapitres des niveaux de ses enfants.
 Côté élève, enfant et parent, un domaine fermé au public n'est pas servi, et seules les questions servables
-le sont (voir `filtre_validation`). Tant qu'une question du chapitre n'est pas validée, le document porte la
+le sont (voir `filtre_validation`). Solution et correction (ARCH-4, décision du propriétaire du 14/11/2026, #17) :
+un élève ou un enfant ne les voit que pour les questions auxquelles il a déjà répondu, réponse enregistrée ;
+les adultes (administrateur, professeur, parent) les voient toutes. Tant qu'une question du chapitre n'est pas validée, le document porte la
 mention NON VALIDÉ.
 """
 
@@ -63,6 +65,8 @@ class QuestionDocument(BaseModel):
     solution: str
     correction: dict | None
     validee: bool
+    # Faux pour un élève ou un enfant qui n'a pas encore répondu à la question (ARCH-4) : solution vide.
+    corrige_visible: bool = True
 
 
 class CompetenceDocument(BaseModel):
@@ -98,6 +102,8 @@ class Lecteur:
     niveaux: set[Niveau] | None = None
     # Accès par niveau seulement : parcours écartés (voie générale ou voie professionnelle, ticket #25).
     parcours_exclus: frozenset[Parcours] = frozenset()
+    # Questions dont le corrigé est visible : None pour les adultes (toutes), sinon celles déjà répondues.
+    corriges: set[int] | None = None
 
 
 def voie_exclue(classes: "list[models.Classe]") -> frozenset[Parcours]:
@@ -109,6 +115,15 @@ def voie_exclue(classes: "list[models.Classe]") -> frozenset[Parcours]:
     """
     pro = any(c.parcours == Parcours.PROFESSIONNEL for c in classes if c.domaine_code.startswith("maths-"))
     return frozenset({Parcours.TRONC_COMMUN} if pro else {Parcours.PROFESSIONNEL})
+
+
+def _repondues(session: SessionDB, eleve_ids: list[int]) -> set[int]:
+    """Questions auxquelles ces inscriptions ont répondu (réponse enregistrée)."""
+    if not eleve_ids:
+        return set()
+    return set(session.scalars(
+        select(models.Reponse.question_id).join(models.Seance).where(models.Seance.eleve_id.in_(eleve_ids)).distinct()
+    ))
 
 
 def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
@@ -124,13 +139,15 @@ def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
         return Lecteur(ENSEIGNANT, complet=True)
     if lire_jeton(jeton, ELEVE):
         eleve = eleve_courant(identifiants, session)
-        return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts(eleve.classe)))
+        return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts(eleve.classe)),
+                       corriges=_repondues(session, [eleve.id]))
     if lire_jeton(jeton, ENFANT):
         enfant = enfant_courant(identifiants, session)
         actives = [e.classe for e in enfant.inscriptions if e.classe.archivee_le is None]
         ouverts = {i for c in actives for i in ids_ouverts(c)}
         return Lecteur(ENFANT, complet=False, chapitres=ouverts, niveaux={enfant.niveau},
-                       parcours_exclus=voie_exclue(actives))
+                       parcours_exclus=voie_exclue(actives),
+                       corriges=_repondues(session, [e.id for e in enfant.inscriptions]))
     if lire_jeton(jeton, PARENT):
         parent = parent_courant(identifiants, session)
         niveaux = {e.niveau for e in parent.famille} | {e.classe.niveau for e in parent.enfants}
@@ -159,7 +176,7 @@ def _questions(session: SessionDB, lecteur: Lecteur, competence: models.Competen
     return list(session.scalars(requete.order_by(models.Question.difficulte, models.Question.id)))
 
 
-def _instancier(q: models.Question) -> QuestionDocument:
+def _instancier(q: models.Question, lecteur: Lecteur) -> QuestionDocument:
     """Question à gabarit : un tirage fixe (le même à chaque export), pour une fiche reproductible."""
     enonce, solution, correction = q.enonce, q.solution, q.correction
     if q.gabarit:
@@ -169,9 +186,13 @@ def _instancier(q: models.Question) -> QuestionDocument:
             correction = gabarits.remplir_correction(correction, tirage)
         except gabarits.GabaritInvalide:
             pass
+    corrige_visible = lecteur.corriges is None or q.id in lecteur.corriges
+    if not corrige_visible:
+        solution, correction = "", None  # ARCH-4 : pas de corrigé avant la réponse de l'élève
     return QuestionDocument(
         id=q.id, code=q.code, difficulte=q.difficulte, type=q.type.value, enonce=enonce, solution=solution,
         correction=correction, validee=q.statut_validation == StatutValidation.VALIDEE,
+        corrige_visible=corrige_visible,
     )
 
 
@@ -208,7 +229,7 @@ def document(chapitre_id: int, identifiants: Identifiants, session: SessionDB) -
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Chapitre introuvable.")
     competences = []
     for c in _competences(chapitre):
-        questions = [_instancier(q) for q in _questions(session, lecteur, c)]
+        questions = [_instancier(q, lecteur) for q in _questions(session, lecteur, c)]
         competences.append(CompetenceDocument(
             id=c.id, code=c.code, libelle=c.libelle, objectifs=c.objectifs or [],
             resume=c.lecon.resume if c.lecon else "", cours=c.lecon.cours if c.lecon else "",

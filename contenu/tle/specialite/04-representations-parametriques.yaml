@@ -70,8 +70,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Un point appartient à une droite paramétrée si une même valeur de $t$ vérifie les trois équations.
           etapes:
-          - '$1 + 2t = 3$ donne $t = 1$ ; alors $y = -1$ et $z = 4$ : c''est bien $M$.'
+          - 'On part de l''équation la plus simple, $y = -t$ : $M$ a pour ordonnée $-1$, donc $-t = -1$ et $t = 1$.'
+          - 'On reporte $t = 1$ dans les deux autres équations : $x = 1 + 2 \times 1 = 3$ et $z = 3 + 1 = 4$.'
+          - 'Les coordonnées obtenues sont $(3 ; -1 ; 4)$, celles de $M$ : le point appartient à la droite.'
+          - 'Vérification : $y = -t$ impose $t = 1$ de façon unique, aucune autre valeur de $t$ ne peut convenir.'
+          erreurs_frequentes:
+          - 'Choisir une valeur de $t$ différente pour chaque équation : c''est le même $t$ qui doit vérifier les trois.'
           resultat: A
       - code: TLE-DROITE-ESP-04
         difficulte: 4
@@ -171,9 +177,14 @@ competences:
         solution: -4
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Le vecteur directeur de la droite est normal au plan.
+          methode: 'Le vecteur directeur de la droite orthogonale est un vecteur normal du plan ; un point du plan vérifie son équation.'
           etapes:
-          - $2 - 1 + 3 + d = 0$, donc $d = -4$.
+          - 'Le plan est orthogonal à la droite de vecteur directeur $(2 ; -1 ; 3)$ : ce vecteur est normal au plan, d''où les coefficients $2$, $-1$, $3$.'
+          - 'Le point $A(1 ; 1 ; 1)$ appartient au plan : on remplace $x$, $y$ et $z$ par ses coordonnées dans $2x - y + 3z + d = 0$.'
+          - 'On obtient $2 \times 1 - 1 + 3 \times 1 + d = 0$, soit $2 - 1 + 3 + d = 0$, donc $d = -4$.'
+          - 'Vérification : avec $d = -4$, le point $A(1 ; 1 ; 1)$ vérifie $2 \times 1 - 1 + 3 \times 1 - 4 = 0$ : il appartient bien au plan.'
+          erreurs_frequentes:
+          - 'Confondre les coordonnées de $A$ avec celles du vecteur normal, ou oublier de reporter $A$ dans l''équation pour trouver $d$.'
           resultat: -4
       - code: TLE-INTERSECTION-05
         difficulte: 5

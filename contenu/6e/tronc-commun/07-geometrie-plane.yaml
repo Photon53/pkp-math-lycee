@@ -94,9 +94,14 @@ competences:
         solution: '6'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Propriété caractéristique de la médiatrice.
+          methode: 'Propriété caractéristique de la médiatrice : tout point de la médiatrice de $[AB]$ est à égale distance de $A$ et de $B$.'
           etapes:
-          - 'Un point de la médiatrice est équidistant de $A$ et de $B$ : $MB = MA = 6$ cm.'
+          - Le point $M$ appartient à la médiatrice du segment $[AB]$.
+          - 'La propriété de la médiatrice donne l''égalité des distances : $MA = MB$.'
+          - On connait $MA = 6$ cm, donc $MB = 6$ cm.
+          - 'Vérification : le triangle $MAB$ est isocèle en $M$ puisque $MA = MB$ ; c''est cohérent, la médiatrice passe par son sommet.'
+          erreurs_frequentes:
+          - Croire que $MB$ dépend de la longueur $AB$, ou confondre médiatrice et médiane.
           resultat: '6'
       - code: 6E-CERCLE-MEDIATRICE-05
         difficulte: 4
@@ -228,9 +233,14 @@ competences:
         solution: '143'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Deux angles supplémentaires ont pour somme $180°$.
+          methode: 'Deux angles supplémentaires ont pour somme $180°$ : la mesure de l''autre est $180° - 37°$.'
           etapes:
-          - $180 - 37 = 143°$.
+          - 'On écrit la relation : $37° + x = 180°$, où $x$ est la mesure cherchée.'
+          - 'On isole $x$ : $x = 180° - 37°$.'
+          - 'On calcule : $x = 143°$.'
+          - 'Vérification : $37 + 143 = 180$, la somme est bien celle d''angles supplémentaires.'
+          erreurs_frequentes:
+          - Confondre supplémentaires (somme $180°$) et complémentaires (somme $90°$), et répondre $53°$.
           resultat: '143'
       - code: 6E-ANGLES-TRIANGLES-06
         difficulte: 5
@@ -332,9 +342,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Se représenter chaque solide.
+          methode: 'Reconnaître les bases de chaque solide : le cylindre est formé de deux disques parallèles reliés par une surface courbe.'
           etapes:
-          - 'Le cylindre a deux disques comme bases ; le cône n’en a qu’un.'
+          - Le cône a un seul disque comme base, terminé par un sommet.
+          - La pyramide et le pavé ont des bases polygonales, pas des disques.
+          - Le cylindre, lui, a deux bases en forme de disque, identiques et parallèles.
+          - 'Vérification : une boîte de conserve est un cylindre : son fond et son couvercle sont deux disques.'
+          erreurs_frequentes:
+          - Choisir le cône parce qu'il tourne aussi, ou le pavé parce qu'il a « deux bases » rectangulaires, pas des disques.
           resultat: B
       - code: 6E-SYMETRIE-05
         difficulte: 4
@@ -343,9 +358,14 @@ competences:
         solution: '47'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La symétrie axiale conserve les angles.
+          methode: 'La symétrie axiale conserve les longueurs, les angles et les aires : elle transforme un angle en un angle de même mesure.'
           etapes:
-          - $\widehat{A'B'C'} = \widehat{ABC} = 47°$.
+          - On considère l'angle $\widehat{ABC}$ et son image par la symétrie d'axe $d$, notée $\widehat{A'B'C'}$.
+          - 'La symétrie axiale est une isométrie : elle conserve les mesures d''angles.'
+          - Donc $\widehat{A'B'C'} = \widehat{ABC} = 47°$.
+          - 'Vérification : une isométrie conserve aussi les longueurs des segments $[BA]$ et $[B''A'']$, ce qui confirme la conservation des angles.'
+          erreurs_frequentes:
+          - Croire que le symétrique est supplémentaire ou complémentaire de l'angle de départ.
           resultat: '47'
       - code: 6E-SYMETRIE-06
         difficulte: 5

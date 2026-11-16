@@ -326,9 +326,14 @@ competences:
         solution: C
         auteur: Brouillon IA (Claude)
         correction:
-          methode: '$0{,}5$ h est une demi-heure.'
+          methode: 'Convertir la partie décimale d''une durée en minutes : $0{,}5$ h $= 0{,}5 \times 60$ min.'
           etapes:
-          - $0{,}5 \times 60 = 30$ min, donc $1{,}5$ h $= 1$ h $30$ min.
+          - 'On sépare la partie entière et la partie décimale : $1{,}5$ h $= 1$ h $+ 0{,}5$ h.'
+          - 'On convertit $0{,}5$ h en minutes : $0{,}5 \times 60 = 30$ min.'
+          - Donc $1{,}5$ h $= 1$ h $30$ min.
+          - 'Vérification : $1$ h $30$ min $= 60 + 30 = 90$ min, et $1{,}5 \times 60 = 90$ min : les deux conversions concordent.'
+          erreurs_frequentes:
+          - 'Lire $1{,}5$ h comme $1$ h $50$ min, ou comme $150$ min : la partie décimale ne se lit pas en minutes.'
           resultat: C
       - code: 6E-DUREES-05
         difficulte: 4
@@ -349,7 +354,12 @@ competences:
         solution: '86400'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $1$ j $= 24$ h et $1$ h $= 3\,600$ s.
+          methode: 'Enchaîner les conversions : $1$ jour $= 24$ h et $1$ h $= 60 \times 60 = 3\,600$ s.'
           etapes:
-          - $24 \times 3\,600 = 86\,400$ s.
+          - 'On convertit $1$ heure en secondes : $1$ h $= 60$ min $= 60 \times 60 = 3\,600$ s.'
+          - Un jour compte $24$ heures.
+          - 'On multiplie : $24 \times 3\,600 = 86\,400$ s.'
+          - 'Vérification : $86\,400 \div 3\,600 = 24$, on retrouve bien les $24$ heures d''une journée.'
+          erreurs_frequentes:
+          - Multiplier par $60$ au lieu de $3\,600$, ou confondre minutes et secondes.
           resultat: '86400'

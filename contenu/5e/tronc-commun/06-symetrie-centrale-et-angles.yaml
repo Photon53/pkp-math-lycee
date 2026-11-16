@@ -77,9 +77,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Propriété du demi-tour.
+          methode: 'Propriété de la symétrie centrale (demi-tour) : elle transforme une droite en une droite parallèle, et conserve les longueurs et les angles.'
           etapes:
-          - L’image d’une droite par symétrie centrale est une droite parallèle.
+          - La symétrie centrale de centre $O$ est un demi-tour autour de $O$.
+          - L'image d'une droite $(d)$ est une droite $(d')$ ; le demi-tour conserve la direction.
+          - 'Deux droites de même direction sont parallèles : $(d'')$ est donc parallèle à $(d)$.'
+          - 'Vérification : si $(d)$ passe par $O$, elle est sa propre image ; sinon, l''image est une droite distincte de même direction, donc parallèle.'
+          erreurs_frequentes:
+          - 'Choisir « perpendiculaire » : la symétrie centrale ne fait pas tourner la direction de $90°$, elle fait un demi-tour.'
           resultat: B
       - code: 5E-SYM-CENTRALE-04
         difficulte: 4
@@ -88,9 +93,14 @@ competences:
         solution: '-3'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Le symétrique par rapport à l’origine a des coordonnées opposées.
+          methode: 'Le symétrique de $A(x ; y)$ par rapport à l''origine $O$ a pour coordonnées $(-x ; -y)$ : les deux coordonnées changent de signe.'
           etapes:
-          - $A'(-3 ; 2)$, d’abscisse $-3$.
+          - Le point $A$ a pour coordonnées $(3 ; -2)$.
+          - 'On change le signe de chaque coordonnée : $(-3 ; 2)$.'
+          - Le symétrique est donc $A'(-3 ; 2)$, d'abscisse $-3$.
+          - 'Vérification : $O$ est le milieu de $[AA'']$ : $\left(\dfrac{3 + (-3)}{2} ; \dfrac{-2 + 2}{2}\right) = (0 ; 0)$, c''est bien l''origine.'
+          erreurs_frequentes:
+          - Changer le signe d'une seule coordonnée, ou répondre $3$ en oubliant que l'abscisse change de signe.
           resultat: '-3'
       - code: 5E-SYM-CENTRALE-05
         difficulte: 5
@@ -99,11 +109,15 @@ competences:
         solution: '12,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La symétrie centrale conserve les aires.
+          methode: 'La symétrie centrale est une isométrie : elle conserve les longueurs, les angles et les aires.'
           etapes:
-          - L’aire du triangle image est $12{,}5$ cm².
-          resultat: '12,5'
-
+          - Le triangle image est obtenu par un demi-tour autour du centre.
+          - 'Un demi-tour ne déforme pas la figure : les longueurs et les angles sont conservés.'
+          - L'aire du triangle image est donc égale à celle du triangle de départ, soit $12{,}5$ cm².
+          - 'Vérification : une isométrie conserve l''aire ; si l''aire avait changé, les côtés ou les angles auraient dû changer aussi.'
+          erreurs_frequentes:
+          - Doubler l'aire ou la diviser par $2$ en croyant que le demi-tour agrandit ou réduit la figure.
+          resultat: 12,5
   - code: 5E-ANGLES-PARALLELES
     libelle: Caractériser le parallélisme par les angles
     attendus: [5E-2026-ANG-01, 5E-2026-ANG-02, 5E-2026-ANG-03, 5E-2026-ANG-04, 5E-2026-ANG-05]
@@ -178,9 +192,14 @@ competences:
         solution: '65'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Deux angles supplémentaires ont une somme de $180°$.
+          methode: 'Deux angles adjacents supplémentaires ont une somme de $180°$ : l''angle cherché est $180° - 115°$.'
           etapes:
-          - $180 - 115 = 65°$.
+          - 'Les deux angles sont adjacents et supplémentaires : leur somme vaut $180°$.'
+          - 'On écrit : $115° + x = 180°$.'
+          - 'On isole $x$ : $x = 180° - 115° = 65°$.'
+          - 'Vérification : $115 + 65 = 180$ ; les droites parallèles ne jouent pas ici, la propriété vient du supplémentaire.'
+          erreurs_frequentes:
+          - Confondre supplémentaires (somme $180°$) et complémentaires (somme $90°$).
           resultat: '65'
       - code: 5E-ANGLES-PARALLELES-04
         difficulte: 4
@@ -189,9 +208,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Si les droites étaient parallèles, les angles correspondants seraient égaux.
+          methode: Si deux droites parallèles sont coupées par une sécante, les angles correspondants sont égaux ; l'inégalité prouve donc qu'elles ne sont pas parallèles.
           etapes:
-          - '$47° \neq 49°$ : les droites ne sont pas parallèles.'
+          - 'On repère les deux angles correspondants : $47°$ et $49°$.'
+          - S'ils étaient égaux, les droites seraient parallèles.
+          - 'Or $47° \neq 49°$ : la condition n''est pas remplie.'
+          - 'Vérification : l''écart de $2°$ suffit ; deux droites parallèles donneraient exactement la même mesure, pas une mesure approchante.'
+          erreurs_frequentes:
+          - Conclure « on ne peut rien dire » alors que l'inégalité prouve le contraire du parallélisme.
           resultat: B
       - code: 5E-ANGLES-PARALLELES-05
         difficulte: 5
@@ -200,7 +224,12 @@ competences:
         solution: '28'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Égalité des angles alternes-internes, puis équation.
+          methode: 'Les angles alternes-internes formés par deux parallèles et une sécante sont égaux : on écrit $3x = 84$, puis on résout.'
           etapes:
-          - $3x = 84$, donc $x = 28$.
+          - 'Les droites $(AB)$ et $(CD)$ sont parallèles : les angles alternes-internes sont égaux.'
+          - 'On écrit l''équation : $3x = 84$.'
+          - 'On divise les deux membres par $3$ : $x = 28$.'
+          - 'Vérification : $3 \times 28 = 84$, l''angle mesure bien $84°$, comme son alterne-interne.'
+          erreurs_frequentes:
+          - Écrire $3x + 84 = 180$ en confondant alternes-internes et supplémentaires.
           resultat: '28'

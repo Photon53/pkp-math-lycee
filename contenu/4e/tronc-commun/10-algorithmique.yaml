@@ -80,9 +80,14 @@ competences:
         solution: '81'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Tester la condition avant chaque passage.
+          methode: 'Une boucle « répéter jusqu''à » teste la condition après chaque passage : elle s''arrête dès que la condition est vraie.'
           etapes:
-          - $1 \to 3 \to 9 \to 27 \to 81$ ; $81 > 50$.
+          - 'On part de $n = 1$ : la condition $n > 50$ est fausse, on multiplie : $n = 3$.'
+          - 'On continue : $9$, puis $27$, puis $81$.'
+          - 'À ce moment, $81 > 50$ : la condition est vraie, la boucle s''arrête.'
+          - 'Vérification : $27 \leq 50$, donc un passage de plus était nécessaire ; $81$ est bien la première valeur supérieure à $50$.'
+          erreurs_frequentes:
+          - S'arrêter à $27$ en testant avant de multiplier, ou oublier un passage.
           resultat: '81'
       - code: 4E-PROGRAMMES-04
         difficulte: 4
@@ -91,9 +96,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Scripts déclenchés par des événements.
+          methode: 'Des scripts déclenchés par des événements différents s''exécutent en même temps : ils fonctionnent en parallèle.'
           etapes:
-          - Plusieurs scripts s’exécutent en même temps ; ils fonctionnent en parallèle.
+          - Un script réagit aux flèches du clavier, l'autre fait tomber des objets régulièrement.
+          - 'Ces deux scripts ne s''attendent pas : ils s''exécutent simultanément.'
+          - On dit qu'ils fonctionnent en parallèle, et non que le programme est bloqué.
+          - 'Vérification : si le programme était bloqué, aucune des deux actions ne se produirait ; or les deux fonctionnent en même temps.'
+          erreurs_frequentes:
+          - Croire qu'un seul script peut tourner à la fois, ou confondre parallélisme et boucle.
           resultat: A
       - code: 4E-PROGRAMMES-05
         difficulte: 5
@@ -102,7 +112,12 @@ competences:
         solution: '30'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $12$ rotations pour un tour complet.
+          methode: Pour faire un tour complet en $12$ répétitions, l'angle de rotation vaut $360° \div 12$.
           etapes:
-          - $360 \div 12 = 30°$.
+          - Un tour complet représente $360°$.
+          - Le script répète $12$ fois la même rotation.
+          - 'On divise : $360 \div 12 = 30°$ par rotation.'
+          - 'Vérification : $12 \times 30 = 360$, la somme des rotations fait bien un tour complet.'
+          erreurs_frequentes:
+          - Diviser $360$ par le nombre de côtés du carré ($4$) au lieu du nombre de répétitions ($12$).
           resultat: '30'

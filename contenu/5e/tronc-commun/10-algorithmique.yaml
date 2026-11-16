@@ -77,9 +77,14 @@ competences:
         solution: '22'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Tester la condition, puis exécuter une seule branche.
+          methode: 'Tester la condition, puis exécuter une seule des deux branches : jamais les deux.'
           etapes:
-          - '$7$ est impair : $3 \times 7 + 1 = 22$.'
+          - 'On teste la condition « $n$ est pair » : $7$ est impair, la condition est fausse.'
+          - 'On exécute donc la branche « sinon » : $3 \times 7 + 1$.'
+          - 'On calcule : $21 + 1 = 22$.'
+          - 'Vérification : $22$ est pair, une nouvelle exécution le diviserait par $2$ et donnerait $11$ ; la règle a bien été appliquée une seule fois.'
+          erreurs_frequentes:
+          - Diviser par $2$ alors que $7$ est impair, ou exécuter les deux branches à la suite.
           resultat: '22'
       - code: 5E-PROGRAMMES-04
         difficulte: 4
@@ -100,9 +105,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Décomposer un problème en sous-problèmes.
+          methode: Un bloc personnalisé regroupe des instructions sous un nom, pour les réutiliser sans les réécrire.
           etapes:
-          - Un bloc regroupe des instructions qu’on appelle plusieurs fois.
+          - Le bloc « triangle » contient une suite d'instructions (avancer, tourner…) qui dessine un triangle.
+          - On l'appelle plusieurs fois dans le programme, sans recopier ces instructions à chaque fois.
+          - Il rend donc le programme plus court et plus lisible ; il ne ralentit rien et ne remplace pas une boucle.
+          - 'Vérification : pour changer la taille du triangle, on modifie le bloc une seule fois et tous les appels en profitent.'
+          erreurs_frequentes:
+          - Croire qu'un bloc sert à aller plus vite à l'exécution, ou qu'il interdit les boucles.
           resultat: A
       - code: 5E-PROGRAMMES-06
         difficulte: 5
@@ -111,7 +121,12 @@ competences:
         solution: '5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Suivre chaque passage dans un tableau.
+          methode: Suivre chaque passage de la boucle dans un tableau, une ligne par tour.
           etapes:
-          - '$6$ pair : $3$ ; $3$ impair : $10$ ; $10$ pair : $5$.'
+          - 'Tour $1$ : $6$ est pair, donc $6 \div 2 = 3$.'
+          - 'Tour $2$ : $3$ est impair, donc $3 \times 3 + 1 = 10$.'
+          - 'Tour $3$ : $10$ est pair, donc $10 \div 2 = 5$.'
+          - 'Vérification : la boucle s''arrête après exactement $3$ tours ; il reste $n = 5$, impair, ce qui explique qu''il ne soit pas encore divisé.'
+          erreurs_frequentes:
+          - Faire un tour de trop ou de moins, ou oublier de mettre à jour $n$ entre deux tours.
           resultat: '5'

@@ -69,8 +69,14 @@ competences:
     solution: x^2 + 10x + 25
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Identité remarquable : $(a + b)^2 = a^2 + 2ab + b^2$.'
       etapes:
-      - $x^2 + 2 \times 5 \times x + 25$.
+      - On identifie $a = x$ et $b = 5$.
+      - 'On développe : $x^2 + 2 \times x \times 5 + 5^2$.'
+      - On obtient $x^2 + 10x + 25$.
+      - 'Vérification : pour $x = 1$, $(1 + 5)^2 = 36$ et $1 + 10 + 25 = 36$.'
+      erreurs_frequentes:
+      - Écrire $x^2 + 25$ en oubliant le double produit.
       resultat: x^2 + 10x + 25
   - code: 2NDE-MAN-EQUATIONS-04
     difficulte: 4
@@ -79,8 +85,14 @@ competences:
     solution: '-2'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Développer, puis regrouper les termes en $x$ d'un côté et les constantes de l'autre.
       etapes:
-      - $2x - 2 = 5x + 4$, soit $-3x = 6$, donc $x = -2$.
+      - 'On développe : $2x - 2 = 5x + 4$.'
+      - 'On soustrait $5x$ aux deux membres : $-3x - 2 = 4$.'
+      - 'On ajoute $2$ puis on divise par $-3$ : $-3x = 6$, donc $x = -2$.'
+      - 'Vérification : $2(-2 - 1) = -6$ et $5 \times (-2) + 4 = -6$ : les deux membres sont égaux.'
+      erreurs_frequentes:
+      - Oublier de distribuer le $2$ sur le $-1$, ou se tromper de signe en divisant par $-3$.
       resultat: '-2'
   - code: 2NDE-MAN-EQUATIONS-05
     difficulte: 5
@@ -89,6 +101,12 @@ competences:
     solution: -1/2
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Règle du produit nul : un produit est nul si l''un de ses facteurs est nul.'
       etapes:
-      - '$x - 3 = 0$ ou $2x + 1 = 0$ : $x = 3$ ou $x = -\dfrac{1}{2}$.'
+      - 'On applique la règle : $x - 3 = 0$ ou $2x + 1 = 0$.'
+      - 'On résout : $x = 3$ ou $2x = -1$, soit $x = -\dfrac{1}{2}$.'
+      - 'On compare : $-\dfrac{1}{2} = -0{,}5 < 3$ ; la plus petite solution est $-\dfrac{1}{2}$.'
+      - 'Vérification : le facteur $2x + 1$ vaut bien $0$ pour $x = -\dfrac{1}{2}$, donc le produit est nul.'
+      erreurs_frequentes:
+      - Développer le produit au lieu d'utiliser le produit nul, ou prendre la plus grande solution.
       resultat: -1/2

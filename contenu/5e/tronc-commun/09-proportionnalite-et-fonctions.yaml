@@ -92,10 +92,15 @@ competences:
         solution: '1,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Multiplier par $25\,000$ puis convertir.
+          methode: 'À l''échelle $\dfrac{1}{25\,000}$, $1$ cm sur la carte représente $25\,000$ cm en réalité : on multiplie, puis on convertit en km.'
           etapes:
-          - $6 \times 25\,000 = 150\,000$ cm $= 1{,}5$ km.
-          resultat: '1,5'
+          - 'On multiplie la mesure de la carte par le dénominateur de l''échelle : $6 \times 25\,000 = 150\,000$ cm.'
+          - 'On convertit les centimètres en mètres : $150\,000$ cm $= 1\,500$ m.'
+          - 'On convertit les mètres en kilomètres : $1\,500$ m $= 1{,}5$ km.'
+          - 'Vérification : $1{,}5$ km $= 150\,000$ cm, et $150\,000 \div 25\,000 = 6$ cm : on retrouve la mesure de la carte.'
+          erreurs_frequentes:
+          - Diviser par $25\,000$ au lieu de multiplier, ou convertir $150\,000$ cm en $150$ km en oubliant un facteur $1\,000$.
+          resultat: 1,5
       - code: 5E-PROPORTIONNALITE-04
         difficulte: 3
         type: qcm
@@ -103,9 +108,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Caractérisation graphique.
+          methode: 'Une situation de proportionnalité est représentée par une droite passant par l''origine : les points sont alignés et le point $(0 ; 0)$ en fait partie.'
           etapes:
-          - Points alignés avec l’origine.
+          - 'Dans une situation de proportionnalité, $y = kx$ : quand $x = 0$, $y = 0$.'
+          - Le point $(0 ; 0)$, c'est-à-dire l'origine du repère, appartient donc toujours au graphique.
+          - Les autres points sont alignés avec l'origine, car $y$ est proportionnel à $x$.
+          - 'Vérification : une droite alignée qui ne passe pas par l''origine correspond à $y = kx + b$ avec $b \neq 0$ ; ce n''est pas de la proportionnalité.'
+          erreurs_frequentes:
+          - 'Choisir « des points alignés ne passant pas par l''origine » : l''alignement seul ne suffit pas.'
           resultat: A
       - code: 5E-PROPORTIONNALITE-05
         difficulte: 4
@@ -207,9 +217,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Traduire la phrase en formule.
+          methode: 'Traduire la situation en fonction : la partie variable est $4$ € par place, la partie fixe est $10$ €.'
           etapes:
-          - '$4$ € pour chacune des $n$ places, plus $10$ € : $P = 4n + 10$.'
+          - 'Le prix des places est proportionnel au nombre $n$ de places : $4n$.'
+          - 'Les frais fixes de $10$ € s''ajoutent une seule fois : $+10$.'
+          - La formule est donc $P = 4n + 10$.
+          - 'Vérification : pour $n = 2$, $P = 18$ €, soit $8$ € de places et $10$ € de frais ; la formule $14n$ donnerait $28$ €, ce qui est faux.'
+          erreurs_frequentes:
+          - Écrire $P = 4 + 10n$ en échangeant la partie fixe et la partie variable, ou $P = 14n$ en ajoutant les deux coefficients.
           resultat: B
       - code: 5E-FONCTIONS-04
         difficulte: 4
@@ -218,9 +233,14 @@ competences:
         solution: '11'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Remplacer A2 par sa valeur.
+          methode: 'Substituer la valeur de la cellule dans la formule, en respectant les priorités : le produit avant la soustraction.'
           etapes:
-          - $3 \times 5 - 4 = 11$.
+          - La cellule A2 contient $5$, et B2 contient $=3 \times A2 - 4$.
+          - 'On remplace A2 par $5$ : $3 \times 5 - 4$.'
+          - 'On calcule le produit : $3 \times 5 = 15$, puis on soustrait : $15 - 4 = 11$.'
+          - 'Vérification : en changeant A2 pour $0$, B2 afficherait $-4$ ; la formule est bien de la forme $3x - 4$.'
+          erreurs_frequentes:
+          - Calculer $3 \times (5 - 4) = 3$ en ajoutant des parenthèses absentes, ou soustraire avant de multiplier.
           resultat: '11'
       - code: 5E-FONCTIONS-05
         difficulte: 5
@@ -229,7 +249,12 @@ competences:
         solution: '9'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Résoudre l’équation $2x + 3 = 21$.
+          methode: 'Résoudre l''équation $2x + 3 = 21$ : on isole $x$ en soustrayant puis en divisant.'
           etapes:
-          - $2x = 18$, donc $x = 9$ km.
+          - 'On écrit l''équation qui traduit l''énoncé : $2x + 3 = 21$.'
+          - 'On soustrait $3$ aux deux membres : $2x = 18$.'
+          - 'On divise les deux membres par $2$ : $x = 9$.'
+          - 'Vérification : $2 \times 9 + 3 = 18 + 3 = 21$, le prix de l''énoncé est bien retrouvé.'
+          erreurs_frequentes:
+          - Diviser $21$ par $2$ sans soustraire $3$ d'abord, ou oublier l'unité (km).
           resultat: '9'

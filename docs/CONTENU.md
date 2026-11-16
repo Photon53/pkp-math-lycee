@@ -54,6 +54,10 @@ automatiquement aux classes existantes.
 L'état de la banque (matrice de couverture, trous, validation, registre des sources) est dans
 [CONTENU-INVENTAIRE.md](CONTENU-INVENTAIRE.md), **généré** par la commande `inventaire`.
 
+> **Français** (#98) : `contenu/francais/<niveau>/*.json` suit un autre contrat, sans correction automatique ni
+> solution exacte : voir [francais/FORMAT-IMPORT.md](francais/FORMAT-IMPORT.md). Ces fichiers ne sont lus ni par
+> `python -m app.contenu` ni par l'import au démarrage ; ils s'importent par `python -m app.francais importer`.
+
 ## Cycle de travail
 
 1. Écrire ou modifier un fichier YAML, rangé dans `contenu/<niveau>/<parcours>/`.
@@ -167,6 +171,27 @@ empreinte SHA-256. Une compétence déclare les attendus qu'elle couvre ; la vé
           resultat: 4                         # obligatoire en numérique ou expression, équivalent à `solution`
           erreurs_frequentes: […]
 ```
+
+### Gabarit d'un corrigé étape par étape
+
+Un corrigé ne se réduit pas au résultat : il montre une méthode que l'élève peut reproduire. Quatre éléments,
+dans cet ordre (issue #35) :
+
+| Élément | Ce qu'on attend | Exemple |
+|---|---|---|
+| `methode` | la notion, la formule **et ses conditions de validité** | « $a = \dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$ avec $x_1 \neq x_2$ » |
+| `etapes` | au moins 2 étapes pour une difficulté ≥ 3, chacune justifiée, avec le calcul intermédiaire | substitution, calcul, simplification |
+| vérification | une étape finale qui contrôle le résultat : substitution, ordre de grandeur, unité, signe | « $f(3) = 11$ : la valeur donnée est retrouvée » |
+| `erreurs_frequentes` | au moins une erreur concrète, et pourquoi elle est fausse | « inverser numérateur et dénominateur » |
+
+- Adapter au niveau et à la voie : une question de difficulté 1 se contente de deux lignes ; on n'affiche pas une
+  formule inutile à chaque question.
+- `resultat` reste identique à `solution` : la vérification le contrôle.
+- Signaler une autre méthode quand elle est plus rapide, dans `methode` ou dans la dernière étape.
+- Rendu : fractions en `\dfrac`, pas de paquet LaTeX exotique ; le corrigé doit rester lisible sur téléphone et en PDF.
+
+Le contrôle `python -m app.contenu corrections` liste les corrigés trop courts pour leur difficulté ;
+`api/tests/test_corriges_pilote.py` vérifie ce gabarit sur le périmètre pilote de #35.
 
 Couverture du programme, générée et jamais écrite à la main :
 

@@ -382,6 +382,14 @@ export function ContenuDocument({ doc, type, competences, difficultes, ecran = f
 
 function Corrige({ q }) {
   const c = q.correction;
+  // Élève : le corrigé d'une question n'est servi qu'après sa réponse en séance (ARCH-4).
+  if (q.corrige_visible === false)
+    return (
+      <div className="corrige-pkp">
+        <p className="doux"><Maths texte={q.enonce} enLigne /></p>
+        <p className="doux">Le corrigé s'affichera ici après ta réponse à cet exercice en séance.</p>
+      </div>
+    );
   return (
     <div className="corrige-pkp">
       <p className="doux"><Maths texte={q.enonce} enLigne /></p>

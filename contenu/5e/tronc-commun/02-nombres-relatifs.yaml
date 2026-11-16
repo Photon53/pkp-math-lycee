@@ -93,9 +93,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Ordre croissant, du plus petit au plus grand.
+          methode: 'Comparer des nombres relatifs : un négatif est inférieur à un positif, et entre deux négatifs, le plus éloigné de zéro est le plus petit.'
           etapes:
-          - '$-4$ est le plus petit (plus grande distance à zéro parmi les négatifs), puis $-1$, puis $2$.'
+          - Les nombres négatifs $-4$ et $-1$ sont inférieurs au positif $2$.
+          - Entre $-4$ et $-1$, $-4$ est le plus éloigné de zéro, donc le plus petit.
+          - L'ordre croissant est donc $-4 < -1 < 2$.
+          - 'Vérification : sur une droite graduée, $-4$ est à gauche de $-1$, lui-même à gauche de $2$ : l''ordre croissant se lit de gauche à droite.'
+          erreurs_frequentes:
+          - Trier par distance à zéro en oubliant le signe ($-1 < -4$), ou placer $2$ avant les négatifs.
           resultat: B
       - code: 5E-RELATIFS-REPERER-05
         difficulte: 4
@@ -104,10 +109,15 @@ competences:
         solution: '12,4'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La distance à zéro est le nombre sans son signe.
+          methode: 'La distance à zéro d''un nombre relatif est sa valeur absolue : c''est le nombre sans son signe.'
           etapes:
-          - La distance à zéro de $-12{,}4$ est $12{,}4$.
-          resultat: '12,4'
+          - Le nombre est $-12{,}4$ ; sa distance à zéro est la longueur du segment entre $0$ et $-12{,}4$.
+          - 'Cette longueur vaut $12{,}4$ : le signe indique le côté, pas la distance.'
+          - Donc la distance à zéro de $-12{,}4$ est $12{,}4$.
+          - 'Vérification : $-12{,}4$ et $12{,}4$ sont à la même distance de $0$, de part et d''autre ; leurs distances à zéro sont égales.'
+          erreurs_frequentes:
+          - Répondre $-12{,}4$ en gardant le signe, alors qu'une distance est toujours positive.
+          resultat: 12,4
       - code: 5E-RELATIFS-REPERER-06
         difficulte: 5
         type: numerique
@@ -232,7 +242,12 @@ competences:
         solution: '-2'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Traduire par une somme de nombres relatifs.
+          methode: 'Traduire chaque variation par un nombre relatif signé, puis additionner : une hausse est positive, une baisse est négative.'
           etapes:
-          - $-4 + 9 - 7 = 5 - 7 = -2$ °C.
+          - La température de départ est $-4$ °C.
+          - 'La hausse de $9$ °C s''écrit $+9$ : on obtient $-4 + 9 = 5$ °C.'
+          - 'La baisse de $7$ °C s''écrit $-7$ : on obtient $5 - 7 = -2$ °C.'
+          - 'Vérification : la hausse puis la baisse se compensent en partie ($9 - 7 = 2$), il reste $2$ °C de plus qu''au départ : $-4 + 2 = -2$ °C.'
+          erreurs_frequentes:
+          - Faire $4 + 9 = 13$ en oubliant que la température de départ est négative, ou se tromper de signe sur la baisse.
           resultat: '-2'

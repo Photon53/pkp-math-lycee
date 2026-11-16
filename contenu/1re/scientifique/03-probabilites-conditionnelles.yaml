@@ -81,9 +81,16 @@ competences:
     solution: '0.117'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Formule des probabilités totales : $P(T) = P(M) \times P(T|M) + P(\overline{M}) \times P(T|\overline{M})$.'
       etapes:
-      - $0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}1 = 0{,}019 + 0{,}098 = 0{,}117$.
+      - 'On note $M$ l''événement « malade » : $P(M) = 0{,}02$ et $P(\overline{M}) = 0{,}98$.'
+      - Les probabilités conditionnelles sont $P(T|M) = 0{,}95$ et $P(T|\overline{M}) = 0{,}10$.
+      - 'On applique la formule : $P(T) = 0{,}02 \times 0{,}95 + 0{,}98 \times 0{,}10 = 0{,}019 + 0{,}098$.'
+      - On obtient $P(T) = 0{,}117$
+      - 'Vérification : Cette valeur est bien comprise entre $0{,}10$ et $0{,}95$, les deux taux de positivité.'
       resultat: '0.117'
+      erreurs_frequentes:
+      - Oublier la pondération par la proportion de malades, ou additionner directement $0{,}95$ et $0{,}10$.
   - code: 1RE-ES-PCOND-05
     difficulte: 5
     type: numerique
@@ -158,8 +165,14 @@ competences:
     solution: B
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Deux événements $A$ et $B$ sont indépendants si et seulement si $P(A \cap B) = P(A) \times P(B)$.
       etapes:
-      - '$0{,}5 \times 0{,}3 = 0{,}15 \neq 0{,}2$ : ils ne sont pas indépendants.'
+      - 'On calcule le produit des probabilités : $P(A) \times P(B) = 0{,}5 \times 0{,}3 = 0{,}15$.'
+      - On compare avec $P(A \cap B) = 0{,}2$.
+      - Comme $0{,}15 \neq 0{,}2$, la condition d'indépendance n'est pas remplie.
+      - 'Vérification : si les événements étaient indépendants, $P(A \cap B)$ vaudrait exactement $0{,}15$, pas $0{,}2$.'
+      erreurs_frequentes:
+      - 'Conclure à l''indépendance parce que $P(A \cap B)$ est proche du produit : l''égalité doit être exacte.'
       resultat: B
   - code: 1RE-ES-INDEP-04
     difficulte: 4
@@ -168,8 +181,14 @@ competences:
     solution: 3/8
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Loi binomiale $\mathcal B\left(3 ; \dfrac{1}{2}\right)$ : $P(X = 2) = \dbinom{3}{2}\left(\dfrac{1}{2}\right)^3$.'
       etapes:
-      - 8 issues équiprobables ; 3 contiennent exactement deux piles (PPF, PFP, FPP).
+      - Il y a $2^3 = 8$ issues équiprobables (PPP, PPF, PFP, PFF, FPP, FPF, FFP, FFF).
+      - 'Les issues avec exactement deux piles sont PPF, PFP et FPP : il y en a $3$.'
+      - La probabilité est donc $\dfrac{3}{8}$, ce que confirme la formule $\dbinom{3}{2} \times \dfrac{1}{8}$.
+      - 'Vérification : $\dbinom{3}{2} = 3$ et $3 \times \dfrac{1}{8} = \dfrac{3}{8}$.'
+      erreurs_frequentes:
+      - Oublier l'une des trois issues favorables, ou compter trois piles au lieu de deux.
       resultat: 3/8
   - code: 1RE-ES-INDEP-05
     difficulte: 5

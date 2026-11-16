@@ -183,9 +183,16 @@ competences:
     solution: '28'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Un nombre est parfait si la somme de ses diviseurs propres (tous sauf lui-même) vaut ce nombre.
       etapes:
-      - '$1 + 2 + 4 + 7 + 14 = 28$ : 28 est parfait.'
+      - On décompose $28 = 2^2 \times 7$.
+      - Ses diviseurs sont $1$, $2$, $4$, $7$, $14$ et $28$.
+      - 'On additionne les diviseurs autres que $28$ : $1 + 2 + 4 + 7 + 14 = 28$.'
+      - 'La somme égale le nombre : $28$ est parfait.'
+      - 'Vérification : $2^2 \times 7 = 4 \times 7 = 28$, et $1 + 2 + 4 + 7 + 14 = 28$ redonne exactement le nombre.'
       resultat: '28'
+      erreurs_frequentes:
+      - Oublier le diviseur $1$, ou inclure $28$ dans la somme et trouver $56$.
   - code: 2NDE-EX-ARITH-PB-04
     difficulte: 4
     type: numerique
@@ -193,8 +200,14 @@ competences:
     solution: '31'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Les diviseurs de $2^4$ sont les puissances de $2$ de $2^0$ à $2^4$ : on les additionne.'
       etapes:
-      - $1 + 2 + 4 + 8 + 16 = 31 = 2^5 - 1$.
+      - 'On liste les diviseurs : $1$, $2$, $4$, $8$, $16$.'
+      - 'On additionne : $1 + 2 + 4 + 8 + 16$.'
+      - On obtient $31$, qui est aussi $2^5 - 1$.
+      - 'Vérification : $1 + 2 + 4 = 7$, $7 + 8 = 15$, $15 + 16 = 31$.'
+      erreurs_frequentes:
+      - Oublier le diviseur $1$, ou s'arrêter à $2^3$.
       resultat: '31'
   - code: 2NDE-EX-ARITH-PB-05
     difficulte: 5

@@ -80,8 +80,14 @@ competences:
     adaptation: inspiree
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Montrer que l''équation $f(x) = y$ a une unique solution pour tout $y$ : c''est la définition d''une bijection.'
       etapes:
-      - '$2x + 3 = y \iff x = \dfrac{y - 3}{2}$ : une unique solution pour tout $y$.'
+      - 'On résout $2x + 3 = y$ : $2x = y - 3$, donc $x = \dfrac{y - 3}{2}$.'
+      - Pour tout réel $y$, cette valeur existe et est unique.
+      - La fonction est donc à la fois injective et surjective, c'est-à-dire bijective.
+      - 'Vérification : $f\left(\dfrac{y - 3}{2}\right) = 2 \times \dfrac{y - 3}{2} + 3 = y$, l''antécédent est bien trouvé.'
+      erreurs_frequentes:
+      - Conclure « injective seulement » en oubliant de vérifier que tout réel $y$ a un antécédent.
       resultat: A
   - code: 1RE-EX-APPLI-04
     difficulte: 4
@@ -94,9 +100,16 @@ competences:
     adaptation: inspiree
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Une application injective choisit des images distinctes : $5$ choix pour le premier élément, $4$ pour le second, $3$ pour le troisième.'
       etapes:
-      - '5 choix pour l''image de 1, puis 4 pour 2, puis 3 pour 3 : $60$.'
+      - Pour l'image de $1$, on a $5$ choix.
+      - Pour l'image de $2$, il reste $4$ choix (image différente de celle de $1$).
+      - Pour l'image de $3$, il reste $3$ choix.
+      - 'On multiplie : $5 \times 4 \times 3 = 60$'
+      - 'Vérification : $A_5^3 = \dfrac{5!}{2!} = 60$.'
       resultat: '60'
+      erreurs_frequentes:
+      - Calculer $5^3 = 125$ (applications quelconques) ou $5! = 120$ (permutations).
   - code: 1RE-EX-APPLI-05
     difficulte: 5
     type: numerique
@@ -108,8 +121,14 @@ competences:
     adaptation: inspiree
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Calculer $f^{-1}(5)$ revient à résoudre $f(x) = 5$, en vérifiant que la valeur trouvée est dans le domaine.
       etapes:
-      - $\dfrac{2x + 1}{x - 1} = 5 \iff 2x + 1 = 5x - 5 \iff x = 2$.
+      - 'On écrit l''équation : $\dfrac{2x + 1}{x - 1} = 5$, avec $x \neq 1$.'
+      - 'On multiplie par $x - 1$ : $2x + 1 = 5(x - 1) = 5x - 5$.'
+      - 'On résout : $1 + 5 = 5x - 2x$, soit $6 = 3x$ et $x = 2$.'
+      - 'Vérification : $x = 2 \neq 1$ et $f(2) = \dfrac{4 + 1}{1} = 5$.'
+      erreurs_frequentes:
+      - Multiplier seulement le numérateur, ou oublier la valeur interdite $x = 1$.
       resultat: '2'
 - code: 1RE-EX-ENS-PB
   libelle: 'Problème guidé : composer et inverser des fonctions'
@@ -171,8 +190,14 @@ competences:
     solution: (2x + 3)^2
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Composée $g \circ f$ : on applique d''abord $f$ puis $g$, donc $(g \circ f)(x) = g(f(x))$.'
       etapes:
-      - $g(f(x)) = (2x + 3)^2$.
+      - 'On identifie les fonctions : $f(x) = 2x + 3$ et $g(x) = x^2$.'
+      - 'On remplace $x$ par $f(x)$ dans l''expression de $g$ : $g(f(x)) = (f(x))^2$.'
+      - On obtient $(g \circ f)(x) = (2x + 3)^2$.
+      - 'Vérification : pour $x = 1$, $f(1) = 5$ et $g(5) = 25$ ; la formule donne $(2 \times 1 + 3)^2 = 25$.'
+      erreurs_frequentes:
+      - 'Calculer $f(g(x)) = 2x^2 + 3$ : l''ordre de composition est inversé.'
       resultat: (2x + 3)^2
   - code: 1RE-EX-ENS-PB-04
     difficulte: 4
@@ -181,8 +206,14 @@ competences:
     solution: (x - 3)/2
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Pour trouver $f^{-1}$, on résout $f(y) = x$ et on exprime $y$ en fonction de $x$.
       etapes:
-      - $2y + 3 = x \iff y = \dfrac{x - 3}{2}$.
+      - On écrit $2y + 3 = x$.
+      - 'On isole $y$ : $2y = x - 3$, donc $y = \dfrac{x - 3}{2}$.'
+      - La bijection réciproque est $f^{-1}(x) = \dfrac{x - 3}{2}$.
+      - 'Vérification : $f\left(f^{-1}(x)\right) = 2 \times \dfrac{x - 3}{2} + 3 = x - 3 + 3 = x$.'
+      erreurs_frequentes:
+      - 'Écrire $f^{-1}(x) = \dfrac{1}{2x + 3}$ : l''inverse d''une fonction n''est pas l''inverse de son expression.'
       resultat: (x - 3)/2
   - code: 1RE-EX-ENS-PB-05
     difficulte: 5

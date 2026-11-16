@@ -79,8 +79,14 @@ competences:
     solution: '30'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Résoudre l''équation $1{,}8C + 32 = 86$ : on isole $C$ en soustrayant puis en divisant.'
       etapes:
-      - $1{,}8C + 32 = 86$, soit $1{,}8C = 54$, donc $C = 30$.
+      - 'On écrit l''équation qui traduit l''énoncé : $1{,}8C + 32 = 86$.'
+      - 'On soustrait $32$ aux deux membres : $1{,}8C = 54$.'
+      - 'On divise par $1{,}8$ : $C = \dfrac{54}{1{,}8} = 30$.'
+      - 'Vérification : $1{,}8 \times 30 + 32 = 54 + 32 = 86$ °F, la valeur de l''énoncé est retrouvée.'
+      erreurs_frequentes:
+      - Diviser $86$ par $1{,}8$ sans soustraire $32$ d'abord, ou inverser la formule.
       resultat: '30'
   - code: 1RE-ES-ARITH-05
     difficulte: 5

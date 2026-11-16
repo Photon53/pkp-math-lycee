@@ -79,9 +79,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Réciproque du théorème de Pythagore.
+          methode: 'Réciproque du théorème de Pythagore : si le carré du plus grand côté est égal à la somme des carrés des deux autres, le triangle est rectangle.'
           etapes:
-          - $13^2 = 169$ et $5^2 + 12^2 = 25 + 144 = 169$ ; le triangle est rectangle.
+          - 'On repère le plus grand côté : $13$ cm, qui serait l''hypoténuse.'
+          - 'On calcule son carré : $13^2 = 169$.'
+          - 'On calcule la somme des carrés des deux autres côtés : $5^2 + 12^2 = 25 + 144 = 169$.'
+          - 'Les deux résultats sont égaux : d''après la réciproque du théorème de Pythagore, le triangle est rectangle.'
+          erreurs_frequentes:
+          - 'Comparer $5 + 12 = 17$ à $13$ : la réciproque porte sur les carrés, pas sur les longueurs.'
           resultat: A
       - code: 4E-PYTHAGORE-04
         difficulte: 4
@@ -90,10 +95,16 @@ competences:
         solution: '5,8'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La diagonale est l’hypoténuse d’un triangle rectangle.
+          methode: 'La diagonale d''un rectangle est l''hypoténuse d''un triangle rectangle dont les côtés sont la longueur et la largeur : $d^2 = L^2 + \ell^2$.'
           etapes:
-          - $d^2 = 25 + 9 = 34$ ; $d = \sqrt{34} \approx 5{,}83$ cm.
-          resultat: '5,8'
+          - On reconnaît le triangle rectangle formé par deux côtés consécutifs et la diagonale.
+          - 'On applique Pythagore : $d^2 = 5^2 + 3^2 = 25 + 9 = 34$.'
+          - 'On prend la racine carrée : $d = \sqrt{34} \approx 5{,}83$ cm.'
+          - 'On arrondit au dixième : $d \approx 5{,}8$ cm'
+          - 'Vérification : $5{,}8^2 = 33{,}64$, proche de $34$.'
+          resultat: 5,8
+          erreurs_frequentes:
+          - Additionner les longueurs ($5 + 3 = 8$) au lieu d'appliquer Pythagore, ou oublier la racine carrée.
       - code: 4E-PYTHAGORE-05
         difficulte: 5
         type: qcm
@@ -182,9 +193,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Cas d’égalité ; un côté et les deux angles adjacents.
+          methode: 'Cas d''égalité des triangles : un côté et les deux angles adjacents identiques suffisent à garantir que deux triangles sont égaux.'
           etapes:
-          - Ce cas suffit à garantir l’égalité des triangles.
+          - Les deux triangles ont un côté de $5$ cm.
+          - Ce côté est compris entre deux angles de $40°$ et $70°$ dans les deux triangles.
+          - Le troisième angle vaut $180 - 40 - 70 = 70°$ dans les deux cas, donc les trois angles sont égaux.
+          - 'Un côté et les deux angles adjacents déterminent le triangle : les deux triangles sont donc égaux.'
+          erreurs_frequentes:
+          - 'Croire qu''il faut toujours trois côtés pour conclure : le cas « un côté et deux angles adjacents » suffit.'
           resultat: A
       - code: 4E-THALES-04
         difficulte: 4
@@ -205,11 +221,16 @@ competences:
         solution: '9'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les rayons du soleil sont parallèles ; on applique Thalès.
+          methode: 'Les rayons du soleil sont parallèles : le bâton et l''arbre forment deux triangles semblables, donc les rapports hauteur/ombre sont égaux (Thalès).'
           etapes:
-          - $\dfrac{h}{1{,}5} = \dfrac{12}{2}$, donc $h = 1{,}5 \times 6 = 9$ m.
+          - On note $h$ la hauteur de l'arbre ; le bâton a pour hauteur $1{,}5$ m et pour ombre $2$ m.
+          - 'Les rapports sont égaux : $\dfrac{h}{1{,}5} = \dfrac{12}{2}$.'
+          - 'On calcule le rapport des ombres : $\dfrac{12}{2} = 6$.'
+          - Donc $h = 1{,}5 \times 6 = 9$ m
+          - 'Vérification : $\dfrac{9}{1{,}5} = 6 = \dfrac{12}{2}$.'
           resultat: '9'
-
+          erreurs_frequentes:
+          - Inverser les rapports et écrire $\dfrac{h}{12} = \dfrac{2}{1{,}5}$, ou multiplier par l'ombre du bâton au lieu du rapport.
   - code: 4E-COSINUS
     libelle: Utiliser le cosinus d’un angle aigu dans un triangle rectangle
     attendus: [4E-2020-GEOM-01, 4E-2020-GEOM-04]
@@ -280,9 +301,14 @@ competences:
         solution: '5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $AB = BC \times \cos \widehat{B}$.
+          methode: 'Dans le triangle rectangle en $A$, $AB$ est le côté adjacent à l''angle $\widehat{B}$ et $BC$ l''hypoténuse : $\cos\widehat{B} = \dfrac{AB}{BC}$, donc $AB = BC \times \cos\widehat{B}$.'
           etapes:
-          - $AB = 10 \times 0{,}5 = 5$ cm.
+          - 'On identifie : côté adjacent $[AB]$, hypoténuse $[BC] = 10$ cm, angle $\widehat{B} = 60°$.'
+          - 'On écrit la relation : $\cos 60° = \dfrac{AB}{10}$.'
+          - 'On multiplie par $10$ : $AB = 10 \times \cos 60° = 10 \times 0{,}5 = 5$ cm.'
+          - 'Vérification : $\dfrac{5}{10} = 0{,}5 = \cos 60°$, la relation est bien vérifiée.'
+          erreurs_frequentes:
+          - Utiliser $\sin$ ou $\tan$ au lieu de $\cos$, ou oublier de mettre la calculatrice en degrés.
           resultat: '5'
       - code: 4E-COSINUS-04
         difficulte: 4
@@ -291,10 +317,16 @@ competences:
         solution: '9,8'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $AB = BC \times \cos \widehat{B}$ (calculatrice en degrés).
+          methode: 'Même relation : $AB = BC \times \cos\widehat{B}$, avec la calculatrice en mode degrés.'
           etapes:
-          - $AB = 12 \times \cos 35° \approx 9{,}83$ cm.
-          resultat: '9,8'
+          - 'On identifie : côté adjacent $[AB]$, hypoténuse $[BC] = 12$ cm, angle $\widehat{B} = 35°$.'
+          - 'On applique : $AB = 12 \times \cos 35°$.'
+          - 'On calcule : $\cos 35° \approx 0{,}8192$, donc $AB \approx 9{,}83$ cm.'
+          - 'On arrondit au dixième : $AB \approx 9{,}8$ cm'
+          - 'Vérification : $12 \times 0{,}8192 \approx 9{,}83$.'
+          resultat: 9,8
+          erreurs_frequentes:
+          - Calculer $12 \div \cos 35°$ (mauvais sens) ou oublier d'arrondir au dixième.
       - code: 4E-COSINUS-05
         difficulte: 5
         type: numerique
@@ -302,7 +334,13 @@ competences:
         solution: '7,8'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $BC = \dfrac{AB}{\cos \widehat{B}}$.
+          methode: 'On inverse la relation $\cos\widehat{B} = \dfrac{AB}{BC}$ pour trouver l''hypoténuse : $BC = \dfrac{AB}{\cos\widehat{B}}$.'
           etapes:
-          - $BC = \dfrac{6}{\cos 40°} \approx 7{,}83$ cm.
-          resultat: '7,8'
+          - 'On écrit la relation : $\cos 40° = \dfrac{6}{BC}$.'
+          - 'On multiplie par $BC$ puis on divise : $BC = \dfrac{6}{\cos 40°}$.'
+          - 'On calcule : $\cos 40° \approx 0{,}766$, donc $BC \approx 7{,}83$ cm.'
+          - 'On arrondit : $BC \approx 7{,}8$ cm'
+          - 'Vérification : $\dfrac{6}{7{,}8} \approx 0{,}77 \approx \cos 40°$.'
+          resultat: 7,8
+          erreurs_frequentes:
+          - Multiplier $6$ par $\cos 40°$ au lieu de diviser, ce qui donnerait $4{,}6$ cm.

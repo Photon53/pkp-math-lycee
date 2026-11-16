@@ -86,9 +86,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Une ordonnée nulle signifie que le point est sur l’axe horizontal.
+          methode: 'Lire les coordonnées : l''abscisse est le premier nombre, l''ordonnée le second ; une ordonnée nulle place le point sur l''axe des abscisses.'
           etapes:
-          - $C$ est sur l’axe des abscisses, à $5$ unités à droite de $O$.
+          - 'Le point $C$ a pour coordonnées $(5 ; 0)$ : abscisse $5$, ordonnée $0$.'
+          - Comme l'ordonnée est nulle, le point est sur l'axe horizontal.
+          - Cet axe est l'axe des abscisses ; le point est à $5$ unités à droite de l'origine.
+          - 'Vérification : un point de l''axe des ordonnées aurait une abscisse nulle, comme $(0 ; 5)$ ; ce n''est pas le cas ici.'
+          erreurs_frequentes:
+          - Confondre abscisse et ordonnée, ou croire que $(5 ; 0)$ est l'origine.
           resultat: A
       - code: 5E-REPERAGE-05
         difficulte: 4
@@ -97,9 +102,14 @@ competences:
         solution: '3'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Aller vers la droite augmente l’abscisse ; l’ordonnée ne change pas.
+          methode: Un déplacement vers la droite augmente l'abscisse de la longueur du déplacement ; l'ordonnée ne change pas.
           etapes:
-          - $-2 + 5 = 3$.
+          - 'Le point de départ est $P(-2 ; 3)$ : son abscisse est $-2$.'
+          - Aller de $5$ unités vers la droite revient à ajouter $5$ à l'abscisse.
+          - 'On calcule : $-2 + 5 = 3$ ; l''ordonnée reste $3$, le point d''arrivée est $(3 ; 3)$.'
+          - 'Vérification : l''écart entre $-2$ et $3$ est bien $5$, et un déplacement vers la droite donne une abscisse plus grande.'
+          erreurs_frequentes:
+          - Soustraire $5$ au lieu de l'ajouter, ou modifier l'ordonnée en se déplaçant horizontalement.
           resultat: '3'
       - code: 5E-REPERAGE-06
         difficulte: 5
@@ -108,11 +118,15 @@ competences:
         solution: '7'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Sur une même horizontale, la longueur est l’écart des abscisses.
+          methode: 'Deux points de même ordonnée sont sur une même horizontale : la longueur $AB$ est la différence entre la plus grande et la plus petite abscisse.'
           etapes:
-          - $4 - (-3) = 4 + 3 = 7$ unités.
+          - 'Les points $A(-3 ; 1)$ et $B(4 ; 1)$ ont la même ordonnée $1$ : ils sont sur la même droite horizontale.'
+          - 'La longueur se calcule avec les abscisses : $4 - (-3)$.'
+          - 'Soustraire un négatif revient à ajouter : $4 + 3 = 7$.'
+          - 'Vérification : $7$ unités séparent les abscisses $-3$ et $4$ ; le milieu du segment a pour abscisse $0{,}5 = (-3 + 4) \div 2$, ce qui est cohérent.'
+          erreurs_frequentes:
+          - Écrire $4 - 3 = 1$ en oubliant le signe de $-3$, ou utiliser les ordonnées au lieu des abscisses.
           resultat: '7'
-
   - code: 5E-SOLIDES
     libelle: Représenter des solides et calculer des volumes
     attendus: [5E-2026-ESP-01, 5E-2026-ESP-02, 5E-2026-ESP-03, 5E-2026-ESP-04, 5E-2026-ESP-05, 5E-2026-ESP-06, 5E-2026-ESP-07, 5E-2026-ESP-08, 5E-2026-ESP-09]
@@ -202,9 +216,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Déplier le solide.
+          methode: 'Déplier mentalement le solide : un cylindre a deux bases circulaires et une surface latérale qui se déroule en rectangle.'
           etapes:
-          - 'Les deux bases sont des disques ; la surface latérale déroulée est un rectangle.'
+          - Le cylindre possède deux bases identiques, qui sont des disques.
+          - Sa surface latérale, une fois déroulée, est un rectangle dont la hauteur est celle du cylindre.
+          - Le patron est donc formé de deux disques et d'un rectangle.
+          - 'Vérification : en enroulant le rectangle autour des disques, on reconstitue le cylindre, sans découpe supplémentaire.'
+          erreurs_frequentes:
+          - Choisir « un disque et un triangle » (cône) ou « trois disques », en oubliant la surface latérale.
           resultat: A
       - code: 5E-SOLIDES-05
         difficulte: 4
@@ -213,10 +232,16 @@ competences:
         solution: '78,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $\mathcal{A} = \pi r^2$.
+          methode: 'Aire d''un disque : $\mathcal{A} = \pi r^2$, avec $r$ le rayon ; le résultat s''exprime en cm².'
           etapes:
-          - $3{,}14 \times 5^2 = 3{,}14 \times 25 = 78{,}5$ cm².
-          resultat: '78,5'
+          - 'On identifie le rayon : $r = 5$ cm.'
+          - 'On calcule le carré du rayon : $5^2 = 25$.'
+          - 'On multiplie par $\pi \approx 3{,}14$ : $3{,}14 \times 25$.'
+          - On obtient $78{,}5$ cm²
+          - 'Vérification : $3{,}14 \times 25 = 3{,}14 \times 100 \div 4 = 314 \div 4 = 78{,}5$.'
+          resultat: 78,5
+          erreurs_frequentes:
+          - Utiliser $2\pi r$ (périmètre) au lieu de $\pi r^2$ (aire), ou oublier d'élever le rayon au carré.
       - code: 5E-SOLIDES-06
         difficulte: 5
         type: numerique

@@ -69,8 +69,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Théorème des valeurs intermédiaires : si $f$ est continue et change de signe entre $a$ et $b$, l''équation $f(x) = 0$ a une solution dans $]a ; b[$.'
           etapes:
-          - $f(0{,}6) = -0{,}184 < 0$ et $f(0{,}7) = 0{,}043 > 0$.
+          - 'On pose $f(x) = x^3 + x - 1$ : $f$ est continue et strictement croissante sur $\mathbb{R}$ (somme de fonctions croissantes).'
+          - On calcule $f(0{,}6) = 0{,}216 + 0{,}6 - 1 = -0{,}184 < 0$.
+          - On calcule $f(0{,}7) = 0{,}343 + 0{,}7 - 1 = 0{,}043 > 0$.
+          - 'Le signe change entre $0{,}6$ et $0{,}7$ : la solution $\alpha$ appartient à $]0{,}6 ; 0{,}7[$, et elle est unique car $f$ est strictement croissante.'
+          erreurs_frequentes:
+          - Conclure sans vérifier la continuité ni la stricte monotonie, ou se tromper de sens en comparant les signes.
           resultat: B
       - code: TLE-TVI-04
         difficulte: 4
@@ -79,8 +85,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Une fonction est continue sur un intervalle si elle n''y présente aucun saut : on cherche une discontinuité.'
           etapes:
-          - 'La partie entière « saute » de $0$ à $1$ en $x = 1$ : elle n''est pas continue sur $[0 ; 2]$.'
+          - 'La partie entière $E(x)$ est le plus grand entier inférieur ou égal à $x$ : $E(0{,}9) = 0$ et $E(1) = 1$.'
+          - Quand $x$ tend vers $1$ par valeurs inférieures, $E(x) = 0$ ; quand $x$ tend vers $1$ par valeurs supérieures, $E(x) = 1$.
+          - 'Les limites à gauche et à droite en $1$ sont différentes ($0$ et $1$) : la fonction fait un saut et n''est pas continue en $1$.'
+          - Elle n'est donc pas continue sur $[0 ; 2]$, puisque $1$ appartient à cet intervalle.
+          erreurs_frequentes:
+          - 'Croire que la fonction est continue parce qu''elle est définie partout : la continuité exige l''absence de saut.'
           resultat: B
       - code: TLE-TVI-05
         difficulte: 5
@@ -178,6 +190,12 @@ competences:
         solution: 0
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Si la suite converge vers $\ell$, alors $\ell$ vérifie l'équation aux limites $\ell = \dfrac{\ell}{1 + \ell}$.
           etapes:
-          - $\ell = \dfrac{\ell}{1 + \ell}$ donne $\ell(1 + \ell) = \ell$, soit $\ell^2 = 0$.
-          resultat: 0
+          - On admet la convergence vers $\ell$ ; comme $u_0 = 1 > 0$ et $u_{n+1} = \dfrac{u_n}{1 + u_n}$, tous les termes sont positifs, donc $\ell \geq 0$.
+          - 'On passe à la limite dans la relation de récurrence : $\ell = \dfrac{\ell}{1 + \ell}$.'
+          - 'On multiplie par $1 + \ell \neq 0$ : $\ell(1 + \ell) = \ell$, soit $\ell + \ell^2 = \ell$, donc $\ell^2 = 0$ et $\ell = 0$.'
+          - 'Vérification : $u_1 = \dfrac{1}{2}$, $u_2 = \dfrac{1}{3}$, $u_3 = \dfrac{1}{4}$ : la suite se rapproche bien de $0$.'
+          erreurs_frequentes:
+          - 'Simplifier $\ell = \dfrac{\ell}{1+\ell}$ en divisant par $\ell$ : on perd la solution $\ell = 0$, qui est justement la limite.'
+          resultat: '0'

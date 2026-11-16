@@ -69,8 +69,14 @@ competences:
     solution: 3x - 1
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Équation réduite $y = mx + p$ : le coefficient directeur est $m = \dfrac{y_B - y_A}{x_B - x_A}$, puis on trouve $p$ avec un des deux points.'
       etapes:
-      - $m = 3$ et $2 = 3 + p$, donc $p = -1$.
+      - 'On calcule le coefficient directeur : $m = \dfrac{8 - 2}{3 - 1} = \dfrac{6}{2} = 3$.'
+      - 'On écrit $y = 3x + p$ et on utilise $A(1 ; 2)$ : $2 = 3 \times 1 + p$, donc $p = -1$.'
+      - L'équation réduite est $y = 3x - 1$.
+      - 'Vérification avec $B(3 ; 8)$ : $3 \times 3 - 1 = 8$, le point vérifie bien l''équation.'
+      erreurs_frequentes:
+      - Inverser numérateur et dénominateur dans le calcul de $m$, ou oublier de déterminer $p$.
       resultat: 3x - 1
   - code: 1RE-MAN-FONCTIONS-04
     difficulte: 4
@@ -79,8 +85,14 @@ competences:
     solution: A
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Une fonction affine $f(x) = mx + p$ est croissante si $m > 0$, décroissante si $m < 0$, constante si $m = 0$.
       etapes:
-      - Coefficient directeur $-2 < 0$.
+      - 'On identifie le coefficient directeur : ici $m = -2$.'
+      - Comme $-2 < 0$, la fonction est décroissante sur $\mathbb{R}$.
+      - 'L''ordonnée à l''origine $p = 5$ ne change pas le sens de variation : elle déplace seulement la droite.'
+      - 'Vérification : $f(0) = 5$ et $f(1) = 3$ ; la valeur diminue quand $x$ augmente.'
+      erreurs_frequentes:
+      - 'Conclure « croissante » parce que $5 > 0$ : c''est le signe de $m$ qui décide, pas celui de $p$.'
       resultat: A
   - code: 1RE-MAN-FONCTIONS-05
     difficulte: 5

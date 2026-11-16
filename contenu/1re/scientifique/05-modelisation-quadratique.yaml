@@ -70,8 +70,14 @@ competences:
     solution: '3'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Les racines de $(x - 1)(x - 5)$ sont $1$ et $5$ ; l'axe de symétrie de la parabole passe par leur milieu, donc l'abscisse du sommet vaut $\dfrac{1 + 5}{2}$.
       etapes:
-      - 'Milieu des racines : $\dfrac{1 + 5}{2} = 3$.'
+      - 'On lit les racines dans la forme factorisée : $x = 1$ et $x = 5$.'
+      - La parabole est symétrique par rapport à la droite verticale passant par le milieu des racines.
+      - L'abscisse du sommet est donc $\dfrac{1 + 5}{2} = 3$.
+      - 'Vérification : $f(3) = (3 - 1)(3 - 5) = -4$ et $f(2) = f(4) = -1$ : les valeurs symétriques sont égales, le sommet est bien en $x = 3$.'
+      erreurs_frequentes:
+      - Prendre la somme des racines ($6$) au lieu de leur moyenne.
       resultat: '3'
   - code: 1RE-ES-PARAB-04
     difficulte: 4

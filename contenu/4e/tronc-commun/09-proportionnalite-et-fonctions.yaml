@@ -73,9 +73,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La droite doit passer par l’origine.
+          methode: 'Une situation de proportionnalité est représentée par une droite passant par l''origine : si elle coupe l''axe des ordonnées ailleurs qu''en $0$, ce n''est pas de la proportionnalité.'
           etapes:
-          - Elle passe par $(0 ; 3)$, pas par $(0 ; 0)$.
+          - 'La droite passe par le point $(0 ; 3)$ : à l''abscisse $0$, l''ordonnée vaut $3$.'
+          - Pour une proportionnalité, on aurait $y = k \times 0 = 0$ à l'abscisse $0$.
+          - 'Comme $3 \neq 0$, la situation n''est pas proportionnelle : elle est de la forme $y = kx + 3$.'
+          - 'Vérification : un achat avec des frais fixes n''est pas proportionnel au nombre d''articles, c''est le même phénomène.'
+          erreurs_frequentes:
+          - 'Conclure « proportionnel » parce que les points sont alignés : il faut aussi passer par l''origine.'
           resultat: B
       - code: 4E-PROPORTIONNALITE-04
         difficulte: 4
@@ -84,9 +89,14 @@ competences:
         solution: '15'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Coefficient $k = \dfrac{10}{4}$.
+          methode: 'Pour une proportionnalité $y = kx$, le coefficient se calcule avec un point connu : $k = \dfrac{y}{x}$, puis on applique à la nouvelle abscisse.'
           etapes:
-          - $k = 2{,}5$, donc $y = 2{,}5 \times 6 = 15$.
+          - 'On calcule le coefficient avec le point $(4 ; 10)$ : $k = \dfrac{10}{4} = 2{,}5$.'
+          - La relation est $y = 2{,}5x$.
+          - 'Pour $x = 6$ : $y = 2{,}5 \times 6 = 15$.'
+          - 'Vérification : les rapports $\dfrac{10}{4}$ et $\dfrac{15}{6}$ valent tous deux $2{,}5$ : la proportionnalité est respectée.'
+          erreurs_frequentes:
+          - Utiliser $k = \dfrac{4}{10} = 0{,}4$ en inversant, ou ajouter $2$ au lieu de multiplier.
           resultat: '15'
       - code: 4E-PROPORTIONNALITE-05
         difficulte: 5
@@ -95,11 +105,15 @@ competences:
         solution: '78,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Coefficient $3{,}14$.
+          methode: 'Le périmètre est proportionnel au diamètre : le coefficient est $\pi \approx 3{,}14$, obtenu par le quotient du périmètre par le diamètre.'
           etapes:
-          - $25 \times 3{,}14 = 78{,}5$ cm.
-          resultat: '78,5'
-
+          - 'On vérifie le coefficient avec les données : $\dfrac{31{,}4}{10} = 3{,}14$.'
+          - 'On applique ce coefficient au nouveau diamètre : $25 \times 3{,}14$.'
+          - 'On calcule : $25 \times 3{,}14 = 78{,}5$ cm.'
+          - 'Vérification : $78{,}5 \div 25 = 3{,}14$, le coefficient est bien conservé.'
+          erreurs_frequentes:
+          - Utiliser $31{,}4 + 15$ (addition) au lieu du coefficient, ou prendre le rayon au lieu du diamètre.
+          resultat: 78,5
   - code: 4E-FONCTIONS
     libelle: Représenter la dépendance de deux grandeurs par une formule ou un graphique
     attendus: [4E-2020-FONC-01, 4E-2020-FONC-02, 4E-2020-FONC-03]
@@ -172,9 +186,14 @@ competences:
         solution: '13'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Résoudre $15 + 2n = 41$.
+          methode: 'Résoudre l''équation $15 + 2n = 41$ : on isole $n$ en soustrayant puis en divisant.'
           etapes:
-          - $2n = 26$, donc $n = 13$.
+          - 'On écrit l''équation : $15 + 2n = 41$.'
+          - 'On soustrait $15$ aux deux membres : $2n = 26$.'
+          - 'On divise par $2$ : $n = 13$.'
+          - 'Vérification : $15 + 2 \times 13 = 15 + 26 = 41$, le budget est exactement utilisé.'
+          erreurs_frequentes:
+          - Diviser $41$ par $2$ sans soustraire $15$ d'abord, ou oublier que $n$ doit être entier.
           resultat: '13'
       - code: 4E-FONCTIONS-04
         difficulte: 4
@@ -183,9 +202,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Abscisse = vitesse, ordonnée = distance.
+          methode: 'Lire les coordonnées dans le contexte : l''abscisse est la vitesse, l''ordonnée la distance d''arrêt.'
           etapes:
-          - À $50$ km/h, la distance d’arrêt est $28$ m.
+          - Le point $(50 ; 28)$ a pour abscisse $50$ et pour ordonnée $28$.
+          - 'L''abscisse représente la vitesse : $50$ km/h.'
+          - 'L''ordonnée représente la distance d''arrêt : $28$ m.'
+          - Le point signifie donc qu'à $50$ km/h, la distance d'arrêt est de $28$ m.
+          erreurs_frequentes:
+          - Inverser abscisse et ordonnée, ou confondre la distance avec une durée.
           resultat: B
       - code: 4E-FONCTIONS-05
         difficulte: 5
@@ -194,7 +218,13 @@ competences:
         solution: '9'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $(3c)^2 = 9c^2$.
+          methode: 'L''aire d''un carré vaut $c^2$ : si le côté est multiplié par $3$, l''aire est multipliée par $3^2 = 9$.'
           etapes:
-          - L’aire est multipliée par $9$ ; ce n’est pas une situation de proportionnalité.
+          - L'aire de départ est $A = c^2$.
+          - Le nouveau côté est $3c$ ; la nouvelle aire vaut $(3c)^2$.
+          - 'On développe : $(3c)^2 = 9c^2 = 9A$.'
+          - L'aire est donc multipliée par $9$
+          - 'Vérification : Pour $c = 2$, l''aire passe de $4$ à $36$, soit $9$ fois plus.'
           resultat: '9'
+          erreurs_frequentes:
+          - 'Répondre $3$ en croyant que l''aire est multipliée comme les longueurs : l''aire varie comme le carré.'

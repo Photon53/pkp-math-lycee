@@ -82,9 +82,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Tous les facteurs doivent être premiers.
+          methode: 'Décomposer en produit de facteurs premiers : tous les facteurs doivent être des nombres premiers.'
           etapes:
-          - $360 = 8 \times 45 = 2^3 \times 3^2 \times 5$.
+          - 'On décompose $360$ par divisions successives : $360 = 36 \times 10$.'
+          - Puis $36 = 2^2 \times 3^2$ et $10 = 2 \times 5$.
+          - 'On regroupe : $360 = 2^3 \times 3^2 \times 5$.'
+          - 'Vérification : $8 \times 9 \times 5 = 360$ ; les réponses B, C et D contiennent $9$, $10$ ou $45$, qui ne sont pas premiers.'
+          erreurs_frequentes:
+          - 'Choisir $2^2 \times 9 \times 10$ : le produit vaut $360$ mais $9$ et $10$ ne sont pas premiers.'
           resultat: A
       - code: 4E-NOMBRES-PREMIERS-04
         difficulte: 4

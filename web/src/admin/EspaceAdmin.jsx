@@ -44,6 +44,8 @@ const PAGES = [
   { groupe: "Pédagogie", vers: "/admin/prevalidation-ia", libelle: "Prévalidation IA", icone: "bouclier", Page: PrevalidationIA, permission: "prevalidation.ia", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/pkp-math", libelle: "PKP Maths", icone: "pdf", Page: PkpMathAdmin, permission: "contenu.lire", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
+  // L'espace Français utilise la session professeur ; le jeton d'administration n'y est pas transmis.
+  { groupe: "Pédagogie", vers: "/francais", libelle: "PKP Français (préparation)", icone: "cours", permission: "contenu.lire", externe: true },
   { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration, permission: "configuration" },
 ];
 
@@ -95,9 +97,10 @@ export default function EspaceAdmin({ chemin = "/admin" }) {
   if (!valide) return <ConnexionAdmin onConnexion={connecter} expiree={!!compte} />;
 
   const liens = pagesPermises(permissions);
-  const page = liens.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
+  const pagesInternes = liens.filter((p) => !p.externe);
+  const page = pagesInternes.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
     (a, b) => b.vers.length - a.vers.length,
-  )[0] ?? liens[0];
+  )[0] ?? pagesInternes[0];
 
   return (
     <CadreApplication

@@ -78,9 +78,14 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Déplier la surface latérale.
+          methode: 'Déplier mentalement le solide : la base d''un cône est un disque, sa surface latérale se déplie en secteur de disque.'
           etapes:
-          - La surface latérale d’un cône se déplie en secteur de disque ; la base est un disque.
+          - La base du cône est un disque.
+          - La surface latérale est courbe ; dépliée à plat, elle devient un secteur de disque.
+          - Le patron est donc formé d'un disque et d'un secteur de disque.
+          - 'Vérification : deux disques et un rectangle correspondent au cylindre, pas au cône.'
+          erreurs_frequentes:
+          - Choisir « deux disques et un rectangle » (cylindre) ou croire que la surface latérale est un triangle.
           resultat: A
       - code: 4E-PYRAMIDE-CONE-04
         difficulte: 4
@@ -89,10 +94,16 @@ competences:
         solution: '94'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $V = \dfrac{\pi r^2 h}{3}$.
+          methode: 'Volume d''un cône : $V = \dfrac{\pi r^2 h}{3}$, avec $r$ le rayon de la base et $h$ la hauteur.'
           etapes:
-          - $V = \dfrac{\pi \times 9 \times 10}{3} = 30\pi \approx 94{,}2$ cm³.
+          - 'On identifie : $r = 3$ cm et $h = 10$ cm.'
+          - On calcule $r^2 = 9$, puis $\pi r^2 h = \pi \times 9 \times 10 = 90\pi$.
+          - 'On divise par $3$ : $V = 30\pi \approx 94{,}2$ cm³.'
+          - 'On arrondit à l''unité : $V \approx 94$ cm³'
+          - 'Vérification : $30 \times 3{,}14 = 94{,}2$.'
           resultat: '94'
+          erreurs_frequentes:
+          - Oublier de diviser par $3$ (volume du cylindre) et obtenir $283$ cm³.
       - code: 4E-PYRAMIDE-CONE-05
         difficulte: 5
         type: numerique
@@ -100,11 +111,15 @@ competences:
         solution: '24'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La pyramide occupe le tiers du prisme.
+          methode: 'À base et hauteur égales, la pyramide occupe le tiers du volume du prisme droit : $V_{\text{pyramide}} = \dfrac{V_{\text{prisme}}}{3}$.'
           etapes:
-          - $72 \div 3 = 24$ cm³.
+          - Le prisme et la pyramide ont la même base et la même hauteur.
+          - Le volume du prisme vaut $B \times h = 72$ cm³.
+          - Celui de la pyramide vaut $\dfrac{B \times h}{3}$, soit $72 \div 3 = 24$ cm³.
+          - 'Vérification : $3 \times 24 = 72$, le prisme contient bien trois fois la pyramide.'
+          erreurs_frequentes:
+          - Répondre $72$ cm³ en oubliant le facteur $\dfrac{1}{3}$, ou diviser deux fois par $3$.
           resultat: '24'
-
   - code: 4E-GRANDEURS-COMPOSEES
     libelle: Calculer avec des grandeurs composées et convertir leurs unités
     attendus: [4E-2020-GRAND-02]
@@ -172,9 +187,14 @@ competences:
         solution: '36'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $d = v \times t$ avec $t = 1{,}5$ h.
+          methode: 'Distance $=$ vitesse $\times$ durée, avec la durée exprimée en heures : $1$ h $30$ min $= 1{,}5$ h.'
           etapes:
-          - $24 \times 1{,}5 = 36$ km.
+          - 'On convertit la durée : $1$ h $30$ min $= 1 + \dfrac{30}{60} = 1{,}5$ h.'
+          - 'On applique $d = v \times t$ : $d = 24 \times 1{,}5$.'
+          - 'On calcule : $24 \times 1{,}5 = 36$ km.'
+          - 'Vérification : en $1$ h, le cycliste parcourt $24$ km, et en une demi-heure $12$ km ; $24 + 12 = 36$ km.'
+          erreurs_frequentes:
+          - Écrire la durée $1{,}30$ h en croyant que $30$ min $= 0{,}3$ h, ou oublier de convertir.
           resultat: '36'
       - code: 4E-GRANDEURS-COMPOSEES-04
         difficulte: 4
@@ -183,9 +203,14 @@ competences:
         solution: '720'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $1$ h $= 60$ min.
+          methode: Un débit en litres par minute se convertit en litres par heure en multipliant par le nombre de minutes d'une heure.
           etapes:
-          - $12 \times 60 = 720$ L/h.
+          - 'On convertit la durée : $1$ h $= 60$ min.'
+          - Le robinet débite $12$ L chaque minute.
+          - 'En une heure : $12 \times 60 = 720$ L.'
+          - 'Vérification : $720 \div 60 = 12$, on retrouve bien le débit par minute.'
+          erreurs_frequentes:
+          - Multiplier par $100$ (confusion avec les centilitres) ou diviser par $60$.
           resultat: '720'
       - code: 4E-GRANDEURS-COMPOSEES-05
         difficulte: 5

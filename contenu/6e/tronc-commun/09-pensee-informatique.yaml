@@ -89,9 +89,14 @@ competences:
         solution: '32'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Exécuter la répétition à la main.
+          methode: Exécuter la répétition instruction par instruction, en partant de la valeur initiale.
           etapes:
-          - $1 \to 2 \to 4 \to 8 \to 16 \to 32$.
+          - On part de $1$.
+          - 'Après $1$ répétition : $1 \times 2 = 2$ ; après $2$ : $2 \times 2 = 4$ ; après $3$ : $8$ ; après $4$ : $16$ ; après $5$ : $32$.'
+          - On obtient donc $32$ au bout des $5$ répétitions.
+          - 'Vérification : multiplier $5$ fois par $2$, c''est multiplier par $2^5 = 32$, et $1 \times 32 = 32$.'
+          erreurs_frequentes:
+          - Faire $5 \times 2 = 10$ en ajoutant au lieu de multiplier, ou ne faire que $4$ répétitions et répondre $16$.
           resultat: '32'
       - code: 6E-INSTRUCTIONS-05
         difficulte: 5

@@ -97,9 +97,14 @@ competences:
         solution: C
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Revoir les définitions des droites remarquables.
+          methode: 'Distinguer les droites remarquables du triangle : la hauteur est issue d''un sommet et perpendiculaire au côté opposé.'
           etapes:
-          - C’est la hauteur ; la médiane passe par le milieu du côté opposé.
+          - La médiane joint un sommet au milieu du côté opposé.
+          - La médiatrice est perpendiculaire à un côté en son milieu ; elle ne part pas forcément d'un sommet.
+          - La bissectrice partage un angle en deux angles égaux.
+          - 'La hauteur est la droite issue d''un sommet et perpendiculaire au côté opposé : c''est la définition demandée.'
+          erreurs_frequentes:
+          - 'Confondre hauteur et médiane : les deux partent d''un sommet, mais la médiane vise le milieu du côté, la hauteur est perpendiculaire.'
           resultat: C
       - code: 5E-TRIANGLES-05
         difficulte: 4
@@ -108,9 +113,14 @@ competences:
         solution: '18'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Une médiane partage le triangle en deux triangles de même aire.
+          methode: Une médiane partage un triangle en deux triangles de même aire, car ils ont des bases égales et la même hauteur.
           etapes:
-          - $36 \div 2 = 18$ cm².
+          - La médiane issue de $A$ coupe $[BC]$ en son milieu $M$, donc $BM = MC$.
+          - Les triangles $ABM$ et $AMC$ ont des bases égales et la même hauteur issue de $A$.
+          - 'Ils ont donc la même aire, chacune valant la moitié de celle de $ABC$ : $36 \div 2 = 18$ cm².'
+          - 'Vérification : $18 + 18 = 36$ cm², la somme redonne bien l''aire du triangle de départ.'
+          erreurs_frequentes:
+          - Partager l'aire en trois, ou croire que la médiane coupe l'aire en deux parts inégales.
           resultat: '18'
       - code: 5E-TRIANGLES-06
         difficulte: 5
@@ -119,11 +129,15 @@ competences:
         solution: '5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Le centre du cercle circonscrit à un triangle rectangle est le milieu de l’hypoténuse.
+          methode: 'Dans un triangle rectangle, le centre du cercle circonscrit est le milieu de l''hypoténuse : le rayon vaut la moitié de l''hypoténuse.'
           etapes:
-          - 'Le rayon vaut la moitié de l’hypoténuse : $10 \div 2 = 5$ cm.'
+          - 'Le triangle $ABC$ est rectangle en $A$ : son hypoténuse est $[BC]$, de longueur $10$ cm.'
+          - Le cercle circonscrit a pour centre le milieu de $[BC]$.
+          - Son rayon est donc $BC \div 2 = 10 \div 2 = 5$ cm.
+          - 'Vérification : le milieu de l''hypoténuse est à égale distance des trois sommets, et la distance à $B$ vaut bien $5$ cm.'
+          erreurs_frequentes:
+          - Prendre l'hypoténuse entière comme rayon, ou utiliser un autre côté que l'hypoténuse.
           resultat: '5'
-
   - code: 5E-PARALLELOGRAMMES
     libelle: Reconnaître et utiliser les parallélogrammes
     attendus: [5E-2026-PAR-01, 5E-2026-PAR-02, 5E-2026-PAR-03, 5E-2026-PAR-04, 5E-2026-PAR-05, 5E-2026-PAR-06, 5E-2026-PAR-07, 5E-2026-PAR-08, 5E-2026-PAR-09, 5E-2026-PAR-10]
@@ -206,9 +220,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Propriétés des parallélogrammes particuliers.
+          methode: 'Reconnaître les parallélogrammes particuliers par leurs diagonales : perpendiculaires pour le losange, de même longueur pour le rectangle.'
           etapes:
-          - Un parallélogramme à diagonales perpendiculaires est un losange.
+          - Un parallélogramme dont les diagonales sont perpendiculaires est un losange.
+          - Un rectangle a des diagonales de même longueur, pas nécessairement perpendiculaires.
+          - Un trapèze n'a qu'une paire de côtés parallèles et n'est pas forcément un parallélogramme.
+          - 'Vérification : dans un losange, les diagonales se coupent en leur milieu et sont perpendiculaires : les deux propriétés sont réunies.'
+          erreurs_frequentes:
+          - 'Choisir le rectangle : ce sont les diagonales de même longueur qui le caractérisent, pas leur perpendicularité.'
           resultat: B
       - code: 5E-PARALLELOGRAMMES-04
         difficulte: 3
@@ -217,10 +236,15 @@ competences:
         solution: '6,5'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les côtés opposés d’un parallélogramme ont la même longueur.
+          methode: Dans un parallélogramme, les côtés opposés sont parallèles et de même longueur.
           etapes:
-          - $CD = AB = 6{,}5$ cm.
-          resultat: '6,5'
+          - Les côtés $[AB]$ et $[CD]$ sont opposés dans le parallélogramme $ABCD$.
+          - 'Ils ont donc la même longueur : $CD = AB$.'
+          - Comme $AB = 6{,}5$ cm, on obtient $CD = 6{,}5$ cm.
+          - 'Vérification : le périmètre vaut $2 \times (6{,}5 + BC)$, ce qui suppose bien $CD = AB$ pour fermer la figure.'
+          erreurs_frequentes:
+          - Confondre côtés opposés et côtés consécutifs, ou diviser la longueur par $2$.
+          resultat: 6,5
       - code: 5E-PARALLELOGRAMMES-05
         difficulte: 4
         type: numerique
@@ -228,9 +252,14 @@ competences:
         solution: '3500'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $1$ m² $= 10\,000$ cm².
+          methode: 'Pour les aires, le facteur de conversion est au carré : $1$ m $= 100$ cm, donc $1$ m² $= 100^2 = 10\,000$ cm².'
           etapes:
-          - $0{,}35 \times 10\,000 = 3\,500$ cm².
+          - 'On rappelle la conversion des longueurs : $1$ m $= 100$ cm.'
+          - 'Pour les aires, on élève au carré : $1$ m² $= 100 \times 100 = 10\,000$ cm².'
+          - 'On multiplie : $0{,}35 \times 10\,000 = 3\,500$ cm².'
+          - 'Vérification : $3\,500 \div 10\,000 = 0{,}35$, on retrouve la valeur de départ.'
+          erreurs_frequentes:
+          - Multiplier par $100$ comme pour les longueurs, et trouver $35$ cm².
           resultat: '3500'
       - code: 5E-PARALLELOGRAMMES-06
         difficulte: 5

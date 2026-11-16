@@ -96,9 +96,14 @@ competences:
         solution: '2'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Division euclidienne de $17$ par $5$.
+          methode: 'Écrire la division euclidienne de $17$ par $5$ : $17 = 5 \times 3 + 2$ ; le reste $a$ doit être inférieur au diviseur.'
           etapes:
-          - $17 = 5 \times 3 + 2$, donc $\dfrac{17}{5} = 3 + \dfrac{2}{5}$.
+          - 'On cherche le plus grand multiple de $5$ inférieur ou égal à $17$ : $5 \times 3 = 15$.'
+          - 'On écrit $17 = 5 \times 3 + 2$ : le quotient est $3$ et le reste vaut $2$.'
+          - 'En divisant par $5$ : $\dfrac{17}{5} = 3 + \dfrac{2}{5}$, ce qui donne $a = 2$.'
+          - 'Vérification : $3 + \dfrac{2}{5} = \dfrac{15}{5} + \dfrac{2}{5} = \dfrac{17}{5}$, et $2 < 5$ comme demandé.'
+          erreurs_frequentes:
+          - Prendre $a = 17 - 5 = 12$, ou confondre le quotient et le reste.
           resultat: '2'
       - code: 5E-FRAC-COMPARER-05
         difficulte: 4
@@ -213,9 +218,14 @@ competences:
         solution: 13/20
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Dénominateur commun $20$.
+          methode: 'Réduire au même dénominateur : le plus petit multiple commun de $5$ et $4$ est $20$ ; on additionne ensuite les numérateurs.'
           etapes:
-          - $\dfrac{8}{20} + \dfrac{5}{20} = \dfrac{13}{20}$.
+          - 'On cherche un dénominateur commun : $5 \times 4 = 20$, qui est bien le plus petit multiple commun de $5$ et $4$.'
+          - 'On convertit : $\dfrac{2}{5} = \dfrac{2 \times 4}{5 \times 4} = \dfrac{8}{20}$ et $\dfrac{1}{4} = \dfrac{1 \times 5}{4 \times 5} = \dfrac{5}{20}$.'
+          - 'On additionne les numérateurs : $\dfrac{8}{20} + \dfrac{5}{20} = \dfrac{13}{20}$.'
+          - 'Vérification : $\dfrac{13}{20} = 0{,}65$ et $\dfrac{2}{5} + \dfrac{1}{4} = 0{,}4 + 0{,}25 = 0{,}65$ : les deux écritures concordent.'
+          erreurs_frequentes:
+          - Additionner les numérateurs et les dénominateurs et écrire $\dfrac{3}{9}$, ou ne multiplier que le numérateur.
           resultat: 13/20
       - code: 5E-FRAC-ADDITION-05
         difficulte: 4
@@ -224,9 +234,14 @@ competences:
         solution: 17/5
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Écrire $3$ comme une fraction de dénominateur $5$.
+          methode: 'Écrire l''entier $3$ comme une fraction de dénominateur $5$ : $3 = \dfrac{3 \times 5}{5} = \dfrac{15}{5}$.'
           etapes:
-          - $3 = \dfrac{15}{5}$, donc $\dfrac{15}{5} + \dfrac{2}{5} = \dfrac{17}{5}$.
+          - 'On convertit l''entier : $3 = \dfrac{15}{5}$.'
+          - 'On additionne les deux fractions de même dénominateur : $\dfrac{15}{5} + \dfrac{2}{5} = \dfrac{17}{5}$.'
+          - 'On ne peut pas simplifier : $17$ est premier et n''est pas multiple de $5$.'
+          - 'Vérification : $\dfrac{17}{5} = 3{,}4$ et $3 + \dfrac{2}{5} = 3 + 0{,}4 = 3{,}4$ : les deux écritures concordent.'
+          erreurs_frequentes:
+          - Écrire $3 + \dfrac{2}{5} = \dfrac{5}{5}$ en ajoutant $3$ au numérateur, ou oublier de convertir l'entier.
           resultat: 17/5
       - code: 5E-FRAC-ADDITION-06
         difficulte: 5

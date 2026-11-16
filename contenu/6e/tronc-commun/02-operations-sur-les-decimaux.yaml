@@ -111,9 +111,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Remplacer chaque facteur par un nombre proche et simple.
+          methode: Pour estimer un produit, remplacer chaque facteur par un nombre proche et simple, puis multiplier de tête.
           etapes:
-          - $19{,}8 \approx 20$ et $5{,}1 \approx 5$, donc le produit est proche de $20 \times 5 = 100$.
+          - 'On arrondit : $19{,}8$ est proche de $20$ et $5{,}1$ est proche de $5$.'
+          - 'On multiplie les valeurs arrondies : $20 \times 5 = 100$.'
+          - L'ordre de grandeur du produit est donc $100$ ; les réponses $10$, $1\,000$ et $25$ sont trop éloignées.
+          - 'Vérification : le produit exact vaut $19{,}8 \times 5{,}1 = 100{,}98$, très proche de $100$.'
+          erreurs_frequentes:
+          - Arrondir un seul facteur, ou confondre ordre de grandeur et valeur exacte.
           resultat: B
       - code: 6E-ADD-MULT-06
         difficulte: 4

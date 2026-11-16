@@ -68,9 +68,14 @@ competences:
     solution: '13'
     auteur: Brouillon IA (Claude)
     correction:
-      methode: Principe des tiroirs.
+      methode: 'Principe des tiroirs : avec $n$ tiroirs et $n + 1$ objets, au moins deux objets partagent un tiroir.'
       etapes:
-      - Avec 12 personnes, elles peuvent toutes être nées des mois différents ; avec 13, c'est impossible.
+      - Les « tiroirs » sont les $12$ mois de l'année.
+      - 'Avec $12$ personnes, on peut avoir un mois différent par personne : aucun doublon n''est garanti.'
+      - 'Avec $13$ personnes, il y a plus de personnes que de mois : deux sont nécessairement nées le même mois.'
+      - 'Vérification : $13 = 12 + 1$, c''est bien le premier entier qui force un doublon.'
+      erreurs_frequentes:
+      - Répondre $12$ en oubliant le « $+1$ » du principe des tiroirs.
       resultat: '13'
   - code: 2NDE-EX-DENOMBR-04
     difficulte: 4
@@ -79,8 +84,14 @@ competences:
     solution: '20'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Un chemin minimal est une suite de pas vers la droite et vers le haut : son nombre est $\dbinom{n}{k}$, avec $n$ le nombre total de pas et $k$ le nombre de pas dans une direction.'
       etapes:
-      - '6 pas dont 3 vers le haut : $\dbinom{6}{3} = 20$.'
+      - Pour aller d'un coin à l'autre d'un quadrillage $3 \times 3$, il faut $3$ pas vers la droite et $3$ vers le haut, soit $6$ pas.
+      - 'Un chemin est déterminé par le choix des $3$ pas verticaux parmi les $6$ : $\dbinom{6}{3}$.'
+      - 'On calcule : $\dbinom{6}{3} = \dfrac{6 \times 5 \times 4}{3 \times 2 \times 1} = 20$.'
+      - 'Vérification par le triangle de Pascal : la ligne $6$ vaut $1, 6, 15, 20, 15, 6, 1$ ; le coefficient central est bien $20$.'
+      erreurs_frequentes:
+      - Calculer $3 \times 3 = 9$ ou $2^6 = 64$ au lieu du coefficient binomial.
       resultat: '20'
   - code: 2NDE-EX-DENOMBR-05
     difficulte: 5
@@ -154,8 +165,14 @@ competences:
     solution: '6'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Nombre de chemins de $(0 ; 0)$ à $(p ; q)$ par pas unitaires : $\dbinom{p + q}{p}$.'
       etapes:
-      - $\dbinom{4}{2} = 6$.
+      - Pour aller de $(0 ; 0)$ à $(2 ; 2)$, il faut $2 + 2 = 4$ pas.
+      - 'On choisit les $2$ pas horizontaux parmi les $4$ : $\dbinom{4}{2}$.'
+      - 'On calcule : $\dbinom{4}{2} = \dfrac{4 \times 3}{2} = 6$.'
+      - 'Vérification : la ligne $4$ du triangle de Pascal vaut $1, 4, 6, 4, 1$ ; le coefficient central est bien $6$.'
+      erreurs_frequentes:
+      - Confondre avec $2^3 = 8$, ou oublier un pas.
       resultat: '6'
   - code: 2NDE-EX-DENOMB-PB-04
     difficulte: 4
@@ -164,8 +181,14 @@ competences:
     solution: '12'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Décomposer le trajet en deux étapes indépendantes : de $(0 ; 0)$ à $(1 ; 1)$, puis de $(1 ; 1)$ à $(3 ; 3)$ ; on multiplie les nombres de chemins.'
       etapes:
-      - '$2$ chemins jusqu''à $(1 ; 1)$, puis $\dbinom{4}{2} = 6$ jusqu''à $(3 ; 3)$ : $12$.'
+      - 'De $(0 ; 0)$ à $(1 ; 1)$ : $\dbinom{2}{1} = 2$ chemins.'
+      - 'De $(1 ; 1)$ à $(3 ; 3)$ : $2$ pas vers la droite et $2$ vers le haut, soit $\dbinom{4}{2} = 6$ chemins.'
+      - 'On multiplie : $2 \times 6 = 12$.'
+      - 'Vérification : chaque chemin passant par $(1 ; 1)$ se décompose de façon unique en ces deux portions.'
+      erreurs_frequentes:
+      - Additionner les deux nombres ($2 + 6 = 8$) au lieu de les multiplier.
       resultat: '12'
   - code: 2NDE-EX-DENOMB-PB-05
     difficulte: 5
@@ -174,6 +197,12 @@ competences:
     solution: '8'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Compter le complémentaire : nombre total de chemins de $(0 ; 0)$ à $(3 ; 3)$ moins ceux qui passent par $(1 ; 1)$.'
       etapes:
-      - 'Total $\dbinom{6}{3} = 20$, moins $12$ : $8$.'
+      - Le nombre total de chemins est $\dbinom{6}{3} = 20$.
+      - Le nombre de chemins passant par $(1 ; 1)$ est $12$ (étape précédente).
+      - 'On soustrait : $20 - 12 = 8$.'
+      - 'Vérification : $12 + 8 = 20$, les deux catégories partitionnent bien les chemins.'
+      erreurs_frequentes:
+      - Soustraire $2$ (les chemins jusqu'à $(1 ; 1)$) au lieu du nombre de chemins passant par ce point.
       resultat: '8'

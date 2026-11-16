@@ -121,7 +121,12 @@ competences:
         solution: '120'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: 'Permutations de $n$ éléments distincts : $n!$.'
+          methode: 'Un rangement de $n$ objets distincts utilisés une fois chacun est une permutation : il y en a $n!$ (factorielle $n$).'
           etapes:
-          - '5 lettres distinctes : $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$.'
+          - 'Le mot MATHS contient $5$ lettres toutes distinctes : M, A, T, H, S.'
+          - 'Former un mot revient à ranger ces $5$ lettres dans un ordre : il y a $5! = 5 \times 4 \times 3 \times 2 \times 1$ rangements.'
+          - On calcule $5! = 120$.
+          - 'Vérification : avec $3$ lettres distinctes, on trouve bien $3! = 6$ mots (ABC, ACB, BAC, BCA, CAB, CBA).'
+          erreurs_frequentes:
+          - 'Utiliser un arrangement ou une combinaison : l''ordre des lettres compte, c''est une permutation de toutes les lettres.'
           resultat: '120'

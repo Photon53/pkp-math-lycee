@@ -79,9 +79,14 @@ competences:
         solution: '27'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Coefficient de proportionnalité $\dfrac{15}{5} = 3$.
+          methode: 'Dans des triangles semblables, les longueurs sont proportionnelles : le coefficient est le rapport entre deux côtés homologues.'
           etapes:
-          - $9 \times 3 = 27$.
+          - 'On identifie les côtés homologues : le plus petit côté du premier triangle mesure $5$, celui du second $15$.'
+          - 'On calcule le coefficient d''agrandissement : $k = \dfrac{15}{5} = 3$.'
+          - 'On applique ce coefficient au plus grand côté : $9 \times 3 = 27$.'
+          - 'Vérification : les rapports $\dfrac{15}{5}$, $\dfrac{21}{7}$ et $\dfrac{27}{9}$ valent tous $3$.'
+          erreurs_frequentes:
+          - Appliquer le coefficient au mauvais côté, ou additionner $15$ au plus grand côté au lieu de multiplier.
           resultat: '27'
       - code: 3E-THALES-SEMBLABLES-04
         difficulte: 4
@@ -102,11 +107,15 @@ competences:
         solution: '36'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les aires sont multipliées par le carré du rapport.
+          methode: Dans une similitude de rapport $k$, les longueurs sont multipliées par $k$ et les aires par $k^2$.
           etapes:
-          - $4 \times 3^2 = 36$ cm².
+          - Le rapport de similitude est $k = 3$.
+          - Les aires sont multipliées par $k^2 = 3^2 = 9$.
+          - L'aire du grand triangle est $4 \times 9 = 36$ cm².
+          - 'Vérification : les longueurs sont trois fois plus grandes et $3 \times 3 = 9$ pour les aires ; $4 \times 9 = 36$.'
+          erreurs_frequentes:
+          - Multiplier l'aire par $3$ au lieu de $9$ (confusion entre longueurs et aires).
           resultat: '36'
-
   - code: 3E-TRIGONOMETRIE
     libelle: Utiliser cosinus, sinus et tangente dans le triangle rectangle
     attendus: [3E-2020-GEOM-01, 3E-2020-GEOM-03]
@@ -176,10 +185,16 @@ competences:
         solution: '4,6'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Tangente = opposé / adjacent.
+          methode: 'Dans le triangle rectangle en $A$, $AC$ est le côté opposé à l''angle $\widehat{B}$ et $AB$ le côté adjacent : $\tan\widehat{B} = \dfrac{AC}{AB}$, donc $AC = AB \times \tan\widehat{B}$.'
           etapes:
-          - $AC = 8 \times \tan 30° \approx 4{,}62$ cm.
-          resultat: '4,6'
+          - 'On identifie : côté opposé $[AC]$, côté adjacent $[AB] = 8$ cm, angle $\widehat{B} = 30°$.'
+          - 'On écrit la relation : $\tan 30° = \dfrac{AC}{8}$.'
+          - 'On multiplie par $8$ : $AC = 8 \times \tan 30° \approx 8 \times 0{,}5774 \approx 4{,}62$ cm.'
+          - 'On arrondit au dixième : $AC \approx 4{,}6$ cm.'
+          - 'Vérification : $\tan 30° \approx 0{,}577$ et $\dfrac{4{,}6}{8} = 0{,}575$, valeurs très proches ; l''arrondi au dixième est cohérent.'
+          resultat: 4,6
+          erreurs_frequentes:
+          - Utiliser $\sin$ ou $\cos$ au lieu de $\tan$, ou oublier la calculatrice en degrés.
       - code: 3E-TRIGONOMETRIE-04
         difficulte: 4
         type: numerique
@@ -187,10 +202,16 @@ competences:
         solution: '4,7'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: La hauteur est le côté opposé à l’angle, l’échelle l’hypoténuse.
+          methode: 'La hauteur atteinte est le côté opposé à l''angle et l''échelle est l''hypoténuse : $\sin\alpha = \dfrac{\text{opposé}}{\text{hypoténuse}}$, donc $h = 5 \times \sin 70°$.'
           etapes:
-          - $h = 5 \times \sin 70° \approx 4{,}70$ m.
-          resultat: '4,7'
+          - 'On identifie : hypoténuse (échelle) $= 5$ m, angle avec le sol $= 70°$, hauteur $h$ côté opposé.'
+          - 'On écrit : $\sin 70° = \dfrac{h}{5}$.'
+          - 'On multiplie par $5$ : $h = 5 \times \sin 70° \approx 5 \times 0{,}9397 \approx 4{,}70$ m.'
+          - 'On arrondit au dixième : $h \approx 4{,}7$ m'
+          - 'Vérification : Cette hauteur est inférieure à l''échelle, ce qui est cohérent.'
+          resultat: 4,7
+          erreurs_frequentes:
+          - Utiliser $\cos$ au lieu de $\sin$ et trouver la distance au mur, ou oublier d'arrondir.
       - code: 3E-TRIGONOMETRIE-05
         difficulte: 5
         type: numerique
@@ -198,11 +219,16 @@ competences:
         solution: '4,8'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: $\tan \alpha = \dfrac{\text{opposé}}{\text{adjacent}}$.
+          methode: L'angle $\alpha$ d'une rampe vérifie $\tan\alpha = \dfrac{\text{hauteur}}{\text{longueur horizontale}}$ ; on utilise la fonction inverse $\arctan$.
           etapes:
-          - $\tan \alpha = \dfrac{1}{12}$, donc $\alpha \approx 4{,}76°$.
-          resultat: '4,8'
-
+          - 'On identifie : hauteur $= 1$ m (côté opposé), longueur horizontale $= 12$ m (côté adjacent).'
+          - 'On écrit : $\tan\alpha = \dfrac{1}{12} \approx 0{,}0833$.'
+          - 'On applique la fonction inverse : $\alpha = \arctan(0{,}0833) \approx 4{,}76°$.'
+          - 'On arrondit au dixième : $\alpha \approx 4{,}8°$'
+          - 'Vérification : $\tan 4{,}8° \approx 0{,}084$, proche de $\dfrac{1}{12}$.'
+          resultat: 4,8
+          erreurs_frequentes:
+          - Calculer $\tan\alpha = \dfrac{12}{1}$ en inversant, ou oublier la fonction inverse et répondre $0{,}083$.
   - code: 3E-ROTATION-HOMOTHETIE
     libelle: Transformer une figure par rotation et par homothétie
     attendus: [3E-2020-GEOM-01, 3E-2020-GEOM-02, 3E-2020-TRANS-01, 3E-2020-TRANS-02]
@@ -275,9 +301,14 @@ competences:
         solution: '45'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Un tour complet partagé en $8$.
+          methode: 'Une figure invariante par rotation d''angle $\theta$ se superpose à elle-même : pour $8$ pétales identiques, le plus petit angle est $\dfrac{360°}{8}$.'
           etapes:
-          - $360 \div 8 = 45°$.
+          - Un tour complet vaut $360°$.
+          - La rosace a $8$ pétales identiques régulièrement répartis.
+          - Le plus petit angle de rotation qui la superpose à elle-même est $360 \div 8 = 45°$.
+          - 'Vérification : $8 \times 45 = 360$, les huit rotations successives ramènent la figure sur elle-même.'
+          erreurs_frequentes:
+          - Diviser $360$ par $4$ (quart de tour) en confondant avec un carré, ou répondre $8°$.
           resultat: '45'
       - code: 3E-ROTATION-HOMOTHETIE-04
         difficulte: 4
@@ -286,9 +317,14 @@ competences:
         solution: '24'
         auteur: Brouillon IA (Claude)
         correction:
-          methode: Les aires sont multipliées par $k^2$.
+          methode: Une homothétie de rapport $k$ multiplie les longueurs par $|k|$ et les aires par $k^2$.
           etapes:
-          - $6 \times (-2)^2 = 24$ cm².
+          - 'Le rapport est $k = -2$ : le signe indique que l''image est de l''autre côté du centre.'
+          - Les aires sont multipliées par $k^2 = (-2)^2 = 4$.
+          - L'aire de l'image est $6 \times 4 = 24$ cm².
+          - 'Vérification : $k^2 = 4$ pour $k = 2$ comme pour $k = -2$ ; une aire reste positive.'
+          erreurs_frequentes:
+          - Multiplier par $k = -2$ et obtenir une aire négative, ou multiplier par $2$ seulement.
           resultat: '24'
       - code: 3E-ROTATION-HOMOTHETIE-05
         difficulte: 5
@@ -297,7 +333,12 @@ competences:
         solution: A
         auteur: Brouillon IA (Claude)
         correction:
-          methode: '$OM’ = OM$ et $M’$ de l’autre côté de $O$.'
+          methode: 'Une homothétie de centre $O$ et de rapport $-1$ envoie $M$ sur $M''$ tel que $\overrightarrow{OM''} = -\overrightarrow{OM}$ : $O$ est le milieu de $[MM'']$.'
           etapes:
-          - $O$ est le milieu de $[MM']$ ; c’est la symétrie centrale de centre $O$.
+          - L'homothétie de rapport $-1$ donne $\overrightarrow{OM'} = -1 \times \overrightarrow{OM}$.
+          - Les points $M$, $O$ et $M'$ sont alignés, avec $O$ entre eux et $OM' = OM$.
+          - C'est exactement la définition de la symétrie centrale de centre $O$.
+          - 'Vérification : la symétrie centrale est aussi un demi-tour, ce qui correspond au rapport $-1$ (angle $180°$).'
+          erreurs_frequentes:
+          - 'Choisir « rotation de $90°$ » : le rapport $-1$ correspond à un demi-tour, pas à un quart de tour.'
           resultat: A

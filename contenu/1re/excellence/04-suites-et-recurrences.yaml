@@ -69,8 +69,14 @@ competences:
     solution: '29524'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Somme des termes d''une suite géométrique : $1 + q + \dots + q^n = \dfrac{q^{n+1} - 1}{q - 1}$ pour $q \neq 1$.'
       etapes:
-      - $\dfrac{3^{10} - 1}{3 - 1} = \dfrac{59\,048}{2} = 29\,524$.
+      - 'On identifie $q = 3$ et le nombre de termes : de $3^0$ à $3^9$, il y a $10$ termes.'
+      - 'On applique la formule : $\dfrac{3^{10} - 1}{3 - 1}$.'
+      - On calcule $3^{10} = 59\,049$, donc $\dfrac{59\,049 - 1}{2} = \dfrac{59\,048}{2} = 29\,524$.
+      - 'Vérification : $2 \times 29\,524 = 59\,048$, et $59\,049 + 1 = 59\,050$ correspond bien à $3^{10} + 1$.'
+      erreurs_frequentes:
+      - Utiliser $n = 9$ au lieu de $10$ termes, ou oublier de soustraire $1$ au numérateur.
       resultat: '29524'
   - code: 1RE-EX-SUITES-04
     difficulte: 4
@@ -79,8 +85,14 @@ competences:
     solution: 1/30
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Calculer les deux termes puis soustraire, ou utiliser la formule de la différence $u_{n+1} - u_n$.
       etapes:
-      - '$u_{n+1} - u_n = \dfrac{1}{(n + 1)(n + 2)}$ ; pour $n = 4$ : $\dfrac{1}{30}$.'
+      - On calcule $u_4 = \dfrac{4}{5}$ et $u_5 = \dfrac{5}{6}$.
+      - 'On met au même dénominateur : $\dfrac{5}{6} - \dfrac{4}{5} = \dfrac{25 - 24}{30}$.'
+      - On obtient $\dfrac{1}{30}$.
+      - 'Vérification avec la formule générale : $u_{n+1} - u_n = \dfrac{1}{(n+1)(n+2)}$, qui donne $\dfrac{1}{5 \times 6} = \dfrac{1}{30}$ pour $n = 4$.'
+      erreurs_frequentes:
+      - Inverser les termes et trouver $-\dfrac{1}{30}$, ou se tromper dans la mise au même dénominateur.
       resultat: 1/30
   - code: 1RE-EX-SUITES-05
     difficulte: 5
@@ -153,8 +165,14 @@ competences:
     solution: '3000'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Appliquer la définition de $v_n$ au rang $0$ : $v_0 = C_0 + 2\,000$.'
       etapes:
-      - $1\,000 + 2\,000 = 3\,000$.
+      - Le capital initial est $C_0 = 1\,000$ €.
+      - 'On applique la relation : $v_0 = C_0 + 2\,000$.'
+      - 'On calcule : $1\,000 + 2\,000 = 3\,000$.'
+      - 'Vérification : $v_0 - 2\,000 = 3\,000 - 2\,000 = 1\,000 = C_0$, la relation est bien inversible.'
+      erreurs_frequentes:
+      - Soustraire $2\,000$ au lieu de l'ajouter, ou confondre $v_n$ et $C_n$.
       resultat: '3000'
   - code: 1RE-EX-SUI-PB-04
     difficulte: 4
@@ -163,8 +181,14 @@ competences:
     solution: 3000*1.05^n - 2000
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Suite géométrique : $v_n = v_0 \times q^n$ ; on revient à $C_n$ avec $C_n = v_n - 2\,000$.'
       etapes:
-      - $v_n = 3\,000 \times 1{,}05^n$ et $C_n = v_n - 2\,000$.
+      - La suite $(v_n)$ est géométrique de raison $1{,}05$ et de premier terme $v_0 = 3\,000$.
+      - Son terme général est $v_n = 3\,000 \times 1{,}05^n$.
+      - 'On revient au capital : $C_n = v_n - 2\,000 = 3\,000 \times 1{,}05^n - 2\,000$.'
+      - 'Vérification au rang $0$ : $3\,000 \times 1{,}05^0 - 2\,000 = 3\,000 - 2\,000 = 1\,000 = C_0$.'
+      erreurs_frequentes:
+      - Écrire $C_n = 3\,000 \times 1{,}05^n + 2\,000$ en se trompant de signe au retour.
       resultat: 3000*1.05^n - 2000
   - code: 1RE-EX-SUI-PB-05
     difficulte: 5
@@ -173,6 +197,12 @@ competences:
     solution: 3000*1.05^10 - 2000
     auteur: Brouillon IA (Claude)
     correction:
+      methode: Appliquer la formule explicite de $C_n$ au rang $10$, en gardant la puissance exacte.
       etapes:
-      - $C_{10} = 3\,000 \times 1{,}05^{10} - 2\,000 \approx 2\,886{,}68$ €.
+      - On utilise $C_n = 3\,000 \times 1{,}05^n - 2\,000$.
+      - 'Pour $n = 10$ : $C_{10} = 3\,000 \times 1{,}05^{10} - 2\,000$.'
+      - La valeur exacte demandée est cette expression ; elle vaut environ $2\,886{,}68$ €.
+      - 'Vérification : $1{,}05^{10} \approx 1{,}6289$, et $3\,000 \times 1{,}6289 - 2\,000 \approx 2\,886{,}68$.'
+      erreurs_frequentes:
+      - Calculer $1{,}05 \times 10 = 10{,}5$ au lieu de $1{,}05^{10}$, ou oublier de soustraire $2\,000$.
       resultat: 3000*1.05^10 - 2000

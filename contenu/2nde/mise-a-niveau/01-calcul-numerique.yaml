@@ -68,9 +68,16 @@ competences:
     solution: '17'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Respecter les priorités : parenthèses, puis puissance, puis produit, enfin addition.'
       etapes:
-      - $(4 - 6)^2 = 4$, puis $3 \times 4 = 12$, puis $5 + 12 = 17$.
+      - 'On calcule la parenthèse : $4 - 6 = -2$.'
+      - 'On élève au carré : $(-2)^2 = 4$.'
+      - 'On multiplie : $3 \times 4 = 12$.'
+      - 'On additionne : $5 + 12 = 17$'
+      - 'Vérification : $3 \times (4 - 6)^2 = 3 \times 4 = 12$, et $5 + 12 = 17$.'
       resultat: '17'
+      erreurs_frequentes:
+      - Calculer $5 + 3 = 8$ d'abord, ou oublier le carré de la parenthèse.
   - code: 2NDE-MAN-CALCUL-04
     difficulte: 4
     type: numerique
@@ -78,8 +85,14 @@ competences:
     solution: 1/4
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Produit de puissances de même base : $a^m \times a^n = a^{m+n}$, puis $a^{-k} = \dfrac{1}{a^k}$.'
       etapes:
-      - $2^{3 - 5} = 2^{-2} = \dfrac{1}{4}$.
+      - 'On additionne les exposants : $2^3 \times 2^{-5} = 2^{3 + (-5)} = 2^{-2}$.'
+      - 'On convertit l''exposant négatif : $2^{-2} = \dfrac{1}{2^2} = \dfrac{1}{4}$.'
+      - On obtient $\dfrac{1}{4}$.
+      - 'Vérification : $8 \times \dfrac{1}{32} = \dfrac{8}{32} = \dfrac{1}{4}$.'
+      erreurs_frequentes:
+      - Multiplier les exposants ($2^{-15}$) au lieu de les additionner.
       resultat: 1/4
   - code: 2NDE-MAN-CALCUL-05
     difficulte: 5
@@ -88,6 +101,12 @@ competences:
     solution: '50000'
     auteur: Brouillon IA (Claude)
     correction:
+      methode: 'Séparer les nombres et les puissances de $10$ : $\dfrac{a \times 10^m}{b \times 10^n} = \dfrac{a}{b} \times 10^{m-n}$.'
       etapes:
-      - $\dfrac{3}{6} \times 10^{4 - 2 - (-3)} = 0{,}5 \times 10^5 = 50\,000$.
+      - 'On regroupe les nombres : $\dfrac{3}{6} = 0{,}5$.'
+      - 'On soustrait les exposants : $\dfrac{10^4 \times 10^{-2}}{10^{-3}} = 10^{4 - 2 + 3} = 10^5$.'
+      - 'On multiplie : $0{,}5 \times 10^5 = 50\,000$.'
+      - 'Vérification : $10^4 \times 3 \times 10^{-2} = 300$ et $300 \div 0{,}006 = 50\,000$.'
+      erreurs_frequentes:
+      - Additionner l'exposant du dénominateur au lieu de le soustraire, ou oublier de simplifier $0{,}5$.
       resultat: '50000'

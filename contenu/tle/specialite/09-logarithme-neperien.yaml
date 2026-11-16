@@ -110,8 +110,14 @@ competences:
         solution: ln(5)
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'La fonction $\ln$ est la réciproque de $\exp$ : pour $a > 0$, $e^x = a \iff x = \ln a$.'
           etapes:
-          - $e^x = 5 \iff x = \ln 5$.
+          - 'L''équation est définie pour tout réel $x$, et $5 > 0$ : la valeur exacte cherchée existe.'
+          - 'On applique $\ln$ aux deux membres : $\ln\left(e^x\right) = \ln 5$.'
+          - 'Comme $\ln\left(e^x\right) = x$ pour tout réel $x$, on obtient $x = \ln 5$.'
+          - 'Vérification : $e^{\ln 5} = 5$, l''égalité de départ est bien retrouvée.'
+          erreurs_frequentes:
+          - 'Chercher une seconde solution, comme pour $x^2 = 5$ : l''exponentielle est strictement croissante, l''équation $e^x = 5$ a une seule solution.'
           resultat: ln(5)
       - code: TLE-LN-DEF-06
         difficulte: 4
@@ -120,9 +126,15 @@ competences:
         solution: 5
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Utiliser $\ln a + \ln b = \ln(ab)$ pour $a, b > 0$, puis l''injectivité de $\ln$ : $\ln A = \ln B \iff A = B$.'
           etapes:
-          - $\ln(2x) = \ln 10$, donc $2x = 10$.
-          resultat: 5
+          - 'On regroupe les logarithmes : $\ln(x) + \ln(2) = \ln(2x)$, valable pour $x > 0$.'
+          - L'équation devient $\ln(2x) = \ln(10)$.
+          - 'La fonction $\ln$ est strictement croissante, donc injective : $2x = 10$, soit $x = 5$.'
+          - 'Vérification : $\ln 5 + \ln 2 = \ln 10$, et $x = 5$ appartient bien à $]0 ; +\infty[$.'
+          erreurs_frequentes:
+          - Écrire $\ln(x) + \ln(2) = \ln(x + 2)$, ou oublier de vérifier que la solution est dans le domaine.
+          resultat: '5'
       - code: TLE-LN-DEF-07
         difficulte: 5
         type: numerique
@@ -208,8 +220,14 @@ competences:
         solution: 2x/(x^2 + 1)
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Formule de dérivation d''une composée : si $u > 0$, $\left(\ln u\right)^{\prime} = \dfrac{u^{\prime}}{u}$.'
           etapes:
-          - $(\ln u)' = \dfrac{u'}{u}$ avec $u = x^2 + 1$, $u' = 2x$.
+          - 'On pose $u(x) = x^2 + 1$, donc $u^{\prime}(x) = 2x$ ; $u > 0$ sur $\mathbb{R}$.'
+          - 'On applique la formule : $f^{\prime}(x) = \dfrac{u^{\prime}(x)}{u(x)} = \dfrac{2x}{x^2 + 1}$.'
+          - '$f^{\prime}$ a le signe de $x$ : $f$ décroît puis croît, ce qui est cohérent avec le minimum de $f$ en $x = 0$.'
+          - 'Vérification : $f^{\prime}(0) = 0$ (tangente horizontale au minimum) et $f^{\prime}(x) \to 0$ quand $x \to \pm\infty$, conformément à l''allure de $\ln\left(x^2 + 1\right)$.'
+          erreurs_frequentes:
+          - 'Répondre $f^{\prime}(x) = \dfrac{1}{x^2 + 1}$ en oubliant de multiplier par $u^{\prime}(x)$.'
           resultat: 2x/(x^2 + 1)
       - code: TLE-LN-ETU-04
         difficulte: 3
@@ -218,8 +236,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Utiliser la stricte croissance de $\ln$ et la valeur de référence $\ln 1 = 0$.
           etapes:
-          - '$\ln$ est croissante et $\ln 1 = 0$ : $\ln x < 0$ pour $0 < x < 1$.'
+          - La fonction $\ln$ est définie sur $]0 ; +\infty[$ et strictement croissante.
+          - On sait que $\ln 1 = 0$.
+          - 'Pour $0 < x < 1$ : $\ln x < \ln 1 = 0$.'
+          - 'Vérification : $\ln(0{,}5) \approx -0{,}69 < 0$ et $\ln(2) \approx 0{,}69 > 0$ : l''intervalle $]0 ; 1[$ est bien le bon.'
+          erreurs_frequentes:
+          - Choisir $]0 ; e[$ en confondant $\ln x < 0$ avec $\ln x < 1$, ou proposer $]-\infty ; 0[$ qui est hors du domaine.
           resultat: B
       - code: TLE-LN-ETU-05
         difficulte: 4
@@ -228,8 +252,14 @@ competences:
         solution: C
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Limite de référence : $\lim\limits_{x \to 0^+} \ln x = -\infty$, conséquence de $\ln\left(e^{-n}\right) = -n$.'
           etapes:
-          - 'Limite de cours : $\ln x \to -\infty$ en $0^+$.'
+          - Pour $x = e^{-n}$ avec $n$ entier, on a $\ln x = -n$.
+          - Quand $n \to +\infty$, $e^{-n} \to 0^+$ et $\ln\left(e^{-n}\right) = -n \to -\infty$.
+          - La fonction $\ln$ étant croissante et non bornée inférieurement quand $x \to 0^+$, la limite est $-\infty$.
+          - 'Vérification : $\ln\left(10^{-6}\right) = -6\ln 10 \approx -13{,}8$, valeur négative de grande amplitude.'
+          erreurs_frequentes:
+          - Répondre $0$ parce que « $x$ tend vers $0$ », ou confondre avec la limite en $+\infty$ qui est $+\infty$.
           resultat: C
       - code: TLE-LN-ETU-06
         difficulte: 5
@@ -238,10 +268,15 @@ competences:
         solution: (1 - ln(x))/x^2
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Dérivée d''un quotient : $\left(\dfrac{u}{v}\right)^{\prime} = \dfrac{u^{\prime}v - uv^{\prime}}{v^2}$, avec $u = \ln x$ et $v = x$.'
           etapes:
-          - $f'(x) = \dfrac{\frac{1}{x} \times x - \ln x \times 1}{x^2} = \dfrac{1 - \ln x}{x^2}$.
+          - On a $u(x) = \ln x$, donc $u^{\prime}(x) = \dfrac{1}{x}$, et $v(x) = x$, donc $v^{\prime}(x) = 1$.
+          - 'On applique la formule : $f^{\prime}(x) = \dfrac{\frac{1}{x} \times x - \ln x \times 1}{x^2}$.'
+          - 'On simplifie le numérateur : $\dfrac{1}{x} \times x = 1$, d''où $f^{\prime}(x) = \dfrac{1 - \ln x}{x^2}$.'
+          - 'Vérification : $f^{\prime}(x) > 0$ pour $0 < x < e$ et $f^{\prime}(e) = \dfrac{1 - 1}{e^2} = 0$ : $f$ croît puis décroît, avec un maximum en $e$.'
+          erreurs_frequentes:
+          - Oublier le terme $-uv^{\prime}$ et écrire $\dfrac{1}{x^2}$, ou oublier de simplifier $\dfrac{1}{x} \times x = 1$.
           resultat: (1 - ln(x))/x^2
-
   - code: TLE-LN-APP
     libelle: Approfondir l'étude de la fonction logarithme népérien
     objectifs:
@@ -302,9 +337,15 @@ competences:
         solution: 1
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Reconnaître le taux d'accroissement de $x \mapsto \ln(1+x)$ en $0$, dont la dérivée est $\dfrac{1}{1+x}$.
           etapes:
-          - 'Taux d''accroissement de $\ln(1 + x)$ en $0$ : sa dérivée $\dfrac{1}{1 + x}$ vaut $1$ en $0$.'
-          resultat: 1
+          - On pose $g(x) = \ln(1 + x)$, définie près de $0$, avec $g(0) = \ln 1 = 0$.
+          - Le quotient $\dfrac{\ln(1+x)}{x} = \dfrac{g(x) - g(0)}{x - 0}$ est le taux d'accroissement de $g$ en $0$.
+          - Il tend vers $g^{\prime}(0)$, avec $g^{\prime}(x) = \dfrac{1}{1+x}$, donc $g^{\prime}(0) = 1$.
+          - 'Vérification : pour $x = 0{,}001$, $\dfrac{\ln(1{,}001)}{0{,}001} \approx 0{,}9995$, proche de $1$.'
+          erreurs_frequentes:
+          - Conclure $\dfrac{0}{0} = 1$ sans justification, ou dériver $\ln(1+x)$ en $\dfrac{1}{x}$.
+          resultat: '1'
       - code: TLE-LN-APP-03
         difficulte: 3
         type: numerique
@@ -323,8 +364,14 @@ competences:
         solution: B
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Changement de variable $t = \dfrac{1}{x}$ pour se ramener aux croissances comparées en $+\infty$.
           etapes:
-          - 'Croissances comparées : $x\ln x \to 0$ en $0^+$.'
+          - 'On pose $t = \dfrac{1}{x}$ : quand $x \to 0^+$, $t \to +\infty$.'
+          - Alors $x\ln x = \dfrac{1}{t}\ln\left(\dfrac{1}{t}\right) = -\dfrac{\ln t}{t}$.
+          - Par croissances comparées, $\dfrac{\ln t}{t} \to 0$ quand $t \to +\infty$, donc $x\ln x \to 0$.
+          - 'Vérification : pour $x = 10^{-6}$, $x\ln x = -6 \times 10^{-6}\ln 10 \approx -1{,}4 \times 10^{-5}$, très proche de $0$.'
+          erreurs_frequentes:
+          - Conclure $0 \times (-\infty) = 0$ sans justification, ou répondre $-\infty$ en oubliant le changement de variable.
           resultat: B
       - code: TLE-LN-APP-05
         difficulte: 4
@@ -333,9 +380,16 @@ competences:
         solution: 15
         auteur: Brouillon IA (Claude)
         correction:
+          methode: Traduire « au moins doublé » par $1{,}05^n \geq 2$, appliquer $\ln$ (croissant), puis diviser par $\ln 1{,}05 > 0$.
           etapes:
-          - $1{,}05^n \geq 2$ donne $n \geq \dfrac{\ln 2}{\ln 1{,}05} \approx 14{,}2$.
-          resultat: 15
+          - Après $n$ années, le capital est multiplié par $1{,}05^n$ ; il a doublé si $1{,}05^n \geq 2$.
+          - 'On applique $\ln$, strictement croissant : $n\ln 1{,}05 \geq \ln 2$.'
+          - 'Comme $\ln 1{,}05 > 0$, on divise sans changer le sens : $n \geq \dfrac{\ln 2}{\ln 1{,}05} \approx 14{,}2$.'
+          - Le plus petit entier convenable est donc $n = 15$.
+          - 'Vérification : $1{,}05^{14} \approx 1{,}98 < 2$ et $1{,}05^{15} \approx 2{,}08 \geq 2$.'
+          erreurs_frequentes:
+          - Arrondir $14{,}2$ à $14$ alors que le capital n'a pas encore doublé, ou oublier de diviser par $\ln 1{,}05$.
+          resultat: '15'
       - code: TLE-LN-APP-06
         difficulte: 5
         type: numerique
@@ -343,11 +397,15 @@ competences:
         solution: 21
         auteur: Brouillon IA (Claude)
         correction:
+          methode: 'Appliquer $\ln$ (croissant), puis diviser par $\ln 0{,}8 < 0$ : le sens de l''inégalité change.'
           etapes:
-          - $n\ln 0{,}8 < \ln 0{,}01$ ; $\ln 0{,}8 < 0$ donc $n > \dfrac{\ln 0{,}01}{\ln 0{,}8} \approx 20{,}6$.
-          resultat: 21
+          - 'On applique $\ln$, strictement croissant : $n\ln 0{,}8 < \ln 0{,}01$.'
+          - 'Comme $\ln 0{,}8 < 0$, la division par $\ln 0{,}8$ inverse l''inégalité : $n > \dfrac{\ln 0{,}01}{\ln 0{,}8} \approx 20{,}6$.'
+          - Le plus petit entier strictement supérieur à $20{,}6$ est $21$.
+          - 'Vérification : $0{,}8^{20} \approx 0{,}0115 > 0{,}01$ et $0{,}8^{21} \approx 0{,}0092 < 0{,}01$.'
           erreurs_frequentes:
-          - Garder le sens de l'inégalité en divisant par $\ln 0{,}8 < 0$.
+          - Garder le sens de l'inégalité en divisant par un nombre négatif, ou arrondir à $20$.
+          resultat: '21'
       - code: TLE-LN-APP-07
         difficulte: 4
         type: numerique

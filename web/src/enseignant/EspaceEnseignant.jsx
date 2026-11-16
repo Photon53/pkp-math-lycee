@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { api } from "../api.js";
 import { Erreur } from "../composants.jsx";
+import { SiFrancaisActif } from "../francaisOuvert.jsx";
 import { naviguer } from "../navigation.js";
 import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
@@ -42,7 +43,19 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
     setCompte(null);
   }
 
-  if (!compte) return <PageSimple><ConnexionEnseignant onConnexion={connecter} /></PageSimple>;
+  if (!compte) {
+    return (
+      <PageSimple>
+        <ConnexionEnseignant onConnexion={connecter}>
+          <SiFrancaisActif>
+            <p className="aide">
+              Vous enseignez le français ? <a href="/francais">Français (préparation)</a>
+            </p>
+          </SiFrancaisActif>
+        </ConnexionEnseignant>
+      </PageSimple>
+    );
+  }
   if (compte.mdp_provisoire) {
     return (
       <PageSimple>
@@ -141,6 +154,13 @@ export function AccesReserve({ titre, compte, autreEspace, onDeconnexion }) {
           <a className="bouton" href={autreEspace.vers}>
             {autreEspace.libelle}
           </a>
+        )}
+        {autreEspace && autreEspace.vers !== "/francais" && (
+          <SiFrancaisActif>
+            <a className="bouton secondaire" href="/francais">
+              Aller à l'espace Français (préparation)
+            </a>
+          </SiFrancaisActif>
         )}
         <button type="button" className="lien" onClick={onDeconnexion}>
           Se déconnecter
