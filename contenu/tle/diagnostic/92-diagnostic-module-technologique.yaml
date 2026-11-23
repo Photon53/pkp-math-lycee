@@ -1,0 +1,93 @@
+# Diagnostic d'entrée en Terminale — module « voie technologique » (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+chapitre:
+  code: TLE-DIAG-TECH
+  niveau: Tle
+  nature: diagnostic
+  programme_prerequis: 1re-technologique-2019
+  publics: [technologique]
+  ordre: 92
+  titre: Diagnostic d'entrée, acquis de 1re technologique
+
+competences:
+- code: TLE-DIAG-TECH-FONCTIONS
+  libelle: Calcul et fonctions (acquis de 1re technologique)
+  prerequis: [1RE-TEC-CALC, 1RE-TEC-FONC]
+  retour: [1RE-DIAG-FONCTIONS]
+  questions:
+  # TECH-01
+  - code: TLE-DIAG-TECH-FONCTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\dfrac{3}{4} + \dfrac{1}{2}$.
+    solution: 5/4
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\dfrac{3}{4} + \dfrac{2}{4}$.
+      - $= \dfrac{5}{4} = 1{,}25$.
+      resultat: 5/4
+  # TECH-02
+  - code: TLE-DIAG-TECH-FONCTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = -2x + 5$. Trouver l'antécédent de 1 par $f$.
+    solution: '2'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $-2x + 5 = 1$, donc $-2x = -4$.
+      - $x = 2$ ; vérification $f(2) = 1$.
+      resultat: '2'
+
+- code: TLE-DIAG-TECH-DONNEES
+  libelle: Statistiques, probabilités, suites et algorithmique (acquis de 1re technologique)
+  prerequis: [1RE-TEC-STAT, 1RE-TEC-SUITES, 1RE-TEC-ALGO]
+  retour: [1RE-DIAG-DONNEES]
+  questions:
+  # TECH-03
+  - code: TLE-DIAG-TECH-DONNEES-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer la moyenne de la série 10 ; 12 ; 14 ; 16 ; 18.
+    solution: '14'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $70 \div 5$.
+      - $= 14$.
+      resultat: '14'
+  # TECH-04
+  - code: TLE-DIAG-TECH-DONNEES-02
+    difficulte: 1
+    type: numerique
+    enonce: On lance un dé équilibré à six faces. Quelle est la probabilité d'obtenir un nombre pair ?
+    solution: 1/2
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Issues favorables 2, 4, 6, soit 3 sur 6.
+      - $\dfrac{3}{6} = \dfrac{1}{2}$.
+      resultat: 1/2
+  # TECH-05
+  - code: TLE-DIAG-TECH-DONNEES-03
+    difficulte: 2
+    type: numerique
+    enonce: $u_0 = 50$ et $u_{n+1} = u_n + 10$. Calculer $u_3$.
+    solution: '80'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $u_1 = 60$, $u_2 = 70$.
+      - $u_3 = 80$.
+      resultat: '80'
+  # TECH-06
+  - code: TLE-DIAG-TECH-DONNEES-04
+    difficulte: 2
+    type: qcm
+    enonce: 'Pour $i$ allant de 1 à 3, le programme affiche $2i$. Qu''affiche-t-il ? A) 2, 4, 6  B) 1, 2, 3  C) 2, 3, 4  D) 6'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $i = 1, 2, 3$ donnent $2, 4, 6$.
+      - Trois affichages, un par tour de boucle.
