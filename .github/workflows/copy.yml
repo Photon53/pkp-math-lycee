@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Photon53/pkp-math-lycee
-          ref: main
+          ref: boussole-maitrise-plus
           path: source
           token: ${{ secrets.COPY_TOKEN }}
 
