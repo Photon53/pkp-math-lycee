@@ -1,29 +1,51 @@
-name: Copier Photon53/boussole-maitrise-plus
+
+name: Synchroniser Boussole vers PKP Education
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  copy:
+  sync:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Recuperer Boussole
+        uses: actions/checkout@v5
         with:
-          repository: Photon53/pkp-math-lycee
-          ref: boussole-maitrise-plus
+          repository: Photon53/boussole-maitrise-plus
+          ref: main
           path: source
-          token: ${{ secrets.COPY_TOKEN }}
+          persist-credentials: false
 
-      - uses: actions/checkout@v4
+      - name: Recuperer PKP
+        uses: actions/checkout@v5
         with:
+          ref: main
           path: destination
-          token: ${{ secrets.COPIE_BOUSSOLE_VERS_PKP }}
+          persist-credentials: false
 
-      - run: |
-          rsync -a --delete --exclude='.git' source/ destination/
-          cd destination
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Copie du contenu de projet1" || exit 0
-          git push
+      - name: Preparer les fichiers
+        run: |
+          mkdir -p sync
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.env*' \
+            --exclude='*stripe*' \
+            --exclude='*payment*' \
+            --exclude='*billing*' \
+            source/ sync/
+
+          echo "Contenu prepare pour validation"
+          find sync -maxdepth 2 -type f | head -50
+
+      - name: Controle manuel requis
+        run: |
+          echo "Synchronisation preparee."
+          echo "Aucune modification de main."
+          echo "Valider les fichiers autorises"
+          echo "avant de creer une Pull Request."
