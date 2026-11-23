@@ -1,0 +1,305 @@
+# Diagnostic d'entrée en 3e — acquis de 4e (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Seuls les acquis de 4e (repères 2020) sont interrogés : ni réciproque de Thalès, ni trigonométrie de 3e.
+# Les identifiants de la banque (3E-01…) figurent en commentaire au-dessus de chaque question.
+chapitre:
+  code: 3E-DIAG-4E
+  niveau: 3e
+  nature: diagnostic
+  programme_prerequis: 4e-2020
+  publics: [tronc-commun]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de 4e
+
+competences:
+- code: 3E-DIAG-NOMBRES
+  libelle: Calculer avec les relatifs, les fractions et les priorités (acquis de 4e)
+  prerequis: [4E-RELATIFS-PRODUITS, 4E-FRACTIONS-CALCUL, 5E-PRIORITES]
+  retour: [4E-DIAG-RELATIFS, 4E-DIAG-FRACTIONS]
+  questions:
+  # 3E-01
+  - code: 3E-DIAG-NOMBRES-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $(-6) \times (-4)$.
+    solution: '24'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Deux facteurs négatifs : le produit est positif.'
+      - $6 \times 4 = 24$.
+      resultat: '24'
+  # 3E-19
+  - code: 3E-DIAG-NOMBRES-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $3 + 2 \times (5 - (4 - 1))$.
+    solution: '7'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Parenthèses intérieures d'abord, puis la multiplication, enfin l'addition.
+      etapes:
+      - $4 - 1 = 3$, puis $5 - 3 = 2$.
+      - $2 \times 2 = 4$, puis $3 + 4 = 7$.
+      resultat: '7'
+      erreurs_frequentes:
+      - Calculer $3 + 2 = 5$ avant la multiplication.
+  # 3E-02
+  - code: 3E-DIAG-NOMBRES-03
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{3}{4} - \dfrac{2}{3}$ (fraction irréductible).
+    solution: 1/12
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Dénominateur commun 12 : $\dfrac{9}{12} - \dfrac{8}{12}$.'
+      - $= \dfrac{1}{12}$.
+      resultat: 1/12
+      erreurs_frequentes:
+      - 'Soustraire numérateurs et dénominateurs : $\dfrac{1}{1}$.'
+  # 3E-03
+  - code: 3E-DIAG-NOMBRES-04
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{2}{3} \div \dfrac{5}{6}$ (fraction irréductible).
+    solution: 4/5
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Diviser par une fraction, c'est multiplier par son inverse.
+      etapes:
+      - $\dfrac{2}{3} \times \dfrac{6}{5} = \dfrac{12}{15}$.
+      - $= \dfrac{4}{5}$.
+      resultat: 4/5
+
+- code: 3E-DIAG-PUISSANCES
+  libelle: Utiliser les puissances de 10 et la notation scientifique (acquis de 4e)
+  prerequis: [4E-PUISSANCES]
+  retour: [4E-DIAG-RELATIFS]
+  questions:
+  # 3E-04
+  - code: 3E-DIAG-PUISSANCES-01
+    difficulte: 2
+    type: qcm
+    enonce: 'Écrire $10^3 \times 10^{-5}$ sous la forme d''une puissance de 10. A) $10^{-2}$  B) $10^{-15}$  C) $10^{8}$  D) $10^{2}$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: $10^m \times 10^n = 10^{m+n}$.
+      etapes:
+      - $3 + (-5) = -2$, donc $10^{-2}$.
+      erreurs_frequentes:
+      - Multiplier les exposants ($10^{-15}$).
+  # 3E-18
+  - code: 3E-DIAG-PUISSANCES-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Notation scientifique de $0{,}000\,042$ : A) $42 \times 10^{-6}$  B) $4{,}2 \times 10^{-5}$  C) $4{,}2 \times 10^{-4}$  D) $0{,}42 \times 10^{-4}$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'La partie décimale doit être comprise entre 1 et 10 : $4{,}2$.'
+      - 'On déplace la virgule de 5 rangs vers la droite : $4{,}2 \times 10^{-5}$.'
+      erreurs_frequentes:
+      - Choisir $42 \times 10^{-6}$, égal mais pas en notation scientifique.
+
+- code: 3E-DIAG-LITTERAL
+  libelle: Développer, résoudre une équation, mettre un problème en équation (acquis de 4e)
+  prerequis: [4E-DISTRIBUTIVITE, 4E-EQUATIONS]
+  retour: [4E-DIAG-LITTERAL]
+  questions:
+  # 3E-05
+  - code: 3E-DIAG-LITTERAL-01
+    difficulte: 2
+    type: expression
+    forme: developpee
+    enonce: Développer et réduire $3(2x - 5)$.
+    solution: 6x - 15
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3 \times 2x - 3 \times 5$.
+      - $= 6x - 15$.
+      resultat: 6x - 15
+  # 3E-06
+  - code: 3E-DIAG-LITTERAL-02
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $3x + 5 = 20$. Donner la valeur de $x$.
+    solution: '5'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3x = 20 - 5 = 15$.
+      - '$x = 5$ ; vérification : $3 \times 5 + 5 = 20$.'
+      resultat: '5'
+  # 3E-12 (analyse d'erreur, version QCM)
+  - code: 3E-DIAG-LITTERAL-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Un élève écrit $2(x + 3) = 2x + 3$. Quelle est la bonne correction ? A) $2x + 3$ est juste  B) $2x + 6$  C) $2x + 5$  D) $x + 6$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Le facteur 2 multiplie chacun des deux termes de la parenthèse.
+      etapes:
+      - $2 \times x = 2x$ et $2 \times 3 = 6$.
+      - 'Donc $2(x + 3) = 2x + 6$ ; vérification avec $x = 1$ : $2 \times 4 = 8 = 2 + 6$.'
+      erreurs_frequentes:
+      - Ne multiplier que le premier terme.
+  # 3E-11
+  - code: 3E-DIAG-LITTERAL-04
+    difficulte: 3
+    type: numerique
+    enonce: Un rectangle a pour largeur $x$ cm et pour longueur $x + 3$ cm. Son périmètre vaut 30 cm. Quelle est sa largeur, en cm ?
+    solution: '6'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Traduire le périmètre par une équation.
+      etapes:
+      - $2x + 2(x + 3) = 30$, soit $4x + 6 = 30$.
+      - $4x = 24$, donc $x = 6$.
+      - 'Vérification : $6$ et $9$ cm donnent $2 \times 15 = 30$ cm.'
+      resultat: '6'
+      erreurs_frequentes:
+      - Écrire $x + (x + 3) = 30$ (demi-périmètre seulement).
+  # 3E-12 (version rédigée)
+  - code: 3E-DIAG-LITTERAL-05
+    difficulte: 3
+    type: redaction
+    enonce: Un élève écrit $2(x + 3) = 2x + 3$. Explique son erreur et corrige.
+    solution: 'Le facteur 2 doit multiplier les deux termes de la parenthèse : 2(x + 3) = 2x + 6.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - L'élève n'a multiplié que $x$ par 2.
+      - $2(x + 3) = 2x + 6$ ; avec $x = 1$, $2 \times 4 = 8$ et non $5$.
+
+- code: 3E-DIAG-TRIANGLE
+  libelle: Pythagore, Thalès et cosinus dans le triangle (acquis de 4e)
+  prerequis: [4E-PYTHAGORE, 4E-THALES, 4E-COSINUS]
+  retour: [4E-DIAG-GEOMETRIE]
+  questions:
+  # 3E-07
+  - code: 3E-DIAG-TRIANGLE-01
+    difficulte: 2
+    type: numerique
+    enonce: Un triangle est rectangle ; les côtés de l'angle droit mesurent 6 cm et 8 cm. Calculer l'hypoténuse, en cm.
+    solution: '10'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $6^2 + 8^2 = 36 + 64 = 100$.
+      - $\sqrt{100} = 10$.
+      resultat: '10'
+  # 3E-08
+  - code: 3E-DIAG-TRIANGLE-02
+    difficulte: 3
+    type: qcm
+    enonce: 'Un triangle a pour côtés 5 cm, 6 cm et 8 cm. Est-il rectangle ? A) Oui, car $5 + 6 > 8$  B) Oui, car $8$ est le plus grand côté  C) Non, car $5^2 + 6^2 = 61$ et $8^2 = 64$  D) On ne peut pas savoir'
+    solution: C
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: On compare le carré du plus grand côté à la somme des carrés des deux autres.
+      etapes:
+      - $8^2 = 64$ et $5^2 + 6^2 = 25 + 36 = 61$.
+      - '$61 \neq 64$ : d''après la contraposée de Pythagore, le triangle n''est pas rectangle.'
+  # 3E-13
+  - code: 3E-DIAG-TRIANGLE-03
+    difficulte: 2
+    type: numerique
+    enonce: Dans un triangle $ABC$, $M$ est sur $[AB]$, $N$ sur $[AC]$ et $(MN)$ est parallèle à $(BC)$. $AM = 3$, $AB = 5$ et $AC = 10$. Calculer $AN$.
+    solution: '6'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: 'Théorème de Thalès : $\dfrac{AM}{AB} = \dfrac{AN}{AC}$.'
+      etapes:
+      - $\dfrac{3}{5} = \dfrac{AN}{10}$.
+      - $AN = \dfrac{3 \times 10}{5} = 6$.
+      resultat: '6'
+  # 3E-15
+  - code: 3E-DIAG-TRIANGLE-04
+    difficulte: 2
+    type: numerique
+    enonce: Dans un triangle rectangle, un angle aigu a un côté adjacent de 4 cm et une hypoténuse de 5 cm. Donner son cosinus.
+    solution: 4/5
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\cos = \dfrac{\text{adjacent}}{\text{hypoténuse}}$.
+      - $\dfrac{4}{5} = 0{,}8$.
+      resultat: 4/5
+  # 3E-08 (version rédigée)
+  - code: 3E-DIAG-TRIANGLE-05
+    difficulte: 3
+    type: redaction
+    enonce: Un triangle a pour côtés 5 cm, 6 cm et 8 cm. Est-il rectangle ? Justifie en citant la propriété utilisée.
+    solution: 'Non : 8² = 64 et 5² + 6² = 61 ; 64 ≠ 61, donc d''après la contraposée de Pythagore il n''est pas rectangle.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - On compare $8^2 = 64$ (plus grand côté) à $5^2 + 6^2 = 61$.
+      - L'égalité n'est pas vérifiée ; la contraposée de Pythagore permet de conclure.
+
+- code: 3E-DIAG-GRANDEURS
+  libelle: Volumes, vitesse et probabilités (acquis de 4e)
+  prerequis: [4E-PYRAMIDE-CONE, 4E-GRANDEURS-COMPOSEES, 4E-PROBABILITES]
+  retour: [4E-DIAG-PROPORTIONNALITE, 4E-DIAG-DONNEES]
+  questions:
+  # 3E-16
+  - code: 3E-DIAG-GRANDEURS-01
+    difficulte: 2
+    type: numerique
+    enonce: Une pyramide a pour base un carré de 4 cm de côté et pour hauteur 6 cm. Calculer son volume, en cm³.
+    solution: '32'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: $V = \dfrac{1}{3} \times \text{aire de la base} \times \text{hauteur}$.
+      etapes:
+      - Aire de la base $= 16$ cm².
+      - $V = \dfrac{16 \times 6}{3} = 32$ cm³.
+      resultat: '32'
+      erreurs_frequentes:
+      - Oublier le facteur $\dfrac{1}{3}$ (96 cm³).
+  # 3E-17
+  - code: 3E-DIAG-GRANDEURS-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Un cône a un rayon de 3 cm et une hauteur de 4 cm. Son volume vaut environ : A) $12$ cm³  B) $37{,}7$ cm³  C) $113{,}1$ cm³  D) $50{,}3$ cm³'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: $V = \dfrac{1}{3} \pi r^2 h$.
+      etapes:
+      - $\dfrac{1}{3} \times \pi \times 9 \times 4 = 12\pi$.
+      - $12\pi \approx 37{,}7$ cm³.
+      erreurs_frequentes:
+      - Oublier le facteur $\dfrac{1}{3}$ (113,1 cm³).
+  # 3E-09
+  - code: 3E-DIAG-GRANDEURS-03
+    difficulte: 2
+    type: numerique
+    enonce: Un cycliste parcourt 18 km en 45 min. Quelle est sa vitesse moyenne, en km/h ?
+    solution: '24'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $45$ min $= 0{,}75$ h.
+      - $18 \div 0{,}75 = 24$ km/h.
+      resultat: '24'
+      erreurs_frequentes:
+      - Diviser par 45 ou par 0,45 sans convertir les minutes en heures.
+  # 3E-10
+  - code: 3E-DIAG-GRANDEURS-04
+    difficulte: 2
+    type: numerique
+    enonce: On lance un dé équilibré à six faces. Quelle est la probabilité d'obtenir un nombre strictement supérieur à 4 ?
+    solution: 1/3
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Issues favorables : 5 et 6, soit 2 issues sur 6.'
+      - $\dfrac{2}{6} = \dfrac{1}{3}$.
+      resultat: 1/3
+      erreurs_frequentes:
+      - Compter 4 parmi les issues favorables (« strictement » l'exclut).

@@ -1,0 +1,96 @@
+# Diagnostic d'entrée en Terminale — module « spécialité de 1re » (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Pour les élèves ayant suivi la spécialité en 1re : spécialité (maths expertes comprises : option de la classe de
+# spécialité, pas un parcours principal) et maths complémentaires.
+chapitre:
+  code: TLE-DIAG-SPE
+  niveau: Tle
+  nature: diagnostic
+  programme_prerequis: 1re-specialite-2019
+  publics: [specialite, complementaires]
+  ordre: 91
+  titre: Diagnostic d'entrée, acquis de spécialité de 1re
+
+competences:
+- code: TLE-DIAG-SPE-ANALYSE
+  libelle: Second degré, dérivation et variations (acquis de 1re spécialité)
+  prerequis: [1RE-DISC, 1RE-DER-CALC, 1RE-VAR]
+  retour: [1RE-DIAG-ALGEBRE, 1RE-DIAG-FONCTIONS]
+  questions:
+  # TE-07
+  - code: TLE-DIAG-SPE-ANALYSE-01
+    difficulte: 2
+    type: qcm
+    enonce: 'Solutions de $x^2 - 5x + 6 = 0$ : A) $2$ et $3$  B) $-2$ et $-3$  C) $1$ et $6$  D) aucune solution réelle'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\Delta = 25 - 24 = 1$.
+      - $x = \dfrac{5 \pm 1}{2}$, soit 2 et 3 ; vérification $2 + 3 = 5$ et $2 \times 3 = 6$.
+  # TE-08
+  - code: TLE-DIAG-SPE-ANALYSE-02
+    difficulte: 2
+    type: expression
+    enonce: $f(x) = 3x^2 - 4x + 2$. Donner $f'(x)$.
+    solution: 6x - 4
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(x^2)' = 2x$, $(x)' = 1$, une constante a pour dérivée 0.
+      - $f'(x) = 6x - 4$.
+      resultat: 6x - 4
+  # TE-09
+  - code: TLE-DIAG-SPE-ANALYSE-03
+    difficulte: 3
+    type: qcm
+    enonce: 'On sait que $f''(x) = 2x - 4$. A) $f$ décroissante sur $]-\infty ; 2]$, croissante sur $[2 ; +\infty[$  B) $f$ croissante sur $]-\infty ; 2]$, décroissante sur $[2 ; +\infty[$  C) $f$ croissante sur $\mathbb{R}$  D) $f$ décroissante sur $]-\infty ; 4]$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Le signe de la dérivée donne le sens de variation.
+      etapes:
+      - $2x - 4 \leq 0$ pour $x \leq 2$ et $\geq 0$ pour $x \geq 2$.
+      - $f$ décroît puis croît, minimum en $x = 2$.
+
+- code: TLE-DIAG-SPE-SUITES-PROBAS
+  libelle: Suites et probabilités conditionnelles (acquis de 1re spécialité)
+  prerequis: [1RE-SUI-TERME, 1RE-SUI-MOD, 1RE-COND]
+  retour: [1RE-DIAG-DONNEES, 1RE-DIAG-RAISONNEMENT]
+  questions:
+  # TE-10
+  - code: TLE-DIAG-SPE-SUITES-PROBAS-01
+    difficulte: 2
+    type: numerique
+    enonce: $u_0 = 5$ et $u_{n+1} = u_n + 3$. Calculer $u_4$.
+    solution: '17'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Suite arithmétique de raison 3, $u_n = 5 + 3n$.
+      - $u_4 = 5 + 12 = 17$.
+      resultat: '17'
+  # TE-11
+  - code: TLE-DIAG-SPE-SUITES-PROBAS-02
+    difficulte: 2
+    type: numerique
+    enonce: $u_0 = 200$ et $u_{n+1} = 1{,}05\,u_n$. Calculer $u_2$.
+    solution: '220,5'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $u_1 = 210$, $u_2 = 210 \times 1{,}05 = 220{,}5$.
+      - 'Interprétation : le coefficient $1{,}05$ traduit une hausse de $5\,\%$ à chaque étape.'
+      resultat: '220,5'
+  # TE-12
+  - code: TLE-DIAG-SPE-SUITES-PROBAS-03
+    difficulte: 3
+    type: numerique
+    enonce: $40\,\%$ des élèves pratiquent un sport ; parmi eux, $25\,\%$ pratiquent le basket. Quelle proportion de tous les élèves pratique le basket ? (Écrire un nombre décimal.)
+    solution: '0,1'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: $P(S \cap B) = P(S) \times P_S(B)$.
+      etapes:
+      - $0{,}40 \times 0{,}25 = 0{,}10$.
+      - Soit $10\,\%$ des élèves.
+      resultat: '0,1'

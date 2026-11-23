@@ -1,0 +1,293 @@
+# Diagnostic d'entrée en 4e — acquis de 5e (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Élèves de 4e en 2026-2027 : 5e suivie en 2025-2026, donc repères de 2020 (le programme de 5e de 2026 ne
+# s'applique qu'à partir de 2026-2027). Exclues car relevant de la 4e : 4E-13 (produit de relatifs),
+# 4E-14 (puissances de relatifs), 4E-16 (produit de fractions), 4E-R2 (dénominateurs non multiples),
+# médiane de 4E-R6. 4E-15 corrigée (deux bonnes réponses).
+chapitre:
+  code: 4E-DIAG-5E
+  niveau: 4e
+  nature: diagnostic
+  programme_prerequis: 5e-2020
+  publics: [tronc-commun]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de 5e
+
+competences:
+- code: 4E-DIAG-RELATIFS
+  libelle: Additionner et soustraire des relatifs, respecter les priorités (acquis de 5e)
+  prerequis: [5E-RELATIFS-CALCUL, 5E-PRIORITES]
+  retour: [5E-DIAG-DECIMAUX]
+  questions:
+  # 4E-01
+  - code: 4E-DIAG-RELATIFS-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $-7 + 12$.
+    solution: '5'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Signes contraires, on fait la différence $12 - 7 = 5$.
+      - Le signe est celui de 12, plus grand en distance à zéro.
+      resultat: '5'
+  # 4E-02
+  - code: 4E-DIAG-RELATIFS-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $4 - (-3)$.
+    solution: '7'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Soustraire $-3$, c'est ajouter son opposé $3$.
+      - $4 + 3 = 7$.
+      resultat: '7'
+      erreurs_frequentes:
+      - Répondre $1$ en soustrayant 3.
+  # 4E-R1
+  - code: 4E-DIAG-RELATIFS-03
+    difficulte: 3
+    type: numerique
+    enonce: Calculer $(-3) + 7 - (-5)$.
+    solution: '9'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(-3) + 7 = 4$.
+      - $4 - (-5) = 4 + 5 = 9$.
+      resultat: '9'
+  # 4E-03
+  - code: 4E-DIAG-RELATIFS-04
+    difficulte: 2
+    type: qcm
+    enonce: 'Combien vaut $18 - 3 \times 4$ ? A) $60$  B) $6$  C) $-6$  D) $12$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - La multiplication est prioritaire, $3 \times 4 = 12$.
+      - $18 - 12 = 6$.
+      erreurs_frequentes:
+      - Calculer de gauche à droite, $15 \times 4 = 60$.
+
+- code: 4E-DIAG-FRACTIONS
+  libelle: Comparer et additionner des fractions, fraction d'une quantité (acquis de 5e)
+  prerequis: [5E-FRAC-COMPARER, 5E-FRAC-ADDITION]
+  retour: [5E-DIAG-FRACTIONS]
+  questions:
+  # 4E-05
+  - code: 4E-DIAG-FRACTIONS-01
+    difficulte: 2
+    type: numerique
+    enonce: Calculer les $\dfrac{3}{5}$ de 35.
+    solution: '21'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $35 \div 5 = 7$.
+      - $3 \times 7 = 21$.
+      resultat: '21'
+  # 4E-04
+  - code: 4E-DIAG-FRACTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{2}{3} + \dfrac{1}{6}$ (fraction irréductible).
+    solution: 5/6
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - '6 est un multiple de 3 : $\dfrac{2}{3} = \dfrac{4}{6}$.'
+      - $\dfrac{4}{6} + \dfrac{1}{6} = \dfrac{5}{6}$.
+      resultat: 5/6
+      erreurs_frequentes:
+      - 'Additionner numérateurs et dénominateurs : $\dfrac{3}{9}$.'
+  # 4E-15 (corrigée)
+  - code: 4E-DIAG-FRACTIONS-03
+    difficulte: 3
+    type: qcm
+    enonce: 'Quel est le plus grand de ces nombres ? A) $\dfrac{5}{8}$  B) $0{,}55$  C) $\dfrac{4}{7}$  D) $0{,}6$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Écrire tous les nombres sous forme décimale (valeurs approchées).
+      etapes:
+      - $\dfrac{5}{8} = 0{,}625$ et $\dfrac{4}{7} \approx 0{,}571$.
+      - $0{,}625 > 0{,}6 > 0{,}571 > 0{,}55$.
+
+- code: 4E-DIAG-LITTERAL
+  libelle: Produire et utiliser une expression littérale (acquis de 5e)
+  prerequis: [5E-EXPRESSIONS]
+  retour: [5E-DIAG-DECIMAUX]
+  questions:
+  # 4E-06
+  - code: 4E-DIAG-LITTERAL-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $3x + 2$ pour $x = 4$.
+    solution: '14'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3 \times 4 + 2$.
+      - $= 12 + 2 = 14$.
+      resultat: '14'
+  # 4E-07
+  - code: 4E-DIAG-LITTERAL-02
+    difficulte: 2
+    type: expression
+    enonce: Un cahier coûte $x$ euros et un stylo 2 €. Écrire le prix de 3 cahiers et d'un stylo.
+    solution: 3x + 2
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 3 cahiers coûtent $3x$ euros.
+      - On ajoute le stylo, $3x + 2$.
+      resultat: 3x + 2
+  # 4E-R3
+  - code: 4E-DIAG-LITTERAL-03
+    difficulte: 3
+    type: expression
+    forme: reduite
+    enonce: Développer et réduire $3(2x - 4) + 5x$.
+    solution: 11x - 12
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3(2x - 4) = 6x - 12$.
+      - $6x - 12 + 5x = 11x - 12$.
+      resultat: 11x - 12
+
+- code: 4E-DIAG-PROPORTIONNALITE
+  libelle: Pourcentages et échelles (acquis de 5e)
+  prerequis: [5E-PROPORTIONNALITE]
+  retour: [5E-DIAG-PROPORTIONNALITE]
+  questions:
+  # 4E-08
+  - code: 4E-DIAG-PROPORTIONNALITE-01
+    difficulte: 2
+    type: numerique
+    enonce: Un article à 60 € bénéficie d'une réduction de $20\,\%$. Quel est son nouveau prix, en € ?
+    solution: '48'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - '$20\,\%$ de 60 : $60 \times 0{,}2 = 12$.'
+      - $60 - 12 = 48$ €.
+      resultat: '48'
+  # 4E-17
+  - code: 4E-DIAG-PROPORTIONNALITE-02
+    difficulte: 3
+    type: numerique
+    enonce: Sur une carte à l'échelle $\dfrac{1}{25\,000}$, deux villages sont à 4 cm l'un de l'autre. Quelle est la distance réelle, en km ?
+    solution: '1'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $4 \times 25\,000 = 100\,000$ cm.
+      - $100\,000$ cm $= 1\,000$ m $= 1$ km.
+      resultat: '1'
+
+- code: 4E-DIAG-GEOMETRIE
+  libelle: Triangles, symétrie centrale et parallélogrammes (acquis de 5e)
+  prerequis: [5E-TRIANGLES, 5E-SYM-CENTRALE, 5E-PARALLELOGRAMMES]
+  retour: [5E-DIAG-GEOMETRIE, 5E-DIAG-GRANDEURS]
+  questions:
+  # 4E-09
+  - code: 4E-DIAG-GEOMETRIE-01
+    difficulte: 1
+    type: numerique
+    enonce: Deux angles d'un triangle mesurent 48° et 67°. Combien mesure le troisième, en degrés ?
+    solution: '65'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - La somme des angles d'un triangle vaut 180°.
+      - $180 - 48 - 67 = 65$°.
+      resultat: '65'
+  # 4E-18
+  - code: 4E-DIAG-GEOMETRIE-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Peut-on construire un triangle de côtés 3 cm, 5 cm et 9 cm ? A) Oui  B) Non, car $3 + 5 < 9$  C) Non, car 9 n''est pas pair'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Inégalité triangulaire.
+      etapes:
+      - Le plus grand côté doit être inférieur à la somme des deux autres.
+      - $3 + 5 = 8 < 9$, donc c'est impossible.
+  # 4E-19
+  - code: 4E-DIAG-GEOMETRIE-03
+    difficulte: 2
+    type: qcm
+    enonce: 'Par une symétrie centrale, l''image d''un segment de 4 cm est : A) un segment de 4 cm parallèle au segment de départ  B) un segment de 8 cm  C) un segment de 4 cm perpendiculaire au segment de départ  D) un point'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - La symétrie centrale conserve les longueurs.
+      - L'image d'une droite est une droite parallèle.
+  # 4E-20
+  - code: 4E-DIAG-GEOMETRIE-04
+    difficulte: 2
+    type: choix_multiples
+    enonce: 'Quelles propriétés sont vraies dans tout parallélogramme ? A) Ses diagonales se coupent en leur milieu  B) Ses diagonales sont perpendiculaires  C) Ses côtés opposés sont parallèles  D) Ses diagonales ont la même longueur'
+    solution: AC
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Diagonales de même milieu et côtés opposés parallèles, dans tout parallélogramme.
+      - Diagonales perpendiculaires, seulement pour un losange ; de même longueur, seulement pour un rectangle.
+  # 4E-12
+  - code: 4E-DIAG-GEOMETRIE-05
+    difficulte: 3
+    type: redaction
+    enonce: Le carré A a un côté de 3 cm, le carré B un côté de 6 cm. Le côté double ; l'aire double-t-elle aussi ? Justifie.
+    solution: 'Non : l''aire passe de 9 cm² à 36 cm², elle est multipliée par 4.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3^2 = 9$ cm² et $6^2 = 36$ cm².
+      - $36 = 4 \times 9$, l'aire est multipliée par 4 et non par 2.
+
+- code: 4E-DIAG-DONNEES
+  libelle: Moyenne et probabilités simples (acquis de 5e)
+  prerequis: [5E-STATISTIQUES, 5E-PROBABILITES]
+  retour: [5E-DIAG-DECIMAUX]
+  questions:
+  # 4E-10
+  - code: 4E-DIAG-DONNEES-01
+    difficulte: 2
+    type: numerique
+    enonce: Calculer la moyenne de 8, 10, 10 et 16.
+    solution: '11'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $8 + 10 + 10 + 16 = 44$.
+      - $44 \div 4 = 11$.
+      resultat: '11'
+  # 4E-R6 (moyenne seulement)
+  - code: 4E-DIAG-DONNEES-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer la moyenne de la série 8 ; 12 ; 15 ; 9 ; 12 ; 18 ; 10.
+    solution: '12'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - La somme vaut 84, pour 7 valeurs.
+      - $84 \div 7 = 12$.
+      resultat: '12'
+  # 4E-11
+  - code: 4E-DIAG-DONNEES-03
+    difficulte: 1
+    type: numerique
+    enonce: Un sac contient 3 boules rouges et 2 boules bleues, indiscernables au toucher. Quelle est la probabilité de tirer une boule bleue ?
+    solution: 2/5
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 5 boules en tout, dont 2 bleues.
+      - $P = \dfrac{2}{5}$.
+      resultat: 2/5

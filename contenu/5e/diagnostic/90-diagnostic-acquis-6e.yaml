@@ -1,0 +1,247 @@
+# Diagnostic d'entrée en 5e — acquis de 6e, programme du cycle 3 de 2025 (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# 5E-15 (parallélogramme, programme de 5e) déplacée à l'entrée en 4e ; 5E-18 vient de 6E-12.
+chapitre:
+  code: 5E-DIAG-6E
+  niveau: 5e
+  nature: diagnostic
+  programme_prerequis: 6e-2025
+  publics: [tronc-commun]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de 6e
+
+competences:
+- code: 5E-DIAG-DECIMAUX
+  libelle: Calculer avec les nombres décimaux (acquis de 6e)
+  prerequis: [6E-ADD-MULT, 6E-DIVISION]
+  retour: [6E-DIAG-NUMERATION, 6E-DIAG-CALCUL]
+  questions:
+  # 5E-01
+  - code: 5E-DIAG-DECIMAUX-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $7{,}3 + 2{,}85$.
+    solution: '10,15'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'On aligne les virgules : $7{,}30 + 2{,}85$.'
+      - $= 10{,}15$.
+      resultat: '10,15'
+  # 5E-02
+  - code: 5E-DIAG-DECIMAUX-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $4{,}8 \times 0{,}5$.
+    solution: '2,4'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Multiplier par $0{,}5$, c'est prendre la moitié.
+      - $4{,}8 \div 2 = 2{,}4$.
+      resultat: '2,4'
+  # 5E-03
+  - code: 5E-DIAG-DECIMAUX-03
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $8{,}4 \div 4$.
+    solution: '2,1'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $8 \div 4 = 2$ et $0{,}4 \div 4 = 0{,}1$.
+      - $8{,}4 \div 4 = 2{,}1$.
+      resultat: '2,1'
+  # 5E-18 (ex-6E-12)
+  - code: 5E-DIAG-DECIMAUX-04
+    difficulte: 3
+    type: qcm
+    enonce: 'Combien vaut $0{,}4 \times 0{,}3$ ? A) $1{,}2$  B) $0{,}12$  C) $0{,}7$  D) $0{,}012$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: On multiplie sans les virgules, puis on place autant de décimales qu'au total dans les facteurs.
+      etapes:
+      - $4 \times 3 = 12$.
+      - 'Deux décimales au total : $0{,}12$ (4 dixièmes de 3 dixièmes, soit 12 centièmes).'
+      erreurs_frequentes:
+      - Répondre $1{,}2$ en gardant une seule décimale.
+
+- code: 5E-DIAG-FRACTIONS
+  libelle: Comprendre et utiliser les fractions (acquis de 6e)
+  prerequis: [6E-FRAC-SENS, 6E-FRAC-CALCUL]
+  retour: [6E-DIAG-FRACTIONS]
+  questions:
+  # 5E-04
+  - code: 5E-DIAG-FRACTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\dfrac{3}{7} + \dfrac{2}{7}$.
+    solution: 5/7
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Même dénominateur, on additionne les numérateurs.
+      - $\dfrac{5}{7}$.
+      resultat: 5/7
+  # 5E-05 (justification en QCM)
+  - code: 5E-DIAG-FRACTIONS-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Quel nombre est le plus grand, $\dfrac{5}{6}$ ou $\dfrac{7}{6}$ ? A) $\dfrac{5}{6}$, car 6 est plus grand que 5  B) $\dfrac{7}{6}$, car les parts ont la même taille et il y en a davantage  C) Ils sont égaux, car le dénominateur est le même'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Les deux fractions comptent des sixièmes.
+      - 7 sixièmes est plus que 5 sixièmes ; d'ailleurs $\dfrac{7}{6} > 1 > \dfrac{5}{6}$.
+  # 5E-13 (reformulée)
+  - code: 5E-DIAG-FRACTIONS-03
+    difficulte: 2
+    type: numerique
+    enonce: Le segment de 0 à 1 d'une droite graduée est partagé en six parts égales. Le point $A$ est sur la 4e graduation après 0. Donner son abscisse sous forme de fraction irréductible.
+    solution: 2/3
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Une graduation vaut $\dfrac{1}{6}$, donc $A$ a pour abscisse $\dfrac{4}{6}$.
+      - $\dfrac{4}{6} = \dfrac{2}{3}$.
+      resultat: 2/3
+
+- code: 5E-DIAG-PROPORTIONNALITE
+  libelle: Proportionnalité, pourcentages et choix d'un modèle (acquis de 6e)
+  prerequis: [6E-PROP, 6E-POURCENT]
+  retour: [6E-DIAG-PROPORTIONNALITE]
+  questions:
+  # 5E-06
+  - code: 5E-DIAG-PROPORTIONNALITE-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $25\,\%$ de 80.
+    solution: '20'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $25\,\%$, c'est un quart.
+      - $80 \div 4 = 20$.
+      resultat: '20'
+  # 5E-07
+  - code: 5E-DIAG-PROPORTIONNALITE-02
+    difficulte: 2
+    type: numerique
+    enonce: Une recette pour 4 personnes utilise 300 g de riz. Quelle quantité faut-il pour 6 personnes, en g ?
+    solution: '450'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Pour 2 personnes, 150 g.
+      - Pour 6 personnes, $300 + 150 = 450$ g.
+      resultat: '450'
+  # 5E-16 (lecture d'un graphique, donné ici en texte)
+  - code: 5E-DIAG-PROPORTIONNALITE-03
+    difficulte: 3
+    type: numerique
+    enonce: 'Le graphique de la distance parcourue (en km) en fonction du temps (en h) est une droite qui passe par l''origine et par le point de coordonnées $(2 ; 120)$. Quelle distance est parcourue en 3 h, en km ?'
+    solution: '180'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Une droite qui passe par l'origine traduit une situation de proportionnalité.
+      etapes:
+      - En 2 h, 120 km, donc 60 km en 1 h.
+      - En 3 h, $3 \times 60 = 180$ km.
+      resultat: '180'
+  # 5E-11
+  - code: 5E-DIAG-PROPORTIONNALITE-04
+    difficulte: 3
+    type: redaction
+    enonce: Un taxi facture 4 € au départ, puis 2 € par kilomètre. Le prix est-il proportionnel à la distance ? Justifie.
+    solution: 'Non : pour 0 km on paie déjà 4 € ; ou 1 km coûte 6 € et 2 km 8 €, qui n''est pas le double.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 1 km coûte $4 + 2 = 6$ € ; 2 km coûtent $4 + 4 = 8$ €.
+      - Doubler la distance ne double pas le prix ; le prix n'est pas proportionnel.
+      - 'À valoriser : l''argument du forfait (prix non nul pour 0 km).'
+
+- code: 5E-DIAG-GRANDEURS
+  libelle: Durées, aires, volumes et raisonnement sur les grandeurs (acquis de 6e)
+  prerequis: [6E-DUREES, 6E-PERIMETRES, 6E-AIRES-VOLUMES]
+  retour: [6E-DIAG-GRANDEURS-GEOMETRIE]
+  questions:
+  # 5E-08
+  - code: 5E-DIAG-GRANDEURS-01
+    difficulte: 2
+    type: qcm
+    enonce: 'Un film commence à 14 h 45 et dure 1 h 50. À quelle heure finit-il ? A) 15 h 95  B) 16 h 35  C) 16 h 95  D) 15 h 35'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 14 h 45 + 1 h = 15 h 45 ; 15 h 45 + 15 min = 16 h.
+      - Il reste 35 min, donc 16 h 35.
+      erreurs_frequentes:
+      - Écrire 15 h 95 en oubliant qu'une heure compte 60 minutes.
+  # 5E-09
+  - code: 5E-DIAG-GRANDEURS-02
+    difficulte: 2
+    type: numerique
+    enonce: Un triangle a une base de 8 cm et une hauteur associée de 5 cm. Calculer son aire, en cm².
+    solution: '20'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\mathcal{A} = \dfrac{\text{base} \times \text{hauteur}}{2}$.
+      - $\dfrac{8 \times 5}{2} = 20$ cm².
+      resultat: '20'
+  # 5E-10
+  - code: 5E-DIAG-GRANDEURS-03
+    difficulte: 2
+    type: numerique
+    enonce: Une boîte en forme de pavé droit mesure 5 cm sur 4 cm sur 3 cm. Calculer son volume, en cm³.
+    solution: '60'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $V = L \times \ell \times h$.
+      - $5 \times 4 \times 3 = 60$ cm³.
+      resultat: '60'
+  # 5E-12
+  - code: 5E-DIAG-GRANDEURS-04
+    difficulte: 3
+    type: redaction
+    enonce: '« Deux rectangles de même périmètre ont toujours la même aire. » Vrai ou faux ? Justifie avec un exemple.'
+    solution: 'Faux : 5 cm × 1 cm et 4 cm × 2 cm ont un périmètre de 12 cm mais des aires de 5 cm² et 8 cm².'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Un seul contre-exemple suffit à prouver qu'une affirmation générale est fausse.
+      etapes:
+      - 'Rectangle 5 × 1 : périmètre 12, aire 5 ; rectangle 4 × 2 : périmètre 12, aire 8.'
+      - Même périmètre, aires différentes, donc l'affirmation est fausse.
+
+- code: 5E-DIAG-GEOMETRIE
+  libelle: Symétrie axiale et constructions (acquis de 6e)
+  prerequis: [6E-SYMETRIE, 6E-ANGLES-TRIANGLES, 6E-CERCLE-MEDIATRICE]
+  retour: [6E-DIAG-GRANDEURS-GEOMETRIE]
+  questions:
+  # 5E-14
+  - code: 5E-DIAG-GEOMETRIE-01
+    difficulte: 2
+    type: choix_multiples
+    enonce: 'Quelles figures ont au moins un axe de symétrie ? A) un triangle isocèle  B) un triangle quelconque (côtés tous différents)  C) un losange  D) un parallélogramme qui n''est ni un losange ni un rectangle'
+    solution: AC
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Triangle isocèle : la médiatrice de la base. Losange : ses deux diagonales.'
+      - Un triangle quelconque et un parallélogramme quelconque n'ont aucun axe de symétrie.
+  # 5E-17
+  - code: 5E-DIAG-GEOMETRIE-02
+    difficulte: 2
+    type: redaction
+    enonce: 'Construire un triangle $ABC$ isocèle en $A$ avec $AB = AC = 5$ cm et $BC = 6$ cm. Dépose une photo de ta construction et décris les étapes.'
+    solution: 'Tracer [BC] de 6 cm ; arcs de rayon 5 cm de centres B et C ; A à l''intersection.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Tracer $[BC]$ de 6 cm.
+      - Tracer deux arcs de rayon 5 cm, de centres $B$ et $C$.
+      - $A$ est à leur intersection ; vérifier $AB = AC = 5$ cm.
