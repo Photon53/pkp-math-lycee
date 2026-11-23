@@ -1,0 +1,29 @@
+name: Copier Photon53/boussole-maitrise-plus
+
+on:
+  workflow_dispatch:
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: Photon53/pkp-math-lycee
+          ref: main
+          path: source
+          token: ${{ secrets.COPY_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: destination
+          token: ${{ secrets.COPY_TOKEN }}
+
+      - run: |
+          rsync -a --delete --exclude='.git' source/ destination/
+          cd destination
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Copie du contenu de projet1" || exit 0
+          git push
