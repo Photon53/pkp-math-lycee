@@ -1,5 +1,4 @@
-
-name: Synchroniser Boussole vers PKP Education
+name: Synchroniser les contenus pedagogiques Boussole vers PKP Education
 
 on:
   workflow_dispatch:
@@ -8,12 +7,15 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: pkp-sync-main
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Recuperer Boussole
+      - name: Recuperer Boussole (source)
         uses: actions/checkout@v5
         with:
           repository: Photon53/boussole-maitrise-plus
@@ -21,31 +23,44 @@ jobs:
           path: source
           persist-credentials: false
 
-      - name: Recuperer PKP
+      - name: Recuperer PKP (destination)
         uses: actions/checkout@v5
         with:
           ref: main
           path: destination
           persist-credentials: false
 
-      - name: Preparer les fichiers
+      - name: Copier uniquement les ressources pedagogiques
+        shell: bash
         run: |
-          mkdir -p sync
-          rsync -a \
-            --exclude='.git/' \
-            --exclude='.github/' \
-            --exclude='.env*' \
-            --exclude='*stripe*' \
-            --exclude='*payment*' \
-            --exclude='*billing*' \
-            source/ sync/
+          set -euo pipefail
+          for dir in contenu referentiels; do
+            if [ -d "source/$dir" ]; then
+              mkdir -p "destination/$dir"
+              rsync -a --exclude='.env*' --exclude='*stripe*' --exclude='*payment*' --exclude='*billing*' "source/$dir/" "destination/$dir/"
+            fi
+          done
+          echo "Aucune suppression automatique, aucun transfert de code commercial."
+          git -C destination status --short
 
-          echo "Contenu prepare pour validation"
-          find sync -maxdepth 2 -type f | head -50
-
-      - name: Controle manuel requis
+      - name: Creer une Pull Request de validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          echo "Synchronisation preparee."
-          echo "Aucune modification de main."
-          echo "Valider les fichiers autorises"
-          echo "avant de creer une Pull Request."
+          set -euo pipefail
+          cd destination
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement pedagogique a proposer."
+            exit 0
+          fi
+          branch="sync/boussole-pkp-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -- contenu referentiels
+          git commit -m "Synchroniser les contenus pedagogiques depuis Boussole"
+          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/$branch"
+          gh pr create --repo "${GITHUB_REPOSITORY}" --base main --head "$branch" --draft \
+            --title "Synchronisation pedagogique Boussole vers PKP" \
+            --body "Synchronisation manuelle des dossiers contenu/ et referentiels/ depuis Boussole main. Aucune suppression automatique. Verifier les differences et l'absence de fonctions commerciales avant fusion. La branche main de PKP n'est pas modifiee automatiquement."
