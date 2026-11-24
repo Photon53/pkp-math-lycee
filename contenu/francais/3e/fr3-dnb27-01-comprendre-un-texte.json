@@ -217,7 +217,13 @@
         }
       }
     ],
-    "je_verifie": "Sans relire la leçon, explique la différence entre une information explicite et une déduction.\nPuis reprends ta réponse à Q7 ou Q8 :\n\n- Ai-je traité la question sans inventer de faits ?\n- Mes citations sont-elles exactes et brèves ?\n- Ai-je expliqué leur intérêt ?\n- Ai-je vérifié les accords, la ponctuation et les phrases complètes ?\n\nÀ la séance suivante, demande un autre texte et recommence sans le modèle sous les yeux.\nCes vérifications servent à apprendre ; elles ne créent aucun score dans la plateforme."
+    "je_verifie": "Sans relire la leçon, explique la différence entre une information explicite et une déduction.\nPuis reprends ta réponse à Q7 ou Q8 :\n\n- Ai-je traité la question sans inventer de faits ?\n- Mes citations sont-elles exactes et brèves ?\n- Ai-je expliqué leur intérêt ?\n- Ai-je vérifié les accords, la ponctuation et les phrases complètes ?\n\nÀ la séance suivante, demande un autre texte et recommence sans le modèle sous les yeux.\nCes vérifications servent à apprendre ; elles ne créent aucun score dans la plateforme.",
+    "je_sais": [
+      "Je sais distinguer une information explicite d’une information implicite.",
+      "Je sais choisir une courte citation et indiquer sa ligne.",
+      "Je sais expliquer ce que montre ma citation.",
+      "Je sais distinguer le narrateur de l’auteur."
+    ]
   },
   "professeur": {
     "presentation": [
@@ -388,5 +394,70 @@
       "Les questions de texte libre n’ont pas été branchées au moteur. Pour une utilisation ultérieure sur le site, faire préciser le support de saisie et le retour humain par Claude ; ne pas traiter une correspondance de mots-clés comme une validation de l’interprétation."
     ],
     "retour_seance": "Consigner : version, durée réelle, nombre de participants agrégé, questions bloquantes, aides utilisées, modifications souhaitées et responsable de la revérification. Aucun nom, identifiant d’élève, code secret, réponse nominative ou capture non anonymisée dans GitHub."
-  }
+  },
+  "quiz": [
+    {
+      "question": "Ligne 1 : « quand je suis arrivée ». Qui dit « je » dans ce texte ?",
+      "texte": "TEXTE-1",
+      "choix": [
+        "La narratrice, personnage du récit",
+        "L’autrice du texte, qui raconte sa vie",
+        "La dame assise à côté"
+      ],
+      "reponse": 0,
+      "explication": "Le « je » est la voix de la narratrice. Rien ne permet de dire que l’autrice a vécu la scène."
+    },
+    {
+      "question": "Ligne 5 : « le terrain derrière les immeubles, avec des bancs et un petit jardin ». Cette information est…",
+      "texte": "TEXTE-1",
+      "choix": [
+        "explicite : elle est écrite directement",
+        "implicite : il faut la déduire d’indices"
+      ],
+      "reponse": 0,
+      "explication": "Le projet est décrit mot pour mot ligne 5 : on peut le relever sans interpréter."
+    },
+    {
+      "question": "Ligne 12 : « J’ai répondu que ce n’était pas très important. » Que peut-on en déduire ?",
+      "texte": "TEXTE-1",
+      "choix": [
+        "Elle n’a jamais tenu à son projet",
+        "Elle minimise son idée, par manque d’assurance",
+        "Elle a changé d’avis et préfère le parking"
+      ],
+      "reponse": 1,
+      "explication": "Elle a pourtant préparé son projet toute la semaine (ligne 2) : la phrase traduit son hésitation, pas un désintérêt."
+    },
+    {
+      "question": "Quel passage montre le mieux que la narratrice hésite à parler ?",
+      "texte": "TEXTE-1",
+      "choix": [
+        "« J’ai pressé ma main contre la couverture du carnet. » (ligne 8)",
+        "« Au fond, une place restait libre près de la fenêtre. » (ligne 3)",
+        "« Dehors, le terrain était toujours vide. » (ligne 19)"
+      ],
+      "reponse": 0,
+      "explication": "Le geste de garder le carnet fermé sous sa main montre qu’elle retient son idée au lieu de la présenter."
+    },
+    {
+      "question": "Pour justifier une réponse, la bonne démarche est…",
+      "choix": [
+        "recopier tout le paragraphe concerné",
+        "réponse, puis courte citation avec sa ligne, puis explication",
+        "donner son avis sans citer le texte"
+      ],
+      "reponse": 1,
+      "explication": "Réponse → preuve → explication : la citation est courte et sert la réponse ; elle ne la remplace pas."
+    },
+    {
+      "question": "Lignes 2 et 5 du second texte : le personnage renonce-t-il définitivement à lire son poème ?",
+      "texte": "TEXTE-2",
+      "choix": [
+        "Oui : il demande à passer après les autres",
+        "Non : il finit par lire les premières lignes, puis les suivantes"
+      ],
+      "reponse": 1,
+      "explication": "Il hésite (ligne 2) mais lit finalement son poème (ligne 5) : il ne faut pas confondre hésitation et refus définitif."
+    }
+  ]
 }

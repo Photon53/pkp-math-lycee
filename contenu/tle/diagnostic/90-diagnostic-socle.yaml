@@ -1,0 +1,101 @@
+# Diagnostic d'entrée en Terminale — socle commun à tous les parcours (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Repère des bases plus anciennes avant le module de l'enseignement suivi en 1re.
+chapitre:
+  code: TLE-DIAG-SOCLE
+  niveau: Tle
+  nature: diagnostic
+  programme_prerequis: 2nde-2019
+  publics: [specialite, complementaires, technologique]
+  ordre: 90
+  titre: Diagnostic d'entrée, socle commun
+
+competences:
+- code: TLE-DIAG-SOCLE-CALCUL
+  libelle: Fractions, développement et équations (bases du lycée)
+  prerequis: [2NDE-FRAC, 2NDE-DEV, 2NDE-EQ1]
+  retour: [1RE-DIAG-ALGEBRE]
+  questions:
+  # TE-01
+  - code: TLE-DIAG-SOCLE-CALCUL-01
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{3}{4} \div \dfrac{9}{8}$ (fraction irréductible).
+    solution: 2/3
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\dfrac{3}{4} \times \dfrac{8}{9} = \dfrac{24}{36}$.
+      - $= \dfrac{2}{3}$.
+      resultat: 2/3
+  # TE-02
+  - code: TLE-DIAG-SOCLE-CALCUL-02
+    difficulte: 2
+    type: expression
+    forme: developpee
+    enonce: Développer $(x - 2)^2$.
+    solution: x^2 - 4x + 4
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(a - b)^2 = a^2 - 2ab + b^2$.
+      - $x^2 - 4x + 4$.
+      resultat: x^2 - 4x + 4
+  # TE-03
+  - code: TLE-DIAG-SOCLE-CALCUL-03
+    difficulte: 2
+    type: numerique
+    enonce: Résoudre $5 - 2x = 11$.
+    solution: '-3'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $-2x = 6$.
+      - $x = -3$ ; vérification $5 + 6 = 11$.
+      resultat: '-3'
+  # TE-04
+  - code: TLE-DIAG-SOCLE-CALCUL-04
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = x^2 - 3x$. Calculer $f(-2)$.
+    solution: '10'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(-2)^2 - 3 \times (-2) = 4 + 6$.
+      - $= 10$.
+      resultat: '10'
+      erreurs_frequentes:
+      - Écrire $-2^2 = -4$.
+
+- code: TLE-DIAG-SOCLE-DONNEES
+  libelle: Pourcentages et probabilités (bases du lycée)
+  prerequis: [2NDE-EVO, 2NDE-PROBA]
+  retour: [1RE-DIAG-DONNEES]
+  questions:
+  # TE-05
+  - code: TLE-DIAG-SOCLE-DONNEES-01
+    difficulte: 3
+    type: numerique
+    enonce: Un prix augmente de $25\,\%$. De quel pourcentage doit-il ensuite baisser pour retrouver sa valeur initiale ?
+    solution: '20'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Le coefficient réciproque de $1{,}25$ est $\dfrac{1}{1{,}25}$.
+      etapes:
+      - $\dfrac{1}{1{,}25} = 0{,}8$, soit une baisse de $20\,\%$.
+      - 'Vérification : $100 \to 125 \to 100$.'
+      resultat: '20'
+      erreurs_frequentes:
+      - Répondre $25\,\%$.
+  # TE-06
+  - code: TLE-DIAG-SOCLE-DONNEES-02
+    difficulte: 1
+    type: numerique
+    enonce: $P(A) = 0{,}37$. Quelle est la probabilité que $A$ ne se réalise pas ?
+    solution: '0,63'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $P(\overline{A}) = 1 - P(A)$.
+      - $1 - 0{,}37 = 0{,}63$.
+      resultat: '0,63'

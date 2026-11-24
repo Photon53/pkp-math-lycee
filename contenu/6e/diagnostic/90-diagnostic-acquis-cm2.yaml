@@ -1,0 +1,256 @@
+# Diagnostic d'entrée en 6e — acquis de CM2 (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement. Identifiants de la banque en commentaire.
+# Élèves de 6e en 2026-2027 : CM2 suivi en 2025-2026 sous l'ancien programme du cycle 3 (2015, consolidé en 2020) ;
+# le programme de 2025 ne s'applique au CM2 qu'à la rentrée 2026 (arrêté du 10 avril 2025, article 3).
+# 6E-12 reformulée : le produit de deux décimaux est un acquis de 6e (déplacé en 5E-18).
+chapitre:
+  code: 6E-DIAG-CM2
+  niveau: 6e
+  nature: diagnostic
+  programme_prerequis: cm2-2020
+  publics: [tronc-commun]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de CM2
+
+competences:
+- code: 6E-DIAG-NUMERATION
+  libelle: Comprendre les entiers et les décimaux (acquis de CM2)
+  prerequis: [6E-NUMERATION, 6E-COMPARER-DEC]
+  questions:
+  # 6E-01
+  - code: 6E-DIAG-NUMERATION-01
+    difficulte: 1
+    type: numerique
+    enonce: Dans $47\,306$, quelle est la valeur du chiffre 7 ?
+    solution: '7000'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 7 est le chiffre des milliers.
+      - Il vaut $7\,000$.
+      resultat: '7000'
+  # 6E-02
+  - code: 6E-DIAG-NUMERATION-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Quel nombre est le plus grand ? A) $3{,}8$  B) $3{,}75$  C) Ils sont égaux'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Écrire les deux nombres avec le même nombre de décimales.
+      etapes:
+      - $3{,}8 = 3{,}80$ et $80 > 75$ centièmes.
+      erreurs_frequentes:
+      - Croire que $3{,}75$ est plus grand parce que « 75 > 8 ».
+  # 6E-16 (reformulée)
+  - code: 6E-DIAG-NUMERATION-03
+    difficulte: 1
+    type: numerique
+    enonce: Une droite est graduée en dixièmes. Le point $A$ est placé 3 graduations après le nombre 2. Quelle est l'abscisse de $A$ ?
+    solution: '2,3'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Une graduation vaut $0{,}1$.
+      - $2 + 3 \times 0{,}1 = 2{,}3$.
+      resultat: '2,3'
+  # 6E-18 (analyse d'erreur)
+  - code: 6E-DIAG-NUMERATION-04
+    difficulte: 3
+    type: qcm
+    enonce: 'Un élève écrit $4{,}5 + 2 = 4{,}7$. Quelle est la bonne réponse ? A) $4{,}7$  B) $6{,}5$  C) $4{,}52$  D) $6{,}7$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: On aligne les virgules (les unités sous les unités).
+      etapes:
+      - $2 = 2{,}0$ ; l'élève a ajouté 2 aux dixièmes.
+      - $4{,}5 + 2{,}0 = 6{,}5$.
+  # 6E-12 (reformulée)
+  - code: 6E-DIAG-NUMERATION-05
+    difficulte: 3
+    type: qcm
+    enonce: 'Un élève écrit : $0{,}4 + 0{,}3 = 0{,}7$ et $0{,}4 \times 10 = 0{,}40$. Que peut-on dire ? A) Les deux calculs sont justes  B) Seul le premier est juste  C) Seul le second est juste  D) Les deux sont faux'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 4 dixièmes + 3 dixièmes = 7 dixièmes = $0{,}7$.
+      - $0{,}4 \times 10 = 4$ ; $0{,}40$ est égal à $0{,}4$.
+      erreurs_frequentes:
+      - Multiplier par 10 en « ajoutant un zéro » à un décimal.
+
+- code: 6E-DIAG-CALCUL
+  libelle: Calculer avec les quatre opérations (acquis de CM2)
+  prerequis: [6E-ADD-MULT, 6E-DIVISION]
+  questions:
+  # 6E-03
+  - code: 6E-DIAG-CALCUL-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $603 - 278$.
+    solution: '325'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $603 - 278 = 603 - 300 + 22$.
+      - $= 325$ ; vérification $325 + 278 = 603$.
+      resultat: '325'
+  # 6E-04
+  - code: 6E-DIAG-CALCUL-02
+    difficulte: 2
+    type: redaction
+    enonce: Calculer $25 \times 16$ en expliquant une méthode pratique.
+    solution: '400 ; par exemple 25 × 4 × 4 = 100 × 4.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $16 = 4 \times 4$, donc $25 \times 16 = 25 \times 4 \times 4$.
+      - $= 100 \times 4 = 400$.
+      - 'À valoriser : toute décomposition juste ($25 \times 10 + 25 \times 6$…).'
+  # 6E-05
+  - code: 6E-DIAG-CALCUL-03
+    difficulte: 2
+    type: qcm
+    enonce: 'On range 157 livres dans des cartons de 12. A) 13 cartons pleins, 1 livre restant  B) 12 cartons pleins, 13 livres restants  C) 14 cartons pleins  D) 13 cartons pleins, 8 livres restants'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Division euclidienne.
+      etapes:
+      - $12 \times 13 = 156$ et $157 - 156 = 1$.
+      - Le reste 1 est inférieur à 12.
+
+- code: 6E-DIAG-FRACTIONS
+  libelle: Utiliser des fractions simples (acquis de CM2)
+  prerequis: [6E-FRAC-SENS]
+  questions:
+  # 6E-06
+  - code: 6E-DIAG-FRACTIONS-01
+    difficulte: 2
+    type: numerique
+    enonce: Combien représentent les trois quarts de 20 jetons ?
+    solution: '15'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Un quart de 20 vaut 5.
+      - Trois quarts valent $3 \times 5 = 15$.
+      resultat: '15'
+  # 6E-07
+  - code: 6E-DIAG-FRACTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: Compléter $\dfrac{1}{2} = \dfrac{\dots}{10}$. Donner le numérateur manquant.
+    solution: '5'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - On multiplie le dénominateur par 5.
+      - On multiplie le numérateur par 5 aussi.
+      resultat: '5'
+
+- code: 6E-DIAG-PROPORTIONNALITE
+  libelle: Résoudre des problèmes de proportionnalité et de comparaison (acquis de CM2)
+  prerequis: [6E-PROP, 6E-TABLEAUX]
+  questions:
+  # 6E-08
+  - code: 6E-DIAG-PROPORTIONNALITE-01
+    difficulte: 2
+    type: numerique
+    enonce: Trois cahiers identiques coûtent 6 €. Combien coûtent cinq cahiers, en € ?
+    solution: '10'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Un cahier coûte $6 \div 3 = 2$ €.
+      - Cinq cahiers coûtent $5 \times 2 = 10$ €.
+      resultat: '10'
+  # 6E-15
+  - code: 6E-DIAG-PROPORTIONNALITE-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Prix de stylos : 2 stylos pour 3 €, 5 stylos pour 7,50 €, 8 stylos pour 12 €. A) Le prix est proportionnel, 1,50 € par stylo  B) Le prix n''est pas proportionnel  C) Le prix est proportionnel, 2 € par stylo  D) On ne peut pas savoir'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3 \div 2 = 1{,}5$ ; $7{,}5 \div 5 = 1{,}5$ ; $12 \div 8 = 1{,}5$.
+      - 'Le quotient est toujours le même : c''est un tableau de proportionnalité.'
+  # 6E-11
+  - code: 6E-DIAG-PROPORTIONNALITE-03
+    difficulte: 3
+    type: redaction
+    enonce: Lina et Sami ont 36 billes ensemble. Lina en a 8 de plus que Sami. Combien chacun en a-t-il ? Tu peux faire un schéma en barres.
+    solution: 'Sami 14, Lina 22 : on retire l''écart (36 − 8 = 28), on partage en deux (14), puis on ajoute 8.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Schéma en barres (deux barres, l'une plus longue de 8).
+      etapes:
+      - $36 - 8 = 28$ billes à partager également.
+      - Sami a $28 \div 2 = 14$ billes, Lina $14 + 8 = 22$.
+      - 'Vérification : $14 + 22 = 36$ et $22 - 14 = 8$.'
+  # 6E-17
+  - code: 6E-DIAG-PROPORTIONNALITE-04
+    difficulte: 2
+    type: numerique
+    enonce: 'Ventes d''une semaine : lundi 12, mardi 18, mercredi 10, jeudi 20. Combien d''objets ont été vendus en tout ?'
+    solution: '60'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $12 + 18 + 10 + 20$.
+      - $= 60$.
+      resultat: '60'
+
+- code: 6E-DIAG-GRANDEURS-GEOMETRIE
+  libelle: Mesures, périmètres, aires et constructions (acquis de CM2)
+  prerequis: [6E-PERIMETRES, 6E-AIRES-VOLUMES, 6E-SYMETRIE, 6E-ANGLES-TRIANGLES]
+  questions:
+  # 6E-09
+  - code: 6E-DIAG-GRANDEURS-GEOMETRIE-01
+    difficulte: 1
+    type: numerique
+    enonce: Compléter $2{,}4$ m $= \dots$ cm.
+    solution: '240'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 1 m = 100 cm.
+      - $2{,}4 \times 100 = 240$.
+      resultat: '240'
+  # 6E-10
+  - code: 6E-DIAG-GRANDEURS-GEOMETRIE-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Un rectangle mesure 8 cm sur 3 cm. A) périmètre 22 cm, aire 24 cm²  B) périmètre 24 cm, aire 22 cm²  C) périmètre 11 cm, aire 24 cm²  D) périmètre 22 cm, aire 11 cm²'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Périmètre : $2 \times (8 + 3) = 22$ cm.'
+      - 'Aire : $8 \times 3 = 24$ cm².'
+      erreurs_frequentes:
+      - Confondre périmètre (longueur du tour) et aire (surface).
+  # 6E-14
+  - code: 6E-DIAG-GRANDEURS-GEOMETRIE-03
+    difficulte: 2
+    type: qcm
+    enonce: 'Combien d''axes de symétrie a un rectangle qui n''est pas un carré ? A) 0  B) 1  C) 2  D) 4'
+    solution: C
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Les deux médiatrices des côtés sont des axes.
+      - Les diagonales ne le sont pas (sauf pour un carré).
+  # 6E-13
+  - code: 6E-DIAG-GRANDEURS-GEOMETRIE-04
+    difficulte: 2
+    type: redaction
+    enonce: 'Construire un triangle $ABC$ tel que $AB = 5$ cm, $AC = 4$ cm et $BC = 3$ cm. Dépose une photo de ta construction et décris les étapes.'
+    solution: 'Tracer [AB] de 5 cm ; arc de centre A de rayon 4 cm ; arc de centre B de rayon 3 cm ; C à l''intersection.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Tracer le segment $[AB]$ de 5 cm.
+      - Tracer un arc de cercle de centre $A$ et de rayon 4 cm, puis un arc de centre $B$ et de rayon 3 cm.
+      - $C$ est un point d'intersection des deux arcs ; vérifier les longueurs à la règle.
