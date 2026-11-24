@@ -7,3 +7,17 @@
 **/*.db
 **/.env
 .git
+# Jamais copiés par les Dockerfile (#116) : hors du contexte de construction, ils ne peuvent pas entrer
+# dans une image par erreur. Ils restent dans Git.
+.github
+.claude
+.vscode
+docs
+infrastructure
+scripts
+sources
+deploy/vm
+**/.terraform
+**/*.tfstate*
+api/tests
+engine/tests
