@@ -15,3 +15,4 @@ deploy/.env
 sources/
 # Sauf les textes officiels du BO, dont les référentiels ont besoin (vérifiés par empreinte SHA-256)
 !referentiels/sources/
+recette-francais-*/

@@ -1,0 +1,127 @@
+{
+  // Ouvrir ce fichier dans VS Code : Fichier > Ouvrir l'espace de travail à partir d'un fichier.
+  // Chaque dossier a ses propres tests (pytest pour moteur et api, Vitest pour web).
+  "folders": [
+    { "name": "projet", "path": "." },
+    { "name": "moteur", "path": "engine" },
+    { "name": "api", "path": "api" },
+    { "name": "web", "path": "web" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.pytest_cache": true,
+      "**/*.egg-info": true
+    },
+    "files.eol": "\n",
+    "editor.rulers": [120],
+    "[javascript][javascriptreact]": { "editor.tabSize": 2 },
+    "[python]": { "editor.tabSize": 4 },
+    "python.terminal.activateEnvironment": true,
+    "powershell.cwd": "projet"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.debugpy",
+      "charliermarsh.ruff",
+      "vitest.explorer",
+      "ms-azuretools.vscode-docker",
+      "editorconfig.editorconfig"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        // Port 8010 : 8000 est souvent déjà pris (autre projet Python).
+        "name": "API seule (FastAPI)",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": ["app.main:app", "--reload", "--port", "8010"],
+        "cwd": "${workspaceFolder:api}",
+        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe",
+        // Sans terminal intégré : évite « Timed out waiting for launcher to connect »
+        // (chemin avec espaces, activation automatique du .venv). Journaux : Console de débogage.
+        "console": "internalConsole",
+        "justMyCode": true
+      },
+      {
+        // Vite lancé directement par Node (sans npm ni terminal intégré).
+        // Journaux dans la Console de débogage ; le site : http://localhost:5173
+        "name": "Front seul (Vite)",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder:web}/node_modules/vite/bin/vite.js",
+        "args": ["--port", "5173", "--strictPort"],
+        "cwd": "${workspaceFolder:web}",
+        "env": { "PKP_API_URL": "http://localhost:8010" },
+        "console": "internalConsole",
+        "outputCapture": "std",
+        "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+      },
+      {
+        "name": "Purge RGPD (simulation)",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "app.purge",
+        "args": ["--simulation"],
+        "cwd": "${workspaceFolder:api}",
+        "python": "${workspaceFolder:projet}/.venv/Scripts/python.exe",
+        "console": "internalConsole"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "▶ Application complète (API + Front)",
+        "configurations": ["API seule (FastAPI)", "Front seul (Vite)"],
+        "stopAll": true
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Installer l'environnement de développement",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/installer-dev.ps1" },
+        "command": "bash scripts/installer-dev.sh",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Réinitialiser la base de démo",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/installer-dev.ps1 -BaseSeulement" },
+        "command": "bash scripts/installer-dev.sh --base-seulement",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Contenu : vérifier les fichiers YAML",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu verifier",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
+        "problemMatcher": []
+      },
+      {
+        "label": "Contenu : importer dans la base de démo",
+        "type": "shell",
+        "command": "${workspaceFolder:projet}/.venv/Scripts/python.exe -m app.contenu importer",
+        "options": { "cwd": "${workspaceFolder:api}", "env": { "PYTHONIOENCODING": "utf-8" } },
+        "problemMatcher": []
+      },
+      {
+        "label": "Tests : tout le projet",
+        "type": "shell",
+        "windows": { "command": "powershell -ExecutionPolicy Bypass -File scripts/tests.ps1" },
+        "command": "bash scripts/tests.sh",
+        "options": { "cwd": "${workspaceFolder:projet}" },
+        "group": { "kind": "test", "isDefault": true },
+        "problemMatcher": []
+      }
+    ]
+  }
+}
