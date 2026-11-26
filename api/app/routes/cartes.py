@@ -96,7 +96,7 @@ def _choisis(session: SessionDB, corps: Reemission) -> list[models.Enfant]:
         raise HTTPException(422, "Aucun élève à exporter.")
     if len(choisis) > MAX_CARTES:
         raise HTTPException(422, f"Au plus {MAX_CARTES} cartes par export : choisissez une classe ou un niveau.")
-    return sorted(choisis, key=lambda e: (ORDRE_NIVEAUX.get(e.niveau, 99), e.nom.casefold(), e.prenom.casefold()))
+    return sorted(choisis, key=lambda e: (ORDRE_NIVEAUX.get(e.niveau, 99), e.prenom.casefold(), e.identifiant.casefold()))
 
 
 @router.post("/pdf")
@@ -106,7 +106,7 @@ def reemettre(corps: Reemission, admin: AdminCourant, session: SessionDB) -> Res
     choisis = _choisis(session, corps)
     cartes = [_a_imprimer(e, enfants.nouveau_code(e)) for e in choisis]
     try:
-        reponse = _pdf(cartes, corps, "pkp-cartes-acces.pdf")
+        reponse = _pdf(cartes, corps, "boussole-cartes-acces.pdf")
     except Exception:
         session.rollback()
         raise
@@ -131,4 +131,4 @@ def imprimer_connues(corps: CartesConnues, _: AdminCourant, session: SessionDB) 
                 422, f"Le code de {nom} a changé ou n'existe plus : exportez ses cartes depuis Élèves (nouveaux codes)."
             )
         cartes.append(_a_imprimer(enfant, c.code.strip()))
-    return _pdf(cartes, corps, "pkp-cartes-acces.pdf")
+    return _pdf(cartes, corps, "boussole-cartes-acces.pdf")

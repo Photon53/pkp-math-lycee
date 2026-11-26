@@ -9,8 +9,9 @@ import { Modale, formaterDate } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 
 const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
-const VIDE = { prenom: "", nom: "", niveau: "6e" };
-export const nomComplet = (e) => `${e.prenom} ${e.nom ?? ""}`.trim();
+// Un enfant n'a pas de nom de famille (décision RGPD-1, #87) : son prénom seul, et son identifiant pour le distinguer.
+const VIDE = { prenom: "", niveau: "6e" };
+export const nomComplet = (e) => e.prenom;
 
 /** Cartes à imprimer : affichées une seule fois (le serveur ne garde que l'empreinte du code). */
 export function cartesAImprimer(cartes) {
@@ -23,10 +24,6 @@ function LigneEnfant({ enfant, onChange, onRetirer, index }) {
       <div>
         <label htmlFor={`e-prenom-${index}`}>Prénom</label>
         <input id={`e-prenom-${index}`} required maxLength={50} value={enfant.prenom} onChange={(e) => onChange({ ...enfant, prenom: e.target.value })} />
-      </div>
-      <div>
-        <label htmlFor={`e-nom-${index}`}>Nom ou initiale (facultatif)</label>
-        <input id={`e-nom-${index}`} maxLength={50} value={enfant.nom} onChange={(e) => onChange({ ...enfant, nom: e.target.value })} />
       </div>
       <div>
         <label htmlFor={`e-niveau-${index}`}>Niveau</label>
@@ -181,11 +178,11 @@ export function EnfantsDeLaFamille({ parentId, appeler }) {
     if (carte) setCartes([carte]);
   }
 
-  const [renommage, setRenommage] = useState(null); // { id, prenom, nom }
+  const [renommage, setRenommage] = useState(null); // { id, prenom }
   async function renommer(e) {
     e.preventDefault();
-    const { id, prenom, nom } = renommage;
-    const r = await agir(appeler(`/admin/enfants/${id}`, { methode: "PATCH", corps: { prenom, nom } }), "Nom corrigé, dans toutes ses classes.");
+    const { id, prenom } = renommage;
+    const r = await agir(appeler(`/admin/enfants/${id}`, { methode: "PATCH", corps: { prenom } }), "Prénom corrigé, dans toutes ses classes.");
     if (r) setRenommage(null);
   }
 
@@ -234,18 +231,14 @@ export function EnfantsDeLaFamille({ parentId, appeler }) {
                       Prénom
                       <input required maxLength={50} value={renommage.prenom} onChange={(ev) => setRenommage({ ...renommage, prenom: ev.target.value })} />
                     </label>
-                    <label>
-                      Nom
-                      <input maxLength={50} value={renommage.nom} onChange={(ev) => setRenommage({ ...renommage, nom: ev.target.value })} />
-                    </label>
                     <button type="button" className="secondaire petit" onClick={() => setRenommage(null)}>Annuler</button>
                     <button type="submit" className="petit">Enregistrer</button>
                   </form>
                 ) : (
                   <p>
                     <strong>{nomComplet(e)}</strong> <span className="doux">· identifiant <code>{e.identifiant}</code></span>{" "}
-                    <button type="button" className="lien petit" onClick={() => setRenommage({ id: e.id, prenom: e.prenom, nom: e.nom ?? "" })}>
-                      Modifier le nom
+                    <button type="button" className="lien petit" onClick={() => setRenommage({ id: e.id, prenom: e.prenom })}>
+                      Modifier le prénom
                     </button>
                   </p>
                 )}

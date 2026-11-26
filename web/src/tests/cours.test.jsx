@@ -95,7 +95,7 @@ describe("cours", () => {
       "GET /cours/10": { json: LECON },
     });
     render(<EspaceEleve />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     const enonce = await screen.findByText((_, el) => el?.classList?.contains("enonce") ?? false);
     expect(enonce.querySelector(".katex")).not.toBeNull();
     await userEvent.type(screen.getByLabelText("Ta réponse"), "1{Enter}");

@@ -1,9 +1,16 @@
 from typing import Literal
 
-from pydantic import model_validator
+from pydantic import PositiveInt, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 CLE_DEV = "dev-uniquement-a-changer"
+
+
+# Issue #180 (relecture de la PR #186) : verrou technique des PDF de français. Passé à True par la PR qui livre le
+# contrôle renforcé des PDF (#4, `app/controle_pdf.py`), avec ses tests. S'il était faux, PKP_PDF_FRANCAIS_OUVERT
+# resterait sans effet et l'API refuserait de démarrer en production avec ce réglage. L'ouverture des PDF de français
+# reste soumise à la décision du propriétaire (docs/DEPLOIEMENT.md) : PKP_PDF_FRANCAIS_OUVERT vaut false par défaut.
+CONTROLE_PDF_RENFORCE = True
 
 
 class Settings(BaseSettings):
@@ -28,6 +35,25 @@ class Settings(BaseSettings):
     dossier_fichiers: str = "./fichiers"
     pdf_taille_max_mo: int = 10
     pdf_max_par_enseignant: int = 50
+    # Issue #180 (décision du 19/11/2026) : en français, liens seulement pendant le pilote. Les PDF s'ouvriront sur
+    # décision du propriétaire, le contrôle renforcé des PDF (#4) étant livré : PKP_PDF_FRANCAIS_OUVERT=true n'a
+    # d'effet que si CONTROLE_PDF_RENFORCE est vrai (procédure : docs/DEPLOIEMENT.md).
+    pdf_francais_ouvert: bool = False
+    # Issue #179 (décision RGPD-2) : rédaction en ligne fermée tant que le responsable, la base légale et
+    # l'information des élèves et des parents ne sont pas validés ; PKP_REDACTION_ACTIVE=true pour l'ouvrir.
+    redaction_active: bool = False
+    redaction_longueur_max: int = 10_000
+    # Issue #172 : « Accueil et demandes ». Durée de conservation par file, en jours depuis le dernier traitement, par
+    # exemple PKP_ACCUEIL_CONSERVATION_JOURS='{"candidature": 180, "partenariat": 365}'. Aucune durée par défaut :
+    # elles sont décidées par le propriétaire (RGPD-3, en attente). Sans durée, une file ne collecte rien (formulaire
+    # fermé, saisie refusée) et la purge n'y supprime rien.
+    accueil_conservation_jours: dict[Literal["famille", "information", "candidature", "partenariat"], PositiveInt] = {}
+    # Issue #171 : formulaire public « Enseigner ou collaborer avec nous ». Fermé par défaut ; ne s'ouvre qu'avec les
+    # durées des files candidature et partenariat (démarrage refusé en production sinon).
+    collaboration_active: bool = False
+    # CV : PDF seulement, contrôlé comme les ressources (#4), dans un dossier privé distinct de `dossier_fichiers`.
+    dossier_candidatures: str = "./candidatures"
+    cv_taille_max_mo: int = 5
     # Vérifier qu'un lien répond au moment où il est enregistré (désactivé en test).
     verifier_liens: bool = True
 
@@ -38,6 +64,9 @@ class Settings(BaseSettings):
     connexion_enseignant_max_echecs: int = 5  # par compte enseignant
     connexion_eleve_max_codes_inconnus: int = 30  # codes classe inconnus, par IP
     connexion_eleve_max_echecs_code: int = 5  # codes personnels faux, par compte élève
+    # Échecs de connexion élève, par adresse (SEC-D5, #87) : les identifiants « Lina1 » se devinent, le code reste
+    # le seul secret. 60 / 15 min laisse de la marge à une classe de 35 derrière la même adresse.
+    connexion_eleve_max_echecs_par_ip: int = 60
     connexion_max_par_ip: int = 300  # toutes tentatives confondues
 
     # Banque de questions : servir aussi les questions pas encore validées par un enseignant.
@@ -80,8 +109,19 @@ class Settings(BaseSettings):
             problemes.append("PKP_SECRET_KEY doit être définie (32 caractères minimum, aléatoire).")
         if any("localhost" in o or o == "*" for o in self.cors_origins):
             problemes.append("PKP_CORS_ORIGINS ne doit contenir que le domaine public du site.")
+        elif any(not o.startswith("https://") for o in self.cors_origins):
+            problemes.append("PKP_CORS_ORIGINS : origines en https:// uniquement.")
         if self.database_url.startswith("sqlite"):
             problemes.append("PKP_DATABASE_URL doit pointer vers PostgreSQL en production.")
+        if self.pdf_francais_ouvert and not CONTROLE_PDF_RENFORCE:
+            problemes.append(
+                "PKP_PDF_FRANCAIS_OUVERT ne peut pas être activée : le contrôle renforcé des PDF (#4) n'est pas livré."
+            )
+        if self.collaboration_active and not {"candidature", "partenariat"} <= set(self.accueil_conservation_jours):
+            problemes.append(
+                "PKP_COLLABORATION_ACTIVE exige les durées « candidature » et « partenariat » dans "
+                "PKP_ACCUEIL_CONSERVATION_JOURS (décision du propriétaire, RGPD-3) : rien n'est collecté sans durée."
+            )
         if "servir_questions_non_validees" not in self.model_fields_set:
             problemes.append(
                 "PKP_SERVIR_QUESTIONS_NON_VALIDEES doit être choisie explicitement : true pendant la relecture "

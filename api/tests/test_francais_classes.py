@@ -10,7 +10,7 @@ from tests.conftest import connecter_admin, connecter_enseignant
 from tests.test_contenu import ecrire, erreurs
 
 CHAPITRE_FR = """
-chapitre: {code: FR5-CH, matiere: francais, niveau: 5e, parcours: tronc-commun, ordre: 1, titre: Le présent}
+chapitre: {code: FR5-CH, matiere: francais, rubrique: conjugaison, niveau: 5e, parcours: tronc-commun, ordre: 1, titre: Le présent}
 competences:
   - code: FR5-PRES
     libelle: Conjuguer au présent
@@ -138,7 +138,7 @@ class TestEspaceEnfant:
 
         importer_chapitre_fr(session, tmp_path)
         admin = connecter_admin(client)
-        carte = _famille(client, admin, enfants=[{"prenom": "Inès", "nom": "Martin", "niveau": "5e"}])["cartes"][0]
+        carte = _famille(client, admin, enfants=[{"prenom": "Inès", "niveau": "5e"}])["cartes"][0]
         avant = _carte(client, carte)["enfant"]
         assert next(m for m in avant["matieres"] if m["code"] == "francais")["disponible"] is False
 
@@ -150,7 +150,7 @@ class TestEspaceEnfant:
             r = client.post("/enseignants/classes", headers=prof, json=corps)
             ids[r.json()["matiere"]] = r.json()["id"]
             r = client.post(f"/enseignants/classes/{r.json()['id']}/enfants", headers=prof, json={"enfant_ids": [carte["id"]]})
-            assert r.json()["ajoutes"] == ["Inès Martin"], r.text
+            assert r.json()["ajoutes"] == ["Inès"], r.text
 
         espace = _carte(client, carte)["enfant"]
         assert next(m for m in espace["matieres"] if m["code"] == "francais")["disponible"] is True

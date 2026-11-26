@@ -15,7 +15,7 @@ from tests.conftest import connecter_admin, connecter_enseignant
 def _famille(client, admin):
     r = client.post("/admin/familles", headers=admin, json={
         "email": "archives@x.test",
-        "enfants": [{"prenom": "Inès", "nom": "Martin", "niveau": "2nde"}, {"prenom": "Noé", "niveau": "4e"}],
+        "enfants": [{"prenom": "Inès", "niveau": "2nde"}, {"prenom": "Noé", "niveau": "4e"}],
     })
     assert r.status_code == 201, r.text
     return {c["prenom"]: c for c in r.json()["cartes"]}

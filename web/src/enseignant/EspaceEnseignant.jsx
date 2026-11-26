@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { api } from "../api.js";
 import { Erreur } from "../composants.jsx";
-import { SiFrancaisActif } from "../francaisOuvert.jsx";
 import { naviguer } from "../navigation.js";
 import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
@@ -11,8 +10,10 @@ import CoursEnseignant from "./CoursEnseignant.jsx";
 import EnDirect from "./EnDirect.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Questions from "./Questions.jsx";
+import Redactions from "./Redactions.jsx";
 import RessourcesEnseignant from "./RessourcesEnseignant.jsx";
 import Remarques from "../ui/Remarques.jsx";
+import VueEleve from "../ui/VueEleve.jsx";
 import Validation from "./Validation.jsx";
 
 // Session partagée avec l'espace PKP Anglais : un professeur des deux disciplines ne se connecte qu'une fois.
@@ -22,13 +23,17 @@ const PAGES = [
   { vers: "/enseignant", libelle: "Classes et élèves", icone: "classes" },
   { vers: "/enseignant/seance", libelle: "Séance en direct", icone: "tableau" },
   { vers: "/enseignant/cours", libelle: "Cours", icone: "cours" },
-  { vers: "/enseignant/pkp-math", libelle: "PKP Maths (fiches PDF)", icone: "pdf" },
+  { vers: "/enseignant/pkp-math", libelle: "Boussole Maths (fiches PDF)", icone: "pdf" },
   { vers: "/enseignant/ressources", libelle: "Mes ressources", icone: "ressources" },
   { vers: "/enseignant/banque", libelle: "Banque de questions", icone: "exercices" },
   { vers: "/enseignant/remarques", libelle: "Remarques et suggestions", icone: "crayon" },
+  // Issue #184 : parcourir l'espace élève d'une de ses classes avec un élève fictif.
+  { vers: "/enseignant/vue-eleve", libelle: "Voir comme un élève", icone: "oeil" },
 ];
 // Validateurs en maths (ticket #29) : consulter, modifier et valider les cours et exercices de leur périmètre.
 const VALIDATION = { vers: "/enseignant/validation", libelle: "Validation", icone: "bouclier" };
+// Issue #179 : rédactions remises par les élèves des classes de français.
+const REDACTIONS = { vers: "/enseignant/redactions", libelle: "Rédactions", icone: "crayon" };
 
 export default function EspaceEnseignant({ chemin = "/enseignant" }) {
   const [compte, setCompte] = useState(() => lire(CLE_COMPTE));
@@ -47,11 +52,9 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
     return (
       <PageSimple>
         <ConnexionEnseignant onConnexion={connecter}>
-          <SiFrancaisActif>
-            <p className="aide">
-              Vous enseignez le français ? <a href="/francais">Français (préparation)</a>
-            </p>
-          </SiFrancaisActif>
+          <p className="aide">
+            Vous enseignez le français ? <a href="/francais">Français (préparation)</a>
+          </p>
         </ConnexionEnseignant>
       </PageSimple>
     );
@@ -71,7 +74,7 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
         <AccesReserve
           titre="Espace réservé aux professeurs de mathématiques"
           compte={compte}
-          autreEspace={{ vers: "/anglais", libelle: "Aller à l'espace PKP Anglais" }}
+          autreEspace={{ vers: "/anglais", libelle: "Aller à l'espace Boussole Anglais" }}
           onDeconnexion={deconnecter}
         />
       </PageSimple>
@@ -79,7 +82,8 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
   }
 
   // Un validateur qui n'enseigne pas les maths n'a que la page Validation (l'API refuse le reste).
-  const pages = !enseigne ? [VALIDATION] : compte.validateur_maths ? [...PAGES, VALIDATION] : PAGES;
+  const base = compte.enseigne_francais ? [...PAGES, REDACTIONS] : PAGES;
+  const pages = !enseigne ? [VALIDATION] : compte.validateur_maths ? [...base, VALIDATION] : base;
   const page = pages.filter((p) => chemin === p.vers || chemin.startsWith(`${p.vers}/`)).sort(
     (a, b) => b.vers.length - a.vers.length,
   )[0] ?? pages[0];
@@ -101,7 +105,13 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
           )}
           {compte.enseigne_anglais && (
             <a href="/anglais">
-              <Icone nom="cours" /> PKP Anglais
+              <Icone nom="cours" /> Boussole Anglais
+            </a>
+          )}
+          {/* Issue #217 : dossiers, validation et ouverture aux classes du français (même session). */}
+          {compte.enseigne_francais && (
+            <a href="/francais">
+              <Icone nom="cours" /> Boussole Français : dossiers et validation
             </a>
           )}
           <button className="nav" onClick={deconnecter}>
@@ -119,8 +129,10 @@ export default function EspaceEnseignant({ chemin = "/enseignant" }) {
       {page.vers === "/enseignant/ressources" && <RessourcesEnseignant {...props} />}
       {page.vers === "/enseignant/banque" && <Questions {...props} />}
       {page.vers === "/enseignant/remarques" && <Remarques {...props} />}
+      {page.vers === "/enseignant/redactions" && <Redactions {...props} />}
+      {page.vers === "/enseignant/vue-eleve" && <VueEleve {...props} role="enseignant" />}
       {page.vers === "/enseignant/validation" && <Validation {...props} chemin={chemin} />}
-      {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} /></section>}
+      {page.vers === "/enseignant/pkp-math" && <section className="carte"><PkpMath {...props} adulte /></section>}
     </CadreApplication>
   );
 }
@@ -156,11 +168,9 @@ export function AccesReserve({ titre, compte, autreEspace, onDeconnexion }) {
           </a>
         )}
         {autreEspace && autreEspace.vers !== "/francais" && (
-          <SiFrancaisActif>
-            <a className="bouton secondaire" href="/francais">
-              Aller à l'espace Français (préparation)
-            </a>
-          </SiFrancaisActif>
+          <a className="bouton secondaire" href="/francais">
+            Aller à l'espace Français (préparation)
+          </a>
         )}
         <button type="button" className="lien" onClick={onDeconnexion}>
           Se déconnecter

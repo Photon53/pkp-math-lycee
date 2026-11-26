@@ -45,7 +45,11 @@ ESPACES: list[tuple[str, set[str]]] = [
     (r"^/enseignants/mot-de-passe$", {"prof_maths", "prof_anglais"}),
     (r"^/enseignants/", {"prof_maths"}),
     (r"^/anglais/", {"prof_anglais"}),
-    (r"^/francais/", {"prof_francais"}),
+    # Élève d'une classe de français (#212) : lecture des dossiers validés ouverts à sa classe ; l'élève de démo,
+    # en maths, reçoit une liste vide et 404 (contrôle de la classe dans tests/test_francais.py).
+    (r"^/francais/eleve/", {"eleve"}),
+    # Session professeur, ou session d'administration ouverte depuis l'administration (#217).
+    (r"^/francais/", {"prof_francais", "admin"}),
     (r"^/admin/", {"admin"}),
     # Même fichier ouvert depuis trois espaces ; la visibilité fine est testée plus bas.
     (r"^/ressources/", {"eleve", "prof_maths", "admin"}),
@@ -82,6 +86,8 @@ def remplir(chemin: str, valeurs: dict[str, object]) -> str:
 CORPS: dict[tuple[str, str], dict] = {
     ("POST", "/enseignants/classes/{classe_id}/eleves"): {"prenoms": ["Intrus"]},
     ("PUT", "/enseignants/classes/{classe_id}/chapitres"): {"chapitre_ids": []},
+    ("POST", "/enseignants/redactions/{redaction_id}/correction"): {"commentaire": "Commentaire de l'intrus"},  # #179
+    ("PUT", "/enseignants/classes/{classe_id}/diagnostic"): {"ouvert": True},
     ("PATCH", "/enseignants/eleves/{eleve_id}"): {"prenom": "Renomme"},
     ("POST", "/enseignants/eleves/{eleve_id}/parents"): {"email": "intrus@exemple.fr"},
     ("POST", "/enseignants/classes/{classe_id}/enfants"): {"enfant_ids": [1]},

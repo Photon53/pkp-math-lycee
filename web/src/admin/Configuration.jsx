@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Erreur } from "../composants.jsx";
 import { useApi } from "../enseignant/useApi.js";
+import ClassesPilotes from "./ClassesPilotes.jsx";
 
 /** Domaines pédagogiques (CDC V2, EX.1 à EX.4) : « activé » ouvre la production à l'équipe,
- * « ouvert aux élèves » permet les nouvelles séances. Fermer ne supprime ni contenu ni historique. */
+ * « ouvert aux élèves » donne aux classes l'accès au contenu. Fermer coupe cet accès, sauf aux classes pilotes
+ * (SEC-D6, #176), sans rien supprimer. */
 export default function Configuration({ jeton, onExpire }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [domaines, setDomaines] = useState(null);
@@ -16,7 +18,7 @@ export default function Configuration({ jeton, onExpire }) {
   async function regler(d, reglage) {
     const suivant = { actif: d.actif, public: d.public, ...reglage };
     if (reglage.public === false && d.public &&
-        !window.confirm(`Fermer ${d.libelle} aux élèves ? Plus aucune nouvelle séance, ni nouvelle classe ou nouveau groupe ; rien n'est supprimé.`)) return;
+        !window.confirm(`Fermer ${d.libelle} aux élèves ? Leurs classes n'auront plus accès au contenu, sauf les classes pilotes ; plus aucune nouvelle classe ni nouveau groupe. Rien n'est supprimé.`)) return;
     setMessage(null);
     try {
       setDomaines(await appeler(`/admin/domaines/${d.code}`, { methode: "POST", corps: suivant }));
@@ -27,6 +29,7 @@ export default function Configuration({ jeton, onExpire }) {
   }
 
   return (
+    <>
     <section className="carte">
       <h2>Domaines pédagogiques</h2>
       <p className="doux">
@@ -93,5 +96,7 @@ export default function Configuration({ jeton, onExpire }) {
         Un domaine où des comptes sont encore habilités ne peut pas être désactivé : retirez d'abord leurs qualifications.
       </p>
     </section>
+    {domaines && <ClassesPilotes jeton={jeton} onExpire={onExpire} domaines={domaines} />}
+    </>
   );
 }

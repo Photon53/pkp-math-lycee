@@ -143,9 +143,13 @@ def charger(dossier: Path = DOSSIER_PAR_DEFAUT, verifier_empreintes: bool = True
                 erreurs.extend(f"sources.yaml : {e['msg']}" for e in exc.errors())
                 continue
             pdf = dossier / "sources" / s.fichier
-            if not pdf.is_file():
+            # Sans vérification des empreintes (lecture des attendus par l'API), le PDF n'est pas lu : l'image
+            # de production ne le contient pas (#116). Les contrôles du dépôt (CI, matrice) le vérifient.
+            if not verifier_empreintes:
+                pass
+            elif not pdf.is_file():
                 erreurs.append(f"sources.yaml : {s.code} : fichier {s.fichier} absent")
-            elif verifier_empreintes and hashlib.sha256(pdf.read_bytes()).hexdigest() != s.sha256:
+            elif hashlib.sha256(pdf.read_bytes()).hexdigest() != s.sha256:
                 erreurs.append(f"sources.yaml : {s.code} : le PDF ne correspond plus à son empreinte SHA-256")
             sources[s.code] = s
 

@@ -8,7 +8,7 @@ maths (créées directement dans une classe) passent par la même connexion.
 from datetime import UTC, datetime
 
 from fastapi import APIRouter, HTTPException, Request, status
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app import enfants, limitation
 from app.auth import CARTE_BLOQUEE, CLASSE_ARCHIVEE, ELEVE, ELEVE_ANGLAIS, ENFANT, EnfantCourant, SessionDB, carte_bloquee
@@ -29,12 +29,12 @@ def connexion(corps: ConnexionIdentifiant, request: Request, session: SessionDB)
     ip = limitation.adresse_ip(request)
     identifiant = normaliser_identifiant(corps.identifiant)
     compte = f"carte:{identifiant}"
-    limitation.verifier((limitation.par_ip, ip), (limitation.codes_inconnus, ip), (limitation.echecs_code_eleve, compte))
+    limitation.verifier((limitation.par_ip, ip), (limitation.codes_inconnus, ip), (limitation.echecs_code_eleve, compte), (limitation.echecs_eleve_par_ip, ip))
     limitation.par_ip.enregistrer(ip)
     duree_h = settings.duree_jeton_eleve_longue_j * 24 if corps.rester_connecte else settings.duree_jeton_eleve_h
 
-    enfant = session.scalar(select(models.Enfant).where(models.Enfant.identifiant == identifiant))
-    eleve = None if enfant else session.scalar(select(models.Eleve).where(models.Eleve.identifiant == identifiant))
+    enfant = session.scalar(select(models.Enfant).where(func.lower(models.Enfant.identifiant) == identifiant))
+    eleve = None if enfant else session.scalar(select(models.Eleve).where(func.lower(models.Eleve.identifiant) == identifiant))
     titulaire = enfant or eleve
     empreinte = titulaire.code_hash if titulaire and titulaire.code_hash else _code_leurre()  # même durée
     if not verifier_code_eleve(corps.code_personnel, empreinte) or not (titulaire and titulaire.code_hash):
@@ -43,6 +43,7 @@ def connexion(corps: ConnexionIdentifiant, request: Request, session: SessionDB)
         if titulaire is None:
             limitation.codes_inconnus.enregistrer(ip)  # freine la recherche d'identifiants
         limitation.echecs_code_eleve.enregistrer(compte)
+        limitation.echecs_eleve_par_ip.enregistrer(ip)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, ECHEC_IDENTIFIANT)
     limitation.echecs_code_eleve.effacer(compte)
     if carte_bloquee(titulaire):

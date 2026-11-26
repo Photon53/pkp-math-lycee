@@ -5,12 +5,18 @@ import { libelleNiveauParcours } from "../parcours.js";
 import { ecrire, lire } from "../stockage.js";
 import { AutresEspaces, RepereEleve } from "../ui/Cadre.jsx";
 import Cours from "./Cours.jsx";
+import Diagnostic from "./Diagnostic.jsx";
 import Exercice, { CLE_BILAN, CLE_CIBLE, CLE_SEANCE } from "./Exercice.jsx";
 import Historique from "./Historique.jsx";
+import DossiersFrancais from "./DossiersFrancais.jsx";
+import MonCours from "./MonCours.jsx";
+import Redaction from "./Redaction.jsx";
 import Progression from "./Progression.jsx";
 import EspaceEnfant, { CLE_ENFANT } from "./EspaceEnfant.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
 import Remarques from "../ui/Remarques.jsx";
+import { naviguer } from "../navigation.js";
+import { ORIGINES, viderSessionEleve } from "../simulation.js";
 
 const CLE_COMPTE = "pkp.eleve";
 
@@ -61,6 +67,16 @@ export default function EspaceEleve() {
     }
   }
 
+  // Diagnostic des acquis (#162) : onglet visible seulement si le professeur l'a ouvert et qu'il a des questions.
+  const [diagnosticVisible, setDiagnosticVisible] = useState(false);
+  useEffect(() => {
+    if (!compte || compte.eleve.matiere === "francais") return setDiagnosticVisible(false);
+    api("/eleves/moi/diagnostic", { jeton: compte.jeton }).then(
+      (etat) => setDiagnosticVisible(["a-commencer", "en-cours", "termine"].includes(etat?.statut)),
+      () => setDiagnosticVisible(false),
+    );
+  }, [compte]);
+
   // Historique filtré sur une compétence (étape « Je vérifie » d'une leçon) ; null = tout.
   const [historiqueDe, setHistoriqueDe] = useState(null);
 
@@ -100,6 +116,36 @@ export default function EspaceEleve() {
     quitterInscription();
     ecrire(CLE_ENFANT, null);
     setEnfant(null);
+    // Simulation (issue #184) : expirée, révoquée ou terminée, on revient à l'espace d'origine.
+    if (compte?.simulation) {
+      viderSessionEleve();
+      naviguer(ORIGINES[compte.simulation.role]?.vers ?? "/");
+    }
+  }
+
+  async function reinitialiserSimulation() {
+    if (!window.confirm("Effacer les réponses, la progression et le travail de cet élève fictif ?")) return;
+    try {
+      const nouveau = await api("/eleves/moi/simulation/reinitialiser", { methode: "POST", jeton: compte.jeton });
+      ecrire(CLE_SEANCE, null);
+      ecrire(CLE_BILAN, null);
+      ecrire(CLE_CIBLE, null);
+      setCible(null);
+      setLeconOuverte(null);
+      setHistoriqueDe(null);
+      setOnglet("exercice");
+      setErreurParcours(null);
+      connecter({ jeton: nouveau.jeton, eleve: nouveau.eleve, simulation: nouveau.simulation }, false);
+    } catch (err) {
+      if (err.status === 401) return deconnecter();
+      setErreurParcours(err.message);
+    }
+  }
+
+  async function terminerSimulation() {
+    // Le serveur révoque le jeton ; même s'il ne répond pas, la session locale est fermée.
+    await api("/eleves/moi/simulation/fermer", { methode: "POST", jeton: compte.jeton }).catch(() => {});
+    deconnecter();
   }
 
   function connexionCarte(reponse, durable) {
@@ -124,6 +170,13 @@ export default function EspaceEleve() {
 
   return (
     <>
+      {compte.simulation && (
+        <BandeauSimulation
+          simulation={compte.simulation}
+          onReinitialiser={reinitialiserSimulation}
+          onRetour={terminerSimulation}
+        />
+      )}
       <div className="barre-session">
         <p>
           Bonjour <strong>{compte.eleve.prenom}</strong>{" "}
@@ -146,7 +199,7 @@ export default function EspaceEleve() {
             </select>
           </div>
         )}
-        {enfant ? (
+        {compte.simulation ? null : enfant ? (
           <button className="lien" onClick={quitterInscription}>
             ← Mes matières
           </button>
@@ -161,8 +214,13 @@ export default function EspaceEleve() {
         valeur={onglet}
         onChange={changerOnglet}
         options={[
+          ...(diagnosticVisible ? [["diagnostic", "Diagnostic"]] : []),
           ["exercice", "S'entraîner"],
           ["cours", "Cours"],
+          // Issue #180 : en français, les fiches et liens de la professeure au fil du cours.
+          ...(compte.eleve.matiere === "francais" ? [["mon-cours", "Mon cours"]] : []),
+          // Issue #179 : rédaction en ligne, classes de français.
+          ...(compte.eleve.matiere === "francais" ? [["redaction", "Rédaction"]] : []),
           ["pkp", "Fiches et PDF"],
           ["historique", "Mon historique"],
           ["progression", "Ma progression"],
@@ -171,8 +229,21 @@ export default function EspaceEleve() {
       />
       {/* Toujours monté, seulement masqué : aller au cours ne fait pas perdre la question ni sa correction. */}
       <div hidden={onglet !== "exercice"}>
+        {compte.eleve.matiere === "francais" && (
+          <p className="carte doux" role="note">
+            En français, la leçon, les textes et les questions de tes dossiers se trouvent dans l'onglet « Cours ». Tu rédiges
+            tes réponses comme te l'indique ta professeure, qui les relit. Ici n'apparaissent que les exercices corrigés
+            automatiquement, quand ta professeure en ouvre.
+          </p>
+        )}
         <Exercice key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} onVoirCours={voirCours} cible={cible} />
       </div>
+      {onglet === "mon-cours" && <MonCours key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
+      {onglet === "redaction" && <Redaction key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
+      {/* Issue #217 : les dossiers de français validés et ouverts à la classe apparaissent aussi dans « Cours ». */}
+      {onglet === "cours" && compte.eleve.matiere === "francais" && (
+        <DossiersFrancais key={`dossiers-${compte.eleve.id}`} jeton={compte.jeton} onExpire={deconnecter} />
+      )}
       {onglet === "cours" && (
         <Cours
           key={compte.eleve.id}
@@ -211,16 +282,46 @@ export default function EspaceEleve() {
           intro="Les chapitres ouverts par ton professeur : résumé de cours, cours complet, fiche d'exercices et corrigé, à lire ici ou à exporter en PDF."
         />
       )}
+      {onglet === "diagnostic" && <Diagnostic key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
       {onglet === "progression" && <Progression key={compte.eleve.id} jeton={compte.jeton} onExpire={deconnecter} />}
       {onglet === "remarques" && <Remarques jeton={compte.jeton} onExpire={deconnecter} tutoiement />}
     </>
   );
 }
 
+/** Bandeau permanent de la vue élève simulée (issue #184) : contexte, réinitialisation, retour à l'espace d'origine. */
+export function BandeauSimulation({ simulation, onReinitialiser, onRetour }) {
+  const origine = ORIGINES[simulation.role] ?? ORIGINES.enseignant;
+  const fin = simulation.expire_le
+    ? new Date(simulation.expire_le).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+    : null;
+  return (
+    <section className="bandeau-simulation" aria-label="Simulation élève">
+      <p>
+        <strong>Simulation élève</strong> · {simulation.domaine} · {simulation.niveau} · classe {simulation.code_classe}
+        <br />
+        <span>
+          Élève fictif : vos essais n'apparaissent ni chez le professeur, ni dans les statistiques, ni chez les familles.
+          {fin && ` Simulation ouverte jusqu'à ${fin}.`}
+        </span>
+      </p>
+      <div className="actions">
+        <button type="button" className="secondaire" onClick={onReinitialiser}>
+          Réinitialiser la simulation
+        </button>
+        <button type="button" onClick={onRetour}>
+          {origine.libelle}
+        </button>
+      </div>
+    </section>
+  );
+}
+
 /** Contenu du QR code de la carte élève : « /eleve#carte=identifiant.code ».
+ * Identifiant à l'ancien format (« lina-k7m4 ») ou au nouveau (« Lina1 », majuscule comprise, RGPD-1 #87).
  * Le fragment (#…) n'est jamais envoyé au serveur ni conservé dans ses journaux. */
 export function lireCarte(fragment = window.location.hash) {
-  const m = /^#carte=([a-z0-9-]+)\.([A-Za-z0-9]+)$/.exec(fragment || "");
+  const m = /^#carte=([A-Za-z0-9-]+)\.([A-Za-z0-9]+)$/.exec(fragment || "");
   return m ? { identifiant: m[1], code: m[2] } : null;
 }
 

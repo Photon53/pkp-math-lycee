@@ -28,7 +28,6 @@ const ACTIONS = {
 /** Ligne CSV d'un élève : ce qui sert à un tableur, sans code ni mot de passe. */
 const ligneCsv = (e) => ({
   prenom: e.prenom,
-  nom: e.nom,
   niveau: e.niveau,
   identifiant: e.identifiant,
   maths: e.maths.map((m) => `${m.code_classe}${m.principal ? "" : " (option)"}`).join(", "),

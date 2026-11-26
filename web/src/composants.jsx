@@ -53,7 +53,12 @@ export function Difficulte({ niveau }) {
   );
 }
 
-export const LIBELLES_TYPE = { qcm: "QCM", numerique: "Numérique", expression: "Expression", texte: "Réponse courte" };
+export const LIBELLES_TYPE = {
+  qcm: "QCM", numerique: "Numérique", expression: "Expression", texte: "Réponse courte",
+  // Issue #162 : réservés aux chapitres de diagnostic, rédigés dans les fichiers (pas dans le formulaire).
+  choix_multiples: "Choix multiples", redaction: "Rédaction",
+};
+export const TYPES_DIAGNOSTIC = ["choix_multiples", "redaction"];
 
 /** Réponses acceptées d'une question « texte » (séparées par « | ») ; la première est la réponse modèle. */
 export function reponsesAcceptees(solution) {

@@ -56,8 +56,17 @@ SEANCES = [
 ]
 
 
+class DemoInterdite(RuntimeError):
+    """Données de démonstration demandées en production : comptes et codes connus de tous (#116)."""
+
+
 def charger_demo(session: Session) -> bool:
-    """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà."""
+    """Charge le contenu puis les données de démo. Renvoie False si la démo existait déjà.
+    Refusé en production : mots de passe et codes de la démo sont publiés dans ce fichier (#116)."""
+    from app.config import settings
+
+    if settings.production:
+        raise DemoInterdite("Données de démonstration refusées en production (PKP_ENVIRONNEMENT=production).")
     contenu.importer(session, contenu.charger())
     anglais_contenu.importer_seances(session)  # soumises à validation : aucun élève ne les voit encore
     mot_de_passe = os.environ.get("PKP_DEMO_MOT_DE_PASSE", "demo-pkp-2026")
@@ -140,7 +149,10 @@ def main() -> None:
     from app.db.session import SessionLocale
 
     with SessionLocale() as session:
-        print("Données de démo chargées." if charger_demo(session) else "Contenu à jour, démo déjà présente.")
+        try:
+            print("Données de démo chargées." if charger_demo(session) else "Contenu à jour, démo déjà présente.")
+        except DemoInterdite as exc:
+            raise SystemExit(str(exc)) from exc
 
 
 if __name__ == "__main__":

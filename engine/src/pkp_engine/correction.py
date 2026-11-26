@@ -12,6 +12,11 @@
   Si la question exige une forme (`Question.forme`), elle est contrôlée ensuite :
   recopier `(x+3)²` ne répond pas à « Développer (x+3)² » (voir `formes`).
 
+- Choix multiples : l'ensemble des lettres cochées doit être **exactement** celui de la solution, quel que soit
+  l'ordre (« CA » = « A, C ») ; aucun crédit partiel (« A » seul est faux si la solution est « AC »). Une saisie
+  contenant autre chose que des lettres et des séparateurs (espace, virgule, point-virgule) est fausse.
+- Rédaction : jamais corrigée automatiquement ; `verifier` lève `CorrectionHumaineRequise`.
+
 - Texte (réponse courte) : la solution liste les réponses acceptées, séparées par « | »
   (`finissent | ils finissent`). La casse, les espaces en trop, la forme des apostrophes et des
   tirets et la ponctuation finale ne comptent pas ; **les accents comptent** (« a » ≠ « à »).
@@ -27,7 +32,7 @@ import unicodedata
 from enum import Enum
 
 from pkp_engine import formes
-from pkp_engine.domain import Question, TypeQuestion
+from pkp_engine.domain import TYPES_CORRECTION_HUMAINE, Question, TypeQuestion
 from pkp_engine.expressions import ExpressionInvalide, HorsDomaine, analyser, evaluer, variables
 
 TOLERANCE_RELATIVE = 1e-9
@@ -48,15 +53,30 @@ class Verdict(str, Enum):
     FORME = "forme"
 
 
+class CorrectionHumaineRequise(Exception):
+    """La question attend la correction d'un professeur (réponse rédigée) : le moteur ne donne pas de verdict."""
+
+
+def corrige_automatiquement(question: Question) -> bool:
+    return question.type not in TYPES_CORRECTION_HUMAINE
+
+
 def corriger(question: Question, reponse_donnee: str) -> bool:
     """Indique si `reponse_donnee` est correcte pour `question`."""
     return verifier(question, reponse_donnee) is Verdict.JUSTE
 
 
 def verifier(question: Question, reponse_donnee: str) -> Verdict:
-    """Verdict détaillé : juste, faux, ou juste en valeur mais pas sous la forme demandée."""
+    """Verdict détaillé : juste, faux, ou juste en valeur mais pas sous la forme demandée.
+
+    Lève `CorrectionHumaineRequise` pour une réponse rédigée."""
+    if not corrige_automatiquement(question):
+        raise CorrectionHumaineRequise(f"question de type « {question.type.value} » : correction par un professeur")
     if question.type is TypeQuestion.QCM:
         return _verdict(_normaliser_qcm(reponse_donnee) == _normaliser_qcm(question.solution))
+    if question.type is TypeQuestion.CHOIX_MULTIPLES:
+        attendues, cochees = lettres_choisies(question.solution), lettres_choisies(reponse_donnee)
+        return _verdict(attendues is not None and cochees == attendues)
     if question.type is TypeQuestion.TEXTE:
         saisie = normaliser_texte(reponse_donnee)
         return _verdict(bool(saisie) and saisie in {normaliser_texte(r) for r in reponses_acceptees(question.solution)})
@@ -108,6 +128,18 @@ def normaliser_texte(texte: str) -> str:
     texte = unicodedata.normalize("NFC", texte).translate(_APOSTROPHES).casefold()
     texte = re.sub(r"\s*([-'])\s*", r"\1", " ".join(texte.split()))  # « l ' arbre » = « l'arbre »
     return texte.rstrip(" .!?;:…")
+
+
+_SEPARATEURS_CHOIX = re.compile(r"[\s,;]+")
+
+
+def lettres_choisies(texte: str) -> frozenset[str] | None:
+    """Ensemble des lettres d'une réponse à choix multiples (« A, c » → {A, C}) ; None si la saisie est vide
+    ou contient autre chose que des lettres A à Z et des séparateurs."""
+    compact = _SEPARATEURS_CHOIX.sub("", texte or "")
+    if not compact or not re.fullmatch(r"[A-Za-z]+", compact):
+        return None
+    return frozenset(compact.upper())
 
 
 def _normaliser_qcm(texte: str) -> str:

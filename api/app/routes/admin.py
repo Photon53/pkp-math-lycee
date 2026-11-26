@@ -405,7 +405,7 @@ def _famille(p: models.Parent) -> FamilleAdmin:
             EnfantRattache(id=e.id, prenom=e.prenom, classe=e.classe.code, niveau=e.classe.niveau, enseignant=e.classe.enseignant.nom)
             for e in sorted(p.enfants, key=lambda e: (e.prenom, e.classe.code))
         ],
-        famille=[f"{f.prenom} {f.nom}".strip() + f" ({f.niveau.value})" for f in sorted(p.famille, key=lambda f: f.prenom)],
+        famille=[f"{f.prenom} ({f.niveau.value})" for f in sorted(p.famille, key=lambda f: f.prenom)],
         bloque=p.bloque_le is not None,
     )
 
@@ -870,7 +870,8 @@ def domaines(_: AdminCourant, session: SessionDB) -> list[DomaineAdmin]:
 
 @router.post("/domaines/{code}", response_model=list[DomaineAdmin])
 def regler_domaine(code: str, corps: DomaineEdition, admin: AdminCourant, session: SessionDB) -> list[DomaineAdmin]:
-    """Fermer au public bloque les nouvelles séances sans rien supprimer (EX.4) ; désactiver exige qu'aucun
+    """Fermer au public coupe l'accès des classes au contenu, sauf aux classes pilotes, sans rien supprimer (EX.4,
+    SEC-D6) ; désactiver exige qu'aucun
     compte n'y soit plus habilité."""
     d = session.get(models.DomainePedagogique, code)
     if d is None:

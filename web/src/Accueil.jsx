@@ -1,8 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { api } from "./api.js";
-import { francaisActif } from "./francaisOuvert.jsx";
+import { MARQUE } from "./marque.js";
+import { ETAPES } from "./methodeEtapes.js";
 import { DOMAINES_PAR_DEFAUT, ETATS, repartirParcours } from "./parcoursPublics.js";
-import Icone from "./ui/Icone.jsx";
+import Icone, { RoseDesVents } from "./ui/Icone.jsx";
 
 // KaTeX n'est chargé que pour la question d'essai, pas pour le reste de l'accueil.
 const ExempleQuestion = lazy(() => import("./ExempleQuestion.jsx"));
@@ -29,14 +30,13 @@ function useDonneePublique(chemin, initial, valide) {
 /** Lien d'espace : le profil, invisible à l'écran, reste dans le nom lu par un lecteur d'écran. */
 function LienEspace({ href, profil, children, secondaire = false }) {
   return (
-    <a className={`bouton${secondaire ? " secondaire" : ""}`} href={href}>
-      <span className="visuellement-cache">{profil} — </span>
+    <a className={`bouton${secondaire ? " secondaire" : ""}`} href={href} aria-label={`${profil} — ${children}`}>
       {children}
     </a>
   );
 }
 
-function Profils({ francais }) {
+function Profils() {
   return (
     <section aria-labelledby="titre-espaces" className="accueil-profils">
       <h2 id="titre-espaces">Accéder à mon espace</h2>
@@ -58,7 +58,7 @@ function Profils({ francais }) {
         <li className="carte profil">
           <Icone nom="professeurs" taille={32} />
           <h3>Je suis parent</h3>
-          <p>Suivez les progrès de votre enfant, son travail et ses réussites, depuis un téléphone ou un ordinateur.</p>
+          <p>Suivez le travail de votre enfant : les séances faites, les notions acquises et celles à revoir.</p>
           <div className="profil-liens">
             <LienEspace href="/parent" profil="Parent">
               Espace parent
@@ -69,7 +69,7 @@ function Profils({ francais }) {
         <li className="carte profil">
           <Icone nom="classes" taille={32} />
           <h3>Je suis professeur</h3>
-          <p>Des séances prêtes à l'emploi, des contenus relus par des collègues et le suivi de vos classes en un coup d'œil.</p>
+          <p>Vos classes et vos élèves, la séance en direct, les cours, la banque de questions et les fiches PDF par chapitre.</p>
           <div className="profil-liens">
             <LienEspace href="/enseignant" profil="Professeur">
               Maths
@@ -77,16 +77,36 @@ function Profils({ francais }) {
             <LienEspace href="/anglais" profil="Professeur" secondaire>
               Anglais
             </LienEspace>
-            {francais && (
-              <LienEspace href="/francais" profil="Professeur" secondaire>
-                Français (préparation)
-              </LienEspace>
-            )}
+            <LienEspace href="/francais" profil="Professeur" secondaire>
+              Français (préparation)
+            </LienEspace>
           </div>
           <p className="doux profil-aide">Classes, groupes, séances, packs PDF et ressources.</p>
-          {francais && <p className="doux profil-aide">Français : préparation réservée aux adultes habilités, sans accès élève.</p>}
+          <p className="doux profil-aide">Français : préparation réservée aux adultes habilités, sans accès élève.</p>
         </li>
       </ul>
+    </section>
+  );
+}
+
+// --- La méthode en bref -------------------------------------------------------------------------
+
+/** Les cinq étapes en une ligne chacune ; le détail reste sur la page Méthode, facultative. */
+function MethodeCourte({ marque }) {
+  return (
+    <section aria-labelledby="titre-methode" className="accueil-methode">
+      <h2 id="titre-methode">La méthode en cinq étapes</h2>
+      <ol className="methode-courte">
+        {ETAPES.map((e) => (
+          <li key={e.cle}>
+            <strong>{e.titre}</strong>
+            <span className="doux">{e.court}</span>
+          </li>
+        ))}
+      </ol>
+      <p>
+        <a href="/methode">{marque.spirale ? "Découvrir la Méthode Spirale" : "Lire la méthode en détail"}</a>
+      </p>
     </section>
   );
 }
@@ -102,7 +122,7 @@ function Chiffres() {
     chiffres?.questions > 0 && { valeur: nombre(chiffres.questions), texte: "questions corrigées en maths" },
     chiffres?.chapitres > 0 && { valeur: nombre(chiffres.chapitres), texte: "chapitres du programme" },
     chiffres?.seances_anglais > 0 && { valeur: nombre(chiffres.seances_anglais), texte: "séances d'anglais de 90 minutes" },
-    { valeur: "Par des profs", texte: "chaque cours et chaque exercice, écrits et relus par des professeurs" },
+    { valeur: "En autonomie", texte: "ou avec ses professeurs : des cours à travailler à son rythme" },
   ].filter(Boolean);
   return (
     <section aria-labelledby="titre-chiffres">
@@ -146,17 +166,18 @@ function Etapes() {
 
 // --- Parcours prêts et en chantier ---------------------------------------------------------------
 
-/** Titre d'un parcours : « PKP Maths », puis le cycle. */
-function TitreParcours({ domaine }) {
+/** Titre d'un parcours : « Boussole Maths » (ou « PKP Maths »), puis le cycle. */
+function TitreParcours({ domaine, prefixe }) {
   return (
     <h4>
-      PKP <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
+      {prefixe} <em>{domaine.matiereLisible}</em> <span className="parcours-cycle">{domaine.cycleLisible}</span>
     </h4>
   );
 }
 
 /** Les parcours prêts puis les chantiers ; l'état suit les réglages des domaines, avec un repli statique hors ligne. */
-function Parcours({ domaines }) {
+function Parcours({ marque }) {
+  const domaines = useDonneePublique("/domaines/publics", DOMAINES_PAR_DEFAUT, (l) => Array.isArray(l) && l.length > 0);
   const { prets, chantiers } = repartirParcours(domaines);
 
   return (
@@ -174,7 +195,7 @@ function Parcours({ domaines }) {
                 {ETATS.ouvert.libelle}
               </span>
             </div>
-            <TitreParcours domaine={d} />
+            <TitreParcours domaine={d} prefixe={marque.prefixeParcours} />
             {d.description && <p className="doux">{d.description}</p>}
           </li>
         ))}
@@ -197,7 +218,7 @@ function Parcours({ domaines }) {
                     {ETATS[d.etat].libelle}
                   </span>
                 </div>
-                <TitreParcours domaine={d} />
+                <TitreParcours domaine={d} prefixe={marque.prefixeParcours} />
                 <p className="doux">{ETATS[d.etat].detail}.</p>
               </li>
             ))}
@@ -211,7 +232,7 @@ function Parcours({ domaines }) {
 // --- Questions fréquentes ------------------------------------------------------------------------
 
 // `masquee` : réponse rédigée mais retirée de la page pour l'instant (choix du professeur, bêta).
-const FAQ = [
+const faq = (nom) => [
   {
     masquee: true,
     question: "Quelles données sont enregistrées sur mon enfant ?",
@@ -229,7 +250,7 @@ const FAQ = [
   {
     question: "Faut-il installer une application ?",
     reponse:
-      "Non. PKP Éducation s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet " +
+      `Non. ${nom} s'utilise dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur. Fermer l'onglet ` +
       "déconnecte, pratique sur un poste partagé.",
   },
   {
@@ -241,12 +262,12 @@ const FAQ = [
   },
 ];
 
-function QuestionsFrequentes() {
+function QuestionsFrequentes({ marque }) {
   return (
     <section aria-labelledby="titre-faq">
       <h2 id="titre-faq">Questions fréquentes</h2>
       <div className="faq">
-        {FAQ.filter((f) => !f.masquee).map((f) => (
+        {faq(marque.nom).filter((f) => !f.masquee).map((f) => (
           <details key={f.question}>
             <summary>{f.question}</summary>
             <p>{f.reponse}</p>
@@ -259,33 +280,61 @@ function QuestionsFrequentes() {
 
 // --- Page ---------------------------------------------------------------------------------------
 
-/** Page d'accueil publique : une entrée par profil, le fonctionnement, un essai, les parcours, puis les questions fréquentes. */
-export default function Accueil() {
-  // Une seule lecture de l'état des domaines : les parcours et le lien Français (affiché seulement si un domaine est actif).
-  const domaines = useDonneePublique("/domaines/publics", DOMAINES_PAR_DEFAUT, (l) => Array.isArray(l) && l.length > 0);
+/**
+ * Page d'accueil publique, commune aux deux variantes (Boussole Maîtrise+, PKP Éducation) : une action principale,
+ * la méthode en bref, une entrée par profil, le fonctionnement, un essai, les parcours réellement ouverts, la FAQ.
+ * `marque` : textes et identité de la variante (voir marque.js) ; seule la présentation change.
+ */
+/** Issue #171 : entrée « Enseigner ou collaborer avec nous », affichée seulement quand la collecte est ouverte. */
+function Collaborer() {
+  const etat = useDonneePublique("/collaboration/etat", null, (e) => e && typeof e.ouvert === "boolean");
+  if (!etat?.ouvert) return null;
+  return (
+    <section aria-labelledby="titre-collaborer" className="carte">
+      <h2 id="titre-collaborer">Enseigner ou collaborer avec nous</h2>
+      <p>Vous êtes professeur, ou vous représentez une école, un institut ou une association ? Présentez-vous.</p>
+      <p>
+        <a className="bouton secondaire" href="/collaborer">
+          Enseigner ou collaborer avec nous
+        </a>
+      </p>
+    </section>
+  );
+}
+
+export default function Accueil({ marque = MARQUE }) {
   return (
     <div className="accueil">
-      <section className="accueil-hero">
-        <span className="badge accent">Collège · Lycée</span>
-        <h1>Comprendre, progresser, prendre confiance !</h1>
+      <section className="accueil-hero" aria-labelledby="titre-accueil">
+        {marque.monogramme && <RoseDesVents />}
+        <span className="badge accent">{marque.badge}</span>
+        <h1 id="titre-accueil">{marque.titre}</h1>
         <p>
-          <strong>Des cours clairs, des exercices corrigés pas à pas et un entraînement à ton rythme</strong>, préparés et relus par des
-          professeurs.
+          <strong>{marque.accroche}</strong>
         </p>
-        <p className="spirale-definition">
-          Avec la méthode PKP, <strong>on revient sur les notions jusqu'à ce qu'elles tiennent</strong>.
-        </p>
+        <p>{marque.publics}</p>
+        {marque.spirale && (
+          <p className="spirale-definition">
+            Avec la Méthode Spirale, <strong>on revient sur les notions jusqu'à ce qu'elles tiennent</strong> : c'est ça, viser la
+            Maîtrise+.
+          </p>
+        )}
         <div className="actions">
-          <a className="bouton" href="#titre-exemple">
+          <a className="bouton bouton-principal" href="/eleve">
+            Commencer à travailler
+          </a>
+          <a className="bouton secondaire" href="#titre-methode">
+            Découvrir la méthode
+          </a>
+          <a className="bouton secondaire" href="#titre-exemple">
             Essayer une question
           </a>
-          <a className="bouton secondaire" href="/methode">
-            Découvrir la méthode PKP
-          </a>
         </div>
+        <p className="doux petit">Élève : connecte-toi avec la carte ou le code remis par ton professeur.</p>
       </section>
 
-      <Profils francais={francaisActif(domaines)} />
+      <MethodeCourte marque={marque} />
+      <Profils />
       <Chiffres />
       <Etapes />
 
@@ -297,13 +346,17 @@ export default function Accueil() {
         </Suspense>
       </section>
 
-      <Parcours domaines={domaines} />
-      <QuestionsFrequentes />
+      <Parcours marque={marque} />
+      <QuestionsFrequentes marque={marque} />
+      <Collaborer />
 
       <p className="accroche">
-        On ne réussit pas parce qu'on est né fort : on progresse en comprenant, en pratiquant et en persévérant.
-        <br />
-        Comprendre aujourd'hui, réussir demain !
+        {marque.conclusion.map((ligne, i) => (
+          <span key={ligne}>
+            {i > 0 && <br />}
+            {ligne}
+          </span>
+        ))}
       </p>
     </div>
   );

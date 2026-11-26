@@ -18,7 +18,7 @@ from app.auth import EnseignantAuthentifie, SessionDB
 from app.db import models
 from pkp_engine import TypeQuestion
 
-from app.referentiel import Niveau, StatutValidation
+from app.referentiel import Niveau, Role, StatutValidation
 from app.routes import admin_contenu
 from app.schemas_admin import (
     ChapitreArbre,
@@ -52,7 +52,10 @@ def _habilitations(enseignant: models.Enseignant) -> list[models.Habilitation]:
 
 
 def perimetre(enseignant: models.Enseignant):
-    """Condition SQL sur `chapitre` : domaines (et niveaux) que ce professeur valide."""
+    """Condition SQL sur `chapitre` : domaines (et niveaux) que ce professeur valide ; tous ceux des maths pour un
+    administrateur (V2-D15)."""
+    if enseignant.role == Role.ADMIN:
+        return models.Chapitre.domaine_code.in_(permissions.DOMAINES_MATHS)
     conditions = [
         and_(models.Chapitre.domaine_code == h.domaine_code, *([models.Chapitre.niveau == Niveau(h.niveau)] if h.niveau else []))
         for h in _habilitations(enseignant)

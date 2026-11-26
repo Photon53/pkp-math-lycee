@@ -9,7 +9,7 @@ from tests.conftest import connecter_admin, connecter_enseignant, entete
 
 
 def _classeur(client, admin, lignes):
-    """Le modèle téléchargé, rempli avec `lignes` (prénom, nom, niveau, e-mail 1, e-mail 2, classes, groupe)."""
+    """Le modèle téléchargé, rempli avec `lignes` (prénom, niveau, e-mail 1, e-mail 2, classes, groupe)."""
     r = client.get("/admin/import/modele", headers=admin)
     assert r.status_code == 200 and r.headers["content-type"] == MIME_XLSX
     classeur = load_workbook(BytesIO(r.content))
@@ -42,7 +42,7 @@ def test_le_modele_liste_les_classes_et_les_groupes(client):
     _, prof = _groupe_4e(client, admin)
     classeur = load_workbook(BytesIO(client.get("/admin/import/modele", headers=admin).content))
     assert classeur.sheetnames == ["Élèves", "Listes", "Mode d'emploi"]
-    assert [c.value for c in classeur["Élèves"][1]][:4] == ["Prénom (obligatoire)", "Nom", "Niveau (obligatoire)", "E-mail du parent 1 (obligatoire)"]
+    assert [c.value for c in classeur["Élèves"][1]][:4] == ["Prénom (obligatoire)", "Niveau (obligatoire)", "E-mail du parent 1 (obligatoire)", "E-mail du parent 2"]
     listes = classeur["Listes"]
     assert "2NDE-A-DEMO" in [c.value for c in listes["B"]]
     assert f"4e Import · {prof['nom']}" in [c.value for c in listes["D"]]
@@ -53,9 +53,9 @@ def test_import_en_masse_verifie_puis_cree_familles_cartes_et_inscriptions(clien
     admin = connecter_admin(client)
     groupe, prof = _groupe_4e(client, admin)
     contenu = _classeur(client, admin, [
-        ("Inès", "Durand", "seconde", "durand@x.test", "durand2@x.test", "2NDE-A-DEMO", None),
-        ("Hugo", "Durand", "4e", "DURAND@x.test", None, None, f"4e Import · {prof['nom']}"),
-        ("Zoé", "", "1ère", "zoe@x.test", None, None, None),
+        ("Inès", "seconde", "durand@x.test", "durand2@x.test", "2NDE-A-DEMO", None),
+        ("Hugo", "4e", "DURAND@x.test", None, None, f"4e Import · {prof['nom']}"),
+        ("Zoé", "1ère", "zoe@x.test", None, None, None),
     ])
     # Vérification : rien n'est écrit.
     r = _importer(client, admin, contenu, simulation=True)
@@ -70,9 +70,9 @@ def test_import_en_masse_verifie_puis_cree_familles_cartes_et_inscriptions(clien
     assert len(fait["cartes"]) == 3 and {c["email"] for c in fait["comptes"]} == {"durand@x.test", "durand2@x.test", "zoe@x.test"}
     # Une famille pour les deux enfants Durand (même e-mail, casse comprise), suivie aussi par le parent 2.
     durand = client.get("/admin/parents?q=durand@", headers=admin).json()["elements"][0]
-    assert sorted(durand["famille"]) == ["Hugo Durand (4e)", "Inès Durand (2nde)"]
+    assert sorted(durand["famille"]) == ["Hugo (4e)", "Inès (2nde)"]
     second = client.get("/admin/parents?q=durand2", headers=admin).json()["elements"][0]
-    assert second["famille"] == ["Inès Durand (2nde)"]
+    assert second["famille"] == ["Inès (2nde)"]
     ines = next(c for c in fait["cartes"] if c["prenom"] == "Inès")
     assert [m["code_classe"] for m in client.get(f"/admin/enfants/{ines['id']}", headers=admin).json()["maths"]] == ["2NDE-A-DEMO"]
     groupes = client.get("/admin/anglais/groupes", headers=admin).json()
@@ -90,10 +90,10 @@ def test_import_en_masse_verifie_puis_cree_familles_cartes_et_inscriptions(clien
 def test_une_ligne_en_erreur_bloque_tout_l_import(client):
     admin = connecter_admin(client)
     contenu = _classeur(client, admin, [
-        ("Léo", "Petit", "2nde", "petit@x.test", None, None, None),
-        ("Léa", "Petit", "CM2", "petit@x.test", None, None, None),
-        ("Max", "", "4e", "pas-une-adresse", None, "2NDE-A-DEMO", None),
-        ("", "Sans", "", "", None, "INCONNUE", "Groupe fantôme"),
+        ("Léo", "2nde", "petit@x.test", None, None, None),
+        ("Léa", "CM2", "petit@x.test", None, None, None),
+        ("Max", "4e", "pas-une-adresse", None, "2NDE-A-DEMO", None),
+        ("", "", "", None, "INCONNUE", "Groupe fantôme"),
     ])
     r = _importer(client, admin, contenu, simulation=False)
     assert r.status_code == 200, r.text

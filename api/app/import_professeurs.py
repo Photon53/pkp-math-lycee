@@ -66,7 +66,7 @@ def modele() -> bytes:
             "3. Matières : « oui » ou « non ». Sans rien d'indiqué, le professeur enseigne les maths.",
             "4. Référent anglais : valide les séances d'anglais des collègues (il doit enseigner l'anglais).",
             "",
-            "Dans PKP Éducation, onglet Professeurs → « Importer (Excel) » : la vérification signale chaque ligne à corriger",
+            "Dans Boussole, onglet Professeurs → « Importer (Excel) » : la vérification signale chaque ligne à corriger",
             "sans rien enregistrer ; l'import crée ensuite tous les comptes, ou aucun si une ligne reste en erreur.",
             "Une adresse déjà inscrite est ignorée. À la fin, transmettez à chacun son mot de passe provisoire :",
             "il le changera à la première connexion. Les classes s'ouvrent ensuite (par le professeur ou l'admin).",

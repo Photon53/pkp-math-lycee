@@ -108,6 +108,14 @@ class TestChargementReferentiel:
         with pytest.raises(ReferentielInvalide, match="empreinte"):
             programmes.charger(tmp_path)
 
+    def test_pdf_absent_signale_seulement_si_les_empreintes_sont_verifiees(self, tmp_path):
+        # Image de production sans les PDF officiels (#116) : l'API lit les attendus sans les PDF.
+        referentiel(tmp_path)
+        (tmp_path / "sources" / "bo.pdf").unlink()
+        assert programmes.charger(tmp_path, verifier_empreintes=False).attendus
+        with pytest.raises(ReferentielInvalide, match="absent"):
+            programmes.charger(tmp_path)
+
     def test_code_d_attendu_hors_programme(self, tmp_path):
         referentiel(tmp_path, """
             theme: {code: SD, titre: T, partie: P}

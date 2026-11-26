@@ -53,7 +53,7 @@ export default function ParcoursPKP({ competenceId, libelle, jeton, onEntrainer,
   };
 
   return (
-    <nav className="parcours-pkp" aria-label="Méthode PKP pour cette compétence">
+    <nav className="parcours-pkp" aria-label="Méthode Spirale pour cette compétence">
       <ol>
         {ETAPES.map((e, i) => {
           const d = details[e.cle];

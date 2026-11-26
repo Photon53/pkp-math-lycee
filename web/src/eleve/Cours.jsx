@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { api, ouvrirLien, ouvrirPdf } from "../api.js";
 import { Difficulte, Erreur, LIBELLES_TYPE } from "../composants.jsx";
 import { Maths } from "../maths.jsx";
@@ -213,8 +213,9 @@ function Lecon({ lecon, erreur, jeton, enseignant, base, onRetour, onRetourExerc
   );
 }
 
-export function Ressources({ ressources, jeton }) {
+export function Ressources({ ressources, jeton, titre = "Pour aller plus loin" }) {
   const [erreur, setErreur] = useState(null);
+  const idTitre = useId();
   if (!ressources.length) return null;
 
   async function ouvrir(r) {
@@ -227,8 +228,8 @@ export function Ressources({ ressources, jeton }) {
   }
 
   return (
-    <section className="ressources" aria-labelledby="titre-ressources">
-      <h3 id="titre-ressources">Pour aller plus loin</h3>
+    <section className="ressources" aria-labelledby={idTitre}>
+      <h3 id={idTitre}>{titre}</h3>
       <Erreur message={erreur} />
       <ul>
         {ressources.map((r) => (

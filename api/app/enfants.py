@@ -6,12 +6,13 @@ niveau…) et dans des groupes d'anglais. Toutes ces inscriptions partagent le c
 connecte une seule fois, puis choisit sa matière. Changer son code déconnecte toutes ses inscriptions.
 """
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, object_session
 
 from app.db import models
 from app.referentiel import LIBELLES_PARCOURS, est_principal
-from app.security import generer_code_eleve, generer_identifiant, hacher_code_eleve
+from app.security import LONGUEUR_IDENTIFIANT, base_identifiant, cle_identifiant, generer_code_eleve, hacher_code_eleve
 
 MAX_ENFANTS_PAR_FAMILLE = 8
 
@@ -20,19 +21,70 @@ class InscriptionImpossible(ValueError):
     pass
 
 
+# Numéro à 5 chiffres au plus : la base gardée est d'au moins 35 caractères, longueur de la clé du compteur.
+# Deux identifiants de bases différentes ne peuvent donc jamais coïncider (voir identifiant_libre).
+NUMERO_MAX = 99_999
+LONGUEUR_CLE_COMPTEUR = LONGUEUR_IDENTIFIANT - len(str(NUMERO_MAX))
+ESSAIS_IDENTIFIANT = 20
+
+
+class IdentifiantsEpuises(RuntimeError):
+    pass
+
+
+def _numero_suivant(session: Session, cle: str) -> int:
+    """Incrément atomique du compteur de cette base : deux créations simultanées n'obtiennent jamais le même
+    numéro (la ligne reste verrouillée jusqu'à la fin de la transaction). Le compteur ne recule jamais."""
+    for _ in range(ESSAIS_IDENTIFIANT):
+        n = session.execute(
+            update(models.CompteurIdentifiant).where(models.CompteurIdentifiant.base == cle)
+            .values(dernier=models.CompteurIdentifiant.dernier + 1).returning(models.CompteurIdentifiant.dernier)
+        ).scalar()
+        if n is not None:
+            return n
+        try:
+            with session.begin_nested():   # première fois pour cette base ; créée en même temps ailleurs : on recompte
+                session.add(models.CompteurIdentifiant(base=cle, dernier=1))
+            return 1
+        except IntegrityError:
+            continue
+    raise IdentifiantsEpuises(f"Compteur d'identifiant « {cle} » indisponible.")
+
+
+def identifiant_pris(session: Session, identifiant: str) -> bool:
+    cle = cle_identifiant(identifiant)
+    return any(
+        session.scalar(select(modele.id).where(func.lower(modele.identifiant) == cle))
+        for modele in (models.Enfant, models.Eleve, models.EleveAnglais)
+    )
+
+
 def identifiant_libre(session: Session, prenom: str) -> str:
-    """Identifiant unique sur toute la plateforme : enfants, élèves de maths et d'anglais confondus."""
-    while True:
-        identifiant = generer_identifiant(prenom)
-        if not any(
-            session.scalar(select(modele.id).where(modele.identifiant == identifiant))
-            for modele in (models.Enfant, models.Eleve, models.EleveAnglais)
-        ):
+    """Identifiant d'un nouveau compte (décision RGPD-1, #87) : prénom sans accent suivi d'un numéro, sans
+    séparateur (« Lina1 », « Lea2 »), de 40 caractères au plus, unique sur toute la plateforme (enfants, élèves de
+    maths et d'anglais, anciens identifiants « lina-k7m4 » compris), comparé sans casse ni accents.
+
+    Le numéro vient d'un compteur par base normalisée (« Léa » et « Lea » partagent « lea ») qui n'est jamais
+    remis à zéro : un numéro n'est pas réattribué, même après purge. La base est tronquée à 40 − (chiffres du
+    numéro) ; la clé du compteur est la base en minuscules tronquée à 35 caractères, si bien que deux prénoms longs
+    de même début partagent un compteur, et que l'identifiant reste unique. Un identifiant déjà pris (saisi à la
+    main, ancienne base) est sauté : numéro suivant, nombre d'essais borné.
+    """
+    base = base_identifiant(prenom) or "Eleve"
+    cle = base.lower()[:LONGUEUR_CLE_COMPTEUR]
+    for _ in range(ESSAIS_IDENTIFIANT):
+        n = _numero_suivant(session, cle)
+        if n > NUMERO_MAX:
+            break
+        identifiant = base[: LONGUEUR_IDENTIFIANT - len(str(n))] + str(n)
+        if not identifiant_pris(session, identifiant):
             return identifiant
+    raise IdentifiantsEpuises(f"Aucun identifiant libre pour « {base} ».")
 
 
 def nom_affiche(enfant: models.Enfant) -> str:
-    return f"{enfant.prenom} {enfant.nom}".strip()
+    """Un enfant n'a pas de nom de famille (RGPD-1) : son prénom, et son identifiant pour lever une ambiguïté."""
+    return enfant.prenom
 
 
 def synchroniser(enfant: models.Enfant) -> None:
@@ -57,8 +109,8 @@ def nouveau_code(enfant: models.Enfant) -> str:
     return code
 
 
-def creer(session: Session, prenom: str, nom: str, niveau) -> tuple[models.Enfant, str]:
-    enfant = models.Enfant(prenom=prenom, nom=nom, niveau=niveau, identifiant=identifiant_libre(session, prenom))
+def creer(session: Session, prenom: str, niveau) -> tuple[models.Enfant, str]:
+    enfant = models.Enfant(prenom=prenom, niveau=niveau, identifiant=identifiant_libre(session, prenom))
     code = nouveau_code(enfant)
     session.add(enfant)
     session.flush()  # deux enfants créés ensemble ne tirent pas le même identifiant
@@ -66,25 +118,18 @@ def creer(session: Session, prenom: str, nom: str, niveau) -> tuple[models.Enfan
 
 
 def _nom_dans(enfant: models.Enfant, pris: set[str]) -> str:
-    """Le prénom suffit dans la classe, sinon le prénom et l'initiale, sinon le prénom et le nom."""
-    candidats = [enfant.prenom]
-    if enfant.nom:
-        candidats += [f"{enfant.prenom} {enfant.nom[0].upper()}.", nom_affiche(enfant)]
-    for nom in candidats:
+    """Le prénom suffit dans la classe ; sinon l'identifiant de l'enfant (« Lina2 »), unique sur la plateforme.
+    Avec lui, la connexion prénom + code classe + code personnel (SEC-D1) reste possible pour chacun."""
+    for nom in (enfant.prenom, enfant.identifiant):
         if nom.casefold() not in {p.casefold() for p in pris}:
             return nom[:50]
-    raise InscriptionImpossible(
-        f"Un élève s'appelle déjà « {enfant.prenom} » dans ce groupe : ajoutez un nom à l'enfant pour les distinguer."
-    )
+    raise InscriptionImpossible(f"Un élève s'appelle déjà « {enfant.prenom} » dans ce groupe.")
 
 
-def renommer(enfant: models.Enfant, prenom: str | None = None, nom: str | None = None) -> None:
-    """Corrige le prénom ou le nom, et le nom affiché dans chacune de ses classes et chacun de ses groupes
-    (avec l'initiale si un homonyme y est déjà). Un homonyme impossible à distinguer bloque la correction."""
-    if prenom is not None:
-        enfant.prenom = prenom
-    if nom is not None:
-        enfant.nom = nom
+def renommer(enfant: models.Enfant, prenom: str) -> None:
+    """Corrige le prénom, et le nom affiché dans chacune de ses classes et chacun de ses groupes (l'identifiant
+    si un homonyme y est déjà). L'identifiant de connexion ne change pas : la carte reste valable."""
+    enfant.prenom = prenom
     for inscription in enfant.inscriptions:
         inscription.prenom = _nom_dans(enfant, {e.prenom for e in inscription.classe.eleves if e is not inscription})
     for inscription in enfant.inscriptions_anglais:
@@ -159,9 +204,9 @@ def libelle_parcours(classe: models.Classe) -> str:
 
 # --- Descriptions --------------------------------------------------------------------------------------
 
-MATIERES = (("maths", "PKP Maths"), ("anglais", "PKP Anglais"), ("francais", "PKP Français"))
+MATIERES = (("maths", "Boussole Maths"), ("anglais", "Boussole Anglais"), ("francais", "Boussole Français"))
 MATIERES_DISPONIBLES = {"maths", "anglais"}
-# PKP Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
+# Boussole Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
 DOMAINES_FRANCAIS = ("francais-college", "francais-lycee")
 
 
@@ -220,7 +265,7 @@ def decrire(enfant: models.Enfant):
     from app.schemas import EnfantFamille
 
     return EnfantFamille(
-        id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
+        id=enfant.id, prenom=enfant.prenom, niveau=enfant.niveau, identifiant=enfant.identifiant,
         a_un_code=enfant.code_hash is not None, derniere_connexion=enfant.derniere_connexion,
         maths=inscriptions_maths(enfant, actives_seulement=False), anglais=inscriptions_anglais(enfant, False),
         francais=inscriptions_francais(enfant, actives_seulement=False), bloque=enfant.bloque_le is not None,
@@ -231,7 +276,7 @@ def espace(enfant: models.Enfant):
     from app.schemas import EspaceEnfant
 
     return EspaceEnfant(
-        id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
+        id=enfant.id, prenom=enfant.prenom, niveau=enfant.niveau, identifiant=enfant.identifiant,
         matieres=matieres(object_session(enfant), enfant), maths=inscriptions_maths(enfant),
         anglais=inscriptions_anglais(enfant), francais=inscriptions_francais(enfant),
     )
@@ -241,7 +286,7 @@ def carte(enfant: models.Enfant, code: str):
     from app.schemas import CarteEnfant
 
     return CarteEnfant(
-        id=enfant.id, prenom=enfant.prenom, nom=enfant.nom, niveau=enfant.niveau, identifiant=enfant.identifiant,
+        id=enfant.id, prenom=enfant.prenom, niveau=enfant.niveau, identifiant=enfant.identifiant,
         code=code,
     )
 
@@ -266,10 +311,10 @@ def rechercher(
     if q:
         motif = f"%{q}%"
         filtres.append(
-            models.Enfant.prenom.ilike(motif) | models.Enfant.nom.ilike(motif) | models.Enfant.identifiant.ilike(motif)
+            models.Enfant.prenom.ilike(motif) | models.Enfant.identifiant.ilike(motif)
         )
     return list(session.scalars(
-        select(models.Enfant).where(*filtres).order_by(models.Enfant.prenom, models.Enfant.nom, models.Enfant.id)
+        select(models.Enfant).where(*filtres).order_by(models.Enfant.prenom, models.Enfant.id)
         .limit(limite)
     ))
 

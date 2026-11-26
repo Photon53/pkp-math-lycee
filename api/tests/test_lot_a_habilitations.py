@@ -189,20 +189,21 @@ class TestValidationParMatiere:
         r = client.post("/anglais/validation/4E-02/valider", headers=h)
         assert r.status_code == 403 and "(4e)" in r.json()["detail"]
 
-    def test_l_administrateur_sans_qualification_ne_valide_pas_les_questions(self, client, session):
+    def test_l_administrateur_valide_les_questions_sans_qualification(self, client, session):
+        """V2-D15 (23/11/2026) : l'administrateur valide dans tous les domaines et niveaux, sans habilitation."""
         admin = connecter_admin(client)
         seconde, terminale = _question(session, Niveau.SECONDE), _question(session, Niveau.TERMINALE)
         moi = _compte(client, admin, "admin@pkp.test")
-        corps = {"nom": moi["nom"], "email": moi["email"], "role": "admin", "habilitations": [
-            {"role": "professeur", "domaine": "maths-lycee"}, {"role": "validateur", "domaine": "maths-lycee", "niveau": "Tle"},
-        ]}
+        corps = {"nom": moi["nom"], "email": moi["email"], "role": "admin",
+                 "habilitations": [{"role": "professeur", "domaine": "maths-lycee"}]}  # aucune de validateur
         assert client.post(f"/admin/enseignants/{moi['id']}", headers=admin, json=corps).status_code == 200
-        r = client.post(f"/admin/questions/{seconde}/validation", headers=admin, json={"statut": "a-corriger"})
-        assert r.status_code == 403 and "Maths lycée (2nde)" in r.json()["detail"]
-        assert client.post(f"/admin/questions/{terminale}/validation", headers=admin, json={"statut": "a-corriger"}).status_code == 200
-        corps["habilitations"] = [{"role": "professeur", "domaine": "maths-lycee"}]
-        assert client.post(f"/admin/enseignants/{moi['id']}", headers=admin, json=corps).status_code == 200
-        assert client.post(f"/admin/questions/{terminale}/validation", headers=admin, json={"statut": "a-corriger"}).status_code == 403
+        for q in (seconde, terminale):
+            assert client.post(f"/admin/questions/{q}/validation", headers=admin, json={"statut": "a-corriger"}).status_code == 200
+
+    def test_un_professeur_sans_qualification_ne_valide_toujours_pas(self, client, session):
+        _, prof = _creer(client, connecter_admin(client), "prof-sans-val@pkp.test",
+                         [{"role": "professeur", "domaine": "maths-lycee"}])
+        assert client.get("/enseignants/validation/perimetre", headers=prof).status_code == 403
 
 
 class TestDomaines:

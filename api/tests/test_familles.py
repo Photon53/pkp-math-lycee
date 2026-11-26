@@ -9,7 +9,7 @@ from tests.conftest import connecter_admin, connecter_enseignant, entete
 
 
 def _famille(client, admin, email="famille@x.test", enfants=None):
-    enfants = enfants or [{"prenom": "Inès", "nom": "Martin", "niveau": "2nde"}, {"prenom": "Noé", "niveau": "4e"}]
+    enfants = enfants or [{"prenom": "Inès", "niveau": "2nde"}, {"prenom": "Noé", "niveau": "4e"}]
     r = client.post("/admin/familles", headers=admin, json={"email": email, "enfants": enfants})
     assert r.status_code == 201, r.text
     return r.json()
@@ -58,7 +58,7 @@ def test_le_professeur_inscrit_l_enfant_dans_plusieurs_parcours_de_son_niveau(cl
     assert [t["identifiant"] for t in client.get(f"/enseignants/classes/{classes['excellence']}/enfants", headers=prof).json()] == [ines["identifiant"]]
     for cid in classes.values():
         r = client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
-        assert r.json() == {"ajoutes": ["Inès Martin"], "refus": []}
+        assert r.json() == {"ajoutes": ["Inès"], "refus": []}
     again = client.post(f"/enseignants/classes/{classes['excellence']}/enfants", headers=prof, json={"enfant_ids": [ines["id"]]})
     assert again.json()["ajoutes"] == [] and "déjà inscrit" in again.json()["refus"][0]
     # Niveau différent : refusé, avec une explication.
@@ -138,8 +138,8 @@ def test_admin_cree_une_classe_inscrit_modifie_et_supprime(client, session):
     r = client.post("/admin/classes", headers=admin, json={"niveau": "2nde", "parcours": "excellence", "enseignant_id": prof_id})
     assert r.status_code == 201, r.text
     cid = r.json()["id"]
-    assert client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]}).json()["ajoutes"] == ["Inès Martin"]
-    assert client.get(f"/admin/enfants?q=martin", headers=admin).json()[0]["maths"][0]["parcours"] == "excellence"
+    assert client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]}).json()["ajoutes"] == ["Inès"]
+    assert client.get(f"/admin/enfants?q=inès", headers=admin).json()[0]["maths"][0]["parcours"] == "excellence"
     # Passage au niveau supérieur ; nouvelle carte (identifiant conservé).
     assert client.patch(f"/admin/enfants/{ines['id']}", headers=admin, json={"niveau": "1re"}).json()["niveau"] == "1re"
     carte = client.post(f"/admin/enfants/{ines['id']}/carte", headers=admin).json()
@@ -154,14 +154,21 @@ def test_admin_cree_une_classe_inscrit_modifie_et_supprime(client, session):
 
 def test_deux_enfants_de_meme_prenom_dans_une_classe(client, session):
     admin = connecter_admin(client)
-    a = _famille(client, admin, email="a@x.test", enfants=[{"prenom": "Lina", "nom": "Durand", "niveau": "2nde"}])["cartes"][0]
-    b = _famille(client, admin, email="b@x.test", enfants=[{"prenom": "Lina", "nom": "Dupont", "niveau": "2nde"}])["cartes"][0]
+    a = _famille(client, admin, email="a@x.test", enfants=[{"prenom": "Lina", "niveau": "2nde"}])["cartes"][0]
+    b = _famille(client, admin, email="b@x.test", enfants=[{"prenom": "Lina", "niveau": "2nde"}])["cartes"][0]
     prof = connecter_enseignant(client)
     cid = client.post("/enseignants/classes", headers=prof, json={"niveau": "2nde", "parcours": "tronc-commun"}).json()["id"]
     r = client.post(f"/enseignants/classes/{cid}/enfants", headers=prof, json={"enfant_ids": [a["id"], b["id"]]}).json()
     assert r["refus"] == []
+    # Sans nom de famille (RGPD-1, #87), le second s'affiche avec son identifiant, unique sur la plateforme.
     prenoms = sorted(e["prenom"] for e in client.get(f"/enseignants/classes/{cid}/eleves", headers=prof).json())
-    assert "Lina D." in prenoms
+    assert prenoms == sorted(["Lina", b["identifiant"]]) and b["identifiant"] == "Lina2"
+    # Et chacun se connecte encore par prénom + code classe + code personnel (SEC-D1).
+    code_classe = client.get("/enseignants/classes", headers=prof).json()
+    code_classe = next(c["code"] for c in code_classe if c["id"] == cid)
+    for prenom, carte in (("Lina", a), ("lina2", b)):
+        r = client.post("/eleves/connexion", json={"prenom": prenom, "code_classe": code_classe, "code_personnel": carte["code"]})
+        assert r.status_code == 200, (prenom, r.text)
 
 
 def test_ancienne_carte_eleve_par_la_connexion_unique(client):
@@ -188,7 +195,7 @@ def test_l_administrateur_gere_une_classe(client, session):
 
     # Recherche limitée au niveau de la classe, puis ajout.
     assert [t["identifiant"] for t in client.get(f"/admin/classes/{cid}/enfants?q=in", headers=admin).json()] == [ines["identifiant"]]
-    assert client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]}).json()["ajoutes"] == ["Inès Martin"]
+    assert client.post(f"/admin/classes/{cid}/enfants", headers=admin, json={"enfant_ids": [ines["id"]]}).json()["ajoutes"] == ["Inès"]
     eleves = client.get(f"/admin/classes/{cid}/eleves", headers=admin).json()
     assert [(e["prenom"], e["identifiant"]) for e in eleves] == [("Inès", ines["identifiant"])]
 

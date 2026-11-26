@@ -28,13 +28,15 @@ NB_QUESTIONS_ACTIVES = sum(not q.archivee for c in COMPETENCES for q in c.questi
 
 
 def nb_chapitres_de(niveau: str, parcours: str) -> int:
-    return sum(f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours for f in _FICHIERS)
+    return sum(f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours and not f.chapitre.diagnostic
+               for f in _FICHIERS)
 
 
 def competences_de(niveau: str, parcours: str) -> list[str]:
     """Codes des compétences d'un niveau et d'un parcours, dans l'ordre du programme."""
     fichiers = sorted(
-        (f for f in _FICHIERS if f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours),
+        (f for f in _FICHIERS if f.chapitre.niveau.value == niveau and f.chapitre.parcours.value == parcours
+         and not f.chapitre.diagnostic),  # un diagnostic (#162) n'est jamais ouvert à une classe
         key=lambda f: f.chapitre.ordre,
     )
     return [c.code for f in fichiers for c in f.competences]
@@ -51,6 +53,7 @@ def reglages_v2(monkeypatch, tmp_path):
     """Statistiques recalculées à chaque test, PDF dans un dossier jetable, liens non appelés sur le réseau."""
     statistiques.vider_cache()
     monkeypatch.setattr(settings, "dossier_fichiers", str(tmp_path / "fichiers"))
+    monkeypatch.setattr(settings, "dossier_candidatures", str(tmp_path / "candidatures"))  # issue #171
     monkeypatch.setattr(settings, "verifier_liens", False)
 
 

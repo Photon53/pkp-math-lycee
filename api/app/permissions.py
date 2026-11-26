@@ -90,7 +90,7 @@ CASES = {
     "referent_anglais": (VALIDATEUR, ANGLAIS_COLLEGE),
 }
 # La case « enseigne les maths » ouvre l'espace des classes, collège comme lycée.
-# Les cases d'anglais ouvrent l'espace PKP Anglais, collège comme lycée.
+# Les cases d'anglais ouvrent l'espace Boussole Anglais, collège comme lycée.
 AUSSI_COCHEE_PAR = {
     "enseigne_maths": [(PROFESSEUR, MATHS_COLLEGE)],
     "enseigne_anglais": [(PROFESSEUR, ANGLAIS_LYCEE)],
@@ -164,6 +164,11 @@ def appliquer(session: Session, enseignant: models.Enseignant, voulues: list[Por
 
 
 def peut_valider(enseignant: models.Enseignant, domaine: str, niveau: str | None) -> bool:
+    """Validateur habilité dans ce domaine (et ce niveau), ou administrateur, dans toutes les matières (V2-D15,
+    décision du propriétaire du 23/11/2026, #217). Personne ne valide un contenu dont il est l'auteur : ce contrôle
+    est fait par chaque circuit (`circuit_validation.peut_decider`, règle E0.2 des maths)."""
+    if enseignant.role == Role.ADMIN:
+        return True
     return any(
         h.role == VALIDATEUR and h.domaine_code == domaine and (h.niveau is None or h.niveau == niveau)
         for h in enseignant.habilitations
@@ -179,6 +184,8 @@ def refus_validation(enseignant: models.Enseignant, domaine: str, niveau: str | 
 
 
 def domaines_valides(enseignant: models.Enseignant) -> set[str]:
+    if enseignant.role == Role.ADMIN:  # V2-D15 : l'administrateur valide dans tous les domaines
+        return set(LIBELLES)
     return {h.domaine_code for h in enseignant.habilitations if h.role == VALIDATEUR}
 
 
@@ -198,9 +205,25 @@ def refus_domaine_ferme(session: Session, domaine: str) -> str | None:
     return f"{LIBELLES.get(domaine, domaine)} est fermé pour le moment : aucune nouvelle séance n'est possible."
 
 
+def refus_acces_classe(session: Session, classe: models.Classe) -> str | None:
+    """Accès des élèves d'une classe à son contenu (issue #176, décision SEC-D6) : cours, leçons, ressources,
+    documents, séances et réponses.
+
+    Permis si le domaine de la classe est public, ou s'il est actif et que la classe est une classe pilote non
+    archivée. Sinon refusé, y compris pour une classe existante dont le domaine a été fermé depuis.
+    """
+    d = session.get(models.DomainePedagogique, classe.domaine_code)
+    if d is not None and d.public:
+        return None
+    if d is not None and d.actif and classe.archivee_le is None and session.get(models.ClassePilote, classe.id):
+        return None
+    return f"{LIBELLES.get(classe.domaine_code, classe.domaine_code)} est fermé pour le moment : il n'est pas ouvert à ta classe."
+
+
 # --- Permissions (CDC V2, EX.7) ------------------------------------------------------------------
-# Table de correspondance dans le code, pas un moteur configurable en base. L'admin a toutes les permissions
-# sauf `contenu.valider`, qui vient d'une habilitation de validateur, domaine par domaine (EX.9-bis).
+# Table de correspondance dans le code, pas un moteur configurable en base. L'admin a toutes les permissions,
+# `contenu.valider` compris depuis V2-D15 (23/11/2026, remplace EX.9-bis pour lui) ; pour les autres comptes, elle
+# vient d'une habilitation de validateur, domaine par domaine.
 # `prevalidation.ia` (ticket #48) n'appartient qu'aux administrateurs : aucune habilitation ne la donne.
 
 PERMISSIONS = (
@@ -218,7 +241,7 @@ def permissions_de(enseignant: models.Enseignant, domaine: str | None = None) ->
     """Permissions d'un compte, dans un domaine donné ou dans au moins un domaine (`domaine` vide)."""
     accordees: set[str] = set()
     if enseignant.role == Role.ADMIN:
-        accordees.update(p for p in PERMISSIONS if p != "contenu.valider")
+        accordees.update(PERMISSIONS)
     for h in enseignant.habilitations:
         if domaine is None or h.domaine_code == domaine:
             accordees.update(PAR_ROLE[h.role])

@@ -45,8 +45,12 @@ def _non_authentifie() -> HTTPException:
 
 
 def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Eleve:
+    from app import simulation
+    from app.db.simulation import INCLURE, autoriser_eleve_fictif
+
     lu = identifiants and lire_jeton(identifiants.credentials, ELEVE)
-    eleve = lu and session.get(models.Eleve, lu[0])
+    # Élève fictif (issue #184) : chargé malgré le filtre global, puis revérifié ci-dessous.
+    eleve = lu and session.get(models.Eleve, lu[0], execution_options={INCLURE: True})
     # Refusé si : jeton invalide, élève supprimé (purge RGPD), code personnel
     # régénéré par l'enseignant depuis l'émission du jeton, ou enseignant désactivé.
     if (
@@ -58,6 +62,11 @@ def eleve_courant(identifiants: Identifiants, session: SessionDB) -> models.Elev
         or carte_bloquee(eleve)
     ):
         raise _non_authentifie()
+    if simulation.est_fictif(eleve):
+        # Acteur toujours actif, même mot de passe, toujours habilité sur cette classe ; sinon, simulation fermée.
+        if simulation.refus_acteur(session, eleve):
+            raise _non_authentifie()
+        autoriser_eleve_fictif(session, eleve.id)
     return eleve
 
 
@@ -106,6 +115,17 @@ def _compte(identifiants: Identifiants, session: Session, role_jeton: str) -> mo
 
 def enseignant_authentifie(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
     """Connecté, même avec un mot de passe provisoire : seul le changement de mot de passe l'accepte."""
+    return _compte(identifiants, session, ENSEIGNANT)
+
+
+def adulte_authentifie(identifiants: Identifiants, session: SessionDB) -> models.Enseignant:
+    """Espace Français (#217) : session professeur, ou session d'administration ouverte depuis l'administration.
+
+    Le jeton d'administration (second facteur) est accepté sans nouvelle connexion ; le rôle administrateur est
+    revérifié en base. Les autres jetons (élève, enfant, parent) restent refusés (401).
+    """
+    if identifiants and lire_jeton(identifiants.credentials, ADMIN):
+        return admin_courant(identifiants, session)
     return _compte(identifiants, session, ENSEIGNANT)
 
 
@@ -173,6 +193,7 @@ EleveAnglaisCourant = Annotated[models.EleveAnglais, Depends(eleve_anglais_coura
 EnseignantCourant = Annotated[models.Enseignant, Depends(enseignant_courant)]
 EnseignantAnglais = Annotated[models.Enseignant, Depends(enseignant_anglais)]
 EnseignantAuthentifie = Annotated[models.Enseignant, Depends(enseignant_authentifie)]
+AdulteAuthentifie = Annotated[models.Enseignant, Depends(adulte_authentifie)]
 AdminCourant = Annotated[models.Enseignant, Depends(admin_courant)]
 ParentCourant = Annotated[models.Parent, Depends(parent_courant)]
 ParentAuthentifie = Annotated[models.Parent, Depends(parent_authentifie)]

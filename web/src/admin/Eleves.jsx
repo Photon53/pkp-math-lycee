@@ -407,7 +407,7 @@ function ListeClasses({ jeton, onExpire, domaine }) {
         <button
           className="danger petit"
           disabled={!ids("classe").length || ids("groupe").length > 0}
-          title={ids("groupe").length ? "Les groupes d'anglais se suppriment un par un, dans PKP Anglais" : undefined}
+          title={ids("groupe").length ? "Les groupes d'anglais se suppriment un par un, dans Boussole Anglais" : undefined}
           onClick={() => setFenetre({ genre: "suppression" })}
         >
           Supprimer
@@ -468,7 +468,7 @@ function ListeClasses({ jeton, onExpire, domaine }) {
                           naviguer("/admin/anglais");
                         }}
                       >
-                        Dans PKP Anglais
+                        Dans Boussole Anglais
                       </a>
                     )}
                   </td>

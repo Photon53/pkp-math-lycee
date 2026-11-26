@@ -104,10 +104,14 @@ function Reponse({ r, onVoirCours, onEntrainer, eleve }) {
         </span>
         <span className={`badge ${r.correcte ? "ok" : "ko"}`}>{r.correcte ? "Réussie" : "À revoir"}</span>
       </div>
-      <Maths texte={r.enonce} enLigne />
+      {r.contenu_masque ? (
+        <p className="doux petit">Énoncé et correction réservés aux élèves de la classe pilote.</p>
+      ) : (
+        <Maths texte={r.enonce} enLigne />
+      )}
       <p className="petit">
         {eleve ? "Ta réponse" : "Réponse donnée"} : <code>{r.reponse_donnee}</code>
-        {!r.correcte && (
+        {!r.correcte && !r.contenu_masque && (
           <>
             {" "}
             · Réponse attendue : <code>{r.solution}</code>

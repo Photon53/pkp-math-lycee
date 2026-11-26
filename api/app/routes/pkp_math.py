@@ -10,12 +10,16 @@ le sont (voir `filtre_validation`). Solution et correction (ARCH-4, décision du
 un élève ou un enfant ne les voit que pour les questions auxquelles il a déjà répondu, réponse enregistrée ;
 les adultes (administrateur, professeur, parent) les voient toutes. Tant qu'une question du chapitre n'est pas validée, le document porte la
 mention NON VALIDÉ.
+
+Version élève (#178) : `?version=eleve` renvoie le document sans aucune solution ni aucun corrigé, quel que soit le
+lecteur. Un professeur imprime ainsi une fiche pour sa classe sans que les corrigés quittent le serveur.
 """
 
 import random
 from dataclasses import dataclass
+from typing import Literal
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
 from pkp_engine import gabarits
 from pydantic import BaseModel
 from sqlalchemy import select
@@ -36,17 +40,26 @@ from app.auth import (
     parent_courant,
 )
 from app.db import models
-from app.progression import filtre_validation, ids_ouverts
-from app.referentiel import LIBELLES_PARCOURS, Niveau, Parcours, StatutValidation, domaine_maths
+from app.progression import est_apprentissage, filtre_validation, ids_ouverts_eleve
+from app.referentiel import LIBELLES_PARCOURS, Niveau, Parcours, RubriqueFrancais, StatutValidation
 from app.security import lire_jeton
 
 router = APIRouter(prefix="/pkp-math", tags=["pkp-math"])
+
+# « complete » : selon les droits du lecteur (ARCH-4) ; « eleve » : aucune solution ni aucun corrigé, pour tout lecteur.
+VersionDocument = Literal["complete", "eleve"]
+
+
+def matiere_du_chapitre(chapitre: models.Chapitre) -> str:
+    """Matière du domaine du chapitre (« maths-lycee » → « maths »), d'après la table des domaines."""
+    return permissions.MATIERES[chapitre.domaine_code]
 
 
 class ChapitreCatalogue(BaseModel):
     id: int
     code: str
     titre: str
+    matiere: str
     niveau: Niveau
     parcours: Parcours
     libelle_parcours: str
@@ -54,6 +67,7 @@ class ChapitreCatalogue(BaseModel):
     nb_competences: int
     nb_questions: int
     valide: bool
+    rubrique: str | None = None  # français (#177)
 
 
 class QuestionDocument(BaseModel):
@@ -85,11 +99,14 @@ class DocumentChapitre(BaseModel):
     id: int
     code: str
     titre: str
+    matiere: str
+    version: VersionDocument
     niveau: Niveau
     parcours: Parcours
     libelle_parcours: str
     valide: bool
     competences: list[CompetenceDocument]
+    rubrique: str | None = None  # français (#177)
 
 
 @dataclass
@@ -139,12 +156,12 @@ def _lecteur(identifiants: Identifiants, session: SessionDB) -> Lecteur:
         return Lecteur(ENSEIGNANT, complet=True)
     if lire_jeton(jeton, ELEVE):
         eleve = eleve_courant(identifiants, session)
-        return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts(eleve.classe)),
+        return Lecteur(ELEVE, complet=False, chapitres=set(ids_ouverts_eleve(session, eleve.classe)),
                        corriges=_repondues(session, [eleve.id]))
     if lire_jeton(jeton, ENFANT):
         enfant = enfant_courant(identifiants, session)
         actives = [e.classe for e in enfant.inscriptions if e.classe.archivee_le is None]
-        ouverts = {i for c in actives for i in ids_ouverts(c)}
+        ouverts = {i for c in actives for i in ids_ouverts_eleve(session, c)}
         return Lecteur(ENFANT, complet=False, chapitres=ouverts, niveaux={enfant.niveau},
                        parcours_exclus=voie_exclue(actives),
                        corriges=_repondues(session, [e.id for e in enfant.inscriptions]))
@@ -160,10 +177,14 @@ def _permis(session: SessionDB, lecteur: Lecteur, chapitre: models.Chapitre) -> 
         return False
     if lecteur.complet:
         return True
-    if permissions.refus_domaine_ferme(session, domaine_maths(chapitre.niveau)):
-        return False
+    if not est_apprentissage(chapitre):
+        return False  # issue #162 : un diagnostic n'est montré ni aux élèves, ni aux enfants, ni aux parents
+    # Accès par classe : chapitres déjà filtrés par l'ouverture de la classe (`ids_ouverts_eleve`, #176).
     if lecteur.chapitres is not None and chapitre.id in lecteur.chapitres:
         return True
+    # Accès par niveau (enfant de famille, parent) : domaines publics seulement, d'après le domaine du chapitre.
+    if permissions.refus_domaine_ferme(session, chapitre.domaine_code):
+        return False
     return (lecteur.niveaux is not None and chapitre.niveau in lecteur.niveaux
             and chapitre.parcours not in lecteur.parcours_exclus)
 
@@ -176,7 +197,7 @@ def _questions(session: SessionDB, lecteur: Lecteur, competence: models.Competen
     return list(session.scalars(requete.order_by(models.Question.difficulte, models.Question.id)))
 
 
-def _instancier(q: models.Question, lecteur: Lecteur) -> QuestionDocument:
+def _instancier(q: models.Question, lecteur: Lecteur, sans_corrige: bool = False) -> QuestionDocument:
     """Question à gabarit : un tirage fixe (le même à chaque export), pour une fiche reproductible."""
     enonce, solution, correction = q.enonce, q.solution, q.correction
     if q.gabarit:
@@ -186,7 +207,7 @@ def _instancier(q: models.Question, lecteur: Lecteur) -> QuestionDocument:
             correction = gabarits.remplir_correction(correction, tirage)
         except gabarits.GabaritInvalide:
             pass
-    corrige_visible = lecteur.corriges is None or q.id in lecteur.corriges
+    corrige_visible = not sans_corrige and (lecteur.corriges is None or q.id in lecteur.corriges)
     if not corrige_visible:
         solution, correction = "", None  # ARCH-4 : pas de corrigé avant la réponse de l'élève
     return QuestionDocument(
@@ -201,35 +222,47 @@ def _competences(chapitre: models.Chapitre) -> list[models.Competence]:
 
 
 @router.get("/catalogue", response_model=list[ChapitreCatalogue])
-def catalogue(identifiants: Identifiants, session: SessionDB, niveau: Niveau | None = None) -> list[ChapitreCatalogue]:
+def catalogue(
+    identifiants: Identifiants, session: SessionDB, niveau: Niveau | None = None, rubrique: RubriqueFrancais | None = None,
+) -> list[ChapitreCatalogue]:
+    """Chapitres que le lecteur peut lire ; `rubrique` (français, #177) filtre sur tous les niveaux à la fois."""
     lecteur = _lecteur(identifiants, session)
     requete = select(models.Chapitre).where(models.Chapitre.masque.is_(False))
     if niveau is not None:
         requete = requete.where(models.Chapitre.niveau == niveau)
+    if rubrique is not None:
+        requete = requete.where(models.Chapitre.rubrique == rubrique)
     resultat = []
     for ch in session.scalars(requete.order_by(models.Chapitre.niveau, models.Chapitre.parcours, models.Chapitre.ordre)):
         if not _permis(session, lecteur, ch):
             continue
         questions = [q for c in _competences(ch) for q in _questions(session, lecteur, c)]
         resultat.append(ChapitreCatalogue(
-            id=ch.id, code=ch.code, titre=ch.titre, niveau=ch.niveau, parcours=ch.parcours,
+            id=ch.id, code=ch.code, titre=ch.titre, matiere=matiere_du_chapitre(ch), niveau=ch.niveau, parcours=ch.parcours,
             libelle_parcours=LIBELLES_PARCOURS.get(ch.parcours, ch.parcours.value), ordre=ch.ordre,
             nb_competences=len(_competences(ch)), nb_questions=len(questions),
             valide=bool(questions) and all(q.statut_validation == StatutValidation.VALIDEE for q in questions),
+            rubrique=ch.rubrique.value if ch.rubrique else None,
         ))
     return resultat
 
 
 @router.get("/chapitres/{chapitre_id}", response_model=DocumentChapitre)
-def document(chapitre_id: int, identifiants: Identifiants, session: SessionDB) -> DocumentChapitre:
-    """Résumé, cours, méthodes, erreurs fréquentes et questions corrigées de chaque compétence du chapitre."""
+def document(
+    chapitre_id: int, identifiants: Identifiants, session: SessionDB,
+    version: VersionDocument = Query("complete"),
+) -> DocumentChapitre:
+    """Résumé, cours, méthodes, erreurs fréquentes et questions corrigées de chaque compétence du chapitre.
+
+    `version=eleve` : énoncés seuls, sans solution ni corrigé, même pour un adulte (fiche à imprimer pour une classe).
+    """
     lecteur = _lecteur(identifiants, session)
     chapitre = session.get(models.Chapitre, chapitre_id)
     if chapitre is None or not _permis(session, lecteur, chapitre):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Chapitre introuvable.")
     competences = []
     for c in _competences(chapitre):
-        questions = [_instancier(q, lecteur) for q in _questions(session, lecteur, c)]
+        questions = [_instancier(q, lecteur, sans_corrige=version == "eleve") for q in _questions(session, lecteur, c)]
         competences.append(CompetenceDocument(
             id=c.id, code=c.code, libelle=c.libelle, objectifs=c.objectifs or [],
             resume=c.lecon.resume if c.lecon else "", cours=c.lecon.cours if c.lecon else "",
@@ -237,7 +270,9 @@ def document(chapitre_id: int, identifiants: Identifiants, session: SessionDB) -
         ))
     toutes = [q for c in competences for q in c.questions]
     return DocumentChapitre(
-        id=chapitre.id, code=chapitre.code, titre=chapitre.titre, niveau=chapitre.niveau, parcours=chapitre.parcours,
+        id=chapitre.id, code=chapitre.code, titre=chapitre.titre, matiere=matiere_du_chapitre(chapitre), version=version,
+        niveau=chapitre.niveau, parcours=chapitre.parcours,
         libelle_parcours=LIBELLES_PARCOURS.get(chapitre.parcours, chapitre.parcours.value),
         valide=bool(toutes) and all(q.validee for q in toutes), competences=competences,
+        rubrique=chapitre.rubrique.value if chapitre.rubrique else None,
     )

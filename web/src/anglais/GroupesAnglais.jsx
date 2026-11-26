@@ -10,7 +10,7 @@ const ignorer = () => {};
 const pluriel = (n) => `${n} élève${n > 1 ? "s" : ""}`;
 const I_CAN = { non_observe: "—", avec_aide: "avec aide", en_cours: "en cours", autonome: "autonome" };
 
-/** Groupes PKP Anglais par niveau (6e à Tle) et leurs élèves : séparés des classes de maths. */
+/** Groupes Boussole Anglais par niveau (6e à Tle) et leurs élèves : séparés des classes de maths. */
 export default function GroupesAnglais({ jeton, onExpire }) {
   const { appeler, erreur } = useApi(jeton, onExpire);
   const [groupes, setGroupes] = useState(null);

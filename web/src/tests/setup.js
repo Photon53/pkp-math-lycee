@@ -31,7 +31,7 @@ export function fausseApi(routesDuTest) {
     if (typeof route === "function") route = route(corps);
     if (!route) throw new Error(`Route non simulée : ${cle}`);
     const { status = 200, json = null } = route;
-    return { ok: status < 400, status, json: async () => json };
+    return { ok: status < 400, status, json: async () => json, blob: async () => new Blob([JSON.stringify(json)]) };
   });
   vi.stubGlobal("fetch", fetch);
   return appels;

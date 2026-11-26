@@ -141,7 +141,7 @@ class TestConnexionIdentifiant:
         classe_id = client.get("/enseignants/classes", headers=h).json()[0]["id"]
         crees = client.post(f"/enseignants/classes/{classe_id}/eleves", headers=h, json={"prenoms": ["Éloïse", "Noé"]}).json()["crees"]
         identifiants = [c["identifiant"] for c in crees]
-        assert identifiants[0].startswith("eloise-") and identifiants[1].startswith("noe-")
+        assert identifiants == ["Eloise1", "Noe1"]  # prénom sans accent + numéro (RGPD-1, #87)
         r = self._jeton(client, identifiants[0], crees[0]["code"])
         assert r.json()["eleve"]["prenom"] == "Éloïse"
 

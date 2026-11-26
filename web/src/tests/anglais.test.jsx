@@ -44,7 +44,7 @@ const DOMAINES = [
   { code: "francais-lycee", matiere: "francais", cycle: "lycee", libelle: "Français lycée", niveaux: ["2nde", "1re"], actif: false, public: false },
 ];
 
-describe("PKP Anglais", () => {
+describe("Boussole Anglais", () => {
   it("l'accueil mène à un espace dédié", () => {
     render(<Accueil />);
     expect(screen.getByRole("link", { name: /^Professeur — Anglais/ })).toHaveAttribute("href", "/anglais");
@@ -56,7 +56,7 @@ describe("PKP Anglais", () => {
     connecte({ enseigne_maths: true, enseigne_anglais: false });
     fausseApi({ "GET /enseignants/classes": { json: [] } });
     render(<EspaceEnseignant chemin="/enseignant" />);
-    expect(screen.queryByText("PKP Anglais")).not.toBeInTheDocument();
+    expect(screen.queryByText("Boussole Anglais")).not.toBeInTheDocument();
   });
 
   it("un professeur de maths seul est refusé dans l'espace anglais", () => {
@@ -65,8 +65,7 @@ describe("PKP Anglais", () => {
     render(<EspaceAnglais chemin="/anglais" />);
     expect(screen.getByRole("heading", { name: "Espace réservé aux professeurs d'anglais" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Aller à l'espace professeur" })).toHaveAttribute("href", "/enseignant");
-    // Seule la lecture publique de l'état des domaines (lien Français) : rien n'est demandé avec la session refusée.
-    expect(appels.map((a) => a.cle)).toEqual(["GET /domaines/publics"]);
+    expect(appels).toEqual([]);
   });
 
   it("un professeur d'anglais seul est refusé dans l'espace maths", () => {
@@ -74,9 +73,8 @@ describe("PKP Anglais", () => {
     const appels = fausseApi({});
     render(<EspaceEnseignant chemin="/enseignant" />);
     expect(screen.getByRole("heading", { name: "Espace réservé aux professeurs de mathématiques" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Aller à l'espace PKP Anglais" })).toHaveAttribute("href", "/anglais");
-    // Seule la lecture publique de l'état des domaines (lien Français) : rien n'est demandé avec la session refusée.
-    expect(appels.map((a) => a.cle)).toEqual(["GET /domaines/publics"]);
+    expect(screen.getByRole("link", { name: "Aller à l'espace Boussole Anglais" })).toHaveAttribute("href", "/anglais");
+    expect(appels).toEqual([]);
   });
 
   it("un professeur d'anglais voit ses séances", async () => {

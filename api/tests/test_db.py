@@ -41,6 +41,8 @@ class TestDonneesDeDemo:
         from app import exemplaires
 
         for q in demo.scalars(select(models.Question)):
+            if not pkp_engine.corrige_automatiquement(exemplaires.domaine(q, None)):
+                continue  # rédaction (#162) : corrigée par un professeur
             exemplaire = exemplaires.domaine(q, exemplaires.nouveau_tirage(q))
             assert pkp_engine.corriger(exemplaire, exemplaire.solution), q.enonce
 

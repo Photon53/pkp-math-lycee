@@ -3,6 +3,13 @@
 Les comptes parents qui ne suivent plus aucun enfant sont supprimés en même temps.
 
 Les archives d'inscriptions et les remarques plus anciennes que la durée de conservation sont supprimées aussi.
+
+« Accueil et demandes » (issues #172, #171) : demandes supprimées, CV compris, après la durée de leur file
+(`PKP_ACCUEIL_CONSERVATION_JOURS`) sans traitement, puis contacts sans demande ; sans durée décidée (RGPD-3 en
+attente), rien n'est supprimé dans la file.
+
+Rédactions (issue #179, RGPD-2) : supprimées après le 31 août de leur année scolaire, et 30 jours après
+l'archivage de la classe de l'élève (fin de l'accompagnement), quelle que soit `PKP_RETENTION_JOURS`.
 Activité = début de la dernière séance, ou date de création si l'élève n'a
 jamais commencé de séance. Séances et réponses partent en cascade.
 
@@ -18,7 +25,8 @@ from datetime import UTC, datetime, timedelta
 from sqlalchemy import DateTime, delete, func, select
 from sqlalchemy.orm import Session
 
-from app import inscriptions, parents
+from app import accueil, inscriptions, parents
+from app import simulation as eleves_fictifs
 from app.config import settings
 from app.db import models
 
@@ -68,10 +76,33 @@ def purger(
         session.execute(delete(models.ArchiveInscription).where(models.ArchiveInscription.archivee_le < limite))
         # Remarques et suggestions (ticket #30) : même durée, comptée depuis leur dernier traitement.
         session.execute(delete(models.Remarque).where(models.Remarque.maj_le < limite))
+        purger_redactions(session, maintenant or datetime.now(UTC))
+        # Élèves fictifs de simulation (issue #184) : invisibles de `eleves_inactifs`, purgés à part.
+        eleves_fictifs.purger(session, maintenant)
         # Les comptes parents qui ne suivent plus aucun enfant partent avec le dernier.
         parents.supprimer_orphelins(session)
         session.commit()
+        # « Accueil et demandes » (#172), file par file ; après la validation : les CV ne partent qu'avec leur demande.
+        accueil.purger(session, maintenant)
     return inactifs
+
+
+def purger_redactions(session: Session, maintenant: datetime) -> int:
+    """Rédactions échues (31 août passé) ou d'élèves dont la classe est archivée depuis plus de 30 jours."""
+    fin_accompagnement = maintenant - timedelta(days=JOURS_APRES_DEPART)
+    eleves_partis = select(models.Eleve.id).join(models.Classe).where(models.Classe.archivee_le < fin_accompagnement)
+    resultat = session.execute(delete(models.Redaction).where(
+        (models.Redaction.conserver_jusqu_au < maintenant.date()) | models.Redaction.eleve_id.in_(eleves_partis)
+    ))
+    # Issue #217 : réponses rédigées aux dossiers de français, mêmes règles (RGPD-2).
+    francais = session.execute(delete(models.ReponseRedigeeFrancais).where(
+        (models.ReponseRedigeeFrancais.conserver_jusqu_au < maintenant.date())
+        | models.ReponseRedigeeFrancais.eleve_id.in_(eleves_partis)
+    ))
+    return (resultat.rowcount or 0) + (francais.rowcount or 0)
+
+
+JOURS_APRES_DEPART = 30
 
 
 def main() -> None:

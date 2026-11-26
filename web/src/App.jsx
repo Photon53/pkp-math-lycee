@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import Accueil from "./Accueil.jsx";
+import { MARQUE } from "./marque.js";
 import { useChemin } from "./navigation.js";
 import { Logo } from "./ui/Icone.jsx";
 
@@ -7,6 +8,8 @@ import { Logo } from "./ui/Icone.jsx";
 // les élèves ne téléchargent ni l'espace professeur (QR codes) ni l'administration.
 const EspaceEleve = lazy(() => import("./eleve/EspaceEleve.jsx"));
 const Methode = lazy(() => import("./Methode.jsx"));
+// Issue #171 : « Enseigner ou collaborer avec nous », formulaire public sans compte.
+const Collaborer = lazy(() => import("./Collaborer.jsx"));
 const EspaceEnseignant = lazy(() => import("./enseignant/EspaceEnseignant.jsx"));
 const EspaceAdmin = lazy(() => import("./admin/EspaceAdmin.jsx"));
 const EspaceParent = lazy(() => import("./parent/EspaceParent.jsx"));
@@ -61,12 +64,13 @@ export default function App() {
   // Élève et accueil public : colonne centrée, priorité au mobile.
   const eleve = chemin === "/eleve" || chemin.startsWith("/eleve/");
   const methode = chemin === "/methode";
+  const collaborer = chemin === "/collaborer";
   return (
     <div className="page">
       <header className="entete">
-        <Logo />
+        <Logo nom={MARQUE.nom} marque={MARQUE.suffixe} monogramme={MARQUE.monogramme} />
         <nav aria-label="Espaces">
-          {!methode && <a href="/methode">La méthode PKP</a>}
+          {!methode && <a href="/methode">{MARQUE.spirale ? "La Méthode Spirale" : "La méthode"}</a>}
           {eleveAnglais ? (
             <a href="/anglais">Espace professeur</a>
           ) : eleve ? (
@@ -93,12 +97,18 @@ export default function App() {
           <Suspense fallback={<p className="doux">Chargement…</p>}>
             <Methode />
           </Suspense>
+        ) : collaborer ? (
+          <Suspense fallback={<p className="doux">Chargement…</p>}>
+            <Collaborer />
+          </Suspense>
         ) : (
           <Accueil />
         )}
       </main>
       <footer className="pied">
-        <span>© {new Date().getFullYear()} PKP Éducation</span>
+        <span>
+          © {new Date().getFullYear()} {MARQUE.nom} {MARQUE.suffixe}
+        </span>
         <span>Aucun traceur publicitaire · Données des élèves réduites au prénom</span>
       </footer>
     </div>

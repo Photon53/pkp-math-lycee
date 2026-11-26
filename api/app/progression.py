@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 from fastapi.responses import JSONResponse
 
-from pkp_engine import calculer_maitrise, est_maitrisee
+from pkp_engine import TypeQuestion, calculer_maitrise, est_maitrisee
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, contains_eager
 
@@ -14,7 +14,7 @@ from app import exemplaires, inscriptions
 from app.db import models
 from app.config import settings
 from app.db.conversions import historique_eleve
-from app.referentiel import StatutValidation
+from app.referentiel import NatureChapitre, StatutValidation
 from app.schemas import AvancementCompetence, EleveResume, PageHistorique, ProgressionCompetence, ReponseHistorique
 
 TAILLE_PAGE_HISTORIQUE = 30
@@ -24,12 +24,24 @@ OBJECTIF_AVANCEES = 2
 
 
 def programme_de(classe: models.Classe):
-    """Conditions SQL : chapitres du domaine (maths ou français), du niveau ET du parcours (spécialité) de la classe."""
+    """Conditions SQL : chapitres du domaine (maths ou français), du niveau ET du parcours (spécialité) de la classe.
+    Jamais un chapitre de diagnostic (issue #162) : il ne s'ouvre pas comme un chapitre d'entraînement."""
     return (
         models.Chapitre.domaine_code == classe.domaine_code,
         models.Chapitre.niveau == classe.niveau,
         models.Chapitre.parcours == classe.parcours,
+        *filtre_apprentissage(),
     )
+
+
+def filtre_apprentissage() -> tuple:
+    """Condition SQL : chapitres d'apprentissage seulement. Un chapitre de diagnostic n'est jamais servi en séance,
+    ni ouvert à une classe, ni montré aux enfants et aux parents (issue #162)."""
+    return (models.Chapitre.nature == NatureChapitre.APPRENTISSAGE,)
+
+
+def est_apprentissage(chapitre: models.Chapitre) -> bool:
+    return chapitre.nature is NatureChapitre.APPRENTISSAGE
 
 
 def chapitres_du_programme(session: Session, classe: models.Classe) -> list[models.Chapitre]:
@@ -44,8 +56,18 @@ def chapitres_du_programme(session: Session, classe: models.Classe) -> list[mode
 
 
 def ids_ouverts(classe: models.Classe) -> list[int]:
-    """Chapitres que l'enseignant a ouverts pour cette classe (hors chapitres masqués par un administrateur)."""
-    return [c.id for c in classe.chapitres_proposes if not c.masque]
+    """Chapitres que l'enseignant a ouverts pour cette classe (hors chapitres masqués par un administrateur).
+
+    Vue du professeur. Côté élève, utiliser `ids_ouverts_eleve`, qui applique l'ouverture du domaine (#176).
+    """
+    return [c.id for c in classe.chapitres_proposes if not c.masque and est_apprentissage(c)]
+
+
+def ids_ouverts_eleve(session: Session, classe: models.Classe) -> list[int]:
+    """Chapitres ouverts que les élèves de la classe peuvent lire : aucun si l'accès à la classe est refusé (#176)."""
+    from app.permissions import refus_acces_classe
+
+    return [] if refus_acces_classe(session, classe) else ids_ouverts(classe)
 
 
 def filtre_validation() -> tuple:
@@ -84,7 +106,11 @@ def nb_questions_servables(session: Session, chapitre_ids: list[int]) -> dict[in
             func.count(models.Question.id),
         )
         .join(models.Question, models.Question.competence_id == models.Competence.id)
-        .where(models.Competence.chapitre_id.in_(chapitre_ids), models.Question.archivee.is_(False), *filtre_validation())
+        .where(
+            models.Competence.chapitre_id.in_(chapitre_ids), models.Question.archivee.is_(False),
+            models.Question.type != TypeQuestion.REDACTION,  # #179 : jamais servie en séance
+            *filtre_validation(),
+        )
         .group_by(models.Competence.chapitre_id, models.Competence.id, models.Question.statut_validation)
     )
     par_competence: dict[tuple[int, int], Counter] = {}
@@ -110,9 +136,24 @@ def competences_du_niveau(session: Session, eleve: models.Eleve) -> list[models.
     )
 
 
-def progression_eleve(session: Session, eleve: models.Eleve) -> list[ProgressionCompetence]:
+def _acces_refuse(session: Session, eleve: models.Eleve) -> bool:
+    from app.permissions import refus_acces_classe
+
+    return refus_acces_classe(session, eleve.classe) is not None
+
+
+def progression_eleve(session: Session, eleve: models.Eleve, limiter: bool = False) -> list[ProgressionCompetence]:
+    """Progression par compétence des chapitres ouverts de la classe.
+
+    `limiter` (vue de l'élève et de son parent, #176, décision du 19/11/2026) : si la classe n'a pas accès à son
+    domaine (domaine fermé, classe non pilote ou révoquée), seules les compétences déjà travaillées sont listées,
+    pour ne pas révéler le programme d'un domaine fermé. La vue du professeur n'est pas limitée.
+    """
     historique = historique_eleve(session, eleve.id)
     nb_par_competence = Counter(r.competence_id for r in historique)
+    competences = competences_du_niveau(session, eleve)
+    if limiter and _acces_refuse(session, eleve):
+        competences = [c for c in competences if nb_par_competence[c.id]]
     return [
         ProgressionCompetence(
             competence_id=c.id,
@@ -123,7 +164,7 @@ def progression_eleve(session: Session, eleve: models.Eleve) -> list[Progression
             maitrise=calculer_maitrise(historique, c.id),
             maitrisee=est_maitrisee(historique, c.id),
         )
-        for c in competences_du_niveau(session, eleve)
+        for c in competences
     ]
 
 
@@ -171,6 +212,65 @@ def export_eleve(session: Session, eleve: models.Eleve) -> JSONResponse:
             for s in sorted(eleve.seances, key=lambda s: (s.debut, s.id))
         ],
         "progression": [p.model_dump() for p in progression_eleve(session, eleve)],
+        # Issue #162 : réponses au diagnostic, conservées à part de la progression (taux de maîtrise).
+        # Issue #179 (RGPD-2) : rédactions de l'élève, toutes versions, avec le commentaire du professeur.
+        "redactions": [
+            {
+                "sujet": r.question.enonce,
+                "version": r.version,
+                "texte": r.texte,
+                "statut": r.statut,
+                "commentaire": r.commentaire,
+                "remise_le": r.remise_le.isoformat() if r.remise_le else None,
+                "corrigee_le": r.corrigee_le.isoformat() if r.corrigee_le else None,
+                "conserver_jusqu_au": r.conserver_jusqu_au.isoformat(),
+            }
+            for r in session.scalars(
+                select(models.Redaction).where(models.Redaction.eleve_id == eleve.id)
+                .order_by(models.Redaction.question_id, models.Redaction.version)
+            )
+        ],
+        # Issue #217 : dossiers de français (quiz, auto-évaluation, réponses rédigées avec le retour du professeur).
+        "francais": {
+            "progression": [
+                {"dossier": p.code, "meilleur_score": p.meilleur_score, "premier_score": p.premier_score,
+                 "total": p.total, "tentatives": p.tentatives, "auto_evaluation": p.auto_evaluation}
+                for p in session.scalars(select(models.ProgressionFrancais)
+                                         .where(models.ProgressionFrancais.eleve_id == eleve.id)
+                                         .order_by(models.ProgressionFrancais.code))
+            ],
+            "reponses_quiz": [
+                {"dossier": r.code, "essai": r.essai, "question": r.question, "choix": r.choix, "juste": r.juste,
+                 "repondu_le": r.repondu_le.isoformat()}
+                for r in session.scalars(select(models.ReponseQuizFrancais)
+                                         .where(models.ReponseQuizFrancais.eleve_id == eleve.id)
+                                         .order_by(models.ReponseQuizFrancais.code, models.ReponseQuizFrancais.essai,
+                                                   models.ReponseQuizFrancais.question))
+            ],
+            "reponses_redigees": [
+                {"dossier": r.code, "question": r.question, "texte": r.texte, "statut": r.statut,
+                 "commentaire": r.commentaire, "remise_le": r.remise_le.isoformat() if r.remise_le else None,
+                 "corrigee_le": r.corrigee_le.isoformat() if r.corrigee_le else None,
+                 "conserver_jusqu_au": r.conserver_jusqu_au.isoformat()}
+                for r in session.scalars(select(models.ReponseRedigeeFrancais)
+                                         .where(models.ReponseRedigeeFrancais.eleve_id == eleve.id)
+                                         .order_by(models.ReponseRedigeeFrancais.code, models.ReponseRedigeeFrancais.question))
+            ],
+        },
+        "observations_diagnostic": [
+            {
+                "question": o.question.enonce,
+                "reponse_donnee": o.reponse_donnee,
+                "statut": o.statut.value,
+                "observe_le": o.observe_le.isoformat(),
+                "corrige_le": o.corrige_le.isoformat() if o.corrige_le else None,
+            }
+            for o in session.scalars(
+                select(models.ObservationDiagnostic)
+                .where(models.ObservationDiagnostic.eleve_id == eleve.id)
+                .order_by(models.ObservationDiagnostic.observe_le, models.ObservationDiagnostic.id)
+            )
+        ],
     }
     nom = f"pkp-{eleve.classe.code}-{eleve.prenom}.json".replace(" ", "_")
     # filename* (RFC 5987) : les prénoms accentués restent lisibles.
@@ -178,9 +278,15 @@ def export_eleve(session: Session, eleve: models.Eleve) -> JSONResponse:
 
 
 def historique_reponses(
-    session: Session, eleve: models.Eleve, page: int = 1, erreurs_seulement: bool = False, competence_id: int | None = None
+    session: Session, eleve: models.Eleve, page: int = 1, erreurs_seulement: bool = False, competence_id: int | None = None,
+    pour_parent: bool = False,
 ) -> PageHistorique:
-    """Réponses de l'élève, de la plus récente à la plus ancienne, avec la correction de chaque question."""
+    """Réponses de l'élève, de la plus récente à la plus ancienne, avec la correction de chaque question.
+
+    `pour_parent` (#176, SEC-D6 option b) : si la classe n'a pas accès à son domaine, énoncé, solution et correction
+    sont retirés ; la réponse donnée, le résultat et les libellés restent (données de l'enfant).
+    """
+    masquer = pour_parent and _acces_refuse(session, eleve)
     filtres = [models.Seance.eleve_id == eleve.id]
     if competence_id is not None:
         filtres.append(models.Question.competence_id == competence_id)
@@ -207,10 +313,11 @@ def historique_reponses(
         elements=[
             ReponseHistorique(
                 id=r.id, repondu_le=r.repondu_le, seance_id=r.seance_id, question_id=q.id, competence_id=c.id,
-                competence=c.libelle, chapitre=ch.titre, enonce=exemplaires.enonce(q, r.tirage), type=q.type,
-                difficulte=q.difficulte, reponse_donnee=r.reponse_donnee, correcte=r.correcte,
-                solution=exemplaires.solution(q, r.tirage), correction=exemplaires.correction(q, r.tirage),
-                duree_s=round(r.duree_s, 1),
+                competence=c.libelle, chapitre=ch.titre, type=q.type,
+                difficulte=q.difficulte, reponse_donnee=r.reponse_donnee, correcte=r.correcte, duree_s=round(r.duree_s, 1),
+                **({"enonce": "", "solution": "", "correction": None, "contenu_masque": True} if masquer else {
+                    "enonce": exemplaires.enonce(q, r.tirage), "solution": exemplaires.solution(q, r.tirage),
+                    "correction": exemplaires.correction(q, r.tirage)}),
             )
             for r, q, c, ch in lignes
         ],

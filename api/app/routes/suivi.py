@@ -18,10 +18,10 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import Response
 from sqlalchemy import select
 
-from app import exemplaires
+from app import exemplaires, permissions
 from app.auth import EleveCourant, EnseignantCourant, SessionDB
 from app.db import models
-from app.progression import ids_ouverts
+from app.progression import ids_ouverts_eleve
 from app.schemas_suivi import (
     AvisCours,
     AvisCoursVue,
@@ -57,7 +57,7 @@ def _utc(d: datetime | None) -> datetime | None:
 
 def _competence_ouverte(session: SessionDB, eleve: models.Eleve, competence_id: int) -> models.Competence:
     competence = session.get(models.Competence, competence_id)
-    if competence is None or competence.masque or competence.chapitre_id not in ids_ouverts(eleve.classe):
+    if competence is None or competence.masque or competence.chapitre_id not in ids_ouverts_eleve(session, eleve.classe):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cours introuvable.")
     return competence
 
@@ -110,6 +110,9 @@ def demander_aide(seance_id: int, corps: NouvelleDemande, eleve: EleveCourant, s
     seance = session.get(models.Seance, seance_id)
     if seance is None or seance.eleve_id != eleve.id:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Séance introuvable.")
+    refus = permissions.refus_acces_classe(session, eleve.classe)  # #176 : classe révoquée ou domaine fermé
+    if refus:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     reponse = session.scalar(
         select(models.Reponse).where(models.Reponse.seance_id == seance.id, models.Reponse.question_id == corps.question_id).limit(1)
     )

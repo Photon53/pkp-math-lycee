@@ -5,7 +5,7 @@ import { NIVEAUX } from "../parcours.js";
 import { Modale } from "../ui/Cadre.jsx";
 import Icone from "../ui/Icone.jsx";
 
-const NOM_FICHIER = "pkp-cartes-acces.pdf";
+const NOM_FICHIER = "boussole-cartes-acces.pdf";
 
 function ChoixParPage({ valeur, onChange, id }) {
   return (

@@ -166,7 +166,7 @@ def tableau(session: Session, eleve: models.Eleve, maintenant: datetime | None =
         par_jour[_utc(repondu_le).date().isoformat()].append(duree)
     jours = [(maintenant - timedelta(days=i)).date().isoformat() for i in range(JOURS_ACTIVITE - 1, -1, -1)]
 
-    progression = progression_eleve(session, eleve)
+    progression = progression_eleve(session, eleve, limiter=True)
     par_chapitre: dict[str, list[bool]] = defaultdict(list)
     for p in progression:
         par_chapitre[p.chapitre].append(p.maitrisee)

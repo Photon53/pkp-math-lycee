@@ -1,0 +1,281 @@
+# Diagnostic d'entrée en 2nde — acquis de 3e, repères de 2020 (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Exclues car relevant de la 2nde : 2N-13 (systèmes), 2N-14 (inéquations, remplacée par un test de solution).
+# 2N-08 et 2N-09 : valeurs changées (doublons de 3E-13 et 3E-15). 3E-14 (réciproque de Thalès) rapatriée ici.
+chapitre:
+  code: 2NDE-DIAG-3E
+  niveau: 2nde
+  nature: diagnostic
+  programme_prerequis: 3e-2020
+  publics: [tronc-commun, professionnel]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de 3e
+
+competences:
+- code: 2NDE-DIAG-NOMBRES
+  libelle: Fractions et racines carrées (acquis du collège)
+  prerequis: [3E-CALCUL-NUMERIQUE, 4E-RACINES]
+  retour: [3E-DIAG-NOMBRES, 3E-DIAG-PUISSANCES]
+  questions:
+  # 2N-02
+  - code: 2NDE-DIAG-NOMBRES-01
+    difficulte: 1
+    type: numerique
+    enonce: Calculer $\sqrt{81}$.
+    solution: '9'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $9^2 = 81$ et $9 \geq 0$.
+      - $\sqrt{81} = 9$.
+      resultat: '9'
+  # 2N-01
+  - code: 2NDE-DIAG-NOMBRES-02
+    difficulte: 2
+    type: numerique
+    enonce: Calculer $\dfrac{5}{6} - \dfrac{1}{4}$ (fraction irréductible).
+    solution: 7/12
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Dénominateur commun 12 : $\dfrac{10}{12} - \dfrac{3}{12}$.'
+      - $= \dfrac{7}{12}$.
+      resultat: 7/12
+
+- code: 2NDE-DIAG-LITTERAL
+  libelle: Développer, factoriser, résoudre une équation produit (acquis de 3e)
+  prerequis: [3E-DEVELOPPER, 3E-EQUATIONS]
+  retour: [3E-DIAG-LITTERAL]
+  questions:
+  # 2N-03
+  - code: 2NDE-DIAG-LITTERAL-01
+    difficulte: 2
+    type: expression
+    forme: developpee
+    enonce: Développer et réduire $(x + 3)(x - 2)$.
+    solution: x^2 + x - 6
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $x^2 - 2x + 3x - 6$.
+      - $= x^2 + x - 6$.
+      resultat: x^2 + x - 6
+  # 2N-04
+  - code: 2NDE-DIAG-LITTERAL-02
+    difficulte: 2
+    type: expression
+    forme: factorisee
+    enonce: Factoriser $5x + 15$.
+    solution: 5(x + 3)
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $15 = 5 \times 3$, 5 est un facteur commun.
+      - $5x + 15 = 5(x + 3)$.
+      resultat: 5(x + 3)
+  # 2N-05
+  - code: 2NDE-DIAG-LITTERAL-03
+    difficulte: 2
+    type: qcm
+    enonce: 'Solutions de $(x - 4)(2x + 1) = 0$ : A) $4$ et $-\dfrac{1}{2}$  B) $-4$ et $\dfrac{1}{2}$  C) $4$ et $-2$  D) $4$ seulement'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Un produit est nul si et seulement si l'un de ses facteurs est nul.
+      etapes:
+      - $x - 4 = 0$ donne $x = 4$.
+      - $2x + 1 = 0$ donne $x = -\dfrac{1}{2}$.
+  # 2N-12
+  - code: 2NDE-DIAG-LITTERAL-04
+    difficulte: 3
+    type: expression
+    forme: reduite
+    enonce: 'Programme de calcul : on choisit $x$, on ajoute 3, on multiplie par 2, puis on retire 6. Écrire le résultat en fonction de $x$, sous forme réduite.'
+    solution: 2x
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $2(x + 3) - 6 = 2x + 6 - 6$.
+      - $= 2x$ ; le programme double le nombre choisi.
+      resultat: 2x
+  # 2N-14 (remplacée)
+  - code: 2NDE-DIAG-LITTERAL-05
+    difficulte: 2
+    type: qcm
+    enonce: 'Le nombre 3 vérifie-t-il l''inégalité $3x - 4 < 8$ ? A) Oui, car $3 \times 3 - 4 = 5$ et $5 < 8$  B) Non, car $5 > 8$  C) Non, car il faut $x = 4$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - On remplace $x$ par 3, $3 \times 3 - 4 = 5$.
+      - $5 < 8$, l'inégalité est vraie.
+  # 2N-20
+  - code: 2NDE-DIAG-LITTERAL-06
+    difficulte: 3
+    type: redaction
+    enonce: Un élève écrit $(x + 2)^2 = x^2 + 4$. Explique l'erreur et corrige.
+    solution: 'Il manque le double produit : (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4 ; contrôle avec x = 1 : 9 ≠ 5.'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(x + 2)^2 = (x + 2)(x + 2) = x^2 + 2x + 2x + 4$.
+      - $= x^2 + 4x + 4$ ; avec $x = 1$, $9 \neq 5$.
+
+- code: 2NDE-DIAG-FONCTIONS
+  libelle: Image, antécédent, fonctions affines (acquis de 3e)
+  prerequis: [3E-NOTION-FONCTION, 3E-FONCTIONS-AFFINES]
+  retour: [3E-DIAG-LITTERAL]
+  questions:
+  # 2N-06
+  - code: 2NDE-DIAG-FONCTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: $f(x) = 3x - 2$. Calculer $f(-2)$.
+    solution: '-8'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3 \times (-2) - 2$.
+      - $= -6 - 2 = -8$.
+      resultat: '-8'
+  # 2N-07
+  - code: 2NDE-DIAG-FONCTIONS-02
+    difficulte: 2
+    type: numerique
+    enonce: $f(x) = 3x - 2$. Trouver l'antécédent de 10.
+    solution: '4'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3x - 2 = 10$, donc $3x = 12$.
+      - $x = 4$ ; vérification $f(4) = 10$.
+      resultat: '4'
+  # 2N-15
+  - code: 2NDE-DIAG-FONCTIONS-03
+    difficulte: 2
+    type: qcm
+    enonce: 'Pour la droite d''équation $y = 2x - 1$ : A) coefficient directeur 2, ordonnée à l''origine $-1$  B) coefficient directeur $-1$, ordonnée à l''origine 2  C) coefficient directeur 2, ordonnée à l''origine 1  D) coefficient directeur $\dfrac{1}{2}$, ordonnée à l''origine $-1$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Pour $y = ax + b$, $a$ est le coefficient directeur et $b$ l'ordonnée à l'origine.
+      - Ici $a = 2$ et $b = -1$.
+  # 2N-18
+  - code: 2NDE-DIAG-FONCTIONS-04
+    difficulte: 3
+    type: expression
+    enonce: La représentation graphique d'une fonction affine $f$ passe par les points $(0 ; 2)$ et $(4 ; 6)$. Donner l'expression de $f(x)$.
+    solution: x + 2
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - '$f(0) = 2$ : l''ordonnée à l''origine vaut 2.'
+      - Coefficient $\dfrac{6 - 2}{4 - 0} = 1$, donc $f(x) = x + 2$.
+      resultat: x + 2
+  # 2N-19
+  - code: 2NDE-DIAG-FONCTIONS-05
+    difficulte: 3
+    type: qcm
+    enonce: 'Tableau de valeurs : $f(1) = 4$, $f(2) = 7$, $f(3) = 10$. Quelle formule convient ? A) $f(x) = 3x + 1$  B) $f(x) = 4x$  C) $f(x) = x + 3$  D) $f(x) = 3x$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Quand $x$ augmente de 1, $f(x)$ augmente de 3.
+      - $f(1) = 3 + 1 = 4$, donc $f(x) = 3x + 1$.
+
+- code: 2NDE-DIAG-GEOMETRIE
+  libelle: Thalès et trigonométrie (acquis de 3e)
+  prerequis: [3E-THALES-SEMBLABLES, 3E-TRIGONOMETRIE]
+  retour: [3E-DIAG-TRIANGLE]
+  questions:
+  # 2N-08 (nouvelles valeurs)
+  - code: 2NDE-DIAG-GEOMETRIE-01
+    difficulte: 2
+    type: numerique
+    enonce: Dans un triangle $ABC$, $M$ est sur $[AB]$, $N$ sur $[AC]$ et $(MN)$ est parallèle à $(BC)$. $AM = 4$, $AB = 10$, $AC = 15$. Calculer $AN$.
+    solution: '6'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\dfrac{AM}{AB} = \dfrac{AN}{AC}$, soit $\dfrac{4}{10} = \dfrac{AN}{15}$.
+      - $AN = \dfrac{4 \times 15}{10} = 6$.
+      resultat: '6'
+  # ex-3E-14
+  - code: 2NDE-DIAG-GEOMETRIE-02
+    difficulte: 3
+    type: qcm
+    enonce: 'Dans un triangle $ABC$, $M$ est sur $[AB]$ et $N$ sur $[AC]$, avec $\dfrac{AM}{AB} = \dfrac{AN}{AC} = 0{,}4$. Que peut-on dire des droites $(MN)$ et $(BC)$ ? A) Elles sont parallèles  B) Elles sont perpendiculaires  C) Elles sont sécantes  D) On ne peut rien dire'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Réciproque du théorème de Thalès.
+      etapes:
+      - Les rapports sont égaux et les points sont dans le même ordre sur les deux droites.
+      - D'après la réciproque de Thalès, $(MN)$ est parallèle à $(BC)$.
+  # 2N-09 (nouvelles valeurs)
+  - code: 2NDE-DIAG-GEOMETRIE-03
+    difficulte: 2
+    type: numerique
+    enonce: Dans un triangle rectangle, un angle aigu a un côté opposé de 3 cm et un côté adjacent de 4 cm. Donner sa tangente.
+    solution: 3/4
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\tan = \dfrac{\text{opposé}}{\text{adjacent}}$.
+      - $\dfrac{3}{4} = 0{,}75$.
+      resultat: 3/4
+
+- code: 2NDE-DIAG-DONNEES
+  libelle: Statistiques, probabilités et pourcentages (acquis de 3e)
+  prerequis: [3E-STATISTIQUES, 3E-PROBABILITES]
+  retour: [3E-DIAG-GRANDEURS]
+  questions:
+  # 2N-10
+  - code: 2NDE-DIAG-DONNEES-01
+    difficulte: 2
+    type: numerique
+    enonce: Donner la médiane de la série 4 ; 7 ; 8 ; 10 ; 16.
+    solution: '8'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - La série est rangée et compte 5 valeurs.
+      - La médiane est la 3e valeur, 8.
+      resultat: '8'
+  # 2N-17
+  - code: 2NDE-DIAG-DONNEES-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Série 5 ; 8 ; 10 ; 12 ; 15. A) étendue 10, moyenne 10  B) étendue 15, moyenne 10  C) étendue 10, moyenne 12  D) étendue 3, moyenne 10'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Étendue : $15 - 5 = 10$.'
+      - 'Moyenne : $50 \div 5 = 10$.'
+  # 2N-16
+  - code: 2NDE-DIAG-DONNEES-03
+    difficulte: 1
+    type: numerique
+    enonce: Une urne contient 4 boules rouges et 6 boules vertes. Quelle est la probabilité de tirer une boule rouge ?
+    solution: 2/5
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 10 boules, dont 4 rouges.
+      - $\dfrac{4}{10} = \dfrac{2}{5}$.
+      resultat: 2/5
+  # 2N-11
+  - code: 2NDE-DIAG-DONNEES-04
+    difficulte: 3
+    type: qcm
+    enonce: 'Un prix de 100 € augmente de $20\,\%$, puis baisse de $20\,\%$. Quel est le prix final ? A) 100 €  B) 96 €  C) 104 €  D) 80 €'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $100 \times 1{,}2 = 120$.
+      - $120 \times 0{,}8 = 96$ ; la baisse porte sur 120, pas sur 100.
+      erreurs_frequentes:
+      - Croire que $+20\,\%$ et $-20\,\%$ se compensent.

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import EspaceEleve from "../eleve/EspaceEleve.jsx";
+import EspaceEleve, { lireCarte } from "../eleve/EspaceEleve.jsx";
 import Exercice, { decouperQcm } from "../eleve/Exercice.jsx";
 import { fausseApi } from "./setup.js";
 
@@ -117,11 +117,11 @@ describe("connexion par carte (identifiant + code)", () => {
 
 describe("enfant d'une famille : une carte, puis la matière", () => {
   const ESPACE = {
-    id: 7, prenom: "Inès", nom: "Martin", niveau: "2nde", identifiant: "ines-k7m4",
+    id: 7, prenom: "Inès", niveau: "2nde", identifiant: "ines-k7m4",
     matieres: [
-      { code: "maths", libelle: "PKP Maths", disponible: true },
-      { code: "anglais", libelle: "PKP Anglais", disponible: true },
-      { code: "francais", libelle: "PKP Français", disponible: false },
+      { code: "maths", libelle: "Boussole Maths", disponible: true },
+      { code: "anglais", libelle: "Boussole Anglais", disponible: true },
+      { code: "francais", libelle: "Boussole Français", disponible: false },
     ],
     maths: [
       { eleve_id: 11, code_classe: "2NDE-TC-AAAAA", niveau: "2nde", parcours: "tronc-commun", libelle_parcours: "Tronc commun", enseignant: "M. Prof" },
@@ -130,7 +130,7 @@ describe("enfant d'une famille : une carte, puis la matière", () => {
     anglais: [],
   };
 
-  it("choisit PKP Maths puis un parcours ; le français est annoncé", async () => {
+  it("choisit Boussole Maths puis un parcours ; le français est annoncé", async () => {
     const appels = fausseApi({
       "POST /enfants/connexion": { json: { type: "enfant", jeton: "je", enfant: ESPACE } },
       "GET /enfants/moi": { json: ESPACE },
@@ -145,9 +145,9 @@ describe("enfant d'une famille : une carte, puis la matière", () => {
     await userEvent.type(screen.getByLabelText("Code personnel"), "ABC234");
     await userEvent.click(screen.getByRole("button", { name: "Commencer" }));
     expect(await screen.findByText("Que veux-tu travailler ?")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /PKP Français/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /Boussole Français/ })).toBeDisabled();
     expect(screen.getByText("Bientôt disponible")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: /PKP Maths/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Boussole Maths/ }));
     const boutons = await screen.findAllByRole("button", { name: "S'entraîner" });
     expect(boutons).toHaveLength(2);
     await userEvent.click(boutons[1]);
@@ -167,7 +167,7 @@ describe("séance d'exercices", () => {
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
 
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(await screen.findByText("Développer (x + 3)².")).toBeInTheDocument();
     expect(screen.getByLabelText("Ta réponse")).toHaveFocus();
 
@@ -191,7 +191,7 @@ describe("séance d'exercices", () => {
       "POST /seances/3/variante": { json: { ...variable, enonce: "Résoudre $5x - 2 = 8$." } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     await userEvent.type(await screen.findByLabelText("Ta réponse"), "3{Enter}");
     await userEvent.click(await screen.findByRole("button", { name: "Refaire avec d'autres nombres" }));
     expect(appels.at(-1).corps).toEqual({ question_id: 9 });
@@ -207,7 +207,7 @@ describe("séance d'exercices", () => {
       "POST /seances/3/reponses": { json: { correcte: false, solution: "x^2 + 6x + 9", maitrise: 0.2, maitrisee: false, remarque } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(await screen.findByText("En relecture")).toBeInTheDocument();
     await userEvent.type(screen.getByLabelText("Ta réponse"), "(x+3)^2{Enter}");
     expect(await screen.findByText(remarque)).toBeInTheDocument();
@@ -220,7 +220,7 @@ describe("séance d'exercices", () => {
       "POST /seances/3/reponses": { json: { correcte: false, solution: "x^2 + 6x + 9", maitrise: 0.2, maitrisee: false } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     await userEvent.type(await screen.findByLabelText("Ta réponse"), "x{Enter}");
     await screen.findByText("Pas tout à fait.");
     expect(screen.queryByRole("button", { name: /autres nombres/ })).toBeNull();
@@ -233,7 +233,7 @@ describe("séance d'exercices", () => {
       "POST /seances/3/reponses": { json: { correcte: true, solution: "B", maitrise: 0.5, maitrisee: false } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     await userEvent.click(await screen.findByRole("button", { name: /négatif/ }));
     expect(appels.at(-1).corps).toEqual({ question_id: 5, reponse_donnee: "B" });
     expect(await screen.findByText("Bonne réponse !")).toBeInTheDocument();
@@ -244,6 +244,7 @@ describe("séance d'exercices", () => {
     sessionStorage.setItem("pkp.bilan", JSON.stringify({ reponses: 4, reussies: 3 }));
     fausseApi({ "GET /seances/3/question": { json: QUESTION } });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
+    await userEvent.click(screen.getByRole("button", { name: "Reprendre ma séance" }));
     expect(await screen.findByText("Développer (x + 3)².")).toBeInTheDocument();
     expect(screen.getByText("Réponses :")).toHaveTextContent("Réponses : 4");
     expect(screen.getByText("Réussies :")).toHaveTextContent("Réussies : 3");
@@ -253,7 +254,7 @@ describe("séance d'exercices", () => {
     fausseApi({ "POST /seances": { status: 401, json: { detail: "Authentification requise." } } });
     const onExpire = vi.fn();
     render(<Exercice jeton="j" onExpire={onExpire} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(onExpire).toHaveBeenCalled();
   });
 
@@ -265,10 +266,20 @@ describe("séance d'exercices", () => {
       "POST /seances/3/fin": { json: { id: 3 } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     await userEvent.type(await screen.findByLabelText("Ta réponse"), "x²+6x+9{Enter}");
     await userEvent.click(await screen.findByRole("button", { name: "Terminer la séance" }));
     expect(await screen.findByText("1 bonne réponse sur 1.")).toBeInTheDocument();
     expect(sessionStorage.getItem("pkp.seance")).toBeNull();
+  });
+});
+
+// Issue #87 — Identifiant prénom + numéro (Claude)
+describe("QR code de la carte : ancien et nouveau format d'identifiant", () => {
+  it("lit « lina-k7m4 » comme « Lina1 », majuscule comprise", () => {
+    expect(lireCarte("#carte=lina-k7m4.ABC234")).toEqual({ identifiant: "lina-k7m4", code: "ABC234" });
+    expect(lireCarte("#carte=Lina1.ABC234")).toEqual({ identifiant: "Lina1", code: "ABC234" });
+    expect(lireCarte("#carte=JeanPierre12.XYZ789")).toEqual({ identifiant: "JeanPierre12", code: "XYZ789" });
+    expect(lireCarte("#carte=Lina1")).toBeNull();
   });
 });

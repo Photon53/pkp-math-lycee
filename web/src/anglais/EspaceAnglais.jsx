@@ -33,7 +33,7 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
   if (!compte) {
     return (
       <PageSimple marque={MARQUE}>
-        <ConnexionEnseignant titre="Connexion PKP Anglais" onConnexion={connecter} />
+        <ConnexionEnseignant titre="Connexion Boussole Anglais" onConnexion={connecter} />
       </PageSimple>
     );
   }
@@ -63,7 +63,7 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
 
   return (
     <CadreApplication
-      espace="PKP Anglais"
+      espace="Boussole Anglais"
       marque={MARQUE}
       liens={pages}
       cheminActif={chemin}
@@ -81,7 +81,7 @@ export default function EspaceAnglais({ chemin = "/anglais" }) {
         </>
       }
     >
-      <EntetePage titre={page.libelle} fil="PKP Anglais" />
+      <EntetePage titre={page.libelle} fil="Boussole Anglais" />
       {page.vers === "/anglais/groupes" ? (
         <GroupesAnglais jeton={compte.jeton} onExpire={deconnecter} />
       ) : page.vers === "/anglais/validation" ? (

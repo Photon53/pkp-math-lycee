@@ -28,8 +28,8 @@ def _classe(client, prof, niveau, parcours):
 
 def test_repertoire_recherche_filtres_et_points_a_verifier(client, session):
     admin = connecter_admin(client)
-    f = _famille(client, admin, "martin@x.test", [{"prenom": "Inès", "nom": "Martin", "niveau": "2nde"},
-                                                  {"prenom": "Noé", "nom": "Martin", "niveau": "4e"}],
+    f = _famille(client, admin, "martin@x.test", [{"prenom": "Inès", "niveau": "2nde"},
+                                                  {"prenom": "Noé", "niveau": "4e"}],
                  nom="Martin", prenom="Claire")
     ines = next(c for c in f["cartes"] if c["prenom"] == "Inès")
     prof = connecter_enseignant(client)
@@ -38,7 +38,7 @@ def test_repertoire_recherche_filtres_et_points_a_verifier(client, session):
 
     tous = _repertoire(client, admin)
     assert tous["total"] >= 2 and len(tous["elements"]) <= 50
-    ligne = next(e for e in _repertoire(client, admin, q="inès martin")["elements"] if e["id"] == ines["id"])
+    ligne = next(e for e in _repertoire(client, admin, q="inès")["elements"] if e["id"] == ines["id"])
     assert [r["email"] for r in ligne["responsables"]] == ["martin@x.test"]
     assert ligne["responsables"][0]["nom"] == "Martin" and ligne["responsables"][0]["prenom"] == "Claire"
     # Seulement en excellence (une option) : pas de parcours principal.

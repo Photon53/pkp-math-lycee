@@ -3,8 +3,12 @@ l'importe. Les enfants d'une même adresse e-mail forment une famille ; le secon
 indiqué, suit les mêmes enfants. La classe de maths et le groupe d'anglais sont facultatifs.
 
 L'import se fait en deux temps : une vérification qui n'écrit rien (chaque ligne avec ses erreurs), puis
-l'import lui-même, tout ou rien. Un enfant déjà présent dans la famille (même prénom, même nom) est ignoré :
-réimporter le même fichier ne crée pas de doublon.
+l'import lui-même, tout ou rien. Un enfant déjà présent dans la famille (même prénom) est ignoré : réimporter
+le même fichier ne crée pas de doublon.
+
+Aucun nom de famille d'enfant (décision RGPD-1, #87) : le modèle n'a plus de colonne « Nom ». Un ancien classeur
+qui la remplit encore est refusé ligne par ligne à la vérification (rien n'est importé ni enregistré) : il suffit
+de vider la colonne. Deux homonymes d'une même classe se distinguent par leur identifiant (« Lina2 »).
 """
 
 import unicodedata
@@ -30,7 +34,6 @@ ELEVES_PAR_GROUPE = 30  # même limite que l'ajout d'enfants à un groupe
 FEUILLE = "Élèves"
 COLONNES = [
     ("prenom", "Prénom (obligatoire)", 18),
-    ("nom", "Nom", 18),
     ("niveau", "Niveau (obligatoire)", 12),
     ("email1", "E-mail du parent 1 (obligatoire)", 32),
     ("email2", "E-mail du parent 2", 32),
@@ -119,7 +122,7 @@ def modele(session: Session) -> bytes:
             "Inscription en masse des élèves et de leurs familles",
             "",
             "1. Une ligne par enfant, dans la feuille « Élèves ». Ne modifiez pas la première ligne (titres).",
-            "2. Prénom, niveau et e-mail du parent 1 sont obligatoires. Le nom est conseillé (il distingue deux homonymes).",
+            "2. Prénom, niveau et e-mail du parent 1 sont obligatoires. Pas de nom de famille : seul le prénom de l'enfant est enregistré.",
             "3. Les enfants qui ont le même e-mail de parent 1 forment une famille (frères et sœurs).",
             "4. E-mail du parent 2 (facultatif) : second responsable légal, il suit les mêmes enfants.",
             "5. Classe de maths (facultatif) : code de la classe, de même niveau que l'enfant. Plusieurs parcours :",
@@ -127,9 +130,9 @@ def modele(session: Session) -> bytes:
             "6. Groupe d'anglais (facultatif) : choisissez-le dans la liste (4e et 3e).",
             "7. Niveaux acceptés : 6e, 5e, 4e, 3e, 2nde, 1re, Tle (ou en toutes lettres : seconde, première…).",
             "",
-            "Dans PKP Éducation, onglet Familles → « Importer (Excel) » : la vérification signale chaque ligne à corriger sans",
+            "Dans Boussole, onglet Familles → « Importer (Excel) » : la vérification signale chaque ligne à corriger sans",
             "rien enregistrer ; l'import crée ensuite tout, ou rien si une ligne reste en erreur. Un enfant déjà",
-            "présent dans la famille (même prénom et même nom) est ignoré : réimporter le fichier ne crée pas de doublon.",
+            "présent dans la famille (même prénom) est ignoré : réimporter le fichier ne crée pas de doublon.",
             "À la fin, imprimez les cartes des enfants et transmettez à chaque nouveau parent son mot de passe provisoire.",
         ],
         start=1,
@@ -262,7 +265,7 @@ def _verifier(session: Session, lignes: list[tuple[int, dict[str, str]]]) -> lis
     verifiees = []
     for numero, brut in lignes:
         erreurs: list[str] = []
-        vue = LigneImport(ligne=numero, enfant=f"{brut.get('prenom', '')} {brut.get('nom', '')}".strip() or "—")
+        vue = LigneImport(ligne=numero, enfant=brut.get("prenom", "").strip() or "—")  # jamais le nom saisi
         ligne = _Ligne(vue=vue)
         verifiees.append(ligne)
 
@@ -270,11 +273,13 @@ def _verifier(session: Session, lignes: list[tuple[int, dict[str, str]]]) -> lis
         if niveau is None:
             erreurs.append(f"Niveau « {brut.get('niveau', '')} » inconnu (6e, 5e, 4e, 3e, 2nde, 1re ou Tle)."
                            if brut.get("niveau") else "Niveau manquant.")
+        if brut.get("nom", "").strip():  # ancien modèle : le nom n'est ni importé ni enregistré (RGPD-1)
+            erreurs.append("Colonne « Nom » remplie : aucun nom de famille d'enfant n'est enregistré. Videz la colonne.")
         if not brut.get("prenom"):
             erreurs.append("Prénom manquant.")
         elif niveau is not None:
             try:
-                ligne.saisi = EnfantSaisi(prenom=brut["prenom"], nom=brut.get("nom", ""), niveau=niveau)
+                ligne.saisi = EnfantSaisi(prenom=brut["prenom"], niveau=niveau)
                 vue.enfant, vue.niveau = enfants.nom_affiche(ligne.saisi), niveau.value
             except ValidationError as e:
                 erreurs.append(_message(e))
@@ -319,12 +324,12 @@ def _verifier(session: Session, lignes: list[tuple[int, dict[str, str]]]) -> lis
         vue.inscriptions = [c.code for c in ligne.classes] + ([f"Anglais : {ligne.groupe.nom}"] if ligne.groupe else [])
 
         if ligne.saisi and ligne.emails:
-            cle = (ligne.emails[0], ligne.saisi.prenom.casefold(), ligne.saisi.nom.casefold())
+            cle = (ligne.emails[0], ligne.saisi.prenom.casefold())
             existant = comptes.get(ligne.emails[0])
             if cle in vus:
                 erreurs.append("Cet enfant figure déjà plus haut dans le fichier, pour la même famille.")
             elif existant and any(
-                (e.prenom.casefold(), e.nom.casefold()) == cle[1:] for e in existant.famille
+                e.prenom.casefold() == cle[1] for e in existant.famille
             ):
                 vue.deja_present = True
             vus.add(cle)
@@ -361,7 +366,7 @@ def importer(session: Session, contenu: bytes, simulation: bool) -> RapportImpor
     for ligne in verifiees:
         if ligne.vue.deja_present:
             continue
-        enfant, code = enfants.creer(session, ligne.saisi.prenom, ligne.saisi.nom, ligne.saisi.niveau)
+        enfant, code = enfants.creer(session, ligne.saisi.prenom, ligne.saisi.niveau)
         for email in ligne.emails:
             parent = comptes.get(email) or session.scalar(select(models.Parent).where(models.Parent.email == email))
             if parent is None:

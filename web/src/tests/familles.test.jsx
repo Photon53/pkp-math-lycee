@@ -76,7 +76,7 @@ describe("familles : actions en masse", () => {
       "POST /admin/import?simulation=false": {
         json: rapport([ligne(2, "Inès Durand")], {
           simulation: false,
-          cartes: [{ id: 5, prenom: "Inès", nom: "Durand", niveau: "2nde", identifiant: "ines-ab12", code: "CODE-1234", famille: "a@x.fr" }],
+          cartes: [{ id: 5, prenom: "Inès", niveau: "2nde", identifiant: "ines-ab12", code: "CODE-1234", famille: "a@x.fr" }],
           comptes: [{ email: "a@x.fr", mot_de_passe_provisoire: "mdp-provisoire-1" }],
         }),
       },
@@ -136,6 +136,7 @@ describe("configuration", () => {
     const appels = fausseApi({
       "GET /admin/domaines": { json: [domaine] },
       "POST /admin/domaines/anglais-lycee": (corps) => ({ json: [{ ...domaine, ...corps }] }),
+      "GET /admin/classes-pilotes": { json: [] },
     });
     render(<Configuration jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByLabelText("Anglais lycée ouvert aux élèves")).toBeDisabled();

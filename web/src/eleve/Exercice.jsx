@@ -5,6 +5,8 @@ import { Maths } from "../maths.jsx";
 import { AideExercice } from "./Comprehension.jsx";
 import { Correction } from "../ui/Pedagogie.jsx";
 import { ecrire, lire } from "../stockage.js";
+import { CONSEILS } from "../methodeEtapes.js";
+import ConseilsTravail from "./ConseilsTravail.jsx";
 
 export const CLE_SEANCE = "pkp.seance";
 export const CLE_BILAN = "pkp.bilan";
@@ -30,11 +32,14 @@ export function decouperQcm(enonce) {
 
 /**
  * Déroulé d'une séance : accueil → question → résultat → question… → bilan.
- * La séance en cours est mémorisée : recharger la page reprend la même question.
+ * La séance en cours est mémorisée : au retour, « Reprendre ma séance » rouvre la même séance et la même
+ * question, sans en créer une nouvelle (#148).
  */
 export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
   const [seanceId, setSeanceId] = useState(() => lire(CLE_SEANCE));
-  const [etape, setEtape] = useState(seanceId ? "chargement" : "accueil");
+  const [etape, setEtape] = useState(seanceId ? "reprise" : "accueil");
+  // Message d'information sur l'écran d'accueil (séance précédente close entre-temps).
+  const [info, setInfo] = useState(null);
   const [question, setQuestion] = useState(null);
   const [saisie, setSaisie] = useState("");
   const [resultat, setResultat] = useState(null);
@@ -85,6 +90,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
       if (err.status === 404 || err.status === 409) {
         // Séance terminée ou introuvable (autre appareil, purge…) : on repart de zéro.
         changerSeance(null);
+        setInfo("Ta séance précédente est terminée : choisis tes chapitres pour en commencer une nouvelle.");
         setEtape("accueil");
       } else if (err.status !== 401) {
         setErreur(err.message);
@@ -105,11 +111,11 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     }
   }
 
-  useEffect(() => {
-    if (seanceId) chargerQuestion(seanceId);
-    // Uniquement au montage : reprise d'une séance mémorisée.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  /** Reprise de la séance mémorisée : même séance, même question en cours (l'API la garde). */
+  function reprendre() {
+    setInfo(null);
+    chargerQuestion(seanceId); // l'écran reste affiché, bouton désactivé, jusqu'à la question
+  }
 
   useEffect(() => {
     if (etape === "question") champ.current?.focus();
@@ -151,6 +157,10 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
 
   async function demarrer(corps = { chapitre_ids: [...coches] }, visee = null) {
     try {
+      // « Choisir un autre chapitre » alors qu'une séance était en cours : elle est close (ses réponses restent
+      // dans l'historique) avant d'en ouvrir une autre, comme pour un entrainement ciblé.
+      if (seanceId && !visee) await api(`/seances/${seanceId}/fin`, { methode: "POST", jeton }).catch(() => {});
+      setInfo(null);
       const seance = await appeler("/seances", { methode: "POST", corps });
       changerSeance(seance.id, visee);
       setBilan(BILAN_VIDE);
@@ -200,9 +210,39 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
     setEtape("bilan");
   }
 
+  if (etape === "reprise") {
+    return (
+      <section className="carte accueil-seance" aria-labelledby="titre-reprise">
+        <h2 id="titre-reprise">Ta séance t'attend</h2>
+        <p className="doux">
+          {bilan.reponses > 0
+            ? `Tu as déjà répondu à ${bilan.reponses} question${bilan.reponses > 1 ? "s" : ""} dans cette séance. `
+            : ""}
+          Tu reprends exactement là où tu t'étais arrêté·e.
+          {competenceVisee && (
+            <>
+              {" "}
+              Entrainement ciblé : <strong>{competenceVisee.libelle}</strong>.
+            </>
+          )}
+        </p>
+        <Erreur message={erreur} />
+        <div className="actions">
+          <button onClick={reprendre} disabled={envoi}>
+            Reprendre ma séance
+          </button>
+          <button className="secondaire" onClick={() => setEtape("accueil")} disabled={envoi}>
+            Choisir un autre chapitre
+          </button>
+        </div>
+        <ConseilsTravail />
+      </section>
+    );
+  }
+
   if (etape === "accueil" || etape === "bilan") {
     return (
-      <section className="carte">
+      <section className="carte accueil-seance">
         {etape === "bilan" ? (
           <>
             <h2>Séance terminée</h2>
@@ -216,11 +256,23 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
           <>
             <h2>Prêt·e à t'entraîner ?</h2>
             <p className="doux">
-              Choisis un ou plusieurs chapitres. Les questions s'adaptent à ton niveau : on travaille d'abord ce qui est le
-              moins maîtrisé.
+              Les chapitres ouverts par ton professeur sont déjà cochés : tu peux commencer tout de suite, ou n'en garder que
+              certains. Les questions s'adaptent à ton niveau : on travaille d'abord ce qui est le moins maîtrisé.
             </p>
           </>
         )}
+        {info && <p className="info petit">{info}</p>}
+        <Erreur message={erreur} />
+        <div className="actions">
+          <button onClick={() => demarrer()} disabled={envoi || coches.size === 0}>
+            {etape === "bilan" ? "Nouvelle séance" : "Commencer à travailler"}
+          </button>
+          {seanceId && etape === "accueil" && (
+            <button className="secondaire" onClick={reprendre} disabled={envoi}>
+              Reprendre ma séance
+            </button>
+          )}
+        </div>
         {chapitres === null ? (
           <p className="doux">Chargement des chapitres…</p>
         ) : chapitres.length === 0 ? (
@@ -244,12 +296,7 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
             ))}
           </fieldset>
         )}
-        <Erreur message={erreur} />
-        <div className="actions">
-          <button onClick={() => demarrer()} disabled={envoi || coches.size === 0}>
-            {etape === "bilan" ? "Nouvelle séance" : "Démarrer une séance"}
-          </button>
-        </div>
+        <ConseilsTravail />
       </section>
     );
   }
@@ -363,12 +410,26 @@ export default function Exercice({ jeton, onExpire, onVoirCours, cible }) {
           </form>
         )}
         <Erreur message={erreur} />
+        {!repondue && (
+          <p className="aide conseil">
+            {CONSEILS.essayer}
+            {onVoirCours && (
+              <>
+                {" "}
+                <button className="lien" onClick={() => onVoirCours(question.competence_id)}>
+                  Relire le cours de cette notion
+                </button>
+              </>
+            )}
+          </p>
+        )}
       </article>
 
       {repondue && (
         <article className={`carte resultat ${resultat.correcte ? "ok" : "ko"}`} role="status">
           <p className="verdict">{resultat.correcte ? "Bonne réponse !" : "Pas tout à fait."}</p>
           {resultat.remarque && <p className="avertissement">{resultat.remarque}</p>}
+          {!resultat.correcte && <p className="aide conseil">{CONSEILS.erreur}</p>}
           {!resultat.correcte && (
             <p>
               Réponse attendue : <code>{solutionLisible(question.type, resultat.solution)}</code>

@@ -4,7 +4,11 @@
 //
 // L'export passe par l'impression du navigateur (« Enregistrer au format PDF ») : les formules, rendues par
 // KaTeX, gardent toute leur qualité. Tant qu'un contenu n'est pas validé, chaque page porte « NON VALIDÉ ».
-import { useEffect, useMemo, useState } from "react";
+//
+// Issue #178 : un adulte choisit le PDF élève ou le PDF professeur. Le PDF élève est imprimé à partir du
+// document demandé à l'API en version élève (`?version=eleve`) : aucune solution ni aucun corrigé n'arrive
+// dans le navigateur pour ce PDF, et l'impression est refusée si l'API en renvoyait quand même.
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { api } from "../api.js";
 import { Difficulte, Erreur, Onglets, solutionLisible } from "../composants.jsx";
@@ -19,6 +23,24 @@ export const DOCUMENTS = [
   ["corrige", "Corrigé"],
 ];
 const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
+const MARQUES = { maths: "Boussole Maths", francais: "Boussole Français" };
+const marque = (doc) => MARQUES[doc.matiere] ?? "Boussole";
+export const VERSIONS = [
+  ["eleve", "PDF élève — sans aucun corrigé"],
+  ["professeur", "PDF professeur — avec corrigés"],
+];
+
+/** Vrai si le document ne contient aucune solution ni aucun corrigé (contrôle avant d'imprimer le PDF élève). */
+export function sansCorrige(doc) {
+  return doc.version === "eleve" && doc.competences.every((c) => c.questions.every((q) => !q.solution && !q.correction));
+}
+// Rubriques des chapitres de français (#177) : indépendantes des niveaux.
+export const RUBRIQUES = [
+  ["conjugaison", "Conjugaison"],
+  ["grammaire", "Grammaire"],
+  ["redaction", "Rédaction"],
+  ["mon_cours", "Mon cours"],
+];
 
 function rang(ch) {
   const niveaux = NIVEAUX.map(([v]) => v);
@@ -33,11 +55,12 @@ function trier(chapitres) {
 }
 
 /** Catalogue des chapitres puis document du chapitre choisi. `niveauParDefaut` : niveau de l'élève. */
-export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro = null }) {
+export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro = null, adulte = false }) {
   const [chapitres, setChapitres] = useState(null);
   const [erreur, setErreur] = useState(null);
   const [niveau, setNiveau] = useState(niveauParDefaut ?? "");
   const [parcours, setParcours] = useState("");
+  const [rubrique, setRubrique] = useState("");
   const [ouvert, setOuvert] = useState(null);
 
   useEffect(() => {
@@ -53,12 +76,16 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
     );
   }, [jeton, onExpire]);
 
-  if (ouvert) return <DocumentChapitre id={ouvert} jeton={jeton} onExpire={onExpire} onRetour={() => setOuvert(null)} />;
+  if (ouvert)
+    return <DocumentChapitre id={ouvert} jeton={jeton} onExpire={onExpire} adulte={adulte} onRetour={() => setOuvert(null)} />;
   if (erreur) return <Erreur message={erreur} />;
   if (!chapitres) return <p className="doux">Chargement des chapitres…</p>;
 
   const niveaux = [...new Set(chapitres.map((c) => c.niveau))];
-  const visibles = chapitres.filter((c) => (!niveau || c.niveau === niveau) && (!parcours || c.parcours === parcours));
+  const visibles = chapitres.filter(
+    (c) => (!niveau || c.niveau === niveau) && (!parcours || c.parcours === parcours) && (!rubrique || c.rubrique === rubrique),
+  );
+  const rubriquesDispo = RUBRIQUES.filter(([v]) => chapitres.some((c) => c.rubrique === v));
   const parcoursDispo = [...new Map(chapitres.filter((c) => !niveau || c.niveau === niveau).map((c) => [c.parcours, c.libelle_parcours]))];
   const groupes = [];
   for (const ch of visibles) {
@@ -70,7 +97,7 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
   return (
     <section className="pkp-math" aria-labelledby="titre-pkp-math">
       <div className="pkp-math-entete">
-        <h2 id="titre-pkp-math">PKP Maths</h2>
+        <h2 id="titre-pkp-math">Boussole Maths</h2>
         <p className="doux">
           {intro ?? "Pour chaque chapitre : le résumé de cours, le cours complet, une fiche d'exercices et son corrigé, à lire ici ou à exporter en PDF."}
         </p>
@@ -80,6 +107,15 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
       ) : (
         <>
           <div className="filtres-pkp">
+            {rubriquesDispo.length > 0 && (
+              <label>
+                Rubrique
+                <select value={rubrique} onChange={(e) => setRubrique(e.target.value)}>
+                  <option value="">Toutes les rubriques</option>
+                  {rubriquesDispo.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                </select>
+              </label>
+            )}
             {niveaux.length > 1 && (
               <label>
                 Niveau
@@ -123,12 +159,15 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
   );
 }
 
-function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
+function DocumentChapitre({ id, jeton, onExpire, onRetour, adulte }) {
   const [doc, setDoc] = useState(null);
   const [erreur, setErreur] = useState(null);
   const [onglet, setOnglet] = useState("resume");
   const [exporter, setExporter] = useState(false);
   const [impression, setImpression] = useState(null); // réglages de l'export en cours
+  const [erreurExport, setErreurExport] = useState(null);
+  const [preparation, setPreparation] = useState(false); // PDF élève en cours de préparation
+  const dernierExport = useRef(0); // seule la réponse du dernier export lancé est imprimée
 
   useEffect(() => {
     api(`/pkp-math/chapitres/${id}`, { jeton }).then(setDoc, (err) =>
@@ -140,7 +179,9 @@ function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
   useEffect(() => {
     if (!impression) return undefined;
     const titre = document.title;
-    document.title = `PKP Maths - ${doc.titre}`;
+    // Nom de fichier proposé par le navigateur : la version y figure, pour ne pas confondre élève et corrigé.
+    const suffixe = { eleve: " - élève", professeur: " - professeur (corrigé)" }[impression.version] ?? "";
+    document.title = `${marque(impression.doc)} - ${impression.doc.titre}${suffixe}`;
     document.body.classList.add("pkp-imprime");
     const fin = () => setImpression(null);
     window.addEventListener("afterprint", fin);
@@ -151,7 +192,7 @@ function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
       document.body.classList.remove("pkp-imprime");
       document.title = titre;
     };
-  }, [impression, doc]);
+  }, [impression]);
 
   if (erreur) return <><button className="lien" onClick={onRetour}>← Tous les chapitres</button><Erreur message={erreur} /></>;
   if (!doc) return <p className="doux">Chargement du chapitre…</p>;
@@ -168,30 +209,59 @@ function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
           </p>
         )}
         <div className="actions">
-          <button onClick={() => setExporter(true)}>Exporter en PDF</button>
+          <button onClick={() => setExporter(true)} disabled={preparation}>
+            {preparation ? "Préparation du PDF…" : "Exporter en PDF"}
+          </button>
         </div>
       </div>
+      {erreurExport && <Erreur message={erreurExport} />}
       <Onglets valeur={onglet} onChange={setOnglet} options={DOCUMENTS} />
       <ContenuDocument doc={doc} type={onglet} competences={doc.competences.map((c) => c.id)} difficultes={[1, 5]} ecran />
       {exporter && (
         <ReglagesExport
           doc={doc}
           ongletActuel={onglet}
+          adulte={adulte}
           onAnnuler={() => setExporter(false)}
           onExporter={(reglages) => {
             setExporter(false);
-            setImpression(reglages);
+            setErreurExport(null);
+            const numero = ++dernierExport.current;
+            if (reglages.version !== "eleve") return setImpression({ ...reglages, doc });
+            // PDF élève : document redemandé sans corrigé ; rien n'est imprimé s'il en contient encore.
+            const documents = reglages.documents.filter((d) => d !== "corrige");
+            if (!documents.length) return setErreurExport("Choisissez au moins un document pour le PDF élève.");
+            setPreparation(true);
+            return api(`/pkp-math/chapitres/${id}?version=eleve`, { jeton })
+              .then(
+                (d) => {
+                  if (numero !== dernierExport.current) return; // un autre export a été lancé entre-temps
+                  if (sansCorrige(d)) setImpression({ ...reglages, documents, doc: d });
+                  else setErreurExport("Le PDF élève n'a pas pu être préparé sans corrigé : export annulé.");
+                },
+                (err) => {
+                  if (numero !== dernierExport.current) return;
+                  if (err.status === 401 && onExpire) onExpire();
+                  else setErreurExport(err.message);
+                },
+              )
+              .finally(() => numero === dernierExport.current && setPreparation(false));
           }}
         />
       )}
       {impression &&
         createPortal(
           <div id="pkp-impression" className="pkp-impression">
-            {!doc.valide && <div className="filigrane" aria-hidden="true">NON VALIDÉ</div>}
+            {!impression.doc.valide && <div className="filigrane" aria-hidden="true">NON VALIDÉ</div>}
             {impression.documents.map((type, i) => (
               <div key={type} className={i > 0 ? "saut-page" : undefined}>
-                <EntetePdf doc={doc} type={type} />
-                <ContenuDocument doc={doc} type={type} competences={impression.competences} difficultes={impression.difficultes} />
+                <EntetePdf doc={impression.doc} type={type} version={impression.version} />
+                <ContenuDocument
+                  doc={impression.doc}
+                  type={type}
+                  competences={impression.competences}
+                  difficultes={impression.difficultes}
+                />
               </div>
             ))}
           </div>,
@@ -201,13 +271,24 @@ function DocumentChapitre({ id, jeton, onExpire, onRetour }) {
   );
 }
 
-function ReglagesExport({ doc, ongletActuel, onAnnuler, onExporter }) {
-  const [documents, setDocuments] = useState([ongletActuel]);
+function ReglagesExport({ doc, ongletActuel, adulte, onAnnuler, onExporter }) {
+  // Adulte : PDF élève par défaut, pour ne jamais distribuer un corrigé par mégarde.
+  const [version, setVersion] = useState(adulte ? "eleve" : null);
+  const [documents, setDocuments] = useState(adulte && ongletActuel === "corrige" ? ["exercices"] : [ongletActuel]);
   const [competences, setCompetences] = useState(doc.competences.map((c) => c.id));
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(5);
   const basculer = (liste, setListe, v) => setListe(liste.includes(v) ? liste.filter((x) => x !== v) : [...liste, v]);
   const avecExercices = documents.some((d) => d === "exercices" || d === "corrige");
+  const proposes = version === "eleve" ? DOCUMENTS.filter(([v]) => v !== "corrige") : DOCUMENTS;
+  const choisir = (v) => {
+    setVersion(v);
+    if (v === "eleve")
+      setDocuments((d) => {
+        const sans = d.filter((x) => x !== "corrige");
+        return sans.length ? sans : ["exercices"];
+      });
+  };
 
   return (
     <Modale titre="Exporter en PDF" onFermer={onAnnuler}>
@@ -215,12 +296,22 @@ function ReglagesExport({ doc, ongletActuel, onAnnuler, onExporter }) {
         onSubmit={(e) => {
           e.preventDefault();
           const ordre = DOCUMENTS.map(([v]) => v);
-          onExporter({ documents: [...documents].sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b)), competences, difficultes: [min, max] });
+          onExporter({ version, documents: [...documents].sort((a, b) => ordre.indexOf(a) - ordre.indexOf(b)), competences, difficultes: [min, max] });
         }}
       >
+        {adulte && (
+          <fieldset>
+            <legend>Version</legend>
+            {VERSIONS.map(([v, l]) => (
+              <label key={v} className="case">
+                <input type="radio" name="version-pdf" value={v} checked={version === v} onChange={() => choisir(v)} /> {l}
+              </label>
+            ))}
+          </fieldset>
+        )}
         <fieldset>
           <legend>Documents</legend>
-          {DOCUMENTS.map(([v, l]) => (
+          {proposes.map(([v, l]) => (
             <label key={v} className="case">
               <input type="checkbox" checked={documents.includes(v)} onChange={() => basculer(documents, setDocuments, v)} /> {l}
             </label>
@@ -268,13 +359,14 @@ function ReglagesExport({ doc, ongletActuel, onAnnuler, onExporter }) {
   );
 }
 
-function EntetePdf({ doc, type }) {
+function EntetePdf({ doc, type, version }) {
   const libelle = Object.fromEntries(DOCUMENTS)[type];
+  const mention = { eleve: " · Version élève", professeur: " · Version professeur" }[version] ?? "";
   return (
     <header className="entete-pdf">
-      <p>PKP Maths · {NOM_NIVEAU[doc.niveau] ?? doc.niveau} — {doc.libelle_parcours}</p>
+      <p>{marque(doc)} · {NOM_NIVEAU[doc.niveau] ?? doc.niveau} — {doc.libelle_parcours}</p>
       <h1>{doc.titre}</h1>
-      <p className="type-pdf">{libelle}{!doc.valide && " · NON VALIDÉ"}</p>
+      <p className="type-pdf">{libelle}{mention}{!doc.valide && " · NON VALIDÉ"}</p>
     </header>
   );
 }
@@ -393,11 +485,19 @@ function Corrige({ q }) {
   return (
     <div className="corrige-pkp">
       <p className="doux"><Maths texte={q.enonce} enLigne /></p>
+      {c?.rappel && <p><strong>Rappel :</strong> <Maths texte={c.rappel} enLigne /></p>}
       {c?.formule && <p><strong>Formule :</strong> <Maths texte={c.formule} enLigne />{c.conditions && <> ({<Maths texte={c.conditions} enLigne />})</>}</p>}
       {c?.methode && <p><strong>Méthode :</strong> <Maths texte={c.methode} enLigne /></p>}
       {c?.etapes?.length > 0 && <ol>{c.etapes.map((e, i) => <li key={i}><Maths texte={e} enLigne /></li>)}</ol>}
       {c?.verification && <p><strong>Vérification :</strong> <Maths texte={c.verification} enLigne /></p>}
+      {c?.autre_methode && <p><strong>Autre méthode :</strong> <Maths texte={c.autre_methode} enLigne /></p>}
       <p><strong>Réponse :</strong> <Maths texte={c?.resultat ?? (q.type === "qcm" ? q.solution : q.type === "texte" ? solutionLisible("texte", q.solution) : `$${q.solution}$`)} enLigne /></p>
+      {c?.erreurs_frequentes?.length > 0 && (
+        <div className="erreurs-corrige">
+          <strong>Erreurs fréquentes :</strong>
+          <ul>{c.erreurs_frequentes.map((e, i) => <li key={i}><Maths texte={e} enLigne /></li>)}</ul>
+        </div>
+      )}
     </div>
   );
 }
