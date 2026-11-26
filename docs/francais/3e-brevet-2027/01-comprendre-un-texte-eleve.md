@@ -114,3 +114,16 @@ Puis reprends ta réponse à Q7 ou Q8 :
 
 À la séance suivante, demande un autre texte et recommence sans le modèle sous les yeux.
 Ces vérifications servent à apprendre ; elles ne créent aucun score dans la plateforme.
+
+## 6. Je fais le point
+
+Ajout de l'issue #217 (Claude) : auto-évaluation en ligne, sans note, que ton professeur consulte.
+Pour chaque phrase, choisis : pas encore, avec de l'aide, presque, oui.
+
+- Je sais distinguer une information explicite d’une information implicite.
+- Je sais choisir une courte citation et indiquer sa ligne.
+- Je sais expliquer ce que montre ma citation.
+- Je sais distinguer le narrateur de l’auteur.
+
+Le quiz en ligne du dossier (six questions à choix, corrigées après ta réponse) se trouve dans la plateforme ;
+il n'est pas reproduit dans cette fiche.

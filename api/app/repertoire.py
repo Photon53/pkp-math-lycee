@@ -97,8 +97,7 @@ def chercher(
     if q:
         motif = f"%{q}%"
         filtres.append(or_(
-            E.prenom.ilike(motif), E.nom.ilike(motif), E.identifiant.ilike(motif),
-            (func.lower(E.prenom) + " " + func.lower(E.nom)).like(f"%{q.lower()}%"),
+            E.prenom.ilike(motif), E.identifiant.ilike(motif),
             E.inscriptions.any(models.Eleve.classe.has(models.Classe.code.ilike(motif))),
             E.inscriptions_anglais.any(models.EleveAnglais.groupe.has(models.GroupeAnglais.nom.ilike(motif))),
             E.parents.any(models.Parent.email.ilike(motif) | models.Parent.nom.ilike(motif)),
@@ -133,8 +132,8 @@ def chercher(
         filtres.append(or_(~E.parents.any(), (du_niveau > 0) & (principales != 1), autre_niveau))
 
     ordre = {
-        "nom": [E.prenom, E.nom, E.id],
-        "niveau": [E.niveau, E.prenom, E.nom, E.id],
+        "nom": [E.prenom, E.id],
+        "niveau": [E.niveau, E.prenom, E.id],
         "connexion": [E.derniere_connexion.is_(None), E.derniere_connexion.desc(), E.id],
         "recent": [E.cree_le.desc(), E.id.desc()],
     }[tri if tri in TRIS else "nom"]

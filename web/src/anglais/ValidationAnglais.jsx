@@ -12,14 +12,14 @@ export const STATUTS = {
   archive: "Archivé",
 };
 
-export function StatutSeance({ statut }) {
-  return <span className={`statut-anglais ${statut}`}>{STATUTS[statut] ?? statut}</span>;
+export function StatutSeance({ statut, libelle }) {
+  return <span className={`statut-anglais ${statut}`}>{libelle ?? STATUTS[statut] ?? statut}</span>;
 }
 
 const date = (iso) => (iso ? formaterDate(iso, { heure: true }) : "");
 
 /** Versions successives d'une séance : qui l'a écrite, qui l'a validée ou refusée, et pourquoi. */
-export function Historique({ versions }) {
+export function Historique({ versions, libelles = STATUTS }) {
   return (
     <div className="tableau-defilant">
       <table>
@@ -37,7 +37,7 @@ export function Historique({ versions }) {
             <tr key={v.numero}>
               <td>v{v.numero}</td>
               <td>
-                <StatutSeance statut={v.statut} />
+                <StatutSeance statut={v.statut} libelle={libelles[v.statut]} />
               </td>
               <td>
                 {v.auteur} <span className="doux petit">{date(v.cree_le)}</span>

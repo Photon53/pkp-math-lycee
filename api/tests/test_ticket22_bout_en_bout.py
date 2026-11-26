@@ -39,14 +39,14 @@ def test_lot_complet_et_connexion_par_role(client):
 
     # 4. Import de 8 enfants, 5 familles, des seconds parents, élèves sans e-mail propre.
     lignes = [
-        ("Adam", "Martin", "2nde", "martin@x.test", "martin.mere@x.test", classe["code"], None),
-        ("Léa", "Martin", "3e", "martin@x.test", "martin.mere@x.test", None, "3e Audit · Mme Audit"),
-        ("Noé", "Petit", "2nde", "petit@x.test", None, classe["code"], None),
-        ("Lina", "Roux", "2nde", "roux@x.test", None, classe["code"], None),
-        ("Sami", "Roux", "3e", "roux@x.test", None, None, "3e Audit · Mme Audit"),
-        ("Emma", "Bernard", "6e", "bernard@x.test", "bernard2@x.test", None, None),
-        ("Yanis", "Leroy", "Tle", "leroy@x.test", None, None, None),
-        ("Jade", "Leroy", "1re", "leroy@x.test", None, None, None),
+        ("Adam", "2nde", "martin@x.test", "martin.mere@x.test", classe["code"], None),
+        ("Léa", "3e", "martin@x.test", "martin.mere@x.test", None, "3e Audit · Mme Audit"),
+        ("Noé", "2nde", "petit@x.test", None, classe["code"], None),
+        ("Lina", "2nde", "roux@x.test", None, classe["code"], None),
+        ("Sami", "3e", "roux@x.test", None, None, "3e Audit · Mme Audit"),
+        ("Emma", "6e", "bernard@x.test", "bernard2@x.test", None, None),
+        ("Yanis", "Tle", "leroy@x.test", None, None, None),
+        ("Jade", "1re", "leroy@x.test", None, None, None),
     ]
     contenu = _classeur(client, admin, lignes)
     sim = _importer(client, admin, contenu, simulation=True).json()

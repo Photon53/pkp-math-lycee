@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Difficulte, Erreur, LIBELLES_TYPE, reponsesAcceptees } from "../composants.jsx";
+import { Difficulte, Erreur, LIBELLES_TYPE, TYPES_DIAGNOSTIC, reponsesAcceptees } from "../composants.jsx";
 import { NIVEAUX } from "../enseignant/CoursEnseignant.jsx";
 import { useApi } from "../enseignant/useApi.js";
 import { Maths, formulesInvalides } from "../maths.jsx";
@@ -327,7 +327,7 @@ function EditionQuestion({ base = "/admin", initiale, competences, appeler, onFe
           <div>
             <label htmlFor="q-type">Type</label>
             <select id="q-type" disabled={repondue} {...champ("type")}>
-              {Object.entries(LIBELLES_TYPE).map(([k, l]) => (
+              {Object.entries(LIBELLES_TYPE).filter(([k]) => !TYPES_DIAGNOSTIC.includes(k)).map(([k, l]) => (
                 <option key={k} value={k}>
                   {l}
                 </option>

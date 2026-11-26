@@ -96,7 +96,7 @@ def _choisis(session: SessionDB, corps: Reemission) -> list[models.Enfant]:
         raise HTTPException(422, "Aucun élève à exporter.")
     if len(choisis) > MAX_CARTES:
         raise HTTPException(422, f"Au plus {MAX_CARTES} cartes par export : choisissez une classe ou un niveau.")
-    return sorted(choisis, key=lambda e: (ORDRE_NIVEAUX.get(e.niveau, 99), e.nom.casefold(), e.prenom.casefold()))
+    return sorted(choisis, key=lambda e: (ORDRE_NIVEAUX.get(e.niveau, 99), e.prenom.casefold(), e.identifiant.casefold()))
 
 
 @router.post("/pdf")

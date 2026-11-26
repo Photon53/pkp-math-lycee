@@ -35,10 +35,17 @@ class _Modele(BaseModel):
 # --- Élève ----------------------------------------------------------------
 
 
+_LETTRE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
+# Nom affiché d'un homonyme dans une classe : son identifiant (« Lina2 », ou ancien « lina-k7m4 »), RGPD-1.
+_IDENTIFIANT_AFFICHE = re.compile(r"^[A-Za-z]+[0-9]+$|^[a-z]+-[a-z0-9]{4}$")
+
+
 def valider_prenom(v: str) -> str:
     v = normaliser_prenom(v)
     if not v or len(v) > 50 or not _PRENOM.match(v):
         raise ValueError("Le prénom ne doit contenir que des lettres, espaces, tirets ou apostrophes.")
+    if not _LETTRE.search(v):  # « -- » ou « ' » : aucune base d'identifiant possible (RGPD-1, #87)
+        raise ValueError("Le prénom doit contenir au moins une lettre.")
     return v
 
 
@@ -50,6 +57,9 @@ class ConnexionEleve(BaseModel):
     @field_validator("prenom")
     @classmethod
     def _prenom(cls, v: str) -> str:
+        """Prénom, ou identifiant affiché à la place du prénom pour un homonyme de la classe (« Lina2 »)."""
+        if _IDENTIFIANT_AFFICHE.match(v.strip()):
+            return v.strip()
         return valider_prenom(v)
 
     @field_validator("code_classe")
@@ -61,7 +71,7 @@ class ConnexionEleve(BaseModel):
 class ConnexionIdentifiant(BaseModel):
     """Connexion simplifiée : identifiant + code personnel, sans prénom ni code classe."""
 
-    identifiant: Annotated[str, Field(min_length=3, max_length=40)]
+    identifiant: Annotated[str, Field(min_length=2, max_length=40)]
     code_personnel: Annotated[str, Field(min_length=1, max_length=20)]
     rester_connecte: bool = False  # appareil personnel : session de plusieurs semaines
 
@@ -146,6 +156,7 @@ class ChapitreOuvert(BaseModel):
     code: str
     titre: str
     nb_questions: int
+    rubrique: str | None = None  # français (#177)
 
 
 class ChapitreProgramme(BaseModel):
@@ -157,6 +168,7 @@ class ChapitreProgramme(BaseModel):
     ordre: int
     propose: bool
     nb_competences: int
+    rubrique: str | None = None  # français (#177)
     nb_questions: int
 
 
@@ -202,6 +214,7 @@ class ChapitreCours(BaseModel):
     id: int
     code: str
     titre: str
+    rubrique: str | None = None  # français (#177)
     competences: list[CompetenceCours]
 
 
@@ -216,6 +229,14 @@ class RessourceVue(BaseModel):
     domaine: str | None
     taille_octets: int | None
     portee: str
+
+
+class ChapitreMonCours(BaseModel):
+    """Issue #180 : un chapitre ouvert de la classe, dans l'ordre du cours, avec les fiches de la professeure."""
+
+    id: int
+    titre: str
+    ressources: list[RessourceVue]
 
 
 class RessourceCreation(BaseModel):
@@ -322,6 +343,9 @@ class ReponseHistorique(BaseModel):
     solution: str
     correction: dict | None = None
     duree_s: float
+    # #176 (SEC-D6, option b) : vu par un parent alors que la classe n'a plus accès au domaine, l'énoncé, la
+    # solution et la correction sont retirés ; la réponse de l'enfant et son résultat restent.
+    contenu_masque: bool = False
 
 
 class AvancementCompetence(BaseModel):
@@ -610,24 +634,18 @@ class CodeEnfantModifie(BaseModel):
 
 
 class EnfantSaisi(BaseModel):
-    """Un enfant saisi par l'administrateur : prénom, nom (ou initiale, facultatif) et niveau d'études."""
+    """Un enfant saisi par l'administrateur : prénom et niveau d'études. Aucun nom de famille (RGPD-1, #87) :
+    un champ « nom » envoyé est refusé, pas ignoré."""
+
+    model_config = ConfigDict(extra="forbid")
 
     prenom: str
-    nom: Annotated[str, Field(max_length=50)] = ""
     niveau: Niveau
 
     @field_validator("prenom")
     @classmethod
     def _prenom(cls, v: str) -> str:
         return valider_prenom(v)
-
-    @field_validator("nom")
-    @classmethod
-    def _nom(cls, v: str) -> str:
-        v = " ".join(v.split())
-        if v and not _PRENOM.match(v):
-            raise ValueError("Nom invalide : lettres, espaces, apostrophes et tirets seulement.")
-        return v
 
 
 def _nom_facultatif(v: str) -> str:
@@ -661,8 +679,9 @@ class ResponsableAjout(IdentiteResponsable):
 
 
 class EnfantModification(BaseModel):
+    model_config = ConfigDict(extra="forbid")  # aucun nom de famille d'enfant (RGPD-1, #87)
+
     prenom: str | None = None
-    nom: Annotated[str | None, Field(max_length=50)] = None
     niveau: Niveau | None = None
 
     @field_validator("prenom")
@@ -670,23 +689,12 @@ class EnfantModification(BaseModel):
     def _prenom(cls, v: str | None) -> str | None:
         return None if v is None else valider_prenom(v)
 
-    @field_validator("nom")
-    @classmethod
-    def _nom(cls, v: str | None) -> str | None:
-        if v is None:
-            return None
-        v = " ".join(v.split())
-        if v and not _PRENOM.match(v):
-            raise ValueError("Nom invalide : lettres, espaces, apostrophes et tirets seulement.")
-        return v
-
 
 class CarteEnfant(BaseModel):
     """Identifiant et code en clair : affichés une seule fois, à imprimer ou à recopier."""
 
     id: int
     prenom: str
-    nom: str
     niveau: Niveau
     identifiant: str
     code: str
@@ -718,7 +726,6 @@ class EnfantFamille(BaseModel):
 
     id: int
     prenom: str
-    nom: str
     niveau: Niveau
     identifiant: str
     a_un_code: bool
@@ -759,7 +766,6 @@ class Matiere(BaseModel):
 class EspaceEnfant(BaseModel):
     id: int
     prenom: str
-    nom: str
     niveau: Niveau
     identifiant: str
     matieres: list[Matiere]
@@ -834,3 +840,42 @@ class ArchiveResume(BaseModel):
 class ArchiveDetail(ArchiveResume):
     contenu: dict
 
+
+
+# --- Vue élève simulée (issue #184) ---------------------------------------------
+
+
+class ContexteSimulation(BaseModel):
+    """Classe dans laquelle le professeur ou l'administrateur peut ouvrir un élève fictif."""
+
+    classe_id: int
+    code_classe: str
+    niveau: Niveau
+    parcours: Parcours
+    matiere: str
+    domaine: str  # libellé : « Maths lycée », « Français collège »…
+    professeur: str
+    # Accès des élèves de la classe à son contenu (domaine public ou classe pilote, #176) : sinon, la simulation
+    # montre ce que voient ces élèves, c'est-à-dire le message de fermeture.
+    ouverte_aux_eleves: bool
+    motif_fermeture: str | None = None
+    # Un élève fictif existe déjà : la simulation reprend là où elle s'était arrêtée.
+    en_cours: bool = False
+
+
+class DemandeSimulation(BaseModel):
+    classe_id: int
+
+
+class InfoSimulation(BaseModel):
+    role: Literal["enseignant", "admin"]
+    classe_id: int
+    code_classe: str
+    niveau: Niveau
+    matiere: str
+    domaine: str
+    expire_le: datetime | None = None
+
+
+class JetonSimulation(JetonEleve):
+    simulation: InfoSimulation

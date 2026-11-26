@@ -159,8 +159,8 @@ export function GrilleQualifications({ domaines, valeur, onChange }) {
         </div>
       ))}
       <p className="aide">
-        Un validateur ne valide que les matières cochées, et jamais son propre contenu. Le rôle d'administrateur ne donne pas le
-        droit de valider.
+        Un validateur ne valide que les matières cochées, et jamais son propre contenu. Un administrateur valide dans toutes les
+        matières sans habilitation, jamais son propre contenu (V2-D15).
       </p>
     </fieldset>
   );

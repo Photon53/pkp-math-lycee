@@ -48,6 +48,19 @@ def _ajuster(texte: str, police: str, taille: float, largeur: float) -> str:
     return texte + "…"
 
 
+def _sans_coupure(valeur: str, largeur: float, k: float) -> list[tuple[str, float]]:
+    """Identifiant et code s'impriment en ENTIER (une valeur coupée rendrait la carte inutilisable) : taille
+    réduite, puis deux lignes si besoin. Un identifiant compte jusqu'à 40 caractères (RGPD-1, #87)."""
+    for taille in (12.5 * k, 11 * k, 9.5 * k, 8 * k):
+        if stringWidth(valeur, "Courier-Bold", taille) <= largeur:
+            return [(valeur, taille)]
+    moitie = -(-len(valeur) // 2)
+    for taille in (9.5 * k, 8 * k, 7 * k, 6 * k, 5 * k):
+        if stringWidth(valeur[:moitie], "Courier-Bold", taille) <= largeur:
+            return [(valeur[:moitie], taille), (valeur[moitie:], taille)]
+    return [(valeur[:moitie], 5 * k), (valeur[moitie:], 5 * k)]
+
+
 def _qr(donnees: str, taille: float) -> Drawing:
     """QR code carré de `taille` points (marge blanche de 2 modules comprise)."""
     dessin = Drawing(taille, taille)
@@ -106,9 +119,10 @@ def _contenu(c: Canvas, carte: CarteAImprimer, x: float, y: float, l: float, h: 
         lignes -= 15 * k
         c.setFont("Helvetica", 8 * k)
         c.drawString(gauche, lignes, libelle)
-        lignes -= 13 * k
-        c.setFont("Courier-Bold", 12.5 * k)
-        c.drawString(gauche, lignes, _ajuster(valeur, "Courier-Bold", 12.5 * k, texte_l))
+        for morceau, taille in _sans_coupure(valeur, texte_l, k):
+            lignes -= taille + 0.5 * k
+            c.setFont("Courier-Bold", taille)
+            c.drawString(gauche, lignes, morceau)
 
     # L'adresse, sur toute la largeur de la carte : elle doit rester lisible en entier.
     adresse = f"{origine.rstrip('/')}/eleve"

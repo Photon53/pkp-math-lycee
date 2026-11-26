@@ -1,6 +1,7 @@
 """Route publique de la page d'accueil : l'état de chaque parcours, sans connexion ni donnée personnelle."""
 
 from app.db import models
+from app.referentiel import NatureChapitre
 from tests.conftest import connecter_admin
 
 CHAMPS = {"code", "matiere", "cycle", "libelle", "niveaux", "etat"}
@@ -66,7 +67,9 @@ class TestChiffres:
         chiffres = r.json()
         assert set(chiffres) == {"chapitres", "questions", "seances_anglais"}
         # Maths collège est fermé : seuls les chapitres non masqués de maths lycée comptent.
-        attendus = session.query(models.Chapitre).filter_by(domaine_code="maths-lycee", masque=False).count()
+        attendus = session.query(models.Chapitre).filter_by(
+            domaine_code="maths-lycee", masque=False, nature=NatureChapitre.APPRENTISSAGE
+        ).count()  # les diagnostics (#162) ne sont pas montrés au public
         assert chiffres["chapitres"] == attendus > 0
         assert chiffres["questions"] > 0
 

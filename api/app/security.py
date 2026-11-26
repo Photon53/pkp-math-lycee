@@ -63,19 +63,42 @@ def generer_code_eleve() -> str:
     return "".join(secrets.choice(ALPHABET_CODE) for _ in range(LONGUEUR_CODE_ELEVE))
 
 
-# Identifiant de connexion de l'élève : prénom sans accent + 4 caractères, par ex. « ines-k7m4 ».
-# Il n'est pas secret (affiché à l'enseignant, imprimé sur la carte) : c'est le code personnel qui protège.
+# Identifiant de connexion. Ancien format (« ines-k7m4 », comptes émis avant RGPD-1) : prénom + tiret + 4
+# caractères aléatoires ; il reste valable. Nouveau format (décision RGPD-1, #87) : prénom sans accent suivi d'un
+# numéro, sans séparateur (« Ines1 »), tenu par un compteur jamais remis à zéro (enfants.identifiant_libre).
+# Il n'est pas secret (affiché, imprimé sur la carte) : c'est le code personnel qui protège.
 ALPHABET_IDENTIFIANT = "23456789abcdefghjkmnpqrstuvwxyz"
+LONGUEUR_IDENTIFIANT = 40
+# Lettres acceptées dans un prénom mais sans décomposition Unicode : NFKD les ferait disparaître.
+_TRANSLITERATION = str.maketrans({"æ": "ae", "Æ": "Ae", "ø": "o", "Ø": "O", "ß": "ss", "ð": "d", "Ð": "D",
+                                  "þ": "th", "Þ": "Th", "œ": "oe", "Œ": "Oe"})
+
+
+def sans_accents(texte: str) -> str:
+    """« Léa » → « Lea », « Æsa » → « Aesa » : lettres d'origine gardées, accents retirés, casse conservée."""
+    texte = unicodedata.normalize("NFKD", texte.translate(_TRANSLITERATION))
+    return "".join(c for c in texte if not unicodedata.combining(c))
+
+
+def base_identifiant(prenom: str) -> str:
+    """Base du nouvel identifiant : le prénom sans accents, sans espace, tiret ni apostrophe, casse conservée
+    (« Jean-Pierre » → « JeanPierre », « N'Golo » → « NGolo »). Vide si le prénom n'a aucune lettre."""
+    return re.sub(r"[^A-Za-z]+", "", sans_accents(prenom))
+
+
+def cle_identifiant(identifiant: str) -> str:
+    """Forme de comparaison : « Léa1 », « lea1 » et « LEA1 » désignent le même identifiant (anciens compris)."""
+    return sans_accents(identifiant.strip()).lower()
 
 
 def generer_identifiant(prenom: str) -> str:
-    base = unicodedata.normalize("NFKD", prenom).encode("ascii", "ignore").decode().lower()
-    base = re.sub(r"[^a-z]+", "", base)[:20] or "eleve"
+    """Ancien format, gardé pour les comptes de démonstration (« lina-demo ») : jamais pour un nouveau compte."""
+    base = base_identifiant(prenom).lower()[:20] or "eleve"
     return f"{base}-{''.join(secrets.choice(ALPHABET_IDENTIFIANT) for _ in range(4))}"
 
 
 def normaliser_identifiant(identifiant: str) -> str:
-    return identifiant.strip().lower()
+    return cle_identifiant(identifiant)
 
 
 def normaliser_code(code: str) -> str:

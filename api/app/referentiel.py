@@ -131,6 +131,33 @@ class Adaptation(str, Enum):
     REPRODUITE = "reproduite"  # texte d'une source repris, avec autorisation ou licence libre
 
 
+class RubriqueFrancais(str, Enum):
+    """Rubrique d'un chapitre de français (issue #177, décision du propriétaire du 19/11/2026) : une seule interface
+    Français, quatre rubriques, indépendantes des niveaux. Les chapitres de maths n'en ont pas."""
+
+    CONJUGAISON = "conjugaison"
+    GRAMMAIRE = "grammaire"
+    REDACTION = "redaction"
+    MON_COURS = "mon_cours"
+
+
+class NatureChapitre(str, Enum):
+    """Rôle d'un chapitre (issue #162). Un chapitre de diagnostic repère les acquis des années précédentes :
+    il n'est jamais ouvert comme un chapitre d'entraînement, et ses réponses ne comptent pas dans la maîtrise."""
+
+    APPRENTISSAGE = "apprentissage"
+    DIAGNOSTIC = "diagnostic"
+
+
+class StatutObservation(str, Enum):
+    """Résultat d'une réponse de diagnostic : corrigée par le moteur, ou en attente d'un professeur."""
+
+    JUSTE = "juste"
+    FAUX = "faux"
+    NE_SAIT_PAS = "je-ne-sais-pas"  # distinct d'une réponse fausse (lot 3)
+    EN_ATTENTE = "en-attente-de-correction"
+
+
 class StatutValidation(str, Enum):
     A_VALIDER = "a-valider"
     VALIDEE = "validee"

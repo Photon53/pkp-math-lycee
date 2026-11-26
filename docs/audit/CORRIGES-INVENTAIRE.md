@@ -10,28 +10,28 @@ Gabarit et règles de rédaction : `docs/CONTENU.md`, section « Corrigés ».
 
 | Niveau | Parcours | Résultat seul | À compléter | Complet | Questions | Complets |
 |---|---|:-:|:-:|:-:|:-:|:-:|
-| 6e | tronc-commun | 0 | 98 | 10 | 108 | 9 % |
-| 5e | tronc-commun | 0 | 96 | 19 | 115 | 17 % |
-| 4e | tronc-commun | 0 | 83 | 14 | 97 | 14 % |
-| 3e | tronc-commun | 0 | 62 | 11 | 73 | 15 % |
-| 2nde | tronc-commun | 73 | 182 | 20 | 275 | 7 % |
+| 6e | tronc-commun | 0 | 113 | 13 | 126 | 10 % |
+| 5e | tronc-commun | 0 | 111 | 21 | 132 | 16 % |
+| 4e | tronc-commun | 0 | 101 | 16 | 117 | 14 % |
+| 3e | tronc-commun | 0 | 79 | 14 | 93 | 15 % |
+| 2nde | tronc-commun | 73 | 200 | 22 | 295 | 7 % |
 | 2nde | professionnel | 4 | 15 | 0 | 19 | 0 % |
 | 2nde | excellence | 21 | 39 | 0 | 60 | 0 % |
 | 2nde | mise-a-niveau | 6 | 9 | 0 | 15 | 0 % |
-| 1re | specialite | 56 | 157 | 5 | 218 | 2 % |
+| 1re | specialite | 56 | 175 | 7 | 238 | 3 % |
 | 1re | scientifique | 17 | 27 | 1 | 45 | 2 % |
 | 1re | technologique | 33 | 60 | 0 | 93 | 0 % |
 | 1re | excellence | 23 | 35 | 2 | 60 | 3 % |
 | 1re | mise-a-niveau | 6 | 7 | 2 | 15 | 13 % |
 | 1re | examens | 12 | 10 | 8 | 30 | 27 % |
-| Tle | specialite | 64 | 92 | 16 | 172 | 9 % |
+| Tle | specialite | 64 | 103 | 17 | 184 | 9 % |
 | Tle | complementaires | 63 | 17 | 0 | 80 | 0 % |
 | Tle | expertes | 39 | 68 | 0 | 107 | 0 % |
-| Tle | technologique | 31 | 56 | 0 | 87 | 0 % |
+| Tle | technologique | 31 | 62 | 0 | 93 | 0 % |
 | Tle | excellence | 65 | 15 | 0 | 80 | 0 % |
 | Tle | mise-a-niveau | 13 | 2 | 0 | 15 | 0 % |
 | Tle | examens | 29 | 1 | 0 | 30 | 0 % |
-| **Total** | | 555 | 1131 | 108 | 1794 | 6 % |
+| **Total** | | 555 | 1249 | 123 | 1927 | 6 % |
 
 ## Par chapitre
 
@@ -79,6 +79,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 6E-INFORMATIQUE : 0 résultat seul, 5 à compléter, 0 complet(s).
 
+### 6e · tronc-commun · Diagnostic d'entrée, acquis de CM2
+
+6E-DIAG-CM2 : 0 résultat seul, 15 à compléter, 3 complet(s).
+
 ### 5e · tronc-commun · Opérations, priorités et divisibilité
 
 5E-OPERATIONS : 0 résultat seul, 9 à compléter, 2 complet(s).
@@ -118,6 +122,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 ### 5e · tronc-commun · Algorithmique et programmation
 
 5E-ALGORITHMIQUE : 0 résultat seul, 5 à compléter, 1 complet(s).
+
+### 5e · tronc-commun · Diagnostic d'entrée, acquis de 6e
+
+5E-DIAG-6E : 0 résultat seul, 15 à compléter, 2 complet(s).
 
 ### 4e · tronc-commun · Puissances, notation scientifique et racines carrées
 
@@ -159,6 +167,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 
 4E-ALGORITHMIQUE : 0 résultat seul, 4 à compléter, 1 complet(s).
 
+### 4e · tronc-commun · Diagnostic d'entrée, acquis de 5e
+
+4E-DIAG-5E : 0 résultat seul, 18 à compléter, 2 complet(s).
+
 ### 3e · tronc-commun · Arithmétique et calcul numérique
 
 3E-NOMBRES : 0 résultat seul, 9 à compléter, 1 complet(s).
@@ -186,6 +198,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 ### 3e · tronc-commun · Algorithmique et programmation
 
 3E-ALGORITHMIQUE : 0 résultat seul, 4 à compléter, 1 complet(s).
+
+### 3e · tronc-commun · Diagnostic d'entrée, acquis de 4e
+
+3E-DIAG-4E : 0 résultat seul, 17 à compléter, 3 complet(s).
 
 ### 2nde · tronc-commun · Nombres et calculs
 
@@ -330,6 +346,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 2NDE-MAN-PROP : 2 résultat seul, 3 à compléter, 0 complet(s).
 
 À reprendre : 2NDE-MAN-PROPORTION-02, 2NDE-MAN-PROPORTION-01.
+
+### 2nde · tronc-commun · Diagnostic d'entrée, acquis de 3e
+
+2NDE-DIAG-3E : 0 résultat seul, 18 à compléter, 2 complet(s).
 
 ### 1re · specialite · Second degré
 
@@ -556,6 +576,10 @@ Chapitres pilotes (fonctions affines) en tête, puis par niveau. Codes « résul
 1RE-EXA-BLANC2 : 4 résultat seul, 5 à compléter, 1 complet(s).
 
 À reprendre : 1RE-EXA-B2-EX1-02, 1RE-EXA-B2-EX2-02, 1RE-EXA-B2-EX1-01, 1RE-EXA-B2-EX2-01.
+
+### 1re · specialite · Diagnostic d'entrée, acquis de 2nde
+
+1RE-DIAG-2NDE : 0 résultat seul, 18 à compléter, 2 complet(s).
 
 ### Tle · specialite · Combinatoire et dénombrement
 
@@ -892,3 +916,15 @@ TLE-EXA-BLANC2 : 10 résultat seul, 0 à compléter, 0 complet(s).
 TLE-EXA-ANNALES : 9 résultat seul, 1 à compléter, 0 complet(s).
 
 À reprendre : TLE-EXA-AN-EX2-05, TLE-EXA-AN-EX1-04, TLE-EXA-AN-EX2-04, TLE-EXA-AN-EX1-03, TLE-EXA-AN-EX2-03, TLE-EXA-AN-EX1-02, TLE-EXA-AN-EX2-02, TLE-EXA-AN-EX1-01, TLE-EXA-AN-EX2-01.
+
+### Tle · specialite · Diagnostic d'entrée, socle commun
+
+TLE-DIAG-SOCLE : 0 résultat seul, 6 à compléter, 0 complet(s).
+
+### Tle · specialite · Diagnostic d'entrée, acquis de spécialité de 1re
+
+TLE-DIAG-SPE : 0 résultat seul, 5 à compléter, 1 complet(s).
+
+### Tle · technologique · Diagnostic d'entrée, acquis de 1re technologique
+
+TLE-DIAG-TECH : 0 résultat seul, 6 à compléter, 0 complet(s).

@@ -15,6 +15,8 @@ TABLES = {
     "domaine_pedagogique", "habilitation", "rattachement_parent", "enfant", "parent_enfant", "archive_inscription", "demande_aide",
     "remarque", "compte_service_ia", "prevalidation_ia", "acces_service_ia",
     "dossier_francais", "dossier_francais_version", "mode_correction_seance_anglais", "reponse_anglais",
+    "compteur_identifiant", "observation_diagnostic", "passation_diagnostic", "classe_pilote", "redaction",
+    "contact_adulte", "demande_accueil", "ouverture_dossier_francais", "mode_correction_dossier_francais", "progression_francais", "reponse_quiz_francais", "reponse_redigee_francais",
 }
 
 
@@ -110,7 +112,7 @@ def test_retour_arriere_du_lot_0_v3(db_url):
     config = config_alembic(db_url)
     moteur = creer_moteur(db_url)
     with moteur.begin() as c:
-        c.exec_driver_sql("insert into enfant (prenom, nom, niveau, identifiant) values ('Lina', '', '2nde', 'lina-test')")
+        c.exec_driver_sql("insert into enfant (prenom, niveau, identifiant) values ('Lina', '2nde', 'lina-test')")
         enfant = c.exec_driver_sql("select id from enfant").scalar()
         c.exec_driver_sql(
             "insert into archive_inscription (enfant_id, matiere, domaine_code, niveau, cours, enseignant, archivee_le,"
@@ -121,7 +123,9 @@ def test_retour_arriere_du_lot_0_v3(db_url):
     moteur = creer_moteur(db_url)
     # Revenir en 0028 retire aussi les tables des migrations suivantes.
     tables_recentes = {"archive_inscription", "demande_aide", "remarque", "compte_service_ia", "prevalidation_ia", "acces_service_ia",
-                       "dossier_francais", "dossier_francais_version", "mode_correction_seance_anglais", "reponse_anglais"}
+                       "dossier_francais", "dossier_francais_version", "mode_correction_seance_anglais", "reponse_anglais",
+                       "compteur_identifiant", "observation_diagnostic", "passation_diagnostic", "classe_pilote", "redaction",
+                       "contact_adulte", "demande_accueil", "ouverture_dossier_francais", "mode_correction_dossier_francais", "progression_francais", "reponse_quiz_francais", "reponse_redigee_francais"}
     assert set(inspect(moteur).get_table_names()) == (TABLES - tables_recentes) | {"alembic_version"}
     with moteur.connect() as c:
         assert c.exec_driver_sql("select identifiant from enfant").scalars().all() == ["lina-test"]
@@ -130,3 +134,48 @@ def test_retour_arriere_du_lot_0_v3(db_url):
     moteur = creer_moteur(db_url)
     assert "archive_inscription" in inspect(moteur).get_table_names()
     moteur.dispose()
+
+
+def test_0039_efface_le_nom_des_enfants(db_url):
+    """RGPD-1 (#87) : 0038 → 0039 efface le nom des enfants, les noms affichés qui en dérivent et la clé « nom »
+    du journal ; les identifiants existants ne changent pas. Le retour arrière ne fait pas revenir les noms."""
+    config = config_alembic(db_url)
+    command.downgrade(config, "0038")
+    moteur = creer_moteur(db_url)
+    with moteur.begin() as c:
+        c.exec_driver_sql("insert into enfant (prenom, nom, niveau, identifiant) values "
+                          "('Lina', 'Dupont', '2nde', 'lina-k7m4'), ('Lina', 'Martin', '2nde', 'lina-p2q9'), "
+                          "('Noé', '', '2nde', 'noe-a3b4'), ('Ana', '', '2nde', 'Ana3')")
+        ids = dict(c.exec_driver_sql("select identifiant, id from enfant").all())
+        c.exec_driver_sql(
+            "insert into enseignant (nom, email, mot_de_passe_hash, role, enseigne_maths, enseigne_anglais, actif, "
+            "mdp_provisoire, referent_anglais) values ('E', 'm39@x.test', 'h', 'enseignant', 1, 1, 1, 0, 0)")
+        prof = c.exec_driver_sql("select id from enseignant where email = 'm39@x.test'").scalar()
+        c.exec_driver_sql("insert into classe (code, niveau, parcours, enseignant_id) values ('2NDE-M39', '2nde', 'tronc-commun', ?)", (prof,))
+        classe = c.exec_driver_sql("select id from classe where code = '2NDE-M39'").scalar()
+        for prenom, ident in (("Lina", "lina-k7m4"), ("Lina M.", "lina-p2q9"), ("Noé", "noe-a3b4")):
+            c.exec_driver_sql("insert into eleve (prenom, classe_id, enfant_id) values (?, ?, ?)", (prenom, classe, ids[ident]))
+        c.exec_driver_sql("insert into journal_admin (action, objet, objet_id, avant, apres, le) values "
+                          "('modifier', 'enfant', ?, '{\"prenom\": \"Lina\", \"nom\": \"Martin\", \"niveau\": \"2nde\"}', "
+                          "'{\"prenom\": \"Lina\", \"nom\": \"M\", \"niveau\": \"2nde\"}', '2026-11-14')", (ids["lina-p2q9"],))
+    moteur.dispose()
+
+    command.upgrade(config, "head")
+    moteur = creer_moteur(db_url)
+    colonnes = {col["name"] for col in inspect(moteur).get_columns("enfant")}
+    assert "nom" not in colonnes
+    with moteur.connect() as c:
+        assert sorted(c.exec_driver_sql("select identifiant from enfant").scalars()) == ["Ana3", "lina-k7m4", "lina-p2q9", "noe-a3b4"]
+        affiches = dict(c.exec_driver_sql("select enfant_id, prenom from eleve where classe_id = ?", (classe,)).all())
+        assert affiches == {ids["lina-k7m4"]: "Lina", ids["lina-p2q9"]: "lina-p2q9", ids["noe-a3b4"]: "Noé"}
+        journal = c.exec_driver_sql("select avant, apres from journal_admin where objet = 'enfant'").one()
+        assert "Martin" not in journal[0] and '"nom"' not in journal[0] and '"nom"' not in journal[1]
+        assert c.exec_driver_sql("select base, dernier from compteur_identifiant").all() == [("ana", 3)]
+    moteur.dispose()
+
+    command.downgrade(config, "0038")
+    moteur = creer_moteur(db_url)
+    with moteur.connect() as c:
+        assert set(c.exec_driver_sql("select nom from enfant").scalars()) == {""}
+    moteur.dispose()
+    command.upgrade(config, "head")

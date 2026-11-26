@@ -41,6 +41,17 @@ class TestConfiguration:
         with pytest.raises(ValueError, match=message):
             config(**{**PROD_VALIDE, champ: valeur})
 
+    def test_production_refuse_les_pdf_de_francais_avant_le_controle_renforce(self, monkeypatch):
+        """#180 : PKP_PDF_FRANCAIS_OUVERT ne s'active pas sans le contrôle renforcé des PDF (#4, livré)."""
+        from app import config as module
+
+        assert module.CONTROLE_PDF_RENFORCE
+        monkeypatch.setattr(module, "CONTROLE_PDF_RENFORCE", False)
+        with pytest.raises(ValueError, match="PKP_PDF_FRANCAIS_OUVERT"):
+            config(**PROD_VALIDE, pdf_francais_ouvert=True)
+        monkeypatch.setattr(module, "CONTROLE_PDF_RENFORCE", True)
+        assert config(**PROD_VALIDE, pdf_francais_ouvert=True).pdf_francais_ouvert
+
     def test_production_exige_un_choix_explicite_pour_les_questions_non_validees(self):
         sans_choix = {k: v for k, v in PROD_VALIDE.items() if k != "servir_questions_non_validees"}
         with pytest.raises(ValueError, match="PKP_SERVIR_QUESTIONS_NON_VALIDEES"):

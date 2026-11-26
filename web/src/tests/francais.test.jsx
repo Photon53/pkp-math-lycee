@@ -34,7 +34,7 @@ describe("PKP Français (F1)", () => {
 
   it("l'enfant ouvre sa classe de français dans l'espace d'entraînement", async () => {
     const espace = {
-      id: 1, prenom: "Inès", nom: "Martin", niveau: "5e", identifiant: "ines.m",
+      id: 1, prenom: "Inès", niveau: "5e", identifiant: "ines.m",
       matieres: [
         { code: "maths", libelle: "PKP Maths", disponible: true },
         { code: "anglais", libelle: "PKP Anglais", disponible: true },

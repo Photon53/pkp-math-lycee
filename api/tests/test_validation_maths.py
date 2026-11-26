@@ -129,15 +129,24 @@ class TestModification:
 
 
 class TestAdministration:
-    def test_admin_sans_habilitation_ne_voit_pas_le_bouton(self, client, session):
-        """Cause du constat pilote : le bouton s'affichait, l'API refusait, le message restait hors de l'écran."""
+    def test_admin_sans_habilitation_valide_aussi(self, client, session):
+        """V2-D15 (23/11/2026) : l'administrateur valide sans habilitation ; le bouton et l'API concordent."""
         habiliter(session, [], email="admin@pkp.test")
         admin = connecter_admin(client)
         page = client.get("/admin/questions?niveau=2nde", headers=admin).json()
-        assert page["elements"] and not any(q["peut_valider"] for q in page["elements"])
+        assert page["elements"] and all(q["peut_valider"] for q in page["elements"])
         r = client.post(f"/admin/questions/{page['elements'][0]['id']}/validation", headers=admin, json={"statut": "validee"})
-        assert r.status_code == 403 and "pas validateur" in r.json()["detail"]
+        assert r.status_code == 200, r.text
 
     def test_admin_validateur_voit_le_bouton(self, client):
         page = client.get("/admin/questions?niveau=2nde", headers=connecter_admin(client)).json()
         assert page["elements"] and all(q["peut_valider"] for q in page["elements"])
+
+
+def test_l_administrateur_ouvre_la_page_validation_des_maths_sans_habilitation(client, session):
+    """V2-D15 : même périmètre que tout validateur de maths, depuis l'espace professeur (session professeur)."""
+    habiliter(session, [], email="admin@pkp.test")
+    h = connecter_enseignant(client, email="admin@pkp.test")
+    assert client.get("/enseignants/validation/perimetre", headers=h).status_code == 200
+    page = client.get("/enseignants/validation/questions?niveau=2nde", headers=h)
+    assert page.status_code == 200 and page.json()["elements"]

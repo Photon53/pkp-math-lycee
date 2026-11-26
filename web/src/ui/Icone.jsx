@@ -51,23 +51,51 @@ export default function Icone({ nom, taille = 20, titre, className }) {
   );
 }
 
-/** Monogramme PKP : un carré bleu encre et une racine carrée stylisée. */
+/** Monogramme Boussole : un carré bleu encre et une aiguille de boussole (nord orange). */
 export function Monogramme({ taille = 32 }) {
   return (
     <svg className="monogramme" width={taille} height={taille} viewBox="0 0 32 32" aria-hidden="true">
       <rect width="32" height="32" rx="8" fill="#1f3a68" />
-      <path d="M6 17h3l3 7 5-15h9" fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="26" cy="9" r="2.2" fill="#e07a1f" />
+      <circle cx="16" cy="16" r="10.5" fill="none" stroke="#ffffff" strokeWidth="2" />
+      <path d="M16 6.5 19.2 16h-6.4z" fill="#e07a1f" />
+      <path d="M16 25.5 12.8 16h6.4z" fill="#ffffff" />
+      <circle cx="16" cy="16" r="1.6" fill="#1f3a68" />
     </svg>
   );
 }
 
-export function Logo({ vers = "/", marque = "Éducation" }) {
+/**
+ * Rose des vents de l'accueil Boussole (#149) : pur décor, masquée aux lecteurs d'écran et sur téléphone.
+ * Aiguille nord orange (couleur du monogramme), aiguille sud claire, graduations discrètes.
+ */
+export function RoseDesVents() {
+  return (
+    <svg className="rose-des-vents" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <circle cx="100" cy="100" r="96" fill="none" stroke="#2a3b5c" />
+      <circle cx="100" cy="100" r="80" fill="rgb(255 255 255 / 3%)" stroke="#3a4d74" />
+      <circle cx="100" cy="100" r="56" fill="none" stroke="#22345a" strokeDasharray="2 4" />
+      <path d="M100 4v10M100 186v10M4 100h10M186 100h10" stroke="#5b6f96" />
+      <path d="M32 32l6 6M162 162l6 6M168 32l-6 6M38 162l-6 6" stroke="#3a4d74" />
+      <g fill="#a9b6cf" fontSize="9" fontWeight="600" textAnchor="middle">
+        <text x="100" y="26">N</text>
+        <text x="100" y="182">S</text>
+        <text x="178" y="103">E</text>
+        <text x="22" y="103">O</text>
+      </g>
+      <path d="M100 30 112 100 100 108 88 100Z" fill="#f2a65a" />
+      <path d="M100 170 88 100 100 92 112 100Z" fill="#dce4f3" />
+      <circle cx="100" cy="100" r="5" fill="#0b1426" stroke="#f2a65a" strokeWidth="2" />
+    </svg>
+  );
+}
+
+/** `nom`, `marque` et `monogramme` : identité de la variante (Boussole Maîtrise+ par défaut, PKP Éducation). */
+export function Logo({ vers = "/", nom = "Boussole", marque = "Maîtrise+", monogramme = true }) {
   return (
     <a className="logo" href={vers}>
-      <Monogramme />
+      {monogramme && <Monogramme />}
       <span>
-        PKP <em>{marque}</em>
+        {nom} <em>{marque}</em>
       </span>
     </a>
   );

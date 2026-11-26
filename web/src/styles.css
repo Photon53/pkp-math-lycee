@@ -106,6 +106,15 @@ button.icone:hover:not(:disabled) { background: var(--surface-2); color: var(--t
 .info { background: var(--action-doux); color: var(--texte); }
 .avertissement { background: var(--alerte-doux); color: var(--alerte); padding: 10px 12px; border-radius: var(--rayon-petit); margin: 12px 0; }
 
+/* Issue #184 : vue élève simulée, toujours visible en haut de l'espace élève. */
+.bandeau-simulation {
+  position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 8px 16px; padding: 10px 12px; margin: 0 0 12px; border-radius: var(--rayon-petit);
+  background: var(--alerte-doux); color: var(--texte); border: 2px solid var(--alerte);
+}
+.bandeau-simulation p { margin: 0; }
+.bandeau-simulation .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+
 .barre-session { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 
 /* --- Onglets ------------------------------------------------------------------------------ */
@@ -595,6 +604,11 @@ details.correction summary { cursor: pointer; font-weight: 600; color: var(--act
 .quiz-anglais fieldset { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 10px 12px; margin: 0; }
 .quiz-anglais legend { font-weight: 600; padding: 0 4px; }
 .quiz-anglais label { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-weight: normal; }
+.quiz-anglais label input { width: auto; flex: none; margin: 0; }
+/* Issue #217 : réponses rédigées et éditeur de dossier de français */
+.reponse-redigee { border-top: 1px solid var(--bordure); padding-top: 10px; margin-top: 10px; }
+.reponse-redigee .citation, .citation { white-space: pre-wrap; border-left: 3px solid var(--bordure-forte); padding-left: 10px; }
+textarea.code { font-family: var(--police-mono); font-size: var(--t-s); }
 .quiz-anglais .juste { border-color: var(--ok); background: var(--ok-doux); }
 .quiz-anglais .faux { border-color: var(--ko); background: var(--ko-doux); }
 .editeur-anglais fieldset { border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 10px 12px; margin: 0 0 12px; }
@@ -701,3 +715,141 @@ th.col-case, td.col-case { width: 2.5rem; text-align: center; }
 tr.ligne-erreur td { background: var(--alerte-doux); }
 .barre-selection select { width: auto; max-width: 100%; }
 .badge.insecable { white-space: nowrap; }
+
+/* --- Accueils et aide « Comment bien travailler ? » (#148) --------------------------------- */
+
+/* Les cinq étapes en une ligne chacune : titre puis phrase courte, sur une colonne en mobile. */
+.methode-courte { list-style: none; counter-reset: etape; padding: 0; margin: 12px 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.methode-courte li { counter-increment: etape; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border: 1px solid var(--bordure); border-radius: var(--rayon-petit); background: var(--surface); }
+.methode-courte li strong::before { content: counter(etape) ". "; color: var(--action); }
+.methode-courte li span { font-size: var(--t-s); }
+.accueil-hero .bouton-principal { font-size: 1.05rem; padding: 12px 22px; }
+.accueil-seance .actions { margin-top: 12px; }
+.conseils-travail { margin-top: 16px; border-top: 1px solid var(--bordure); padding-top: 12px; }
+.conseils-travail summary { cursor: pointer; font-weight: 600; color: var(--action); }
+.conseils-travail .conseils { margin: 8px 0; padding-left: 20px; }
+.conseils-travail .conseils li { margin: 4px 0; }
+.aide.conseil { margin-top: 12px; }
+
+/* === Refonte « instrument de précision » (#149) ==============================================
+   Cadre sombre (en-tête, pied, accueil public, navigation des adultes), travail clair (cours,
+   exercices, tableaux). Uniquement de la présentation : aucun élément, libellé ni droit ne change.
+   Pleine largeur sans changer le DOM : une ombre portée de la couleur du fond, rognée en hauteur. */
+
+h1, h2, .accueil h3, .profil h3, .app-entete h1, .logo, .chiffres-cles strong {
+  font-family: var(--police-titres); letter-spacing: -0.02em;
+}
+
+/* --- Cadre sombre commun ------------------------------------------------------------------ */
+
+.entete, .pied, .accueil-hero, .accueil-methode {
+  background: var(--nuit); color: var(--sur-nuit);
+  box-shadow: 0 0 0 100vmax var(--nuit); clip-path: inset(0 -100vmax);
+}
+.entete { border-bottom: 1px solid var(--bordure-nuit); margin-bottom: 24px; }
+.entete .logo, .entete .logo:hover { color: var(--sur-nuit); }
+.entete .logo em, .app-nav .logo em { color: var(--nord); opacity: 1; }
+.entete nav a, .pied a { color: var(--lien-nuit); }
+.entete nav a:hover, .pied a:hover { color: #ffffff; }
+.pied { border-top: none; margin-top: 64px; padding: 28px 0; color: var(--sur-nuit-doux); }
+:is(.entete, .pied, .accueil-hero, .accueil-methode, .app-nav) :focus-visible { outline-color: var(--nord); outline-offset: 3px; }
+
+/* --- Accueil public ------------------------------------------------------------------------ */
+
+.page > main > .accueil { margin-top: -24px; } /* le haut de l'accueil prolonge l'en-tête */
+.accueil-hero {
+  position: relative; padding: 64px 0 48px;
+}
+/* Sections sombres consécutives : 1 px de recouvrement, pour qu'aucun liseré clair n'apparaisse entre elles. */
+.accueil-hero, .accueil-methode { clip-path: inset(-1px -100vmax); }
+.accueil-hero h1 { color: #ffffff; font-size: clamp(2.25rem, 6vw, 3.4rem); line-height: 1.05; max-width: 15ch; margin: 18px 0 20px; }
+.accueil-hero p { color: var(--sur-nuit-doux); }
+.accueil-hero p strong { color: #dce4f3; }
+.accueil-hero .badge.accent { background: rgb(242 166 90 / 10%); color: var(--nord); border: 1px solid #5a4126; letter-spacing: 0.1em; padding: 4px 12px; }
+.accueil-hero p.spirale-definition {
+  color: var(--sur-nuit); border: 1px solid var(--bordure-nuit); border-radius: var(--rayon-petit);
+  background: var(--nuit-surface); padding: 12px 16px;
+}
+.accueil-hero p.spirale-definition strong { color: #ffffff; }
+.accueil-hero .actions { margin-top: 24px; gap: 12px; }
+.accueil-hero .bouton { min-height: 48px; padding: 0 22px; border-radius: 12px; }
+.accueil-hero .bouton.secondaire { background: transparent; color: var(--sur-nuit); border-color: var(--bordure-nuit-forte); }
+.accueil-hero .bouton.secondaire:hover { background: rgb(255 255 255 / 6%); color: #ffffff; border-color: var(--sur-nuit-doux); }
+.accueil-hero .bouton.bouton-principal {
+  min-height: 52px; background: var(--nord); border-color: var(--nord); color: var(--nord-texte); font-weight: 700;
+  box-shadow: 0 8px 24px rgb(242 166 90 / 22%);
+}
+.accueil-hero .bouton.bouton-principal:hover { background: #f5b877; border-color: #f5b877; color: var(--nord-texte); }
+.rose-des-vents { display: none; }
+@media (min-width: 900px) {
+  .accueil-hero { padding-right: 280px; }
+  .rose-des-vents {
+    display: block; position: absolute; right: 0; top: 56px; width: 250px; height: 250px; border-radius: 50%;
+    background: radial-gradient(circle, var(--nuit-claire) 0%, rgb(27 47 85 / 0%) 70%); /* lueur contenue dans la rose */
+  }
+}
+@media (max-width: 560px) {
+  .accueil-hero { padding: 40px 0 32px; }
+  .accueil-hero .actions .bouton { flex: 1 1 100%; }
+}
+
+.accueil > .accueil-hero { margin-bottom: 0; }
+.accueil > .accueil-methode { padding: 8px 0 56px; margin-bottom: 48px; }
+.accueil-methode h2 { color: #ffffff; margin-top: 0; }
+.accueil-methode a { color: var(--lien-nuit); font-weight: 600; }
+.accueil-methode a:hover { color: #ffffff; }
+.accueil-methode .methode-courte li { background: var(--nuit-surface); border-color: var(--bordure-nuit); border-radius: var(--rayon); padding: 16px; }
+.accueil-methode .methode-courte li strong { color: #ffffff; }
+.accueil-methode .methode-courte li strong::before { content: counter(etape, decimal-leading-zero) " "; color: var(--nord); font-family: var(--police-titres); }
+.accueil-methode .methode-courte li span { color: var(--sur-nuit-doux); }
+
+.accueil > section:not(.accueil-methode) > h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); color: var(--primaire); }
+.profils .carte, .accueil-parcours .carte { border-radius: 16px; padding: 24px; }
+.profils .carte { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.profils .carte:hover { transform: translateY(-2px); box-shadow: var(--ombre-haute); }
+.profil-liens .bouton { min-height: 44px; }
+.chiffres-cles strong { font-size: 2rem; }
+.accroche { font-family: var(--police-titres); letter-spacing: -0.01em; }
+
+/* --- Travail clair : espace élève ----------------------------------------------------------- */
+
+.onglets { border-bottom: none; background: var(--surface-2); border-radius: 12px; padding: 4px; gap: 2px; width: fit-content; max-width: 100%; }
+.onglet { border-bottom: none; border-radius: 9px; padding: 9px 14px; font-weight: 500; }
+.onglet:hover:not(:disabled) { background: rgb(255 255 255 / 60%); border-bottom-color: transparent; }
+.onglet.actif, .onglet.actif:hover:not(:disabled) {
+  background: var(--surface); color: var(--primaire); font-weight: 600; box-shadow: 0 1px 3px rgb(15 23 42 / 12%);
+}
+.accueil-seance { position: relative; overflow: hidden; padding: 28px; }
+.accueil-seance::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 4px;
+  background: linear-gradient(90deg, var(--primaire), var(--action) 60%, var(--accent));
+}
+.accueil-seance h2 { color: var(--primaire); font-size: var(--t-xl); }
+.accueil-seance .actions button { min-height: 44px; }
+.carte-etroite h1 { font-size: 1.75rem; }
+
+/* --- Navigation des adultes (professeur, administration, anglais, français) ----------------- */
+
+.app-nav { background: var(--nuit); color: var(--sur-nuit); }
+.app-nav .monogramme rect { fill: #1f3a68; }
+.app-nav a, .app-nav button.nav { color: #c3cde0; }
+.app-nav a:hover, .app-nav button.nav:hover:not(:disabled) { background: rgb(255 255 255 / 6%); color: #ffffff; }
+.app-nav a[aria-current="page"] { background: var(--nuit-claire); color: #ffffff; box-shadow: inset 3px 0 0 var(--nord); }
+.app-nav .espace, .app-nav .groupe-nav { color: var(--sur-nuit-doux); opacity: 1; }
+.app-nav .bas { border-top-color: var(--bordure-nuit); }
+.app-entete h1 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
+
+@media (prefers-color-scheme: dark) {
+  .app-nav { background: var(--nuit); color: var(--sur-nuit); border-right: 1px solid var(--bordure-nuit); }
+  .app-nav .logo { color: var(--sur-nuit); }
+  .onglet:hover:not(:disabled) { background: rgb(255 255 255 / 6%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .profils .carte:hover { transform: none; }
+}
+
+@media print {
+  .accueil-hero, .accueil-methode { background: none; color: inherit; box-shadow: none; clip-path: none; }
+}

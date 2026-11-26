@@ -176,8 +176,9 @@ Après les essais, recueillir séparément l’envie de continuer, le nombre d�
 
 ## Références internes
 
-- Origine : ticket #24 du dépôt Boussole Maîtrise+ (protocole repris tel quel pour l'association)
+- [Ticket #24](https://github.com/Photon53/boussole-maitrise-plus/issues/24)
 - [Guide de contenu](CONTENU.md)
 - [Architecture](ARCHITECTURE.md)
 - [Cahier des charges V2](CAHIER-DES-CHARGES-V2.md)
+- [Décisions](DECISIONS.md) : V2-D3, V2-D8, V2-D13, SEC-D2.
 - [Données personnelles](RGPD.md)

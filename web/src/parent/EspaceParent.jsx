@@ -147,7 +147,7 @@ function SuiviFamille({ suivi, appeler, compte, onExpire, onChange }) {
     <>
       <section className="carte">
         <h2>
-          {enfant.prenom} {enfant.nom} <span className="doux petit">{niveau} · identifiant {enfant.identifiant}</span>
+          {enfant.prenom} <span className="doux petit">{niveau} · identifiant {enfant.identifiant}</span>
         </h2>
         <p className="doux petit">
           Dernière connexion : {enfant.derniere_connexion ? formaterDate(enfant.derniere_connexion, { heure: true }) : "jamais"}
@@ -214,6 +214,7 @@ function SuiviFamille({ suivi, appeler, compte, onExpire, onChange }) {
             jeton={compte.jeton}
             onExpire={onExpire}
             niveauParDefaut={enfant.niveau}
+            adulte
             intro={`Les cours de ${niveau} pour accompagner ${enfant.prenom} : résumé, cours complet, fiche d'exercices et corrigé, à lire ici ou à exporter en PDF.`}
           />
         </section>

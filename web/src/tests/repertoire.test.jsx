@@ -8,7 +8,7 @@ import { fausseApi } from "./setup.js";
 const appeler = (chemin, options = {}) => api(chemin, { ...options, jeton: "j" });
 const CLASSE = { id: 1, code: "2NDE-TC-AAAAA", niveau: "2nde", parcours: "tronc-commun", enseignant: "Enseignant Démo" };
 const NOE = {
-  id: 7, prenom: "Noé", nom: "Durand", niveau: "2nde", identifiant: "noe-p2q3", a_un_code: true, bloque: false,
+  id: 7, prenom: "Noé", niveau: "2nde", identifiant: "noe-p2q3", a_un_code: true, bloque: false,
   derniere_connexion: null, cree_le: "2026-11-01T10:00:00", maths: [], anglais: [], responsables: [], alertes: ["Aucun responsable"],
 };
 const page = (elements) => ({ json: { total: elements.length, elements } });
@@ -25,16 +25,16 @@ describe("administrateur : tous les élèves", () => {
       "GET /admin/classes": { json: [CLASSE, { ...CLASSE, id: 2, code: "1RE-SPE-BBBBB", niveau: "1re", parcours: "specialite" }] },
       "POST /admin/classes/1/enfants": () => {
         noe = { ...noe, maths: [{ eleve_id: 30, code_classe: CLASSE.code, principal: true, libelle_parcours: "Tronc commun" }] };
-        return { json: { ajoutes: ["Noé Durand"], refus: [] } };
+        return { json: { ajoutes: ["Noé"], refus: [] } };
       },
     });
     render(<Repertoire appeler={appeler} />);
-    expect(await screen.findByText("Noé Durand")).toBeInTheDocument();
+    expect(await screen.findByText("Noé")).toBeInTheDocument();
     expect(screen.getAllByText("Aucun responsable").length).toBeGreaterThan(0);
-    const choix = screen.getByLabelText("Inscrire Noé Durand dans une classe");
+    const choix = screen.getByLabelText("Inscrire Noé dans une classe");
     expect(within(choix).queryByText(/1RE-SPE/)).not.toBeInTheDocument(); // autre niveau
     await userEvent.selectOptions(choix, "1");
-    expect(await screen.findByText("Inscription faite : Noé Durand.")).toBeInTheDocument();
+    expect(await screen.findByText("Inscription faite : Noé.")).toBeInTheDocument();
     expect(appels.find((a) => a.cle === "POST /admin/classes/1/enfants").corps).toEqual({ enfant_ids: [7] });
     expect(await screen.findByText(CLASSE.code)).toBeInTheDocument();
 
@@ -51,7 +51,7 @@ describe("administrateur : tous les élèves", () => {
       "POST /admin/enfants/niveau": page([{ ...NOE, niveau: "1re" }]),
     });
     render(<Repertoire appeler={appeler} />);
-    await userEvent.click(await screen.findByLabelText("Sélectionner Noé Durand"));
+    await userEvent.click(await screen.findByLabelText("Sélectionner Noé"));
     await userEvent.selectOptions(screen.getByLabelText("Changer le niveau de la sélection"), "1re");
     expect(await screen.findByText(/Niveau changé/)).toBeInTheDocument();
     expect(appels.find((a) => a.cle === "POST /admin/enfants/niveau").corps).toEqual({ ids: [7], niveau: "1re" });

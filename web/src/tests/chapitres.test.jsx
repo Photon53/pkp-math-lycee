@@ -25,7 +25,7 @@ describe("élève : choix des chapitres", () => {
     expect(screen.getByText(/bientôt disponible/)).toBeInTheDocument();
 
     await userEvent.click(second); // l'élève ne garde que les suites
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(appels.find((a) => a.cle === "POST /seances").corps).toEqual({ chapitre_ids: [2] });
   });
 
@@ -34,14 +34,14 @@ describe("élève : choix des chapitres", () => {
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
     await userEvent.click(await screen.findByRole("checkbox", { name: /Second degré/ }));
     await userEvent.click(screen.getByRole("checkbox", { name: /Suites numériques/ }));
-    expect(screen.getByRole("button", { name: "Démarrer une séance" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Commencer à travailler" })).toBeDisabled();
   });
 
   it("indique quand le professeur n'a ouvert aucun chapitre", async () => {
     fausseApi({ "GET /eleves/moi/chapitres": { json: [] } });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
     expect(await screen.findByText("Ton professeur n'a pas encore ouvert de chapitre.")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Démarrer une séance" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Commencer à travailler" })).toBeDisabled();
   });
 });
 

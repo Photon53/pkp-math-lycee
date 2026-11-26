@@ -1,38 +1,9 @@
+import { MARQUE } from "./marque.js";
 import { Maths } from "./maths.jsx";
 
-/** Les cinq étapes de la méthode PKP, et où l'élève les trouve dans chaque leçon. */
-export const ETAPES = [
-  {
-    cle: "comprendre",
-    titre: "Je comprends",
-    dans: "Objectifs et cours structuré de chaque leçon.",
-    critere: "Je sais expliquer la notion avec mes propres mots et reconnaitre ce qu'on me demande.",
-  },
-  {
-    cle: "memoriser",
-    titre: "Je mémorise",
-    dans: "« L'essentiel », les méthodes avec exemple résolu, l'encadré « Attention à… ».",
-    critere: "Ma fiche contient les définitions, propriétés, formules, un exemple résolu et les erreurs classiques.",
-  },
-  {
-    cle: "entrainer",
-    titre: "Je m'entraîne",
-    dans: "Exercices des niveaux 1 à 3, avec la réponse attendue et la partie du cours à utiliser.",
-    critere: "J'applique une méthode connue, puis je gagne en autonomie.",
-  },
-  {
-    cle: "depasser",
-    titre: "Je me dépasse",
-    dans: "Exercices des niveaux 4 et 5 : synthèse et problèmes.",
-    critere: "Je choisis une méthode, je combine plusieurs notions, je cherche une solution.",
-  },
-  {
-    cle: "verifier",
-    titre: "Je vérifie",
-    dans: "Ma maîtrise de la compétence et mon historique.",
-    critere: "Je contrôle mes résultats, j'identifie mes erreurs et je retravaille ce qui n'est pas acquis.",
-  },
-];
+// Les cinq étapes vivent dans un module sans KaTeX : l'accueil public et l'espace élève les affichent aussi.
+export { ETAPES } from "./methodeEtapes.js";
+import { ETAPES } from "./methodeEtapes.js";
 
 // Exemples variés (algèbre, analyse, géométrie, statistiques, probabilités) : les gestes sont transversaux.
 const GESTES = [
@@ -153,14 +124,14 @@ export default function Methode() {
   return (
     <>
       <section className="accueil-hero">
-        <span className="badge accent">La méthode PKP</span>
+        <span className="badge accent">La Méthode Spirale</span>
         <h1>Apprendre les mathématiques, étape par étape.</h1>
         <p className="spirale-definition">
           <strong>On revient sur les notions jusqu'à ce qu'elles tiennent.</strong>
         </p>
         <p>
           On ne réussit pas en mathématiques parce qu'on est né fort : on progresse en comprenant, en pratiquant et en
-          persévérant. La méthode PKP est la même dans chaque chapitre, pour que tu saches toujours quoi faire ensuite.
+          persévérant. La Méthode Spirale est la même dans chaque chapitre, pour que tu saches toujours quoi faire ensuite.
         </p>
         <p className="accroche citation">Trois ingrédients pour apprendre : du temps, de la concentration, de la persévérance.</p>
       </section>
@@ -184,7 +155,7 @@ export default function Methode() {
               </span>
               <div>
                 <strong>{e.titre}</strong>
-                <p className="doux">Dans PKP Éducation : {e.dans}</p>
+                <p className="doux">Dans {MARQUE.nom} : {e.dans}</p>
                 <p>{e.critere}</p>
               </div>
             </li>
@@ -252,7 +223,7 @@ export default function Methode() {
           </li>
           <li>
             <strong>Carnet d'erreurs :</strong> pour chaque erreur, note ce que tu as fait, pourquoi c'était faux, la bonne
-            méthode, et refais un exercice semblable deux jours plus tard sans regarder la correction. Le carnet intégré à PKP Éducation
+            méthode, et refais un exercice semblable deux jours plus tard sans regarder la correction. Le carnet intégré à {MARQUE.nom}
             arrive bientôt ; en attendant, l'onglet « Mon historique » liste déjà toutes tes erreurs avec leur correction
             (case « Seulement mes erreurs ») : c'est le point de départ de ton carnet.
           </li>

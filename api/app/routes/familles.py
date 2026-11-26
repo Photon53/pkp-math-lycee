@@ -40,12 +40,12 @@ from app.schemas import (
     ResultatAjoutEnfants,
     SuiviEnfant,
 )
-from app.security import hacher_code_eleve, normaliser_code, probleme_code_choisi
+from app.security import cle_identifiant, hacher_code_eleve, normaliser_code, probleme_code_choisi
 
 router = APIRouter(tags=["familles"])
 
 # Sans recherche, le professeur voit les premiers enfants du niveau de sa classe ; au-delà, il cherche par
-# prénom, nom ou identifiant.
+# prénom ou identifiant.
 LISTE_SANS_RECHERCHE = 40
 
 
@@ -102,7 +102,7 @@ def creer_famille(corps: FamilleNouvelle, admin: AdminCourant, session: SessionD
         raise HTTPException(422, f"Une famille compte au plus {enfants.MAX_ENFANTS_PAR_FAMILLE} enfants.")
     cartes = []
     for saisi in corps.enfants:
-        enfant, code = enfants.creer(session, saisi.prenom, saisi.nom, saisi.niveau)
+        enfant, code = enfants.creer(session, saisi.prenom, saisi.niveau)
         parent.famille.append(enfant)
         cartes.append(enfants.carte(enfant, code))
     session.flush()
@@ -123,7 +123,7 @@ def ajouter_enfant(parent_id: int, corps: EnfantSaisi, admin: AdminCourant, sess
     parent = _parent(session, parent_id)
     if len(parent.famille) >= enfants.MAX_ENFANTS_PAR_FAMILLE:
         raise HTTPException(422, f"Une famille compte au plus {enfants.MAX_ENFANTS_PAR_FAMILLE} enfants.")
-    enfant, code = enfants.creer(session, corps.prenom, corps.nom, corps.niveau)
+    enfant, code = enfants.creer(session, corps.prenom, corps.niveau)
     parent.famille.append(enfant)
     session.flush()
     journal.noter(session, admin, "ajouter-enfant", "parent", parent.id, apres={"enfant": enfant.id})
@@ -212,18 +212,19 @@ def archive_detail(archive_id: int, _: AdminCourant, session: SessionDB) -> mode
 
 @router.patch("/admin/enfants/{enfant_id}", response_model=EnfantFamille)
 def modifier_enfant(enfant_id: int, corps: EnfantModification, admin: AdminCourant, session: SessionDB) -> EnfantFamille:
-    """Correction du prénom ou du nom, ou passage au niveau supérieur. Les inscriptions déjà faites restent :
+    """Correction du prénom, ou passage au niveau supérieur. Les inscriptions déjà faites restent :
     le professeur les retire quand il le souhaite."""
     enfant = _enfant(session, enfant_id)
-    avant = {"prenom": enfant.prenom, "nom": enfant.nom, "niveau": enfant.niveau.value}
+    avant = {"prenom": enfant.prenom, "niveau": enfant.niveau.value}
     try:
-        enfants.renommer(enfant, corps.prenom, corps.nom)
+        if corps.prenom is not None:
+            enfants.renommer(enfant, corps.prenom)
     except enfants.InscriptionImpossible as e:
         raise HTTPException(422, str(e)) from e
     if corps.niveau is not None:
         enfant.niveau = corps.niveau
     journal.noter(session, admin, "modifier", "enfant", enfant.id, avant=avant,
-                  apres={"prenom": enfant.prenom, "nom": enfant.nom, "niveau": enfant.niveau.value})
+                  apres={"prenom": enfant.prenom, "niveau": enfant.niveau.value})
     session.commit()
     return enfants.decrire(enfant)
 
@@ -243,7 +244,7 @@ def supprimer_enfant(enfant_id: int, confirmation: str, admin: AdminCourant, ses
     """Efface l'enfant et toutes ses inscriptions (séances et réponses comprises), après saisie de son
     identifiant. Un compte parent qui n'a plus aucun enfant est supprimé (RGPD)."""
     enfant = _enfant(session, enfant_id)
-    if confirmation.strip().lower() != enfant.identifiant:
+    if cle_identifiant(confirmation) != cle_identifiant(enfant.identifiant):
         raise HTTPException(422, "Saisissez l'identifiant de l'enfant pour confirmer.")
     journal.noter(session, admin, "supprimer", "enfant", enfant.id,
                   avant={"parents": [p.id for p in enfant.parents], "inscriptions": len(enfant.inscriptions)})
@@ -407,7 +408,7 @@ def _choix(session: SessionDB, niveau, q: str, deja: set[int]) -> list[EnfantCho
 
 @router.get("/enseignants/classes/{classe_id}/enfants", response_model=list[EnfantChoix])
 def chercher_pour_classe(classe_id: int, enseignant: EnseignantCourant, session: SessionDB, q: str = "") -> list[EnfantChoix]:
-    """Enfants du niveau de la classe dont le prénom, le nom ou l'identifiant contient `q`."""
+    """Enfants du niveau de la classe dont le prénom ou l'identifiant contient `q`."""
     classe = _ma_classe(session, classe_id, enseignant)
     return _choix(session, classe.niveau, q, {e.enfant_id for e in classe.eleves if e.enfant_id})
 

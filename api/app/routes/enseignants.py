@@ -167,10 +167,14 @@ def creer_classe(corps: ClasseCreation, enseignant: EnseignantCourant, session: 
     return _resume_classe(session, classe)
 
 
-def ouvrir_classe(session, enseignant: models.Enseignant, corps: ClasseCreation) -> models.Classe:
-    """Crée la classe (code unique, tout le programme ouvert) ; sert aussi à l'administrateur."""
+def ouvrir_classe(session, enseignant: models.Enseignant, corps: ClasseCreation, pilote: bool = False) -> models.Classe:
+    """Crée la classe (code unique, tout le programme ouvert) ; sert aussi à l'administrateur.
+
+    `pilote` : classe pilote créée par un administrateur dans un domaine fermé (#176, SEC-D6) ; EX.4 n'est
+    levé que sur ce chemin, l'habilitation du professeur reste exigée.
+    """
     domaine = domaine_de(corps.matiere, corps.niveau)
-    refus = permissions.refus_domaine_ferme(session, domaine) or permissions.refus_matiere_enseignee(enseignant, corps.matiere, domaine, corps.niveau)
+    refus = (None if pilote else permissions.refus_domaine_ferme(session, domaine)) or permissions.refus_matiere_enseignee(enseignant, corps.matiere, domaine, corps.niveau)
     if refus:
         raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
     while True:
@@ -221,7 +225,7 @@ def _programme_de_la_classe(session: SessionDB, classe: models.Classe) -> list[C
     return [
         ChapitreProgramme(
             id=c.id, code=c.code, titre=c.titre, ordre=c.ordre, propose=c.id in ouverts,
-            nb_competences=len(c.competences), nb_questions=nb.get(c.id, 0),
+            nb_competences=len(c.competences), nb_questions=nb.get(c.id, 0), rubrique=(c.rubrique.value if c.rubrique else None),
         )
         for c in chapitres
     ]

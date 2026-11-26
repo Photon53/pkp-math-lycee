@@ -1,0 +1,284 @@
+# Diagnostic d'entrée en 1re — acquis de 2nde générale et technologique (issue #162). Rangé sous contenu/<niveau>/diagnostic/ : jamais servi à l'entraînement.
+# Élèves de 1re en 2026-2027 : 2nde suivie en 2025-2026, donc programme de 2019.
+# 1R-19 reformulée (trois valeurs ne prouvent pas un zéro unique) ; 1R-14 et 1R-20 : valeurs changées (doublons).
+chapitre:
+  code: 1RE-DIAG-2NDE
+  niveau: 1re
+  nature: diagnostic
+  programme_prerequis: 2nde-2019
+  publics: [specialite, scientifique, technologique]
+  ordre: 90
+  titre: Diagnostic d'entrée, acquis de 2nde
+
+competences:
+- code: 1RE-DIAG-ALGEBRE
+  libelle: Calcul algébrique, équations et inéquations (acquis de 2nde)
+  prerequis: [2NDE-DEV, 2NDE-EQ1, 2NDE-INEQ1, 2NDE-EQQUOT]
+  retour: [2NDE-DIAG-LITTERAL, 2NDE-DIAG-NOMBRES]
+  questions:
+  # 1R-01
+  - code: 1RE-DIAG-ALGEBRE-01
+    difficulte: 2
+    type: expression
+    forme: reduite
+    enonce: Réduire $3x - 2(4 - x)$.
+    solution: 5x - 8
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3x - 8 + 2x$.
+      - $= 5x - 8$.
+      resultat: 5x - 8
+      erreurs_frequentes:
+      - Oublier de distribuer le signe moins, $3x - 8 - 2x$.
+  # 1R-02
+  - code: 1RE-DIAG-ALGEBRE-02
+    difficulte: 2
+    type: expression
+    forme: developpee
+    enonce: Développer $(2x - 3)^2$.
+    solution: 4x^2 - 12x + 9
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(a - b)^2 = a^2 - 2ab + b^2$ avec $a = 2x$ et $b = 3$.
+      - $4x^2 - 12x + 9$.
+      resultat: 4x^2 - 12x + 9
+  # 1R-03
+  - code: 1RE-DIAG-ALGEBRE-03
+    difficulte: 2
+    type: qcm
+    enonce: 'Solutions de $-2x + 3 > 7$ : A) $x < -2$  B) $x > -2$  C) $x < 2$  D) $x > -5$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $-2x > 4$.
+      - On divise par $-2 < 0$, le sens change, $x < -2$.
+      erreurs_frequentes:
+      - Garder le sens de l'inégalité en divisant par un négatif.
+  # 1R-04
+  - code: 1RE-DIAG-ALGEBRE-04
+    difficulte: 1
+    type: numerique
+    enonce: Pour quelle valeur de $x$ l'expression $\dfrac{1}{x - 3}$ n'est-elle pas définie ?
+    solution: '3'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Un dénominateur ne peut pas être nul.
+      - $x - 3 = 0$ pour $x = 3$.
+      resultat: '3'
+  # 1R-05
+  - code: 1RE-DIAG-ALGEBRE-05
+    difficulte: 2
+    type: qcm
+    enonce: 'Solutions réelles de $x^2 = 9$ : A) $3$ seulement  B) $-3$ et $3$  C) $4{,}5$  D) aucune'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3^2 = 9$ et $(-3)^2 = 9$.
+      - Deux solutions, $-3$ et $3$.
+      erreurs_frequentes:
+      - Oublier la solution négative.
+  # 1R-06
+  - code: 1RE-DIAG-ALGEBRE-06
+    difficulte: 2
+    type: qcm
+    enonce: 'Pour quelles valeurs de $x$ a-t-on $2x - 6 \geq 0$ ? A) $x \geq 3$  B) $x \leq 3$  C) $x \geq -3$  D) $x \geq 6$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $2x \geq 6$.
+      - $x \geq 3$.
+  # 1R-18
+  - code: 1RE-DIAG-ALGEBRE-07
+    difficulte: 3
+    type: qcm
+    enonce: 'Solutions de $(x - 2)(x + 3) \geq 0$ : A) $-3 \leq x \leq 2$  B) $x \leq -3$ ou $x \geq 2$  C) $x \geq 2$  D) $x \leq -2$ ou $x \geq 3$'
+    solution: B
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Tableau de signes d'un produit.
+      etapes:
+      - $x - 2$ s'annule en 2, $x + 3$ en $-3$.
+      - Le produit est positif à l'extérieur des racines, $x \leq -3$ ou $x \geq 2$.
+
+- code: 1RE-DIAG-FONCTIONS
+  libelle: Droites, fonctions de référence et lecture graphique (acquis de 2nde)
+  prerequis: [2NDE-AFF, 2NDE-DROITE, 2NDE-VARIA, 2NDE-COURBE]
+  retour: [2NDE-DIAG-FONCTIONS]
+  questions:
+  # 1R-16
+  - code: 1RE-DIAG-FONCTIONS-01
+    difficulte: 1
+    type: numerique
+    enonce: Une droite passe par les points $(1 ; 3)$ et $(2 ; 5)$. Donner son coefficient directeur.
+    solution: '2'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $m = \dfrac{5 - 3}{2 - 1}$.
+      - $m = 2$.
+      resultat: '2'
+  # 1R-08
+  - code: 1RE-DIAG-FONCTIONS-02
+    difficulte: 3
+    type: expression
+    enonce: Une droite non verticale passe par $A(0 ; 3)$ et $B(2 ; 7)$. Son équation s'écrit $y = mx + p$. Donner l'expression $mx + p$.
+    solution: 2x + 3
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $m = \dfrac{7 - 3}{2 - 0} = 2$.
+      - $p = 3$ (ordonnée de $A$), donc $y = 2x + 3$ ; vérification avec $B$, $2 \times 2 + 3 = 7$.
+      resultat: 2x + 3
+  # 1R-15
+  - code: 1RE-DIAG-FONCTIONS-03
+    difficulte: 3
+    type: qcm
+    enonce: 'La fonction $f(x) = x^2 - 4x$ admet un minimum. Où et lequel ? A) en $x = 2$, valeur $-4$  B) en $x = 0$, valeur $0$  C) en $x = 4$, valeur $0$  D) en $x = -2$, valeur $12$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - '$f(x) = x(x - 4)$ s''annule en 0 et 4 : la parabole est symétrique par rapport à $x = 2$.'
+      - $f(2) = 4 - 8 = -4$.
+  # 1R-19 (reformulée)
+  - code: 1RE-DIAG-FONCTIONS-04
+    difficulte: 2
+    type: numerique
+    enonce: La courbe d'une fonction $f$ ne coupe l'axe des abscisses qu'en un seul point, $(3 ; 0)$. Résoudre $f(x) = 0$.
+    solution: '3'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - Les solutions de $f(x) = 0$ sont les abscisses des points d'intersection avec l'axe des abscisses.
+      - Une seule solution, $x = 3$.
+      resultat: '3'
+
+- code: 1RE-DIAG-GEOMETRIE
+  libelle: Vecteurs et coordonnées (acquis de 2nde)
+  prerequis: [2NDE-VEC-COORD]
+  retour: [2NDE-DIAG-GEOMETRIE]
+  questions:
+  # 1R-07
+  - code: 1RE-DIAG-GEOMETRIE-01
+    difficulte: 2
+    type: qcm
+    enonce: 'Avec $A(1 ; 2)$ et $B(5 ; -1)$, les coordonnées du vecteur $\overrightarrow{AB}$ sont : A) $(4 ; -3)$  B) $(-4 ; 3)$  C) $(6 ; 1)$  D) $(4 ; 3)$'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $(x_B - x_A ; y_B - y_A)$.
+      - $(5 - 1 ; -1 - 2) = (4 ; -3)$.
+
+- code: 1RE-DIAG-DONNEES
+  libelle: Évolutions, statistiques et probabilités (acquis de 2nde)
+  prerequis: [2NDE-EVO, 2NDE-MOY, 2NDE-PROBA, 2NDE-ARBRE]
+  retour: [2NDE-DIAG-DONNEES]
+  questions:
+  # 1R-09
+  - code: 1RE-DIAG-DONNEES-01
+    difficulte: 2
+    type: numerique
+    enonce: Un prix passe de 80 € à 92 €. Quel est son taux d'augmentation, en pourcentage ?
+    solution: '15'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $\dfrac{92 - 80}{80} = \dfrac{12}{80} = 0{,}15$.
+      - Soit $15\,\%$.
+      resultat: '15'
+  # 1R-13
+  - code: 1RE-DIAG-DONNEES-02
+    difficulte: 2
+    type: qcm
+    enonce: 'Série 4 ; 6 ; 8 ; 10 ; 12 ; 14. A) moyenne 9, médiane 9, étendue 10  B) moyenne 9, médiane 8, étendue 10  C) moyenne 10, médiane 9, étendue 14  D) moyenne 9, médiane 10, étendue 10'
+    solution: A
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - 'Moyenne $54 \div 6 = 9$ ; étendue $14 - 4 = 10$.'
+      - 'Six valeurs : la médiane est la moyenne des 3e et 4e, $\dfrac{8 + 10}{2} = 9$.'
+  # 1R-10
+  - code: 1RE-DIAG-DONNEES-03
+    difficulte: 2
+    type: numerique
+    enonce: $P(A) = 0{,}4$, $P(B) = 0{,}3$ et $P(A \cap B) = 0{,}1$. Calculer $P(A \cup B)$.
+    solution: '0,6'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+      - $0{,}4 + 0{,}3 - 0{,}1 = 0{,}6$.
+      resultat: '0,6'
+  # 1R-20 (valeurs changées)
+  - code: 1RE-DIAG-DONNEES-04
+    difficulte: 1
+    type: numerique
+    enonce: La probabilité de l'événement contraire de $A$ vaut $0{,}82$. Calculer $P(A)$.
+    solution: '0,18'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $P(A) = 1 - P(\overline{A})$.
+      - $1 - 0{,}82 = 0{,}18$.
+      resultat: '0,18'
+  # 1R-14 (valeurs changées)
+  - code: 1RE-DIAG-DONNEES-05
+    difficulte: 3
+    type: numerique
+    enonce: Une urne contient 4 boules rouges et 2 boules blanches. On tire successivement deux boules sans remise. Quelle est la probabilité d'obtenir deux boules rouges ?
+    solution: 2/5
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Arbre pondéré, on multiplie le long d'une branche.
+      etapes:
+      - Première rouge $\dfrac{4}{6}$, puis seconde rouge $\dfrac{3}{5}$ (il reste 3 rouges sur 5).
+      - $\dfrac{4}{6} \times \dfrac{3}{5} = \dfrac{12}{30} = \dfrac{2}{5}$.
+      resultat: 2/5
+
+- code: 1RE-DIAG-RAISONNEMENT
+  libelle: Algorithmique et raisonnement (acquis de 2nde)
+  prerequis: [2NDE-PY-BOUCLE, 2NDE-RAISON]
+  questions:
+  # 1R-11
+  - code: 1RE-DIAG-RAISONNEMENT-01
+    difficulte: 2
+    type: numerique
+    enonce: On initialise $u$ à 3, puis on répète quatre fois « remplacer $u$ par $u + 2$ ». Quelle est la valeur finale de $u$ ?
+    solution: '11'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $3 \to 5 \to 7 \to 9 \to 11$.
+      - Quatre ajouts de 2, $3 + 8 = 11$.
+      resultat: '11'
+  # 1R-17
+  - code: 1RE-DIAG-RAISONNEMENT-02
+    difficulte: 3
+    type: numerique
+    enonce: '$S$ vaut 0 ; pour $i$ allant de 1 à 4, on remplace $S$ par $S + i^2$. Quelle est la valeur finale de $S$ ?'
+    solution: '30'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      etapes:
+      - $S = 1 + 4 + 9 + 16$.
+      - $= 30$.
+      resultat: '30'
+  # 1R-12
+  - code: 1RE-DIAG-RAISONNEMENT-03
+    difficulte: 3
+    type: redaction
+    enonce: '« Si $a < b$, alors $a^2 < b^2$. » Est-ce toujours vrai pour des réels ? Justifie.'
+    solution: 'Non : contre-exemple −3 < 2 mais (−3)² = 9 > 4 = 2². (Vrai seulement si a et b sont positifs.)'
+    auteur: Banque diagnostic, transcription Claude
+    correction:
+      methode: Un contre-exemple suffit.
+      etapes:
+      - $-3 < 2$ mais $(-3)^2 = 9$ et $2^2 = 4$.
+      - $9 > 4$, l'implication est fausse en général ; elle est vraie pour $0 \leq a < b$.

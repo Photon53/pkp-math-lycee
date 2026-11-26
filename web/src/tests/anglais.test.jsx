@@ -65,8 +65,7 @@ describe("PKP Anglais", () => {
     render(<EspaceAnglais chemin="/anglais" />);
     expect(screen.getByRole("heading", { name: "Espace réservé aux professeurs d'anglais" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Aller à l'espace professeur" })).toHaveAttribute("href", "/enseignant");
-    // Seule la lecture publique de l'état des domaines (lien Français) : rien n'est demandé avec la session refusée.
-    expect(appels.map((a) => a.cle)).toEqual(["GET /domaines/publics"]);
+    expect(appels).toEqual([]);
   });
 
   it("un professeur d'anglais seul est refusé dans l'espace maths", () => {
@@ -75,8 +74,7 @@ describe("PKP Anglais", () => {
     render(<EspaceEnseignant chemin="/enseignant" />);
     expect(screen.getByRole("heading", { name: "Espace réservé aux professeurs de mathématiques" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Aller à l'espace PKP Anglais" })).toHaveAttribute("href", "/anglais");
-    // Seule la lecture publique de l'état des domaines (lien Français) : rien n'est demandé avec la session refusée.
-    expect(appels.map((a) => a.cle)).toEqual(["GET /domaines/publics"]);
+    expect(appels).toEqual([]);
   });
 
   it("un professeur d'anglais voit ses séances", async () => {

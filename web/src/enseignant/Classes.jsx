@@ -458,6 +458,7 @@ export default function Classes({ jeton, onExpire, maths = true, francais = fals
         </section>
       )}
       {classe && <ChapitresProposes key={classe.id} classe={classe} appeler={appeler} />}
+      {classe && classe.matiere !== "francais" && <DiagnosticClasse key={`d${classe.id}`} classe={classe} appeler={appeler} />}
     </>
   );
 }
@@ -557,6 +558,52 @@ function ChapitresProposes({ classe, appeler }) {
         <p className="succes" role="status">
           {message}
         </p>
+      )}
+    </section>
+  );
+}
+
+const STATUTS_DIAGNOSTIC = { "a-commencer": "pas commencé", "en-cours": "en cours", termine: "terminé" };
+
+/** Diagnostic des acquis antérieurs (#162) : le professeur l'ouvre ou le ferme, et suit l'avancement. */
+function DiagnosticClasse({ classe, appeler }) {
+  const [vue, setVue] = useState(null);
+
+  useEffect(() => {
+    appeler(`/enseignants/classes/${classe.id}/diagnostic`).then(setVue, () => {});
+  }, [appeler, classe.id]);
+
+  async function basculer() {
+    try {
+      setVue(await appeler(`/enseignants/classes/${classe.id}/diagnostic`, { methode: "PUT", corps: { ouvert: !vue.ouvert } }));
+    } catch {
+      // erreur affichée par le composant parent
+    }
+  }
+
+  if (vue === null) return null;
+  return (
+    <section className="carte">
+      <h2>Diagnostic des acquis antérieurs</h2>
+      <p className="doux">
+        Questions sur les années précédentes, sans note ni effet sur la progression. Seules les questions validées par un
+        professeur sont proposées ({vue.nb_questions_disponibles} disponible{vue.nb_questions_disponibles > 1 ? "s" : ""}).
+      </p>
+      <div className="actions">
+        <button onClick={basculer} disabled={!vue.ouvert && vue.nb_questions_disponibles === 0}>
+          {vue.ouvert ? "Fermer le diagnostic" : "Ouvrir le diagnostic aux élèves"}
+        </button>
+      </div>
+      {vue.ouvert && vue.eleves.length > 0 && (
+        <ul>
+          {vue.eleves.map((e) => (
+            <li key={e.eleve_id}>
+              {e.prenom} : {STATUTS_DIAGNOSTIC[e.statut]}
+              {e.nb_reponses > 0 && ` · ${e.nb_reponses} réponse(s)`}
+              {e.nb_en_attente > 0 && ` · ${e.nb_en_attente} à corriger`}
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );

@@ -4,8 +4,17 @@ Règle d'or : ce paquet n'importe jamais FastAPI, SQLAlchemy ni aucune
 bibliothèque d'E/S. Il reçoit des objets du domaine et renvoie des objets du domaine.
 """
 
-from pkp_engine.correction import Verdict, corriger, reponse_modele, reponses_acceptees, verifier
-from pkp_engine.domain import Forme, Niveau, Question, Reponse, TypeQuestion
+from pkp_engine.correction import (
+    CorrectionHumaineRequise,
+    Verdict,
+    corrige_automatiquement,
+    corriger,
+    lettres_choisies,
+    reponse_modele,
+    reponses_acceptees,
+    verifier,
+)
+from pkp_engine.domain import TYPES_CORRECTION_HUMAINE, Forme, Niveau, Question, Reponse, TypeQuestion
 from pkp_engine.expressions import ExpressionInvalide
 from pkp_engine.maitrise import SEUIL_MAITRISE, calculer_maitrise, est_maitrisee
 from pkp_engine.selection import ESPACEMENT_REVISION, choisir_prochaine_question, questions_au_repos
@@ -14,6 +23,10 @@ __all__ = [
     "ESPACEMENT_REVISION",
     "questions_au_repos",
     "SEUIL_MAITRISE",
+    "TYPES_CORRECTION_HUMAINE",
+    "CorrectionHumaineRequise",
+    "corrige_automatiquement",
+    "lettres_choisies",
     "ExpressionInvalide",
     "Forme",
     "Niveau",

@@ -10,7 +10,7 @@ from app.cartes_pdf import CarteAImprimer, generer
 from tests.conftest import connecter_admin, connecter_enseignant
 from tests.test_masse import _classeur, _importer
 
-ORIGINE = "https://pkp.test"
+ORIGINE = "https://boussole.test"
 
 
 def _lettres(i: int) -> str:
@@ -23,7 +23,7 @@ def _prenom(i: int) -> str:
 
 def _importer_eleves(client, admin, nombre: int, niveau: str = "2nde", classe: str | None = "2NDE-A-DEMO", debut: int = 0):
     """`nombre` enfants, trois par famille ; renvoie les cartes créées (codes en clair)."""
-    lignes = [(_prenom(i), f"Fam{_lettres(i // 3)}", niveau, f"fam{i // 3:03d}@x.test", None, classe, None) for i in range(debut, debut + nombre)]
+    lignes = [(_prenom(i), niveau, f"fam{i // 3:03d}@x.test", None, classe, None) for i in range(debut, debut + nombre)]
     fait = _importer(client, admin, _classeur(client, admin, lignes), simulation=False).json()
     assert fait["nb_erreurs"] == 0, fait
     return fait["cartes"]
@@ -42,7 +42,19 @@ def test_mise_en_page_4_6_8_cartes_par_page():
     for par_page, attendu in ((8, 12), (6, 15), (4, 23)):
         assert len(_pages(generer(cartes, par_page, ORIGINE))) == attendu
     texte = _pages(generer(cartes[:8], 8, ORIGINE))[0]
-    assert "eleve7" in texte and "CODE0007" in texte and "pkp.test/eleve" in texte and "Seconde" in texte
+    assert "eleve7" in texte and "CODE0007" in texte and "boussole.test/eleve" in texte and "Seconde" in texte
+
+
+def test_identifiant_long_ou_ancien_imprime_en_entier():
+    """RGPD-1 (#87) : un identifiant de 40 caractères (« Maximilienne…1 ») ou à l'ancien format (« lina-k7m4 »)
+    s'imprime en entier, jamais coupé par « … », même à 8 cartes par page."""
+    long = "Maximiliennebartholomeacassandrefrederi1"
+    assert len(long) == 40
+    cartes = [CarteAImprimer("Maximilienne", "2nde", long, "ABCDEF"), CarteAImprimer("Lina", "2nde", "lina-k7m4", "GHJKMN")]
+    for par_page in (4, 6, 8):
+        texte = _pages(generer(cartes, par_page, ORIGINE))[0]
+        compact = "".join(texte.split())
+        assert long in compact and "lina-k7m4" in compact and "…" not in texte
 
 
 def test_reemission_de_90_cartes_en_12_pages(client):

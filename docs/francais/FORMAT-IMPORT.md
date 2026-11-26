@@ -35,6 +35,7 @@ Tous les objets refusent les champs inconnus : un `solution`, `bareme`, `points`
 | `registre` | `source`, `source_url`, `licence_source`, `adaptation` (`originale`, `adaptee`, `reprise`), `mention` | registre des sources, comme `docs/CONTENU.md` |
 | `eleve` | partie destinée aux élèves (ci-dessous) | **aucun corrigé** |
 | `professeur` | supports professeur (ci-dessous) | jamais transmis côté élève |
+| `quiz` | facultatif (#217) : `[{question, texte, choix[], reponse, explication}]`, 30 questions au plus | QCM corrigé par la plateforme ; `reponse` = rang du bon choix (à partir de 0), 2 à 6 choix distincts ; `texte` facultatif = code d'un texte du dossier. Bonne réponse et explication jamais transmises à l'élève avant sa réponse (ARCH-4) |
 
 ### Partie `eleve`
 
@@ -46,10 +47,15 @@ Tous les objets refusent les champs inconnus : un `solution`, `bareme`, `points`
 | `consignes_questions` | consignes générales des questions |
 | `questions` | `{code, partie, texte, difficulte_proposee, consigne, coup_de_pouce, reponse}` |
 | `je_verifie` | Markdown |
+| `je_sais` | facultatif (#217) : phrases « Je sais… » (10 au plus) pour l'auto-évaluation à quatre niveaux, comme le « I can » de l'anglais |
 
 Pour chaque question : `partie` = `entrainement` ou `transfert` ; `texte` = code d'un texte du dossier ;
 `difficulte_proposee` = 1 à 5 ou vide, **proposition pédagogique** à confirmer (ni difficulté du moteur, ni taux de
-maîtrise) ; `reponse` = `{"mode": "retour_humain"}`, **seule valeur acceptée**.
+maîtrise) ; `reponse` = `{"mode": "retour_humain"}`, **seule valeur acceptée** : ces questions ne sont jamais
+corrigées par la plateforme. Depuis #217, l'élève peut y répondre en ligne et son professeur lui fait un retour.
+
+**Empreinte** : un `quiz` vide et une liste `je_sais` vide n'entrent pas dans l'empreinte ; un dossier importé avant
+#217 ne crée donc aucune nouvelle version. Ajouter un quiz crée une nouvelle version « soumis », à valider.
 
 ### Partie `professeur`
 
@@ -79,30 +85,36 @@ le fichier ne crée pas de version.
 
 Garanties en base : `UNIQUE (code)` sur `dossier_francais`, `UNIQUE (dossier_id, numero)` et
 `UNIQUE (dossier_id, empreinte)` sur `dossier_francais_version`. L'import ne modifie ni les domaines
-(`actif`, `public`), ni les maths, ni l'anglais. Il n'est **pas** lancé au démarrage :
+(`actif`, `public`), ni les maths, ni l'anglais. Il n'est **pas** lancé au démarrage ni par `boussole-dev-sync` :
 c'est une commande explicite.
 
 ## Accès et circuit de validation
 
 | Qui | Accès |
 |---|---|
-| Élève (maths ou anglais), enfant, parent, anonyme | **aucun** : 401 sur toutes les routes `/francais` ; il n'existe pas de route élève |
+| Enfant, parent, élève d'anglais, anonyme | **aucun** : 401 sur toutes les routes `/francais` |
+| Élève d'une classe de français | `/francais/eleve/*` seulement : partie élève de la **version validée** des dossiers que son professeur a ouverts à sa classe, si la classe a accès au domaine (classe pilote, SEC-D6) ; quiz corrigé, auto-évaluation, réponses rédigées (#217) ; 401 sur toutes les autres routes `/francais` |
 | Professeur de maths ou d'anglais sans habilitation française | 403 |
 | Professeur ou validateur habilité Français collège (tout le domaine ou le niveau du dossier) | lecture : aperçu élève, supports professeur, historique |
-| Administrateur (rôle `admin`, connexion professeur) | lecture ; **pas** de validation sans habilitation de validateur (EX.9-bis) |
-| Validateur habilité pour le domaine et le niveau, distinct de l'auteur | valider ou refuser (motif obligatoire) une version `soumis` ; décision journalisée |
+| Administrateur (session professeur ou d'administration) | lecture ; validation et refus (V2-D15), jamais de sa propre version ; **édition** d'un dossier dans l'application (brouillon puis soumission, #217) ; suivi de toutes les classes de français, sans accès aux textes rédigés des élèves (RGPD-2) |
+| Validateur habilité pour le domaine et le niveau, distinct de l'auteur | file `/francais/validation` : relire, valider ou refuser (motif obligatoire) une version `soumis` ; décision journalisée |
+| Professeur habilité au domaine et au niveau, pour **ses** classes actives de ce niveau | ouvrir ou retirer un dossier dont une version est validée ; journalisé. Suivi de la classe (#217) : progression par dossier, mode de correction du quiz, lecture des réponses rédigées remises et retour |
 
 Le domaine doit être **actif** (préparation par l'équipe). Un dossier hors habilitation ou d'un domaine inactif
 répond 404. Les réponses portent `Cache-Control: private, no-store`.
 
-**Valider ne publie rien aux élèves.** Un dossier validé n'est pas compté comme contenu ouvert : l'ouverture
-publique de Français collège reste refusée (409) tant qu'aucun module élève n'existe.
+**Même circuit que l'anglais (#212).** Valider rend une version diffusable ; elle n'est lue que dans les classes
+auxquelles le professeur ouvre le dossier. Une révision soumise ou refusée ne remplace pas la version validée déjà
+diffusée. Un dossier validé n'est pas compté comme contenu ouvert au public : l'ouverture publique de Français
+collège reste refusée (409) ; pendant le pilote, seules les classes pilotes y accèdent (SEC-D6).
 
 ## Ce que le format ne fait pas
 
-- Aucune saisie ni conservation de réponse d'élève, aucune correction automatique, aucune note, aucun score,
-  aucun taux de maîtrise. La grille d'observation reste un support professeur, sans valeur importable.
-- Pas de module élève : le support de saisie et le retour humain dans l'application restent à cadrer (V2-D12).
+- Aucune correction automatique des questions rédigées, aucune note, aucun taux de maîtrise. Seul le quiz donne un
+  score (meilleur score, score du premier essai, nombre d'essais), comme en anglais. La grille d'observation reste un
+  support professeur, sans valeur importable.
+- Réponses rédigées en ligne (#217) : mêmes règles que les rédactions (RGPD-2, `docs/RGPD.md` § 8), fermées tant que
+  `PKP_REDACTION_ACTIVE` est faux.
 
 ---
 

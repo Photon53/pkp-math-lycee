@@ -78,6 +78,7 @@ def competences_non_rattachees(referentiels: Referentiels, fichiers, programme: 
         f"{c.code} ({contenu.chapitre.titre})"
         for _, contenu in fichiers
         if contenu.chapitre.niveau == p.niveau and contenu.chapitre.parcours == p.parcours
+        and not contenu.chapitre.diagnostic  # issue #162 : un diagnostic interroge le programme précédent
         for c in contenu.competences
         if not codes.intersection(c.attendus)
     ]

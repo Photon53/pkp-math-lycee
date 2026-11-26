@@ -2,8 +2,8 @@
 
 Fichier **généré** par `python -m app.contenu inventaire` (depuis `api/`) : ne pas modifier à la main.
 
-- Chapitres : **155** · compétences : **330** · questions actives : **1794**
-- Validation pédagogique : 0 validée(s), 1794 à valider, 0 à corriger
+- Chapitres : **164** · compétences : **367** · questions actives : **1927**
+- Validation pédagogique : 0 validée(s), 1927 à valider, 0 à corriger
 
 ## Matrice de couverture
 
@@ -32,6 +32,16 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 8. Données et probabilités | `6E-PROBAS` Calculer des probabilités simples | ✓ | 1 | 2 | 1 | 1 | 1 | 6 | 6 |
 | 9. Initiation à la pensée informatique | `6E-INSTRUCTIONS` Exécuter et produire une séquence d’instructions | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### 6e — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de CM2 | `6E-DIAG-NUMERATION` Comprendre les entiers et les décimaux (acquis de CM2) | — | 2 | 1 | 2 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de CM2 | `6E-DIAG-CALCUL` Calculer avec les quatre opérations (acquis de CM2) | — | 1 | 2 | — | — | — | 3 | 3 |
+| 90. Diagnostic d'entrée, acquis de CM2 | `6E-DIAG-FRACTIONS` Utiliser des fractions simples (acquis de CM2) | — | — | 2 | — | — | — | 2 | 2 |
+| 90. Diagnostic d'entrée, acquis de CM2 | `6E-DIAG-PROPORTIONNALITE` Résoudre des problèmes de proportionnalité et de comparaison (acquis de CM2) | — | — | 3 | 1 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de CM2 | `6E-DIAG-GRANDEURS-GEOMETRIE` Mesures, périmètres, aires et constructions (acquis de CM2) | — | 1 | 3 | — | — | — | 4 | 4 |
+
 ### 5e — Tronc commun
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
@@ -57,6 +67,16 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 9. Proportionnalité et premières fonctions | `5E-FONCTIONS` Passer d’un mode de représentation d’une relation à un autre | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 10. Algorithmique et programmation | `5E-PROGRAMMES` Écrire et exécuter des programmes avec boucles, conditions et variables | ✓ | 1 | 1 | 1 | 2 | 1 | 6 | 6 |
 
+### 5e — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de 6e | `5E-DIAG-DECIMAUX` Calculer avec les nombres décimaux (acquis de 6e) | — | 1 | 2 | 1 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 6e | `5E-DIAG-FRACTIONS` Comprendre et utiliser les fractions (acquis de 6e) | — | 1 | 2 | — | — | — | 3 | 3 |
+| 90. Diagnostic d'entrée, acquis de 6e | `5E-DIAG-PROPORTIONNALITE` Proportionnalité, pourcentages et choix d'un modèle (acquis de 6e) | — | 1 | 1 | 2 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 6e | `5E-DIAG-GRANDEURS` Durées, aires, volumes et raisonnement sur les grandeurs (acquis de 6e) | — | — | 3 | 1 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 6e | `5E-DIAG-GEOMETRIE` Symétrie axiale et constructions (acquis de 6e) | — | — | 2 | — | — | — | 2 | 2 |
+
 ### 4e — Tronc commun
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
@@ -81,6 +101,17 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 9. Proportionnalité et notion de fonction | `4E-FONCTIONS` Représenter la dépendance de deux grandeurs par une formule ou un graphique | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 10. Algorithmique et programmation | `4E-PROGRAMMES` Écrire, mettre au point et exécuter un programme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### 4e — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-RELATIFS` Additionner et soustraire des relatifs, respecter les priorités (acquis de 5e) | — | 1 | 2 | 1 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-FRACTIONS` Comparer et additionner des fractions, fraction d'une quantité (acquis de 5e) | — | — | 2 | 1 | — | — | 3 | 3 |
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-LITTERAL` Produire et utiliser une expression littérale (acquis de 5e) | — | 1 | 1 | 1 | — | — | 3 | 3 |
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-PROPORTIONNALITE` Pourcentages et échelles (acquis de 5e) | — | — | 1 | 1 | — | — | 2 | 2 |
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-GEOMETRIE` Triangles, symétrie centrale et parallélogrammes (acquis de 5e) | — | 1 | 3 | 1 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de 5e | `4E-DIAG-DONNEES` Moyenne et probabilités simples (acquis de 5e) | — | 1 | 2 | — | — | — | 3 | 3 |
+
 ### 3e — Tronc commun
 
 | Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
@@ -99,6 +130,16 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 6. Statistiques et probabilités | `3E-STATISTIQUES` Représenter des données, calculer effectifs, fréquences et étendue | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 6. Statistiques et probabilités | `3E-PROBABILITES` Calculer des probabilités pour une ou deux épreuves | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 7. Algorithmique et programmation | `3E-PROGRAMMES` Concevoir des programmes avec boucles, conditions, variables et blocs | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 3e — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de 4e | `3E-DIAG-NOMBRES` Calculer avec les relatifs, les fractions et les priorités (acquis de 4e) | — | 1 | 3 | — | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 4e | `3E-DIAG-PUISSANCES` Utiliser les puissances de 10 et la notation scientifique (acquis de 4e) | — | — | 2 | — | — | — | 2 | 2 |
+| 90. Diagnostic d'entrée, acquis de 4e | `3E-DIAG-LITTERAL` Développer, résoudre une équation, mettre un problème en équation (acquis de 4e) | — | — | 2 | 3 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de 4e | `3E-DIAG-TRIANGLE` Pythagore, Thalès et cosinus dans le triangle (acquis de 4e) | — | — | 3 | 2 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de 4e | `3E-DIAG-GRANDEURS` Volumes, vitesse et probabilités (acquis de 4e) | — | — | 4 | — | — | — | 4 | 4 |
 
 ### 2nde — Tronc commun
 
@@ -186,6 +227,16 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 1. Bases du collège, calcul numérique | `2NDE-MAN-CALCUL` Calculer avec fractions, priorités et puissances | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 2. Bases du collège, calcul littéral et équations | `2NDE-MAN-EQUATIONS` Développer, réduire et résoudre une équation du premier degré | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Bases du collège, proportionnalité et géométrie | `2NDE-MAN-PROPORTION` Utiliser pourcentages, proportionnalité, Pythagore et Thalès | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 2nde — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de 3e | `2NDE-DIAG-NOMBRES` Fractions et racines carrées (acquis du collège) | — | 1 | 1 | — | — | — | 2 | 2 |
+| 90. Diagnostic d'entrée, acquis de 3e | `2NDE-DIAG-LITTERAL` Développer, factoriser, résoudre une équation produit (acquis de 3e) | — | — | 4 | 2 | — | — | 6 | 6 |
+| 90. Diagnostic d'entrée, acquis de 3e | `2NDE-DIAG-FONCTIONS` Image, antécédent, fonctions affines (acquis de 3e) | — | 1 | 2 | 2 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de 3e | `2NDE-DIAG-GEOMETRIE` Thalès et trigonométrie (acquis de 3e) | — | — | 2 | 1 | — | — | 3 | 3 |
+| 90. Diagnostic d'entrée, acquis de 3e | `2NDE-DIAG-DONNEES` Statistiques, probabilités et pourcentages (acquis de 3e) | — | 1 | 2 | 1 | — | — | 4 | 4 |
 
 ### 1re — Spécialité
 
@@ -299,6 +350,16 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 2. Sujet blanc n° 1 (second degré et suites) | `1RE-EXA-B1-EX2` Exercice 2 : évolution d'une population | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Sujet blanc n° 2 (dérivation et probabilités) | `1RE-EXA-B2-EX1` Exercice 1 : étude d'une fonction polynôme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Sujet blanc n° 2 (dérivation et probabilités) | `1RE-EXA-B2-EX2` Exercice 2 : un jeu de hasard | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
+
+### 1re — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, acquis de 2nde | `1RE-DIAG-ALGEBRE` Calcul algébrique, équations et inéquations (acquis de 2nde) | — | 1 | 5 | 1 | — | — | 7 | 7 |
+| 90. Diagnostic d'entrée, acquis de 2nde | `1RE-DIAG-FONCTIONS` Droites, fonctions de référence et lecture graphique (acquis de 2nde) | — | 1 | 1 | 2 | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, acquis de 2nde | `1RE-DIAG-GEOMETRIE` Vecteurs et coordonnées (acquis de 2nde) | — | — | 1 | — | — | — | 1 | 1 |
+| 90. Diagnostic d'entrée, acquis de 2nde | `1RE-DIAG-DONNEES` Évolutions, statistiques et probabilités (acquis de 2nde) | — | 1 | 3 | 1 | — | — | 5 | 5 |
+| 90. Diagnostic d'entrée, acquis de 2nde | `1RE-DIAG-RAISONNEMENT` Algorithmique et raisonnement (acquis de 2nde) | — | — | 1 | 2 | — | — | 3 | 3 |
 
 ### Tle — Spécialité
 
@@ -444,6 +505,17 @@ Nombre de questions actives par difficulté (1 = application directe … 5 = niv
 | 3. Sujet type annales (logarithme et équation différentielle) | `TLE-EXA-AN-EX1` Exercice 1 : une fonction avec le logarithme | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 | 3. Sujet type annales (logarithme et équation différentielle) | `TLE-EXA-AN-EX2` Exercice 2 : une équation différentielle en contexte | ✓ | 1 | 1 | 1 | 1 | 1 | 5 | 5 |
 
+### Tle — Diagnostic des acquis antérieurs
+
+| Chapitre | Compétence | Cours | 1 | 2 | 3 | 4 | 5 | Total | À valider |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 90. Diagnostic d'entrée, socle commun | `TLE-DIAG-SOCLE-CALCUL` Fractions, développement et équations (bases du lycée) | — | — | 4 | — | — | — | 4 | 4 |
+| 90. Diagnostic d'entrée, socle commun | `TLE-DIAG-SOCLE-DONNEES` Pourcentages et probabilités (bases du lycée) | — | 1 | — | 1 | — | — | 2 | 2 |
+| 91. Diagnostic d'entrée, acquis de spécialité de 1re | `TLE-DIAG-SPE-ANALYSE` Second degré, dérivation et variations (acquis de 1re spécialité) | — | — | 2 | 1 | — | — | 3 | 3 |
+| 91. Diagnostic d'entrée, acquis de spécialité de 1re | `TLE-DIAG-SPE-SUITES-PROBAS` Suites et probabilités conditionnelles (acquis de 1re spécialité) | — | — | 2 | 1 | — | — | 3 | 3 |
+| 92. Diagnostic d'entrée, acquis de 1re technologique | `TLE-DIAG-TECH-FONCTIONS` Calcul et fonctions (acquis de 1re technologique) | — | 1 | 1 | — | — | — | 2 | 2 |
+| 92. Diagnostic d'entrée, acquis de 1re technologique | `TLE-DIAG-TECH-DONNEES` Statistiques, probabilités, suites et algorithmique (acquis de 1re technologique) | — | 2 | 2 | — | — | — | 4 | 4 |
+
 ## Trous à combler
 
 Aucun.
@@ -452,7 +524,7 @@ Aucun.
 
 | Source | Licence de la source | Adaptation | Questions |
 |---|---|---|:-:|
-| PKP Math | — | originale | 1751 |
+| PKP Math | — | originale | 1884 |
 | math.ma | non clarifiée | inspiree | 33 |
 | MathALÉA | CC BY-SA 4.0 | inspiree | 5 |
 | STACK | à vérifier | inspiree | 3 |

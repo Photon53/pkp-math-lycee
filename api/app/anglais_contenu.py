@@ -4,7 +4,6 @@ Le dépôt (contenu/anglais) fournit la première version de chaque séance ; en
 dans l'application : édition par un administrateur, validation par un référent (CDC anglais V1.8).
 """
 import json
-from datetime import UTC, datetime
 from pathlib import Path
 
 from pkp_anglais.contenu import seance_depuis_dict
@@ -13,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from app.anglais_pdf import charger_ressources, verifier_ressources
 from app.anglais_pictos import image_svg
-from app import permissions
+from app import circuit_validation, permissions
 from app.db import models
 
 CONTENU = Path(__file__).resolve().parents[2] / "contenu" / "anglais"
@@ -181,27 +180,10 @@ def enregistrer(seance: models.SeanceAnglais, auteur: models.Enseignant, contenu
     return courante
 
 
-def peut_decider(version: models.SeanceAnglaisVersion, qui: models.Enseignant) -> str | None:
-    """Motif du refus d'agir, ou None : seul un contenu soumis se valide, jamais par son auteur."""
-    if version.statut != "soumis":
-        return "Seule une version soumise peut être validée ou refusée."
-    if version.auteur_id == qui.id:
-        return "Vous ne pouvez pas valider votre propre contenu : un autre référent doit le faire."
-    return None
-
-
-def valider(seance: models.SeanceAnglais, qui: models.Enseignant) -> None:
-    for v in seance.versions[:-1]:
-        if v.statut == "valide":
-            v.statut = "archive"  # l'ancienne version validée est conservée, plus publiée
-    courante = seance.courante
-    courante.statut, courante.validateur, courante.decide_le = "valide", qui, datetime.now(UTC)
-
-
-def refuser(seance: models.SeanceAnglais, qui: models.Enseignant, motif: str) -> None:
-    courante = seance.courante
-    courante.statut, courante.validateur, courante.decide_le = "refuse", qui, datetime.now(UTC)
-    courante.motif_refus = motif
+# Circuit commun aux contenus versionnés (#215) : mêmes règles qu'en français.
+peut_decider = circuit_validation.peut_decider
+valider = circuit_validation.valider
+refuser = circuit_validation.refuser
 
 
 def resume(seance: models.SeanceAnglais) -> dict:

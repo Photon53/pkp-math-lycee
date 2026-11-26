@@ -21,6 +21,14 @@ class TypeQuestion(str, Enum):
     EXPRESSION = "expression"
     # Réponse courte en toutes lettres (français : un mot, une forme verbale…) : voir `correction`.
     TEXTE = "texte"
+    # Plusieurs bonnes réponses parmi des choix « A) … B) … » : la solution liste les lettres (« AC »).
+    CHOIX_MULTIPLES = "choix_multiples"
+    # Réponse rédigée (justification, construction) : corrigée par un professeur, jamais par le moteur.
+    REDACTION = "redaction"
+
+
+# Types que le moteur ne corrige pas : la réponse attend la correction d'un professeur.
+TYPES_CORRECTION_HUMAINE = frozenset({TypeQuestion.REDACTION})
 
 
 class Forme(str, Enum):

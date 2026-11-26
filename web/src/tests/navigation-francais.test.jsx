@@ -1,5 +1,5 @@
 // Issue #102 — Accès à la préparation Français depuis la navigation adulte (Codex)
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import App from "../App.jsx";
@@ -11,40 +11,26 @@ const PROFESSEUR = {
   mdp_provisoire: false, enseigne_maths: false, enseigne_anglais: false,
 };
 
-// État public des domaines : Français collège actif (en préparation par l'équipe), ou aucun domaine Français actif.
-const FRANCAIS_ACTIF = { "GET /domaines/publics": { json: [{ code: "francais-college", matiere: "francais", etat: "en_preparation" }] } };
-const FRANCAIS_INACTIF = { "GET /domaines/publics": { json: [{ code: "francais-college", matiere: "francais", etat: "en_chantier" }] } };
-
 describe("navigation vers le Français en préparation", () => {
   it("propose le Français à la connexion maths sans l'ajouter au cadre partagé avec les parents", async () => {
     window.history.replaceState(null, "", "/enseignant");
-    fausseApi(FRANCAIS_ACTIF);
+    fausseApi({});
     const vue = render(<App />);
     expect(await screen.findByRole("heading", { name: "Connexion professeur" })).toBeInTheDocument();
-    expect(await screen.findByRole("link", { name: "Français (préparation)" })).toHaveAttribute("href", "/francais");
+    expect(screen.getByRole("link", { name: "Français (préparation)" })).toHaveAttribute("href", "/francais");
     vue.unmount();
     render(<PageSimple><p>Connexion parent</p></PageSimple>);
-    expect(screen.queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
-  });
-
-  it("n'annonce pas le Français à la connexion tant qu'aucun domaine Français n'est actif", async () => {
-    window.history.replaceState(null, "", "/enseignant");
-    const appels = fausseApi(FRANCAIS_INACTIF);
-    render(<App />);
-    expect(await screen.findByRole("heading", { name: "Connexion professeur" })).toBeInTheDocument();
-    await waitFor(() => expect(appels.some((a) => a.cle === "GET /domaines/publics")).toBe(true));
     expect(screen.queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
   });
 
   it("propose une sortie vers le Français quand le compte est refusé en maths", async () => {
     window.history.replaceState(null, "", "/enseignant");
     sessionStorage.setItem("pkp.enseignant", JSON.stringify(PROFESSEUR));
-    const appels = fausseApi(FRANCAIS_ACTIF);
+    const appels = fausseApi({});
     render(<App />);
     expect(await screen.findByRole("heading", { name: "Espace réservé aux professeurs de mathématiques" })).toBeInTheDocument();
-    expect(await screen.findByRole("link", { name: "Aller à l'espace Français (préparation)" })).toHaveAttribute("href", "/francais");
-    // Seule la lecture publique de l'état des domaines : rien n'est demandé avec la session refusée.
-    expect(appels.map((a) => a.cle)).toEqual(["GET /domaines/publics"]);
+    expect(screen.getByRole("link", { name: "Aller à l'espace Français (préparation)" })).toHaveAttribute("href", "/francais");
+    expect(appels).toHaveLength(0);
   });
 
   it("ouvre le Français depuis le menu admin avec la session professeur existante", async () => {
@@ -58,22 +44,45 @@ describe("navigation vers le Français en préparation", () => {
       "GET /francais/dossiers": { json: [] },
     });
     render(<App />);
-    // Premier chargement différé de l'espace admin : jusqu'à ~15 s à froid sur un poste Windows lent.
-    const navigation = await screen.findByRole("navigation", { name: "Navigation Administration" }, { timeout: 30_000 });
+    const navigation = await screen.findByRole("navigation", { name: "Navigation Administration" });
     await userEvent.click(within(navigation).getByRole("link", { name: "PKP Français (préparation)" }));
-    expect(await screen.findByRole("heading", { name: "Dossiers de français" }, { timeout: 30_000 })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Dossiers de français" })).toBeInTheDocument();
     expect(window.location.pathname).toBe("/francais");
-    expect(screen.getByText(/non publiés aux élèves/)).toBeInTheDocument();
+    expect(screen.getByText(/lue par les élèves/)).toBeInTheDocument();
     expect(appels.some((a) => a.cle === "GET /francais/dossiers")).toBe(true);
     expect(appels.some((a) => a.cle.startsWith("GET /enseignants/"))).toBe(false);
-  }, 70_000);
+  });
 
-  it("demande une connexion professeur si seule la session admin existe", async () => {
+  it("reprend la session d'administration si aucune session professeur n'existe (#217)", async () => {
     window.history.replaceState(null, "", "/francais");
     sessionStorage.setItem("pkp.admin", JSON.stringify({ jeton: "session-admin", nom: "Admin", expire_le: Date.now() + 600_000 }));
+    const appels = fausseApi({
+      "GET /francais/dossiers": { json: [] },
+      "GET /francais/etat": { json: { domaines: [], dossiers: 0 } },
+      "GET /francais/validation": { json: [] },
+    });
+    render(<App />);
+    expect(await screen.findByRole("heading", { name: "Dossiers de français" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Connexion — Français (préparation)" })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /Retour à l'administration/ })[0]).toHaveAttribute("href", "/admin");
+    expect(appels.some((a) => a.cle === "GET /francais/validation")).toBe(true);
+  });
+
+  it("demande une connexion professeur si la session admin a expiré", async () => {
+    window.history.replaceState(null, "", "/francais");
+    sessionStorage.setItem("pkp.admin", JSON.stringify({ jeton: "session-admin", nom: "Admin", expire_le: Date.now() - 1 }));
     const appels = fausseApi({});
     render(<App />);
     expect(await screen.findByRole("heading", { name: "Connexion — Français (préparation)" })).toBeInTheDocument();
     expect(appels).toHaveLength(0);
+  });
+
+  it("l'espace professeur mène à la validation du français (#217)", async () => {
+    window.history.replaceState(null, "", "/enseignant");
+    sessionStorage.setItem("pkp.enseignant", JSON.stringify({ ...PROFESSEUR, enseigne_francais: true }));
+    fausseApi({ "GET /enseignants/classes": { json: [] } });
+    render(<App />);
+    const liens = await screen.findAllByRole("link", { name: /PKP Français : dossiers et validation/ });
+    expect(liens[0]).toHaveAttribute("href", "/francais");
   });
 });

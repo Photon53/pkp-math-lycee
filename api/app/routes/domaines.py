@@ -8,7 +8,7 @@ from sqlalchemy import func, select
 
 from app.db import models
 from app.auth import SessionDB
-from app.progression import filtre_validation
+from app.progression import filtre_apprentissage, filtre_validation
 
 router = APIRouter(prefix="/domaines", tags=["domaines"])
 
@@ -41,7 +41,7 @@ class ChiffresPublics(BaseModel):
 def chiffres_publics(session: SessionDB) -> ChiffresPublics:
     """Totaux du contenu ouvert aux élèves (domaines publics, rien de masqué), pour la page d'accueil."""
     publics = select(models.DomainePedagogique.code).where(models.DomainePedagogique.public.is_(True))
-    chapitres = (models.Chapitre.masque.is_(False), models.Chapitre.domaine_code.in_(publics))
+    chapitres = (models.Chapitre.masque.is_(False), models.Chapitre.domaine_code.in_(publics), *filtre_apprentissage())
     nb_chapitres = session.scalar(select(func.count(models.Chapitre.id)).where(*chapitres))
     nb_questions = session.scalar(
         select(func.count(models.Question.id))

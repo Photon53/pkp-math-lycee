@@ -262,7 +262,8 @@ Cette consigne prépare un travail relisible ; elle n’envoie aucun message à 
 | Relecture des contenus, audio et couverture | À suivre dans #55/#24, pas attestée ici |
 | Ouverture aux élèves | Non autorisée par ce cadrage |
 
-Liens : [contrat actuel](FORMAT-IMPORT.md), [matrice initiale](3e-brevet-2027/MATRICE-INITIALE.md).
+Liens : [contrat actuel](FORMAT-IMPORT.md), [recette DEV du premier dossier](INTEGRATION-DEV.md),
+[matrice initiale](3e-brevet-2027/MATRICE-INITIALE.md), [décisions](../DECISIONS.md).
 
 ---
 Spécification rédigée par **Codex** pour #111. Les contributions de contenu et d’intégration précédentes

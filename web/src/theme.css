@@ -1,4 +1,4 @@
-/* Charte graphique PKP Math Lycée (cahier des charges V2, module 4).
+/* Charte graphique (cahier des charges V2, module 4 ; refonte « instrument de précision », #149).
    Jetons uniquement : couleurs, typographie, espacements, rayons. Les composants sont dans styles.css. */
 
 :root {
@@ -35,13 +35,27 @@
   --bordure-forte: #cbd5e1;
 
   /* Formes */
-  --rayon: 12px;
-  --rayon-petit: 8px;
-  --ombre: 0 1px 2px rgb(15 23 42 / 5%), 0 4px 12px rgb(15 23 42 / 5%);
+  --rayon: 14px;
+  --rayon-petit: 10px;
+  --ombre: 0 1px 2px rgb(15 23 42 / 5%), 0 8px 24px rgb(15 23 42 / 5%);
   --ombre-haute: 0 10px 30px rgb(15 23 42 / 15%);
 
-  /* Typographie : Inter hébergée sur le serveur PKP (CSP font-src 'self'). */
+  /* Univers sombre « instrument de précision » (#149) : accueil public, en-têtes, navigation des adultes.
+     Les mêmes valeurs servent en mode clair et sombre du système : le cadre reste nuit, le travail reste lisible. */
+  --nuit: #0b1426;              /* fond sombre : texte --sur-nuit 16,4:1 */
+  --nuit-claire: #1b2f55;       /* lueur, entrée de menu active */
+  --nuit-surface: rgb(255 255 255 / 4%);
+  --bordure-nuit: #2a3b5c;      /* décor seulement */
+  --bordure-nuit-forte: #5b6f96; /* contour des boutons secondaires : 3,6:1 sur nuit (WCAG 1.4.11) */
+  --sur-nuit: #eef2fa;
+  --sur-nuit-doux: #a9b6cf;     /* 9,0:1 sur nuit, 6,5:1 sur nuit-claire */
+  --lien-nuit: #c9d5ff;
+  --nord: #f2a65a;              /* aiguille sur fond sombre : action principale, focus */
+  --nord-texte: #0b1426;        /* texte sur --nord : 9,1:1 */
+
+  /* Typographie : Inter (texte) et Space Grotesk (titres, chiffres), hébergées sur le serveur (CSP font-src 'self'). */
   --police: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --police-titres: "Space Grotesk Variable", "Inter Variable", system-ui, sans-serif;
   --police-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
   --t-xs: 0.75rem;   /* 12 */
   --t-s: 0.875rem;   /* 14 */

@@ -4,6 +4,7 @@ import { Erreur } from "../composants.jsx";
 import { ecrire, lire } from "../stockage.js";
 import { CadreApplication, EntetePage } from "../ui/Cadre.jsx";
 import Icone, { Logo } from "../ui/Icone.jsx";
+import AccueilDemandes from "./AccueilDemandes.jsx";
 import AnglaisAdmin from "./AnglaisAdmin.jsx";
 import BandeauAdmin, { libelleDomaine } from "./BandeauAdmin.jsx";
 import Configuration from "./Configuration.jsx";
@@ -19,12 +20,16 @@ import RessourcesAdmin from "./RessourcesAdmin.jsx";
 import { DOMAINES_PAR_DEFAUT } from "./Qualifications.jsx";
 import TableauDeBord from "./TableauDeBord.jsx";
 import PkpMath from "../pkpmath/PkpMath.jsx";
+import VueEleve from "../ui/VueEleve.jsx";
 
 const PkpMathAdmin = ({ jeton, onExpire }) => (
   <section className="carte">
-    <PkpMath jeton={jeton} onExpire={onExpire} />
+    <PkpMath jeton={jeton} onExpire={onExpire} adulte />
   </section>
 );
+
+// Issue #184 : l'administrateur parcourt l'espace élève d'une classe avec son propre élève fictif.
+const VueEleveAdmin = ({ jeton, onExpire }) => <VueEleve jeton={jeton} onExpire={onExpire} role="admin" />;
 
 const CLE_COMPTE = "pkp.admin";
 const CLE_DOMAINE = "pkp.admin.domaine";
@@ -35,6 +40,9 @@ const PAGES = [
   { groupe: "Pilotage", vers: "/admin", libelle: "Tableau de bord", icone: "tableau", Page: TableauDeBord, permission: "pilotage.global" },
   { groupe: "Pilotage", vers: "/admin/journal", libelle: "Journal", icone: "journal", Page: Journal, permission: "pilotage.global" },
   { groupe: "Pilotage", vers: "/admin/remarques", libelle: "Remarques", icone: "crayon", Page: RemarquesAdmin, permission: "pilotage.global" },
+  { groupe: "Pilotage", vers: "/admin/vue-eleve", libelle: "Voir comme un élève", icone: "oeil", Page: VueEleveAdmin, permission: "pilotage.global" },
+  // Issue #171 : candidatures de professeurs et partenariats ; administrateurs seulement (comptes.gerer).
+  { groupe: "Pilotage", vers: "/admin/accueil", libelle: "Accueil et demandes", icone: "accueil", Page: AccueilDemandes, permission: "comptes.gerer" },
   { groupe: "Comptes", vers: "/admin/professeurs", libelle: "Équipe", icone: "professeurs", Page: Professeurs, permission: "comptes.gerer" },
   { groupe: "Comptes", vers: "/admin/familles", libelle: "Familles", icone: "eleve", Page: Familles, permission: "parents.gerer" },
   { groupe: "Comptes", vers: "/admin/eleves", libelle: "Élèves et classes", icone: "classes", Page: Eleves, permission: "comptes.gerer" },
@@ -44,7 +52,7 @@ const PAGES = [
   { groupe: "Pédagogie", vers: "/admin/prevalidation-ia", libelle: "Prévalidation IA", icone: "bouclier", Page: PrevalidationIA, permission: "prevalidation.ia", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/pkp-math", libelle: "PKP Maths", icone: "pdf", Page: PkpMathAdmin, permission: "contenu.lire", matiere: "maths" },
   { groupe: "Pédagogie", vers: "/admin/anglais", libelle: "PKP Anglais", icone: "eleve", Page: AnglaisAdmin, permission: "contenu.modifier", matiere: "anglais" },
-  // L'espace Français utilise la session professeur ; le jeton d'administration n'y est pas transmis.
+  // L'espace Français reprend la session d'administration de l'onglet (#217) : consultation, validation, PDF.
   { groupe: "Pédagogie", vers: "/francais", libelle: "PKP Français (préparation)", icone: "cours", permission: "contenu.lire", externe: true },
   { groupe: "Configuration", vers: "/admin/configuration", libelle: "Domaines", icone: "bouclier", Page: Configuration, permission: "configuration" },
 ];

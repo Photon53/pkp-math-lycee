@@ -131,21 +131,66 @@ remplace ce mot de passe à sa première connexion sur `/parent`. Un même compt
 | `GET /parents/enfants/{id}/historique` | Historique des réponses avec corrections |
 | `PUT /parents/enfants/{id}/code` | Code personnel choisi par le parent (8 à 16 lettres et chiffres) ; vaut pour les inscriptions reliées, ferme les sessions de l'enfant |
 
-### Français (préparation, #98)
+### Identifiants des enfants (décision RGPD-1, #87)
+
+Un enfant n'a **aucun nom de famille** : la colonne `enfant.nom` a été supprimée par la migration `0039`.
+
+- **Nouveaux comptes** : `enfants.identifiant_libre` attribue `<Prénom><n>`, par exemple `Lina1`, `JeanPierre1` ou `Aegir1`.
+  - La base est le prénom sans accents, sans espace, tiret ni apostrophe. Les lettres `æ ø ß ð þ œ` sont translittérées.
+  - Le numéro vient de la table `compteur_identifiant` : une ligne par base en minuscules, tronquée à 35 caractères. L'incrément est atomique et la ligne reste verrouillée jusqu'à la fin de la transaction. Le compteur ne recule jamais : un numéro n'est pas réattribué, même après purge.
+  - L'identifiant fait 40 caractères au plus : la base est tronquée à 40 − (nombre de chiffres du numéro).
+  - Un identifiant déjà pris dans `enfant`, `eleve` ou `eleve_anglais` est sauté. Le nombre d'essais est borné.
+- **Comparaison** sans casse ni accents (`security.cle_identifiant`). Des index uniques sur `lower(identifiant)` existent dans les trois tables.
+- **Anciens identifiants** (`lina-k7m4`) : conservés et toujours acceptés. Le nouveau format, sans tiret, ne peut pas les rencontrer.
+- **Homonymes** dans une classe ou un groupe : le second s'affiche avec son identifiant à la place du prénom (`Lina2`). La connexion prénom + code classe + code personnel (SEC-D1) accepte cette forme.
+- **Saisie** : un champ `nom` est refusé par l'API (`extra="forbid"`) ; un classeur d'import qui remplit la colonne « Nom » est refusé ; un prénom sans aucune lettre est refusé.
+- **Limitation des tentatives** : voir `docs/audit/rgpd-1-limitation-connexion.md`.
+
+### Vue élève simulée (#184)
+Un professeur ou un administrateur ouvre l'espace élève d'une classe avec un élève fictif (`eleve.simulation_par_id`,
+migration `0045`) et un jeton élève ordinaire. Un filtre ORM global (`app/db/simulation.py`) retire ces élèves et
+tout leur travail de toutes les autres lectures. Détails, limites et purge : [SIMULATION-ELEVE.md](SIMULATION-ELEVE.md).
+
+### Accueil et demandes (#172, #171)
+Les adultes qui ne sont pas encore inscrits : `contact_adulte` porte une ou plusieurs `demande_accueil` (migration
+`0047`, qui reprend les demandes de `demande_collaboration`, migration `0046` de #171), chacune dans une file (famille, information, candidature, partenariat) avec statut et issue explicite.
+Aucun lien vers un compte, un enfant ou une donnée pédagogique. Routes `/admin/accueil/*` (administrateurs seulement,
+`app/routes/accueil.py`) ; formulaire public `/collaboration/*` (`app/routes/collaboration.py`) ; règles communes,
+rattachement par e-mail identique et purge par file dans `app/accueil.py`. Détails RGPD : `docs/RGPD.md` § 9.
+
+### Ajouter une matière (#215)
+Parcours par rôle, mécanismes communs (domaines, habilitations, classes pilotes, circuit versionné
+`app/circuit_validation.py`), divergences à arbitrer et procédure : [MATIERES.md](MATIERES.md).
+
+### Français (préparation #98, validation et diffusion #212)
 Tables `dossier_francais` et `dossier_francais_version` (migration 0037) : parties élève et professeur séparées,
 empreinte du fichier source, circuit de validation des séances d'anglais. Contrat et accès :
-[francais/FORMAT-IMPORT.md](francais/FORMAT-IMPORT.md). Le lien vers `/francais` n'est affiché (accueil, connexion
-professeur) que si un domaine Français est actif, d'après `GET /domaines/publics`.
+[francais/FORMAT-IMPORT.md](francais/FORMAT-IMPORT.md) ; procédure DEV : [francais/INTEGRATION-DEV.md](francais/INTEGRATION-DEV.md).
 
 | Route | Rôle |
 |-------|------|
 | `GET /francais/dossiers` | Dossiers lisibles par l'adulte (domaine actif, habilitation au domaine et au niveau, ou administrateur) |
-| `GET /francais/dossiers/{code}/eleve` | Aperçu de la partie élève, sans corrigé |
-| `GET /francais/dossiers/{code}/professeur` | Corrigés, déroulement, grille d'observation |
+| `GET /francais/dossiers/{code}/eleve` | Aperçu de la partie élève, sans corrigé ; version validée, sinon courante « NON VALIDÉ » (comme l'anglais) |
+| `GET /francais/dossiers/{code}/professeur` | Corrigés, déroulement, grille d'observation ; même version affichée |
 | `GET /francais/dossiers/{code}/historique` | Versions et décisions |
-| `POST /francais/dossiers/{code}/valider`, `/refuser` | Validateur habilité, distinct de l'auteur ; journalisé ; ne publie rien aux élèves |
+| `GET /francais/validation`, `GET /francais/validation/{code}` | File de validation (#212) : versions soumises que le validateur peut relire, en entier ; `est_auteur` signale les siennes |
+| `POST /francais/validation/{code}/valider`, `/refuser` | Validateur habilité, distinct de l'auteur ; motif obligatoire pour refuser ; journalisé. Anciennes adresses `/francais/dossiers/{code}/valider`, `/refuser` conservées |
+| `GET /francais/dossiers/{code}/classes` ; `PUT`, `DELETE …/classes/{classe_id}` | Le professeur ouvre ou retire le dossier à l'une de ses classes du même domaine et niveau (#212) ; ouverture refusée (409) sans version validée ; journalisé |
+| `GET /francais/eleve/dossiers`, `GET /francais/eleve/dossiers/{code}` | Élève : partie élève de la **version validée** des dossiers ouverts à sa classe, si la classe a accès au domaine (SEC-D6) ; 403 sinon, 404 pour un dossier non ouvert ou jamais validé |
 
-Aucune route élève ; aucune réponse d'élève enregistrée ni corrigée (retour humain uniquement).
+| `POST /francais/eleve/dossiers/{code}/quiz/{rang}`, `POST …/corriger` | Quiz (#217) : réponse enregistrée puis corrigée (mode « après chaque question »), ou correction de tout le quiz une fois chaque question répondue ; meilleur score, premier essai figé, essais |
+| `PUT /francais/eleve/dossiers/{code}/auto-evaluation` | « Je sais » à quatre niveaux (#217) |
+| `PUT /francais/eleve/dossiers/{code}/reponses/{question}`, `POST …/remise` | Réponses rédigées (#217, RGPD-2) ; 403 tant que `PKP_REDACTION_ACTIVE` est faux |
+| `GET /francais/classes`, `GET …/{classe_id}/progression`, `GET`/`PUT …/correction`, `PUT …/dossiers/{code}/correction` | Suivi de la classe (#217) : progression par dossier, mode de correction (#110) |
+| `GET /francais/classes/{classe_id}/reponses`, `PUT /francais/reponses/{id}/retour` | Réponses remises et retour, pour le seul professeur de la classe (RGPD-2) |
+| `GET /francais/dossiers/{code}/source`, `PUT …/brouillon`, `POST …/soumettre` | Édition par l'administrateur (#217) : brouillon contrôlé par le contrat d'import, puis soumission |
+
+Tables `ouverture_dossier_francais` (migration 0048), puis `progression_francais`, `reponse_quiz_francais`,
+`reponse_redigee_francais`, `mode_correction_dossier_francais`, colonnes `dossier_francais_version.quiz` et
+`classe.mode_correction` (migration 0049). Une révision soumise ou refusée ne remplace pas la version validée
+diffusée ; une nouvelle validation la remplace dans les classes déjà ouvertes. Seul le quiz est corrigé par la
+plateforme ; les questions rédigées relèvent du retour du professeur ; aucun corrigé servi à l'élève avant sa
+réponse (ARCH-4).
 
 ### Chapitres proposés et choisis
 L'enseignant **ouvre** des chapitres du programme de sa classe ; l'élève **choisit**, parmi eux, ceux qu'il travaille

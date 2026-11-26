@@ -7,9 +7,10 @@ from app import security
 from app.config import settings
 from app.db import models
 from app.main import app
+from tests import pdf_exemples
 from tests.conftest import connecter_admin, connecter_eleve, connecter_enseignant, entete
 
-PDF_MINIMAL = b"%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n"
+PDF_MINIMAL = pdf_exemples.ordinaire()
 
 
 def _routes_admin() -> list[tuple[str, str]]:
@@ -293,7 +294,7 @@ class TestRessources:
         lecon = client.get(f"/cours/{competence}", headers=connecter_eleve(client)).json()
         assert [x["titre"] for x in lecon["ressources"]] == ["Vidéo"]
 
-    @pytest.mark.parametrize("url", ["http://example.org", "javascript:alert(1)", "https://user:mdp@example.org"])
+    @pytest.mark.parametrize("url", ["http://example.org", "javascript:alert(1)", "https://user:mdp@example.org", "https://example.org:8443"])
     def test_lien_non_https_refuse(self, client, url):
         h = connecter_enseignant(client)
         corps = {"type": "lien", "titre": "X", "url": url, "chapitre_id": 1, "classe_ids": [self._classe_demo(client, h)]}
@@ -318,7 +319,7 @@ class TestRessources:
         rid = self._pdf(client, h, competence)
         faux = client.put(f"/enseignants/ressources/{rid}/fichier", headers={**h, "Content-Type": "application/pdf"}, content=b"MZ\x90 pas un pdf")
         assert faux.status_code == 422
-        js = client.put(f"/enseignants/ressources/{rid}/fichier", headers=h, content=PDF_MINIMAL + b"/JavaScript")
+        js = client.put(f"/enseignants/ressources/{rid}/fichier", headers=h, content=pdf_exemples.javascript_dans_un_flux_d_objets())
         assert js.status_code == 422
         ok = client.put(f"/enseignants/ressources/{rid}/fichier", headers=h, content=PDF_MINIMAL)
         assert ok.status_code == 200 and ok.json()["a_un_fichier"]
@@ -361,7 +362,7 @@ class TestRessources:
         corps = {"type": "lien", "titre": "Mort", "url": "https://example.org/404", "competence_id": competence,
                  "classe_ids": [self._classe_demo(client, h)]}
         client.post("/enseignants/ressources", headers=h, json=corps)
-        monkeypatch.setattr(ressources, "lien_repond", lambda url: False)
+        monkeypatch.setattr(ressources, "lien_repond", lambda url, session=None: False)
         with fabrique() as s:
             assert ressources.verifier_liens(s) == []
         assert len(client.get(f"/cours/{competence}", headers=connecter_eleve(client)).json()["ressources"]) == 1

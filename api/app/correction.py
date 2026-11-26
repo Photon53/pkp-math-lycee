@@ -8,7 +8,8 @@ Le professeur ou l'administrateur choisit le mode d'un groupe ; il peut le rempl
 groupe (les séances sont communes à tous les groupes : le réglage d'une séance vaut pour ce groupe seulement).
 Ordre de priorité : réglage de la séance, puis du groupe, puis le défaut.
 
-Matières : anglais d'abord ; le français suivra dès que son espace élève existera, avec les mêmes valeurs.
+Matières : anglais (groupe, séance) et français depuis #217 (classe, dossier : `Classe.mode_correction_de`), avec
+les mêmes valeurs.
 Les maths ne sont pas concernées (correction après chaque question, inchangée).
 """
 # Issue #110 — Mode de correction choisi par le professeur (Claude)

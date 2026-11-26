@@ -22,12 +22,12 @@ describe("page d'accueil : état des parcours", () => {
     await waitFor(() => expect(appels.some((a) => a.cle === "GET /domaines/publics")).toBe(true));
 
     const { prets, chantiers } = listes();
-    expect(titres(prets)).toEqual(["PKP Maths lycée", "PKP Anglais collège"]);
+    expect(titres(prets)).toEqual(["Boussole Maths lycée", "Boussole Anglais collège"]);
     expect(within(prets).getByText("Seconde · Première · Terminale")).toBeInTheDocument();
     expect(within(prets).getByText("4e · 3e")).toBeInTheDocument();
     expect(within(prets).getAllByText("Ouvert")).toHaveLength(2);
 
-    expect(titres(chantiers)).toEqual(["PKP Maths collège", "PKP Anglais lycée", "PKP Français collège", "PKP Français lycée"]);
+    expect(titres(chantiers)).toEqual(["Boussole Maths collège", "Boussole Anglais lycée", "Boussole Français collège", "Boussole Français lycée"]);
     expect(within(chantiers).getAllByText("En construction")).toHaveLength(4);
   });
 
@@ -37,9 +37,9 @@ describe("page d'accueil : état des parcours", () => {
     fausseApi({ "GET /domaines/publics": { json: domaines } });
     render(<Accueil />);
 
-    await waitFor(() => expect(titres(listes().prets)).toContain("PKP Maths collège"));
+    await waitFor(() => expect(titres(listes().prets)).toContain("Boussole Maths collège"));
     const { chantiers } = listes();
-    expect(titres(chantiers)).toEqual(["PKP Anglais lycée", "PKP Français collège", "PKP Français lycée"]);
+    expect(titres(chantiers)).toEqual(["Boussole Anglais lycée", "Boussole Français collège", "Boussole Français lycée"]);
     expect(within(chantiers).getByText("En préparation")).toBeInTheDocument();
   });
 
@@ -48,7 +48,7 @@ describe("page d'accueil : état des parcours", () => {
     render(<Accueil />);
     await new Promise((r) => setTimeout(r, 0));
     const { prets, chantiers } = listes();
-    expect(titres(prets)).toEqual(["PKP Maths lycée", "PKP Anglais collège"]);
+    expect(titres(prets)).toEqual(["Boussole Maths lycée", "Boussole Anglais collège"]);
     expect(titres(chantiers)).toHaveLength(4);
   });
 });
@@ -66,33 +66,27 @@ describe("page d'accueil : attirer élèves, parents et professeurs", () => {
       "Parent — Espace parent": "/parent",
       "Professeur — Maths": "/enseignant",
       "Professeur — Anglais": "/anglais",
+      "Professeur — Français (préparation)": "/francais",
     };
     for (const [nom, href] of Object.entries(liens)) expect(screen.getByRole("link", { name: nom })).toHaveAttribute("href", href);
-    // Aucun domaine Français actif (état par défaut) : l'espace n'est pas annoncé.
-    expect(screen.queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
+    const eleve = screen.getByRole("heading", { name: "Je suis élève" }).closest("li");
+    const parent = screen.getByRole("heading", { name: "Je suis parent" }).closest("li");
+    expect(within(eleve).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
+    expect(within(parent).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
     // Les profils viennent avant les parcours dans l'ordre de lecture.
     const titres = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
     expect(titres.indexOf("Accéder à mon espace")).toBeLessThan(titres.indexOf("Les parcours"));
     expect(screen.getByRole("heading", { level: 2, name: "Comment ça marche" })).toBeInTheDocument();
   });
 
-  it("annonce le Français aux professeurs seulement quand un domaine Français est actif", async () => {
-    const domaines = DOMAINES_PAR_DEFAUT.map((d) => (d.code === "francais-college" ? { ...d, etat: "en_preparation" } : d));
-    fausseApi({ "GET /domaines/publics": { json: domaines } });
-    render(<Accueil />);
-    expect(await screen.findByRole("link", { name: "Professeur — Français (préparation)" })).toHaveAttribute("href", "/francais");
-    const eleve = screen.getByRole("heading", { name: "Je suis élève" }).closest("li");
-    const parent = screen.getByRole("heading", { name: "Je suis parent" }).closest("li");
-    expect(within(eleve).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
-    expect(within(parent).queryByRole("link", { name: /Français/ })).not.toBeInTheDocument();
-  });
-
-  it("présente PKP Éducation et la méthode PKP", () => {
+  it("présente Boussole et la Méthode Spirale", () => {
     fausseApi({});
     render(<Accueil />);
     expect(screen.getByText(/on revient sur les notions jusqu'à ce qu'elles tiennent/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Découvrir la méthode PKP" })).toHaveAttribute("href", "/methode");
-    expect(document.body.textContent).not.toMatch(/Boussole|Spirale|Maîtrise\+/);
+    expect(screen.getByRole("link", { name: "Découvrir la Méthode Spirale" })).toHaveAttribute("href", "/methode");
+    expect(screen.getByText(/à travailler en autonomie ou avec tes professeurs/)).toBeInTheDocument();
+    expect(document.body.textContent).not.toMatch(/relus par des professeurs/);
+    expect(document.body.textContent).not.toMatch(/\bPKP\b/);
   });
 
   it("affiche les chiffres clés renvoyés par l'API, sans les zéros", async () => {
@@ -103,7 +97,8 @@ describe("page d'accueil : attirer élèves, parents et professeurs", () => {
     expect(within(chiffres).getByText("42")).toBeInTheDocument();
     expect(within(chiffres).getByText(/^1.234$/)).toBeInTheDocument(); // espace insécable fine en français
     expect(within(chiffres).queryByText(/séances d'anglais/)).not.toBeInTheDocument();
-    expect(within(chiffres).getByText("Par des profs")).toBeInTheDocument();
+    expect(within(chiffres).getByText("En autonomie")).toBeInTheDocument();
+    expect(within(chiffres).queryByText("Par des profs")).not.toBeInTheDocument();
   });
 
   it("laisse essayer une question sans compte, avec la correction", async () => {
@@ -121,8 +116,8 @@ describe("page d'accueil : attirer élèves, parents et professeurs", () => {
     await userEvent.click(screen.getAllByRole("radio")[1]);
     await userEvent.click(screen.getByRole("button", { name: "Vérifier ma réponse" }));
     expect(screen.getByText("Bravo, c'est juste !")).toBeInTheDocument();
-    // Rien n'est envoyé au serveur : seules les deux lectures publiques de l'accueil.
-    expect(new Set(appels.map((a) => a.cle))).toEqual(new Set(["GET /domaines/publics", "GET /domaines/chiffres"]));
+    // Rien n'est envoyé au serveur : seules les lectures publiques de l'accueil (#171 : état de la collecte).
+    expect(new Set(appels.map((a) => a.cle))).toEqual(new Set(["GET /domaines/publics", "GET /domaines/chiffres", "GET /collaboration/etat"]));
   });
 
   it("répond aux questions fréquentes des familles", async () => {

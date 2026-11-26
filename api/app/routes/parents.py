@@ -112,7 +112,7 @@ def tableau(eleve_id: int, parent: ParentCourant, session: SessionDB) -> Tableau
 def historique(
     eleve_id: int, parent: ParentCourant, session: SessionDB, page: int = 1, erreurs: bool = False
 ) -> PageHistorique:
-    return historique_reponses(session, _mon_enfant(session, parent, eleve_id), page, erreurs)
+    return historique_reponses(session, _mon_enfant(session, parent, eleve_id), page, erreurs, pour_parent=True)
 
 
 @router.put("/enfants/{eleve_id}/code", response_model=CodeEnfantModifie)

@@ -7,13 +7,14 @@ modifiée ici porte `modifiee_admin_le` ; l'import YAML ne l'écrase plus sans `
 from datetime import UTC, date, datetime
 
 from fastapi import APIRouter, HTTPException, Request, Response, status
-from pkp_engine import ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, gabarits, reponse_modele, verifier
+from fastapi.concurrency import run_in_threadpool
+from pkp_engine import CorrectionHumaineRequise, ExpressionInvalide, Forme, Niveau, TypeQuestion, Verdict, gabarits, reponse_modele, verifier
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import selectinload
 
 from app import journal, permissions, ressources
 from app.auth import AdminCourant, FiltreDomaine, SessionDB
-from app.contenu import TIRAGES_VERIFIES
+from app.contenu import TIRAGES_VERIFIES, TYPES_DIAGNOSTIC
 from app.contenu import _dollars_equilibres as dollars_equilibres
 from app.db import models
 from app.db.conversions import question_vers_domaine
@@ -398,7 +399,7 @@ def _verdict(type_: TypeQuestion, solution: str, reponse: str | None = None, for
     try:
         domaine = question_vers_domaine(question)
         return verifier(domaine, reponse_modele(domaine) if reponse is None else reponse)
-    except ExpressionInvalide:
+    except (ExpressionInvalide, CorrectionHumaineRequise):
         return None
 
 
@@ -406,6 +407,9 @@ def _solution_lisible(type_: TypeQuestion, solution: str, forme: Forme | None = 
     """La solution est lisible et respecte elle-même la forme demandée."""
     if forme is not None and type_ is not TypeQuestion.EXPRESSION:
         raise HTTPException(422, "Une forme imposée ne concerne que les questions de type « expression ».")
+    if type_ in TYPES_DIAGNOSTIC:
+        # Issue #162 : réservés aux chapitres de diagnostic, rédigés dans contenu/<niveau>/diagnostic/ et relus.
+        raise HTTPException(422, "Les types « choix multiples » et « rédaction » se rédigent dans les fichiers de diagnostic.")
     return _verdict(type_, solution, forme=forme) is Verdict.JUSTE
 
 
@@ -559,7 +563,10 @@ async def envoyer_pdf(ressource_id: int, request: Request, admin: AdminCourant, 
     r = _ressource(session, ressource_id)
     if r.type != TypeRessource.PDF or r.portee != PorteeRessource.COMMUNE:
         raise HTTPException(422, "Seul le PDF d'une ressource commune s'envoie ici.")
-    ressources.enregistrer_pdf(r, await _lire_corps(request))
+    if refus := ressources.refus_envoi_pdf(session, r):  # #180 : liens seulement en français pendant le pilote
+        raise HTTPException(status.HTTP_403_FORBIDDEN, refus)
+    # Analyse isolée et bloquante (#4) : hors de la boucle d'événements.
+    await run_in_threadpool(ressources.enregistrer_pdf, r, await _lire_corps(request))
     journal.noter(session, admin, "envoyer-pdf", "ressource", r.id)
     session.commit()
     return ressources.detail(session, r)

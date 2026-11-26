@@ -16,7 +16,7 @@ describe("banque épuisée", () => {
       "GET /seances/3/question?revision=true": { json: QUESTION },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(await screen.findByText(/Tu as réussi toutes les questions/)).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Réviser les questions réussies" }));
     expect(await screen.findByText("Calculer 2 + 2.")).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe("banque épuisée", () => {
       "GET /seances/3/epuisement": { json: { motif: "aucune-question", nb_questions: 0, nb_au_repos: 0 } },
     });
     render(<Exercice jeton="j" onExpire={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Démarrer une séance" }));
+    await userEvent.click(screen.getByRole("button", { name: "Commencer à travailler" }));
     expect(await screen.findByText(/pas encore ajouté de questions/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Réviser les questions réussies" })).toBeNull();
   });

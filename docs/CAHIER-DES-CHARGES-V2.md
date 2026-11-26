@@ -105,6 +105,7 @@ et **public** (ouvert aux élèves et à la vente).
   unifiée est une **vue commune** (§ 3.3), pas une table unique.
 - **EX.4** Un domaine non `public` refuse côté API toute nouvelle séance élève et toute création de classe ou de
   groupe pour un professeur ; il ne supprime ni contenu ni historique.
+  *Complété le 2026-11-19 par SEC-D6 (#176) : fermé, un domaine n'est plus accessible en lecture aux classes non pilotes, et seul un administrateur peut y créer ou autoriser une classe pilote.*
 - **EX.5** Le français aura son module propre (types d'exercices : compréhension de texte, grammaire, orthographe,
   rédaction guidée), cadré par une fiche dédiée avant tout développement (décision **D12**).
 
