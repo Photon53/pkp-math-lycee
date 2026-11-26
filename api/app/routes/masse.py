@@ -76,7 +76,7 @@ def modele_import_professeurs(_: AdminCourant) -> Response:
     """Modèle à remplir : une ligne par professeur (nom, e-mail, matières)."""
     return Response(
         import_professeurs.modele(), media_type=MIME_XLSX,
-        headers={"Content-Disposition": 'attachment; filename="boussole-modele-professeurs.xlsx"'},
+        headers={"Content-Disposition": 'attachment; filename="pkp-modele-professeurs.xlsx"'},
     )
 
 

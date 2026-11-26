@@ -8,7 +8,7 @@ from app.routes import accueil, admin, admin_contenu, archivage, cartes, classes
 
 # En production, la documentation interactive n'est pas exposée publiquement.
 app = FastAPI(
-    title="Boussole",
+    title="PKP Éducation",
     version="1.0.0",
     docs_url=None if settings.production else "/docs",
     redoc_url=None,

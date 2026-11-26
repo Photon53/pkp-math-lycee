@@ -48,7 +48,7 @@ export default function VueEleve({ jeton, onExpire, role = "enseignant" }) {
           statistiques, ni chez les familles. Vous pouvez les effacer à tout moment.</li>
         <li>Aucun pouvoir {role === "admin" ? "d'administration" : "de professeur"} n'est disponible pendant la
           simulation ; un bouton vous ramène à votre espace.</li>
-        <li>Pas encore inclus : les groupes de Boussole Anglais, l'espace parent et la vue d'un élève réel.</li>
+        <li>Pas encore inclus : les groupes de PKP Anglais, l'espace parent et la vue d'un élève réel.</li>
       </ul>
       <Erreur message={erreur} />
       {classes === null && !erreur && <p className="doux">Chargement…</p>}

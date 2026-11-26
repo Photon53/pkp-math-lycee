@@ -65,7 +65,7 @@ describe("lot A : domaine et recherche globale", () => {
       expect(within(navigation).getByRole("link", { name: /Familles/ })).toBeInTheDocument();
       expect(within(navigation).queryByRole("link", { name: /Équipe/ })).not.toBeInTheDocument();
       expect(within(navigation).queryByRole("link", { name: /Domaines/ })).not.toBeInTheDocument();
-      expect(within(navigation).queryByRole("link", { name: /Boussole Français/ })).not.toBeInTheDocument();
+      expect(within(navigation).queryByRole("link", { name: /PKP Français/ })).not.toBeInTheDocument();
     });
     await userEvent.selectOptions(screen.getByLabelText("Domaine"), "anglais-college");
     expect(JSON.parse(sessionStorage.getItem("pkp.admin.domaine"))).toBe("anglais-college");

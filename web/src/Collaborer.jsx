@@ -80,7 +80,7 @@ function Information({ etat, profil }) {
             ? "Elles servent uniquement à étudier votre candidature et à vous recontacter à son sujet."
             : "Elles servent uniquement à étudier votre proposition de partenariat et à vous recontacter à son sujet."}
         </li>
-        <li>Seuls les administrateurs de Boussole les consultent. Aucun envoi publicitaire, aucune revente, aucun partage.</li>
+        <li>Seuls les administrateurs de PKP Éducation les consultent. Aucun envoi publicitaire, aucune revente, aucun partage.</li>
         {profil === "candidature" && <li>Votre CV est conservé dans un espace privé et n'est jamais publié.</li>}
         <li>
           Sans suite donnée, votre demande{profil === "candidature" ? " et votre CV sont supprimés" : " est supprimée"} {duree} après son

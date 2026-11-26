@@ -23,7 +23,7 @@ const DOC = {
   ],
 };
 
-describe("Boussole Maths", () => {
+describe("PKP Maths", () => {
   it("catalogue par niveau, document du chapitre et export PDF avec la mention NON VALIDÉ", async () => {
     fausseApi({ "GET /pkp-math/catalogue": { json: CATALOGUE }, "GET /pkp-math/chapitres/1": { json: DOC } });
     const imprimer = vi.spyOn(window, "print").mockImplementation(() => {});
@@ -113,7 +113,7 @@ describe("export PDF élève et professeur (#178)", () => {
     const impression = document.getElementById("pkp-impression");
     expect(impression).toHaveTextContent("Version élève");
     expect(impression).toHaveTextContent("Énoncé servi en version élève.");
-    expect(document.title).toBe("Boussole Maths - Fractions - élève");
+    expect(document.title).toBe("PKP Maths - Fractions - élève");
     for (const texte of ["Étape détaillée du corrigé.", "Oublier la retenue.", "Passer par un schéma.", "Rappel de la règle.", "Réponse :"])
       expect(impression).not.toHaveTextContent(texte);
     window.dispatchEvent(new Event("afterprint"));
@@ -128,7 +128,7 @@ describe("export PDF élève et professeur (#178)", () => {
     expect(appels.map((a) => a.cle)).not.toContain("GET /pkp-math/chapitres/1?version=eleve");
     const impression = document.getElementById("pkp-impression");
     expect(impression).toHaveTextContent("Version professeur");
-    expect(document.title).toBe("Boussole Maths - Fractions - professeur (corrigé)");
+    expect(document.title).toBe("PKP Maths - Fractions - professeur (corrigé)");
     for (const texte of ["Rappel de la règle.", "Étape détaillée du corrigé.", "Passer par un schéma.", "Oublier la retenue."])
       expect(impression).toHaveTextContent(texte);
     window.dispatchEvent(new Event("afterprint"));
@@ -156,15 +156,15 @@ describe("export PDF élève et professeur (#178)", () => {
     expect(document.getElementById("pkp-impression")).toBeNull();
   });
 
-  it("élève : pas de choix de version, et un chapitre de français porte la marque Boussole Français", async () => {
+  it("élève : pas de choix de version, et un chapitre de français porte la marque PKP Français", async () => {
     const francais = { ...DOC_COMPLET, matiere: "francais" };
     const { imprimer, fenetre } = await ouvrirExport({ "GET /pkp-math/chapitres/1": { json: francais } }, { adulte: false });
     expect(within(fenetre).queryByText("Version")).not.toBeInTheDocument();
     await userEvent.click(within(fenetre).getByRole("button", { name: "Exporter" }));
     await vi.waitFor(() => expect(imprimer).toHaveBeenCalled());
     const impression = document.getElementById("pkp-impression");
-    expect(impression).toHaveTextContent("Boussole Français");
-    expect(impression).not.toHaveTextContent("Boussole Maths");
+    expect(impression).toHaveTextContent("PKP Français");
+    expect(impression).not.toHaveTextContent("PKP Maths");
     window.dispatchEvent(new Event("afterprint"));
   });
 });
@@ -177,9 +177,9 @@ describe("espace parent : enfants de la famille", () => {
       anglais: [],
     },
     matieres: [
-      { code: "maths", libelle: "Boussole Maths", disponible: true },
-      { code: "anglais", libelle: "Boussole Anglais", disponible: true },
-      { code: "francais", libelle: "Boussole Français", disponible: false },
+      { code: "maths", libelle: "PKP Maths", disponible: true },
+      { code: "anglais", libelle: "PKP Anglais", disponible: true },
+      { code: "francais", libelle: "PKP Français", disponible: false },
     ],
     maths: [],
     anglais: [{ groupe: "4e A", niveau: "2nde", seances_faites: 3, score_moyen: 0.8, i_can: 5 }],
@@ -194,9 +194,9 @@ describe("espace parent : enfants de la famille", () => {
     });
     render(<EspaceParent />);
     expect(await screen.findByText(/identifiant ines-k7m4/)).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("tab", { name: "Boussole Anglais" }));
+    await userEvent.click(screen.getByRole("tab", { name: "PKP Anglais" }));
     expect(screen.getByText("3 séances")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("tab", { name: "Boussole Français" }));
+    await userEvent.click(screen.getByRole("tab", { name: "PKP Français" }));
     expect(screen.getByText(/Le français arrive bientôt/)).toBeInTheDocument();
     await userEvent.click(screen.getByRole("tab", { name: "Accès de l'enfant" }));
     await userEvent.click(screen.getByRole("button", { name: "Générer un nouveau code" }));

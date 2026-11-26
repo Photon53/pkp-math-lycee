@@ -45,7 +45,7 @@ describe("navigation vers le Français en préparation", () => {
     });
     render(<App />);
     const navigation = await screen.findByRole("navigation", { name: "Navigation Administration" });
-    await userEvent.click(within(navigation).getByRole("link", { name: "Boussole Français (préparation)" }));
+    await userEvent.click(within(navigation).getByRole("link", { name: "PKP Français (préparation)" }));
     expect(await screen.findByRole("heading", { name: "Dossiers de français" })).toBeInTheDocument();
     expect(window.location.pathname).toBe("/francais");
     expect(screen.getByText(/lue par les élèves/)).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("navigation vers le Français en préparation", () => {
     sessionStorage.setItem("pkp.enseignant", JSON.stringify({ ...PROFESSEUR, enseigne_francais: true }));
     fausseApi({ "GET /enseignants/classes": { json: [] } });
     render(<App />);
-    const liens = await screen.findAllByRole("link", { name: /Boussole Français : dossiers et validation/ });
+    const liens = await screen.findAllByRole("link", { name: /PKP Français : dossiers et validation/ });
     expect(liens[0]).toHaveAttribute("href", "/francais");
   });
 });

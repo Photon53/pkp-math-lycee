@@ -204,9 +204,9 @@ def libelle_parcours(classe: models.Classe) -> str:
 
 # --- Descriptions --------------------------------------------------------------------------------------
 
-MATIERES = (("maths", "Boussole Maths"), ("anglais", "Boussole Anglais"), ("francais", "Boussole Français"))
+MATIERES = (("maths", "PKP Maths"), ("anglais", "PKP Anglais"), ("francais", "PKP Français"))
 MATIERES_DISPONIBLES = {"maths", "anglais"}
-# Boussole Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
+# PKP Français : disponible dès qu'un de ses domaines est public, ou que l'enfant y a une classe (F1).
 DOMAINES_FRANCAIS = ("francais-college", "francais-lycee")
 
 

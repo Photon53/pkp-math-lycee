@@ -182,7 +182,7 @@ function SuiviFamille({ suivi, appeler, compte, onExpire, onChange }) {
 
       {vue === "anglais" && (
         <section className="carte">
-          <h2>Boussole Anglais</h2>
+          <h2>PKP Anglais</h2>
           {suivi.anglais.length === 0 ? (
             <p className="doux">{enfant.prenom} n'est encore inscrit dans aucun groupe d'anglais.</p>
           ) : (
@@ -203,8 +203,8 @@ function SuiviFamille({ suivi, appeler, compte, onExpire, onChange }) {
 
       {vue === "francais" && (
         <section className="carte">
-          <h2>Boussole Français</h2>
-          <p className="doux">Le français arrive bientôt sur Boussole : {enfant.prenom} y aura accès avec la même carte.</p>
+          <h2>PKP Français</h2>
+          <p className="doux">Le français arrive bientôt sur PKP Éducation : {enfant.prenom} y aura accès avec la même carte.</p>
         </section>
       )}
 

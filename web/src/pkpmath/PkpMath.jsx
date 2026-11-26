@@ -23,8 +23,8 @@ export const DOCUMENTS = [
   ["corrige", "Corrigé"],
 ];
 const NOM_NIVEAU = Object.fromEntries(NIVEAUX);
-const MARQUES = { maths: "Boussole Maths", francais: "Boussole Français" };
-const marque = (doc) => MARQUES[doc.matiere] ?? "Boussole";
+const MARQUES = { maths: "PKP Maths", francais: "PKP Français" };
+const marque = (doc) => MARQUES[doc.matiere] ?? "PKP Éducation";
 export const VERSIONS = [
   ["eleve", "PDF élève — sans aucun corrigé"],
   ["professeur", "PDF professeur — avec corrigés"],
@@ -97,7 +97,7 @@ export default function PkpMath({ jeton, onExpire, niveauParDefaut = null, intro
   return (
     <section className="pkp-math" aria-labelledby="titre-pkp-math">
       <div className="pkp-math-entete">
-        <h2 id="titre-pkp-math">Boussole Maths</h2>
+        <h2 id="titre-pkp-math">PKP Maths</h2>
         <p className="doux">
           {intro ?? "Pour chaque chapitre : le résumé de cours, le cours complet, une fiche d'exercices et son corrigé, à lire ici ou à exporter en PDF."}
         </p>

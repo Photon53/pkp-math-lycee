@@ -152,7 +152,7 @@ def produire_pdf(dossier: models.DossierFrancais, version: models.DossierFrancai
     if public == "professeur":
         flux += _partie_professeur(francais.vue_professeur(version))
     tampon = BytesIO()
-    doc = SimpleDocTemplate(tampon, title=f"{dossier.code} — {dossier.titre}", author="Boussole",
+    doc = SimpleDocTemplate(tampon, title=f"{dossier.code} — {dossier.titre}", author="PKP Éducation",
                             leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=1.5 * cm, bottomMargin=1.8 * cm)
     doc.build(flux, onFirstPage=_page, onLaterPages=_page)
     return tampon.getvalue()

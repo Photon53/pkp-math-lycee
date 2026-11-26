@@ -1,10 +1,11 @@
 # Front React compilé, servi par Caddy (HTTPS automatique). Contexte : racine du projet.
-FROM node:20-alpine AS build
+FROM node:24.15.0-alpine AS build
 WORKDIR /web
 COPY web/package.json web/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY web/ ./
-RUN npm test && npm run build
+# Variante PKP Éducation (web/src/marque.js) choisie à la construction ; les tests gardent la variante par défaut.
+RUN npm test && VITE_MARQUE=pkp npm run build
 
 FROM caddy:2.8-alpine
 COPY deploy/Caddyfile /etc/caddy/Caddyfile
